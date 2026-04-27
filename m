@@ -1,83 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDCE2FBE1F;
-	Sun, 26 Apr 2026 21:33:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEAB1A262D;
+	Mon, 27 Apr 2026 00:19:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777239187; cv=none; b=GPO7znMvjZSGa6SFLMnRkm2mjoPQwucW2zJwhm2b6F68pDiSSRijn+CEtoLupRTTKnISuBXMaTMKT61bujmVbDiEJMngxWTwG2/8bjaElKqnZHPvpNlMgwtw4CksIXQBXsCbBGC/dbypmqNxF0xGr0WPqMYJRHsLeIC+o1HD/+g=
+	t=1777249187; cv=none; b=FE9rcLH5c/qb4vvVWWg0GNAnrI1n77P+6SBxqzA97Hx62lNY18aDOovlIGS+S0+IRJN3jJaC2sjBRjJuAwJQkXEnHxK63l0NIkncI3sXvL36B1I73gdUiB7GEDBiovvQ/1CZQ5rFaGe/zJAeObxhJM6a1OcJimHRQDNZ8OpYswE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777239187; c=relaxed/simple;
-	bh=hhIRGFDgMyHb8qHPStrp0zkhGvc8+JYpfKJhJoTAMGg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From; b=KdJYY0EzvAWcdM+SKzpWBzzKVGv4IBkbeI3jNLEotGqq7YQ1Wj+78IESaYO1Wwi+HRmoxhwpE95uxexb6bYpS4pKiPfbLYkUuACSag1vTTILXOe+Wny+z5nhSWhf1j8LQ/qmbIrLOkTVn4DIrdFAcPfCtCiShqKHHw0vyXApEms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkMirT4R; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777249187; c=relaxed/simple;
+	bh=pQcztVIYnB6HM81PuBatMXyzSIxW/tn0+1fHdpnZNBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=COsKkJjjIwWq+iKKg2BiRgbp8dD1Vrw/UJ/MUWKt89+IefdfvE3+UHhbaJb106G4q+U1UCbNiuI9Q5nFMAtoysHmYCgHUAJHgBO0BJsnJq5FudICEkcGFCae5hAQdIdUZevHrSNGPglEkRVaeZFR2yixAndWv6SluByPB/7gKbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQanYPIp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkMirT4R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AFCC2BCAF;
-	Sun, 26 Apr 2026 21:33:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQanYPIp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56B1C2BCAF;
+	Mon, 27 Apr 2026 00:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777239187;
-	bh=hhIRGFDgMyHb8qHPStrp0zkhGvc8+JYpfKJhJoTAMGg=;
-	h=Date:Subject:Cc:To:From:From;
-	b=NkMirT4RfEeb5R8pDjOqGbdD//pRfJvN0+IIyTnLsEc+8Hk8xiGaAWRc3eeVkEVwm
-	 w748UGO4Iq/lbDFRJx8VXvXTNNnlujVU352owigj38NQm9EvegTJiugcke2AJbNkWN
-	 vQcAOGFCp4zkxUA7yGj4P76aKdLdiMap2OITP5w9NbRb1GRzTxH2b2X4p5sQcRopW4
-	 deImKdWJsRnCKXVCTlhFXhKkSebVcCTmzelN/ulmvSb17ta9pWKBjep3hNeS8Zuh4j
-	 MKYx2ZPcFWUNDXoyNt02usw7MZktlEUqGgNrOoB3xlh/SIBN9CUxtWnDXdG3bLU8lB
-	 zySfeY8PVxR5g==
+	s=k20201202; t=1777249186;
+	bh=pQcztVIYnB6HM81PuBatMXyzSIxW/tn0+1fHdpnZNBs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=cQanYPIpp1Ms8FDiRaJyeabJVSVixFFsvXNPYTxrgUObPgVJkYiGLOXjrTwIOvxtw
+	 bRQab7txEy+4WvLZYDT0VyqH/k2sWU5Td1a/vACQFX/M+wfASPEUGA9zUYjfZLNTR+
+	 08b6Q5FosCD6frDh1HLoO/Sl8w2alxh2H1vyYFfLaXBtDtPVzmnDY3+o5dI/RDSPUI
+	 rafJIedYMVrDxScxG7Bs9up+gpcCXDuzRHNnVOxBteAIaRLWo5zV31HiuMZiHjtYJB
+	 miwdP87OsDv3QVqz8q/xG/bMYZbLGYc94DLy91HxswN8pIGtQxT03G+hTUXwof0c4w
+	 HwzXsnQ83iagA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: acourbot@nvidia.com,
+	jhubbard@nvidia.com,
+	ecourtney@nvidia.com,
+	joelagnelf@nvidia.com,
+	apopple@nvidia.com,
+	ttabi@nvidia.com,
+	zhiw@nvidia.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	aliceryhl@google.com,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: nova: update mailing list
+Date: Mon, 27 Apr 2026 02:19:34 +0200
+Message-ID: <20260427001934.1562415-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260423124649.38793-1-dakr@kernel.org>
+References: <20260423124649.38793-1-dakr@kernel.org>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 26 Apr 2026 23:33:01 +0200
-Message-Id: <DI3EPKNRWMQJ.17YVN5V0VBKLR@kernel.org>
-Subject: drm-rust: process change announcement
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "John Hubbard" <jhubbard@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Lyude Paul" <lyude@redhat.com>, "Gary Guo"
- <gary@garyguo.net>, "Philipp Stanner" <phasta@mailbox.org>, "Deborah
- Brouwer" <deborah.brouwer@collabora.com>, "Beata Michalska"
- <beata.michalska@arm.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, "Steven Price" <steven.price@arm.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Janne Grunau"
- <j@jannau.net>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>,
- <rust-for-linux@vger.kernel.org>
-To: <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>
-From: "Danilo Krummrich" <dakr@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
+Content-Transfer-Encoding: 8bit
 
-As already mentioned in [1], starting from the next cycle, the drm-rust-nex=
-t
-branch will be open for new features at all times.
+On Thu, 23 Apr 2026 14:46:35 +0200, Danilo Krummrich wrote:
+> [PATCH] MAINTAINERS: nova: update mailing list
 
-Consequently, all patches applied to drm-rust-next after -rc6 do not target=
- the
-upcoming merge window, but the one after that.
+Applied, thanks!
 
-Fixes for code that landed in drm-rust-next before -rc6 have to go into
-drm-rust-next-fixes.
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-drm-rust-fixes will continue to be the target for fixes for the current -rc=
-.
+[1/1] MAINTAINERS: nova: update mailing list
+      commit: 15e8bae5d930
 
-Please also see the updated documentation in [2] and [3].
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
 
-Also note that commits merged into drm-rust-next after -rc6 will not be pre=
-sent
-in linux-next until -rc1 of the next cycle.
-
-- Danilo
-
-[1] https://lore.kernel.org/all/DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org/
-[2] https://drm.pages.freedesktop.org/maintainer-tools/repositories/drm-rus=
-t.html
-[3] https://drm.pages.freedesktop.org/maintainer-tools/committer/committer-=
-drm-rust.html
+The patch is queued up for the upcoming merge window for the next major kernel
+release.
