@@ -1,83 +1,53 @@
-Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com [209.85.221.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADB9328635
-	for <nova-gpu@lists.linux.dev>; Mon, 27 Apr 2026 15:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344E8238178;
+	Mon, 27 Apr 2026 15:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777302553; cv=none; b=D9QUKDjcynfsbSeM8/NJxCZPic6T7e9viErG+RJSQp6nAYrKfyJ9irqBtzRocw2xAqa6X2INsaI8NnTa9+hRGFj1bTt225HUj1PTd9Iudh5wWEJ60Q1GaCx3eEwdquMm6taqf99o/M7g3IiwKawXqugv832pIXG37BIIUZLsXT8=
+	t=1777302697; cv=none; b=RysBts2T56v28gpPg/YKVpmSTIfxr9QADmr6z9XhU9Kek68aZMhJWHeoUO3flI9z0bVl1N6Hqru/9mqm4Z88vdtPxxrcn4ZfWqEyZBR0G+D/xidvigQUNstHOF367MtkkW2Ir6ra5IXcDIKZDZUe/uWG5Anh2EEIiP8v34audWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777302553; c=relaxed/simple;
-	bh=lNKb4snvjqRMKQYaIpBcH2PhBjl9EZzLDbXz2fxIvOo=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=DStyjzDhOkpWF7Dgq9UzBcdgJ9BYeIFQkjUEVeOKpHV8efK8gcSUg2Hr8/M6JdGinkpEVTEXsy+Sdi4aVA3Sp5lqSyR+MHNRSHU4xtQFrN/dy/NzSKdPwWohxWN0jraCN5T1EN1mp5MYfewuhS95emIdnctsYWtY1SZO3h+FGi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DvmjsZCl; arc=none smtp.client-ip=209.85.221.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1777302697; c=relaxed/simple;
+	bh=hfr1p6To/4GS3tFykCwDBeBnFhWiJRi2WSks8JkUsbU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=lZRRYlOvmYMNKubTUZ0kDDCIRcJnIHEGnhIWr2k4rCeXgmQB0CmQsp2TynV821Lfco1FbvGEbtseI1EsqYfNEozHUaYU8Ope2VBgHMrKjM6gnHZV2mA9Zx+p+yfAzE+4zHLiQ9q9wYN8ykdr2tN9dEAgNwlbXCZlTwEsfX/b5O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbkRnXyD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DvmjsZCl"
-Received: by mail-wr1-f74.google.com with SMTP id ffacd0b85a97d-4440c5944fbso1259587f8f.2
-        for <nova-gpu@lists.linux.dev>; Mon, 27 Apr 2026 08:09:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777302548; x=1777907348; darn=lists.linux.dev;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=aZLrgPpUjEtLxFuX+Sy4zfRa+tymO29iiPdGcgeT0lY=;
-        b=DvmjsZClucHAmayquDoMZHS+snPAKgJpAiTXC4YJ+cuJA8zi6Qv9ZwOaEqaHLVsDuK
-         70nZ6AkDEujFxrcTT9zs45vaxGHh2A5K9bLtra2w7KWKz27lP+gfwoFuYHlACo16NCKf
-         rGoj3ovd9HhbdDXnw4Y0KvGi0uclhheDvfciEhryq68ulK/tOixmp/TFMfFEqyKNzuBR
-         qc0qcOv0JJL1qgaslP430wzABiAnl4kiO1Ag/13djX9vsHBUijqgKxlEWgloD2tFghFN
-         Tv2/6KI7Q5/+vdnKnPWYkqfgNJysx1WK73GC2BOBZpHcVDeS2vKlbkZ7ytEMkFb+qLRt
-         thug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777302548; x=1777907348;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=aZLrgPpUjEtLxFuX+Sy4zfRa+tymO29iiPdGcgeT0lY=;
-        b=k4jaEv+GExX1dtOMblKt5uyk1zrEw+F4li3CtFKWI/dMoljUQlYTewmUx7dylh+LPW
-         DQNuiXpGoI0sys8tiK7pj8E2+lyD3t7nUtNRAvhFGX8fTOLItp+DGv43yR7EobPTlvub
-         Fp3WHgG6qiO3mejgS+LMyYB7MZnsJilSWASo36KDMc40pT3US299t5DJUWrOBXbPZPyC
-         az86qp2kCX1v4qd40W9rxPch4LZ0m+GhWL+j+S2BRlyVxIrrMkelkhH8PjE6TKmK9btG
-         apSnZA6/TfZRzCmCo4ych0bWrQOUo+923jKRmWey8AOzAa1PTwZLaJ4BKqcjzVmlaPtJ
-         u0pQ==
-X-Gm-Message-State: AOJu0YyNHafGMZnunmvFAeJi4khTxPtSiScqJuEcPBpcme0w6+Xbsj/Q
-	jHBtgYV2xceojXJEx5gdj0uLNAyOhUgyKu5HcX5e+wnPOQS5nefHArpt2csNlqPfT4q5IrNp5Bg
-	Rqj3Bs9h5b4uc9d48UA==
-X-Received: from wrfo12.prod.google.com ([2002:a5d:58cc:0:b0:43d:7aa0:a21a])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:5f43:0:b0:43c:fde6:212d with SMTP id ffacd0b85a97d-43fe3e13d46mr67938941f8f.33.1777302547448;
- Mon, 27 Apr 2026 08:09:07 -0700 (PDT)
-Date: Mon, 27 Apr 2026 15:09:06 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbkRnXyD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17D4C19425;
+	Mon, 27 Apr 2026 15:11:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777302696;
+	bh=hfr1p6To/4GS3tFykCwDBeBnFhWiJRi2WSks8JkUsbU=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+	b=PbkRnXyDNmsnZ75q4HzgxKvOdViX7LEnQs/5Jog6S3zjTukPOQlwxN/MEaIMH9cMI
+	 2WJwt/bd05qRrMTaZa7ypVsVRfTAptOuCYHaJ1kM/hBdGwyb8tLfWkxIVfcbeIR8Pb
+	 Jbp5QUpCe3zyKR9xqDdUA1fq7W5qLet1D9gUkL2LAcQMSDzDL4bRKanT6dYbzg0WLG
+	 +uaBm97+QV5SxlilKJcqcEC72XBvKOTqO8h9Bed9AxDftLzl9h6Y0SUmqnkTuVQa4K
+	 PoBSjyVXTTFRrJKmiLcILkhT2A3SZPNhHquHB+9EPpifvHKYjyF+f3Aq9XHXKR7CsT
+	 Wq9SUAHU7FpDA==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
-Message-ID: <ae98EolO8LU0rZ5R@google.com>
-Subject: `Option::filter` in nova-core/firmware.rs
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 27 Apr 2026 17:11:34 +0200
+Message-Id: <DI4182393287.15SOG3EG0XFS7@kernel.org>
+Subject: Re: `Option::filter` in nova-core/firmware.rs
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alice Ryhl" <aliceryhl@google.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <ae98EolO8LU0rZ5R@google.com>
+In-Reply-To: <ae98EolO8LU0rZ5R@google.com>
 
-Hi Nova folks,
+On Mon Apr 27, 2026 at 5:09 PM CEST, Alice Ryhl wrote:
+> I'm seeing this clippy warning with latest nightly rust:
 
-I'm seeing this clippy warning with latest nightly rust:
+Thanks for reporting -- there's already a patch [1] from Eliot for this.
 
-error: manual implementation of `Option::filter`
-   --> drivers/gpu/nova-core/firmware.rs:391:14
-    |
-391 |               .and_then(|hdr| {
-    |  ______________^
-392 | |                 if hdr.bin_magic == BIN_MAGIC {
-393 | |                     Some(hdr)
-394 | |                 } else {
-...   |
-397 | |             })
-    | |______________^ help: try: `filter(|hdr| hdr.bin_magic == BIN_MAGIC)`
-    |
-    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#manual_filter
-    = note: `-D clippy::manual-filter` implied by `-D warnings`
-    = help: to override `-D warnings` add `#[allow(clippy::manual_filter)]`
-
-Alice
+[1] https://lore.kernel.org/all/20260423-fix-filter-v1-1-b3b197c65daf@nvidi=
+a.com/
