@@ -1,100 +1,127 @@
 Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com [209.85.221.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7C539A04A
-	for <nova-gpu@lists.linux.dev>; Thu, 30 Apr 2026 09:00:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0181737D12F
+	for <nova-gpu@lists.linux.dev>; Thu, 30 Apr 2026 09:12:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777539626; cv=none; b=d5omJ4Pu8R2GCiVwpGV8NxIZE+dPsU0MT/dzxZckUs7X8zEV0nUp94Nhs6P+Yfg7N6oAAmNytmC+Cddl2gpzNbomhvRAbBKSzdF4l1NkTAgqaTlamCrejG4T5Q4c/j8BSiubzBUKeMdM0elhKon7f/Cb6wmYJEWOSs3Ub1ctAc0=
+	t=1777540365; cv=none; b=FhwSk+HRM8PVpJV6x693EawxXjwR0bbNEEmvZBIC+lw7nEzczJdJ5MOSfgLwcndYV76sbxxpUM692M0Er2XKj7HZR7o/yDrF7OauxCwDMlx+vNf0k9GgepSk2VgleJhyKeUtBkuxRO9QKT9Tog0ChbmyByq9pFYZOvHBRCxH2GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777539626; c=relaxed/simple;
-	bh=CV/9r9T1tGl8H3sNgsRyAGGKdcCvUg4t94aJpNXl2Jw=;
+	s=arc-20240116; t=1777540365; c=relaxed/simple;
+	bh=o3bO4FAjuxVK0962UiL8rrguCj8OrcINAutnD/Afj4c=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=guxwxMU3jeUD9iTcSqi6AVOABaiKDpSw4LYZ9vcn/0MFaIQhuIGgOJFfDAawXuu8K4pgLOCC0tmXF219dh7jZw+nOD8Hm/Dpx2kRFgNuBTTFW4LfZo5rLYGq3aNmFd9Utwqo+80TeN5aLmqdLNETtQ6extyNIkq39OnAxqXfxxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i3cfr3H3; arc=none smtp.client-ip=209.85.221.74
+	 To:Cc:Content-Type; b=fURuDXDVfyhfKBnqhekj92KlS/KKRoa3y6JFNIyXOOWNakdAAj9mzuFiOxB/MBneaZdmDeOAGOg3Axww0PKoQEKK8A3VEr2/2BII1zIVVU8nIkg+AY0Wd6YUQGoFiVmglYM0sbEn3f4kpLHwJgdCQ5djpeTPJ0I8qpRiENeJ59s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k7j9Te2L; arc=none smtp.client-ip=209.85.221.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i3cfr3H3"
-Received: by mail-wr1-f74.google.com with SMTP id ffacd0b85a97d-43d1dea12aaso587560f8f.1
-        for <nova-gpu@lists.linux.dev>; Thu, 30 Apr 2026 02:00:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k7j9Te2L"
+Received: by mail-wr1-f74.google.com with SMTP id ffacd0b85a97d-4411a2c034fso506359f8f.3
+        for <nova-gpu@lists.linux.dev>; Thu, 30 Apr 2026 02:12:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777539621; x=1778144421; darn=lists.linux.dev;
+        d=google.com; s=20251104; t=1777540362; x=1778145162; darn=lists.linux.dev;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=PqBhPKhd+Br9ZjEmkXcxZU210pei7kYegjOF/K5Z2t0=;
-        b=i3cfr3H3Ysox/10Kz8X2KVcxScgezX1yckhM04YeNKTPOzbMyYkJiXSLcy4z01mVhm
-         twoHC4SeDrARgkHZCi6/S0KfyCzHnXyUwm7WFijH/U8vaJ5DY+9jz+5cIpj/gLroGOaP
-         wg6kuBhd9ITZGZ98Era4r9XpmDqsoad/MRHNlJbFwPGrJ6i2+hDGtEp6BKCKt56Q+K+Z
-         +AhDoJDlPb+nRh3JTnj8EmCHRhhHQQOrF0AoOCwVr4XQEGVEgmXwfAvbnOffBVbN4HjR
-         PggBb2/48R6s22i1Z8L1ubwW9kHyHiRNuYcfnY90L1VJyrq9/STtLjOxMERtv+eochxs
-         ebQw==
+        bh=Vy8Z/q685PmwcT3tK0xjwvFofcgEB05Cfirscbd47U4=;
+        b=k7j9Te2L4qUHtz/fK9r1HumCaDbTRUj0jMHKl6481SMop8vvIxrKpZgLr7Fh5zwiic
+         gjBSqg9iP9DRfybtu0pGHaFZwc1S+rzd/6z5se5HdneoN9MqgyejiDz6D6fd22RSPSKd
+         T/1gEdLcBNeS++qJRIT4nsmB5jrCRvgdNaRk4B4DVeGc9kfr7lg9jdwdaLkl6cV/+hB5
+         MMByzAXy1PVG3PA9Cferdp6qbhiwD1n75rtPVv0/IHUQJyD5q0E6a18qsHE1nDICJbyR
+         /sAYAD6iPXqGjgm+CDO+0s2V9XWwwnlRo1FPJw6FLMFJ68iJk2bUlzgLUulQttH7S+gU
+         NchA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777539621; x=1778144421;
+        d=1e100.net; s=20251104; t=1777540362; x=1778145162;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PqBhPKhd+Br9ZjEmkXcxZU210pei7kYegjOF/K5Z2t0=;
-        b=ZbAUBCYYkvkstq5ZuR0AdcSB5HySY0MCr+ezpYLTLQUTPX6uvWgxH6uxBeOtuZHhtS
-         Sr0x40aJp6gwZPPxoMPG2jzIaWEF7bOacyxi+pzixqz3QBDg0UktzLac7rpCHpRNj+Fz
-         FGhTajIvMIHapyJiXKCcRVhldLl64R0Vud7v/8XvtrvLKtVpVpwHGvXAWDEQOdLwuziG
-         APQu0CRLUqDQTgHuo/J8VrQz5P1uQlVV7f5tQR1JFcPYIinD6U60Ckuw6pnGasi/dkBZ
-         3tOuJQDRCkMuniCFh2uoMkQU8ABqC9S4D/kHPFtf6s//S0rnNNLBj3Xx6QtfQ9ZPk+fq
-         dJuw==
-X-Forwarded-Encrypted: i=1; AFNElJ++OMy1aadkvrKtposPgAjJNWcSIyWrpRTBIU3bstKwcxlcXalKVnSlFYXwdevvGY/n0jWsEBACdQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzvkYR1gA70C6O2gyCDGZ1F6xOmKHAWmSklF21hyty4cfHiuyMj
-	snbRgHAjLniqg+A8NErhjXfx9BMA1EGsoXcuaxB4T7333oQDSFpiQRGh8f05vWfju0Rk4f7F68f
-	FOBDyhxzkk4fQfnLTew==
-X-Received: from wrwv10.prod.google.com ([2002:a5d:6b0a:0:b0:43d:74ca:3105])
+        bh=Vy8Z/q685PmwcT3tK0xjwvFofcgEB05Cfirscbd47U4=;
+        b=ahiW6LFXf6+/E6fpJfWJ/MNveRKm1OYrLpV0+pogprpEp2rkIfcpBkkYbU5lbu1qLN
+         WhN6gVAeECRC2dW5iFBGsiAiQZaN1ScQD5LBwUmNBIi7dPfkSYYsFvyersUHtwFgjfxa
+         b/mnF5CBhRywl+qIhDLv5G1WM1KGlJHgt2J64oP3lz1R2mN/ZkjsFzsQToqt5DEs5UtF
+         Mw/7JbpXycGBdaHgp5E4KLHN2KZhnsEnVEmtDsizc5vlxDRZZrFaGrV+fQG0YXOsh8Qp
+         lRMviBGIh0FP+gtZQ80R9RbKE/9JvRLH+7N3K/G0apKixwbDcgCTpXPrN8JK0kcuoLFK
+         TpBg==
+X-Forwarded-Encrypted: i=1; AFNElJ9BKAOW5gFFsz8hnSzzX5kZE1rmUO+oON5Fm88vd+1w+WvZGTx4dl0uV/VjpGavlM22Q6Xvj8nM4g==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwzTpG2WwmgEOAB5+sfVuOQUbo/FD4LRoYq6GsRYwYFqzj8MgqE
+	GELq2MjwDsAlJKpaWwYbsPEpY2/CYTfWk/9L2lq1PbReWadb6s1AuDRKqHnMlCXR+w8OvrZLOFM
+	1jARdYBNdqw7QZTezIA==
+X-Received: from wrtw10.prod.google.com ([2002:a5d:608a:0:b0:439:d5c9:3b63])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:1869:b0:439:b8b2:fabc with SMTP id ffacd0b85a97d-4493e1c1512mr3145148f8f.21.1777539620636;
- Thu, 30 Apr 2026 02:00:20 -0700 (PDT)
-Date: Thu, 30 Apr 2026 09:00:19 +0000
-In-Reply-To: <20260427221002.2143861-3-dakr@kernel.org>
+ 2002:a5d:5f89:0:b0:43f:e22e:e8da with SMTP id ffacd0b85a97d-4493d7fa1b5mr3355911f8f.5.1777540362054;
+ Thu, 30 Apr 2026 02:12:42 -0700 (PDT)
+Date: Thu, 30 Apr 2026 09:12:41 +0000
+In-Reply-To: <20260427221155.2144848-2-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
-References: <20260427221002.2143861-1-dakr@kernel.org> <20260427221002.2143861-3-dakr@kernel.org>
-Message-ID: <afMaIz-EUsHbzqAc@google.com>
-Subject: Re: [PATCH 2/2] rust: driver core: remove drvdata() and driver_type
+References: <20260427221155.2144848-1-dakr@kernel.org> <20260427221155.2144848-2-dakr@kernel.org>
+Message-ID: <afMdCU06-Y2d_LXh@google.com>
+Subject: Re: [PATCH 01/24] rust: driver core: drop drvdata before devres release
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com, 
 	david.m.ertman@intel.com, ira.weiny@intel.com, leon@kernel.org, 
-	ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
-	tmgross@umich.edu, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	viresh.kumar@linaro.org, m.wilczynski@samsung.com, ukleinek@kernel.org, 
+	bhelgaas@google.com, kwilczynski@kernel.org, abdiel.janulgue@gmail.com, 
+	robin.murphy@arm.com, markus.probst@posteo.de, ojeda@kernel.org, 
+	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
 	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org
+	linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Tue, Apr 28, 2026 at 12:09:41AM +0200, Danilo Krummrich wrote:
-> When drvdata() was introduced in commit 6f61a2637abe ("rust: device:
-> introduce Device::drvdata()"), its commit message already noted that a
-> direct accessor to the driver's bus device private data is not commonly
-> required -- bus callbacks provide access through &self, and other entry
-> points (IRQs, workqueues, IOCTLs, etc.) carry their own private data.
+On Tue, Apr 28, 2026 at 12:10:59AM +0200, Danilo Krummrich wrote:
+> Move the post_unbind_rust callback before devres_release_all() in
+> device_unbind_cleanup().
 > 
-> The sole motivation for drvdata() was inter-driver interaction -- an
-> auxiliary driver deriving the parent's bus device private data from the
-> parent device.
+> With drvdata() removed, the driver's bus device private data is only
+> accessible by the owning driver itself. It is hence safe to drop the
+> driver's bus device private data before devres actions are released.
 > 
-> However, drvdata() exposes the driver's bus device private data beyond
-> the driver's own scope. This creates ordering constraints; for instance
-> drvdata may not be set yet when the first caller of drvdata() can
-> appear. It also forces the driver's bus device private data to outlive
-> all registrations that access it, which causes unnecessary
-> complications.
+> This reordering is the key enabler for Higher-Ranked Lifetime Types
+> (HRT) in Rust device drivers -- it allows driver structs to hold direct
+> references to devres-managed resources, because the bus device private
+> data (and with it all such references) is guaranteed to be dropped while
+> the underlying devres resources are still alive.
 > 
-> Private data should be private to the entity that issues it, i.e. bus
-> device private data belongs to bus callbacks, class device private data
-> to class callbacks, IRQ private data to the IRQ handler, etc.
-> 
-> With registration-private data now available through the auxiliary bus,
-> there is no remaining user of drvdata(), thus remove it.
+> Without this change, devres resources would be freed first, leaving the
+> driver's bus device private data with dangling references during its
+> destructor.
 > 
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/base/dd.c             | 2 +-
+>  include/linux/device/driver.h | 4 ++--
+>  rust/kernel/driver.rs         | 4 ++--
+>  3 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+> index 5799a60fd058..be59d2e13a15 100644
+> --- a/drivers/base/dd.c
+> +++ b/drivers/base/dd.c
+> @@ -593,9 +593,9 @@ static DEVICE_ATTR_RW(state_synced);
+>  
+>  static void device_unbind_cleanup(struct device *dev)
+>  {
+> -	devres_release_all(dev);
+>  	if (dev->driver->p_cb.post_unbind_rust)
+>  		dev->driver->p_cb.post_unbind_rust(dev);
+> +	devres_release_all(dev);
+>  	arch_teardown_dma_ops(dev);
+>  	kfree(dev->dma_range_map);
+>  	dev->dma_range_map = NULL;
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+I seem to recall that we discussed a plan to have two classes of devres
+callbacks where device unbind proceeds as follows:
+
+1. Run first class of devres callbacks.
+2. Device is now considered unbound.
+3. Run second class of devres callbacks.
+
+Is that still the plan?
+
+Alice
