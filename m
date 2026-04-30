@@ -1,70 +1,75 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020119.outbound.protection.outlook.com [52.101.196.119])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013010.outbound.protection.outlook.com [40.93.201.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6758843E4A4;
-	Thu, 30 Apr 2026 15:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EA22D9ECA
+	for <nova-gpu@lists.linux.dev>; Thu, 30 Apr 2026 15:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777561699; cv=fail; b=Q9N54Nw9kZJZ8sJXs9vu0BamNzRogmb46o6n2t05Q2MfWVKR44mI0jT7Byan2f63FwFy78Nij1DUUF8eIh2MueJKLFKIuSdz9HffGKPFIrWCedOBuAx0kJayPwkPchiuF7h04uwq+22RfDpvznVUG8RRY1t0YYZbRXkw5CG8Jgk=
+	t=1777562550; cv=fail; b=IV6e3dP9gPjADbMoLexxXwJ4GfM2DhzRsLcoCtiIAWP55/hAvRuVkCx8QwNhaF9O3NsSIuvS5OLBGzr4LkMKjipK2UIUCxINhHS/MWQUxEzjYx569dUQJVIHth6MqKQKEHRNg2X0jx/95EwATHlB09fr0s0FoMqAWdxlQzGlXCI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777561699; c=relaxed/simple;
-	bh=Y/Z7czVe8b2AwDPUtlqTtjG0ZgRNqwy3JN7zitI0mlg=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=Dmr56O00rW+WmQRG1nNrlSxv5N7t5cuOREA4wdCy+W6TEngUUvHVnYUtuobvFaz5ZUMkPJzS8dbmKiDm2be9cCUYEL2irabhLHLyntE7MmOJbEOkZP+DVivWwSN31JGqDvIyAWQGt+iFcXBR9+fwUFBJQMkptRZDDfi2+ZJG+Y0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=xSxd6B0F; arc=fail smtp.client-ip=52.101.196.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1777562550; c=relaxed/simple;
+	bh=110Xmdz//1NV278iMAYxQ7QmsA9OP2v/3FPdYg6/B3g=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KC8eq5i5vHRR8Di7vCLq/ratN2qa/FTddpj8zjr1OAa74HRC6UxXI1zUqk7/y4l8BdMCxLRHE9ahEFmtL/XJuU8XFjnE/9TjcZ872Ee80pdlQxZrWWnMYKh1tCfiiSGKL3sfkM56PN2PSjVkfZq19X6ISCFJlAaERSV2ExYJNTg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RAZhZ/ei; arc=fail smtp.client-ip=40.93.201.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="xSxd6B0F"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RAZhZ/ei"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sGWEB1erUwi7SqdUBBHkhnJdcx1PbKz8gSwzm5SpziVHaJNKM7X0pEQfeHygcKb21BUAhgn1YhST4bcRKOdSq/A20vdAwizzqvMrJ4flctw66imZ6P1bKZsfgjfrHdjYbkGYsre1PMV03HFZAKHKEYawavt6hXZA4DHdEtahdRf1zPvpDNR+m2dwvmencg6yV2u9zK3pft8szJE8oMJH+fepXLYDjQpG0p1+0QlBcAfPxSrfrvEa6IM5a8GOwO2TbHauM9/NILzp7KdctHMgPBcSkL8VEvVz4mkBavpTnSVfZ8LgdQI8vR2RymCjmPz0Czjvt6FbXh5Bvr0SktGxMQ==
+ b=BLfjyMM3U/H6Rhh+2+8eDB8IMARst95gJqAQIREs1oRFaefnq2qPFosmu2Hd7JOLsVlHjGfcf2vwykzNJPfLfnQ6LnkhWw3h+aoRT5hrlJx7wHz05Ww7te5K1Kjm1rZsR/EdCnVb6hw3iqPxIKUAHCutACaVAqFGoCRogOmhBzEnY0g8t9np+1Nze9LFZqX3Apw3OE70sKFQtpMMWJZ8aY5L9U5EtTTG3ViRn0kUEQYkzm6SmJFT8PTR2x3vfge4t9565yP3RdeEgLmvbBALciClsO74O0UkvMBmc8vDM4jQZwW1O/3ZVF+ent8mxmALZK9Ao4OXJ4MfJW5EGxObtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fu831AOXsEVKA1DPdpxZ3HWDqiRTzKDxwKmhYNM9nZc=;
- b=Q6h4s04uy4mjdhoqdMD/fP59WpV2ViAsgYc1VS19iEVzC2AbbpgOzDJfTJvqeTKIU3kiF7uQCvH+sIE9HUr+XsyAhQH+BliD4KUXRs2oN1U2Drjz3gFq6cLH/YBwTqe7MJKnLTxjSqE0N2gEjGabgFM5e04DfBg9xtGFx47KuN9BZAqjymYqMpAv+Sllx0dFhmFGhbNMsWrDGmcpAOJsZb/HRTgSUzx/ff83X7AZ6Rxo0n49fEtsJKeUUttFIJpswCUGqsyZQcY8SfpEmmuw84JmqRDQvEQzwmZl7Kuru3rA4d1hfdGp/iyKzKGMfORSLJp+nmjnrAN5xEEi6NuVtA==
+ bh=CIiJQue+9KOyVuLfs+OeOEFlEFOZ5i/P55WwHiR9cZk=;
+ b=KDpeaxq9coJtWKC6WayXmuEISUr3CbntBvGXNxVsIHNl1riw+XuTVdlBmVNwcqlIVAXHFblHX/evMfpivbtC4p8ZBfBMcz32AxGdXvq671ZJ962dkeFoNeP7FDXe54ASH6Z22kSIJmkm6paa/J2OKeUo2Y7xA0H09izmpnRuWQp2IgIFnX/R9gIKB4KqWA5gzuZNr0ZziMKGzB58O4N4bawmXggLHE4aYgmtWzcTKmEDgQpjcj4LhGH6fcWaURDe6CO6OF9iUPx2j4yYCaWY6CfBWSWLMB5XG08r5ujW1woWjm2U++pMoGsTO/GMyTbZtD2PaMvJrODGAMvKqLiznQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fu831AOXsEVKA1DPdpxZ3HWDqiRTzKDxwKmhYNM9nZc=;
- b=xSxd6B0FDUoG+gqhC48Cy1B4iusauqFJ//wifDEmjGnhRgfTDtg7T/dYYfP7c8CvGMrrDXccQ0uOJrjbqmzGgfa/TXEVcgWd6YTh9atMvSfMYvEkE+LI2rubuFCNTcF7sBS82cMgLF5oqPwfqEgx+ptYxpmnyYepsL/Ln+WWaEY=
+ bh=CIiJQue+9KOyVuLfs+OeOEFlEFOZ5i/P55WwHiR9cZk=;
+ b=RAZhZ/eiuxnEX2Ore/hC/VFCrMZnIAi4tFgL9on0OWY4BW63tHr+G1xt6RjfzfdG3uzOwfL31jpIx2owz5EQzI0kMU2GelAlSOiw5W0hBmzPfaIYkQdv8iLDSTI4ik+m2gELfGqTRUIEAuQY/UydC1LijJGxJ9ML6HZVYIzuxExI/lH+VeyIJsUW/+4jEkhQuWpOI5rOPA5kwAhhEvfh9qMOUC1gao/mhfs/hhLCuvtrwzYYCF49O2FQR3IELNwYvwj3SBfRTk+WmkASuwgT+XsV+Lgb2ZfxtMi38LdNbTSAmqMc4XUoqzm2zQkxcpoQ0Wuafgr8EeK5iVYanA70ww==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWLP265MB6529.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e7::7) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ MN0PR12MB6245.namprd12.prod.outlook.com (2603:10b6:208:3c3::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.21; Thu, 30 Apr
- 2026 15:08:11 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9870.020; Thu, 30 Apr 2026
- 15:08:11 +0000
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
+ 2026 15:22:23 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.020; Thu, 30 Apr 2026
+ 15:22:22 +0000
+Message-ID: <7a33e348-4a08-4f80-aa6e-c684b4d7f1c6@nvidia.com>
+Date: Thu, 30 Apr 2026 11:22:15 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] gpu: nova-core: export Rust symbols for dependent
+ modules
+To: Alexandre Courbot <acourbot@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+References: <20260430-nova-exports-v1-0-7ca31664e983@nvidia.com>
+ <20260430-nova-exports-v1-4-7ca31664e983@nvidia.com>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20260430-nova-exports-v1-4-7ca31664e983@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 30 Apr 2026 16:08:10 +0100
-Message-Id: <DI6L13A5LMOW.DU7ZTHXZYB0K@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 1/2] rust: auxiliary: add registration data to auxiliary
- devices
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <tmgross@umich.edu>
-X-Mailer: aerc 0.21.0
-References: <20260427221002.2143861-1-dakr@kernel.org>
- <20260427221002.2143861-2-dakr@kernel.org>
-In-Reply-To: <20260427221002.2143861-2-dakr@kernel.org>
-X-ClientProxiedBy: LO4P265CA0025.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ae::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BYAPR07CA0092.namprd07.prod.outlook.com
+ (2603:10b6:a03:12b::33) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -72,256 +77,163 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6529:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bc66634-954a-429c-e0bc-08dea6ca4b3f
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|MN0PR12MB6245:EE_
+X-MS-Office365-Filtering-Correlation-Id: e05f4f3d-9d33-44e4-afc2-08dea6cc467c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|7416014|366016|1800799024|921020|18002099003|56012099003|22082099003;
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|921020|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	AQ/tmHz0/UiwvE4wGcq0SGYHRgKqFY80lO4pr/2YR/6NuJjyybx0x3Wk76k7YarouH5HrV1K9BT0mWjiDjHz1Fr27wwdNbH/DPfxLEVAGdcPlrAjxEf8/qvnKoR9LCFkPc7xLzmJtP31elBCkhMZNt74wKGl+V6dvfyulntxqHflTqi669RtlaSvlnE/BkXBavckvNwargCQDmAZFSgL/KHOsgXlLSVBBdCMoiHKbT03pznm1MlRRJAvIUn1K35QZ8slXwm6Ri6UV6lGvAXu2PNh5ayQpzazd2BLVNPwkJJZS62OwXa7bgGhPV+MzeTMhZ6MlHVj6pqeRrHagKmnljCzwTdhTxJ40294DriDCio7jwzxWuLzShCjkKZJkXTC4w5G3zAtwsD3lBxclc4jU9AdrqEuEL0blFWE0XYCa6UExiNPnC9PvCjEtbH0P0Zh+ZTztqXmcEXh2wnbfcyV0LJadt1xqVClhPmkm8HUnYLa28zeLnA1s2DKl+dSWcdXUfyY0dWYbXs/LPt4gSa7jSXa6yLIKgeVuGz37W6THrmQNYonMvBRE5w745GjMNiB9uSZ/41sQW2l8cA9vEgbGt+mlon2UCWlojKhFG9cy5OfWfH3yGXouxGN9f6XKvpYnphiaOpC3qg6t5TufLfED1xySp5tpXNxnh4hBmae0mhcGoXfPJgEaWWs4pCnPOvO6M8w4STQpYnfSlBs1S6+3MydHwnKkkeXKzqUQxVMhPHJLkppiIJs3g1nidZm9aCd/8DRBd7Dqz3H1GSeR/1mbw==
+	s9bdy4gp4hmfhTXMA4PF4bS+ozFUO9iOgJ3mJe1LlqFOFFd9yAVb963pCtZR3hpa0v8dK0GIefXASia4H7bS3C9oY14tD+2RexcaZqd222/DteBmDq8jAK5Wl/XutJfCQD6ibVNjP18cpNKoUqbIUv3qTpLADOrX4QEy10SGNQhcUAWkr/V71KPWV7GN6dUpe5WOIeGrKjA2JlEgZVeDqje97O3ey6TFBfuzGxUhR5UXyarvk7bqXg6HdL3gnvlUzXXe/9J0gy8RyicUw+6bWmJkipSorzXN+tc1leQz+5NdxbcxZZNjHTYWnujN8qOowrhP7IYk9bUa4VHVjHVL8caGkS4w839slppXn4UbLtfNWmA5hn5Rmqu/+cOlhyOlSc2Ad76+/S5m7N6sSw0okhfM4tSSsFNQ3qJh4ggVRXIHj6QKRE46S8C2sm3R6bNXmpM93Obve+cbifOg+qiDMRHA0f9rn50mNP1DSSrk5TV0UXJOUR4eeR4azzH8DgBv+uuCC6zvrXEJzPYZplqqDGNFboZ938dY5waZLpayGVuV2Xq6hHE/ecmA1axkFE+M2kDJDjG2yiy2RI8IY2S57BuNPZOmRxiZnMRYe2Tc3X8q8o9a9nwBRJtRstmlo/A5Zbjvn3PW9n3N/tK/3eHma+JhERYtfRjDk6q6QKKdbK11BxdMxrqJV9/tA6EcKe3+YQDBgfxarxo6CHp4xnxf1vAKsGliUqv4YzhaaOmuPHBO1aXMx7TLHJJZ6i+cOVzOFtH/QyEwXbYkq/HvCvgL5Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(366016)(1800799024)(921020)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(921020)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NGZwUXJTcVEvWkdGekxLMjZTVFBVZDcwM0EweEtTTHdOR2NBeDJoMit4SFZD?=
- =?utf-8?B?ekYvQkNVanNIZS9hbG00Ync1YVErdHF3OS8yY1ZzQWs0dVNIN2s2QkFBUkVh?=
- =?utf-8?B?TUJTV0FKTmFKRE9wb2ZqWlhlb2thWEZGbU5CaTlIRk8yYU9qaGxMYmIyODB5?=
- =?utf-8?B?eHFrQllwemdJZWJ6SzNBUFRVWmp2aVR4ZTZ2V3BqU041UGpNOHliTm1YRVpF?=
- =?utf-8?B?cnl5aGFWeENIemZPZVNjdzZ1cFk4UGxucUI4SWw3cHZraXlqazNOVU13cEhD?=
- =?utf-8?B?dlkyTjZNTkZBWWw0dERpcDJCamI4S1dFeTByTy90Zm5ReCtlYXRPOHUzSnY1?=
- =?utf-8?B?aEVJZ0JNdFVBYys1Vm4rVUE4RDhUelR6MmVYRjB6SGFRMVZNZmdvV2NaQXR2?=
- =?utf-8?B?eGwzcmp3ZDlDTWwvdDdtYWsxeE9OU2lBV2p3S2N5ckdzZVk2c3NoUTBGU0t2?=
- =?utf-8?B?VjJCRmt1anZXdVgxc3RrNlI2ZlNNT2o0MGU1UDhmV0Q0dFRGL1BSYlpMU3Js?=
- =?utf-8?B?UVBPUkprQzYwTStuaVlxSVhSRnhHVjhIL2thS3lEakJoeVNGTzcrc25FTEow?=
- =?utf-8?B?YUtsY3JyNnh2SkdnZVI2amlwaG5LOGFLdk9HekVkTkZmN0J6WnBMMi9GUGph?=
- =?utf-8?B?bzhlRTk4RDFIejhSSGo3UHFuaG9DQWoyanI2aGVGaEswZTlvUkFETGRRY0Ro?=
- =?utf-8?B?aGlxS2N6SXFqOU1GQjRvYnEyQlJNazlHOFpCT0kzdndkVE91S1IvT1QzUnJ0?=
- =?utf-8?B?d01EWWhoMzJvTEJURzVLcFlrQmROMzVQcWdyVUhUdmU2L09XUmp5SVVrUDlX?=
- =?utf-8?B?R1IrWFJKY2M3c2N0eXIraFdMUGZKR2JLeGVzd25jV05VVDQwVy8rcy9uSmV4?=
- =?utf-8?B?ZG8ycWc4Z3V0WS9EcVEycGVlK0tGdjJsaW0xcWMrWWdkTTZXb0lDdzNLSXFZ?=
- =?utf-8?B?cDllMXdncUNTNng3NmZsOFMwRVMxOW5CUys0UmlqL2k0Qm42MGIvNk9BWmY4?=
- =?utf-8?B?c1ppMGp1MkRPTFNXK25SZHVpelZlb3lUY0QrTC9uY3J6bithNDE3MElQK2RG?=
- =?utf-8?B?ck10Ui9aNHpUTUdMVm9ZZEhNSUNQQ25qM2R0Qi9PdzZaUjJBbXhRRlE5T0Vr?=
- =?utf-8?B?cjcwdWNqSjBkZGNsNzI1cVlRTnhrSWhjUUJyRVE0QkJqSlBXbFkwVHdHRm5X?=
- =?utf-8?B?cVZpazBKMVNMZHQyeXVQSEZVOWp3WTBRVWozSDV6ZjZvd2VSNXJkVTlHenZF?=
- =?utf-8?B?MTJQUmp4ZDdVTEhXOTVZeFUzT3dRNDlCTzZpWnhCT1YzMWp4OSsvcWZEZzlD?=
- =?utf-8?B?eHhHbFpTY253K0FWeVlqd2lVUE9BdFVEWm81UjlDMWhuUi9RbDJkTUdUSkdW?=
- =?utf-8?B?QUtxZ0VtUmRIZzVVM1ZrL09FdkZwMjdaV3FjVE45VmhGd1MxMXJUVnFGeHVi?=
- =?utf-8?B?ZUdVVDg3eWFvWTNnYVllckFuN2RTMzhDK2dEUWREN3VBOUQrU2xOTkNmRTkx?=
- =?utf-8?B?RHltd29DY2Mzd0toVEtoTGF5aGkwNllqczVudjVHRy9aazBpMnZzR0xHZ0tW?=
- =?utf-8?B?cnJYdkRDZm1lalN1cDBLdjJlejZid3J5cGxSSmZoMW84Z3MwVjNvQ2FSMGZt?=
- =?utf-8?B?SThpc01RVU9yZ2ZNcnZ5YnlndG5JMUNBUUhaMCthWi8zVU8rT0gvYUtBSVlK?=
- =?utf-8?B?bUd6VGsvcVgvc3dyenJGU0tObWhZdFJ3aFNYaXZtVE9tZklMVkQvcmp1L2Ra?=
- =?utf-8?B?ZUJhaTl1bVY1TUtJaFJPZU02QzRvbFg3TWwwYmZVTVJwaUtEQkk1ZUVzZW9R?=
- =?utf-8?B?S3BiRmd1RXEyc2Y1Vml2QmowRjU3M0pJTi8xc1pudEl0MnhCQkJUdUo0OFR4?=
- =?utf-8?B?UDR1SFdseGpIVzNXUmFkRnVCVjFhSzYwbmg1RmxHRWVSWTZKbGVhUWlETGsy?=
- =?utf-8?B?WkhjR3NtOVBiaGZYRzRlS2c3Z1ZrUFpBVk1YdnRoSWNqK3JkeGd3QkFlcStW?=
- =?utf-8?B?c2dSV0JXeTNUbGJ2SXJTN3AzcllGVWI4dlI0K1NhYUcvTmhuTWJyakRmdHVQ?=
- =?utf-8?B?RjlWenVvTG5TVWZybDF3U2tMNloxaFFJaDUzNE9SQ3RRWWdaL3BOQ3NLbEdp?=
- =?utf-8?B?czFVRTJMM0NsVHduUnF3M0k5dUVTbEZmbklaanB0TnZYekI4Q1F6aGpxamJC?=
- =?utf-8?B?Z2J4SVdTUlBLOFhpYjgycnVGdzMxYTZIL25IK1dCSG5FUHA0YkhUNEVaRGVV?=
- =?utf-8?B?VWZURFBvYlY5cWQ3d21aRlgxZ3FhRXBWUHMzR0lNSitXUXVUenRDbU9MNXU3?=
- =?utf-8?B?allpUWw5b0NxV0EyZ243UkY1KzlRV1RHckk4N2g5WFdjMHl4MzRrZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bc66634-954a-429c-e0bc-08dea6ca4b3f
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+	=?utf-8?B?K3FscklGZ2tNcUdWdnJoL0orVU51RXlsZ3ZNWUVXWXprVktpanV0OVQ3bXpH?=
+ =?utf-8?B?OUgvSk1qSDYxQm0zQjU4MS9YTkRqbk8xdXFBdlN0VkpjbDdDRm9ya2JLZk1P?=
+ =?utf-8?B?TnFrUDQvTExUOUQraU5nQmFVQWxtL2VGL3JJdHlBL2R2WHY4MDdaUUNseW9n?=
+ =?utf-8?B?L2FraVFjWENwaGJFc214YUZVZlZkNmRneHRRWXhHOC85YmJJOHlKT0oxY21B?=
+ =?utf-8?B?MVkydXAzdis3THRBSHRlN1lFOXdiS2FhVmtPSnplaklsU2ZmeW5NVTQ3QlZ3?=
+ =?utf-8?B?cVVOU2hwOE8vNld4VUhzN0M1QkN3OThYTHkvcXpXalNTcnZIZ2IzUk9ROFpT?=
+ =?utf-8?B?SzhIVEo0cnBmSG0vclBmUkxHZWtwUkVTUzk1VEpjVHhrakc2ZWI3L2d2M04z?=
+ =?utf-8?B?UzdtRVUyN3BkeUc2MFV5cHlIa3MwQTBYSm5kRDhiRFoxbDRUMzJ6MTRUSkdE?=
+ =?utf-8?B?MWR3MzBSQi9DdFkzc0VUMGVVaklyLzk5UGFISER4QitUaTJPZjlScDBKQ0ls?=
+ =?utf-8?B?VWhnU09TSzNzbm1BWnJUZURYSFhsTHlEa2RYNU9RZGMvL2dEZUdUWUkzSTB1?=
+ =?utf-8?B?MVRrWEtIUmNxVHp1ZWk5bEo4Yy9kK0FPM1JveTFFcndhMkxqL3orTEpwT2Zs?=
+ =?utf-8?B?RXJ1c1FPZXBHdm0zcmtGaUxKbGdlekU1Yms0dTVqVjF5NHN2c3k5Mis1UkFH?=
+ =?utf-8?B?a21JSFhhSDZoL3BEYnBOK1ZHYTBlc3UrWUJ0R2NCRnR5cFVVcUxBOS9aUzVp?=
+ =?utf-8?B?TTNheU9kN2FWbS9pdFhUakNyK21adUFGUU1NQ3Q0S2d5YUtCMkpiUEN4eFdB?=
+ =?utf-8?B?WGRONllRSkV2VkNKbWNmNzFVRXU4MUR5NzJacDRzNnNGT1g2czVOWmRRRzd2?=
+ =?utf-8?B?c1B6OWwwUVA4YmxId0NkL01WODRhblFrK3ZDY0dKc3Z5My9qczJXQnpSYkIx?=
+ =?utf-8?B?blV4a2xlZk50MGJ6eHB0WUIvVDRnanNOcXVSRmJjZngzcU1PWUY4YkRTRG1D?=
+ =?utf-8?B?ZnpkaTU2NXFaaHRIQ1BvcGR0SWVyT0szNGlHKzVSV2twNzhqeWFlNDF5U0I3?=
+ =?utf-8?B?QmljMS9CdGI4QjJRM05sOHh6QmU3Zm9tQUdoWW9KaW5EV2p2SUZmT3R6NkJi?=
+ =?utf-8?B?MzhKV29PeStFV00wVzAycEZxVlplSjV0WGZ5ZmZ4MS9pckUyZjRkc3l4NFIx?=
+ =?utf-8?B?OTdxV3J4OXE3NlJ6RkREUW0wZHhDOUJWd1hDcXE1VmtSZFBzT1lzOHp3eVps?=
+ =?utf-8?B?T3g5Wkt3Qll0bHFyczIwOVc3RFVYMjYwVlBTQmVxNnJWRzh2ZkR6UmY3RlRO?=
+ =?utf-8?B?TXlDWXNpbGt2L0NKTHk2bHExQUVwYkhyQmdLZ05MRFlQbnV2R08yRnlZT2VR?=
+ =?utf-8?B?Wnp1M0NGbXdoM3lOVmpuTmhjS3FHemkzbjlQUVFTd2p6R2JQbWh3WlRSeTJB?=
+ =?utf-8?B?ZEczUkRlb0tGSGxBTUhRMklnWlk2cHdsL2N2bnpWSC9mM3JQNkxqbEpVcXNi?=
+ =?utf-8?B?N241NHBNQkx0Qk1lQUhDVjRIMTlyMVRxNk43d2xuSUhnTk94RFhVbk5zVUFQ?=
+ =?utf-8?B?eFo5azVqZWhTdHYrTzNEZW0xejFRcXJ0RzJHVXZKWTl2OTdJYkJzTDQ4T2lu?=
+ =?utf-8?B?aHNJeU45WEE0TDkyMHlPVEpWQlZodG5KUWtKNy9jMEtRdnhoSlN4VnJGZGFq?=
+ =?utf-8?B?eENDc2FPOUs0OUVlUW95NjJpNkEzY1hwTjkxVGg5NUFWd0tKQ1pGMk5Kczln?=
+ =?utf-8?B?ZzU0YVlBWUI3SmlTVkpEc3FVTHJWQUw4L1hYN0EvZjhiYUNpeVJ4aFMzRlpV?=
+ =?utf-8?B?aUs3NW5hblhJRWVxS01UVkRVekVEcXNUZlp5aEkxTHIvQldIRXRlL2l3OVEy?=
+ =?utf-8?B?RE54aGJMaFVxenZ3Nk1iRFV0TWN1TEtLYXUvRVNLeTljc2szcHI0dEFMR2p6?=
+ =?utf-8?B?Z0o5VkJyaGZORFMrcVdLZC96UXJKVDBLbTZyWGU0dWVSTEluTExhRGtYRWxU?=
+ =?utf-8?B?ajlGN2pnc1laMUZpaVNDQ2N0NUFIMlladHdML00vby9Kb3IyaEIxd1hlZWlR?=
+ =?utf-8?B?R01EWm5aVVZjV2tydk02amV2Q3dkZTI4MXZVekZwL3JvcW1FSWpKVmNBMEl6?=
+ =?utf-8?B?ejRMUTF1d1pXSVh2SHhtQkZCLy9sVWNjYlh5VDN1eUYxdlJhcHRVOVN4Qlls?=
+ =?utf-8?B?ZURJc1kyV2dGQUFrcjVWWDRteEEzQ3hZRTBNRG1Mb3pYTytXV0lRV2h3Ymlo?=
+ =?utf-8?B?Q0x4NFNWZWI2akkvUWVBb2V1cHlXKzg1QVJsd01wMDFhSStlTEREeHVWTXdU?=
+ =?utf-8?B?T2dhRlJ5K2U5K0J5YWNwZlZmVW84WmVFT29PMk1KdG94VU9LYW1lZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e05f4f3d-9d33-44e4-afc2-08dea6cc467c
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 15:08:11.0225
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 15:22:22.2186
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b+KdilO+biA6BD+GXI6cC+bk1AK8L3q8V6wvnL5zVXxpwY5PLvZ7898XvtCQ5zpsb/kbXjPlxZEcZLTDB+9Dlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6529
+X-MS-Exchange-CrossTenant-UserPrincipalName: +BBxAFiku+IOlrDH/qccj5mqSfGbLu2jBQRfbCmr3QRbTDHEAmbxljBTxEkl4oE1H4GxCBbDU1TJUgKW46Q8Ag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6245
 
-On Mon Apr 27, 2026 at 11:09 PM BST, Danilo Krummrich wrote:
-> Add a registration_data pointer to struct auxiliary_device, allowing the
-> registering (parent) driver to attach private data to the device at
-> registration time and retrieve it later when called back by the
-> auxiliary (child) driver.
->
-> By tying the data to the device's registration, Rust drivers can bind
-> the lifetime of device resources to it, since the auxiliary bus
-> guarantees that the parent driver remains bound while the auxiliary
-> device is bound.
->
-> On the Rust side, Registration<T> takes ownership of the data via
-> ForeignOwnable. A TypeId is stored alongside the data for runtime type
-> checking, making Device::registration_data<T>() a safe method.
 
-I wonder if we could require auxillary drivers to specify a type, and then =
-the
-abstraction would check if the type matches; if it matches, it create a
-`&Device<Core, T>` and `probe`, otherwise it skips over the driver complete=
-ly.
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+One comment below:
 
-This gets rid of the failure path.
-
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On 4/30/2026 10:55 AM, Alexandre Courbot wrote:
+> Export `nova-core`'s Rust symbols so that other loadable modules,
+> particularly `nova-drm`, can resolve references to `nova-core` at
+> runtime.
+> 
+> This is done by generating declarations and `EXPORT_SYMBOL_GPL()` calls
+> for Rust global text symbols using `nm` and compiling them into the
+> module as `nova_core_exports.o`.
+> 
+> This is a workaround until the build system supports Rust cross-crate
+> dependencies natively.
+> 
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 > ---
->  drivers/gpu/nova-core/driver.rs       |  10 +-
->  include/linux/auxiliary_bus.h         |   4 +
->  rust/kernel/auxiliary.rs              | 208 ++++++++++++++++++--------
->  samples/rust/rust_driver_auxiliary.rs |  40 +++--
->  4 files changed, 180 insertions(+), 82 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
-er.rs
-> index 84b0e1703150..8fe484d357f6 100644
-> --- a/drivers/gpu/nova-core/driver.rs
-> +++ b/drivers/gpu/nova-core/driver.rs
-> @@ -32,8 +32,7 @@
->  pub(crate) struct NovaCore {
->      #[pin]
->      pub(crate) gpu: Gpu,
-> -    #[pin]
-> -    _reg: Devres<auxiliary::Registration>,
-> +    _reg: Devres<auxiliary::Registration<()>>,
->  }
-> =20
->  const BAR0_SIZE: usize =3D SZ_16M;
-> @@ -96,14 +95,15 @@ fn probe(pdev: &pci::Device<Core>, _info: &Self::IdIn=
-fo) -> impl PinInit<Self, E
-> =20
->              Ok(try_pin_init!(Self {
->                  gpu <- Gpu::new(pdev, bar.clone(), bar.access(pdev.as_re=
-f())?),
-> -                _reg <- auxiliary::Registration::new(
-> +                _reg: auxiliary::Registration::new(
->                      pdev.as_ref(),
->                      c"nova-drm",
->                      // TODO[XARR]: Use XArray or perhaps IDA for proper =
-ID allocation/recycling. For
->                      // now, use a simple atomic counter that never recyc=
-les IDs.
->                      AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-> -                    crate::MODULE_NAME
-> -                ),
-> +                    crate::MODULE_NAME,
-> +                    (),
-> +                )?,
->              }))
->          })
->      }
-> diff --git a/include/linux/auxiliary_bus.h b/include/linux/auxiliary_bus.=
-h
-> index bc09b55e3682..4e1ad8ccbcdd 100644
-> --- a/include/linux/auxiliary_bus.h
-> +++ b/include/linux/auxiliary_bus.h
-> @@ -62,6 +62,9 @@
->   * @sysfs.irqs: irqs xarray contains irq indices which are used by the d=
-evice,
->   * @sysfs.lock: Synchronize irq sysfs creation,
->   * @sysfs.irq_dir_exists: whether "irqs" directory exists,
-> + * @registration_data_rust: private data owned by the registering (paren=
-t)
-> + *                          driver; valid for as long as the device is
-> + *                          registered with the driver core,
->   *
->   * An auxiliary_device represents a part of its parent device's function=
-ality.
->   * It is given a name that, combined with the registering drivers
-> @@ -148,6 +151,7 @@ struct auxiliary_device {
->  		struct mutex lock; /* Synchronize irq sysfs creation */
->  		bool irq_dir_exists;
->  	} sysfs;
-> +	void *registration_data_rust;
->  };
-> =20
->  /**
-> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-> index 93c0db1f6655..467befea8e44 100644
-> --- a/rust/kernel/auxiliary.rs
-> +++ b/rust/kernel/auxiliary.rs
-> @@ -19,12 +19,17 @@
->          to_result, //
->      },
->      prelude::*,
-> -    types::Opaque,
-> +    types::{
-> +        ForeignOwnable,
-> +        Opaque, //
-> +    },
->      ThisModule, //
->  };
->  use core::{
-> +    any::TypeId,
->      marker::PhantomData,
->      mem::offset_of,
-> +    pin::Pin,
->      ptr::{
->          addr_of_mut,
->          NonNull, //
-> @@ -257,6 +262,40 @@ pub fn parent(&self) -> &device::Device<device::Boun=
-d> {
->          // SAFETY: A bound auxiliary device always has a bound parent de=
-vice.
->          unsafe { parent.as_bound() }
->      }
+>  drivers/gpu/nova-core/Makefile            | 22 +++++++++++++++++++++-
+>  drivers/gpu/nova-core/nova_core_exports.c | 11 +++++++++++
+>  2 files changed, 32 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/nova-core/Makefile b/drivers/gpu/nova-core/Makefile
+> index 1f794baadc86..f9aaf19f2477 100644
+> --- a/drivers/gpu/nova-core/Makefile
+> +++ b/drivers/gpu/nova-core/Makefile
+> @@ -2,4 +2,24 @@
+>  
+>  obj-$(CONFIG_NOVA_CORE) += nova-core.o
+>  
+> -nova-core-y := nova_core.o
+> +nova-core-y := nova_core.o nova_core_exports.o
 > +
-> +    /// Returns a pinned reference to the registration data set by the r=
-egistering (parent) driver.
-> +    ///
-> +    /// Returns [`EINVAL`] if `T` does not match the type used by the pa=
-rent driver when calling
-> +    /// [`Registration::new()`].
-> +    ///
-> +    /// Returns [`ENOENT`] if no registration data has been set, e.g. wh=
-en the device was
-> +    /// registered by a C driver.
-> +    pub fn registration_data<T: 'static>(&self) -> Result<Pin<&T>> {
+> +# Export Rust symbols so dependent modules can use them at runtime.
+> +#
+> +# This is a workaround until the build system supports Rust cross-module
+> +# dependencies natively.
+> +# Kbuild uses Rust v0 mangling, whose symbols start with "_R".
+> +rust_exports = \
+> +	$(NM) -p --defined-only $(1) | \
+> +	awk '$$2 == "T" && $$3 ~ /^_R/ { \
+> +		printf "extern void %s(void); EXPORT_SYMBOL_GPL(%s);\n", $$3, $$3 \
+> +	}'
 
-Any reason that this is not just `Result<&T>`?
+I am curious (in a fun way) how this (Or Miguel's later approach) will work with
+generics. I don't think we have such use cases but suppose a module has a
+function foo<T> which is expected to be called externally outside the module.
+Suppose the module itself does not call foo internally.
 
-> +        // SAFETY: By the type invariant, `self.as_raw()` is a valid `st=
-ruct auxiliary_device`.
-> +        let ptr =3D unsafe { (*self.as_raw()).registration_data_rust };
-> +        if ptr.is_null() {
+How does the rust compiler know that this function can be called externally if
+it resolves to no callers within the translation unit?
 
-I think we could treat C-registered aux devices as if their data is `()`.
+Further, as a result, how does the above extern get emitted then if foo never
+ended up in the object?
 
-So you could do
+Probably Miguel's future infrastructure will address this? If so, probably the
+limitation of the above approach should be called out in the code comments and
+commit message.
 
-    if TypeId::of::<T>() !=3D TypeId::of::<()> {
-        return Err(EINVAL);
-    }
-    return Ok(Pin::static_ref(&()));
+thanks,
 
-here.
+--
+Joel Fernandes
 
-Best,
-Gary
-
-> +            dev_warn!(
-> +                self.as_ref(),
-> +                "No registration data set; parent is not a Rust driver.\=
-n"
-> +            );
-> +            return Err(ENOENT);
-> +        }
 > +
-> +        // SAFETY: `ptr` is non-null and was set via `into_foreign()` in=
- `Registration::new()`;
-> +        // `RegistrationData` is `#[repr(C)]` with `type_id` at offset 0=
-, so reading a `TypeId`
-> +        // at the start of the allocation is valid regardless of `T`.
-> +        let type_id =3D unsafe { ptr.cast::<TypeId>().read() };
-> +        if type_id !=3D TypeId::of::<T>() {
-> +            return Err(EINVAL);
-> +        }
+> +define filechk_nova_core_exports
+> +	$(call rust_exports,$(obj)/nova_core.o)
+> +endef
 > +
-> +        // SAFETY: The `TypeId` check above confirms that the stored typ=
-e is `T`; `ptr` remains
-> +        // valid until `Registration::drop()` calls `from_foreign()`.
-> +        let wrapper =3D unsafe { Pin::<KBox<RegistrationData<T>>>::borro=
-w(ptr) };
+> +$(obj)/exports_nova_core_generated.h: $(obj)/nova_core.o FORCE
+> +	$(call filechk,nova_core_exports)
 > +
-> +        // SAFETY: `data` is a structurally pinned field of `Registratio=
-nData`.
-> +        Ok(unsafe { wrapper.map_unchecked(|w| &w.data) })
-> +    }
->  }
-> =20
+> +$(obj)/nova_core_exports.o: $(obj)/exports_nova_core_generated.h
+> diff --git a/drivers/gpu/nova-core/nova_core_exports.c b/drivers/gpu/nova-core/nova_core_exports.c
+> new file mode 100644
+> index 000000000000..1d3f1544fe8d
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/nova_core_exports.c
+> @@ -0,0 +1,11 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Exports Rust symbols from the `nova_core` crate for use by dependent modules.
+> + *
+> + * This is a workaround until the build system supports Rust cross-module
+> + * dependencies natively.
+> + */
+> +
+> +#include <linux/export.h>
+> +
+> +#include "exports_nova_core_generated.h"
+> 
+
+
+I
+-- 
+Joel Fernandes
 
