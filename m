@@ -1,47 +1,47 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013065.outbound.protection.outlook.com [40.93.196.65])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8214218B3
-	for <nova-gpu@lists.linux.dev>; Fri,  1 May 2026 20:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8172E423142
+	for <nova-gpu@lists.linux.dev>; Fri,  1 May 2026 20:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777669132; cv=fail; b=TjZ723LaMR/Q65rI8w+YXhEN0de4Cnw3xGj1gB0uDXBedD9nGjol5WDixPu8sljbi6QwRlR/vV8+nIbDrbYKUqnoUNh+lAUtRUdejN3w4P8UVFCWmFjREzezosKxfIQG8ndZ+doDAqh5jpO8oVGk5wDU/Z08LJLSjLzodQJF5j8=
+	t=1777669132; cv=fail; b=Cfm3sKuo3QUssAGOOn0XWZBby5Q26a476sVNbdlXfOyQiSokJ395lavopqbO5RxXze4a/v8eGxmOeHQQ1yxurJU6TyxfsBrK5Wi1veNCnR5Em6OI9I9msaySVKr3fiwa/K816MxImsnP3n78P1KnEYDQRtpJ+LfXUIMpE/bn8a0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777669132; c=relaxed/simple;
-	bh=VeCkUf0QrRlcyJyErEAyvrWuIdIXwK4Aj7QOJllBBqs=;
+	bh=QEsSV5eIA26it8x708gHke4DCufpuCgTi2JV0U0eC2o=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Tge5TifBThzNxJPJlWyCCVynGyEhETTahvTy/tE3yiflSn693uHPItl7v9Y8v0JSVExqFxnXRVVlP6AROynnWfCe/+3oC4bHnQeFezLy352OXz9O/AyVLhSlCw6f7yvDG6pCkeCRCQ6qqEW2dR+ty/EY5Oe7pgAf5fIt32M9JNI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lcDJwZXS; arc=fail smtp.client-ip=40.93.196.65
+	 Content-Type:MIME-Version; b=JNpRa1NHnXoIwNYagWVogvGO0ZsFQeaIsyh9RdTSvdrj0yY28R6rWSWXRV+F1VaH0tuO2VTuFl8zc4MDJ9qmk79zc1Mne9BjTp+fzdcJ/5Hh4rtIfRkMwtbjITgUyiGCX+DgKzXw5FZ9cZZVlbFuoo0Oq7pio+vCHChv5Irt7aQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JtEddoBD; arc=fail smtp.client-ip=52.101.57.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lcDJwZXS"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JtEddoBD"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P84dK9jfgDN0hoWSmvNCTFnqiky1LYxaScyD9J70da8Zt8A3bv7HHBpZVKENYtdrww4sQfEz5aJsP3QMDGxDGA4HisbZSNaJiP9zVX3KgnE6zW9m8Jh9e0BmGOFJ1hyST4H3wzjtH60PpGc/F3leq8+3i+pemLXZ6p49bwaxESNzU7IrVsePvVz1Bm6NstCi7th2RqlizYRqUtlt2Hm8Bz6ysvVvs+ZMmrmgkdGjWkFh4Ko2tN0yKI7+SOUtOFXdmUiuk3INMnautA77/iWNaM7uCos+rQX/ZSpdc05yGZJJGUbsC02iT7LQQLhibk0e8z08BqPZGKTHui2G/bO5nQ==
+ b=f2Xg3rfeLbFrw0HihoDejubM+5lAVJCLE0f/invU39l9+P5VAPuwSgvqELfY4avOfzumuh3bfd7HMg2IIXp6V3cZ1+LeH07HnGVyYAS8Pw2VymD8GheS3IVsrqasonhzMuC1Ssn9AO56l928TlxoEsUaKdKrCDBSrOZT9LebJqtIusjh6lOx49XaYd3PUstI0z2cpYQ04LzKLJJs/U/0lkuozebyMI5pWkHMDDY5yZGyhzwT+L0vW9amS/b/VQsBjiS/vctkl1MYhz4t70W7S6Dt+T9x3kAXpknzPb0vXI3q/zb8EezuSfE0jOLlfCGVL9wNWRUdVgY5NFmyvQHtPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0LwlaBGokPzIs/y5INaKsNbjGEpGbuJiixxNCC61W8I=;
- b=EEldlUE3MkBTmPbzyOVDIE/XyAuJbVWmjRZuK5f2FAm5IKYkWlfZSU1RvIpTzr7YF5i4TIQ95pG1O1MTIRHHo6rrv9Veas3eyoU8/8H2UAt6Tpi4BT7rL0TZzyfX53VVXI3gl7U6nS1Ycm6wetyjuIXtHrqfi+95Z85wA5mbnExjxaNx4iFr0XT1Kx+CGrFC1/HsxGxFTCwUI2I7swPeN1d4iurQ8HtmKsX/TZGESIS3eEHoWiVz0W3zjZRw9BzkvAav8jRx0vJv9Z9e+ipfWAaVqAcH+WRTez5jNGKc6amGXX7ejAgP8QVwfPzK3hfQxqBczyGcN62dHP0euZRl3A==
+ bh=FVBI+4VSp5YEwqsKxbsVHZ0JGOtowztY3yhpUn1ULjU=;
+ b=ZseHTwgDi4NlIfIRCoM6on9njWFOM7t+ZH55IjavEnmLXHB0qrajF5eo4xQtNlFPz40GbV8qbbL4mV1Gwph2QgyTckQItZthbiY8g+kylqvWD7nRFch18hTn+V60XNfFGQbDxD7AoGhYSuaJvJw0gSrF5x6sZk6PTNQRnaj19G2ljFexpME0oYWzUQYnrSQwhmvlSW2G9+L3rdhqlIrhayuQJKlf3+KkEBnYbAYOkPuftNDbMJZnaTvpq3N7gjngtm3rLDjNsTmsm1wZHsUHeQtY7Gopqo38kUGmf2LPKFGl2mdFd6klqg9cz+5Q8CxmHKPDFnLaUbx8q3uE8FPd6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0LwlaBGokPzIs/y5INaKsNbjGEpGbuJiixxNCC61W8I=;
- b=lcDJwZXSupZix/Uu5ImxAyo/2Ia6UtP12Uh2IpjOUeAa5z3BIyloXglgbtEzXj/5Hda4TvYsAMwMBrsnZg9iV82rQARANR0k6hAJgS+PHvcx4GlbQWWvJkZoZs29yTVx5Vj5si1b4QFFXnINDHVkHZpLfSOm1hKIC23jhep7eOaqWfjnQSl53FluGS9VTMoUCjrHxkQnvuOWtMDGVKJiH7/UheP81rLT2uZF0nzzZIBQCWZGFJB2gfapp4eRPQoH/1GQTxVZ/HR1aqmXPV3jZtyfnjCV230KVMDtKPV9UoxOQFtNeuciHlE3tflGRy5D+DojWKTxa+AeVtu6DbabWA==
+ bh=FVBI+4VSp5YEwqsKxbsVHZ0JGOtowztY3yhpUn1ULjU=;
+ b=JtEddoBDyB0DJAy1PzDi+UzBOVsSzO6UQSCYWm848W9kn56j8bb/GogbxAWhA7TYAjw6lvJ/cnKd0fbRm2S4AX/o1lPQdFJ69ZT38oXL1DP1t577pvz24zK+GFA4Mn6JgmJKm8VyvRc1ZPD8gApzUCNjoX7xUsV7UwowuIk6ayN64deGvpIqUu/vzEYPwd7D7iEpr0ZhuFmcoEW8frxomUDRTXcn8YySukPG8Mqu2icD15yMyzAc4t+iSUk6KHbRd6MvpIiFA4aJyF3Py2aGRK2+UsmUsi21mldH3n0u5YkXnNj95knZq7MxLI80dYiZYi+3+NGXsq4mLyWABizcvA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- IA1PR12MB8360.namprd12.prod.outlook.com (2603:10b6:208:3d8::12) with
+ CY3PR12MB9554.namprd12.prod.outlook.com (2603:10b6:930:109::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.23; Fri, 1 May
- 2026 20:58:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Fri, 1 May
+ 2026 20:58:44 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.022; Fri, 1 May 2026
- 20:58:42 +0000
+ 20:58:44 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Danilo Krummrich <dakr@kernel.org>,
@@ -67,16 +67,16 @@ Cc: Danilo Krummrich <dakr@kernel.org>,
 	rust-for-linux@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v1 5/7] gpu: nova-core: add INTR_CTRL interrupt controller API
-Date: Fri,  1 May 2026 16:58:23 -0400
-Message-Id: <20260501205825.73614-6-joelagnelf@nvidia.com>
+Subject: [PATCH v1 6/7] gpu: nova-core: add CPU doorbell IRQ self-test
+Date: Fri,  1 May 2026 16:58:24 -0400
+Message-Id: <20260501205825.73614-7-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260501205825.73614-1-joelagnelf@nvidia.com>
 References: <20260501205825.73614-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL0PR02CA0108.namprd02.prod.outlook.com
- (2603:10b6:208:51::49) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR11CA0006.namprd11.prod.outlook.com
+ (2603:10b6:208:23b::11) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -85,388 +85,349 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA1PR12MB8360:EE_
-X-MS-Office365-Filtering-Correlation-Id: 469ddcd9-b4d7-4548-3c49-08dea7c46d2f
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CY3PR12MB9554:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02868934-a825-4b16-bc80-08dea7c46e4c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|56012099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	wG0nN4RCXV0aAlNlhKMylx7XR05AC5gJm/CBvW1E1hVqdOaPsuYYaUJHTe7wFPsDoRfn6E+QJ3VXH2cgseR4OL5VAYXeUmKkzPEkt+qde9T5/jOayqYkT4OBU8pe+cuWloL8s9NmfIDhKEipHQQ5uyCs+XE62gnPFcZkD4wZjY2aFWYMJawZQTwG2gKag30cZIDVj2/6/J0hjd9M4FeSDLZ/OucD6eX4lLKTpB36wwTf2YCxNXzrCHTYPnB1s9SjHSUMn2q5M21PthNzP9RDwZwRxQiorCRkRsI5WE4KhM2E5BJErSaz4jJ+OSIV5jLWC49eGrinecZI09sUcpisomcsoGelt/p0HKUimWFDR09ZYkue13Ntb8+2T8FalmXpVVxc5o6pMAByOqwx1uCDQBwR6LBU/ue+PgwrKwiOdbs4lLi10mwlxVekhzCFDID5a/jgSwvO+LnuXllZBLl9fBkItCwe/vL2p9uSCU+xg+B+2FL42zjrqCPAT16aP43c58ThgOF1UhFkvRUQSNz86xgz9r1N9/GpH2dABnmiEm6hEo2utHn8DgEkN03G1GzDTfe9clepSOeyXHrXRTS1Q+pGBzltrcqMT4D50VwXeacsqCgCf9Qpg+gvqr4wc01ZI4tPBAJ1De7Am3DfFWRvHBRb7obyw6MKfIMRcUrfRE4ehjmIEUpc1MxjT2V8MFuW
+	D6ArKFjfQfYSI/N6qoHZ1RKU1XQOGo9jYQwjJQZMeY09hzwUYquvLpQskhYxD23ZerSn4nN5NoXRjaAU7J4hYQHIBw/ZeqUXM6SHXrOsQpKEynCxVIhQ/eBxtUwNX5Ea9DmEL3rKKgktvXbRBWITh4rBlRo0WI4R27Giuzjc9KSXZn8aQ5VtGLBaPJi1Vtp90YX5G+KJn5IgmOFhKgkPZPD5UaWpNnjZ0E9DI5cKecT2wMtzge/kYVHUwK3amY3XParUUT9e/XRUv0Bs34ycpHkhBSKCYgS8ll9MGdBygOF2q8XgfdW5T3zauctDowncaQnT2NvzzLodKlRKobl/lMinahVhKD8BxqnHy2pAfTpt7K9q7pA/Z8cWrKlCiObtTlScBK6/aTu1/BhYmxL5yS4H3Ixktg7ah0QeV3AXADVoHCKMeaJIqyeyKAn1pcaAEx6e2/42upE3bJHyGkBAspNgnX+YzSNr6w/Fk3N/taQEfDytDFXwXKWXOgq+u0rmTFiuJyTEu8WKb8a1PLE7qxk7HX9V91dMTXNDRiQ4w5plYv9pibsXYCi0+P84HG8kO8hygd2pTiqyoUUHit9HsSkV+ttpSBzQTHQ+ruOXi49SL2M+8BTFzoj+w9rjCH4t7KOonyrDsgqgTSiStGZ0dsFxjx6/mCdxVjDPFSf6m7MuVhBuF6LxyRs/R4r0+lJe
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iYlqWOsIZBaBJ7PaJrJfpooKF9KJCoWFB2EL2eBcEoxCtmV9iHUh9CdEmfSo?=
- =?us-ascii?Q?y9yU5aN6ut6CjxcOHxgM7mINKJEKjdQ02BJ5QfwDYKcuI7Bxz8MxYfoR0scv?=
- =?us-ascii?Q?eyuHr0DiKestgtrtLSWN2gFBXXiswrdyyx6GUew+7JzqWiVuwG3TbGDob0Wt?=
- =?us-ascii?Q?RxuBszVpI/w6iHvcKPmlP9n+P3hcTFpQHWFR7vgsuc2L+YGpGbk9R5lWOMWY?=
- =?us-ascii?Q?oY7QZ/P7MN0/bOToZICtDUYgQHK+q/JQKIJ/v5ICwzfr29LJ/ryMkbkLdIoT?=
- =?us-ascii?Q?/2FAFJiyBf0sN3hXWdhXoPpoTUSs5WLWRew17zEvuU2NuhMNCSFSmo1pGAlf?=
- =?us-ascii?Q?QbqTN+XVBcZNjVP5y3YFNP7DfUMEUi5hyQcHZ0aFP/PV7AZVDzEuhb/vM8a6?=
- =?us-ascii?Q?FuAkOXQBRZuN75IDTVCgLPPnaR03ctVFiljp7Z8z/DBvgQ00CCG48dVxP43F?=
- =?us-ascii?Q?u4BBUVOWV1yyDjrb0lmBhlTa4ytMMCBg5XOxoOkzPr4bVpgH3wKF0laOO17n?=
- =?us-ascii?Q?/itPOqIEyyMg2xI+TRDgbnViYpogMov8BUh5COF1yuVpYqFMVGm/bOWamtTO?=
- =?us-ascii?Q?wa4SdpQhwD8WZoizoQhGfNsJw/Xbbuq1Fn6wRgaXGAOmuancJ5LpJ7RV0tjO?=
- =?us-ascii?Q?KjUboVbrbhgZz95Obqc7tnZjmxbDhZBiUyioIwi1LIgAZSIfdwnWzIht3xij?=
- =?us-ascii?Q?9S81Osd2Zuvo5FL0FnK5Pct3hBMecBA5E7mg8qA5Ku7HyLeHKl7iyRfpJLVk?=
- =?us-ascii?Q?ma24Lw6TwrAtqwqHRqkPoG7CLxjVtj+EldVw7bJnUlbPmNxqg27vVxXMvDBt?=
- =?us-ascii?Q?aVn7Rb00p3Psexn+81sM2GgzHI6sZIcAIPalX3dWIkQaauE62TP6f96DRNs0?=
- =?us-ascii?Q?isXaroMj3+sE66OdaU8K4yw9cZA8+ExuE59seIsedomlTkuPubKJQ6ZFurTr?=
- =?us-ascii?Q?HHSaScBjyy/fvk5d5f8rKZF/iJLQ0w9V1eixvt9dViWwFZsL2ny7KHX8f95z?=
- =?us-ascii?Q?g0UEzvxbuuD5Cn3qQYCp5rvsbBvJ9hpRy1jXK0wD8h2QE5dwsfts2VceNPm/?=
- =?us-ascii?Q?3GyfgHs/uSex4wrMrD3BwNDyy38lEYx35RfGahxxwtgS9yu4Z5cBTCiY3K51?=
- =?us-ascii?Q?2sruis3A6frG2uHjgeHZfOal44onvjqV4xrEDGAFs2PVLYX5hoI17MZ7eLx9?=
- =?us-ascii?Q?7o/ORG+1WLQkEESCmFImzaVmIYU2lkGMLK21TtDzdaKqYKfbB325GIT1YPQu?=
- =?us-ascii?Q?Y0CMNqoIdv45RCimwNGLOorDF5fl1pc6HBumDnbx+ygdcbJSogt/FDFlw9DK?=
- =?us-ascii?Q?NarMVeLeMV9Xb1fdZ0EOauXLAp9YAwtmHa6/94d2GK54hk0NZIs/t5ECbQEp?=
- =?us-ascii?Q?9xsm1MTOcT89YLPGC5DhaKUoGZHmbneH+BZNM3m3NQqpcBWYkr7toseqCl7+?=
- =?us-ascii?Q?BsnNX1X204Gs0UHUr3tGLLnsHopqBr7fc4afYl5jOY4qgfwhSo9xE1l/qE7Q?=
- =?us-ascii?Q?oeUxMsiJ8W7oLSXEkCrYofmhMNHsmTZXUBaWNw8GsCEuh/iDqNBtF+ulx50c?=
- =?us-ascii?Q?U1rQTE3Q7ZGylT78vSKICzKigy09/ZmkQYHEhlxtxrYlb/ioxs5W9cNTbONv?=
- =?us-ascii?Q?AnbcReBiLRgTYxYoD0cSAFZaAKZdLKdgXFKSLFNAkB2r62YB7T24zG4aN+AS?=
- =?us-ascii?Q?VYZXIcu5TUNW52DA+cmEKB7syjGMkKLMX5IJk5yRNK/NIJSFbWRcwp7y6LUs?=
- =?us-ascii?Q?kH1hIcMTgw=3D=3D?=
+	=?us-ascii?Q?/6eE3KXtgJQFXyf16mSomgK0HsuH/Su7IimChQBq7N3+PVJZk1KrdYgP1tQG?=
+ =?us-ascii?Q?zJ/1IOjem9jzD/m59bHZSbUy2VBmY/r4NHu1sV9BR3D8dxhXRdcvySCxUD8d?=
+ =?us-ascii?Q?QtK3dNaAqPu/dotsnGIfAD8IbL2oTWG7VUuXIARGftHMNnI1vX+JmHKpei++?=
+ =?us-ascii?Q?9F0FWWC0zM3c9CMKrKkwmozZ36HXWgu0JwuXq6gN5jRxUzlODjpN7cwv6g5z?=
+ =?us-ascii?Q?PscheEAoPJBh1hTaMWP/mGck3GlcwqM0+pwxYTAuUbjB+mAPVmL1derFdkK3?=
+ =?us-ascii?Q?ogOxMSOEEbCSFg+HWlafXOW8O2nLKxApAosGoWwfraLR4+zxkf7nMdmw1kYZ?=
+ =?us-ascii?Q?C3AZMxjanHJkDmnhaZzekajVd+Ddd1h4n32eO6RnvXSWZ99av1M7Hv5ZfWax?=
+ =?us-ascii?Q?gbmnY2eTVvwtx3vxMX3tn+qh1+kXysRGdj663+jr1TiUdBz1UnKEFnis+5SL?=
+ =?us-ascii?Q?HPQRs2mVFb3l2kirO/lhI6Gptza2T4UufTejTBq8NtdDHheLgDSG3WmsE6MM?=
+ =?us-ascii?Q?2ud6aPm7Ryj1UZjcdngTMD7oTczdDzQtA4rMBPnkP9+eIRi1REUlNwhnfZZc?=
+ =?us-ascii?Q?u3erJ5aEjj0f1EwuvZCA9g7oOxit8sQNXW5WqzGeFLxK3LsffRk/TM7PsQW+?=
+ =?us-ascii?Q?/9GSGO8TrThqnLPDsBmTMDBPAdf304yqs2MaqjKzIhwOqvhrM9ejyIt1TpuZ?=
+ =?us-ascii?Q?y/RFn7WtKvYNictMlJdEWZLwYuVPnAJxqkYK/OHx4I2qhzI0wDl176ps2cta?=
+ =?us-ascii?Q?qhcx8K2cqMPmMdHGDa15wgQbOxSPCJHe7QIovAP+f/fuOZPlCPRGb1gWtj03?=
+ =?us-ascii?Q?HPT4eEvyRb8gdgd5s2PSak0LvwVm3T0n5tWmj+WIeuDqmn8NsEFsfN27kxED?=
+ =?us-ascii?Q?jJh4HCkSs8ihEmZvLPSi2u13C7BQXw0R54Vb5govbu/i60UMunHpGPpUYCV+?=
+ =?us-ascii?Q?ywuyFkiIuXvdl6fwCKaboHTTf4a/8v3P4NKciNYq/2G0zQ4gYpAHYcrf5loS?=
+ =?us-ascii?Q?INQN5KAGl2+sqmqxX5MZwDg/us9dEQ1CjytT00v6ftPQfCQvpcCcxOdRAxSR?=
+ =?us-ascii?Q?dq3g2gLl50MN+aCE0Iq3pN1ms6atYgq+DzH8HKLTXcIQrCos1hAmyjoz9aCH?=
+ =?us-ascii?Q?ZTBXIp/vCnp98fqHKcOe5xOc4acHk6ezDjCVsqXeXWcihVey8q7qB151LGQD?=
+ =?us-ascii?Q?MPDAfNT4GieUIaRYwOgwIB1hOGNaqAdLhE5/BGh35o3dlhNoolHhlCINPxP8?=
+ =?us-ascii?Q?/bZIl9Vx+UDRDqeJhMw2JqMM1bkmhxl+nii6WUYbZyJ5lGaD8bLPhHtFgZdR?=
+ =?us-ascii?Q?An8MItVXghudYSnV7ubrYcRlAJeY7ExfnaClSL5uJE3/USXhvzboAvudz2pk?=
+ =?us-ascii?Q?g0T6zTRlPS5XbOMhq0QnfmYh9CU6oI6TjN1PeXxxsy5OJcsdR/nLTgmxTwro?=
+ =?us-ascii?Q?M+qcJ+wbIyPBri6W52A4a8abMRs9gAFKahSoyWSySkjWhn5cr9CqN6EIR3p9?=
+ =?us-ascii?Q?xmhD6D/3YH3Nxdr/+1SX45S9ZdWfFzZ5MT3c4Jimvr04J3rpBNRLdXzoe221?=
+ =?us-ascii?Q?8wJ1wB5+AZCSgQ6jB0S2eaEC8W40O/ZgKE7/OMF2PtQsjc+IY7YA9mApp9Rw?=
+ =?us-ascii?Q?Ri7wXLC/kSVpHGYPHUsO29hC6Zau4z2uE0ah6SAhZWemFXap6hMCCERtFUUg?=
+ =?us-ascii?Q?RnhI+FwAOZV7ZEGpX9sYuC0jJXm+SQX1gH1Kji7NebQr0/0KRQFh9jq6XxRf?=
+ =?us-ascii?Q?/Busf2D8Uw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 469ddcd9-b4d7-4548-3c49-08dea7c46d2f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02868934-a825-4b16-bc80-08dea7c46e4c
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 20:58:42.2171
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 20:58:44.0346
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zPeokRTVgytLj7wLhZet1S1r955bO0g6uoUfzyIa8ujrcZ+tHYqDeqk9WRvan4NilgL/FppB7xixoONyXdoeow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8360
+X-MS-Exchange-CrossTenant-UserPrincipalName: uNY4vx5kjMq/Ehvn4vfMYBBVgvYU3CSJyEYqTBQfGdVfDeqYK0gOstJNMMqAOQrRsDp6KRAx5B23E2+3nY4eow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9554
 
-Create the irq/ module with a type-state INTR_CTRL interrupt
-controller API. The IntrCtrl struct provides factory methods for Top
-and Leaf objects that use a sealed State trait with Idle/Pending types
-to enforce correct usage at compile time.
+Add a CPU doorbell interrupt self-test that runs during probe, after GSP
+boot. The test validates the full MSI interrupt path from GPU through
+PCIe to the CPU interrupt handler.
 
-The type-state pattern ensures ack() is only callable after
-read_pending() has cached the hardware state, preventing mismatched
-masks at compile time.
-
-The later CPU doorbell self-test will make use of it.
+Tested with qemu + GPU passthrough on GA102, with dmesg as follows:
+  NovaCore 0000:00:06.0: CPU doorbell self-test: PASS (irq_count=1)
 
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- drivers/gpu/nova-core/irq.rs           |   2 +
- drivers/gpu/nova-core/irq/intr_ctrl.rs | 281 +++++++++++++++++++++++++
- drivers/gpu/nova-core/nova_core.rs     |   1 +
- 3 files changed, 284 insertions(+)
- create mode 100644 drivers/gpu/nova-core/irq/intr_ctrl.rs
+ drivers/gpu/nova-core/Kconfig              |  13 ++
+ drivers/gpu/nova-core/gpu.rs               |   8 +
+ drivers/gpu/nova-core/irq.rs               |   2 +
+ drivers/gpu/nova-core/irq/doorbell_test.rs | 203 +++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs         |   2 +-
+ 5 files changed, 227 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/nova-core/irq/doorbell_test.rs
 
+diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
+index d8456f8eaa05..e2c8a090c7ff 100644
+--- a/drivers/gpu/nova-core/Kconfig
++++ b/drivers/gpu/nova-core/Kconfig
+@@ -15,3 +15,16 @@ config NOVA_CORE
+ 	  This driver is work in progress and may not be functional.
+ 
+ 	  If M is selected, the module will be called nova_core.
++
++config NOVA_CORE_IRQ_SELFTEST
++	bool "Nova IRQ self-test during probe"
++	depends on NOVA_CORE
++	help
++	  Enable the CPU doorbell IRQ self-test that runs during nova-core
++	  probe. The test triggers vector 129 (CPU doorbell) and verifies
++	  the interrupt is received through the INTR_CTRL interrupt tree.
++
++	  This validates the full MSI interrupt path from GPU through PCIe
++	  to the CPU interrupt handler.
++
++	  If unsure, say N.
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 3b45bce6738b..f6e02007ef8f 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -305,6 +305,14 @@ pub(crate) fn new<'a>(
+             // Allocate a PCI interrupt vector.
+             _: {
+                 let _irq_vector = irq::alloc_vector(pdev)?;
++
++                #[cfg(CONFIG_NOVA_CORE_IRQ_SELFTEST)]
++                irq::doorbell_test::run_selftest(
++                    pdev,
++                    &devres_bar,
++                    spec.chipset,
++                    _irq_vector,
++                )?;
+             },
+ 
+             bar: devres_bar,
 diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
-index 3a2a40519f11..01ae638bf494 100644
+index 01ae638bf494..f4ed4593e795 100644
 --- a/drivers/gpu/nova-core/irq.rs
 +++ b/drivers/gpu/nova-core/irq.rs
 @@ -10,6 +10,8 @@
      prelude::*,
  };
  
-+mod intr_ctrl;
-+
- pub(crate) fn alloc_vector(pdev: &pci::Device<Bound>) -> Result<pci::IrqVector<'_>> {
-     let msi_types = IrqTypes::default().with(IrqType::Msi).with(IrqType::MsiX);
++#[cfg(CONFIG_NOVA_CORE_IRQ_SELFTEST)]
++pub(crate) mod doorbell_test;
+ mod intr_ctrl;
  
-diff --git a/drivers/gpu/nova-core/irq/intr_ctrl.rs b/drivers/gpu/nova-core/irq/intr_ctrl.rs
+ pub(crate) fn alloc_vector(pdev: &pci::Device<Bound>) -> Result<pci::IrqVector<'_>> {
+diff --git a/drivers/gpu/nova-core/irq/doorbell_test.rs b/drivers/gpu/nova-core/irq/doorbell_test.rs
 new file mode 100644
-index 000000000000..dde77cc1f42f
+index 000000000000..fb4e039ac032
 --- /dev/null
-+++ b/drivers/gpu/nova-core/irq/intr_ctrl.rs
-@@ -0,0 +1,281 @@
++++ b/drivers/gpu/nova-core/irq/doorbell_test.rs
+@@ -0,0 +1,203 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! GPU interrupt controller support (INTR_CTRL).
-+//!
-+//! Each PCIe function (PF and each VF, also known as a GFID) has its own
-+//! interrupt tree. In this module, we only interact with the PF tree.
-+//! The VF interacts with its own tree (which appears as a PF tree to it).
-+//!
-+//! See `Documentation/gpu/nova/core/intr-ctrl.rst` for detailed documentation
-+//! of the INTR_CTRL architecture.
-+
 +use kernel::{
-+    io::{
-+        register::Array,
-+        Io, //
++    device::{Bound, Device},
++    devres::Devres,
++    irq, pci,
++    prelude::*,
++    sync::{
++        atomic::{
++            Atomic,
++            Relaxed, //
++        },
++        Arc, Completion,
 +    },
-+    num::Bounded,
++    time,
 +};
 +
-+use crate::{driver::Bar0, gpu::Chipset, regs};
++use super::intr_ctrl::{
++    IntrCtrl,
++    Leaf,
++    LeafIndex, //
++};
++use crate::{
++    driver::Bar0,
++    gpu::Chipset, //
++};
 +
-+/// Type alias for a leaf interrupt index, bounded to valid values 0-15.
-+pub(super) type LeafIndex = Bounded<usize, 4>;
++// The following are constant across all architectures.
 +
-+// Type-state for `Top` and `Leaf`.
-+//
-+// `Top` follows Idle -> Unarmed -> Pending -> consumed (rearmed).
-+// `Leaf` uses Idle -> Pending to catch.
-+//
-+// This catches issues at compile time where we perform an operation
-+// on an object in the wrong state (example, rearming `Top` without reading
-+// pending bits first).
-+/// Sealed trait representing the interrupt controller state.
-+pub(super) trait State: private::Sealed {}
++/// CPU doorbell vector.
++const DOORBELL_VECTOR: u32 = 129;
 +
-+/// Idle state: TOP_EN may or may not be armed; no snapshot held.
-+pub(super) struct Idle;
-+impl State for Idle {}
++/// Leaf index for the doorbell vector: 129 / 32 = 4.
++const DOORBELL_LEAF: usize = 4;
 +
-+/// Unarmed state: TOP_EN was just cleared by this Top handle, snapshot not yet read.
-+pub(super) struct Unarmed;
-+impl State for Unarmed {}
++/// Bit within the leaf: 129 % 32 = 1.
++const DOORBELL_BIT: u32 = 1 << 1;
 +
-+/// Pending state: interrupt mask has been read from hardware.
-+pub(super) struct Pending {
-+    mask: u32,
-+}
-+impl State for Pending {}
-+
-+mod private {
-+    pub(in crate::irq) trait Sealed {}
-+    impl Sealed for super::Idle {}
-+    impl Sealed for super::Unarmed {}
-+    impl Sealed for super::Pending {}
-+}
-+
-+/// Interrupt controller for a single PCIe function's interrupt tree.
-+#[derive(Clone)]
-+pub(super) struct IntrCtrl {
-+    subtree_mask: u8,
++/// IRQ handler for the CPU doorbell self-test.
++///
++/// Performs a minimal interrupt-tree drain cycle:
++/// unarm -> read TOP -> iterate leaves -> ack -> rearm.
++/// Signals completion and increments the interrupt counter on each handled interrupt.
++/// Records the leaf index and pending mask observed by the handler for verification.
++#[pin_data]
++struct DoorbellTestHandler {
++    bar: Arc<Devres<Bar0>>,
++    intr_ctrl: IntrCtrl,
++    #[pin]
++    completion: Completion,
++    /// Used to confirm the number of interrupts handled.
++    irq_count: Atomic<u32>,
++    /// Used to confirm the mask observed on the doorbell leaf (leaf 4).
++    doorbell_leaf_mask: Atomic<u32>,
 +}
 +
-+impl IntrCtrl {
-+    /// Create an `IntrCtrl` configured for the given chipset's interrupt tree width.
-+    pub(super) fn new(chipset: Chipset) -> Self {
-+        // Each TOP bit covers 2 leaves; subtree_mask has one bit per subtree.
-+        //   Pre-Hopper:  8 leaves / 2 = 4 subtrees -> 0x0f (bits [3:0])
-+        //   Hopper+:    16 leaves / 2 = 8 subtrees -> 0xff (bits [7:0])
-+        Self {
-+            subtree_mask: if chipset.arch().is_pre_hopper() {
-+                0xf
-+            } else {
-+                0xff
-+            },
++impl irq::Handler for DoorbellTestHandler {
++    fn handle(&self, dev: &Device<Bound>) -> irq::IrqReturn {
++        let Ok(bar) = self.bar.access(dev) else {
++            return irq::IrqReturn::None;
++        };
++
++        let top = self.intr_ctrl.top().unarm(bar).read_pending(bar);
++
++        if top.mask() == 0 {
++            top.rearm(bar);
++            return irq::IrqReturn::None;
 +        }
-+    }
 +
-+    /// Return a [`Top`] handle in the [`Idle`] state for this controller.
-+    pub(super) fn top(&self) -> Top<Idle> {
-+        Top {
-+            subtree_mask: self.subtree_mask,
-+            state: Idle,
-+        }
-+    }
-+
-+    /// Return a [`Leaf`] handle in the [`Idle`] state for the given leaf index.
-+    pub(super) fn leaf(&self, index: LeafIndex) -> Leaf<Idle> {
-+        Leaf::from_index(index)
-+    }
-+
-+    /// Trigger a CPU doorbell interrupt for the given MSI vector number.
-+    pub(super) fn trigger(&self, bar: &Bar0, vector: u32) {
-+        bar.write(regs::NV_VF_INTR_LEAF_TRIGGER, vector.into());
-+    }
-+
-+    /// Drain any pending interrupts on this controller.
-+    ///
-+    /// Walks all enabled subtrees, reads each leaf's pending mask, and acks
-+    /// any pending bits. Useful for clearing stale interrupt state, e.g.,
-+    /// state leftover when GSP booted.
-+    pub(super) fn drain(&self, bar: &Bar0) {
-+        let top = self.top().unarm(bar).read_pending(bar);
++        // Record the doorbell leaf mask for later verification.
++        let doorbell_leaf = Leaf::from_index(LeafIndex::new::<DOORBELL_LEAF>());
 +
 +        for subtree in top.iter_subtrees() {
-+            for leaf in subtree.iter_pending_leaves(self, bar) {
++            for leaf in subtree.iter_pending_leaves(&self.intr_ctrl, bar) {
++                if leaf == doorbell_leaf {
++                    self.doorbell_leaf_mask.store(leaf.mask(), Relaxed);
++                }
 +                leaf.ack(bar);
 +            }
 +        }
 +
 +        top.rearm(bar);
++
++        // Increment the interrupt counter and signal the completion.
++        self.irq_count.fetch_add(1, Relaxed);
++        self.completion.complete_all();
++
++        irq::IrqReturn::Handled
 +    }
 +}
 +
-+/// Top-level interrupt controller view.
-+pub(super) struct Top<S: State = Idle> {
-+    subtree_mask: u8,
-+    state: S,
-+}
++/// Run the CPU doorbell IRQ self-test.
++///
++/// Registers an IRQ handler, triggers CPU doorbell vector, and verifies the
++/// interrupt is received through the interrupt tree. This validates the full MSI path:
++/// GPU -> PCIe -> CPU -> handler.
++pub(crate) fn run_selftest(
++    pdev: &pci::Device<Bound>,
++    bar_devres: &Arc<Devres<Bar0>>,
++    chipset: Chipset,
++    irq_vector: pci::IrqVector<'_>,
++) -> Result {
++    let bar = bar_devres.access(pdev.as_ref())?;
++    let intr_ctrl = IntrCtrl::new(chipset);
 +
-+impl Top<Idle> {
-+    /// Arm the controller (write TOP_EN_SET). Use for one-shot initial
-+    /// setup before any interrupts are expected. The ISR's normal
-+    /// re-arm path goes through `unarm()` -> `read_pending()` ->
-+    /// `Top<Pending>::rearm()` instead.
-+    pub(super) fn arm(self, bar: &Bar0) {
-+        bar.write(
-+            regs::NV_VF_INTR_TOP_EN_SET,
-+            u32::from(self.subtree_mask).into(),
++    // Clear stale pending bits before enabling the doorbell.
++    intr_ctrl.drain(bar);
++
++    let handler_init = try_pin_init!(DoorbellTestHandler {
++        bar: bar_devres.clone(),
++        intr_ctrl,
++        completion <- Completion::new(),
++        irq_count: Atomic::new(0),
++        doorbell_leaf_mask: Atomic::new(0),
++    }? Error);
++
++    let reg = Arc::pin_init(
++        pdev.request_irq(
++            irq_vector,
++            irq::Flags::TRIGGER_NONE,
++            c"nova-core",
++            handler_init,
++        ),
++        GFP_KERNEL,
++    )?;
++
++    let handler = reg.handler();
++
++    // Allow doorbell leaf.
++    let doorbell_leaf_idx = LeafIndex::new::<DOORBELL_LEAF>();
++    handler
++        .intr_ctrl
++        .leaf(doorbell_leaf_idx)
++        .allow(bar, DOORBELL_BIT);
++
++    // The doorbell bit must be clear before triggering, otherwise the test
++    // cannot prove that the IRQ came from the trigger below.
++    let pre_mask = handler
++        .intr_ctrl
++        .leaf(doorbell_leaf_idx)
++        .read_pending(bar)
++        .mask();
++    if pre_mask & DOORBELL_BIT != 0 {
++        handler
++            .intr_ctrl
++            .leaf(doorbell_leaf_idx)
++            .block(bar, DOORBELL_BIT);
++        let _ = handler.intr_ctrl.top().unarm(bar);
++        dev_warn!(
++            pdev.as_ref(),
++            "CPU doorbell self-test: FAIL (doorbell bit already pending, leaf[{}] mask={:#x})\n",
++            DOORBELL_LEAF,
++            pre_mask,
++        );
++        return Err(EIO);
++    }
++
++    // Arm the INTR_CTRL top level to enable MSI generation.
++    handler.intr_ctrl.top().arm(bar);
++
++    // Trigger the CPU doorbell interrupt.
++    handler.intr_ctrl.trigger(bar, DOORBELL_VECTOR);
++
++    // Wait up to 1 second for the interrupt handler to fire.
++    let completed = handler
++        .completion
++        .wait_for_completion_timeout(time::msecs_to_jiffies(1000));
++
++    let count = handler.irq_count.load(Relaxed);
++    let leaf_mask = handler.doorbell_leaf_mask.load(Relaxed);
++
++    // Block the doorbell leaf after the test.
++    handler
++        .intr_ctrl
++        .leaf(doorbell_leaf_idx)
++        .block(bar, DOORBELL_BIT);
++    let _ = handler.intr_ctrl.top().unarm(bar);
++
++    // Verify that the doorbell IRQ fired.
++    let doorbell_bit_seen = leaf_mask & DOORBELL_BIT != 0;
++    let pass = completed && count == 1 && doorbell_bit_seen;
++
++    if pass {
++        dev_info!(
++            pdev.as_ref(),
++            "CPU doorbell self-test: PASS (irq_count={}, leaf[{}] mask={:#x})\n",
++            count,
++            DOORBELL_LEAF,
++            leaf_mask,
++        );
++    } else {
++        dev_warn!(
++            pdev.as_ref(),
++            "CPU doorbell self-test: FAIL (completed={}, irq_count={}, leaf[{}] mask={:#x})\n",
++            completed,
++            count,
++            DOORBELL_LEAF,
++            leaf_mask,
 +        );
 +    }
 +
-+    /// Unarm the controller (write TOP_EN_CLEAR). MSI is edge-triggered,
-+    /// so this stops the GPU from firing redundant MSI writes over PCIe
-+    /// while the host drains the tree. Consumes self and transitions to
-+    /// `Top<Unarmed>`, which can then `read_pending()`.
-+    pub(super) fn unarm(self, bar: &Bar0) -> Top<Unarmed> {
-+        bar.write(
-+            regs::NV_VF_INTR_TOP_EN_CLEAR,
-+            u32::from(self.subtree_mask).into(),
-+        );
-+        Top {
-+            subtree_mask: self.subtree_mask,
-+            state: Unarmed,
-+        }
-+    }
-+}
-+
-+impl Top<Unarmed> {
-+    /// Read the TOP register's pending bitmask. Consumes self and
-+    /// returns a `Top<Pending>` carrying the snapshot.
-+    pub(super) fn read_pending(self, bar: &Bar0) -> Top<Pending> {
-+        let mask = bar.read(regs::NV_VF_INTR_TOP).into_raw();
-+        Top {
-+            subtree_mask: self.subtree_mask,
-+            state: Pending { mask },
-+        }
-+    }
-+}
-+
-+/// One subtree in the INTR_TOP pending mask (covers two adjacent leaf indices).
-+#[derive(Clone, Copy)]
-+pub(super) struct Subtree {
-+    index: usize,
-+}
-+
-+impl Subtree {
-+    /// Yields the two [`Leaf`] slots covered by this subtree's TOP bit.
-+    fn iter_leaves<'a>(
-+        self,
-+        ctrl: &'a IntrCtrl,
-+    ) -> impl Iterator<Item = Leaf<Idle>> + 'a {
-+        // Each subtree covers two adjacent leaf indices for all architectures.
-+        (0..2usize).filter_map(move |offset| {
-+            // self.index is 0-31 and offset is 0-1, so idx is at most 63.
-+            let idx = self.index * 2 + offset;
-+            LeafIndex::try_new(idx).map(|idx| ctrl.leaf(idx))
-+        })
-+    }
-+
-+    /// Like [`Self::iter_leaves`], but keeps only leaves with a non-zero pending mask.
-+    pub(super) fn iter_pending_leaves<'a>(
-+        self,
-+        ctrl: &'a IntrCtrl,
-+        bar: &'a Bar0,
-+    ) -> impl Iterator<Item = Leaf<Pending>> + 'a {
-+        self.iter_leaves(ctrl).filter_map(move |idle| {
-+            let pending = idle.read_pending(bar);
-+            (pending.mask() != 0).then_some(pending)
-+        })
-+    }
-+}
-+
-+impl Top<Pending> {
-+    /// Return the raw TOP pending bitmask snapshot.
-+    pub(super) fn mask(&self) -> u32 {
-+        self.state.mask
-+    }
-+
-+    /// Iterate over all subtrees with a pending TOP bit set in the snapshot.
-+    pub(super) fn iter_subtrees(&self) -> impl Iterator<Item = Subtree> + '_ {
-+        (0..32usize)
-+            .filter(move |&bit| self.state.mask & (1u32 << bit) != 0)
-+            .map(|index| Subtree { index })
-+    }
-+
-+    /// Re-arm the controller (write TOP_EN_SET). Consumes self so the
-+    /// pending snapshot cannot be consulted or re-iterated afterwards.
-+    pub(super) fn rearm(self, bar: &Bar0) {
-+        bar.write(
-+            regs::NV_VF_INTR_TOP_EN_SET,
-+            u32::from(self.subtree_mask).into(),
-+        );
-+    }
-+}
-+
-+/// Leaf interrupt controller view for one interrupt leaf.
-+pub(super) struct Leaf<S: State = Idle> {
-+    index: LeafIndex,
-+    state: S,
-+}
-+
-+impl<Left: State, Right: State> PartialEq<Leaf<Right>> for Leaf<Left> {
-+    fn eq(&self, other: &Leaf<Right>) -> bool {
-+        self.index == other.index
-+    }
-+}
-+
-+impl<S: State> Eq for Leaf<S> {}
-+
-+// All `try_at().unwrap()` calls below are safe: `LeafIndex` is `Bounded<usize, 4>`,
-+// guaranteeing values 0-15, and all INTR_CTRL leaf register arrays have 16 elements.
-+impl Leaf<Idle> {
-+    /// Construct a [`Leaf`] handle for the given leaf index.
-+    pub(super) fn from_index(index: LeafIndex) -> Self {
-+        Leaf { index, state: Idle }
-+    }
-+
-+    /// Enable the bits in `mask` in this leaf's EN_SET register.
-+    pub(super) fn allow(&self, bar: &Bar0, mask: u32) {
-+        bar.write(
-+            regs::NV_VF_INTR_LEAF_EN_SET::try_at(self.index.get()).unwrap(),
-+            mask.into(),
-+        );
-+    }
-+
-+    /// Disable the bits in `mask` in this leaf's EN_CLEAR register.
-+    pub(super) fn block(&self, bar: &Bar0, mask: u32) {
-+        bar.write(
-+            regs::NV_VF_INTR_LEAF_EN_CLEAR::try_at(self.index.get()).unwrap(),
-+            mask.into(),
-+        );
-+    }
-+
-+    /// Read this leaf's pending interrupt mask and transition to [`Pending`].
-+    pub(super) fn read_pending(self, bar: &Bar0) -> Leaf<Pending> {
-+        let mask = bar
-+            .read(regs::NV_VF_INTR_LEAF::try_at(self.index.get()).unwrap())
-+            .into_raw();
-+        Leaf {
-+            index: self.index,
-+            state: Pending { mask },
-+        }
-+    }
-+}
-+
-+impl Leaf<Pending> {
-+    /// Return the raw pending interrupt bitmask read from hardware.
-+    pub(super) fn mask(&self) -> u32 {
-+        self.state.mask
-+    }
-+
-+    /// Acknowledge all pending bits by writing the mask back to the leaf register.
-+    pub(super) fn ack(&self, bar: &Bar0) {
-+        if self.state.mask != 0 {
-+            bar.write(
-+                regs::NV_VF_INTR_LEAF::try_at(self.index.get()).unwrap(),
-+                self.state.mask.into(),
-+            );
-+        }
-+    }
++    Ok(())
 +}
 diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index 837aa2d36a0e..6d0e4b2f53c7 100644
+index 6d0e4b2f53c7..5fce7068db03 100644
 --- a/drivers/gpu/nova-core/nova_core.rs
 +++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -19,6 +19,7 @@
+@@ -19,7 +19,7 @@
  mod firmware;
  mod gpu;
  mod gsp;
-+#[expect(dead_code)]
+-#[expect(dead_code)]
++#[cfg_attr(not(CONFIG_NOVA_CORE_IRQ_SELFTEST), expect(dead_code))]
  mod irq;
  #[macro_use]
  mod num;
