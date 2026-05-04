@@ -1,186 +1,414 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012015.outbound.protection.outlook.com [40.107.209.15])
+Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6A4387378
-	for <nova-gpu@lists.linux.dev>; Sat,  2 May 2026 19:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777749594; cv=fail; b=amPwopNd83Tz9h5QLX6IlCXPM61Y9IYHDKzUlwRQPUVw+HxMUc9CVi519yCv/Hb91YMP6rrVC55wz5WLECcwNWRauHiaaWoqmXG3dEVcRicumG7IVlnw5K63qOB5CiB/tOcJRa0gm45d5VN3UY0P0YrLCHIazaGOhHQoa0aQXTE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777749594; c=relaxed/simple;
-	bh=88qLPD/HtBWYjywMB4hTUs30Gp7Luom1pA4sMPBFboA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=fKxKxMSTy1xSZVNyN22fsXFvkM2lj3VWInM84nhtFrr51EPIvmxJ0l23X+uWvr5Y6nQSbYBOQOJJdNAsHrp9UqHB7N4mL1pqnGvuqJR+NCd4RaeVvOK20e2BEuT5Xw1U8w+s8YCFnoWDomLHkC2kyDHIn/Aj37SYMHQkxMmTW2c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lbNvNUpW; arc=fail smtp.client-ip=40.107.209.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712B739B4A3
+	for <nova-gpu@lists.linux.dev>; Mon,  4 May 2026 10:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777889919; cv=none; b=DxGSk2Mm4rIwKQpbOr0hjbQ3HJfXWc7NiZhOQUrI8vEOtYvU8NeU3p/xvQRf53MdYk6jl49TXmFcJ8SmQM0h6JOCPCoyrUBTnl7z/C+oeJmtqRD567KMqYl9N7fu9v+6fFMRYSUSAcu4USu+28zEmmWsvp4tE80T/ZjLDJp2CGM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777889919; c=relaxed/simple;
+	bh=m3IwP9EUP4YpRl+pQkOJzg9P6GgXjAd9jWulhfALmHQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cBoIb4RkH4fuAQJplyAZQd3PKFnmINNsVg9u0qxMQA+0vUNA+mAAffGqzWcpTPljzKiiXZho7Hap6baW0RNrNDIZl4wSrLPFRDacqMmbqkBfL8BjlnkQw2CO7mGQBF4ZoM26zZS7aUY+UJzdAdnUveSA75gn/t8yh0ozECCriho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TrBIaTHB; arc=none smtp.client-ip=95.215.58.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lbNvNUpW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LcqcuRRKk/0ItFE9iOGw4ZqFBHlCLwk3HPMUhnzCqqSncSyASJnWl2tyBr1FUVhZBI9VDiX5gVghuAEIgPeB62dzEvl3DwBZCiEHkUIu7ou29lREaWwHV3sSrMtysPaBb3OnTLlxicDMie9CxOSGzZSYRhPMpTLM9yzXU1UDmgi9nCDo+qZ8uZqiCD90FEpY6rlETXcNHRR+wgCFX8000HhClh8fmQGz3y8QtlTIYr1Bp3p5peKT5o4Ia/0z4X8nT0mW3a8uWyFuEhAWYc5ZdHWcM6Gd9/Ctc0SFxzM6Naid3gwf27+0NrIGiCHSHPCTUiNp57X3dd1lYGPQD5rtaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6Dyujo+nQDO9A9o8iv2cs9wThEPILVK6upvq7BEfEfc=;
- b=pKGv2mN9NSjU/gijH46kbTcye+MGDdlVuZV3uKiGWIr99H1FmRt43XvLqiRCJc71tNR4dyRAD2nrPlZCsw9+lEYDa7CZwwieGTUyvdIUGu+P68HX8Usatd7fcV6yPK3ZT9Mt7/M7UGHODh9HPH81gQdRZtCRNQh1nEQId5BxStaHc0dMaSo7mA6UbQK/hsJYdtjR7tRhDt1Znl2UkyND4LfodLktXP98/yjzuR+wYvYisnGsDQ06s22/ZJFqd2mpbJLNPUaclVXjKvSYzsMZpwsbW0Z1Wr9o5mjMOInxNrSvSOW0RlJXpAfVF0ibfuHAVydrGDO3HHp06ApgSLtY0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6Dyujo+nQDO9A9o8iv2cs9wThEPILVK6upvq7BEfEfc=;
- b=lbNvNUpWIWl72C0xIpa+mGb8N+2LpTIms1/LCOLYcJ1CyKNxjKOv0vv8qEWZTVQKfXP01pcQMNG3MhcePOm4ffcbpLB6e0tD/Nzlx8msqkKSDz5B+UUfsRjQqA/8yeEbCo/ZdAaR7Pts5/7p9kQuWelpDIKp4yQwI6zFEP9KjZ6VMDUA2Iu6k1tDqHFuVLPsFQU3JX03Efmyt14I60ryBigV2UdetbrWwxN1XtQqUhGzgD4PMHgRsVY584GhQlQlAoBp3ZQ9hOI8aNo2jOa04i+vToSV4mn/UtC4TJpKu7vMK6RX20U6r6YX0Py/mx1ZhJ+0VcuDTK4oFEyv+WpALA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- CH2PR12MB9518.namprd12.prod.outlook.com (2603:10b6:610:27e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.23; Sat, 2 May
- 2026 19:19:47 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.022; Sat, 2 May 2026
- 19:19:47 +0000
-Message-ID: <53c88538-dca7-41f1-bb2b-856035728c69@nvidia.com>
-Date: Sat, 2 May 2026 15:19:44 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 12/22] gpu: nova-core: mm: Add page table entry
- operation traits
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
- David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org
-References: <20260425211454.174696-1-joelagnelf@nvidia.com>
- <20260425211454.174696-13-joelagnelf@nvidia.com>
- <DI8B0IOXNP2L.1NFX4OTABNHA0@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DI8B0IOXNP2L.1NFX4OTABNHA0@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0P220CA0020.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:52e::17) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TrBIaTHB"
+Message-ID: <9f324d14-bee4-4943-b282-fe2029a3464d@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1777889902;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rbka3AkAOUMoynajA/9NaQsmcGpTjVTQAeBCqupUVbg=;
+	b=TrBIaTHBcc2VZNo5hUp2U8WXvMqEy/GzPsRmt+rfTgm7XCN0qan3er/jb0kL8gsyEkKaRh
+	T+2f6QQrCTU4NYwOWcC6qbHe6aZNB2b9pAlwmP6jjjALvP3ag600iDXxz/JBPR5nyASOVH
+	erYpCGtYy9CB9s4gkkjBc8E0elk+k2Q=
+Date: Mon, 4 May 2026 11:18:17 +0100
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CH2PR12MB9518:EE_
-X-MS-Office365-Filtering-Correlation-Id: 513a3f5c-0df8-45d0-86d1-08dea87fc5ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	d8FUOY53m4MAUCkYn8cXoBufvxVgjOu0wO80flODaaZrPbWg4aAAkt78/qqY89qMFI41XUJTW+1On0PKMGc+/hu7HIp8cD47ak1qZ5A8PU6qRgZeU8lsF03EdDmnEOFx6YwHvl2sjKQj8zMrdMkYqS5KUAf0vifVrkLbp+Y/i1FBqVe+xXemQ+K/2iOu3bHFUHLMjBLMpQ74cCalOelnQ+k9qt8nVK+Qm/r89qcquL3/PVGbZxiXcMfEEbI867pPaKY+wrsmutaQwHtZt9et35VHV5t91Pywz4ev/8/cDraItU2wzAlyboVtVpKInmzoV3/5rjdO/VyQ90ojIy96N8L0P+hp3uvHcyU8rH/JieC1uoBgmtTlzIbWi/Cke3K+enSHiQygnMmnR5ye5Wmo/LktwMpu+0Xpc0GKoFs+f+AzfCWkGG6tQfYCQ+iRxkPJyWm2QXVURYE9AkddAurZZ6pRKvZnuEf9PD1o8ry7W7yyaJ3UrxC3EMi4+PcUXy/BwsaRvPJiVpqIWBILMPccueOEI640BjSQu89RWt1AP/FJq8HI9b5UjQabMMNYGvVOalCTcKBx35soe5UOSX5YA3P3vW5aGCltAYnELW7IPHCz/KggObVx1Ieuxd0aJ0zmXJJryGWs7Q8FSpE3SejAtdS6RD94Xz49g8Ulu/v9noAfnonmOZ+QrqFLZ1tQYLNX
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WlBOdkp1Z2FMVFE0YWkyaHVOaGtBWjBBaTJPZktSalVnMVg4eGxJdjRjN3dH?=
- =?utf-8?B?aHBSS3puOGJHMkZGWkFDaHk0Ry9MVU5RaXRobjJ3VEZpSGlLbXUyeHBDNFVk?=
- =?utf-8?B?bTVTVlNjRFpEeWVkdG9Ybm5iMkpMN0w3TEEzWEp4WGY3Mkw1S0IrQTZjWnc0?=
- =?utf-8?B?NzFOYmUvWktQOHM5Y0h2TW5qMWtWbWFETWU3TXZJMnNHRjdRaXI5ZXlNV1pH?=
- =?utf-8?B?elFJNjB5Sm1yaXVlbHpQbWk2SG9Zais1TzRaTENYOGd3WFh5VGxqSWhMVWNP?=
- =?utf-8?B?S25mTlFvSGFoWFRPSVhDVTZWM2p6b09zV080UEwxRGtSSWNyaVJTZUczUkND?=
- =?utf-8?B?Zm5vZG0rWHgycjl3SEIyTjdWRDZORTEyRjRHbS9mQWpaZUlHSE91ZExwM0cv?=
- =?utf-8?B?NE1ybGR2cmFFZmJqejAxZUwzb1NMblowazdMWS9iTVdEUTRNcXZyZU9OVTZQ?=
- =?utf-8?B?UFV5ZmVCTGFWSHE2WTY4OHFJdjFXVnZ1cWVvQnRqaUQvWGdrcHJDcXFsNXJ0?=
- =?utf-8?B?V082ME43MjNiZG9lS2lFM2tyQzNwdnFBWG52emNlYmVOQ1FyK3BzN3RMeDhV?=
- =?utf-8?B?a0FBZDZsYmJ6TTdVL29NYWhQMStwNmtCWVRYaFE3djlhUERDSjRRYkZ1WFow?=
- =?utf-8?B?R3VlbnloNFdGNXhsU3Q1SGZtUi9weUdOZHJhejhFOGp5VXNwUEJlU1A5RHB1?=
- =?utf-8?B?SlEzanRqWmxqWU5WVVhXd3RGaTE0ckIrL0RhS29lVjZERHB1UGtHZ0V6TVJT?=
- =?utf-8?B?cnprY1JMdHBMS3ZrVjkxRGViUlhLYmVhU0NjejFUa1M0S2VYNXFsQ3A0WTIw?=
- =?utf-8?B?SzZFZlVaQ2ZOS21DUCtDbEZlV3pjUWRtVDh6T2dLb09nVXVkM2J4ZTBETzZW?=
- =?utf-8?B?aytGemJTTmM2dlo3MlJQb1BCa1hPYU9SZ1VrWjNFRVk1dnl4SVI2V3NuK1g3?=
- =?utf-8?B?N0lqa2k3TEkvZEhqNXoveTRXNG9aUDN1SUo0U0k4NkRwejhIZDVkOWpIZGhD?=
- =?utf-8?B?Q2VrdUEwZkNRdGxkejh1Q0J1WHdHZXFwQjdwMVpiVlphNEt4VXNYQ05rdnlB?=
- =?utf-8?B?SnRzaG9icnQ4Rkp1V0t2dEhEYURscGdsQlh0MDlRaEl6bUFQRHFTUWlIeGhx?=
- =?utf-8?B?Yy95SWxkTnpjUFd6NmJjaEMrcDdobnVnY1FBVGpyWndWUWtJSFB5aTJnZGs1?=
- =?utf-8?B?ck9ZYUxpbGpicEhLczVwM1pteWM5MC8wbVhqUGFTRjNldHovbHFZSjNLdGov?=
- =?utf-8?B?VnlRQjhmeS9kNHdyMzhHOVVXdXFhK0ZiZlZ6Z1FYR0ErcVlvaTlBaU5ydm0r?=
- =?utf-8?B?cEtld0VuQzdBdnZiMGtxdUhvQkxIejYyZG1XN3BYbjYrK1grMjJpOEY4c0Yw?=
- =?utf-8?B?SkJtRzlVcWVvWkx1SjV6UHhRcDNaUXFMV1dLM3NzM0F5bldCUmU4aGxyL25I?=
- =?utf-8?B?M1VpNlJac1d1ejJ5Zm9oTjJaVnY0bjZIVFlHcGFraTZPNmpZaHFOWTNwTWdh?=
- =?utf-8?B?Zm1ZV2pNMnQwcGF3bVhwYmRlR253TTBGc0Z6RzNEelNBZFBCOTgrNGk5c3Zj?=
- =?utf-8?B?QVRNdlhVQmxGR0p3dGVzeXMxR2FMVDE3T0pWVitmZnhRbHZzUGI5WjRaWDBU?=
- =?utf-8?B?TkoxRUpuZHVhcURJVEhhTCtxNndlM0FiTDZpckJzRjdrZGdIQkRaalZXMDJ1?=
- =?utf-8?B?WElHV2dZcXJRRDJXWXBGV2FVS21Cd1AwdEU4RTRtK1d2RllqMHJtdjM4RkQ2?=
- =?utf-8?B?d1Y2UmVRU1hPUkVNNllSejBYeGg0VzE0dCtRbTZUc0FpaXVMRE1sQjBGUDBn?=
- =?utf-8?B?OExTelFDT0crSFAramNuNENieVVvcGVjRVRMTzBIMVYzb0t3TWREZGdLbFlE?=
- =?utf-8?B?b0pDWkFQM0x6ek1CWmhPK0hQcmN6UzRnQk1rc1dRRkxXYk1UQm5mR2RqdTgr?=
- =?utf-8?B?Y2VseFFRVGJld0hPalFjbHFVOHNqbjV4STJ0ZkVWLzZlQ2ptc1BsYVczZmVE?=
- =?utf-8?B?RnRaQ1YyNmdRakQybzY3dGNxc3RnVXNUR05JZzlHN2YwQWVOc0dJTWRuSnJR?=
- =?utf-8?B?bTQ2Szg4VWVjY0kzVk9vSkluMkhtblRsME1zWVdiNWdkNUQxdytFWGRRUzJt?=
- =?utf-8?B?VGFNMDlJeGFvcGxuaURhM09IMU5zZnF4aTJSeXNRVmZ0VUJXTFYxUStZaCsy?=
- =?utf-8?B?UlZwaE13V1IvN1lXbVpWczhheUI4MXRDWlNxelZQOEhJL2R2Zlo4T1ZjZDBD?=
- =?utf-8?B?MzJCdGNhOUVVNTZCQjZubGs0ZVZFaUx4NldLbHdkSC9rb0tlNTFCUUJHMmlv?=
- =?utf-8?B?eXdGY3RsVlk3cTc2MDRSZS9EaG5MU0tiK0VzUk1TNzVTVG93c1J2Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 513a3f5c-0df8-45d0-86d1-08dea87fc5ef
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2026 19:19:47.0624
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O2yrCpkPzGyEfURvf/jWK9FEWiNU3s5eYSvzuZsbsFst92lpoH9jBoRgznFJRR/SU0PVKyB0Qgyvf45mpHteOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9518
+Subject: Re: [PATCH 17/24] rust: i2c: make Driver trait lifetime-parameterized
+To: Danilo Krummrich <dakr@kernel.org>, gregkh@linuxfoundation.org,
+ rafael@kernel.org, acourbot@nvidia.com, aliceryhl@google.com,
+ david.m.ertman@intel.com, ira.weiny@intel.com, leon@kernel.org,
+ viresh.kumar@linaro.org, m.wilczynski@samsung.com, ukleinek@kernel.org,
+ bhelgaas@google.com, kwilczynski@kernel.org, abdiel.janulgue@gmail.com,
+ robin.murphy@arm.com, markus.probst@posteo.de, ojeda@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org
+References: <20260427221155.2144848-1-dakr@kernel.org>
+ <20260427221155.2144848-18-dakr@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Igor Korotin <igor.korotin@linux.dev>
+In-Reply-To: <20260427221155.2144848-18-dakr@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
 
 
-On 5/2/2026 11:42 AM, Alexandre Courbot wrote:
-> On Sun Apr 26, 2026 at 6:14 AM JST, Joel Fernandes wrote:
->> Introduce trait-based abstractions for GPU page table entries: PteOps,
->> PdeOps, and DualPdeOps, along with the MmuConfig trait that ties them
->> together with version-specific constants.
->>
->> Refactor the ver2 and ver3 page-table modules to implement these traits
->> and expose the shared entry/PDE/PTE operations uniformly.
+On 4/27/2026 11:11 PM, Danilo Krummrich wrote:
+> Make i2c::Driver take a lifetime parameter 'a that ties device resources
+> to the binding scope.
 > 
-> Please, no. We don't introduce code that gets refactored the very next
-> commit. This patch supersedes 270 lines of diff that reviewers will have
-> processed for nothing.
+> Internally, Adapter<T: Driver> becomes Adapter<F: ForLt> with a bound
+> for<'a> F::Of<'a>: Driver<'a>; module_i2c_driver! wraps the driver type
+> in ForLt!() so drivers don't have to.
+> 
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>   rust/kernel/i2c.rs              | 116 +++++++++++++++++++-------------
+>   samples/rust/rust_driver_i2c.rs |  18 ++---
+>   2 files changed, 78 insertions(+), 56 deletions(-)
+> 
+> diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
+> index 08d310aa9d6b..4464146d6c4d 100644
+> --- a/rust/kernel/i2c.rs
+> +++ b/rust/kernel/i2c.rs
+> @@ -92,43 +92,57 @@ macro_rules! i2c_device_table {
+>   }
+>   
+>   /// An adapter for the registration of I2C drivers.
+> -pub struct Adapter<T: Driver>(T);
+> +///
+> +/// `F` is a [`ForLt`](trait@ForLt) type that maps lifetimes to the driver's device
+> +/// private data type, i.e. `F::Of<'a>` is the driver struct parameterized by `'a`. The macro
+> +/// `module_i2c_driver!` generates this automatically via `ForLt!()`.
+> +pub struct Adapter<F>(PhantomData<F>);
+>   
+>   // SAFETY:
+>   // - `bindings::i2c_driver` is a C type declared as `repr(C)`.
+> -// - `T` is the type of the driver's device private data.
+> +// - `F::Of<'static>` is the stored type of the driver's device private data.
+>   // - `struct i2c_driver` embeds a `struct device_driver`.
+>   // - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `struct device_driver`.
+> -unsafe impl<T: Driver + 'static> driver::DriverLayout for Adapter<T> {
+> +unsafe impl<F> driver::DriverLayout for Adapter<F>
+> +where
+> +    F: ForLt + 'static,
+> +    for<'a> F::Of<'a>: Driver<'a>,
+> +{
+>       type DriverType = bindings::i2c_driver;
+> -    type DriverData = ForLt!(T);
+> +    type DriverData = F;
+>       const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
+>   }
+>   
+>   // SAFETY: A call to `unregister` for a given instance of `DriverType` is guaranteed to be valid if
+>   // a preceding call to `register` has been successful.
+> -unsafe impl<T: Driver + 'static> driver::RegistrationOps for Adapter<T> {
+> +unsafe impl<F> driver::RegistrationOps for Adapter<F>
+> +where
+> +    F: ForLt + 'static,
+> +    for<'a> F::Of<'a>: Driver<'a>,
+> +{
+>       unsafe fn register(
+>           idrv: &Opaque<Self::DriverType>,
+>           name: &'static CStr,
+>           module: &'static ThisModule,
+>       ) -> Result {
+>           build_assert!(
+> -            T::ACPI_ID_TABLE.is_some() || T::OF_ID_TABLE.is_some() || T::I2C_ID_TABLE.is_some(),
+> +            <F::Of<'static> as Driver<'static>>::ACPI_ID_TABLE.is_some()
+> +                || <F::Of<'static> as Driver<'static>>::OF_ID_TABLE.is_some()
+> +                || <F::Of<'static> as Driver<'static>>::I2C_ID_TABLE.is_some(),
+>               "At least one of ACPI/OF/Legacy tables must be present when registering an i2c driver"
+>           );
+>   
+> -        let i2c_table = match T::I2C_ID_TABLE {
+> +        let i2c_table = match <F::Of<'static> as Driver<'static>>::I2C_ID_TABLE {
+>               Some(table) => table.as_ptr(),
+>               None => core::ptr::null(),
+>           };
+>   
+> -        let of_table = match T::OF_ID_TABLE {
+> +        let of_table = match <F::Of<'static> as Driver<'static>>::OF_ID_TABLE {
+>               Some(table) => table.as_ptr(),
+>               None => core::ptr::null(),
+>           };
+>   
+> -        let acpi_table = match T::ACPI_ID_TABLE {
+> +        let acpi_table = match <F::Of<'static> as Driver<'static>>::ACPI_ID_TABLE {
+>               Some(table) => table.as_ptr(),
+>               None => core::ptr::null(),
+>           };
+> @@ -154,7 +168,11 @@ unsafe fn unregister(idrv: &Opaque<Self::DriverType>) {
+>       }
+>   }
+>   
+> -impl<T: Driver + 'static> Adapter<T> {
+> +impl<F> Adapter<F>
+> +where
+> +    F: ForLt + 'static,
+> +    for<'a> F::Of<'a>: Driver<'a>,
+> +{
+>       extern "C" fn probe_callback(idev: *mut bindings::i2c_client) -> kernel::ffi::c_int {
+>           // SAFETY: The I2C bus only ever calls the probe callback with a valid pointer to a
+>           // `struct i2c_client`.
+> @@ -162,13 +180,12 @@ extern "C" fn probe_callback(idev: *mut bindings::i2c_client) -> kernel::ffi::c_
+>           // INVARIANT: `idev` is valid for the duration of `probe_callback()`.
+>           let idev = unsafe { &*idev.cast::<I2cClient<device::CoreInternal>>() };
+>   
+> -        let info = Self::i2c_id_info(idev)
+> -            .or_else(|| <Self as driver::Adapter<'_>>::id_info(idev.as_ref()));
+> -
+>           from_result(|| {
+> -            let data = T::probe(idev, info);
+> +            let info = Self::i2c_id_info(idev)
+> +                .or_else(|| <Self as driver::Adapter<'_>>::id_info(idev.as_ref()));
+> +            let data = <F::Of<'_> as Driver<'_>>::probe(idev, info);
+>   
+> -            idev.as_ref().set_drvdata::<ForLt!(T)>(data)?;
+> +            idev.as_ref().set_drvdata::<F>(data)?;
+>               Ok(0)
+>           })
+>       }
+> @@ -178,11 +195,10 @@ extern "C" fn remove_callback(idev: *mut bindings::i2c_client) {
+>           let idev = unsafe { &*idev.cast::<I2cClient<device::CoreInternal>>() };
+>   
+>           // SAFETY: `remove_callback` is only ever called after a successful call to
+> -        // `probe_callback`, hence it's guaranteed that `I2cClient::set_drvdata()` has been called
+> -        // and stored a `Pin<KBox<T>>`.
+> -        let data = unsafe { idev.as_ref().drvdata_borrow::<ForLt!(T)>() };
+> +        // `probe_callback`, hence it's guaranteed that drvdata has been set.
+> +        let data = unsafe { idev.as_ref().drvdata_borrow::<F>() };
+>   
+> -        T::unbind(idev, data);
+> +        <F::Of<'_> as Driver<'_>>::unbind(idev, data);
+>       }
+>   
+>       extern "C" fn shutdown_callback(idev: *mut bindings::i2c_client) {
+> @@ -190,23 +206,22 @@ extern "C" fn shutdown_callback(idev: *mut bindings::i2c_client) {
+>           let idev = unsafe { &*idev.cast::<I2cClient<device::CoreInternal>>() };
+>   
+>           // SAFETY: `shutdown_callback` is only ever called after a successful call to
+> -        // `probe_callback`, hence it's guaranteed that `Device::set_drvdata()` has been called
+> -        // and stored a `Pin<KBox<T>>`.
+> -        let data = unsafe { idev.as_ref().drvdata_borrow::<ForLt!(T)>() };
+> +        // `probe_callback`, hence it's guaranteed that drvdata has been set.
+> +        let data = unsafe { idev.as_ref().drvdata_borrow::<F>() };
+>   
+> -        T::shutdown(idev, data);
+> +        <F::Of<'_> as Driver<'_>>::shutdown(idev, data);
+>       }
+>   
+>       /// The [`i2c::IdTable`] of the corresponding driver.
+> -    fn i2c_id_table() -> Option<IdTable<<Self as driver::Adapter<'static>>::IdInfo>> {
+> -        T::I2C_ID_TABLE
+> +    fn i2c_id_table<'a>() -> Option<IdTable<<F::Of<'a> as Driver<'a>>::IdInfo>> {
+> +        <F::Of<'a> as Driver<'a>>::I2C_ID_TABLE
+>       }
+>   
+>       /// Returns the driver's private data from the matching entry in the [`i2c::IdTable`], if any.
+>       ///
+>       /// If this returns `None`, it means there is no match with an entry in the [`i2c::IdTable`].
+> -    fn i2c_id_info(dev: &I2cClient) -> Option<&'static <Self as driver::Adapter<'static>>::IdInfo> {
+> -        let table = Self::i2c_id_table()?;
+> +    fn i2c_id_info<'a>(dev: &I2cClient) -> Option<&'a <F::Of<'a> as Driver<'a>>::IdInfo> {
+> +        let table = Self::i2c_id_table::<'a>()?;
+>   
+>           // SAFETY:
+>           // - `table` has static lifetime, hence it's valid for reads
+> @@ -225,15 +240,19 @@ fn i2c_id_info(dev: &I2cClient) -> Option<&'static <Self as driver::Adapter<'sta
+>       }
+>   }
+>   
+> -impl<'a, T: Driver + 'static> driver::Adapter<'a> for Adapter<T> {
+> -    type IdInfo = T::IdInfo;
+> +impl<'a, F> driver::Adapter<'a> for Adapter<F>
+> +where
+> +    F: ForLt + 'static,
+> +    F::Of<'a>: Driver<'a>,
+> +{
+> +    type IdInfo = <F::Of<'a> as Driver<'a>>::IdInfo;
+>   
+>       fn of_id_table() -> Option<of::IdTable<Self::IdInfo>> {
+> -        T::OF_ID_TABLE
+> +        <F::Of<'a> as Driver<'a>>::OF_ID_TABLE
+>       }
+>   
+>       fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>> {
+> -        T::ACPI_ID_TABLE
+> +        <F::Of<'a> as Driver<'a>>::ACPI_ID_TABLE
+>       }
+>   }
+>   
+> @@ -252,8 +271,11 @@ fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>> {
+>   /// ```
+>   #[macro_export]
+>   macro_rules! module_i2c_driver {
+> -    ($($f:tt)*) => {
+> -        $crate::module_driver!(<T>, $crate::i2c::Adapter<T>, { $($f)* });
+> +    (type: $type:ty, $($rest:tt)*) => {
+> +        $crate::module_driver!(<T>, $crate::i2c::Adapter<T>, {
+> +            type: $crate::types::ForLt!($type),
+> +            $($rest)*
+> +        });
+>       };
+>   }
+>   
+> @@ -271,7 +293,7 @@ macro_rules! module_i2c_driver {
+>   /// kernel::acpi_device_table!(
+>   ///     ACPI_TABLE,
+>   ///     MODULE_ACPI_TABLE,
+> -///     <MyDriver as i2c::Driver>::IdInfo,
+> +///     <MyDriver as i2c::Driver<'_>>::IdInfo,
+>   ///     [
+>   ///         (acpi::DeviceId::new(c"LNUXBEEF"), ())
+>   ///     ]
+> @@ -280,7 +302,7 @@ macro_rules! module_i2c_driver {
+>   /// kernel::i2c_device_table!(
+>   ///     I2C_TABLE,
+>   ///     MODULE_I2C_TABLE,
+> -///     <MyDriver as i2c::Driver>::IdInfo,
+> +///     <MyDriver as i2c::Driver<'_>>::IdInfo,
+>   ///     [
+>   ///          (i2c::DeviceId::new(c"rust_driver_i2c"), ())
+>   ///     ]
+> @@ -289,30 +311,30 @@ macro_rules! module_i2c_driver {
+>   /// kernel::of_device_table!(
+>   ///     OF_TABLE,
+>   ///     MODULE_OF_TABLE,
+> -///     <MyDriver as i2c::Driver>::IdInfo,
+> +///     <MyDriver as i2c::Driver<'_>>::IdInfo,
+>   ///     [
+>   ///         (of::DeviceId::new(c"test,device"), ())
+>   ///     ]
+>   /// );
+>   ///
+> -/// impl i2c::Driver for MyDriver {
+> +/// impl<'a> i2c::Driver<'a> for MyDriver {
+>   ///     type IdInfo = ();
+>   ///     const I2C_ID_TABLE: Option<i2c::IdTable<Self::IdInfo>> = Some(&I2C_TABLE);
+>   ///     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
+>   ///     const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
+>   ///
+>   ///     fn probe(
+> -///         _idev: &i2c::I2cClient<Core>,
+> -///         _id_info: Option<&Self::IdInfo>,
+> -///     ) -> impl PinInit<Self, Error> {
+> +///         _idev: &'a i2c::I2cClient<Core>,
+> +///         _id_info: Option<&'a Self::IdInfo>,
+> +///     ) -> impl PinInit<Self, Error> + 'a {
+>   ///         Err(ENODEV)
+>   ///     }
+>   ///
+> -///     fn shutdown(_idev: &i2c::I2cClient<Core>, this: Pin<&Self>) {
+> +///     fn shutdown(_idev: &'a i2c::I2cClient<Core>, _this: Pin<&'a Self>) {
+>   ///     }
+>   /// }
+>   ///```
+> -pub trait Driver: Send {
+> +pub trait Driver<'a>: Send {
+>       /// The type holding information about each device id supported by the driver.
+>       // TODO: Use `associated_type_defaults` once stabilized:
+>       //
+> @@ -335,9 +357,9 @@ pub trait Driver: Send {
+>       /// Called when a new i2c client is added or discovered.
+>       /// Implementers should attempt to initialize the client here.
+>       fn probe(
+> -        dev: &I2cClient<device::Core>,
+> -        id_info: Option<&Self::IdInfo>,
+> -    ) -> impl PinInit<Self, Error>;
+> +        dev: &'a I2cClient<device::Core>,
+> +        id_info: Option<&'a Self::IdInfo>,
+> +    ) -> impl PinInit<Self, Error> + 'a;
+>   
+>       /// I2C driver shutdown.
+>       ///
+> @@ -350,7 +372,7 @@ fn probe(
+>       /// This callback is distinct from final resource cleanup, as the driver instance remains valid
+>       /// after it returns. Any deallocation or teardown of driver-owned resources should instead be
+>       /// handled in `Self::drop`.
+> -    fn shutdown(dev: &I2cClient<device::Core>, this: Pin<&Self>) {
+> +    fn shutdown(dev: &'a I2cClient<device::Core>, this: Pin<&'a Self>) {
+>           let _ = (dev, this);
+>       }
+>   
+> @@ -364,7 +386,7 @@ fn shutdown(dev: &I2cClient<device::Core>, this: Pin<&Self>) {
+>       /// operations to gracefully tear down the device.
+>       ///
+>       /// Otherwise, release operations for driver resources should be performed in `Self::drop`.
+> -    fn unbind(dev: &I2cClient<device::Core>, this: Pin<&Self>) {
+> +    fn unbind(dev: &'a I2cClient<device::Core>, this: Pin<&'a Self>) {
+>           let _ = (dev, this);
+>       }
+>   }
+> diff --git a/samples/rust/rust_driver_i2c.rs b/samples/rust/rust_driver_i2c.rs
+> index 6be79f9e9fb5..f86c1cf7c786 100644
+> --- a/samples/rust/rust_driver_i2c.rs
+> +++ b/samples/rust/rust_driver_i2c.rs
+> @@ -15,25 +15,25 @@
+>   kernel::acpi_device_table! {
+>       ACPI_TABLE,
+>       MODULE_ACPI_TABLE,
+> -    <SampleDriver as i2c::Driver>::IdInfo,
+> +    <SampleDriver as i2c::Driver<'_>>::IdInfo,
+>       [(acpi::DeviceId::new(c"LNUXBEEF"), 0)]
+>   }
+>   
+>   kernel::i2c_device_table! {
+>       I2C_TABLE,
+>       MODULE_I2C_TABLE,
+> -    <SampleDriver as i2c::Driver>::IdInfo,
+> +    <SampleDriver as i2c::Driver<'_>>::IdInfo,
+>       [(i2c::DeviceId::new(c"rust_driver_i2c"), 0)]
+>   }
+>   
+>   kernel::of_device_table! {
+>       OF_TABLE,
+>       MODULE_OF_TABLE,
+> -    <SampleDriver as i2c::Driver>::IdInfo,
+> +    <SampleDriver as i2c::Driver<'_>>::IdInfo,
+>       [(of::DeviceId::new(c"test,rust_driver_i2c"), 0)]
+>   }
+>   
+> -impl i2c::Driver for SampleDriver {
+> +impl<'a> i2c::Driver<'a> for SampleDriver {
+>       type IdInfo = u32;
+>   
+>       const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
+> @@ -41,9 +41,9 @@ impl i2c::Driver for SampleDriver {
+>       const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
+>   
+>       fn probe(
+> -        idev: &i2c::I2cClient<Core>,
+> -        info: Option<&Self::IdInfo>,
+> -    ) -> impl PinInit<Self, Error> {
+> +        idev: &'a i2c::I2cClient<Core>,
+> +        info: Option<&'a Self::IdInfo>,
+> +    ) -> impl PinInit<Self, Error> + 'a {
+>           let dev = idev.as_ref();
+>   
+>           dev_info!(dev, "Probe Rust I2C driver sample.\n");
+> @@ -55,11 +55,11 @@ fn probe(
+>           Ok(Self)
+>       }
+>   
+> -    fn shutdown(idev: &i2c::I2cClient<Core>, _this: Pin<&Self>) {
+> +    fn shutdown(idev: &'a i2c::I2cClient<Core>, _this: Pin<&'a Self>) {
+>           dev_info!(idev.as_ref(), "Shutdown Rust I2C driver sample.\n");
+>       }
+>   
+> -    fn unbind(idev: &i2c::I2cClient<Core>, _this: Pin<&Self>) {
+> +    fn unbind(idev: &'a i2c::I2cClient<Core>, _this: Pin<&'a Self>) {
+>           dev_info!(idev.as_ref(), "Unbind Rust I2C driver sample.\n");
+>       }
+>   }
 
-I really don't know what you mean by '270 lines of diff for nothing'
-because this patch only adds a negative delta of 90 lines or so, before
-adding yet another 300+ new lines. So it really is building on the previous
-patch, which is how we do things upstream. It is iterative. My sense is you
-reviewed this in a hurry and missed that fact while getting hung up on the
-words 'refactor'.
+Acked-by: Igor Korotin <igor.korotin@linux.dev>
 
-Keep in mind also that the addition of PteOps set of traits refactor was
-done much later in the iterations.
-> Please reorder things so they land, as much as possible, in their final
-> form. In this case this probably means defining the trait *before* the V2
-> and V3 page table definitions, so they can implement it from the get-go.
-
-That is a reasonable approach too, I can try to do that, but it is
-misleading to say '270 lines of diff that reviewers will have processed for
-nothing' which is nothing but fiction. Please look more carefully, the
-patch is iterative on the series.
-
-Thanks.
-
-
-
-
+Cheers
+Igor
