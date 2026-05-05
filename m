@@ -1,168 +1,310 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010010.outbound.protection.outlook.com [52.101.201.10])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29747363099
-	for <nova-gpu@lists.linux.dev>; Tue,  5 May 2026 21:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644FD2DECB2;
+	Tue,  5 May 2026 22:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778015938; cv=fail; b=jkuj6POU/HqdrY9KSUZKuS1MdtMeQh1C98htPxQNVb4pMsQlrkrqhzTmN+L1UkPfNxZDRotjSfLBr5Nazc7z+Efj1p1BL7mvNbMWyKWr5I3K2PTSakdRmeur/5S8BUY0Evp4/5LvamGfWJK2eraqb8Lqbcma3m9Qys2dFptogns=
+	t=1778021828; cv=pass; b=o8AoQOgi9D+o7iXy8cfa1a3wEida2psJ1q5fTn4VLGcvpfjfJiidEU06Y7XtcZ3yZ5Ota+fRHCTEn7UU24dFwWMG8VaFpAQB46tYDgpc6y71AcwTEX0lWi9ObNujCWua8vkGLe0/hxDsAyfviVvWeWZgj2SpmkmbKLHDqAtRohg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778015938; c=relaxed/simple;
-	bh=8eiepAaZBLrArqj+6+GgL/c5L40LDA0cXlaXTQwcOXc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=n+q6Gj3Br6vQzZ3KT96wUNELBsvBEZluVEU23XjmtNp+DJrVUx6gaWgaf8YYi23xt7rtnOTkE8dW7HYTp3AGTwadf4PEf9KN1z0j70jgc+now5M3+3LNs/MFkW2CN5+65fD119fhAoXE/tb2LQPlj6pa3SGIIbr0k69ErRAH8Eg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BvgJfn/p; arc=fail smtp.client-ip=52.101.201.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1778021828; c=relaxed/simple;
+	bh=R+ca3AMiLBWOUECbtm9IjAaUWVdGUVmacd/feCRKY2I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tJ2iOO7eZYZ/cg7wsIN5LtCXDMHjcRZSmJeSsvejdYJB+q67p/ZfStsfcTOXJLPX6d96DNIwoqz5rJ+qISit+nwWdNu84OanIvPgy4uyucJ6TuL7idrKAE+Qhpv0URSMb72PspHWaZcUkvRHhxR+PUr+dZOh+nG0aVz08YD6xwA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=TdFzC2WV; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BvgJfn/p"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yn4+kLK4z91PB5B0fLIrIShA5FqEYIPRvDqauzGP4oEhvDuepmswzCD66I5+5TosSuUhiWDBlwK1gCIAJGGopplxTh5fDWFRsv8yqijUAbN6ejC4Q5kasnVzurjZ6j8wsesws5wr0eBmzkMYRZ0IZtpKUQQYCRUjLdNtOSXGrKRAFQMKVs5NBt8bbOMqN8IkES5rNjORxjJPzcXjJLOaMCikf48Joe4Afdsk4tybqv0eYI7tvOll4BlwASISIawyCnv+z74RkaBMWyC2bokq85m/YhUQpSYsKGPd+8wuPyr32cvRUXqJyIPFRLlEsWEB+wugG1XRQKlPp3TRxdQZRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3QPFO6nEAsRlqP7drnfYAiXnzqx4bjvtXQyYZhzMbFA=;
- b=D5nqRFqbkEZLYz3nyZk3Ub8JmW0g47hc5hqaWIKr+0MGaf99yo0AKonugAY+QQraFsvn6zBAZyiK4MOlWb0DjyBbn/QwGh2axfMAdmn77ajMIh63oku4wXMnlXDsceOMD7TuQ2sScw8RgULX4UZgvXT8eUeNf0bC4LmM+jaGeVUWRC57Rw0zq3yexCq+oSqKL50aAAr7qskJ0IJPZwrf7wO3at3EYAsF6w1OeyXkqBwS8K9gd3AZdS9Mz5xprq816LSVWLGTXn+cTXCBrfxSpSKAUNE4qT9Ey1stkluwtXvj0wj/dVFd6CmJDQ7M+8h/ZbZDtbTiaWiSmJsaomiTsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3QPFO6nEAsRlqP7drnfYAiXnzqx4bjvtXQyYZhzMbFA=;
- b=BvgJfn/p/5M6cyWP1AlgmEHsjrAslLqrtHDMzZpG5o8Jz6MjIufMqNXPlV+G8jAd4kL4qBCmfBJagHnakZo2av2nd7TZeW6fXqc/moLNQZVyaR2sJ62VtMsJq7vWdq70YaVXOyKBcwGlNhH4HmUsMReZln+XR1QkCQQj9bdrM85l80Or68v4cSkH4LThSiy4joKvhQUazmUGqNW/AUn3Y6iwOlMJho4MsfTDffyQU5d0GyZaNuBWYGgVt91JqpXJW1aTIR68YL93sNwnC9nlAxibfojLiU3LZQ/SH1gxJg+Lh+PUjm5LEfk8YVAan7S0S1X+L8uHmfpVOv6JgBsgSg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SA1PR12MB6994.namprd12.prod.outlook.com (2603:10b6:806:24d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 21:18:45 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 21:18:45 +0000
-Message-ID: <3f1d7af9-f77f-458b-a44a-d2da5d2499d9@nvidia.com>
-Date: Tue, 5 May 2026 17:18:42 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 20/22] gpu: nova-core: mm: Add PRAMIN aperture
- self-tests
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
- David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org
-References: <20260425211454.174696-1-joelagnelf@nvidia.com>
- <20260425211454.174696-21-joelagnelf@nvidia.com>
- <DI8B0M0QY3XW.4641TH1BU4YF@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DI8B0M0QY3XW.4641TH1BU4YF@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0P220CA0018.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:52e::16) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="TdFzC2WV"
+ARC-Seal: i=1; a=rsa-sha256; t=1778021808; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=TkBzLU05ksB2nEv8kqGU/EyYklw9RuRIllsqtAutyBeed/U7aSHbzP/0jA2AXvBGRMENGlyJwVsdHHrmR2YyLzF7bQwVFoZHTJoiLNeJKwwXidSQQa09Iu0g0v7b6ZLPTl0menX8L+zMQK0jLkg7Je3qa3Hpx/l0gmiBRiP2jeU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1778021808; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nN1bsW6ym83D5h4xk8uw3mGGisLu7l3PYo92knzTzHs=; 
+	b=liEnIGygPffnEAQtPIfEJ9KniLjismmiR4BlGvljE/DMTG3rrAWkFJrys7lSlRqxGoPzG/itVdQyrVnWPVsCUxZe/cuKSqPLqvCCUj3p1xSnjIrdmCBmOzzIw+Li1PvTz/EtdSwSFn6Ew6SLoGN2wDgPtWiv2GUyPcwhC34oDZA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778021808;
+	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=nN1bsW6ym83D5h4xk8uw3mGGisLu7l3PYo92knzTzHs=;
+	b=TdFzC2WVuACGhfR1Td+zqRSNUVy1L/7MgfBuIW3cemd8j6q/F1aFES3DArc2E+zo
+	FsYBaxO6hIaFKw/BUf7S0bUHxtfDoP4KUNCaw/VfXV5KNARZmBp3bW0dUSh4NRISmqj
+	wcQj23tVTz7fzIyYktz/+yLzAYaHbJABNDUenuYQ=
+Received: by mx.zohomail.com with SMTPS id 1778021805371420.73637190632087;
+	Tue, 5 May 2026 15:56:45 -0700 (PDT)
+Date: Tue, 5 May 2026 15:56:44 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
+	aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
+	leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+	ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
+	abdiel.janulgue@gmail.com, robin.murphy@arm.com,
+	markus.probst@posteo.de, ojeda@kernel.org, boqun@kernel.org,
+	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+	a.hindborg@kernel.org, tmgross@umich.edu,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH REF 24/24] gpu: drm: tyr: use HRT lifetime for IoMem
+Message-ID: <afp1rLvvdh_mo_g7@um790>
+References: <20260427221155.2144848-1-dakr@kernel.org>
+ <20260427221155.2144848-25-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA1PR12MB6994:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac868158-d1a8-4ef5-acbe-08deaaebe3ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	N/BzM0Tda/G3vMUI3fRQc53sbFpAtdnbcYJY5pECkMpyoN+Ks09NGom91Mom6eBK1qijgf/zBptl3zK3DihsNsgDirkXxj03b+NA8n64ipllDsq8eyzJShdy7RnBKOJPmu4eRhn8bAPtQ8p5GoaI+3rWyA9WgVNC0gYmbWSX0Whhs/sFWzFfIpdWENUmSTNaEG4a4GAWmpE5CPXeK+QtM7CjASwkAgWSv4d8A9/xS375z8c69uBcyCiAwx3s7iNY70sPXatR5X6eEpMk1BJiXAp5n04S8BQPiTklyOXwXxtPfE1e4WqBYDbtvQyJyQTtt7a2Pxu/2Tg2eu9pQ8sOuKE9d9yGEPQQHbTSLwyven6CJuXdxmtJEaayWRZhwLjCCx62aJjoSr18FriEIo9bAmQ6Q7FaGHdOZtcdCZC+6q9tw2u6hDbgu569xBYNcM/o9O9zC6vs+pvOy45HjATxV27rOKqieK8kpWgiVFrT3zEq2MBGxXCLE4kbmZskXnckhOnNK8LApoThfi7xKbIOw68jlGmBGqirzziv3Xbw28b7JNfLnW9adsLUELnwiYR9qN7Is/DhVZ7k+IumryzdKNCRjT40MxiARetH9J9ut7O+FN0J6mYf2BVQ9y8xl6h0JV5DyUo2QBbi0usuumEbmIAOHYGyITI7S0zoiysE9xNo3BL84JCiLhf/KTT9/8eU
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eElJMDlkTzdaUlh1dlRrYmRFbmttU3luSmdMclp4UFFOV2V4UG4wZzExd3NT?=
- =?utf-8?B?L09QaVpoWk1hK2dldG93MEZsbldCY3pMT2JWRzYyL3ZFOUZnQXBlMXA1N016?=
- =?utf-8?B?cU4vQ250UnQrYU80TjNoTkRSbHBqTXhGNWdWTXE5c2RGZFNleXFtRm9nVWFW?=
- =?utf-8?B?Slh3WWNBMm5uSXVGVTBMaVB3c3dYbUY4UUdWQUQwNjFKc2d5Q3E3cEtmc3Vl?=
- =?utf-8?B?Rkx3cTNCSlFqeTE0ZGNFQmNORExxRFlBSGNQVnVTd3YvMEwyL1pEbWY0NERJ?=
- =?utf-8?B?emx0ZlIrN08wK0x2cVRhZnh3RURmSTBBb3RHbmVGWlYzK3JudTlmYk5Id1Jn?=
- =?utf-8?B?MXJpYnpybTUvcXI1U0M3YWgzZDMvRTdjSXlURWM1MUlHczk3N1AyK0tSSnZ2?=
- =?utf-8?B?YjB2SEY4TUV2TTJSUnNvTFQvU3pjYmJMb1ZpS0NpT2lQVkFmcjlnOGFkMmht?=
- =?utf-8?B?Wi9rTElsNE1ETnFzblA3ZVZ3UGd4UDlxNWdpU0VUQWgxalIzT2Q5aEF4bXRs?=
- =?utf-8?B?bm9wUzY4UFMwN2FDZ2hpTU03cjFkb3MzZTJadm9aSk5QZXAxL25JamxuaTlK?=
- =?utf-8?B?bDN6Q3hSZ3NOTzVINjJnd3JuTVc4Q0s1UDFEbGpPNVNIaktFRk1kUFFuZXdK?=
- =?utf-8?B?N0xhN2dGUm5maHBWSkNHSVkzVVdYbStjcUdHTjN0UDZvOTIzc2FDcTlZNGF2?=
- =?utf-8?B?QmR2a0t0VDBIYUIzRzV1ODRmcVZzem5GQ25IRGwrNndMODVuL2xiNE9MZTIw?=
- =?utf-8?B?dkthRnZwODJZSTMwSnlZTDFUWU9qakdjVUp0bjhZdldGTWl6UWZubUtkOFd3?=
- =?utf-8?B?VEV3TTRmSXNZZTA0VDRjenIyaDdLYXByUk5qc2E3TEo5SklnTVNwV0dkS1pr?=
- =?utf-8?B?Znd2VHd1d1B2cTUrRTRpLzdvYklZeWlxSUJxbDdxMFdFMEJ0MDNSZC9xS29O?=
- =?utf-8?B?TlFuRElqSy9TM0tGTXByVGh4M3lyb2dLUFVCdVRUR1JGakwzcUd3MnpyTWZq?=
- =?utf-8?B?R2pWSTZjVXpJWWxyK002cy9OWFB0dDVEZXM2WGNtUjJlNXFnUzYzaFg3cm5U?=
- =?utf-8?B?dytNTG9xNms5eVVmTlJybDVIOTJCMjN0NXJ0RndocENtM3Y0SVlaOWdDaTVT?=
- =?utf-8?B?Y01hRStKUm5XeGFuNHlDQWJsMDhxVXBwY3QxMlBlaGRXbE9wYUFVb09XNkNq?=
- =?utf-8?B?cFJrR0Y4d3FPeXFEdGZaRGNIWko5Zk9CU2o0bzZIOWZDclR0cmZPWlRHTFpw?=
- =?utf-8?B?VE8xdHRVVTV3cXlIUHFVbmQyK2dsN2J5NXlvUnZqK0RmaS9mYUQ5SVBVVFg3?=
- =?utf-8?B?RlZJVFZqZE5xTmRsbk5XekdDT3FTeWlXMFdwdlpEazFIWkNKWDFsdlk1Q0JS?=
- =?utf-8?B?TVo3OTNocWdsaFpOZzlnYVdHbEFaRnRvQ0phVDNqQmZLNHlTdHMycHJIdk9w?=
- =?utf-8?B?TEhYMUxPMjZWZ0lKUzdQcjIxMGlGdjhoakg2M2xyWlpZOXFGc3N4UHA1dEM5?=
- =?utf-8?B?V3UrSEpBMTJJR3JhZVFtU2drdUpENW5xa1hnTkwxSmEybGN4SSt5c1VJK1BX?=
- =?utf-8?B?Qi81c1JDTWRCdEtxQnZOK0pNSUhqTzV4d2JJUFdtMzNqaXg3WGtZY2xqWFpO?=
- =?utf-8?B?ZmxlMDBncEM2ckxnZ2gyQUV6SG4rR2tvd2tLeXhpcVh2dmdoeXI2dDBTenBR?=
- =?utf-8?B?M081d3UwNEh4Y0VGMVdkN2hKNGJhaUZTditnVVRxRGtEZ0IvSUh0cTkwd1RP?=
- =?utf-8?B?MkQvOGswbFFYUmJZcm53Tlo0YXFPZ29hai9hd3BrYkp1WmRoMndFb21MVEow?=
- =?utf-8?B?NkFoTDR0alFwT2NQMzJNaUdpU3hpQ3E0bWxYQWVybjZSV1FPTEIxQ0QvZEk5?=
- =?utf-8?B?cFh5azAwYzBEUDZ1UnNPR1l6YU5sM1M4ZXFxZnIxSDVvanJHNjRHUkt0SlpS?=
- =?utf-8?B?YXcrQ2VUcG16YnVvaU5IRVlzQVBMMmhhVFJEOC9DKzM0VThDeXJIT3FJZDhS?=
- =?utf-8?B?Wk5CNzJ1Szd4UkJiWGc2ZTNJa0NyR002Y2MvZktnTEpkTHQrMjh3VWZrdXl5?=
- =?utf-8?B?VXR3cEZBT0ZQN2QrbE5CYmNZZFl1V0Irb3g1Vk5ETU5ZUEFwWkEyNWpMWFlF?=
- =?utf-8?B?SGhLQmphUmt0cXlSU0d6QWhiMWJzUlZFVXhvdG5IVjZKZVBvd0lTZi96clBv?=
- =?utf-8?B?K1hObVlOYStXQ0k2RVI2bTJud2RSUnhzVGlXSXFDYlFkNGZCcDJJUVJwd0t2?=
- =?utf-8?B?ZTFFQVNTdjkrOXZkVzJoaXg2VlllZG9PNDRlV1I3TFN3QWhYOWNwT2dBYTdS?=
- =?utf-8?B?TWlzODhVL1VIaGxWYXhKUzhBbE5hazdRVGNKOU9IbGJpbmRsZ1h3QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac868158-d1a8-4ef5-acbe-08deaaebe3ab
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 21:18:44.8702
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fIPWRagtrSAI7EHoeQKb9VEHaQrh9O97YKIb8EWXGv7oe4oJ5fkiss3EQIKbndzNH/JZjPOvmwHkPbs+X3kf3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6994
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427221155.2144848-25-dakr@kernel.org>
 
-
-
-On 5/2/2026 11:42 AM, Alexandre Courbot wrote:
-> On Sun Apr 26, 2026 at 6:14 AM JST, Joel Fernandes wrote:
->> Add self-tests for the PRAMIN aperture mechanism to verify correct
->> operation during GPU probe. The tests validate various alignment
->> requirements and corner cases.
->>
->> The tests are default disabled and behind CONFIG_NOVA_MM_SELFTESTS.
->> When enabled, tests run after GSP boot during probe.
+On Tue, Apr 28, 2026 at 12:11:22AM +0200, Danilo Krummrich wrote:
+> Take advantage of the lifetime-parameterized IoMem<'a> to use the
+> memory mapping directly during probe, eliminating the Arc<Devres<IoMem>>
+> indirection.
 > 
-> It makes sense for the PRAMIN self-test to be merged alongside PRAMIN
-> support (and also gives us a reason to merge PRAMIN as soon as it is
-> ready even if the rest of the series is still under review, as it
-> exercises the code).
+> Since the IoMem is only used during probe, this also simplifies
+> Register::read/write to be infallible -- the Devres access check is no
+> longer needed, so reads return u32 directly and writes return ().
+
+Hi Danilo,
+Is the intended model that DRM drivers keep lifetime-bound resources such as
+IoMem<'bound> only in platform drvdata and access them via Device::drvdata_borrow()?
+
+Or is the expectation that drm::Driver should also have a lifetime-parameterized
+Data associated type?
+
+The reason I ask is that Tyr currently stores an MMIO handle in several areas,
+(firmware, MMU/address-space management, and IRQ handling)  and it does register
+accesses directly. See what we're trying to do:
+https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com/
+
+Moving IoMem<'bound> only into platform drvdata would require a big refactor
+to thread &IoMem<'_> through those paths or fetch it from drvdata at each hardware
+access site. So, I wanted to clarify the plan first before I start this work.
+
+Thanks,
+Deborah
+
 > 
-> Can you move this patch right after patch 4?
-
-Sure, I will do that.
-
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+> Not yet updated to Tyr using the register!() macro, but probably good enough for
+> reference.
+> ---
+>  drivers/gpu/drm/tyr/driver.rs | 14 ++++----
+>  drivers/gpu/drm/tyr/gpu.rs    | 62 +++++++++++++++++------------------
+>  drivers/gpu/drm/tyr/regs.rs   | 21 +++---------
+>  3 files changed, 41 insertions(+), 56 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+> index eaa84efdfdf7..d305ad433e03 100644
+> --- a/drivers/gpu/drm/tyr/driver.rs
+> +++ b/drivers/gpu/drm/tyr/driver.rs
+> @@ -10,7 +10,6 @@
+>          Core,
+>          Device, //
+>      },
+> -    devres::Devres,
+>      drm,
+>      drm::ioctl,
+>      io::poll,
+> @@ -23,7 +22,6 @@
+>      sizes::SZ_2M,
+>      sync::{
+>          aref::ARef,
+> -        Arc,
+>          Mutex, //
+>      },
+>      time, //
+> @@ -37,7 +35,7 @@
+>      regs, //
+>  };
+>  
+> -pub(crate) type IoMem = kernel::io::mem::IoMem<'static, SZ_2M>;
+> +pub(crate) type IoMem = kernel::io::Mmio<SZ_2M>;
+>  
+>  pub(crate) struct TyrDrmDriver;
+>  
+> @@ -65,11 +63,11 @@ pub(crate) struct TyrDrmDeviceData {
+>      pub(crate) gpu_info: GpuInfo,
+>  }
+>  
+> -fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
+> -    regs::GPU_CMD.write(dev, iomem, regs::GPU_CMD_SOFT_RESET)?;
+> +fn issue_soft_reset(dev: &Device<Bound>, iomem: &IoMem) -> Result {
+> +    regs::GPU_CMD.write(iomem, regs::GPU_CMD_SOFT_RESET);
+>  
+>      poll::read_poll_timeout(
+> -        || regs::GPU_IRQ_RAWSTAT.read(dev, iomem),
+> +        || Ok(regs::GPU_IRQ_RAWSTAT.read(iomem)),
+>          |status| *status & regs::GPU_IRQ_RAWSTAT_RESET_COMPLETED != 0,
+>          time::Delta::from_millis(1),
+>          time::Delta::from_millis(100),
+> @@ -109,12 +107,12 @@ fn probe(
+>          let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
+>  
+>          let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
+> -        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?.into_devres()?, GFP_KERNEL)?;
+> +        let iomem = request.iomap_sized::<SZ_2M>()?;
+>  
+>          issue_soft_reset(pdev.as_ref(), &iomem)?;
+>          gpu::l2_power_on(pdev.as_ref(), &iomem)?;
+>  
+> -        let gpu_info = GpuInfo::new(pdev.as_ref(), &iomem)?;
+> +        let gpu_info = GpuInfo::new(&iomem);
+>          gpu_info.log(pdev);
+>  
+>          let platform: ARef<platform::Device> = pdev.into();
+> diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
+> index a88775160f98..bb0473c85bf7 100644
+> --- a/drivers/gpu/drm/tyr/gpu.rs
+> +++ b/drivers/gpu/drm/tyr/gpu.rs
+> @@ -10,7 +10,6 @@
+>          Bound,
+>          Device, //
+>      },
+> -    devres::Devres,
+>      io::poll,
+>      platform,
+>      prelude::*,
+> @@ -35,37 +34,36 @@
+>  pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
+>  
+>  impl GpuInfo {
+> -    pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
+> -        let gpu_id = regs::GPU_ID.read(dev, iomem)?;
+> -        let csf_id = regs::GPU_CSF_ID.read(dev, iomem)?;
+> -        let gpu_rev = regs::GPU_REVID.read(dev, iomem)?;
+> -        let core_features = regs::GPU_CORE_FEATURES.read(dev, iomem)?;
+> -        let l2_features = regs::GPU_L2_FEATURES.read(dev, iomem)?;
+> -        let tiler_features = regs::GPU_TILER_FEATURES.read(dev, iomem)?;
+> -        let mem_features = regs::GPU_MEM_FEATURES.read(dev, iomem)?;
+> -        let mmu_features = regs::GPU_MMU_FEATURES.read(dev, iomem)?;
+> -        let thread_features = regs::GPU_THREAD_FEATURES.read(dev, iomem)?;
+> -        let max_threads = regs::GPU_THREAD_MAX_THREADS.read(dev, iomem)?;
+> -        let thread_max_workgroup_size = regs::GPU_THREAD_MAX_WORKGROUP_SIZE.read(dev, iomem)?;
+> -        let thread_max_barrier_size = regs::GPU_THREAD_MAX_BARRIER_SIZE.read(dev, iomem)?;
+> -        let coherency_features = regs::GPU_COHERENCY_FEATURES.read(dev, iomem)?;
+> -
+> -        let texture_features = regs::GPU_TEXTURE_FEATURES0.read(dev, iomem)?;
+> -
+> -        let as_present = regs::GPU_AS_PRESENT.read(dev, iomem)?;
+> -
+> -        let shader_present = u64::from(regs::GPU_SHADER_PRESENT_LO.read(dev, iomem)?);
+> +    pub(crate) fn new(iomem: &IoMem) -> Self {
+> +        let gpu_id = regs::GPU_ID.read(iomem);
+> +        let csf_id = regs::GPU_CSF_ID.read(iomem);
+> +        let gpu_rev = regs::GPU_REVID.read(iomem);
+> +        let core_features = regs::GPU_CORE_FEATURES.read(iomem);
+> +        let l2_features = regs::GPU_L2_FEATURES.read(iomem);
+> +        let tiler_features = regs::GPU_TILER_FEATURES.read(iomem);
+> +        let mem_features = regs::GPU_MEM_FEATURES.read(iomem);
+> +        let mmu_features = regs::GPU_MMU_FEATURES.read(iomem);
+> +        let thread_features = regs::GPU_THREAD_FEATURES.read(iomem);
+> +        let max_threads = regs::GPU_THREAD_MAX_THREADS.read(iomem);
+> +        let thread_max_workgroup_size = regs::GPU_THREAD_MAX_WORKGROUP_SIZE.read(iomem);
+> +        let thread_max_barrier_size = regs::GPU_THREAD_MAX_BARRIER_SIZE.read(iomem);
+> +        let coherency_features = regs::GPU_COHERENCY_FEATURES.read(iomem);
+> +
+> +        let texture_features = regs::GPU_TEXTURE_FEATURES0.read(iomem);
+> +
+> +        let as_present = regs::GPU_AS_PRESENT.read(iomem);
+> +
+> +        let shader_present = u64::from(regs::GPU_SHADER_PRESENT_LO.read(iomem));
+>          let shader_present =
+> -            shader_present | u64::from(regs::GPU_SHADER_PRESENT_HI.read(dev, iomem)?) << 32;
+> +            shader_present | u64::from(regs::GPU_SHADER_PRESENT_HI.read(iomem)) << 32;
+>  
+> -        let tiler_present = u64::from(regs::GPU_TILER_PRESENT_LO.read(dev, iomem)?);
+> -        let tiler_present =
+> -            tiler_present | u64::from(regs::GPU_TILER_PRESENT_HI.read(dev, iomem)?) << 32;
+> +        let tiler_present = u64::from(regs::GPU_TILER_PRESENT_LO.read(iomem));
+> +        let tiler_present = tiler_present | u64::from(regs::GPU_TILER_PRESENT_HI.read(iomem)) << 32;
+>  
+> -        let l2_present = u64::from(regs::GPU_L2_PRESENT_LO.read(dev, iomem)?);
+> -        let l2_present = l2_present | u64::from(regs::GPU_L2_PRESENT_HI.read(dev, iomem)?) << 32;
+> +        let l2_present = u64::from(regs::GPU_L2_PRESENT_LO.read(iomem));
+> +        let l2_present = l2_present | u64::from(regs::GPU_L2_PRESENT_HI.read(iomem)) << 32;
+>  
+> -        Ok(Self(uapi::drm_panthor_gpu_info {
+> +        Self(uapi::drm_panthor_gpu_info {
+>              gpu_id,
+>              gpu_rev,
+>              csf_id,
+> @@ -88,7 +86,7 @@ pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
+>              core_features,
+>              pad: 0,
+>              gpu_features: 0,
+> -        }))
+> +        })
+>      }
+>  
+>      pub(crate) fn log(&self, pdev: &platform::Device) {
+> @@ -208,11 +206,11 @@ fn from(value: u32) -> Self {
+>  }
+>  
+>  /// Powers on the l2 block.
+> -pub(crate) fn l2_power_on(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
+> -    regs::L2_PWRON_LO.write(dev, iomem, 1)?;
+> +pub(crate) fn l2_power_on(dev: &Device<Bound>, iomem: &IoMem) -> Result {
+> +    regs::L2_PWRON_LO.write(iomem, 1);
+>  
+>      poll::read_poll_timeout(
+> -        || regs::L2_READY_LO.read(dev, iomem),
+> +        || Ok(regs::L2_READY_LO.read(iomem)),
+>          |status| *status == 1,
+>          Delta::from_millis(1),
+>          Delta::from_millis(100),
+> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
+> index 611870c2e6af..0881b3812afd 100644
+> --- a/drivers/gpu/drm/tyr/regs.rs
+> +++ b/drivers/gpu/drm/tyr/regs.rs
+> @@ -7,16 +7,7 @@
+>  // does.
+>  #![allow(dead_code)]
+>  
+> -use kernel::{
+> -    bits::bit_u32,
+> -    device::{
+> -        Bound,
+> -        Device, //
+> -    },
+> -    devres::Devres,
+> -    io::Io,
+> -    prelude::*, //
+> -};
+> +use kernel::{bits::bit_u32, io::Io};
+>  
+>  use crate::driver::IoMem;
+>  
+> @@ -29,15 +20,13 @@
+>  
+>  impl<const OFFSET: usize> Register<OFFSET> {
+>      #[inline]
+> -    pub(crate) fn read(&self, dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<u32> {
+> -        let value = (*iomem).access(dev)?.read32(OFFSET);
+> -        Ok(value)
+> +    pub(crate) fn read(&self, iomem: &IoMem) -> u32 {
+> +        iomem.read32(OFFSET)
+>      }
+>  
+>      #[inline]
+> -    pub(crate) fn write(&self, dev: &Device<Bound>, iomem: &Devres<IoMem>, value: u32) -> Result {
+> -        (*iomem).access(dev)?.write32(value, OFFSET);
+> -        Ok(())
+> +    pub(crate) fn write(&self, iomem: &IoMem, value: u32) {
+> +        iomem.write32(value, OFFSET);
+>      }
+>  }
+>  
+> -- 
+> 2.54.0
+> 
