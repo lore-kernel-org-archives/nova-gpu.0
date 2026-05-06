@@ -1,119 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010000.outbound.protection.outlook.com [52.101.193.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CAA30B521;
-	Tue,  5 May 2026 23:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778022732; cv=none; b=sbvbl01GeWIo+OzS0fpwIXU2mOJPQ+Rq4A5NltOe5ET/cZAfvccJ+M0BUcCVysCnkBPZa1AD3rVMjHTtqhOdU2Y+CC39a0NE9/D/Chwo3U0cFTrcs03gY947sBw5nndp9kTo1KbJKttPdl63nsLtEw3P5SrqyTKkOuGr5tbH4Jo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778022732; c=relaxed/simple;
-	bh=KphMG9jiVB2OJLAMUTdfTkFkyrHOjO80/tesl+RVVT4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=bS8n1hb04G6W9VEqvfoL/Z8ltgsNKypqS3HtbbbuVQaYybnpTS2jDmy0hG96dZpXLwsAJDhWTfsMkvuc1kBnh5KukRY1+ZYdBlWoYN0S6v51UZjLrnGld/ymblwTy8WgpCU/M0Y2N8QDCZX+DKOvfV0XRpSZxyCmNWE5AO5yUv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLeKvUQ4; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2E421A434
+	for <nova-gpu@lists.linux.dev>; Wed,  6 May 2026 00:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778028429; cv=fail; b=RGwDwhadzSOGCELQDpg2FZbuGTP8FJmNBlgGreVkPxdcLMVS6gdarQv0HaHV79N3Zxl+70IsHDQNs7X80x59jzyIBS2LDUwUQDA5lPJGjDEj1IsgUM3MMdrANB2RgcYeSZ323wTrY7Up/NHsayl/7Mb+bd62zOET+Lg7P1dAnYQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778028429; c=relaxed/simple;
+	bh=y/x2d8z9MBvPYkncQsuQyghErKZaL5JZnxkYJrrWCJo=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=ex72pL5VgA8eYyW0yagjaWgKYcHOuMn+3m9cB5l8jUzAZ/vdLhhhnUxhffxPs4UrYSTWxPQDddoo8MKP/E6NzurwehnQRPUU1s5aLBWU6xvmpsm4QDOzoBA48mb1KIvU1Cj7MlC7AQVoWdiMirLEvJPzTyzmRRVLgI5G1MuWwVA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fDpxAucA; arc=fail smtp.client-ip=52.101.193.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLeKvUQ4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEA06C2BCB4;
-	Tue,  5 May 2026 23:12:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778022732;
-	bh=KphMG9jiVB2OJLAMUTdfTkFkyrHOjO80/tesl+RVVT4=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To:From;
-	b=nLeKvUQ4j8NIWpLtl1VhRpd7s/lcvYTFSFEoiUp9vRAz62tcyYHXsUPNFhXmV8TDe
-	 G7q956NMUdSYHXKkOdo7is74GUwJULIsEK+a275FEgVuiTLveWpR+rkehdw8gnQCkA
-	 fdv/djTHNVNdosNV21qzbhndSyB70D+tz8zTT/pBV5zxlP0v+2Oy8DEiMMlMfrROKZ
-	 euUccuMQeFMdz5SfhBooRT+NpOTI5VCf0IgX/95pYP6Niz6/2x/GK0pgJ8uKzEsJlo
-	 8u0Ic+b5QLdBuIkGDKm1GJqzejs8qnbsZZdSel9xT3nYWTsum3Xmk2jWyIWL+nm0BW
-	 gJlAK9RKF9MMQ==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fDpxAucA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fcTkZwuOEqTdwWd4sTLL8hSLimEs6adAXKmGugjJ8Itr3felObxjrBtQP1PY6HU5uBBBGrSj4VP9cAkjyDKWAaHhul0FL8OupnTQDl7D8kKj9Xe8vo+GbyhSeKlIduhMtnABci6WK4DoQcWhsCtvGK+NuzcwyRpW4SMiShA+QcHWHlBkQo3/3EN0U5pDPptg0iSv+ZA0ZFxAcTw8uQYFtnVCEzeJgDWgUVVLEiRIZ0yDhMejTtKf4wbC46gOS/lUVi/ZnF2YkbWIqzKMvRGHDcbuGBupk/OIlcaDFa8tiWkfPq1snbWryKpz728Y7KtTdgJ2pMoRuluFpPM44d32TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6fpUZeXll9NWKmQdtTCzEHQvZ7FwYb7pJ9Gm9DXFYi0=;
+ b=CKMUbBRmpCgsmms7UTWbgtkTZw7rsxK5s3ulkB5ZL0HEuIAWtD02gIPSyt2n5zXzMrdVgXEtYTxyzyA43PwkVE8JcxiqZ/oHAnavvj3OioAshwqrp7accyROb0F7oQdCBgYKI0wDNmRIy4TDaAYQrdRe+m9EoPHIovGvFMyzk1zWwg8mQBYs7KLpw4alTs19OLvGg64j/JV9Ckh6B4fMy2UUXDp48BkLAVLC75/okq+ABAGtByD+g44k0CgR3bxIPvEafzuzJHZtxFZCAizo+bjJQ6RokIUw0HU0EIMrdyTHv4HTmQvU0vX2JRUxuGINiQRCEblB9enhv5Trdx0vLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6fpUZeXll9NWKmQdtTCzEHQvZ7FwYb7pJ9Gm9DXFYi0=;
+ b=fDpxAucAngX3REsyzSIRa5lTcoABkYO4o8jyAaS7eF2TAaU8lzIhihq5UMr2lquC6twhE8a2U5buDih/9fqjVhuk47aqe/25helaQJlAxZ65bsNSOJadY+FcsYKtEVXJX2GYVUfRD4jLZWIOKxAu62HWlCLmZqvtCslnQ7V3u04etlmVdNfWQTYO0yIai9iuS5eTqLmvezpdPyf72EpQrNUlvR55rIbFDr9Yn31fvPuFUfRptI9I425ayq3noUsZfahjM5Ja4yuisXgf4QZRNRDaVk3nHel/m7Gep5K9DxyItnlRWaS4HG1av9ylq+o0Go4K6LkLUr/tHWKMbY+5tg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by IA1PR12MB7685.namprd12.prod.outlook.com (2603:10b6:208:423::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Wed, 6 May
+ 2026 00:47:02 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.023; Wed, 6 May 2026
+ 00:47:02 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 06 May 2026 09:46:55 +0900
+Message-Id: <DIB6GXZLRZ9B.3KO488FTILJUV@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Bjorn Roy
+ Baron" <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>, "Nikola
+ Djukic" <ndjukic@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Boqun
+ Feng" <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Edwin Peer" <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy
+ Ritger" <aritger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
+ <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>,
+ <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v12 01/22] gpu: nova-core: gsp: Return GspStaticInfo
+ from boot()
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260425211454.174696-1-joelagnelf@nvidia.com>
+ <20260425211454.174696-2-joelagnelf@nvidia.com>
+ <DI8AZLB2610U.10MNQ0IPV6NSL@nvidia.com>
+ <b0d54b3f-4708-433b-9180-afd6a54c6226@nvidia.com>
+In-Reply-To: <b0d54b3f-4708-433b-9180-afd6a54c6226@nvidia.com>
+X-ClientProxiedBy: OSAPR01CA0255.jpnprd01.prod.outlook.com
+ (2603:1096:604:29::27) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 06 May 2026 01:12:05 +0200
-Message-Id: <DIB4GBS45L86.LTUCNRDL24Y3@kernel.org>
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-To: "Deborah Brouwer" <deborah.brouwer@collabora.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH REF 24/24] gpu: drm: tyr: use HRT lifetime for IoMem
-References: <20260427221155.2144848-1-dakr@kernel.org>
- <20260427221155.2144848-25-dakr@kernel.org> <afp1rLvvdh_mo_g7@um790>
-In-Reply-To: <afp1rLvvdh_mo_g7@um790>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA1PR12MB7685:EE_
+X-MS-Office365-Filtering-Correlation-Id: 251708e7-657a-42ab-0729-08deab08fbfa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|10070799003|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	G29M+wjrqnDarzYC+nn+PcXRL0xFWdTytwBRQN52XGXGtKrfUgnqqfFVFG5OpGksSEBiw3qvjd7ljTS8ZqPIkp5kL/9VN/Q/ZzjfgKEnx/sdTSXJxsVm9/OPiYOAYzRlpdbTlpPhuF1FAIzPkyDJERgMaE/pXjUWnLyAMkJZir600iPUxt4p+QXXX42Vh8OR32I5yaO9RfohY5NVmmThuSiVbxEptoLVpuazoZA2FGxBKGs4mUx+0IwYQloImagXYBQ3ozqI1QGeyLXXgMThHkPKUx233ZKX3mGCVi1XumiX0fu78i6/mikkQYqofV8rCUElNfQNtRJbazjCk6ItnJGCPZq9t61nmBddc7zZ4kxVI3gdMmNvdqcdAt9Mw0/MXmg8ka8gxac88YiCMzm2C3VgnOzk5yJKW2zo/2uBJ2dQ8cTmEfDsNeVg83LvqjZ3o27l/3UlmOXvRxHeyLNTEHGauWgxdxMe0a+CEBREcq1Xw+LBc3X5h+ONCoUlyEfs/TqwYs+qKRpe/d+zqOCi/HPD9jOiDCxu15WwdiNDUCV8linX6cUlKy3apL8KWJM9Haj4W4tIwfb56qW+e6aq8fwxGwFPb+7b9/O/SJrp75JX5/B3Mr6vbOk+/6UlnRKot99dRlhjc/+ORtJtZc5+I3LmdWAG9TzIjZwcmnHPOZQM4umzmLcUzRmVHZRPO+gR
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aTRCeXgxU1ZhYXR1bnl1eVhjbHVEV3ZqV2U1YkJLS1NUZ3JJeklSdlFMaEZz?=
+ =?utf-8?B?anlyY1NvcW1HY3YxRGd2VEhsK2h1eWoxbnA4d0N5OHJ5T3h4MlZndTdNbDNN?=
+ =?utf-8?B?eTBlcCtJVXc0Ky9tbXIvOWZlN2w0NVJSWEhzTFUyVDVOMUxFdWl3VVIxRUtF?=
+ =?utf-8?B?TmlEeDhEUHBuT0F1TFZhSUlJcjJSOS84OGhQMENLcVdXb1pseStVL0hZQkQ1?=
+ =?utf-8?B?dXVSZVBBeUdhTmdGc1BVUzBsUkRZRnpSTDdiYU8rRUo4ekQyYTdMSThNQVcr?=
+ =?utf-8?B?enFxMy9aTjlmN3hkU1ZRVHpzYmVUdUZXZE1HY0pReGJsZ1ZFQmF5M1g5ak1M?=
+ =?utf-8?B?cDlXMnYrc013WnhIeitqckJyMXVidmRYV1RNYlYvcmNmVk1NWWxUL1lWTkUz?=
+ =?utf-8?B?b2dCVnZ4MXVBRGRvVVZnSEsvMDZnMTFKNThTMmk2dThrZlgxTDcrZGNoYnJv?=
+ =?utf-8?B?Ti93YjYyTGZncnlOejFXUzlHUnBWRE5CREJhcmd6WE5tbzdSTHZIeGk2OGNt?=
+ =?utf-8?B?bW1yc0ppOUd2dW1TK1c2aDJxUkZnYVB3c1grWStxS2NiODJ1eVlzZlRSWFR6?=
+ =?utf-8?B?Um9tL2EvUmZWVkZETDE3TmM5L1lXM0Jpb3FibVdzVVc3S294bzBqVnIzRHgv?=
+ =?utf-8?B?T2xEY0JrWEpNUW9GVUJ4R01sVjR2dXVGU3VqbGFVRU1ocjlSaGZPZVdIdGVM?=
+ =?utf-8?B?cFBuQ3QrOWVNUFBLOHV6ZUswMVV5R3RaZ3VyME1oOUsrd3E5cHhnTWVxTFFU?=
+ =?utf-8?B?a2lGbGpFakdzNDFMTmVMRTIrNjdDTjJyaURHaTlmR2hISWNHZ0RjRFYvcHNa?=
+ =?utf-8?B?eGFGZzdVeXVNZE9qZTVTRmNpRjA4NnVBTDdJNjg3U01ENm1mQkl0amhUaGpa?=
+ =?utf-8?B?ak1henVEazIvcWdEZG9QSFV0ZWlUZzZiK2pSb2JqV0QzOGFTeThROHZiM2xz?=
+ =?utf-8?B?bWVlNzZDdXJMSEJxVUtNZ1dCTVBWY2dQTHFsU1psTDBCK1Bzb2liemRqZ3JT?=
+ =?utf-8?B?NC9jTm1QNDlxRWdTc1l6KzBqY1FGbmQybU5DYzFJYW9HTWNpQXFDWFY1Sy9Z?=
+ =?utf-8?B?TzdKVXh3ODFBV1pyRXZzNDlxYzBPbk5HZnNaNEkveW1PMS9UUkRXSGVoM0ZB?=
+ =?utf-8?B?N2ljQXVwN1NSSEx2QkJnMXRBZE9jR2ZXLzlqa1BLbHQ2Y3A4eE9QRXk0akw3?=
+ =?utf-8?B?Qnp1ZXoxdUdNNVRvaUJDRWUxdXRYQWZWVEpGalNBbWdQVkVORm16Z2QxRFNM?=
+ =?utf-8?B?TEN1ZU1KNFBnSjYrM0VKdjB5TW9qTm5KL3NlVmliQ0pTVG9vQzNISEFDWGtk?=
+ =?utf-8?B?aFBNWkp6RkVsWS9YWGRDdnpFR1BrSURTQ3JkYm93ZElFbVBWZnNYbnRseTEr?=
+ =?utf-8?B?RkJ5WTRLaFNKcklmVklCOFhmK0E5VFhnRzJSUnBuOVFZdFhWQUE2MWZoM3Ux?=
+ =?utf-8?B?SWtTdkxpdkM2UlB4RkFRNms3RmJVeW41dHpNRTNGTnd2WVpzeUljc3paMC85?=
+ =?utf-8?B?MkdLMnN1M2VoU2xYL1F0WVZtcll0Mmw5dzlNSVBPak5TSXNWSzh0U2NtRkZG?=
+ =?utf-8?B?dWp1bkx0cmQycmU1RTV1VXh5ckdCcERWYXBLVVJ1eXRTZ1hhVXNMWmhHb0Vj?=
+ =?utf-8?B?eGxDM2tBYmc2YWI0ZkdzSTdNY1liWjYrNXBEbS9zVkdCMkxVTzRZZFJDTzdh?=
+ =?utf-8?B?Wm1RK0djcGpraEVMTVJnd0N6ZzljVnU0djR3WDBqaUY5ay9DRWx3MDBWdjVF?=
+ =?utf-8?B?QUhKVXlBRktickZCV0hpSmhGZm9uZS9FenRla0hHRnhLYnJYK0ErUG9tSjlj?=
+ =?utf-8?B?NEpRaW5jYjRkc2c3Z1dwT3FPY1h3OUVEMGtVNThla09JTEFQVCs5a0dPUVhz?=
+ =?utf-8?B?OS9DNk4zbGlZNTVidVVXY1FBdHZSMWFwTHNwZ1NDamxhTk9OdUhQWUNGNmU1?=
+ =?utf-8?B?OUpSbXNXQlhWdllGLzI1WDM5SXpmZVYzVGlYNy9leUN6Y0RNb29lWWVxbVhK?=
+ =?utf-8?B?MUlhMGVtMnloUUdadWZEa3JSTDVTbWJTa2ZGbzdMSGpVMll0azJDTVVwZ0g3?=
+ =?utf-8?B?V2RlSk9wRVhpTE15YU5FUEowck1OejFKYS96MkRaYkpSSFN1Y3p0Mm1wNnBK?=
+ =?utf-8?B?QnUvbDZVZm5vT3UvL2tBL3paY1FZRDBCVzB4OUYyUU9qQ1lib2NvdmV4Z3Ru?=
+ =?utf-8?B?Wnl4U0E1Mk9MWG9GazBVZHIxYW1mODYrTElJdjZPdTR3RkN1Uks3UXpPbW5a?=
+ =?utf-8?B?MGVOY1EwVUkrMkpHK0NvZnI2UmtZRmUrcE9CQmU0NTM2RW52bit5bEs2SjNm?=
+ =?utf-8?B?OTZwdXdnUFowc3pSclFObHluSC9YR1RVYXA1S2Vpa0FLdU5MaFZ0Y00yN3Jk?=
+ =?utf-8?Q?rBR5WxTRDMtu5dPke2RwwX9VmJzrU33WpwImmSy+gesM6?=
+X-MS-Exchange-AntiSpam-MessageData-1: Maor19yZ2eqi+A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 251708e7-657a-42ab-0729-08deab08fbfa
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 00:47:02.2686
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: H57BxjSDTe7RxTnpqhs01sJ7udqS6Wy/I2axOcJ36X7JhUa1HqHSwutGvZU9W0PYkjkT8B0FbXa4KcAtwlmtVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7685
 
-On Wed May 6, 2026 at 12:56 AM CEST, Deborah Brouwer wrote:
-> Is the intended model that DRM drivers keep lifetime-bound resources such=
- as
-> IoMem<'bound> only in platform drvdata and access them via Device::drvdat=
-a_borrow()?
+On Wed May 6, 2026 at 3:25 AM JST, Joel Fernandes wrote:
+>
+>
+> On 5/2/2026 11:41 AM, Alexandre Courbot wrote:
+>> On Sun Apr 26, 2026 at 6:14 AM JST, Joel Fernandes wrote:
+>>> Refactor the GSP boot function to return GetGspStaticInfoReply.
+>>>
+>>> This enables access required for memory management initialization to:
+>>> - bar1_pde_base: BAR1 page directory base.
+>>> - bar2_pde_base: BAR2 page directory base.
+>>> - usable memory regions in video memory.
+>>>
+>>> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+>>> Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+>>> Cc: Nikola Djukic <ndjukic@nvidia.com>
+>>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>>> ---
+>>>  drivers/gpu/nova-core/gpu.rs      |  8 ++++++--
+>>>  drivers/gpu/nova-core/gsp/boot.rs | 12 ++++++++----
+>>>  2 files changed, 14 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.r=
+s
+>>> index 0f6fe9a1b955..f2a8915a1ff4 100644
+>>> --- a/drivers/gpu/nova-core/gpu.rs
+>>> +++ b/drivers/gpu/nova-core/gpu.rs
+>>> @@ -21,7 +21,10 @@
+>>>      },
+>>>      fb::SysmemFlush,
+>>>      gfw,
+>>> -    gsp::Gsp,
+>>> +    gsp::{
+>>> +        commands::GetGspStaticInfoReply,
+>>> +        Gsp, //
+>>> +    },
+>>>      regs,
+>>>  };
+>>> =20
+>>> @@ -238,6 +241,7 @@ pub(crate) struct Gpu {
+>>>      /// GSP runtime data. Temporarily an empty placeholder.
+>>>      #[pin]
+>>>      gsp: Gsp,
+>>> +    gsp_static_info: GetGspStaticInfoReply,
+>>=20
+>> A short doccomment would be nice, but otherwise this looks good.
+>
+> I had added one before, but John suggested to drop it. I could add it bac=
+k again
+> if all agree on what we want to do. I am Ok with either though I'd lean m=
+ore to
+> the fact that its not necessary since it will basically read like the var=
+iable.
 
-No, this method is unsafe and intended for busses only, drivers should neve=
-r use
-it directly.
-
-> Or is the expectation that drm::Driver should also have a lifetime-parame=
-terized
-> Data associated type?
-
-Exactly, the plan is to have lifetime-parameterized private data on the
-drm::Registration, which is available in IOCTLs. The cover letter mentions =
-that
-briefly:
-
-    A follow-up series extends this to class device registrations, starting=
- with
-    DRM, so that class device callbacks (IOCTLs, etc.) can safely access de=
-vice
-    resources through the separate registration data bound to the registrat=
-ion's
-    lifetime without Devres indirection.
-
-This becomes possible as I also have patches that protect DRM IOCTLs throug=
-h the
-drm::UnbindGuard (which is just drm_dev_enter() and drm_dev_exit()). Togeth=
-er
-with drm_dev_unplug() being called when the drm::Registration is dropped al=
-l
-IOCTLs are guaranteed to provide a bound scope of the underlying bus device=
- and
-hence the device resources in the DRM registration data availble through th=
-e
-IOCTLs.
-
-I have all those patches ready and I plan to send them this week.
-
-> The reason I ask is that Tyr currently stores an MMIO handle in several a=
-reas,
-> (firmware, MMU/address-space management, and IRQ handling)  and it does r=
-egister
-> accesses directly. See what we're trying to do:
-> https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-0-a5d910=
-50789d@collabora.com/
-
-Note that you are not blocked by this, you can always move IoMem<'_> into a
-Devres through IoMem::into_devres() and use it without lifetime bounds. But=
- of
-course the goal is to make this unnecessary.
-
-> Moving IoMem<'bound> only into platform drvdata would require a big refac=
-tor
-> to thread &IoMem<'_> through those paths or fetch it from drvdata at each=
- hardware
-> access site. So, I wanted to clarify the plan first before I start this w=
-ork.
-
-No worries, that'd be the exact opposite of what we want to achieve. :)
+Without is fine, the name/type is indeed explicit enough. I was worried
+that Clippy would start complaining if we need to make this type public
+once nova-drm calls into nova-core. But we can fix that if it actually
+happens.
