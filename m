@@ -1,248 +1,261 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012029.outbound.protection.outlook.com [40.93.195.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15984421F06
-	for <nova-gpu@lists.linux.dev>; Wed,  6 May 2026 16:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778084313; cv=fail; b=hseA/MLPzdr9KzJUtcmahcqs4++UV2AYZkn5XxaTRcoU9aMLl403QoJ8We1pxAOyglmFVqtfnjYJTZc6MOF8AGYVvAEWwHbSthPaxoTwC/cLFMbDJxJzNkGk8It27ONnuLfolz9NJ8pF2/WYNv4/p2zespNDEZ9btnRt2iPF5oI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778084313; c=relaxed/simple;
-	bh=ljnkMOdRwccGy5bQD3iYTjNPMcNO8N5d4mDtabXjae4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=CYwajPwPn3dL/rCOwTbMw+P+FigpPgZv9O8G36s0vLq68yduf6nT4df4V6y7eZU19F/ju99QiMfjJ3UMGQf9zrC9b/eutala0ssVaouuSYvGYs7ryLwSjoi4Vm3z/IEkSh7GFNXQ2jWuXKqABC1Vk0mzNHkmnpogSqu5WWyWuIM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GMmi/8Va; arc=fail smtp.client-ip=40.93.195.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D486322B6D;
+	Wed,  6 May 2026 21:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778104282; cv=none; b=lYgp8ELvU+QrwvnIVULnp/A4uQlYyr8SIjEFK2GH+JwLSXAsAhd8mFDslr9Oip8cj/LJj3I1Xs1+Gg9s/lc7OVTOWAWmcbrHBd2Y4FO+Z6AgvqTNSUh2aA/TvfC9N0UfIaAHydHEf/UwzQuL0ebDOgbz86qCcoObutN/+nuNPpY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778104282; c=relaxed/simple;
+	bh=eK+42iwer4stlgq5uFasabGEzh4LF2MsdeKvgd9ivO0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QoHd0Z6jqDQrLfq4hKluljXItTp0qQ2PdhIB8hqYPm1UW7KjFdFRX5X8U8EqN65/qk7S3jSUHs44EPZ8oaEhCcw1hZKrTIp10eZ1Zua46spNUGbfUMtQ4LkUDvZq7idAurRQnA8EdgF1P38p860eS6YP0RsYRGfH5XpWwo0WKS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKYsJ/XU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GMmi/8Va"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LXWRe8rVo2MdH56vDfxHD2I78i5FwwbMlWMsfQvyuteuFFtnT9B3uvvYk4Xs5q1MNb+OrRypyaZAfJbb2Iks9e+S5XWKMg+Msz/ykA2/kiML2i5NPFdXp2qawjaSjTWvJ9aoYY8SiyJcbeHoUDcFXoriLliV8DTkHf/aD1xQRgnV/VX4GstB1BEz1JYe1UxlnvsGq5A/mIvnzlOkG9REILMTefiErZmj9kTErbEc/n9E61GBNTEjs6rOa2/T9BjUcgC2SOUX9HoHVbX6DiMb8UtbGjz4U1pL4Ps1q+vmSOA/i3pBLtu3zfRy0EkXNN5atGPntVawqDF9gJ4QnVcuJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9C1G/YQbDfk3TDGrvXEUFjA5pOIkcxhBBG/lJQVeH6g=;
- b=rA4RGodTy06SAx6s9f2aYma4Metw04SZWSI0wl1TMRQWY67ZTi8R5G8zJHAWhbmWrHEh3WopXY5qtANXGp+AVuHwKsOcU4BP1q2jwu1M0mLTzs7eTLpj10HDJKCc2qmbAS51xMomQBCu9V1Q9Jg+UsX4ec3z3S3yXFwGipLE6mKfviZrjhwXAIzX0JvJwTYAprXd1qbDWdCH+IP7YOWJvnZjNMTvsWOv0w3Bs5VWSpZcSRavOIIi2nzBU4pI1kLE/FKu1WuiVFeT12lxPnEdex0UBVme7rT12LcSpzXQYIlWYJoNA0mXz72Q1LSvifL6M2hVzYWhvnGgfVMav2I9Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9C1G/YQbDfk3TDGrvXEUFjA5pOIkcxhBBG/lJQVeH6g=;
- b=GMmi/8Va7DYoR+krEtgKFxjNl39BzL2BsNLZOVND0FhF8EEY2CxIxFZRMHNgeaHwF60Ilaa22M0UXa2yypLdCl5076L9wZ6xG5sMFzcCytrF4tve9KuN/Q5Kn8pO9dVg3g3QbTvLQO9BVBAZhBBv4YjTRAX/ay/lTkWa1BZI+soYgmOeq0RsJ4I+ObIiKgu/vChq+qyx9vpZ2MFt1ZmHttUQ7iz5CIdu2mrSil4ABSS3BxbLcXVkyBi3SPcve2LUMb9S6lzTJMBUJyeN8oiNLrvSP0fmajY7jxZJ9PmAu/kO6HoQDyy7Syd3KoGq7ObzzdEmyBvwznY87eI6LbEtBw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- CH3PR12MB8725.namprd12.prod.outlook.com (2603:10b6:610:170::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Wed, 6 May
- 2026 16:18:19 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%6]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 16:18:19 +0000
-Message-ID: <871a3194-5960-4e94-b177-6173c49167be@nvidia.com>
-Date: Wed, 6 May 2026 12:18:16 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] rust: maple_tree: implement Send and Sync for
- MapleTree
-To: Boqun Feng <boqun@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
- David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- alexeyi@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
- joel@joelfernandes.org, linux-doc@vger.kernel.org
-References: <20260506135122.GA1432412@joelbox2>
- <aftiZGt3HQe0Bf_x@tardis.local>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <aftiZGt3HQe0Bf_x@tardis.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: IA4P221CA0007.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:559::17) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKYsJ/XU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4BFC2BCB0;
+	Wed,  6 May 2026 21:51:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778104282;
+	bh=eK+42iwer4stlgq5uFasabGEzh4LF2MsdeKvgd9ivO0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=DKYsJ/XUxdPgaV3ZRzmV2hX0vsCs1rLlPTMS0wLRNL2J3LHQOZkt7FNA1vNmMWwvh
+	 kVBE9Z9+UDkhd996+krBlBmEeitBNDcatEWn8Ior+Dw1bBPmaLNmKQtZGCFF43AEJS
+	 O0Pl5fk4VDnilFtVw0/nJbH4rVNzg3v+XjjOCIfGGSOoVsalipViPL/KIHJuvwrLzK
+	 0uL92zUuCuj1G80CxIlikg3im7NobgvpulaTbd4QHLUL7zi13td7CUuW9k/o6ULrzu
+	 4EAKNeie9ilk78QCjjEvxqgp/pB4fLM2xSDU+1ZpwjiMdVTj59hC/ugiu5hPwXSw6E
+	 7pyEEy25QgZtA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	acourbot@nvidia.com,
+	aliceryhl@google.com,
+	david.m.ertman@intel.com,
+	ira.weiny@intel.com,
+	leon@kernel.org,
+	viresh.kumar@linaro.org,
+	m.wilczynski@samsung.com,
+	ukleinek@kernel.org,
+	bhelgaas@google.com,
+	kwilczynski@kernel.org,
+	abdiel.janulgue@gmail.com,
+	robin.murphy@arm.com,
+	markus.probst@posteo.de,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	igor.korotin@linux.dev,
+	daniel.almeida@collabora.com
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-pm@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v2 00/25] rust: device: Higher-Ranked Lifetime Types for device drivers
+Date: Wed,  6 May 2026 23:50:36 +0200
+Message-ID: <20260506215113.851360-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CH3PR12MB8725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9cafef02-74c6-4df2-e36a-08deab8b162f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	VlhWOUlnZlduTJDMJTCRHDCZGKX6M3Rqz73JeciSOEcYtoeRczQaXbUCvvhTLU/49NiCvz/ilgbZw1Yntx9RrgbR80E8Pr9YzSyvu3jzORID/yXq71yNleXArFcJlxKuM/YLPvTBtVlg0rPTimEB7Vf9012d2cp1sBkay+oZZqPmFQXrtf0CX8suv/YJ7/p1CMyXIU60rP5K95w3VF+VxAyp/QWRXP9uCulT7LKT6T3k290eq9cwZuzDgwGKjXmCnVb63ZPkxOXK7jq90H8z3RHAjUnbDYqGJ6VgSjbhK24MzGhpOkSX2uX48A/63muNa4eiEqbF01CXeotUa+/YB73cn0F1psaXbRg4IrjDY2wQ4RI0ECe2u1gUj/l4ZyhKkeTersLbduk/9wujHkZMZ+Yko9VHmCBAXfNdOY3YBYhEtAOCDUANqC89Ervf1bd2q+y/t72IlzgZuDc/roYNJ2WdtaDpo3Lb2x+gZZcOIaARVQQ8RPTccQgvCI7ZeGO1CVE454Y7sgKmF+mAuGeL0w3A61ViwEUe714kIv04ebtP5GdZlDAx+X6tIpsCWedRw79lKZ0nYuF0x5P1yGeVHAGV+gxUKLLx7lZAHPxfoFDn12J0XCd6FdBqp5iDjIUK5fgvRO9gIboD5Shup7I43B0iTF9D8iDvNoM1XeXb7sWlW5lrKX/OLYW2CvR63efkBpEDPN4MORai3yc6VarLgw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UjRDam9hSmFLL05XaU0ySHJtYWRoUGlkTXJNUmJ5ak1pblZxdjdwZzV4UmVj?=
- =?utf-8?B?UHZCMHoyN050bSt0Wmk4WVdER09yM2NydjR0QU8vZm5jWitYZ3FpNmZxeUNy?=
- =?utf-8?B?UUdoLzhpZXVaVkd5elhKU2dUeTRlUzFBZmZQdVdLUFFFNnczdksvR2tieEVi?=
- =?utf-8?B?UTNuaVh6c0g2OXZ2ckpEZXI2VlJPd2ZRakZsZ0pqZS83MXhqTjlFbzFsNEpC?=
- =?utf-8?B?Zk8zMlNHeUwvc2J2NHZkYXp3OTdWS0p2U2ZqQWczall1VWlFR0V4Q3V0cFJU?=
- =?utf-8?B?VVFsUmZEK1ZvNWt1STlxN2VZS0llY1Z2TnEvYXJBSTB2andjeU9xU0dYSlhT?=
- =?utf-8?B?em5oVU9EWUJrUVhzMnFGZDgwVmJXb2s0K2s2ZjZiRjNQSnB4K1lKQWlyR3F2?=
- =?utf-8?B?dmc5TzdNUmxpdVc0eGY3MFg3ZThkZm4rT256aUdwb3YraWx5MEk0RDRZRlV2?=
- =?utf-8?B?WHk2RjNHTjU5Vi8yS0VWOXpsTTJUcG5QcThPb2RmYUtCck9NbHllUVUrSkg4?=
- =?utf-8?B?d2ZHelhaYlVUQmtFck5jREZtZ3hvUktJSlZyNE9DMWZJMnNZWGJObFpVcERs?=
- =?utf-8?B?U1dOcFY5Y1B2MXlTM1UrL3V2dVBKTWNtOURuSmRDQjBJZjIzOVMyTTgyR2RS?=
- =?utf-8?B?VmU5UWNKeEIrc3p2QzB1R2cvbVVTSnk3cnBFUFExS3pCcDhmSm9DaUdUSkZo?=
- =?utf-8?B?bGNESForZG5FVVVYNFE2T2dVQmh4S1VOTVA5Vkczc29PN1dDL04rUUsydnli?=
- =?utf-8?B?eDFSUGJ6c2tTUDBnOURDM21HM3VyK0IrVEljQ0dZSXdCRERORUxEYlh5dHhC?=
- =?utf-8?B?M3ljNzdoZ2NwMkFIZUs3UnU5WTgyOHZLVys5cU1mRUVKTi85TVdpYXIrSEtq?=
- =?utf-8?B?NVdiaUVBZlJFWDF6ZmJleUVSMHVNQnpkNnBOWHJXMUI1d3MvOUFNM1p6amFF?=
- =?utf-8?B?d1REZGg2bnFiU05FdDExbVJTMjlHYXJYWFY5TXBSME5tT2xzMkRUdWIzRXFB?=
- =?utf-8?B?aVdtZDFldmFPczJ3Um8yMnl5YkxHV0NHeE1FMWJHdHNWMEJGQ0NjZk4zOUhq?=
- =?utf-8?B?eDFGMGtxenEvTU5qanhBUjVEWWY4ZThIRjFSZjNRa3F1YjlMcFJHaExLRTNE?=
- =?utf-8?B?RmFYWjM1NGM0bEkzSkhKQWNvb3NVVG9uMVdUdXJIRVBDSlVQQTNMTk9SVzVw?=
- =?utf-8?B?Y2JYTElNNnZZcUY3dDI5bjVtRHpZcU5JRXNSM2FVaHFTOG1sRmJLRzhvdE9m?=
- =?utf-8?B?bUlyY3FRVW5yWHRXTThBWWlrVk9DangzOEphcys0bFlUditFTG8rYVRCVUxq?=
- =?utf-8?B?ZGU0KysxLy93VEZ0WDdiSk55OEVpYityV1kvZEZBejQ2R3Q4RDZvaDA4MUg3?=
- =?utf-8?B?WjZsUUxNMldCRzhQcS91Vm9VSFNldkFKMlJYSlpxUEFld1F0V2NQRlZvU09M?=
- =?utf-8?B?VEVKWkNPSDRSdnpIM21LcDg2aFdUR1JneW9BeUxLaU1BR1hiVHEwc1NCZ1Ba?=
- =?utf-8?B?TFBhc1k3TlJFUnlsUXpIMnhHZmtBZFQva09JblpYNU1Ua01DemtmbGZudDZi?=
- =?utf-8?B?d2oyQllycUE3UUhSQmQxcHFoNHJXclRwMER3MHl6WjB3a2FYZ0s5Y2lFUW9q?=
- =?utf-8?B?dkJ3SFF2UCtUZDRhU0VJNm1tb3hKNi96V1F0TDc3RlRSODJxWXB6Tmwwbm0v?=
- =?utf-8?B?ZmtvWkpzUlBCN3Y2ZXFpRFgvU3J4ZU9TN0hZb1dPQ3BaVDhtTGkrWjNJaE5N?=
- =?utf-8?B?ZlFHUkZueXVxdUtQTnpkRW9ESmpQL2xGS1FJQnl4WVo2S3JDUE0vRDhjcVBv?=
- =?utf-8?B?S1p6YVZWempaaDJrRFpFTEEvdWpTaWNlQVZUU29iTzBqQm9UamZ5a0hFbHQx?=
- =?utf-8?B?VlE2MURuMlg3YllmSlFFb3JNSmFvTFEwKzRsN3BXemd4VXQ4T2NnaDd2ZlFM?=
- =?utf-8?B?R21teUZhdzZZUTIyTHN2T1ZnbVQwa0xNYkdTYVJCQXlTYkdtVVFVTVZ5VHJI?=
- =?utf-8?B?dEdybWo3WGNpYjV1alZ4R2h1QzJaZVVRY1RIdlhVN3ZLS1JrN3lSMFBCaWg3?=
- =?utf-8?B?SXBCTGRGMzZnR3BSMjdLZHdoWDd2ZE9QaEtENGZGdTQ2ZnAyUWxrVlA5ZGwv?=
- =?utf-8?B?RlgyTDhrMmhmc2NxUHA5eDY1b2N5bDZYS3d6dFFiSThLcEJqYXpyZ01FNTVI?=
- =?utf-8?B?TmVxV3VVTHJ1aExYcU14b1l1eExyZHI2WHlkR0dUTWpPMlB6OTFVUWx4Rkgr?=
- =?utf-8?B?Z2d2UTNTU3lFZVJmQXJTM3NmWi90RXNmb3JHTFdCTk9rbFpLcUNyVkNKa3dt?=
- =?utf-8?B?OTV2OUp3SndHb3VuK1Y0YTZibnRJWHMwTlQ0bUUyMy92ZytrNUpiUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9cafef02-74c6-4df2-e36a-08deab8b162f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 16:18:19.5894
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cgI/rp1vS/RdqG3Fq75pVy4UyD/SaK6x05hv29K8ARsgTDWZpw0dU1oKyeW/34p3kRINJf/6GgE8GAME3bcApw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8725
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Currently, Rust device drivers access device resources such as PCI BAR mappings
+and I/O memory regions through Devres<T>.
 
+Devres::access() provides zero-overhead access by taking a &Device<Bound>
+reference as proof that the device is still bound. Since a &Device<Bound> is
+available in almost all contexts by design, Devres is mostly a type-system level
+proof that the resource is valid, but it can also be used from scopes without
+this guarantee through its try_access() accessor.
 
-On 5/6/2026 11:46 AM, Boqun Feng wrote:
-> On Wed, May 06, 2026 at 09:51:22AM -0400, Joel Fernandes wrote:
->> The C maple_tree struct contains a *mut c_void, which prevents Rust from
->> auto-deriving Send/Sync. Following is an example error message when using
->> MapleTree in nova-core's Vmm.
->>
->> This propagates up through MapleTreeAlloc to Vmm, BarUser, Gpu, and NovaCore,
->> causing NovaCore to fail the Send bound required by pci::Driver:
->>
->>   error[E0277]: `*mut c_void` cannot be sent between threads safely
->>       --> drivers/gpu/nova-core/driver.rs:77:22
->>        |
->>   77   | impl pci::Driver for NovaCore {
->>        |                      ^^^^^^^^ `*mut c_void` cannot be sent between threads safely
->>        |
->>        = help: within `MapleTreeAlloc<()>`, the trait `Send` is not implemented for `*mut c_void`
->>   note: required because it appears within the type `kernel::bindings::maple_tree`
->>   note: required because it appears within the type `Opaque<kernel::bindings::maple_tree>`
->>   note: required because it appears within the type `MapleTree<()>`
->>   note: required because it appears within the type `MapleTreeAlloc<()>`
->>        = note: required for `Box<MapleTreeAlloc<()>, Kmalloc>` to implement `Send`
->>   note: required because it appears within the type `core::pin::Pin<Box<MapleTreeAlloc<()>, Kmalloc>>`
->>   note: required because it appears within the type `Vmm`
->>   note: required because it appears within the type `BarUser`
->>   note: required because it appears within the type `Gpu`
->>   note: required because it appears within the type `NovaCore`
->>   note: required by a bound in `kernel::pci::Driver`
->>       --> rust/kernel/pci.rs:294:19
->>
->> Implement Send and Sync for MapleTree. The tree contains no thread-local
->> state, and all shared access goes through the internal ma_lock spinlock.
->>
->> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> ---
->> RFC->v2: Just adjusted a few comments as suggested by Gary.
->>
->> Sending this separately as discussed in the nova mm patch series that needs it:
->> https://lore.kernel.org/all/252a4eef-f4f4-4edf-8154-06cae4ad8518@nvidia.com/
->>
->>  rust/kernel/maple_tree.rs | 29 +++++++++++++++++++++++------
->>  1 file changed, 23 insertions(+), 6 deletions(-)
->>
->> diff --git a/rust/kernel/maple_tree.rs b/rust/kernel/maple_tree.rs
->> index 265d6396a78a..2400c905270d 100644
->> --- a/rust/kernel/maple_tree.rs
->> +++ b/rust/kernel/maple_tree.rs
->> @@ -16,7 +16,11 @@
->>      alloc::Flags,
->>      error::to_result,
->>      prelude::*,
->> -    types::{ForeignOwnable, Opaque},
->> +    types::{
->> +        ForeignOwnable,
->> +        NotThreadSafe,
->> +        Opaque, //
->> +    },
->>  };
->>  
->>  /// A maple tree optimized for storing non-overlapping ranges.
->> @@ -240,7 +244,10 @@ pub fn lock(&self) -> MapleGuard<'_, T> {
->>          unsafe { bindings::spin_lock(self.ma_lock()) };
->>  
->>          // INVARIANT: We just took the spinlock.
->> -        MapleGuard(self)
->> +        MapleGuard {
->> +            tree: self,
->> +            _not_send: NotThreadSafe,
->> +        }
->>      }
->>  
->>      #[inline]
->> @@ -302,19 +309,29 @@ fn drop(mut self: Pin<&mut Self>) {
->>      }
->>  }
->>  
->> +// SAFETY: `MapleTree<T>` is `Send` if `T` is `Send` because `MapleTree` owns its elements.
->> +unsafe impl<T: ForeignOwnable + Send> Send for MapleTree<T> {}
->> +// SAFETY: `&MapleTree<T>` never hands out `&T`; all entry access is serialized
->> +// by `ma_lock` or `&mut Guard`, so `T: Send` suffices (`T: Sync` not required).
->> +unsafe impl<T: ForeignOwnable + Send> Sync for MapleTree<T> {}
-> 
-> I think you missed this:
-> 
-> 	https://lore.kernel.org/rust-for-linux/aepRx2jgIKmoRp-r@tardis.local/
-> 
-> ;-)
+This works well in general, but has a few limitations:
 
-Oops, sorry about that.
+  - Every access to a device resource goes through Devres::access(), which
+    despite zero cost, adds boilerplate to every access site.
 
-> 
-> But on a second thought, should that (we have methods of `&MapleTree<T>`
-> -> `&T`) happen, we could always guard those methods with T: Sync. Maybe
-> it's worth to keep a note on that but, anyway
-> 
-> Reviewed-by: Boqun Feng <boqun@kernel.org>
-Ok, so I will leave as it is then, thanks for the tag!
+  - Destructors do not receive a &Device<Bound>, so they must use try_access(),
+    which can fail. In practice the access succeeds if teardown ordering is
+    correct, but the type system can't express this, forcing drivers to handle a
+    failure path that should never be taken.
 
---
-Joel Fernandes
+  - Sharing a resource across components (e.g. passing a BAR to a sub-component)
+    requires Arc<Devres<T>>.
+
+  - Device references must be stored as ARef<Device> rather than plain &Device
+    borrows.
+
+These limitations stem from the driver's bus device private data being 'static
+-- the driver struct cannot borrow from the device reference it receives in
+probe(), even though it structurally cannot outlive the device binding.
+
+This series introduces Higher-Ranked Lifetime Types (HRT) for Rust device
+drivers. An HRT is a type that is generic over a lifetime -- it does not have a
+fixed lifetime, but can be instantiated with any lifetime chosen by the caller.
+
+Rust does not directly support types that are generic over a lifetime as type
+parameters; the ForLt trait (contributed by Gary Guo) encodes this internally.
+
+The module_*_driver! macros handle the wrapping, so driver authors just write
+struct MyDriver<'a> and impl Driver<'a>.
+
+With HRT, driver structs carry a lifetime parameter tied to the device binding
+scope -- the interval of a bus device being bound to a driver. Device resources
+like pci::Bar<'a> and IoMem<'a> are handed out with this lifetime, so the
+compiler enforces at build time that they do not escape the binding scope.
+
+Before:
+
+	struct MyDriver {
+	    pdev: ARef<pci::Device>,
+	    bar: Devres<pci::Bar<BAR_SIZE>>,
+	}
+
+	let io = self.bar.access(dev)?;
+	io.read32(OFFSET);
+
+After:
+
+	struct MyDriver<'a> {
+	    pdev: &'a pci::Device,
+	    bar: pci::Bar<'a, BAR_SIZE>,
+	}
+
+	self.bar.read32(OFFSET);
+
+Lifetime-parameterized device resources can be put into a Devres at any point
+via Bar::into_devres() / IoMem::into_devres(), providing the exact same
+semantics as before. This is useful for resources shared across subsystem
+boundaries where revocation is needed.
+
+This also synergizes with the upcoming self-referential initialization support
+in pin-init, which allows one field of the driver struct to borrow another
+during initialization without unsafe code.
+
+The same pattern is applied to auxiliary device registration data as a first
+example beyond bus device private data. Registration<F: ForLt> can hold
+lifetime-parameterized data tied to the parent driver's binding scope. Since the
+auxiliary bus guarantees that the parent remains bound while the auxiliary
+device is registered, the registration data can safely borrow the parent's
+device resources.
+
+More generally, binding resource lifetimes to a registration scope applies to
+every registration that is scoped to a driver binding -- auxiliary devices,
+class devices, IRQ handlers, workqueues.
+
+A follow-up series extends this to class device registrations, starting with
+DRM, so that class device callbacks (IOCTLs, etc.) can safely access device
+resources through the separate registration data bound to the registration's
+lifetime without Devres indirection.
+
+The series contains a few driver patches for reference, indicated by the REF
+suffix.
+
+Thanks to Gary for coming up with the ForLt implementation; thanks to Alice for
+the early discussions around lifetime-parameterized private data that helped
+shape the direction of this work.
+
+This series depends on [1].
+
+[1] https://lore.kernel.org/driver-core/20260505152400.3905096-1-dakr@kernel.org/
+
+Changes in v2:
+  - Add 'a bound to ForLt::Of<'a> and WithLt::Of, making the lifetime bound
+    inherent to the trait; remove all F::Of<'static>: 'static where clauses
+  - Drop "rust: devres: add ForLt support to Devres"; Devres itself stays
+    unchanged -- ForLt-aware access is introduced later through DevresLt in a
+    separate series
+  - Use 'bound instead of 'a; add patches to consistently use 'bound for
+    pre-existing 'a
+
+Danilo Krummrich (24):
+  rust: driver core: drop drvdata before devres release
+  rust: device: generalize drvdata methods over ForLt
+  rust: driver: make Adapter trait lifetime-parameterized
+  rust: pci: implement Sync for Device<Bound>
+  rust: platform: implement Sync for Device<Bound>
+  rust: auxiliary: implement Sync for Device<Bound>
+  rust: usb: implement Sync for Device<Bound>
+  rust: device: implement Sync for Device<Bound>
+  rust: pci: make Driver trait lifetime-parameterized
+  rust: platform: make Driver trait lifetime-parameterized
+  rust: auxiliary: make Driver trait lifetime-parameterized
+  rust: auxiliary: generalize Registration over ForLt
+  samples: rust: rust_driver_auxiliary: showcase lifetime-bound
+    registration data
+  rust: usb: make Driver trait lifetime-parameterized
+  rust: i2c: make Driver trait lifetime-parameterized
+  rust: pci: make Bar lifetime-parameterized
+  rust: io: make IoMem and ExclusiveIoMem lifetime-parameterized
+  samples: rust: rust_driver_pci: use HRT lifetime for Bar
+  rust: driver-core: rename 'a lifetime to 'bound
+  gpu: nova-core: rename 'a lifetime to 'bound
+  gpu: nova-core: use HRT lifetime for Bar
+  gpu: nova-core: unregister sysmem flush page from Drop
+  gpu: nova-core: replace ARef<Device> with &'bound Device in
+    SysmemFlush
+  gpu: drm: tyr: use HRT lifetime for IoMem
+
+Gary Guo (1):
+  rust: types: add `ForLt` trait for higher-ranked lifetime support
+
+ drivers/base/dd.c                        |   2 +-
+ drivers/cpufreq/rcpufreq_dt.rs           |  10 +-
+ drivers/gpu/drm/nova/driver.rs           |   9 +-
+ drivers/gpu/drm/tyr/driver.rs            |  24 ++-
+ drivers/gpu/drm/tyr/gpu.rs               |  62 +++---
+ drivers/gpu/drm/tyr/regs.rs              |  21 +-
+ drivers/gpu/nova-core/driver.rs          |  48 ++---
+ drivers/gpu/nova-core/fb.rs              |  31 ++-
+ drivers/gpu/nova-core/firmware/gsp.rs    |   8 +-
+ drivers/gpu/nova-core/gpu.rs             |  38 ++--
+ drivers/gpu/nova-core/gsp/commands.rs    |  10 +-
+ drivers/gpu/nova-core/gsp/fw/commands.rs |   4 +-
+ drivers/gpu/nova-core/nova_core.rs       |   4 +-
+ drivers/pwm/pwm_th1520.rs                |  14 +-
+ include/linux/device/driver.h            |   4 +-
+ rust/Makefile                            |   1 +
+ rust/kernel/auxiliary.rs                 | 132 +++++++++----
+ rust/kernel/cpufreq.rs                   |   8 +-
+ rust/kernel/device.rs                    |  79 +++++---
+ rust/kernel/devres.rs                    |  16 +-
+ rust/kernel/driver.rs                    |  44 +++--
+ rust/kernel/i2c.rs                       | 130 +++++++-----
+ rust/kernel/io/mem.rs                    | 131 ++++++------
+ rust/kernel/pci.rs                       |  89 ++++++---
+ rust/kernel/pci/io.rs                    |  68 ++++---
+ rust/kernel/pci/irq.rs                   |  38 ++--
+ rust/kernel/platform.rs                  | 120 +++++++----
+ rust/kernel/types.rs                     |   4 +
+ rust/kernel/types/for_lt.rs              | 117 +++++++++++
+ rust/kernel/usb.rs                       |  94 +++++----
+ rust/macros/for_lt.rs                    | 242 +++++++++++++++++++++++
+ rust/macros/lib.rs                       |  12 ++
+ samples/rust/rust_debugfs.rs             |  10 +-
+ samples/rust/rust_dma.rs                 |   9 +-
+ samples/rust/rust_driver_auxiliary.rs    |  53 +++--
+ samples/rust/rust_driver_i2c.rs          |  18 +-
+ samples/rust/rust_driver_pci.rs          |  93 ++++-----
+ samples/rust/rust_driver_platform.rs     |  12 +-
+ samples/rust/rust_driver_usb.rs          |  14 +-
+ samples/rust/rust_i2c_client.rs          |  12 +-
+ samples/rust/rust_soc.rs                 |  12 +-
+ 41 files changed, 1220 insertions(+), 627 deletions(-)
+ create mode 100644 rust/kernel/types/for_lt.rs
+ create mode 100644 rust/macros/for_lt.rs
+
+-- 
+2.54.0
 
