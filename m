@@ -1,184 +1,102 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010059.outbound.protection.outlook.com [40.93.198.59])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com [209.85.128.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E279C2153D8
-	for <nova-gpu@lists.linux.dev>; Wed,  6 May 2026 00:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778028450; cv=fail; b=Szld4UFYi1t48kuODw/i/rJHr+dnI4RqbBVxJLUN6y/soMOc9DXWvDzRnlqGy+53GaeWwcYnAsLTJlu/eYwBHtzS83P2R6tAJyM3US81ZF5PXsaYT3hb3WsCGbMGROgx9uJqPc42gjweWSeyq5uiwbBxMWl3oT9fAKr9MaW4Gz0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778028450; c=relaxed/simple;
-	bh=b7UFuuZtSd2PaFen4jQKfmWLrS62LCM10m0DOcHW0b4=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=glxY90GI5qtz2JzxXBLi9asce6ZQt9R7vGaRCOi5m2ZcaYTk4qJ4XXT8KO0vUqWiUlUTYyErCv0xbhVbSnuTHh+eBt3eb04JrXa5l01HG/K5HT4OFJL3iV91Qb/03c5GKts3LnO5RAeAIw5CB74M09KRE1lI6Ol8SIxyEIP1E4w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eiZCOkCG; arc=fail smtp.client-ip=40.93.198.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90623E8C47
+	for <nova-gpu@lists.linux.dev>; Wed,  6 May 2026 12:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778071353; cv=none; b=SUBdVsJbljSivso+B6vfPAUzwv5SMyrJznCgMm3qOzUOdeMdfMRo6Kv8dP3eK+A0nbYc3nk+1rBmZoCJUHY+iXDL+8pSKuCgEXnloRuG3EmwOV05nMxfl+Y0KsGvLKCdNdArQnZe7851TR6p+GwLdg43pKxvd5RBGDq6VgjkLnc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778071353; c=relaxed/simple;
+	bh=FWXRoarZwbuPU0CvSG62/+ZjpGP5KpwDFvefCjFI/Sw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=mWt1LXxg5pjpablNwX1LqPw2nxbqqzsTCgNjZ2K7e3I/Qm8R1FfBXvDlYIij27CwbbZ1vHjI6HkLbqGDUE2d8brZRwfWLlEWaEZ4ZgUfM9c55q11Up2SyVfVoU+1uYPhifuHrCON3xWkxEx6DQz9JsDN2GjLlbx8HKh0q+0HcMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fWk6xWga; arc=none smtp.client-ip=209.85.128.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eiZCOkCG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t7ntsKKPlAj04q08/Nkh1/GkUp9MpM9CRtnF+/0lz1Hhp+L/D6Io06hgpNOz6kVXauXPUYOPNneA+MTVJFFZ+fIOMFuRjAYBOyR57AMAxU/cv+0z1Em2Cc12ZzslIzjcIhptNFUqPe5AxRd55aijK79JYJP0c6eHmiyya0DsIM812n9lEHs6QjXLsf4BZLvFea4Be8KJZxWBmXp7dSPUIz8wNsNvTDryovZ78v6fYI90eFYoWgRmuFZJ4IouB3lghjAAyKGaRPnkhA0tWQWKTg4UWeo+gA48MHpdI1mRAdUrryMuY1hQOodSuXpHd4jRSgCEltE1/QhuhnvO8X3dNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XPHmiT5FWmdbxAwvh6a7PLH3Qkgwu6mILnR8W4ybM/Y=;
- b=jXZfgj3aF2xbJtpDvWHEpvKQJ0iV8NjFPmoD8key1B73vnM2S7lIc4550/Vfg/yGhgt0ysrbhwVJfEF3qHEAyJFB5niIxtV1jtCtrPZNAF89EWwP28MXEV0qQhSawmf155J0IRWZQAPZ6tH42qYqJoTnaJW3NRx/upugkJfG8+bT/e2N7ZbZOq2+sMo/GnZrOwqJTVHPZ9GMOn0c6VqKoMlg1VRQw5X6CBoLuO8Zbro06p5mdQjsqtMEfhsCa1p/FmXB5/TsD2racMuilS7+aW5XcPs7cDDxO+CzQhNVsWXoM+nUQffMobg14LBC6GPFjt9XBJMRJORfM50vcEzocw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XPHmiT5FWmdbxAwvh6a7PLH3Qkgwu6mILnR8W4ybM/Y=;
- b=eiZCOkCGQqCzLA6Wz/S+7p1TNJNPxxQ2r2Ujm/o2Ci+wZK8e+nylszHen40HW73lD6Aafj0q57tZs3f5SX9BNtwG9Ho0wGQ7X0kidbkhPHWUrBWvkLy5BJtraXL1E4DVQVfb+D+DtvjuUJKJZRtt8PXPYbeUVBnzhFRAulTyuKJyzXfEo3aDEHn9mBftF96UHD50Fm/1Ed3zEkxd1qX4imwoKY8V9p+7n0WlDaOpd2YzoypvY+GAOUOLu1VjX19Q23i0wtpsdnvEOYxA9G73K3nwP9wDzCi59aS7OGBuLHeWfOGKpSG7g1SefPPKx1Se+zNzVAOpM3FbvxiKitWUng==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by MN0PR12MB5882.namprd12.prod.outlook.com (2603:10b6:208:37a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Wed, 6 May
- 2026 00:47:19 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.023; Wed, 6 May 2026
- 00:47:19 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 06 May 2026 09:47:14 +0900
-Message-Id: <DIB6H6HHFW29.816CGQFBOGWC@nvidia.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, "Bjorn Roy Baron" <bjorn3_gh@protonmail.com>, "Benno
- Lossin" <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>,
- "Daniel Almeida" <daniel.almeida@collabora.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>,
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>, "Nikola Djukic"
- <ndjukic@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Boqun Feng"
- <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
- <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy Ritger"
- <ARitger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
- <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Alexey
- Ivanov" <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- "joel@joelfernandes.org" <joel@joelfernandes.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v12 04/22] gpu: nova-core: mm: Add support to use PRAMIN
- windows to write to VRAM
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260425211454.174696-1-joelagnelf@nvidia.com>
- <20260425211454.174696-5-joelagnelf@nvidia.com>
- <DI8B0103X0HQ.7C99YLBMS2X5@nvidia.com>
- <DA4303E1-F49E-42BD-99B6-C7472C3BB12F@nvidia.com>
-In-Reply-To: <DA4303E1-F49E-42BD-99B6-C7472C3BB12F@nvidia.com>
-X-ClientProxiedBy: TY4PR01CA0127.jpnprd01.prod.outlook.com
- (2603:1096:405:379::14) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fWk6xWga"
+Received: by mail-wm1-f74.google.com with SMTP id 5b1f17b1804b1-48a5952c635so69483375e9.2
+        for <nova-gpu@lists.linux.dev>; Wed, 06 May 2026 05:42:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1778071349; x=1778676149; darn=lists.linux.dev;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=GgVBoDfFSnA8IrE1su9Kgw5EWmAPu4xV1AP/RXJBkOw=;
+        b=fWk6xWgapugekAD1nC5jryjAja5LyD1KplHPDYXnmZ+8TP+NV3NUuoTSn7nRXpKzfo
+         Q8a5D49KczVBQz+Vz5KIlWGwMZbPquQ4w0x1NXJM8crbuXh8DBmYc9LssSog28jJEUxy
+         nq0PDrPvUXWTP8LiBqf6QIo7MpdylNIaEQokCAk6Oa/fTNdZCXb14uQWbpzrGCbnJwVw
+         SU0+lJeM1Ckooj1OGJ8h+r7yTVgrmKfAm0Dqn/lRGEYW2AVxqKVr++wlfWBg3ME33+99
+         wdCSMherZc6luaJlwEECtgvNAbV41ssLo0zTbuKHkfcJUxCApezeSi4zEUvhyXdQDb4Z
+         F+hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778071349; x=1778676149;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GgVBoDfFSnA8IrE1su9Kgw5EWmAPu4xV1AP/RXJBkOw=;
+        b=F+vQMxIwMFRpL38NZkfqjBTu0WEJhexOOGyFQv0ZckBX1tZqxg4Zali1zD17r/Y9nI
+         7hKe4sbkZP7vEiLNZ9PhbVf3Mzl1021BydnLFyj1dYIBqRdZbDmyFNDBZzxCs1BfzSuM
+         KPI53JTna21hJXlVVX0iauBuHvJ6KTaeGZnwjtUR6UDgJ1XDqjHhSKwXOvXKbpxeQMK0
+         KYXjbFIrMKu/WgqcbNu7mpVi1mZ1cWVnOvfFF5cxk4/0aQXrWLLHCw540aeV74o1gZxE
+         SyKAc6n0jBZkN2xglAiNvH3BEqB5IWYMg9/xNahBWQRqj96iKgKnuCmvKU+C6IC/Mqkm
+         KFQw==
+X-Forwarded-Encrypted: i=1; AFNElJ/vWP0hjoo6SZEM39GfOHFe30saPATSTX3LmtqsQNXjZksYevE1xYF1G12kFW8Nf2CvAz9hbtN/Aw==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxcBJUNUfgLdTrrKqErtlfb9YjpFTqf01hsAZFy9/JZR6kSMO29
+	cH7FklJAvanQ1lmbDG7v4dIdEtD0us1tY2u7d/rI3ZTpeiChJlzu/EHQWiCcDtzwRyjgKBWd/J7
+	kjAR6wNBNDcVARnaCBA==
+X-Received: from wmbil16.prod.google.com ([2002:a05:600c:a590:b0:48a:73ac:6247])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:a08b:b0:489:1ba8:5bf0 with SMTP id 5b1f17b1804b1-48e51f4119bmr57153895e9.21.1778071348766;
+ Wed, 06 May 2026 05:42:28 -0700 (PDT)
+Date: Wed, 6 May 2026 12:42:27 +0000
+In-Reply-To: <20260505152400.3905096-3-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MN0PR12MB5882:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1586a5ef-3004-4834-0fca-08deab09069c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|10070799003|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	AYW3JT56KpANaSPOXVxzb2YHNq7PMpDM3rQp5hPkuEIii29wqc6Lh+2HskFulrG07Xg4pHOrtAU6nLdM1H5ewb6DEhCP2rTmzQMAjFAmmsTFXMRzUOfJ2gf6RBHtT/ekq+HtQEs8i2p75EkWYiteitJf5mVwM8nc7pp6iz7stuioKuMN42Mvg7oYnZvVmlfwL01VXjjY1ISxXdvgxBdquYAmdHME8AfJ90/naRFPs+K6jcke0s1kpP/tWG1Nadb/h9MUZeygCrUVZPL6hmtPTou2Hck/E/1+78SXpKEkidCSB5aFUhqwYt3WYa90nIYGeA6RkNACGdNkV1Zrm0ROBjcBqUuKBAlaAui2F8O7BY0s5YSfvJKJxnJM/bWjX9e93phH2hfUYUjbT1t+LZw3octTios56Fu1BCYKjyIlD792MM8MXKhpxnfSz6ZXDk6pUAjihrd1bpqZE/8DbdMmaa3w0xn/CKLThQliVgwkSJIIxgaLVEb9AOcuDoMm0fb+yytkmpQ0a1Sltg32CmzM0QEvK5wG9M8pzg6MxA2C3eHsVaDr+NCAUEmsUfUTDoqFw2QdiP2K4wzbvv49sOoqditElUNeA7LdqTi6NFD+DGDb4eZvfmpFHPfZs/xO3Kw50dJtIJb1nDBTj7VD94YKx0shPNtHl+F77cIEXuq8PhMrQ3cRVEAwE5+Bb0dlGvMW
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(10070799003)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dHhPK3R3aWxCMWtVQUR1eXV5UEFIUUE1TlF6dWxGOVJWeDBZRDlkYUl4ZFdG?=
- =?utf-8?B?K1dCRUtQUUx2dlFSdm1sNlhWbkNQejFNK1l2MWFrWG9lWTMzU2hPUWdaM1p0?=
- =?utf-8?B?SHgybXdSY2dydUhwRU42cWV1bllmWVd6bkZHbUNUNjlsaWRnMG5HbFdqT05q?=
- =?utf-8?B?Z2pmVWJRdXdUdzdCNWoxTS8vRm9PY0tWa2JXWC81ZjVZYkFkVFZNVjBiRjNU?=
- =?utf-8?B?WjlXWGxRelhLQU92MkVHVlZsajRhMDJCYlRSRWlhRFNUWjB6WDlWNktSd1BI?=
- =?utf-8?B?SG1GZ1grTkRqS3BrOElkdEFJaEFYeFFPZVo2WXN5WlVNQi9hOGdLMGI2aEdv?=
- =?utf-8?B?WWUvUGU1UUtqN29WTUhmOFI3eWlqaXBQNXlUdG85Z2d2K1Q3ZEUwdndiMnhI?=
- =?utf-8?B?dCtWTkNSeDZuOVRPRS9DaUcrdURUNTJDeEZOVmEzYnR0dXdqK1lBQVdpaXFP?=
- =?utf-8?B?TUV5VVdLVURRci9QK2NrU0ZGWUtrSlVpMVFxWnFTYXBtVnJreVIzUTM5bzRI?=
- =?utf-8?B?elcrcDRFWVhpZ3FTcTZpL1ZSVnd5ak5LTjJXZDVwQVNWZGtSMS9rSGpCQWM5?=
- =?utf-8?B?aGhoQU5ZaHZjQVBiUkVnRnVYQTk1ZUNMOEcyZ3VvdExVbFQrL2h1NjA4bi9n?=
- =?utf-8?B?QTNBSm5qZWIzWHJkTTAwOVVCb2E1eTc4NGcySUFMaXBrWDczTFoyZXNVbW1X?=
- =?utf-8?B?NHpJSjdPTWtPbWVaUXQyS3JwOGk1aWtHQWRpMDZQUWhNOFNlVU9QT015Um9v?=
- =?utf-8?B?ejdPeWRoNmtiSnhwR3dHUXc0cGUrdWVETG1qVzFOMGkreTFCTTBxSTlza052?=
- =?utf-8?B?MThmZ09IbWNielNnV2pEdGl4Z212WWg4SDNUanMzTmVWQUwrTWhCb2NkSjJG?=
- =?utf-8?B?SXlPMTRzVno5M0xSSDN4Wm41WTlxVnNNekJNTHNBSE55emRTNm9rR3pCZFV1?=
- =?utf-8?B?NHFoVGIzalVKQkFIeDBVT3g5SWR3QUxqa2lsVlRjUDRNOVgyUERYUTMyRW80?=
- =?utf-8?B?ZTZGUTVPMWU0SnA1ekxLNEJHM0FxbXlNM25sSHNnY3ZIVDQyUHJzM2llemJO?=
- =?utf-8?B?ZDVEUzh3ajJKemlxT25halZVcFlWWVpSYkh3SlVjT1l2TW1zVzNJTSt0UG1q?=
- =?utf-8?B?TlMwY2ZhN0diY0lyOXFFZnRkTXhZKzRRTUh6OHcwWngyZ1Ywa01YYWJZeWlo?=
- =?utf-8?B?aHAyZm9VMzZEckk4OEYyeGQ3c3R0SkRaTU5zekJ3YmJBTFY5OU1qMU5Xelo2?=
- =?utf-8?B?Z1NreDhoOWxlVmVwQ3VjSkxSczd4T0lzRmhzMFZBcUZObTdXM0M0Ky91ejVk?=
- =?utf-8?B?enF2UUlSWnBUQkhPTkd4ZWZCRmVQZzhrQUtxNFVkZmZVQkZlajBJQzFEb1E1?=
- =?utf-8?B?OUF3b0swV1FUdW04RU1uK1kyM1ZCb1BzQ2hwalNBQVBJazlsV0FDdFc1Zksv?=
- =?utf-8?B?WW41V1RlYzQ2VVBUbXVyNUd0eTJUVXg2VzEzUENKUjg3ZHJNN1ZHREY1VFkz?=
- =?utf-8?B?TkVIakRZbEgwR3VnOHZZUW14Y2dXTi9yaFNoeFV5alJFUHN4TU1VSWppUk16?=
- =?utf-8?B?YkJ1b213Ukl1SkJTSjRwdlV2ZlhEMmFEVHdmZVNaS0VPeGFET2ZZS0Rmc2F0?=
- =?utf-8?B?dUR2S2NqQjZiSHhtalo4ZUZuRmxvQmYrT1E5N3VqZ1ZpQm1WSDllTDl1NllX?=
- =?utf-8?B?cFpHTW92cEpha3dJTEU0c1VaQlFEQVZvWUJxbnFNcFRzdjlva0hmWTJSUWRU?=
- =?utf-8?B?VnFIejNBMjU4RVNJanF5eFRGTVRoY2JNY2Z0RnNLdWVVbUlMKzBTeklibi9z?=
- =?utf-8?B?T05VaEs4Wm8zaE5Ed0VNeTREK3VHQkJ4d0U5OG5LSzZPYVdtcWtRZkJQcURO?=
- =?utf-8?B?S3h6dW9FbHBxVGw5cGJHVWxoYW1aQVlzOHVOd1VOeUQ5aDF2bWRtdDBjQi92?=
- =?utf-8?B?eDhoL2lYOWpvMEVEY1dhWWN0Q29nS24wc0xwcndqRCtORlM5T09XSGNUZ1BC?=
- =?utf-8?B?UTQwSXpVNU14WWxZYytIRS9paFFQem9INmQrdGpyU0RFcS9mY3o0T3lpeEg1?=
- =?utf-8?B?OFd4Y29td3NqaUZKNWFOUFRFclZuSWRNeUFHeHZqanEyTng2K3JhUmxpems0?=
- =?utf-8?B?NmM4REwvYmpxQURPUTBIVEdyRUZNejhFQ0RLOTE0cTNGZ3N3d3U0TmlvcTdR?=
- =?utf-8?B?a0RhdEJ3Rlg4ZWV2SSt0YmpUdzNqQ2V1ZGsvVjdZaitDRUt4YjUzQkVSNCt1?=
- =?utf-8?B?UUlTQ0RiOWREMTJBTkZVL0RJZElWMU5LMGxIQWMwcndZYk1xWks0Z1I0YVRm?=
- =?utf-8?B?ekJKMmxQVFp0cTZaaGF1dEVHTHlhV1VBVVRseGUxeFJpdW5GeUZyeXlrblVC?=
- =?utf-8?Q?Au9RmSxoKtulHBWzIZB+JLq6U0qKhCv0dvzLFvyNZCs/7?=
-X-MS-Exchange-AntiSpam-MessageData-1: tzjB6zbqFfx6ow==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1586a5ef-3004-4834-0fca-08deab09069c
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 00:47:18.9206
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NRLQau0zzvJawhpMbGZPEP6ZrbutjXsSh2OU+wUYkXbtusswMlJwJ0ZfGC9qTf189ovnJFLMkN5whvtFEQxD9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5882
+Mime-Version: 1.0
+References: <20260505152400.3905096-1-dakr@kernel.org> <20260505152400.3905096-3-dakr@kernel.org>
+Message-ID: <afs3Mz8J9oOeqF34@google.com>
+Subject: Re: [PATCH v2 2/3] rust: auxiliary: add registration data to
+ auxiliary devices
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com, 
+	david.m.ertman@intel.com, ira.weiny@intel.com, leon@kernel.org, 
+	ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	tmgross@umich.edu, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-On Wed May 6, 2026 at 7:59 AM JST, Joel Fernandes wrote:
->
->
->> On May 2, 2026, at 11:42=E2=80=AFAM, Alexandre Courbot <acourbot@nvidia.=
-com>
->
->>> +
->>> +/// PRAMIN aperture manager.
->>> +///
->>> +/// Call [`Pramin::get_window()`] to acquire exclusive PRAMIN access.
->>> +#[pin_data]
->>> +pub(crate) struct Pramin {
->>> +    bar: Arc<Devres<Bar0>>,
->>=20
->> The HRT series [1] will allow you to greatly simplify all this by
->> storing a `&'a Bar0` directly in this structure. It will most likely
->> land this cycle, so I think it's a good idea to proactively depend on
->> them. It should apply cleanly (modulo the Tyr patches IIRC, but you can
->> skip them if you don't build the driver) on top of `drm-rust-next` - on
->> top of which this should also be rebased anyway.
->>=20
->> [1] https://lore.kernel.org/all/20260427221155.2144848-1-dakr@kernel.org=
-/
->>=20
->
-> I tried to apply it but had a lot of conflict.
->
-> Danilo, do you have a tree of these patches somewhere that applies on drm=
--rust-next?
+On Tue, May 05, 2026 at 05:23:08PM +0200, Danilo Krummrich wrote:
+> Add a registration_data pointer to struct auxiliary_device, allowing the
+> registering (parent) driver to attach private data to the device at
+> registration time and retrieve it later when called back by the
+> auxiliary (child) driver.
+> 
+> By tying the data to the device's registration, Rust drivers can bind
+> the lifetime of device resources to it, since the auxiliary bus
+> guarantees that the parent driver remains bound while the auxiliary
+> device is bound.
+> 
+> On the Rust side, Registration<T> takes ownership of the data via
+> ForeignOwnable. A TypeId is stored alongside the data for runtime type
+> checking, making Device::registration_data<T>() a safe method.
+> 
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-I have a tree here, it should build fine as long as Tyr is not enabled:
+The change itself LGTM.
 
-https://github.com/Gnurou/linux/tree/drm-rust-next-hrt
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+
+But I'm not entirely convinced that this is the most convenient
+user-interface. I'm wondering if the auxiliary driver trait could
+specify which type the parent driver data is using in an associated
+type, and whether you could eliminate the check and error path that way.
+But then again, AuxiliaryDriver does not appear as a generic parameter
+in auxiliary::Driver, so it might not work.
+
+Alice
