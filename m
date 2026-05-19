@@ -1,346 +1,97 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011002.outbound.protection.outlook.com [52.101.57.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD849378D76;
-	Tue, 19 May 2026 06:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779170579; cv=fail; b=WMwcQ9qyuzAAYLFpHeQnvefKwSnVxZVNXAo/RukF9DA2MvCCznwLgZXq+YPQAmSk/MtOPz/XQS0x/FcdSt4+Aw2idbzCeg1PfStdLl/4Y0eRbCyrRKX1O0ff5nl5DK/7DFyXO/9luAm6t30AMsq5Ay6YvQaxsu9L5gL6bx4rdVM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779170579; c=relaxed/simple;
-	bh=rX7s/f1QeE7jLuUoDDuGWVVd6j2C3seLFpY4KkXPjF8=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=WfZKoOc+mRf6vWSNvLCBFBw+DddBE6T8H62TJt/u3TtHcY2uo7FiO224E3EFkLorGky0ILivdiRm7QO5ryxz1/KjQFNxpXOuk80kIZY2HyLp1rV1/AYZYNOb/JD/XbIMlVrR6sYw/+gYSI31BocAXFYzeEmKznneXtxr/DKRaLI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nwbnVKPA; arc=fail smtp.client-ip=52.101.57.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0431A682A;
+	Tue, 19 May 2026 06:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779171977; cv=none; b=HoYoNu4NxSJk1YtNCoD2SAs3RdZ+7P9x6NgohmwIfedIwIDQWKpfB2f8Twy25bsDOZV/Ke3Lc5DgHAkgqgR0R4S64aILH/d6JPSTNGZVTZDfnaYpmqesfcs/DpD4GXJmc7F2J6ZJzzZRgODHpE/ADnSdfy2hdK9xrotq9W//cas=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779171977; c=relaxed/simple;
+	bh=vfc7PEfuAeEjqo+PGe1GnSXUHGllBagvhexmLDwXXe8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=l24E7KggOxUxl8VAta0q8X0Lq565EThJgSpuyCwuWG4+tR4lL52lbrie3+q/iLYal1YRy+VSPzWzeGtw00TIQfOIA6+EY0wmdtSNlasdsb0uS1KBXCYw1Hin3u4OG2EOm7KJ5uNKMKkVgqWhvg1fiNgdnVtCi+mrUfar2KPOJDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P8rM12T0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nwbnVKPA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EGNurKtGTeOPiqhSI6dvpYiEAlff/oaHEt4YNuzYZFDIv2Eit0+JoSh7VQ5aljlv0IbCSGbFZia4KXpbj7xj06PBH/Y7wDyX3GVLCpugzjXNz2LwRH87zuJScb8/WO8cRWTO/Mi6CzbqIhzP0ZQDRJtVSuttHVkwZbMBwsSM4xUjwJnJOAnmclvaAhBQgGH+D7N6mdkBbVV0CpGKWn189EmmCOfGvnkjsvWwPoEc4rOp+VNkcSWXQsMgMhnMqzBx1Nmuj4roTJomRCrPzoKdJXWoXCGILXLYJKSFdvuMMv+SpBq6+KqrNHkAj6kUmvJOsJIMZwAJMkPZEihNs17S9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LNdaC7G16O/x/qWJzZhSHkZU8K79nDCKxprnsOyDUbw=;
- b=LtVaTI8Dscn/WqKHEeSWuNPy2UiZqSJESkkklBsbrGbmmAUBuTRKo/4ZDWb8CcD3U7ZMKxnJyDvTiEwS2sct8wTMdOB9qwvMQS//YAaMwnuGVzrwcjgc6quQO52J8icbApT5DwD3Pe1IDLAeypvBEsub2I5yFfZoVXZrg737WnzXIGlZiJ7LfSXpy7pe4itdc86lXmw+dbDDCfMl31+LIymZVUPYS0CqobtpfHSCqDMvd6AWa1dZTGrg5RvQdYwecUFVSHO+fJWZJ+8CjiPZXP9q4MeBrQy5EZ3rh5inKJ/LS5H8r4SOa+N94cawRG9EROo8OpngbELm5OubBmgRRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LNdaC7G16O/x/qWJzZhSHkZU8K79nDCKxprnsOyDUbw=;
- b=nwbnVKPAwYOLsD23lmLlKrEThPBPCzfTIvc84sTW5kzPtVjX16BQBDsYUxOGDVy2E2wc6yP5wnv0I23skeuzXjuPpPJMnAkUauYysz0dqsQRPx+34Zvysbc/Djg5IiB7NBgBLPC1noEBOyBeHBda4eZIa6/dEafOTcRkSjr3wfX/ZDTzzTVvwU7o7s8oCgTeMe1WWqTaRxYuk4tnhoNCnzaFgisR5L+EFy57v8k9uQ3Qn+CYUjxe22J0gDlP1Z+bz6Hr7ccjqa7dEVRfcvg0YjzZ45uz8nOW6BGRQFFy9wczx/8pagehVsN3ePstxlMkiG/ANcmsM+M28tv8+vprAg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by DS0PR12MB9324.namprd12.prod.outlook.com (2603:10b6:8:1b6::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 06:02:48 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0025.023; Tue, 19 May 2026
- 06:02:48 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 May 2026 15:02:43 +0900
-Message-Id: <DIMFBTLBNISD.W92F9DWEFSX@nvidia.com>
-Subject: Re: [PATCH v3 16/27] rust: types: add `ForLt` trait for
- higher-ranked lifetime support
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-17-dakr@kernel.org>
-In-Reply-To: <20260517000149.3226762-17-dakr@kernel.org>
-X-ClientProxiedBy: TYCPR01CA0193.jpnprd01.prod.outlook.com
- (2603:1096:400:2b0::12) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P8rM12T0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A978C2BCC6;
+	Tue, 19 May 2026 06:26:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+	t=1779171977; bh=vfc7PEfuAeEjqo+PGe1GnSXUHGllBagvhexmLDwXXe8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=P8rM12T04+ZuBv6GHundGYtIAaOiFQVmUSH7xably5MuOZQ8r7iLOc9QKjSDnaqHj
+	 ffhhMsqcDAfQUTpMlh75x4ZMxFrqOtbIE6ktVNGwnd8YqYIC9l66CN/lrR07iXbABi
+	 n7Q3gj5LIToe4RvmN8BIkAX2EuqEmobGxso5P/M8=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 095DCCD4851;
+	Tue, 19 May 2026 06:26:17 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Tue, 19 May 2026 14:26:14 +0800
+Subject: [PATCH 2/8] rust: driver: make `DriverModule` struct pub(crate) in
+ `module_driver!`
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|DS0PR12MB9324:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7322857b-7c52-404b-f9d5-08deb56c407e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|366016|7416014|376014|921020|22082099003|56012099003|18002099003|11063799003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	0lWfuFz7AKNW9Mg5vN+5gyaoLX47JwVu3LjaA74wHapXto0njrz8zzIaOENlY7+ywP3vH7C8B04VvwGOXGV9Zmpj76J3Eyl4PToE2StQkDi+XsiQxCvf8OVlVsBaN7rnX5hcrEopIoEJQLOkSv0N3YnEiTzxM9XJzsIiUyy6C+awWSUkmmPQHh/KIjsHSfAVju3MlEzALLYF5tAkpCRZ5FLH7MREzNHUk+axlKedEpm3m55yHVR9R06YtqFJdNOn08aoSc9b5x5alPZuwYtKtKlKJZ6nQFIjnpLsEXlRsY1t0et7kCI8KCJCjeeDZ9Nxd1kYkCoEmsVJiO4VkjjUcD7gyFVU3IXolq2iZCTzyfJLI/qQEX997Y8UPHmPgtG7FHTZ76KrkjbeWKGPasdy5rNpgy5aMLIgPYIz0u5/oNg53feyQaffuQKE7yhQE2ZoXNNPkwWb7IISTsT/HAILk4H0UXEmoZSl+mZQXpBhmvucTF+zsduUMe9HhnO5EhVS03jaDxfwNY2VnJ7zGjXnBxMqE2GTZBga+aGpFGSKsUrngCfMYUJ8xgqNsinIAxcvyUZbEnxKXOytgo6aNamqFELw1W68jkdD1/k+Bsq7xC8w1cSymOrzT730bJPEg3eOkXHphQiouKMPpzsIZjZeX6p1vl3WycY9yjq21yeuYbSMluB575hyaJSjkGSYSOLu8ZiAKZ4DVYSDHhFd32NEZ3/Q6D0+CWBGqPhfE6VoCN5sJal3vv82M+UJeBcm1zhF
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(7416014)(376014)(921020)(22082099003)(56012099003)(18002099003)(11063799003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dzdVVkV1ak5DNzE4L2dIbGs5UllmekNuWHdqUmNlY3N2Z1dVanF6UXl3c0FO?=
- =?utf-8?B?bnQ2ZU1yeHhkbm5Xcm1mOWhVejlKdG1Gd0RxQlpDWW8wZkp1T0tieEhvY2du?=
- =?utf-8?B?OXFFRU8zbkF2K2xsa0I3VWdCRkg1eCtNUUJVVXhBck9qZytGTnNZWEd2cjY2?=
- =?utf-8?B?YW1YbFVoRkZsNExwclFXRjAyUjA1QWdjaTYraHhkMlptYXowbGhuSlNLSity?=
- =?utf-8?B?WkhVWkRsYkx5UDY0SXlGZkhYTStkMnNsTkc1T3RVdjkza1hCYjF2QW1mWExH?=
- =?utf-8?B?YmZ2bHh3U2tYczY5SnA3RGJwQWgrbTZJeUt3UFBPMUpYWDlWSEl3anloS2c2?=
- =?utf-8?B?by9OZGxWdmpONitzODhFVWw5Y0RtckNUeTQvdDZ3aWw3WElzOCtGY0Z6TW0y?=
- =?utf-8?B?NURyYTdYTTZWOGFrYW51YW1vTlJidUFJK3A2eWZ6anEyME5BMTczU0RYSHpz?=
- =?utf-8?B?WFFTMzlsR3h0UzNmbUh4ZE9QeTFrLzhRNXZNMnVNNTJuY3I2N05sWkMySTBk?=
- =?utf-8?B?UElybFdGN0UvclI2RktvVGM4dGM2WVY4a3FmK2xvb1AvNFZjbkZLejIwd0F2?=
- =?utf-8?B?RWZlUHp0MnRSZndER2V5aXdNNmdwUDJjUTVHTldqaTJaelRPYUFRcWVEM1NT?=
- =?utf-8?B?MG55UjVHSlRRU2Vlbm80SncrOWFMMW1Ic1ZLSEMzWEFORVBHbHZjckUyNmNW?=
- =?utf-8?B?TTd3YTRmaWdpeDREZjVyWFBGSGpiRmJJd045a2l0N0xvSTdXNHNqMU12Vy81?=
- =?utf-8?B?WHMwQnlVbWRPZVhySk1LV1RCVXNIa2RMMkNIajZ1NzBUQ3dFT0FBTzd1eUl2?=
- =?utf-8?B?YUd0L1BSa202Q1dubHFoRWJSVktweFhlMnFSSmlSaHFMOHV3dU5tenlNa0E5?=
- =?utf-8?B?RFBhYmRMRitiY3FFNmZlTHZlOFVhUVc3ZE1vd1Y2U2EyVFZ0QklEZXVBd1ZO?=
- =?utf-8?B?UHdnYkM1dFlMK3BkRUJsQmdMQ0R0M1AzZlB2dStBUlhXeVJaQlU3UFFoelFk?=
- =?utf-8?B?T3VRYkYvYjZHNFh0a0lrSm50SE9XZDFnSTluOXQzd3NSc1hQdlhvUG1CV2Zj?=
- =?utf-8?B?RWRzN2VHR2JpaWp4aW1yVnZ2bWQwRVhUa0dmNVh1cWNRRDBEdU5lYnVLYWZn?=
- =?utf-8?B?ck03UEVZSFc4eUVtalhwQ0d6cWdFVUpnTzJucmlydU5QN1JRZjdlamZMdzMw?=
- =?utf-8?B?c1NFQUNxbG9zMEFtb0h1V2Q3QmJVb1FJT21MdDZyQWhONWpSdlFuTnNGN3NC?=
- =?utf-8?B?Q2NWNHlMOTY1WXRwcnVDa0hEWXM1a2xhMnhjbDZ3YkxMa05ML3Ywajk3Rm9s?=
- =?utf-8?B?enNna3NJWVpDNTlNRmdxU01tNGsydGxSTHZvKzdJU1FjYWVpTXArOG5nZlVm?=
- =?utf-8?B?MVprajVwQUtZSVRFUHhVUjBacWtJbHlpV05EdllyendvYjlKRjBLdmYvOExk?=
- =?utf-8?B?Nnpsd0RlQ0lHTUJ3OGFBekQ4YndBRFQ2THh1d3BMbjZOZEFHRjRTQzF2TUlv?=
- =?utf-8?B?ZzUyYjIvV1JVTUJaVHBNQnVrSVo1RTBRVDF6dEJuQXlnNjA3Nk5lUWtnd3BD?=
- =?utf-8?B?bHJKTURKTDJKQkZ1VWg2a2cxSWltSEJZOVF1V0kxK2lyWDRjazFTNExoTmRn?=
- =?utf-8?B?MXZCNkVYVXltaC8yS3U4bkNOVWt2V0ZyMUtFSWRkVkc0VlIyZHRUa0dpbkE0?=
- =?utf-8?B?R1hXMkxhRjJPd2M0NVorNytMWnczZmNvRlVSbVFUdVoyblhudkd0ZWFPWUp6?=
- =?utf-8?B?ZHZJMVQ4VkhIaStYMjRZZ2pUSmZjNHVNcWkweTQvc2lZcXk1UldkTFJHY3BQ?=
- =?utf-8?B?R29XWG0wWnNpTlpwNUcxOFdNMGZLck4wRkd5RXpkNjZaMkNpaTJOMjBKeFJ1?=
- =?utf-8?B?RloxMTBqUlFWTEJNbk1wbDAvelNqNUpJeVRDVDhGOGQ4QmVHTzA2WVRJRGRY?=
- =?utf-8?B?NVpkOFMwdzJqWU9FclluaVJHaFMzVldaaVkrWWZtdXZMbXp1dCs2Y2I5KzRr?=
- =?utf-8?B?Vi8rTmVjZmtVNTBKQm9YbzJyRk96MUNPWjZmYjNPa3dRN08wZ0VXdC8vakt0?=
- =?utf-8?B?MDBER3cvQUlITkFwL3BrN0xyRjNWbVZ6dmlZTHdVRU5Uc0dtY2Z6WW82M2x5?=
- =?utf-8?B?dTZLN0ZSdTNpckV3cEpLNnQxMFg3WUFYZjYxN3JiSHl3TUNWL2dsVkc2ZzhE?=
- =?utf-8?B?SHNHNWRMMVRacmx4WlNXcmdqU2s1NFF6M2IrQTk4T29KQ3ZocEJEYUVpNk5R?=
- =?utf-8?B?Ny83M0VVS2FWNEM0bk84ZUtQUVdsQ2NxOCthWTlsdGxuc09oV3o1cXNvWk1Y?=
- =?utf-8?B?cmVQRFlPWDJubnhBdDFRZFRUdVpmTGRtaG95d1MzMVM3UnNLSnVYTUZ6Nm0w?=
- =?utf-8?Q?Y9P8+OH5Ga6nl3XMvt6YkB8/9xppwXQdN27cGtuqMBv9n?=
-X-MS-Exchange-AntiSpam-MessageData-1: Bln8lmQoQGVdOg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7322857b-7c52-404b-f9d5-08deb56c407e
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 06:02:48.4095
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UVD2qkaNC64neci8tnrQ3k/quiGMzKglR+i6XxqZ+iqVxenTp/mHdCXAWoSEejxwoPMcTkh3PaaPlcGpRxojIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9324
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260519-fix-fops-owner-v1-2-2ded9830da14@linux.dev>
+References: <20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev>
+In-Reply-To: <20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
+ Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171975; l=796;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=vfc7PEfuAeEjqo+PGe1GnSXUHGllBagvhexmLDwXXe8=;
+ b=iHl0SVhJNpVhuwZ7fh48egK9TuW+0iU+YW7qNL4AsNI9HBq33i2CD/EuLLetzk/gmObncqGZY
+ c1YeH3GB4bhDdkz58UDUJs4GIxBetIU7CQNTcDd16LTUVxnj/j/Y7aw
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 
-On Sun May 17, 2026 at 9:01 AM JST, Danilo Krummrich wrote:
-> From: Gary Guo <gary@garyguo.net>
->
-> There are a few cases, e.g. when dealing with data referencing each other=
-,
-> one might want to write code that are generic over lifetimes. For example=
-,
-> if you want take a function that takes `&'a Foo` and gives `Bar<'a>`, you
-> can write:
->
->     f: impl for<'a> FnOnce(&'a Foo) -> Bar<'a>,
->
-> However, it becomes tricky when you want that function to not have a fixe=
-d
-> `Bar`, but have it be generic again. In this case, one needs something th=
-at
-> is generic over types that are themselves generic over lifetimes.
->
-> `ForLt` provides such support. It provides a trait `ForLt` which describe=
-s
-> a type generic over lifetime. One may use `ForLt::Of<'a>` to get an
-> instance of a type for a specific lifetime.
->
-> For the case of cross referencing, one would almost always want the
-> lifetime to be covariant. Therefore this is also made a requirement for t=
-he
-> `ForLt` trait, so functions with `ForLt` trait bound can assume covarianc=
-e.
->
-> A macro `ForLt!()` is provided to be able to obtain a type that implement=
-s
-> `ForLt`. For example, `ForLt!(for<'a> Bar<'a>)` would yield a type that
-> `<TheType as ForLt>::Of<'a>` is `Bar<'a>`. This also works with lifetime
-> elision, e.g. `ForLt!(Bar<'_>)` or for types without lifetime at all, e.g=
-.
-> `ForLt!(u32)`.
->
-> The API design draws inspiration from the higher-kinded-types [1] crate,
-> however different design decision has been taken (e.g. covariance
-> requirement) and the implementation is independent.
->
-> License headers use "Apache-2.0 OR MIT" because I anticipate this to be
-> used in pin-init crate too which is licensed as such.
->
-> Link: https://docs.rs/higher-kinded-types/ [1]
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
+Expose the generated `DriverModule` struct as `pub(crate)` so that
+driver implementations can reference it via `super::DriverModule`
+for the `ThisModule` associated type.
 
-> +trait TypeExt {
-> +    fn expand_elided_lifetime(&self, explicit_lt: &Lifetime) -> Type;
-> +    fn replace_lifetime(&self, src: &Lifetime, dst: &Lifetime) -> Type;
-> +    fn has_lifetime(&self, lt: &Lifetime) -> bool;
-> +}
-> +
-> +impl TypeExt for Type {
-> +    fn expand_elided_lifetime(&self, explicit_lt: &Lifetime) -> Type {
-> +        struct ElidedLifetimeExpander<'a>(&'a Lifetime);
-> +
-> +        impl VisitMut for ElidedLifetimeExpander<'_> {
-> +            fn visit_lifetime_mut(&mut self, lifetime: &mut Lifetime) {
-> +                // Expand explicit `'_`
-> +                if lifetime.ident =3D=3D "_" {
-> +                    *lifetime =3D self.0.clone();
-> +                }
-> +            }
-> +
-> +            fn visit_type_reference_mut(&mut self, reference: &mut syn::=
-TypeReference) {
-> +                syn::visit_mut::visit_type_reference_mut(self, reference=
-);
-> +
-> +                if reference.lifetime.is_none() {
-> +                    reference.lifetime =3D Some(self.0.clone());
-> +                }
-> +            }
-> +        }
-> +
-> +        let mut ret =3D self.clone();
-> +        ElidedLifetimeExpander(explicit_lt).visit_type_mut(&mut ret);
-> +        ret
-> +    }
-> +
-> +    fn replace_lifetime(&self, src: &Lifetime, dst: &Lifetime) -> Type {
-> +        struct LifetimeReplacer<'a>(&'a Lifetime, &'a Lifetime);
-> +
-> +        impl VisitMut for LifetimeReplacer<'_> {
-> +            fn visit_lifetime_mut(&mut self, lifetime: &mut Lifetime) {
-> +                if lifetime.ident =3D=3D self.0.ident {
-> +                    *lifetime =3D self.1.clone();
-> +                }
-> +            }
-> +        }
-> +
-> +        let mut ret =3D self.clone();
-> +        LifetimeReplacer(src, dst).visit_type_mut(&mut ret);
-> +        ret
-> +    }
-> +
-> +    fn has_lifetime(&self, lt: &Lifetime) -> bool {
-> +        struct HasLifetime<'a>(&'a Lifetime, bool);
-> +
-> +        impl Visit<'_> for HasLifetime<'_> {
-> +            fn visit_lifetime(&mut self, lifetime: &Lifetime) {
-> +                if lifetime.ident =3D=3D self.0.ident {
-> +                    self.1 =3D true;
-> +                }
-> +            }
-> +        }
-> +
-> +        let mut visitor =3D HasLifetime(lt, false);
-> +        visitor.visit_type(self);
-> +        visitor.1
-> +    }
-> +}
-> +
-> +struct Prover<'a>(&'a Lifetime, Vec<&'a Type>);
-> +
-> +impl<'a> Prover<'a> {
-> +    /// Prove that `ty` is covariant over `'lt`.
-> +    ///
-> +    /// This also needs to prove that it'll be wellformed for any instan=
-ce of `'lt`.
-> +    /// It can be assumed that `ty` will be wellformed if `'lt` is subst=
-ituted to `'static`.
-> +    fn prove(&mut self, ty: &'a Type) {
-> +        match ty {
-> +            Type::Paren(ty) =3D> self.prove(&ty.elem),
-> +            Type::Group(ty) =3D> self.prove(&ty.elem),
-> +
-> +            // No lifetime involved
-> +            Type::Never(_) =3D> {}
-> +
-> +            // `[T; N]` and `[T]` is covariant over `T`.
-> +            Type::Array(ty) =3D> self.prove(&ty.elem),
-> +            Type::Slice(ty) =3D> self.prove(&ty.elem),
-> +
-> +            Type::Tuple(ty) =3D> {
-> +                for elem in &ty.elems {
-> +                    self.prove(elem);
-> +                }
-> +            }
-> +
-> +            // `*const T` is covariant over `T`
-> +            Type::Ptr(ty) if ty.const_token.is_some() =3D> self.prove(&t=
-y.elem),
-> +
-> +            // `&T` is covariant over `T` and lifetime.
-> +            //
-> +            // Note that if we encounter `&'other_lt T`, then we still n=
-eed to make sure the type
-> +            // is wellformed if `T` involves `&'lt`, so we defer to the =
-compiler.
-> +            //
-> +            // This is to block cases like `ForLt!(for<'a> &'static &'a =
-u32)`, as the presence of
-> +            // the type implies `'a: 'static` but this is unsound.
-> +            Type::Reference(ty)
-> +                if ty.mutability.is_none() && ty.lifetime.as_ref() =3D=
-=3D Some(self.0) =3D>
-> +            {
-> +                self.prove(&ty.elem)
-> +            }
-> +
-> +            // `&[mut] T` is covariant over lifetime.
-> +            // In case we have `&[mut] NoLifetime`, we don't need to do =
-additional checks.
-> +            Type::Reference(ty) if !ty.elem.has_lifetime(self.0) =3D> ()=
-,
-> +
-> +            // No mention of lifetime at all, no need to perform compile=
-r check.
-> +            ty if !ty.has_lifetime(self.0) =3D> (),
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ rust/kernel/driver.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This treats macros as not having a lifetime, but it allows this which is
-not covariant for 'a IIUC:
+diff --git a/rust/kernel/driver.rs b/rust/kernel/driver.rs
+index 36de8098754d0..9c7c69c4d2af0 100644
+--- a/rust/kernel/driver.rs
++++ b/rust/kernel/driver.rs
+@@ -253,7 +253,7 @@ macro_rules! module_driver {
+         type Ops<$gen_type> = $driver_ops;
+ 
+         #[$crate::prelude::pin_data]
+-        struct DriverModule {
++        pub(crate) struct DriverModule {
+             #[pin]
+             _driver: $crate::driver::Registration<Ops<$type>>,
+         }
 
-```
-trait Trait {}
+-- 
+2.43.0
 
-macro_rules! asdf {
-  () =3D> { dyn Trait };
-}
-
-type NotCovariant =3D ForLt!(for<'a> &'a mut asdf!());
-```
-
-And you can get rid of the macro too:
-
-```
-type NotCovariant =3D ForLt!(for<'a> &'a mut dyn Trait);
-```
-
-These are not covariant because dyn Trait has an elided +'a lifetime.
-
-I feel that the syntactic checking is kinda difficult to get right since
-it would need to handle all ways lifetimes can be elided now and in the
-future.
-
-Would it be that bad to always emit the proofs?
 
