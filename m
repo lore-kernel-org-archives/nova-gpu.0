@@ -1,76 +1,75 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021085.outbound.protection.outlook.com [52.101.100.85])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021125.outbound.protection.outlook.com [52.101.95.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA249233935;
-	Wed, 20 May 2026 09:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6867E302767
+	for <nova-gpu@lists.linux.dev>; Wed, 20 May 2026 10:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.125
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779269654; cv=fail; b=SKDI7fjHsrGgbZW4sX1as3F+/i2/vRA/rajtFbdoLb5VD3TMOxOKK7g1NAL8YF+7pkl7H8BVUDPKGazfd/8s+SP7VrhOwdgkR+X9J60H8/SN69Cdjvnh5cOAJYaLtU422TxPYRzvSZ/QhGhebM6qAycW9nQYQo0Q1jbFWASpej4=
+	t=1779271303; cv=fail; b=cPkMI2C/lzjCNkp0NwCwNUvIfL3q051+gaCdqbgZ9xTmKuEZJAYL0mwZv1msIKAITtWWdtBpEwIqpcwpfySqiyg5kl5/c9NydYD7/tPskOFfBv7MBwdo1WmgN9fhQ77vncdAurtMj6JSjKZZahmWD1V/pzB2EApri+gzxBqL7Lk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779269654; c=relaxed/simple;
-	bh=1SZc4MsHZUB2+8hgr9+2XRvygdt9G/Vd1ZsbsE7Cqt8=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=B1z+Cjo/Sg7voZc/4P82GU9bBQVMR/1JK+uTAr9EN55zwFotnj3wtzWOPpxjXUZ1XsNr8WKVOQPhvAKUVHQjT7Z1+JE8SA3kC51fKj4MK2TRDLDS4xSzap4kyOnfFjv2cKs+LYNi8STwySOCZ4Vrh7LgM+V9TC3J0gzMtIG8NxI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=SxcSqpdP; arc=fail smtp.client-ip=52.101.100.85
+	s=arc-20240116; t=1779271303; c=relaxed/simple;
+	bh=7+9Kz+jIvcwJvYLBksrcJ8HRpWLZpF35jpkjVyVUQgI=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=Beztl8qaVPMAY0Y4X7A6Wohk9L7A4UmDwVMvsn0F4cnl0hm711dB/CZZZjOQdq01yJxHRaMW2HGDHrNd573G633hjcbDUnkoa4CQ1MnfWU/02WweMLFFY02aR3amcjBbEXgQFr+a5nhywnpOnnC7wDdUHApDKHZEgkX3CbUgi9Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=XLKkp0q3; arc=fail smtp.client-ip=52.101.95.125
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="SxcSqpdP"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="XLKkp0q3"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jpADTVA74BEL3eu9bacwgSrJjIy6OEguFEyzL6EJQ9eTlJJvMX0PXj+3RSHPiwB+EoZ4sLdKvJ/IUbeNouOrWGFskKKHNTKv+Se7JqaKqTSZBx0Cf97W68/C96U8pMD4PT5VT8ky2xb0kSz8meax7oRkNjzi0u5/Avi01gg5L3kpbzZPP0iuSNaFwtpc5JeTRvUQxO5Hl6go8m2H31kdtf83lyaOxTVUtFfAwuQS0X9ShryooApzI34dEzcd0PFkndKYjEeZFUNt9W3vK5RbkoFQ1iQ8snm3V3RWL+xTKmQk/EMzc+oIgEZZsZjbH6jpHWlet78vZRz74ArBgmQpaw==
+ b=EOcsc3VAHIxPt13+bO7yYcPWFxywbWAh5gne2p6zlYYld1KRroLhc/h7K/8i0J5y+5R5lWnwfA4FQPQakbh9ifdQqBCbA1l9l3XTNVy2F3B8q/2EP2az5KzaS/QWU57QLGJ/7MesnDTdNzmE8seKRJ7XSBqTH9exgNdLkr5IS1axj+RYrxXs2rqgfKMjIIOA/1UYipibJxVKFK386CodTDEKK38BuDlBkjP7SMm03V8ZQN3bnjXclxcxXvScoI1JP7jcD8DN87zjCPu2LNC97fAGD5+YQku7XCCSLQep2tAB36Q8rNj1RbSQDJh253uRtYW7FS2gls6qxGo46/4CnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jLGcgB8nBpYfFOUPbPBvDqqhdb2KEo5KI2QMkoeuniA=;
- b=zHWduLrPepC4u0vtFLcX+ZR2bfbO9/TqGTin8HM4sBsf3oU39iGz7yIT3pfy68i/Cf4LlrKP8iO2aoPVpv+1ywEpC740Lj07kQsvpJvDNjgMxjzCgldsVzJNV9cQOg1NoiR5tvUcrgTRXp0qWVS12+4x9Wl6x3LidluNv6gaT2NSu8JCTiT2/YSfPzBXqB5XGU/3N2COoRLLrwHrPB+bbYuxee0LsHIDA/LQO92jm5q6AT8etefKacft+s0SP95gDpRWhw1FGEMlJljd0XFuSF83nRqvpdTY/sQ8Ni3It1eRAJZAKzU5P6JmpX48vsxIPvzzzcD+Zh3Fjx1/yHiYCw==
+ bh=7+9Kz+jIvcwJvYLBksrcJ8HRpWLZpF35jpkjVyVUQgI=;
+ b=bl2M7C3/4rTZpZ2MEIH8Tzn26qB5UNi71sZhZ3MzN+PA8u4Z/ETbCe/PNd7gUX3dQlVhKHPiK6wO1zS9f8KMhRhC8UxOgwzyQ1gpV7DnhSpW66NVswCftb2Xc4KdvO8tG94SHWp3JPOizgt1F8bqZyDXlX2Swx9zJ354xS56GxftsvZ8qsjX25KbVCMGGfi7R+m5XUgeLV1wHpEDr195GKknC6XHjC88wJ0e6A7W8E9Y5ztJRkOwzDXinFhaqM0XFJAr42KCnL5InhBzasKsMwm7BlxeF2uvZLWL3gkkLxk+yfVm9DV5JNmm3u+bF5acPoBO0+d1sv1lKa4pvJvixA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jLGcgB8nBpYfFOUPbPBvDqqhdb2KEo5KI2QMkoeuniA=;
- b=SxcSqpdP/WzEBBSBwVMTI/YQYfQPlXF5mC9H1BELmHfrTAwcY3oMGPryrr5v5aex5mMqCd7O7LVLL+iRhvoePXIn6KaRX3I20M1CVxH9Zlio9BM19d1Zla1S+AZTIH5ZRkdQwUzNLUPloL6V1p1kKO3CI4i/usctaubVtrlkFXU=
+ bh=7+9Kz+jIvcwJvYLBksrcJ8HRpWLZpF35jpkjVyVUQgI=;
+ b=XLKkp0q3UjhcylDZQQ6P50SGy2k7u8mWzP33wt6WTqLbm3/5e7F5W4TDY6QpVsYEKt0O0rAKiOhv+DGtWbwX3h11Af8h9eY58MevMRgmdDaI/7hFk/z0bIlxWdgOkKlzHxvZIlHFqFN9LKavNWQWt6iCfGRpm66DbYgfq4UxAZQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by LO0P265MB6962.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2eb::5) with
+ by CWLP265MB5188.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1c0::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 09:34:06 +0000
+ 2026 10:01:37 +0000
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0048.016; Wed, 20 May 2026
- 09:34:06 +0000
+ 10:01:37 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 20 May 2026 10:34:05 +0100
-Message-Id: <DINEG6ZL6D2Y.239EMAC9FOLWU@garyguo.net>
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <igor.korotin@linux.dev>,
- <daniel.almeida@collabora.com>, <pcolberg@redhat.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 17/27] rust: auxiliary: generalize Registration over
- ForLt
+Date: Wed, 20 May 2026 11:01:36 +0100
+Message-Id: <DINF19EGPSAU.3OCUDU9NQD6FK@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <linux-kbuild@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 2/7] scripts: modpost: increase buf_printf's buffer size
 From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
 X-Mailer: aerc 0.21.0
-References: <20260517000149.3226762-1-dakr@kernel.org>
- <20260517000149.3226762-18-dakr@kernel.org>
- <DIMSZMCNTRA0.29WGE6IL25A6Q@garyguo.net>
- <DIN2Y5PNWGVO.EOA9SQPOFYX2@kernel.org>
-In-Reply-To: <DIN2Y5PNWGVO.EOA9SQPOFYX2@kernel.org>
-X-ClientProxiedBy: LO2P265CA0456.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:e::36) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+References: <20260430-nova-exports-v1-0-7ca31664e983@nvidia.com>
+ <20260430-nova-exports-v1-2-7ca31664e983@nvidia.com>
+ <DI7CZA3ISGOE.1CP5YEM3NNSH6@garyguo.net>
+ <DIN5QTIGKQ80.11TOOMMQOBGI@nvidia.com>
+In-Reply-To: <DIN5QTIGKQ80.11TOOMMQOBGI@nvidia.com>
+X-ClientProxiedBy: LO4P302CA0003.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c2::10) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:400:27c::13)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -79,314 +78,126 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO0P265MB6962:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a7847a1-b809-4f45-271c-08deb652f000
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWLP265MB5188:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ea8c2b7-d429-4012-0aae-08deb656c7f6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|10070799003|4143699003|18002099003|56012099003|22082099003;
+	BCL:0;ARA:13230040|376014|7416014|10070799003|1800799024|366016|4143699003|3023799007|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	bA9WX60J4RtWPChaIAPWiEoJtiLWeO/xM4WLMppPnBBUA4Fn88P3ZYIO67S72rXlCRp2YO7eNDMDemM0Vtj7zbjehsbNF6PylzfbOrNOItfvH2RjNeJrxB4Q4X2qyjBcZEueur0zlFkvhKgzQ8VxbXdllqJ8gVyDYjwLkXc0ntllX/PKxPCY/rfdPWu1oZw+m0Vf1vpruFD3nrhE/+H1OQDJ9bH9hKN96u4sr9qHpm2Vudvy8e6uodM0DhAhLSZC6C4FB0yTGPhZ97LMYHwYPnQtddD7fodD72xvK27+fhtyOKF4k0UwMR6v/ejOpxbOJLeRiOmPfMEi86w9VPjOTacd5JyjEWUGjHl+LAfrXgQmWfGlQiqURaV2KUctbT/Q3UD3vbkP5/por/OWc3r/+p+/cIyyGW0PznE/A0Tps3+QG0ldLt4jev3XhPFtioRuTirPCyBsYGbEEniIZWgCgdXDLEFPFBtt/+FS5r9ws/SDRM2Vi2arn2x4nJZg/IfLRvfxMn/Fm5zn/+6vZhp0gdKWKWVb6/g0667ZARbU+RTOYhQ213/stU4EEqoGnid48yT7vZGeu1bIBtMDqb5V5hn7o7h9UeuchLJOu+WC/7ARf/9JVSxqUnICxDDNORS6w1vZkSgZCPpubFH23nuKwRTIv3oxhVqcuB8VAjRMxAu59k3zn8u79vXTs0c1QLpq
+	WTp4lwiy4LfAJMW+SmJpgF4bH66cTI2JDyfC04yKXbvHHy6JImkR0GYVUmLsbbKfmEhckQHnUPrLzXrPxzWI++/2wYaOMcd7FMG8zchMCdySj/AqY3bjiXbgAXjU6nIYQjXGGRwRoiTIbEe3OAF5G9QUfCGlW1c550eWA+XipuUAvJPR4gyq+8nBflxvbt1/XGiG+w0RHFDUuFKvOHJpLpxDQfy5VUa6R4HO83gEWmFvJURp7vwqqhbiJR/wuOnsdvSWnHEM5QOcvO00jQwcBd0NC5hIkcifyDzWvQNyilXiQo2zmEXlp8mBs3AT3Fwmrdchif+MKeOW1Fzo9brY0mg4b2etw186aJxChT2337ctrnchtOMwwVBtw2Ag52VEJ/TKKUGbzcNam0SBhQmmgKL+5gvRnolbq28+vTYSutmm+IFvqBi6PuDl/3D5p1bc8fBy3vDh03iUMyJIiwh58cmsWYa5Mh24z7BYgST+7NLGyW9ALuohSe+zpGc3Rzchtpd/Z+4UChDnOOLLZPq4ks0Ly6jWFwELfsxBJjaI8wmyVfT8ujSpQfXmvCOBX0DgX6FP64G8iuAcTEpmxKhCM+BKppKgmZWzxQgHZ1gXNZU1JyE/aLrZaNR22boiQnro82ivexdXWATrZTucyrgEWKhl/pXTzZIOQJbx3TY0YtTo3/dWikiRSap8Uw+hOdEg
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(4143699003)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016)(4143699003)(3023799007)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1lLam4zcGFYZUlyRTdPaUdEUFZWcFRtVzZrZDRUdHJUZVJvZlFDcjlqQVh5?=
- =?utf-8?B?QVkzRnNoc21qNTNtYjRkVTFVVHpIQzlvM2Eyd096UXE4WDJZb3dScElLRXlG?=
- =?utf-8?B?ak92VGRhait3VFcxOTVuT01jWnBqT0o2Q3hESEFIcmw5M0R0M2xpL1VGK1dv?=
- =?utf-8?B?UHVaZGFXVkVFbkpERDJzODhrN1ZlNXZjd0w1Y0pjWU5GZEE3TnRhaDM0SEVo?=
- =?utf-8?B?NmNWZm4rTVNCTno2L0ZXU3ZTcnBsMHQ0MkRTdHZKNkJWcmZ4Njhxd1grUjBE?=
- =?utf-8?B?eFpQR2tQc2ZCWTFPRDQweXBvZlFsbHRGdExKYkpSWUoxSmd0UVFubTZ6cmho?=
- =?utf-8?B?TzZpSVkxcnYxSkFpNzdCUVk5ZGxOUVIrZFJiSVl4dm1scCtwSStwZXcxdW9D?=
- =?utf-8?B?a0pza0tQYy80RUJXTW9BelRnaFNWYnE3M1VDK1RYVUt1bW5TQjNvVWlwMGFX?=
- =?utf-8?B?QVc1OGNxQ1pLMXVuV3JaT3VOL3JtV2gzdnJDc0pUb0lzdkdNUEhwQUpCWmlU?=
- =?utf-8?B?cFBrcExkdTVpQm11cWtnZ0FtVHhWNGlJUGtuNDBKOVAyc2ViQ1lTOTFuTThK?=
- =?utf-8?B?Nnd5cTJxSzl3ci9FeXpYb2w5aTBYV21mRlArUU5nYlpGcmlhVm1ZZWdSZWxw?=
- =?utf-8?B?THJIQk1IOTVibngvSlppMFNYV0k5TVYxWWtwV0NjOCt0b3ZwaUV3UE1FT0Zs?=
- =?utf-8?B?cTNMRTBmTzNFeStiOHRNQ1FtUEloK3pBUTRMRWtINmFnM2FCeUFyUmNGbklL?=
- =?utf-8?B?aUV3R01sZmY1U3d1TWNOUmgzNG9lYlk4dlRDYjBGQmdqcHpRMFdZYTFpWmg1?=
- =?utf-8?B?SWlJK1RGQVU0WnVDZDNEN0FFbVU1UDdBbzdJU1lRYlRCSGJjY3pHcTl1ZEU2?=
- =?utf-8?B?c0Z1NzBpN1ZrcmZibW9UeTZUSFc5ZW1hUGh3am9iODRJSnFrdkI1MFozeE15?=
- =?utf-8?B?Ync4RXRyMWozZ2srS3c3Mk8wdVJTOEd3NTg2a3Iwdzlzci85Z3diV0FjcG9X?=
- =?utf-8?B?RzdaSzYwdmVldVlVMDJMYnBORk1GNjFkV1FBTGx2ZGhCTmhmQkJ3L3g4eEZX?=
- =?utf-8?B?LzBZaS9MekRBbkJIQVZoTzRqWmFZZTd4NkpzQUlYNnY5YkVmaklVUmFlWVRa?=
- =?utf-8?B?d25oWjIwSGVmTnV6VERUQW44T0RXa1gwY0wzV2tONFM0SWVFakx5Y0l4bUtx?=
- =?utf-8?B?ZGRyWDRybEUrNThRQysvRUpMbUlXOEl0c0hpOVFlelZTa1RPcTgxcTR1cVVG?=
- =?utf-8?B?RE8wem1CSTl4ejFEWGtHejhuVjIzQk1Uc0duUFdKZlNZeFVhSFpUNVJ2UDBo?=
- =?utf-8?B?aXROQXpXcFc4ZVBIcjhXd2Y3WVlHellJbzBhb0RlZzl5ak1Bd0xLR0MyQ0xU?=
- =?utf-8?B?M05nWENjSmt3eEdndEpINE5rMUNCbFd2ODRtckUrRDZrM0pUQjNqNmswQUhz?=
- =?utf-8?B?U3dFT0JFamV1ajdNZ0tDVGdJMHFlK0dONDYvMjZLL0x2RzM1ZDcvOUhLM0Ex?=
- =?utf-8?B?Z2U0a0lRQ3lHTmpIZUVoYU1TUVp2SVJlMEdaMWZEMVp0SVJrd04wenlpb1lp?=
- =?utf-8?B?N2RqNjFZbjhrazhsWnJsUmxQMC9tcDlqaGEzY2pBRGREL0JFVjNWSFZkcEpr?=
- =?utf-8?B?ZXY4aW9FMVJtbm9xV2VoaU1uaWZ3ZTMvSVpMaE9jVjdReVF2TEZrUkkySzFR?=
- =?utf-8?B?NENONWxrQnkybXVSSy9qQzhvMnNyU24wbDZQaU1FWWN6VWhWRjhxVnNtSnBu?=
- =?utf-8?B?WWZKRVhMZi82TXlJbmdpemlvNFZmNUZOTk52Y0wzSXB2UDhQRUw1Z0krZUMv?=
- =?utf-8?B?TDQ0VVd2R1FwQTQxdDRLTENKU3JoVGhIdnBBTW9pN09xaXBBbGRsWmJFN3pX?=
- =?utf-8?B?U2syb3lpVGNVcmVRV3JQZjFhS2xGL0VZc0FNV28xTnBiR0N1SXdWQis4NGd1?=
- =?utf-8?B?eEVORUVtZ1dyTmlqUS9Ib1c3SjlsTVlzUHFnays0K2FKam9zK1Q5Q3JDRC9O?=
- =?utf-8?B?ZzY2eHREQmZWaVVIdjBTaHQrTk9SYmE0YitNQittWnFWTHU1Q0JkR3FGQUdk?=
- =?utf-8?B?cXl1NDUyYzlkUitaZ2J2WDdCZGtTYW1WS2F2MnpNbEE4TEQwbCtzaHFxVFY2?=
- =?utf-8?B?aTNlZzF1VEo3amJkY2dXTEN3UFlERXpXQTRzRlEvQW5yYWtoU2F6dnAyM3U5?=
- =?utf-8?B?NGRDR3hKd1NIaHRiMlc0OUdRM1M1d1FWNzZESGJYb09ZMDZwUnBQd2k3VHNn?=
- =?utf-8?B?RzVvZWhWQzNHUlJISzNNSzFBQzlSNStFVTdUNVlaUTlXT2tNa0lrRjBoYWQw?=
- =?utf-8?B?SkV2eWJORGVKU0p5OTZVWElDWmJ6b0VxUFNVd2pvWWVQdU5sajEvdz09?=
+	=?utf-8?B?djJyNWM3OWZibjdTQW1qYlN5TmtBMDlkSC9pTDdKdkdzcjRBTG9GZDdHTzRD?=
+ =?utf-8?B?S2hhbGxwZGUvRnlIemd5c3ljMHBQNWZRdHNoN0ZGMExBSHBtNjVnQytFaWI0?=
+ =?utf-8?B?TmVSVGQ2LzArWkFPY0pFc0loOERzWnVNeVQ1ZVJBYWNPYmFmditvLzgxUkZ1?=
+ =?utf-8?B?bGFqa1dmSnVOQWY0UTNXaWE4b0E4b25BWnYyU0RCanRWdEZHeVdtR3JINk1u?=
+ =?utf-8?B?aFArVm9xdGtPcGpqMDZvN0ZWTU9PckVaeDJITndudTFhdVlRQVRDNk1jTmtH?=
+ =?utf-8?B?aHFEdDIxazcyMW56NlhkeUhTdEJQUXlxTloyNUhYNjFJQy9oL1Ava1kzZGNw?=
+ =?utf-8?B?RmlhYkVNdVhYdTBiVjJraTR5Q25DemExK1BBSTBDZnRjeFpvNUtKNXB1UEtY?=
+ =?utf-8?B?RFAyM2hlOHMvbjNURWdweW91MkFDaXBTVys0RTJHeDhhUVgyYUt3U050MDl3?=
+ =?utf-8?B?a2dwb2dtZXhuem13MG9Lb2JxZzRrdWs2TXNGWDlwRTF5dGs5TnkxanR5UFZy?=
+ =?utf-8?B?SW9lUUlmVVhqQTU1U3lPL0p6bzRIZmVaNkYycXRxOFhmd2RCTXl4NFdTYllO?=
+ =?utf-8?B?d0hwYkprN29GeDAySExCZ1RXMVVtNXNlMzM1UGdLRjdMTUgzMThzSS9mT0w4?=
+ =?utf-8?B?T1ZGdmlqUVgrS0pydzVtRXZHakJ6ZWR2RG1WaURQYzFvUHAwK0xYdkpicTRG?=
+ =?utf-8?B?TDNEUU5HRGpLYnc1eUQ1dytqd0NLRWlJNUVzNmVSWC9pb0FPSktLMlN5ZU9I?=
+ =?utf-8?B?SXpZQnlRWUpOMldDMVJsN05kTktxTG5ueW5Sd01KNWthOUs4QlEzbXRGbXZp?=
+ =?utf-8?B?MkFCd1pCb3dBTHVLRWJKSEtmbDZSZEdyZWgzUnZiYmpZbXBVRVNTOXZ6ZmpF?=
+ =?utf-8?B?Uzc0OUNVR09pZjJQUGFQTjlhK2l1S2tnb2xWL25tNmt5NFBjMUdMcnF2UUdO?=
+ =?utf-8?B?c2ZlU09VV0FWcU9Nc1JNU2piMURRSnpvdHkycnM4NVNKZFRObXk5TXEvYWdo?=
+ =?utf-8?B?ZU9kaGZLRWJEak56SFNrY2xHZXhIbGpaeVNUVXVUcTZlTStoemtUSit4N2JT?=
+ =?utf-8?B?MDErUjRDT2QvcEsvS2FJQUNkZVZTZHp2RzJNOFh0T0ZuaUZ0dWNvU3haKzRZ?=
+ =?utf-8?B?V2lDMGNIbnFWelhPL2VId1dWZmI2UjBrKzdiTUxaNktTdEt2cWJDOFRCZkF6?=
+ =?utf-8?B?dnU2dTk4a1U5RXRtUTNRV2UvQTc2cFFxWHgrOWI1aDU3Z28wWERoRit6Y0Vm?=
+ =?utf-8?B?TlFNWFkzaTBnTUdFelB5VXRhMDlQNWtVNUY5ZWdvMlNxa25lQU5iQTNvWFJZ?=
+ =?utf-8?B?djF3dzRQdnMrYmUzaCtTcUNlOUJGREJxMTZ6NmpWY0Jqam5FRVlCSlJ4aTZ3?=
+ =?utf-8?B?b0o4RS9UQmVoZy9peHhBTVpGZW1qMGl2K1JqNDNDVDRWc0U2c1BSa2FwdUxp?=
+ =?utf-8?B?bWt0U3FTMkRIMEZZYVEyYnNIQ2NOc1RyTi9xNExOSG5tRWxtbVhzYlh5WHU3?=
+ =?utf-8?B?em9sYklMYmtFbjBic1FZR3pPTi9JRWc2VzJ3Q0tLYkRKVW5xb2tqVGtlTGd5?=
+ =?utf-8?B?S2M2RGFQejg4SU15OXdmWlUvZWhhK3VJVG42OUlLVE9rV0MwVDcrQzhYNEpD?=
+ =?utf-8?B?YkNudGtEKzV5ajJZM3RIWTJBYVVmKzdWY3locFBaaWhrMG9aSGMxYVR5dXFt?=
+ =?utf-8?B?aDh6VFVMZVhSNytjZ2RIV0FLM05ETFJJams5dXB6WjRjNmE4TEZxU3dZNi9N?=
+ =?utf-8?B?N00xK3ZnK1lHRzYySW5NNEhkbE1zVjV4V0JYU0dRSjdNQk5JMjRtSmk5djNr?=
+ =?utf-8?B?T1o2T1J1NC94UndQUE1zckYzcTBoRVlFWFZRYk9UYVMzamJBMUdkZ3lGbExE?=
+ =?utf-8?B?YXBtTUU1WjFXeVhiWTdtbVRKdlcxSkJNYTZPUTgvWDBNdzhlSTVXYVVrNk1S?=
+ =?utf-8?B?R0JqY1lGZGFNWHIzODdoU0QxY0NScU85NllNZkpONFpqOWowU2x5ejNGNWdX?=
+ =?utf-8?B?OWQ1TjdHNUszRU5uNk43UjFzaHMzbkY0anV4OXlqVUt4VFlGUDNvalgyZFds?=
+ =?utf-8?B?MFEraTN4bmFubnY0d0UreHoxK2sxd0tPOGtIUG1FUDRPcTMyejN4YTdYd0pH?=
+ =?utf-8?B?dkNYcmg0WnJ6MlBjNHBYWFNZTWduMWgxMlAwV1A0cjNCOWZPWW9UQ0NXRFFR?=
+ =?utf-8?B?c2RRaHZaQ0dpNGRTR0tzVURvYjZsRzBjNUxsQ0NzckVMdXdib1JqbnA1R1g0?=
+ =?utf-8?B?R2JleTdoQzQvOTdUdG9GTnh0ejJpMEtTWkJLYTVCUCttS0NTNUZQc042R3h3?=
+ =?utf-8?B?dk4zU3dkRExycWJyUXAyUlpNK1NhRjZWaTYxY0FkT1lpUXdlbzdMZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a7847a1-b809-4f45-271c-08deb652f000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ea8c2b7-d429-4012-0aae-08deb656c7f6
 X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 09:34:06.4913
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 10:01:37.3522
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4IGzCMP1aXvzAn5V+384ZJAeVTBOp5/IUXG4zApM9J7oB29oP2nHuZ80hImyqSoTSmuexerbBtalBH5Ady9TZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6962
+X-MS-Exchange-CrossTenant-UserPrincipalName: B3hzyn2ijzrVza0+oDBU0W+51EL4AYqUAYrP82Os08/Eked1ecDF0+vMjCOSBn1ZV7mLxTGN149pRr7fZ4pRTw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5188
 
-On Wed May 20, 2026 at 1:33 AM BST, Danilo Krummrich wrote:
-> On Tue May 19, 2026 at 6:45 PM CEST, Gary Guo wrote:
->> On Sun May 17, 2026 at 1:01 AM BST, Danilo Krummrich wrote:
->>> +    pub fn new<'bound, E>(
->>> +        parent: &'bound device::Device<device::Bound>,
->>>          name: &CStr,
->>>          id: u32,
->>>          modname: &CStr,
->>> -        data: impl PinInit<T, E>,
->>> +        data: impl PinInit<F::Of<'bound>, E>,
->>>      ) -> Result<Devres<Self>>
+On Wed May 20, 2026 at 3:44 AM BST, Alexandre Courbot wrote:
+> Hi Gary,
+>
+> On Fri May 1, 2026 at 10:02 PM JST, Gary Guo wrote:
+>> On Thu Apr 30, 2026 at 3:55 PM BST, Alexandre Courbot wrote:
+>>> Rust tends to produce long symbol names; when trying to export symbols
+>>> from nova-core for nova-drm to link to, the 500 bytes of the internal
+>>> buffer used for symbol name formatting are not enough, making modpost
+>>> fail.
+>>>
+>>> Fix this by increasing the size of the buffer used to format the symbol=
+s
+>>> to 1024 bytes. It is a stack buffer, but modpost is a user-space progra=
+m
+>>> so that shouldn't be a problem.
 >>
->> I think this is unsound for the reason that I gave in another email
->> https://lore.kernel.org/rust-for-linux/DIMSJVKTYX6D.AEN6OPPC2898@garyguo=
-.net/.
+>> I think we should make sure all constants related to symbol names match.
+>> KSYM_NAME_LEN is 512 so this should just be that.
 >
-> Indeed, this has to be fixed. I looked into the options brought up in the=
- linked
-> reply, i.e. the "new type" approach and the "closure" approach. And after
-> playing around with both of them, I'm not really satisfied with either of=
- those.
+> Do you mean we should use `KSYM_NAME_LEN` for the size of `tmp`? The
+> formatted strings can be longer than the symbol name alone (see the
+> example below which wraps it into `KSYMTAB_FUNC()`), so this should
+> probably be `KSYM_NAME_LEN + something` if we align to it.
 >
-> The "new type" one is simple and works, but has the disadvantage that, we=
-ll, we
-> need a new type and update all callsites where we would ever want to crea=
-te
-> registrations (mainly probe though).
+>>
+>> The only case that I've been hit with very long symbol names so far is d=
+oc tests.
+>> Can you provide an example of the case where you're hit with very long s=
+ymbol
+>> names in Nova? In many cases they're just functions that are supposed to=
+ be
+>> inlined but isn't.
 >
-> The "closure" one on the other hand creates a little bit of an odd API an=
-d by
-> its nature does not allow to move pre-existing resources into the closure=
-, which
-> is a major limitation (maybe there is some way, but if so I didn't find i=
-t).
+> Here is an example string that doesn't make it, it doesn't seem related
+> to doctests but also doesn't occur on all configs:
 >
-> I instead went with something else: Currently we return a
-> Devres<auxiliary::Registration<_>>. However, since we're moving to lifeti=
-mes
-> anyway, we can just return an auxiliary::Registration<'bound, _> instead,=
- which
-> makes the return type invariant over 'bound, which makes the problem go a=
-way
-> naturally.
->
-> Please find the diff below for reference.
->
-> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-> index 5acece8e369a..c784426b8092 100644
-> --- a/rust/kernel/auxiliary.rs
-> +++ b/rust/kernel/auxiliary.rs
-> @@ -12,7 +12,7 @@
->          RawDeviceId,
->          RawDeviceIdIndex, //
->      },
-> -    devres::Devres,
-> +
->      driver,
->      error::{
->          from_result,
-> @@ -408,12 +408,12 @@ struct RegistrationData<T> {
->  /// `self.adev` always holds a valid pointer to an initialized and regis=
-tered
->  /// [`struct auxiliary_device`] whose `registration_data_rust` field poi=
-nts to a
->  /// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
-> -pub struct Registration<F: ForLt + 'static> {
-> +pub struct Registration<'bound, F: ForLt + 'static> {
->      adev: NonNull<bindings::auxiliary_device>,
-> -    _data: PhantomData<F>,
-> +    _phantom: PhantomData<(fn(&'bound ()) -> &'bound (), F)>,
+> ERROR: modpost: buf_printf output was truncated for string
+> KSYMTAB_FUNC(_RINvXs5_NtNtCs1EKtwoKEMO2_6kernel5alloc4kboxINtB6_3BoxINtNt=
+NtCs1peUGmbrgHn_4core3mem12maybe_uninit11MaybeUninitINtNtBa_9auxiliary16Reg=
+istrationDataNtNtCs6wA3Ay79aUn_9nova_core6driver7AuxDataEENtNtB8_9allocator=
+7KmallocEINtCsfxcgfq7FLKi_8pin_init12InPlaceWriteB1L_E14write_pin_initNtNtB=
+a_5error5ErrorINtNtB3x_10___internal11InitClosureNCINvYIBH_B1L_B34_EINtNtBa=
+_4init11InPlaceInitB1L_E8pin_initB4t_IB4N_NCINvMsd_B1O_INtB1O_12Registratio=
+nINtNtNtBa_5types6for_lt15UnsafeForLtImplDG_INtB72_:
 
-The type itself may be invariant over the lifetime, but it would still acce=
-pt a
-shorter lifetime (which again, is a case where I think having 'bound become=
-s a
-factor for confusion).
+`InPlaceWrite` should definitely be inline as you pointed out in the reply.=
+ I
+have some pin_init symbol length opt planned as well.
 
-You can still pass in a shortened lifetime to `Registration::new` and then =
-leak
-a registration (yes, Leakpocalypse strikes again), so the invariance here i=
-sn't
-actually serving purpose.
-
-    fn bad_fn(dev: &device::Device<device::Bound>, buf: &[u8]) {
-        forget(Box::pin_init(Registration::new(dev, c"foo", 0, c"bar", buf)=
-))
-    }
+It also looks like this has to do with the fact that the type being generat=
+ed
+with `ForLt` macro being overly complex. Perhaps `define_for_lt!` is a bett=
+er
+approach.
 
 Best,
 Gary
 
->  }
-> =20
-> -impl<F: ForLt> Registration<F>
-> +impl<'bound, F: ForLt> Registration<'bound, F>
->  where
->      for<'a> F::Of<'a>: Send + Sync,
->  {
-> @@ -421,13 +421,13 @@ impl<F: ForLt> Registration<F>
->      ///
->      /// The `data` is owned by the registration and can be accessed thro=
-ugh the auxiliary device
->      /// via [`Device::registration_data()`].
-> -    pub fn new<'bound, E>(
-> +    pub fn new<E>(
->          parent: &'bound device::Device<device::Bound>,
->          name: &CStr,
->          id: u32,
->          modname: &CStr,
->          data: impl PinInit<F::Of<'bound>, E>,
-> -    ) -> Result<Devres<Self>>
-> +    ) -> Result<Self>
->      where
->          Error: From<E>,
->      {
-> @@ -439,8 +439,10 @@ pub fn new<'bound, E>(
->              GFP_KERNEL,
->          )?;
-> =20
-> -        // SAFETY: Lifetimes are erased and do not affect layout, so Reg=
-istrationData<F::Of<'bound>>
-> -        // and RegistrationData<F::Of<'static>> have identical represent=
-ation.
-> +        // SAFETY: `'bound` is invariant (via `Registration`'s `PhantomD=
-ata`), guaranteeing it
-> +        // represents the full binding scope. Lifetimes do not affect la=
-yout, so
-> +        // RegistrationData<F::Of<'bound>> and RegistrationData<F::Of<'s=
-tatic>> have identical
-> +        // representation.
->          let data: Pin<KBox<RegistrationData<F::Of<'static>>>> =3D
->              unsafe { core::mem::transmute(data) };
-> =20
-> @@ -487,18 +489,16 @@ pub fn new<'bound, E>(
-> =20
->          // INVARIANT: The device will remain registered until `auxiliary=
-_device_delete()` is
->          // called, which happens in `Self::drop()`.
-> -        let reg =3D Self {
-> +        Ok(Self {
->              // SAFETY: `adev` is guaranteed to be non-null, since the `K=
-Box` was allocated
->              // successfully.
->              adev: unsafe { NonNull::new_unchecked(adev) },
-> -            _data: PhantomData,
-> -        };
-> -
-> -        Devres::new::<core::convert::Infallible>(parent, reg)
-> +            _phantom: PhantomData,
-> +        })
->      }
->  }
-> =20
-> -impl<F: ForLt> Drop for Registration<F> {
-> +impl<F: ForLt> Drop for Registration<'_, F> {
->      fn drop(&mut self) {
->          // SAFETY: By the type invariant of `Self`, `self.adev.as_ptr()`=
- is a valid registered
->          // `struct auxiliary_device`.
-> @@ -520,7 +520,7 @@ fn drop(&mut self) {
->  }
-> =20
->  // SAFETY: A `Registration` of a `struct auxiliary_device` can be releas=
-ed from any thread.
-> -unsafe impl<F: ForLt> Send for Registration<F> where for<'a> F::Of<'a>: =
-Send {}
-> +unsafe impl<F: ForLt> Send for Registration<'_, F> where for<'a> F::Of<'=
-a>: Send {}
-> =20
->  // SAFETY: `Registration` does not expose any methods or fields that nee=
-d synchronization.
-> -unsafe impl<F: ForLt> Sync for Registration<F> where for<'a> F::Of<'a>: =
-Send {}
-> +unsafe impl<F: ForLt> Sync for Registration<'_, F> where for<'a> F::Of<'=
-a>: Send {}
-> diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_dr=
-iver_auxiliary.rs
-> index 84d18bbfafc5..efb4d97b416b 100644
-> --- a/samples/rust/rust_driver_auxiliary.rs
-> +++ b/samples/rust/rust_driver_auxiliary.rs
-> @@ -10,7 +10,6 @@
->          Bound,
->          Core, //
->      },
-> -    devres::Devres,
->      driver,
->      pci,
->      prelude::*,
-> @@ -58,29 +57,29 @@ struct Data<'bound> {
->  }
-> =20
->  #[allow(clippy::type_complexity)]
-> -struct ParentDriver {
-> -    _reg0: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
-> -    _reg1: Devres<auxiliary::Registration<ForLt!(Data<'_>)>>,
-> +struct ParentDriver<'bound> {
-> +    _reg0: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
-> +    _reg1: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
->  }
-> =20
->  kernel::pci_device_table!(
->      PCI_TABLE,
->      MODULE_PCI_TABLE,
-> -    <ParentDriver as pci::Driver>::IdInfo,
-> +    <ParentDriver<'_> as pci::Driver>::IdInfo,
->      [(pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5), ())]
->  );
-> =20
-> -impl pci::Driver for ParentDriver {
-> +impl pci::Driver for ParentDriver<'_> {
->      type IdInfo =3D ();
-> -    type Data<'bound> =3D Self;
-> +    type Data<'bound> =3D ParentDriver<'bound>;
-> =20
->      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> =20
->      fn probe<'bound>(
->          pdev: &'bound pci::Device<Core>,
->          _info: &'bound Self::IdInfo,
-> -    ) -> impl PinInit<Self, Error> + 'bound {
-> -        Ok(Self {
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> +        Ok(ParentDriver {
->              _reg0: auxiliary::Registration::new(
->                  pdev.as_ref(),
->                  AUXILIARY_NAME,
-> @@ -105,7 +104,7 @@ fn probe<'bound>(
->      }
->  }
-> =20
-> -impl ParentDriver {
-> +impl ParentDriver<'_> {
->      fn connect(adev: &auxiliary::Device<Bound>) -> Result {
->          let data =3D adev.registration_data::<ForLt!(Data<'_>)>()?;
->          let pdev =3D data.parent;
-> @@ -131,7 +130,7 @@ fn connect(adev: &auxiliary::Device<Bound>) -> Result=
- {
->  #[pin_data]
->  struct SampleModule {
->      #[pin]
-> -    _pci_driver: driver::Registration<pci::Adapter<ParentDriver>>,
-> +    _pci_driver: driver::Registration<pci::Adapter<ParentDriver<'static>=
->>,
->      #[pin]
->      _aux_driver: driver::Registration<auxiliary::Adapter<AuxiliaryDriver=
->>,
->  }
+> 608 bytes needed, 500 available
 
