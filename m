@@ -1,102 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBFC39D3FD;
-	Thu, 21 May 2026 07:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362A7394797
+	for <nova-gpu@lists.linux.dev>; Thu, 21 May 2026 07:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779349978; cv=none; b=JGhBZV/c9IxSHY2zNHCfsOJ4VX50FPqqwCHm0WpwVkQ1n0VBX9kZfOT/Ups7QjxXM8iTYQBsScrlLQgfTrt3U+WVBpaXQotsJBL8G8S1XQ1/2d3KuwLB/Er8PCKzE6YV3+1pMSPX5soEfsEsG9DKmnHdwdZOahWz3RWVsEPPucI=
+	t=1779350294; cv=none; b=D9rpowvrtgjl3o4CbpurUmuLNR7uakNmKdeIP7le4Agi3dP6ZuH6AGiwnP/cqoVkxlobnJO/bHxthvXBkG6tNhrwHcvAUybLaWywelmMobODuKeubTR1o9Bfo/vRmLHmiXcM2fq9SsBQKDY680h0Y0zYSYsLAEtNdPnMkiYuyrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779349978; c=relaxed/simple;
-	bh=S4pPbSgc+qf3s7sj9z2x5AM1OIfB+ksx2cOL1FaBOAE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RzMFQDiMFQsSNUGBriI+4wiRV3u2Upz8VeTnWJxknWYSZ7+vs8GMoYIY6K8BgMeG/LXOQCrvh14/dpZPvAVtfCQGaMmuTUormSRoJYdS8w1jYciLXXzfbQ3SF6GRGE5ILswBRTuqAHACOvwVGaIj+TGCpgvUPCQifLr4YT/L0IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tkyWKwdq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779350294; c=relaxed/simple;
+	bh=fdIHTlNJ5S9w5BaBBxNHieY+5HrJDP909szi2mPAjps=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BXgyfTN34yJJM9batUwN9WdTnCRWkFmB9a8Ka+HhdK9JlAUdlDQc527ENdTxRZ2unXAOuWawCUb8yZaqUfMtOODliDE8ZLBH4UtqkmUKBzv3BkNw/GQwe0+Uog9mqtAh0ONti7bwEtWtQcQKDPgZ0THuNKz4p2ufuHn/KwVJjrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Iv/kUm6n; arc=none smtp.client-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tkyWKwdq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EA971C2BCB4;
-	Thu, 21 May 2026 07:52:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1779349978; bh=S4pPbSgc+qf3s7sj9z2x5AM1OIfB+ksx2cOL1FaBOAE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=tkyWKwdqKhSdr3lwRDMPhBtzprdSJwetH8RWYZc8gSXV1yx6OJEKJENHK2rZyHrHM
-	 rf0RCsvAWX3M1DQ2ltJl4m8GLXhuxF8eST64Q/LC7u849LX6nQhjm9FlqpHq3kBey6
-	 A8Mb7EHWH1qGfUmVK0d9GR7mcQetrqYFjObzxAMM=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0D38CD5BAC;
-	Thu, 21 May 2026 07:52:57 +0000 (UTC)
-From: Alvin Sun <alvin.sun@linux.dev>
-Date: Thu, 21 May 2026 15:52:59 +0800
-Subject: [PATCH v2 7/7] block: rnull: use `LocalModule` for `THIS_MODULE`
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Iv/kUm6n"
+Message-ID: <81013175-0164-4ad4-a4a7-0cab332b695b@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1779350290;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qvW89Y5yfvW9tGdg4/aM0qB0CsEzidAsVDHwaWcD2rs=;
+	b=Iv/kUm6ntc1nclOZY3Cbub6Jza3tf2c1fxkkBVni4Osz/a52CsxDJaJwW3ZWCAXFi0XiRh
+	0uRE7AOVta6oDrhghHpMBu0X351qPMkPHyEeAmHnU5+L1mG27GB0tm/2457Gm6qhe8lkBC
+	lA+diiK0q90tc/UJ9UIRzA1ECGTa0g8=
+Date: Thu, 21 May 2026 15:57:31 +0800
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260521-fix-fops-owner-v2-7-fd99079c5a04@linux.dev>
-References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
-In-Reply-To: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
- Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779349975; l=753;
- i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=S4pPbSgc+qf3s7sj9z2x5AM1OIfB+ksx2cOL1FaBOAE=;
- b=D/WbQh6QCQ4+L8oHA0rQ/T+b96zfIASqmqtVA6vSSnL0g729WfQ333Fc4Gu/a3riPU0GOYKm2
- ILmRx37kgAvBAD1gAoSG/HegdK+N3yV5OgDBVjD2yOiAIVd4GuNszfW
-X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
- auth_id=684
-
-Replace the `THIS_MODULE` import with `LocalModule` from the crate,
-consistent with the move of `THIS_MODULE` into the `ModuleMetadata`
-trait.
-
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- drivers/block/rnull/configfs.rs | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index c10a55fc58948..b2547ad1e5ddd 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -1,9 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--use super::{
--    NullBlkDevice,
--    THIS_MODULE, //
--};
-+use super::NullBlkDevice;
-+use crate::LocalModule;
- use kernel::{
-     block::mq::gen_disk::{
-         GenDisk,
-
--- 
-2.43.0
+Subject: Re: [PATCH 2/8] rust: driver: make `DriverModule` struct pub(crate)
+ in `module_driver!`
+To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev
+References: <20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev>
+ <20260519-fix-fops-owner-v1-2-2ded9830da14@linux.dev>
+ <DIMMSJ6GO6XE.2D3RYBTZ45EW1@garyguo.net>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <DIMMSJ6GO6XE.2D3RYBTZ45EW1@garyguo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
 
+On 5/19/26 19:53, Gary Guo wrote:
+> On Tue May 19, 2026 at 7:26 AM BST, Alvin Sun wrote:
+>> Expose the generated `DriverModule` struct as `pub(crate)` so that
+>> driver implementations can reference it via `super::DriverModule`
+>> for the `ThisModule` associated type.
+> Why is this needed? Child modules can see items super modules.
+
+I misread it — I've already used LocalModule directly in v2.
+
+Best regards,
+Alvin
+
+>
+> Best,
+> Gary
+>
+>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+>> ---
+>>   rust/kernel/driver.rs | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/rust/kernel/driver.rs b/rust/kernel/driver.rs
+>> index 36de8098754d0..9c7c69c4d2af0 100644
+>> --- a/rust/kernel/driver.rs
+>> +++ b/rust/kernel/driver.rs
+>> @@ -253,7 +253,7 @@ macro_rules! module_driver {
+>>           type Ops<$gen_type> = $driver_ops;
+>>   
+>>           #[$crate::prelude::pin_data]
+>> -        struct DriverModule {
+>> +        pub(crate) struct DriverModule {
+>>               #[pin]
+>>               _driver: $crate::driver::Registration<Ops<$type>>,
+>>           }
