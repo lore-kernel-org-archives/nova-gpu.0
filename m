@@ -1,172 +1,164 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA8F3E7179;
-	Wed, 20 May 2026 11:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DBA397B1C;
+	Thu, 21 May 2026 07:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779276346; cv=none; b=VJiTNNR/IvQY49cdtvoMediQHH7gTJX6ItsoEZEWAr/M5OAjcpXe1Cl0Ot39bGMUjQ3hek61txR5xAvdx1NBWlptdmwGe1yKIIEBmZ+/Fw2KeqYlGh4eaSg259P48K5ne+KaoI0VUbP4j6xSyjf/pQwk0FsWb/U8hCilAjNUdP8=
+	t=1779349978; cv=none; b=QI/CgUQjNJQEzMhtNUld79MuVd1t9QwBc6T/QoYTOjt6QlhX42H8UiQJhbC2b048q4OTZ0tc+naCKb1rdaiyfvs4v+BTpqW1OSYWhHlNhuiCMiIvoZhDlMhjUXFTRrndlA0+tAJqaCOsLWA07sQyDeJttnYev4y5+YoXow7e7fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779276346; c=relaxed/simple;
-	bh=BsmiFAr8kKAYh7+xmxZmdGPjjZIZ9TigBFfIKYDWbI8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oLF+XcsgKIzg1qeIiwR3G7J0wjjC/NpcER/t2FIqK5UAvZotjCt2M1DWkpto6gDQH9FPJPK+q72HLN058Q6p4R3swfIzXS/y5Ewf44nwF4BchcWVo28lPTB/wXc7Xj+udNgMYcs2Z/xZY6JkNKlYEfmA8apz3tyfrR/HTQOpVcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=V7k+tR30; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1779349978; c=relaxed/simple;
+	bh=g5lNOWZdFZ078Eg8FihJThI93jDxzsjGBAigjw8fo38=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gdeTBoBFWKN+wagATxPZjwLGzFdIi6wt36WopyhGBx2r2hewUOXxTp3f1FLcNhOaLtolPk1xN/cBvY1sDXirOy8KSH08s9p+Yrt86uhuSl0iNqMo1+WIuXZfpu6D+Y+KNIO1CO8k0i2P3e+49JhCxSdS8PoozV/9mKVjPzGqfzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xhTIw633; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="V7k+tR30"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1779276340;
-	bh=BsmiFAr8kKAYh7+xmxZmdGPjjZIZ9TigBFfIKYDWbI8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=V7k+tR30G5GkycSThJH6a3X3xjRUcOedA1yq54F/8ZaA5CXP8psA27vZwDT0TxhBo
-	 kFdDOs/wz9U++Rvk0O0lEUverP1IKK0pCyumegJ75iFM3p/pHOT83MbX5cxejxlK2J
-	 ONNyaQhgCG7QFqu9pb0iQGqoRSi284q81BLjWbLElUb7oOPeotBAWEZ6Hx5VN1rtow
-	 nJ+4S70u6Biezh0/KQvhXmPrm3pvuNhc9Gu0anaZUbdbXOTelce6uhhjWnkuOXWZV9
-	 YWlN2ClZ7S+i1eW6VELh6+yA6EDxn0CPy+6Rp4rOVT3/ZPz2TWxwRJEKfb8mmTdFsH
-	 L+R0DA/ic1Zmw==
-Received: from fedora (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 81AD517E040C;
-	Wed, 20 May 2026 13:25:39 +0200 (CEST)
-Date: Wed, 20 May 2026 13:25:37 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>,
- <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
- <apopple@nvidia.com>, <ecourtney@nvidia.com>, <lyude@redhat.com>,
- <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <tmgross@umich.edu>, <driver-core@lists.linux.dev>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 0/6] rust: drm: Higher-Ranked Lifetime private data
-Message-ID: <20260520132537.5843f8a4@fedora>
-In-Reply-To: <DING6NMJ97JA.5HC3ONKUPMW5@kernel.org>
-References: <20260506221027.858481-1-dakr@kernel.org>
-	<DICCEKZ3HU84.34ES3SW3D1FNI@kernel.org>
-	<agYbppHWXk_hW99M@um790>
-	<DIIMVPTLV3O5.3Q3DHU66WQZUA@kernel.org>
-	<20260519205947.3c9d99b3@fedora>
-	<DIMWGLNJ922I.3PCET9O1J83TS@kernel.org>
-	<20260520083813.7addec83@fedora>
-	<DING6NMJ97JA.5HC3ONKUPMW5@kernel.org>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xhTIw633"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7A06FC2BCB9;
+	Thu, 21 May 2026 07:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+	t=1779349977; bh=g5lNOWZdFZ078Eg8FihJThI93jDxzsjGBAigjw8fo38=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=xhTIw633sN19LCBdjB1HTf9dSgzdyM88djd03g3BpnZHdUyCCkbcKfy36L1S7zUB3
+	 hwfBhn5IG72NrMEjIvZwX/q0t4z3l9jlJ/GykCpm20eLuBbUblip4QWbimYlbDI7JB
+	 b+IP+0hfTs0YUy63TXNSrCWCoc6HEQ7tal7tCB6o=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59F92CD4F5E;
+	Thu, 21 May 2026 07:52:57 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Thu, 21 May 2026 15:52:53 +0800
+Subject: [PATCH v2 1/7] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260521-fix-fops-owner-v2-1-fd99079c5a04@linux.dev>
+References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
+In-Reply-To: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779349975; l=3841;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=g5lNOWZdFZ078Eg8FihJThI93jDxzsjGBAigjw8fo38=;
+ b=FhGtAlbF3396Z+dQAsyxXzU2I9Oz+YJMiNSCAigLuceECR4JjS9R0/Tvaps4sBC+ytD60pqQZ
+ Arr+EzySJNWBLxRc55m2GilIMFF4U2MTiMxCo80BR4hrhjbfpnj+i/w
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 
-On Wed, 20 May 2026 12:55:40 +0200
-"Danilo Krummrich" <dakr@kernel.org> wrote:
+Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that
+modules can provide their `ThisModule` pointer usable in const
+contexts such as static file_operations.
 
-> On Wed May 20, 2026 at 8:38 AM CEST, Boris Brezillon wrote:
-> > So, GEM allocation and GPUVM are required are required early on, and
-> > both want a drm::Device of some sort (Unregistered or Registered). So
-> > the question is, are you happy with having [1] applied before/after
-> > your patchset to address this chicken-and-egg issue I mentioned,  
-> 
-> Yes, this is exactly what I had in mind for all of my replies, but I think I
-> only implied my key point rather than making it explicit, so let me do that now.
-> 
-> What I'm saying is that we now have all DRM ioctls behind the SRCU guard, which
-> means that the drm::Registration data is always available from DRM ioctls.
-> 
-> Now, with this precondition, the real question is whether there are any
-> resources left that should be bound to the lifetime of the DRM device itself,
-> which I don't think is the case.
-> 
-> After device unbind nothing is able to call back into the driver anymore, so
-> there is no reason to keep the corresponding data alive within the driver's
-> private data.
-> 
-> There may be resources that are kept alive through a separate reference count
-> while userspace still has open file descriptors, but they are separate reference
-> counts and should be independent from the driver's private data.
-> 
-> IWO, the fact that we guard the ioctls makes the whole class of problems go away
-> that we inherit from having to keep the driver's private data alive until after
-> remvoe() -- the DRM device private data becomes obsolete and we should probably
-> evene remove it.
-> 
-> Instead, we should use the drm::Registration private data for everything.
-> 
-> With this, your chicken-and-egg issue is already solved; the DRM device is
-> available, you can populate all the resources you need (GEM, GPUVM, etc.) and
-> then pass it into drm::Registration::new().
+Move the `THIS_MODULE` static from the `module!` macro into the
+`ModuleMetadata` impl, and update `__init` to use
+`LocalModule::THIS_MODULE` instead.
 
-Okay, it starts to click. So ioctls get passed the drm::Registration,
-which has both a device and some driver specific data (I guess it's
-even hidden behind the File abstraction). During early probe, we'd still
-be able to pass an Unregistered variant of the device, and then our
-current TyrDrmDeviceData would be attached to the Registration object
-when Registration::new_foreign_owned() is called.
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ rust/kernel/lib.rs    |  3 +++
+ rust/macros/module.rs | 34 +++++++++++++++++-----------------
+ 2 files changed, 20 insertions(+), 17 deletions(-)
 
-This probably imply changing the places where we currently access our
-TyrDrmDeviceData through the drm::Device, but hopefully there's not
-many of those cases.
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index b72b2fbe046d6..f0cf0705d9697 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -184,6 +184,9 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, error::Erro
+ pub trait ModuleMetadata {
+     /// The name of the module as specified in the `module!` macro.
+     const NAME: &'static crate::str::CStr;
++
++    /// The module's `THIS_MODULE` pointer.
++    const THIS_MODULE: ThisModule;
+ }
+ 
+ /// Equivalent to `THIS_MODULE` in the C API.
+diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+index 06c18e2075083..b6d7b3299fbf9 100644
+--- a/rust/macros/module.rs
++++ b/rust/macros/module.rs
+@@ -497,28 +497,28 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
+         /// Used by the printing macros, e.g. [`info!`].
+         const __LOG_PREFIX: &[u8] = #name_cstr.to_bytes_with_nul();
+ 
+-        // SAFETY: `__this_module` is constructed by the kernel at load time and will not be
+-        // freed until the module is unloaded.
+-        #[cfg(MODULE)]
+-        static THIS_MODULE: ::kernel::ThisModule = unsafe {
+-            extern "C" {
+-                static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
+-            };
+-
+-            ::kernel::ThisModule::from_ptr(__this_module.get())
+-        };
+-
+-        #[cfg(not(MODULE))]
+-        static THIS_MODULE: ::kernel::ThisModule = unsafe {
+-            ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
+-        };
+-
+         /// The `LocalModule` type is the type of the module created by `module!`,
+         /// `module_pci_driver!`, `module_platform_driver!`, etc.
+         type LocalModule = #type_;
+ 
+         impl ::kernel::ModuleMetadata for #type_ {
+             const NAME: &'static ::kernel::str::CStr = #name_cstr;
++
++            #[cfg(MODULE)]
++            const THIS_MODULE: ::kernel::ThisModule = {
++                extern "C" {
++                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
++                }
++
++                // SAFETY: `__this_module` is constructed by the kernel at load time
++                // and lives until the module is unloaded.
++                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
++            };
++
++            #[cfg(not(MODULE))]
++            const THIS_MODULE: ::kernel::ThisModule = unsafe {
++                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
++            };
+         }
+ 
+         // Double nested modules, since then nobody can access the public items inside.
+@@ -616,7 +616,7 @@ pub extern "C" fn #ident_exit() {
+                 /// This function must only be called once.
+                 unsafe fn __init() -> ::kernel::ffi::c_int {
+                     let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
+-                        &super::super::THIS_MODULE
++                        &<super::super::LocalModule as ::kernel::ModuleMetadata>::THIS_MODULE
+                     );
+                     // SAFETY: No data race, since `__MOD` can only be accessed by this module
+                     // and there only `__init` and `__exit` access it. These functions are only
 
-> 
-> In terms of making any of the resources you store in the drm::Registration data
-> available in the bus device private data, it becomes the same pattern as for
-> everything else, i.e. you need shared ownership.
+-- 
+2.43.0
 
-Yep, that we can solve.
 
-> 
-> So, let's say you need IoMem<'bound> in both the drm::Registration data and in
-> the bus device private data, then you currently need Arc<IoMem<'bound>> in both
-> of them, which is fine, but I think we can do better.
-> 
-> Eventually, once we have landed the series I currently have in flight and once
-> Gary finished his self-referencial support in pin-init, I think we can even
-> avoid the reference count. Here is an example.
-> 
-> 	struct TyrPlatformDriverData<'bound> {
-> 	    _device: ARef<TyrDrmDevice>,
-> 	    _reg: drm::Registration<'bound, TyrDrmData<'_>>,
-> 	    iomem: IoMem<'bound>,
-> 	}
-> 
-> 	struct TyrDrmData<'bound> {
-> 	    iomem: &'bound IoMem<'bound>,
-> 	}
-> 
-> 	fn probe() -> ... {
-> 	    try_pin_init!(TyrPlatformDriverData {
-> 	        _device: ...,
-> 		iomem <- ...,
-> 		_reg <- drm::Registration::new(..., TyrDrmData { iomem: &iomem }),
-> 	    })
-> 	}
-> 
-> I don't know how the pin-init self-referencial stuff will exactly turn out, but
-> this is pretty much what I hope we can evolve this into.
-
-Yep, makes sense.
-
-> 
-> (And sorry again, now that I spelled this all out, having that left implicit in
-> my first reply was obviously unreasonable. :)
-
-No worries, that's the usual back-and-forth happening during reviews,
-and it's all fine.
-
-> 
-> > or are you proposing something else (Option<Subcomponent> so that we start
-> > with all sub-components set to None and progressively populate those, which I
-> > remember Daniel was strongly opposed to)?  
-> 
-> No, I am strongly opposed to do that (as well).
-
-Got it.
