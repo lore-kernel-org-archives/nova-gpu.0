@@ -1,190 +1,102 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011000.outbound.protection.outlook.com [52.101.52.0])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D4D2376FD
-	for <nova-gpu@lists.linux.dev>; Sat, 23 May 2026 03:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779507322; cv=fail; b=AlCjGSU/GKOGlc0L8DdwzS9z0aqFUlyAGgiUziZJrPvOiPIwSDYI8YsvPQ9jv/6My61MXkC01a4lMur532871dg6uYrIHB0DejfO1wK/hYT+G9zBJiG1O6yCcJOEh178tFi8FUqUB49pGraLpIXxNcyo727kBMKAM/zgh8ypbMc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779507322; c=relaxed/simple;
-	bh=PZjiSKItEdOZD+SQ0Tw/xDLtP8h5EKsTLBnfXBiAoYU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZWxK22BzUEdHt48MgEtJg0hjW6+yvbs7r1Yq9IH36XCzQ43m6PC3FpVySdKvSj5WOB31tSiyU9Mcp8Zos7iZiu0Jl7v7ftkb/alW3sZnf5TZyP+FILd12+RBA4llleD+F3prLwPClR0tnjCH1I39zoYCa63iXfGR1Ce2PMSnmJA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dJJLJ/3f; arc=fail smtp.client-ip=52.101.52.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9333215A86D;
+	Sat, 23 May 2026 15:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779551215; cv=none; b=OtK8HfMXWqHeaysK3ueKmV+Zjq5afoE0j8uBoK9alCAglYm2/uZq4WU6Bf2MGRO+S6fZ5TtbTwP1SgF2WSeTOa7ofxbx0+T1OYWzFdb2vVR8crdNDl2tPYAUadSQSnMtX8D0GAq7Ycy5miM8IQI01XH9RJ7ozo1QGKjFVzG9PPI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779551215; c=relaxed/simple;
+	bh=nLBZR1yPNJIwvSHlyra/l/GfIWnzfGqqm1BCrTrJ6/Y=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=QTppHdsemlgk1lB1/FzmACV3mzvCNqQ1dGvTZXLJ94MYjyJDtMs1ARv76dt+5Hj0Vwptc9nt1RG15OinLK7ILhAUp701B5rrBInYPRssbleHoOGp0JWihCGGIx0HBMudRAj8o/2eNYLGLFpyHEfiWP6qXx6cw1+tihUFf6bSPIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XtGo7vjv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dJJLJ/3f"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dbppHw6+ZdNJo7hUL0B7OHMEh+1o9y8lSIDlnSAHAev/G7ejIsduqrzCs7fL6g0vGt5mFkKldy/Ivi6iKMR/1i7rMpmcW4kw4QXM1RsurjdFQwBV7LWE8kxqAppLQ+9Vq8qLAEK1Gnr/+9w8FTcZpr9IwHlE+cf7cFvLqUlFC2hTXtOPYnFRwC0d117ePI2UoORPk0C/FTifHIsTvsXBAb0KnEaC5mD2je8T4QN923Fj93Tx7GPJIFNw/AEWwEdPXd+vkAoWuleGeOrIIeP2pe8KCuwwkg/wGq552qDp6tVxQbP/YuNZyG6qbcGilm+dGX2JeN6C9WUxAYNPugaRqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vOynArN+lkpwUmiQxvWvJhkcK6XQdzUhPb6uMQbHzPk=;
- b=nA2Vd4jx0LK3y7EeHzUByV1uJ3tu2g9y4Gvd9k84G2RWoPm1U+fA6AyVIQ5691nNW15DU/pr2WLvUJDxlvBGy6M9oWl5rrOLZkT6s4ZRhBoWOnHAZH70+G3ACaDgO3M15t7Pz+OWP13fr+8VfUIj3S2oiKwaprdUEHF0glt1Cm+4XOk2ZlH1hCQcHNMtCHwnu5p+G5KowUzJb3WxjnKHuidrd8qKXrJ60Rs2V17r4zfPt1ew05ps+Vvmj+GnAyn7nUCaulpLWaAboulHHdvBqYDTFB8xmmMbk+Xwjx4Grw0IIf8GnEcINbDKHVeMBhAmHWh38Eq9MWZx+yHBZcyLbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vOynArN+lkpwUmiQxvWvJhkcK6XQdzUhPb6uMQbHzPk=;
- b=dJJLJ/3fC+vyHWgdpt9zqBZRLhKCbElZP7PrENQaXBceMYfIW/zp6y09gGWnOFmCiCGlcG9ymNZe3P77Xh0+Z15cWyIhpkwh/Sm6zI5uZUGcbU39yvupj6SBjo4a029qNC6xtLw0JD1p6Y1BxSeEFmfZLDHGx4YB1no66J1yQaA+mu7FXdwGNOneVRg1hreM/KI4aatZruyku0HFHL5UgPDRRIdLT/JSeFO12iUXZIEfqOCGAi5B/7S3smUqVhL6Q7JxPABp8KM5KLfHvAbf1gKRioNc/SVB0HcBw+wpeHJhOK2Ea9IGiaT1T1bS5Qp+xQ5EhhvxikiaXumLaUSdIw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- BN5PR12MB9512.namprd12.prod.outlook.com (2603:10b6:408:2ab::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Sat, 23 May
- 2026 03:35:14 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0048.016; Sat, 23 May 2026
- 03:35:14 +0000
-Message-ID: <4e7b5050-a120-4fd0-a208-7e9d5f61f402@nvidia.com>
-Date: Fri, 22 May 2026 20:35:12 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 15/20] gpu: nova-core: vbios: use the first PCI-AT and
- FWSEC images
-To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
- <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260519-fix-vbios-v4-0-5d3f210c5602@nvidia.com>
- <20260519-fix-vbios-v4-15-5d3f210c5602@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260519-fix-vbios-v4-15-5d3f210c5602@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0127.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::12) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XtGo7vjv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF321F000E9;
+	Sat, 23 May 2026 15:46:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779551214;
+	bh=o01mZIap77JdV7lnWDWkCgBFoE4EHf5jWItgL7KxWEQ=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=XtGo7vjv/u2jBKRoLHA3oC9OmfZu2mVOGV/5v91LFo3aenQIJ3Cybr0FFjI67nVMk
+	 rsOKWs1mXpXve5q7T/hfXdkKBYgWVqT1s9evRpWtpIRO/d3Zltm68xofkt3Wt1bVLO
+	 7jJavYWoDXZxu8XNR30oIIFFxdR2KkchADzY/WPMvjqNlfN/M2a7heUiyegIGuuEDZ
+	 0xFLspwBB4sdqtVmDAwEwrZr/JcayDEPbyHrjLY5NnXGo9x902lQgoa6YqcXzCVGGt
+	 KRFJt1o421jQFFp3Lh9B9DfEag4cUfKMND6Kt4a3SRvOVNHtRbb3Wha0CnuBfBGbKX
+	 RnfmInEnTQ2zg==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|BN5PR12MB9512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2815e8af-b574-4e80-695d-08deb87c4cdc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|11063799006|4143699003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	WAuayrYdLV5NA2qISkTeqxXwNauLCGvB1Mq+ygJuIu19n4PNj02kWnrIoZ3ZSL8IVbUEZBV3sx71JP+RFevzpvZwHRPCBdWlsO5hkjXQpgoKmtKyFcKPlxwqGPzSN1xqcV0wSoI8kHYMM6zASeIp6rYML/R6wDQnSjeEQEN32J4hgd11KlFYVzoOGq7mdhC+KB78mmvpqrikiA94uSg43ld4YnHtNzfgt0awMFzJJfSXcR+8ss1ag0o4LMmm5kOOIz/8+2PpvmV+I1Csny8vP6UWsYgceAu2iffnhMFckny054NcqWq2FLD0ymMUbtb5N0jqUwPp5vtFy51ncjjR2FoNjmMEE/8q4NLrdSTTnJ8yhqcdX5P4wtBHn7HsxM8Nbp2McDuzycrdfZEP24a1GsLM5YngSO3RbW3qnFX/R7WRmKN7OzydCxMALrkojkWwrI1CpSgd1VbAIDuiM5ZQDei5GYuq8G/uLNC5/BItQ6zQmk3TYGVd9Si6h3pYy8V+JcK3o8ATL/UjMX8a7/Sf0hVAP5baoSU928TsAUk2xhcnFDjQMyJlaOzU54jT7So4h5JncoBQeGyD/WuUKHK6bGCTTWcGHLj/zwRhn2eioFs4ov/X8OtaMXJFFqORAv45eLEbhVIBxPq/x9uyCReOdQI5J0d/rRSdF42Gakkze44rrKsbdCBBdvl7b75RZ0zH
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(11063799006)(4143699003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RWgzVVZvRXhVRlRGTE1yeDdTSmpWSVpFeEFweERCb1ZaNXFEaHp2L21HWlBO?=
- =?utf-8?B?NElyUjNEWmE1bUszV0JtbGkwVUtOMGF1Z010TVk2NjltL0NMT1hBbGVrMDQw?=
- =?utf-8?B?U2lIejlZbzdQcTI3a3M3Y1c4MnZoc0swc0FXL25VdkgxbDZYeVhKb2dnbU1z?=
- =?utf-8?B?dDM1NFA3aFJmZ09rSnRlZzV2WjNneXB3MExRNytiajV4QXlJTGRaVmVyUzgw?=
- =?utf-8?B?K2I1S3YxVUZ3YU9uakJHV2hUems4bnBPMUlOd01rdHpaNnd3ZTVwSWFjU29X?=
- =?utf-8?B?YVRIU3JVcXhsV0RNSDAwVDBjUThERUFSbUltSFF5SWJjamQyMDhKZ0x6N0Vl?=
- =?utf-8?B?am4xN0ZVT1ZyMnh1bXNFTnVGK3dLaTJPV2ZwakhRMTFSM0dLL2R6UDBZYXV0?=
- =?utf-8?B?T3BQQXdNdktiWmpsUU5NeDZrWFZ2cHJSQlRMZVFSVWlyQkZwZDY3bTJHTlBN?=
- =?utf-8?B?aE05WFNkQ0dJejNwaDVueGlmNUdubGQxcVlLYzBQWHJtMkdhblY1MDBoSW9r?=
- =?utf-8?B?eFM5K3ozQXlkUzlzZ1JLd1dDUS93Y05ER1c1Rk52eHF1SU5xN0Q3OHhtVVBn?=
- =?utf-8?B?eFEybFJsMmh5cXRRR3JHTDNUVW1RbENpK1N6ZUhLSmtrQ09DT1FQZGxsSG81?=
- =?utf-8?B?bFRLSmtDUFBuSXhPSzJ6V3Z3WTNKcWFUazRaOFFxTm9tYk11ZVFsZk83MktJ?=
- =?utf-8?B?ejZremdXUHk1MXVLY0w1enJ4M0NDMzdLcmg1VzlSNE9Ea0dKdnowOVVZT1Yz?=
- =?utf-8?B?NmY3czF4MU1Ka05sMCtEZHlHYi9BOC9KSkF4eEw2cTViN0xDbGdVMk5uWE5B?=
- =?utf-8?B?STlqQmhDdzNQaXBqM3R0c1lPcEUxZ2FSZktIMmlFaEYyTkcycU4yclN6Rkwr?=
- =?utf-8?B?c3VkbTl2Ulk3cDVxQ0prS04yeWtQR1hZQnNsenVHWjJYTXBoazhWZDRrL0tD?=
- =?utf-8?B?QXBaUXpGZ1dxU0Q0Zkt5U0FmTTdkZE8vL0RqZDVJVVVmbDdMTEZRQzVyWU41?=
- =?utf-8?B?MWxPN25QVnQ2SXQ3c3BYZThlTlRQdE5EWURoakM0blMvOUFlRVRnbW9UMmJo?=
- =?utf-8?B?RS91OUY3YzRHRklHM0RjbHQxbzNIQm0wUXFFTGhkSGhKbldWMjVjMFc5cHVO?=
- =?utf-8?B?SVREVFY3OE9tV3BiMm1NYU5BNVdqUHF0bEdWeU16OFN0TjhPajJRMXNDNnY0?=
- =?utf-8?B?eGx0dGRMN09ScGhaRlZpUUpKdDFtdkNEblgyd1VoeHlQVCtnbFhhb2hSUkMw?=
- =?utf-8?B?T0VOUzdGV3AwU1hkQ3R3Nmg0NFc4L0tRakQzTkFwdlIwa2I2V2xSajVob21F?=
- =?utf-8?B?QU4zU0tnQ1ZJS0M1STF6L1dCSFJ0Z2Qva0RMRWNDd3FMci8ydldWSWhzOTJ3?=
- =?utf-8?B?blowTFJhNXJPd3NjdEY3c2lCalh3dUlGZlhwRXkzbmhFU2FEbXJZQ2RyZUQz?=
- =?utf-8?B?QUVSVmQ0UDBXcjA4MlRlTHBCM2ZqZmEwN0NZR085YkIrTnExMmo2c3pXemp5?=
- =?utf-8?B?aFUrVFFaMUVtanlXS0ltSjU3TkdTSC9rMFE0MW53aGJ0R2lKclVsMXM2V0JI?=
- =?utf-8?B?a2UxR0ZyY3ZvN2Fxd2lEbVVuVlM0R2lOZFRXOWNYYXdGOEZPM0RoTUo4VTM4?=
- =?utf-8?B?THl2V2xnK0hiRWs4T2Yray95b2xtWnp1N3B6Z01mT2oxN3hocmtKWnBJZjhk?=
- =?utf-8?B?UEc5bXVDTFVGTmRNT042SGcvZzU2Zmk0N21BVTBzYmRmQkhURWFVWDVqOGlR?=
- =?utf-8?B?RTJiRy9wMUZrMjJUS0d5ZFhCaE1jR2xwTFpRWTZNdXZOOUd3MHg2M1dOQ1Zr?=
- =?utf-8?B?RHJnVm9YRTI0WEQ5UFZtTUlkd0Q5YnA5S1RoNjBYTVpIQldNVGR6bm5RbmF1?=
- =?utf-8?B?QVl3cmFkS3BWR1hzbjJIcFlBWCt1UFhZakQzeVZSRTExRGZ5bkhiSjJsSnFt?=
- =?utf-8?B?UkVOK2p3akQ3ck1JMFk0MlNwMkpOKzZkait2bzNUSXFKaHhNd3RNWk5jTkpx?=
- =?utf-8?B?dDBJTUJCRHhXdHNEMkpXVUZkbHgyakNxejlmRkVPZVptMEZQV2hXRTZ3Y2Yv?=
- =?utf-8?B?MmpYU2ZTVmtCQnlPMUtqMEZ2a0dRQm9UWDRxT2hWQktwR1gwU0lSUGcwY2Z4?=
- =?utf-8?B?b2QrYloyK2VPV00xWFRjTlRaOFNGalpIaS9HekpkWDNOQUZpY3JKelZqOWpy?=
- =?utf-8?B?ellwZG5URlVmaS9MT0Y3NTVDaXdDdW9ZZWZUc0pZcXBoTDhOZUl4L2hoamlS?=
- =?utf-8?B?UkpSMVIyME8wTERrcHNOdjBFcE9jbTJrWjNKVXZtcnUyUm9DK1dlN2w0M0Ex?=
- =?utf-8?B?M2hxOFFmdjdLMm9BZmNhVWUxZmd1MUJSdDA1MDBGU1A2VlI2VmNFQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2815e8af-b574-4e80-695d-08deb87c4cdc
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2026 03:35:13.9850
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: acXg3/VRecu/NU9HxhFlaQR5MJWDnHpdOQb+UQL2ORVkYLySBNgasGtFfdgQcpfhAe6ZH/9sTLMJ35MGk/svYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9512
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 23 May 2026 17:46:46 +0200
+Message-Id: <DIQ696JK4WV0.2HOQ57L342S77@kernel.org>
+Subject: Re: [PATCH v4 21/27] rust: types: add `ForLt` trait for
+ higher-ranked lifetime support
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
+ <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>,
+ <pcolberg@redhat.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260521233501.1191842-1-dakr@kernel.org>
+ <20260521233501.1191842-22-dakr@kernel.org>
+In-Reply-To: <20260521233501.1191842-22-dakr@kernel.org>
 
-On 5/18/26 7:55 PM, Eliot Courtney wrote:
-> Currently, PCI-AT takes the final image if multiple exist. For FWSEC, it
-> takes the first one and the last one. Align both of these to nouveau
-> behavior by taking the first ones.
+On Fri May 22, 2026 at 1:34 AM CEST, Danilo Krummrich wrote:
+> [ Handle macro_rules! invocations in the ForLt! proc macro's covariance
+>   and WF checks.
+>
+>   Proc macros cannot expand macro_rules! invocations, so the
+>   syn::Visit-based has_lifetime() and replace_lifetime() helpers cannot
+>   inspect types hidden behind macro calls. This caused the covariance
+>   proof to be silently skipped and lifetime substitution to fail for
+>   such types.
+>
+>   Add an explicit Type::Macro arm to Prover::prove to conservatively
+>   require a compiler-assisted covariance proof. Detect macro-containing
+>   types with has_macro() and use a WithLt trait projection for lifetime
+>   substitution instead of AST-level replacement. - Danilo ]
 
-Let's do even better, and use Open RM for guidance instead of
-nouveau, for this case.
+I was made aware by Gary that WFness is not actually being checked, which i=
+s why
+the static expansion was needed in the first place.
 
-Open RM tracks one offset where the FWSEC region starts and reads
-everything past it as one buffer (see s_locateExpansionRoms() in
-kernel_gsp_vbios_tu102.c). Matching that in nova-core drops the
-first-vs-second-FWSEC dispatch and the second checked_sub in
-FwSecBiosImage::new.
+Thus macros will remain unsupported (even covariant macros are rejected), y=
+et we
+can improve the error message by adding the following diff on top of the
+previous v3 patch.
 
-This saves about 40 LOC.
+diff --git a/rust/macros/for_lt.rs b/rust/macros/for_lt.rs
+index df2027789713..75d0ce450bf0 100644
+--- a/rust/macros/for_lt.rs
++++ b/rust/macros/for_lt.rs
+@@ -107,6 +107,12 @@ fn visit_lifetime(&mut self, lifetime: &Lifetime) {
+                     self.1 =3D true;
+                 }
+             }
++
++            // Macro invocations are opaque; conservatively assume they ma=
+y
++            // reference the lifetime.
++            fn visit_macro(&mut self, _: &syn::Macro) {
++                self.1 =3D true;
++            }
+         }
 
-I think it's worth doing.
-
-thanks,
--- 
-John Hubbard
-
-
-> 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/vbios.rs | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-> index c5dad9e065da..ff21f85fdfb6 100644
-> --- a/drivers/gpu/nova-core/vbios.rs
-> +++ b/drivers/gpu/nova-core/vbios.rs
-> @@ -333,12 +333,16 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
->              // Convert to a specific image type
->              match BiosImageType::try_from(image.pcir.code_type) {
->                  Ok(BiosImageType::PciAt) => {
-> -                    pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-> +                    // Silently ignore any extra PCI-AT images.
-> +                    if pci_at_image.is_none() {
-> +                        pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-> +                    }
->                  }
->                  Ok(BiosImageType::FwSec) => {
-> +                    // Silently ignore any extra FwSec images beyond the first two.
->                      if first_fwsec_image.is_none() {
->                          first_fwsec_image = Some(image);
-> -                    } else {
-> +                    } else if second_fwsec_image.is_none() {
->                          second_fwsec_image = Some(image);
->                      }
->                  }
-> 
+         let mut visitor =3D HasLifetime(lt, false);
 
