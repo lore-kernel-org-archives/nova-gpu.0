@@ -1,73 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FD2388363;
-	Mon, 25 May 2026 20:32:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5747226D4E5;
+	Mon, 25 May 2026 22:58:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779741145; cv=none; b=cNgld8Zjrqv00uy3tbspT9WeUlzO3liyLSo9ihkzcl91sGrKaGRbSOXdu/lPE36zffMeIlh7YKXKlFH9/LUZwqOK19ViPu9Kro542hbCYNlS+arzaSbnQLO/mPHuqyjFmmI4Mj+/XOx/UvSJWssMS5ZD7smiSNdRcj4CQuRFIrE=
+	t=1779749933; cv=none; b=urDorHY0X4pbW/aBpCXS7fS1zRnWsM2hHdl8CbmGKKBPQhEFS+WY79ZVZ62Npby32vKNRFNvj9BdU9LvfjX1tEoZL11XkAS2HLW/7XLxLvLErzcoZShLPrPUzzQUKLeYZr8+nHGHSr00GAY0LvavbdTBzXWlkHxB1/mHgl8GBxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779741145; c=relaxed/simple;
-	bh=n9OSdO3AwMmlBW0KtaOxaurI9/V+4mxLjp0ERUUz9nQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AGR6gBjiieySNa93kFsAp/QlF3o23HYyHiqscYzw72pVc28tn5N1W16i84hwNZY8ANwsTAt2aVmqwX2Sfp7T2LFzHInxWdcqzz5BQubJBIv1FuscIWNCqPz3lhvRzy1AuasYhVtjihPRkKoCK/LhkzDRz5rKpGQIPsC3cOTcfck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E5Z15P9j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779749933; c=relaxed/simple;
+	bh=eskQ1xKrxiu59OkuwESSzQLUUITKYTrN/XUZ8oM8yG4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eyxFVkfOL2Ixy0g2ulHItA3epq/CyNtLr9eQSMYbR6VhM3daYGLQJy8CyWj8nJAVy9dyHN6hK0bLgj+5ZtODCYIX3Qiks6vgH/uiXlZkDvYwHdtFGSjNHmIEYOTMSK8pI9pnfX3mTUPorCRvwzPGIkYkh+Jgo9pKrF7i/y9PbNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2drL2l0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E5Z15P9j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269F31F000E9;
-	Mon, 25 May 2026 20:32:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2drL2l0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F941F000E9;
+	Mon, 25 May 2026 22:58:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779741144;
-	bh=+rPmKZf6uaQzYhVqY2DDZC+3sDd3VtNWS1o0vbSmOWw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E5Z15P9jRyUCpIVYHnJfOk9/D8atKgXHRLvLuzY1yly8rDaOEcFJr6aenLpt9wHkp
-	 /w1H2/iDK/CnanATE6FZIVUJjMGIiJaMeujyma+KBb5394RaHkIALs2YfTi5S4eZQZ
-	 IVmrNIqu0IQYPP5bqkgyH5stRJqYoDMAzQb4A9Jkw2dJoegGPX1CSsF+cCMMZ56PG7
-	 QR0c7fRMSXTWyNelz2+V3zbiV6ZLXRloDG7wZ48WsDWNiMGDkVK6VBjERevJDCeaeI
-	 GohDsI7+lvwSPSkn9t8Cud0GrpoCkF8iQUbbZLpfaCFu+vtTFo/qYNVAEJKeNpHz2x
-	 UHOVDH2VZAwEg==
+	s=k20260515; t=1779749931;
+	bh=Uwkgzu2N4xenCnW9gJInwt4SxGu6xMEQMyOyZKqOvjg=;
+	h=From:To:Cc:Subject:Date;
+	b=P2drL2l0XThkVIE9tM0hASBWBJB+SlEGH4x0F5ymqriT+yLyhYObHIMj5NT2MIEGI
+	 bE83LHngRUFOvM5cZrYckyFeqkTZov96LI3ZTAgruCvmbr2NvzLVPqbI7uVghlrip0
+	 A9nEAx4TcWdeGavvbKU54ZEcI9iO5BTQIvbw0ZjtCEx62RfCSMXBN5TX37bcnLn4j8
+	 i4Pi5O4piyLk4Xy1D9vrpBqYEywT6TCXZK8B7NBWGlzDzMSbsDdCOpVTf35alXFeRk
+	 IIxrbj+XCBxgYnkQC4CE8YMzYwbe/NZuesqRiphFiN4Ji7fwf0SG7FKX8BP+ZNIUAL
+	 VgesDYFxMZzVw==
 From: Danilo Krummrich <dakr@kernel.org>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
+To: dakr@kernel.org,
 	acourbot@nvidia.com,
 	aliceryhl@google.com,
-	david.m.ertman@intel.com,
-	ira.weiny@intel.com,
-	leon@kernel.org,
-	viresh.kumar@linaro.org,
-	m.wilczynski@samsung.com,
-	ukleinek@kernel.org,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org,
-	abdiel.janulgue@gmail.com,
-	robin.murphy@arm.com,
-	markus.probst@posteo.de,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	igor.korotin@linux.dev,
-	daniel.almeida@collabora.com,
-	pcolberg@redhat.com
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
+	jhubbard@nvidia.com,
+	ecourtney@nvidia.com,
+	ttabi@nvidia.com,
+	joelagnelf@nvidia.com,
+	gary@garyguo.net
+Cc: nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
-	linux-pm@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	Danilo Krummrich <dakr@kernel.org>,
-	Eliot Courtney <ecourtney@nvidia.com>
-Subject: [PATCH v5 24/24] samples: rust: rust_driver_auxiliary: showcase lifetime-bound registration data
-Date: Mon, 25 May 2026 22:21:11 +0200
-Message-ID: <20260525202921.124698-25-dakr@kernel.org>
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 0/5] gpu: nova: adopt driver lifetime infrastructure
+Date: Tue, 26 May 2026 00:58:28 +0200
+Message-ID: <20260525225838.276108-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260525202921.124698-1-dakr@kernel.org>
-References: <20260525202921.124698-1-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -76,120 +49,38 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make the Data struct lifetime-parameterized, storing a reference to the
-parent pci::Device<Bound>. This demonstrates that registration data can
-hold device resources tied to the parent driver's lifetime.
+Adopt the driver core lifetime infrastructure for nova.
 
-In connect(), retrieve the parent PCI device from the registration data
-rather than casting through adev.parent().
+Use the lifetime-bound pci::Bar directly in NovaCore, eliminating the
+Arc<Devres<Bar0>> indirection. This lets SysmemFlush borrow the Bar and
+implement Drop for automatic cleanup.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- samples/rust/rust_driver_auxiliary.rs | 58 ++++++++++++++++-----------
- 1 file changed, 35 insertions(+), 23 deletions(-)
+Replace ARef<Device> with plain borrows in SysmemFlush and the GSP sequencer,
+where the structs are already lifetime-parameterized.
 
-diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_driver_auxiliary.rs
-index e3e811a14110..2c1351040e45 100644
---- a/samples/rust/rust_driver_auxiliary.rs
-+++ b/samples/rust/rust_driver_auxiliary.rs
-@@ -51,16 +51,17 @@ fn probe<'bound>(
-     }
- }
- 
--struct Data {
-+struct Data<'bound> {
-     index: u32,
-+    parent: &'bound pci::Device<Bound>,
- }
- 
- struct ParentDriver;
- 
- #[allow(clippy::type_complexity)]
- struct ParentData<'bound> {
--    _reg0: auxiliary::Registration<'bound, ForLt!(Data)>,
--    _reg1: auxiliary::Registration<'bound, ForLt!(Data)>,
-+    _reg0: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
-+    _reg1: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
- }
- 
- kernel::pci_device_table!(
-@@ -81,33 +82,44 @@ fn probe<'bound>(
-         _info: &'bound Self::IdInfo,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         Ok(ParentData {
--            _reg0: auxiliary::Registration::new(
--                pdev.as_ref(),
--                AUXILIARY_NAME,
--                0,
--                MODULE_NAME,
--                Data { index: 0 },
--            )?,
--            _reg1: auxiliary::Registration::new(
--                pdev.as_ref(),
--                AUXILIARY_NAME,
--                1,
--                MODULE_NAME,
--                Data { index: 1 },
--            )?,
-+            // SAFETY: `ParentData` is the driver's private data, which is dropped when the
-+            // device is unbound; i.e. `mem::forget()` is never called on it.
-+            _reg0: unsafe {
-+                auxiliary::Registration::new_with_lt(
-+                    pdev.as_ref(),
-+                    AUXILIARY_NAME,
-+                    0,
-+                    MODULE_NAME,
-+                    Data {
-+                        index: 0,
-+                        parent: pdev,
-+                    },
-+                )?
-+            },
-+            // SAFETY: See `_reg0` above.
-+            _reg1: unsafe {
-+                auxiliary::Registration::new_with_lt(
-+                    pdev.as_ref(),
-+                    AUXILIARY_NAME,
-+                    1,
-+                    MODULE_NAME,
-+                    Data {
-+                        index: 1,
-+                        parent: pdev,
-+                    },
-+                )?
-+            },
-         })
-     }
- }
- 
- impl ParentDriver {
-     fn connect(adev: &auxiliary::Device<Bound>) -> Result {
--        let dev = adev.parent();
--        let pdev: &pci::Device<Bound> = dev.try_into()?;
--
--        let data = adev.registration_data::<ForLt!(Data)>()?;
-+        let data = adev.registration_data::<ForLt!(Data<'_>)>()?;
-+        let pdev = data.parent;
- 
-         dev_info!(
--            dev,
-+            pdev,
-             "Connect auxiliary {} with parent: VendorID={}, DeviceID={:#x}\n",
-             adev.id(),
-             pdev.vendor_id(),
-@@ -115,7 +127,7 @@ fn connect(adev: &auxiliary::Device<Bound>) -> Result {
-         );
- 
-         dev_info!(
--            dev,
-+            pdev,
-             "Connected to auxiliary device with index {}.\n",
-             data.index
-         );
+Separate the driver type from the driver data to allow the private data
+to be lifetime-parameterized via the Data GAT.
+
+This patch series is based on [1] and drm-rust-next.
+
+[1] https://lore.kernel.org/driver-core/20260525202921.124698-1-dakr@kernel.org/
+
+Danilo Krummrich (5):
+  gpu: nova-core: use lifetime for Bar
+  gpu: nova-core: unregister sysmem flush page from Drop
+  gpu: nova-core: replace ARef<Device> with &'bound Device in
+    SysmemFlush
+  gpu: nova-core: gsp: replace ARef<Device> with &'a Device in sequencer
+  gpu: nova: separate driver type from driver data
+
+ drivers/gpu/drm/nova/driver.rs         | 12 ++++----
+ drivers/gpu/nova-core/driver.rs        | 32 +++++++++-------------
+ drivers/gpu/nova-core/fb.rs            | 31 ++++++++++-----------
+ drivers/gpu/nova-core/gpu.rs           | 38 ++++++++------------------
+ drivers/gpu/nova-core/gsp/boot.rs      |  2 +-
+ drivers/gpu/nova-core/gsp/sequencer.rs | 11 ++++----
+ 6 files changed, 52 insertions(+), 74 deletions(-)
+
 -- 
 2.54.0
 
