@@ -1,108 +1,113 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0163EFFCE
-	for <nova-gpu@lists.linux.dev>; Wed, 27 May 2026 17:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1E41427A;
+	Wed, 27 May 2026 17:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779902162; cv=none; b=LCqSuJeVtJtBhU2EwfksMHvYAPIKIoymr/1KPtH+69Bjab6BpVqH24Cp/hZ/EpPrCfsknTN+JLkJPZgJb7F/QZKGUOYqt5DTnfD92Lh6RiEUow8UOivd6U8O+ZwdZw6Yz+BLvHTExTo0V5JBHkwRC2DPt8dsv6k7JoHn6lLRYQ8=
+	t=1779902311; cv=none; b=InTT7BdN5X+PDwniffkT8I+W8BTO978BIGhgPMLFn5WcMemk6oAZKbwJexn9zfmJ964XUj7CSrLNJ/JqC/c+7Q2f8iIBWo/QH4J6MIQol/GrdZ2A/fzTgCEeAkLVmtL6U7S7vtWlCqzR6B3+eUdJFKoykjOf5/riH/9mga8VPfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779902162; c=relaxed/simple;
-	bh=2JQZxwBIF2ov8gE3PJoRyVQfnmmKpInSArWNiCRiODw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:content-type; b=s072JX2U1gOXad5DBVybmogYR0zshcD2uswCyroRSrDIZwl3z/UKUpba/YtVEqmuPr+kCqgbtaUIhYkDEScwtAmi9gI/1cqWachQWvnSLR2f+JfKkMaACr27rPwjIzEjlawr1qzHVLAddqlO4hMi9rLa0r+jkxyx24hFSGzerng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BKmILYm8; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1779902311; c=relaxed/simple;
+	bh=fEMibwf+y8t5knkzcbcbwoZgVm/ad7LJRmoe20cOiRo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B7dSoQDvwsDYfFnttf9MurcPLDNevdHUGqImzo3aHuPtN9NfB6Be/l3qXGL1aPW8Mbua+F9iY/Ez3S+1Rh1+hMc1sYdhH8ZvPQvwIQvaXUfmYH21YuQYyVLI4ChnqYIN+JdQbA1QBuXc+8A4M8+E8gvKPP/Q8h1DsoBExNhIfnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SIp9istw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BKmILYm8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779902160;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=sVR4w/bJZ+gLns5rGEscxsF0pfUh38oD7KsVlfT+LAc=;
-	b=BKmILYm80s68pac97YWOOcvxGqynDn5Epjr/4kWpacPJR9RKsbdzZQZ/xXiGC1voEaXr9P
-	iaUhkrz2DhHAPI7AvavJ9efSIqnBqBqOIZZTzfZu+DNMGYdXLgOtRJUNw3wrMFSycEy023
-	PM9YLtWCYm0DTgy4L0+bXvvhnzFKfUY=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-575-e4mBIj0yMaafX_Wq_lFkRw-1; Wed,
- 27 May 2026 13:15:55 -0400
-X-MC-Unique: e4mBIj0yMaafX_Wq_lFkRw-1
-X-Mimecast-MFC-AGG-ID: e4mBIj0yMaafX_Wq_lFkRw_1779902153
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7B778180060D;
-	Wed, 27 May 2026 17:15:53 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.81.166])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EC2EC180034E;
-	Wed, 27 May 2026 17:15:51 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nova-gpu@lists.linux.dev
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>,
-	linux-kernel@vger.kernel.org,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"Alice Ryhl" <aliceryhl@google.com>,
-	"David Airlie" <airlied@gmail.com>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH] gpu: nova-core: vbios: Fix clippy error in Vbios::new()
-Date: Wed, 27 May 2026 13:15:21 -0400
-Message-ID: <20260527171521.2406456-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SIp9istw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D221F000E9;
+	Wed, 27 May 2026 17:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779902310;
+	bh=OaYEVa01C1fbNgO8Mv5tGt8BTdhgdWVcSikLut0VmS8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SIp9istw/5p+c+Le+xoL8j20HDFX4V4aqhBpKMprcc5cY+etxRqsaG1uegeHpuEQj
+	 4ciC7G3QrzVZBqYT6tevwO2hOUYuJdFph3e3p7VcLfj0eCQJDf9uo35nBTDgngqAPh
+	 ILQeZfo8/f5t/j2qc4G9hjlG00bMOmlxlDzH4p6qxqu95N7tBCIxEFCtrNj8Sg5pVc
+	 T9gS3I9mW/0ZNxo+dhb69cTPs8IewviJ8x70fLVEZpjasNOBZNumu6EU4Nx/V2WL+N
+	 u9LHp2gx/0FBa5vaNVwQbdHD80B3e4jcJkOnji2xCLWTeLzm8RUXrkJerxYvvxlCZq
+	 FCHESrk9Sr8Qg==
+Date: Wed, 27 May 2026 10:18:23 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/7] scripts: modpost: detect and report truncated
+ buf_printf() output
+Message-ID: <20260527171823.GA1893026@ax162>
+References: <20260527-nova-exports-v2-0-06de4c556d55@nvidia.com>
+ <20260527-nova-exports-v2-1-06de4c556d55@nvidia.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: LNrUMSNZ3ZpetIjT4Y3Z1IvnOtDxgbpCZ7Av30xdefk_1779902153
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260527-nova-exports-v2-1-06de4c556d55@nvidia.com>
 
-From clippy:
+On Wed, May 27, 2026 at 08:52:17PM +0900, Alexandre Courbot wrote:
+> buf_printf() uses a fixed-size stack buffer. vsnprintf() returns the
+> number of bytes that *would* have been written to that buffer, which can
+> be larger than the size of said buffer if the formatted string is too
+> long.
+> 
+> The problem is that whenever this happens buf_printf() currently passes
+> this length, unchecked, to buf_write(), which silently reads past the
+> stack buffer and copies invalid data into the output buffer.
+> 
+> Fix this by detecting vsnprintf() failures and truncations before
+> appending to the output buffer, and report a fatal error instead of
+> producing corrupt symbol names.
+> 
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-  error: this `if` can be collapsed into the outer `match`
-     --> drivers/gpu/nova-core/vbios.rs:328:21
-      |
-  328 | /                     if pci_at_image.is_none() {
-  329 | |                         pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-  330 | |                     }
-      | |_____________________^
-      |
+Acked-by: Nathan Chancellor <nathan@kernel.org>
 
-There should be no functional changes in this patch.
+> ---
+>  scripts/mod/modpost.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
+> index abbcd3fc1394..0d2f1f09019b 100644
+> --- a/scripts/mod/modpost.c
+> +++ b/scripts/mod/modpost.c
+> @@ -1689,8 +1689,17 @@ void __attribute__((format(printf, 2, 3))) buf_printf(struct buffer *buf,
+>  
+>  	va_start(ap, fmt);
+>  	len = vsnprintf(tmp, SZ, fmt, ap);
+> -	buf_write(buf, tmp, len);
+>  	va_end(ap);
+> +
+> +	if (len < 0) {
+> +		perror("vsnprintf failed");
+> +		exit(1);
+> +	}
+> +	if (len >= SZ)
+> +		fatal("buf_printf output truncated for string %s: %d bytes needed, %d available\n",
+> +		      tmp, len + 1, SZ);
+> +
+> +	buf_write(buf, tmp, len);
+>  }
+>  
+>  void buf_write(struct buffer *buf, const char *s, int len)
+> 
+> -- 
+> 2.54.0
+> 
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/nova-core/vbios.rs | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-index c0bc1008ed752..d38d7f138b49d 100644
---- a/drivers/gpu/nova-core/vbios.rs
-+++ b/drivers/gpu/nova-core/vbios.rs
-@@ -323,11 +323,9 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
- 
-             // Convert to a specific image type
-             match BiosImageType::try_from(image.pcir.code_type) {
--                Ok(BiosImageType::PciAt) => {
-+                Ok(BiosImageType::PciAt) if pci_at_image.is_none() => {
-                     // Silently ignore any extra PCI-AT images.
--                    if pci_at_image.is_none() {
--                        pci_at_image = Some(PciAtBiosImage::try_from(image)?);
--                    }
-+                    pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-                 }
-                 Ok(BiosImageType::FwSec) => fwsec_section = Some(image.data),
-                 _ => {
-
-base-commit: 2cf1840b0fa7637b6731fd554529f8d57ea34c04
 -- 
-2.54.0
-
+Cheers,
+Nathan
