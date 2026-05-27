@@ -1,72 +1,69 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021100.outbound.protection.outlook.com [52.101.100.100])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021103.outbound.protection.outlook.com [52.101.100.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707AF3B0AF8;
-	Wed, 27 May 2026 19:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257913B19AE;
+	Wed, 27 May 2026 19:53:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.103
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779911272; cv=fail; b=qIOHCc0xuT9B1A1/K+7NmZ8zchWz7Nn0+bE5iZBhVkQLqGiWguBydRxhG9Ws+hC6t0jxuaa+awQLrTG1oUr7Z5P0wrnDriCbGrbyzPPM3w6IWmg/8lQTSVHZSts4Twiy48TDUYPZVlL/WVR90FFMtR4+DL40nRxZ2Fz5wofjVw4=
+	t=1779911582; cv=fail; b=We7NgJLEY9SuihcNFw0R5AE2wwTlEPALvm27mWzzwIZ9XG8U+9/0aA0DgH3NsUGG43oPXFRuFMcZ1Miw7GTNqtPvvt96CyIlWLaowlSExv5AaKbBpg9FiQ4DqDFkS/9kcsw2LO5FFPvd/+wyd/xCLRS0G7HiaxZiG8hHvPoyQis=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779911272; c=relaxed/simple;
-	bh=de++OltCUqIJlTdIhlnZgN5c6ZpVgy6VHJ1FY/g9Nck=;
+	s=arc-20240116; t=1779911582; c=relaxed/simple;
+	bh=lUAoGkDkz1bKNVG1Crp4lEI6r0N1Y7u6Qc8V2S2gNZ8=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=ioTdodMwqGgq9UrWVdx2BmkJiD5boG4VcXTSO0si6seFLUmKekdTsTSlzIEf+FNpZtojbRH6bZnrZLH7YDH3xnaaPgIK5cidDXjyhohzMFzMaDTOUtGO+q/LnRDTM4Q+GvzZB6ierQb+lcpa5lmVvNoYNN5ZhQB0f1JKQFM+5xU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=GArmH3nC; arc=fail smtp.client-ip=52.101.100.100
+	 In-Reply-To:MIME-Version; b=Xf9EVwML37z68DiJ6g1g9ru4qsdcH7QmGFRAUNX+PhvpGY/E/CyzYdaJ0KF4cwyCzTESrzBkxlIg53UZz9oJY385ON1mpHu+IkTQHQZ3+sDDUnxxhi07RKZD97S7Kv97oV+ej8yeJC0dmLvuZVkDsnaNuFUTwro5iS6CizFSPkc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=OZ0BwziO; arc=fail smtp.client-ip=52.101.100.103
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="GArmH3nC"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="OZ0BwziO"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jJFB5F/1ZiYVugqhIdiyJhVm17CcCWp19M0/zSeANLmiurgPZS+kKBqBGs/5RtbUr2YN4bkfjF3ve4sYOXzxoix/Jo26VP/ZsR5wCrrgJ2lWRlYKY4YqCgLwJvcxephq0tJqRl69LSSMkzdypmpfpHqlVEA/MTeiMd0itNhbrPX6zCmIT81JefCloIEMA+1bnCtD6UW6+LD2nTyDlNoiDJRb7M6zAD4OyUslK5BChhI+4Loh8N54QbzNt2IMmob4SV9IJW7yQbYYRwIMyaSclCr5aNVLlY7Nlz0AnSn6qYQG7p/Xd+tATwoKvvre41LG3/U+6kjrg1lWYqNnf4T1yg==
+ b=PGQ8dNvFZIJnVqaKp48jFpgpE3N3QEIyyU85CpY8iT42MliFVYMeIc7x0BRihGvoKWroEnxIWd5R9qWlRuIceoZxobLG/xCNt2r3bvqfiU30IZJKvn7u9SoOuVyg/pkBsLUz7UWeGD6cQqZBAuh7hBLzv4zyDDRvUkAfFs9LadAg0wEyr+m8LpAxHPNzEk6tIhDuajTgwt/1MNwSTneRZY5U0jMSdv48sdbi1jvvvoaf0ZIXbP6DHgf7I5KUCdVMwcFsgrNu3XxwyE/SnXC+5GWRpr6/lmv0ofAPxQajIr3GK9u2bm4Kzk1cuSk1dwWHjgmNq6D3ANw07a9NBp5/Ww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=de++OltCUqIJlTdIhlnZgN5c6ZpVgy6VHJ1FY/g9Nck=;
- b=U3/iMejqP5MMTtsJVl0PW3SOKJXIkG+aAtPJUXaMOYcnSGI4+Rkz6kmS4a/We+qLDSCyKfRRCDdwSBAQFppA1jngYsanOHXsEffSgIiIHI4wz6zSYEYs6sxlo1c3dryD3COZmugc3Y4YK36XnunMaXq71iQ7LK0j0o8AvKDHpx/GY1q4fhhzIv19dxpylRsqWwOytYwGCAyeHaJaGjlikQgmzz9wvJAOxY/AfML217PYUVYSCm/AkwD90emDovDXdVBr2MVL+mTOXLHHX3ApD2mcaH7rzraXe9y37ELGZ6+g5CKqTsYG8TyfYwFyXqOPt2XUK6XPyH6ZnUHC1IrbRQ==
+ bh=un2xb52mCV9hns2EPtl5/M7Eg2SBJnH4S53D0USZo8Q=;
+ b=DAlkPgBr2at9ZL+w8unG7xzx42XW1+/mFjWAJK0Ty0VrwpvNypXzZR1aqjECrqXOSccgkg+0Hlzs645FYnN+fovRNAdda7vG3lcUr0fihsgKzwF8Pr2ujU8ZbGXbgTurwWjFEHEluKTIiG9n4x1pfYK6nIPUscpnMt/VqZu/rjrfkZNiyhcavuuZcrT65BhDy5I0ArqMuysmRc2CKl5+73uM/Y3REscnH7yLMuqyRS7JimeO/lDIB6Pt3fQ4wn3pDxO1EBbBv4uW0InSGzUG32MBuVXaPErb7hsuO1mQMmd00ZJ9pRk333CZ4aPvrsEDTtGJBBT++1F2h0qNb+OMiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=de++OltCUqIJlTdIhlnZgN5c6ZpVgy6VHJ1FY/g9Nck=;
- b=GArmH3nCTM3gWJLU3DC3wnsYe7/4Go1p4POhbY83UN2YHkvXaB1KRMnUVLIKHsmkugoYn7Wfl/7bRpBU5RtASkOCfBfUralh0aU3oUZv8PPUtrtc744ElgXcu/jnA3JEc52mU23ha3zLmmPjhdhqAtwG/oDKcP6D2UD24YObhCQ=
+ bh=un2xb52mCV9hns2EPtl5/M7Eg2SBJnH4S53D0USZo8Q=;
+ b=OZ0BwziOqFpQnXA5IC+7mhV1bDL7LfhnU/8UTt2awN88qg+HXeTnUTg243HzXGAKELkUOms2aemMKYhLZrEOWmwS7pAUAPYWYEmJ9kB74AQnlEz03H8nEiBDqjW6W6pxashUuX/7GbW8+N+EDvDyLa9GoE4tRptTNY9fTo2zSRU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOBP265MB8996.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:482::14) with
+ by LO0P265MB7041.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ea::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
- 2026 19:47:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Wed, 27 May
+ 2026 19:52:57 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 19:47:48 +0000
+ 19:52:57 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 27 May 2026 20:47:47 +0100
-Message-Id: <DITPVW44P95X.18VRH23M2Q0AI@garyguo.net>
-Cc: <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
- <ecourtney@nvidia.com>, <deborah.brouwer@collabora.com>,
- <lyude@redhat.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+Date: Wed, 27 May 2026 20:52:56 +0100
+Message-Id: <DITPZU97DT7V.269YEZ9S2ZIHF@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
  <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>
 Subject: Re: [PATCH 2/6] rust: drm: Add UnbindGuard for drm_dev_enter/exit
  critical sections
 From: "Gary Guo" <gary@garyguo.net>
-To: "Alistair Popple" <apopple@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>
+To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <daniel.almeida@collabora.com>,
+ <acourbot@nvidia.com>, <apopple@nvidia.com>, <ecourtney@nvidia.com>,
+ <deborah.brouwer@collabora.com>, <lyude@redhat.com>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
 X-Mailer: aerc 0.21.0
 References: <20260506221027.858481-1-dakr@kernel.org>
  <20260506221027.858481-3-dakr@kernel.org>
- <ahU6HgCsXWxHlH3L@nvdebian.thelocal> <ahZBOXFh7rb7vxzX@nvdebian.thelocal>
-In-Reply-To: <ahZBOXFh7rb7vxzX@nvdebian.thelocal>
-X-ClientProxiedBy: LO4P123CA0017.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:150::22) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+In-Reply-To: <20260506221027.858481-3-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0653.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:296::23) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -75,111 +72,257 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOBP265MB8996:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce31caa2-1847-4e55-2b62-08debc28d44f
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB7041:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ce90067-a74c-4a99-1cc8-08debc298cba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|7416014|6133799003|22082099003|18002099003|56012099006|4143699003;
+	BCL:0;ARA:13230040|1800799024|10070799003|366016|376014|7416014|22082099003|18002099003|921020|6133799003|4143699003|5023799004|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	MxRBOaQ+URigCQbBWFxhJ9EyR4CFFv+G4bgOLF0edw9WOiQwLZqFrl6nypG38y9TrvYZYtzcIi63ShOIcBlq7e3XLnrdQw6Q5MOAebgpoEUiDl2+Hp+WgZB13ClgJvmddcrO9qIT5XLYVeLDn0dlDsFzJg4m5WR0IrqhKO8NGfidXZJDgUNofLowqLHaVqKzDx1vMbvfPg1hveWA/xqeYvNIQmzGE/p5Ev4tP6iWwGveFBuqo1i2xoQt85ox2HJsMgvvsY4zEVyYrZ85woo5g8J1zX9gRyoRFraIZ/ivQtoodgzsBbKj6+LMxZozSn/O5yemzF9en0IaiIs+I/wNN511kN4orldpl3Oip7fTlHQheApiR/kbOGnGzpge4J6N7IlW/Tqd8nOTSUkxmbTNSJefBDAfJFsdM7IJYHUH6T0hcv9r7puE1X0wiC3QPFis+S+b4xhk/3rDmSK1Tq9/uXmuoXnkT2CDdUzbgPkOj0VM174J3ZohKH1CAyc6FbhQp1+DGqrJduaQVTGAXjYk8xv3S9HuOjJLyuS4djOt7s5QEN8HuzT983ejFQf9fnGnZhV8VIlQoN7SSzilMJCm/J78G5GXMCO4BcFYisO3dAEWFaN/Viqpu/RzRDibQN7L1JI+QVToYG0I7bsAQ0kUZXG2Qs5xrC+nPiGM1FDuriSFpUk2p9+8MSgv9xFpfeXsHTU4CEaGECtE7a3y4Cf+mQ==
+	oHp8SUc3D7RM70522oogb1h157uhXYt2XYtg3/nou4zrKXx9y9WDBY+oXXSXe0xUJRaPHRgy2x723fJnCH8p8PzLDIpKjY5CRaZ4BpvMUD0O8aI8Q4z6ch/V5KHloaP3QUXoFV3/TkfxNVNL1fENaGmnPad/2NER9H7TmhgIc0VSM5gSvMGHSuqTXqlR++LTbIMtfSNaUg3aRh+3f2f101xGnAt39I9I14J9e2ZFbK6ZRj4fBsqA85+BykuZ+CZlG6GCPHmlXOWDMWaT+hoo/GoPdG8ldF6lUb6zIFEjlSfVmxCCZuZWvfT0RmhnNLyJcdo7vostL2zophhxs2iV6Jfro7OgfegG0Q60VD/jSAqIdlQ1m0hI70k79biW6k4MnFAl4Hn7/peHxkHLMa9YmgcU+fkBSnr0NunNGfzhw4M7qWVuMR1OiQbM3X5ZSZ8hqcAxtJe88+m875Jv1OkJeb0Bn3AUsNnM5dONQPsOby23/iiif2ChvPhq0+tHFn8wVpG5eJZnawdCZSqK/C7U1ZS9k0Dd80qwZwEpr9wD1Z6YLzti/eDR0/fWQDSEyOuyYOG4R21pMu5KRZTRSLbawWgl5Tgjy3vsQGr30B+emtVDddvw9QwgD1h/G5QMkZSnwtpunNnayUNuwqpuKU0pAbqonrVSAl5MaujoLNxh0i9d92H5YZwSWqDP3ufF0n2s6eUxMU9qJjT1Nf2slCvRDajzaROI0yQWR/BoIpa0a2M=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(7416014)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(7416014)(22082099003)(18002099003)(921020)(6133799003)(4143699003)(5023799004)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0Q1ZHErUFNsMlgrMkpDQmdlK010b0NTMENDaTkwYjNXWWVVZ1ZBeEVZcVM2?=
- =?utf-8?B?dW05OWpNMHpPRWJJNlJuVmEwNDhNM3lzcmZBK1dPbnl6aU9UdjZuU1ZjbFFS?=
- =?utf-8?B?Rm9IMDloeTdLK3RWankvUGdWNlUzUWcvNlNFTWRqZEUrSVpGUHhxeTZlbzkr?=
- =?utf-8?B?anphV0g0bnF4bFVuSmhaYkpScFdxcCtmZndUWjU0NEtVRCtaUVptNjQrdWd0?=
- =?utf-8?B?a3pPenhZMmZlc2FFZjcvcjRiZXQyWThleUNSWHd4c0ZZSmVFTmg1U3JnalVG?=
- =?utf-8?B?bjhUSGFLZ2tGOTV2aktMVko1NG90ZHNzbFFucDltcjE1ZmQzUG02MFowdzUy?=
- =?utf-8?B?T0Y3Y2NZU2VhUjlQVy9iTHJYUVBXSTZQb0xremZyMEZvQmpFQUYvenVUanBF?=
- =?utf-8?B?bnFNdGZqZVNDL3E0RkVHV3N2cnhYM082TzZKZ0FzcG1zajg1RlJnTzBodno4?=
- =?utf-8?B?WlVXR3k1NUJ3cjRFWVZNS0hVR1Q5aG8xVEQ2TnFzdlQ1Wk1VUHFLWVBNSmZ0?=
- =?utf-8?B?cW1pNmU1eVdFRlJQdUVoNVZVTEtoU3NJbWdYNmtRZWJoN0cyanB3SmxRQ1Ez?=
- =?utf-8?B?TTZkSGg2UXIvUjVFUlpCUk5YaFVvUDZGd3A2eFp4YndVQ2hhS2RyNzdVa01N?=
- =?utf-8?B?UXYzTGlWTU4rSTZNcW5QSEc2NUYwZ25HNjRiN3hxWXl2ZndEMGtHZVZWOVpU?=
- =?utf-8?B?VTBsV0t4bXhNWmw2M2JrbTJXWDZvSEpUM1lSSU0xZ24wK0YxbGZwR2pMdHl3?=
- =?utf-8?B?TFlVbTFpZ2JTaEdieGhUdlN5ZUU2NHVMYWJ1VE5aV2RQS20rU1hURHRMcXVK?=
- =?utf-8?B?aWVJRDlZQWcyZlpUNWNtbmNsbVdXTERIN2V5RFZnRXl6dXgvakRYUlVxTTU4?=
- =?utf-8?B?Um1mY1BsTGFtQzBoSTI5SER3MGdFaXZQaTRENzI2N1hDREJOMjg2NDNCTHNh?=
- =?utf-8?B?ZDhQZ0xTY1hKZDZHajBNSzd1dzVvSk5uZXREbGIxM1FrU2RmeGtIeDduOUdS?=
- =?utf-8?B?bm1reHF0blpMeFg2aHZoRlJUOG1pdllyUGE1WUhBUllNRTdTZFBmNkdsMEFH?=
- =?utf-8?B?VTJYOWh4OVV4YVlEQjAvVTVGT0UycDVGelU2OE1GQVh3eFo1MFJEblNiWnFz?=
- =?utf-8?B?UnRaR2JYWStJSVF4UHRrcldGQVF1TXo0WUZNLzJralFka29qVTFjaWJWVStu?=
- =?utf-8?B?VzNCbGp1UGNlenNoT3dadXZHaUgzUXVtblMyVStZVitFWHVpTTlMS05xWDF4?=
- =?utf-8?B?QmtSckx0N2d6bDNBREJrUHc4MFNDSXJwY3B0SjhEeDF4Vi9MNnNWM2xhN25T?=
- =?utf-8?B?eUdCSDAxbVdRVWRvLzlza1dKSkg4a01uTVhYQjl1ejJhcXY3R3pDcHVndTB1?=
- =?utf-8?B?K1dkZi9ZWnFHSUlUd3k5Nkk3cXNuMVEzMlRnYVZEbEl0azk1NjJzMVhXS0lZ?=
- =?utf-8?B?a1J0T2Y0QXJiRG1rVGRoaEN0ZGtRNFMySHBUb0V5SkZGaTdmdXJ1ekUydWlo?=
- =?utf-8?B?cDRCcmxFU2hFOHE2UkRZMkNPSXpmMThEMldabXJoM0lxNFhEMXVDbUZKTCtI?=
- =?utf-8?B?TU0xa1RLMEE4UkFNWk9xQUM3VnprT2hpMjQvd0NFQkwza3ROZytBSFV4TVBY?=
- =?utf-8?B?RDNESnVYaDN5eEw1clFsbzRyczNXajJkOC90QnRkNHk4b3NxYXNSV282Qytw?=
- =?utf-8?B?MmsrVzhHTFNMUnI0cmFtckdGamhHdzNBeDJlSG05YnhMY3BWVmdVUFpFUW9I?=
- =?utf-8?B?SlpNdWIxazJqdHFqKzVsZFFZOU04N2EzSUJzTGduV0c4TVN3QWZEajJycThP?=
- =?utf-8?B?emVZNmo0bDlPSTJhMllrY3g3Mzd2SkNsRVRUdCs5azZGSm1yN21XdEtvdzdQ?=
- =?utf-8?B?SkpuUFhTRUNEZnZPYUVwb2ZoRVhNa0VPSkJYVmZRYjVUVFkycEp0c1BFVXpJ?=
- =?utf-8?B?QzdVTXpmQkRsWTk4NUxGSStUaDNWeVVhTzQvOTB0K0ZWYXlFek13NThaMnI4?=
- =?utf-8?B?ZFMzb3RZRUlwWG80YWFJRnJzdjZxQ0ZvZEs0SFZscmtFQ3N6Q2g5UGxoaHc0?=
- =?utf-8?B?cnk4ejY0RTN4VFdrbzRHNU16RGs4aVd5cmpLQklWZk0xbUpEc0NFMzIvZGFy?=
- =?utf-8?B?T1ExVnpGaDc3Vno5bEd5WHUzeTlnVmtGVEpKZFdOaDNwcVNjWHd6M3Awa0dP?=
- =?utf-8?B?VVFsQXFKWk93ZUpuNFNuTXNwZGZQQlNxL0d3eTFVdktvNGRiWkE5bnMydjFW?=
- =?utf-8?B?blFBdkcrR28vVlZWamNIZ05GaFlSRStpZTdMR3pGSVdHbTQ0QmRLaURSeDlE?=
- =?utf-8?B?WHV1NktzSGNPd1FMR3ZnME9BaDNSNWhZYnJWRHVxaFFCUjMrWXlJUT09?=
+	=?utf-8?B?ZS9TRDJyQjQ3ZCt1dFZ2d0dWeEtFZFB5UGEwMW9kTFpGSWJnOXM2ZVZmdEp5?=
+ =?utf-8?B?YzdjajJJL0pHNk1OOXQyTTRMYkpzVXplbmJBaG42dmtHaGdULyt5WTA0aWt0?=
+ =?utf-8?B?WkRzQ2RmdmpSQ0hXaTF0enRxM2daZ050WiszZlVsWmNFT1lDRFFwTUY3ZEV3?=
+ =?utf-8?B?bnJTTCsrTVc4VHhDWDNwb3NmQVRyRGZTNDg2NlF0VG5ORmhBRGMyZnh5WmJ2?=
+ =?utf-8?B?cU9kNnhoMVdiMkZySm9qU2toYzdSemwrNVo5QzJ0NjUzL2Q4NWJTU1hEYVpI?=
+ =?utf-8?B?Vmp6eGoydU54SEdqYkhWZVd5WDFqS1FCdGxiU3NBaGQyM1pjd1Z1dWExQ1hN?=
+ =?utf-8?B?VUFtMjFWYkd4aDduN2czOUZwNWlKdHJJekhTa2JRK3U4QVFnZEZsRmdVRWNv?=
+ =?utf-8?B?aXBtTlNtM1lrVVdwSUhOWk0zTVNXRVBtNWhUQWt4QmlYd0RlRGVLNGJNVzM4?=
+ =?utf-8?B?UUFER3ZxcVpnU2ozNXFGenFGZkVhUzJqYWFoeXYxV0ViNjY3Zk9pbS9KalZa?=
+ =?utf-8?B?ZzcwZHNYcmM2SGNzUC9NRmM4dkpqNUozbnBYRStSa2s5bXorYmZ4QUdDVnhT?=
+ =?utf-8?B?a0QvM0hxYjU5Z2JwQjNmSldGVFVXTXQyNTRFQ1FyNFp0RGVhT29GVElENmVQ?=
+ =?utf-8?B?MHUzeFd4WHF3ZlFvTW8wS1lmMEZPVGZpTmxQZE9BMkJPY3NsUVNSNS9pQzNw?=
+ =?utf-8?B?U0NiSDdkbU9udXF1OWI5K1hteEdOZ0FJelFxdWpqbDRHQjZqKzVFUmpuVjRZ?=
+ =?utf-8?B?a1Y5eUxGYmNndXpobjAyRElrUUpvOTA0eUo2Q2VBb29ka2doMFVZTHRwdEdD?=
+ =?utf-8?B?ajJXd25lNzFRb2FJT2tRVjZJa3JkNHZwZUI2TlhRN25hUVFhNkg3aVVUWFkv?=
+ =?utf-8?B?eGJTYk1UMXNaV2wyRTI0dTNCem0reTFjSnA5SVlhcjN5UE5OSnhIWFlKOVBq?=
+ =?utf-8?B?cHpEMktHa1lnRGtkZjdqWjA2d2ZqNUJ3S21URUREN2RMT2JHY2FiNmp4QmJs?=
+ =?utf-8?B?THBXcDN2Q2wxRG9XNmNuUU5kaDZZMzdUVVZxbjhHS0JkZmpKcDR0MHN2WWNW?=
+ =?utf-8?B?MCtJRjZ5azk5cnJKc2VRem5wRURZb01pTllrS1NMcW9aZmtId29QQTV3ekEy?=
+ =?utf-8?B?b2IyUmtDNk1zKzJJYmVoUzlxNE01NVozQ01LUzRwTEhNVThKamRsLzMrMFdx?=
+ =?utf-8?B?UWd6SzFXQ1k1dXZlbWdjRjIyRDRVV0h3NmJ0UXBzbThaNGY2bmtCanBkWUxz?=
+ =?utf-8?B?RVZpK0hrY21qbUo5WC91UzNMQzlGa3JveXFDUnIvK1FMV1FOb2szaHhXZGp1?=
+ =?utf-8?B?SkxHVG8xUk12S2tyenZMSG9TZlZSVVdpdS9tVzJmMmpkaEFFaEFhTjFDUit3?=
+ =?utf-8?B?ZStJS3gwN3hWT0NZZWh2VVRRc0tVeFU2eERobjc1WWhFSnl1ZTg2MnZablNY?=
+ =?utf-8?B?ZUxGYWRpYWVKTGVad2N5eU8yeFVmbjBXV1Fhd24rQ3FMS21rWWtTeWVQazMw?=
+ =?utf-8?B?QzBUQmc2UmhjTHUxWEJSUTZ3VGpjbnN1b0EyQzlxNFVseEVYcjY0N21SVDVZ?=
+ =?utf-8?B?VUZhTFFUMFFhTFFQVlRkYlYzRlJ2RE5YNFIzdUx3eTZtMG1JNWpiYjk4b01C?=
+ =?utf-8?B?UE9CY0p1bXdHS0hIMER6NWZjL2plV1BIazYwcnNvTzl4a3d6TXNIaGEyWTUr?=
+ =?utf-8?B?cVg3NGY5WmxaSE8ydTNWVGlaRE1OdVdKcDRXeWtBcGpSRG5iYS9xN0xGVFpj?=
+ =?utf-8?B?R0FPUkZJcVB2RWdIOHZzc1FjZFJIOTlvRk4rSW5UNzFucFNHL3JnOXA5THJk?=
+ =?utf-8?B?c0ZKamNDUlpnTHI2Q2hIWHp6NlkzaXBwUkdxVEtrWU5VeExCQUppOGtDbE0v?=
+ =?utf-8?B?REcyR2tCdXl3T0Z2azltMTBKa25DY1NhK3gzME13TFlXbUJzYmFzU2FKcTd0?=
+ =?utf-8?B?a3hwZVJia01pWXdlYjJXT1NvVTFqRGhDWEVDMktra2M3U0tBZWpYSTl2YnJr?=
+ =?utf-8?B?YVpES0plem5yWUEwWTBnYTJRSDNJMTViSE1xNy9vbi94WmJSajd5VE4vVEps?=
+ =?utf-8?B?VWZMenhuMlhBSVFJaHFKNFd3NTdoTXNna0VxeWJoSkpkTUthUUtvL1lwNkFR?=
+ =?utf-8?B?RW5ML1d6M3MzKzZRT08wSkg3YW51dG8xdHp4YWl3UEhzTTF1R2ZTRW5za2dy?=
+ =?utf-8?B?U3E1Vi9XVHg2bUVQSWtWNHZBSTBoRzZrWGZJd1FOeXcxUzlsSlhoZkVKOVBO?=
+ =?utf-8?B?VWxQMVJ0Ym9LV1kwRjNWNnhoek54Q1VqenBHYmo2bHY0ZFl1a0pXR0NDVnhr?=
+ =?utf-8?B?K2x4R0RMajhhZHY4L2Y3ZUhLai85NE53Mjg4NkVWOEdGZWdYQ0dBdz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce31caa2-1847-4e55-2b62-08debc28d44f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ce90067-a74c-4a99-1cc8-08debc298cba
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 19:47:48.0749
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 19:52:57.4494
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zfysbLG4yegYFTYiwVN+rYAYSTN3x8jP6khSCYo1paiDfPbT2NNbwBEZEftJ5u3n98qDGn0OlkrIkhUhu8FTEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB8996
+X-MS-Exchange-CrossTenant-UserPrincipalName: iid/Y4fcH+NYtm575bxTX6Ujyi5K5Pu88Q7TFs8mVZ48Q6JJnAHbfYhtVzAOH37Qx8h624HgB8zfMlsa38lglA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB7041
 
-On Wed May 27, 2026 at 2:03 AM BST, Alistair Popple wrote:
-> On 2026-05-26 at 16:17 +1000, Alistair Popple <apopple@nvidia.com> wrote.=
-..
->> On 2026-05-07 at 08:06 +1000, Danilo Krummrich <dakr@kernel.org> wrote..=
-.
->> > DRM ioctls do not guarantee that the parent bus device is still bound.
->> > However, since DRM device registration is managed through Devres, usin=
-g
->> > drm_dev_unplug() on unregistration ensures that between drm_dev_enter(=
-)
->> > and drm_dev_exit() the parent device must be bound.
->> >=20
->> > Add UnbindGuard, a guard object representing a drm_dev_enter/exit SRCU
->> > critical section that dereferences to &Device<Bound> of the parent bus
->> > device. The guard is only available on Device<T, Registered>, ensuring
->> > it cannot be used on unregistered devices.
->> >=20
->> > Also add with_unbind_guard() as a convenience helper that executes a
->> > closure with the bound device reference.
->> >=20
->> > Switch Registration::drop from drm_dev_unregister() to drm_dev_unplug(=
-)
->> > to provide the SRCU barrier that UnbindGuard's safety argument relies =
-on.
->>=20
->> I don't (yet) claim to be a Rust-for-Linux expert but reading through th=
-is made
->> sense to me and it's been useful for some Nova development so feel free =
-to add:
->>=20
->> Reviewed-by: Alistair Popple <apopple@nvidia.com>
->>=20
->> for whatever that is worth :-)
+On Wed May 6, 2026 at 11:06 PM BST, Danilo Krummrich wrote:
+> DRM ioctls do not guarantee that the parent bus device is still bound.
+> However, since DRM device registration is managed through Devres, using
+> drm_dev_unplug() on unregistration ensures that between drm_dev_enter()
+> and drm_dev_exit() the parent device must be bound.
 >
-> Which is definitely not much :) I just realised this has been replaced by=
- a more
-> recent version of this series with 24 patches, so will use that instead.
+> Add UnbindGuard, a guard object representing a drm_dev_enter/exit SRCU
+> critical section that dereferences to &Device<Bound> of the parent bus
+> device. The guard is only available on Device<T, Registered>, ensuring
+> it cannot be used on unregistered devices.
+>
+> Also add with_unbind_guard() as a convenience helper that executes a
+> closure with the bound device reference.
+>
+> Switch Registration::drop from drm_dev_unregister() to drm_dev_unplug()
+> to provide the SRCU barrier that UnbindGuard's safety argument relies on.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  rust/kernel/drm/device.rs | 80 ++++++++++++++++++++++++++++++++++++++-
+>  rust/kernel/drm/driver.rs | 10 ++++-
+>  2 files changed, 87 insertions(+), 3 deletions(-)
+>
+> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> index 492c2f2c7ca4..bb685165032d 100644
+> --- a/rust/kernel/drm/device.rs
+> +++ b/rust/kernel/drm/device.rs
+> @@ -6,7 +6,11 @@
+> =20
+>  use crate::{
+>      alloc::allocator::Kmalloc,
+> -    bindings, device,
+> +    bindings,
+> +    device::{
+> +        self,
+> +        AsBusDevice as _, //
+> +    },
+>      drm::{
+>          self,
+>          driver::AllocImpl,
+> @@ -334,6 +338,80 @@ pub(crate) unsafe fn assume_ctx<NewCtx: DeviceContex=
+t>(&self) -> &Device<T, NewC
+>      }
+>  }
+> =20
+> +impl<T: drm::Driver> Device<T, Registered> {
+> +    /// Guard against the parent bus device being unbound.
+> +    ///
+> +    /// Returns an [`UnbindGuard`] if the device has not been unplugged,=
+ [`None`] otherwise.
+> +    ///
+> +    /// The returned guard dereferences to the parent bus device in the =
+[`device::Bound`] context
+> +    /// (see [`Driver::ParentDevice`](drm::Driver::ParentDevice)).
+> +    /// Between `drm_dev_enter()` and `drm_dev_exit()` the parent device=
+ is guaranteed to be bound.
 
-Are you talking about
-https://lore.kernel.org/rust-for-linux/20260525202921.124698-1-dakr@kernel.=
-org?
-That's for driver-core, this is for DRM.
+This should propbably say "While `UnbindGuard`" is held, the parent device =
+is
+guaranteed to be bound.
 
-Best,
-Gary
+> +    #[must_use]
+
+To aid search you can add `#[doc(alias =3D "drm_dev_enter")]` here.
+
+> +    pub fn unbind_guard(&self) -> Option<UnbindGuard<'_, T>> {
+
+Would it make sense to have a dedicated error type that converts to some fi=
+xed
+error code so people can use `?`?
+
+> +        let mut idx: i32 =3D 0;
+> +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct drm_d=
+evice` by the type
+> +        // invariants of `Device<T, Registered>`.
+> +        if unsafe { bindings::drm_dev_enter(self.as_raw(), &mut idx) } {
+> +            Some(UnbindGuard { dev: self, idx })
+> +        } else {
+> +            None
+> +        }
+> +    }
+> +
+> +    /// Execute a closure while the parent bus device is guaranteed to b=
+e bound.
+> +    ///
+> +    /// Acquires the [`UnbindGuard`] and, if the device has not been unp=
+lugged, calls `f` with the
+> +    /// parent bus device. Returns `None` if the device has been unplugg=
+ed.
+> +    pub fn with_unbind_guard<R>(
+> +        &self,
+> +        f: impl FnOnce(&T::ParentDevice<device::Bound>) -> R,
+> +    ) -> Option<R> {
+> +        let guard =3D self.unbind_guard()?;
+> +        Some(f(&guard))
+> +    }
+> +}
+> +
+> +/// A guard preventing the parent bus device from being unbound.
+> +///
+> +/// The guard dereferences to [`Driver::ParentDevice<Bound>`](drm::Drive=
+r::ParentDevice), providing
+> +/// access to the parent bus device with the guarantee that it is bound =
+for the entire duration of
+> +/// the critical section.
+> +///
+> +/// Internally this is backed by a `drm_dev_enter()` / `drm_dev_exit()` =
+SRCU critical section.
+> +///
+> +/// See [`Device::unbind_guard`] for details on the safety argument.
+> +///
+> +/// # Invariants
+> +///
+> +/// - `idx` is the SRCU read lock index returned by a successful `drm_de=
+v_enter()` call.
+> +/// - The parent bus device of `dev` is bound for the lifetime of this g=
+uard.
+> +#[must_use]
+> +pub struct UnbindGuard<'a, T: drm::Driver> {
+> +    dev: &'a Device<T, Registered>,
+> +    idx: i32,
+> +}
+> +
+> +impl<T: drm::Driver> Deref for UnbindGuard<'_, T> {
+> +    type Target =3D T::ParentDevice<device::Bound>;
+> +
+
+#[inline]
+
+> +    fn deref(&self) -> &Self::Target {
+> +        // SAFETY:
+> +        // - The parent `struct device` is embedded in a `T::ParentDevic=
+e`, as guaranteed by
+> +        //   `UnregisteredDevice::new` taking a `&T::ParentDevice<device=
+::Bound>`.
+> +        // - By the type invariants of `UnbindGuard`, the parent device =
+is bound for the lifetime
+> +        //   of this guard.
+> +        unsafe { T::ParentDevice::from_device(self.dev.as_ref().as_bound=
+()) }
+
+I suppose you could also just store this whole thing in unbind guard.
+
+> +    }
+> +}
+> +
+> +impl<T: drm::Driver> Drop for UnbindGuard<'_, T> {
+
+#[inline]
+
+> +    fn drop(&mut self) {
+> +        // SAFETY: `self.idx` was returned by a successful `drm_dev_ente=
+r()` call, as guaranteed
+> +        // by the type invariants of `UnbindGuard`.
+> +        unsafe { bindings::drm_dev_exit(self.idx) };
+> +    }
+> +}
+> +
+>  impl<T: drm::Driver, C: DeviceContext> Deref for Device<T, C> {
+>      type Target =3D T::Data;
+> =20
+> diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+> index 9d06f8c5b2da..751a68bb27e1 100644
+> --- a/rust/kernel/drm/driver.rs
+> +++ b/rust/kernel/drm/driver.rs
+> @@ -187,8 +187,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
+> =20
+>  impl<T: Driver> Drop for Registration<T> {
+>      fn drop(&mut self) {
+> +        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensu=
+re that existing
+> +        // `drm_dev_enter()` critical sections complete before unregistr=
+ation proceeds. This
+> +        // is required for the safety of `UnbindGuard`, which relies on =
+the SRCU barrier in
+> +        // `drm_dev_unplug()` to guarantee that the parent device is sti=
+ll bound within the
+> +        // critical section.
+> +        //
+>          // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The =
+existence of this
+> -        // `Registration` also guarantees the this `drm::Device` is actu=
+ally registered.
+> -        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
+> +        // `Registration` also guarantees that this `drm::Device` is act=
+ually registered.
+> +        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
+>      }
+>  }
+
+
