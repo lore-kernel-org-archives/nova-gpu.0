@@ -1,93 +1,93 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C8C3AD514
-	for <nova-gpu@lists.linux.dev>; Mon,  1 Jun 2026 13:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9927E3DBD63
+	for <nova-gpu@lists.linux.dev>; Mon,  1 Jun 2026 17:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780321872; cv=pass; b=gjEk9A7/K99jZ/8j+/FvEFRYJFAZeLQU3w5td+VzLcssE5Kq4HsvcTqIsgRmbBlyxaCvAH3MrlBIVVxZSwDX45uZdyAzhoNGcB91VmJVUZalgmLOQLvfo9PjWiw/WjKdzqwIyQYh+NbuXQNdF1tAuayh/IWyX63aIAaY65WkHS8=
+	t=1780333226; cv=pass; b=N+iN+jkZnJzcKUHB49FCnB2r2YNM+DcQl1xfxTqNqwkYBdNVVE5y+PX7z/rOpapuWFPzeLU9KHt1N4BJVrHgLjgOVCdkscTTm+sh2OvITjJ6Wirp+0YpSTmiE7gxsqOK3yUFz8+I330QFGyzLotVpPaZIskVVtgQt6WJ43Xjbus=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780321872; c=relaxed/simple;
-	bh=r/oT687eVRP4yV0RK814W+7Ioe7FWGW2hQhsq1wvEnI=;
+	s=arc-20240116; t=1780333226; c=relaxed/simple;
+	bh=salmmm95H70q1+9ROpe1qMKo8sa8cqKehQgZ87WFyHg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lXsh/rjq/dmlmR7JvGd2WhuXfnWS0ENo6ufSKT4Ka7igOM6b2D7Q0J+ujoX1IHSm7AUMZfdIfWefcZDB05rAGrnC+iYiSqAaMOwNUunuUW/YprYJY6A22l5qg4hbRHbpWHczRbo/b2KSnwT8tfKAD8s5+hKzJQnvaAQK+By3eac=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RaRpJt6I; arc=pass smtp.client-ip=74.125.82.44
+	 To:Cc:Content-Type; b=JSdUMNUCGSHAJxDxnbYCVSrkZYK8bzbbz2FSU5QVVs6tRR5qw7kLq1ElJva5txR29ohpW7a1iLzvxJJjTFy0XGhr2eanyfDWzcXBFm+s62Bi+f2+/m3QzqOq8laE/jTPRtaYbJVeVNEKikZHAlpBoN1FQ/tD6G0vsOv4mQBqKvw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kJF35q+A; arc=pass smtp.client-ip=74.125.82.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RaRpJt6I"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-137dd3bb44eso103305c88.0
-        for <nova-gpu@lists.linux.dev>; Mon, 01 Jun 2026 06:51:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780321869; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kJF35q+A"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1363f6f7535so422005c88.0
+        for <nova-gpu@lists.linux.dev>; Mon, 01 Jun 2026 10:00:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780333225; cv=none;
         d=google.com; s=arc-20240605;
-        b=HT56fV05/hkXz/wXLQIOX5XHldYTJcVTnhNrZrkLhY7l6QZ5Kn45CsZUWg/nF05MKO
-         mTb7nb7vVACYfDIA5uOO1lZxaAjSTUpQdSe175zeKu8wMXA7rJRx8dPqLMc9bs0jiloq
-         RoJCExGYgTFhJgwoCSc7dy6XcQyVW0DKMylXQZ3449gKSwDedxxu/yDIPEy9Bhqktk1+
-         luhZWxH6ovMEOt10t7cBBrJ/aAfaqcc+ahPLF1QdR4j5hrfkvbSRZkeLjOz0z+t0P7YO
-         WsicCCEOtTM2v5TqRpvyBdKR7F5C7C4w2oCOBfSNB8jwKCN2JRjNmybrogvVYR6APjyH
-         Gvmg==
+        b=DDJMOjjCSeAQFcly/Xj8BG4lkbtj3f9dsjc4i1xbdTGoOFcQPnvgZnCE0WcrcWhF9A
+         XsT4AWpB8waLgAVndG1Eag2ZmTBxdCgier+QFYgaQZqShrC0zNJHrqZzl22CNt+bUDTH
+         4MGB7DSHx4iDumBHLl+GJi3WqiL9YW8rB94Mgl+Wl4Apkr8dsA7YnFtyIYgr1URGchbc
+         4uutZJCXAdutPeWQmX6u7vXljVPsg1lfFXEB1TqGDOjb0841We/X6OrPJ6I5bi6p7PsW
+         /cefBHJJFkqEpaRMLcxpwvt2SQv54MIKcDgAoWBsnHSL+3EG5tfuIwu+oAUulbn+HGzp
+         qufg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=r/oT687eVRP4yV0RK814W+7Ioe7FWGW2hQhsq1wvEnI=;
-        fh=AVdhJvN+yY6C4BCzI5UxbDUrdtfZn0S6f8hfKea8H/E=;
-        b=TskrXq+T7Xcsznc1aUsL1kaxjwKIxu3q8TWDd1Z0L6xiVVKhe88jrfKfuVwImVrHe2
-         sSZoDEGF1DYlQalp7HX2GikSNnqwwoWvKUr8jOKWfHnZdSspKWhDC9rvRvaLD7t+d+kI
-         AX7vTjuGkN7NIUZcagMB+vzERQeGRV2k0mR1kcWLQRKHy5yOpwqmEk3QQZnlA1dHM2eN
-         iZls0vmHx4M0Zcic9mYY+tz6okECjBX0ZY7Z91Ot2N22c8jWJNjipHK7h+svycn/c0vf
-         9XvKa7KiTHOGt60Pdx8t/OV6GhowX2QCih/2+bLbmB91I0hicZs7I9Mzlx9EecnbO/NZ
-         j0Sw==;
+        bh=kYUhb6mQkkMhkxxhyG/H6BneYLT2Y7wBn/vJjSqdV84=;
+        fh=Zx49uco8ETPVa7xicAzWmAspkysovgKKRxhN61aHk/0=;
+        b=A9CaqgTnBlYqf0yr81J8tWooQoG1NzJFNEKbALbZtahkM1M95VuJtgiUG4wycNUOOa
+         pJR0Lbk+8sXVdeeYXecxCTlOMngNTo/uQqhuZPuz5wFmQpm7SL/Q0NYbwxvTmP/KIPfW
+         LsS/H1n5yCSqOWdV/FohaqZzWlK1jE0dS0vvIGEG+gphF7Zi2i2mOdr6Wl96sn7tz8Hu
+         oJU/uLveOVDo3eGcyxSLjG/Bsv6JFywRj35VkN8b78zcydY64te3EOy9aOJARgfYSz4S
+         JdjKIo+mYsthsG3SmUdWRprujKMmo8bjdi4gXKT+R3FTq+ZSMfaykkAdhhXCDn690etU
+         rJvw==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780321869; x=1780926669; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1780333225; x=1780938025; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r/oT687eVRP4yV0RK814W+7Ioe7FWGW2hQhsq1wvEnI=;
-        b=RaRpJt6I8DUApBXOxKRy27GXomNsniDS6nYRwD8qO+SNtbbXuWrJysA4brMksImUbt
-         FXbhzMZMse9DgF+zKWM6pRhCd7mJb/F/kWkcnH1PyF4CqMn36W78UXw2gVqbEWqCNF4V
-         KdlzLFD+Su7EctLA4PNSLGROZ9MJQWVXgEN9GX8uk7/vKcwT4GgFaZdiI+ALzkE045F3
-         fXyRYA45LDX/ViDPOjI9JpkvqI8biCCEl9kzDhuINXazfkx1to1dWXS0LKL8GVDYVsLT
-         VcN2Jr7YLhQZVFtCCylRxkITaA7ziDLZbvnA9Y0QxroM4zDNvTiIV6fiOycb7VnAVH+F
-         f/Yg==
+        bh=kYUhb6mQkkMhkxxhyG/H6BneYLT2Y7wBn/vJjSqdV84=;
+        b=kJF35q+AwnxsDVbHZ2Y2xW8kNy102pbUoKUwvX2sSl6WSwtWROrJHncjdIe5N6sblu
+         7aYeExBU/hOzrWF4pjwetvQphJMFPDMoCPyykr6WEIN71h4RlFmz1T01OxJARIXZxJkZ
+         NscGp3DICDXaF5eiwBjXEO2OWoTywsEOBc++r/BGhQsOHCO2rKvuteGn+vMsoGPxzRG8
+         eQFHnkl/WEBXMXtZN+bob4j+7ODG7GZ4W9fLSiaXvV803uugm4YOsbgjiZT0jtE4M7ub
+         t9P4Xw5ZlNm9HigEBIPkuELdyK1dWts7cpsj/ROCjm8U4m5OVx/DEocrHaFFA8n6XxxF
+         0kpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780321869; x=1780926669;
+        d=1e100.net; s=20251104; t=1780333225; x=1780938025;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=r/oT687eVRP4yV0RK814W+7Ioe7FWGW2hQhsq1wvEnI=;
-        b=p0zFlvY3+lC6/isoHHZwGFbCJApG35Czpo8GyKzGlDQnu8Im/F9LG8iGaM8aSdBn8P
-         M1ynhYUHMV5K7ZrQtkknHtNVDpmtwiWu2nMXVFR9ZemRm35wxBr5BM66JXFfWMZlkYyG
-         lZULXtV7vFLNKGrhfsjE9am9YHkCp0FfRVU6jGQpXcTa6srrm3VB+FPwYgxBAUC7QGSs
-         +I8wdAekSzaXZWBxbwzXMtHE+J62UsdQmGTWQEf9Ev8wcqrLj+/o1O/ZeE8UOtsxU+KP
-         FjuYJAFN4ARJBoY8GreTXdYzsKRjaVBxmWZH1GWfqc6Uw0Q/RDJbgRYeMtIm9BZ2gTr3
-         TmqA==
-X-Forwarded-Encrypted: i=1; AFNElJ/quHIlzCQC0AjO9zovZI3fjzanT6tjWOd3IfQXoia5M32Lx7QoRN8LvK3peNEnSNgVn/EHJPR4Og==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yx91eFeOOAJCQULZDt+iMWvck0BMLbEQ1KRkbrHyeR0XZQjuLd1
-	vI5EQ/apKWTFUuRo3INVesbEWyAQJOfHfagRH3y4yXVIzu84g+lMPcM4eDFGQaLfEGkRUbRmSMK
-	Hk7aKd1RAeIetTYDXYzEFZgSJIxsxZLY=
-X-Gm-Gg: Acq92OHpAupUJ4UfJYRXc5Dd9OmREHRmqakXYOd5Kgf+la7/qOx/bFVHa6w/0TtLjbL
-	/dHxBwnNRwd/crrYBnTkJ8zd0C6u4exsmGDKSzFHR4vQ/gaG6JDIyD7q0OWxgyiCQ3CFxU1RLCK
-	YeqInZ0qq2e6o3/YJqzn2XVgc20SZT4bQ4mS9/4J7RLAaLXRANP01WTPy8t7Hsi8jRmuk5qEjWj
-	WI8kmAYvVRU2FeCWNxrN++Hiqni1O+KimYb0OUUjOyCOmqgtfmmcSp45EaTIt43vxX2rvH2ExYA
-	zZvUP32zoq2MUKif3moFomXBSlBbgJRuEzOWFxI4nbnVBkCQJ//8HROHo9KdX7z/osGTdyMBPtC
-	WJg/ZrsOhiWs7QQkTYda9dCGBQH8CXPDlmQ==
-X-Received: by 2002:a05:693c:2c8c:b0:2da:b05a:5a7d with SMTP id
- 5a478bee46e88-304fa31c4a2mr2349142eec.0.1780321869058; Mon, 01 Jun 2026
- 06:51:09 -0700 (PDT)
+        bh=kYUhb6mQkkMhkxxhyG/H6BneYLT2Y7wBn/vJjSqdV84=;
+        b=fIQ8CNxR6XCZrB5kNy8AGC9UOKWUtS+Hn8Sidb2+FbDB7H0MS7k7DwglLw7LoFRlyf
+         EOoYcIJ27ms9A1Fe0fAe2be/yG3PsdoTJW5RTNzL53ZDrFYADVEQHWc71FrgimD6jIP3
+         nEVdNInc06YcfGgoY7jT9oRU5UGWqj2/uHpOIrxZw8g/BQO2k0OUjo6bWfyVbWcOZsvG
+         6H/SMOzwED4YTPqSBaSsIsBgGsvtn/u3kqaOZx95+DmdYqXzcoFZIsXlQPO2l3TYIpXZ
+         4H1H9MYNgMavyu3RY83fo53r+8noFuEK0s07T8F12aWPVu674Fgn0vi/+ZGDvC7Y/ugo
+         uSfg==
+X-Forwarded-Encrypted: i=1; AFNElJ+LNg/xkoBCVCvy6j1DJXzzlz6iZ3w/OF5dZ5yO3/pfmMMvUxxgFKVyMrs1rLUfTZOt/YaCISkdVA==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yx0uqXaUQDGt7PLfZcjldPUfgylWiBuaLA7zqiMCuhbSvPtv0Z6
+	VcC0NJNhd3jq4Z63bhXOqpPE2zbBORGJML+r8kH679KtHv7zCSqMzmY2dBllYU6pkyNyL1QTPUz
+	fya6SL6IcyX3SdgOcAULCHzMoVHQIStA=
+X-Gm-Gg: Acq92OEbz6pZNI3tLVguLdvCKoLOyjvom5RkBb2qzgEyISRUJBDuaIHabkzrV+s4Cn6
+	zOP6jY3Nke1Su5un3qJ1+bavVGQ6zbFRaOBoEmwXKAlm+iEQGw8L9kg2vFm7K3v3qcWTcNsxLNs
+	EEHB69UmJib3e4uI7nJK3mHi3HGFAa2lfYJQ+rWzoaDgbktBCvUPyNfqc6r/nghPx4/p4RBtET7
+	CinCdpiEycDwlHnaCDatiPD/Pi0uM/V7qfSSpz6/H7Qeztd/oSVUGPmGfrsbk2REICTSno68CUp
+	DQ6sOfdREj68k7+Y0KXXaLEyxcjWRBC+HgVCgnKq5n4DxgoVRQ4PUY1tstusC2HUNnMb8hchrMq
+	m4oy1NujJXOFeiWGGfxyoVhzKG1Wy8Hk7nA==
+X-Received: by 2002:a05:7300:d508:b0:2e6:b55a:76ca with SMTP id
+ 5a478bee46e88-304fa30cb81mr2563311eec.0.1780333224237; Mon, 01 Jun 2026
+ 10:00:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260530-nova-exports-v3-0-1202aa339ef7@nvidia.com>
-In-Reply-To: <20260530-nova-exports-v3-0-1202aa339ef7@nvidia.com>
+References: <20260530-nova-exports-v3-0-1202aa339ef7@nvidia.com> <CANiq72kbzmLeFv58mkiKn+LvhCXmH5g7UsnTYTcVmJ6kyc+vLw@mail.gmail.com>
+In-Reply-To: <CANiq72kbzmLeFv58mkiKn+LvhCXmH5g7UsnTYTcVmJ6kyc+vLw@mail.gmail.com>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 1 Jun 2026 15:50:56 +0200
-X-Gm-Features: AVHnY4KWUDuK60JTIBwgnlL-tTjDarV9LStXY-LSeVpwOJ2FNQpjnaTpcPZMaew
-Message-ID: <CANiq72kbzmLeFv58mkiKn+LvhCXmH5g7UsnTYTcVmJ6kyc+vLw@mail.gmail.com>
+Date: Mon, 1 Jun 2026 19:00:10 +0200
+X-Gm-Features: AVHnY4LIwUudBe8SRqAYvkFU4tYqnuQ9elbt4jHzXY4lB4fo93aHUJvNuPfUj8E
+Message-ID: <CANiq72nAOpowra81qOHHCw6EVyWVTymDoL8xPdpjT=xc3eS5bQ@mail.gmail.com>
 Subject: Re: [PATCH v3 0/5] gpu: drm: nova: enable calling into nova-core
 To: Alexandre Courbot <acourbot@nvidia.com>
 Cc: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -104,32 +104,31 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nico
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 29, 2026 at 5:28=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
+On Mon, Jun 1, 2026 at 3:50=E2=80=AFPM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
 >
-> In the meantime, this series introduces a Nova-local workaround for
-> `nova-drm` to call into `nova-core`. It generates the `nova-core`
-> metadata that `nova-drm` can use to resolve references at build-time,
-> and also builds a list of exported symbols for symbol resolution when
-> modules are loaded.
+> By the way, I think a `.gitignore` entry for the generated header is miss=
+ing.
 
-The "local approach" is essentially what I suggested back then, so if
-this works for you then I am happy -- with the understanding that we
-will replace it with the global support soon (it is good to have a use
-case in-tree :)
+A few other notes:
 
-I see you play some tricks to get the ordering right, including a
-sub-make with a double build of the `.rmeta` in "private", which in
-turn forces you also to do the `.o`, right?
+  - The `exports` rule' `awk` filtering is stricter than the one we
+normally use -- it is fine if you don't need `static`s etc., but I
+will likely export `T|R|D|B` when I replace it, not just `T`.
 
-What I originally had in mind was simply to do everything from a
-single parent `Makefile` instead, precisely to avoid complexity (after
-all, it is the local approach, so you don't need to force yourself to
-handle that). That should remove all those shenanigans, and it is way
-easier to get right. Did you consider it?
+  - Similarly, you don't use `EXPORT_SYMBOL_RUST_GPL` and the "dummy
+symbol" is a function instead of the simple `int`. Is there a reason
+for that? i.e. the ones you want to export are functions, but using
+the global one (even defining `EXPORT_SYMBOL_RUST_GPL` the same way)
+would reduce the divergence (so one less thing to think about later
+when I replace it).
 
-By the way, I think a `.gitignore` entry for the generated header is missin=
-g.
+  - I noticed touching `nova-core` and then running a build twice will
+only build `nova-drm.ko` the second time -- you may want to use
+`--extern nova_core -L $(objtree)/...` like we do in `rust/Makefile`
+instead of giving an explicit path to `--extern`.
+
+I hope that helps!
 
 Cheers,
 Miguel
