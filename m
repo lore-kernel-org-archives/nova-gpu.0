@@ -1,47 +1,47 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010023.outbound.protection.outlook.com [52.101.61.23])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011024.outbound.protection.outlook.com [40.93.194.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3115368D51
-	for <nova-gpu@lists.linux.dev>; Tue,  2 Jun 2026 03:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E61B342C80
+	for <nova-gpu@lists.linux.dev>; Tue,  2 Jun 2026 03:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780370504; cv=fail; b=aKojajKavid/YjXYEnyk6QjikVt3OgWCPpc63go5q8vjemCSH6Llq5B0yGRvyfOcMKtBTVClciJVieDTtC5ov188gIL7nNjooMIvifs6FUgtmoXcSuz/E/nFFuAGBCfmHJgd5QpoMyNFXgZqD7TUzaOfyzuQQDMm4GRZbChOClM=
+	t=1780370508; cv=fail; b=j1t9YOPrMoaWKWF0DzSu+yqdrGPY3UKLg3mEuuSQtcJYgSMlabOuzAbt2mnSgxSbR8++WhhxNCnVikNlt8jJtZw09D2Mz7o9YC54YggrWFj6x/eZTwakHaCSnjWMHlVw7ZpA5wLcgETt2bxau7s4OYYnerW4W2u/3ZliJIJWtq8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780370504; c=relaxed/simple;
-	bh=MaBiSc7z2K6kK3546BE4gq4D+GVA/S7AHDz7VdC/by4=;
+	s=arc-20240116; t=1780370508; c=relaxed/simple;
+	bh=gX3ZRKDRhjJTf/yqeZ7bu7JPPLQIMJuYH+OrwwZQV8s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H7k+0a/RPwK1D8UdsEXnCYh8bHBC2HvvyAGociaZx7YvIkSCpTUOtMCJDt2s6OMK0nj+qdziFX6GmNzQ3eaIij97S9RRxZDn5bBgkMmbzx2fTAxdi9NYf3p53PBY3iyZ67jpPaOAsVftZ1KMfBntxU8BmOcr/YAyk1zPoVBfQmY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Lf3iN/B6; arc=fail smtp.client-ip=52.101.61.23
+	 Content-Type:MIME-Version; b=YwWKCrEl14klzNXOhTDwa+3DPV8bjVhytmreSixn4ZcqpBTypkMAP+1bwcncGzZs1gfTbU3NWrzcHJZn9tmTexXd3/0rSkZNMZBcTn2E83P6gCqcYUBY5gPhPo3uuNM7OPAu0NMjYFX+oaaTaHz/xGyL/gHUIRD5NXLMD4WTnBg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o6JeYjQG; arc=fail smtp.client-ip=40.93.194.24
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lf3iN/B6"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o6JeYjQG"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iCl28+Jtt7H05Z9GETS5eNs2VKMV7coi7QolM0eX+NRWVsqp/Q9pApZrfxmhjA2ttHyHon9p2fpDF33YcG6BB9tWvEwkqrwGDcoVSFhJuCoDIMgpPB2HLeiSIHSXZLvM0O352Rq4KVa/mTBMn5iMvmDn8JmIbhXsXHSiOXgWPGYAD/F1KS6RIDnv/O3kMiGcxaRBnteC3MjoVx8i9RpEBuzKRXK604hiu1TUxdzoLamQXfJnZEeqP0pHYyLylPDpl1iG+yqZDVeQ8ogGhSz3seYujCtwSqwAl7Vil/9qH/VTZUW2c7SN4ObnyXkY7SuYH0m32LSkKI/c+6fPZjG4XA==
+ b=x9MaEe9VJqus5NMiD8zmY+QkcWzLMw2zc/k6Zvqsrj6puqLS51qCNJLv5O1RhsEOFfOMcXs9Op+rhJBRrg4gu1nfVq92FfUIwT3WOQiiYdvbZK7fae3E8xsWzhWMktsJWWBq2ES2fvm/tgRHjLSdeLe1KVh7sCh+uIE12h9S40vuknjclruA/xg/OXI8WsoISP/u43prdVg4m+vp8BXyx7h++piG6YIlPY8VJj8fyUHATCzYXgtp+03IECXUe12ujyyhEkjLCfyPacW4PQkzACv2iIezpYD+wHMso8YWF7pTEbuxEZRVv3awi4KDOwxDVHkUfBRnC1M/aM07XWa7IQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PncTIjIFggL9sXzLAji51UTlvgw0lTblJFOJf6bwrAE=;
- b=Yap3zC+AaIOCKTVZ2LTqaPYS8bWiXsVLwtzmdK9L/6WgsQdigIjrzLChKtkAatBR2c1OVU50L3R9whG1cDAmg43olbWh/KOLYlGNC1yXnE2tI1p8k8hdPW+H7GmKxV2xUg62kjwQiFgPqy/6R1D2j0UIT9q56dHWNO7PX+WuhSGmRQMltLjXYnJ/wIb2y5UnflmY5ZolRAAHgbv3cBr/sbE0mzAVut0DWAe2tQ55qre79y0Ny+OLEhe1ny4leEjdWveKB9vvAmR8NNIwnWOkBoMVQYUJpBtCi4DCP/Eu1fnGN9HMQWTIyTcmgxdvWDtbk0RjS6ugnW2pFQdjqZYvuw==
+ bh=8veI0sn7nGvSVaL820Au6SL2rMDeFEkkNwJUUX5MbEo=;
+ b=Nx8ZinmmdkH1hr/PxooYM+l8wBDhT7Jd/t0WlHdGSBOJ7cBPxz/Ikv2Fhie1Q+ZKC7+f5cuX9k815l/8KNc/bQhdfpzrtLr4YW+G0VB2ggs1nzfZcmFgGWTrVP553FBbEk3PO4vOg/GPUw8iIAVVxywVGnfDMy0QzcohNDCw2dwaHprBY0COKn8FVFVcKfkRGYHLFzezk7rgP7mwrkIb709nNCrXIYh4VtrRPtheH6FDUIGEtPPYtW9IV6KZH+UmaX6yJ366cbnlP/gQbwSenVOiSHAejqpdKWN7LxnEmD5LMSj5jrIIjrQjNlEN0FvIj1BOMv/VxNkzwXqC4hZ1vg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PncTIjIFggL9sXzLAji51UTlvgw0lTblJFOJf6bwrAE=;
- b=Lf3iN/B6o0Kdq5FOqRDfYnwWT9Dw6FeSjUz7Bnm02wCZVBjdOaeURyprxDPC2Qd/2W07nt312HkvznJSs+4ZVAORsn+ep6ABtE8uNDqAj5C33+oNZxTy7lcQW6LKq/++cV8G+7Ubz/DF4jFsAVV83ize4GUCkmx/R/hWqVG4v/dcLS0UlV7iw5yp1Z7muZvpfkfImztwFlOdUevSehJq0eMu9Z7h+UYGi0Oo1jr14tqOKbna/W5cdyRgflcMUDTAsUuKIuqTFMaSfswWHjAribtrSQ7hs3ZnFm0swoKfEU4/bXUkkbRHz+v1VKFbohCOYXBcXk7mOQc2rvFh43Dm/g==
+ bh=8veI0sn7nGvSVaL820Au6SL2rMDeFEkkNwJUUX5MbEo=;
+ b=o6JeYjQGRg1ZnO2jnSVE9QOr2mmLPGxjEFp0xp0pIzmLxV9CLw/B86zEK8i3fg5EYzLmajf9mwlqY5nOuuFbmlEbJmEKuku7s/r4IAkCTmIy5UlGk0BQLsTefvpwZx2ydAzuFOMuImC7HjuOyqQY6Y/ksHMaOw+6IPWG5mlk2GY3LZae0ELKQuSX6ECF8irI0IQKw1oDEe+msyLkFMmaV+DW2TIfeSKprGPVjlRSSJ77RW5328SnEfpbn2qFjD4QGrNXUD05ayJKQM9uVlkQ8gfIgdIULKSKQcottMW0yKPqISigPm540bkkKvy+AVLQw76iCkMNK5dIqdbJelnpDw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MN6PR12MB8565.namprd12.prod.outlook.com (2603:10b6:208:47d::22) with
+ PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 03:21:24 +0000
+ 03:21:34 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
- 03:21:24 +0000
+ 03:21:34 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -65,17 +65,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v12 08/22] gpu: nova-core: add support for 32-bit firmware images
-Date: Mon,  1 Jun 2026 20:20:56 -0700
-Message-ID: <20260602032111.224790-9-jhubbard@nvidia.com>
+Subject: [PATCH v12 16/22] gpu: nova-core: add MCTP/NVDM protocol types for firmware communication
+Date: Mon,  1 Jun 2026 20:21:04 -0700
+Message-ID: <20260602032111.224790-17-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260602032111.224790-1-jhubbard@nvidia.com>
 References: <20260602032111.224790-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BY1P220CA0010.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:59d::12) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0153.namprd03.prod.outlook.com
+ (2603:10b6:a03:338::8) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -84,140 +84,195 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN6PR12MB8565:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c4917fd-9fce-42d1-c8aa-08dec0560650
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH7PR12MB5974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36f8e849-e7f6-4b26-a877-08dec0560c50
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|376014|1800799024|366016|7416014|56012099006|3023799007|18002099003|11063799006|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	PFwFO7gG2YiiZAb34i0XD1LAQEYhmjzgyXTFkMXFmGw+fy3Gyt4RUx71ZGkF3egk5A2YyE0w7jCGzrPswKXfWNPfso+VM4612C7i9Ox9Kv3xTQppsJLjweeZATNsH+yv5FmY/gRoTA599t7LRDmabZPDaOHNi1oF/rppCaj++MJkPukhofpGRGKkikKvX5mAW/IPHGEOsmep25hRJHlwfBxR/JQwRYYVH8CBesCoGVVpACD6qbxjB8JgkRtBHvQyZScMx0HV6Ux86loU4jHr4VZJ3AYPN7rBCJp3qJAqYO0rv3zPgeTF7WsNHIU/rGZ7Y1fN8aFBArbRZV1xPdDMzZTqwteeGu8z8mg/PwNVRYyufK8XWqs8FT70mixJZF6mIVueZKLL5f54e6zqppVDf1gOTtuH3e3yw0lxhX8X0I2MGqAWiHVglZWyVsUAokDFLfhaVc9jv9tzlP7tCc8W0vw85DqfrgF/yP6MHjP+6lLL216lSkxv/h13yAkOiiizNoIkm8c3VHDzdgavAX6QiPAsfAN/GlTUagvNY06rnuf0yMHao8eRALr7dRKdKINpxSAjEFfQEp3dOoGecE2e4pjLTqYU5+Xtl85H9ojagyiItvhbmefj0CqXxskOoLKSfo1h4tNySbDpN0Dtkm1tPMDcagYe2XlaiBcQCRFxXAFz3mDOBUmYxpPLsqcXqj5Q
+	jpKyBIfppljHpzZ8fwz6tWK9J6ESwKuCuXXhfNcyIFWOgVDWe212Vfj/BFTcYz33XjxQu6z0a7YJQx5s+kPxJPINTNznLhysz/af2fj0goOoo8heqqbPBfZL4A5iXcJG4uyZG6OB4f2zflnDGQTtNU5FR9BAtjAq66te+lEqw4oYoq0XrDlI51CPjelavws+ZIFKDMSaIDJalHP94H47nh6pnvWqkWHoox6aNmPSQTrHtvSriFCsiUk28Z1Xwvow9nvjPHgXH7ay2v36Gs0rNtJ38avAB/emb+Qi9mKJBzyYm12eMtBEtt9TKQadspSzAJgRkcMFco8qGUTKiyyHoAthZKDVZ6kqj5tZaY8SeHl9P99bLuZu646digofagCgqqRIzXK6gyGaFwsFkfnZ8kvK7CbWQHPwR/vq4sThk+jxU64td+D8oXjJpMuXgAAxzDpC6Wn5GRsnZ5dz9om3UwN8+psyJf3CZCeF5NlALSA/69KjNkfdt8FtSGGYczGmZgQeI/cWm2ApexTPH2MfflEvJM3r9hmo55dkzgxe+Gf3BGMil9BrmbGer9CGYip/wTzcL/oS6i50MJmfMi5bLSHFOn8KZPh0pv7Hszqp4vCobhORYOVhGqkzhHTPogAc7YbIrK9sNO5r7xtRIJVropizkMxC6qcrLbG4E9pso/78Ka0lhboVPpGkZcrc8bja
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(56012099006)(3023799007)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?j+r869tA2jy9bRu8/MOPUvAPdja35yZumOoa2yd7vC/hV5odw8Ufe/i1Dlc8?=
- =?us-ascii?Q?Xp2r6OeBVrM4b9ldupp0Y32y133sMLgpeLW6tViQ2pb3f3ze67fM0MdDmnCO?=
- =?us-ascii?Q?IfZ2pggOV1wUueNvICNO8pOp4271A+W2LW98eqnQPMT275VoCarHl9o3t0Hl?=
- =?us-ascii?Q?NeoHqYakoyiAu254Bn72q4D3I3mPMeHZTumnnTSfgtJgpyPIf35yURVDczf7?=
- =?us-ascii?Q?LBf/2yTFyC5p614h561aOdp+os4Jl4xwVZi1oj/pJKQS1yL68pCMw7O4CfeJ?=
- =?us-ascii?Q?90JmyuDIUK1vhXEzidvGJbf93GIcaF5/SQbI8jWNO3kYw9JALf3engAC7zM3?=
- =?us-ascii?Q?vDjgEwj15+nuAm5Fdo+Vg8Z6XFn2lToR9Xhm/p5gowhXkiP2ddORiSVbfrIq?=
- =?us-ascii?Q?Npl8AtEhytPaGZdEX54W+EH1dH730ABukxVX/D+hr3vz8AraFd1Ge18ubW88?=
- =?us-ascii?Q?JO/hjCwuKdI06+Xrqtcs38yIzjfF8MQQM2GRHkGu/njYKtZG1X3bEIw1Mv+A?=
- =?us-ascii?Q?9H4bX9ywCoEc2xSSEaNl3qj1RvZxRuaX+F1boZuZAZlQZZ19Q2a1cQ7OKmIs?=
- =?us-ascii?Q?MZROKpvD0i2GKgE009n9w5kZ5PdLfXjr9BOLHp85CtnNF3yAGVXjxGpYf6R7?=
- =?us-ascii?Q?madmLGR4Sfet3HuoQVGNAX+IiIokwbQO/jtdr/76LBZcebDVCTEyFUzrsJ1o?=
- =?us-ascii?Q?XaMm5i5YwB26qmTTE4blPdSp3m5Ls8FxaAkoWGZa/VeGaRwzxvf0TKrF+WT9?=
- =?us-ascii?Q?ndi95NSa1Ya6RuwwwhquevREJYqKTawoANLxhYCbY5+j8T2vdVsaiKVSha0T?=
- =?us-ascii?Q?j6jSOKMyyKGabnHSjoxws2aKj8yQ9BbRwm+OBsO6z1VqcBUgdklAGaBbddHd?=
- =?us-ascii?Q?Mm371hMtm1vE2mHa2ibKVS7ytaFfn448Z5XtPONQMIBB2VTD5z0JP33tngTb?=
- =?us-ascii?Q?lyVTO/6PGdT4/rKnS32whhTPzlwl4eY01ZgjxCTfNkd/9oM+8LVHYUiQHsSH?=
- =?us-ascii?Q?K7Z3EpQc8XcNBmh1B/v6RvJQUJzi0rtsdfVohjOR8LhY2QptJI945kkOl/z8?=
- =?us-ascii?Q?1TQNFB9w8068y5EMNwT1+gUiP1hHn1zQvW+bHDKlbMvT8x0sS/aRVFkNO82/?=
- =?us-ascii?Q?xnI3jaK6R6iLs9Ob8sxNE1RVQh1APdAJTkcp+7s+jqdaBgm1t3VFmknm+zwr?=
- =?us-ascii?Q?WoqJd6xmJ2ufFn9G99D2XrtsnLbwAENbf/+GI2u8wWhWoMCTMTegTy+B9jAU?=
- =?us-ascii?Q?04hofwbGpfY9O0b7Sq3MStTWWI9PTzbZBuft4VdneCbhdmy1H7mmbYyfA/dT?=
- =?us-ascii?Q?8yhMGDPsOCy/T+9a2qtgAduc+KFnkZHSY6hKIiHUaeawglCe9uUnZKfDHHbR?=
- =?us-ascii?Q?e2rEa3CWltYI1S9Fz9jC2iw7z5Zv8lPs/iobDraWzjVzokrS51KBPE5d4x57?=
- =?us-ascii?Q?hcxD/xmnqKzzN2g5KYUZ+9zFScKSbyb92f1CG/FSy6cUnY38raNv+0XYhj46?=
- =?us-ascii?Q?d35l7/T5kaDl17DpgVdQHBoQVfOKnioC1LSf68iKliUTn/V0dkTG2Ts8K1zQ?=
- =?us-ascii?Q?rvYMKKTOzdWlkTURn/0k3HpQ+We4yEclIZRx+2dsDPWnF5MyfLiNSxzfnswX?=
- =?us-ascii?Q?sT0nCjgBFv1aAtd6wzzm/kSVFbJh6pYMvlsdgtrcd+XR3xEWpPnnKaAuqrVT?=
- =?us-ascii?Q?T2mBQjG/dKrJoys2J95XiGR1fUOrsJKpkmh/LKulGn8sGMvUuunia6HD0dX0?=
- =?us-ascii?Q?OCZLiJA2fA=3D=3D?=
+	=?us-ascii?Q?IojZ++kOU6eAkSk0E02k8kAKUZdP6haJroUZ0A8OfgyYYCqZgCiz0s0eWQLm?=
+ =?us-ascii?Q?eZm9k2CmVlDF74cEs/pMwCk7xhWklCpy7Qh7PQbxtwjPEvGG1wLr09Z5AuSo?=
+ =?us-ascii?Q?fy+zqUIJRMMiDNFw83Q32R8rOzQ5VLcvTQNQ8guFZTQDScVswk/DCrBu5L4H?=
+ =?us-ascii?Q?bBfSiU3fyeWE8JqrzBUyko+DsKokiAJ+JlVSKNFMPsDKDxc80QfVWSYiGMpd?=
+ =?us-ascii?Q?h86NkIzsClFbOipwSiE7R0jENcFfX/ItiXJwABie10I1w1R3yCJqnKH447AQ?=
+ =?us-ascii?Q?Lxlf0zMozXyKHOLH7n7PclIESoBvxED3QLKGJR2oCPCtwIjsZM7R/n5xFA4G?=
+ =?us-ascii?Q?iw55S3lolhFPvEm6B+gFhIHYc6nC9sfib8O5EIxFHVRdXPBlFC2I/mVooHNz?=
+ =?us-ascii?Q?BnMooOV2dMVfboirNT2lnu+qpBq3ULXtt+yA74HDVax4oVBTvB9gkrPA0+Dk?=
+ =?us-ascii?Q?BwsyZUl9o46t1GaHGI8itJHPUne0QGHrNfWkCLv85TpyU/Oetn2EXi6xuPCS?=
+ =?us-ascii?Q?z9+7c+G0llRICoj/TEbyeVOoubS1t6PQ4Ox8M88k2PCyzz39Elm8FFg5dt1a?=
+ =?us-ascii?Q?2DiRpqsN8a/Zt+1AES+xkTVv3GwCjABMM9wfUfvr0BqhJQf7e4NQZ4VDz9SC?=
+ =?us-ascii?Q?xbC9+NpKbcr3RIC9S3Zdl7iNP8feGg1exiz3CY/Hl0Eb1365lSEvzffJVO66?=
+ =?us-ascii?Q?v1v5OBCogShhTHiU/QuYB60Aqi8OSAk/znZu8GB2CGRyMne/Cyp/q9ImAshP?=
+ =?us-ascii?Q?ZOdEz+s7s1iHNRPwYSEGr7MEQBnNX/G84cNa1Vh5C3+vRCC/QTpCVEXHHh3w?=
+ =?us-ascii?Q?Dm7Gw2LNyxpiE265Hfe/LkZWWjSIIlqO3wMXbhvz+0phOLIjal6O8+u0W7l7?=
+ =?us-ascii?Q?LZAGz7Zp9U9xl0FzqtGYnR1qs5VjPmI25jEt5aYAhNiWdre9fuC4JrQH3MOE?=
+ =?us-ascii?Q?4vKQDMNEjgzaRnRVz8QNzhxIwy+l02P6E3AnUmUKEwbTxEvcm5CgrfZqfBUM?=
+ =?us-ascii?Q?hKXLKVLrHdjBCy1f4pgdZae+PLoFiMh7F5b6umMTD0OIYTyNOliE3xB6/d2s?=
+ =?us-ascii?Q?4m46P1oeVKamxptu6t+6NL8BKn1MtbF26KuJ/ifTt3hzXJ1Yh18fPHJjnyHe?=
+ =?us-ascii?Q?VIC6eOZGK/2mq2lnIWQaBepwUtaNrfsssyABrlAgjKzf7uam3qG+800cwILu?=
+ =?us-ascii?Q?j1tOkPlVUh2FxtTT2pJqCvRd5Gbbx9w2o4fBAOs8/jhlsQePZOxabgqOjbcy?=
+ =?us-ascii?Q?7YZNERnOiN0UAJbnWznBJZaZofeIDH+fop78xMq8i+3aDksmPovAR6qW4DPg?=
+ =?us-ascii?Q?j12kDdOLDgT7lK10oJD7AO9eQGT/OMH2AMwKtgsl2Fa+nk+b2x7FcXFpMu5/?=
+ =?us-ascii?Q?/hm5vQ9az90ERFTUOEj+4mC1r7VxEMCNWqyGzqPMeew8SJb/z+ccPPpiSZJn?=
+ =?us-ascii?Q?NSr1qFb3zPtv3mkqqgVL7Sxp9tS3sGFNwRX594HJVGEl4SOZ7oAI2RmyIxOS?=
+ =?us-ascii?Q?GY8vSTzJAcuT2vL3b/Nfz7rzmuo4IstMSNsYsNiqvvn8AU+zRiJj8uDlchcS?=
+ =?us-ascii?Q?sxFbZGfgzIgMuvE3DZZvg1rMV7qd9Q1qIK+z8wT9Y7lHekG1X39pAcXFGdD0?=
+ =?us-ascii?Q?EVes707/z/ySBfzk+ChTTDBZXMjqF2r/p/n/e5rqyPnj2+raarC+AQiGDOm7?=
+ =?us-ascii?Q?bMrf5pmx+tOiVE+HE+Zl1JXhgcqmh3eLapKSff4EJBvsBwtPsiFUdad9vsAx?=
+ =?us-ascii?Q?MYOcCMGOIA=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c4917fd-9fce-42d1-c8aa-08dec0560650
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36f8e849-e7f6-4b26-a877-08dec0560c50
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 03:21:23.9971
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 03:21:34.1175
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VPD2gOBU91sBb6dBicfpLa/3UllyawEXsP7aU7mKAf242Uh1UHUIktyQ58g0/6eupC2CRiPvJhLrc1hcpHi+/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8565
+X-MS-Exchange-CrossTenant-UserPrincipalName: /pZ7CW+QzxBz6ccjz58szcgIGLStQI4PfQ/9xBQsoN8zGR/S7bCyy+M1dQewAZJXmBoyLM3McpscLJlFeLM4EQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5974
 
-Some GPU firmware images are packaged as 32-bit ELF rather than 64-bit.
-Add a 32-bit implementation of the shared ELF section-parsing
-abstraction so those images can be parsed alongside the existing 64-bit
-path.
+Add the MCTP (Management Component Transport Protocol) and NVDM (NVIDIA
+Device Management) wire-format types used for communication between the
+kernel driver and GPU firmware processors.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+This includes typed MCTP transport headers, NVDM message headers, and
+NVDM message type identifiers. Both the FSP boot path and the upcoming
+GSP RPC message queue share this protocol layer.
+
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/firmware.rs | 53 +++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ drivers/gpu/nova-core/mctp.rs      | 102 +++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs |   1 +
+ 2 files changed, 103 insertions(+)
+ create mode 100644 drivers/gpu/nova-core/mctp.rs
 
-diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
-index 38088e950980..e4dcc9a87b7e 100644
---- a/drivers/gpu/nova-core/firmware.rs
-+++ b/drivers/gpu/nova-core/firmware.rs
-@@ -534,6 +534,53 @@ impl ElfFormat for Elf64Format {
-         type SectionHeader = Elf64SHdr;
-     }
- 
-+    /// Newtype to provide [`FromBytes`] and [`ElfHeader`] implementations for ELF32.
-+    #[repr(transparent)]
-+    struct Elf32Hdr(bindings::elf32_hdr);
-+    // SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
-+    unsafe impl FromBytes for Elf32Hdr {}
+diff --git a/drivers/gpu/nova-core/mctp.rs b/drivers/gpu/nova-core/mctp.rs
+new file mode 100644
+index 000000000000..a13146dc0cca
+--- /dev/null
++++ b/drivers/gpu/nova-core/mctp.rs
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+    impl ElfHeader for Elf32Hdr {
-+        fn shnum(&self) -> u16 {
-+            self.0.e_shnum
-+        }
++//! MCTP/NVDM protocol types for NVIDIA GPU firmware communication.
++//!
++//! MCTP (Management Component Transport Protocol) carries NVDM (NVIDIA
++//! Device Management) messages between the kernel driver and GPU firmware
++//! processors such as FSP and GSP.
 +
-+        fn shoff(&self) -> u64 {
-+            u64::from(self.0.e_shoff)
-+        }
++#![expect(dead_code)]
 +
-+        fn shstrndx(&self) -> u16 {
-+            self.0.e_shstrndx
-+        }
-+    }
++use kernel::pci::Vendor;
 +
-+    /// Newtype to provide [`FromBytes`] and [`ElfSectionHeader`] implementations for ELF32.
-+    #[repr(transparent)]
-+    struct Elf32SHdr(bindings::elf32_shdr);
-+    // SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
-+    unsafe impl FromBytes for Elf32SHdr {}
++/// NVDM message type identifiers carried over MCTP.
++#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
++#[repr(u8)]
++pub(crate) enum NvdmType {
++    #[default]
++    /// Chain of Trust boot message.
++    Cot = 0x14,
++    /// FSP command response.
++    FspResponse = 0x15,
++}
 +
-+    impl ElfSectionHeader for Elf32SHdr {
-+        fn name(&self) -> u32 {
-+            self.0.sh_name
-+        }
++impl TryFrom<u8> for NvdmType {
++    type Error = u8;
 +
-+        fn offset(&self) -> u64 {
-+            u64::from(self.0.sh_offset)
-+        }
-+
-+        fn size(&self) -> u64 {
-+            u64::from(self.0.sh_size)
++    fn try_from(value: u8) -> Result<Self, Self::Error> {
++        match value {
++            x if x == u8::from(Self::Cot) => Ok(Self::Cot),
++            x if x == u8::from(Self::FspResponse) => Ok(Self::FspResponse),
++            _ => Err(value),
 +        }
 +    }
++}
 +
-+    struct Elf32Format;
++impl From<NvdmType> for u8 {
++    fn from(value: NvdmType) -> Self {
++        value as u8
++    }
++}
 +
-+    impl ElfFormat for Elf32Format {
-+        type Header = Elf32Hdr;
-+        type SectionHeader = Elf32SHdr;
++bitfield! {
++    pub(crate) struct MctpHeader(u32), "MCTP transport header for NVIDIA firmware messages." {
++        31:31 som as bool, "Start-of-message bit.";
++        30:30 eom as bool, "End-of-message bit.";
++        29:28 seq as u8, "Packet sequence number.";
++        23:16 seid as u8, "Source endpoint ID.";
++    }
++}
++
++impl MctpHeader {
++    /// Builds a single-packet MCTP header (`SOM=1`, `EOM=1`, `SEQ=0`, `SEID=0`).
++    pub(crate) fn single_packet() -> Self {
++        Self::default().set_som(true).set_eom(true)
 +    }
 +
-     /// Returns a NULL-terminated string from the ELF image at `offset`.
-     fn elf_str(elf: &[u8], offset: u64) -> Option<&str> {
-         let idx = usize::try_from(offset).ok()?;
-@@ -586,4 +633,10 @@ fn elf_section_generic<'a, F>(elf: &'a [u8], name: &str) -> Option<&'a [u8]>
-     pub(super) fn elf64_section<'a>(elf: &'a [u8], name: &str) -> Option<&'a [u8]> {
-         elf_section_generic::<Elf64Format>(elf, name)
-     }
-+
-+    /// Extract the section with name `name` from the ELF32 image `elf`.
-+    #[expect(dead_code)]
-+    pub(super) fn elf32_section<'a>(elf: &'a [u8], name: &str) -> Option<&'a [u8]> {
-+        elf_section_generic::<Elf32Format>(elf, name)
++    /// Returns whether this is a complete single-packet message (`SOM=1` and `EOM=1`).
++    pub(crate) fn is_single_packet(self) -> bool {
++        self.som() && self.eom()
 +    }
- }
++}
++
++impl From<u32> for MctpHeader {
++    fn from(raw: u32) -> Self {
++        Self(raw)
++    }
++}
++
++/// MCTP message type for PCI vendor-defined messages.
++const MSG_TYPE_VENDOR_PCI: u8 = 0x7e;
++
++bitfield! {
++    pub(crate) struct NvdmHeader(u32), "NVIDIA Vendor-Defined Message header over MCTP." {
++        31:24 nvdm_type as u8 ?=> NvdmType, "NVDM message type.";
++        23:8 vendor_id as u16, "PCI vendor ID.";
++        6:0 msg_type as u8, "MCTP vendor-defined message type.";
++    }
++}
++
++impl NvdmHeader {
++    /// Builds an NVDM header for the given message type.
++    pub(crate) fn new(nvdm_type: NvdmType) -> Self {
++        Self::default()
++            .set_msg_type(MSG_TYPE_VENDOR_PCI)
++            .set_vendor_id(Vendor::NVIDIA.as_raw())
++            .set_nvdm_type(nvdm_type)
++    }
++
++    /// Validates this header against the expected NVIDIA NVDM format and type.
++    pub(crate) fn validate(self, expected_type: NvdmType) -> bool {
++        self.msg_type() == MSG_TYPE_VENDOR_PCI
++            && self.vendor_id() == Vendor::NVIDIA.as_raw()
++            && matches!(self.nvdm_type(), Ok(nvdm_type) if nvdm_type == expected_type)
++    }
++}
++
++impl From<u32> for NvdmHeader {
++    fn from(raw: u32) -> Self {
++        Self(raw)
++    }
++}
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 7b6c331da10e..9f0199f7b38c 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -20,6 +20,7 @@
+ mod fsp;
+ mod gpu;
+ mod gsp;
++mod mctp;
+ #[macro_use]
+ mod num;
+ mod regs;
 -- 
 2.54.0
 
