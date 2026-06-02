@@ -1,47 +1,47 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011024.outbound.protection.outlook.com [40.93.194.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471E536A379
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F0536A36E
 	for <nova-gpu@lists.linux.dev>; Tue,  2 Jun 2026 03:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.45
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780370512; cv=fail; b=f5gIJ/6FVzKwTV7gY4wx6euhC8bVjeLR6x5NDqchzFvYdErOVYbqKixhkMMDY/Z1MDFN0RBp8N4Kpfueit4oP3FNu+dh8+/2BmtjFbwFOteDvVlVDmDafLIKtRKlB37niv2+9yMpYYKL3rSD8/V8F0fHt9/uWxp/SG0WJxBS2c8=
+	t=1780370512; cv=fail; b=uDMtJQnoP5r1grFi0UcFHbE5wXvziadiQdYPO4cVX8wqpgVzy5Vp42wvlCDjRVnlZrSDv24eQtULzPtCZ4zn8ux0qHzcr3cooSzhWQDgN69l8236R7TLBxyKbh6nn+NwOOO2YJsC3P043yJVTUln//yved2hBjGkCaJDQeMkJ+g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780370512; c=relaxed/simple;
-	bh=5CRro4xwe9+xNm/fX9ky10CDEyynE/FLJYd4CIAr91k=;
+	bh=wVYKaUnjTdliTRtjcj7bMqLR8wN8lGgQAEpGIV+I7lw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OJbjjb+7595MWbsLWLCayny9cGPYIyhNqwsQldX8+A6Y83XXj/ALwJfC0G/cSfiy3zCDBRSkQNsMIgIq/0NS4l5I7pqkYHduyILnqwdvD5/jKl9kFe3pk/Vq5HD9sNl+TwgX9bB5T7Jdvx3ImIQuVFO9FhhI8x9b291g4tr8YdM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=p8AaQXlp; arc=fail smtp.client-ip=52.101.201.45
+	 Content-Type:MIME-Version; b=RjOdLXY7M510PrvoS8fvwRyL+jKKETGk/f1YWGcU9rgmZ/BQU+Te4fMGdFEZ5zWG23zrZQU/87AtxeKADGsfllhv9gz0xPib9DZfeEnEeY0uPBZOyptiriHgZhyXVhkj3lNrYTjiH9ZKum+b9IdIG/Dp539Gja7egMBMtSbJqfg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=I+jTT1E5; arc=fail smtp.client-ip=40.93.194.24
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="p8AaQXlp"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="I+jTT1E5"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EJkxnheWhxxD7hSO02P7bJzvgMa1+Ljp03YgAxzsAmzHNxqXDXVkId6GS/UaO30cqXZLIm+yoI0ubMn6WNO82ngBepjfVA4U3IoN7GBFAOooQDpzSndxYQLem95gf+RtzsjwD8nkWGswH35d3Qa1vH0Vb/nAe9FRKSEh3NX2+QXn27cJC/ysi6hOLNdwj1x9uo9mt9HORUgqEuZsbFwc5tGMMjKbS5GNYfZ8LKqx+Jye83xod9VhwmfVCVn7u7NSPDUB9m3crjkCh/5mD/zebrCS46Yt6Qk+d9H8x6uFnEeJpeJcVx4HaxO+T8FJUFhqlU/eIGNCPe2EgoYhALCkcA==
+ b=xdkhSa66g08sY5dKZ1eW8j3NRgJFMzJHzJVQSxO5cwmEEcZYiNZJraZQyxG+ZvST/uGQa34trMp9STZyh3eu6y44NfSUfl7MUDWQXzY0tcZ0TxeJKCKgAo0zZc6vROXhxUPoDwVcUnbkETuK1gAZAQkVgS8B0Osj9Za3cOe+h6ZXKehaFWfgmuZVrEnInUPyiHo/ATSzBhrBR0n9abuUqTGV3sLUvpSqsQy1M2QJpAypFJkZH+080SDH/n74Pv/1oFmU4pvY0QSfllHvjGRn8HMI5rfUOxZ++T3fgwGjt0OLSDEy1cw0mETti903XlV98auqsi3F4vvJLlXetFNgWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YCwInahm/1odVSCz3lSwkbMNqk/gXRaFVKl/c3vM3iI=;
- b=lpb+O2zD5IW+vsIZjARf0mztNvJc5Cy0MZy0rjK+kxWjB33+jmE4mzkWDT2kPsHGjaiRGhnJWjF4L71g26xtjQT1wNN+YLSGMy0XJp6/lgruvH3JdHDDwRD1tHMH9tW3b8Y+lpZCJ6C2xwtPrmSD004i72YfkU5cog9wuUlV1rnrpu6dC3I+tDfX68cHg4/zxpYf4L/xOhWaPxl4h0v7VRzuEwSp8i41pbll6wWq/YD36Z2/XXK9Y7EeQj9AF2kmBqr5YKZeMAxftzJDp9UBeWupL9F44hdM+Fe++qDIAJlsS1Ikp18Ii6zEKEuXAhSv3vk9VxFA9eLD5wZ5NED3lQ==
+ bh=9w3tPw8J7102oSxgpRL1Dh1C5PBDlDmTH6bZWKGFjcQ=;
+ b=bQp1LXL9SbsRCtxLEjI/aNxQv7XZi2sD7D2/TgCvwRJPUorHxQoRLJZyesc3Dq8PfWl1sehkePylE22Xg9TAbdsYrHrTAHRui5Ab4kudE4m5H0QRExDnTBNmsvr5ZP54I1ugsNt5XwN4qcLc4iCEmfV8tP9UDXfVXeyFECSJI+3qv0QXQ9ZHcIjsond5V+73rgzrPGeTVRpk2Tlo63dj18f85E75KPF9kLx+1jiJgMKzcJCCSlg23Q2lwUHC3sUgXsJHF+EPprEF4+JTijltddxUgZWyCnNOGdEcvyX9qwvuXpEKRVD4KO0+ZEBAoiSfJVCwmBHqCUI9U0kz8HA80Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YCwInahm/1odVSCz3lSwkbMNqk/gXRaFVKl/c3vM3iI=;
- b=p8AaQXlpdWgqNMm0fuVgZQFBMUt/Lv3IyF80Rdomkl+9Nkf76LNYWQDFF4+6lDYU7EDTx1CqJuHpz86bJ/Obg391sXORe1e5y3k/v9blbVOxeu4J2/XSs4pv4m3P5A+CAXnvAZgGYi60j6HMI1drvo3t6QVMf3E9wB+9nM9PHxhZldqKpq9KWaKJd6UfRphY3jccfP+AI/ZxbK7+JW5Y0A8BD414HAaG0n35gs15+p4J2r9iWygPZL8V+5SGY3SymhVcvaIZ+UU0SjN9LJGy3227MMWhMPkgrrzvHo6qMDyArVy1Y+cXrtSxnKUs11uOvieKx/0kgU4lVJ/3FeujLg==
+ bh=9w3tPw8J7102oSxgpRL1Dh1C5PBDlDmTH6bZWKGFjcQ=;
+ b=I+jTT1E56dlVKcCLydSUbFVQ/jyEZbJy8+FZ9VO9jKRNvwaavMiWul2o+KHyuKsDpZPXxP+DDf9CuaMa2f7cn2AJDVmImXMYVcDOgZAhjxPco4PLU0v3V9ZNkKPUcujfaceBPSTmK7CL4YI5iizM3Y06ecKQkvxRoYUdOKVrZ6gFpIA3UGPeUlFyfKNFjuX9qsTb28DcrFKm7l+uokxFLA9HB3hdV+hytiEa6CD757tFcLZODvZrT16uuQvK0JUY07OLGnTnYhCl7CJYQWY0ljtVKxdJf5sOform1nDrY/YxryRtYGJUMPecOT4lEQ74pw6BnR3WyfghfXuWfUAvfA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MN6PR12MB8565.namprd12.prod.outlook.com (2603:10b6:208:47d::22) with
+ PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 03:21:27 +0000
+ 03:21:38 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
- 03:21:27 +0000
+ 03:21:38 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -65,17 +65,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v12 11/22] gpu: nova-core: Hopper/Blackwell: add FMC firmware image
-Date: Mon,  1 Jun 2026 20:20:59 -0700
-Message-ID: <20260602032111.224790-12-jhubbard@nvidia.com>
+Subject: [PATCH v12 19/22] gpu: nova-core: Hopper/Blackwell: add FSP Chain of Trust boot
+Date: Mon,  1 Jun 2026 20:21:07 -0700
+Message-ID: <20260602032111.224790-20-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260602032111.224790-1-jhubbard@nvidia.com>
 References: <20260602032111.224790-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BY3PR04CA0010.namprd04.prod.outlook.com
- (2603:10b6:a03:217::15) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR13CA0202.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::27) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -84,214 +84,532 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN6PR12MB8565:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ea76a14-8614-4831-f408-08dec0560833
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH7PR12MB5974:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb4f67db-2637-418a-30a6-08dec0560ec5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|22082099003|18002099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|376014|1800799024|366016|7416014|56012099006|3023799007|18002099003|11063799006|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	oLUA1twlbaZJkb9sBcDTHmNXsvL5OR4kZFtfxBCiGCWiZ1/SohfhC+e8SrK9FoTcNsncrtr/CKmjYqG9+KR+gs2gWzDRyik4CeHeN5uOXIu+EBR/Exr9Xiq7bBEEE4tGz0IWKT1xeX1k1SyGOATMuOrO2Pv4qBkP2akkWbH35mdE6oARbmOj/9jIjcwYMSMsfOwqdlJ3xiwawqhpc0o5rRKdVycACauCZu+52V4gF9eoPO3wv7vTzq5m9saeANPIBfyDW0i7qPSLwc0cGWY/mp0hcTolmXnJ61FiDBXuWLrUZ2DsmvUsor79HoYIWNBP+XlfOk1QiSv6c0wZfdwn3T6mkFW/UA90zXt7/mAjwwNBEFi5Hlq3yvqVFNrs3NYLr7+r0/NWk3H3cdVwuBtFeOk6TQsg36uTQot7+GeBROt9B80TkLzG3qbp6cSCai7dqewNgt+lHT2RF3Y4AET9gX/38WSO08NdSI7Kum2sWg/DUyjvZMEX/YvBA/fgPVzhaYUoikguW2SYqrw+f0ns42ERMpzbiVfqg4nUwvuIRyxS2yXrlqBk35KafqmwCru9XztU6nTVDLszmZ4qK4Y/Wc2zewALEFvRRPXTqsRIz2FZzG7LiYLvELw4C4XhWJg++SWqxLHnZx663gaEDSmZc8aiyGGRLl+R9SKSNadGKdq44fS9RPQpsV4FD0FWK9Ne
+	501BhV4V93kaAZSOUnz5cFcQRpI3stwxjtWhtwnsTI+Hzrl3HHuxRemAVxEm62/ZB1lQJuBAzAuxICE3CkBhx9mFkxCIgMz8nPFzThT09qnR8AD9WXLww1rcYFRzpwaQp4ouDGrvNt464HOLkQIFlwvKm5GwiqzAmR2JoupgyO5zJilKeqDnid07+0Ev9rWMd6UsU89E9HkP2XWC6d5N3HmaZNZbPHrpP62GKeOstAYvQBn7DoIUnm6vWwPKjAQnWKCqe7pgWQM7Q8mDmYFzzPegktlNtgr3Xg+XKps7GTtDi8O/aoXv/hLJZ0/YS7/153FqDX1aVInoQPqdusyYFeWvFshACBGjDqrXzblwg3WaCtO1ttmIO0sUquzQc1WC7LfDR23/KWJdC7nUWXvCXBZpjPOa9tSDYYuc/IvyfvV1fl27nsWGAnhrxNQCB+FtN81WfSG1fN5871RGUrd+IFcDwYLe4+4rUjkC9sKu+vnnF5oZ5E05N7FnBNxssUQZAfZUiFmP/tNo3zzn16YUzlzjTBpzOO54B/SLiu2KsC6jIsftg/umWLKjD7T73R8Y/IJVq+keRBryW6Di01p8tf1X1tnGCLyOrZH4a9I1P1II4bX0ONXirOP/3JYQR9ibjFdm4ZulbZ5s8FzPR2u1AI6hjkzrecsTEERteQ1hprzZsS7opyAHSvtCZQUFUnCw
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(56012099006)(3023799007)(18002099003)(11063799006)(22082099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NptINTWJuj5rrkRYGfsLnW//RNKqxFAC9LuhCE+lndg/JVOmma/2S2S9sHkk?=
- =?us-ascii?Q?7+dC9AcEe1JzoTdpRd/h3rNKNYzFkuk5zKhZTFwFDiin+njEvLtUyglMZhYn?=
- =?us-ascii?Q?CALX1tOIMPRp25sU6L57ARibIzAC8AwJRhnbi/U0Fiix2s6qu+wK0pBUuS4n?=
- =?us-ascii?Q?iamNZxTx+AdIldZ9qfFo6e8DeTdKTg0ZZ+VILajZ8ZmYhRC0YXeXOhYRqps3?=
- =?us-ascii?Q?llZPrkaS0fbbG9drkaVwT+kAAU7k1zVzidkva6IA0Coj8rZ91Nw1gF8PvhTa?=
- =?us-ascii?Q?HqocGWMjNCxJ9Q69xUYPVhcqaMkKwhQG32FC1UBhu28gl7LroGk/8+Yp8W+D?=
- =?us-ascii?Q?ThcCdO2QQVDNjKf/vxRJIv1Hw1A7nsr9oUMpumXHjoT0A94qBSxIOZrHiuDC?=
- =?us-ascii?Q?0lzaJiLFzDQJOoN+at3CO5F4f0qGn8iIoevhQ9t8zNYazQ5hUNGmTGkHGSPD?=
- =?us-ascii?Q?hH0M7uJmb6YZiZiQBCbFrn/+x3rcHLI2NXVeTt6iWv2Fw281P8zCGVn3t35g?=
- =?us-ascii?Q?Jxrixj4nos5ny7BjAl+z+QZ3EFjNoVRcs4ehAFVXWlPV+O6Kbzqah7/d4zYj?=
- =?us-ascii?Q?d0yB1YvRJ+tsMEMoF//jeL7fG3pLbnScRJ02ILXVgAhqBkgFhGhVSzgdDUTq?=
- =?us-ascii?Q?oF0Vm/v07wpu+UMAczXG3tSf1+SQ8eaEcGJknAAkrp8IymHAYhFNJqNLYHFq?=
- =?us-ascii?Q?/ZfEd2VLmPTg30+msQH7VW7dkKE5+MmJCa/J+V3le4tM6jCg/w/YWUFoluBG?=
- =?us-ascii?Q?MqbHlTxo8eRhT8B4ZR5WaqVWRAk9LuIbUW1P4dOaqSSTvmgBHa2+suoMksE7?=
- =?us-ascii?Q?FVYyyOPjjpg3S4bo7v659+G2B2Fhgd5VEpBaS2pwKG8z1rr3eSh4qnYeZ7Oa?=
- =?us-ascii?Q?O7/uDft1RWaMqv7z31wNuXJ+oGASxKuIlIaOsCTqNlh6m/dUC3HmM3accXcC?=
- =?us-ascii?Q?RutHxFwgEB/9oHw+uIgbf6nbkw5VPCQ0j5O5GEpNooVl/oXe+ExwfsaCTdjx?=
- =?us-ascii?Q?aL3tu86q3c77hh99tEc0R4bhzggwmb9kaQPYgZaWtyZh8FP5LbPySSZzfoV8?=
- =?us-ascii?Q?NgVcuuNIcZmHFB2lo1tWk33IGpke/WQKkLqxEqiG1ks8p2xY/yWs1O/QJ+VK?=
- =?us-ascii?Q?V/ys81b83NNk/n8EJomt2nAyHn2mYvaRKti2HpCNSKt6jqHjQrLFs2sYtCbC?=
- =?us-ascii?Q?ao4i/GKV/xOCo4OJRDn/b6AqHzWqVV6tjzzrnMZShWSXSdkEG97SqmMzV8Tb?=
- =?us-ascii?Q?hurEBFXTyKEKfVUVXe3BkdTqLHBBcfTmqKIJ+hmRhu5F3VIJRPgFiDOZQodR?=
- =?us-ascii?Q?O2Wkd+rtQE9yeAAFyLoAhkwTBZv6RBEU7p2BjqhEnG+B1Z9DWwwQaK05onus?=
- =?us-ascii?Q?htVfj05ajiuXbePJzi4HeEBKfduSshf66ZKHNJA4Z8xO9UuxvyJ0l2//bZIU?=
- =?us-ascii?Q?L4ul13t6V/XiGY8iwUMfO0YuD9/1rANb2pLGXnaB3pwxha9hzFR80z9pwK7M?=
- =?us-ascii?Q?+4tt/nkPlxMMKxJLWiGekYIT6LdOeOnbNDOsSUhQOgeCqQe1zubdcqDOPCyr?=
- =?us-ascii?Q?WBC+xkrjbtU7wl/mLNlOePvI6fnjRViaHXCL2oNgv8TvPkNOvundNFx1LZ3b?=
- =?us-ascii?Q?2w65uvZt1rXLP1pcduCkC8hhFbR+htoAv6w+/fARjivvEEHdFfAKRsIuVKX2?=
- =?us-ascii?Q?tnpR2LLSfMUKL/yNH5WmKKA6SlixWhsMJwuIoz7bT6b3IRqUnPxrBL1sxLvz?=
- =?us-ascii?Q?K6VYxMSVpA=3D=3D?=
+	=?us-ascii?Q?lSxedczf19j+ulURSKbZrUQ7IAnmtWrqzHDOQ29BVinY4spywbqfeAJADvub?=
+ =?us-ascii?Q?HRHsJttcEeYAyANBpT6eGSmKKRQK9xCmIBjAkAS7JUQaFf3Thcizbh6fybqT?=
+ =?us-ascii?Q?wjJTFX1oB4eptzEwCTAiHLeLZza/aeTfOwEAJXl7S+IlRxhky2d99d/dNHOV?=
+ =?us-ascii?Q?A8zZLtbo2lB2p3a0ZM8mE9A/e/04zckiUD1nVwXHLIOx6GtW3PEBGMHKiOV5?=
+ =?us-ascii?Q?sD9B3MWx9Zlw6pcd+4Rp5Ff5BoFVKAJQ9w0gEO265kpCfVVwtpvMOMNxct6K?=
+ =?us-ascii?Q?arXvI9Q02WYdoU5QPdJCaOnQX3uifpD8h1K4lXPz0ztE5mwWuLN7gmbN8rIl?=
+ =?us-ascii?Q?QVZhSaNorJD4UtY0kF5GJZydFyCB/Jf6gHtuflvh53q4Nhp0BMJCkECUZyRw?=
+ =?us-ascii?Q?eQ94cMldJoa9e+OLMoOYbPaY6uFGci/W9/7S7NJnAEBPbejGumQNy2Ae3Ds4?=
+ =?us-ascii?Q?tGpQmX1p+swQ+OqH4Q2M1FNyD9jp7AAcod5WR5vR+gUtg8kxSArLPIkJMAaQ?=
+ =?us-ascii?Q?1zY53+AZHyD6Ahem7NOmoVb0QF27n58ynxTQa5C/fDhYwZzGtel8QGpyiyAy?=
+ =?us-ascii?Q?lrVr7jGVEtUMJGVfVqpCVfZ7VPUJeWvGLe9pBOKy18B+NgziOw6QBSsk8WQ9?=
+ =?us-ascii?Q?D19gqOQvkxo38RNdGTyNbf/1nqMknsatqsSRfMlmMUWBk2/kSYIF7aNM4Vr8?=
+ =?us-ascii?Q?e0Uexwnb+Oa/jRWF9pHzwDXVeNgO31HZPjDNOSe29LWZNy/oaX9JRDLVZ5p9?=
+ =?us-ascii?Q?pV27VtxxsxYv1rIPPJGhJ4ej6k0bBjMzPIZz1M5hFlXmlLtJDtNWaj7dNIkX?=
+ =?us-ascii?Q?FsMvevxmhAjiUb8AmepF4CC8/8QMtN93DPDn9JmOFwKWD6+tmUlmaEKZsqI0?=
+ =?us-ascii?Q?rfTyM5YlMxWLgvJpHBD/qh6zBohspIrIFOiC3ckRr2+Wlnbfvz6HlygbPs7f?=
+ =?us-ascii?Q?k1QUQRZOigv79g1VFZnWMOTHu0gom7gakNMTQfpIEfUpUU6JUFn9aUOLtuBg?=
+ =?us-ascii?Q?TFoVNk8E9hQsKFiOf0OW9GpmxsHc7ha/jDQfPmhSl71QY0b9MXFQ/niVjTv+?=
+ =?us-ascii?Q?HhruSsaKONc7Y7/35B6KMwcR78SrBnxqBhrtZIBx7pNmE4SsW85q1N4FUDdE?=
+ =?us-ascii?Q?NVkn9jvjr3CjzspbkZFSpwrqqvBfFxuEHQSx5Igmu3AWzCYvf7RahoMHGTNF?=
+ =?us-ascii?Q?dzoRN7Y+pcnmfALapcvbqIBcIE4TNTexF8AZIJT0PvXQ/XSBNAWkISKSF4f+?=
+ =?us-ascii?Q?CW6jR+xzUgqbo8OsM5d6fAaHIvC6BKB9mzMQPdBTFwJcLuceeWeT5ouw8crz?=
+ =?us-ascii?Q?OtNCz6P/DjtC5dEuCjEEQPtz0gXHOD6PfH0LbCv+PNzd1jLv3f+7jrRvjgJw?=
+ =?us-ascii?Q?M6qyc0HEk5EnjU34JtBgFeYM4Ju9h1hqQuT1Ic+vXgxTwXeIe0wnLPsTT3zw?=
+ =?us-ascii?Q?77qWnAmLecP6MpMJh+KxSanm4HDuy38tQshs7IsuA35+KRC19fmPNcJGkNZr?=
+ =?us-ascii?Q?PqOUcFK2qM1WjgvtWuHCcp9YK1I1G0Mk/yy60w0sIV8bZH580iaE5nNTkV+n?=
+ =?us-ascii?Q?N85XZ7LrXnDzZyHAGmswnHpWd8HWckbtAq4LyJowKw65rEKmY5rxz0cKvZDn?=
+ =?us-ascii?Q?XHiIoeINCUW7RlRvrEmrlvpSjSfAHU7mO/FjNhi1JTtOtrF2wn5rI3BTXJs7?=
+ =?us-ascii?Q?tJmLN28tB7pAerRIt46z+N4GvxggSD+jMBW3lc4fRORL6/xF/3lnm588PaBq?=
+ =?us-ascii?Q?6hknXagaMg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ea76a14-8614-4831-f408-08dec0560833
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb4f67db-2637-418a-30a6-08dec0560ec5
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 03:21:27.1765
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 03:21:38.7380
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aWHOykjQy7DqjI6l+xliN0rN11xks6ZGe5wX7i+Af5aT/bBXm4acIV94rOMdHaT0xvvezI45Ii9HPwZDUrcy4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8565
+X-MS-Exchange-CrossTenant-UserPrincipalName: 09Lh+5AVf2S+NGeIicOQAa1PgmZdvZPqD0WomrhvkWFqeZtDNv/TI0u5/DAiq5iaeCjVwDJPW5M3snKY3QSVUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5974
 
-FSP is the Falcon that runs FMC firmware on Hopper and Blackwell.
-Load the FMC ELF in two forms: the image section that FSP boots from,
-and the full Firmware object for later signature extraction during
-Chain of Trust verification. Declare the FMC image in the module's
-firmware table so it is bundled for FSP-based chipsets.
+Build and send the Chain of Trust message to FSP, bundling the
+DMA-coherent boot parameters that FSP reads at boot time.
 
 Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/firmware.rs      |  9 ++++-
- drivers/gpu/nova-core/firmware/fsp.rs  | 47 ++++++++++++++++++++++++++
- drivers/gpu/nova-core/gpu.rs           |  9 +++++
- drivers/gpu/nova-core/gsp/hal/gh100.rs | 10 ++++--
- 4 files changed, 72 insertions(+), 3 deletions(-)
- create mode 100644 drivers/gpu/nova-core/firmware/fsp.rs
+ drivers/gpu/nova-core/firmware/fsp.rs         |   2 -
+ drivers/gpu/nova-core/fsp.rs                  | 140 +++++++++++++++++-
+ drivers/gpu/nova-core/fsp/hal.rs              |   1 -
+ drivers/gpu/nova-core/gsp.rs                  |   1 +
+ drivers/gpu/nova-core/gsp/fw.rs               |  64 ++++++++
+ .../gpu/nova-core/gsp/fw/r570_144/bindings.rs |  82 ++++++++++
+ drivers/gpu/nova-core/gsp/hal/gh100.rs        |  23 ++-
+ drivers/gpu/nova-core/mctp.rs                 |   2 -
+ 8 files changed, 302 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
-index 87588cb24f11..366d3b76360e 100644
---- a/drivers/gpu/nova-core/firmware.rs
-+++ b/drivers/gpu/nova-core/firmware.rs
-@@ -28,6 +28,7 @@
- };
- 
- pub(crate) mod booter;
-+pub(crate) mod fsp;
- pub(crate) mod fwsec;
- pub(crate) mod gsp;
- pub(crate) mod riscv;
-@@ -431,10 +432,16 @@ const fn make_entry_chipset(self, chipset: gpu::Chipset) -> Self {
-             .make_entry_file(name, "bootloader")
-             .make_entry_file(name, "gsp");
- 
--        if chipset.needs_fwsec_bootloader() {
-+        let this = if chipset.needs_fwsec_bootloader() {
-             this.make_entry_file(name, "gen_bootloader")
-         } else {
-             this
-+        };
-+
-+        if chipset.uses_fsp() {
-+            this.make_entry_file(name, "fmc")
-+        } else {
-+            this
-         }
-     }
- 
 diff --git a/drivers/gpu/nova-core/firmware/fsp.rs b/drivers/gpu/nova-core/firmware/fsp.rs
-new file mode 100644
-index 000000000000..011be1e571c2
---- /dev/null
+index db61905eac9d..938aa3a3bad5 100644
+--- a/drivers/gpu/nova-core/firmware/fsp.rs
 +++ b/drivers/gpu/nova-core/firmware/fsp.rs
-@@ -0,0 +1,47 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! FSP is a hardware unit that runs FMC firmware.
-+
-+use kernel::{
-+    device,
+@@ -39,10 +39,8 @@ pub(crate) struct FmcSignatures {
+ 
+ pub(crate) struct FspFirmware {
+     /// FMC firmware image data (only the "image" ELF section).
+-    #[expect(dead_code)]
+     pub(crate) fmc_image: Coherent<[u8]>,
+     /// FMC firmware signatures.
+-    #[expect(dead_code)]
+     pub(crate) fmc_sigs: KBox<FmcSignatures>,
+ }
+ 
+diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
+index 67cf83aba83c..352ef7683cf2 100644
+--- a/drivers/gpu/nova-core/fsp.rs
++++ b/drivers/gpu/nova-core/fsp.rs
+@@ -9,8 +9,14 @@
+ 
+ use kernel::{
+     device,
 +    dma::Coherent,
-+    firmware::Firmware,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    firmware::elf,
-+    gpu::Chipset, //
-+};
-+
-+pub(crate) struct FspFirmware {
-+    /// FMC firmware image data (only the "image" ELF section).
-+    #[expect(dead_code)]
-+    pub(crate) fmc_image: Coherent<[u8]>,
-+    /// Full FMC ELF for signature extraction.
-+    #[expect(dead_code)]
-+    pub(crate) fmc_elf: Firmware,
+     io::poll::read_poll_timeout,
+     prelude::*,
++    ptr::{
++        Alignable,
++        Alignment, //
++    },
++    sizes::SZ_2M,
+     time::Delta,
+     transmute::{
+         AsBytes,
+@@ -24,8 +30,13 @@
+         fsp::Fsp as FspEngine,
+         Falcon, //
+     },
+-    firmware::fsp::FspFirmware,
++    fb::FbLayout,
++    firmware::fsp::{
++        FmcSignatures,
++        FspFirmware, //
++    },
+     gpu::Chipset,
++    gsp::GspFmcBootParams,
+     mctp::{
+         MctpHeader,
+         NvdmHeader,
+@@ -49,6 +60,35 @@ struct NvdmPayloadCommandResponse {
+     error_code: u32,
+ }
+ 
++/// NVDM (NVIDIA Device Management) CoT (Chain of Trust) payload, the main
++/// message body sent to FSP for Chain of Trust boot.
++#[repr(C, packed)]
++#[derive(Clone, Copy)]
++struct NvdmPayloadCot {
++    version: u16,
++    size: u16,
++    gsp_fmc_sysmem_offset: u64,
++    frts_sysmem_offset: u64,
++    frts_sysmem_size: u32,
++    frts_vidmem_offset: u64,
++    frts_vidmem_size: u32,
++    sigs: FmcSignatures,
++    gsp_boot_args_sysmem_offset: u64,
 +}
 +
-+impl FspFirmware {
++/// Complete FSP message structure with MCTP and NVDM headers.
++#[repr(C, packed)]
++#[derive(Clone, Copy)]
++struct FspMessage {
++    mctp_header: MctpHeader,
++    nvdm_header: NvdmHeader,
++    cot: NvdmPayloadCot,
++}
++
++// SAFETY: `FspMessage` is `#[repr(C, packed)]` with no padding, so all of its
++// bytes are initialized.
++unsafe impl AsBytes for FspMessage {}
++
+ /// Complete FSP response structure with MCTP and NVDM headers.
+ #[repr(C, packed)]
+ #[derive(Clone, Copy)]
+@@ -70,6 +110,44 @@ pub(crate) trait MessageToFsp: AsBytes {
+     const NVDM_TYPE: u32;
+ }
+ 
++impl MessageToFsp for FspMessage {
++    const NVDM_TYPE: u32 = NvdmType::Cot as u32;
++}
++
++/// Bundled arguments for FMC boot via FSP Chain of Trust.
++pub(crate) struct FmcBootArgs {
++    chipset: Chipset,
++    fmc_boot_params: Coherent<GspFmcBootParams>,
++    resume: bool,
++}
++
++impl FmcBootArgs {
++    /// Builds FMC boot arguments, allocating the DMA-coherent boot parameter
++    /// structure that FSP will read.
 +    pub(crate) fn new(
 +        dev: &device::Device<device::Bound>,
 +        chipset: Chipset,
-+        ver: &str,
++        wpr_meta_addr: u64,
++        libos_addr: u64,
++        resume: bool,
 +    ) -> Result<Self> {
-+        let fw = super::request_firmware(dev, chipset, "fmc", ver)?;
-+
-+        // FSP expects only the "image" section, not the entire ELF file.
-+        let fmc_image_data = elf::elf_section(fw.data(), "image").ok_or_else(|| {
-+            dev_err!(dev, "FMC ELF file missing 'image' section\n");
-+            EINVAL
-+        })?;
-+        let fmc_image = Coherent::from_slice(dev, fmc_image_data, GFP_KERNEL)?;
++        let init = GspFmcBootParams::new(wpr_meta_addr, libos_addr);
 +
 +        Ok(Self {
-+            fmc_image,
-+            fmc_elf: fw,
++            chipset,
++            fmc_boot_params: Coherent::<GspFmcBootParams>::init(dev, GFP_KERNEL, init)?,
++            resume,
 +        })
 +    }
++
++    /// DMA address of the FMC boot parameters, needed after boot for lockdown
++    /// release polling.
++    #[expect(dead_code)]
++    pub(crate) fn boot_params_dma_handle(&self) -> u64 {
++        self.fmc_boot_params.dma_handle()
++    }
 +}
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 7dd736e5b190..b7341bde04be 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -137,6 +137,15 @@ pub(crate) const fn needs_fwsec_bootloader(self) -> bool {
-         matches!(self.arch(), Architecture::Turing) || matches!(self, Self::GA100)
++
+ /// FSP interface for Hopper/Blackwell GPUs.
+ ///
+ /// An `Fsp` is produced by [`Fsp::wait_secure_boot`], which only returns once FSP secure boot
+@@ -77,7 +155,6 @@ pub(crate) trait MessageToFsp: AsBytes {
+ /// Chain of Trust boot.
+ pub(crate) struct Fsp {
+     falcon: Falcon<FspEngine>,
+-    #[expect(dead_code)]
+     fsp_fw: FspFirmware,
+ }
+ 
+@@ -113,8 +190,65 @@ pub(crate) fn wait_secure_boot(
+         Ok(Fsp { falcon, fsp_fw })
      }
  
-+    /// Returns `true` if this chipset boots via FSP (Hopper and later), which requires the FMC
-+    /// firmware image.
-+    pub(crate) const fn uses_fsp(self) -> bool {
-+        matches!(
-+            self.arch(),
-+            Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x
-+        )
++    /// Boots GSP FMC via FSP Chain of Trust.
++    ///
++    /// Builds the CoT message from the pre-configured [`FmcBootArgs`], sends it
++    /// to FSP, and waits for the response.
++    pub(crate) fn boot_fmc(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        bar: &Bar0,
++        fb_layout: &FbLayout,
++        args: &FmcBootArgs,
++    ) -> Result {
++        dev_dbg!(dev, "Starting FSP boot sequence for {}\n", args.chipset);
++
++        let fmc_addr = self.fsp_fw.fmc_image.dma_handle();
++        let fmc_boot_params_addr = args.fmc_boot_params.dma_handle();
++
++        // frts_offset is relative to FB end: FRTS_location = FB_END - frts_offset
++        let frts_offset = if !args.resume {
++            let frts_reserved_size = fb_layout.heap.len() + u64::from(fb_layout.pmu_reserved_size);
++
++            frts_reserved_size
++                .align_up(Alignment::new::<SZ_2M>())
++                .ok_or(EINVAL)?
++        } else {
++            0
++        };
++        let frts_size: u32 = if !args.resume {
++            fb_layout.frts.len().try_into()?
++        } else {
++            0
++        };
++
++        let msg = KBox::new(
++            FspMessage {
++                mctp_header: MctpHeader::single_packet(),
++                nvdm_header: NvdmHeader::new(NvdmType::Cot),
++                cot: NvdmPayloadCot {
++                    version: hal::fsp_hal(args.chipset).ok_or(ENOTSUPP)?.cot_version(),
++                    size: u16::try_from(core::mem::size_of::<NvdmPayloadCot>())
++                        .map_err(|_| EINVAL)?,
++                    gsp_fmc_sysmem_offset: fmc_addr,
++                    frts_sysmem_offset: 0,
++                    frts_sysmem_size: 0,
++                    frts_vidmem_offset: frts_offset,
++                    frts_vidmem_size: frts_size,
++                    sigs: *self.fsp_fw.fmc_sigs,
++                    gsp_boot_args_sysmem_offset: fmc_boot_params_addr,
++                },
++            },
++            GFP_KERNEL,
++        )?;
++
++        self.send_sync_fsp(dev, bar, &*msg)?;
++
++        dev_dbg!(dev, "FSP Chain of Trust completed successfully\n");
++        Ok(())
 +    }
 +
-     /// Returns the address range of the PCI config mirror space.
-     pub(crate) fn pci_config_mirror_range(self) -> Range<u32> {
-         hal::gpu_hal(self).pci_config_mirror_range()
+     /// Sends a message to FSP and waits for the response.
+-    #[expect(dead_code)]
+     fn send_sync_fsp<M>(&mut self, dev: &device::Device, bar: &Bar0, msg: &M) -> Result
+     where
+         M: MessageToFsp,
+diff --git a/drivers/gpu/nova-core/fsp/hal.rs b/drivers/gpu/nova-core/fsp/hal.rs
+index 8f9c031102e0..9b6c5a3bfb6b 100644
+--- a/drivers/gpu/nova-core/fsp/hal.rs
++++ b/drivers/gpu/nova-core/fsp/hal.rs
+@@ -18,7 +18,6 @@ pub(super) trait FspHal {
+     fn fsp_boot_status(&self, bar: &Bar0) -> u32;
+ 
+     /// Returns the FSP Chain of Trust protocol version this chipset advertises.
+-    #[expect(dead_code)]
+     fn cot_version(&self) -> u16;
+ }
+ 
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 1885cfa5cb38..69175ca3315c 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -25,6 +25,7 @@
+ mod sequencer;
+ 
+ pub(crate) use fw::{
++    GspFmcBootParams,
+     GspFwWprMeta,
+     LibosParams, //
+ };
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 0c54e8bf4bb3..558b37863f00 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -934,3 +934,67 @@ fn new(cmdq: &Cmdq) -> impl Init<Self> + '_ {
+         })
+     }
+ }
++
++#[repr(u32)]
++pub(crate) enum GspDmaTarget {
++    #[expect(dead_code)]
++    LocalFb = bindings::GSP_DMA_TARGET_GSP_DMA_TARGET_LOCAL_FB,
++    CoherentSystem = bindings::GSP_DMA_TARGET_GSP_DMA_TARGET_COHERENT_SYSTEM,
++    NoncoherentSystem = bindings::GSP_DMA_TARGET_GSP_DMA_TARGET_NONCOHERENT_SYSTEM,
++}
++
++type GspAcrBootGspRmParams = bindings::GSP_ACR_BOOT_GSP_RM_PARAMS;
++
++impl GspAcrBootGspRmParams {
++    fn new(target: GspDmaTarget, wpr_meta_addr: u64) -> impl Init<Self> {
++        #[allow(non_snake_case)]
++        let params = init!(Self {
++            target: target as u32,
++            gspRmDescSize: num::usize_into_u32::<{ size_of::<GspFwWprMeta>() }>(),
++            gspRmDescOffset: wpr_meta_addr,
++            bIsGspRmBoot: 1,
++            wprCarveoutOffset: 0,
++            wprCarveoutSize: 0,
++            __bindgen_padding_0: Default::default(),
++        });
++
++        params
++    }
++}
++
++type GspRmParams = bindings::GSP_RM_PARAMS;
++
++impl GspRmParams {
++    fn new(target: GspDmaTarget, libos_addr: u64) -> impl Init<Self> {
++        #[allow(non_snake_case)]
++        let params = init!(Self {
++            target: target as u32,
++            bootArgsOffset: libos_addr,
++            __bindgen_padding_0: Default::default(),
++        });
++
++        params
++    }
++}
++
++pub(crate) type GspFmcBootParams = bindings::GSP_FMC_BOOT_PARAMS;
++
++// SAFETY: Padding is explicit and will not contain uninitialized data.
++unsafe impl AsBytes for GspFmcBootParams {}
++// SAFETY: This struct only contains integer types for which all bit patterns are valid.
++unsafe impl FromBytes for GspFmcBootParams {}
++
++impl GspFmcBootParams {
++    pub(crate) fn new(wpr_meta_addr: u64, libos_addr: u64) -> impl Init<Self> {
++        #[allow(non_snake_case)]
++        let init = init!(Self {
++            // Blackwell FSP obtains WPR info from other sources, so
++            // wprCarveoutOffset and wprCarveoutSize are left zero.
++            bootGspRmParams <- GspAcrBootGspRmParams::new(GspDmaTarget::CoherentSystem, wpr_meta_addr),
++            gspRmParams <- GspRmParams::new(GspDmaTarget::NoncoherentSystem, libos_addr),
++            ..Zeroable::init_zeroed()
++        });
++
++        init
++    }
++}
+diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+index 1d592bd3f9ed..ea350f9b2cc4 100644
+--- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
++++ b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+@@ -883,6 +883,88 @@ fn default() -> Self {
+         }
+     }
+ }
++pub const GSP_DMA_TARGET_GSP_DMA_TARGET_LOCAL_FB: GSP_DMA_TARGET = 0;
++pub const GSP_DMA_TARGET_GSP_DMA_TARGET_COHERENT_SYSTEM: GSP_DMA_TARGET = 1;
++pub const GSP_DMA_TARGET_GSP_DMA_TARGET_NONCOHERENT_SYSTEM: GSP_DMA_TARGET = 2;
++pub const GSP_DMA_TARGET_GSP_DMA_TARGET_COUNT: GSP_DMA_TARGET = 3;
++pub type GSP_DMA_TARGET = ffi::c_uint;
++#[repr(C)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++pub struct GSP_FMC_INIT_PARAMS {
++    pub regkeys: u32_,
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct GSP_ACR_BOOT_GSP_RM_PARAMS {
++    pub target: GSP_DMA_TARGET,
++    pub gspRmDescSize: u32_,
++    pub gspRmDescOffset: u64_,
++    pub wprCarveoutOffset: u64_,
++    pub wprCarveoutSize: u32_,
++    pub bIsGspRmBoot: u8_,
++    pub __bindgen_padding_0: [u8; 3usize],
++}
++impl Default for GSP_ACR_BOOT_GSP_RM_PARAMS {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct GSP_RM_PARAMS {
++    pub target: GSP_DMA_TARGET,
++    pub __bindgen_padding_0: [u8; 4usize],
++    pub bootArgsOffset: u64_,
++}
++impl Default for GSP_RM_PARAMS {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct GSP_SPDM_PARAMS {
++    pub target: GSP_DMA_TARGET,
++    pub __bindgen_padding_0: [u8; 4usize],
++    pub payloadBufferOffset: u64_,
++    pub payloadBufferSize: u32_,
++    pub __bindgen_padding_1: [u8; 4usize],
++}
++impl Default for GSP_SPDM_PARAMS {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
++#[repr(C)]
++#[derive(Debug, Copy, Clone, MaybeZeroable)]
++pub struct GSP_FMC_BOOT_PARAMS {
++    pub initParams: GSP_FMC_INIT_PARAMS,
++    pub __bindgen_padding_0: [u8; 4usize],
++    pub bootGspRmParams: GSP_ACR_BOOT_GSP_RM_PARAMS,
++    pub gspRmParams: GSP_RM_PARAMS,
++    pub gspSpdmParams: GSP_SPDM_PARAMS,
++}
++impl Default for GSP_FMC_BOOT_PARAMS {
++    fn default() -> Self {
++        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
+ #[repr(C)]
+ #[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+ pub struct rpc_unloading_guest_driver_v1F_07 {
 diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-core/gsp/hal/gh100.rs
-index 9a4bb22578b3..9681f9a73e86 100644
+index b25970dd4561..f41f3fea15ff 100644
 --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
 +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
-@@ -16,6 +16,10 @@
-         Falcon, //
+@@ -20,7 +20,10 @@
+         fsp::FspFirmware,
+         FIRMWARE_VERSION, //
      },
-     fb::FbLayout,
-+    firmware::{
-+        fsp::FspFirmware,
-+        FIRMWARE_VERSION, //
+-    fsp::Fsp,
++    fsp::{
++        FmcBootArgs,
++        Fsp, //
 +    },
      gpu::Chipset,
      gsp::{
          boot::BootUnloadGuard,
-@@ -35,14 +39,16 @@ impl GspHal for Gh100 {
+@@ -39,17 +42,27 @@ impl GspHal for Gh100 {
+     /// the GSP boot internally - no manual GSP reset/boot is needed.
      fn boot<'a>(
          &self,
-         _gsp: &'a Gsp,
--        _dev: &'a device::Device<device::Bound>,
-+        dev: &'a device::Device<device::Bound>,
-         _bar: &'a Bar0,
--        _chipset: Chipset,
-+        chipset: Chipset,
-         _fb_layout: &FbLayout,
-         _wpr_meta: &Coherent<GspFwWprMeta>,
+-        _gsp: &'a Gsp,
++        gsp: &'a Gsp,
+         dev: &'a device::Device<device::Bound>,
+         bar: &'a Bar0,
+         chipset: Chipset,
+-        _fb_layout: &FbLayout,
+-        _wpr_meta: &Coherent<GspFwWprMeta>,
++        fb_layout: &FbLayout,
++        wpr_meta: &Coherent<GspFwWprMeta>,
          _gsp_falcon: &'a Falcon<GspEngine>,
          _sec2_falcon: &'a Falcon<Sec2>,
      ) -> Result<BootUnloadGuard<'a>> {
-+        let _fsp_fw = FspFirmware::new(dev, chipset, FIRMWARE_VERSION)?;
+         let fsp_fw = FspFirmware::new(dev, chipset, FIRMWARE_VERSION)?;
+-        let _fsp = Fsp::wait_secure_boot(dev, bar, chipset, fsp_fw)?;
++        let mut fsp = Fsp::wait_secure_boot(dev, bar, chipset, fsp_fw)?;
 +
++        let args = FmcBootArgs::new(
++            dev,
++            chipset,
++            wpr_meta.dma_handle(),
++            gsp.libos.dma_handle(),
++            false,
++        )?;
++
++        fsp.boot_fmc(dev, bar, fb_layout, &args)?;
+ 
          Err(ENOTSUPP)
      }
- }
+diff --git a/drivers/gpu/nova-core/mctp.rs b/drivers/gpu/nova-core/mctp.rs
+index a13146dc0cca..be3e757d05a0 100644
+--- a/drivers/gpu/nova-core/mctp.rs
++++ b/drivers/gpu/nova-core/mctp.rs
+@@ -7,8 +7,6 @@
+ //! Device Management) messages between the kernel driver and GPU firmware
+ //! processors such as FSP and GSP.
+ 
+-#![expect(dead_code)]
+-
+ use kernel::pci::Vendor;
+ 
+ /// NVDM message type identifiers carried over MCTP.
 -- 
 2.54.0
 
