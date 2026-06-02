@@ -1,168 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165D8215F42;
-	Tue,  2 Jun 2026 03:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26D1281530;
+	Tue,  2 Jun 2026 03:38:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780371348; cv=none; b=ftae6BmNZfdsnbbPVBOg6flZfOoyIqyuLqbQRGZi2i7L5j6y2ITheRlbt535FUL4YKAPM3RS4QuPe9YkZiOQNgN/voCMiNhdV6BC4jLRG8xuPU+BVKqS29PeRy9hp6FZ0qMwCwa67G7MSH3Lq28+PMWlgM6qA37m1Zz6TTlkqFY=
+	t=1780371505; cv=none; b=bY2Bw1PEHXKEAsWBHBor+F3CBUkTKFkQ4mxTTzaVMqx62xPI4ok+kLuklZ2+KQkiJ28n+r9onJqal5/a2T9FwoGcbVIsyMs48ErhCuNm339tzWWo+yfzJafVxIAE/2mAjHqsfw7lFPntoj96GBNVnOVQijs4qqZfgWmf++TO+QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780371348; c=relaxed/simple;
-	bh=xM2NJ8L8qxwWOw24vmapc1HI8lekTdMkTrTgsdocu7M=;
+	s=arc-20240116; t=1780371505; c=relaxed/simple;
+	bh=keje1P0eYYnvib/HJdS3P/y7YRWGnDWeP0lfsYqFlXc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uXZMdeunVfnDhaH4++nK0/0gggTvT0+kXf1eobdEMIzB4mASBmdauu5tpK6pmRqSvRkHwVfPP4xoJP7WLJWEip5ok6iQ+amXrQam6VNg6KMQifFifm3JVvbSvjhHh7ZyMJXeirAilCa6XGWMOoFNhQrona2ZH34MdSPR9aJYinQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1Pp9QQx; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=A7iJgZ2Cn3SwFV41sAkW9k5TRduIaqKwDuBA83CCR+GLRGqwUaVNjDzCnBN66sJJaZ4+plzf6laB/bnT7xk6EJ5t4tUiY6ovWUWR12UbK62xpYJ+0ddbDTPbyjedYbt5WgmmzqDlu/zEt/VpKuLZBV6jCuew9/P8UXpfEP5cmpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JcSKCIpb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1Pp9QQx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989261F00893;
-	Tue,  2 Jun 2026 03:35:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JcSKCIpb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805C61F00893;
+	Tue,  2 Jun 2026 03:38:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780371346;
-	bh=JnPWzDXJ6J5JXVUFZ8dg6eypsytyQJ6Cf7Ig0NSSUYI=;
+	s=k20260515; t=1780371504;
+	bh=kp+s0iJEKjxYtAJ3VCq8omSB6oCNfJMVtd4vd/uH6w4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a1Pp9QQx26cXseWMpTOBo8PUiYqPFv65JEH7MVjlwTx7yVAwRCuOeF5+Voq5tGAsr
-	 sujr0oGJHmOodWC/jdUgTHqfoE7QRNyRC8zs6rhOaHniG3moBO/+uSt5y1NsWoMU1n
-	 W+z4m9rR/eVO1qwTrFCdT6jCkYhWmUCpHMXv994jAYoy9mGmiE+QnbQlott4j1ThOg
-	 N+d8JBex2LCFOmYHmYf7+UrYK8VkVc6ISkSvefwYVlqqX+IFJjXrd8bzVCABq8ldAW
-	 24waH/cohr0mVSpxERTXxJ85uisejDdUWHtelgLFS9b5ZNh4aknTFTfgKPvo39zY5T
-	 Ftuu/tM7cgHpw==
+	b=JcSKCIpbZmAOrQRAj6tb5zPumFahNvBk+HmRDJivF92xmoFyQciD3ZQ+OVOxlCun2
+	 GqJAsR67bEprDWeexCTmDJTNSjfJbuProrFyUcwhO8A5SXIGv2ww5wLcL2oCi3gv/+
+	 pWsBft1N6FNOAqzf/D9F6Fz5Nw/sepuGEZkBITIUt3/yhmGa/nub497amebo5B89Gb
+	 qqlrNgiu+D7+AIMNiGV07D+NiLWoRLR1NwDMT2zcqbcp/CBAG5jgswMSQ7PZjd5aQg
+	 1zF3KjYUxheUBHbxOPDmixeREcKySZzcBJ5S0JoMTae9GZOk1qKQWUdoSihEoS5b7G
+	 HiHTFoRrAJcWQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 17/22] gpu: nova-core: Hopper/Blackwell: add FSP
- send/receive messaging
+Subject: Re: [PATCH v12 22/22] gpu: nova-core: gsp: enable FSP boot path
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "John
- Hubbard" <jhubbard@nvidia.com>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, =?utf-8?b?QmrDtnJuIFJveSBCYXJvbg==?= <bjorn3_gh@protonmail.com>, "Gary
- Guo" <gary@garyguo.net>, "Trevor Gross" <tmgross@umich.edu>, nova-gpu@lists.linux.dev, "John
- Hubbard" <jhubbard@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Shashank
- Sharma" <shashanks@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Benno
- Lossin" <lossin@kernel.org>, LKML <linux-kernel@vger.kernel.org>, "Boqun
- Feng" <boqun.feng@gmail.com>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Andreas
- Hindborg" <a.hindborg@kernel.org>
-In-Reply-To: <20260602032111.224790-18-jhubbard@nvidia.com>
-References: <20260602032111.224790-18-jhubbard@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>, "Danilo
+ Krummrich" <dakr@kernel.org>
+Cc: "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "David
+ Airlie" <airlied@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Zhi Wang" <zhiw@nvidia.com>, "Miguel
+ Ojeda" <ojeda@kernel.org>, =?utf-8?b?QmrDtnJuIFJveSBCYXJvbg==?= <bjorn3_gh@protonmail.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Boqun
+ Feng" <boqun.feng@gmail.com>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Gary
+ Guo" <gary@garyguo.net>, "Timur Tabi" <ttabi@nvidia.com>, "Shashank Sharma" <shashanks@nvidia.com>, LKML <linux-kernel@vger.kernel.org>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, nova-gpu@lists.linux.dev, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno
+ Lossin" <lossin@kernel.org>
+In-Reply-To: <20260602032111.224790-23-jhubbard@nvidia.com>
+References: <20260602032111.224790-23-jhubbard@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 03:35:45 +0000
-Message-Id: <20260602033545.989261F00893@smtp.kernel.org>
+Date: Tue, 02 Jun 2026 03:38:23 +0000
+Message-Id: <20260602033823.805C61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Unbounded kernel memory allocation based on untrusted hardware inp=
-ut.
-- [High] FSP message synchronization ignores `task_id` and mishandles timeo=
-uts, leading to permanent message desynchronization.
-- [Medium] FSP protocol structures use native integer types and are directl=
-y transmuted from byte streams, breaking big-endian compatibility.
+
+Pre-existing issues:
+- [Critical] DMA Use-After-Free during GSP boot failure path due to reverse=
+ drop order.
+- [High] Unconditional boot failure due to invalid error check in `wait_for=
+_gsp_lockdown_release`.
 --
 
-commit 4be2156ade2cecdc1c8a1f092241ae18c134074e
-Author: John Hubbard <jhubbard@nvidia.com>
+commit c4510072c2995001dbf13cc4a2db6eb978b85b10
+Author: Alexandre Courbot <acourbot@nvidia.com>
 
-gpu: nova-core: Hopper/Blackwell: add FSP send/receive messaging
+gpu: nova-core: gsp: enable FSP boot path
 
-This commit introduces the synchronous send-and-wait path for FSP messaging
-in the nova-core driver. It defines FSP protocol structures and a
-send_sync_fsp method to exchange messages with the FSP hardware.
+This patch enables the FSP boot path so Hopper and Blackwell devices can
+boot. It accomplishes this by removing the hardcoded ENOTSUPP return code
+and returning the boot unload guard instead.
 
-> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-> index f3524137d9f78..67cf83aba83c6 100644
-> --- a/drivers/gpu/nova-core/fsp.rs
-> +++ b/drivers/gpu/nova-core/fsp.rs
+> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-co=
+re/gsp/hal/gh100.rs
+> index d372ae85c5bc7..93d8a72fe9303 100644
+> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> @@ -166,7 +166,7 @@ fn boot<'a>(
+>          );
+> =20
+>          // Wrap the unload bundle into a drop guard so it is automatical=
+ly run upon failure.
+> -        let _unload_guard =3D
+> +        let unload_guard =3D
+>              BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon,=
+ Some(unload_bundle));
 
-[ ... ]
+[Severity: Critical]
+This is a pre-existing issue, but does this declaration order cause a DMA
+use-after-free if the boot path fails?
 
-> @@ -22,18 +26,56 @@
+In Rust, local variables are dropped in the reverse order of their declarat=
+ion.
+Here in Gh100::boot(), unload_guard is declared before args (which contains
+FmcBootArgs and its DMA-coherent allocations).
 
-[ ... ]
+If wait_for_gsp_lockdown_release() returns an error, args is dropped first,
+freeing and unmapping the DMA memory while the GSP RISC-V is still running.
+unload_guard is dropped afterward to execute teardown.
 
-> +/// FSP command response payload (NVDM_PAYLOAD_COMMAND_RESPONSE).
-> +#[repr(C, packed)]
-> +#[derive(Clone, Copy)]
-> +struct NvdmPayloadCommandResponse {
-> +    task_id: u32,
-> +    command_nvdm_type: u32,
-> +    error_code: u32,
-> +}
+Since FspUnloadBundle::run() only polls for the GSP to halt without issuing=
+ an
+explicit hardware reset if it is stuck:
 
-[Severity: Medium]
-Will this structure parse values incorrectly on big-endian architectures?
+drivers/gpu/nova-core/gsp/hal/gh100.rs:FspUnloadBundle::run() {
+    read_poll_timeout(
+        || Ok(gsp_falcon.is_riscv_active(bar)),
+        |&active| !active,
+        Delta::from_millis(10),
+        Delta::from_secs(5),
+    )
+...
+}
 
-The FSP hardware writes responses in a fixed endianness (little-endian), but
-this uses native u32 types. When FspResponse::from_bytes_prefix transmutes
-the byte stream, it could result in corrupted values and spurious validation
-failures like command_nvdm_type !=3D M::NVDM_TYPE on big-endian systems.
+Could this leave the GSP running indefinitely and capable of reading or wri=
+ting
+to the freed DMA memory?
 
-Should these use explicit little-endian types instead?
-
-[ ... ]
-
-> @@ -70,4 +112,79 @@ pub(crate) fn wait_secure_boot(
-
-[ ... ]
-
-> +    fn send_sync_fsp<M>(&mut self, dev: &device::Device, bar: &Bar0, msg=
-: &M) -> Result
-> +    where
-> +        M: MessageToFsp,
-> +    {
-
-[ ... ]
-
-> +        let packet_size =3D num::u32_as_usize(packet_size);
-> +        let mut response_buf =3D KVec::<u8>::new();
-> +        response_buf.resize(packet_size, 0, GFP_KERNEL)?;
-
-[Severity: High]
-Could this trigger an unbounded kernel memory allocation?
-
-The packet_size is derived from poll_msgq(), which calculates the size
-based on MMIO reads of the FSP queue head and tail pointers. If an errant
-or compromised FSP firmware returns a large value, passing this unvalidated
-size directly to resize() with GFP_KERNEL could trigger the OOM killer or
-cause severe system stutter.
-
-Should this size be clamped to a hardware-defined maximum, such as the
-FSP EMEM capacity, before allocation?
-
-[ ... ]
-
-> +        if command_nvdm_type !=3D M::NVDM_TYPE {
-> +            dev_err!(
-> +                dev,
-> +                "Expected NVDM type {:#x} in reply, got {:#x}\n",
-> +                M::NVDM_TYPE,
-> +                command_nvdm_type
-> +            );
-> +            return Err(EIO);
-> +        }
+> =20
+>          let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset, fsp_fw)=
+?;
+> @@ -184,7 +184,7 @@ fn boot<'a>(
+>          let fmc_boot_params_addr =3D args.boot_params_dma_handle();
+>          wait_for_gsp_lockdown_release(dev, bar, gsp_falcon, fmc_boot_par=
+ams_addr)?;
 
 [Severity: High]
-Does this validation logic leave the driver vulnerable to message
-desynchronization after a timeout?
+This isn't a bug introduced by this patch, but will this function unconditi=
+onally
+return an error for a successful boot sequence?
 
-If send_sync_fsp times out waiting for a response, it returns ETIMEDOUT
-without draining the message queue. If the FSP firmware completes the
-request later, its response remains at the queue's tail.
+In wait_for_gsp_lockdown_release(), read_poll_timeout() waits for the lockd=
+own
+to be released. The lockdown_released() function correctly handles the vali=
+d state
+where mbox.mbox0 contains the lower 32 bits of fmc_boot_params_addr:
 
-A subsequent call to send_sync_fsp will immediately read this delayed
-response. Because this validation only checks command_nvdm_type and
-ignores the task_id (sequence number), the driver might incorrectly accept
-the stale response as the reply to the new request if they share the same
-NVDM type.
+drivers/gpu/nova-core/gsp/hal/gh100.rs:lockdown_released() {
+    if self.mbox0 !=3D 0 && self.combined_addr() !=3D fmc_boot_params_addr {
+        return true;
+    }
+...
+}
 
-Should the validation also check task_id against the sent request to
-reject stale responses?
+However, wait_for_gsp_lockdown_release() blindly evaluates mbox0 !=3D 0 aft=
+er
+polling:
+
+drivers/gpu/nova-core/gsp/hal/gh100.rs:wait_for_gsp_lockdown_release() {
+...
+    if mbox.mbox0 !=3D 0 {
+        dev_err!(dev, "GSP-FMC boot failed (mbox: {:#x})\n", mbox.mbox0);
+        return Err(EIO);
+    }
+...
+}
+
+Since fmc_boot_params_addr is a DMA address, won't its lower 32 bits almost
+certainly be non-zero, causing this newly enabled boot path to immediately =
+fail?
+
+> =20
+> -        Err(ENOTSUPP)
+> +        Ok(unload_guard)
+>      }
+>  }
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602032111.2247=
-90-1-jhubbard@nvidia.com?part=3D17
+90-1-jhubbard@nvidia.com?part=3D22
