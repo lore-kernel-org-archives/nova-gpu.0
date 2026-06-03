@@ -1,72 +1,70 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013024.outbound.protection.outlook.com [40.107.201.24])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022118.outbound.protection.outlook.com [52.101.101.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090EC3B6363
-	for <nova-gpu@lists.linux.dev>; Wed,  3 Jun 2026 11:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7872397AEF;
+	Wed,  3 Jun 2026 11:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.118
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780484681; cv=fail; b=bccvTk5EZg/0K1qW+dZn7/zLOIrNTQZWIiukbj8S+vXjgiJv2eFlGXjgcKqQ3GvVLcVnZ5wC9KtNSaW6pHGZyiaoPuNkNREnoKufpxZlYe1YPULzAHrBHde9F0cs5oDPMf5DGU9K/WL3Nekj5UbiUy1FSwkmkevVPYW/vBwOxjg=
+	t=1780487237; cv=fail; b=L7S2PIkOUG/DDekhP0OPCm9SLx2Zi1u5NFf3FadjHyjihVzmUgRq3kYJ5668IpFhdbdxeA1NFetGZGH6sBdnW+X9x7Hi4uP0j6Lk2DxEcvth24Jdgim3K63ZzL2ZSrK6GZpE9EM0D4NwlBfRVSXL5+dBvtUMG3d+jwuWSgn2Mig=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780484681; c=relaxed/simple;
-	bh=vCTzeVCueVQat3aXTSDH32b5RAKTyERMUIq7yLsEIGA=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=gBz+vCMJrD8bO0p4gByT9qI51PwCPZEqgjb7mDQ6nSFOLUBWmQhqGWa9rYVJpJ7RoaFo2VG/KA9JIM54R+dJhdB/7en5npQegI9TpjAz5JJ7jQyqKomV7MrnYBOeZdBa6s/4Z9yDICNkqCFlAp2vyQVV/s9YDV20Wnu3/1rZo8w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PUJAUs7H; arc=fail smtp.client-ip=40.107.201.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1780487237; c=relaxed/simple;
+	bh=LUh3n7DhLfmjthOjP5Z0LQLMEtSHWEr8FK7BZqdFtp0=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=AuRFtnyAp3gnc3GO3PosO3vx1jZrEOs4rtJ1Z6mrcjzX9Ye0MCK/SaUhUDgb+sm+S87pCWbjB6OhCO5yRzCZoeLmqM8jNZuHs2ke2nPaGBjOM9nLd20LIAwWM6NYfmwASyBfmA+p6tgbBujDHvH7ycI3b4MnzOwVRKjrExqMJiw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=kUne+tCS; arc=fail smtp.client-ip=52.101.101.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PUJAUs7H"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="kUne+tCS"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jbxkY/zbR2GBFt5o7jpIi33zNjZ98uGZbCSMa8REzqboHdiV9sA4ibCMT1KLx3OS2665T7g7oQ6SjJ97dA+c2cz7slswIah89khN75RIRVRSdjWNcF4ozDCiaw7gJZ0dwW6gG8E1AbuRiIMeEb2SPzbNbg8c15p4dZXNVPPFKSPpOuDFMG/Q/akx9iB03KO5iBGSLCGwY0Q7Z0QkLCd9xR4i64gRpF8uKIb5m4tpULBbml+TOt7ZR98nLyfID8aqvSr9ueSZ1IPDbCX/T3BOZsvH6CS1gCa7Sh+DJsfM8jkZb4a5BOEmPymbp0nTamgJi8UERpHaTgDvmgGPzb9AUA==
+ b=vvTN2fhUY+Bhu8sGdo+vlRDSRfFjWtbsptPD4r+nMQDT36uXKuM2NVaWTBqsmGjeC2m5mGzYxMXp0PsSrNBFGN1Mst084mnVEvLG0GoVVL6YKANYMjLO1Hz1zsj+NUdOi7JhzXXxOsjZQIG5GTKz75sayW4pNwzfsYrPk+A54YmcjGXJHOmlRszESSG92F4tfvavZBVXcZU3NpkHDtgmbNZgC7bBhE++kog0E8YfJWhIg0qN7TeXDIT8JJA8MvUUgtdTRltpsdhB8prPbm6bzoUKH6yrMsND4yCZN/HX0Q/xRBGTV/T21Sqi2TlvaftjnD3Jhy4yk8cNn3MoVT3WwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vCTzeVCueVQat3aXTSDH32b5RAKTyERMUIq7yLsEIGA=;
- b=e5X1jJaCVjXqVoXvalJMp4l9pgBLG0Zk6lwLxzzbMa+C9eh9CFumloECeQgIDrDfA34H5lLyWHyH977maGLMRyeFy1miIj5QHFDSEVZ8yoRTo0yO7zKg33PvaKR3WPhLJXtBXzb8QnUIV9pXO3ZQ6tzI+CmcZWH/41ir5OlLMVzttb/ZzlTd8SDZ3Wjdmum8rJt9Qe31C65uNU7sDGnRaxlcDUrpeSVe2+6RM1+k9ZkQZlv0zVbvAcxY2JmK1YTy3p3EKQ4euz1o465RfAo89xX/AmM4FA9v0m/AjUMyr19T3DFxZI2DDE/zV18iCDctp3S4E9jZEIaVf4xmXFimKg==
+ bh=dWk+MeasLwTLrk9XZ2rV6taZGrqC/ozxMb5zhhLA4Kk=;
+ b=kkpTXu1Biay4Z2sls4+1006Ty4pstUFOQG3UldjoeGrP8A3WDtzBP3igVu7JNRd5UUFDVlkod/fO1Q8ZVrFStfG9F37RbEbI9GlVfoeIWB38VZAYePQvK1YXvPThpx1GVPsU7pfzvP8g6JS0582Q3VapBSsqsW1zvcryjpMq05yBUcZDbxCVYzUxtEJQa+VnM0aUZI8N8PZjairsXYbUX5tgChxW+9Q5I94Xjpuazkhlo/XNmM0Xy7XtQP3T3ku/pkn/NdBhfSdKTIInvrHzUI+poL1t4ygvlzR24AWjRsm00qp0BlZ2yiN8vc6mZjJP1BW+LfF8/E9GjOz7TSWpaA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vCTzeVCueVQat3aXTSDH32b5RAKTyERMUIq7yLsEIGA=;
- b=PUJAUs7H+fna2jCReODzLeRanV9f0Z6g8yk8abfDS6pPlyFYcjimt71d4fCcpx98lIfi7USvXBtfQ6MHaZ2LE3ySc+OOE7qSimoIteifZ5zhFWRxSgnO2iI8YnmhQW/UvaIMJHvp8rf4slKVCC2eT1LgaRd4TWTR5H85isrGBiwVTJ40AOtxMf4PTZJP52oomeJ2BtcsFhZrh+8fkXSkoPnPMDkpqsi7lpTSQUv24ICgFAd8VJJOheTSul3VFxfSWoXjOy7i+zW6dz4YgIs9cJJiLsC/S624/Z/+onnnVpsnqn/Wgs00Qkqk8wwKay9cWOIziPsBMdREaDTmB6OFmA==
+ bh=dWk+MeasLwTLrk9XZ2rV6taZGrqC/ozxMb5zhhLA4Kk=;
+ b=kUne+tCSENbzGFhODtjEpr1xUThs29Bb6mPhUDHNFx5RveWriRC5WIz3sa5izzAJKezi8uoehUXdzEZPjXMYIq34y+pfoZtdDHrd1HPHSjcDPQGX2J7h7XM0B37rj37t/C7Qr1diptvwA6H43Cur/8NBiXQwMkB5K3tSWgCPpxE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by IA1PR12MB6652.namprd12.prod.outlook.com (2603:10b6:208:38a::10) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWXP265MB2695.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:88::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Wed, 3 Jun 2026
- 11:04:32 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 11:04:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 11:47:11 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 11:47:11 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 03 Jun 2026 20:04:26 +0900
-Message-Id: <DIZD5024DWWS.2YQP7Z8FOEURI@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Shashank Sharma"
- <shashanks@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>, "Boqun Feng" <boqun@kernel.org>
-Subject: Re: [PATCH v13 9/9] gpu: nova-core: gsp: enable FSP boot path
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260603-b4-blackwell-v13-0-d9f3a06939e0@nvidia.com>
- <20260603-b4-blackwell-v13-9-d9f3a06939e0@nvidia.com>
-In-Reply-To: <20260603-b4-blackwell-v13-9-d9f3a06939e0@nvidia.com>
-X-ClientProxiedBy: DB8PR04CA0029.eurprd04.prod.outlook.com
- (2603:10a6:10:110::39) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Date: Wed, 03 Jun 2026 12:47:10 +0100
+Message-Id: <DIZE1Q1S6P12.1CR1VVBK2CN64@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
+ <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
+ <ecourtney@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 2/7] rust: drm: Add UnbindGuard for
+ drm_dev_enter/exit critical sections
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260603011711.2077361-1-dakr@kernel.org>
+ <20260603011711.2077361-3-dakr@kernel.org>
+In-Reply-To: <20260603011711.2077361-3-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0104.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -74,76 +72,255 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA1PR12MB6652:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8c11b7b-d719-48f1-3af5-08dec15fe3c9
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2695:EE_
+X-MS-Office365-Filtering-Correlation-Id: 087250ce-e5dd-4339-f78b-08dec165d95c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|376014|7416014|22082099003|18002099003|56012099006|11063799006|4143699003;
+	BCL:0;ARA:13230040|10070799003|366016|376014|1800799024|7416014|921020|6133799003|22082099003|4143699003|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	ojaByL1hi/Hc+kiFPE699Cu/CkE+0CMgp4Kd+p+7THyVvpWCtuWQmwNHolhx4hzY+G+AaVUFy1hfSjP5w6TnCdFKMHWeotV+qNoC0hTbH16IH+iTggEukYdFQ0Hbq1YBKI3LBIJdjESjHeCh9/nKPkvN5thAwqU3LPtUXy2MCYykQrDvqOKqMGe1Wjsn2xE1OrCYsPCmCOyGfZ58f32BbU0+jUEUIJ2CgUAzy1n02bnwidJO22YuW1IEkXpt3FZOXwjCPrDu9emiGWhXNG6dN2slkYUNYuuKSvBUCZlX3EcoHAVXr+gZ0zcxCJ6CIHUxqQUWM/flnIKn2Ae9Jsw4YKRWBn+D7fRUVBTAlUh8Kwlp6R8LiPGyrjQnxd6RxTMu1Nq5Ex/N0XGWY8JSWkmoRKeUd58+Mi0rebPTiM/n0dfW9mLMlsQhrN2bGjRvP1VoSKMM7v8I0OHnJE9TqTP53Y8jXiMdlG87Av6ScjocxXJ3QxXMNsdlobZIo50P2fZ7HvfviFXWi0vos4tjodI70feSsrqCwfWXvFHJikBCkX9UHXejgr6Klk826+GQb6/GqLntMTFLJICIinr0dgQJ0uyTniCA9Hd8HQ2NQzF2bUsLMNZ+9D/6fgluFsWr5Q3UZnie1kbSMkya4lfmOkQTi4PSNw9u/cKXSDTdSj9223AezEPJyQhf0pfhtQt0+nJL
+	ZzGTDKPq+DpvEtVMAfrY8nlmXQ6HMsRyljfjhbVU0q6z5NuiAbmlEj3Iv5UkMP06dD3IXIwURdVkz3ia2EHD7yXXeUL6bzQQN+Jyva1CK0J/Miblf7g5qQ3jyTvFo5wegd9UInmTWcpXBY1Zy3leXnKIvP1L74qko4TuqP1W+elhI9F70hLYe4vXEwKnzzVB/K3jXpclWQx0ejpqvjzwNYzPRp+FzYdq4dOxVKJTyDIeh9fa/NeELvzHRYUqz2/XoDshmqr5E0oIjqAzjZdHZZWUHi0vjW6a+LDFlmF0P+jumN7DJBUlpn/XTnmT791Jc0o8YpioudAZjT8EATPBljzLJPo1HXJ6vMcID2icsC5cHW5N8XQABwgm8M5mNq6rbOJysEgvRVxpe02AefoSNmT53qF9RmPAs21uB0MdKiFVebN7KeSDMXYY8AYZGuBA3j6Bi0UATrW6I7c/HAhllK7F4HUZGPk5oOKEa9dDvYoyYUOtMHhmSoYfyKRWMiTzl6DSBU7blN78u1wWG9m4DjVM5l7eo8BwnAWXjI60MzXG3qY5tH1640V4OBzqFv/FFqIEnFZCTj+hxWAr8qh6AH7VYfPiz8/IquxKQDWTEtDe0NpAcAr9Nd80gudJlzMbpUOVd5xl1hs81j6Q7JGXzulug0kSEQIaZQQso8bUsXFIwKV2RWdx/hM6zJmPO8gn3hjrF7SCf81nAOcc1m8edB9wf0yxYRH9WYVo2RdgunQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(7416014)(921020)(6133799003)(22082099003)(4143699003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WkR4a1BkQXB4NjJPOUhudHZ4K0dmUzhUaE5sMnFJb3QxRCtqSy9WQ2JRR2U2?=
- =?utf-8?B?b1VPVDN0Rm9iQ3JvM2hVM2t5ZW1Wd1hHeFlZRGFBMjdMMEJqMFd1QUdQbzl3?=
- =?utf-8?B?YlYxZlNzeHR2emV2a3BYakUzNEJUSE91MDNOYkNEcjNTSXVmK1IwN0hROWM4?=
- =?utf-8?B?SENtd0V6c1FnRFJwNFdncDFEMXBRaHptZFVJalhFWkdxUHVuZXVsT0c5cWN1?=
- =?utf-8?B?RERIS3dPcFNucnlsZmprSDBENk5RZmN5NjllbUdVVmwydWZ0MnBjSkFDSUp6?=
- =?utf-8?B?blBIUmhxekg1MG5hS1Y1TG8rMTk2L1AxMDdxSUVIb1AwUTRVZ0VDUVQ0TlFZ?=
- =?utf-8?B?TnRUKzk4TzkwemJ1RjVxdUw3bGVXUGkrbGIreHNDeWR2Wm9FVFZhYzJ2bGtw?=
- =?utf-8?B?c1p1eU1rc0Fadi9SSFUrM2JTMk14c1BaSjU3alRqSE5sYmZ1RVJOaVhDTll2?=
- =?utf-8?B?S1c1bzNPQlRBTjVlZXdxZjZtT09nQXFjWDVKV3BjdUVPbjVjVUVtSEdrQWxw?=
- =?utf-8?B?K1U1SkhMek91YlhwR0hlcnNPNGd4dk1UN096QVU3VURFbXRhVU1ZT1J3UUVl?=
- =?utf-8?B?N0ZIdXVhZmZnQ0dxcWxhc1RHSUY1SlExY3grT3lUTVhuOGZsOU5vS3dXYTB0?=
- =?utf-8?B?dEh4dmZCeEpCTHNIamhRc0NZNE5Kd2hXZklGdzhLaE9ublNTUGNBSzhTR3VZ?=
- =?utf-8?B?V1pBUlJJM3puUXUzWEw5dGxvSlA1L0RBMnhoNG9TS1pVMzNsdlB2UmdnWEtw?=
- =?utf-8?B?dWw5bk9iQXNsVVh1cUkrSW5BL2ZRZXJyaGZhQjBURVpUekpkTXI1TVAxTmtk?=
- =?utf-8?B?T2lEcEFsZm0wZi9JZVJCNGlYYk9WNHhZQVoySGtFcnNuS1VWbzRTaHVmOURh?=
- =?utf-8?B?cnh0TlhpeXhOa2FHd2pZRHoveEEvb3hjZVI1OFFqWHZGcTkwNFAySGE3cll0?=
- =?utf-8?B?VDQ0MnBBcG00R1h4K3RSZFYzT2dOTWlqYlhlaWlkMkRhM3ZjdWFDWVAveko3?=
- =?utf-8?B?K1BNRmhkOEFxUjUyNDVFVTlkV3lXcGhYQ2dYNEpRNm5uVXh6d1NrU0VFL1Ir?=
- =?utf-8?B?R3pPOHdBRmwzQ1ZaS1kyaTNjZWc3MEwrcXJPN09zQnQvNkxQN0RaL3JLbUtt?=
- =?utf-8?B?QTJWODFSN3JpSDlwelRjTGZ1TjJReHR4WkswRlZFVitGdUl5TGMvWnByMkt2?=
- =?utf-8?B?Q1UxTTdLTUNzZnRnNllhK0dFY0paZE9kaG5YWE9tR0NuMGhvMXdwYXBYNHJk?=
- =?utf-8?B?dVk0SWNVWFA5TEhGN3B0NVQ3cE1aSm9jT2lUeFlxSnd4RUxqWGlNR1d2dnFD?=
- =?utf-8?B?UEgxWTdBTEhsc1JjRzB0b21JVFZqWFBKTW1XUGZTMUdlTkFQay8wK1RocUJa?=
- =?utf-8?B?ZEpHdHprYmJzc1J6UEwvMDBJdHovWnlaOTRkbWMxcXRaQVV5OVNuc3o4c0dQ?=
- =?utf-8?B?NUxKNDNmVkpuaGVONzF6V1JpMjdoeTlMWldLNUk5Y0o5QlRaeGVoSGtHNlVa?=
- =?utf-8?B?aEJwcXViRUdEZUE4ZHlnZzcvTWhaS2lBMVdrQWlkbTlvbjVzMjk4VVI0OGdB?=
- =?utf-8?B?bmVVMUM3WWZLT3llaW42UzI5Z1g3UmFQd1FMYjhpV3ZxZEtqVWM1a3dwOTg5?=
- =?utf-8?B?eWpxdXhTTEZlUlFsZGZ1bG1VempnczRQRFFuU0hHQ0xsSHlSZHRsaGlOd1ZX?=
- =?utf-8?B?aHQ0S0xhT3JOWjdvYjZOQnFucU5wbzVxU2FodTBWRmlWRHhIcWgwOEVwR2Yx?=
- =?utf-8?B?Z3pBd2MyNDEydWtrMy9LSUVwSENPKzNqSVhISUxoYmdRVWErNnNUeXJKZTVh?=
- =?utf-8?B?UnJjbTNrZWVXZG9EQzlyR2toOGdvdUk5K2NMNzYrWWIwK09OM2gwc3o3NzdG?=
- =?utf-8?B?bnp6cUdPL3lkR2dUY01BUEFRelQ0RnhWLy9ZcDF3UDVUK2RreGhhK1ZlNDJt?=
- =?utf-8?B?aXQ3U0puKyswSWpNanNWSHZFams4d3JyYUUrenNwRUFIUUNCcEpPS1hRc2pV?=
- =?utf-8?B?Z3VXcWNZUWZaZGJGcElNV1ZHbnpHOEMrVDVUMlVJMHlvMDFqcTJoUVJXTHA3?=
- =?utf-8?B?UUtXY3BNOEJ2WkZtL3JxU2RNRVYxN3pOTFE1TGVnU3AzZnArVDBpZ3NsSmtR?=
- =?utf-8?B?akNsdCt3MXUvblRWeFE1NHh6aUlqOXlqN3gzRFlSckNRcmpid0I3WUE1Z0wx?=
- =?utf-8?B?YjcvQWFyRmU2U0J2YnMyeURjQ01qMXZPcVY3MjQvQU51ZkdOK2pDVXArQWpU?=
- =?utf-8?B?b204M0J2MHdsZHpGQkhydkNzWTBZV2lyQVZGak94SjFhei83VmhEb05TQnc0?=
- =?utf-8?B?dngxUDUwVU02TmVNNEh2bko4ZWxBQzFpN2d0OGJmeHZybXVWSyszbVRra1dV?=
- =?utf-8?Q?mxmz8vmyrCSE2QrTdHnILi+oLZMqdgqV8Umojpl3Yu+WG?=
-X-MS-Exchange-AntiSpam-MessageData-1: fiqLhhBh+qS/zw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8c11b7b-d719-48f1-3af5-08dec15fe3c9
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+	=?utf-8?B?ZHo1SFp1R1JZTGJpUnJyNEhscHZXZnNxUi93U3JqYnNYcFI4MHRUVmZyT05B?=
+ =?utf-8?B?UmtBbFBJQ3BkdUgyN3o5ZE5VWjlWMEJ1QWVwOFpod3VvTWp6WEUreGpyTm9C?=
+ =?utf-8?B?STBGUTJ4SjV4WnhCNEY1Yzg5UndycFRLTVJlT2hQOFFFT04vMnlseXNaU0Vo?=
+ =?utf-8?B?SkNaT0NmQ1NtMlpGbWZNRFdKVjgwSys0M1o2LytlUlg2YjZocStPNjlLUnM1?=
+ =?utf-8?B?V1cvUkI1SlViaUE3U3U4dzdOWkVwdDU1eS9memorS2FWSnNOSFV4TTlJZXE0?=
+ =?utf-8?B?dkVtSUR3ZjUyMjhpbkVxWnFsRkFrYytVWHVSYVBGZzIrMjQ5R3pnY0lnc1oy?=
+ =?utf-8?B?eTZFaUpQTVpWYkNxd2FNb3FqZ0JsVXhGb1JMZzRYUC9rNzVoVktoM3lwYS84?=
+ =?utf-8?B?TE8xWXY0ZGE5OURJMWxoNWUvL3VwTmxDY3ZSbmJDNFhmTjliN2JCOFQ3elpo?=
+ =?utf-8?B?dkVyNmIyS2F4eGJxcFlZWkpqNHYwTEJPcWhvT3h4NWVhbWxtYzBKeXBua3RG?=
+ =?utf-8?B?aHhzZ1NKQXk5ekxMbHQ2VUJtR2krNkJNcGtTR1M5ejArVlZidW93alA4Mks4?=
+ =?utf-8?B?K1pnck91dDI4SWJ5VzlGSjd1azRLUHpqOHVRT2J0cUhjM1R6bUtGZ3VlK0cx?=
+ =?utf-8?B?dkNJNGZPSUlqZmZJNmF6R1pkczZkZE1vR3M0cDVRcHNyLzcwRyt6WlBTS0hX?=
+ =?utf-8?B?UW1zNjIrbUVQZ0YzWVk0cDFaMnlHbnZ2VjVBcEFSSGpVMDZqVlVBTUdRVTBt?=
+ =?utf-8?B?ZmlBbis1VFM3ZEpEdXpWZ2FqYVFJaFpSQ01GVkVJUmhJN2pDTE1yT01pOTIr?=
+ =?utf-8?B?VE15S1V4WER1dFRndHVndWxSczg1TFNjRWNjMEFQUzUzMGJKOWxhT3FiMDIr?=
+ =?utf-8?B?M21PR0Z0MEFrcUx5cmdrVUtCdXlITmpwL0FwTVF5STI5S2FYblI3Wk9RRTNu?=
+ =?utf-8?B?ODVUaFFqbnorbzlpdWRsMTdFTDBIL1VRVDNNNWdTeWJVZHZlNk40MlZxZ1o2?=
+ =?utf-8?B?VG01V25naitmc2VvcWVrd1NKaGxGbzhMZDlnUG1YNnc4THQ5blJDbitUbndM?=
+ =?utf-8?B?S1lVUWFTbkJiNjVKb015dHBPU1pWVU8xSmpxcXZDRm5aU0RIaXdPTmdEdVYz?=
+ =?utf-8?B?Nk5zV084NFVlc3Q2Ync1eU9TVG5JTkR1SGxxak1nOEpta2M2RlBtS2hlajE5?=
+ =?utf-8?B?VDhidHFNaXFPZFpGMmhOdlhjVGJrYnNyWGgrcXdDV0ZzUTdaK0N5dGhxWWNk?=
+ =?utf-8?B?VlVwWkNDTG9kZFZXVkhOMWsrUCtSd25ZM0Y3bUtkSnZMMVhpUUkyZ08wL2th?=
+ =?utf-8?B?cWp2WGZycTBOcGdZZjdvRmE0dGZlUGx2Sm00R3JZRnp6YTZNWWxRK2NVbWF6?=
+ =?utf-8?B?R3BSYnRUVmIraGpTUkU4dEtjZk9Qb3A0YTZTTVhtK3liQzFFTUhlS0N2cTdq?=
+ =?utf-8?B?Tkt5bTJCZXNVZEJyRk0wZ2h6SENTZ00vRytobTg4MEVjNy96RTdaMVhmVHNX?=
+ =?utf-8?B?QmZFYnVqdDRrbCtUSVd5dzc3Y1dBY1VrK2pDbUhFWm9zd3JzZDA3REdyQnRm?=
+ =?utf-8?B?ZWYyWGxUWGc5cGthODR4MG1GTnJNZXc3ZjE5K0tOcE51SVhHTkx2d0theFl0?=
+ =?utf-8?B?UTd6YWNub1dObExBcWQrZ0dhZk9MZGcwdzdYYVpUM2NLd3drUkFNNEtpT1hV?=
+ =?utf-8?B?ZW1pUkovOVcyOThyelg2cHRsZmN5S3JwZ1RVWmQxam4rTC9LV0k0ZjRvbnEx?=
+ =?utf-8?B?VzBKT1h0ZTZJcldyWDgwTlJDTyt3dTZ4bG5HVk9GZkZXNGM5YnV1ZXI1ZU5H?=
+ =?utf-8?B?cmthZ0V5a2ZoNDRDckoyMS92TVVGN0c2S3VnS0tkdUdHVUpUWGRNTUNqb1NJ?=
+ =?utf-8?B?V3NuZUREOUpNYk9OcnZSKzRZMmdRT1J2MTErV1pPUFBhSm1xWGxTL21ldDdY?=
+ =?utf-8?B?NVh0L2tic2RaOWNUSmEySXRMSHhOeEt4TlZlUW8ySlZFcy9lR0ZtcmVvL2Np?=
+ =?utf-8?B?cm9SVkh5TWZLdUJ2dmszZFVXZG5YM1d1TWJ4dDF6Y0dtVGJDbUFTWE9BN0Nl?=
+ =?utf-8?B?UW9WUmJWd1R3T2JQTFNJQ1R4ckJpelhQN3E4THN6TjlrK2JKbW1tVnM4SWZK?=
+ =?utf-8?B?V2hlRzllb3MyWXFmU1pkUG55WEJqSVVaaHU5Q012ZTQvN2o3U3Ruc2J6OUlE?=
+ =?utf-8?B?dkxDTzdLNHlYUngzZmlJMjNYa1hSSGl3TVNiT0FtaFZ4N3FWazNGcWpHUWNo?=
+ =?utf-8?B?Y2IzejNTRm1YbkN6a1dFQmsvQit0OGdIQzh1eFBIdCtXNDJ0T2NhT0xUdFpv?=
+ =?utf-8?B?MC8vZ2FyV2pXdW1XamNPZWFYOTBQdjQxRWtzdklNSWdFNDUxUXdYZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 087250ce-e5dd-4339-f78b-08dec165d95c
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 11:04:32.3477
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 11:47:11.6862
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r6vu8+qgx3LKvOXZqs3cEdWrGXz5QAHKjYSxlcggZHhTtnZQ3xZFjUgYdctgoY3nnZsUXDfspPqJPlkrmJ9H9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6652
+X-MS-Exchange-CrossTenant-UserPrincipalName: t2VkNd5T3w2qN9Bc+MgGTf5aLR9/Gi6pNsX/dOxldU6FojT6L/WXoht97tw4sJZTH3qooJwEfcIyz0lhImbBSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2695
 
-On Wed Jun 3, 2026 at 4:30 PM JST, Alexandre Courbot wrote:
-> Now that all the elements are in place, enable the FSP boot path so
-> Hopper and Blackwell can boot.
+On Wed Jun 3, 2026 at 2:15 AM BST, Danilo Krummrich wrote:
+> DRM ioctls do not guarantee that the parent bus device is still bound.
+> However, since DRM device registration is managed through Devres, using
+> drm_dev_unplug() on unregistration ensures that between drm_dev_enter()
+> and drm_dev_exit() the parent device must be bound.
 >
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+> Add UnbindGuard, a guard object representing a drm_dev_enter/exit SRCU
+> critical section that dereferences to &Device<Bound> of the parent bus
+> device. The guard is only available on Device<T, Registered>, ensuring
+> it cannot be used on unregistered devices.
+>
+> Also add with_unbind_guard() as a convenience helper that executes a
+> closure with the bound device reference.
+>
+> Switch Registration::drop from drm_dev_unregister() to drm_dev_unplug()
+> to provide the SRCU barrier that UnbindGuard's safety argument relies on.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+
+Conceptually the actual thing this is guarding against is not device unbind=
+ but
+DRM unregistration. Currently we force DRM registration to use
+`devres::register` so they're the same, but with patch 3 you're adding
+registration data and `Registration` is now something that lives in parent
+device's driver data.
+
+This also means that it is *possible* that a `Registration` is dropped befo=
+re
+device unbinding, so I think the `UnbindGuard` is not the best name for thi=
+s
+now, something like `UnregistrationGuard` reflect what it does more.
+
+Best,
+Gary
+
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  rust/kernel/drm/device.rs | 82 ++++++++++++++++++++++++++++++++++++++-
+>  rust/kernel/drm/driver.rs | 10 ++++-
+>  2 files changed, 89 insertions(+), 3 deletions(-)
+>
+> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> index 858272fc2164..828618ae19af 100644
+> --- a/rust/kernel/drm/device.rs
+> +++ b/rust/kernel/drm/device.rs
+> @@ -7,7 +7,10 @@
+>  use crate::{
+>      alloc::allocator::Kmalloc,
+>      bindings,
+> -    device,
+> +    device::{
+> +        self,
+> +        AsBusDevice as _, //
+> +    },
+>      drm::{
+>          self,
+>          driver::AllocImpl,
+> @@ -355,6 +358,83 @@ pub(crate) unsafe fn assume_ctx<NewCtx: DeviceContex=
+t>(&self) -> &Device<T, NewC
+>      }
+>  }
+> =20
+> +impl<T: drm::Driver> Device<T, Registered> {
+> +    /// Guard against the parent bus device being unbound.
+> +    ///
+> +    /// Returns an [`UnbindGuard`] if the device has not been unplugged,=
+ [`None`] otherwise.
+> +    ///
+> +    /// The returned guard dereferences to the parent bus device in the =
+[`device::Bound`] context
+> +    /// (see [`Driver::ParentDevice`](drm::Driver::ParentDevice)).
+> +    ///
+> +    /// While [`UnbindGuard`] is held the parent device is guaranteed to=
+ be bound.
+> +    #[must_use]
+> +    pub fn unbind_guard(&self) -> Option<UnbindGuard<'_, T>> {
+> +        let mut idx: i32 =3D 0;
+> +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct drm_d=
+evice` by the type
+> +        // invariants of `Device<T, Registered>`.
+> +        if unsafe { bindings::drm_dev_enter(self.as_raw(), &mut idx) } {
+> +            Some(UnbindGuard { dev: self, idx })
+> +        } else {
+> +            None
+> +        }
+> +    }
+> +
+> +    /// Execute a closure while the parent bus device is guaranteed to b=
+e bound.
+> +    ///
+> +    /// Acquires the [`UnbindGuard`] and, if the device has not been unp=
+lugged, calls `f` with the
+> +    /// parent bus device. Returns `None` if the device has been unplugg=
+ed.
+> +    pub fn with_unbind_guard<R>(
+> +        &self,
+> +        f: impl FnOnce(&T::ParentDevice<device::Bound>) -> R,
+> +    ) -> Option<R> {
+> +        let guard =3D self.unbind_guard()?;
+> +        Some(f(&guard))
+> +    }
+> +}
+> +
+> +/// A guard preventing the parent bus device from being unbound.
+> +///
+> +/// The guard dereferences to [`Driver::ParentDevice<Bound>`](drm::Drive=
+r::ParentDevice), providing
+> +/// access to the parent bus device with the guarantee that it is bound =
+for the entire duration of
+> +/// the critical section.
+> +///
+> +/// Internally this is backed by a `drm_dev_enter()` / `drm_dev_exit()` =
+SRCU critical section.
+> +///
+> +/// See [`Device::unbind_guard`] for details on the safety argument.
+> +///
+> +/// # Invariants
+> +///
+> +/// - `idx` is the SRCU read lock index returned by a successful `drm_de=
+v_enter()` call.
+> +/// - The parent bus device of `dev` is bound for the lifetime of this g=
+uard.
+> +#[must_use]
+> +pub struct UnbindGuard<'a, T: drm::Driver> {
+> +    dev: &'a Device<T, Registered>,
+> +    idx: i32,
+> +}
+> +
+> +impl<T: drm::Driver> Deref for UnbindGuard<'_, T> {
+> +    type Target =3D T::ParentDevice<device::Bound>;
+> +
+> +    #[inline]
+> +    fn deref(&self) -> &Self::Target {
+> +        // SAFETY:
+> +        // - The parent `struct device` is embedded in a `T::ParentDevic=
+e`, as guaranteed by
+> +        //   `UnregisteredDevice::new` taking a `&T::ParentDevice<device=
+::Bound>`.
+> +        // - By the type invariants of `UnbindGuard`, the parent device =
+is bound for the lifetime
+> +        //   of this guard.
+> +        unsafe { T::ParentDevice::from_device(self.dev.as_ref().as_bound=
+()) }
+> +    }
+> +}
+> +
+> +impl<T: drm::Driver> Drop for UnbindGuard<'_, T> {
+> +    #[inline]
+> +    fn drop(&mut self) {
+> +        // SAFETY: `self.idx` was returned by a successful `drm_dev_ente=
+r()` call, as guaranteed
+> +        // by the type invariants of `UnbindGuard`.
+> +        unsafe { bindings::drm_dev_exit(self.idx) };
+> +    }
+> +}
+> +
+>  impl<T: drm::Driver, C: DeviceContext> Deref for Device<T, C> {
+>      type Target =3D T::Data;
+> =20
+> diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+> index 802e7fc13e30..f68a17d8939d 100644
+> --- a/rust/kernel/drm/driver.rs
+> +++ b/rust/kernel/drm/driver.rs
+> @@ -199,8 +199,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
+> =20
+>  impl<T: Driver> Drop for Registration<T> {
+>      fn drop(&mut self) {
+> +        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensu=
+re that existing
+> +        // `drm_dev_enter()` critical sections complete before unregistr=
+ation proceeds. This
+> +        // is required for the safety of `UnbindGuard`, which relies on =
+the SRCU barrier in
+> +        // `drm_dev_unplug()` to guarantee that the parent device is sti=
+ll bound within the
+> +        // critical section.
+> +        //
+>          // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The =
+existence of this
+> -        // `Registration` also guarantees the this `drm::Device` is actu=
+ally registered.
+> -        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
+> +        // `Registration` also guarantees that this `drm::Device` is act=
+ually registered.
+> +        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
+>      }
+>  }
+
+
