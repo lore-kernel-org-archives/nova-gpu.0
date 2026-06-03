@@ -1,74 +1,71 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021100.outbound.protection.outlook.com [52.101.100.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F0846AEF6
-	for <nova-gpu@lists.linux.dev>; Wed,  3 Jun 2026 11:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B480A47279F;
+	Wed,  3 Jun 2026 11:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.100
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780487632; cv=fail; b=stb6p3hOJX126srFR1hnVMBUXwWjY8A7+QFj4wpb9AASDogqWPHCnZfPhad49PwQ5U8HM7Ovx7zbPyY7fAm6ltVAa/Dy+3ikF6l2vQ8imP4nHqDL865Gar7uG4ENzWGHtsBRsm3ZNa41u6S1Mnb0HEqvM0iG7xpmFBaFrd9PJL4=
+	t=1780487960; cv=fail; b=X5Te1hCEP425LFsSgylnFZ6d+DALM0G8emZvzHvrDWWCBZH8QAazZ6ihCIEnjkksPq3K+IlMOmY6y8oUlWp4DsTrbJiNZ6UsAsPXBSmUNcDyOmqX8ffydekIN0rn2ijTYRThUsHB380Pnn8EsKNpoYh/zvaxa6KA2aV17GM6DSI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780487632; c=relaxed/simple;
-	bh=42MXzUfdAYa5/RKR5j0/WHW8ASyWVolubidvPGdqejw=;
+	s=arc-20240116; t=1780487960; c=relaxed/simple;
+	bh=9qsT6JxDc+a8BVzL6aVEKRNLGH21HbVIexHg895+GeM=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=A6sliNtfr6FndGPYpTk2Dgb8386WEF4VrizSOMbBx4rqPbh6FnDN9JG0OySJcPNGsliKMSPFdTckRBd7qcte+JJhTqGvzxs4sd52knQDnOmwd14zWpZy9ITTnh8pwtiNuhcdflh/A3XViapMwPl8Vup4g34etnP3wvcNTL3RpMY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=G3dGrrYH; arc=fail smtp.client-ip=52.101.46.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 In-Reply-To:MIME-Version; b=hmU5LJ7aa74K8PzRXDFHYRGMtcULPbKdUHtuG9Fmpnp3ihqdSsbgL3q2llW40xRAdDh2n5APDPldoYKEPubeGTM7ixS0AQHuKx+CphjaLGZy7RFYoSgrSOEGkdR2wlLY5sDWtqgHSoJNlZ4IYRYJp4qu2vccp2O+td9qqaTwizI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=tYybUmeo; arc=fail smtp.client-ip=52.101.100.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="G3dGrrYH"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="tYybUmeo"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O6Dc/kAz2JcFno1U5+Fi57z2oca3/yExmYGR+STWZIj5i8u4wnJxi8EwpD6gPaMvZ65Z8J7gLNafazsEByb4ZWH0CHBNFXS6oWg8j6ulRL8ykEC4DC81bCfDW2Ux1N08K0CxxgVCY6NkI+7FPqS2k7VsnJw/+NDcnqm7GIcBwkEo85+WwO+gMottK9B5ywQuNEZ/cpzsNr7RlI1S1OzG9mbIIwpuDQQblPl9OIOuA5wvhyTMaigsJ21FUw69v7VFJjW6dm7MgOILlgOlMb8i4viTydT5G7MvwqkdXfCs4ZU/Eb69boBCmiRFZPlF3sioJlwdGXV5jwfONFEislq4pQ==
+ b=UTlornADj/B4sZ4O8VXwaVhNSzGhmuwJh4OeTALMNL9Ft3ZUufVUU8kgQQMneHiJASpByzChk25mdH3BEn29xTc2O4paaTlKWllZQJ48mmJxLcgR+l6uKme440iYBoOS0EyS4/dY+LbeI2H6uPiwUM7ZjWdDG7h7jFwNKAGjCG2m1W1iQFJ/wtoyq/xYwvZSg7pZS5f6dApcjrRz4FH66z18FgXEiLUBOKGxJc0tVu8yVOc+vBsFe2zOvmiaOg1h9qoHKlsC6KmAgQp5dPStfeJloJEdWQcsAMLZN5mCXOLL9dYSuarCPkeTunWD1CDcR53uyncAJsIXvrcUDZZ+wA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=US3RJxUmphPxcMVJw+xS1EjEBsg9LWYdC8ldS0lnO7Y=;
- b=HGvj6jgAL4ej03QyDC1quz7tJaAmF+jzBxHCa550Qzfy2BVqvTvSlHaKS1FVQmGF9mjnXiJzHYZWjTwcNOubKpU6y05DjRTd3UwDayMZCOCrdLYuCb6lKAV2FqHak8TeOl2oI6o3TtHaei06+ufc+VFLOt3lWkiEE4W7Vtsf9uFHnHjOvIhskjGxSDrY1diD1iYGJzWy8ORhVJlvNTBE7gJzqcS4tDeIKn1DK7xdTzv37txEfJfYQqS3IYHOFM4flgPh0xk30JLLOMLx9BSqCr5D2+g3Q4w7xX0qwUJCL6k4MgecVXVRTVrwZ0RGhQHe3i1iO2Eg/mPR8SJvooZr9g==
+ bh=RXyS9w8lBT6t5YDLirSKdxBYSkdaflIZh4/tW0mcOdQ=;
+ b=BBKqM7Y2TgsFBB1oBcCZMkqA7gz7r6GPDz+Z02zRCRMVbzMzcgZTiXsUXIjIuDvgKE54ZreXW7B24K9uSTlrLPOf3lvc5buQ3zqmlJvqeNVh8NMGzefowUkMak0pey/JnFa9qdyt4DRcbuQVlaZ4dgfqwiIpukxwWlvFDvqyvTj1ETwmWnosz1hzGhCYFva5XNa5f2x9THzqZpGYd/3fYCTJ3ZlCXmm8mKsMhdCdkIA0V6g3cEA0k32n+/srwYxDfc+4iTrrqo0GqnbTdFs7eKR9d0MwD5dakpoKehMnYMp16Lq0r6OmVV59eZqYDrOZ46HJiHHXxOYNbXv+jLdu5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=US3RJxUmphPxcMVJw+xS1EjEBsg9LWYdC8ldS0lnO7Y=;
- b=G3dGrrYHNVZk3YV2F9JLFaG3EaYG/pnAnVL8/Q4jBmraOxoHTDj58fi59uJrdtpfA+oZgRW72Yh9JhV3pnha1/5irUQVUHGBTnbgR2BXB2ZztYwuKy114DTXGo2QOHYInG9NQjfNh+pqosbDejTNnWQYtnftotAArw3y1HRX64ka05jrLEYnFkOTc6wCoiYXlsPGgzSAmrvO/hO0BhAH+mldrEXnvb0R72p+mfoyJ0iYvPlphIogtXLg+f3nb++y3gusoOoXFK8VNn6ZwxFTNnJpHUVaqP4+o2W/LRcnvPoFJM5+yqf5haZWt8/UDCZOvbz6W7YFwBu0AxNFRUKQFg==
+ bh=RXyS9w8lBT6t5YDLirSKdxBYSkdaflIZh4/tW0mcOdQ=;
+ b=tYybUmeo7YzdR6rxRBZrfaMiQUbF2ZMNozu3s1A48UpAQNIVRPMTwhBNShSL/NX/m+vgVYcERiAyP4h7T2prXWoCwCzIoqO9fU5Hl1tu8jW5B7z8ULfL83r4XeUHGmceYvMaITjfpLPrVnYNFLosTBldkCvMY6jWY+UZvBNwMOE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by BN7PPF5D27497F1.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6d1) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO8P265MB7703.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3aa::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Wed, 3 Jun 2026
- 11:53:45 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 11:53:45 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 11:59:13 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 11:59:13 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 03 Jun 2026 20:53:41 +0900
-Message-Id: <DIZE6PDLOCHP.ITQSKNYRZ7H1@nvidia.com>
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Shashank Sharma"
- <shashanks@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>, "Boqun Feng" <boqun@kernel.org>
-Subject: Re: [PATCH v13 7/9] gpu: nova-core: Hopper/Blackwell: add GSP
- lockdown release polling
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260603-b4-blackwell-v13-0-d9f3a06939e0@nvidia.com>
- <20260603-b4-blackwell-v13-7-d9f3a06939e0@nvidia.com>
- <DIZC53CCKAUY.2L04G0C2WSVQZ@nvidia.com>
-In-Reply-To: <DIZC53CCKAUY.2L04G0C2WSVQZ@nvidia.com>
-X-ClientProxiedBy: TYCPR01CA0126.jpnprd01.prod.outlook.com
- (2603:1096:400:26d::6) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Date: Wed, 03 Jun 2026 12:59:13 +0100
+Message-Id: <DIZEAXX05BMZ.Z6FPWIH8XP92@garyguo.net>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pwm@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 1/7] rust: types: rename ForLt to CovariantForLt
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <m.wilczynski@samsung.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <daniel.almeida@collabora.com>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260603011020.2073650-1-dakr@kernel.org>
+ <20260603011020.2073650-2-dakr@kernel.org>
+In-Reply-To: <20260603011020.2073650-2-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0106.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::21) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -76,251 +73,369 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|BN7PPF5D27497F1:EE_
-X-MS-Office365-Filtering-Correlation-Id: c83e6678-8848-4043-e693-08dec166c3ed
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7703:EE_
+X-MS-Office365-Filtering-Correlation-Id: b76667f5-0de6-4c0a-5611-08dec16787d9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|7416014|3023799007|22082099003|6133799003|18002099003|11063799006|56012099006|4143699003;
+	BCL:0;ARA:13230040|10070799003|7416014|376014|366016|1800799024|921020|6133799003|22082099003|4143699003|5023799004|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	p3Gajs9CQvDajUKYcBDtJkztjiPwcqxUKIpiGGrFYZDi3x7DZdXja9PaceJzf3g6J3SUNFyQTwVXeEgxqWBVT5/01KGuSVUTWPbTaRE0IsGkAvA19e0R1Jp3RifqHnLLpIu3WtSm6/FgDeti55ZLxN3Ka/pGnfmZWKtqC146sW5HlogE/G7fruOL2HjujhLWk1Hm94wluI9aEKSy55rDnoczR78Ov5e5QUM6Is5crWWx896CJ92++zhEW29sS9F9Lq1gyHuvivpG/7BdVZTRanoiDBEe8NcGTssSikGpFEQ8RD6adshKgKUClVN2mo37oXrCFuPNyQkBrqywVPXii/8xCVLuG278jr0firrb0zZV60sR70Ri7tDminpcdeY7swgYDJS3GTDjSikGXHX7etl5Y4VIllcgNHb1Ys1Io17h+Ui0e9D3dEPj+0cn8rfQmGbyw7Me9WCItrzTog6GsScu1rqBf5U0xSjTFjTBMsHGgwLCpd3H40eumrkrjOv1fcd1JvSbQtd8Mh5wuJO8ZTzNfxVxL+kR+9v6J4xgT/YuKS1wIYyCvOya26fSTPOd0ZVEEZaS2YTCAzZRzgjL7uOTIhyhHSstzi4k0X/t8j6is6oqDKh/8mAIfiogH3JxFeHsEhNG5jAXQaWDtKDDLIIfp70JDv1FQKQ87CXGkPV3TpgIZ7YWB0snyZwSGjLK
+	OV+OElU/+mxYNEbAwvf8Ihao12vNf3hLDU33OkUmTK5CkE3Qbexgp5LztTf4IusqJ4FQr9kGmLbKXQpT2a0yRpPYAO4EeBABvpJhvGHelS5z1A3kW85FfEc8wM4d5kwdeqaSmbMWR1ejTNeRyOZzgCldtLCa/Tg6xtAMTQpA0m/gVI+pNVpO7cpH8o3/4EmV1NaBLUHSzeEkyrSGS+Kjg7tn+6KNgfTc+BCXHHFmwuffkoNvsimd8Dm6TDR/+HgeYVbJLkpEG43laAvdv9GwDmmlXP2uxlclrYb/y7s11AwypM3ZI0eS1jruXfzGynn/ddj+0Jczz77rLhrxOZxX9D1ru0JjyU6xAjZwkOIn2PmQti31u/KZUGamfql0JzFT/Eb936qx06mn55A1Km+tr5gtPRdI3ESVs9ewSSnYpPGs6Zjw5xpqJKFMR6mRzuWQ+LBJ5rx9bRCVEQVeegadFQF0aDFei2sL5ohEQWUuyJcUQ1X6RmHowQsrnOLlYTv7VUFW+RABNeB+QkpZSW5JHAo6RvhiciDrVc29v/fCjcL9X/tzOtDmPXQZhuN4Pg1vQuDksUmcDp+AN8cL4MiVrfv2XUsjwiznSTm5S5oIMaTrxllTm/H3qzBDrkiI+3cF050v9dj++XO3hvtYJwoWeHos139a+/bpnHqUsB7Ao+mVlUPydRTUIvc6EKNHJ+6Y03E6H86xEdeT72ljley5yDVoTJCWUUdrbvuJ3kLCi44=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(7416014)(3023799007)(22082099003)(6133799003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(366016)(1800799024)(921020)(6133799003)(22082099003)(4143699003)(5023799004)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SnFNWW1ESy9XODlndTkvQ25UbDNnNHRQeEl0T0FINURxV1JTdk9vL29Fek1K?=
- =?utf-8?B?TTVqaTlzam00ZE1nNFJWb2d4cXhlc3ZIeit0cXdYb2MyMlpuYW5IaXRBam1K?=
- =?utf-8?B?eXVGQWZTZmpOZ2Y5eG1aVWZxL2VQdk1NY04yWStQOGlnK1VGOGFHWnNtQUJj?=
- =?utf-8?B?MFd0dm9jQzNXNTBpcWJlME9WMjNJNnk2OTBocjgvSkx4VEZhdUZDUzI1dU5z?=
- =?utf-8?B?M2s3UmFJSk94MzZQaDZmcGVINHJQbnRzaFc1S2ZYMEMySXYvTDUvUWh5Ukli?=
- =?utf-8?B?WVhtU2FPd2t4YkFxTkxsZWV2bU5qV1NyR1plUVVoU01tMmNmMS9kNVdiakJl?=
- =?utf-8?B?V3VkSFFqWkFKRmFqRElEcUxPbmhDZDBqNlhFaHMwUThoSVlWNHFZd1lhK3Ix?=
- =?utf-8?B?S01rUmJiRmdxNysrVXplL2ppdlA5dGpQNGEzcW9Kd0dyUGJJeWE5OVk5dkNj?=
- =?utf-8?B?MjJ1d3Rsc3F1ZlAvNmlmVm1za3gvVlk3T3dqekJIL01TeDZoUTJGa0FBbTda?=
- =?utf-8?B?cGtMYkhISldkRUVONURXNk5qYnluZVBoVmdHRzVPdkhnODdxRFRxV1F2b0Ru?=
- =?utf-8?B?eFhwOTRPSS9tSTE3V21ld3pHZFU0dFR3b3pQdzZsczJMNHpzU0JlK1VmV0s1?=
- =?utf-8?B?UWZ0QW50WXVzR2xwZml2ZEZlcWJtSkgrenY2L2MzUHFBcWhRTWRrbFZTaWNJ?=
- =?utf-8?B?dmdBZU8rNitLMGpnb1hoaUkwWXY4REQrRnhmZEJrVFVFN1ZidUZIUStmQXRa?=
- =?utf-8?B?TzZVdUlTNVplb2pmWXo1a0ZUek9vOXlNN1lDelI3OEd6VlFEcnNGY0svOTRJ?=
- =?utf-8?B?S2pKOFVCQ0dDWnhQeWV3THlZY21hc1RmZjNNR0dZM3gvNXRCR3BLV0E2ckJT?=
- =?utf-8?B?RllsRzk2YTl1L2RkSGJTdXFoTmVJcWROMThiYWFYY0JSMHZGVEhSUkxKODJW?=
- =?utf-8?B?ajRxY0hsb21VYmtnd1FZaEVLT0lhbjZrSWRLaDM1S0VNU3JHUllNNlArRElL?=
- =?utf-8?B?UG1sVUFVVFIzUHplZWRwQURDK3JPNjJScHlwbHMzNEFrbXo0c3pDSUFSUW9W?=
- =?utf-8?B?UVV3RmtVTnFsM2V5aU5RQ2xZMzJiK2FreW1iRmlDK1ZQTWNkc2haMmhlbFhK?=
- =?utf-8?B?bzF4eC9ublFLekN0TVFWUVZBc3lYdTNtT1hvazlWaUoweEpzMkxSaHJFUmZZ?=
- =?utf-8?B?VzBITDhvNFFLWjRYNFQrbFRlVktrM0NZUGpVNEk0TkczWGZjdno2RzZhcWwy?=
- =?utf-8?B?MDJKcmJxaEdmSnJISkMzblFwY3BVcElIK25adlBaVXNSWHQ5RE5UMXRaajFr?=
- =?utf-8?B?UTY0ajNSa3UyNlhncXZtZGpjWTFjRzJGdGZZRVRIdG1McmczT1MzajNCNkZs?=
- =?utf-8?B?T2hyS3Rid1pMdVZNNnJBV0lSdUtEekNXeDRzOEVwMXlneVlIU3VnVjhnREMv?=
- =?utf-8?B?QVA2VGV4TWdmTDM1K2JKQ3RJbFBjV1IxSjhPekgrdjZraEw1ZWE2bm9YeDhJ?=
- =?utf-8?B?NkJxM1luV1NjY1VJbjRKbkxYd2FVSGM4YmNVcmpUaHNFdTgrSnlqYWhuRlRD?=
- =?utf-8?B?a3ZYNkc4STJNR3lPMStOSFlldlpYQU42VmQrYWxKNWNGZm55QW9Cd01LMklR?=
- =?utf-8?B?ekdOdUxOWkRLcWJld2JpL242c2VrMlNkVjZPTFg3Y0dsM05pL2d5SmZSdFJu?=
- =?utf-8?B?Q0orWXAvdXp2NzVzbFdwOGdxeXh4QTBxSlRLb0cxQ3MwVnJmeU5YTG9ISjNo?=
- =?utf-8?B?UUJjZ2ZIMGovc08wLzFyRzNpNmkreGlVellHN2h1K2FuYlM0eU93S0FvSlNh?=
- =?utf-8?B?L0dybkFMdU9KU3Q2TzJhSDdtQ1VRTGdrOElUWnRTUmZIS0x0RGdHN1hIZkZU?=
- =?utf-8?B?WCtJTE5tV2s2UC9jbmU2ZzZSWUw1dk9jcEtBcXR3dnE2aEdmbHh3anJwK2JL?=
- =?utf-8?B?dCtDaDlLWEMyd0gwU01DeDh3bStVOWRuV09HOHplaTZOdXZLL3EyMnRmMTVu?=
- =?utf-8?B?Ujcrcm0vT1dWZWdETEdHQ3FhbmltTDMzVzg4azZQTFdlU3FmQUFoeWEvMDdI?=
- =?utf-8?B?MnNoc0pjTjIzZFpyWW1adS90QWNIWVRtSWdHYncycjQ2QUw0U1lnNDJ3enVs?=
- =?utf-8?B?WUJGdTdmNy9XZ1Uxa0RUTHZ5S2tyM25qeUgyeHEwRVlhTlpYM3dvcXJUV3JW?=
- =?utf-8?B?TitjUVY4WUQwVWNablhtbEdpeDZ0RVNFTFh4ZU1nYWNzdjMzNFhKU3lQdkZ2?=
- =?utf-8?B?clVGcDVOdmszK2pwV0lTZmRuQnF5c1BEY014cHM1dTVjN0Vpc1dzR2hjL0RJ?=
- =?utf-8?B?N3FtbjgwZFpmTFVRMDhCTTFxRnl4K1R6djV4a3pvekRSNThta3p6Yk01dmtZ?=
- =?utf-8?Q?z5+YAC5LB5pXR0xX9b9GLmQspsCq7Cs/dcHWxwtnlU+uF?=
-X-MS-Exchange-AntiSpam-MessageData-1: YoZQKOjEVKjijQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c83e6678-8848-4043-e693-08dec166c3ed
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+	=?utf-8?B?YVJSb1BlMmRoN1F0L2M4dmx0SVBXYXp2dUJ1RE0zR0tackxZb3lWeXlTVzBn?=
+ =?utf-8?B?d1UrdittdFBDVnEwWGg3U2xiQUVxSlBJdzBkdFBnRjRsaXRtMlNWVXdEVEZW?=
+ =?utf-8?B?Wjd4MnBxYS9KcWNYeExsMmxPbDJlWjZxb3dScFdTQTFOLzYzNFdxdGtzZmF2?=
+ =?utf-8?B?N1Z4emUyTlhzaCtPMHdieTFUK09saTNpZUgwRlhKenZqdzhvOEtMVVlua0xz?=
+ =?utf-8?B?RlZiTW1qdURuWWJkMVkrRUgyR1BmaloyUUFrRDNzMGllZmhVb1UrRnFVWHZ4?=
+ =?utf-8?B?ZjViVCtlYVlId2kvcE50TXlVQTIzUS8vVTViTFhnNEtacWNxd3Q1dURpZDg2?=
+ =?utf-8?B?amZ6SE9kbUI0cHRJQmFOQlZ4MmNRSGVIUGFSU3lUeGFLcHJpbFF6cnl2SVNW?=
+ =?utf-8?B?bkNoNmZXYmh4RW5NV2o2ZmV5SGVEWjY0dW5jYlpkMVdZdUhBTmZBM3V0ZFpV?=
+ =?utf-8?B?ME9vbmtOem0wditUa2lLWFFtZ1Y0d1htNVVyQjJndzA5VGxHM2hESVpJOWpB?=
+ =?utf-8?B?ZnFyTUUwT0pGSE1NWStDaXpNdXc1K0cxNXM4VjBOMVVEeFhSMWUvV1QzRXlM?=
+ =?utf-8?B?bDFaNC8rdzhzNnlSaHNQT1JzbmVOUUlkaWJ6UjVtOGNhZkszbUxKQ2tBazJq?=
+ =?utf-8?B?VXNlVGZGYWs0bjhBTFVRQmtBM0NhRklnd2Q0YUxIdmx1RFA4d0REUW4xbGl6?=
+ =?utf-8?B?ZkVsSlVKNDRwYkVRTnQzU3NEcDhrRXlDL2pZUERYakVSZS9iOVVHQkd6UkI2?=
+ =?utf-8?B?dFZ2OFZvMHRHZkhrMWg0VEttZzJIcUJNR0UwdWxxbnl5OXkxbFVQeXNzdXlk?=
+ =?utf-8?B?WWVSb0FIK0QwS2IyaGhNdWxndzR1TmZzSG1ZS1ErMHkxQmVrTmFnd2tDN3hm?=
+ =?utf-8?B?ZGVoRWhTaEhUYlR4aHc1alQvMjRMU3VYTHBHLzJ6blFxWGVsTFMxZ2ZVb2tC?=
+ =?utf-8?B?VUhONVVXM2RmdDFQOXRvcG1NaXJpendzZVFKRmJGS2RLYWhsT2ZkT0V5WEZR?=
+ =?utf-8?B?Tzg4QjlxNXZ5NGI3SGVzWjd1OW5hWTV1eTdSTjJtR051d2xTUTZGVG9UMHRK?=
+ =?utf-8?B?bFJWR2hXeTltREU4UllBejZlcFVRWUZQQUFDNzVNQlJhNHlsSitoRlVtR3N6?=
+ =?utf-8?B?M0pDS2N1TWp6WFQzMWxMaXBnYW1GUXE0QWdLQlVHbkF1VEZsZzBUNXV1RlBi?=
+ =?utf-8?B?WVdKbUZEK0JnNHNLV2tTclJwTWczbXQza2dOMGlxTE16a2NSemozSFEwVjkv?=
+ =?utf-8?B?RHU0UUw2OFM1NVhGZEhSbWk2a3F2S1RHbjdxZStrQkhkOFNqdnVUcnREUHU4?=
+ =?utf-8?B?bnhYTmU5T1dCZXc5WkxVWGFRSVIxWllaMGEyYndJbXl0VGk2Mzk3RENPemc3?=
+ =?utf-8?B?bTVqc0ltaDIyL1NhVHdjcmNqNWxiNGdwTmFzK1FCcDVKb0NkVHA3NjhXakRV?=
+ =?utf-8?B?Sm9taUJ2STAxY2h5OUY2ZzlmVmg2TGlOZzdSN1pYVFhaNWpBRFFzNlNtUERW?=
+ =?utf-8?B?eVRVaFp3QndXNy8yNm83a05Fajl6dytjcTM4N1dUV0Z0SVMzMTBwOXpqaGRo?=
+ =?utf-8?B?WmpkcVhML1BDTnZ4U2dkZ3BkcFdqbnl1UW9ZK2dGSG1FeFUxUXJYbSsxeDhK?=
+ =?utf-8?B?Q3preUR5SkVHd2Z5cm9PbVkxUzBSK3lFSE9nVVJLOWFYZVhKaVN3clJySGYw?=
+ =?utf-8?B?MUdDaEs0U052RE5uNmNSL25Qcm9sVEhINmRZL0loVkhPTnpyS1J3alg4VFJM?=
+ =?utf-8?B?ckMvOUYxM2FXRGRFN0xzenY0VVFUSWl0ZlZkUHFVM2NZYmZXZExEdU9pb3FL?=
+ =?utf-8?B?Z0tBVWhGdTV4VWlsOERuY0lVRUxqQ2UvSVFoOFpiSmRYMExFblQ0aTY1SDN2?=
+ =?utf-8?B?dkFTSnVHaFp0RkNwMGFGYU5kSloxYitCdk5GemRDN0RrRS83eGM0NEhQY2lF?=
+ =?utf-8?B?SGUrQnJwN0hSUUhIRENGaWwydmxFSnVMQk1QemVtZ2ZRVnBIU3hvZGVVL3RE?=
+ =?utf-8?B?cExFSmRPeUxuK2RhTWxOTnpSenhreDFuOEt4MWZCcTB1bW9SSDBUbk1IUXBC?=
+ =?utf-8?B?SjBoRUdYTklKb2hxeFpsMWR3a1J2QzBaTnVoZjRQaTFyOUJES2N5RjVNQWhk?=
+ =?utf-8?B?YTNDa3ZJTVRsRDF3NXlMMlg2dU9ENnNiSm1DU0s0akJtM21WdTAwTklqSjdI?=
+ =?utf-8?B?QXY5bnA1RVRHQVFML0szb1FKaGtZblJxZXEvWFZXekRWanQxY1NNWFFHdUww?=
+ =?utf-8?B?STVmMXVJM05ycXB3enNjcWdJWm0zNFNiejZQWFFVdHZycXpFZU01cEtiU3B0?=
+ =?utf-8?B?NnlvTmJETVhZY1N4K3hEdnB2RTAwQ3pGMHBCd0o4UUovWnEydnl3QT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: b76667f5-0de6-4c0a-5611-08dec16787d9
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 11:53:45.2449
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 11:59:13.8940
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HFCTp5HF5Nf3ea663DVEz3OOpmxluz2xFnLUKTNstyNufcRhG5d85aD0/AkESbQFpGmKf7Qi4+I9Qbt0J1DmmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF5D27497F1
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8FmksgNjab6tPMvcReJQEp2b+mkKXmi7g0w/dcCiwOpJWWu83TkmB1mXsU0OkrPJZHMdlJxOVIA77M44uagzfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7703
 
-On Wed Jun 3, 2026 at 7:17 PM JST, Alexandre Courbot wrote:
-> On Wed Jun 3, 2026 at 4:30 PM JST, Alexandre Courbot wrote:
->> From: John Hubbard <jhubbard@nvidia.com>
->>
->> On Hopper and Blackwell, FSP boots GSP with hardware lockdown enabled.
->> After FSP Chain of Trust completes, the driver must poll for lockdown
->> release before proceeding with GSP initialization. Add the register
->> bit and helper functions needed for this polling.
->>
->> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/falcon/gsp.rs    |  6 +++
->>  drivers/gpu/nova-core/fsp.rs           |  6 +++
->>  drivers/gpu/nova-core/gsp/hal/gh100.rs | 88 +++++++++++++++++++++++++++=
-++++++-
->>  drivers/gpu/nova-core/regs.rs          |  2 +
->>  4 files changed, 100 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core=
-/falcon/gsp.rs
->> index df6d5a382c7a..136d6b24103f 100644
->> --- a/drivers/gpu/nova-core/falcon/gsp.rs
->> +++ b/drivers/gpu/nova-core/falcon/gsp.rs
->> @@ -57,4 +57,10 @@ pub(crate) fn check_reload_completed(&self, bar: &Bar=
-0, timeout: Delta) -> Resul
->>          )
->>          .map(|_| true)
->>      }
->> +
->> +    /// Returns whether the RISC-V branch privilege lockdown bit is set=
+On Wed Jun 3, 2026 at 2:10 AM BST, Danilo Krummrich wrote:
+> Rename ForLt to CovariantForLt to prepare for the introduction of a new
+> ForLt base trait that does not require covariance.
+>
+> The existing ForLt trait requires covariance, which enables the safe
+> cast_ref() method. This rename preserves the same semantics under a more
+> precise name, making room for a weaker ForLt trait in a subsequent
+> commit.
+>
+> No functional change.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/gpu/nova-core/driver.rs       |  4 +-
+>  rust/kernel/auxiliary.rs              | 23 +++++-----
+>  rust/kernel/types.rs                  |  2 +-
+>  rust/kernel/types/for_lt.rs           | 61 ++++++++++++++-------------
+>  rust/macros/for_lt.rs                 |  4 +-
+>  rust/macros/lib.rs                    | 11 +++--
+>  samples/rust/rust_driver_auxiliary.rs |  8 ++--
+>  7 files changed, 57 insertions(+), 56 deletions(-)
+>
+> diff --git a/rust/kernel/types/for_lt.rs b/rust/kernel/types/for_lt.rs
+> index d44323c28e8d..ef510ab6c092 100644
+> --- a/rust/kernel/types/for_lt.rs
+> +++ b/rust/kernel/types/for_lt.rs
+> @@ -1,8 +1,8 @@
+>  // SPDX-License-Identifier: Apache-2.0 OR MIT
+> =20
+> -//! Provide implementation and test of the `ForLt` trait and macro.
+> +//! Provide implementation and test of the `CovariantForLt` trait and ma=
+cro.
+>  //!
+> -//! This module is hidden and user should just use `ForLt!` directly.
+> +//! This module is hidden and user should just use `CovariantForLt!` dir=
+ectly.
+> =20
+>  use core::marker::PhantomData;
+> =20
+> @@ -15,38 +15,39 @@
+>  ///
+>  /// # Macro
+>  ///
+> -/// It is not recommended to implement this trait directly. `ForLt!` mac=
+ro is provided to obtain a
+> -/// type that implements this trait.
+> +/// It is not recommended to implement this trait directly. `CovariantFo=
+rLt!` macro is provided to
+> +/// obtain a type that implements this trait.
+>  ///
+>  /// The full syntax is
+>  ///
+>  /// ```
+> -/// # use kernel::types::ForLt;
+> -/// # fn expect_lt<F: ForLt>() {}
+> +/// # use kernel::types::CovariantForLt;
+> +/// # fn expect_lt<F: CovariantForLt>() {}
+>  /// # struct TypeThatUse<'a>(&'a ());
+>  /// # expect_lt::<
+> -/// ForLt!(for<'a> TypeThatUse<'a>)
+> +/// CovariantForLt!(for<'a> TypeThatUse<'a>)
+>  /// # >();
+>  /// ```
+>  ///
+> -/// which gives a type so that `<ForLt!(for<'a> TypeThatUse<'a>) as ForL=
+t>::Of<'b>`
+> +/// which gives a type so that
+> +/// `<CovariantForLt!(for<'a> TypeThatUse<'a>) as CovariantForLt>::Of<'b=
+>`
+>  /// is `TypeThatUse<'b>`.
+>  ///
+>  /// You may also use a short-hand syntax which works similar to lifetime=
+ elision.
+>  /// The macro also accepts types that do not involve a lifetime at all.
+>  ///
+>  /// ```
+> -/// # use kernel::types::ForLt;
+> -/// # fn expect_lt<F: ForLt>() {}
+> +/// # use kernel::types::CovariantForLt;
+> +/// # fn expect_lt<F: CovariantForLt>() {}
+>  /// # struct TypeThatUse<'a>(&'a ());
+>  /// # expect_lt::<
+> -/// ForLt!(TypeThatUse<'_>) // Equivalent to `ForLt!(for<'a> TypeThatUse=
+<'a>)`.
+> +/// CovariantForLt!(TypeThatUse<'_>) // Equivalent to `CovariantForLt!(f=
+or<'a> TypeThatUse<'a>)`.
+>  /// # >();
+>  /// # expect_lt::<
+> -/// ForLt!(&u32) // Equivalent to `ForLt!(for<'a> &'a u32)`.
+> +/// CovariantForLt!(&u32) // Equivalent to `CovariantForLt!(for<'a> &'a =
+u32)`.
+>  /// # >();
+>  /// # expect_lt::<
+> -/// ForLt!(u32) // Equivalent to `ForLt!(for<'a> u32)`.
+> +/// CovariantForLt!(u32) // Equivalent to `CovariantForLt!(for<'a> u32)`=
 .
->> +    pub(crate) fn riscv_branch_privilege_lockdown(&self, bar: &Bar0) ->=
- bool {
->> +        bar.read(regs::NV_PFALCON_FALCON_HWCFG2::of::<Gsp>())
->> +            .riscv_br_priv_lockdown()
->> +    }
->>  }
->> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
->> index 883ac4f8b811..872898ffe0a3 100644
->> --- a/drivers/gpu/nova-core/fsp.rs
->> +++ b/drivers/gpu/nova-core/fsp.rs
->> @@ -184,6 +184,12 @@ pub(crate) fn new(
->>              resume,
->>          })
->>      }
->> +
->> +    /// DMA address of the FMC boot parameters, needed after boot for l=
-ockdown
->> +    /// release polling.
->> +    pub(crate) fn boot_params_dma_handle(&self) -> u64 {
->> +        self.fmc_boot_params.dma_handle()
->> +    }
->>  }
->> =20
->>  /// FSP interface for Hopper/Blackwell GPUs.
->> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-c=
-ore/gsp/hal/gh100.rs
->> index f41f3fea15ff..def41745a30f 100644
->> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
->> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
->> @@ -5,7 +5,9 @@
->> =20
->>  use kernel::{
->>      device,
->> -    dma::Coherent, //
->> +    dma::Coherent,
->> +    io::poll::read_poll_timeout,
->> +    time::Delta, //
->>  };
->> =20
->>  use crate::{
->> @@ -33,6 +35,86 @@
->>      },
->>  };
->> =20
->> +/// GSP lockdown pattern written by firmware to mbox0 while RISC-V bran=
-ch privilege
->> +/// lockdown is active. The low byte varies, the upper 24 bits are fixe=
-d.
->> +const GSP_LOCKDOWN_PATTERN: u32 =3D 0xbadf_4100;
->> +const GSP_LOCKDOWN_MASK: u32 =3D 0xffff_ff00;
+>  /// # >();
+>  /// ```
+>  ///
+> @@ -55,10 +56,10 @@
+>  /// it.
+>  ///
+>  /// ```ignore,compile_fail
+> -/// # use kernel::types::ForLt;
+> -/// # fn expect_lt<F: ForLt>() {}
+> +/// # use kernel::types::CovariantForLt;
+> +/// # fn expect_lt<F: CovariantForLt>() {}
+>  /// # expect_lt::<
+> -/// ForLt!(fn(&u32)) // Contravariant, will fail compilation.
+> +/// CovariantForLt!(fn(&u32)) // Contravariant, will fail compilation.
+>  /// # >();
+>  /// ```
+>  ///
+> @@ -67,23 +68,23 @@
+>  /// the generic parameter but is in a separate item.
+>  ///
+>  /// ```
+> -/// # use kernel::types::ForLt;
+> -/// fn expect_lt<F: ForLt>() {}
+> +/// # use kernel::types::CovariantForLt;
+> +/// fn expect_lt<F: CovariantForLt>() {}
+>  /// # #[allow(clippy::unnecessary_safety_comment, reason =3D "false posi=
+tive")]
+>  /// fn generic_fn<T: 'static>() {
+>  ///     // Syntactically proven by the macro
+> -///     expect_lt::<ForLt!(&T)>();
+> +///     expect_lt::<CovariantForLt!(&T)>();
+>  ///     // Syntactically proven by the macro
+> -///     expect_lt::<ForLt!(&KBox<T>)>();
+> +///     expect_lt::<CovariantForLt!(&KBox<T>)>();
+>  ///     // Cannot be syntactically proven, need to check covariance of `=
+KBox`
+> -///     // expect_lt::<ForLt!(&KBox<&T>)>();
+> +///     // expect_lt::<CovariantForLt!(&KBox<&T>)>();
+>  /// }
+>  /// ```
+>  ///
+>  /// # Safety
+>  ///
+>  /// `Self::Of<'a>` must be covariant over the lifetime `'a`.
+> -pub unsafe trait ForLt {
+> +pub unsafe trait CovariantForLt {
+>      /// The type parameterized by the lifetime.
+>      type Of<'a>: 'a;
+> =20
+> @@ -94,11 +95,11 @@ fn cast_ref<'r, 'short: 'r, 'long: 'short>(long: &'r =
+Self::Of<'long>) -> &'r Sel
+>          unsafe { core::mem::transmute(long) }
+>      }
+>  }
+> -pub use macros::ForLt;
+> +pub use macros::CovariantForLt;
+> =20
+> -/// This is intended to be an "unsafe-to-refer-to" type.
+> +/// Helper type for the `CovariantForLt!` macro.
+>  ///
+> -/// Must only be used by the `ForLt!` macro.
+> +/// Must only be used by the `CovariantForLt!` macro.
+>  ///
+>  /// `T` is the magic `dyn for<'a> WithLt<'a, TypeThatUse<'a>>` generated=
+ by macro.
+>  ///
+> @@ -107,16 +108,16 @@ fn cast_ref<'r, 'short: 'r, 'long: 'short>(long: &'=
+r Self::Of<'long>) -> &'r Sel
+>  /// `N` is to provide the macro a place to emit arbitrary items, in case=
+ it needs to prove
+>  /// additional properties.
+>  #[doc(hidden)]
+> -pub struct UnsafeForLtImpl<T: ?Sized, WF, const N: usize>(PhantomData<(W=
+F, T)>);
+> +pub struct CovariantForLtImpl<T: ?Sized, WF, const N: usize>(PhantomData=
+<(WF, T)>);
 
-nit: these constants can be moved into impl GspMbox or made local to
-`is_locked_down`
+I think I prefer this name to be stayed the same (so it has the "Unsafe" in=
+ it
+and is not too long).
 
->> +
->> +/// GSP falcon mailbox state, used to track lockdown release status.
->> +struct GspMbox {
->> +    mbox0: u32,
->> +    mbox1: u32,
->> +}
->> +
->> +impl GspMbox {
->> +    /// Reads both mailboxes from the GSP falcon.
->> +    fn read(gsp_falcon: &Falcon<GspEngine>, bar: &Bar0) -> Self {
->> +        Self {
->> +            mbox0: gsp_falcon.read_mailbox0(bar),
->> +            mbox1: gsp_falcon.read_mailbox1(bar),
->> +        }
->> +    }
->> +
->> +    /// Returns `true` if the lockdown pattern is present in `mbox0`.
->> +    fn is_locked_down(&self) -> bool {
->> +        (self.mbox0 & GSP_LOCKDOWN_MASK) =3D=3D GSP_LOCKDOWN_PATTERN
->> +    }
->> +
->> +    /// Combines mailbox0 and mailbox1 into a 64-bit address.
->> +    fn combined_addr(&self) -> u64 {
->> +        (u64::from(self.mbox1) << 32) | u64::from(self.mbox0)
->> +    }
->> +
->> +    /// Returns `true` if GSP lockdown has been released.
->> +    ///
->> +    /// Checks the lockdown pattern, validates the boot params address,
->> +    /// and verifies the `HWCFG2` lockdown bit is clear.
->> +    fn lockdown_released(
->> +        &self,
->> +        gsp_falcon: &Falcon<GspEngine>,
->> +        bar: &Bar0,
->> +        fmc_boot_params_addr: u64,
->> +    ) -> bool {
->> +        if self.is_locked_down() {
->> +            return false;
->> +        }
->> +
->> +        if self.mbox0 !=3D 0 && self.combined_addr() !=3D fmc_boot_para=
-ms_addr {
->> +            return true;
->> +        }
->
-> This looks like a bug - if the mailboxes still contain the boot
-> parameters address, we will keep going and might return true on the next
-> line, which the caller will interpret as an error. OpenRM does the
-> opposite check and has an additional test for `mailbox0 !=3D 0`, which we
-> can translate into this logic:
->
->     if self.mbox0 !=3D 0 {
->         return self.combined_addr() !=3D fmc_boot_params_addr;
->     }
->
-> I'll fix it and add a few comments explaining what the code does as it
-> can be a bit convoluted.
+You can actually use this same helper type for both `ForLt!` and
+`CovariantForLt!` later in patch 2, by using different `N` based on whether
+covariance check has been conducted. So
 
-Yeah, I agree. I think the logic openrm uses is like:
-
-1. wait until HWCFG2 !=3D 0 && (HWCFG2 & 0xffffff00) !=3D 0xbadf4100
-2. wait until mbox0 =3D=3D 0 || addr !=3D fmc_boot_params_addr
-3. wait until riscv_br_priv_lockdown =3D=3D 0 || mbox0 !=3D 0
-
-So several things are different to openrm (not sure if they are wrong
-though):
-
-1. `is_locked_down` is checking the wrong register (should check HWCFG2
-   AFAICT). I think we should name this more like
-   'gsp_mailboxes_readable' or something, since IIUC it is meant to test
-   when it's valid to read mboxs.
-2. other logic is wrong as you mentioned.
-
-Maybe we could structure lockdown_released like this:
-
-// can't read the mailboxes yet (even though we already did but the
-// result is actually not valid so maybe this should be restructured)
-if !gsp_mailboxes_readable {
-  return false;
+impl<T: ?Sized + for<'a> WithLt<'a>, WF, const N: usize> ForLt for UnsafeFo=
+rLtImpl<T, WF, N> {
+    type Of<'a> =3D <T as WithLt<'a>>::Of;
 }
 
-// we can read the registers and we are still waiting for mbox0 to
-// be zero
-if mbox0 !=3D 0 && addr =3D=3D fmc_boot_params_addr {
-  return false;
-}
+impl<T: ?Sized + for<'a> WithLt<'a>, WF> CovariantForLt for UnsafeForLtImpl=
+<T, WF, 1> {}
 
-// either lockdown is released or some error happened
-return riscv_br_priv_lockdown =3D=3D 0 || mbox0 !=3D 0
+Best,
+Gary
 
-I think your suggested change w.r.t. if self.mbox0 !=3D 0; is also
-correct. I think we should update the comment on the function and the
-function name too to say it returns true on lockdown release OR an error
-happened.
+> =20
+> -// This is a helper trait for implementation `ForLt` to be able to use H=
+RTB.
+> +// This is a helper trait for implementation `CovariantForLt` to be able=
+ to use HRTB.
+>  #[doc(hidden)]
+>  pub trait WithLt<'a> {
+>      type Of: 'a;
+>  }
+> =20
+> -// SAFETY: In `ForLt!` macro, a covariance proof is generated when namin=
+g `UnsafeForLtImpl`
+> -// and it will fail to evaluate if the type is not covariant.
+> -unsafe impl<T: ?Sized + for<'a> WithLt<'a>, WF> ForLt for UnsafeForLtImp=
+l<T, WF, 0> {
+> +// SAFETY: In `CovariantForLt!` macro, a covariance proof is generated w=
+hen naming
+> +// `CovariantForLtImpl` and it will fail to evaluate if the type is not =
+covariant.
+> +unsafe impl<T: ?Sized + for<'a> WithLt<'a>, WF> CovariantForLt for Covar=
+iantForLtImpl<T, WF, 0> {
+>      type Of<'a> =3D <T as WithLt<'a>>::Of;
+>  }
+> diff --git a/rust/macros/for_lt.rs b/rust/macros/for_lt.rs
+> index 364d4113cd10..3cb094d00548 100644
+> --- a/rust/macros/for_lt.rs
+> +++ b/rust/macros/for_lt.rs
+> @@ -176,7 +176,7 @@ fn prove(&mut self, ty: &'a Type) {
+>      }
+>  }
+> =20
+> -pub(crate) fn for_lt(input: HigherRankedType) -> TokenStream {
+> +pub(crate) fn covariant_for_lt(input: HigherRankedType) -> TokenStream {
+>      let (ty, lifetime) =3D match input {
+>          HigherRankedType::Explicit { lifetime, ty, .. } =3D> (ty, lifeti=
+me),
+>          HigherRankedType::Implicit { ty } =3D> {
+> @@ -235,7 +235,7 @@ fn #cov_proof_name<'__short, '__long: '__short>(
+>      );
+> =20
+>      quote!(
+> -        ::kernel::types::for_lt::UnsafeForLtImpl::<
+> +        ::kernel::types::for_lt::CovariantForLtImpl::<
+>              dyn for<#lifetime> ::kernel::types::for_lt::WithLt<#lifetime=
+, Of =3D #ty>,
+>              #ty_static,
+>              {
+> diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
+> index 4a48fabbc268..2167cb270928 100644
+> --- a/rust/macros/lib.rs
+> +++ b/rust/macros/lib.rs
+> @@ -491,14 +491,13 @@ pub fn kunit_tests(attr: TokenStream, input: TokenS=
+tream) -> TokenStream {
+>          .into()
+>  }
+> =20
+> -/// Obtain a type that implements [`ForLt`] for the given higher-ranked =
+type.
+> +/// Obtain a type that implements [`CovariantForLt`] for the given highe=
+r-ranked type.
+>  ///
+> -/// Please refer to the documentation of the [`ForLt`] trait.
+> +/// Please refer to the documentation of the [`CovariantForLt`] trait.
+>  ///
+> -/// [`ForLt`]: trait.ForLt.html
+> +/// [`CovariantForLt`]: trait.CovariantForLt.html
+>  #[proc_macro]
+> -// The macro shares the name with the trait.
+>  #[allow(non_snake_case)]
+> -pub fn ForLt(input: TokenStream) -> TokenStream {
+> -    for_lt::for_lt(parse_macro_input!(input)).into()
+> +pub fn CovariantForLt(input: TokenStream) -> TokenStream {
+> +    for_lt::covariant_for_lt(parse_macro_input!(input)).into()
+>  }
+> diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_dr=
+iver_auxiliary.rs
+> index 2c1351040e45..92ee6a6d348e 100644
+> --- a/samples/rust/rust_driver_auxiliary.rs
+> +++ b/samples/rust/rust_driver_auxiliary.rs
+> @@ -13,7 +13,7 @@
+>      driver,
+>      pci,
+>      prelude::*,
+> -    types::ForLt,
+> +    types::CovariantForLt,
+>      InPlaceModule, //
+>  };
+> =20
+> @@ -60,8 +60,8 @@ struct Data<'bound> {
+> =20
+>  #[allow(clippy::type_complexity)]
+>  struct ParentData<'bound> {
+> -    _reg0: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
+> -    _reg1: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
+> +    _reg0: auxiliary::Registration<'bound, CovariantForLt!(Data<'_>)>,
+> +    _reg1: auxiliary::Registration<'bound, CovariantForLt!(Data<'_>)>,
+>  }
+> =20
+>  kernel::pci_device_table!(
+> @@ -115,7 +115,7 @@ fn probe<'bound>(
+> =20
+>  impl ParentDriver {
+>      fn connect(adev: &auxiliary::Device<Bound>) -> Result {
+> -        let data =3D adev.registration_data::<ForLt!(Data<'_>)>()?;
+> +        let data =3D adev.registration_data::<CovariantForLt!(Data<'_>)>=
+()?;
+>          let pdev =3D data.parent;
+> =20
+>          dev_info!(
 
-I don't know if there's a simpler logic that will work, just commenting
-on how it compares to openrm.
+
