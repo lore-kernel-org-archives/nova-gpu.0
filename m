@@ -1,28 +1,28 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012033.outbound.protection.outlook.com [52.101.43.33])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010055.outbound.protection.outlook.com [52.101.85.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF79407590
-	for <nova-gpu@lists.linux.dev>; Thu,  4 Jun 2026 11:44:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD2341C2E8
+	for <nova-gpu@lists.linux.dev>; Thu,  4 Jun 2026 11:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780573492; cv=fail; b=PTLjZUUlaxqpjZt1rklcaiohYDQH1Q8iIQSyfdQrePCVNi+SRKsZ7+8YYUQp9PCBHJis14Mqa8lyc1zZMDNcbtGaW1STDcN06zqq2wftII8v7G4amO28uwV3hLVs4jEkMv86FLMjgxuRUnKOK/gUsnQA6dPtm3hl7oB72KSSDVM=
+	t=1780573506; cv=fail; b=O266OnvF4JUksDyGr8uez4qOQZnFoZRcbiAs/R/Ifz8MKFxeCJ0TdnU0uca04L3LoAhPmVaPXJXmzCvancr+0U9kNwjXRGUJseQVp1pTauzRep/kMZ3jPLIQVjRWT0VLNIxTvCswtE/1e2JJHIh/dD5VGGAp5eITmVAEyp2OaXM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780573492; c=relaxed/simple;
-	bh=MmA08EJ0P8SiEovcFGOUCGvMuN5KRMvGo2dyNSmZO3U=;
+	s=arc-20240116; t=1780573506; c=relaxed/simple;
+	bh=TQwvz80BP6jdIhMBGM9UzzRgq1W6cWuAzfai8jEc9Is=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s7dZXJxxMAqwO+c57i652qWa1xUN73wVtBz+m2EoYZ5YRU/KwsoIhdszCrN+u9EDO/CrDEMv5lA/adSsyt7PrD6YxSihjEEbbXmjDYK2NDOqn8xvX/hVn16iu6jjCJWkr1dgQmYJtWt1ghh5YMRYh6jJ6K/hyBSdMaXbPqtSbEU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=E8dQWPvs; arc=fail smtp.client-ip=52.101.43.33
+	 MIME-Version:Content-Type; b=EM1eVoRIXfmY55kGnxjqe0/YkHZz2bXfcBO2PGZUa0gEfxHalU/Aviz4o7kOtVCcyazpEeaFseHdD1bKI5fEykFhBxZZ24opLC7M/aOYO97jVbepH9KhPJev+R8G/FxEhcZkLLK//6ltM4zQoBeYcRsA4NNxGhhKfM2WhaoJKaU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tybh5Dbq; arc=fail smtp.client-ip=52.101.85.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="E8dQWPvs"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tybh5Dbq"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fYVdRM8+98VR1nWWU0ICniM0KFsCoTQt6IpAmfgXETgBqmThwbf35LHOFgYUULdKfxWfoDyMPhK+9o4NRv5n1tpaXSOjYZBJLK2USSHBRAAh9SNPY735o2bvCVJiFiB4BvmzvuZ5x5GEKNBXCW6XTBLapUoIji6mgMqmM+IPtMsYmL/xB5qqx1FE9H3DxtvacSQv2t3jUlN9hOdtTTVWz+O+v2Ygab3IEe3SqsZRHNHmAxXqjKAgF5jK32TMf1QOtz51//E2gW22ls7ES32PJqdR2GyJ19BWNBpjAocsmk9vtqNXWc4YGUGHt/KNCJEW/tfXoPHXRTB3dbVeOGDdkg==
+ b=AGLWm3TxIpnMOemtx4x8hQVlfD0IghOcKed4c7XE9RqU6I0yAxNafDvX03WRucd/XxOimuR8BG2lJiJ6d1V91H+X7BOHBbBhwfSqk0DtK450Q3ZU2cydX+dbz1rxIL02WTia+UdOcO1b1ZGiaQAu52xJ+tdoELc7dSqZjC7V0cKYqjmAunuzqlQDYbnjwszM60iUEVIwosqpgco7xsbd6VMWTwqGyHulRxPKhIiUuO1WtARXD4uQQdZ2tTPuZhm8iOzfV17BmACe6/Pxe3MPd3It37F0ONV3nXgBBfkucGlkAJ1oBEJXsG3ZSt5fY9yN2nRbT0xXOvQF4PwNfdSpaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oYPrghxIO8NuBcowYn005NOesFR/79BgBTuOknMGmGw=;
- b=BDigLDGdsPflVWdndjJTlMdifwe2rceMkq/MjH+B87EwutFlCIGd0UAqFVwd/UWKJwagnseLjk7gyqxWoNjH0Tu5YrZwS+6MoNbihfGTAWw/kx0QAjGL+jWwpDTR3JIq65VyWdwUsVNi/vXUNOgjGaQMmVa6jE880XNWeNn58NuJZTRHMleGgYpuAP/WohQLjfKqXKqrHiEJys96XEa1JCscdXYSU+6ZSqV5XrlZ/HqnxbddMR/yiQ+ntkPL2hI3ewf7VAaiJASRwg9/otH3f7y4bkADYVGQH4R2A6uogcsxJljww1sI8UduAxFZIuMZyCKDPtINDdh+DeNXL8RlRw==
+ bh=d1181+t4yhgt8RVmJr5byh410JuqwrZD0rGDk5kAPis=;
+ b=ndGawzVRR5jtHj4Nlfx7C4ob9ChFrHUmP94fhTb3YSMBBvvnYVesjOc/9VVcukaWKISkTRBv13OFehpV94NhWxYOfsKgIuwqD2MC70vhr8kxFiDBUaEOqimJUGMEfdY9tvTR46CBgT2x+LOf5EewaruMlp3pgDWSL2REhz7RSpzxnh+vdtoje70SjW8rUBCOJ6t+/o1dZ7ixpoDI3wQfwqISNH74QAGqMeRYhPaWAIREYI/lJD/ubxpwiepSNxOoG/1D2YI6t8zMS6hpDeTX31MN38z8MAP61lM5b68KNqYgGWdRRCcxTFsX0ocJMMYv4t7qli3d8RKQQFB+Fpgepg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oYPrghxIO8NuBcowYn005NOesFR/79BgBTuOknMGmGw=;
- b=E8dQWPvs2+aN8PBTBcG08EsqdOEzfIBkw98Gy5AuqjR20BKo/KOWh7eNOGkQS3hK15ArGZ9YI6tj42gKkMRecGPoB1CGZ7YY9UbDAiXCOoEoyJh2I/kUpPp7Ibivrj/64JP49j4jDSq0nXaiX2ScI0BT12CQx+ssUndtiaz57BmzxktwiPRNzuuLK34Q0zBJ9Bpgo3sUlZH0DaaQ28ZBceUn71YVrVtmz4KSeDsUMw2VcOaqcxjjOxnJ+YqDcymwTwgay7iqQx4Ibj6JLwR8zm9Th+NnTcLfqvfXgxd8RnYPdjUryPWzmnscrYbr69SJfKmGNNU+JhS8XLT8fBm9/Q==
-Received: from PH8P222CA0021.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::6)
- by PH7PR12MB7233.namprd12.prod.outlook.com (2603:10b6:510:204::12) with
+ bh=d1181+t4yhgt8RVmJr5byh410JuqwrZD0rGDk5kAPis=;
+ b=tybh5DbqJW8k13286LXzWGSEPZyqv1lnbfWy4zBZ2V+fzvxfYrt0nh8E8N4WTbdraF/079+jWtPBOKzn5lICJYU3pKKOQBgwG0YRgcMYgVOJw13ge9EVB+4xl258MOxBotPVgLtcvVj3elwMe2f4qudPYzzlrt4WvgOZtKqtsLYB431uqjpH/Vgfcn1iztQFAOvTTTPW5zxpJysUH0ROumBiySLSRkKzRx3uPxNG9Bo/TWlqqw2b5utq4AoT+Ei+xFr1aSP+4hrBT2TOapMh7TRtYB9vhUN8JJkEtbkqJwKK061QwFMyrH6kaTeVzouopZx57UlmJdqL2D3bqbY0+g==
+Received: from PH8PR20CA0021.namprd20.prod.outlook.com (2603:10b6:510:23c::26)
+ by CHXPR12MB999221.namprd12.prod.outlook.com (2603:10b6:610:2fa::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 11:44:46 +0000
-Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
- (2603:10b6:510:2d7:cafe::72) by PH8P222CA0021.outlook.office365.com
- (2603:10b6:510:2d7::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.22; Thu, 4 Jun 2026
+ 11:44:58 +0000
+Received: from SJ1PEPF000023D8.namprd21.prod.outlook.com
+ (2603:10b6:510:23c:cafe::60) by PH8PR20CA0021.outlook.office365.com
+ (2603:10b6:510:23c::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
- Jun 2026 11:44:46 +0000
+ Jun 2026 11:44:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ SJ1PEPF000023D8.mail.protection.outlook.com (10.167.244.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.2 via Frontend Transport; Thu, 4 Jun 2026 11:44:45 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ 15.21.113.2 via Frontend Transport; Thu, 4 Jun 2026 11:44:57 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 4 Jun
- 2026 04:44:31 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 04:44:39 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 4 Jun
- 2026 04:44:30 -0700
+ 2026 04:44:38 -0700
 Received: from inno-dell.mtl.com (10.127.8.9) by mail.nvidia.com (10.129.68.9)
  with Microsoft SMTP Server id 15.2.2562.20 via Frontend Transport; Thu, 4 Jun
- 2026 04:44:23 -0700
+ 2026 04:44:31 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>
 CC: <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
@@ -75,9 +75,9 @@ CC: <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
 	<targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH 4/9] gpu: nova-core: read vGPU mode from FSP via PRC protocol
-Date: Thu, 4 Jun 2026 14:43:34 +0300
-Message-ID: <20260604114339.1565660-5-zhiw@nvidia.com>
+Subject: [PATCH 5/9] gpu: nova-core: add FSP and PRC protocol documentation
+Date: Thu, 4 Jun 2026 14:43:35 +0300
+Message-ID: <20260604114339.1565660-6-zhiw@nvidia.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260604114339.1565660-1-zhiw@nvidia.com>
 References: <20260604114339.1565660-1-zhiw@nvidia.com>
@@ -92,254 +92,203 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|PH7PR12MB7233:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd639216-21f7-43a4-1df2-08dec22eacfd
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D8:EE_|CHXPR12MB999221:EE_
+X-MS-Office365-Filtering-Correlation-Id: 807fc945-ee44-40b9-5e5d-08dec22eb3fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|1800799024|36860700016|22082099003|18002099003|6133799003|56012099006|11063799006|3023799007;
+	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|56012099006|11063799006|3023799007|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	lJBMu6/3jwSlCJ6lKPUddBsszEiK5XMR55YJH9VShNV7i6YTQuhe/wDzYBb05plrZSeMNEvd7as8Po4UdWLG2Nf3xGc7u3DUMa2KCTqYlbNfF7H4xdJ1gExmuyGzik/1Amd39JsrF7VX/7G94XNWybQuf1KYF6VNqdfVqIuXzQ7yKWDvt5B/J4mu8Oz1+MnKlu45DT1gmZ5q2CdPFIM6SqhpTXMcC7mUFM7bUpavfq4dV866IZ+icDFTsjVTKEttsvA95YR6tDRhqleZY0SHfINwGo4ME5OaO2T7M3qIOwMaBCUq9AiYqqTcueBBTQ0V20koX+r7kZAoU4s8IXWwyUUaKsx4xqBIa1Tg9uOMTZwWAbEj0Tk7TpQx1vBhKNcXrKm+GVUZDN+raWDpHI7+dNxaWq0x9B82rPHwQ1/9vuCbXa+cBQYUlFcv89Se6rFZ6qylZ8TZQF3Kw0l2L0uEhSS64oUbrisiOFoSuGJjsVVNfuNnkeBaQWwW1y0lj12teI+b1OMPwDLJ+3mc58txcx9snRkxSDShnNK+XxrF8G8UBGl31ruBUJm4Xn+lM1MiekJTcFPjK3H/QOhv4JiDU1qhkRFf+XfpvX/nc4aTroKYRIlCP2dItqlNCMqIYY2leZZK/1R5iWi++WpdFy64hM5eXBIjuK6lkveRdEQ6vD43qANpZEqtI4ta9J+oUpHdUbWvRCOz9xlkXINZUm8gZedd15wus+/8uaSV2XUBt/A=
+	uPFhZflJLI8pmD+pGD/kodVonZVx7FOz+a0YF1UsaSO0sqfIAyAVLlPb5He3dbbDrH68YST38ldql4+xL1X8r7ECKNoEq/M8MRlamJWdypqCkhHeFECxoYDLEInNkELW4rAazqe81sk8L6XVoajwfwruLD9Z0tM5R1X1xU+O7+b5t6Yfl047R2bYtJ6sMcEa+PhzxDpfxGzee6iBzMG7W6xA3pG7pYyVW8kr3QMFDJjCyXziuKkfsk+ke6tIwcWR4hXYLf7IxQaUOQ+wjKvz239Uyv1hjSVdfSaF9LtA+ZjvnUJLxP4Gw0DT2W3OTEDzsUjlA9kWUrIBvK1L4ledwWVgDGQSuu09Wz9DCVdkHLBSvdHz+d1sUsudc8fdcP+itecjeT1UrJuSXe+C59CIdokHoVyPoC72ShgrE1S6XTkCVudiFXxzLpcag+dKJsyDhKW9DO+l3xbWTOaZFJ1jKPxvrSJB/ahOvQp4EqDPaHowtf4M+czho+E8I3Gnb5hiZK+LDf0Lesa54rYeASds8Iw2Gy5VODFjBgYsGPPET1bSTFAMLaQO9O7u8pT5blAe9KZXyLe78M9fUnEOS78N9FC8aujLV4bbnaVX11NNUW5KSqOYAsP6uBcubj5C12BXCELUS4EV/38+oo6q+npv9cxmue+t3X7m4+nDZ4e0Kt7j0NUlWsM2Xji+I5LBkmBLa0cMjMkxAcrPQmwa3z1h/3F+xL+ISNlt6DXFubpzH/E=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700016)(22082099003)(18002099003)(6133799003)(56012099006)(11063799006)(3023799007);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(56012099006)(11063799006)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	5gsjThDKU8vnznbdQbnPD9XIh1ef6TF3jEusRt8Lz57obSS4IMgobO1lgHgrwH5MJWNubFQCjd7xYYr8jv3BxY7jXOzTCBGMlkwiqfwhKmEB7m4DmWk+sjgMEA5c55J2V4rBBTARmUKQRkRok1n7Ili1Uahzj04LUaPHX2wLCm+mGuIs2VIgKdHsgs/CsLESKkEHCDmmnCsuwE4DirA8NrBbY8NN9TAsQuwr8FcYjt58BeenIXSPia8wj0LeAfsVff5sTa/qvEzsBLEkTuMSvZrHyeX0c6evsndvnZpspZcbjuFPwGso5vkbBwBMxAwzbV9onzsZgSAPCtGM+qT/o7IKNRluOxRis78OAEJvj14SurBq9L14zSkIFFL6UCXCfIMGml9HExaeFOilrmLLPkwez+JCfMP9zhw53nWmKzBXDiN5GJIklyNcautiNI64
+	50isJE1wjze/3OlKIosr7QUsfLSUyXIrJENKNRROPChpM4KfX2Xenr3sT0HoSmDOeywA23Mjl5urupmPY2dL6ewmt0YVIMK0goBS8HLSQ1e0K2kebaVEnOndcm2yKewIVZP12+mZhbi3w0Mj5uvcKzEMUIPElwDdVngz8LiiWuLpArVu5k/w/3uraC+2WoCDShAFexhDHeMrXfbI8DCSWPTQ7tuVPl2cxV4WXuEj8ogXn8Fc70OVa53Yx3x3qjyaF/0eXwXL3+S7Zp6FCZloiDNwzun/E5clj4g2F2NWsRK0h/1S0UaOV1ZoU5Ivs9SKoIVC0Y+yLiHMnwuvfeJxltwLjqjtYM4QtDHRgeav8asNCRvNQ2fp/u65rSmDIM2inbxVo3VMFQhXqZ0y/KemXVEgWzMuXLG4OVIB4M4snZqiWfqGxwsAaGG3gqYqi4TN
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 11:44:45.8443
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 11:44:57.6264
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd639216-21f7-43a4-1df2-08dec22eacfd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 807fc945-ee44-40b9-5e5d-08dec22eb3fc
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023D7.namprd21.prod.outlook.com
+	SJ1PEPF000023D8.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7233
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR12MB999221
 
-Add support for querying the vGPU mode configuration from FSP using
-the PRC (Product Reconfiguration Control) protocol. PRC is an API
-system exposed through FSP's Management Partition that allows querying
-device configuration "knobs" without firmware updates.
-
-Add a VgpuMode enum that validates the raw PRC response value,
-returning an error for unexpected values.
+Add documentation for the Foundation Security Processor (FSP) interface
+covering the simplified Hopper/Blackwell boot flow, the Chain of Trust
+(COT) message protocol, the MCTP/NVDM message format, and the Product
+Reconfiguration Control (PRC) protocol used to query device configuration
+knobs such as vGPU mode.
 
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- drivers/gpu/nova-core/fsp.rs  | 145 ++++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/mctp.rs |   3 +
- 2 files changed, 148 insertions(+)
+ Documentation/gpu/nova/core/fsp.rst | 142 ++++++++++++++++++++++++++++
+ Documentation/gpu/nova/index.rst    |   1 +
+ 2 files changed, 143 insertions(+)
+ create mode 100644 Documentation/gpu/nova/core/fsp.rst
 
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index 5fd2e9e277b1..ce11efeba37e 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -48,6 +48,44 @@
- 
- mod hal;
- 
-+/// PRC (Product Reconfiguration Control) protocol constants.
-+///
-+/// PRC is an API system exposed through FSP's Management Partition that allows
-+/// querying and modifying device configuration "knobs" without firmware updates.
-+/// Each knob is identified by a unique object ID and controls a specific device
-+/// behavior (e.g., vGPU mode, ECC, confidential computing).
-+mod prc {
-+    /// Sub-command to read a PRC knob value.
-+    pub(super) const SUBCMD_READ: u8 = 0x0c;
+diff --git a/Documentation/gpu/nova/core/fsp.rst b/Documentation/gpu/nova/core/fsp.rst
+new file mode 100644
+index 000000000000..52d618d22bb8
+--- /dev/null
++++ b/Documentation/gpu/nova/core/fsp.rst
+@@ -0,0 +1,142 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+    /// PRC object ID for vGPU mode configuration (knob ID 41).
-+    pub(super) const OBJECT_VGPU_MODE: u8 = 0x29;
++===================================================
++FSP (Foundation Security Processor) and Secure Boot
++===================================================
++This document describes the role of the FSP in the GPU boot sequence on
++Hopper and Blackwell GPUs, and how it differs from the earlier Ampere boot
++flow. It also provides a brief overview of the PRC (Product Reconfiguration
++Control) protocol used to query device configuration through FSP. As with
++other documents in this directory, the information is subject to change and
++is intended to help developers understand the corresponding kernel code.
 +
-+    /// Request the active knob value (currently effective this boot).
-+    pub(super) const FLAG_ACTIVE: u8 = 1 << 1;
-+}
++What is FSP?
++============
++The Foundation Security Processor (FSP) is the GPU's Internal Root of Trust
++(IROT). It is a dedicated security processor that boots from immutable ROM
++(Boot ROM) inside the GPU and is responsible for establishing the Chain of
++Trust before any other firmware is allowed to run.
 +
-+/// vGPU operating mode as reported by FSP via the PRC protocol.
-+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-+pub(crate) enum VgpuMode {
-+    /// vGPU support is disabled on this GPU.
-+    Disabled = 0,
-+    /// vGPU support is enabled on this GPU.
-+    Enabled = 1,
-+}
++FSP runs independently of the host CPU and starts executing as soon as the
++GPU is powered on. By the time the nova-core driver is loaded, FSP has
++already completed its own secure boot and is ready to accept commands from
++the driver.
 +
-+impl TryFrom<u16> for VgpuMode {
-+    type Error = kernel::error::Error;
++Simplified boot flow (Hopper/Blackwell)
++=======================================
++Starting with Hopper, the boot flow is significantly simplified compared to
++earlier GPU generations like Ampere.
 +
-+    fn try_from(value: u16) -> Result<Self> {
-+        match value {
-+            0 => Ok(VgpuMode::Disabled),
-+            1 => Ok(VgpuMode::Enabled),
-+            _ => Err(EINVAL),
-+        }
-+    }
-+}
++On an **Ampere** GPU, the boot verification chain involves multiple Falcon
++engines and multiple ucode stages (see falcon.rst for details)::
 +
- /// FSP command response payload (`NVDM_PAYLOAD_COMMAND_RESPONSE`).
- #[repr(C, packed)]
- #[derive(Clone, Copy)]
-@@ -57,6 +95,39 @@ struct NvdmPayloadCommandResponse {
-     error_code: u32,
- }
- 
-+// SAFETY: NvdmPayloadCommandResponse is a packed C struct with only integral fields.
-+unsafe impl FromBytes for NvdmPayloadCommandResponse {}
++     Hardware BROM (SEC2)
++          -> HS Booter (SEC2)
++               -> LS GSP-RM (GSP)
 +
-+/// PRC message payload.
-+///
-+/// Sent to FSP to query or modify a device configuration knob.
-+/// The response includes the common FSP response header followed by
-+/// a [`NvdmPayloadPrcResponse`] with the knob's current state value.
-+#[repr(C, packed)]
-+#[derive(Clone, Copy)]
-+struct NvdmPayloadPrc {
-+    sub_message_id: u8,
-+    flags: u8,
-+    object_id: u8,
-+    reserved: u8,
-+}
++The driver must extract ucode from VBIOS, manage SEC2 and GSP, and
++orchestrate the Booter to load GSP-RM. This involves FWSEC-FRTS, devinit,
++and the Booter stages.
 +
-+// SAFETY: NvdmPayloadPrc is a packed C struct with only integral fields.
-+unsafe impl AsBytes for NvdmPayloadPrc {}
++On **Hopper/Blackwell** GPUs, FSP replaces this multi-stage process with a
++single message-driven interface::
 +
-+/// PRC response payload containing the knob state value.
-+#[repr(C, packed)]
-+#[derive(Clone, Copy)]
-+struct NvdmPayloadPrcResponse {
-+    value_low: u8,
-+    value_high: u8,
-+    reserved1: u8,
-+    reserved2: u8,
-+}
++     FSP (hardware root of trust, boots from ROM)
++          -> FMC (Falcon Microcontroller, verified by FSP)
++               -> GSP-RM (verified and loaded by FMC)
 +
-+// SAFETY: NvdmPayloadPrcResponse is a packed C struct with only integral fields.
-+unsafe impl FromBytes for NvdmPayloadPrcResponse {}
++The driver only needs to:
 +
- /// Common MCTP and NVDM headers shared by all FSP messages.
- #[repr(C, packed)]
- #[derive(Clone, Copy)]
-@@ -92,6 +163,18 @@ struct FspResponse {
- // SAFETY: FspResponse is a packed C struct with only integral fields.
- unsafe impl FromBytes for FspResponse {}
- 
-+/// Complete FSP PRC response including the knob state payload.
-+#[repr(C, packed)]
-+#[derive(Clone, Copy)]
-+struct FspPrcResponse {
-+    header: FspMessageHeader,
-+    response: NvdmPayloadCommandResponse,
-+    prc_data: NvdmPayloadPrcResponse,
-+}
++1. Wait for FSP to complete its own secure boot (polling a scratch register).
++2. Send a Chain of Trust (COT) message to FSP with the FMC firmware location,
++   cryptographic signatures, and GSP boot parameters.
++3. FSP authenticates the FMC firmware and boots it, FMC in turn loads GSP-RM.
 +
-+// SAFETY: FspPrcResponse is a packed C struct with only integral fields.
-+unsafe impl FromBytes for FspPrcResponse {}
++There is no SEC2 involvement, no Booter ucode, and no FWSEC-FRTS stage. The
++entire secure boot is driven by a single FSP message exchange.
 +
- /// Trait implemented by types representing a message to send to FSP.
- ///
- /// This provides [`Fsp::send_sync_fsp`] with the information it needs to send
-@@ -178,10 +261,25 @@ fn new<'a>(
- // bytes are initialized.
- unsafe impl AsBytes for FspCotMessage {}
- 
-+/// Complete FSP PRC message.
-+#[repr(C, packed)]
-+#[derive(Clone, Copy)]
-+struct FspPrcMessage {
-+    header: FspMessageHeader,
-+    prc: NvdmPayloadPrc,
-+}
++Chain of Trust (COT) protocol
++=============================
++The Chain of Trust establishes a cryptographically enforced boot sequence,
++ensuring the GPU reaches a known, trusted state.
 +
-+// SAFETY: FspPrcMessage is a packed C struct with only integral fields.
-+unsafe impl AsBytes for FspPrcMessage {}
++The driver communicates with FSP using a message queue (Falcon MSGQ
++interface). Each message consists of an MCTP (Management Component Transport
++Protocol) transport header and an NVDM (NVIDIA Vendor Defined Message) header,
++followed by a protocol-specific payload.
 +
- impl MessageToFsp for FspCotMessage {
-     const NVDM_TYPE: NvdmType = NvdmType::Cot;
- }
- 
-+impl MessageToFsp for FspPrcMessage {
-+    const NVDM_TYPE: NvdmType = NvdmType::Prc;
-+}
++For Chain of Trust, the payload includes:
 +
- /// Bundled arguments for FMC boot via FSP Chain of Trust.
- pub(crate) struct FmcBootArgs {
-     chipset: Chipset,
-@@ -226,6 +324,53 @@ pub(crate) struct Fsp {
- }
- 
- impl Fsp {
-+    /// Read vGPU mode from FSP using the PRC protocol.
-+    ///
-+    /// Queries FSP's Management Partition for the active vGPU mode knob value.
-+    /// Returns [`VgpuMode::Enabled`] if vGPU support is active on this GPU,
-+    /// [`VgpuMode::Disabled`] otherwise.
-+    #[expect(dead_code)]
-+    pub(crate) fn read_vgpu_mode(
-+        &mut self,
-+        dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+    ) -> Result<VgpuMode> {
-+        let msg = KBox::new(
-+            FspPrcMessage {
-+                header: FspMessageHeader::new(NvdmType::Prc),
-+                prc: NvdmPayloadPrc {
-+                    sub_message_id: prc::SUBCMD_READ,
-+                    flags: prc::FLAG_ACTIVE,
-+                    object_id: prc::OBJECT_VGPU_MODE,
-+                    reserved: 0,
-+                },
-+            },
-+            GFP_KERNEL,
-+        )?;
++- The system memory address of the FMC firmware image.
++- Cryptographic material: a SHA-384 hash, RSA-3K public key, and RSA-3K
++  signature extracted from the FMC ELF firmware.
++- FRTS (Firmware Runtime Services) region information (vidmem offset and size).
++- The system memory address of the GSP boot arguments structure.
 +
-+        let response_buf = self.send_sync_fsp(dev, bar, &*msg)?;
++FSP verifies the signature against the provided public key and hash, and if
++verification succeeds, boots the FMC. The FMC then authenticates and launches
++GSP-RM.
 +
-+        let prc_resp_size = core::mem::size_of::<FspPrcResponse>();
-+        if response_buf.len() < prc_resp_size {
-+            dev_err!(
-+                dev,
-+                "PRC response too small: {} bytes (expected {})\n",
-+                response_buf.len(),
-+                prc_resp_size
-+            );
-+            return Err(EIO);
-+        }
++The message flow is::
 +
-+        let (prc_response, _) = FspPrcResponse::from_bytes_prefix(&response_buf[..]).ok_or(EIO)?;
++     nova-core                          FSP
++        |                                |
++        |  1. Poll scratch register      |
++        |  (wait for FSP boot complete)  |
++        |                                |
++        |  2. COT message  ------------> |
++        |     (FMC addr, signatures,     |
++        |      boot params)              |
++        |                                |
++        |                                |--- Verify FMC signature
++        |                                |--- Boot FMC
++        |                                |--- FMC loads GSP-RM
++        |                                |
++        |  3. COT response <------------ |
++        |     (success/error)            |
++        |                                |
 +
-+        let raw_value = u16::from(prc_response.prc_data.value_low)
-+            | (u16::from(prc_response.prc_data.value_high) << 8);
++FSP message format
++==================
++All FSP messages share a common header format consisting of two 32-bit words:
 +
-+        VgpuMode::try_from(raw_value).inspect_err(|_| {
-+            dev_err!(dev, "unexpected vGPU mode value: {:#x}\n", raw_value);
-+        })
-+    }
++**MCTP header** (Management Component Transport Protocol):
 +
-     /// Waits for FSP secure boot completion, then returns the [`Fsp`] interface.
-     ///
-     /// Polls the thermal scratch register until FSP signals boot completion or the timeout
-diff --git a/drivers/gpu/nova-core/mctp.rs b/drivers/gpu/nova-core/mctp.rs
-index 482786e07bc7..b203c632bf20 100644
---- a/drivers/gpu/nova-core/mctp.rs
-+++ b/drivers/gpu/nova-core/mctp.rs
-@@ -13,6 +13,8 @@
- #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
- #[repr(u8)]
- pub(crate) enum NvdmType {
-+    /// PRC (Product Reconfiguration Control) message.
-+    Prc = 0x13,
-     #[default]
-     /// Chain of Trust boot message.
-     Cot = 0x14,
-@@ -25,6 +27,7 @@ impl TryFrom<u8> for NvdmType {
- 
-     fn try_from(value: u8) -> Result<Self, Self::Error> {
-         match value {
-+            x if x == u8::from(Self::Prc) => Ok(Self::Prc),
-             x if x == u8::from(Self::Cot) => Ok(Self::Cot),
-             x if x == u8::from(Self::FspResponse) => Ok(Self::FspResponse),
-             _ => Err(value),
++- Bit 31: SOM (Start of Message)
++- Bit 30: EOM (End of Message)
++- Bits 29:28: Packet sequence number
++- Bits 23:16: Source Endpoint ID
++
++**NVDM header** (NVIDIA Vendor Defined Message):
++
++- Bits 6:0: MCTP message type (0x7e = vendor-defined PCI)
++- Bits 23:8: PCI vendor ID (0x10de = NVIDIA)
++- Bits 31:24: NVDM type (0x14 = COT, 0x13 = PRC, 0x15 = FSP response)
++
++PRC (Product Reconfiguration Control) protocol
++===============================================
++PRC is an API system exposed through FSP's Management Partition that allows
++querying and modifying device configuration without firmware updates.
++
++Configuration parameters are called "knobs". Each knob has a unique object
++ID and controls a specific device behavior. Examples include vGPU mode, ECC
++enable, confidential computing mode, and NVLINK configuration.
++
++Each knob has two values:
++
++- **Active**: the currently effective value for this boot cycle.
++- **Persistent**: the value stored in InfoROM, applied on subsequent boots.
++
++The nova-core driver uses PRC to read the vGPU mode knob (object ID 0x29)
++during early boot, before firmware loading, to determine whether the GPU
++should operate in vGPU mode.
++
++The PRC message format follows the same MCTP/NVDM header structure as COT,
++with NVDM type 0x13. The payload contains:
++
++- A sub-command (e.g., 0x0c for read).
++- Flags indicating which value to read (bit 0 = persistent, bit 1 = active).
++- The knob object ID.
++
++The response includes the common FSP response header (with error status)
++followed by the knob's 16-bit state value.
+diff --git a/Documentation/gpu/nova/index.rst b/Documentation/gpu/nova/index.rst
+index e39cb3163581..1783513cbd05 100644
+--- a/Documentation/gpu/nova/index.rst
++++ b/Documentation/gpu/nova/index.rst
+@@ -30,5 +30,6 @@ vGPU manager VFIO driver and the nova-drm driver.
+    core/todo
+    core/vbios
+    core/devinit
++   core/fsp
+    core/fwsec
+    core/falcon
 -- 
 2.51.0
 
