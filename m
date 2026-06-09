@@ -1,53 +1,54 @@
 Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020086.outbound.protection.outlook.com [52.101.196.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5373A48AE22;
-	Tue,  9 Jun 2026 15:39:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2381148C3EE;
+	Tue,  9 Jun 2026 15:39:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.86
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781019549; cv=fail; b=tVK95QZMYvHwbalxIEk8hEhXZrET9PysMOc9iTTjzIPd7Mx5KybYqi/pQ9Q8Xim1wdbfkswPhaluNoRzopfpHk2djKh2tPNqGu7h14DJe/rOq2KHdcuREtbxCqgPsaN3AK7TnpGB9aZmj+KQa5JJfsjtv0L6OXjcZ1c8ALsTF7I=
+	t=1781019551; cv=fail; b=ELOjrLrdgAegcAwPcwH1GXZhuwyPbxa5bfA0f6p3KmpRChmlcXIhGHQp0YlDOQcgUjC7ENs9LTz1kgQqXxiDCXDTmCyRctYyMx+v33Wm/xtD5H02i0awCj/UoTrRzotQ4O+tN5oLI6REr0RXBrKFO8D2vXrgszxaC63ejZf1LQA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781019549; c=relaxed/simple;
-	bh=wG4s0Mlub6+whdzeHqbgBmHcmK1O3EYo/fHDF5pP2po=;
+	s=arc-20240116; t=1781019551; c=relaxed/simple;
+	bh=w4oRsqyqOvP6/Pm0p3EcktDaor4KF82lYT6fPTqd8K4=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=jakva80UjUjXKFu6/O9A52I+TJ3xLl9H1DFlXq7LUwHoX6iWk7YJ+cE6iYx+rLXfewg18YpMAawwPO8gCcyIAha9RgWiJQu1iwOL6I98D2fOqvp0wFpS1D3xYyQbDC8Ge6a8munVqZMzHVeryK0nLs/cPjhLCtYEC2onhg+ZbWI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=uijsNF/V; arc=fail smtp.client-ip=52.101.196.86
+	 To:Cc:MIME-Version; b=OREOrfMUD05MqTl/1i7ATYGZ5TBkcxjgQS513GWdAbwDIrhxaTPiXCL+SZXhVgTzrhwlwHx4ee4Y1aEkRq1mJN6KPcVPU0v4/kNvjEYSyaNeJCXaQmBLTVJwQfakXeyikEU9TsAhBYOwC5has12UHoAyLDgyyoCNIQ8dEH/VhNU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=h0hW3YKx; arc=fail smtp.client-ip=52.101.196.86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="uijsNF/V"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="h0hW3YKx"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wHuwa/HJTJuPsRV8v8jNDY2nZ1cIA3yq3CGWZ6eRn7ztZC1LIfUuufqbu7Jkjn/EksORF5K2pmDcj0qHWhFvbNLtKQaEtbOvuqjqeRDWRF6zqtQ8HglOu7Vyi8AKGKdEwDcxgUhytdXwWG3LTEllRQXhEcNCuT1WybPJ946GHtzGbXIwm0exn4sObjGn7ypL0NxeTNOUKmCIRYoYAUNGkjUOYqXf9AE3m/j/sIzC/vJA49pmDV0TSvkjjEAMnPposDOkp2RlwUznwMagX/ldUiE9L/8nnCqe+4vLZwi5FtxSWTdWk4R7v24B5u2+YdkfXxO2DlIOca+XhOAmXduuAw==
+ b=CYWSrAaJbRv8P/suxSHs3fVSCu1nIxg3Hw1xuLsZRE9LR4XGLXIaUprP6K5TzfNI6VMRjVkzdwwmqzavQzFUZdxORbDQ/aSUVQfFfy9jCSfD9N9Nj4cT0HyuJcPbpYXXiaJYzc4xsmyAr7Rc2P9PF05bv8JvuvWgLf7nCVdtLGqrsPNg/bkUFq6UrXIo44AYdH5REFpwosh4aGazsF62oJLqreJlY6ebgGPf/p5NITJg3rb17kXNBCseoqn4neX0HMVjOSBkR+D7pHprPRWs5x+f1WRItb5i0W45WxHa2eqIRPQ/qM8zXyYm0jvO+d0ER82DiIAhcuibMrODZioemw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OCX98HN2c9d25qlpIZB8yb3q+oU/LM3Cdz2twWdFASg=;
- b=OxjRQpOyQBVmMxragZA5w5VeYx6w0OFaFrbCGTHqpCzvM7lJiplmLjL1UHvCpvbiMnJcMOOzFWdRSlOmvaW8G08JZej48CK+L70zgVOh4gHV1gmA61Dw6b8O5ChpWFQKlF2zXlYfd120YtN0/b2gy0pVu9Gugwwh5vMrMT05LR3VWPU2ExOwRIgvheKPL08eOxEIIMS6v27TA5vHouDMx45h6ObxRhzF1FgFAeQezG9RNiPNr57iE3lCWEGueAQjBHEsUk2ibP+5LNG9Ybc9SpRV7cT+5nRF3s/g8nwHfwsZow0BcCn9aTVYlrfVIaEogpD39JJzVBXxZ5WYNAqX3w==
+ bh=1Ho6eQa514E4Jc6fX5ZN59nyGFrcUSabM31KRwmz278=;
+ b=ikDnl4h9R5x6PUIDGcaKdSrsd7LMJS1Cyx8ijzbGUoq55OzvdE8At+sh2SYNIYuq1CmdVwToNp7qlVIDcxOGNKU/f86AYsRftcsbrMTbp883DZRWvqRrmFbcS+Y9CXKcyDrFCHkgS0tXxH6eoYybmwUxcCAs7gaUanUbH+suyZVAv5geuvV8KB623ipJgj7zTtFTMyN5KHMoNIX7Zq6LsbKVnP6e1urTOHAAumN1P7SdrrhKMFTLvxLs3yFxXVzFYHlAKG/upnx2UWqiWGpvecADjs94yQNm8dbkMHyWyk5MIx+KPks5k5yU2ZWvyYXcgR4qK8ixgmrVzFCSWTR8kQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OCX98HN2c9d25qlpIZB8yb3q+oU/LM3Cdz2twWdFASg=;
- b=uijsNF/V+Wo+Rj/yFD4W5Vql9UN1IoMxZlDWO6uGPINwUheSHiu1gO3aQVUb9fxyhdV2kFQbhqv8+48CY3aLkHt8XXThLqL3uKugVdDCyfTm5LClRXVOXRkln/ApepCnbK1RyJIKOACj2LHbLw0v5aj5E8uWz7vkK6NC/Ml+ad4=
+ bh=1Ho6eQa514E4Jc6fX5ZN59nyGFrcUSabM31KRwmz278=;
+ b=h0hW3YKxtd2xCGB+JnbZFMwFO+esTJ9EBFXWVG8SXABaOLw6UsLZELbuEhGQPiSncmnTpO/Shk0jiGYCIvUZPIHcr03zet5j1UiqDhtdfNLz6JeKSC/k9Xd5JvKPZ4FODVczcCEmFyxoDWozC48nAePE3ZExTfqbaA/BM9YZSBQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by CWLP265MB6167.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:183::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
- 15:38:59 +0000
+ 15:39:00 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
  15:38:59 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 09 Jun 2026 16:38:38 +0100
-Subject: [PATCH v2 2/4] rust: sync: generic memory barriers
+Date: Tue, 09 Jun 2026 16:38:40 +0100
+Subject: [PATCH v2 4/4] gpu: nova-core: fix barrier usage in GSP->CPU
+ messaging path
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-rust-barrier-v2-2-30fcc48e1cd0@garyguo.net>
+Message-Id: <20260609-rust-barrier-v2-4-30fcc48e1cd0@garyguo.net>
 References: <20260609-rust-barrier-v2-0-30fcc48e1cd0@garyguo.net>
 In-Reply-To: <20260609-rust-barrier-v2-0-30fcc48e1cd0@garyguo.net>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -68,11 +69,11 @@ Cc: Gary Guo <gary@garyguo.net>, Alan Stern <stern@rowland.harvard.edu>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  lkmm@lists.linux.dev
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781019537; l=6215;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781019537; l=3210;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=wG4s0Mlub6+whdzeHqbgBmHcmK1O3EYo/fHDF5pP2po=;
- b=AKArYWjZKafa37olqd81KKgaw2WERoLhXOgII/oJTgjpdQsvJ2z+B02io15KIxA+VpD2mSbBf
- cqwEfiWal2sCdsTk74twn7DsJgFDsNN+1fWVRJbJ+wHAazRcA/t1yKL
+ bh=w4oRsqyqOvP6/Pm0p3EcktDaor4KF82lYT6fPTqd8K4=;
+ b=0dCL0Qi3h7EpY/GNwEKNxfBVbRRnSLcjQ+mfT+lBJqedBA2G1zOydM8iriyt/veRFsgVnMJDX
+ TJdm3wSpGpQDGYiPlS26Izr1g51sbfF0+eOpccEOzfSz3iVTUg0RPfh
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P265CA0128.GBRP265.PROD.OUTLOOK.COM
@@ -86,249 +87,150 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6167:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcfbd3ea-5d6b-40a7-7079-08dec63d3948
+X-MS-Office365-Filtering-Correlation-Id: e4116ddf-693c-4c7f-2f4a-08dec63d39d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|7416014|376014|366016|1800799024|921020|22082099003|18002099003|3023799007|6133799003|56012099006;
+	BCL:0;ARA:13230040|10070799003|7416014|376014|366016|1800799024|921020|22082099003|18002099003|6133799003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	VMIUJu1MiLH1v3O8cL2vrNIRzypYtDpEaP2WNwIT2XWGEb5LQCpSQ38KV05Ensm/Leemy8YlCDoUzJGMIXG956WwV7aikPocgD/C32e11LZ4uRSmj+zAKX65Hix/RJr+v+gwuNTxNA4VbiGtlZ01mTnr7sfBA1ODS3xoOa4gYFW6hljG5G+1thgVx7UFaVGtf70Q7IvDpICDRtR6+fp+N9O4wsLAZqIaIqm+hgxOW8JvHc43pKK+XuAsOe9g05MG0lkx/E9ElpUVK6jpxF2W2fnBuuIK4cKamcJEuioHlCtRGENJ/CacnfsT0EoR3vanx65kZWjPv546uiLJTdFj03nyhshJHUFwmtkjWq3tQs8c0FFQpPA7CbxgUQ7fNdv7jNngW4jrQskm5fLvMDCvua14MpEk4GyNshdrKviZcFDCrKgDsAkoZn+4qxIAYWdIMYRoQF1PkjSbjHOVj7IyYbOA2Sfv861fkDqC80WqCQmlOP1WZLvCk1XbtMrDg4yei7uc8Eh4QQCBwYGTnsXITFumQz/WhUk5HTwaw24Yyf2+qC3BoVzc+B9cG0KIbw7Bu5lOAPkHWfmhuYeczVUgwdDLMN7hMAH3Sffy37FaYHgiSEGhZ5OB4nOjhQnb2SsRfPtovOpYpzG8Bdz4enCJoez6p/9pkRORAm3rBAjrs5jyiDuHDbxaAs8gsTWmtxcD825VajDALxOAEG5GVXPJx4xdf7AlAuum/4/4IMOoxPg=
+	vs/b4ZeyIE9VZ1MpNxBGlIFHxje3WaGMQgIgOGqPMCb3axfgykPIiSCAGbW/FtCV0y827cetSRvbb/wqSCv1DuZ1D+JiAkPbiI7wMxjptxgYg8zE5XvKMO0LDKtfKJroY+wbv4fIdkk6BLdIZhi510yFKjdteILxcyPEMwttrUWrg9ujqdmd3TlSVB8BpAwMF48F+BDJ/MUw52pnws1VYpFjNXeGqPkxo9BcEDPprm84wiNiluHyPEoSPdycBF12wAmXA3kboQZE69u0A+PILGAA2F3kxo1tOfu8kKIj69sh8/9wtE+j0ATkXMMdVlLvmecE6aI7pdA8ZlryfbxvJaAONQZX3KMEHcyhwWOhJ7kf8PMB9sTNY8Qd/yplj/nX14VsUYlmRdsMc1haIthNvxNZmo2QWvhd7biZmEjkTNT5Hw139pab58mTY9sYvjKhIz+bxRRmWHWMftToGNTRAbZB8fuTOiVAobRI2VHuQcxuc4TbXB0QYzccBdVinD0bvQnFGp8uZD54l5B/fvRUxlj4UIPi5HgyHyI2pznv4/TffWjj4F3nLBxQAY6Qkgbk5am0fwsmCB+F47UhpFVFoz5hagdMWfgEtbeJivQWg4VsDEvaz1kf3f1tLYpQb3p0bAMerAha4cyIQ5f5fQYQ/RfHV8/Ne/TkqaXdULvGKd0WmtGS3IOjshV76xnqXHhuDqUGeWZPJAQc3LmLEn26LC36X33QOCb8mvmVsBFM5Mw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(366016)(1800799024)(921020)(22082099003)(18002099003)(3023799007)(6133799003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(366016)(1800799024)(921020)(22082099003)(18002099003)(6133799003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NlVBYmxsTC9wME45aGFXOUhybGE2Z3ZHK2VaVVpCbis5aHR5VEZEUWxBZk1J?=
- =?utf-8?B?dXJ6YW96Ky9DNnh5QmNhVkZpaERqbDRXSTFuaFY3SHQrbkM5cTNBM2g2YTZi?=
- =?utf-8?B?MXlkV2JVc2s5b0ZuWjl2WEt6MUxHSkFvcWMybXlIcGpDL2MrTmswd285eHoz?=
- =?utf-8?B?U1p5WGVTQnNjbFNGUTlhVDVTRlRkcDlnNkJpcHNraTNBT1QzSGxiRG1Vejk4?=
- =?utf-8?B?LzA1cElkSVhnSzdJVmpWL3piL242OWFmVjlWV0txTVltU2JOSm1NelZnZ0kv?=
- =?utf-8?B?Nm9LalJ4RDFlNHZHTkFzVXNJZ2p3OGlHaEVJOXV5T2Nmc1F0MU5HVitzYmhp?=
- =?utf-8?B?WkhyaCszeXRWdkNLVlZ3bEdRL0VJOVZEVGxGQnIxYzFuRko1Y2xnazMycWM2?=
- =?utf-8?B?R0x0QmU1T3RWT0NwdUozYTg4L3JxbDNqb2VpajUrSDIzdVVtWStjczlxOW1X?=
- =?utf-8?B?L2M4dFZCUGc3c0hUcFR4L2xYOVc0ZFBrM1lwbWphNVVRNzdlSXNXK3Zrak9v?=
- =?utf-8?B?YkY1K1lrbm80K1dudUNOOVRjKy9oektFMlV1dWhrdnEwb3Blbk1NVUZsN1Nn?=
- =?utf-8?B?UmIvTjRLK2pqbU0xdHZVb3ZGb1VBSlo0aGFOQWE4N0NXN1E2RUJqQkFETzNh?=
- =?utf-8?B?d2VxaGtKNGlsUGpQTlRrakV3OWhWMkF3S1hpRFJpdTFMQ1hLL0Z2a09rM3JY?=
- =?utf-8?B?LzdzL1JIUDhmQi9VR1MzOEp3SE1NNmYyVjF6Q1hNcWpLYUxPYWU2NldoREF0?=
- =?utf-8?B?NVErTGxiTVp3SjNld0hDblRReHBzZmdteGc4aUJYQ0g4cFlneHlmWnR2N2Rt?=
- =?utf-8?B?SGp6YzlwVGZQb0Jmek9uZ0NTaExtRE1VcXBuWHhIMTJ6M3REM01kRVd3TjRY?=
- =?utf-8?B?Q29yUTJrRXpCTG15RzBMVHZmSGQyc25PT3d4cDM5ZG54T0JoeHpqMmg1QVVP?=
- =?utf-8?B?QkpXSkt5eVgzVkJTVDJsZkEzSitiakZBZG9tSTFUcWF6SFVjTHgza1l3Wm04?=
- =?utf-8?B?TFVaL1B4Y2VhV0oydkJRQXZuYkxac2Izek9qbTV6MXJRTUVHRUNQbjhMZk1C?=
- =?utf-8?B?TEVYYnF3b3lGT2RVVXRBbmM1aFlvbm1UbEd0UnJjcVA2Q3l2YmRWbTRHcjBI?=
- =?utf-8?B?dFUzS1NtTnlOdEVRdXhpdUtmREVFeXZUUFJNVzAxOEV5eVlrTWt1SHBGeDZF?=
- =?utf-8?B?RkxwcjFpWjRMRXNBTVcrQTNMRTVmM0QyaWQzQTd1YnJnYXhORnMzUHQ4V1BN?=
- =?utf-8?B?ekZEa3BBVkZtS0FEcDU5Z1FoSVVCbERxcnpiQkZpQ2orZy80RUU1MHJMZGZY?=
- =?utf-8?B?QjlkWlg3VDB4azhnM2ZBeWN2YnBEb0lNSmtNOWxNQmE0eVJzS0lLTDNreXpa?=
- =?utf-8?B?bzVuYTJaOEEwRmU2Q041NEdaSS9XWUxjZUI3ak00WXFWd0FFckt6dllYeEI1?=
- =?utf-8?B?K0pBVDRSV2ZxR1QrQ002em5vVnROMFRzZHpJeEFYVEJKTEpWMEFyOFV5Wi8x?=
- =?utf-8?B?VVZNakwxOHN3TlFINWk3M1J5Y05XaFZHSG5SRTMzMXdDZmdmOHVEWjlRREgr?=
- =?utf-8?B?UmY5K09SSTVRbjVZWU1sMmtuV2wwc09nTFoxZzB0MEZKTWJNdkpXbmkyNHVQ?=
- =?utf-8?B?K0RmYjdDalpGZTJFR2dtVWVLSUxWb2VkcExjZTAvazU4QUhYZ29CY0dhM2tl?=
- =?utf-8?B?MGowQmNHbXpJeUNsSkVjMU5ZZkdhemUrVFRqMlFJNnZFbFJFYVZXVkJMRm4w?=
- =?utf-8?B?KzQ2L1JDUUtjZWtrTThBRy9jNzIyMzRYenBvN2dXdGpYRlRFc0puVVdUSml3?=
- =?utf-8?B?V0YzNnk0cU1jNkNkN09GdUhqeDI2M3hPcEN0RmRPcWhYOEFwc0owVWkyV1RT?=
- =?utf-8?B?azhZVVo5T0xNM3lxcE8xOHZWN3dveHVzWFNUeEpyNk9pOUpXWkF2MDhpcnBQ?=
- =?utf-8?B?YjZLb3NtTFdhc2d5RW9ETklDNmJicFJwc0pMQ3p5RFpSSlN6a0xuTEZyeWR5?=
- =?utf-8?B?MDlrMWZNNkpidC9KMnZCZTc4OG5QNUlORWw5b0F1Z1IvMEc3d3BCVG9uaVBH?=
- =?utf-8?B?aDFyMGhSbWY3QmFYUkorSGxYNnRJVXRYOFZIOHUxNHF4YlI3cUJKUWwzMVhi?=
- =?utf-8?B?eHZINVdsSWRjWjN0ZnRiNCtoQllVM1hSMTBaeUY5Z1RRVmQwR0ZEY0Yzc0NB?=
- =?utf-8?B?T3B5cFpvMW5NQWxVZ2RTRXNxNnRsRHpVcWwxSk9uc2lUNWpycjNZQ0tiL29p?=
- =?utf-8?B?QVlIcjNKc2kvdko0ejM1SmRMQWFPVGVHZlJXY3lkQ09qOXUvaURKTTVBQ05L?=
- =?utf-8?B?M055VnFMcHlGMmhQb3BjMmh1LzY1OHFBZmNCWlljejhDOTQ2U1lNZz09?=
+	=?utf-8?B?eFVOSkdQOFhWYUZQSnVpNVFHOUVBRWg1amM0NnR0WTU5RWNjV1Q0Z1JUQWVv?=
+ =?utf-8?B?YXhHb0swNVlZbW9ROHA3ZzV4bDRncUMyYnJoSDcydU5waE5EandXKzJjUFVj?=
+ =?utf-8?B?WWVLbzFCdGV3M0tQSjV0RENrRXdqWXFKYncreGRMdGI3V1Q4Z1gwTE0vRWVC?=
+ =?utf-8?B?UjlZWGd1TnVlR1gzZjlId3Y2c0crU2dEU1BoZlhvU1haSGoxV01rYkFDZ2t0?=
+ =?utf-8?B?UmFaU3Zxc20wTUJ3MklKY0xzeFRLamhxVUVtMVFvRjNlTitOcjJGdE1OdklZ?=
+ =?utf-8?B?WElCYTY4OU9wZGtwL0pyTlNwaUsrWVByVStRUzViYklzcFlGR3lLdnIzcjU3?=
+ =?utf-8?B?SmhnRE5mOFQ3Wk52Zko0RFlsb2lobm5HRzNGYSszMlpsVGlKZFpxeGUwZVls?=
+ =?utf-8?B?YWZJMnhtdU10NThYM1E2eFJCdGQyYmJ0dTFFdFdJb3F3eGZwcjdRejdyS2ZL?=
+ =?utf-8?B?Nnl0c2I1clNkNHJDdm10WHFxRSsxTXh1V0toV1ZyTjhocEFBNjVLdnpMSnFn?=
+ =?utf-8?B?SDYvNzBReTRWektMOUZ6WW9ZZysva005MG5ST0pCQkJJMHgyaUNWbzU0aWM3?=
+ =?utf-8?B?Q3hMU1V4QUY1NWI1eXV3ZXBDdUhJUXFUbnVQQXdLbk1iK1UrQmRLamNPdUpT?=
+ =?utf-8?B?WkxkTHNHaGhmY2ZFN1V3OGV5TGZoUGtyb0J3ajJlNDF6VU1mT0Y1Q0JCZFVm?=
+ =?utf-8?B?cjg4azRBTUhVMEk0WnZya3BxMHZOT2xjQlV6dDlWTDhCR2JKSHBrOGJlMWlQ?=
+ =?utf-8?B?SUEzNFM5eURHOHl6TXQrRVFPdEVjVmFMRHN4T1VRL1RSbmV2am54ckh6Ym9K?=
+ =?utf-8?B?cm5sbjA1a3FrTTBiWjlKdHp2YUpHcUlQVUs2ekFweTBKcHlDY1c0dnRrMTMy?=
+ =?utf-8?B?NkhUdE9DQmhzRU1hd3cvSm8reEErck1UQmtnZ3dMZXlLZ3BwZEVIaWhwNUpN?=
+ =?utf-8?B?NFlIOFZsblVaMUNSdWxySFVhSExodEZtMUZoeUxERUF0VzFmS24zVFZyNVBR?=
+ =?utf-8?B?SXJpY1Z2L0NkLzUyVVJxN2Y0cEpxazVzN3p3Ym41eWpDSUJwYmFlNVV0dlpG?=
+ =?utf-8?B?L2JtWDhyZ2FSM1RCbjdvMkNCWVVnUEVjdUE0blJNOWpadTBKQTJRK1I5aGpH?=
+ =?utf-8?B?UnV2bjBRZW1Ed0N5VWlpcVJHYm13aCt4akNZZUM1UHZmWVdPNis4ZEozc3NO?=
+ =?utf-8?B?UnhBLzNUMWszRVB6M0FBK01WMXh6dE5lWXVTbS9YWVpoMkw2ZFNId1NrZzZX?=
+ =?utf-8?B?czFFQVMvVUpHVjhBWnNzaXZ0LzJhalo4U2lUUjJiUzQwYmdTU29yQkVKMENk?=
+ =?utf-8?B?UUEyOHhkcFhhYWJCSVNsdUt1K24yYmJPbWhEL0JjcXY0RE14UHpLV1M3L0Jl?=
+ =?utf-8?B?SjJsM2RsYVU0ZE5JYzE4OG9HOE04a0xacVBHcnN3QjJTa3N4andCamNlRENZ?=
+ =?utf-8?B?Qy9ST0hZWUN1R2RLdGFqL3ZyQ3h0VXJlNXhRMi81OUlqVmY4cWJBS2htTFNr?=
+ =?utf-8?B?R1J1ZEduQTRUOTlTS21PN2pJKzdraHMxQWg0Q1RTanB3eUZwbmZqYzdpdlVL?=
+ =?utf-8?B?VHY0Zk9CaHdzYkltZjJRSFNIZExPblNyenlFNWo0Kzg1VmREOEpFYTEwTm00?=
+ =?utf-8?B?UG13WU9HVDlPMkFiTjUzREZzc0I3LzdRQVlhMno5V3V4SHBRZW5RbExRVTNw?=
+ =?utf-8?B?WURoNnl6YUtWcGxJMkZwbjJmMFJOR1hkSE13dVlrMUlKOXovM2I1ekI0dXNG?=
+ =?utf-8?B?MVJpeXVkZVgwdXl5S3dXRW8zdm52OTVkdEtKaDZlMmEwYUc4WXpmR2N2RWRs?=
+ =?utf-8?B?MGtwVVBXcEg3bElOelpnZEZIRmJQV2xqK1p3aGZxOTVjUlc4cVJUVzdTdzVF?=
+ =?utf-8?B?T2pOVmwvQ2lCd010ZUhOWjVETFVKZ3BRUkFxekF1cVg1ZjJpaU5qamNxRWV0?=
+ =?utf-8?B?N2RnSmgyWnRDOGYrRm01WHJ4ZVNiempBK2JJcXA0ZFpsY05zK0pyQ0xKRG12?=
+ =?utf-8?B?aExoQ2tvSlVCOFptZEV4NnRZMlZqU2Vaa3JBYkJjM0FMWE03dUowSmpuOWt1?=
+ =?utf-8?B?cDEzODAvS1JmK3p5ZDJKSnhkTXQ2M3l0U1VXUWJsWnpsZzNZUHdSaE9sbW8r?=
+ =?utf-8?B?cENWRnJxR3dMV0o2RitUdXEzN3pNUlIzVnZuYzkyZmxoSTFzcFh2MTA1RkhP?=
+ =?utf-8?B?aFNvbTFGbDFGSkR4RklyV1g4QkRPOFpISFdFNllGemc0cWxUZnlrVmNkT0xq?=
+ =?utf-8?B?SFEyY0xNMGpaWW5jZEMzdjA0MTlpWTMwSjg5a3I1V1dacS9rbnl4bldMblN5?=
+ =?utf-8?B?UnQ5TFNUVXl0OS9ReFlnTTNsK1F5WHhIbXNHM3VNTHM3d01KY3lVUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcfbd3ea-5d6b-40a7-7079-08dec63d3948
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4116ddf-693c-4c7f-2f4a-08dec63d39d7
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 15:38:59.0138
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 15:38:59.9588
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C9ZJnqfU3S0WXC3nYx+4JOoolwqZ5zGiDFaoyQuyRNIPEn37RaIchi/OcMZ8p1hJLnqlDwErdCmWBmjVIYzx1A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: xRRgFT3iy4QhsJ3Dzj1WD+2QlnfwG/yeH9RRplUJoNtUFUfdkb2BM6VZ+GJP/5U1t3xKY9SlmJVseJMw4pwfyw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6167
 
-Implement a generic interface for memory barriers (full system/DMA/SMP).
-The interface uses a parameter to force user to specify their intent with
-barriers.
+In the CPU->GSP messaging path, the code reads the write pointer from GSP,
+reads the response and advances the read pointer.
 
-Provide `Read`, `Write`, `Full` orderings which map to the existing
-`rmb()`, `wmb()` and `mb()`. Generic is used here instead of providing
-individual standalone functions to reduce code duplication; for example,
-the `CONFIG_SMP` check in `smp_mb` is uniformly implemented for all SMP
-barriers. This could extend to `virt_mb`'s if they're introduced in the
-future. It would also make it easier if new ordering types are introduced
-in the future (e.g. `Acquire`, `Release`).
+A LOAD->LOAD ordering is required after the write pointer read and the data
+read. Add it as this is currently missing.
+
+A LOAD->STORE ordering is required after the data read and the advance of
+read pointer. Currently a Rust `SeqCst` barrier is used, which roughly maps
+to `smp_mb(Full)`; this however does not order DMA operations (notably on
+ARM, the generate barrier orders inner shareable and not outer shareable,
+which is ordered by `dma_mb`). This ordering does not need to be in between
+read pointer read and write, because it's for ordering between the ring
+buffer data and the pointer; the RMW operation does not internally need a
+barrier (nor it has to be atomic, as CPU pointers are updated by CPU only),
+so move it out to cmdq.rs for clarity.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/sync/atomic/ordering.rs |   2 +-
- rust/kernel/sync/barrier.rs         | 123 ++++++++++++++++++++++++++++--------
- 2 files changed, 96 insertions(+), 29 deletions(-)
+ drivers/gpu/nova-core/gsp/cmdq.rs | 8 ++++++++
+ drivers/gpu/nova-core/gsp/fw.rs   | 9 ---------
+ 2 files changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/rust/kernel/sync/atomic/ordering.rs b/rust/kernel/sync/atomic/ordering.rs
-index 3f103aa8db99..c4e732e7212f 100644
---- a/rust/kernel/sync/atomic/ordering.rs
-+++ b/rust/kernel/sync/atomic/ordering.rs
-@@ -15,7 +15,7 @@
- //!   - It provides ordering between the annotated operation and all the following memory accesses.
- //!   - It provides ordering between all the preceding memory accesses and all the following memory
- //!     accesses.
--//!   - All the orderings are the same strength as a full memory barrier (i.e. `smp_mb()`).
-+//!   - All the orderings are the same strength as a full memory barrier (i.e. `smp_mb(Full)`).
- //! - [`Relaxed`] provides no ordering except the dependency orderings. Dependency orderings are
- //!   described in "DEPENDENCY RELATIONS" in [`LKMM`]'s [`explanation`].
- //!
-diff --git a/rust/kernel/sync/barrier.rs b/rust/kernel/sync/barrier.rs
-index 8f2d435fcd94..54c527fdb760 100644
---- a/rust/kernel/sync/barrier.rs
-+++ b/rust/kernel/sync/barrier.rs
-@@ -7,6 +7,34 @@
- //!
- //! [`LKMM`]: srctree/tools/memory-model/
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 94c2790d943d..229d49a67077 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -22,6 +22,8 @@
+         aref::ARef,
+         barrier::{
+             dma_mb,
++            Full,
++            Read,
+             Write, //
+         },
+         Mutex, //
+@@ -339,6 +341,9 @@ fn driver_write_area_size(&self) -> usize {
+             (MSGQ_NUM_PAGES, tx)
+         };
  
-+#![expect(private_bounds, reason = "sealed implementation")]
++        // ORDERING: Ensure data load is ordered after load of GSP write pointer.
++        dma_mb(Read);
 +
-+/// Memory barrier orderings.
-+///
-+/// The semantics of these orderings follows the [`LKMM`] definitions and rules.
-+///
-+/// - [`Read`] provides ordering between preceding load operations and succeeding load operations.
-+/// - [`Write`] provides ordering between preceding store operations and succeeding store
-+///   operations.
-+/// - [`Full`] provides ordering between all the preceding memory accesses and succeeding memory
-+///   accesses.
-+///
-+/// [`LKMM`]: srctree/tools/memory-model/
-+pub mod ordering {
-+    pub use crate::sync::atomic::ordering::Full;
-+
-+    /// The annotation type for read-read barrier ordering.
-+    pub struct Read;
-+
-+    /// The annotation type for write-write barrier ordering.
-+    pub struct Write;
-+}
-+
-+pub use ordering::{Full, Read, Write};
-+
-+struct Smp;
-+struct Dma;
-+
- /// A compiler barrier.
- ///
- /// A barrier that prevents compiler from reordering memory accesses across the barrier.
-@@ -19,43 +47,82 @@ pub(crate) fn barrier() {
-     unsafe { core::arch::asm!("") };
- }
+         // SAFETY:
+         // - `data` was created from a valid pointer, and `rx` and `tx` are in the
+         //   `0..MSGQ_NUM_PAGES` range per the invariants of `gsp_write_ptr` and `cpu_read_ptr`,
+@@ -436,6 +441,9 @@ fn cpu_read_ptr(&self) -> u32 {
  
--/// A full memory barrier.
-+trait MemoryBarrier<Flavour = ()> {
-+    fn run();
-+}
+     // Informs the GSP that it can send `elem_count` new pages into the message queue.
+     fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
++        // ORDERING: Ensure read pointer is properly ordered with a LOAD->STORE ordering.
++        dma_mb(Full);
 +
-+macro_rules! define_barrier {
-+    ($([$flavour:ident])? $ordering:ident, $binding:ident) => {
-+        impl MemoryBarrier$(<$flavour>)? for $ordering {
-+            #[inline]
-+            fn run() {
-+                // SAFETY: barrier methods are safe to call.
-+                unsafe { bindings::$binding() };
-+            }
-+        }
-+    };
-+}
-+
-+define_barrier!(Full, mb);
-+define_barrier!(Read, rmb);
-+define_barrier!(Write, wmb);
-+define_barrier!([Dma] Full, dma_mb);
-+define_barrier!([Dma] Read, dma_rmb);
-+define_barrier!([Dma] Write, dma_wmb);
-+define_barrier!([Smp] Full, smp_mb);
-+define_barrier!([Smp] Read, smp_rmb);
-+define_barrier!([Smp] Write, smp_wmb);
-+
-+/// Memory barrier.
- ///
- /// A barrier that prevents compiler and CPU from reordering memory accesses across the barrier.
--#[inline(always)]
--pub fn smp_mb() {
--    if cfg!(CONFIG_SMP) {
--        // SAFETY: `smp_mb()` is safe to call.
--        unsafe { bindings::smp_mb() };
--    } else {
--        barrier();
--    }
-+///
-+/// The specific forms of reordering can be specified using the parameter.
-+/// - `mb(Read)` provides a read-read barrier.
-+/// - `mb(Write)` provides a write-write barrier.
-+/// - `mb(Full)` provides a full barrier.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// # use kernel::sync::barrier::*;
-+/// mb(Read);
-+/// mb(Write);
-+/// mb(Full);
-+/// ```
-+#[inline]
-+#[doc(alias = "rmb")]
-+#[doc(alias = "wmb")]
-+pub fn mb<T: MemoryBarrier>(_: T) {
-+    T::run()
- }
- 
--/// A write-write memory barrier.
-+/// Memory barrier between CPUs.
- ///
--/// A barrier that prevents compiler and CPU from reordering memory write accesses across the
--/// barrier.
--#[inline(always)]
--pub fn smp_wmb() {
-+/// A barrier that prevents compiler and CPU from reordering memory accesses across the barrier.
-+/// Does not prevent re-ordering with respect to other bus-mastering devices.
-+///
-+/// See [`mb`] for usage.
-+#[inline]
-+#[doc(alias = "smp_rmb")]
-+#[doc(alias = "smp_wmb")]
-+pub fn smp_mb<T: MemoryBarrier<Smp>>(_: T) {
-     if cfg!(CONFIG_SMP) {
--        // SAFETY: `smp_wmb()` is safe to call.
--        unsafe { bindings::smp_wmb() };
-+        T::run()
-     } else {
--        barrier();
-+        barrier()
+         super::fw::gsp_mem::advance_cpu_read_ptr(&self.0, elem_count)
      }
- }
  
--/// A read-read memory barrier.
-+/// Memory barrier between local CPU and bus-mastering devices.
- ///
--/// A barrier that prevents compiler and CPU from reordering memory read accesses across the
--/// barrier.
--#[inline(always)]
--pub fn smp_rmb() {
--    if cfg!(CONFIG_SMP) {
--        // SAFETY: `smp_rmb()` is safe to call.
--        unsafe { bindings::smp_rmb() };
--    } else {
--        barrier();
--    }
-+/// A barrier that prevents compiler and CPU from reordering memory accesses across the barrier.
-+/// Does not prevent re-ordering with respect to other CPUs.
-+///
-+/// See [`mb`] for usage.
-+#[inline]
-+#[doc(alias = "dma_rmb")]
-+#[doc(alias = "dma_wmb")]
-+pub fn dma_mb<T: MemoryBarrier<Dma>>(_: T) {
-+    T::run()
- }
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index fae2eae495d1..b213385c1f01 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -46,11 +46,6 @@
+ 
+ // TODO: Replace with `IoView` projections once available.
+ pub(super) mod gsp_mem {
+-    use core::sync::atomic::{
+-        fence,
+-        Ordering, //
+-    };
+-
+     use kernel::{
+         dma::Coherent,
+         dma_read,
+@@ -76,10 +71,6 @@ pub(in crate::gsp) fn cpu_read_ptr(qs: &Coherent<GspMem>) -> u32 {
+ 
+     pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &Coherent<GspMem>, count: u32) {
+         let rptr = cpu_read_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
+-
+-        // Ensure read pointer is properly ordered.
+-        fence(Ordering::SeqCst);
+-
+         dma_write!(qs, .cpuq.rx.0.readPtr, rptr);
+     }
+ 
 
 -- 
 2.54.0
