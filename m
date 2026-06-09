@@ -1,473 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020086.outbound.protection.outlook.com [52.101.196.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DC734040F;
-	Tue,  9 Jun 2026 14:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781015232; cv=none; b=eCa2K/B9wCHqbU05t0qruyFv+3aEvE90ne6WCHbxxENZtPC6i8b6TVKdKsdc4Ued+ymgg/2t7RnZQ0bobJpb2uz3ZrVPJg5VqUJOlNdGiM0WFOkORX5SbfyBIWrpBT+TBvoWPpw75BX/VTRk/uxFz3q8w7PyM7Nbj/9f0l+FreA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781015232; c=relaxed/simple;
-	bh=iygAOfvA2foW8/+jP6Ee21bgu2uYdvqpa6z2Rjyy9uk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PWyQnNeFQ3UTnhTAzZvbj6ppLSL/rqsvEAarPZe+dquxt52/W9Ta7OxrU+uSgrF9o21HP5VDjo1kZ9Fb/jruXRL5QGgsSp0JGdQvfoOr8fMSb2oi62zANSJ6sAcsPpJwHz54Qzzdwy0fBVZ/VdFDv8oGLeWK+q1QqsxNsAlNp90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nwDszgGM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19FF36A37E;
+	Tue,  9 Jun 2026 15:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781019544; cv=fail; b=osfU/Rfb+ok+WV25Zu65V5jDB1bgAD62gnS3YMp30HG4NMwetCR9SLK2Ny1JvbSKOk9E2vjyiJEtLWNFFUU3btSVRtljcz4YliHGUgdnPkZUPH5uB9dUQ/R0/4v9IwSOnzeOBOsccKWAckudBoUPEYBcTLEDi8JRCva0GlXTIdE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781019544; c=relaxed/simple;
+	bh=hxkwhVK5ToqxSCTusoVQ3qd9f1d4OmS/kjHIq5ZEPwU=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=scYvA/J4aRtjBo66/DdWF9tBD2Y5cjcX3qp6cBvZey4TL/eiHJn9V/n7Cbn0KhIxowm72w5WBj13yK4jnIlCFBS9Nprk81xU4ZCbb7CdRbIk0NfKa9wL7nIt8XU7FPAjEPGXha3/aDIyjl1dUqow/3MM+KqIHAEk2Zx0+X+vnvM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=uEbHrJAz; arc=fail smtp.client-ip=52.101.196.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nwDszgGM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C0D1F00893;
-	Tue,  9 Jun 2026 14:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781015229;
-	bh=7b6cZO88qxYhwPQRHX9JdG5EbRfREDm6sv5DAhrto3Y=;
-	h=From:To:Cc:Subject:Date:Reply-To;
-	b=nwDszgGMS4Q5Gx6dDnrYmmxG3JFRwCznR8eeTRISzUFizK3fvgodofWAu0j6qV7Vm
-	 x8jzUygPHi0X7dKckNz5MK6s/lYGVbDQhxCVCq/CV6YZzLrPMaloIQFmQ9JFuDUE5t
-	 bsKGaAtZc/eXQskQawfXOzP2QBNT3/JHr9JepY5csJaBJqqS9brT6suCfR/tDAY0dl
-	 3cy1egpS8C+a924GwJU7wfUap2OVoYsh+qWf3VZMyjzZUZq62sEE4olr+tg2BSk3eU
-	 n3m/ldEIak5tl9p0RlIcfwcAmJu0eCLrYxhxYEWpbrCZaUgMHWORyNWIt7SezgpP9w
-	 fnMRyl333y4xg==
-From: Gary Guo <gary@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Waiman Long <longman@redhat.com>,
-	Tamir Duberstein <tamird@kernel.org>
-Cc: nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	netdev@vger.kernel.org
-Subject: [PATCH v4] rust: make `build_assert` module the home of related macros
-Date: Tue,  9 Jun 2026 15:26:33 +0100
-Message-ID: <20260609142637.373347-1-gary@kernel.org>
-X-Mailer: git-send-email 2.54.0
-Reply-To: Gary Guo <gary@garyguo.net>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="uEbHrJAz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t51RIwcSmoUyYid77iHAAfp/aUlReE7TLtLPg5TGZ9dYE1xAlRSbb4p+OocoDGkljhtd5zQyLOLqMCRsSGEuD9sOh15yjhqRZhfGRl0GHw72N3Y1hLYlqT8IFggBrbgan+FRggKVw6Jga5FIuwyYZ9GKonJFC9CZu2N8xZFLJfyMLb+eKIUxnLa3F21A+rhF9aeU1xrBKCiBDhtPpHy/7wmorgBWUMUdwZgdmKZleqUc246E7pYg7Q2BpGaGNDGc8sEw0GXJ3TWAJQnLEiI3A20xiyf3gDoFu2pvsx+N5QQ22JNec/ZncIiJ/lHwvde+akc/Rlde6rwNXbs7rVFDng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cs11+9v20TCLsH9iPRgwrmDC7+Bsj4F642mYa4OEs1Y=;
+ b=sWAvG+uuN6H1tZcpg0aMuQkt36/A/eneCggidn1AB+RXV7i9+cQj2YHQ9/0hcsxkSGi9HWboNIJjaX1ORj65AsIxZgZVBGKVhCL/M8RoHu5cL1jnh6DUD6MC1JI1eeOyu3i1HcQ75F3vSGJe5eftbem11MqISEZaVxjFL7kVUrW2tUhW9sYx+XzHvN1a75h4QOAR72oWVatJNdtSE1mj41CRY4kf8PGsk+RVrVj+Z+0sBgvY1xcCrXmsqn8PeWWDEt/znUw51ISXoP94lNz0mQ+7MtP3DLUm9vlr5eeHVj/B/NNPbSx5ocWxvbs6AijaH0sf79yWMzzmOufQarlUHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cs11+9v20TCLsH9iPRgwrmDC7+Bsj4F642mYa4OEs1Y=;
+ b=uEbHrJAzC/R/mnLdWN+yP6kaI5HODIgxevB5RYNj2KgkmVHILIT3mmZZGqfz/qJCgTS0C5u6/Nt8uhswJado+lqo6SgkNTRRFEVK+SEI/p40VYAzIyVZjF299Fx06Ycl3yQTOfU+P3jQ6btWG47vaN5u2oh2mQi/U9txysyfpgk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB6167.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:183::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
+ 15:38:58 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
+ 15:38:58 +0000
+From: Gary Guo <gary@garyguo.net>
+Date: Tue, 09 Jun 2026 16:38:37 +0100
+Subject: [PATCH v2 1/4] rust: sync: add helpers for mb, dma_mb and friends
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260609-rust-barrier-v2-1-30fcc48e1cd0@garyguo.net>
+References: <20260609-rust-barrier-v2-0-30fcc48e1cd0@garyguo.net>
+In-Reply-To: <20260609-rust-barrier-v2-0-30fcc48e1cd0@garyguo.net>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Will Deacon <will@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Gary Guo <gary@garyguo.net>, Alan Stern <stern@rowland.harvard.edu>, 
+ Andrea Parri <parri.andrea@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
+ David Howells <dhowells@redhat.com>, Jade Alglave <j.alglave@ucl.ac.uk>, 
+ Luc Maranget <luc.maranget@inria.fr>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, Akira Yokosawa <akiyks@gmail.com>, 
+ Daniel Lustig <dlustig@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ lkmm@lists.linux.dev, Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781019537; l=956;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=hxkwhVK5ToqxSCTusoVQ3qd9f1d4OmS/kjHIq5ZEPwU=;
+ b=/vdsgPDVUL2v7ElWLurH28PEOGcuSP3l+PO2A9HIlW9mW5n5GmdKMdwW0V3A6kJGi/769oIP8
+ 3pljt/8rDGCDkYbAiNBdR45w2Cmgc/WxjZK2r85zng4yOeNXzY1M6/+
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P265CA0128.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16eecfc0-3077-4be0-58b4-08dec63d3902
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|7416014|376014|366016|1800799024|921020|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	fwTgSu9in0NCj6gPUmTfHam5VQNce9YQ+vlFQS2lbNm387VkkoPvSP4ctrRDOp5iKCd12rj7hOqjXX0imV+jfvC7E98KYj7t9J3/Y9tO6CBv/4Sfayd+bQfTMNGj9Vm50gY0HhvxvFRRGY9P9noiGHSFcxE1i+n61P+D8Li4YEqjQ+YOiDhVhw3HyGrfo8zJuUuMd3FXeAFbSPevLtTviM7BoCmLRSTFgLbshoFeZ1UjqX3bKs7rY77UtdRFbwPvDJtZyvnfFXy9sLu6sNTwfYXpzLGJefeymK71pQRXU8k11WoTc/ixhrLehqWh+wLkK+8lnkmFU3t5u5U9+5b/x3lp/5jckRi5B5oBaf+4ZoSzcIWBRCB4JxC0WH3gknpL4mQePoNyZ7vMT3R21fbWynN5VCSbCrSsK7wcGctIjeJQttoT7xT+QMqIRPeFRF+h8IHBb+4UhS2hb3vRl8oWg5IXw77/gNmrZith5hQEctH5hxAyNaphXs53nAb84VRJFKgszV6JLZNSVNqPj2CToYVP/PUkwHklwEEKruPTtoNjJ6nNyzPDWzjeujZMj7LN9lX5SP0n43/L0wwKQwXnCSR5BRlWQO6tDEG1E2yUV/cKhUrBCHZHu8NbCI5ROJVtCYUngs3dHH8u9LJcXQZrkIztPWppCz030ZTMQ+zhdGu1gGF9O+XecMkerwJfNBbAadDtl6kqlPzEu0DJl2MxYynkOiv36Gk2HNpq9bsLrgM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(366016)(1800799024)(921020)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OWZNL3ZvMklDSG9xNWtwMVNrdmVvZGtQR3FNazlzUGhQN0VKYWp4dG5hbHpj?=
+ =?utf-8?B?YUZ0WEJUR21PeVVxcE8vRVhKdEpMM2Jna1UxdEdyVGhsQTVBTzFLenVIVU5j?=
+ =?utf-8?B?TTljbExOMTVpQnBXMzlHVDhiQmpkS3dqS3VlaDNsbnNDMWpOZENzUk8vTHFK?=
+ =?utf-8?B?ckNkWTM4V2V1WSt3Zlc2SDZydjZqRXgvKzVZT3VGdUErY01FbXk4Yjczc1Fk?=
+ =?utf-8?B?UVM0My9Eamd0cmg4R01IVFEvaDdvdEsxTUkreHhwNjM3V2x2RGgrNnFhWU5l?=
+ =?utf-8?B?Q2ZvZEVhZHhxU05STzRpQ2RMSWdsUXRuRW12ckVEcStZUHp6clhrUlVpNUhD?=
+ =?utf-8?B?Q2h3Zm1qQy9NUnRYVkpaamRoQjBnZEhEUTRMaTN1VVZlY3hBSHZISXdvNTIx?=
+ =?utf-8?B?dWV4ZC9VR0xpRk1iZXZSU04zblE2R1d1VCs3YnBUNml3aHA1ellHWDhRUlNL?=
+ =?utf-8?B?cUpCY2hNVlkwdGlTOVlaNzI1SlVaQ3dMU0hDbG9aZ1RBdVhHdTFGTS9ycitz?=
+ =?utf-8?B?amlaWStpWWtTNkNwamhNbUhkWWZYYkdxYU05eGRTV0JuTmdORkVObkFzZ0Rl?=
+ =?utf-8?B?L1BiU0w0a0hnMml5cXpCdWF4TGhFeTlTU3M1aFNEejI1S0YrQkZQZEZ2VXQz?=
+ =?utf-8?B?bWVuQkIwWjBZcm9BWTZKaG1aaUlHRythYTN3SmUxL21lMkxzSFJodWdLRzlu?=
+ =?utf-8?B?L2xPNllPUjhCS1RjQWpJWDRmNWdLVjVmMGNMYjhNbHdLUTh2MVJkUnUzYlNp?=
+ =?utf-8?B?VDNrZStqTUhpamlwcGdENzArS3lKZ3BvMDl6cmpMMGF1eTZ3NDY0RXZEQlJE?=
+ =?utf-8?B?WVprL25HWDNWdjdTMG5xaVQ5V2NpNW4xWDR3THYwcDRPT0ZyTzYrNDN0Yjls?=
+ =?utf-8?B?WGxNQnYrS09XQTdaTDRiSGNYU2V6azhwcHM5RXkwL1ppYVRBb1YwclFBVXc5?=
+ =?utf-8?B?VnR2YjlRNUVMTEc0bmVvcVhqeU9iZy9wV1QzNzhWY1NiWDB1S29lUVRZeDNn?=
+ =?utf-8?B?Qy9UMktiQnFCYk1CaW51eXhNWEN6cHNBTGxOLzhOU3ZwWXFNL1BPVENUOVVu?=
+ =?utf-8?B?Q0JHWnhpaGlydGhEUFJOUlM3MCt1aTk5VHVscldka0d5WWNtc0RLaEUxVjRH?=
+ =?utf-8?B?UDQ0Q2d5Z1RiemRUMU9rK2xrM0lQd3R3Y0JOY2dUb0FKcHNqbWRYSWtqNnk4?=
+ =?utf-8?B?Q1NlYnNESVU4Qjh2cjRXM25jZGY2aHhTbStmelB3M1ZSMGxyTnI5RDAwbm16?=
+ =?utf-8?B?RnlQbVJXL1NrR1BTUzZhQUJBOXA5UjBNSDczWU1mVWZHQUNxenEvaHozQ2U0?=
+ =?utf-8?B?cmJnVkRJak90SDltcDZCN09JcjhFRTA3ZHhxaFJqOFR4SWtjdnRib3F0U0U0?=
+ =?utf-8?B?dElSS3VlOVNKeHFvcWQwY0FvRE16d3g4ejg4TXlPM3p0bGxqVVRZOHBManhE?=
+ =?utf-8?B?dzIxakhhT3J6QjFzV3VyZUNXa3hMOURUZHgyRmZzTGJWZEl6TWdnMnJGbjU4?=
+ =?utf-8?B?Qll1U2xsWncxQ3ZTYzV0bkhpSE5TNEIxc1BRak9IcmhHM0RaNzJ5dlRrcjNH?=
+ =?utf-8?B?WFNBU0grUFFhQ0pWZWMwTHYvMVRmbytuV1BwREFkWE1XakV0aXpPdmtHeE95?=
+ =?utf-8?B?S2FHa1pPUWc2OVFoMGZxRzliODJjNG1rZWhScGxXTDkwVFNmWnlkWUgyekF4?=
+ =?utf-8?B?RU1WMTJYRHo5c0RmcUpKRlB3QklidkhVZmVkR3FPMDZpeXEyV2kvSVFqTmtM?=
+ =?utf-8?B?RDV5SU13V1hiMzYzNFFYS3dxK040aHpjWHh0VTVCTGNHdmlJUHNRemp6TFpi?=
+ =?utf-8?B?c2FkLzZKcTVtK05rWEFyRlg1cjd3RmpkMklnVFQxQjhFMk94ZTB3TDlVN2VN?=
+ =?utf-8?B?Y3FwL1plSTlQZzV5U2docEN5dXZnaEJIVDZkaE5SUDU5QzRCaWZ3d2k1NFlR?=
+ =?utf-8?B?U1Btc0xValFnVjdjOUUyRlhGL0FlVHFYT043U3JicHdyY09HYVR2REJrd1ZH?=
+ =?utf-8?B?eU95K2JYQ0F2OTlUTDFlbXRTZytJbHpiZzJLbnBmS2FpRDZhYjllbGFWa2xU?=
+ =?utf-8?B?VmtLNllzQ1dxdDBIRFZONy9kczhBL2xxdWJka3p3QWxvaythLzVmbDlhSkR5?=
+ =?utf-8?B?MTZQQ1FiWDJZbWV2NGNSai8vcEVsbzdpV1hrY2FEb1BaWThDUlorbHRvL2w2?=
+ =?utf-8?B?M3dOdjlIdFl2UU9CUzNBZVlEOVFGaEFJY2FiWTlTK0NjSmJkVGpWWXB4bm1h?=
+ =?utf-8?B?RWtjKzV2V0xQZW8zZHZWTG5aVDJZalBPN01kMlVTRGYyTmJpdEdiZ1B3VDhI?=
+ =?utf-8?B?YTkwVGw0K3Q0eDIyRi96N0J3TVZ4WlBVYy81LzBwcHpYS2tlUWQvZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16eecfc0-3077-4be0-58b4-08dec63d3902
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 15:38:58.5604
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5nBd3EaAq+zjZFc90Ohzhqssv1ooa6rqiAk0n8GiLN5nLQyM2B34kGXOpaNTmjtletQH/nN5KUlht+RDmrkltA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6167
 
-From: Gary Guo <gary@garyguo.net>
+They supplement the existing smp_mb, smp_rmb and smp_wmb.
 
-Given the macro scoping rules, all macros are rendered twice, in the
-module and in the top-level of kernel crate.
-
-Add `#[doc(no_inline)]` to the prelude so it just shows up as re-export.
-Add `#[doc(hidden)]` to the macro definition and `#[doc(inline)]` to the
-re-export inside `build_assert` module so the top-level items are hidden.
-
-Acked-by: Danilo Krummrich <dakr@kernel.org>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Acked-by: Alexandre Courbot <acourbot@nvidia.com>
-Acked-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
-Acked-by: Boqun Feng <boqun@kernel.org>
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
-This is the remaining unapplied patch from
-https://lore.kernel.org/rust-for-linux/20260319121653.2975748-1-gary@kernel.org/.
+ rust/helpers/barrier.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-Changes:
-- Rebased so it applies cleanly. (both on linux-next and rust-next)
-- Picked up tags
-- Updated commit message to reflect that my other patch "rust: doc: disable
-  doc inlining for all prelude items" already reduce number of rendering
-  times from 3 to 2.
----
- drivers/gpu/nova-core/bitfield.rs    |  4 ++--
- drivers/gpu/nova-core/num.rs         |  2 +-
- rust/kernel/build_assert.rs          | 19 ++++++++++++-------
- rust/kernel/io/register.rs           | 19 ++++++++++++-------
- rust/kernel/io/resource.rs           |  2 +-
- rust/kernel/ioctl.rs                 |  2 +-
- rust/kernel/net/phy/reg.rs           |  8 +++++---
- rust/kernel/num/bounded.rs           |  2 +-
- rust/kernel/prelude.rs               | 12 ++++++++----
- rust/kernel/sync/atomic/internal.rs  |  9 ++++++---
- rust/kernel/sync/atomic/predefine.rs |  2 +-
- rust/kernel/sync/locked_by.rs        |  2 +-
- rust/kernel/sync/refcount.rs         |  8 +++++---
- rust/kernel/xarray.rs                | 10 ++++++++--
- 14 files changed, 64 insertions(+), 37 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/bitfield.rs b/drivers/gpu/nova-core/bitfield.rs
-index 02efdcf78d89..660c3911402d 100644
---- a/drivers/gpu/nova-core/bitfield.rs
-+++ b/drivers/gpu/nova-core/bitfield.rs
-@@ -170,7 +170,7 @@ impl $name {
-     (@check_field_bounds $hi:tt:$lo:tt $field:ident as bool) => {
-         #[allow(clippy::eq_op)]
-         const _: () = {
--            ::kernel::build_assert!(
-+            ::kernel::build_assert::build_assert!(
-                 $hi == $lo,
-                 concat!("boolean field `", stringify!($field), "` covers more than one bit")
-             );
-@@ -181,7 +181,7 @@ impl $name {
-     (@check_field_bounds $hi:tt:$lo:tt $field:ident as $type:tt) => {
-         #[allow(clippy::eq_op)]
-         const _: () = {
--            ::kernel::build_assert!(
-+            ::kernel::build_assert::build_assert!(
-                 $hi >= $lo,
-                 concat!("field `", stringify!($field), "`'s MSB is smaller than its LSB")
-             );
-diff --git a/drivers/gpu/nova-core/num.rs b/drivers/gpu/nova-core/num.rs
-index 6c824b8d7b97..6eb174d136ab 100644
---- a/drivers/gpu/nova-core/num.rs
-+++ b/drivers/gpu/nova-core/num.rs
-@@ -49,7 +49,7 @@ macro_rules! impl_safe_as {
-             #[allow(unused)]
-             #[inline(always)]
-             pub(crate) const fn [<$from _as_ $into>](value: $from) -> $into {
--                kernel::static_assert!(size_of::<$into>() >= size_of::<$from>());
-+                ::kernel::build_assert::static_assert!(size_of::<$into>() >= size_of::<$from>());
+diff --git a/rust/helpers/barrier.c b/rust/helpers/barrier.c
+index fed8853745c8..dbc7a3017c78 100644
+--- a/rust/helpers/barrier.c
++++ b/rust/helpers/barrier.c
+@@ -2,6 +2,36 @@
  
-                 value as $into
-             }
-diff --git a/rust/kernel/build_assert.rs b/rust/kernel/build_assert.rs
-index 2ea2154ec30c..c3acb9b68a65 100644
---- a/rust/kernel/build_assert.rs
-+++ b/rust/kernel/build_assert.rs
-@@ -61,15 +61,16 @@
- //! undefined symbols and linker errors, it is not developer friendly to debug, so it is recommended
- //! to avoid it and prefer other two assertions where possible.
+ #include <asm/barrier.h>
  
-+#[doc(inline)]
- pub use crate::{
--    build_assert,
-+    build_assert_macro as build_assert,
-     build_error,
-     const_assert,
-     static_assert, //
- };
- 
- #[doc(hidden)]
--pub use build_error::build_error;
-+pub use build_error::build_error as build_error_fn;
- 
- /// Static assert (i.e. compile-time assert).
- ///
-@@ -105,6 +106,7 @@
- /// static_assert!(f(40) == 42, "f(x) must add 2 to the given input.");
- /// ```
- #[macro_export]
-+#[doc(hidden)]
- macro_rules! static_assert {
-     ($condition:expr $(,$arg:literal)?) => {
-         const _: () = ::core::assert!($condition $(,$arg)?);
-@@ -133,6 +135,7 @@ macro_rules! static_assert {
- /// }
- /// ```
- #[macro_export]
-+#[doc(hidden)]
- macro_rules! const_assert {
-     ($condition:expr $(,$arg:literal)?) => {
-         const { ::core::assert!($condition $(,$arg)?) };
-@@ -157,12 +160,13 @@ macro_rules! const_assert {
- /// // foo(usize::MAX); // Fails to compile.
- /// ```
- #[macro_export]
-+#[doc(hidden)]
- macro_rules! build_error {
-     () => {{
--        $crate::build_assert::build_error("")
-+        $crate::build_assert::build_error_fn("")
-     }};
-     ($msg:expr) => {{
--        $crate::build_assert::build_error($msg)
-+        $crate::build_assert::build_error_fn($msg)
-     }};
- }
- 
-@@ -200,15 +204,16 @@ macro_rules! build_error {
- /// const _: () = const_bar(2);
- /// ```
- #[macro_export]
--macro_rules! build_assert {
-+#[doc(hidden)]
-+macro_rules! build_assert_macro {
-     ($cond:expr $(,)?) => {{
-         if !$cond {
--            $crate::build_assert::build_error(concat!("assertion failed: ", stringify!($cond)));
-+            $crate::build_assert::build_error_fn(concat!("assertion failed: ", stringify!($cond)));
-         }
-     }};
-     ($cond:expr, $msg:expr) => {{
-         if !$cond {
--            $crate::build_assert::build_error($msg);
-+            $crate::build_assert::build_error_fn($msg);
-         }
-     }};
- }
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 388647f28292..f924c7c7c1db 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -108,9 +108,10 @@
- 
- use core::marker::PhantomData;
- 
--use crate::io::IoLoc;
--
--use kernel::build_assert;
-+use crate::{
-+    build_assert::build_assert,
-+    io::IoLoc, //
-+};
- 
- /// Trait implemented by all registers.
- pub trait Register: Sized {
-@@ -872,7 +873,7 @@ macro_rules! register {
-         @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-             [ $size:expr, stride = $stride:expr ] @ $offset:literal { $($fields:tt)* }
-     ) => {
--        ::kernel::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
-+        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
-         $crate::register!(@io_base $name($storage) @ $offset);
-@@ -895,7 +896,9 @@ macro_rules! register {
-         @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:ident [ $idx:expr ]
-             { $($fields:tt)* }
-     ) => {
--        ::kernel::static_assert!($idx < <$alias as $crate::io::register::RegisterArray>::SIZE);
-+        $crate::build_assert::static_assert!(
-+            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
-+        );
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
-         $crate::register!(
-@@ -912,7 +915,7 @@ macro_rules! register {
-             [ $size:expr, stride = $stride:expr ]
-             @ $base:ident + $offset:literal { $($fields:tt)* }
-     ) => {
--        ::kernel::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
-+        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
-         $crate::register!(@io_base $name($storage) @ $offset);
-@@ -938,7 +941,9 @@ macro_rules! register {
-         @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-             => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
-     ) => {
--        ::kernel::static_assert!($idx < <$alias as $crate::io::register::RegisterArray>::SIZE);
-+        $crate::build_assert::static_assert!(
-+            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
-+        );
- 
-         $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
-         $crate::register!(
-diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
-index b7ac9faf141d..17b0c174cfc5 100644
---- a/rust/kernel/io/resource.rs
-+++ b/rust/kernel/io/resource.rs
-@@ -229,7 +229,7 @@ impl Flags {
-     // Always inline to optimize out error path of `build_assert`.
-     #[inline(always)]
-     const fn new(value: u32) -> Self {
--        crate::build_assert!(value as u64 <= c_ulong::MAX as u64);
-+        build_assert!(value as u64 <= c_ulong::MAX as u64);
-         Flags(value as c_ulong)
-     }
- }
-diff --git a/rust/kernel/ioctl.rs b/rust/kernel/ioctl.rs
-index 2fc7662339e5..5bb5b48cf949 100644
---- a/rust/kernel/ioctl.rs
-+++ b/rust/kernel/ioctl.rs
-@@ -6,7 +6,7 @@
- 
- #![expect(non_snake_case)]
- 
--use crate::build_assert;
-+use crate::build_assert::build_assert;
- 
- /// Build an ioctl number, analogous to the C macro of the same name.
- #[inline(always)]
-diff --git a/rust/kernel/net/phy/reg.rs b/rust/kernel/net/phy/reg.rs
-index a7db0064cb7d..80e22c264ea8 100644
---- a/rust/kernel/net/phy/reg.rs
-+++ b/rust/kernel/net/phy/reg.rs
-@@ -9,9 +9,11 @@
- //! defined in IEEE 802.3.
- 
- use super::Device;
--use crate::build_assert;
--use crate::error::*;
--use crate::uapi;
-+use crate::{
-+    build_assert::build_assert,
-+    error::*,
-+    uapi, //
-+};
- 
- mod private {
-     /// Marker that a trait cannot be implemented outside of this crate
-diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
-index f9f90d6ec482..dafe77782d79 100644
---- a/rust/kernel/num/bounded.rs
-+++ b/rust/kernel/num/bounded.rs
-@@ -364,7 +364,7 @@ pub fn try_new(value: T) -> Option<Self> {
-     // Always inline to optimize out error path of `build_assert`.
-     #[inline(always)]
-     pub fn from_expr(expr: T) -> Self {
--        crate::build_assert!(
-+        crate::build_assert::build_assert!(
-             fits_within(expr, N),
-             "Requested value larger than maximal representable value."
-         );
-diff --git a/rust/kernel/prelude.rs b/rust/kernel/prelude.rs
-index ca260cc3937a..f6e852638ade 100644
---- a/rust/kernel/prelude.rs
-+++ b/rust/kernel/prelude.rs
-@@ -79,9 +79,6 @@
-         VVec,
-         Vec, //
-     },
--    build_assert,
--    build_error,
--    const_assert,
-     current,
-     dev_alert,
-     dev_crit,
-@@ -105,7 +102,6 @@
-     pr_info,
-     pr_notice,
-     pr_warn,
--    static_assert,
-     str::CStrExt as _,
-     try_init,
-     try_pin_init,
-@@ -113,6 +109,14 @@
-     ThisModule, //
- };
- 
-+#[doc(no_inline)]
-+pub use crate::build_assert::{
-+    build_assert,
-+    build_error,
-+    const_assert,
-+    static_assert, //
-+};
++__rust_helper void rust_helper_mb(void)
++{
++	mb();
++}
 +
- // `super::std_vendor` is hidden, which makes the macro inline for some reason.
- #[doc(no_inline)]
- pub use super::dbg;
-diff --git a/rust/kernel/sync/atomic/internal.rs b/rust/kernel/sync/atomic/internal.rs
-index ad810c2172ec..9c8a7a203abd 100644
---- a/rust/kernel/sync/atomic/internal.rs
-+++ b/rust/kernel/sync/atomic/internal.rs
-@@ -4,8 +4,11 @@
- //!
- //! Provides 1:1 mapping to the C atomic operations.
- 
--use crate::bindings;
--use crate::macros::paste;
-+use crate::{
-+    bindings,
-+    build_assert::static_assert,
-+    macros::paste, //
-+};
- use core::cell::UnsafeCell;
- use ffi::c_void;
- 
-@@ -46,7 +49,7 @@ pub trait AtomicImpl: Sized + Copy + private::Sealed {
- // In the future when a CONFIG_ARCH_SUPPORTS_ATOMIC_RMW=n architecture plans to support Rust, the
- // load/store helpers that guarantee atomicity against RmW operations (usually via a lock) need to
- // be added.
--crate::static_assert!(
-+static_assert!(
-     cfg!(CONFIG_ARCH_SUPPORTS_ATOMIC_RMW),
-     "The current implementation of atomic i8/i16/ptr relies on the architecure being \
-     ARCH_SUPPORTS_ATOMIC_RMW"
-diff --git a/rust/kernel/sync/atomic/predefine.rs b/rust/kernel/sync/atomic/predefine.rs
-index 7468153429e1..adc5fa126487 100644
---- a/rust/kernel/sync/atomic/predefine.rs
-+++ b/rust/kernel/sync/atomic/predefine.rs
-@@ -2,7 +2,7 @@
- 
- //! Pre-defined atomic types
- 
--use crate::static_assert;
-+use crate::prelude::*;
- use core::mem::{align_of, size_of};
- use ffi::c_void;
- 
-diff --git a/rust/kernel/sync/locked_by.rs b/rust/kernel/sync/locked_by.rs
-index 61f100a45b35..fb4a1430b3b4 100644
---- a/rust/kernel/sync/locked_by.rs
-+++ b/rust/kernel/sync/locked_by.rs
-@@ -3,7 +3,7 @@
- //! A wrapper for data protected by a lock that does not wrap it.
- 
- use super::{lock::Backend, lock::Lock};
--use crate::build_assert;
-+use crate::build_assert::build_assert;
- use core::{cell::UnsafeCell, mem::size_of, ptr};
- 
- /// Allows access to some data to be serialised by a lock that does not wrap it.
-diff --git a/rust/kernel/sync/refcount.rs b/rust/kernel/sync/refcount.rs
-index 6c7ae8b05a0b..23a5d201f343 100644
---- a/rust/kernel/sync/refcount.rs
-+++ b/rust/kernel/sync/refcount.rs
-@@ -4,9 +4,11 @@
- //!
- //! C header: [`include/linux/refcount.h`](srctree/include/linux/refcount.h)
- 
--use crate::build_assert;
--use crate::sync::atomic::Atomic;
--use crate::types::Opaque;
-+use crate::{
-+    build_assert::build_assert,
-+    sync::atomic::Atomic,
-+    types::Opaque, //
-+};
- 
- /// Atomic reference counter.
- ///
-diff --git a/rust/kernel/xarray.rs b/rust/kernel/xarray.rs
-index 46e5f43223fe..987c9c0c2198 100644
---- a/rust/kernel/xarray.rs
-+++ b/rust/kernel/xarray.rs
-@@ -5,10 +5,16 @@
- //! C header: [`include/linux/xarray.h`](srctree/include/linux/xarray.h)
- 
- use crate::{
--    alloc, bindings, build_assert,
-+    alloc,
-+    bindings,
-+    build_assert::build_assert,
-     error::{Error, Result},
-     ffi::c_void,
--    types::{ForeignOwnable, NotThreadSafe, Opaque},
-+    types::{
-+        ForeignOwnable,
-+        NotThreadSafe,
-+        Opaque, //
-+    }, //
- };
- use core::{iter, marker::PhantomData, pin::Pin, ptr::NonNull};
- use pin_init::{pin_data, pin_init, pinned_drop, PinInit};
++__rust_helper void rust_helper_rmb(void)
++{
++	rmb();
++}
++
++__rust_helper void rust_helper_wmb(void)
++{
++	wmb();
++}
++
++__rust_helper void rust_helper_dma_mb(void)
++{
++	dma_mb();
++}
++
++__rust_helper void rust_helper_dma_rmb(void)
++{
++	dma_rmb();
++}
++
++__rust_helper void rust_helper_dma_wmb(void)
++{
++	dma_wmb();
++}
++
+ __rust_helper void rust_helper_smp_mb(void)
+ {
+ 	smp_mb();
 
-base-commit: 98cc68794c003bc76fc9da2e8a075e947eee5921
 -- 
 2.54.0
 
