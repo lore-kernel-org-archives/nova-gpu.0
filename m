@@ -1,73 +1,73 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012016.outbound.protection.outlook.com [52.101.43.16])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010055.outbound.protection.outlook.com [52.101.61.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E4830DEA6
-	for <nova-gpu@lists.linux.dev>; Wed, 10 Jun 2026 17:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3217030DEA6
+	for <nova-gpu@lists.linux.dev>; Wed, 10 Jun 2026 17:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781113815; cv=fail; b=FE1GBq0Nb8AGLjiXF3NNvQfSc2FQnUdIHeD3XvLMpVjYHR+ULDDKm5IxFH7/MicQ4ZQQkdLHf3oe4cC00+UKJ4PjuFR587DdgQ5ENtSvfMTlsQvgRlJo3cEgnfl6/Y0Oi3uNZGE6T036kFa9mCkB7C6M1PF2k35XDobIDo/3IRs=
+	t=1781113817; cv=fail; b=GCKZ6yUzag1ddWmTOnxqHCEoygis0525cmjoVORHmJP/GOOUec5Gr37sc+kf9x3DUvW4DGxnkkCK/TNk+32KPTgFGEwfF9P816jjA3K5ViX527bvU5lwzumLe+GE/XwL+Eni4B4trN7D3/G9XPEzDeZvKy664p4aWJPY/XBsoTQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781113815; c=relaxed/simple;
-	bh=/9dz2M6ZqDholBAPfSfiQqG4tD70KWqisRPhPJs5khk=;
+	s=arc-20240116; t=1781113817; c=relaxed/simple;
+	bh=NZr7Ci2zzvynUMTHzafjqd2sU6kgRhquwLNnLXB9yNo=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eZ8R5RxPIST57Itn7H3XdQ3IHg1s5/flJUtf8uGU8y++X9vcDM/He3XSNxJCeCB7qCXaErn0YZV+GpApcP960LuW7ffOxBv1nfpD8sPQC3hq/xjlkDH8nSv2/W04Kz2aXrPQGbMFz8TjO35x4hz8Pp1+M6tSqBoYvPejFNoXurs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=V7zcIf/N; arc=fail smtp.client-ip=52.101.43.16
+	 MIME-Version:Content-Type; b=jZn1lEvvSgW2/y9uat25imcm3tLfzIyGFvt02MhzYkRtHdYq+z2LnvwuZJ16HGMp7D7V4m4enrrgYDZymd4RbIBhsX/9/kCek1V5yRB331RU8LgddBx9FAUh1igzpQC0z+QV0zsL8Ped4QyQG2tAjcfaQXP/hhIGqTDU8N/gyXg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XfFTBG/E; arc=fail smtp.client-ip=52.101.61.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="V7zcIf/N"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XfFTBG/E"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fqttfWvH2iz/M8Atpmva4zTY2R6IM3Onwt+TwI/T3d6m7d+3360hcKYE3/eSH0p5TGD/dIFOxCChZOpIdax+Da5nweZ5OdRf8jS1vamrXYvO78al2UA8sHVCPCSpzD1IEPF6NexylDzTUEda4uqGjp+z2U4x1V9g0xHM6gDqWMr0lIO83j0p/7X0B2gZ3X0kC2BPW1oChRN+TM+8aUEY9/ZBCWCZfvwAvyqZ/FONbr9Lm7LlGlk7S6HzcDPyVCuHRuWJVcveXBYzs3zfWD+1ME5+dS0jhRUOlftImG9IGGbaZYJ4/u6LsDnQKw99W49GnbLWgs4tASJjdYYPSTP8Qg==
+ b=r0yumTIbHQbl2ClXXom1RB8VNDKH3iO0+rwcRNLUuPciU8lJTtr08eMcXZH2+ccUyYJAO6FyHORz3BX5CwXuj+kUb6AGXSe71kRSixLOVrQGzbLip0CquBu6IRE2vE5BMyK+idBc4RNknULkcJcR8XCjtMqBZVnW19L9H9jcs4mLq29ds1b84N9QG86kL34HyJGVDsQww6kIMFN0xhGXmPEQ/s1fLSTGuMBs5+kGVVE1mi7Gmyd915mxi16KItXbmcob1Lj1h1WqN7VdJ1e9oidDfupxptU55UicI30aDNZMskHU4OIAytJyk3QDURvVgLavWd3IeUmFmQMUM3Q/Yg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mJxjkgHZbLvS+cnP/u2X3xXkg0Fy5ozdCmCtjTDYVvg=;
- b=JeuZV812hFQyPRy+NXLfmyye6W6FQjgck329LsdHPUogrQeK4wcsC/7vo8RzRXQQB3b6As5j/JTLEubaKYjexfvAVz6DuPJq3FidQNDx2YtC9w8d44aam1sXyrrwGChK1J/FuVx0jS8MlvKWFwX0CTDCwvv2wuA9b2dDs+HBvlRnyo1P04iJ5QPt8r7fZgjeh3zMCZUHAiYzyTCFjBnwWb604pBftNrg5kfGx21Mb+uYF/7MIPxolOJRPIcRlRiuPGquMLiscpXpFDM6Kr40AvdpwoakUp/7shIeC1goxAlBdnJwdBmoP24Z9Cx7nsuVk3O+/YEoc5eCF5PLR6UZ6Q==
+ bh=/AzGStLSOA07yWLugGGeVau6Lq8ekDhYMFwmmUvs9xA=;
+ b=CY3g4ynnUgNIjPD21Bun7sP5NAqPevOvyyBbkHmyVh/NdcBsVjKJ+yBrfUX9r6nK6gnMeXSfVqfCghLe7CDOIgnRHIFnOCiSUTJlCfWdsDr6ZLapnliKKsl2Tvnzl8HZ222OqB7PacKJcv/E/FdtEH0cRsVDiOMJ4uTQHcg+YzM2Ly8sXipv5dX68yIvhqxqLwBxTYViXR5ZcE0JBmA1PMCORZTyoMNdWX6k9GnNYyFyTK9uyhLJzFNaRd8miD5BNs/N41Qq3h1iFYX2l+sRjXCwRBpu/2O1V1GFcfO5MBVJGCd3axP98HShMS4OuS5AHcI7twfY7uq7J3SCD2zJvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mJxjkgHZbLvS+cnP/u2X3xXkg0Fy5ozdCmCtjTDYVvg=;
- b=V7zcIf/NLaHql2a+LXM03FCp8XAZ3aoN9EjMO86ixENc78rkhNj7Yks5/L8qYh/pzd1s19A5A6AWCNolVpyKyejU9y2+k2pKcsohPPEn4DTDl+Go4yo+ENAAf6xgW3rtqyn7508I7xLJOdH4rWN0NiYT5qHQwhICIYaYPSYsVG7XuYuxbnhRJkaEjoh8nrHhApeyvxus6C5oUp1exAAdYGuJtghybImw040OnSp+dIrXo4y4ELa0mnj+HlQk4uRITcdzo20opVzyr9J8j9CCrYWb0ebdc367D9b5RXOstORZsHvTJT1L/nkBcC9qLnZPUi2jtNVT3ljbOKWyB1a0xw==
-Received: from MN0P223CA0013.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::15)
- by SJ0PR12MB7457.namprd12.prod.outlook.com (2603:10b6:a03:48d::16) with
+ bh=/AzGStLSOA07yWLugGGeVau6Lq8ekDhYMFwmmUvs9xA=;
+ b=XfFTBG/EWOWW5XfsyJ4UunV6wDE7Lc5Fl1MmNEyj5s/ishAkwmb0tLX/Bl7wd3BeWZBGfRXOpETjw0Gba++g/9pxxPC4CvqxFnw32bix48dk+H5ZFEHmK1L5YH9/N48Vx38DdncKR8HVbV9t8AcGMShfZwtq3tkPuZF7yihOkSNJrBumMkn99SNVT6xmOgRZh+lA5RQN58ns2IbBVo7EO6dNpEqnOmvWP5/5AVhDd2Cio+HfGlDePx/7eRIoWPvbLqW6E2Itf1vOlvHk1QxC2Gif7uHElr7CWpIObdb7cI+5TrEcq7YPWzOM/QZe28SJ4BvwEWMPtTAqDTf7ilC+9g==
+Received: from CH0P220CA0028.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::7) by
+ IA1PR12MB8540.namprd12.prod.outlook.com (2603:10b6:208:454::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Wed, 10 Jun
- 2026 17:50:06 +0000
-Received: from BL02EPF00021F6F.namprd02.prod.outlook.com
- (2603:10b6:208:52b:cafe::5d) by MN0P223CA0013.outlook.office365.com
- (2603:10b6:208:52b::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
- 10 Jun 2026 17:50:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Wed, 10 Jun
+ 2026 17:50:08 +0000
+Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
+ (2603:10b6:610:ef:cafe::3b) by CH0P220CA0028.outlook.office365.com
+ (2603:10b6:610:ef::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.10 via Frontend Transport; Wed,
+ 10 Jun 2026 17:50:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BL02EPF00021F6F.mail.protection.outlook.com (10.167.249.11) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 17:50:06 +0000
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 17:50:08 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 10 Jun
- 2026 10:49:43 -0700
+ 2026 10:49:46 -0700
 Received: from ttabi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 10 Jun
- 2026 10:49:41 -0700
+ 2026 10:49:44 -0700
 From: Timur Tabi <ttabi@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
 	"Alexandre Courbot" <acourbot@nvidia.com>, <nova-gpu@lists.linux.dev>, Eliot
  Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
 	<zhiw@nvidia.com>
-Subject: [PATCH 3/8] gpu: nova-core: add TLV parser for firmware files
-Date: Wed, 10 Jun 2026 12:49:24 -0500
-Message-ID: <20260610174929.744477-4-ttabi@nvidia.com>
+Subject: [PATCH 5/8] gpu: nova-core: transition gsp to TLV images
+Date: Wed, 10 Jun 2026 12:49:26 -0500
+Message-ID: <20260610174929.744477-6-ttabi@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260610174929.744477-1-ttabi@nvidia.com>
 References: <20260610174929.744477-1-ttabi@nvidia.com>
@@ -84,482 +84,311 @@ X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6F:EE_|SJ0PR12MB7457:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e21d32b-815e-4afe-bc28-08dec718b53f
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|IA1PR12MB8540:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ec987eb-ab52-41e4-ca68-08dec718b62a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|3023799007|56012099006|11063799006|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|56012099006|11063799006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	5jhEJiEWZzOl8Lkz5lL/tdUBX4XwtNvkSmrYrws7UkvMjQl8sicWqW5GNMHBaAyf6HPfJmVHHQ9tiBCtMc+0aY+ykrAkIZHc7/KfDP507o2W+X5diljQN01F4wwZYknBiF2yC+8KzBZp7SdbYWdMyqKqOk9SRVEKMRy46CFl9RvT9aH6MUYugGI5aQh76UoJXaT6e2M968ale0nSG/IkJMR1isebBjTqiV5UI0v57RTXktErRNgBXT14wTgQZ2zqD14gWVt9DEXSDbZDajMD8UCR2FHJANrunWk0wMWUC9bv5S2cRD6pfatBVxwF0lfWQxNVVAZkbbWzLE/WuyAD9HhlS4ieFQILcfHfgC66r/u1KR6blwCImu1maYHFkltwXR/KxMkFKq2bQjaOgQHm383oFLpVuUra0zRtYVrX4JhEo37CHJ71jcQmwZ4oz9TEJRBKOeavAUwdB9q3iNfQfevC704m+FzrAoUYbxJu4oVxWZWJ1v3awuNVEcyh55gGPlMd9tOecnDEsLQGyvunYEdRClr6tx8bCJOqqLmG8pjdyB+5IWXJpc77BZWk7U6q/RwLq4YTpNwtU5s+fO9rUki4en2W0lB1rUI+1rC7U/MXbRUVjiRkWVO5dksOyfXhIQAAQ6i4h5olr26xVnHO+mVjvsFi90YVgqOTg8hVVH2FCShhXYWfG+iuItSRgHyuKgQajQo6ZFb61elBdOT/Ir1fYdqpJdx62hI9UnhTThw=
+	Aq7dmhy0xRn9v/eJybix1ZpBRnIAJQcsibWE9ahWWzvv3sp4PRn8voP6SBor9lkCSjhKfvtKC45IV22cshyv2CxGKYASmXZkGt30q89Omd+ulpnVKZj+cZnRi+xneA5CeP4N8zQc5GmkqdVrgdowFCYSofXQE8crmBHvJt4HC4xnBneK6ZAHTIOyqN3HXNuDkyK2cux8OnEYfA8N4p6oZRrDwcdBlzAsIZvEOT1IMvroDKWfOa9HhCgnp8G65FkTWnanIyrcNxGIWTRDAiDDXBoH6Ly9hWS62+b2UpzMx6W5GPYytfowLRmyv6rYT0cBPKvEafRQ129nLOWm7AU35AuVUPy6dLlM6ZUBENdZUdLKhDMUdDXRcqhUUj1XggWP6kyMkDs26gSVTakBYFooX69QBRoyLQeN90BRhdALxI7HbyJ0hNbkgXolJugV7TVyGSGY8Ery75fCHPfvJh96nfRGQ92oVS5zswmxGgg4EIyQXFFcx0+o745k+znjdIPn+keQN+qAPgvkkWzGSq29e0vGK0+w+MtTL0j+mn+NVI29QIbpFDWva15YmvMl842jLAwHG24D5leLZUvwYmJ0RZhwEw3Raao8A91dL3hU4yG9FMvwIp6n8FhiIz/T4rW611zeGFrYPaYJ5cSI+t4uhNfWmuhiQuljtOxv4qDYl4f+A3BlbiXWa3TYls4KbEWgvR25JPYWE4ffwFQFU79IA4D+OeC1QX+EUfajB4bGREg=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(3023799007)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	9spsPfCYrYq3zHPMaAXErNwcqEfgfAGejCHYx4TSIwJmFK4oNOnQLvLQCjfrcxbyvrRoP8ZKogJ6pcb+ApfsQTI2IJSUsasr10oBdQX2cTx7ZM3Bzv+fdLOOXr7tCfAwxKCkjcjhJoyiY1Jc0VUUoXiCbyjEOCaDywrVv3W1stn7g0lzmojHCF5hHs4UgNV5/fHL5ess//oWirWTCALGH/XHrjI1vy4A8dGoowRW+2k6VSsvlC5JnzqzeNExALWhADcecDjDVGP1PWP2tvFwxVnPJ8Bl0/Ru80LTlLpFHYzEvuM1I85a7RdD+yq2uhm0W3wDTR4uhyKviVciP/ZU56QGB6fVVebN5wydvGj3zzOVEDIkVx94+F7yLXGIjYa065RVCWXl7a9TIrFSNAV8WE06fSsWtqCUos2raocMp+g0s43TrkQjhjRKMYHIfG1M
+	TdA/XzFaFyJQPAclYcREbkx/cmoXTx8CM0DJ5+e+uc3hAFDwKL8Y4E1MBx0LtWUnMfUSxGxMDGcQnRcaCxgaLDiCLqTVIOVIoHpcrx5TP1T77csRCmumGuZtEtvK2IH9BN2GTD8QCk+a/FdbvDyYQ3ud18AtMcJ3161qIInmyVyoirLXkunGq5lWT5tMIDVAzWtmfu/8HsbKbIYqVBOLbk1OGSzwYqNozhNNq3ioZdmiDjQQNgvIW9fv/GkkYcpppI2jsO9lHk4c/el4frsevT5PKNioFd4YnSFpA5PvR8piTA68rpzfQWEfpDG23m1Inoupl4rL3lr8mPUSOQCk/e9RU0rZ3NPUu9DLTfhTkd6xAH+Hp7sjqpOc/qOiID+qPG2gZOWV3Ro2Tp/Ue3BLT+RQl04YcG9uh4MbX66FYyPHL0iOPasO+daazW3x6hW6
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 17:50:06.5338
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 17:50:08.1372
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e21d32b-815e-4afe-bc28-08dec718b53f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ec987eb-ab52-41e4-ca68-08dec718b62a
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6F.namprd02.prod.outlook.com
+	CH1PEPF0000A34A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7457
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8540
 
-Add the Tlv struct and supporting types for parsing TLV (type, length,
-value) firmware images. TLV files begin with a 4-byte magic header,
-which must be "NVFW" for Nvidia firmware files.  This is followed by a
-sequence of blocks each containing a 4-byte ASCII tag, a 4-byte
-little-endian length, and a payload padded to a 4-byte boundary.
+Switch the GSP firmware loader from the legacy binary format to the
+TLV format.  This change requires the new TLV versions of the r570.144
+firmware images.
 
-Tlv::new() validates the entire image up front, so that the iterator can
-subsequently yield blocks without fallible parsing.
+Unlike the other TLV firmware images, gsp.tlv contains a pointer to
+the actual GSP firmware file instead of its contents.  This allows
+each small gsp.tlv file to contain the distinct metadata for each GPU
+while still allowing the very large gsp.bin to be shared by all
+GPUs.
 
-Also add accessor methods for the various encoded types that will be used
-by the driver.
+One key piece of metadata is the signature.  The legacy GSP firmware
+image is an ELF file that contains multiple sections that needed
+to be parsed, and the driver needed to determine which section is
+relevant for the GPU.  Instead, gsp.tlv contains the pre-processed
+metadata, so all the driver needs to do is to extract it.
 
 Signed-off-by: Timur Tabi <ttabi@nvidia.com>
 ---
- Documentation/gpu/nova/core/tlv.rst | 172 ++++++++++++++++++++
- drivers/gpu/nova-core/firmware.rs   | 239 +++++++++++++++++++++++++++-
- 2 files changed, 410 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/gpu/nova/core/tlv.rst
+ drivers/gpu/nova-core/firmware.rs       | 22 --------
+ drivers/gpu/nova-core/firmware/gsp.rs   | 56 ++++++-------------
+ drivers/gpu/nova-core/firmware/riscv.rs | 71 +++++--------------------
+ drivers/gpu/nova-core/gsp/boot.rs       |  7 +--
+ 4 files changed, 30 insertions(+), 126 deletions(-)
 
-diff --git a/Documentation/gpu/nova/core/tlv.rst b/Documentation/gpu/nova/core/tlv.rst
-new file mode 100644
-index 000000000000..8223605daa6b
---- /dev/null
-+++ b/Documentation/gpu/nova/core/tlv.rst
-@@ -0,0 +1,172 @@
-+.. SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+==================================
-+TLV Tags in Nova Firmware Images
-+==================================
-+
-+Nova firmware images use a Type-Length-Value (TLV) format to
-+encapsulate firmware components and metadata. The TLV file begins
-+with a 4-byte "magic" header that contains the string "NVFW".
-+Following the header is a sequence of TLV blocks.
-+
-+Each block consists of a 4-byte tag of ASCII characters, a 4-byte
-+length encode as a little-endian non-negative integer, and a
-+sequence of bytes, the size of which is equal to the length rounded
-+up to the next multiple of 4.
-+
-+::
-+
-+    +------+------+------+------+
-+    |  'N' |  'V' |  'F' |  'W' |  Magic header
-+    +------+------+------+------+
-+    |  Tag (4 bytes, ASCII)     |  TLV block 0
-+    +---------------------------+
-+    |  Length (4 bytes, LE)     |
-+    +---------------------------+
-+    |                           |
-+    |  Value (length bytes,     |
-+    |  padded to 4-byte align)  |
-+    |                           |
-+    +---------------------------+
-+    |  Tag (4 bytes, ASCII)     |  TLV block 1
-+    +---------------------------+
-+    |  Length (4 bytes, LE)     |
-+    +---------------------------+
-+    |                           |
-+    |  Value (length bytes,     |
-+    |  padded to 4-byte align)  |
-+    |                           |
-+    +---------------------------+
-+    |         ...               |  More TLV blocks
-+    +---------------------------+
-+
-+Values
-+======
-+Values are one of three types:
-+
-+1) Integers, encoded in 32-bit or 64-bit little-endian format.
-+2) Strings, encoded as-is and expected to be ASCII only, without a null terminator.
-+3) An array of bytes.
-+
-+
-+Common Tags
-+===========
-+These tags appear across multiple firmware types.
-+
-+``VERS`` (string)
-+    Human-readable firmware version string, indicates the version of
-+    the firmware.  Present in all TLV files.
-+
-+A TLV image contains either a ``BLOB`` tag (firmware embedded
-+inline) or a ``SIZE``/``FILE`` pair (firmware stored in a
-+separate file).
-+
-+``BLOB`` (bytes)
-+    If the firmware microcode binary is stored in the TLV, this tag contains
-+    the actual firmware image bytes.
-+
-+``FILE`` (string)
-+    If the firmware binary is stored as a separate file, this tag contains the
-+    name of that file, assumed to be in the same directory as the TLV.
-+    This tag is always paired with ``SIZE``, so as to allow the driver to
-+    pre-allocate the buffer before loading the file.
-+
-+``SIZE`` (u32)
-+    Total size in bytes of the firmware image to be loaded from
-+    the companion file named by ``FILE``.
-+
-+GSP Firmware Tags
-+=================
-+Used when loading the GSP (GPU System Processor) firmware
-+(``gsp.bin``).
-+
-+``SIGN`` (bytes)
-+    Cryptographic signatures for the GSP firmware, DMA-mapped
-+    for the GSP bootloader to verify before execution.
-+
-+Booter Firmware Tags
-+====================
-+Used by the Booter firmware (``booter_load.bin``,
-+``booter_unload.bin``).
-+
-+``DAOF`` (u32) - ``os_data_offset``
-+    OS data section offset within the firmware image (absolute
-+    byte offset). Maps to the DMEM load source.
-+
-+``DASZ`` (u32) - ``os_data_size``
-+    OS data section size in bytes.
-+
-+``CDOF`` (u32) - ``os_code_offset``
-+    OS code section offset within the firmware image (absolute
-+    byte offset). Maps to the non-secure IMEM load source.
-+
-+``CDSZ`` (u32) - ``os_code_size``
-+    OS code section size in bytes.
-+
-+``PLOC`` (u32) - ``patch_loc``
-+    Signature patch location -- byte offset within the firmware
-+    image where the selected signature should be written.
-+
-+``FUSE`` (u32) - ``fuse_version``
-+    Fuse version of the firmware, used with the hardware fuse
-+    register to select the correct signature index.
-+
-+``ENID`` (u32) - ``engine_id``
-+    Engine ID mask identifying the falcon engine this firmware
-+    targets.
-+
-+``UCID`` (u32) - ``ucode_id``
-+    Microcode ID used together with the engine ID to query
-+    hardware signature fuse registers.
-+
-+``A0CO`` (u32) - ``app0_code_offset``
-+    App0 code offset -- start of the secure code region within
-+    the firmware image. Used as the IMEM secure section source.
-+
-+``A0CS`` (u32) - ``app0_code_size``
-+    App0 code size in bytes.
-+
-+``NSIG`` (u32) - ``num_sigs``
-+    Number of signatures included in the ``SIGS`` tag. A value
-+    of 0 indicates unsigned firmware.
-+
-+``SIGS`` (bytes)
-+    Concatenated array of firmware signatures. The size of
-+    each signature is the total length of the ``SIGS`` value
-+    divided by ``NSIG``. The correct signature is selected
-+    using the fuse-version-derived index.
-+
-+Generic Bootloader Tags (FWSEC)
-+===============================
-+Used by the generic bootloader (``gen_bootloader.bin``) that
-+loads the FWSEC firmware via DMA on Turing GPUs. Also includes
-+the common ``VERS`` and ``BLOB`` tags.
-+
-+``CDSZ`` (u32) - ``code_size``
-+    Size in bytes of the bootloader code to copy from the
-+    ``BLOB`` tag and PIO-load into falcon IMEM.
-+
-+``STRT`` (u32) - ``start_tag``
-+    Start tag identifying the IMEM block where execution begins.
-+    The falcon boot address is derived as ``start_tag << 8``.
-+
-+RISC-V Firmware Tags (GSP Bootloader)
-+======================================
-+Used by RISC-V-based firmwares such as the GSP bootloader
-+(``gsp_bootloader.bin``). Also includes the common ``VERS``
-+and ``BLOB`` tags.
-+
-+``CDOF`` (u32) - ``code_offset``
-+    Offset within the firmware image at which the code section
-+    starts.
-+
-+``DAOF`` (u32) - ``data_offset``
-+    Offset within the firmware image at which the data section
-+    starts.
-+
-+``MFOF`` (u32) - ``manifest_offset``
-+    Offset within the firmware image at which the manifest
-+    starts.
-+
-+``APPV`` (u32) - ``app_version``
-+    Application version of the firmware.
 diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
-index 2749c196416d..888a426b7b41 100644
+index f632db8283f0..8ef7f084f834 100644
 --- a/drivers/gpu/nova-core/firmware.rs
 +++ b/drivers/gpu/nova-core/firmware.rs
-@@ -11,7 +11,7 @@
-     device,
-     firmware,
+@@ -387,28 +387,6 @@ struct BinHdr {
+ // SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+ unsafe impl FromBytes for BinHdr {}
+ 
+-// A firmware blob starting with a `BinHdr`.
+-struct BinFirmware<'a> {
+-    hdr: BinHdr,
+-    fw: &'a [u8],
+-}
+-
+-impl<'a> BinFirmware<'a> {
+-    /// Interpret `fw` as a firmware image starting with a [`BinHdr`], and returns the
+-    /// corresponding [`BinFirmware`] that can be used to extract its payload.
+-    fn new(fw: &'a firmware::Firmware) -> Result<Self> {
+-        const BIN_MAGIC: u32 = 0x10de;
+-        let fw = fw.data();
+-
+-        fw.get(0..size_of::<BinHdr>())
+-            // Extract header.
+-            .and_then(BinHdr::from_bytes_copy)
+-            // Validate header.
+-            .filter(|hdr| hdr.bin_magic == BIN_MAGIC)
+-            .map(|hdr| Self { hdr, fw })
+-            .ok_or(EINVAL)
+-    }
+-}
+ 
+ pub(crate) struct ModInfoBuilder<const N: usize>(firmware::ModInfoBuilder<N>);
+ 
+diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/firmware/gsp.rs
+index 99a302bae567..382005be8516 100644
+--- a/drivers/gpu/nova-core/firmware/gsp.rs
++++ b/drivers/gpu/nova-core/firmware/gsp.rs
+@@ -8,6 +8,7 @@
+         DataDirection,
+         DmaAddress, //
+     },
++    firmware,
      prelude::*,
--    str::CString,
-+    str::{CStr, CString},
-     transmute::FromBytes, //
+     scatterlist::{
+         Owned,
+@@ -17,13 +18,11 @@
+ 
+ use crate::{
+     firmware::{
+-        elf,
+         riscv::RiscvFirmware, //
++        CString,
++        Tlv,
+     },
+-    gpu::{
+-        Architecture,
+-        Chipset, //
+-    },
++    gpu::Chipset,
+     gsp::GSP_PAGE_SIZE,
+     num::FromSafeCast,
+ };
+@@ -63,43 +62,26 @@ pub(crate) struct GspFirmware {
+ }
+ 
+ impl GspFirmware {
+-    fn find_gsp_sigs_section(chipset: Chipset) -> &'static str {
+-        match chipset.arch() {
+-            Architecture::Turing if matches!(chipset, Chipset::TU116 | Chipset::TU117) => {
+-                ".fwsignature_tu11x"
+-            }
+-            Architecture::Turing => ".fwsignature_tu10x",
+-            Architecture::Ampere if chipset == Chipset::GA100 => ".fwsignature_ga100",
+-            Architecture::Ampere => ".fwsignature_ga10x",
+-            Architecture::Ada => ".fwsignature_ad10x",
+-            Architecture::Hopper => ".fwsignature_gh10x",
+-            Architecture::BlackwellGB10x => ".fwsignature_gb10x",
+-            Architecture::BlackwellGB20x => ".fwsignature_gb20x",
+-        }
+-    }
+-
+     /// Loads the GSP firmware binaries, map them into `dev`'s address-space, and creates the page
+     /// tables expected by the GSP bootloader to load it.
+     pub(crate) fn new<'a>(
+         dev: &'a device::Device<device::Bound>,
+         chipset: Chipset,
+-        ver: &'a str,
+     ) -> impl PinInit<Self, Error> + 'a {
+         pin_init::pin_init_scope(move || {
+-            let firmware = super::request_firmware(dev, chipset, "gsp", ver)?;
++            let firmware = super::request_tlv(dev, chipset, "gsp")?;
++            let tlv = Tlv::new(firmware.data())?;
++            dev_info!(dev, "loaded gsp firmware v{}\n", tlv.get_string("VERS")?);
+ 
+-            let fw_section = elf::elf_section(firmware.data(), ".fwimage").ok_or(EINVAL)?;
++            let size = usize::from_safe_cast(tlv.get_u32("SIZE")?);
++            let mut fw_vvec = VVec::from_elem(0u8, size, GFP_KERNEL).map_err(|_| ENOMEM)?;
+ 
+-            let size = fw_section.len();
++            let chip_name = chipset.name();
++            let file = tlv.get_string("FILE")?;
++            let filename = CString::try_from_fmt(fmt!("nvidia/{chip_name}/gsp/{file}"))?;
++            firmware::request_into_buf(&filename, dev, fw_vvec.as_mut_slice())?;
+ 
+-            // Move the firmware into a vmalloc'd vector and map it into the device address
+-            // space.
+-            let fw_vvec = VVec::with_capacity(fw_section.len(), GFP_KERNEL)
+-                .and_then(|mut v| {
+-                    v.extend_from_slice(fw_section, GFP_KERNEL)?;
+-                    Ok(v)
+-                })
+-                .map_err(|_| ENOMEM)?;
++            let signatures = Coherent::from_slice(dev, tlv.get_bytes("SIGN")?, GFP_KERNEL)?;
+ 
+             Ok(try_pin_init!(Self {
+                 fw <- SGTable::new(dev, fw_vvec, DataDirection::ToDevice, GFP_KERNEL),
+@@ -145,15 +127,9 @@ pub(crate) fn new<'a>(
+                     level0.into()
+                 },
+                 size,
+-                signatures: {
+-                    let sigs_section = Self::find_gsp_sigs_section(chipset);
+-
+-                    elf::elf_section(firmware.data(), sigs_section)
+-                        .ok_or(EINVAL)
+-                        .and_then(|data| Coherent::from_slice(dev, data, GFP_KERNEL))?
+-                },
++                signatures,
+                 bootloader: {
+-                    let bl = super::request_firmware(dev, chipset, "bootloader", ver)?;
++                    let bl = super::request_tlv(dev, chipset, "gsp_bootloader")?;
+ 
+                     RiscvFirmware::new(dev, &bl)?
+                 },
+diff --git a/drivers/gpu/nova-core/firmware/riscv.rs b/drivers/gpu/nova-core/firmware/riscv.rs
+index 2afa7f36404e..52087b6bc0ed 100644
+--- a/drivers/gpu/nova-core/firmware/riscv.rs
++++ b/drivers/gpu/nova-core/firmware/riscv.rs
+@@ -7,53 +7,10 @@
+     device,
+     dma::Coherent,
+     firmware::Firmware,
+-    prelude::*,
+-    transmute::FromBytes, //
++    prelude::*, //
  };
  
-@@ -684,3 +684,240 @@ pub(super) fn elf_section<'a>(elf: &'a [u8], name: &str) -> Option<&'a [u8]> {
-         }
+-use crate::{
+-    firmware::BinFirmware,
+-    num::FromSafeCast, //
+-};
+-
+-/// Descriptor for microcode running on a RISC-V core.
+-#[repr(C)]
+-#[derive(Debug)]
+-struct RmRiscvUCodeDesc {
+-    version: u32,
+-    bootloader_offset: u32,
+-    bootloader_size: u32,
+-    bootloader_param_offset: u32,
+-    bootloader_param_size: u32,
+-    riscv_elf_offset: u32,
+-    riscv_elf_size: u32,
+-    app_version: u32,
+-    manifest_offset: u32,
+-    manifest_size: u32,
+-    monitor_data_offset: u32,
+-    monitor_data_size: u32,
+-    monitor_code_offset: u32,
+-    monitor_code_size: u32,
+-}
+-
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for RmRiscvUCodeDesc {}
+-
+-impl RmRiscvUCodeDesc {
+-    /// Interprets the header of `bin_fw` as a [`RmRiscvUCodeDesc`] and returns it.
+-    ///
+-    /// Fails if the header pointed at by `bin_fw` is not within the bounds of the firmware image.
+-    fn new(bin_fw: &BinFirmware<'_>) -> Result<Self> {
+-        let offset = usize::from_safe_cast(bin_fw.hdr.header_offset);
+-        let end = offset.checked_add(size_of::<Self>()).ok_or(EINVAL)?;
+-
+-        bin_fw
+-            .fw
+-            .get(offset..end)
+-            .and_then(Self::from_bytes_copy)
+-            .ok_or(EINVAL)
+-    }
+-}
++use crate::firmware::Tlv;
+ 
+ /// A parsed firmware for a RISC-V core, ready to be loaded and run.
+ pub(crate) struct RiscvFirmware {
+@@ -70,26 +27,22 @@ pub(crate) struct RiscvFirmware {
+ }
+ 
+ impl RiscvFirmware {
+-    /// Parses the RISC-V firmware image contained in `fw`.
+     pub(crate) fn new(dev: &device::Device<device::Bound>, fw: &Firmware) -> Result<Self> {
+-        let bin_fw = BinFirmware::new(fw)?;
+-
+-        let riscv_desc = RmRiscvUCodeDesc::new(&bin_fw)?;
++        let tlv = Tlv::new(fw.data())?;
+ 
+-        let ucode = {
+-            let start = usize::from_safe_cast(bin_fw.hdr.data_offset);
+-            let len = usize::from_safe_cast(bin_fw.hdr.data_size);
+-            let end = start.checked_add(len).ok_or(EINVAL)?;
++        let code_offset = tlv.get_u32("CDOF")?;
++        let data_offset = tlv.get_u32("DAOF")?;
++        let manifest_offset = tlv.get_u32("MFOF")?;
++        let app_version = tlv.get_u32("APPV")?;
+ 
+-            Coherent::from_slice(dev, fw.data().get(start..end).ok_or(EINVAL)?, GFP_KERNEL)?
+-        };
++        let ucode = Coherent::from_slice(dev, tlv.get_bytes("BLOB")?, GFP_KERNEL)?;
+ 
+         Ok(Self {
+             ucode,
+-            code_offset: riscv_desc.monitor_code_offset,
+-            data_offset: riscv_desc.monitor_data_offset,
+-            manifest_offset: riscv_desc.manifest_offset,
+-            app_version: riscv_desc.app_version,
++            code_offset,
++            data_offset,
++            manifest_offset,
++            app_version,
+         })
      }
  }
-+
-+pub(crate) struct TlvBlock<'a> {
-+    pub(crate) tag: &'a str,
-+    pub(crate) value: &'a [u8],
-+}
-+
-+/// On-wire TLV block header: 4-byte ASCII tag + little-endian payload length (bytes, excluding
-+/// padding to a 4-byte boundary).
-+struct TlvBlockHeader<'a> {
-+    tag: &'a str,
-+    length: usize,
-+}
-+
-+impl<'a> TlvBlockHeader<'a> {
-+    const SIZE: usize = size_of::<[u8; 4]>() + size_of::<u32>();
-+
-+    /// Parses the first [`Self::SIZE`] bytes of `hdr` (caller may pass a longer slice).
-+    fn parse(hdr: &'a [u8]) -> Option<Self> {
-+        let hdr = hdr.get(..Self::SIZE)?;
-+        let tag_bytes = hdr.get(..4)?;
-+        let tag = core::str::from_utf8(tag_bytes).ok()?;
-+        if !tag.is_ascii() {
-+            return None;
-+        }
-+        let len_arr = <[u8; 4]>::try_from(hdr.get(4..Self::SIZE)?).ok()?;
-+        let length = u32::from_le_bytes(len_arr) as usize;
-+        Some(Self { tag, length })
-+    }
-+}
-+
-+/// Sequential scan over [`Tlv`]. Unlike [`Tlv`], this type carries a cursor (`pos`) into
-+/// the parent blob.  It is not interchangeable with a fresh [`Tlv`] view of the same
-+/// bytes.
-+///
-+/// # Invariants
-+///
-+/// `pos` is a byte offset into `tlv.data` that always lies on a block boundary (in the sense
-+/// of the [`Tlv`] invariant): it is either the start of a well-formed block, or equal to
-+/// `tlv.data.len()` (end of iteration).
-+struct TlvIter<'tlv, 'a> {
-+    tlv: &'tlv Tlv<'a>,
-+    pos: usize,
-+}
-+
-+impl<'tlv, 'a> Iterator for TlvIter<'tlv, 'a> {
-+    type Item = TlvBlock<'a>;
-+
-+    /// Returns the block starting at `self.pos` and advances the cursor past it, or [`None`]
-+    /// once the cursor reaches the end of the data.
-+    ///
-+    /// The body relies on a number of `unsafe` operations, because [`Iterator::next`] can
-+    /// only return [`Option`], not [`Result`], so there is no way to report a parse error
-+    /// from here.  That is why the entire TLV stream is validated up front in the
-+    /// constructor.  By this type's invariants, `self.pos` is always on a block boundary
-+    /// into already-validated data, so each block is known to be well-formed, and
-+    /// therefore the unchecked operations cannot fail.
-+    fn next(&mut self) -> Option<Self::Item> {
-+        if self.pos >= self.tlv.data.len() {
-+            return None;
-+        }
-+
-+        let tail = &self.tlv.data[self.pos..];
-+
-+        // SAFETY: `self.pos` is on a block boundary (`TlvIter` invariant) and the check
-+        // above gives `self.pos < data.len()`, so by the `Tlv` invariant a complete
-+        // well-formed block starts at `tail`.
-+        let hdr = unsafe { tail.get_unchecked(..TlvBlockHeader::SIZE) };
-+
-+        // SAFETY: same header bytes as validated in `Tlv::new` for this offset.
-+        let header = unsafe { TlvBlockHeader::parse(hdr).unwrap_unchecked() };
-+
-+        let stored_size = header.length.next_multiple_of(4);
-+        let advance = TlvBlockHeader::SIZE + stored_size;
-+        let payload_end = TlvBlockHeader::SIZE + header.length;
-+
-+        // SAFETY: `advance` and `payload_end` are exactly the stored and logical payload extents
-+        // `Tlv::new` accepted for this block.
-+        let value = unsafe {
-+            let block = tail.get_unchecked(..advance);
-+            block.get_unchecked(TlvBlockHeader::SIZE..payload_end)
-+        };
-+
-+        // INVARIANT: by the `Tlv` invariant the block at `self.pos` occupies exactly `advance`
-+        // bytes, so `self.pos + advance` is the next block boundary (or `data.len()`).
-+        self.pos += advance;
-+
-+        Some(TlvBlock {
-+            tag: header.tag,
-+            value,
-+        })
-+    }
-+}
-+
-+/// The payload of a validated TLV (type, length, value) firmware image.
-+///
-+/// TLV firmware images start with a 4-byte "NVFW" magic header, followed by a sequence of
-+/// blocks. Each block has a 4-byte type tag, a 4-byte length field, and a data payload
-+/// whose stored size is the length rounded up to the nearest multiple of 4.
-+///
-+/// [`Self::new`] checks the magic header and walks every block: tags must be ASCII,
-+/// lengths and padding must fit without overflow, and the byte stream after `NVFW` must
-+/// be exactly partitionable into blocks (no trailing partial header or slack). After
-+/// that, [`TlvIter`] only signals end-of-stream via [`None`], not parse failure.
-+///
-+/// # Invariants
-+///
-+/// `data` is a validated TLV payload (the bytes *after* the `NVFW` magic): it is the exact
-+/// concatenation of zero or more well-formed blocks, with no trailing partial header or slack.
-+/// Consequently, any offset `o` into `data` that is a block boundary and satisfies
-+/// `o < data.len()` is the start of a complete block whose header parses and whose stored
-+/// extent (`TlvBlockHeader::SIZE + header.length.next_multiple_of(4)` bytes) lies within
-+/// `data`. `data.len()` is itself a boundary.
-+#[allow(dead_code)]
-+pub(crate) struct Tlv<'a> {
-+    data: &'a [u8],
-+}
-+
-+#[allow(dead_code)]
-+impl<'a> Tlv<'a> {
-+    const MAGIC: &'static [u8; 4] = b"NVFW";
-+
-+    /// Parses `data` as a TLV firmware image, returning [`EINVAL`] if the image is malformed.
-+    pub(crate) fn new(data: &'a [u8]) -> Result<Self> {
-+        // Verify that the magic bytes exist and are the correct value
-+        let magic_len = Self::MAGIC.len();
-+        if data
-+            .get(..magic_len)
-+            .is_none_or(|magic| magic != Self::MAGIC)
-+        {
-+            return Err(EINVAL);
-+        }
-+
-+        // The payload is the contiguous sequence of TLV blocks after the magic.
-+        let payload = data.get(magic_len..).ok_or(EINVAL)?;
-+
-+        let mut pos = 0usize;
-+        while pos < payload.len() {
-+            // Get the next TLV block.
-+            let Some(rest) = payload.get(pos..) else {
-+                return Err(EINVAL);
-+            };
-+            // Validate and extract the header (type, length).
-+            let Some(header) = rest
-+                .get(..TlvBlockHeader::SIZE)
-+                .and_then(TlvBlockHeader::parse)
-+            else {
-+                return Err(EINVAL);
-+            };
-+            // The `length` field of a TLV block contains the actual byte length of the
-+            // value, but each TLV block is aligned to a 4-byte boundary.
-+            let Some(stored_size) = header.length.checked_next_multiple_of(4) else {
-+                return Err(EINVAL);
-+            };
-+            let end = pos
-+                .checked_add(TlvBlockHeader::SIZE)
-+                .and_then(|p| p.checked_add(stored_size))
-+                .ok_or(EINVAL)?;
-+            if end > payload.len() {
-+                return Err(EINVAL);
-+            }
-+            pos = end;
-+        }
-+
-+        // INVARIANT: the loop above walked `payload` from offset 0 and only stopped once `pos`
-+        // reached `payload.len()` exactly, rejecting any block whose header failed to parse or
-+        // whose stored extent overran. So `payload` is an exact concatenation of well-formed
-+        // blocks with no partial header or trailing slack.
-+        Ok(Self { data: payload })
-+    }
-+
-+    fn iter(&self) -> TlvIter<'_, 'a> {
-+        // INVARIANT: 0 is a block boundary, either the start of the first block,
-+        // or `data.len()` when `data` is empty.
-+        TlvIter { tlv: self, pos: 0 }
-+    }
-+
-+    pub(crate) fn len(&self, tag: &str) -> Result<usize> {
-+        let tlv = self.iter().find(|b| b.tag == tag).ok_or(EINVAL)?;
-+
-+        Ok(tlv.value.len())
-+    }
-+
-+    pub(crate) fn get_bytes(&self, tag: &str) -> Result<&'a [u8]> {
-+        let tlv = self.iter().find(|b| b.tag == tag).ok_or(EINVAL)?;
-+
-+        Ok(tlv.value)
-+    }
-+
-+    pub(crate) fn get_u32(&self, tag: &str) -> Result<u32> {
-+        let tlv = self.iter().find(|b| b.tag == tag).ok_or(EINVAL)?;
-+
-+        tlv.value
-+            .try_into()
-+            .ok()
-+            .map(u32::from_le_bytes)
-+            .ok_or(EINVAL)
-+    }
-+
-+    pub(crate) fn get_string(&self, tag: &str) -> Result<&'a str> {
-+        let tlv = self.iter().find(|b| b.tag == tag).ok_or(EINVAL)?;
-+
-+        // Handle the possibility that the value is null-terminated.
-+        let bytes = match CStr::from_bytes_until_nul(tlv.value) {
-+            Ok(cstr) => cstr.to_bytes(),
-+            Err(_) => tlv.value,
-+        };
-+
-+        // But do require it to be all ASCII.
-+        if !bytes.is_ascii() {
-+            return Err(EINVAL);
-+        }
-+
-+        core::str::from_utf8(bytes).map_err(|_| EINVAL)
-+    }
-+
-+    /// Returns the `n`-th fixed-size chunk from the value of the TLV entry matching
-+    /// `tag`.
-+    ///
-+    /// The value is treated as an array of contiguous, equally-sized chunks, each
-+    /// `sig_size` bytes long. `sig_size` is the size of one signature.  The returned
-+    /// slice is the `n`-th chunk.
-+    ///
-+    /// Returns [`EINVAL`] if no entry matches `tag`, if computing the chunk's offset
-+    /// overflows, or if the value is too short to contain the requested chunk.
-+    pub(crate) fn get_nth_chunk(&self, tag: &str, sig_size: usize, n: usize) -> Result<&'a [u8]> {
-+        let sigs = self
-+            .iter()
-+            .find(|b| b.tag == tag)
-+            .map(|b| b.value)
-+            .ok_or(EINVAL)?;
-+
-+        let start = sig_size.checked_mul(n).ok_or(EINVAL)?;
-+        let end = start.checked_add(sig_size).ok_or(EINVAL)?;
-+
-+        sigs.get(start..end).ok_or(EINVAL)
-+    }
-+}
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 8afb62d689cb..84fb426a7113 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -20,10 +20,7 @@
+         Falcon, //
+     },
+     fb::FbLayout,
+-    firmware::{
+-        gsp::GspFirmware,
+-        FIRMWARE_VERSION, //
+-    },
++    firmware::gsp::GspFirmware,
+     gpu::Chipset,
+     gsp::{
+         cmdq::Cmdq,
+@@ -112,7 +109,7 @@ pub(crate) fn boot(
+         let dev = pdev.as_ref();
+         let hal = super::hal::gsp_hal(chipset);
+ 
+-        let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset, FIRMWARE_VERSION), GFP_KERNEL)?;
++        let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset), GFP_KERNEL)?;
+ 
+         let fb_layout = FbLayout::new(chipset, bar, &gsp_fw)?;
+         dev_dbg!(dev, "{:#x?}\n", fb_layout);
 -- 
 2.54.0
 
