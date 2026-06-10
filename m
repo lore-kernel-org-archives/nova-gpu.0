@@ -1,44 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C210C410D24;
-	Wed, 10 Jun 2026 13:57:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7762941167D;
+	Wed, 10 Jun 2026 13:57:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781099874; cv=none; b=ZlaM/Y1bZo0hNpZiqwquxXj33NV7KRCZavlTlFTFcK5fYuWKLV5F9IRx8ejUKrN8TzXXZLXK/4zOpTP2qqEHXQjz5NzFfKBrexmToo5FTu1WXCTrEQRaPcG04dvq0BsqPuJuNlCQ060YdAsZYBn4buvHuV04i0TJGbjunbWuts4=
+	t=1781099879; cv=none; b=s5ziGMtMwJ7b/4tiXwEr8gbybTl7rKdAN4Z7qdpmgpaZo2WrIzWpTinffAZgFYasRphIrTM0Iqwg6iawIKTiyaXbK5zwK4+ROvZqT5UffspDw+jDO7be1Pf1M5XKYCDI58E1lEOHvx4VP9HFyhf/SIshx/oAgS3uLXiOUaadKSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781099874; c=relaxed/simple;
-	bh=c9Kvq3BG3vHoZXRkXIvCTMqZ7NylntavOKKZeIaWa50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NtprQFYOAOWvEYxEl9zS0x20Y5H5NJS7yTO98zQO03l3Ux25pul3iA+0x20CqhYZY1Jf9kEUFJoPo/r7pdxkISeDD+W4+VWz4XVmuCO9Ogr60N4lj7PBtiGoy7B1GdjLMfnfJGQSt/b54WH/RrmwNwxmK9JhSvyDo/VQQ3abyL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgnZ9P7y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781099879; c=relaxed/simple;
+	bh=QXeR7NOIUAgGDwgodfLqhRuHyTgfOEZb9qjyLITjj2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rbrB0STNe0fXO/6YVWL1jYq5v9UN8zNWqnr7PV3LgCIr4QwUVrpiJxvLvE1hVGsWk5L/wEx4mpqU0ilOumSDGJ+rid6ZFv0d8PCdqLuzX+KZXvAUk+zhcyw9YiEnTuDW1xTzet1VROeYmbYhRjePFkG4+1VbIh3XURBF7LHxnCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcGj8kGG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgnZ9P7y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32F61F00893;
-	Wed, 10 Jun 2026 13:57:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcGj8kGG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C47E1F00893;
+	Wed, 10 Jun 2026 13:57:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781099870;
-	bh=TeizJECtqJ8z2fxDQWQ6uFGtYjvnQLbN04L3f5mZygY=;
-	h=From:To:Cc:Subject:Date:Reply-To;
-	b=LgnZ9P7ywGIlS6U1InWIk2u9V0MjpqMAkZRaLtdVVeYj7eNYSgbsmBnV+4JgWalNf
-	 lUrvG5nbugn9qhvu9SmD8iHEY7gQeCkZrSPjASXiC76KK6nNZOleqpjNm0rcxIY9DR
-	 3Ro5H6uIiDK7ujHVpy88/KEQ8IfnnZFk3K3yoLDK6HTrcxiI6XMZQwXOnrP+4WnCB5
-	 rnZ2zGrM4MlWBARpbVVFnR1t6Feq8gkYbByjLlN0Z/SqGIKGX/1ctif2RxnH4CmUSl
-	 uOPUNXAc9Na0b9bqj8njtl9AoO1CR8P3ehO8ljXgKDF0Ko0gCUXYnjsmQGykcvtvbJ
-	 BA6rv7Hj17Fjw==
+	s=k20260515; t=1781099878;
+	bh=HGRHyYwNvn4lA0Xw14jdK/t3SL3DhcwG0SMCUKKzHYE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:Reply-To;
+	b=gcGj8kGGaoZW0cb2H7hR5PvR5zrMsZrgY06XxR6FyMDiGvcyIjwMKNOys8POK025/
+	 EwdRSa7s3QfAdYcLr75FPXiGhd+H04eAHJLY1yilq/IvDeG8SZ7qJhyMVtQUxoRbco
+	 sPvcne0sAdQbM3ou7YPnWkFTudKQiQR2GzSiakD6mr0AWf8mGb5lxAtq4onNGk4ApW
+	 HVw6f/qZIoCtxziHzyq6fLcmzBlLtPIl2qUOvJGtSu3BbcxKPAtfG83qq+Zvn9+DHe
+	 W8qtOR8PLWtd44f9yCqMxSGUC5lLySofLntmHBDsRliqsYLiaimseFgxQoq+BxgmXk
+	 ucemmg/GJKfqQ==
 From: Gary Guo <gary@kernel.org>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	Alice Ryhl <aliceryhl@google.com>,
 	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: Gary Guo <gary@garyguo.net>,
-	nova-gpu@lists.linux.dev,
+	Simona Vetter <simona@ffwll.ch>,
+	Benno Lossin <lossin@kernel.org>,
+	Gary Guo <gary@garyguo.net>
+Cc: nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] gpu: nova-core: remove imports available from prelude
-Date: Wed, 10 Jun 2026 14:57:14 +0100
-Message-ID: <20260610135716.1013688-1-gary@kernel.org>
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 2/2] gpu: nova-core: use `c"literal"` instead of `c_str!()`
+Date: Wed, 10 Jun 2026 14:57:15 +0100
+Message-ID: <20260610135716.1013688-2-gary@kernel.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260610135716.1013688-1-gary@kernel.org>
+References: <20260610135716.1013688-1-gary@kernel.org>
 Reply-To: Gary Guo <gary@garyguo.net>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -54,41 +59,22 @@ No functional changes intended.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- drivers/gpu/nova-core/firmware.rs                  | 4 +---
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 1 -
- 2 files changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/nova-core/nova_core.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
-index 366d3b76360e..f74e0f16c65c 100644
---- a/drivers/gpu/nova-core/firmware.rs
-+++ b/drivers/gpu/nova-core/firmware.rs
-@@ -467,11 +467,9 @@ pub(crate) const fn create(
- /// that scheme before nova-core becomes stable, which means this module will eventually be
- /// removed.
- mod elf {
--    use core::mem::size_of;
--
-     use kernel::{
-         bindings,
--        str::CStr,
-+        prelude::*,
-         transmute::FromBytes, //
-     };
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 9f0199f7b38c..735b8e17c6b6 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -54,7 +54,7 @@ struct NovaCoreModule {
  
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index 039920dc340b..ac1558a83b83 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -7,7 +7,6 @@
- //! be loaded using PIO.
+ impl InPlaceModule for NovaCoreModule {
+     fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, Error> {
+-        let dir = debugfs::Dir::new(kernel::c_str!("nova-core"));
++        let dir = debugfs::Dir::new(c"nova-core");
  
- use kernel::{
--    alloc::KVec,
-     device::{
-         self,
-         Device, //
-
-base-commit: 58f0f62778faf667bdaf1fa7db59e89847213646
+         // SAFETY: We are the only driver code running during init, so there
+         // cannot be any concurrent access to `DEBUGFS_ROOT`.
 -- 
 2.54.0
 
