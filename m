@@ -1,72 +1,66 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022125.outbound.protection.outlook.com [52.101.101.125])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020130.outbound.protection.outlook.com [52.101.195.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92B23E3160;
-	Wed, 10 Jun 2026 10:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C3A3E0C71
+	for <nova-gpu@lists.linux.dev>; Wed, 10 Jun 2026 10:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.130
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781085673; cv=fail; b=Lwl0sSum3y8hUs+OUz2nbG9nyV667F9BxaqIuucesNPbOkE2UJDsgsiF6DX2blMV4pD+hxUOZHGM03jPeYce3LUZYMUojR6dTTXxOxgbhwh9JlmpuOCn05ISzYVvWjBcfFWLK3apIYMcEb2kgpMWIVXeNxDc/cN59VADHgtPX34=
+	t=1781086451; cv=fail; b=oiLby+t96FB23hd6MYGEpWzRydaYvJlTbhy3NR6op6y6k5lmemJvKbRyF7RJUSg7NmeswF4MWEvPjtlIbJ3O27+9Pco8viU33JUYCxRHxA+kxKtQlhKLhIHz3BidFZaUKxOLF4AF9+gCFccHFwTIxVpE7/AewavRTS676n5Rb0w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781085673; c=relaxed/simple;
-	bh=x7VPn3e1LMCAnPeIttcpoY2S4N1ZvqyOHN/xaZKD3hA=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=fPfi3+KQ+5jhnj9KcZ33EMa03WVkuoCWtVm6gMXwSGLWdhQVKFpqRqdC+TIN7GBeoxj8KAB35jcwJ8InPks/KrGMqJMwY0gpFQ7k601hQE+22BJNb0n01Gtbq2ZzujqOoQbUWZ9VFTGjzcEf936U049xJrHd+K1FM2nNC5EB6mw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=k14eWiYX; arc=fail smtp.client-ip=52.101.101.125
+	s=arc-20240116; t=1781086451; c=relaxed/simple;
+	bh=VboaGHo4L1Kp8GfCRDPZAUxur390uKSI+e4PSR7T3Cc=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=caA7ev+nNrGCK2W46iaOuv3Z8nmXuL3yyBToVVeWP7ri9lK5ci1p89KupjWNWhXTJTkgRgbX8iStzI8L5fyeeI9QQUI05gSbrmnoCJ6+kLs6FrjzTu+Hr+M/7CyR/saRh/40aIygEaTjl4uJfwhDQqu+UkKDa3kg/iq64SQItQQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=tt6mIVXz; arc=fail smtp.client-ip=52.101.195.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="k14eWiYX"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="tt6mIVXz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fD7ks2undwCKTMO+Jmc+5xrHV1+yx35jw7/pQ8K1EsMOTw4nRxgSLNpKAo9PDAqKPm6akFHBwRPl5Ny6zA79cFfaxxGxAOxBhCHrxnkpsLiscwd3EITHiCcWn2hN4e9zTcTOeAvKkTaGgJN+v5fVcuyt2nnGCXmf6pTEjaFpd1B303W/X8Js4QQrqsSP85PEusqAXwWLdDVFGQOfWAZ42BKQ4IuwnC3E/CWf2yd+QNOl7XL6dtKc5qFz6g93AwGJbKhZ+G1ixlmBGFqonn0ZR4Hlp24HUoQpsfh/5I3Q2NoOSC25Mz8t0Ya6QyFYEVhbh9uwijTcZEQuV50ZmRL0bw==
+ b=Q4VYLSaDU2fWdXELHKlgAY5HM+GhpMixPiPuDZrbqgINO6UFZNGDI4KG4Cdoff5fKMuS7uHxd8lVOykJ61aIEaRwuM7/7WUBPNigrWf3ZR3rhpYO6IwTcU+aWThpq8YuPTanqnje0eY9K+Jsa7PnztFaucZvQ8doFr6fJ+yIyTOYYoDI2/jJo66KdxWZjYWGgHVvNh6wFgyOxB1kwlhcnUq4aFRAiETfgRS8V0Fay5g4cqi1+2kjuzXLMgRulo9BODeBVvixVwOzwnZU192XXQskzH3dWEBDqQAxISWhPr4HOigzWy3EoW1J2y9lcFkRTP9XyCyD8JMY7npZUzxg8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x7VPn3e1LMCAnPeIttcpoY2S4N1ZvqyOHN/xaZKD3hA=;
- b=flkeJ7eLQrqcWAkMavJbM6P9LTxz0Imw9YrmT2IvKaaPW8FnJ9llvjDIxMFS1h6eILM4o0SLvYzYr8exI9FcEH0UUmODZ/br27ZIcwVqla//HCWtVB6dasyQS+jOSDdvvn7EWJoOoqgXGhY6Yzz1J9zXFMK7NwZOBXmagBUhWUqEgojFI+jeILjSiye2X5MCwooJ93oBOz1flHXYoj4ByfO9dy3vckHLiB9HvJbFP2UFbNiFQSULBOBOxFo8PTwnAR7CsXRHVoBY12lkkekmY4R3C9JlT7nlk0T7s6skCdmQRP6li8uBhD01GU6VioZS+/yfMZE8sNkMP70oJF745A==
+ bh=0ix17F10bRJG4v9FVeSbRuZTMmtjt/MNYScE5U3WEEs=;
+ b=zSKE06JfUrgGbOXOPh3CIPGp5I5kG3ZdxGwYqndZefKPVOJU5Ms8peqlEWGbkOqfzk6d67lPb+odVjtUCJKpwvMqEvhB+DiR4YGeN29OL3ngoU+QHud+8DZco/hO01eOD89HfWAYJc2YuITC3jI/QecyvsifKdzS7jLiKyBrQv8UUNPOypO1z3eGzn2WDfoghBW2iqNrfWNruxnuqs64tLHr3TBSrKcXs2/nyIjFWmtyxd8H+N893Ceyq0um1ZAaPfCRIgV6sIH51QIOkK6BeDz6JrAaBjdpd5gSAY/kp9AOBxivoZ2+6OaYV7yn068AR5GeMLW6UuC9GtXhI63N7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x7VPn3e1LMCAnPeIttcpoY2S4N1ZvqyOHN/xaZKD3hA=;
- b=k14eWiYXPucatsqzLliL8SyxPeU+9iXRR98DihOopNRMMDH0gSuXXHqzl0PYowiEwoVxKZmWuXL5MdXmqLqu0q1tiMQqqZyhmMf/k2ndjCjJqo6An5pm+UuOKTyT1dkHJGGTtjdxHPES6hCJBlTXener/s8/uruyRXHnw4zE9Iw=
+ bh=0ix17F10bRJG4v9FVeSbRuZTMmtjt/MNYScE5U3WEEs=;
+ b=tt6mIVXzkNCa1bCfLEMvujGAnhQ5Pk3uyB44Pt+WLBgJxbQQUWD8aNjq8UJZ2x1bVNv5p+dkyIuAfXwPJfNpoMni3YI2pDt4qFvSV0F5z/tbquMNfk1skTHax5DINqHZn9c9sGeJxe51dWpxnPVPNYZYaqw/SwsSNWQ2kzWhu2Y=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by CWXP265MB5624.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:158::13) with
+ by CWLP265MB2209.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:6d::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 10:01:06 +0000
+ 2026 10:14:04 +0000
 Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Wed, 10 Jun 2026
- 10:01:05 +0000
+ 10:14:04 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 10 Jun 2026 11:01:04 +0100
-Message-Id: <DJ5A6AM2FDGQ.19T1Y9N1T6JST@garyguo.net>
-Cc: <a.hindborg@kernel.org>, <acourbot@nvidia.com>, <airlied@gmail.com>,
- <aliceryhl@google.com>, <bjorn3_gh@protonmail.com>, <boqun@kernel.org>,
- <dakr@kernel.org>, <daniel.almeida@collabora.com>,
- <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>,
- <fujita.tomonori@gmail.com>, <linux-kernel@vger.kernel.org>,
- <longman@redhat.com>, <lossin@kernel.org>, <mark.rutland@arm.com>,
- <miguel.ojeda.sandonis@gmail.com>, <mingo@redhat.com>,
- <netdev@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <peterz@infradead.org>, <rust-for-linux@vger.kernel.org>,
- <simona@ffwll.ch>, <tamird@kernel.org>, <tmgross@umich.edu>,
- <will@kernel.org>, <yury.norov@gmail.com>
-Subject: Re: [PATCH v4] rust: make `build_assert` module the home of related
- macros
+Date: Wed, 10 Jun 2026 11:14:03 +0100
+Message-Id: <DJ5AG8OR68WR.3U4JD92SWJKPU@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 1/4] gpu: nova-core: move GSP unload state to a pinned
+ Gpu subobject
 From: "Gary Guo" <gary@garyguo.net>
-To: "Miguel Ojeda" <ojeda@kernel.org>, <gary@garyguo.net>
 X-Mailer: aerc 0.21.0
-References: <DJ4Q5J5OILOX.1KCPFIVUFN2VV@garyguo.net>
- <20260610072947.338278-1-ojeda@kernel.org>
-In-Reply-To: <20260610072947.338278-1-ojeda@kernel.org>
-X-ClientProxiedBy: LO4P123CA0256.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:194::9) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
+References: <20260609-boot-vram-v1-0-d9382610507a@nvidia.com>
+ <20260609-boot-vram-v1-1-d9382610507a@nvidia.com>
+In-Reply-To: <20260609-boot-vram-v1-1-d9382610507a@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0264.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:194::17) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:400:27c::13)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -75,99 +69,257 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWXP265MB5624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44e6a9c8-1468-468e-e623-08dec6d72fc4
+X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWLP265MB2209:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee01e68a-7705-4cf8-b57a-08dec6d90006
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|23010399003|376014|7416014|366016|22082099003|18002099003|56012099006|4143699003;
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|10070799003|56012099006|4143699003|5023799004|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	Uua37jS35e8PdUyYzdJUh/YLh1FAERgE5cznRffvFvzI3dwfK/wDXHSkk1GgGLByTS1bAlnDCLAu3J7zfTKR7ulVIk6SUkR9x+2LdrgcuAqPYPYXMWwHL1F6srDLmkbXQpW5G49YqvAh4wrP/BPtxd18mN1uKF3TNDaBV+s5+RW1SwwCG+NovWHE+J8hdF5GtNDEVJSc90o7XylCr3TKIeTmoDDwYck3KFkmOgiXFCCqwbWYrpUWjCbQPsUikI8cYC6oAR2F4rOIjcbmh7PC2gX9tNuPzimjfq0xXsn4GEqE7VbirPtlRQjeGBt35Av44P8Fxot4iApWr0v6g7YkiCPhqe0yJhND4gAcF5qT2l4ywcIEkOwnj4yiNVAno4bbpqteonnV9NJfYoFtZichmr0yhO/hivaz0YeQO2VYxZE58Ve36+MPbl9TsHcYkKQPjYWHaet6Dr8DlZ7bUelCb9Tzn7Y8kxOCjYo5x+zKrIQkkXB7TGVzrVAXp6CbrhABsAZzMLi9cX75P74MZvSyb3Ri1MM3N5mPNQUzOnA+BH3IjCeeTbF9ORtQKNr5opL7Y0C4gnyBRoxnwKwwV0ILneMmgvHogMrjZyLp1LHedih3QGxbz8pYfX2Fo1xw1viSJjrSZPL4HefohBhq2g1BawXtSyo5smsdvgLPsmvY0EDxuGAylbRJ49gbc4CEKAh8
+	f9ZqZViLjJkGf22XN4Hn1/dkys1elne3aWlXcYYuYxUkkxTgAYmxvMhIykqJefGuuOUZhH1ffEO3gOUF6BrbZjMoVcK0NSsR+DzBblSLOKsMIe4tw96VQzcCM6MiPtCquJMH5UosI97TvTGG8QQ6h3qaP6/I/NB4OkknTZ/ZgEFvveGl0UUYhtAXJukhcI7vAz74NsI7Q1moB7HxUCMCp9Gg/WkQ6WaqCMAdZOPnTiSVGp4DYGMtUdkVbaZWoO5eU7D8TsAgTGlJFD7+EO896yg41m3wnhSEhZwPysis+m22sRkC4K3wcC8ZUHmcvm87C9lOKxdYU7I7/RiGqp35ovilxSI1mjInMEq3jsnSJS5VdrOAt/pCBO/p7qGYyRONqHtYNvg7Q7+JOKHFePH3AIr6Jv7ZlMMnLKb3WVT2bnA1NDWumjQMif0fJaLlYACrG3oom6oyFeepwqQEnSHEf9Y4Tt8SNW2TmxKNLvjjpDbrYYWPma+akUclJanjLA+x+o8NtgLiqpG7D8C2q/uWGNrDErnpnY7v5/Rs8GD88a7M+n8E8bKEP4H5cam61Jyr0RW45AvVKz/ouqp621AoFKJKjfELaMFch40nQxU+bM1G+7qpNJoyZ5gqKM6xoleAd8+j5F0YZms9AzYezbiEAVRRGJfAdC8Cv/EK9I7kOVQvcYS/4x59XEIJEpHZQwqC
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10070799003)(56012099006)(4143699003)(5023799004)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tmp2bHo0S1FBelY5K1N2YnVJUzlKUENNVGRVSUFEeWRCZGpsdmhTZFV6OU04?=
- =?utf-8?B?Wm5xRVF3Q2FDcTFJNkdEUnVkV01jNUFrS0k1OHFWMTkrTUdNTDYwemF4bmgv?=
- =?utf-8?B?QytaMjB2OFoyY253TTNkanlwaVBhY3V4NjZBYVM3T1I1alFnY1I3ZDMyajVO?=
- =?utf-8?B?dnZjckk0Wkc3dDFQRkNlUXNjRmhXV0NRY0MvUHJpTlQ2bXh5TitwS3BOWHlB?=
- =?utf-8?B?VTFwSkhYUlYwejJoUDkySHB2N29zMnNCUkx6V003cjRPNEpZRm9KSHhmbFNm?=
- =?utf-8?B?bDc3Q1lWZzdLNlhxSUN2Wk5zRnZqWVQwWVhzcndXb3h1TDdvMTBtUmhqQkh6?=
- =?utf-8?B?QUdZZXVwVUVYNERnYXU5SE52Z1N3TVlQRWVaVUpkcElqSWNEYTl2VUlvZmdq?=
- =?utf-8?B?b2REQWNWN2R5UU5qZ0hqMkZaSktIdUhqMkpqdTV0OUswWU5ZVU04K29RWjFp?=
- =?utf-8?B?Z0p4T3BzR25hVE1semczQnNhTGNkU3JJRi9FTzN0YUhSampVaWhsazZ6cG1W?=
- =?utf-8?B?RUZtdUNIL0tSUFhKQjkzTFc0Zm5FM1VoaTRtcE1yMjVZWjBnaGRzWk9SVnZi?=
- =?utf-8?B?T05taW9ScjRWN1RDc1ZJUCtkMUdMMGJxVENMOVVHZ1Y4RDFCVXQ4S3NFMVNE?=
- =?utf-8?B?N2I1bHlyaWxja1Nya21mYVhWQjlaK1hqcWNETWJoWE5HS29pQnV2aU1PN2RT?=
- =?utf-8?B?UCtIUG9uVzU5UitLdlc1R3pkZE5DVlBWQ213Sk1ONE1LTmpnOFJtbjlJcEdW?=
- =?utf-8?B?NnhpVDhYM0taWE1NdnZCZWF0aFF2TFZHUUJxTGgvMjN6ay9LVmxvb05MMFRW?=
- =?utf-8?B?ckpMSUsvUXFWalYrNHl5ZTRyQUJ5VTVpWUdHQnhwVFdlMnk0OFp6cFNyd0dQ?=
- =?utf-8?B?VHJPUXJJeHR0d2dlRTcxZXhLck5hUU1scjNqQnoxYmNZYnRycmVDWnNseUd0?=
- =?utf-8?B?MkM3WFFGYlBtVWFXczZBeUVWU2ZZeUhNSi94V3FwcnF1WEJwZXZGVm9PUkhu?=
- =?utf-8?B?VFVVTGVxbHJDcHBVc3FrNXVmcWE3amxsV2VYQ0N3Qk1RdFlYb0JicysvN2ts?=
- =?utf-8?B?eDNiT21LQmhHM1VNVFc2VndJQUM0MWtOOHJDTXU5ajcwTjZoaDBmT0JUZndO?=
- =?utf-8?B?U3JHVHNkUS8rcmVXL1Bwd0x0WUsva1lCU3N6SStwaTZxRmFGYnR5S3N2UDNo?=
- =?utf-8?B?ZkJNNU1tMWhFZDlHSHk5cUkzdHBsdFVTbDg4bGpaU2Z4QXdTSVlzWmJlbVJN?=
- =?utf-8?B?TXRRTkFmcURCQzNCY3JncUZPcWRmWTVJTysyemVldzhFekZPMytqYVhMZ0ZH?=
- =?utf-8?B?NzBYbCtZR1U5K0dlWEgvcWJ4RVpRUEdqRTVWREt2TmUyV2lzcmxpQytBL3Vv?=
- =?utf-8?B?eXQvUEpHOXJLaEh4RlJ0eWlTaE9DZTY5UEVvSlFnbmZqK0RLU0hKb3ZUN01s?=
- =?utf-8?B?dVdvQ3BRQk12K2xybk5VZlVrUzBWNTNVdHlqdUFKZDRSZU5EaG1sWVVydWNn?=
- =?utf-8?B?VTNPaE55YnZuZUZPdU9OV2JwUkpmVlpXMHZBakowWXdJSG9qekRFZkdvNGhG?=
- =?utf-8?B?V0tOMU1XY1M5dTBMeitscE9xelB3YXJ2eTBZTVJTOW02cHhDUWhkelRqUmtu?=
- =?utf-8?B?bE5maHJWcUEzbitSSElqd1JoY0VVZ09iclQ2Mk8wa3U1OS9QelRFNjhocDNL?=
- =?utf-8?B?ek9HNFRxekV1NEZjOXdTZThpb0U5Z0RSbGY5YkpWYTFraWV5bnB0bTB1UEJa?=
- =?utf-8?B?MSsxMVpmWW9VVGMrTU1SUnZTZ0pKSHdLRkloY1lpY0I3Ym9tT1J3R0NJZzAz?=
- =?utf-8?B?NGNPYkIwZUxzQzJ2RG9vUXErSitOQW9Dc1A0MVRyZWh3bEI1Q09iWjNmOFFQ?=
- =?utf-8?B?b1lNR0VGRlQ1dTFocURLVmhQcEpKOXVBNWVqMTB2aHJhbnh0MGxmR3lxTUJk?=
- =?utf-8?B?ZmtySnZqWEVlNUpKOUFDT29ZY0RCSkNEZVNldHc0akpJWU9SN0tjRE9LdkZS?=
- =?utf-8?B?QUNNaWJUbFFWWXJNek05VmdGN3RWc041SEo4RzR2ckE0K1UrTGp3K2JObzdp?=
- =?utf-8?B?eEYzMlFRS1lTZ08xazhGNU4vM1hkRjlsMWdMY21aUjZPNEZ2cDU3dHk2MFhQ?=
- =?utf-8?B?TVlKSWJWaHlaWUZYY0tLRWE3TEhib2VGcTI2Rzg2WUVTNSsweHlraFhQeVlZ?=
- =?utf-8?B?Qkg1b29rc3Y0RVJZT2ZFQ1BxbkNORVl4NVJmQkg0NTJuVHNTMGJYaUFaMDlK?=
- =?utf-8?B?NnE3NmIyV1MwN3pEUlhSWXEzUW9SK2JEQ3ZNUDdGZHBIZ0d2UnlBaTJQbW5l?=
- =?utf-8?B?OGZnbkQ2VDY5b0dFZGRyVXZCV0MvRHgwSjdHd2hsd0hQWkZqWVFFZz09?=
+	=?utf-8?B?cWgzQWhUeHJ0czFoZkZRWE1pVERIbmU4aTI1cGlQOXBwKzVCdWFpYit6eWNX?=
+ =?utf-8?B?S2R3SWlOQWxvcGUzMFN4NFlnY3BsbEEyOU50YTc4T3dxZ0IreTl6aG43bVd1?=
+ =?utf-8?B?SmhtK1NaM1BZVTZrZUZLUFV3UE4wZWFpQ25yTHR0bjJrQklHdmg0UFA4bkla?=
+ =?utf-8?B?WitENkRnN21lNE9vVUg5VkxwSmFoaHRBQkpncUNHVGhmT1FycHJrME9sOXRm?=
+ =?utf-8?B?bFErTUg5VTJjbXBCc0ZjdzBnRjIrTWQ4VnRPMkhOY2RzTytmVUF3eE5MaEtV?=
+ =?utf-8?B?UUNIUGN5RjM1ZXFoU0tOTjJvMjdQU24rRFo3NU9WTzZhZTQxeFFaMGczY2p4?=
+ =?utf-8?B?bCsxak9jbENKeldlQVRtVk1wRDBZVThjcE5WZ2lpUnk3MXJSYkxGSDg0SjIw?=
+ =?utf-8?B?a2VCL0hadmI2cDdZa1lYTzlHaFp6SG9yYTF5amNBZklQNU8wc3pSMG8wUXI3?=
+ =?utf-8?B?cjkxcEVhUnFrTDBzTUIySFZpaS81TC9MdXFlWWFJZTRjNFVGdkRSMFMzRlZi?=
+ =?utf-8?B?VlMxVzZ4MFJXM2tZQllmQVl1dmpUVUFVWkd0NFFreTRmOXQ3OW5MWEQzeVhJ?=
+ =?utf-8?B?WTBRV3AxQ3VTMzgzQnpsY2I3bTdqZXhBUi9aNFdkNjJick9PSkpCSFdaZy82?=
+ =?utf-8?B?QjdiZXViR1RjbjRaOHdkQkQyVlNuTWVsV0twM0phMXBCbkxwaEVaUk9sa0Rk?=
+ =?utf-8?B?MC9FMmJiREx2cHM3bzlkdVJsZFJIRnB4K0pLc2llL3BEZDBoUW10N2R2ZlFo?=
+ =?utf-8?B?S0lOTWtvTzNmS0ZWZ1JlSWZML21od0NaZTBlaDBkNi9GUkZmU2I2Z1NyT3o1?=
+ =?utf-8?B?a1BkcEtaQ1ZMQklwUE9FZS9xUlJiUUdnVHVaK2J2UGtiY2xRMm5XMEw3MHdJ?=
+ =?utf-8?B?RVhJWElYVEk0Q1FvZlBuQXYvM05wTUJHQ2xOWTNYdWE2SFc4TWppb1BMcDJr?=
+ =?utf-8?B?WmJVcW1RNkY5VUFqNWtWWGRFSWNsalViWitDSDNHdkFBZWF3NjdsUzJXN1NV?=
+ =?utf-8?B?bG9OaW5YVHYwS3Ruei90dndYb2UvaitNZFJtOTNsZzdXTDAzWmo0Sk03dzRn?=
+ =?utf-8?B?OFdBbUE4Q3ZjZWsxQmRWZElYUnFQemtWdCt5bm5XSnpnejg5RXpuUzNqS3hU?=
+ =?utf-8?B?MkdwVHpQK1RZbDZKL2FVK2h4anloZXFpRUlZeFZjQ29Bd0p0elJZYzdqMVg5?=
+ =?utf-8?B?WEN6dXJtUFZ5ZDc2T3NOZXhNYW8yZW1tVTRsZEVCNVJhYXNBelcraU9NMHVU?=
+ =?utf-8?B?RFArTk0xSjdSaCtvaWt2czFQZVJQUkFnby90akpCMGppYlVNT0NmYmdhRGhL?=
+ =?utf-8?B?cjNBRWdMQXlvVFpUT2Mzalh6K0dPNVhDZ09CSy9aMFo3NnVFaVhmL1VualdL?=
+ =?utf-8?B?ZWxCb2dpMTVidkNUTytJSFdTM280MHNaVmpnamVhd1BYd3F2WU05UXFtWjdZ?=
+ =?utf-8?B?V0FUOHY5UUJrUDdZMy9PdWdOY0t5UUhDYW1IeVZXMHFnRTRNOE1VSGR0cG9P?=
+ =?utf-8?B?ck9GanE4SjJMRGZZdWFTZmVDUUhXOUFYNS8rZUZiZUN1MGVDblZXUmtyNzdZ?=
+ =?utf-8?B?U1BVYTFaemQ1Zkk2NDhYY3V3QXMzZjZwTHduYm9KejJGcEU4MEYySmdzTkNq?=
+ =?utf-8?B?TjVjZVozRjY1a0RqbDd2Z3M3aWI4OVAwa2pFVDFhaDdNdGNhQzF1NEMzR015?=
+ =?utf-8?B?TjBKakxXTitSZElrZC9QT0taVllVUXBTSkJTL0toVWxuZkgycEtMb1FyZTg5?=
+ =?utf-8?B?WUlFUk0rQWQ3UWZkdDFmL0ZkMGNTNVNlNEpBNXNVQy95V3hlK1BKQ2t1UFBx?=
+ =?utf-8?B?N1ZCU20vZlJmMFhVOFJFSml0UDZlU2IwSHdEd2JKVy9zdmpESjlsNi9xczUz?=
+ =?utf-8?B?L0ppcENzdDQ1VFgyclVqT0ZmbkpZM1pIdUpKd3lEN3g2WU0zWFhXSTZIbk9J?=
+ =?utf-8?B?TythNkhwRVJiMXVaOEFuZksvU2lEV3FqU0MwVDJQNkJmOXp0dTJPVnArRWh1?=
+ =?utf-8?B?R1lkTkZlbElhRFp6UUoraWh6YW1QNXNtd2lVNXI2d1p1U2RPWmpxYWhIRklC?=
+ =?utf-8?B?L1hzTmFiZW1kME9IMWtjKy9EQXBBTWNZMzc1VTBuRXhEV0Y3UThyeUs4WlRn?=
+ =?utf-8?B?T2hFVE9tMXllRnp2c2FIbEFtVGVkNGk0aUdid2tyM2hiUzVDeU55RWh4Ritz?=
+ =?utf-8?B?dlpENHU0Z0pNK3JTOW5hS01UZ3poVGFaRWxCazVJSVdJU2NYKzFyYTUrZzdT?=
+ =?utf-8?B?akdpcjVOWFZtM0pJalF4NlE2WnY2WmtqZEc4MWNyNnlLQkJqM2plem0wRUg0?=
+ =?utf-8?B?ZWh0YTlLb2huL3NQS1JQWWtWUGJDaUt1UWZBTmlCR1lURGw2bzdEUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44e6a9c8-1468-468e-e623-08dec6d72fc4
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee01e68a-7705-4cf8-b57a-08dec6d90006
 X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 10:01:05.6528
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 10:14:04.4585
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IF7DdAUVr+kFS3xm6xBUi0beBG99bffE87RVUYTNc2ypOvT+tMI7W4V6YjUx0QVGLQnF/ngdp+DgCePXuUN3ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5624
+X-MS-Exchange-CrossTenant-UserPrincipalName: 49+Bkb5LRU2odp6+MpOEnE7rfgHwrQZAb+A0ik0HUyL4iDiV5b8RpQnEMTHVHurpDTEWi01Jo7NgqvLqxPYQXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2209
 
-On Wed Jun 10, 2026 at 8:29 AM BST, Miguel Ojeda wrote:
-> On Tue, 09 Jun 2026 19:19:42 +0100 Gary Guo <gary@garyguo.net> wrote:
->>
->> I think I just kept it as is when rebasing. It's file to have them group=
-ed in
->> the crate to.
+On Tue Jun 9, 2026 at 9:03 AM BST, Alexandre Courbot wrote:
+> `Gpu` currently owns the state needed to unload the GSP directly. This
+> means that `unload_bundle` has to be the last initialized field: once GSP
+> boot succeeds, any later initialization failure would leave `Gpu`
+> partially initialized, and its `PinnedDrop` implementation would not run.
 >
-> Thanks for confirming!
+> This prevents adding fallible `Gpu` fields that need to query the GSP
+> after it has booted.
 >
->> This one is using size_of, align_of, c_void which are all in prelude. Ho=
-wever it
->> looks like I forgot to actually remove these imports in the last version=
-, and I
->> didn't change it during rebase.
+> Move the GSP state and unload bundle into a dedicated pinned
+> `GspResources` object. Once that subobject has been initialized, its
+> `PinnedDrop` implementation will run even if initialization of a later
+> `Gpu` field fails, ensuring that the GSP unload sequence is executed.
 >
-> Ah, I see, makes sense.
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gpu.rs | 86 +++++++++++++++++++++++++-------------=
+------
+>  1 file changed, 49 insertions(+), 37 deletions(-)
 >
->> Are you okay with fixing during applying, or do you want me to send a ne=
-w version?
->
-> I did it on my side. I also tweaked a couple more bits: they were already
-> `no_inline`, and I noted that they sadly do not appear in the prelude any=
-more,
-> but the change looks fine and that may be more of a `rustdoc`-side issue =
-or
-> design choice.
+> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+> index b3c91731db45..6b3e02c71dee 100644
+> --- a/drivers/gpu/nova-core/gpu.rs
+> +++ b/drivers/gpu/nova-core/gpu.rs
+> @@ -262,35 +262,59 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::R=
+esult {
+>      }
+>  }
+> =20
+> -/// Structure holding the resources required to operate the GPU.
+> +/// Self-contained resources to operate and drop the GSP.
+>  #[pin_data(PinnedDrop)]
+> -pub(crate) struct Gpu<'gpu> {
+> +struct GspResources<'gpu> {
+>      /// Device owning the GPU.
+>      device: &'gpu device::Device<device::Bound>,
+> -    spec: Spec,
+>      /// MMIO mapping of PCI BAR 0.
+>      bar: Bar0<'gpu>,
+> -    /// System memory page required for flushing all pending GPU-side me=
+mory writes done through
+> -    /// PCIE into system memory, via sysmembar (A GPU-initiated HW memor=
+y-barrier operation).
+> -    sysmem_flush: SysmemFlush<'gpu>,
+>      /// GSP falcon instance, used for GSP boot up and cleanup.
+>      gsp_falcon: Falcon<GspFalcon>,
+>      /// SEC2 falcon instance, used for GSP boot up and cleanup.
+>      sec2_falcon: Falcon<Sec2Falcon>,
+> -    /// GSP runtime data. Temporarily an empty placeholder.
+> +    /// GSP runtime data.
+>      #[pin]
+>      gsp: Gsp,
+>      /// GSP unload firmware bundle, if any.
+>      unload_bundle: Option<gsp::UnloadBundle>,
 
-I think if the re-export is of form "use crate::build_assert::*" then it wi=
-ll
-still be the same semantics but would be appearing now?
+I suppose this field is for unloading only? If so, you could just create a =
+new
+type that stores `device`, `bar`, `bundle` only, which works as `device` an=
+d
+`bar` are Copy.
+
+struct UnloadGuard<'gpu> {
+    deivce: &'gpu device::Device<device::Bound>,
+    bar: Bar0<'gpu>,
+    unload_bundle: Option<gsp::UnloadBundle>,
+}
+
+impl Drop for UnloadGuard {
+    ...
+}
+
+This does mean that the `device` and `bar` are stored
+repeatedly, but this way you get a very clean way of representing this: onc=
+e
+`UnloadGuard` is created unload will happen.
 
 Best,
 Gary
+
+>  }
+> =20
+> +/// Structure holding the resources required to operate the GPU.
+> +#[pin_data]
+> +pub(crate) struct Gpu<'gpu> {
+> +    spec: Spec,
+> +    /// System memory page required for flushing all pending GPU-side me=
+mory writes done through
+> +    /// PCIE into system memory, via sysmembar (A GPU-initiated HW memor=
+y-barrier operation).
+> +    sysmem_flush: SysmemFlush<'gpu>,
+> +    /// GSP and its resources.
+> +    #[pin]
+> +    gsp_resources: GspResources<'gpu>,
+> +}
+> +
+> +#[pinned_drop]
+> +impl PinnedDrop for GspResources<'_> {
+> +    fn drop(self: Pin<&mut Self>) {
+> +        let this =3D self.project();
+> +        let device =3D *this.device;
+> +        let bar =3D *this.bar;
+> +        let bundle =3D this.unload_bundle.take();
+> +
+> +        let _ =3D this
+> +            .gsp
+> +            .as_ref()
+> +            .get_ref()
+> +            .unload(device, bar, &*this.gsp_falcon, &*this.sec2_falcon, =
+bundle)
+> +            .inspect_err(|e| dev_err!(device, "failed to unload GSP: {:?=
+}\n", e));
+> +    }
+> +}
+> +
+>  impl<'gpu> Gpu<'gpu> {
+>      pub(crate) fn new(
+>          pdev: &'gpu pci::Device<device::Core<'_>>,
+>          bar: Bar0<'gpu>,
+>      ) -> impl PinInit<Self, Error> + 'gpu {
+>          try_pin_init!(Self {
+> -            device: pdev.as_ref(),
+>              spec: Spec::new(pdev.as_ref(), bar).inspect(|spec| {
+>                  dev_info!(pdev,"NVIDIA ({})\n", spec);
+>              })?,
+> @@ -310,38 +334,26 @@ pub(crate) fn new(
+> =20
+>              sysmem_flush: SysmemFlush::register(pdev.as_ref(), bar, spec=
+.chipset)?,
+> =20
+> -            gsp_falcon: Falcon::new(
+> -                pdev.as_ref(),
+> -                spec.chipset,
+> -            )
+> -            .inspect(|falcon| falcon.clear_swgen0_intr(bar))?,
+> +            gsp_resources <- try_pin_init!(GspResources {
+> +                device: pdev.as_ref(),
+> =20
+> -            sec2_falcon: Falcon::new(pdev.as_ref(), spec.chipset)?,
+> +                bar,
+> =20
+> -            gsp <- Gsp::new(pdev),
+> +                gsp_falcon: Falcon::new(
+> +                    pdev.as_ref(),
+> +                    spec.chipset,
+> +                )
+> +                .inspect(|falcon| falcon.clear_swgen0_intr(bar))?,
+> =20
+> -            // This member must be initialized last, so the `UnloadBundl=
+e` can never be dropped from
+> -            // outside of the constructed `Gpu`, ensuring that the unloa=
+d sequence is properly run
+> -            // in case of failure.
+> -            unload_bundle: gsp.boot(pdev, bar, spec.chipset, gsp_falcon,=
+ sec2_falcon)?,
+> -            bar,
+> +                sec2_falcon: Falcon::new(pdev.as_ref(), spec.chipset)?,
+> +
+> +                gsp <- Gsp::new(pdev),
+> +
+> +                // This member must be initialized last, so the `UnloadB=
+undle` can never be dropped
+> +                // from outside of the constructed `GspResources`, ensur=
+ing that the unload sequence
+> +                // is properly run in case of failure.
+> +                unload_bundle: gsp.boot(pdev, bar, spec.chipset, gsp_fal=
+con, sec2_falcon)?,
+> +            }),
+>          })
+>      }
+>  }
+> -
+> -#[pinned_drop]
+> -impl PinnedDrop for Gpu<'_> {
+> -    fn drop(self: Pin<&mut Self>) {
+> -        let this =3D self.project();
+> -        let device =3D *this.device;
+> -        let bar =3D *this.bar;
+> -        let bundle =3D this.unload_bundle.take();
+> -
+> -        let _ =3D this
+> -            .gsp
+> -            .as_ref()
+> -            .get_ref()
+> -            .unload(device, bar, &*this.gsp_falcon, &*this.sec2_falcon, =
+bundle)
+> -            .inspect_err(|e| dev_err!(device, "failed to unload GSP: {:?=
+}\n", e));
+> -    }
+> -}
+
+
