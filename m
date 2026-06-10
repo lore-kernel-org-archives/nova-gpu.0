@@ -1,48 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9535A31F9A4;
-	Wed, 10 Jun 2026 19:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E3636214C;
+	Wed, 10 Jun 2026 19:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781118198; cv=none; b=pdl7gKJIb3Lia2zSdH17fxcgeEu+vsKDs/ACNmmGjw+NBQdJ7u9xhGLdWjvlWxz1rq3jtiOQbIv4xIJVerX3yhq8gKOSDBRFolCBUlLFnXCr78vG+MMJexqG05dcUkR4KzQDQKs+BsfEhrDq7+lLoHDa1p5ZAhIjVRS5lmvhFrw=
+	t=1781118551; cv=none; b=dUHjdSCb7v6PLMQNzJkrxgQmqwQwhhn6xijdIvXno8lCaZQmDyKkY4FVLkXmjxLsbximg/MJgX3LGMhGTFHmj7qxkn3YTVRd+8fj3lPm3dilBhEQtSUvWG2N+FSf1Rx5t/p3iasXDpLDmXtqvghCUeCkw6WlAdlcbzq2v6FUKvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781118198; c=relaxed/simple;
-	bh=xu9nyo3zw0NP9b2IAHAJMgciXTnksGPiyrobArZU334=;
+	s=arc-20240116; t=1781118551; c=relaxed/simple;
+	bh=6ol5ELg/ugswhtm62elVqio85Qt/sey+1PZF71rvIfo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EuZ7LCoiEQHd+jLduMKdn95MumXNueMH+GO6yVU6Q2kFHA4Ua2W7s3ig9v4dhHFSTj8+KZDKwIOSwt1duAljGcBhVFKWWm3TCIO1RIrjMPHaXnkJbv8MxW7E367hX/jQAcLAPFw8XJl/oP0fSuk6zY7v5DioE/lJ++j0TFVGsi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUloCyA/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jWkRPi/1WrGWzreqZZEv4VBPqbOgxuYrIX6CbCR5FkzueZZK3MceY/rM8D91lXYmkwIoZUqEfOTmAJKb/8h/PkgRwGrwx5LrsBmGki2+pWu6VaVvU6m1UQKrO0ww4i+TK3mT/yPX0wHHoWEzdctLvOlH6F0Lujto9bT3cPowH90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZGtlUi8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUloCyA/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00FB91F00893;
-	Wed, 10 Jun 2026 19:03:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZGtlUi8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC371F00893;
+	Wed, 10 Jun 2026 19:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781118197;
-	bh=WvwQbLxB0UHHe8ux2/5GenrCNn5hMTEqQMNf4b3IkF4=;
+	s=k20260515; t=1781118545;
+	bh=HtAPuYXNsOgrgpLVDAT45ANshg0FE4v6rtaR6L86Euc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iUloCyA/kbcdbXLVznfNG1X8sHqsKTMYdTOaK7yuObQft4WQ9yLhu7fUKmwmoTuks
-	 FgwgsEgwBHlj+cs8dtauTTS+IxgQrTO69eLRfLplGmOGOXAMYVLgYeqxn+ddDRwCj/
-	 DmJNQK0/4WIbKW+KMeDSFbu48JYzCP5xmSRlG48WQ1CchSODjFHmK9CiVDcgV+APNc
-	 8JjMtJZI/EsvhVMK7kVBazxirHkGmDXnTDuXuYjaISaVlAbFnkC6je4v6DSwgQVoIt
-	 2UmEytTm02YWEMcDNran2C4DoD+Dy54Th1jTdt0vnXdPiD1PGms/+mFrg2GFyPp/Jb
-	 ADvX1Do0jBWGA==
+	b=hZGtlUi8+XcjYz9AFTiNgjdqO7trcW3sEoWDhpUw36dWDpZWL6yBgGgnvv0Z+Im8l
+	 0iYizRRqTK1hULNGPaICOyAl8NycCcsFh6gjGVT/L0dxMMlSc5fmzcblfR8vMXCNl9
+	 6SOt1fUFYSS7YHMf4QGpvOJEZ0jtdyFbjkFwHOY2acVi3qp4oKqHEaw0woRp7ICRk4
+	 HhEV18m4K/CQmPUg094cdnaBCa8wg8F5S0Y4HY0IW11tca8a4mSymU2ObR8gnpL+I5
+	 wYl90U3TExWnMdiOlPp0C6pxQXrWTJ/TC3OB0p58niO3TTWTYVWfPSEDia+VfEtn8Z
+	 0kG/N3C55IIEw==
 From: Danilo Krummrich <dakr@kernel.org>
-To: Antonin Malzieu Ridolfi <dev@nanonej.com>
+To: Gary Guo <gary@kernel.org>
 Cc: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	Alice Ryhl <aliceryhl@google.com>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
+	Gary Guo <gary@garyguo.net>,
 	nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Almeida <daniel.almeida@collabora.com>
-Subject: Re: [PATCH v2] gpu: nova-core: gsp: Move gsp register definition into gsp module
-Date: Wed, 10 Jun 2026 21:03:11 +0200
-Message-ID: <20260610190311.52106-1-dakr@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] gpu: nova-core: remove imports available from prelude
+Date: Wed, 10 Jun 2026 21:08:57 +0200
+Message-ID: <20260610190857.65190-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260607140949.152575-1-dev@nanonej.com>
-References: <20260607140949.152575-1-dev@nanonej.com>
+In-Reply-To: <20260610135716.1013688-1-gary@kernel.org>
+References: <20260610135716.1013688-1-gary@kernel.org>
 X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -53,19 +53,21 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Sun, 07 Jun 2026 14:10:31 +0000, Antonin Malzieu Ridolfi wrote:
-> [PATCH v2] gpu: nova-core: gsp: Move gsp register definition into gsp module
+On Wed, 10 Jun 2026 14:57:14 +0100, Gary Guo wrote:
+> [PATCH 1/2] gpu: nova-core: remove imports available from prelude
 
 Applied, thanks!
 
   Branch: drm-rust-next
   Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-[1/1] gpu: nova-core: gsp: Move gsp register definition into gsp module
-      commit: 3e4bac7b8ca7
+[1/2] gpu: nova-core: remove imports available from prelude
+      commit: e453072df254
+[2/2] gpu: nova-core: use `c"literal"` instead of `c_str!()`
+      commit: 550dc7536644
 
-The patch will appear in the next linux-next integration (typically within 24
+The patches will appear in the next linux-next integration (typically within 24
 hours on weekdays).
 
-The patch is queued up for the upcoming merge window for the next major kernel
-release.
+The patches are queued up for the upcoming merge window for the next major
+kernel release.
