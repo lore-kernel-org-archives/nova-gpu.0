@@ -1,118 +1,143 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4740A36D4FC
-	for <nova-gpu@lists.linux.dev>; Sat, 13 Jun 2026 09:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0193637756A
+	for <nova-gpu@lists.linux.dev>; Sat, 13 Jun 2026 10:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781344166; cv=pass; b=ezKGbFgvshm12qOTqLwzERZ/INDvr3MBw9a2Lgp55rjO6twDkdH9pF/1Yn9LEx85VewTACem6ZTDRLxMSXliIjBXfQBccrwpF6YOLTqOanzpblAppnJC0le4C1qPiwyN2RZxvhoBkqPsQMiO6FbaypfWgODNnFxUufAJlvrXdfQ=
+	t=1781345146; cv=pass; b=aEYuc4XnEzCYxJ4gSh/AZwCOMi+ZUR4pcmIUPcJfaYoLW70QEimZ5osVKUqsqYobKIrXabWSI66ZhMpW/D3w9eb0e4+TCWtEamExjwGZm2xFLw5YXZMIPHbYZdUStItoyog/oewH3SFUODgsKojG90sBJn+z3MD/AtMYMYqK4yg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781344166; c=relaxed/simple;
-	bh=N+BOVUokZvEKxogb7woXjEf8tUSXjSp7mQH0tyGXKLY=;
+	s=arc-20240116; t=1781345146; c=relaxed/simple;
+	bh=a9H86iIlJln7zNImJOs7H3Twwdm5fUP3s4vZPkvhH/U=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RzCirn7ztYKznj3dwc6xV0t67IRV++KSfX5ISmwGTJ6QxRI7ulYHaTj/HPfSC2um+1YQPt/tO71SG4f0sLy5uEKM76X0iSs4FWPwopVuEldfHHdDb49b+fmIq53CHjdyvjw1467v0jDVs+5m6KUgu+hJKeMTRugIH0qxoYUTH4I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pXWeID36; arc=pass smtp.client-ip=74.125.82.171
+	 To:Cc:Content-Type; b=sHJjf3J1+hnfBOzV0YwacxmdmGB4X1Zmya8zQpatvEg9RByw0RIEcx3rH2DSxUtsuJT8FwD4XKrCecgX7WNH+Gk+kZmgZ2P95vuz32r9d8OuwEM151X80W2kSLpS80Ta8lF6lnhfrl0zR5iMPlqhiBGa8q/Lf0+hNCM7KYogx6w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U2WP5XCx; arc=pass smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pXWeID36"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-304f8e80b7eso158567eec.3
-        for <nova-gpu@lists.linux.dev>; Sat, 13 Jun 2026 02:49:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781344164; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U2WP5XCx"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-304e86ecebfso116937eec.0
+        for <nova-gpu@lists.linux.dev>; Sat, 13 Jun 2026 03:05:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781345144; cv=none;
         d=google.com; s=arc-20240605;
-        b=GvXy6hSMuARlkxdX2CaufMZ1SrmI47JawPkCfXgzI3U3JPXNhpO4D4hST6zstKZLXb
-         q5tSaSHfEzJ/ipI5QFi5RW8dMc0e8bOnKFd6biDI0KkROaaW8vzZCcUuxxdndFvfNIis
-         gZYgnzdVED1OqalKB2+p9xPnBeOGJZSYP0UjjkTsPxN9EbaPx6VJ5NbVUaqbZeDFruim
-         D9d2123WOjCdN+oXooCZxoGmAj9sn60TC/xdD6zbdCGWR4ZSIien0I+LsHvozPn30Aqy
-         x0I1Z5KD6MIaBg3N5Fym6pnE2rosxQAXm+QmAki+WCRzBa9I1VX8OIm0jgHsVwVGUqoj
-         jY/g==
+        b=OsHzRJ0ACQYizoDRlvcDJMsmBhaMuPmbxL/JwB/YZVXm6XhQNnT2fZJxSGgKrSmppO
+         grdOohh8iHYcbp3PISni7id2aKFcCntxLwlqWuLkMFJPF23dyh/KiZPsXRCdNwQYWRtw
+         37NftTezmfrHqERBT85eKMOLvFqcn98jgRanCPEBwAyG2bdu/Wc0Ofdml7HDL4pIZ784
+         TO//CLdgZZKPyZ28zfCG+DMIfk8pyfI83h0OPt2si1WWf2m55m1FH2BGXYrHyY9AY0i9
+         rsEOtRjmwxJpJRzsJyoh/zLYIY3GKbCW4NGPSPiUBqLLU53FJfEe1spjWTbWBw8EBhpk
+         J8DA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=OkM4+eHaDUAb02aEnfu5B6pMfFHeevNTKhJz3xUQyG8=;
-        fh=GFuWCR6LAQygqDB3zPUZ6ZsRT9NiEb5gIEBRK3JM270=;
-        b=BMUztrac/q32U2Ze8uMUg1OfUm4WjHUkhXz5daJ3LzLKR0LUwtbQV1tsRkbvM84kfH
-         Z0kDfD6ed5+h4GfXd/L9cKuqiixAKKw3tv3Qi8mJEK7QVq/bP007RnXvUwO2gO9dN55K
-         y018u/La/JBabD9iXYGIJdOtEa5A/R9duDvSmCe0YkLXzJRVOe9lmhZXctt6nGZaVNqk
-         FiO2bW4r2CXRoeFDi+YR5d9tRhrV61Zw9K1rJ7N7ZDXnhlpoJkApfLtgLvl5Yy67msU2
-         c46NRY8YmV6jmNUEYEIwUWJXm0fC33ti0Qlk18VKGjQTNOgsGXFGsU/M4XZe80B6TxWC
-         E0mA==;
+        bh=CBjNOSpJlw+yD+1WI2YpvIUWPKEOoXhGnrq65FYW9Fw=;
+        fh=Gqv65hq2O/V8HCjCsxA4vc4V7lVvRKBJOG41tsqJ3cg=;
+        b=YoryPLJmgY8mI+o1+YNJzG2eL8fn7uprAH7xIuT8loBWjQgB7Nm+mkfz0cTxkx75aS
+         /EOi5n0jq+p7w/msjH+sPqpwvoxlgpUjQ7TV+TPcbXStj7HyD0zmrAwTEYGT6LxDWCxY
+         5CI06L03v1FpsbWkVj24XxKGAn1V2ioKIYUIdcTjjfSorHrSYGOcZ2AI/DWsiQr2htcz
+         hUZwbQku3VFIx0CK4zIfQtfPbw3HRx0i69XBWqXx+tafKKQxSp7aZc97SCfRO9C2PM/d
+         ZrR+cRzg5b6AiklytaCl7aYR/EzLCvyBe+Gmb50D25LBsnyTScycvSwWiQDt2h7faXpv
+         pe0w==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781344164; x=1781948964; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1781345144; x=1781949944; darn=lists.linux.dev;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OkM4+eHaDUAb02aEnfu5B6pMfFHeevNTKhJz3xUQyG8=;
-        b=pXWeID361KYC7EbArxTrBy7E98blgui7XFdPXWBvXcmL3ADgaiJYOrNpdqgwz/P+3y
-         1nW+hL0QaLjsfbn9Bdqb8F+7WrXb4LU0VzWgXw7rEIzioNp1xcG0GW65Ie/noR6Fhh3C
-         j0Lj4ptbqkC73jhNKPrq/A2H4+dMlnHj84nJBHhMfIlPU/sWuQR5+BAnVpHeh/DU96yx
-         KkkazuscWpBGFV+UHUdXknrjeU+6nw5kP7+hFahBvD5dWqhC7sTEmN2H/MXZiFIl5fCR
-         tmuFoKfiBXh7fjI6vRQmyWWNbF7z2Pz5JLBP07A7td2xDwe3toFSbS2cZVLt0L7m7pxP
-         3rTA==
+        bh=CBjNOSpJlw+yD+1WI2YpvIUWPKEOoXhGnrq65FYW9Fw=;
+        b=U2WP5XCxt7YroHfOQRAV6+lR+XIcerwVpLI/hNgPF82huHD3tn3bL/lX4J/5f+QHqd
+         Qyx6RREUfG9dC9sUsGtmzXiTIMyOHwQFQ1MACO/BGCGOBNAMF6mOXAMb1I9xB7bYZJgg
+         wbd3gRb+fHpMeDQWCjuezPNmL4kGgyuVHgCkQezSt43mww9ZDyOErv4EewtnWiRtRmme
+         JgLrT4lvtR25ENf5nQB8hGkIvEHPsHalFPyXoYJNajT4+Jpm7t9aZLEmo/wHvuq2fEv7
+         9BNUFgaOHBGjI8WAnk6hhjk+slmNGO5LAGsfC+km2uLsqRehkZLl4VLQLTpr2ja7+k0E
+         WJDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781344164; x=1781948964;
+        d=1e100.net; s=20251104; t=1781345144; x=1781949944;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=OkM4+eHaDUAb02aEnfu5B6pMfFHeevNTKhJz3xUQyG8=;
-        b=sc6sjnWtZgE57y/AX/BJaa1r73E17HgfUTwNJDiMGOfPwBUnTN7Yu+tlNRRblpKj80
-         InJIbUbrWtFP5JNc5noTuQM8uoRuZDbRTzCrf4V3/98jA+jsUh4SYtAj803erV3ebwf+
-         KGYA8ifL61U1Ir58mksS/GA5oh8u+l0VjGAPzqG38OaweHewBB7UFYTvH9lVXg1DdTQ0
-         lg/PgTngdBJGvD5GFr8zibpFaQFpK+bI9vTSsVpW4fMjyWVB/+akDSNMTWdmDW0Al6En
-         nHUDp/l9KZvNO9AuoXEkbJcwp6uizVyM0yw6AUJ9rYQR84A1RCNBAqm5Fqu8T3KwwD6b
-         DAfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8kfSSB5SBUxayzaMWRazW6NLGES0fTD4VULTh1qqQZnXACAxPaE6zNfI1G9agCIadO+uKzYCHLOQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzV5+Hwxq5R/v0S1d3IUPkDDXyQf9GqHcdp0fKAdRHTci+RJPp0
-	Yn5KxTIHDaK325V6jv0w3XnoBWa/HY0adPI1H6Xl5miGWwhaKzVT2568srRQRsysUvVVQuiApNL
-	xct/ybOgG5Kze5xcEyJh+V0qgvRwzwnQ=
-X-Gm-Gg: Acq92OFePM3hAOoQq8zXL69lycl9eOobMnpQoju0bbECv5gSatcZEolqAkAc9nbjAPQ
-	aRFvYjoBbwMVkQCPg2SgfHHRNWh2HW7Q3nxjnnu3PK9dQJZNKLMa9ak8RN6te+BGsgIBeRU6J0i
-	Ntlsc3KKi7iZg1+QZmBaglHXRfhIJAgDdXsWd2JP+NgyyPxej2rMOItZvUeky94OgZG+hxC0OZh
-	qjnrdqjfCXVhnKCixT7gSCc+Vu6lRNJvDUuj5bEmNtcNjG8zTUN6PdtwoFPGxXJuAqblAjPXoPM
-	Y23+DTnYc/OQZk8rBSZENMamTl5gT1ns+ckG6BBvZpvMUKClij/kx7uquaT72Xh7iOxOqDu9plv
-	n5kB+1Ym8Ez6wAOz7E4JJBhY=
-X-Received: by 2002:a05:7300:730f:b0:307:2e1c:17ed with SMTP id
- 5a478bee46e88-308200d09dcmr1479282eec.7.1781344164338; Sat, 13 Jun 2026
- 02:49:24 -0700 (PDT)
+        bh=CBjNOSpJlw+yD+1WI2YpvIUWPKEOoXhGnrq65FYW9Fw=;
+        b=H4fHZq7l0IvA6GjsfIkvgqTkcLatZ4P4vXszrhqYaGXmGFY1WZkYcZSRjUWAoQyMOH
+         DH9yMJ0rJzwimszyKpJ4i0jayPaI25A7MSYCFWzpLTLvPukCvCPT7PptipDUYnmYjPJ7
+         8bcBgtOnNt6ALNYDgCUuaS/SkQ1m4KD1hQc8icXhj4GaYYQnq96slIdiJnUVx7kBlaBO
+         Vpfwcf1hHYwTjhSx24LSzAnnk3lDQ7QqIC6AXduuQaGQa6Z2b+IS0Xy473uxCEYcshGK
+         FL2wPCZmyYW/nxEtS5GYa0i2ZNXgpVqHBPo8s+Vq65xVzCYRlxyp+LtKYFQJVmE5k7j5
+         ZSrg==
+X-Forwarded-Encrypted: i=1; AFNElJ/cJ19H7SJs8fUHhaMktQzvjpoBRIooygjhqE/mF5796YeS0vBUuf+tQts6/RWNTlwlKZBlYOJtpw==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyvQLkNwnlqxmJazvLvqd3qexXnwQv1YLAiK1xAgNoW9mZRnMNB
+	P/qVgDtBKGx/M10fSxUhYy3E3J1gW2C/EEJJJPXAvDTR7AepudU/kaTiKhkq96wcFD1+K8O1vTD
+	l+KeXvcbM4Lv9kaIIuBXaotuugefXlrE=
+X-Gm-Gg: Acq92OH8Y84u4twJGc3bqnWdXU43Nq6WFge63g8fV0UlQS0vDiSXlnAQn1CDSyk4rMN
+	Q1tcnfeucC6bjDxppcJ7sitTVX2migMqy7f87iuU3Q4TAJPz1KNgODYW1DSNs9MB3RWerFOagvI
+	euN68I1mqNTga6chXoiekGUVPeAYJ31EFfg5w0EbsQtfGSMXBKUs/rjnUTAK97nzKAArx8yFAin
+	FbGkMzoNim3OQSlZBD42T7v/sb9+9xXoc5Ohk+BmmfxbqQFLJ311cYcxfnUCu/2PhcBgufb5uWH
+	3kjZaHAIuNvJzL53UzzG3Cuvqe1mlYB9haaS9aIR/dEigr8sOg9VouPR1OaSXDYO7DUwYbD3Qsv
+	g/R6O1qsuRdEPSh3H0g0AJRo=
+X-Received: by 2002:a05:7300:641a:b0:304:e327:aef8 with SMTP id
+ 5a478bee46e88-3081ff62e8fmr1477519eec.2.1781345143929; Sat, 13 Jun 2026
+ 03:05:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <DJ4Q5J5OILOX.1KCPFIVUFN2VV@garyguo.net> <20260610072947.338278-1-ojeda@kernel.org>
- <DJ5A6AM2FDGQ.19T1Y9N1T6JST@garyguo.net> <CANiq72khOCLC5kG5vWhDeXpHv6n7Yo9Nv=PewNS0D73AxUDB4Q@mail.gmail.com>
- <DJ65HZ2867HB.2ZK56NEAURVJO@garyguo.net>
-In-Reply-To: <DJ65HZ2867HB.2ZK56NEAURVJO@garyguo.net>
+References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net> <20260611-io_projection-v4-1-1f7224b02dcb@garyguo.net>
+In-Reply-To: <20260611-io_projection-v4-1-1f7224b02dcb@garyguo.net>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 13 Jun 2026 11:49:11 +0200
-X-Gm-Features: AVVi8CdobUhfSP0GVHy-aYqTcvmFqhk07mdunfn978mPaEmklHiQcpFapjBPE1g
-Message-ID: <CANiq72mhdy3i+X-9ZDiwe-mAYu9DX2B29dQQi=2iAYMS8JMzXg@mail.gmail.com>
-Subject: Re: [PATCH v4] rust: make `build_assert` module the home of related macros
+Date: Sat, 13 Jun 2026 12:05:30 +0200
+X-Gm-Features: AVVi8Ce5ZWN0tgHXx4wgAxeDGhIDTq9KOdKjeJ9s14OzuckvDKwA8hSyjUXURv0
+Message-ID: <CANiq72mLqrcdZEAGM1wJ6OE7yUxzDT4dRsYjO91kPzoB5h6mfw@mail.gmail.com>
+Subject: Re: [PATCH v4 01/20] rust: io: add dynamically-sized `Region` type
 To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, a.hindborg@kernel.org, acourbot@nvidia.com, 
-	airlied@gmail.com, aliceryhl@google.com, bjorn3_gh@protonmail.com, 
-	boqun@kernel.org, dakr@kernel.org, daniel.almeida@collabora.com, 
-	dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
-	fujita.tomonori@gmail.com, linux-kernel@vger.kernel.org, longman@redhat.com, 
-	lossin@kernel.org, mark.rutland@arm.com, mingo@redhat.com, 
-	netdev@vger.kernel.org, nova-gpu@lists.linux.dev, peterz@infradead.org, 
-	rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org, 
-	tmgross@umich.edu, will@kernel.org, yury.norov@gmail.com
+Cc: Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Bjorn Helgaas <bhelgaas@google.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 11, 2026 at 1:50=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+On Thu, Jun 11, 2026 at 6:28=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
 >
-> > Good first issue?
->
-> Agreed.
+> +    /// Create a raw mutable pointer from given base address and size.
+> +    ///
+> +    /// The alignment of `base` is checked, and `size` is checked agains=
+t the minimum size specified
+> +    /// via const generics.
+> +    #[inline]
+> +    pub fn ptr_try_from_raw_parts_mut(base: *mut u8, size: usize) -> Res=
+ult<*mut Self> {
+> +        if size < SIZE || base.align_offset(4) !=3D 0 || !size.is_multip=
+le_of(4) {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        Ok(Self::ptr_from_raw_parts_mut(base, size))
+> +    }
 
-For future reference:
+Hmm... I wonder if, at least for the `try_` one, we should have `//
+INVARIANT:` on top of the `Ok`, since we at least checked that part.
 
-  https://github.com/Rust-for-Linux/linux/issues/1242
+> +// Stable since Rust 1.87.0.
+> +#![feature(unsigned_is_multiple_of)]
+
+It indeed appears available without changes since Rust 1.82.0 <=3D MSRV.
+
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+
+I think Danilo asked for the Acked-by back in the first version but
+you dropped it since the patch changed, so here it is again :)
+
+Thanks!
 
 Cheers,
 Miguel
