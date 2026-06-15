@@ -1,53 +1,53 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020081.outbound.protection.outlook.com [52.101.196.81])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022103.outbound.protection.outlook.com [52.101.96.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FA33D3329
-	for <nova-gpu@lists.linux.dev>; Mon, 15 Jun 2026 17:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C46413221
+	for <nova-gpu@lists.linux.dev>; Mon, 15 Jun 2026 17:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.103
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781543892; cv=fail; b=lhcVqE8wWc63VmYwk7cQ0ok/irpBsdUBh8ObewVZVvG5KL5+ijqvz5H1N1UpEgM2z4B55uSAssDPo4V6xJbIa/ehEPOeSSEJqTKw0V5gX7SOQ2+fDXGE/sbjU1NX3Gsrr6gj6vq5RN6b9by+oDC0hP5kNaQaU2tIc3rbSkL1oxY=
+	t=1781544235; cv=fail; b=AUwizAkISQJA6OzzMt9k/n9mLKK7xjBkFMMYi4bHuk93Z/DLD4WHe9Byu7JVGLYcVesIRYNuVOpQdZVX0YwLwPqLTbCZM44OtFUjyTsXdH+idYaixjLGAZ+74I5mdL6pv1PxxL3IhF5qmll44IVVDjGQqosChL6JPEnV8Vch6nw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781543892; c=relaxed/simple;
-	bh=hOuQRI2Q+4JaL2Ofabepfpdc7m71ocUvNIGK90BWQIo=;
+	s=arc-20240116; t=1781544235; c=relaxed/simple;
+	bh=K0lfoqYxm7kdSUo+bWiWSiYRRfMqrXHhRhdSpi0CELE=;
 	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=p8akB2n31YgulRRtacx2osK8hKWhFezx07+gTfUYmXUfXjmr2JXk1eAKWELisP66Ohklvjqt8oxDwdU3d812PtoLQtjwShXMkg2giNBQZVpe5u9JpJYA2ONU/AHQ+r0J1Xc5LYs+gmrV+YU20tQuzUbdfLN68DRf84G1OsuFheM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=RgU4DauI; arc=fail smtp.client-ip=52.101.196.81
+	 In-Reply-To:MIME-Version; b=Ky3g6i54cRR/q/4lzJbqfcyu2vd+gj3XYDlYKpFAMUEBjtuVyNSAzs1opCbIjSo47dJKdgrVmDWbB7KuZDMPqC7j+eGIwlCkbHCnRtaOBWxcJQb/KsYCQJvLkVxsqGDUH70JQEcExMReAN9sxJRxDQ6BqrikGH4UPKiepT3exx4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=vjLhzZvM; arc=fail smtp.client-ip=52.101.96.103
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="RgU4DauI"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="vjLhzZvM"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v+AEAz8iqx3Cbdh3WWk2OHvG7A9tBtTIWHd9RtQSsLDvJ11eguyHIqeHsMxn5MEHQ5omgXBNS26GtDsKczN9VBAYG7jOJyAvmlTrv6bLFOqsNeceVBiyToSiTo5kMbF5dRqtlPOJqymyIF0gVJ+565we9bEHGAyHECfvHhhpuI30lYAMO2c8w2yNeSefH76rPU7ORw0Rp5XfAH5NQb5jmhqWYskw6NXvxaw7nMciAGACMdNnIRgBVAShnxkSamydCUSBYMiNba8Bg0VjfnFpzTzjgPhwiofhJRRY7rPbQniiAsKPbeLLlzTV1l5ibYvx8/ucFNWtpfWoO10Zsuv9aA==
+ b=KbcOwdW5C104HMGyXjCNz77jOJroT4wByKTiO712JMtg/LcnuXNO1V0VfyunLCn2KS1H0J5+4jb4zs4ODqIVVEM5TqTjpiKYPfvyJGp8ZIUE1fq4ViT2oaUpDX/gS1+X8tI4ilD+cFKn7D2F/zmC7pyuEFTITysg9YO4BlFu3C7fYSnhaMlBNJQEh1j1lE2c+ageJT0q7s3JTGT8xbFlg4KPptaP2k95aiGNnX8sfFXVgpmlv28a8rdzntVwyXd2IwYEDkqqk1k+2IkMXLnu+lrUy4+T0+zVRtrv2YYX1WrzYCoLS+cWDqU5kcmjf7CWZkAwW6cMI/lJ/qxRUj0o+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RSIJCZ8K/vqGWnuj9Yb59YivrSPIBEcSr2q5rkd+MDA=;
- b=BTvIRrZc+jA+1U5OOg+mNBWys6qI6KrFe0BKulgwuxVJjVMi78+a8p5py63Ych5fdaI2Ly+jKLTvIC3g18ZnGpnfPgs2IRuNE7KYDGnMQhaMPeKZK29G7hql+uQr0lMRDDQjrwwwrNaXkxmGjZLGz2Blvyn/9AQKKfyEZ4daczHBe/LUoBZfoo0OLl0zAzWgTnWcw1+7qOZZXF9ng9Fxlm7XSl4QxBP+7fZxAi972XBNsyUJN+uICBgEFX5tRPvqgmZ3jWuIRPXoxFz4oLdEHCrtrXNUpMevigZdFZTblYtWhiBWlb2iNNG6AtOU4ztGGsLcyn+fgq6HE4qeg37+Dw==
+ bh=J+pVoBdkvWOBp158h/vKtvr+YrWB0joOikQrhsP6vHY=;
+ b=gRCQJ0m9dbi6YUBXP9pMi9NdwhqADm7gCLxFoGge31fwHJuavL5tG2ZSC2zmD92AxzDWklJqUA/7B54sv4F0IKKqk1P25xPAkaCADklyoHKWYQf422UgwXUD227mAdQE0oWn7HltAGUUnJ+PQOt+rLdEH9rIMaJWUixdjFcv+v7i1DbtSRn0Rd2I3GCqhiojPC1p3GbL19SMD5s9fSeoNBNNO/BtIfkJrfrNHOKUA4BP3UsDx+cOma9GfD9ev+8Q1LjbZYksRi+4JXdtcn3HG0LNYFxLEi62pJzGz1lL0JqhbjY+XjmTRz+nRVE3T9UMVNqus8pTaFxunDiXOFCAIg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RSIJCZ8K/vqGWnuj9Yb59YivrSPIBEcSr2q5rkd+MDA=;
- b=RgU4DauIEDEz95Af1hExZfoBftu+GIk2NKtwYbve9OrZaClJsBUy5ZWiIBdAHxvbhArbSKAAaiVr4y/AMCJLzORiE6ysM88OYgjUQi1pl6oYy92zHFnn8fg38C661SZc+Qa8uZ+f7h9ZceF0tClJYXSfrUBqcet5m7rfx551bco=
+ bh=J+pVoBdkvWOBp158h/vKtvr+YrWB0joOikQrhsP6vHY=;
+ b=vjLhzZvMEIa4QMCNX/ibSLMzHxSJt//s1ZuYZynTf8UesdI/mHqWOh5ZK/qrgFKbnWaCLep56fTvoxJKtSk6tuB4IJ68xEdDgVZIh75qIZ7E5C7e8Se8N75ESdQxLqKR2NC+8Mg6hWWsb15qQBEgyYzCp5opjQPxkPS3YU7lfI4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LO3P265MB1817.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:f5::14)
- by LO0P265MB5143.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:283::14) with
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO0P265MB3385.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:168::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 17:18:05 +0000
+ 2026 17:23:51 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::2f23:4d73:6ff9:2ea3]) by LO3P265MB1817.GBRP265.PROD.OUTLOOK.COM
- ([fe80::2f23:4d73:6ff9:2ea3%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 17:18:05 +0000
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 17:23:51 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 15 Jun 2026 18:17:04 +0100
-Message-Id: <DJ9SKUFCWLEE.3T7RIKCM3J7Z1@garyguo.net>
-Subject: Re: [PATCH 04/13] gpu: nova-core: falcon: gsp: move PRIV target
- mask constants
+Date: Mon, 15 Jun 2026 18:23:50 +0100
+Message-Id: <DJ9SQ12O99GR.3TDJ2L39P03GQ@garyguo.net>
+Subject: Re: [PATCH 05/13] gpu: nova-core: gsp: keep FMC boot params DMA
+ region alive during error
 From: "Gary Guo" <gary@garyguo.net>
 To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
  <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
@@ -60,10 +60,10 @@ Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
  <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
 X-Mailer: aerc 0.21.0
 References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
- <20260615-blackwell-fixes-v1-4-f2853e49ff7d@nvidia.com>
-In-Reply-To: <20260615-blackwell-fixes-v1-4-f2853e49ff7d@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0120.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:192::17) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ <20260615-blackwell-fixes-v1-5-f2853e49ff7d@nvidia.com>
+In-Reply-To: <20260615-blackwell-fixes-v1-5-f2853e49ff7d@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0089.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:190::22) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -72,78 +72,146 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LO3P265MB1817:EE_|LO0P265MB5143:EE_
-X-MS-Office365-Filtering-Correlation-Id: f783a42d-40d9-4150-b0bd-08decb01ec0e
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3385:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0befd37d-df3c-4a03-a493-08decb02de37
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10070799003|56012099006|4143699003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ZYn6m0mYT6139fHFbwHUDzEINK/cGWJODwgTSzwosO3okFAWPqrR2zgWm4R+50Xr/xnOAVu2Khcd9ZbntOYewSgwoJ6Gz0Y+lU5mzMHNO7Ei8dSOGMPDm9njFG58BA1HeM72MTxhL63qTPVIHhasf3t89FPjH4gYMknaT46p2CsxlC7iaePTvWLduUK4swASZkIGYXTkFaMnpUCRM0a55cNMTri6oL1PvVO8wh+G+U8RoCYYdRoMAzMNS3RoCMWIdK9BiWBsBpD6de14AI0tS+vy+rYyrJf6E7uL1LUUp4I+UqANY1WycGWZ4Fz2sVb1bzIpjk28VEhsldOfa9pjmte4TabyvGhWTizpkbwHS5cS1gCKVU9OTUf3pUcs5qiJYTTO3/xaxoUasBSKUU7Z14P2Nxh+Gi30UKmERCq9vFcvFXp+c2SgFpd7BYq4Jdd95LVdlhRAv5abmhi4+VDJg2+u1Qd8GxxD/RZ2auroYs+UyX90plPdOldKDWQ3pUu1gQb/4dNiOCRIJSx3z6WevHS8mArCAaGb4H88ERyn/C/Cr3xBg6tnXsvdu+YsgeUjiouvlSKVXwRVvB4ZRgqQj3TW8Z2nKviu0rcsO3HG/wVSL8mVJ6s7S9LuCpCy1fOqA6Jc6CQ6PJRCW/HRIGQfq4sRy4G/1G/IouqbO2kqQVlcnjsu5j+3gepd326z2ySN
+	zpAqHyR5fuw58biCAJ8wYKuY7ItmQHoAF3jGJQFCggAE/3BAtFG0+IdOyWPvT+6lgOdremjSu237uG7cWB8AGwsjrehENmQkpwQiUuix4Hh2gYucrB9EMujLFWUPpSTDjiz4ZcBv3PbTXyGGIOS5uD+/u8qRWXP4KBUgzwJT+eg5MeEWhYZXhrQYrKzaFcQ+cJtuDo204/L+OE5e2oSqVKu+oWAMYZACXBaSV76Nu6b+ijNWuQtnX4A99jhQo0iJ1O5O7NoWlIpeoHvtPn3kuBJOrW6AOHZS/zFKR3a5EBlPwV9X/+QQ5FsQtIys33KQu2gTLItng9Nh4x07ArkmH89P5mT2dYsyDZ1wI4GutDQT4rnITibelyqiiHWfG+wdE2ZwphwHmRbXo8jbT9/lNmJTlSmQFUj1UdtniGWHRnxbJn/qbMLXlMOktAbBc2edMY4oNyhK+raVpWCELZKSlx6YbCvr632VQTpl3Jo6t40JFqncovHS4CV+SD+RlTcdUQ4c+xHSg3HfYWW8w4xKTSs1jgpo5+/Jqe+q6tk9aSKht9PGqVL9Um+Jj98K4zScjNNEPia6SOptv3pt3WUVf+a2TwATlzpw4Wu/5SY5fGmnRr9W2wkVjEnVKmUptQKfmLvSuMBPLkAq5kptcL59wCn7hCiwlbycANi5yCki244+X7p/vNIMfAJmiDSdrv3T
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO3P265MB1817.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10070799003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10070799003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bVV2aEZ2MCsvTUJyWnZZenZ1aWF4N1dSSWFmRE9lNkRwU3ZMcXhDOUU2OEM4?=
- =?utf-8?B?VFluUlJWby9RTUc0KzhMVWR2bWZLbk1YZFZTT2VuVnh4aU1OVWg4ZFQyeGEz?=
- =?utf-8?B?cjUycVo1VmJxaHJQMGhORENhSXFvejBmZ1hpZDJ1OXh0cVdIalI3bTUxSjM1?=
- =?utf-8?B?S3VsemZpTStDbGgyMmxtaGJ4eWdpb21yUkpNZGlzaXdXWEMwd2NkUDc5emlk?=
- =?utf-8?B?Q29iL3RZdnI4YWRmNWx1QnVoaTRBc3plTEIxOFhhR3VCKzNyMGlrY1g0UnB3?=
- =?utf-8?B?RHdWMzZiaG1rSGRTZjlsYjl3UWdFYkJIV0hYZCttelA1WEx0aEVWbmNMMXQv?=
- =?utf-8?B?Rk5mRml1djRkM3JFN1Q2S2xHQy9QWVJ0dmI1UmZIbkp0by9BaXNhTzhRRlF0?=
- =?utf-8?B?SVBuWit0UnpqSWRyYnRJelpDVzAwbTZZMUFQSk5PMkRoYXVIVU93eFptbjhu?=
- =?utf-8?B?SlkvOUQxS3l1bTFpc0Iyc05sQWZBell5NExPNWJBR3dkSVRDT0pSRXdLZFFw?=
- =?utf-8?B?eUg5SVZKczdNaWdab3UwZ2lDVjEvZE1Da2ZVN0RadmZuVG8razhtc05nbEEv?=
- =?utf-8?B?dkY2dU5qdDBXRysydVVoV3ZmdG1jQ0VxSlJTUElROFQ0c21HSkhtMGxNbFkz?=
- =?utf-8?B?eXdSemNaNGF5d2NpeWVaN0JzYmhxRDh6dEEzRVE1NE8xU09icU02ckxWSVFY?=
- =?utf-8?B?dE1qenlvV3pTMElpbjdyNmV2T1QyTEdkMUlPcEx0eUYrLzlWVEh3VEwvcDBO?=
- =?utf-8?B?emZjeTVlakZBaCtzcDlwL3l6S2NuckpvVXpLc3k4STRUWnBITnpMdzJNUXRp?=
- =?utf-8?B?bHE3VnN5QnJRNSsxMFpnZ0lnUWhibHhJcGRYVXhvWmFCT2dEYUxRL1dudm12?=
- =?utf-8?B?WTRycjYrOUpuaFJ4Z2pvUFZqbHhPc3IyWE5XWlZvdzFKM2MweTR1SklmbnBt?=
- =?utf-8?B?T3FISUEvcll5cEJJTGNMeDlBcFVaRHJKVDFEYXBkbVBWa0JtakZ2c1R1OHhS?=
- =?utf-8?B?cmFraDE2V25CR0o3SHdmTFJLcjVTbEhSSTdCL2gzV3pyZkhza1pENjZDR0VI?=
- =?utf-8?B?ai9vSzlLeU9rNXl2djFYekJuSlB6YjlaRG5wOWViU1FrbktYTzRSQ1AvR0Zl?=
- =?utf-8?B?citsSGt6Z1VCbDRrSVlVWFk3cFE4SFhPODJHZFptZVFONkxZcFlSNHpwSXY1?=
- =?utf-8?B?UlR4UG5ZbWtlZ3Y2aGtib2FXbGpmUGYySENGZFQ4K0FqQjYySzdIaEVBMDJQ?=
- =?utf-8?B?YlFsR3dqYmE4WXVkek44a2xiWFBFa3JFc2N2OFh1bFEyUTFRL1B0VjRkSjJp?=
- =?utf-8?B?R1g1WmNMbXJQNGh4N09qckF4TVhvc0RFV0RtTXBpa2dIRXZFSHZjT3Q3Ri9w?=
- =?utf-8?B?QlU4cmM5djRyelBEQWx4aDY2ZzFDZzk1a0tNKyt4UnY5T3IwaG10SlNvOUor?=
- =?utf-8?B?UHErWmhFQ2VjWVRGdnVLejRmNlQxdXEwZTYzVWRlT1VHQmFURFRzZzRhaWZP?=
- =?utf-8?B?UmVCK2IzMDNDNXFpTFhMRmJaNGdISGRrVkg3eGU3dzlBcTJ6ZGRmSnM0L0Mr?=
- =?utf-8?B?bnNaWFdBemkzTjdjc2NPQWNnRUN5cGVoK3dXL2pDSWdzV2pXaW03M2xWU3Bp?=
- =?utf-8?B?K25HSksxTjVLS3NrenpLbGdZZk1wTFZmRUxXMGxzWkJacy90Vk9pMUd6U3d2?=
- =?utf-8?B?VmFublpqV2RMeThtbGNSQlBjV2pVYjFiTXNycTBrV1puOHpjT2JvS2d3bVRH?=
- =?utf-8?B?VHRUS1dsZjBRbFIxSHh5RCtaZldaMnVqUUVQTWkvdjB1bnl6ZFIra29sbm80?=
- =?utf-8?B?aUFMWFo2ZC9wc0lnL0JtYTgwZHMzSXdwMVpZa2laTHhRVjlkNWt6T3VjbHVS?=
- =?utf-8?B?Yy9QaENmNUNuSm5RRkgzOWU5TGt0TGVIM1ZFNWh6QmlYVkNYYUFVU1lGdU4y?=
- =?utf-8?B?LzB5UExTd2c2TUYwamtZUGNaTm5xV1FBaTJ4cGFlY3hCL3V4b2ZTK2diVmRk?=
- =?utf-8?B?NnhxaTNnTXZFbFBmdWdVeUdsUWdiaEI2Q0JUbDM0U3Z2aHJMV2FWVVNicC9Q?=
- =?utf-8?B?VlVWZURzMVl0R1RqSk5Zc09NWkFVcmhVMzhvL0RNNUpUalVQR2VqdCs3aWh4?=
- =?utf-8?B?YVJCOEFQNUZKUnZ6ZThCb0RacFo3WnFITVhCVGVDOUhHSklZdFBuMFhWTVVD?=
- =?utf-8?B?NWdaSFg4VHFvZHF2N0dPTHdSRnZSUkZGWlB6eGtObkppakRGMU11WkZkNVJj?=
- =?utf-8?B?NHdCaGlyOVU4bFVOYXRGbThxdzdteVIveG5yc3NZbldaVVp6YTJWQS9oTHZ3?=
- =?utf-8?B?VVJLMERxMmFRUlJYK2tuTHY4elFHYURQRWVtYjZhaEFQN05zZVVTdz09?=
+	=?utf-8?B?a29JVjk5dmVNRVBlbWlHOXd1TDNEMG5iN1ZXdGdNR0JsdlpYN3NwODBhUlhO?=
+ =?utf-8?B?VTVJVzE2QkpWejJreHUyejR2ZnllTGF3WmJ4bkJ2aW5sNWZDNFpNMWo3M3Iz?=
+ =?utf-8?B?eFNWSTc2ZU5wNjVMUWNLK1QxQjFrYVo1MkZMK0MzL2lpTFNxVDdLV1dRVXZO?=
+ =?utf-8?B?dWRtZWlxNFdqeXRPamJ4ZXZHVUxKYXZTWnp3M0pZanU3cVBlWWgwVGpsc3RZ?=
+ =?utf-8?B?Q0tzdkdBeEFMb1BsOHFBVkdzalJTN1BDY2tEYloyZkwrMnIrbDVhQXFtUm0w?=
+ =?utf-8?B?SVlwUUlJY3V0TDJQeW5qekRHWE5UWjFVYzFGRldvdkF4UFIrQmJnR0tKV0ZM?=
+ =?utf-8?B?czMzdFJMUEpRZkRSZ0J4REllUTRKNXF6dDE1R3lZU044dlN5TXNiSlNHVk1I?=
+ =?utf-8?B?K08reWN4cklyaGdaOHFpeVR5ajRHekdLTVkrazU3eHJpeGwyQ1RsZmZPbkUz?=
+ =?utf-8?B?Y3h1T3NaaFZCYi92QmRWcUlOY3pERlFGL1k2dzh2Z3hEWVNrbnM0Qml4TTZv?=
+ =?utf-8?B?Ylg5VWpIVTlnV0dIc01kNEpVazVnV0VBMlNOZEZrYUZ6UlhKenhwY09ZNVIw?=
+ =?utf-8?B?N0MvN0tERE5VQjk1dnZmQkljT2lyOU5KbkdwS3RYMlZFV2JEaEoreFZDMGxB?=
+ =?utf-8?B?NkZId3labk16emY2YzZ1UFB6NTBkQlhETjl1VFRwTUF4SEVQSW4yMXV5eXBi?=
+ =?utf-8?B?cEtpckFKRS9yVXZNaEU0YlpSU2x1V2lteU5keVhYb0Q5SVEyTUV6cFhaTjZ5?=
+ =?utf-8?B?UnE2WS8wN0k4bFBNQ2NaME9UMWc1eU9BZ3pjczZzYTByZlFjK083N0EvRDEr?=
+ =?utf-8?B?SmVwMXo0RDR5RjBtdDE5cm82bkVlaUFiTE9jWjR2eTFBLzc4VFhEUVVvdGJF?=
+ =?utf-8?B?VVRuN0FNY0cwcHBXYW9DQm81VGxDbEpTVmQvdnJscEZPbjNSWFRTbEMwcUVr?=
+ =?utf-8?B?T2hZVkVha0tGRy8zVHdHRUE0WDlNZ0NYNW55K2F5aVZDcU1wRFllczdmdzBx?=
+ =?utf-8?B?VlBZMUpoTXNQSE5wL1NzNHk5T0lzOXBISmVPUUtjRDFVejdRY2RhQmgwUnh4?=
+ =?utf-8?B?QTRyYXFoWUtGaUlYYzZRWUMwVHJLZ011bnlHK1JTMGU0R2JVS2p6NGhLNDI5?=
+ =?utf-8?B?OXBWemgxL1UxVG9ZOG1TcGdVcllxOTFoWFIwRVptS2F6S3YyU3REdEgxanVm?=
+ =?utf-8?B?dTJZMTg3dytwVEduMmtyK0NpRFd4OEh0Z0RmeTh4TTFNYTBwQmNGZjFiYW96?=
+ =?utf-8?B?RzFVcm0vTVB2aHNTNWVJVEVlZVZJRHN5bW1ET216dENFaURhV3BjT0pNd1lu?=
+ =?utf-8?B?SW5lTmRRWUhIcGdhL0JUTmhIN3AzYmxMa1dTdXYrTTdrK3NyWTlNZzhnV29Y?=
+ =?utf-8?B?R3FsTUZpUDRXakNhd2lEZTdWK3JnQzhyOE5jbERERXVoRS9PdVF4dXNZdUN3?=
+ =?utf-8?B?NWI3bEdzanhlTm9RVGJTaHBSZngwV2Y1dytWNzdSenBMMTdrZHFhK3RnSnJO?=
+ =?utf-8?B?QVZ1cGsxRjRGVzZPQWwreXJsUnkwSkpTVlB1SU9NMTFZZmlPeVpkMEovSzMx?=
+ =?utf-8?B?Y04wS0J0enNhZFdWL25ZWnl3YjJYM0xlNXZrT3ZKYWVBanJFVHdYeTRTbGhk?=
+ =?utf-8?B?d3VxUWNwS3hLQUtEQ1AzL1hNRHpDZWJiM1RrSEdidzZBM09mdnM5a0VWOHpH?=
+ =?utf-8?B?Q0JkVDBYdngydXBPU3pBM0FsMC9LWnlHOXRVdVk3OGFhZ0hJbVRMWjVmanVC?=
+ =?utf-8?B?NnVSVnF3L0JIYTZwT21aMm1NKzN1UkdYeXVTV3o0Z0FtL0RhN0RTSFlnYjFN?=
+ =?utf-8?B?SjdyWGVldjJPeE5POFNHdFZ2dTdoZW1yUFY1VmZaWVpTU0NlTU1KbHNjWlps?=
+ =?utf-8?B?RjV2SVMyYmtER1NHcFh0bUhJWTduVVpoTnJWakNkTG9XVDZHMjkycGtiTkll?=
+ =?utf-8?B?ZTkwK1E1SGM5T29NMUVnalIycHY2NjBIek9URUhwSFVqYVpHNWx6MFZNcmFy?=
+ =?utf-8?B?ZmJaUTZrNFpZQkhsK3NwMXl4RTlZdTZtci8wbFE4Y0VVbmFMWVFHRFFxQ3BH?=
+ =?utf-8?B?WnlPN2ZLa1hhVG9GcjNmVE9kdSsxdWgwcXdtNDV1QjFmM2psa3kwcW9TR25Q?=
+ =?utf-8?B?OGZKeUt4elBrS0c5TmVNSktnUHlSbGozVjYrQS9yalNhTWZyak9ZajFZZHJ4?=
+ =?utf-8?B?SVNvOGs1MURIZXl5V25lV1cvcGdlRjdmK1RZVy9QSDNNY0tDU1NLdmUyNjFK?=
+ =?utf-8?B?cUxDcnRLN2diMEQ3czd2c3gzM3kyaDlQUzl0NW13QmtkMVRtYlJGNUphN01C?=
+ =?utf-8?B?WVpwc1FSOEpHRWRTZmJEZ0NWY21uRFY5MGlHMEwyMkJhQ0tDYTRydz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: f783a42d-40d9-4150-b0bd-08decb01ec0e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0befd37d-df3c-4a03-a493-08decb02de37
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 17:17:04.9678
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 17:23:51.2501
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mxjH4+CrW3DffiX0SV/kDruM2ejyIfhZAzDVuVO6zsmsLAYTX/+ALkb9FcZ4nQNZI+lEr0nRbNoJZFS+n4zCIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5143
+X-MS-Exchange-CrossTenant-UserPrincipalName: PaGmBgyut9MWetX32HCy0TSxPT5+xVArc/N0aDuTWHpPUOkid2JzFYaHvTAhhNtMYG8zu9Zvl/l8+uw8IkQung==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3385
 
 On Mon Jun 15, 2026 at 3:40 PM BST, Eliot Courtney wrote:
-> Small cleanup to move these constants which are only used once closer to
-> their use location.
->=20
+> Currently, if, for example `boot_fmc` fails, `FmcBootArgs` will be
+> dropped before the boot unload guard. But until everything is unloaded,
+> GSP may access this memory, so make sure it doesn't get deallocated.
+
+Hmm, this looks very weirld. `boot_fmc` only needs `&args` but it actually =
+need
+it for much longer?
+
+This is hinting to me that the signature is wrong of the `boot_fmc` functio=
+n is
+wrong..
+
+What is the exact lifetime requirement for GSP?
+
+>
 > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-
-Reviewed-by: Gary Guo <gary@garyguo.net>
-
 > ---
->  drivers/gpu/nova-core/falcon/gsp.rs | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+>  drivers/gpu/nova-core/gsp/hal/gh100.rs | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-co=
+re/gsp/hal/gh100.rs
+> index 98f5ce197d13..b08761af89d3 100644
+> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> @@ -162,16 +162,6 @@ fn boot<'a>(
+>      ) -> Result<BootUnloadGuard<'a>> {
+>          let fsp_fw =3D FspFirmware::new(dev, chipset, FIRMWARE_VERSION)?=
+;
+> =20
+> -        let unload_bundle =3D crate::gsp::UnloadBundle(
+> -            KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBu=
+ndle>
+> -        );
+> -
+> -        // Wrap the unload bundle into a drop guard so it is automatical=
+ly run upon failure.
+> -        let unload_guard =3D
+> -            BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon,=
+ Some(unload_bundle));
+> -
+> -        let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset, fsp_fw)=
+?;
+> -
+>          let args =3D FmcBootArgs::new(
+>              dev,
+>              chipset,
+> @@ -180,6 +170,16 @@ fn boot<'a>(
+>              false,
+>          )?;
+> =20
+> +        let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset, fsp_fw)=
+?;
+> +
+> +        let unload_bundle =3D crate::gsp::UnloadBundle(
+> +            KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBu=
+ndle>
+> +        );
+> +
+> +        // Wrap the unload bundle into a drop guard so it is automatical=
+ly run upon failure.
+> +        let unload_guard =3D
+> +            BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon,=
+ Some(unload_bundle));
+> +
+
+This usual "usage beyond reference lifetime" needs to be at least explicitl=
+y
+mentioned here.
+
+Best,
+Gary
+
+>          fsp.boot_fmc(dev, bar, fb_layout, &args)?;
+> =20
+>          wait_for_gsp_lockdown_release(dev, bar, gsp_falcon, args.boot_pa=
+rams_dma_handle())?;
+
 
