@@ -1,70 +1,75 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020089.outbound.protection.outlook.com [52.101.196.89])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022123.outbound.protection.outlook.com [52.101.101.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED3E42B728
-	for <nova-gpu@lists.linux.dev>; Tue, 16 Jun 2026 10:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F1142EEBB;
+	Tue, 16 Jun 2026 10:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.123
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781607429; cv=fail; b=YT3IOr4mwxPxmnKoiVeboJY8njkR83c4+hhcevGgoEk3UwYSBbEDlnsMGN6vg4VSLiDKFREdLdTh2Pa5iTE1xX4gJ73fRsc9sF7UprOUP3/t3fUPSn+cYcwQClQZhjSOI5DQek+j5C7cbDAzT8W2Bte3nhwi3Vc+yd2pYqd14JA=
+	t=1781607486; cv=fail; b=HeR0czpduuwmN0ADos+9bcZ7qElI9sOeIkxuoISBiieczP17Ms/sdl6AzTCWSgmjBaR7I3NBcmU6Lh7vQaLpZns/fZBoEvU/JTF3kT2yRpMsYBFHhoUF/QJA4MimBrQycZD6D0JwJh6VcdU+MjrXgPmLpxEF/NvFURf6NWz0jJQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781607429; c=relaxed/simple;
-	bh=leX/JBsAxDWnxf/YtboSlDx8uEVsrjxqm206Cmht8GM=;
+	s=arc-20240116; t=1781607486; c=relaxed/simple;
+	bh=p9MrJ3t4bRaA+SlqtqT3YswSbsFeQwLrKSBLMhOnqG8=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=F0XYkVt5/2GwTl+oWrv3HVGYgpyEr4i/TSnTRDzuhnunCXJ8Jb8pJajBVhNkc+exJHPllX/B5b70XaR4Oo+dugAtebU3lmsVf+kIH5HITQQA8SV4tIwj0RMQt1Zmg1dS2RgtV6psulM9Ul4mYB03Dt5EPWIG6fl2X+wyqnSBj0A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=aUJi/HMD; arc=fail smtp.client-ip=52.101.196.89
+	 In-Reply-To:MIME-Version; b=saHUF64AMwzCl2lgdrGGfNC8+lHaj2zskUOsySYCJ49wcDV8bCAx0sOmWCTFNOpoO0alZhqDRN7Vow0IP/3w9C8SCaCkOuvJEscm6m89SosJY1KyCUscFiuIpXzuWDed6G8Jcvv/FPyOg5KQSml+NNvtkk1NVWxlQzzv9P4DVl8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=v57qrVKb; arc=fail smtp.client-ip=52.101.101.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="aUJi/HMD"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="v57qrVKb"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mph81yW6pgwb4LmmEjA2cE+97BIn4IOcQipXFjvjfG8ZrT99n0GSlI8/lXSmAAokjYlMQtGC9+lvSmaejjcW3J3pWxiTv3veFoJDirpGP3g77vbUtQgNdX5GvXErACDd9sqagLvvP0aA31hRRzrJF95spc6qKYVSmI92h4PDbWbryfQ/wYgne2hAc7ilHLJcQOngAMdkzhPWzQkPIf99MsQ+SfupOtxbDwGwChgjNsPkenUaZWlBaTp/8qf8PBUE8CNdQzGjBDESmOr3E6tVF8VI9Or1jXgEKMXwz4l/i/4KYtI76CHr1BazexeQN2zEuuJ8P/UgL3jYRQyqqa3+jg==
+ b=JiJNiuof4RXuxT8RNkz+PMRQA/dRx05UWI6ecUS8xbIVbTSDbcob+R3DeRctv92jIrLXeQHH+tuYWcDcmgk66vE+D6TunW2xxL3o02yUwBvbXiVzxqUMHpFCrz+2Gdvp5Zpd+v8EIJKiriwaCAMNg3X8b1dqCWhl5Z2DZA6XFv9W4S6MGQNAnzBMx+76aJJV7knf8PJV6PKW/HYREZYzCghF9fEAL9/f3hAVRSBsTEFRFAVE6LFJGiTLP7bsjlvaufOBjvgmwPGa7c5y1Y3giBOmkLzAsxaxBQ9GRzlmCcU5l7H6XlysklEFnDAG4ilri56qqxSaeNS/NFhK/2XXeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CwkCDzs/2lwsDwnr9e1IaDRn+tv6H0VSQnT0bdMlQUk=;
- b=DaKWA3ga+9+N0Ml5TkVxs64gb+qs5+aRNfLpcy4HtFB7J/0xuxTxj1k5iniBGEpCT4La4+TTfEuoksdCe4HyxEYmlJaP6NBowJcdiIfRP7jz+TROhzwcK32aO6BOLCwxn8TMb8wqEuX56VRhNTrrRWqcF00F9C+pezUS+ZZdzpLn5SvaGD91WB+AEPeJKfOI2XyTkIg36w/EeSLAPX8o+ksSceQA+Zaj9cXVDptWRhSHMbtijT4wIwktjtK5yW2GVK6wbTxnml81ZxmU/oF8L09NiJjCZNfJ8egTqbdrpfKA8Xqd3b0iOOlt0v7k7zHIHesUS7IBDIN+ISu2JHTLmw==
+ bh=BPxNcRCRy1ENK0qvaj1MwXJnWGu3sTaVald5bD0VQPE=;
+ b=j8IbmrIB4LuoGl9y6i9Sbo1c0/78d3eNDWkMnD9/V8cHb9mEN1M4y8TyNbu8zHl6UNMy/Ky0eMcRsR8RJccLxraGWGsWVqsG6pqmeHFGfzt8w8YnuWX0E4lbnpQIUkgFurWJhJk/i3eceWMk/R7865hce/yuIjb3oKmllI4SC/d5ydPUnViuAgNXiFNu8GP0hZlaHbJQZMI5wxuSP+XNauSJGbNhjLpEv1u+5L2m5pYYnXsPNfkyYTreDiEMkf/P6GV2bWqX8QZHoK+SkhQM2BvW+H9hgPp9WICXeshfGIlH/aPH4GBe8p3lPKaVTmVjp6+WeeVuMzWk3B/zHh0xiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CwkCDzs/2lwsDwnr9e1IaDRn+tv6H0VSQnT0bdMlQUk=;
- b=aUJi/HMDM6w28yvYpLSOcIU6bkm2tLdRdLfKTyUGG/sDhTO6o9JNxNGY/d4TwYIPiefspCEPrbKqb1E9KAIzk17ntmRCOO9HuBty8XkZ2MC+NQnSZqQOHNq0banLylBIEIYq8ApApGSJI1xjRCYDRqK99dXmw3+Tu+rNsJ1Xv+s=
+ bh=BPxNcRCRy1ENK0qvaj1MwXJnWGu3sTaVald5bD0VQPE=;
+ b=v57qrVKbGA1pJv3gCS2I7nZqb20pVYgKDJmkP9z5MyEcM2FibVYNhykMRbwWsADyBL5OrLjoTTwGfxURBExhuoK7TIT7EFVM7MY2fjSgPENupv0Tk2lpIgENdNKkJG+B/igD3f/FNCjvSOr9dQJSI2j+BU3wr5aNJ/60adwotqw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO4P265MB6965.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34e::9) with
+ by LO2P265MB5517.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:25c::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 10:57:04 +0000
+ 2026 10:58:01 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 10:57:03 +0000
+ 10:58:01 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 16 Jun 2026 11:57:03 +0100
-Message-Id: <DJAF4F8GJIWM.14MO2JWGG7OZM@garyguo.net>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 02/13] gpu: nova-core: fsp: catch bogus queue pointer
- issues
+Date: Tue, 16 Jun 2026 11:58:00 +0100
+Message-Id: <DJAF55KT7M1O.2HRG877RZ650G@garyguo.net>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
+ Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
+ <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 08/20] rust: pci: io: make `ConfigSpace` a view
 From: "Gary Guo" <gary@garyguo.net>
-To: "Alistair Popple" <apopple@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
 X-Mailer: aerc 0.21.0
-References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
- <20260615-blackwell-fixes-v1-2-f2853e49ff7d@nvidia.com>
- <DJ9SJCIX1XUO.RTFCL56MKU0D@garyguo.net>
- <ajD-8-bp6Usjl56R@nvdebian.thelocal>
-In-Reply-To: <ajD-8-bp6Usjl56R@nvdebian.thelocal>
-X-ClientProxiedBy: LO4P123CA0389.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
+ <20260611-io_projection-v4-8-1f7224b02dcb@garyguo.net>
+ <DJA9JOVL3WF2.DF0M3HNG1OGF@nvidia.com>
+In-Reply-To: <DJA9JOVL3WF2.DF0M3HNG1OGF@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0288.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:195::23) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -73,175 +78,107 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6965:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ddaccdf-e5cf-419a-18ff-08decb95ffd6
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB5517:EE_
+X-MS-Office365-Filtering-Correlation-Id: beaeeeb4-8e39-4d1b-3059-08decb962202
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|6133799003|56012099006|4143699003|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|366016|376014|23010399003|10070799003|1800799024|56012099006|4143699003|6133799003|22082099003|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	erZOqNH6EMcwq9GJOFkzUHVgmGwntmZZeKyc3TpfASJcvolaypG//21dHkhfOL3gHFzr36ZxhRJX+mOVUPx+gdzPNyiHpVUwM5vIvD7hJzMoQsaW5OPlTpFsDH1gpdyWZCTfMnPB4EBIQPCDZ07e1iEu2t9HyL+y7fa1YRrdPyTJuHam7rhI9+VKpjHanAzRlAzjxCGrF4FHst18jN9wUohuqVUoSqq7f/VaWo27sf8CpmFnmTPZ5mWuFnBh4GSLOmAFdW2LsH85gNvZ6wsG+JoK/w6UmhFPuPm+j5w5fZlRvPayz/lk/Zb64Ij5OaaQERcg9oPnNtu4cWGTQrlxHTl/C4yv9NsaqFbTRDrmdNPbWcRI8IeBL6H8u7L+Syk+SPln82vyxkxKYt0TZfgA5MALmIfnbpc9ubHHPUcOEr364FZFh0aHeBBmHr0mJD+LRrtun8c7xqIrcCrSKgxkLF/iXv4kB0f0Np6mRijpsaVlG8RNzLupy8xT90sWyHB3rvq76YI++Bpmv6Gz34NanBUsl9jlXRScvIY8BvwObNCNcyneXSmqyOXo8VpmEs/+znZRLTDGRc9cWKPg+mu7ya8fkZLZ65DcmpE7vettmD5bB3ggyQ0X5tfrEOk6/we1IwAAblBrjdFiOb238Y2w1qmPjby2ZAenzpC5Am7rF0juWhiaPBwjltx4RJ1N9f3q
+	1lbUeTZYHVyo6uj1vVwEeYlRj/QK03kP4D+WnmGMHhyYTwhZHNmP9boLRq/yv5wsjXXx5XXiNiP7RJJ5Qu53OiVyvAucWiPPk7raIe4hCUQfGDgyNz6638wCRcg8vVGJkoYmpmLVZD55E7B0+W7rx8q4UcEHTWlfs8koIEtiiulCc3EfGbdn4fssI24NxzyAsgs0DJbiqUj2ji3YMpYxMxz6xUMVE6E+Lp3VCRN0KF5EvQzRy3qChOVtYIU4TkyM1HtubeGy4fQ8BT30X4ZqOLEIA6DKBrtwKvqDZOyBSOhfimLEFqXretS1i9Iz5AUt9TdW7oE8nzBv/bN4KQzK7H4BOzP9auJrzhC2lsA3Ni20O/ennFeL2GlxVfUILbvGjI56SaJqlDHcZxRgxhOQWESrx1jINewU4iWQd9pNit20PzEyDSV2IU/44cZmMBxMxpV8oKbzxSksxaieg+9B3Pks08IuJMurs5SvjN7IQPzstTisNDC2Pys/xQ0S5QnlXyJ6cCt7WqWSpJJnuGORvwCaU2FojlOzGdZ4SsJ7wt29KA9hBQMxv6h11HVLajTlmBVHlbQ3G0F37FZ3AxeYGQETE91Kdu6JkEelHzcC4BCKn9Zu+3ntnAzIkLLN8DGzUW6e7p3n0+JDHIYZXPGX9tXJ0y9CjZr8OLp0ke0zgncteYYphvsy+6dFDiFs8x8Z
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(6133799003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(23010399003)(10070799003)(1800799024)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MU9yNHVLTEQrVmJIRVZsRmxyb2s1VklSK2lOMUtEN2QzcXVCQzlyMmE4ZEF3?=
- =?utf-8?B?V2N2Y2x0RHczb1YxU1RBWWJiNGlPOEx0TU5EcVVKZkJ5WnhDblVXMkV4dkVB?=
- =?utf-8?B?T2dpdnhuSUw2ZzZVbHVXS2NPRngrK3k1OHJMOHhpdFp0MkJiaXlDVGxCSEpm?=
- =?utf-8?B?UEcrdTVoM0F1R2o3aW9SRE9Pa2V2TGRuZGVYRnFmV3dEUzFxN01DK1h4LzI2?=
- =?utf-8?B?K1ZheTRFcHNTYmpwZmt5QXd5VXBuOVFFSHdNSk1md2NmcnYyM2swcWRZUElI?=
- =?utf-8?B?RXZ2a1F6S3loRVVTaXVaQ1Zyb04yVXpsb24zOHdPdHJHTnZydTFJQTdLQ1RY?=
- =?utf-8?B?TE9zWE9jK0hlSVVrT3BlaXlkVHZORStFUnJyZENlLzdaaUJMbU9UUjJ5UHlP?=
- =?utf-8?B?SDJIN29RS2xvMTRBSVZPRnk2Um9ScWtWV0dNZFRQa004czF2cHVzblhuMmpw?=
- =?utf-8?B?Zk1jNVdRRWg3U3J4RTNxSWZBYXF0WmUwMTBGYnVhY0FGUE5IYVFTTlltVHBU?=
- =?utf-8?B?dFpFR0pGMlVxQ3hDVW16NHNOT0NuTGNaNXNPOE1wMHdUUkI2WjdueFg1dEg1?=
- =?utf-8?B?UXhDeFRpRCt1Nm9xcVdla3diRXBvUWxpTlQ2cFdUeWoxNWw1aFQyMDYzQWhJ?=
- =?utf-8?B?TTYvbDlsM0QvSGxYeFEvOHZPaGVtaGJWeGRncWNrMmVZT1ZOWUdwcm94RmlC?=
- =?utf-8?B?b0hFSU5HTS9KcVZWUTIzMlROUWdob01MMFhUMVhpVVcvSUpPaXYwY0RUYXI2?=
- =?utf-8?B?VW9sWHdoZE56eW9vWlAra24vc3JHUHpndXRSVEtnUFNWYlpGR1FOa3hBTXlL?=
- =?utf-8?B?MzZUdy8vNGRsQmQzL2ZIWW1sK3hGbHcwdFNScHJkNTk2QTgwS1V1RU5KUmh1?=
- =?utf-8?B?ZHhHc3g3M0tpUkxkTlR3UkpOQTRhV3hva2hnMU8yaDV4blMwTnFibzhXYUht?=
- =?utf-8?B?cjZNRFhFR3BZc0loeStHZVozQjg4YThUcUh5dVNTK2R4cFFYOUQ4alBOU25a?=
- =?utf-8?B?T1IxcXlBck5QVzQ5am9xWVlrMllGWmlaUVl1ZGJIT21UVUJib2VoRWYxQ05Z?=
- =?utf-8?B?UVNTZ2pVaE5OcG4vcVl6TzdRNVUwdHU2VjJmRDhoeU1sK3ZNemg1enB6ZVZh?=
- =?utf-8?B?NlVPc3R5aWRyQktLSDhUTGVNSGUyY3lqbWJsN0ViNXorenA4cWRET1Rzbytq?=
- =?utf-8?B?VFdpMVJKcmFoMnBXSURPRytmK1RXc2duaDUzNmJmb24rRDBuQTJnQTZYMEhV?=
- =?utf-8?B?dnhzWk9XelVSdktFV2xER1BOa2gxeS8xdXRjWmFMaW9CRndqZ1hEeHVpdXZw?=
- =?utf-8?B?RWRDYjFnYXJ6cE1oek9QNVRQMnU0MkY3TzlWcFFnUXFMNHp6Yy9rVGl4b3Zh?=
- =?utf-8?B?YkJTbFYwUU52bjZOQWdpU1pzTzBYN2VGU0IrM1NHKzNmdzM4VmY2T3AvOUhY?=
- =?utf-8?B?aXkyalNtc2crSk9sNGQ0dU0reWRkRElENlRsblBqVUVVZDJtdzd2QzIwK1Er?=
- =?utf-8?B?a1RTTGpoaXVMZ1U3L2l3NXAyelgrRnJSRHpGd1BJZmozV0RUMmIyZ25XY1c2?=
- =?utf-8?B?dWRNUFovM0FaQlhJMFpUeml1SXJiRWtDOVp5RVBCMk1DYm1ONmlES1d1dis4?=
- =?utf-8?B?N2NmZW5KbW5NV1ZvRVI3V2c2SUdqc3M4T0dpQXBieWpjTWFOTW1KOTFkcmRK?=
- =?utf-8?B?anNWcktBS0NKU3dQZHBmb2JubXVEOVc0RnVUNTVFK3pnYkRUUVFWdHZ2alNu?=
- =?utf-8?B?aXdEOThqRXlBOCtkUkhmZm1PZVkzWkw5Y1JrK24yODVnK0N6dlYvTmQ1M1lv?=
- =?utf-8?B?cGY1WXQ1QzVEU0RhZ0hBbDRTYndLZXlHNlVCKzBRbmxTMHE1TmI1Y0RvbTVD?=
- =?utf-8?B?d29zRUNsRVlkNlIxTnk2WUdGSnBoWTluK1NER214NEp1UFBPUHlPT2lLQ3Mw?=
- =?utf-8?B?aWFlWktnZ056dXNmdnhHSXV0UmdyYkZhWTlOZHF2d2phZnREK0NHNTFKRU1z?=
- =?utf-8?B?d3p1dkNBMG1tVHZqTk8yaFA2WE5XdmxnaGJRK3V4bTJpamNONzNGeFc2QUM5?=
- =?utf-8?B?Y3p3Ym1mcDRBSXdvTkR2UFVPK1NqRFJtWnRDY1FPd0F0US9VcjFSSkkzZXJx?=
- =?utf-8?B?SXJ5dHUzL1ZoYUxhYVlZSmFveWQxeEdORE90UzZyV3VtQXpDVlBTanZoMk0r?=
- =?utf-8?B?VXgyZHYvcHR2OWZJbmxUeXR3Mk1jQ1l2RjdocUxIcWcxM2JZbWdDaFlZd3Zt?=
- =?utf-8?B?N0lqZVdVWDJyb09CaDNQd1d5ek0vbnV2aGNqbDZpaGd6UHE5aHB5N05KTXEx?=
- =?utf-8?B?cUV0Uld2bU5FUkRZcXV2VVVFdXNVOUh4aUhuWmtYaXB4dUNGbWVoQT09?=
+	=?utf-8?B?UkVtSGh5UVFVMHdoVFhBelZGMEhLdzR0ckdveHY4MGdSaEVpbkZnN2h2cDAw?=
+ =?utf-8?B?Q053d3RXOUJJNWFUTWg4dzcrY3JTK2w2dmpJalhqL0QxV3l2YVhUeTFlVy9F?=
+ =?utf-8?B?UzEwallyQWxaOW9qMXExYWlGVXlJRWJnQWdaUS9mNDZMbnV4ellPU21zVUdX?=
+ =?utf-8?B?TGFqS0dab1hlV3V6NFpTQll2RjJOMTAyYTUyZnZWalNWZGgyaDBKK0NiVVJE?=
+ =?utf-8?B?MVQ1c2krY081YVV6dXdLbmhRbytDQTM0Z3A3Y0FCMlRteithL2U5eWV4OURO?=
+ =?utf-8?B?Q3ZzMGM4UVhPK3ZucXdhbktUa3Y5Nm1WTTVLcE02bmRZNmRVQmxQR3QzY2lr?=
+ =?utf-8?B?aC9nemhKTCswdGt3RERwNy9FR1dsZlpUaUtRWVNMUTljZEg1TFRkQ3Z4SEls?=
+ =?utf-8?B?NmUwRm4wd01Mdm9KWHVNZUpnTmpZQTQzV3h3L0t6M2ZKZmZSa204WE5DNE53?=
+ =?utf-8?B?Yit1TVFINDhEaEdlc1dtU2dvdlB0d3FNTWhVazVFM09VcDdQSW9pcXQyTEZy?=
+ =?utf-8?B?WFB4ZmZTcDBLVzJvNzdNbk9yQzZ4dGVra3JETGd4Mm1DK0ZJR1NBc29jNkx2?=
+ =?utf-8?B?ejRreXlreUdUTm1zQzRHMGlnZ1lQVGxaQ1U5Y1FLZlM3NXE4OXJjSDhnK3pE?=
+ =?utf-8?B?WUx3djdDUnB4S2g1UWNWUkJ1eHlaeVNadlFCUm5EL3gzVnQvQTkrc2RSOHBL?=
+ =?utf-8?B?ZVRLYVdoODM4RTdpa2JIWk5WSXhNeEJDRndvSHlwd3BrK2RzK0J2by9aL1p4?=
+ =?utf-8?B?Q1IrWUNBWGoyRmNUakF1dDFDY1JFUkVZTjBjZXMvM25hM1dkOVhlT2NHeVRi?=
+ =?utf-8?B?dGJWbU1pc2RDUEJmNVlFSjU0WlFqY1Q5SDJDQS9hRXJvT01NczQ5aWRST0VT?=
+ =?utf-8?B?N3NmUTBkb1ZjdnljNFdjeGdvWVhaMlFBVlZiaW1NMkllcDJML0ZEZjZQdkY5?=
+ =?utf-8?B?R2pVeC9tKzkxdXFUOUNIZmN2dHFWRWY3UnNrQlVaMVNRTG1MbnFCcUwyMGc5?=
+ =?utf-8?B?Wk1Bc1BjUlJ2Q0p2a3NyT0xCSHc5VUpFcWxBUEwzM0tMUDh5THh6S3VaRDdh?=
+ =?utf-8?B?dHpockJBVTBvSUFuaWlGWDNrMEY3UC9JQ1dZeWFWSE1PNlU1MTFyczNtSk5l?=
+ =?utf-8?B?NXZXcU9QZlQxK1Q4SjlHNGFtZHVVNWFXS3VWQ1JKa29QS25LQnBBUm9zZStk?=
+ =?utf-8?B?YlJnWmNYK0N0bGl4b2p4cit5M0dlemxpOFFPVFFWekw2RFJyNGZhcy9RTlJs?=
+ =?utf-8?B?d1VBVjNPQ080eGlUWnB5QnAvak9VcGpZNERMRnVmMXY1c1FvZjIycUtNU2F1?=
+ =?utf-8?B?eWR3TXNDVUlPREVob0dlTXAvdU8xNzJ6K21nYzZUbFVob1JpL21YVWVrT3lV?=
+ =?utf-8?B?UDE5a2ViNENlWHZpclhZektzYVdSWGRZaStEcGk5cEtDelFNeGxMQ3ZEQVlD?=
+ =?utf-8?B?NUZGaER2L3VKN0R0Qyt3czRVUmZqbUYzOHh3aHdkOWllNzBsRWdIaFhKc0tV?=
+ =?utf-8?B?L0VlbDRmRUxXTkNodk9lWG42dTJsMTBFOXNpYVZIQm41Rjh4aXdQclNzUmJq?=
+ =?utf-8?B?TDVtNjBRSk1JN1pZdThaaWVueGpKbGJjSkpBTVFLZThVV1pvT1l2RkZnWEtj?=
+ =?utf-8?B?NXprek1RVXNjUEIwendES2JoQXh0U2dQSEJCdVpKQzZCZlRNeFQxQjR3L29I?=
+ =?utf-8?B?OVhWTHFBejQ4YmhpaW1XWTAvZ1NwbHAyQzErckdLWjdvWEJ0Uk5RNUJXZlJ5?=
+ =?utf-8?B?T0VWSndjQWVaYmFNeWhMSDVVMDBkaGFFeVBaSTRDZTE0RjVab090U09LSHow?=
+ =?utf-8?B?MHFCOTgySFFwM2lPZnRGVVdCM3JrNXluQmFUN2ZhaXBqTFZ5MDBEUGQrU1lJ?=
+ =?utf-8?B?OUc2OUQ3VXFzNEd1L1FaSS9JVVA0aUpEVDNOalNWM3FnbkJmT1lBVlVFR3Q1?=
+ =?utf-8?B?aG1aYjI0bWNsR3pPcHlQR2xTbnNqWXhlc25nRkFNdUtiTWNuNStFQ3owWkdn?=
+ =?utf-8?B?UjhHMGxreHdEWHo3YnRQbDh5U1AyVnBDVDVIcDlqTWl0TnlQSkM5WU0yRm1U?=
+ =?utf-8?B?di9lSlg3cVAyUkRRN081OGltWUh5aHVOSHhqcXZMRFpmdWNFM1Q5ODZXVGJy?=
+ =?utf-8?B?UWdXQlZsdlpUdVlXZllTRmh6N2lFWlVkUlZNdzdUM0Z3TlpuelFhUXl0WEN6?=
+ =?utf-8?B?bHdSZ1hVU2ZtbEhxZmQ5L3lKdldOYk9zVldMYlNZa1l1bVdnbEUwTHQ0S1Jv?=
+ =?utf-8?B?V1FkU3BGV3lKYTlqOE9Qb3FSODVRVGI3ZEtodm9Sc1Z3YjljY1g5M1lhUitr?=
+ =?utf-8?B?WGRSdWZzSkV2TjFSZ0NvdzJaY3MzcTRZNnZkZnlxaWZlZUswT1d0dz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ddaccdf-e5cf-419a-18ff-08decb95ffd6
+X-MS-Exchange-CrossTenant-Network-Message-Id: beaeeeb4-8e39-4d1b-3059-08decb962202
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 10:57:03.7061
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 10:58:01.0061
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hWpOCqG22rijmYNAKzb166mtS30Ob/MIqMcbtOOtwJKtVQ5Mz/CiJzWQ6NOQkJ2i13X3g3+9WNz9hrEM3xpong==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6965
+X-MS-Exchange-CrossTenant-UserPrincipalName: X8bLYGaVjJ11dlco5oAxk26fiY3RQFm0loN87Tar/21RBxqD2Z+psU5clbWx8XPhpHLxuDT60Lu5YM3rMOABCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5517
 
-On Tue Jun 16, 2026 at 8:57 AM BST, Alistair Popple wrote:
-> On 2026-06-16 at 03:15 +1000, Gary Guo <gary@garyguo.net> wrote...
->> On Mon Jun 15, 2026 at 3:40 PM BST, Eliot Courtney wrote:
->> > Currently, `poll_msgq` will report a message of size 4 if the queue
->> > pointers are broken. It's easy to catch this if it occurs, so have
->> > `poll_msgq` return an error in this case.
->> >
->> > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> > ---
->> >  drivers/gpu/nova-core/falcon/fsp.rs | 15 +++++++++------
->> >  1 file changed, 9 insertions(+), 6 deletions(-)
->> >
->> > diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-co=
-re/falcon/fsp.rs
->> > index e7419a6e71e2..21eaa8e261ce 100644
->> > --- a/drivers/gpu/nova-core/falcon/fsp.rs
->> > +++ b/drivers/gpu/nova-core/falcon/fsp.rs
->> > @@ -107,19 +107,22 @@ fn read_emem(&mut self, bar: Bar0<'_>, data: &mu=
-t [u8]) -> Result {
->> >      /// Poll FSP for incoming data.
->> >      ///
->> >      /// Returns the size of available data in bytes, or 0 if no data =
-is available.
->> > +    /// Returns an error if the queue pointers are bogus (`tail < hea=
-d`).
->> >      ///
->> >      /// The FSP message queue is not circular. Pointers are reset to =
-0 after each
->> >      /// message exchange, so `tail >=3D head` is always true when dat=
-a is present.
->> > -    fn poll_msgq(&self, bar: Bar0<'_>) -> u32 {
->> > +    fn poll_msgq(&self, bar: Bar0<'_>) -> Result<u32> {
->> >          let head =3D bar.read(regs::NV_PFSP_MSGQ_HEAD::at(0)).val();
->> >          let tail =3D bar.read(regs::NV_PFSP_MSGQ_TAIL::at(0)).val();
->> > =20
->> >          if head =3D=3D tail {
->> > -            return 0;
->> > +            Ok(0)
->> > +        } else {
->> > +            // TAIL points at the last DWORD written, so the size is =
-`tail - head + 4`.
->> > +            tail.checked_sub(head)
->> > +                .and_then(|delta| delta.checked_add(4))
->> > +                .ok_or(EIO)
->>=20
->> Whenever we fail with this, we should print a message (actually, the sam=
-e thing
->> probably should be done for patch 1 as well).
->>=20
->> A plain EIO is going be very difficult to troubleshoot if this is ever h=
-it.
+On Tue Jun 16, 2026 at 7:34 AM BST, Alexandre Courbot wrote:
+> On Fri Jun 12, 2026 at 1:28 AM JST, Gary Guo wrote:
+>> -/// The PCI configuration space of a device.
+>> +/// A view of PCI configuration space of a device.
+>>  ///
+>>  /// Provides typed read and write accessors for configuration registers
+>>  /// using the standard `pci_read_config_*` and `pci_write_config_*` hel=
+pers.
+>>  ///
+>> -/// The generic parameter `S` indicates the maximum size of the configu=
+ration space.
+>> -/// Use [`Normal`] for 256-byte legacy configuration space or [`Extende=
+d`] for
+>> -/// 4096-byte PCIe extended configuration space (default).
+>> -pub struct ConfigSpace<'a, S: ?Sized + ConfigSpaceKind =3D Extended> {
+>> +/// The generic parameter `T` is the type of the view. The full configu=
+ration space is also a
+>> +/// special type of view; in such cases, `T` can be [`Normal`] for 256-=
+byte legacy configuration
+>> +/// space or [`Extended`] for 4096-byte PCIe extended configuration spa=
+ce (default).
+>> +///
+>> +/// # Invariants
+>> +///
+>> +/// `ptr` is aligned and range `ptr..ptr + KnownSize::size(ptr)` is wit=
+hin
+>> +/// `0..pdev.cfg_size().into_raw()`.
+>> +pub struct ConfigSpace<'a, T: ?Sized =3D Extended> {
+>>      pub(crate) pdev: &'a Device<device::Bound>,
+>> -    _marker: PhantomData<S>,
+>> +    ptr: *mut T,
 >
-> I don't disagree with the sentiment - this is a problem through out the k=
-ernel
-> and I have spent way too long tracing where exactly error codes have come=
- from
-> both in C and Rust.
->
-> But it seems odd to worry about these particular instances - they _should=
-_
-> never happen or at least be extremely rare and very unlikely by an end-us=
-er.
+> `ptr` is used as a pseudo-pointer here, can its documentation be more
+> explicit about that?
 
-I think we should either consider it possible and add prints, or consider i=
-t a
-bug (hardware or driver) and add a `WARN_ON`, or consider it impossible and=
- not
-add failure path at all.
-
-> More to the point though there are many other places in nova-core (and I'=
-m
-> sure other drivers) where this pattern of just returning a fairly generic
-> error code exists. So it feels like it would be nicer to deal with this a=
-t some
-> other layer, eg. some kind of debug option to tag error codes with locati=
-on
-> or something.
-
-This should happen whenever the information is lost. Creating a generic err=
-or
-code would be such occasion. Handling it at upper layers is okay if the
-information is kept for longer. For example:
-
-    enum NovaError {
-        ...
-    }
-
-    impl From<NovaError> for Error {
-        fn from(err: NovaError) -> Self {
-            // Print here
-            EIO
-        }
-    }
-
-Would be fine to me because the information is emitted to user when it is l=
-ost
-by the concrete error -> error code conversion.
+The invariant section is already hinting this by saying the pointer is betw=
+een 0
+to cfg_size?
 
 Best,
 Gary
-
->
-> So I'm not opposed to the comment, but maybe it would be better addressed=
- as a
-> separate question/patch series to figure out how to do this error reporti=
-ng in a
-> more generic or consistent way across all of Nova at least?
->
->  - Alistair
