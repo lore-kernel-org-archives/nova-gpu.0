@@ -1,65 +1,67 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012047.outbound.protection.outlook.com [40.107.200.47])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013060.outbound.protection.outlook.com [40.93.201.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B60383C8F
-	for <nova-gpu@lists.linux.dev>; Tue, 16 Jun 2026 07:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9748035A384
+	for <nova-gpu@lists.linux.dev>; Tue, 16 Jun 2026 07:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.60
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781595225; cv=fail; b=FB5fXkosQ6a1QrVU0e4SRfbCRW8AoUPvd6w/74BB5nPq6li0RZ9XZU5EBb7hJYpnP0OYKNdOrO4md3E1FD3xg0vdsE6i9yDlCjLkndEj6ap/5bBJhvpXGWhD0YNIFZipuoUptC7yoEEks3ntm96g/obasfe1mzk0NhF0rF9e5eE=
+	t=1781596667; cv=fail; b=tFJrT2C1qn/LDNhOds+/IugzeSALxPaO5hCHAZq8t6L1xPTfezsi8zrwJSMg/3YKs14MwIi0Exofd3CrTrKwZRRmvrjWSyaO7tWvymo1dvr8nHaZD37Focdo8mmaZs56JXqZz3SuQwtkPEx4Z1kqlb/HMJ3b+VbD2TIkWgJ28fY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781595225; c=relaxed/simple;
-	bh=L/B1GWhDToTUFnqXitieUIlMyAjRaevcJwnFls2uNWE=;
+	s=arc-20240116; t=1781596667; c=relaxed/simple;
+	bh=ptv7tv/alBh/DF1v0TGw3UuwLr6MvMZ6WRb7bPZIzqI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KmcpdwvGXGYekkpqUyT+Tp8vBo00NC7TVRw5KzKcpxeWHTTqdiy/KVMJqNEQflrydbaEeI0pGA6M/9kFl/w6WaUNzVfMegm0X1j/SN2gmpViGes/Vnj10oIV4sXEH1vkr3Bukmk9EObUcGdPPyl9RQVj2fXrMpBJs0aKsmIA3rQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LLG/NUzY; arc=fail smtp.client-ip=40.107.200.47
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Typ9gmfoMNW+/GU05jyaB2wmc6WhZ0eTMdCvOp1mt+FM8hll0aXHC/IJTqa3Qu8vAru+SGEF31ROycUSxbleRLUrtJf5+yvdCQEJzYAPazxdGnsH1IsGqaoRhE41vWTuQDC4hibJm11btWN4QuBymx0FPmcCj8wdztnyZaiC5Ho=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sqD53vPp; arc=fail smtp.client-ip=40.93.201.60
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LLG/NUzY"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sqD53vPp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=muRSNqefeSe58keo+hOWaOTcUDRi6JOlFh4rvBPUXS8jxDU9YZWcehcU7yy8Y1nPALYkJ8H5a1UBjFetVLGgSe6RgrRlpkYtOmPJAHDikwnc36OfA75LnvJvbTxwXgUvMeG7o99+Hc7icqI0ZsLnnasY3eAtUVU9FRehzWUTxJsjlj/eh6wYflxiaCFWSYxht6jfmq8HvM4sT3FqpSw/4tJJw6iccMvQwOUZkqJ3dWSPFb5glnaFbbxKcMaXSBMamtm+uv6ojgOHWofbCRMMr8itwSVbnA3bszWCZgXCz4hIKqAI0ar8gqtVUuxiS7zXvKlBnvqPdr+BcCT7f922fw==
+ b=kpeqJsqyku3LVTwESMZzHzgKEg/iwIiLliEEn80ReZXvWkiWGLnRvroJDfFDo2ks9MnKXgqD7hsW4vMF8fOoHiKw9XKxDZwMusvDtYirptYztTRmNEN/53t+jS7tKAR/kvc+dGbiUB2hVv2lYtPnQ8WK/DFHtPgcSkVIEKmtvC5Tq+Vcmf3hP5koOS1PcFZIhCuk/mJ5JVTRbbMljjWJAbHa0+RF9ZrTwZIOY5my4a0XlOOfs+8i81UPAOGe0P5g6x4Z8f39xspUFZMco8DNLCMLdQd8sJ5WSX3E00dOODBSd2pm4GdJ9hvPZGCDBmZasgmWANGwKjXBCtIHtcbwow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pT+3QEMpNYYVP7QKBmb7WuRzLmB6eNf+yNA8Cf5mclI=;
- b=WiwmoA3BGjkuiGYSv+T0L9HoqHDl6Iu7ZuZLSQZZ8L/Ky8NUzNc+lZS3LXaUWm3vzqsCuvMe2GaTIHWJ/zIbAJrxfJoH1BRQb14MIsCRKT+8Owxm7v1pYIkIZ4KdnP2pTL+pUF82VLOQFDnNFAvPqFejhZE1l6/JdIM0GCLByAdVKZQ55M2FWANxjdpNfHOJt2eURKQjISuJSZYb3Pd/+NErMduMKN0F+04Y6qHeICouDXjnlDj2BbjYC1iVYhfZp/sdMqfWXnx6soa+svN4qe0MTVYFP69RDzn61I7RZTQwq0xbYmDkOa5vBGw+alFFRRSTDhf8+PHC7MTDjyt0SA==
+ bh=PMve4dBvO37MYLJ+4+tPP6nhvZAuTp2Iv5C3soVNAjs=;
+ b=sg2CU4LrIEID98idhhL6CMZrDGmEqa5uyEY9Hs32Hdg1hr1wjS2DwcrUzxkVTFqpsqX2Eyb6eFJKZKy/b3MOG9OTECbaldgF0CRtpW3dLngkpfch+TZ/aQjMyiD3Hny4deJ2XZqbTGLqcVMwPAsIfXf7Hpz4vnXkvzUIt0XdL1AZhfwWXTpYw/wUIX17v/m0u41+vGfrptvCkf5bc9mDiGhEl22DK1w1UXvXDqGARcOUAiVuWMrpjdIrCksIXGtIJMxx3T91qk5T9COHE3edLNtur/z3NZEJDGLE/WZrP4Z4qG6sEBpUAoqRqE+U9xgwre1r0Il4sK3wUZd9Pagq9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pT+3QEMpNYYVP7QKBmb7WuRzLmB6eNf+yNA8Cf5mclI=;
- b=LLG/NUzYKhYpGJGqaf1DqoLszqHCpFZP3kMpA0vrgS3A/B5f5jY+2DoFozIR7e3vGvhooxBY5a7Hp+CYEF9MP1QdOiXwOrVoO32XQnTg7y5CdQnDE86ZuLK2us2xWjuxR29SVsJpMPlbau5oLONdVlj2mKRcMCLsmvyttTufs2xI6gS1n+4vUdZrfFgIkI0C/LCw/ptY/z9pjT3zH7RVM/tVyhkFoT2hdr/mNMGkjcxv3IY0YWuRV9mG1Y3WjMKkI7nS2bYq2juKsvMyOIsCW81YbJcoqD/l9ChSVnhI6IqpxxxGWDITkMfKzcJXf680z+KR5G9Z9Jq7AJW7SwmWwA==
+ bh=PMve4dBvO37MYLJ+4+tPP6nhvZAuTp2Iv5C3soVNAjs=;
+ b=sqD53vPpWh8/kQ9mf5kU+NvFvE9dEMScTKTtW+OYQMZkBAVNStnz9h2xdh5qpm2R4iMSA9aa2ib/pYrsNNuM/q7wpPlxMqAnv6s3O6BdnwzBkD8ktSxU3HLSTwOkZx4U/SecA43Bv3camqnlPjdwPRLlbIZYRuIyqhR0rLMMzOPXnpEy50I9zZqGmTSfv2sw0sYAv8tV9o3OpYt/nHN/jGrmcHbezfPDA+5j2y+2PwsbDR5YlfRlUn+gpvkbRKLLIxzIVdnt/dlsoHAbwqMwqNwYa4LKhhvld68bE3/lC3D0ed6q09WMriqZ6ftUpdOUhV35w36Hasp+FQpdHWHBaw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- DM4PR12MB7622.namprd12.prod.outlook.com (2603:10b6:8:109::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.18; Tue, 16 Jun 2026 07:33:39 +0000
+ BY5PR12MB4195.namprd12.prod.outlook.com (2603:10b6:a03:200::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 07:57:42 +0000
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 07:33:39 +0000
-Date: Tue, 16 Jun 2026 17:33:33 +1000
+ 07:57:42 +0000
+Date: Tue, 16 Jun 2026 17:57:37 +1000
 From: Alistair Popple <apopple@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, John Hubbard <jhubbard@nvidia.com>, 
-	Timur Tabi <ttabi@nvidia.com>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 01/13] gpu: nova-core: fsp: limit FSP receive message
- allocation size
-Message-ID: <ajD7wnvZOxfXM7AX@nvdebian.thelocal>
+To: Gary Guo <gary@garyguo.net>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 02/13] gpu: nova-core: fsp: catch bogus queue pointer
+ issues
+Message-ID: <ajD-8-bp6Usjl56R@nvdebian.thelocal>
 References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
- <20260615-blackwell-fixes-v1-1-f2853e49ff7d@nvidia.com>
+ <20260615-blackwell-fixes-v1-2-f2853e49ff7d@nvidia.com>
+ <DJ9SJCIX1XUO.RTFCL56MKU0D@garyguo.net>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260615-blackwell-fixes-v1-1-f2853e49ff7d@nvidia.com>
-X-ClientProxiedBy: SYCPR01CA0004.ausprd01.prod.outlook.com
- (2603:10c6:10:31::16) To DS0PR12MB7726.namprd12.prod.outlook.com
+In-Reply-To: <DJ9SJCIX1XUO.RTFCL56MKU0D@garyguo.net>
+X-ClientProxiedBy: SYCPR01CA0048.ausprd01.prod.outlook.com
+ (2603:10c6:10:e::36) To DS0PR12MB7726.namprd12.prod.outlook.com
  (2603:10b6:8:130::6)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -68,135 +70,138 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|DM4PR12MB7622:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3309b563-4f9c-44d4-a0d7-08decb79955f
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|BY5PR12MB4195:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28abd6f4-866d-44a0-2caf-08decb7cf1b2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|22082099003|18002099003|11063799006|4143699003|56012099006;
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|18002099003|22082099003|4143699003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	gbjlE5w5I34huyKtMOawBQKGPgwXil1zmbWkz1U/aMlmruBpcIzJJ70O3LP/cSCPvr9Gq/R7fEzXoNvUWHgQRC6Y7ooyQBdL4YIi1VZQRyencX6Zgc3b3XJvPrPbjOoqTs2RmQ2LEagSFjd3XHJVH0Emxne9+WSBol9lYmPF9OCkQ2ieqQsWgdPBDOHRF+6k/Phs/mKtmOSDJXr8QvvMWc16FFEdTUVRlgsPUfnqVFRFCnUn+IbdPqduRp19bg+A0pxdsitJu64d+XmhG+GtPlexwguUab/sBX8KPz+/9aSdTBozOhzOXKnlhTXMCRvlqJyLQy2w3/KPkvoNseJKS/uR80VdEHPdGlumzBcReOai6TRhuYFB0qA1QbxTEnHktHgRTNkKtZnJ/GrktVBc/lI7lerqw17ze0NqRCl50N+s+FaguIVcsfK8qqp9uYngw/WVelFcl/gbahSNODuSF8CzRJK5OAQ1RC9OBtsbozESH3ja2nwYjHSThWv+Dol1ALF5anz35JqbGswaX2SrwdVFo7QwxDcfmigDvT9t3cj6phHNeQXPghSJhDGtX6+N4Bj4dfa6FnM5+3ZRbkF4cOy3GufVxaRvdzysNWSQia5hFnOoy8ef75qgvyOpTyLsEIHc0KkJuDLHsh8eCifQdySI9S1CqJkSx0PIqN+gbJPUw3cTztsv8TTd6CHqmroh
+	WumcmpDED0JSRscQNEU4E1DjD+FayBrO4Vs+XBJlwg6UCeoyumtWFCebdNQXdM0SyRnF5lY4+WCEvtBEcTWdShlXRFB6D/Q4r9wEhUBi8h1ZIDBs+1fUD+AVbjytSExxCQgdW/tEYa7JXl+un08pzdU6xPJ7XvcOzXsYPrsasS+hBjl8NPPLWwKzteffUDrzPrFbw6AKxJJpPOaq7RyA6KIUhzgjcmuWZv9CvtwtpD9P41vUiKpeYCZsxV5qYtINI4cWzchXHkJgRLbICWmXtbqRGlTNczO0RHHmvO8oqL/hbOTrDLZr9kYoIIVz378s5qK1aDTd8LKFlz0qb/YeXMOqKs76f0H4iHphEb3MiDfQ3kLla6WzuMCmLQFJtivrGfSatbo1btbeW/Mor4EtCnroAo/vMjm8jNARkAFmbYEBcePdfGYwno3WdwNfLPuBuxa7vbMKYc3IIgOv5iGLM91V4HPyE7dAZaFZ/V0kSltnPuOF9wSKvV0YrVt8kdGlTZ3G0UDDPKejZ/JdznzidOKWWZpgxMxwBKpRo3WA54FoqcMVyfBbdP3rsQKlQsk/wreVNxF8hYm1yLHvnK6XUKZLQDQJ3tlnuwL0N+X/tZMWzCIWxtoFgOxR4ASA7geuSiHIxCzIicg96NqalSxuAMdv8mXciBICJrj91xnApC1thQDuDYeSTsBVoNVoHISK
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6nupEtS/e+IFBMUROdd9qDofBTrfQOwBsosOSLF/gEexd7+xP2DcrDITd/5v?=
- =?us-ascii?Q?LSF4pixxhk5X74duB2ADbGd3aYZmPAdtIoVDbG4W4h16+A4hGFI7MEBga+QP?=
- =?us-ascii?Q?cIozVlXU+Zi9ACC09QaOXg2z4vLO0dPDQPLc+diBCfiN7XSJPkjPfk9ZTyAF?=
- =?us-ascii?Q?gmLHLV2esMd1bVbnTEbx6P8TuldaNQ9N1SLw1sZUYZZvvTXiNti9zH3GRSq0?=
- =?us-ascii?Q?3j4ehMtU8G7QjOhXPcrXZw8mytl5V6flgui7PcVia/0vopfZQ808vzV7jP2F?=
- =?us-ascii?Q?5JQ5EtlMhcl4mVDzeJC+REstxUO8m5uBZbzyUGt+FBvh13SOPOJ/ysPScFHL?=
- =?us-ascii?Q?lkjLDIyotOL+l9vT0OtFDinVPlc+aR0VJfnTyhWGBD2nPUQ72S8TpAV2V7aT?=
- =?us-ascii?Q?nIiv+Zyw9HGDGC0NZYpUxhlyWqGlR2tq7XO/N/Ee5x2N8lfCqDJAE3gZ3x/q?=
- =?us-ascii?Q?bOBRZkXfFBq076kSEzOKyhX88w0bxviHeUejbyzjjtcHRAg1oQelZz2SBEbm?=
- =?us-ascii?Q?GC7XnenkFmZVxxDNg/3qKeFTHBiKnxJG6wtcQaxjMrev6qkWqnJqgAZF9NfX?=
- =?us-ascii?Q?iglsFsCwkQsfSvxiN3EGJtW5uKdfl0DeW72a+u/VH2sDcFjC2m6AhMAittPv?=
- =?us-ascii?Q?Qv/VLaWqfa3CSmf3I20DceLvxUUt5Z7cHxKs/kr64kfrADP7lqXglMxDkCrJ?=
- =?us-ascii?Q?DbPem5HjQp+uH2AxHLlc91y1q6tW/NzSTje6E6/c35pkALFfLgB74bSxHoEv?=
- =?us-ascii?Q?z3Iyd2u/t8nD0vWOUkfMAwVI80iRI1y89jocjf9ncNoSI3Sjfehk+NBp8ah/?=
- =?us-ascii?Q?T9hJ9vA3QpajE5YSzX7RxeBOd+782fBhfDCd9tupv3mMYrVOfJ6fJWoUrWX5?=
- =?us-ascii?Q?E+I8YuOZzZDAj7e8IHyrYhA0E82j9Hs0QYXF/XYTuijZmBrG0UkGdsLc1obR?=
- =?us-ascii?Q?ZyzRgWQmUGqzyp5C12EcZ2kGJUW31JbdLwSsswIP14orzRxdgoYBR+w0vU6+?=
- =?us-ascii?Q?UA420xWQls5J9pUhD8bLGtYPbR0HyOWoaOa+ATi1OJdaww57dfLtxwXoTJ4V?=
- =?us-ascii?Q?z1Vi4OGsWk6PRpRN/JEQKbgp+iKVPebgoJ4QbLnSajmoAXt+q1P1YOTbIoel?=
- =?us-ascii?Q?YCPRhlMwblX0UXe0X7hNxLeoweTsKNoFklU+jbSc4QF0cHj3/dceUFzEhZ9F?=
- =?us-ascii?Q?99FfGQXkiN3UFn9q/aJSFs5Mh5c5Ibind8ehPFefVD/nsPmi1OVKjff7MY0B?=
- =?us-ascii?Q?o9vluZL08JeoGesQ9fh3xMbtMC6zq9ODXYzMJpfUps1fyUbJXv5gzEH6B4K0?=
- =?us-ascii?Q?JzPFAhbF6dcCrri3DeKT/Ag4jVZT1w+/5eIkiVlVW8vwgWe4zB5RrmyfE07W?=
- =?us-ascii?Q?g1fWQWIsESAbZGS6QE5yFUMBTbMgXs1EKvZNFOTL7twynBPd40NmL7MO/A9S?=
- =?us-ascii?Q?IAkr4t7vGGNl64u3Ijs8ws88feWnZ+/HEU+2UgL+tg/QfWGssURcHJATf+Hv?=
- =?us-ascii?Q?N1e00ZSnJ94WoscbZGTvHTGO39m9C8Yr3fXAGG1AKqjPmMUdqAH2SyP8CnRO?=
- =?us-ascii?Q?OqKhs8czni1diMxgjP36gwUxltywErBWkdRKPqTtEdDJcaMpUPjJz2pjpSCB?=
- =?us-ascii?Q?5ikhcJXOBAnbL77sghks13jRM1XhzJpSmgkI+7kvIqu61K6ss/TS/iWYiiVx?=
- =?us-ascii?Q?PUtmQHZWfgulGpNwjUQ7SqwtVL9R5krh/awdoScGQN6Yy1LohkCsPlqAthwK?=
- =?us-ascii?Q?IGzD5nTOAQ=3D=3D?=
+	=?us-ascii?Q?XTorqzKYty1j2IZmMQqUZxnrT9nWsQ16qLolzlaXhjvqZu0wA7zYtImI599u?=
+ =?us-ascii?Q?maPRWXnM1Mn2piuOzFdmWzpSjdpQecPUwsvR+LkyAUnrSgVOMM4k1LB3aoR4?=
+ =?us-ascii?Q?bgcG+zJVWh7eNTVTiXcnfE3nzgI4TWNe816WLNzoZhchC3TY5gAwFk8ooYAU?=
+ =?us-ascii?Q?nN3M1jov4J+ctXev0y7A44BvVIeMmpUqb9OHpdvmKZLBzoTRiinvDd4OuHCz?=
+ =?us-ascii?Q?d2xaKPsL8phLfiWymq18HhNoxYjQG7xrOgiFaCUDupLj7IhdoJkcy3c+yDX2?=
+ =?us-ascii?Q?wh+zTlHDqekrfVqF+h++HyP3UpDFi8CbdPevtyDQe7odfFi7nsJMiiNDJgcA?=
+ =?us-ascii?Q?LjQh5QlMDwBq1A9WoyyhmXXv57B2n9kALdir7RUwjSf7JEfRmmyCFSOdcqh7?=
+ =?us-ascii?Q?YkGPnttvsw2i1AoMSV1fwx0mhUpFMQ8BiSAaPy79mdgQQGc8YFOnU1BzOoNx?=
+ =?us-ascii?Q?KHv35CtMkWa3pYbCIYaEKWXDVmpEwMNOfzrdsVOJKjlyXCz+H7Sm51HwfPDt?=
+ =?us-ascii?Q?obthrpzczpC50KiNAfwR9xWkVpjOdyIV0atddRarSFgBiZXDfqT+DbFSE/H1?=
+ =?us-ascii?Q?4HogCaE5yEizjgvLCAUWLhha/Y/YkpGeT3xwQrBdGFLWwWIlbeDMdb/Lg/rz?=
+ =?us-ascii?Q?eQaB1ydQrzDmp3Yi9KXvhvGrSwRGqOcGgkCqAX83x1tFSvfbujp+yQvTlVDH?=
+ =?us-ascii?Q?Z/OGsytCsa3g13NgzgYnHTRD3tgYlX8aVmzcaxgs/TgCYLAExkizfL67wOGI?=
+ =?us-ascii?Q?GeF/NR5SZ7zcox0R588Vi/82v0VEoz5gzfhWFHgvf9IQcZirL5p0pEKmQn6i?=
+ =?us-ascii?Q?IWyHbx8ySVefRk4K0ytw73s+3jayMVXso59wXqb0A+y9yHLKX1Bqt/l6fVl0?=
+ =?us-ascii?Q?yB3lgsUCzrRdS9SHMtI6B0jrAaMO8k4xQ888ZnQsStsMCLzzd6KvZSNIvVLB?=
+ =?us-ascii?Q?LQCdkpXEx/peR3ybLSvGmTwQLm+/Lm0qcIEa5WF0Vap2tRSvhM3mgEszsTNm?=
+ =?us-ascii?Q?PCScNKNGjLPtCIt5pYyePpH/O+uIklHytjLhwfhOH8l3873x0oACHzXBGB3f?=
+ =?us-ascii?Q?NwV+9pnYyRxwUiryExjHvr5Wd6KhwiofsHoJgbSNDFenspV6FDAVobSD2ypv?=
+ =?us-ascii?Q?Jbj8ACM2r/suwFvc1AnYr3YY7r8bcfTBbTXGpZSTj2Oz7a9KeIS/MPPjnxfN?=
+ =?us-ascii?Q?YMHrmdUurbQadh5/vYgWU0NZKpHdBtA0B6oaHH7/tAfA5jWxWkFtMMt6OB+Y?=
+ =?us-ascii?Q?gfrkJp9Wy4ESQkgVUlNH540hBUQBzJG5b8/llYkCimdFDBEwkiNAnHSBFTI0?=
+ =?us-ascii?Q?EPt4O0ViFSdoomBRwYGxmos11ENl4NcbLA55X+F+NjUxN6vlm1evzFc4YlOp?=
+ =?us-ascii?Q?MvX3guIeP5bG/J4otRC7Ydiytod1za7noTTsYlcNml4Xy7dT50LEuxjgZPPa?=
+ =?us-ascii?Q?nArIXxM2m5n09oQk6xLnpPX2XvsuR4vvsALNXqkTMlojILtkzwcDIYsLDzfu?=
+ =?us-ascii?Q?Bg+Ax3KnFS+W+JG8l0mj9uSddpTHz7aaS7ofBx8EUTAFmZg28M2bs78yg3mO?=
+ =?us-ascii?Q?BwFgay2Xl2mtNcGWQrZTUdBaKq9WxEMA7cLo5Jk72k0Zt0gjKRLK0mR4PkUh?=
+ =?us-ascii?Q?gekwcoLMmy/SME9I9WmP7jT1Mi7IdN8MqoL7UK4VBMqJovv+zWXSLrRrmwWG?=
+ =?us-ascii?Q?Jxg3ln/sJk9S6otll6WbHlhsZMWlCh6vXcXr0jmBagFaxAukj6dqa7v86g41?=
+ =?us-ascii?Q?074wRVbNJg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3309b563-4f9c-44d4-a0d7-08decb79955f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28abd6f4-866d-44a0-2caf-08decb7cf1b2
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 07:33:39.2624
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 07:57:42.6090
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f9wTM6Fg2CV4aFYIQ5ZQBL5RVDI2KqquqFWLCA2AvNe7LLsKlbO0WTRsJnT20ug5EUu4Nw69NqVmehWepw1ETw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7622
+X-MS-Exchange-CrossTenant-UserPrincipalName: ghb/hBjpFMhXkZr9PtCUWYD8K427JLTF+uWtx0IitOdDpjbuB5p4Dq0HvQvTFU/CVgDM4DiXIIKC9iL+OWoHqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4195
 
-On 2026-06-16 at 00:40 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote...
-> Currently, the FSP receive message code will try to allocate whatever
-> was sent without checking it at all. But the actual size allowed is
-> limited to 1024 anyway, so discard any messages over that size as bogus.
+On 2026-06-16 at 03:15 +1000, Gary Guo <gary@garyguo.net> wrote...
+> On Mon Jun 15, 2026 at 3:40 PM BST, Eliot Courtney wrote:
+> > Currently, `poll_msgq` will report a message of size 4 if the queue
+> > pointers are broken. It's easy to catch this if it occurs, so have
+> > `poll_msgq` return an error in this case.
+> >
+> > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> > ---
+> >  drivers/gpu/nova-core/falcon/fsp.rs | 15 +++++++++------
+> >  1 file changed, 9 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-core/falcon/fsp.rs
+> > index e7419a6e71e2..21eaa8e261ce 100644
+> > --- a/drivers/gpu/nova-core/falcon/fsp.rs
+> > +++ b/drivers/gpu/nova-core/falcon/fsp.rs
+> > @@ -107,19 +107,22 @@ fn read_emem(&mut self, bar: Bar0<'_>, data: &mut [u8]) -> Result {
+> >      /// Poll FSP for incoming data.
+> >      ///
+> >      /// Returns the size of available data in bytes, or 0 if no data is available.
+> > +    /// Returns an error if the queue pointers are bogus (`tail < head`).
+> >      ///
+> >      /// The FSP message queue is not circular. Pointers are reset to 0 after each
+> >      /// message exchange, so `tail >= head` is always true when data is present.
+> > -    fn poll_msgq(&self, bar: Bar0<'_>) -> u32 {
+> > +    fn poll_msgq(&self, bar: Bar0<'_>) -> Result<u32> {
+> >          let head = bar.read(regs::NV_PFSP_MSGQ_HEAD::at(0)).val();
+> >          let tail = bar.read(regs::NV_PFSP_MSGQ_TAIL::at(0)).val();
+> >  
+> >          if head == tail {
+> > -            return 0;
+> > +            Ok(0)
+> > +        } else {
+> > +            // TAIL points at the last DWORD written, so the size is `tail - head + 4`.
+> > +            tail.checked_sub(head)
+> > +                .and_then(|delta| delta.checked_add(4))
+> > +                .ok_or(EIO)
 > 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-
-I've read through this and it seems reasonable to me, so:
-
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-
-> ---
->  drivers/gpu/nova-core/falcon/fsp.rs | 36 ++++++++++++++++++++++++------------
->  1 file changed, 24 insertions(+), 12 deletions(-)
+> Whenever we fail with this, we should print a message (actually, the same thing
+> probably should be done for patch 1 as well).
 > 
-> diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-core/falcon/fsp.rs
-> index 52cdb84ef0e8..e7419a6e71e2 100644
-> --- a/drivers/gpu/nova-core/falcon/fsp.rs
-> +++ b/drivers/gpu/nova-core/falcon/fsp.rs
-> @@ -35,6 +35,9 @@
->  /// FSP message timeout in milliseconds.
->  const FSP_MSG_TIMEOUT_MS: i64 = 2000;
->  
-> +/// Size of the FSP EMEM channel 0 that we can use.
-> +const FSP_EMEM_CHANNEL_0_SIZE: usize = 1024;
-> +
->  /// Type specifying the `Fsp` falcon engine. Cannot be instantiated.
->  pub(crate) struct Fsp(());
->  
-> @@ -149,23 +152,32 @@ pub(crate) fn send_msg(&mut self, bar: Bar0<'_>, packet: &[u8]) -> Result {
->      /// Returns `ETIMEDOUT` if no message was available until timeout, or a regular error code if a
->      /// memory allocation error occurred.
->      pub(crate) fn recv_msg(&mut self, bar: Bar0<'_>) -> Result<KVec<u8>> {
-> -        let msg_size = read_poll_timeout(
-> -            || Ok(self.poll_msgq(bar)),
-> -            |&size| size > 0,
-> -            Delta::from_millis(10),
-> -            Delta::from_millis(FSP_MSG_TIMEOUT_MS),
-> -        )
-> -        .map(num::u32_as_usize)?;
-> +        let result = (|| {
-> +            let msg_size = read_poll_timeout(
-> +                || Ok(self.poll_msgq(bar)),
-> +                |&size| size > 0,
-> +                Delta::from_millis(10),
-> +                Delta::from_millis(FSP_MSG_TIMEOUT_MS),
-> +            )
-> +            .map(num::u32_as_usize)?;
->  
-> -        let mut buffer = KVec::<u8>::new();
-> -        buffer.resize(msg_size, 0, GFP_KERNEL)?;
-> +            // Don't blindly allocate more than the maximum we expect from FSP.
-> +            if msg_size > FSP_EMEM_CHANNEL_0_SIZE {
-> +                return Err(EIO);
-> +            }
->  
-> -        self.read_emem(bar, &mut buffer)?;
-> +            let mut buffer = KVec::<u8>::new();
-> +            buffer.resize(msg_size, 0, GFP_KERNEL)?;
->  
-> -        // Reset message queue pointers after reading.
-> +            self.read_emem(bar, &mut buffer)?;
-> +
-> +            Ok(buffer)
-> +        })();
-> +
-> +        // Reset the message queue pointers regardless of outcome.
->          bar.write(Array::at(0), regs::NV_PFSP_MSGQ_TAIL::zeroed().with_val(0));
->          bar.write(Array::at(0), regs::NV_PFSP_MSGQ_HEAD::zeroed().with_val(0));
->  
-> -        Ok(buffer)
-> +        result
->      }
->  }
+> A plain EIO is going be very difficult to troubleshoot if this is ever hit.
+
+I don't disagree with the sentiment - this is a problem through out the kernel
+and I have spent way too long tracing where exactly error codes have come from
+both in C and Rust.
+
+But it seems odd to worry about these particular instances - they _should_
+never happen or at least be extremely rare and very unlikely by an end-user.
+More to the point though there are many other places in nova-core (and I'm
+sure other drivers) where this pattern of just returning a fairly generic
+error code exists. So it feels like it would be nicer to deal with this at some
+other layer, eg. some kind of debug option to tag error codes with location
+or something.
+
+So I'm not opposed to the comment, but maybe it would be better addressed as a
+separate question/patch series to figure out how to do this error reporting in a
+more generic or consistent way across all of Nova at least?
+
+ - Alistair
+
+> Best,
+> Gary
 > 
-> -- 
-> 2.54.0
+> >          }
+> > -
+> > -        // TAIL points at last DWORD written, so add 4 to get total size.
+> > -        tail.saturating_sub(head).saturating_add(4)
+> >      }
+> >  
+> >      /// Writes `packet` to FSP EMEM and updates the queue pointers to notify FSP.
+> > @@ -154,7 +157,7 @@ pub(crate) fn send_msg(&mut self, bar: Bar0<'_>, packet: &[u8]) -> Result {
+> >      pub(crate) fn recv_msg(&mut self, bar: Bar0<'_>) -> Result<KVec<u8>> {
+> >          let result = (|| {
+> >              let msg_size = read_poll_timeout(
+> > -                || Ok(self.poll_msgq(bar)),
+> > +                || self.poll_msgq(bar),
+> >                  |&size| size > 0,
+> >                  Delta::from_millis(10),
+> >                  Delta::from_millis(FSP_MSG_TIMEOUT_MS),
+> 
 > 
