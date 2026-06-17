@@ -1,203 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012040.outbound.protection.outlook.com [52.101.53.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE6448BD43;
-	Tue, 16 Jun 2026 23:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781653707; cv=none; b=gdM8h4xAO9UgHYkdV4hMGFw/C8/a3ygxY+44sqxPhLLJbTq4EihPb1/9YXMiiUUwLRL9pQyPcxuYD5O2NXEnStor5WYeH8G7GT1tXRGB69JiU1Nk/flVNV8MO5Exq+RyCtRtnY+bfUyNm4al8fBBnMcwAr1AUsQ/5nKWhPCB72A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781653707; c=relaxed/simple;
-	bh=zfhfPOr9h8jdTEAdspJagZiy7tE5gMuPbgv+0LGLlFA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gCyQ7IU1p+d0e2faCkwgMIiBHmseZc6KoS61MghThTP7uoisUTv+CdH3prBVyTjhPAiW6hqJpYylHR1bjhyysZO8rAQgJwONHB7G9xng6Q7qfAcjvtv6k1Z0wpOu0Wt51vYLZ7Atiywvhatv8DnSaUkOBDBtRlIq9+CcCzz83rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pksa7c9K; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421C513777E
+	for <nova-gpu@lists.linux.dev>; Wed, 17 Jun 2026 02:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781664986; cv=fail; b=WVYy4jbnMz8vajOMBhGU0qmqGndR0Wphjo4NXxmAV49Ctk3PW0/Hs9NITqYkMBgzlL/oCQLewwSC3u5P3fmigz8CGAUbJBlIbO7UbjoSjiVqFeLBALp+uCDoFmh/Z69r78OFVT0COelP2O4fE8qCGMmF7qfn5dmgfcDGhExZ9Rw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781664986; c=relaxed/simple;
+	bh=uP/KgpqdLs7kd8ECVXhwyZdRzJskcQ9T71GNR0+fVtw=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=aQGIbvNNH9Y0OEkChc1gG+WHTqqpPnDUu15QcgZHn1ukTpqDFr9uifc1KxYZJx67db0nUZTxMhvRx08fltbAiOPSI/vUNQochltyB7/25nqxkTz2CUVgb0jWd17rLtZNdFaabEOLSJANUohR+OG/tTXLdcT70wNRHSCfNvPkEn4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=trmZVwmw; arc=fail smtp.client-ip=52.101.53.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pksa7c9K"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 01999C4AF16;
-	Tue, 16 Jun 2026 23:48:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1781653707;
-	bh=zfhfPOr9h8jdTEAdspJagZiy7tE5gMuPbgv+0LGLlFA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=pksa7c9KnALUQ2Y5EARrBw3Bi75jdh9o/Z8R6/0TxbE45Ds9gOi7C9TK7r/b0Lhf/
-	 aIM3HrWq0yF2Q5ybK3azQOvXYeAiJnM5bgt1lq1kVX/uiNav6s1B/MPDhoyJMc8LFQ
-	 2I5ayOS2sMuE9s8iZB+LYlMbk/iqBkOK/4Bn6Xb4Bnmu1ncrXMnw6u6buQSvTeMuBJ
-	 3Qc027P8AmBAbEvW6Vu6P8tiPsDEcqTE7jkKKkCQJpzlCl+XWQ+CEGMVTHxxAePYC6
-	 3vLnSEK7ipwcMq62dCSvmqq6YUe91avIp93AmfT4j8HQ3dDP0xXt06f0P6ylGvZNzO
-	 61en1jluzAA9Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EED3ECD98F0;
-	Tue, 16 Jun 2026 23:48:26 +0000 (UTC)
-From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Wed, 17 Jun 2026 01:48:16 +0200
-Subject: [PATCH 5/5] gpu: nova-core: falcon: Move PFSP register
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="trmZVwmw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XuAIk76TT12WL4gTnRgwLsWbi4eD6R4q28dRPJWhgbMDx5ay9RwpY41sTsVfQcTFI8PS/XkafmNbR5BHF17hhakFskUuOGPcXxUGkjtdnf5dirnQtHoLu+y2cbZYy4ozwQt2YTUUyPl/E7q4lnVkhuEFsTBxtVEcVHyMqS5rYk5xuxOxqvfzX4hERZ57dtigWZc3L61xurOwcBwhYV4SAOzbiq2rALuF7F9Ggi/qV8/4QXF6uIKrPvgo0ryGMW3fk8OXB9rwBnkwKyxgyWTA4l49cJAgXE4v0Rwwgq04JYeuyXk7lTPNfxTAU+vlQF/LBmvaSN61xiEf3ZyZyU2QCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CkXtsPJnAP9dR3ey4TfFSYrRAO5lVq3pBzPayZcl9y0=;
+ b=VNucH2VqnjU2xrzuw7H5IjmIY3kEb3olxmqRdGL2yANk70WfZP55fbFjl6ALMHtTPsOTMNp+BSy4ErKY//qynv4vFstz+NBl7U5Zb9nOYtTih3c253DKHmxUg0BpnNDCzQ2GqVLXE4+kbwQEoXSJOIhhNlYEBiOwEsjW51v/9b340+OMtLipjbiFUWkOP34mHszL9dmFUwuPS/HYOtb4peBK3x3/iH3XvKw2L0IvQtoHdzPP4EGyXMW4Yt2AFlujyD4ogLGiiisg83gZPkb17cT3Z9q5bLbqkm4VoByNrF04+V6R5OQwn9FHsMlko9UpUHWOq08r/svtROa+4058eA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CkXtsPJnAP9dR3ey4TfFSYrRAO5lVq3pBzPayZcl9y0=;
+ b=trmZVwmwNzhXYLu/94KtvabmHr1nm/G1ULfj37oDeWBxkZIkGDVFFb9ChX14/fComBzjioy2kwNyyuw/GGKz89LXpOfD1naT5KbuaxVyYv62Z3c3848g/aqGJzauIAW+pJ6D6NSSnHi8ywKTCgPaqCU2ZY88mq/QPjnJKyBZCNF5xIqA3br1X4mLzZpRs/p4thTwMMpP4QBhMrYL+ydyMrShhxkMsa8PczBvMORQDnvv8UuNk8is6Ne6HnObCqoh7SSYXJPTeT2kCHWf5EdEcNMZ3e0bRCnvd+UQ10+lL/rsYleyLB46gXcLZit9F2WxI24fuj2D+g+YjFTIfRuvZQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SN1PR12MB2368.namprd12.prod.outlook.com (2603:10b6:802:32::23)
+ by CY8PR12MB7291.namprd12.prod.outlook.com (2603:10b6:930:54::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
+ 2026 02:56:17 +0000
+Received: from SN1PR12MB2368.namprd12.prod.outlook.com
+ ([fe80::281e:52ee:b18e:ad42]) by SN1PR12MB2368.namprd12.prod.outlook.com
+ ([fe80::281e:52ee:b18e:ad42%7]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 02:56:13 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 17 Jun 2026 11:55:45 +0900
+Message-Id: <DJAZIGJQ72A9.1688NC74RA4SY@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 03/13] gpu: nova-core: fsp: try to enforce exclusive
+ access to FSP channel
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
+ <20260615-blackwell-fixes-v1-3-f2853e49ff7d@nvidia.com>
+ <DJ9SKDFB5Z63.JPEV0D1Q60L@garyguo.net>
+In-Reply-To: <DJ9SKDFB5Z63.JPEV0D1Q60L@garyguo.net>
+X-ClientProxiedBy: TY4P286CA0123.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::13) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-nova-core-regs-split-v1-5-4c7dc4450ea7@nanonej.com>
-References: <20260617-nova-core-regs-split-v1-0-4c7dc4450ea7@nanonej.com>
-In-Reply-To: <20260617-nova-core-regs-split-v1-0-4c7dc4450ea7@nanonej.com>
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Antonin Malzieu Ridolfi <dev@nanonej.com>
-Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, daniel.almeida@collabora.com
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4371; i=dev@nanonej.com;
- h=from:subject:message-id;
- bh=e+RPTcJ/xqY9sHKEN1ysB3kpbYR3hnWcV9YH6i5vuxU=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqMeDJ4E5hAWmWx4y3VvMopq0DVgL/2pcl9FH29
- pnFkkAGyDKJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCajHgyQAKCRBmh/EjChUV
- /WflD/9MiIELe1VPjb4tX9A/cmkMlc8bmGDZTnTFXaPhCqJ2oZHQrg0e8fl2/etB4aSdDfuNaHq
- lRMAVOHR0qPlGnonBJjMpEUbsszD0dG9ljDztVPxK3l37+P9qTFqwEfQecv9fYZqAqmvk2aCBFA
- VQPysLVNZY5g06eDg5WYXAVAvpFzUxfCaO3Be6kX8DtNIrvzy+pWXWwpHwlqIXbH67Fs9b0w1QH
- bW07HRiuSDSSd2JtyuNuIDHvIk9MbsAlBjIw6QluvcsFfZ/WfN8bfbSKLxolTLT0Yi/sg+9ULwI
- l/TEih/M0pSM2mlW6qwVfjtP5k+smb4SVlMGwi7dqg/XIoqwnKbGSRptuZamvX9cPRw4GqoYRjl
- kp+XRqdSyp4+S4GQj6sKmtNOktPfru4QsDh6Zt9adxuNT7naC17AsuJ1NlVl2QCWjfPhN5rHKMq
- ztVZNgQcXE+jZK6u2pnizlzPib1TIYPQIDZpfzUC+GaazC74EnJr4Dmr6ZA10NwJ9yyLETaaHuA
- PBLcIPE69xA5S2eE1ve6+M5vv0rg2CXhgzWFbCP8YnWBZ+nBMfzYLjSVeIkqi287oODs3fgPqyW
- MXE/n24lBcU6T/zab3VyK7s50U5fYLzw4bsbdd3F5opurpYRmPbZu7v+Bj1wKFSlF7Sgu8NjBuz
- Vi9E4730HtMp3HA==
-X-Developer-Key: i=dev@nanonej.com; a=openpgp;
- fpr=83B64FB07C91212F5285227D6687F1230A1515FD
-X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
- auth_id=825
-X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
-Reply-To: dev@nanonej.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2368:EE_|CY8PR12MB7291:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72ea507f-0fb0-4375-58c0-08decc1bf279
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|10070799003|7416014|376014|4143699003|18002099003|56012099006|11063799006|3023799007|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	TajnioH8IKoT2T9S6sV9xCe5HzJX44lEgVdHPi1FXH06QQYBHHGFUXJMgffyTpDNeOY65AkAFa2pziJZHRc+PK79lc53In44DczFj4SYR2E6MO2/9wZzDg8uetNNrwAsGDbXVNpy6Vh09bn5hJymH2cGDqF8WDbkTIS3+OCWakfhtrDTZLMncQIUPDnDcOT2301qL9Xm3WG7q64Zk39dhRJA0A+Buqr9rZdWQgvvDpC+odsBZNYdlNSr4JgWpuxS5fRCApydDaK0FXMo+aBn/RQmFqbugnluQhpyUFfegRc43on9/qAruBLwus3ZqfwwXNanQ603NHyfmKDz2lO3CfNRgQAnWB/e2FPqAN55s7UnCQ8kXuHgJcBEMOcx7pyIQxUog+e9M/el1XicQq2TZ13fOa8fdsXbm0n1FCFxebarjh5Y6L81g55ygrHSpCS87Gr3rWHO5tZT4lBezQjai8TARNknqNklT8GaTPZLqxrZifPdbwOX+gIVDMp5vFsJWfkKD2FSEWJThvBHzY1MKMH6Brdyut17vCf2EfRl866wA0yfZyDt4Th4KDdW3lIu8LfXzGmLEEiSRbqdzu7z/xyoCo/AwCc7NBSuQ75owBGVf6Ic0KKpIPx2s1l5D3TU353Ms0otj8dtgPlPQbVnpqO0WF0+29BAsav6Gs3kFlxHHBvMyBmS9zeQ3Q7H5C22
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN1PR12MB2368.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(10070799003)(7416014)(376014)(4143699003)(18002099003)(56012099006)(11063799006)(3023799007)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SFh0OUpGV3F5TWx4RmtWNzdDOVQ1UW1CMkdHS1h6UWZsKzI0b1NpUWpjckdS?=
+ =?utf-8?B?QzlwYTd6b3pVaWM5TUc0ZW9aSDFVaVA2Q21ITjVwRXk1ZHQ3QWVxYzkxMG1K?=
+ =?utf-8?B?MGNvL1VmR1ZUYVlGa21GOUVSNEk0ZWVRTWk4WEg4OGwzQmFQdzVCdzAyeXls?=
+ =?utf-8?B?OWpXRkxJUEVxYWdnOEZLQ0NncVNsbXFVU0Q3d2Y2dEUzWi9qQXdjS0pNK2NP?=
+ =?utf-8?B?QjNzS1ZsS085TzdPTTMvbWQ5NElwVUR4bmhrSS9sQVBGWkFaNUswdFFKRjVU?=
+ =?utf-8?B?dmdBcDlQZjcxdWVkazRZUmVjZlBCeXc4RlRpakYraTBwYUxGTGVVMUFDR2I2?=
+ =?utf-8?B?SHhZWEhSSzNMbW1wK1paUkNINksrOEh4MEo0T3dyNFBMSEVyU01HTGdQem9l?=
+ =?utf-8?B?ejEyS2JEZ1VTQ0xXRGFEUHhSRStxWFllZjF2Ykw4L05xcjgxbFVyZWhpL3lz?=
+ =?utf-8?B?Ylp4VlhlZnlBTHBRODNBZk4zaDN1N3hjbVRrYTNobVNiTUEyMW9xQnp1SWlR?=
+ =?utf-8?B?NjF2djlsYnZiamZEZFBrL3BISUVndTk1Z3FjN1duQUQxQWVRMlFHbjdUWmNl?=
+ =?utf-8?B?eE0xVjhLSWRCRGR4RzFBWHBxQWRxc0lMT0Q5cnpONFp2Z3RMLzl0ckxobFND?=
+ =?utf-8?B?dXJyaE95WXczeFAyUU1ENm1ONEZTQ2pyYkVUZ3dDVWpCWDZXYktmL0hoYUhv?=
+ =?utf-8?B?Nmg4WWFCS1hqWnoyNzI4VWZnc2tTeHo0aWt0dzJ3VkNJRE0vYzMyZElPcnYy?=
+ =?utf-8?B?MXM0cjk1SlY4QVBRelpNWWd6M0tWSzhjbTZvYnFBYTNkWlZMYnI5WVhpQWdk?=
+ =?utf-8?B?QzFUMEZ3TGpwV2JZTzlpRjlMK3h1bmpkc1lCNWlFcmh6YnIxQ0ZlaE92empR?=
+ =?utf-8?B?VDM3ZnEwdy9IdmIrN1FJQW9MK2xMYW44UmNaN0FzNm5rR3JIMTVseUtrcERx?=
+ =?utf-8?B?SEdzUVNPYTA5TlhSalNUMXIwcnNCY2pKRDJBRSs0ZWhtKzI5SEorbFRSYXAw?=
+ =?utf-8?B?Rk5ZR2RVSjFnemhoUXhjOGhIcTA1eHlaWGFVYTVVWC96VXRTRFlJc0NkKzV6?=
+ =?utf-8?B?dkRFQVV0dTBvc21WY2lIRmZxRnp3V3BiOHRFNUxnL3hZdzBveEdydHY2SzRk?=
+ =?utf-8?B?Q3dQR3pHWXRsNXVVdkQzTTBVaTJrc1hGSmJXNXpXcUFrVjlQMTdCUlNUSkV0?=
+ =?utf-8?B?b2xMbUkvL0htTHhPSHRVNHhiZTJnSU1xcVpQRWpiczdwMXJtTFYzUDduN1I1?=
+ =?utf-8?B?S1F0ZXVraDFVN0VhWk5VaFZHTVkvNHJTREhnUSsyc05ZSlcrNVJlSnNQeHIx?=
+ =?utf-8?B?NFRBYWNaUFlVbEkycFd3SHhJeE5HWjNOZ0UvTjhWaU0vMTVPY3VMbHUyZGdD?=
+ =?utf-8?B?ak9JSmhqYTFsd0RCL2Y3cDl1OXlySzNDQ2cvRG51N3BBeWRub3YremE4MzR6?=
+ =?utf-8?B?SlY2VnczMyt4OTl4eUFSREhOY2xRQWpnWW9vWDAzSG1RcGxLRnBnaFFUeEY1?=
+ =?utf-8?B?RVdSYmozWnVEL2NKNXMvY3ZGV0wwYTB4d3J3c3pHVENsQW5LOXU1ajMvbUl2?=
+ =?utf-8?B?b0ZPN25jQVloQ1ZaMktRSVhvREVNOFF0T2Rnd0ZQMVdNSXo5bmJvQ0IzajhE?=
+ =?utf-8?B?Tks0d1Y0U2Z5Rmt3czdPMkxVeUNKbEp1SDFLeVUwc1kwNG1DTGFtdGY2WEt4?=
+ =?utf-8?B?YVFQR0F1bjJuY2FpRTduNTRrclZCS0U5TzMvM0tTVTdDOU11ekoxSGM1VFVy?=
+ =?utf-8?B?VzgzeVA0SllOSFJRMGx5bkFYU0JPWmt3eEFLeFBDUFkrSUE2UnQwOUp0TmZ6?=
+ =?utf-8?B?RUkrNmgrYmErcFpGMWRudzNGRUNXSFBTMGw0NzdCdzVTeGZOdmJqVkpXNG5W?=
+ =?utf-8?B?U1RYcmoxUjd3dzBPWXhwTFZ3RWZ6d2lqOWRuM01XL3ZUb3VXK2YzbzhnbFdB?=
+ =?utf-8?B?L1ZJR0RVZG4wL0g5bVorbmp2eGxibUV4RWwyb0RFMFA5WTRFc0xpTFpjTGd1?=
+ =?utf-8?B?bkFrQWtIdG92RlJPNWdjOW0wNTgxL0pkTXdwTGk3MEF2amx4OHJ0VXErWDJE?=
+ =?utf-8?B?QUpSa0VWQS9MQTdoQm1BNG1rczhmNWZFQXM0blZRTm5MU2YwVStRZ1hBamlO?=
+ =?utf-8?B?Z0lFQTMzQTNZcU1FbitDbWdQNW1BdUpKU2Y0WllVMytJNVRaNXlDN0dWeSsy?=
+ =?utf-8?B?eE1CYU1ZL1JqOWd5MzkvQWswbDgyblVWMVdLeHNFTVJQZ2VqWTlOcUU2Z3hv?=
+ =?utf-8?B?bXkzNFJCQkp3SDRYSDE3ZGV5TitwRFh5U1g0RUdQMVhCMEJEbzlveU1ERGFx?=
+ =?utf-8?B?dmhxTGJWRWVHbkhMcU82NzFVWDBsU01zRjUrbXRSWnFSK24vMCtaeTNmY1RN?=
+ =?utf-8?Q?ELFIposwkQeb4aue1D6NspWqe2kO+PCteivGOxXGknT17?=
+X-MS-Exchange-AntiSpam-MessageData-1: BYQvoOrwf2tETg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72ea507f-0fb0-4375-58c0-08decc1bf279
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 02:56:13.2521
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9QNw/OgF8utdwIk4BzHc6CSsrvDdBvInvYYqq6Ew++Hn1x6r4DBKt4WrS4tLaKgeZ8yB7EuHjVKrm/hZ/zPEUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7291
 
-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+On Tue Jun 16, 2026 at 2:16 AM JST, Gary Guo wrote:
+> On Mon Jun 15, 2026 at 3:40 PM BST, Eliot Courtney wrote:
+>> Currently, `send_msg` assumes that the channel to FSP is free to write
+>> into. But, it might not be. Both the kernel driver and GSP communicate
+>> with FSP. The way they should attempt to keep exclusive access to this
+>> channel to FSP is by making sure they don't try to start writing if
+>> there's pending data until the full round trip has finished.
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/falcon/fsp.rs | 23 +++++++++++++++++++++++
+>>  1 file changed, 23 insertions(+)
+>>
+>> diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-core=
+/falcon/fsp.rs
+>> index 21eaa8e261ce..cdb476894e1a 100644
+>> --- a/drivers/gpu/nova-core/falcon/fsp.rs
+>> +++ b/drivers/gpu/nova-core/falcon/fsp.rs
+>> @@ -125,6 +125,26 @@ fn poll_msgq(&self, bar: Bar0<'_>) -> Result<u32> {
+>>          }
+>>      }
+>> =20
+>> +    /// Both the kernel driver and GSP talk to FSP. Try to ensure exclu=
+sive access to the FSP is
+>> +    /// enforced by making sure there is not a pending message already =
+sent to FSP, and that there
+>> +    /// is no pending message from FSP to be read.
+>> +    fn wait_until_ready(&mut self, bar: Bar0<'_>) -> Result {
+>> +        read_poll_timeout(
+>> +            || {
+>> +                let qhead =3D bar.read(regs::NV_PFSP_QUEUE_HEAD::at(0))=
+.address();
+>> +                let qtail =3D bar.read(regs::NV_PFSP_QUEUE_TAIL::at(0))=
+.address();
+>> +                let mhead =3D bar.read(regs::NV_PFSP_MSGQ_HEAD::at(0)).=
+val();
+>> +                let mtail =3D bar.read(regs::NV_PFSP_MSGQ_TAIL::at(0)).=
+val();
+>
+> How does this prevent race between kernel and GSP when initiating FSP
+> communcation?
 
-Move PFSP register definition into falcon module and update registers
-visibility.
+You are right that it does not prevent it in the general case.
 
-Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
----
- drivers/gpu/nova-core/falcon/fsp.rs  | 14 +++++++-------
- drivers/gpu/nova-core/falcon/regs.rs | 21 +++++++++++++++++++++
- drivers/gpu/nova-core/regs.rs        | 21 ---------------------
- 3 files changed, 28 insertions(+), 28 deletions(-)
+This is the logic that openrm uses and locally, much earlier, I observed
+sometimes I did actually need this for reprobe to work. I think the
+reason (but it's been a while) is that before we did not wait for GSP to
+halt on unload and probe failure, which could mean there's a leftover
+message from FSP that is not consumed if you reprobe quickly after a
+failure. Now that we wait for GSP to halt it's much harder for this kind
+of issue to occur. Actually, it might be impossible currently for this
+kind of race to happen without a failure on unload (e.g. timeout of
+waiting for GSP to reset).
 
-diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-core/falcon/fsp.rs
-index 52cdb84ef0e8..547843e6483c 100644
---- a/drivers/gpu/nova-core/falcon/fsp.rs
-+++ b/drivers/gpu/nova-core/falcon/fsp.rs
-@@ -26,10 +26,10 @@
-         Falcon,
-         FalconEngine,
-         PFalcon2Base,
--        PFalconBase, //
-+        PFalconBase,
-+        regs, //
-     },
--    num,
--    regs, //
-+    num, //
- };
- 
- /// FSP message timeout in milliseconds.
-@@ -61,7 +61,7 @@ fn write_emem(&mut self, bar: Bar0<'_>, data: &[u8]) -> Result {
-         // Begin a write burst at offset `0`, auto-incrementing on each write.
-         bar.write(
-             WithBase::of::<Fsp>(),
--            regs::NV_PFALCON_FALCON_EMEMC::zeroed().with_aincw(true),
-+            crate::regs::NV_PFALCON_FALCON_EMEMC::zeroed().with_aincw(true),
-         );
- 
-         for chunk in data.chunks_exact(4) {
-@@ -70,7 +70,7 @@ fn write_emem(&mut self, bar: Bar0<'_>, data: &[u8]) -> Result {
-             // Write the next 32-bit `value`; hardware advances the offset.
-             bar.write(
-                 WithBase::of::<Fsp>(),
--                regs::NV_PFALCON_FALCON_EMEMD::zeroed().with_data(value),
-+                crate::regs::NV_PFALCON_FALCON_EMEMD::zeroed().with_data(value),
-             );
-         }
- 
-@@ -89,12 +89,12 @@ fn read_emem(&mut self, bar: Bar0<'_>, data: &mut [u8]) -> Result {
-         // Begin a read burst at offset `0`, auto-incrementing on each read.
-         bar.write(
-             WithBase::of::<Fsp>(),
--            regs::NV_PFALCON_FALCON_EMEMC::zeroed().with_aincr(true),
-+            crate::regs::NV_PFALCON_FALCON_EMEMC::zeroed().with_aincr(true),
-         );
- 
-         for chunk in data.chunks_exact_mut(4) {
-             // Read the next 32-bit word; hardware advances the offset.
--            let value = bar.read(regs::NV_PFALCON_FALCON_EMEMD::of::<Fsp>()).data();
-+            let value = bar.read(crate::regs::NV_PFALCON_FALCON_EMEMD::of::<Fsp>()).data();
-             chunk.copy_from_slice(&value.to_le_bytes());
-         }
- 
-diff --git a/drivers/gpu/nova-core/falcon/regs.rs b/drivers/gpu/nova-core/falcon/regs.rs
-index 4d4e69b235fc..81530abfb54c 100644
---- a/drivers/gpu/nova-core/falcon/regs.rs
-+++ b/drivers/gpu/nova-core/falcon/regs.rs
-@@ -53,3 +53,24 @@
-         0:0     valid => bool;
-     }
- }
-+
-+// FSP (Foundation Security Processor) queue registers for Hopper/Blackwell Chain of Trust.
-+// These registers manage falcon EMEM communication queues.
-+
-+register! {
-+    pub(super) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
-+        31:0    address => u32;
-+    }
-+
-+    pub(super) NV_PFSP_QUEUE_TAIL(u32)[8] @ 0x008f2c04 {
-+        31:0    address => u32;
-+    }
-+
-+    pub(super) NV_PFSP_MSGQ_HEAD(u32)[8] @ 0x008f2c80 {
-+        31:0    val => u32;
-+    }
-+
-+    pub(super) NV_PFSP_MSGQ_TAIL(u32)[8] @ 0x008f2c84 {
-+        31:0    val => u32;
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index b21a5adc723a..9069aeff1ee4 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -491,27 +491,6 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
-     }
- }
- 
--// FSP (Foundation Security Processor) queue registers for Hopper/Blackwell Chain of Trust.
--// These registers manage falcon EMEM communication queues.
--
--register! {
--    pub(crate) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
--        31:0    address => u32;
--    }
--
--    pub(crate) NV_PFSP_QUEUE_TAIL(u32)[8] @ 0x008f2c04 {
--        31:0    address => u32;
--    }
--
--    pub(crate) NV_PFSP_MSGQ_HEAD(u32)[8] @ 0x008f2c80 {
--        31:0    val => u32;
--    }
--
--    pub(crate) NV_PFSP_MSGQ_TAIL(u32)[8] @ 0x008f2c84 {
--        31:0    val => u32;
--    }
--}
--
- // The modules below provide registers that are not identical on all supported chips. They should
- // only be used in HAL modules.
- 
+The reason I thought to add this is more to match what appears to be
+the protocol that this transport uses (even if it might not be sound
+generally). I am curious what others think, if it's worth keeping this -
+IMO it is since it does appear to be part of the way the communication
+on the transport is meant to be done.
 
--- 
-2.54.0
+At least the comments could be better, since it looks like my hedging
+"try to ensure" is confusing because it really doesn't in the general
+case.
 
+>
+> Best,
+> Gary
+>
+>> +
+>> +                Ok(qhead =3D=3D qtail && mhead =3D=3D mtail)
+>> +            },
+>> +            |&ready| ready,
+>> +            Delta::from_millis(10),
+>> +            Delta::from_millis(FSP_MSG_TIMEOUT_MS),
+>> +        )?;
+>> +        Ok(())
+>> +    }
+>> +
+>>      /// Writes `packet` to FSP EMEM and updates the queue pointers to n=
+otify FSP.
+>>      ///
+>>      /// Returns `EINVAL` if `packet` is empty or its length is not 4-by=
+te aligned.
+>> @@ -133,6 +153,9 @@ pub(crate) fn send_msg(&mut self, bar: Bar0<'_>, pac=
+ket: &[u8]) -> Result {
+>>              return Err(EINVAL);
+>>          }
+>> =20
+>> +        // Try to make sure we have exclusive access to the FSP at this=
+ point.
+>> +        self.wait_until_ready(bar)?;
+>> +
+>>          self.write_emem(bar, packet)?;
+>> =20
+>>          // Update queue pointers. TAIL points at the last DWORD written=
+.
 
