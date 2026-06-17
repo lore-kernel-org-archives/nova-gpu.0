@@ -1,74 +1,66 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011068.outbound.protection.outlook.com [40.107.208.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE102F7EE1
-	for <nova-gpu@lists.linux.dev>; Wed, 17 Jun 2026 14:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6AC842EEA1
+	for <nova-gpu@lists.linux.dev>; Wed, 17 Jun 2026 14:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.68
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781704998; cv=fail; b=hR90+gC13ooXV7DuS6zIyQXJGu0lYCmS7jy1woQH0FswXZfQBSL5c2W7qC+9NGx32wudPFjrPZa0QjmzmTeWpvXvzUSjU6zB7Hp+chUj/fmRJE7nNm1monUyZ4otif31MzktVLlM6YwhJGK+Yt4u6yqDmo/yf+D+LtyIx7oC+Xg=
+	t=1781706488; cv=fail; b=eRdoUJhB57VIgxLnRiECXsz2Cy4IGkjykgG8IN82m+DkcdUl5pUy3VJrGoWxv6Cl/oA5FV4T3bNheD0VBnilqOCVPtZuMLloRPEJIDDiJc0i6+vc4ALjLzzcjDKOF9L2Z/HGm9aZo29b1RUsYtu2aL20IvxafGhrVJTfP0l2Y8w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781704998; c=relaxed/simple;
-	bh=9Qf8o9xG78do+9m8DzX1kSQqkDE1ClZmstZAiuE1HSw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=F49NFg9HapdK7771TSYvyLbne8eIx4CFNuyNngsFwJsiGHEXJNLho3cjAEGPAWpdk+pXcS+iy4FWDbCXEcpbIxQHAbHFAPEuOuieUVM8uX6ziporkhOpiMbnZyzHiSbMi4OEmYm+3LinIA2HMDLLbxkxocw4/d9j1K3duBwJByg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=r3zPR6Cm; arc=fail smtp.client-ip=52.101.85.45
+	s=arc-20240116; t=1781706488; c=relaxed/simple;
+	bh=ZCEtZTe8WapgUQpxSdkrb+JM2FVClLqAD8Yj3NOuzg8=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=qfTY6l+eFfR0CS4EJ6EgQ+3vh6/0Vh7vkequ42P+bMWk1mQUkVOFPGKeT0pVvKUy+XhWssaIYhVXLbXNV2E8bE13WKx20kSvbJaS6RImH53a3/YiILIn5Vlmtlt4anM6z26b83vrt89MM7ZjAYvysoGyU9G3sZgUdC8TTVToiDY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QNEiYOlz; arc=fail smtp.client-ip=40.107.208.68
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="r3zPR6Cm"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QNEiYOlz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XXahZ0BM0ZHXkiVys5283lWnT29mwrXwCFlA2D0PbZG9dHZYagHpcvkKmtOtqJIfxwz8tX+5pyAPBrAZmfWiFUN+oBPBujMqDFeEYBnXdiy55NdInbF0ywxS0CxyLKVzjd1ic20fwQzicP5SI1zAtnisZ+szfUXrtPLRqEYf+zXAN3LYPjg/aFJzbhPNsglKrH63QzgWOiEsX51NTnzAjP+29bGmR2HBX940RAbbuTbPZSSt6tYz6hy1RVcDHunSBcPDcAx3isGmE6TklJIVpR8O8tVl3igwxj4wscv23ZmYQ+B6d9YRSXy5ofIzDNSZ/cceZT9LMDSaA+FFQtNZlg==
+ b=tU71oW6kcjFOEpq0Dwx/QK3r+s4NXGR3ehWBBUP+YjpEbXWlqB7ko5kL5Z10wq+jsr4E8BEbDlfaDreFJ+BEgo0Q+18oNsN6YJN/zTYde+Q7ZuKLRrwY164oeaNYcF+IyNk0RAKas34xbK/D4+t/GYIoo9y2wxcZKeLpVAZIeyTOyUaonHa5QlcfYdPpKgt6lW8nEfxA1UakYQCcQcumdH1e6yxjNV4npcJwsG2W/nmzkrbAirM3rN8VpoXK7zYo6Wng/JniZERt/hiEaOyrei+MhL2qkigrNlq58LNdG2FNOx9tjXtVhYFF2WXPDJjt0Otrz/wSUpUkEQYJpmnsTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NZS80wOQ70xdXL8BiQxtYE8GAsm1DWVR4Hg4S3zOx6g=;
- b=Ynzik4NOZ/+y0g4JpawTOhEutaPvJFVYrKV7XeH8eBnNcFT2jEkmeGlm+CKfAEyKbXxdOQOgAqMUZONSV9ds8Hmz476+eFRsT3hKaJw9UaFCzYos+2V0xvEVBzObcHkl18WkoMQeK/pqVuuu73BcZwQxqEfMlH+0yiL3ryKb+8KtMA+yobFxF3Dm3xznRZUoH2FYC7CrC/yLFijb+LOyHInjTQ75B6nOHFikz5ENip0mXyASkipWGS7l4ZhqFSgdCIZXSh2H7LYnxT5t2BsiYu+SMWpovIl6jQEwljR560V6PnncvxRqB6B4SW95k0gt1D7TtDr5Ivac+SLER5f0Xw==
+ bh=hxXy41+x0+p+60/75Bqxjd1aZ5aS4AVcw+NLV5zZenI=;
+ b=j14V/HWbHo65iLLGy3AjDJ9qaESaB1F9xWpWyBOD+3H7FkWYUcI4DeY/Ykbfi4jVX5asD283GiUv0wLIA5l+xhpHM0UpSj+JQJyBvOpdGGa3Y2ruRGom/EGkWuDh0R2fQAbKD8noThyXiIktOD1f33j1OnarLw9yr14SAilaPB4FJUuH5JKImsQRKLqGEiA3BL+p+CcPdA2rsOxActQL0LPUyLSbTXi7NcEm3rEqscZZhjDbn06RItQX5KxhLrb3yrUdX4cszeslatxJFNQAuOlhlXkRQFYSNIJIoswyNtrUEaI1hDNsofYdLpKWAq++5xiaZChVxu4ZKnDNUUPaIQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NZS80wOQ70xdXL8BiQxtYE8GAsm1DWVR4Hg4S3zOx6g=;
- b=r3zPR6Cm9HM4kZKPAgj7bN2tAILULpvLi3dxcHh0aPa3KrtOtJFxX07Vz+DGEwlQudfocD8WOO9Q0M6wvtr41c0clHchOGqT4oBi7jIX4+FQ+5C4AZEsb2WE8vw3BArnusssyWMX8duDlvBq1mLlqL5kXjU8lzN1TCkE36D40XoswYXweJMZsTEHR2vaCIwn5AJGuxi3bP/FsU+Wu9H57W77Da+T5DuKIkKNmWlbsGRpRZk2Y3OxgzYa6x/OZ7Ozbigc2k2gqP+h7NZMLhmJ5XoQ8xs0/qwh0gDGeayaW16CyztsKNYI391KQ+6ohAmQIXLAjD4A0N8Q6os2MqaGFA==
+ bh=hxXy41+x0+p+60/75Bqxjd1aZ5aS4AVcw+NLV5zZenI=;
+ b=QNEiYOlzNaC4CAUz24G4QeOhDJce82Hz5sCBx3+JXJW+bADgTJ1eWqT9buQSafobtJCtach7hVqaP9KmqzxapeX2YlclAAf713+b6cYciG6jlfeMTK7kR45Sj3EtDwrIaQ2L5xQAMpEbA4MCBFHAOJPuxS6+ZCH0pC3vNFPJ+Maun27Ub9TEpkjYr+IP9gWGgDNISVtxRKLr99skKSzWgVg5Nad6E1WBRuKnDK2i610wfF9JmcOPyXUnITL9VvzOcDST6cJgmaFIBS0jdgo8Pr6Yw2LxABQZ94jtLWddFif/kCixZqyz+oWzZrKhB0Rd1VjJtRHyVeZL/NwWJeh3dQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SA5PPFCAFD069B8.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e1) with
+ by SA3PR12MB7783.namprd12.prod.outlook.com (2603:10b6:806:314::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 14:03:09 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 14:28:01 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0139.009; Wed, 17 Jun 2026
- 14:03:09 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Wed, 17 Jun 2026 23:02:34 +0900
-Subject: [PATCH 2/2] gpu: nova-core: remove local bitfield macro
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-nova-bitfield-v1-2-ec10c6772666@nvidia.com>
-References: <20260617-nova-bitfield-v1-0-ec10c6772666@nvidia.com>
-In-Reply-To: <20260617-nova-bitfield-v1-0-ec10c6772666@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWP286CA0009.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::7) To CH2PR12MB3990.namprd12.prod.outlook.com
+ 14:28:01 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 17 Jun 2026 23:27:57 +0900
+Message-Id: <DJBE8G5OR03O.1EDH7JL21U88A@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 09/13] gpu: nova-core: wait for FSP boot earlier
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
+ <20260615-blackwell-fixes-v1-9-f2853e49ff7d@nvidia.com>
+In-Reply-To: <20260615-blackwell-fixes-v1-9-f2853e49ff7d@nvidia.com>
+X-ClientProxiedBy: OSTP286CA0087.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:227::6) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -77,417 +69,115 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA5PPFCAFD069B8:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce6df4f8-e145-485d-d261-08decc79297f
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA3PR12MB7783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2590f64a-acac-4114-23fd-08decc7ca2c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|10070799003|1800799024|921020|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|366016|376014|7416014|11063799006|4143699003|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ekWTEG/+KPWiNAgDqdtveDSSDahlAw8DOj2FWtN1mu7XkAMYdwZWQTgeG6E4EhxPLGViwWpla6ByWtD1USljwidQ9MX0oYT70Qy5SIPf9NIWT6WfmQaPaNlv0LT1M5iPrPtPuBYfevTFMV/ECm9TvPTowLcDsPty+ofy9m1BfqvFDg2ohgokicrGPAHZ7gxgkeq1t+6/zPf4F1Wl5QIdnZ7M+2tW8ZXms0OEUNnh96EQiYBL7QnQN7Tb5uT0SQsqGwW6Um287GZri3uW8d9Hc16lvE6PVMQyA/AqTcT98lW2UsD1y0SlFPD8adtQ95DOiRvwlG2ZGm1xPD/B7J9Po/R1lGCYvqaUg+7VoXlFYsyZbQq81E4DcTxrkt7lV1sNAPkM74Sn3/Hc7dy7BBPle7TkFosxvdXX+tctcniHbU64fcRAEQESgKeFuATT5RIpc8HheXN4h8se24S0MNG/d01vBNLXbieJoh5scEtdag15pkBLNW0nZ8LeuGD7O/8sCKiCoUgZfyE243OM0SJvzAcaxv+//vprPfDmylDc8y3AWHUGTUd3Dn/SfJ6kSXoqqPs8ta4LHeBwpP0g86Lw7FW03wsybT4UG8TrhNG/RiEFatHCsI8xsSIP2l5UCbXByb6eoEGqOwjlhRE0jEPm1LSWLk9JLmYjnGhrqHEL9o5z8z69440J4Bx+AIDzh78TfsiOli9PnsIKA1V3V3dqKu8kSqh0sUtZRTGJ/uxc3mw=
+	uXP6YDNKnX/lR47b83jjOvefIREX1uzAltVAIY6GWm6Dt33CQrZKHzhPTaBQxttlNG4YI7BzmOeFVw5JzNgySQwsuTkOfGXsH7h/NS5UF9pRR5E4prJb2QpPmXis0t/rL6q5WdoD8wOjaelRo7UhyjzaewSP93BYSjIFkgdv/0Z50y4SVpyfSR8uiQr8w9it5R67L3XRcfXnr3Er7WhIdaza1wYm/kbXmk++Tco9/9omorYPUFee3fKt0k7KguWZcAkxmFB0GDfgQqnfsftVCsQV2j2Uz0W7x2QGT7NtuhzzAVxdQ8tDM5YFpEmo+PZXyQ14Q+gJLhDtnZg9PLm7VvQcgGTMYZWpBHxbFaXdeFxhbmIAbHH5dulN/iSfHbNs12GFnsINSCsGH2ZOqSKshs28r+GgmNKTRKeg8pnuApEw6gKXqdVJZ2ElnmUODhzBQH3nesr9ojfvdDttoRHBpqZTkAF5cuV31sXlfUDOVLbLueBxuLgjPn6Zc0wzNleNk4b/C6HbqyXZ/0RZfiHOZWepSrxv1/odoOgN+OhKjVpwQ9xGzsectskVhrFqxuPQ83zkHr30D22farCTW+nqr2UZbQg7Q5pGjeJ6u0f8N1j7yjZscrc2ZaHz9p8trVY7nB8Tw5X3NhyPDaRnc16kFVcT77tQT1xPU56Bg4VSf/XG/01IlV2TuEgmS8pdgRlr
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(10070799003)(1800799024)(921020)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(366016)(376014)(7416014)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OGh2UG1PTkk1NEVDOHFOUGZUZnRlS1VqV21rSjk2Wk8xV0dBcTVNSTF3aWF0?=
- =?utf-8?B?ODJCMGt4WTk5MHc1NUx4bkdzQStVVnBYYnZSeFNPNXFRYzVCbGFBWjdFOGJo?=
- =?utf-8?B?SlNwRVdkcy9wV0o1Z3hMQ29ObldwYTVwSi91SkFQd2IrVTM5TzJiYkFPemp3?=
- =?utf-8?B?Zzh1S2U1enVNb0RsNSs5cWVlNFkrRkRsRCtLMkt4Z2RyVU8rUEoxS2xjU1Va?=
- =?utf-8?B?Uzl6T0N2eXFRU2lJeVowYStmL0hKeWN4VndDUFB2a0pTY0t0VXNNWEx3TnJ1?=
- =?utf-8?B?bmpTWWRaUll0TEZ1R1lLYmF6cEFnSW9pYkRORnFjU1VoaEtHRm5QaElaNmV5?=
- =?utf-8?B?ZEtld0FMMFdIaUpaL3d3Y2lHeXZjMFBzMDhEZkFlbGs2TytWOFVuUjk1TFpk?=
- =?utf-8?B?V203dWZBNkdobkJuRGdmZzh1NTNWazZCYWhsclB5OUdxNHNhczI2Mm5SVlgz?=
- =?utf-8?B?eWhQaTMxMTNxcnF0MUpOaC9DNjNTQWEyODlsazZaSGR5cWczWkJFdTU0Tko1?=
- =?utf-8?B?Y3M0M3lCMDZKOEJPUk9GMEdrdTRXOWZwYjFXL1o2T3UvUVFxMzNJQTBFTEpm?=
- =?utf-8?B?My9mNFZ3ZDk1WG4wdjVNY3JtUm5YTXRETFJUZTM1Y0puQjRqQ1NDQWFudW1T?=
- =?utf-8?B?L3FvNzdOOEVQeUxDMGF3dy84RkZYMzdra2dleXlVUXYzQ0hYcWZ2SW1wQmQ0?=
- =?utf-8?B?eDI3RHpOM3Z0QVFLTjZzMmIwZjVjMGNIcFJKa1NnMWFpdm01MDhiOEZGRzBS?=
- =?utf-8?B?SHRORVZoaUJyN2M2c240WS9GeGxSN3RLbjRhSVB6ZlQyaDA1UUM2RS9Fd3l3?=
- =?utf-8?B?ckVGa24ramxXWjk2ZVBrcUhRb2FyTGlIN0FLMGc4Vmk1MWFwWE5POG8vWTBj?=
- =?utf-8?B?K01yZlYvV1NkS21HclR6V0NsVEZjU3IrOG9TVC9ic05LNHdRVStTYmJwQ3JV?=
- =?utf-8?B?cXB5ZmFKREtMVmZYWFpndGdvZCt2dE12Wk1weWhPTnN2NGRpM1RWRHQ3Q1Vq?=
- =?utf-8?B?ZWRSZG5WRG5UUGVNVkhKYkc4RFpCZ3JQaC91RTFpQURVTWJlQVA1bWd0all6?=
- =?utf-8?B?anJYOWVLQzNEZWV3dnRRQmZkUnZWMjRwUVlRTGtwd0lzUzRBV2pqNU5VNjVF?=
- =?utf-8?B?TjNyNFFHQWpORmhob1NxWGk1djVFNkpYbDVCRmZ3NE1XdnlOR1lsUnlIRkcy?=
- =?utf-8?B?cFFOWjNvOW0zMnNra1UzQ0RFQXhuUmxFSTRLNFdudjlZUitObzNYanNGZ2N3?=
- =?utf-8?B?MElWY3d2Snl0czFaN0hiVzQxV2J1UVJ3ajMvemNXWTl2NnM4U3JNcFdtemNH?=
- =?utf-8?B?QmpEcHJ1Rjh3N1c1RUxJSEZBc25BcXVIU1Bndk1tTzRFSlJlVEVIVG1Ddzlo?=
- =?utf-8?B?aFk0b2VCTytESmJEdE84RU1oT1NWTHZUV0JxMGtxV25Lb1RkM216TmNzd3hV?=
- =?utf-8?B?Tko3ZlU2VC9hNjFiZ25jdFZkOXVCdkxRUmVKODdZZUZVcmg2ajJXdkhiOUQv?=
- =?utf-8?B?WnNrUUFFREc2aFpxcDhwNFN4QUVDQVZ1NDdrakNMWThsR01TS1pudDV5UlBK?=
- =?utf-8?B?Um01bU9VaXRYdTc5YU54ZG1rb2ZFVnFTNXFhWlZza1pBQUFoSHdXNnVmYjlP?=
- =?utf-8?B?eUZjVSt6VHorZ1Z4dXJva2FpSlJMS21keWxzK05oc3hTTVFKOWl6aWZEdy9t?=
- =?utf-8?B?Ukt5ZEJ2TzBsK2VORGhSM0FzRmNjUmZnbWpKc3lNWUhZVUIzTm85ZVRSYjR6?=
- =?utf-8?B?a2JwSis4TE9HNStQVkd4WHFRQXJEbFlaY3FuazVQNlJITU9FYlpydGh4TzRL?=
- =?utf-8?B?bHZvOG9rOTNTRVV5RjFzMHNTQnpyNDdRcm8xbG42VzV3bDVQeXpHQXcyMVFz?=
- =?utf-8?B?VkJyT2VHNUZXcERseDRXNVlKanVOTy9wRTE4NnZXVEpOamp2cnNncVVMYnhq?=
- =?utf-8?B?OW1XeU11QUd6NlRISlhuUFZ1a3R5RHR6eUtjaEQvRnkraEtQT2tWVGhHOTVB?=
- =?utf-8?B?dFdPNE5LNXJUQmtEOUhQYTNtM0JCK09WeDBrSnRRSThZNmpDRmRBVXNJY2ds?=
- =?utf-8?B?VkFkcFBkWUJucEd3clNwYTJmRVFTNlV1UnVESU9wR0k4VGVnUE16RHdLT1U1?=
- =?utf-8?B?SFJncUNxR29TZHN0NGF5YnhYY2k0WE5rUnJGc2VndUJORnFCcjVJeEJZWlhE?=
- =?utf-8?B?MG1UWWx5djc5bEFqQ1BEeTYzVml5Z1NFaEk1b3R1cWZKZDFBa1NJdmwyV1dI?=
- =?utf-8?B?alQ4bUNWYjJKYU8rc3BSemlhcXBDOVpVY29xenJlakI0aGJTU0EzNmo3dnNV?=
- =?utf-8?B?MVlqakcwOG5hL0NWU1VlM1BmWjN4U2NRZGJCWFhqc2FURXdVcTNSN3F2NU1W?=
- =?utf-8?Q?r2wllcpm+67RkJFYzzSMXE8Bv9Y25rUOPjVb1k6ELNXsB?=
-X-MS-Exchange-AntiSpam-MessageData-1: s+s8JcSgau32LA==
+	=?utf-8?B?ZENTRm4rNklHZUNXK1FocW9rRWt4ZmFpNnZwTit3djdORExnMVQ5aHZhalhk?=
+ =?utf-8?B?WUkyTVRLWW14b3g1YVRmQi91RnJ0RGlsNHFWRFVBL2c1RnhjZTdmRmQ0V0dK?=
+ =?utf-8?B?b1hNRzdjeFo5KzZkb3dkclZaTFNwbWl2TlRCVU92WHROL1g5cDRWVHFtN0dm?=
+ =?utf-8?B?bG8vRG5WZGhrS0ZFWWxMdEdYdWxvZGZQWSs3L2dycThrV1dvT0ZoREpaMzV3?=
+ =?utf-8?B?SSt3NU5jSGFuV0RzVDdXMm0rME1GME9TMUs3ZWh1SzFFVCtUK1FKcEtjMEdT?=
+ =?utf-8?B?S1kzOHJPemp4NFcvZ2lYdzIzOEpvaUFudkFQQ3JNUURPdDBuVmhDWllYdEFF?=
+ =?utf-8?B?WGhsS1F6VllvTmprYTZWVDZvZ2huZWVpSFczemVUTFhZVjVIT1JUMWZVaGF4?=
+ =?utf-8?B?ZGxBSmxOZlNOVHA0Z0pSd2VpQTNvRDRzS0dybEZsRjQzcEUvaktkRVVJS2Q4?=
+ =?utf-8?B?OTJwbUIrZUVRejZEM0Y3bFVXeFEyaURJNGtvb3U5RGM1akdZZTRjeUt6aGRz?=
+ =?utf-8?B?RUdNZk1QK1JmZ05VSUI1azZxeEt3THdMMkRhQm50VVB5alhldnM0M29kZ1RQ?=
+ =?utf-8?B?Sy9xMi9HOUZCd2ZqT3llNVl2eThFSllxKzhxZm5jczNRWUUzWHcxdGp3bi9v?=
+ =?utf-8?B?K0cyQXRaY3lSc3hjYlVuM3V5Y3ROZ0NvakNDM0RIbFE0eklNSlJJZDZPdXhD?=
+ =?utf-8?B?YVdjUHhIalF1Z1JISFI5YytSQ3hTY3QwVi9HSjU2V20rUEtTbk1mUWFpbmtG?=
+ =?utf-8?B?UHRKd093cUJWOGlKbk83NzdHSWJneDJYUmNVcDR0bC9leVJxdFNramh0dmkw?=
+ =?utf-8?B?VVl5UTdiQzR4RUNwY3dTMjllU3hqWmliOVdvMUlmL2JqMkRLaHBqYUMyNzl5?=
+ =?utf-8?B?dUtsSnNVck9xMkV0a0hnRy9uNUpjdTkxc0YvcTlIVE45U0Q5NzZmalFra090?=
+ =?utf-8?B?RmtvYTRvOWg0SVAwZWlwNEJYTTRKdUdPVit1R0k3WS9xeGcrNlBrbUFjM2F4?=
+ =?utf-8?B?SiszRHZpZlpuUDVzTzRoNnVDdVVpSlhrbFEwSkVYQ2gzV3RFa25wUEFWMTB2?=
+ =?utf-8?B?bWx5RGhETGFCSkNaMDBMQ2ZEMUN6aUNCb0piNHU4a2JQa21KY0FlWGNRNGpZ?=
+ =?utf-8?B?Q1JreG1iRzk2c3RJTHhKbGFPWmhnN2c1MDh1VXVpeU4zQitwaFg5TFNBeWs0?=
+ =?utf-8?B?a2Y3YnkycHBMWGFCaTRqL0d4U09wdFl2VVM1UUZiWjlpZk1kNy9EWldWcG5V?=
+ =?utf-8?B?anpac0tIOG5GNEJ0N0dYdXQycTVITU91KzVDRk90QlpwL3JMendYYTZkYlRS?=
+ =?utf-8?B?Y08xemVCTjBHajdFRDlVd2MwbGFLcExYcGNFdUdUV1Exb0NXcVhaZlQyWmN1?=
+ =?utf-8?B?YnVtTy9KWDIzRG9CUDFYbTZSazNwMEsxTDQ0SEdUMG1LK29lbEh6bHl6bFNL?=
+ =?utf-8?B?aXNGdU1XbDV2YUlHL09pTXVRMkdTTkxtQ01yRVliVlFpK3RXaFJDOGtFRmZs?=
+ =?utf-8?B?Zk1QTzVMVFV4NTNzdzRmR3haYjRWWGJHNjdwZFk2Zm1TM3FZZldFR0diUWR1?=
+ =?utf-8?B?cDVQSmtBNTJ1bGRqZnJzb2xhMWJ5Zmd1SEoyRUtqeTRyMEF3VktoeXhsWU9J?=
+ =?utf-8?B?THlMUkhBemk2aWt2MlFGak5xSHZXTWdtWDA5K0NNMHEzVEdtNU5LQWszWXp4?=
+ =?utf-8?B?TUlhMk56VXFFRFBPVE1VU1hDK2pVaEZ2ellpMkVvQ21HbE9MalRmNlkvbFBl?=
+ =?utf-8?B?QVdnZlIvWDZXVUpBell5SysvNnJSQ2hvazVwdStHUVpMdURZUmxjTmZMcGVt?=
+ =?utf-8?B?WTBZQ1lkenZSc3dHR1JTaXBKdVJxOEcrcDUvNGd3QTlvUFN2RzZrV0hqL0xU?=
+ =?utf-8?B?MmZKaE5wZDZGeEIwaU5RMUE2QmtGNmc5OEpMQWk5VEp6Yzk1ZjMwN1NSUTFK?=
+ =?utf-8?B?TUlsOFpmcGpQSEhZa2ljSmNGVmMvaFVJRFBBUGhPeElaMVB4QWsrTGdnajRi?=
+ =?utf-8?B?UEJjZVRjaEpWSDdDY2hDZUZjZjZ3eEx4ZENYd0o2dWwxZmlEZ0ljZFNRVVNV?=
+ =?utf-8?B?RmVtbzhiay9hMFF4TDV4WXFIbFcxdG5WMFdxRTV6R21UNTRpU0dTNUYwTE82?=
+ =?utf-8?B?aXV2VCt5dWxEN1pPdnR2d0lyMHlWaE5tWTNNbXBmUUdndGlEMnJ0S3duNmZW?=
+ =?utf-8?B?aXZTUUx2RVpTRzhYaWw3TnJqZGV4ejdKMHIvczBKQy83Q3k3aDltYnEzNFlP?=
+ =?utf-8?B?QUs5bHhVLzhvd3Y4SHQ1UGxnM2lBVU9rMHNEWGdHdFZZZGw5ZWFmWWN3OUo1?=
+ =?utf-8?B?UmVpOHJZdWlTcE9rdi8xbU50M2hWeGcwdE85MTlJMzZOVmZKNXdWYSt6L2dT?=
+ =?utf-8?Q?mnG6W4gzU4zK1kNEnZxkfYbQO7DwU/LjHhammCxnADGnn?=
+X-MS-Exchange-AntiSpam-MessageData-1: bml2PherkPiSwg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce6df4f8-e145-485d-d261-08decc79297f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2590f64a-acac-4114-23fd-08decc7ca2c5
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 14:03:09.5946
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 14:28:01.4025
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FCuRGq1jk7c3rh2vN1qhlGNTNtPjBSI4rktX7HEAQ5BVLla49mkFzQyZndoPV3PakKqzEkG7hm8FS3jxvonRCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCAFD069B8
+X-MS-Exchange-CrossTenant-UserPrincipalName: DNMA5h28zyoCmIe1sKRBWnaRchZIMJfDVM4JxvYEB7OUjPh3dw2eUCfNKUoHpVPcgqP4vLaf50VOWVTL2DQKEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7783
 
-This module is now orphaned code, superseded by a kernel-global
-implementation, so remove it.
+On Mon Jun 15, 2026 at 11:40 PM JST, Eliot Courtney wrote:
+> For GPU architectures that use FSP CoT boot, ensure that FSP itself is
+> booted before trying to use it. In particular, accessing registers like
+> `NV_USABLE_FB_SIZE_IN_MB` for `FbHal::vidmem_size` should happen after
+> FSP is booted. Currently, we wait for FSP boot too late. So, move this
+> wait to a new preboot phase.
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/nova-core/bitfield.rs | 329 --------------------------------------
- 1 file changed, 329 deletions(-)
+Can you give a source for why `NV_USABLE_FB_SIZE_IN_MB` depends on the
+FSP?
 
-diff --git a/drivers/gpu/nova-core/bitfield.rs b/drivers/gpu/nova-core/bitfield.rs
-deleted file mode 100644
-index 660c3911402d..000000000000
---- a/drivers/gpu/nova-core/bitfield.rs
-+++ /dev/null
-@@ -1,329 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--//! Bitfield library for Rust structures
--//!
--//! Support for defining bitfields in Rust structures. Also used by the [`register!`] macro.
--
--/// Defines a struct with accessors to access bits within an inner unsigned integer.
--///
--/// # Syntax
--///
--/// ```rust
--/// use nova_core::bitfield;
--///
--/// #[derive(Debug, Clone, Copy, Default)]
--/// enum Mode {
--///     #[default]
--///     Low = 0,
--///     High = 1,
--///     Auto = 2,
--/// }
--///
--/// impl TryFrom<u8> for Mode {
--///     type Error = u8;
--///     fn try_from(value: u8) -> Result<Self, Self::Error> {
--///         match value {
--///             0 => Ok(Mode::Low),
--///             1 => Ok(Mode::High),
--///             2 => Ok(Mode::Auto),
--///             _ => Err(value),
--///         }
--///     }
--/// }
--///
--/// impl From<Mode> for u8 {
--///     fn from(mode: Mode) -> u8 {
--///         mode as u8
--///     }
--/// }
--///
--/// #[derive(Debug, Clone, Copy, Default)]
--/// enum State {
--///     #[default]
--///     Inactive = 0,
--///     Active = 1,
--/// }
--///
--/// impl From<bool> for State {
--///     fn from(value: bool) -> Self {
--///         if value { State::Active } else { State::Inactive }
--///     }
--/// }
--///
--/// impl From<State> for bool {
--///     fn from(state: State) -> bool {
--///         match state {
--///             State::Inactive => false,
--///             State::Active => true,
--///         }
--///     }
--/// }
--///
--/// bitfield! {
--///     pub struct ControlReg(u32) {
--///         7:7 state as bool => State;
--///         3:0 mode as u8 ?=> Mode;
--///     }
--/// }
--/// ```
--///
--/// This generates a struct with:
--/// - Field accessors: `mode()`, `state()`, etc.
--/// - Field setters: `set_mode()`, `set_state()`, etc. (supports chaining with builder pattern).
--///   Note that the compiler will error out if the size of the setter's arg exceeds the
--///   struct's storage size.
--/// - Debug and Default implementations.
--///
--/// Note: Field accessors and setters inherit the same visibility as the struct itself.
--/// In the example above, both `mode()` and `set_mode()` methods will be `pub`.
--///
--/// Fields are defined as follows:
--///
--/// - `as <type>` simply returns the field value casted to <type>, typically `u32`, `u16`, `u8` or
--///   `bool`. Note that `bool` fields must have a range of 1 bit.
--/// - `as <type> => <into_type>` calls `<into_type>`'s `From::<<type>>` implementation and returns
--///   the result.
--/// - `as <type> ?=> <try_into_type>` calls `<try_into_type>`'s `TryFrom::<<type>>` implementation
--///   and returns the result. This is useful with fields for which not all values are valid.
--macro_rules! bitfield {
--    // Main entry point - defines the bitfield struct with fields
--    ($vis:vis struct $name:ident($storage:ty) $(, $comment:literal)? { $($fields:tt)* }) => {
--        bitfield!(@core $vis $name $storage $(, $comment)? { $($fields)* });
--    };
--
--    // All rules below are helpers.
--
--    // Defines the wrapper `$name` type, as well as its relevant implementations (`Debug`,
--    // `Default`, and conversion to the value type) and field accessor methods.
--    (@core $vis:vis $name:ident $storage:ty $(, $comment:literal)? { $($fields:tt)* }) => {
--        $(
--        #[doc=$comment]
--        )?
--        #[repr(transparent)]
--        #[derive(Clone, Copy)]
--        $vis struct $name($storage);
--
--        impl ::core::convert::From<$name> for $storage {
--            fn from(val: $name) -> $storage {
--                val.0
--            }
--        }
--
--        bitfield!(@fields_dispatcher $vis $name $storage { $($fields)* });
--    };
--
--    // Captures the fields and passes them to all the implementers that require field information.
--    //
--    // Used to simplify the matching rules for implementers, so they don't need to match the entire
--    // complex fields rule even though they only make use of part of it.
--    (@fields_dispatcher $vis:vis $name:ident $storage:ty {
--        $($hi:tt:$lo:tt $field:ident as $type:tt
--            $(?=> $try_into_type:ty)?
--            $(=> $into_type:ty)?
--            $(, $comment:literal)?
--        ;
--        )*
--    }
--    ) => {
--        bitfield!(@field_accessors $vis $name $storage {
--            $(
--                $hi:$lo $field as $type
--                $(?=> $try_into_type)?
--                $(=> $into_type)?
--                $(, $comment)?
--            ;
--            )*
--        });
--        bitfield!(@debug $name { $($field;)* });
--        bitfield!(@default $name { $($field;)* });
--    };
--
--    // Defines all the field getter/setter methods for `$name`.
--    (
--        @field_accessors $vis:vis $name:ident $storage:ty {
--        $($hi:tt:$lo:tt $field:ident as $type:tt
--            $(?=> $try_into_type:ty)?
--            $(=> $into_type:ty)?
--            $(, $comment:literal)?
--        ;
--        )*
--        }
--    ) => {
--        $(
--            bitfield!(@check_field_bounds $hi:$lo $field as $type);
--        )*
--
--        #[allow(dead_code)]
--        impl $name {
--            $(
--            bitfield!(@field_accessor $vis $name $storage, $hi:$lo $field as $type
--                $(?=> $try_into_type)?
--                $(=> $into_type)?
--                $(, $comment)?
--                ;
--            );
--            )*
--        }
--    };
--
--    // Boolean fields must have `$hi == $lo`.
--    (@check_field_bounds $hi:tt:$lo:tt $field:ident as bool) => {
--        #[allow(clippy::eq_op)]
--        const _: () = {
--            ::kernel::build_assert::build_assert!(
--                $hi == $lo,
--                concat!("boolean field `", stringify!($field), "` covers more than one bit")
--            );
--        };
--    };
--
--    // Non-boolean fields must have `$hi >= $lo`.
--    (@check_field_bounds $hi:tt:$lo:tt $field:ident as $type:tt) => {
--        #[allow(clippy::eq_op)]
--        const _: () = {
--            ::kernel::build_assert::build_assert!(
--                $hi >= $lo,
--                concat!("field `", stringify!($field), "`'s MSB is smaller than its LSB")
--            );
--        };
--    };
--
--    // Catches fields defined as `bool` and convert them into a boolean value.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as bool
--            => $into_type:ty $(, $comment:literal)?;
--    ) => {
--        bitfield!(
--            @leaf_accessor $vis $name $storage, $hi:$lo $field
--            { |f| <$into_type>::from(f != 0) }
--            bool $into_type => $into_type $(, $comment)?;
--        );
--    };
--
--    // Shortcut for fields defined as `bool` without the `=>` syntax.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as bool
--            $(, $comment:literal)?;
--    ) => {
--        bitfield!(
--            @field_accessor $vis $name $storage, $hi:$lo $field as bool => bool $(, $comment)?;
--        );
--    };
--
--    // Catches the `?=>` syntax for non-boolean fields.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as $type:tt
--            ?=> $try_into_type:ty $(, $comment:literal)?;
--    ) => {
--        bitfield!(@leaf_accessor $vis $name $storage, $hi:$lo $field
--            { |f| <$try_into_type>::try_from(f as $type) } $type $try_into_type =>
--            ::core::result::Result<
--                $try_into_type,
--                <$try_into_type as ::core::convert::TryFrom<$type>>::Error
--            >
--            $(, $comment)?;);
--    };
--
--    // Catches the `=>` syntax for non-boolean fields.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as $type:tt
--            => $into_type:ty $(, $comment:literal)?;
--    ) => {
--        bitfield!(@leaf_accessor $vis $name $storage, $hi:$lo $field
--            { |f| <$into_type>::from(f as $type) } $type $into_type => $into_type $(, $comment)?;);
--    };
--
--    // Shortcut for non-boolean fields defined without the `=>` or `?=>` syntax.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as $type:tt
--            $(, $comment:literal)?;
--    ) => {
--        bitfield!(
--            @field_accessor $vis $name $storage, $hi:$lo $field as $type => $type $(, $comment)?;
--        );
--    };
--
--    // Generates the accessor methods for a single field.
--    (
--        @leaf_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident
--            { $process:expr } $prim_type:tt $to_type:ty => $res_type:ty $(, $comment:literal)?;
--    ) => {
--        ::kernel::macros::paste!(
--        const [<$field:upper _RANGE>]: ::core::ops::RangeInclusive<u8> = $lo..=$hi;
--        const [<$field:upper _MASK>]: $storage = {
--            // Generate mask for shifting
--            match ::core::mem::size_of::<$storage>() {
--                1 => ::kernel::bits::genmask_u8($lo..=$hi) as $storage,
--                2 => ::kernel::bits::genmask_u16($lo..=$hi) as $storage,
--                4 => ::kernel::bits::genmask_u32($lo..=$hi) as $storage,
--                8 => ::kernel::bits::genmask_u64($lo..=$hi) as $storage,
--                _ => ::kernel::build_error!("Unsupported storage type size")
--            }
--        };
--        const [<$field:upper _SHIFT>]: u32 = $lo;
--        );
--
--        $(
--        #[doc="Returns the value of this field:"]
--        #[doc=$comment]
--        )?
--        #[inline(always)]
--        $vis fn $field(self) -> $res_type {
--            ::kernel::macros::paste!(
--            const MASK: $storage = $name::[<$field:upper _MASK>];
--            const SHIFT: u32 = $name::[<$field:upper _SHIFT>];
--            );
--            let field = ((self.0 & MASK) >> SHIFT);
--
--            $process(field)
--        }
--
--        ::kernel::macros::paste!(
--        $(
--        #[doc="Sets the value of this field:"]
--        #[doc=$comment]
--        )?
--        #[inline(always)]
--        $vis fn [<set_ $field>](mut self, value: $to_type) -> Self {
--            const MASK: $storage = $name::[<$field:upper _MASK>];
--            const SHIFT: u32 = $name::[<$field:upper _SHIFT>];
--            let value = ($storage::from($prim_type::from(value)) << SHIFT) & MASK;
--            self.0 = (self.0 & !MASK) | value;
--
--            self
--        }
--        );
--    };
--
--    // Generates the `Debug` implementation for `$name`.
--    (@debug $name:ident { $($field:ident;)* }) => {
--        impl ::kernel::fmt::Debug for $name {
--            fn fmt(&self, f: &mut ::kernel::fmt::Formatter<'_>) -> ::kernel::fmt::Result {
--                f.debug_struct(stringify!($name))
--                    .field("<raw>", &::kernel::prelude::fmt!("{:#x}", &self.0))
--                $(
--                    .field(stringify!($field), &self.$field())
--                )*
--                    .finish()
--            }
--        }
--    };
--
--    // Generates the `Default` implementation for `$name`.
--    (@default $name:ident { $($field:ident;)* }) => {
--        /// Returns a value for the bitfield where all fields are set to their default value.
--        impl ::core::default::Default for $name {
--            fn default() -> Self {
--                let value = Self(Default::default());
--
--                ::kernel::macros::paste!(
--                $(
--                let value = value.[<set_ $field>](Default::default());
--                )*
--                );
--
--                value
--            }
--        }
--    };
--}
+<...>
+> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+> index b3c91731db45..ca37892c3b38 100644
+> --- a/drivers/gpu/nova-core/gpu.rs
+> +++ b/drivers/gpu/nova-core/gpu.rs
+> @@ -295,7 +295,8 @@ pub(crate) fn new(
+>                  dev_info!(pdev,"NVIDIA ({})\n", spec);
+>              })?,
+> =20
+> -            // We must wait for GFW_BOOT completion before doing any sig=
+nificant setup on the GPU.
+> +            // We must wait for some architecture specific setup to comp=
+lete before doing any
+> +            // significant setup on the GPU.
+>              _: {
+>                  let hal =3D hal::gpu_hal(spec.chipset);
+>                  let dma_mask =3D hal.dma_mask();
+> @@ -304,8 +305,8 @@ pub(crate) fn new(
+>                  // still constructing it, so no concurrent DMA allocatio=
+ns can exist.
+>                  unsafe { pdev.dma_set_mask_and_coherent(dma_mask)? };
+> =20
+> -                hal.wait_gfw_boot_completion(bar)
+> -                    .inspect_err(|_| dev_err!(pdev, "GFW boot did not co=
+mplete\n"))?;
+> +                hal.wait_preboot_completion(bar, spec.chipset)
+> +                    .inspect_err(|_| dev_err!(pdev, "preboot firmware di=
+d not complete\n"))?;
 
--- 
-2.54.0
+It seems like there is going to be a need to make the `Fsp` available at
+the `Gpu` level to support the vGPU needs [1].
 
+So I guess the solution here will be to just instanciate the `Fsp` as we
+do for e.g. the falcons if we are on Hopper+. Hopefully that will also
+achieve what this patch intends to do.
+
+[1] https://lore.kernel.org/all/DJAZRULU1QHZ.2NSTR1ZPOQUSN@nvidia.com/
