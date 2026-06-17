@@ -1,70 +1,69 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012066.outbound.protection.outlook.com [40.93.195.66])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0075F3BB66B
-	for <nova-gpu@lists.linux.dev>; Wed, 17 Jun 2026 07:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EF03CFF5C
+	for <nova-gpu@lists.linux.dev>; Wed, 17 Jun 2026 08:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781682788; cv=fail; b=qPyjr8msw4mKhX6B3HzBlZTnt3cAo0PAEU4A3OcDotnOPVF9yi+DKerLk69XvbVrBI3G/ojPZ00J+N7va84FUweVDuhTxq+XAnahn0b5Dz12Z8MB5Q3eKb9L2idMF/JrkFhmK7IIUPnK2nWycxz+/CQL54pYpp8gGoxQO67PDZw=
+	t=1781683324; cv=fail; b=ojsRWC9nzWPBCIcXdZz4TBagNdEYWLiQunt0F1GOi5rGqaQDiDAv0hienFwbzrXu/XJBCb8LxOu5MkBSJGswRgaNi0jy5DWAYSw/9eOhvoquscS3HXfuyu0mzP8Sx8wsZjkgMXvG6wp70WaXUSuiIiglNoMpuqc9tHKypXWEDdE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781682788; c=relaxed/simple;
-	bh=2spQm/8tSEtRBjjm0OSPjX/xVysoCZpySemHUbEW+gA=;
+	s=arc-20240116; t=1781683324; c=relaxed/simple;
+	bh=v3Cz8RfzUZL1oDSJmKazbR6abLuCKvIElyVbZipvXa4=;
 	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AY9j2DmXy5jjbeP+Hj3uyhDBxhdgt6k6Y2p9zP6LrUQ/+cnG1jQnK37hpngyMuYJpCIttXqDUDqf50z5KnZAmOp3kJfKrVl9zLy3eT8E4bO67O/QLP2ra4jcY4Kjv+Z5Xf6NxVDIdeNq6dRfDln5PRti2+SaT7uzFT2pJwggksQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KEdLnUok; arc=fail smtp.client-ip=40.93.195.66
+	 MIME-Version:Content-Type; b=KFygzLA+6Jp15UDPJOpa7e96ujy3Wny6Q3/1B/gWrdEWCs7gHsZEnBug+WhVEzh61BrqNMVMpzbkcg25lWkGBYmE3BWyQBmxX9mYGcPscE/H6YYQ+mblovZBe5EL5WM5wzfm8GfvwrUqZlwUJN1VtF/MqtuSPX7FRrvUzA73LWc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XfcIAa3X; arc=fail smtp.client-ip=40.93.201.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KEdLnUok"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XfcIAa3X"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AADdqm+p9Md1ohW4FO4eAVaiaPhiaz0pPaKId9VI/SOx8kUpEiOTyhlVWHgbU5usPaWO45AIgVOpNkDMKV45H1XKUtvNbzN0kxe6QgyBtF98erxEi+nOKwYLzrVvNgrwbK66c/TPaE9Qc1QjPL8OAH2kQZ8b9NKynQXaIUOmamaxBnVQPxIplmSi1TqFVpzgbBIr1jkPaEiMfEAm/CsOxg2g49yfz06cNYmULQpEKk+Bd3ZHL1VClkRtco5qFV9pJo5SjJFzFP9hIgdvODrio5KzQ2t0zzFsNg3OqO5KK27sGh5NWsAgi8UxYulZGxJnddqUjpkVW/RqGHG9a5hvgQ==
+ b=d8yVGn2Nm+GuPLsmL0XJbaBO2obhOeGcew2kBanwrjdLvV+PtTZuIigkeLhjL8JNtj5q4wVY3ew8WF+lWMwLAIHMzV2Tr6UAFHTgLUFvki7ObAL+zTCJD6Y5/Y9x8uZzftul2ALhDFJjL0ORVXri/op8bHK0VpBqbLxycMWqBm0ttELTuZW6uLJy6H18AjtaQaSseA5tmIrG32HzoEN8OCWj3VgpgfnHEN4znPKjKJNlj65OA0hvpClia75DkD4fJM7QctNbW+Uj5+qTcbhbZ/uVgtHXWtGGljL2W3JWoqrTQ4Kl/wT1/lhaT6zV8T0BexsVROwnhHxKYkLXxLwpsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=udN0cGQGrB0ok2/6fsFGT+Iwd/lSma1QdPUehPNhO0Y=;
- b=mdFyVHMkXccnYzDZlpVh/BhM9PRoeopm52Yd/IIVTaInf1rUjWb0D5Bx0X36GYr9RJechvkJN5a8a9Vb66Tma302X7HaBBIDCSAKzkFM0+4TCPKysKm3DKbO01+976LQXZ70L7AxWLy+ZUJRy82oIpnMzNmsmXFJynPI6IWDP25e8eir7sBk2GwQNx8A7VPfTXgKxiAQDyakvtlZ/ws+SQ5xjhl5MZVVX28BFPnnV3xMcEPWTD8DTvkm1os38JctzQORukveGOyyq+zReDeN75t49oxluJ/OasWUwaVEtE9cAaBmLtLgGJTgy6gyg8lsQy0TvAocHhUcJMX8BrXCzA==
+ bh=YH4E13Porfm0W1Mdrrscjlt+UMQ0IgYhpRSIN7uCIQo=;
+ b=YF3xC5w/encmYmd+RKtjyqQCgt1Axuw2xaQ0fZukRGuqAjJZatwPNAJ4uYPuswP3jaUC5BK2lW3VbffrpYNxDFdPKmy1pvnYPWYVDZkFDf3JCOhDVAaCNeYiLQhUTOuzvJQwn0E6zFbLHtlhVxZ7YboqiI21fOxn01CTlpDRjO9jMBLbTjbq2Dk5Bg8wBFqbzOCDxwn3Y+OU4P7rsQhy1he2hFCn/zZFKxloLZvVJOKopc98sp7VBS5dUPFYkL5TlnxHveeGRnt+3h+YgUWGduZXnoeedXecoQg584E63LFjM/hKjhJmcybI5os8A8Dg+7WGuMAgC3E42w5uazC2ug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=udN0cGQGrB0ok2/6fsFGT+Iwd/lSma1QdPUehPNhO0Y=;
- b=KEdLnUok7baYCmKGueYsHDbW2OWyHTgF468yIfC64fQiOPrp4Phbt6NKaW5VSlu5idqTvek4w9xgDj+Gfr212Yv8Oix9pn1y/BhyamR6m2OrcFV4dpSUVUynGiqt5H/tmemcgmMAlVoAYf8WIJ5BqZPQCuZBWmH6p1sYYPrSGJ1Q/jcQkCoOlSrigRrzgkx5wRIP2pwVH8CwhAAcJ9W1ptGQ7xGnZhXCyTGvXmdVqbS99lViJGx6D9zef2+iIuvXu14EWL2yuYOsQVgvFTF2y2bg2I8P1raxdxdcBJmKzGfoRXFE5MkaWMMddCzCYH1dhDGOF64CBhTbXvfBu77cQQ==
-Received: from SJ0PR03CA0215.namprd03.prod.outlook.com (2603:10b6:a03:39f::10)
- by DS7PR12MB5863.namprd12.prod.outlook.com (2603:10b6:8:7a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 07:52:59 +0000
-Received: from SJ1PEPF000023CB.namprd02.prod.outlook.com
- (2603:10b6:a03:39f:cafe::71) by SJ0PR03CA0215.outlook.office365.com
- (2603:10b6:a03:39f::10) with Microsoft SMTP Server (version=TLS1_3,
+ bh=YH4E13Porfm0W1Mdrrscjlt+UMQ0IgYhpRSIN7uCIQo=;
+ b=XfcIAa3XRdHQUO287+QuOrna2ZGtgrAOaml5+oCwPU58wAFDOv5qPF4VB6wYLjrVY0bhko3pyvnm5/9VBsDOuHW9ZzwQEYOTyUUlA5IJ2fRy7MbT7RV6B0rVgrROTpx1N3/WnaOuVf9fynK/8Szq6oHc0Q7LNgjtHIEB1sj2UlEcZkMBc/GBYPHQl8uM5IcD9Qo01w/Q/w6+ry1hkuBiYatUGjBZyY03eFQq4DraOZKCdJHf1iG88VLchTT7imZ0hRHA3dZ8Sen980/ZKx0JzyNZBqN/JbTMI+RwfkomG4R/BBhxNO2nBQatJgQu2d/tGVPZM11D3Tyx4zzwTB47Uw==
+Received: from DS7P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:223::9) by
+ MW6PR12MB8950.namprd12.prod.outlook.com (2603:10b6:303:24a::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.18; Wed, 17 Jun 2026 08:01:52 +0000
+Received: from CY4PEPF0000E9D4.namprd03.prod.outlook.com
+ (2603:10b6:8:223:cafe::3d) by DS7P220CA0015.outlook.office365.com
+ (2603:10b6:8:223::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Wed,
- 17 Jun 2026 07:52:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ 17 Jun 2026 08:01:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ1PEPF000023CB.mail.protection.outlook.com (10.167.244.5) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CY4PEPF0000E9D4.mail.protection.outlook.com (10.167.241.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 07:52:59 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 08:01:51 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 17 Jun
- 2026 00:52:47 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 01:01:30 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 17 Jun
- 2026 00:52:46 -0700
-Received: from inno-dell (10.127.8.12) by mail.nvidia.com (10.129.68.6) with
+ 2026 01:01:29 -0700
+Received: from inno-dell (10.127.8.12) by mail.nvidia.com (10.129.68.7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 17 Jun 2026 00:52:37 -0700
-Date: Wed, 17 Jun 2026 10:52:35 +0300
+ Transport; Wed, 17 Jun 2026 01:01:21 -0700
+Date: Wed, 17 Jun 2026 11:01:18 +0300
 From: Zhi Wang <zhiw@nvidia.com>
 To: Alexandre Courbot <acourbot@nvidia.com>
 CC: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
@@ -77,15 +76,13 @@ CC: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
 	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
 	<nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
 	<zhiwang@kernel.org>
-Subject: Re: [PATCH 3/9] gpu: nova-core: return FSP response buffer to
- caller
-Message-ID: <20260617105235.5bfa53ff@inno-dell>
-In-Reply-To: <DJ4AKSVWGAKR.17JLX3Z610D7G@nvidia.com>
+Subject: Re: [PATCH 4/9] gpu: nova-core: read vGPU mode from FSP via PRC
+ protocol
+Message-ID: <20260617110118.434aee2f@inno-dell>
+In-Reply-To: <DJAC408HKZTR.20UBUA67YKT3O@nvidia.com>
 References: <20260604114339.1565660-1-zhiw@nvidia.com>
-	<20260604114339.1565660-4-zhiw@nvidia.com>
-	<DJ15E264IOWK.3O2HF317B5UDR@nvidia.com>
-	<20260605190411.4877e6d9@inno-dell>
-	<DJ4AKSVWGAKR.17JLX3Z610D7G@nvidia.com>
+	<20260604114339.1565660-5-zhiw@nvidia.com>
+	<DJAC408HKZTR.20UBUA67YKT3O@nvidia.com>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.50; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -98,55 +95,243 @@ Content-Transfer-Encoding: 7bit
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CB:EE_|DS7PR12MB5863:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fb783f5-1a40-4fc8-4ea0-08decc45734c
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D4:EE_|MW6PR12MB8950:EE_
+X-MS-Office365-Filtering-Correlation-Id: 479c901c-7d33-484d-60f7-08decc46b0d4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|7416014|376014|23010399003|22082099003|18002099003|56012099006|4143699003|11063799006|3023799007;
+	BCL:0;ARA:13230040|376014|82310400026|7416014|36860700016|1800799024|23010399003|13003099007|6133799003|22082099003|18002099003|4143699003|11063799006|3023799007|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	yHcy+9tgnfFce5PipDmtUTAKVSS3eTYUokbRChRWH28ej4BqWxrldQjsaqk8oh0viLepxBAjlrjsiFIyFEaTBKXKxSX5Ti2wRyVu3A5A7eGVozzLPMNQ9YmgW7sIg+cNthZuCSNzZoj3kSQUwc7nWxi+dXyJgJK3nPxXf9HjF1/EO4L2+7vilNKDqGfBJ1Y3p+I+XuyhtxHhlEILyb2/1Wp7dBxSeb/YmYAeO68g+RSPqr2Z8piCLVamgXtcfruUu644PGG2kWRCXz2jYiY/TwWawhCRZ7mqYOh190TWcNHY9SwG3LKt/m8/nR2CqKOK77oZrqKJpsoHlZTVFYosBMDZuMGGhGnK8Eb5P4hzR2Mx8X8kxQwQBqLvOVYQOk0KX3N6qID1O5lZ77n/EUIg7fJaZBOFG18rrI/GB73T1rWJmSp0842FrtvNNV/9nmXkMR96fx5Av94tycMO7z2DZHoaNFj0On8lH2otCuGrG9ELiwUZyfw0CEckfHmK2FmYcPEJM298JgBsONLKq2aFwEbzR/Xx45pmB2bbxpLx+1lsNK0QovdeWtOmpId6zVh1GgoJG8INx9UXQLH2mqzFcgvhR4j66D8I4r1f216sFtjBnSpObhIgHwBoCj8dYnqDJKDgNCUlpMmmswi/5rkKQy2YlEJ7t3zyIZiVtYckYw26DRGL2Xp9qDyN8vUtpIIVVlG/gosT0nbNxqxnJbvAmf0Yrg/IDHqB6ho59e2iCpg=
+	FJqbnvksgIqzToZjLSoFf6PFPGR/LNr9asu+HoiXVouaA7iSMDfUUxw+PtZ2t9tQJpUalkAMRHbpWQTeudgEAObTxoEJPZvetf/za9ZjumdfKXg+dZN4oc7WAzCbgQc5EQcpG11RlHXQys4YscaDqRbkM9UePykbTfWp7V7hnMXRTtZStDzOKbAG72E7DtrCJaH5fdQ3tkHZawGNpCKKkx/z5oQMOn4JZM59w3I8He1fO3DmrURSv0tyIvirAKGunMlOMqgN551nGZjqJf2O4PQEorbGlVfH7/7jxUdS58oMCVBD5PSqBedXJ4uaKrXJ0uX7u7uxPZSDwQtR4PomQ3wwS0QON8LANbd5DxAfj+6fu8APz3BQEu59evaVYv0p5BxGniOwKwWGUR8L2e7MfiOdJsK1Hk4rWAT9+6FZ4V+WJoEj6nBqM03iR5tYaOJ+iH7pM69mJeQiJgOVJRdUN1F1VfGVNRwgegaebUh40nNv42QbmGPiWiciohImetkHoBnKdMM+iwUOknsJw1A8paaqSG+Y48XAS2oiJTUlbhVE6UeOpS2xN4JgGGRVySzmM9I9N82aGEdzHBy24TAJe/nQXIW42yZz9S+u/dfxMXwMHGTcnR4kzwhoLrG5mslinunrw4zWW0sRVWDboEFfrP5UZtfGhHio2hYopShurccdASL7qlYZNsz2VBFzdAnr8tZIx4IyCAnnhGz32ftk6UXDU3DMCQkeFY7X1huEbq2S6JYIeJddbPU+N3tY0w+V
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(7416014)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(3023799007);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(7416014)(36860700016)(1800799024)(23010399003)(13003099007)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(3023799007)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	jgjzVso5+Z50lrhHcQlN+Bd607IRgC6qI9MD2x5oI39fEaypKrPPXvgzUaznDB16H0ungYQL/pfPMDy9xs6dhTQ5TKeB9gk0a7HZ3wp4O7F3Ye0gd0nKDOjbPGW3NDXvZeKRgpBL1scpBiiaAaTiVzIu4ghVjSemlVjppa8BDah4qHl1RU5O5D4/xxqbRBTv+C5/oUxZi2P1b0OHAPptl1IEnWfQ/ww81DJPk5dPcXcxQiovtSN35iEL6C3yFLYsDZciQ9hLNo3bo9ms0gjDBcrcUlC22rTDweIcwJEtIldUfVQFle4ftt5P8ZNqJFu/EVCVgf947AlofXeBnlEN7nTrOxrcEyAYq8To5weCYUCZG7aIVAo7ltE0ki84xs88wbwaALFzwD5FQWyUXWXAszRPUF/kfuRGpCeAez9r91F2A7YBJTIzRmtyfQW4A6mS
+	SztXlyRK/iU1b1YUodFk4J+njVILfIzrnz+qTuWWlEuHQt8XFoHGa3dIi8M8ya7JXhYT2jritGX2XJHtkygoM2jnU4JHwm+KrRxeDuyMPVdJ/STO9KkVba16c0VJcOkOusuv5XZt1c86Whi/ag/F+K/ew/j/OYCtiv7T9NZ2Vc0W7/AfXkodUcWe8Aprv+zDJdD/P8W5VBuDTJYeWmmXf8PFp65FCBdnPzwD69SkIFGG2hYX7CRVRX8W8Prkkb2+Y3oLbOjcqYerQldrNXUOrIl/56EGjkK9u1Yqo5mA+6DjBqVvsBgrHtlaT2+F2uB0qCvB+p5E8nAcshLm4Mj+s4+E9NJ8qHPYoPqTYk7MjOVsa2Ki5aRTw1Qr5uUTSEL8liLdfoonemeCoOgDSrJq3eqmqEAwIchv+McFB28AhhNl5OCeJVoHGX07mxLAjVhy
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 07:52:59.2031
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 08:01:51.8432
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fb783f5-1a40-4fc8-4ea0-08decc45734c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 479c901c-7d33-484d-60f7-08decc46b0d4
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023CB.namprd02.prod.outlook.com
+	CY4PEPF0000E9D4.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5863
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8950
 
-On Tue, 09 Jun 2026 15:07:21 +0900
+On Tue, 16 Jun 2026 17:35:27 +0900
 "Alexandre Courbot" <acourbot@nvidia.com> wrote:
 
-> On Sat Jun 6, 2026 at 1:04 AM JST, Zhi Wang wrote:
-> > On Fri, 05 Jun 2026 22:25:27 +0900
-> > "Alexandre Courbot" <acourbot@nvidia.com> wrote:
-> >  
-> >> On Thu Jun 4, 2026 at 8:43 PM JST, Zhi Wang wrote:  
-> >> > Change send_sync_fsp() to return the raw response buffer after
-> >> > validating the common MCTP/NVDM headers and error code. This
-> >> > allows callers to perform protocol-specific parsing on the
-> >> > response payload, which is needed for the upcoming PRC protocol
-> >> > support.
-> >> >
-> >> > For the existing COT caller, the response buffer is unused.
-> >> >
-> >> > Signed-off-by: Zhi Wang <zhiw@nvidia.com>  
-> >> 
-> >> Same as the previous patch, I intend to merge this quickly as it
-> >> is a local follow-up to the FSP support.  
-> >
-> > Thanks. I will drop patch 2 and 3 in the next re-spin if you take
-> > them.   
-> 
-> Patches 2 and 3 have been pushed to `drm-rust-next`!
+> On Thu Jun 4, 2026 at 8:43 PM JST, Zhi Wang wrote:
 
-Thanks so much. :)
+snip
+
+> > +}  
+> 
+> These 3 should be defined as their own enum types, to make sure we
+> cannot mix them. For instance:
+> 
+>     enum PrcMessageSubcmd {
+>       Read = 0x0c,
+>     }
+> 
+>     enum PrcObjectId {
+>       VgpuMode = 0x29,
+>     }
+> 
+>     (for the flags I guess you will want to use
+> `kernel::impl_flags!`?)
+> 
+> Then, `NvdmPayloadPrc` can have a constructor that takes these 3 as
+> parameters and returns the constructed value - that way no risk of,
+> say, using the subcmd as an object identifier.
+> 
+
+Great idea. Actually, this is what I am looking for - how to
+organized those values.
+
+> Btw, is there a public source for these values?
+
+Production reconfiguration knobs are public knowledge where folks
+can find from [1]. vGPU mode is a newly added one.
+
+[1] https://github.com/NVIDIA/gpu-admin-tools
+
+> 
+> I like the idea of using a `prc` sub-module - to the point where I'd
+> suggest moving all PRC-related types to it, and all CoT messages to a
+> `cot` sub-module. But doing it in this series would distract from the
+> goal, and the `fsp` module is not that large, so let's keep everything
+> in it for now and do this as a follow-up.
+> 
+
+I see. I can send another series to address above after this one is
+done.
+
+> > +
+> > +/// vGPU operating mode as reported by FSP via the PRC protocol.
+> > +#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+> > +pub(crate) enum VgpuMode {
+> > +    /// vGPU support is disabled on this GPU.
+> > +    Disabled = 0,
+> > +    /// vGPU support is enabled on this GPU.
+> > +    Enabled = 1,
+> > +}
+> > +
+> > +impl TryFrom<u16> for VgpuMode {
+> > +    type Error = kernel::error::Error;
+> > +
+> > +    fn try_from(value: u16) -> Result<Self> {
+> > +        match value {
+> > +            0 => Ok(VgpuMode::Disabled),
+> > +            1 => Ok(VgpuMode::Enabled),
+> > +            _ => Err(EINVAL),
+> > +        }
+> > +    }
+> > +}  
+> 
+> You can even do `TryFrom<NvdmPayloadPrcResponse> for VgpuMode` for a
+> better fit.
+> 
+> > +
+> >  /// FSP command response payload (`NVDM_PAYLOAD_COMMAND_RESPONSE`).
+> >  #[repr(C, packed)]
+> >  #[derive(Clone, Copy)]
+> > @@ -57,6 +95,39 @@ struct NvdmPayloadCommandResponse {
+> >      error_code: u32,
+> >  }
+> >  
+> > +// SAFETY: NvdmPayloadCommandResponse is a packed C struct with
+> > only integral fields. +unsafe impl FromBytes for
+> > NvdmPayloadCommandResponse {} +
+> > +/// PRC message payload.
+> > +///
+> > +/// Sent to FSP to query or modify a device configuration knob.
+> > +/// The response includes the common FSP response header followed
+> > by +/// a [`NvdmPayloadPrcResponse`] with the knob's current state
+> > value. +#[repr(C, packed)]
+> > +#[derive(Clone, Copy)]
+> > +struct NvdmPayloadPrc {
+> > +    sub_message_id: u8,
+> > +    flags: u8,
+> > +    object_id: u8,
+> > +    reserved: u8,
+> > +}
+> > +
+> > +// SAFETY: NvdmPayloadPrc is a packed C struct with only integral
+> > fields. +unsafe impl AsBytes for NvdmPayloadPrc {}
+> > +
+> > +/// PRC response payload containing the knob state value.
+> > +#[repr(C, packed)]
+> > +#[derive(Clone, Copy)]
+> > +struct NvdmPayloadPrcResponse {
+> > +    value_low: u8,
+> > +    value_high: u8,
+> > +    reserved1: u8,
+> > +    reserved2: u8,
+> > +}
+> > +
+> > +// SAFETY: NvdmPayloadPrcResponse is a packed C struct with only
+> > integral fields. +unsafe impl FromBytes for NvdmPayloadPrcResponse
+> > {} +
+> >  /// Common MCTP and NVDM headers shared by all FSP messages.
+> >  #[repr(C, packed)]
+> >  #[derive(Clone, Copy)]
+> > @@ -92,6 +163,18 @@ struct FspResponse {
+> >  // SAFETY: FspResponse is a packed C struct with only integral
+> > fields. unsafe impl FromBytes for FspResponse {}
+> >  
+> > +/// Complete FSP PRC response including the knob state payload.
+> > +#[repr(C, packed)]
+> > +#[derive(Clone, Copy)]
+> > +struct FspPrcResponse {
+> > +    header: FspMessageHeader,
+> > +    response: NvdmPayloadCommandResponse,  
+> 
+> Since you introduced `FspMessageHeader` to factor out `mctp_header`
+> and `nvdm_header`, can you do the same for the reponse? I guess in our
+> case this is as simple as renaming `FspResponse` to
+> `FspResponseHeader` and using it in `FspPrcResponse`.
+> 
+> > +    prc_data: NvdmPayloadPrcResponse,
+> > +}
+> > +
+> > +// SAFETY: FspPrcResponse is a packed C struct with only integral
+> > fields. +unsafe impl FromBytes for FspPrcResponse {}
+> > +
+> >  /// Trait implemented by types representing a message to send to
+> > FSP. ///
+> >  /// This provides [`Fsp::send_sync_fsp`] with the information it
+> > needs to send @@ -178,10 +261,25 @@ fn new<'a>(
+> >  // bytes are initialized.
+> >  unsafe impl AsBytes for FspCotMessage {}
+> >  
+> > +/// Complete FSP PRC message.
+> > +#[repr(C, packed)]
+> > +#[derive(Clone, Copy)]
+> > +struct FspPrcMessage {
+> > +    header: FspMessageHeader,
+> > +    prc: NvdmPayloadPrc,
+> > +}
+> > +
+> > +// SAFETY: FspPrcMessage is a packed C struct with only integral
+> > fields. +unsafe impl AsBytes for FspPrcMessage {}
+> > +
+> >  impl MessageToFsp for FspCotMessage {
+> >      const NVDM_TYPE: NvdmType = NvdmType::Cot;
+> >  }
+> >  
+> > +impl MessageToFsp for FspPrcMessage {
+> > +    const NVDM_TYPE: NvdmType = NvdmType::Prc;
+> > +}
+> > +
+> >  /// Bundled arguments for FMC boot via FSP Chain of Trust.
+> >  pub(crate) struct FmcBootArgs {
+> >      chipset: Chipset,
+> > @@ -226,6 +324,53 @@ pub(crate) struct Fsp {
+> >  }
+> >  
+> >  impl Fsp {
+> > +    /// Read vGPU mode from FSP using the PRC protocol.
+> > +    ///
+> > +    /// Queries FSP's Management Partition for the active vGPU
+> > mode knob value.
+> > +    /// Returns [`VgpuMode::Enabled`] if vGPU support is active on
+> > this GPU,
+> > +    /// [`VgpuMode::Disabled`] otherwise.
+> > +    #[expect(dead_code)]
+> > +    pub(crate) fn read_vgpu_mode(
+> > +        &mut self,
+> > +        dev: &device::Device<device::Bound>,
+> > +        bar: Bar0<'_>,
+> > +    ) -> Result<VgpuMode> {
+> > +        let msg = KBox::new(
+> > +            FspPrcMessage {
+> > +                header: FspMessageHeader::new(NvdmType::Prc),
+> > +                prc: NvdmPayloadPrc {
+> > +                    sub_message_id: prc::SUBCMD_READ,
+> > +                    flags: prc::FLAG_ACTIVE,
+> > +                    object_id: prc::OBJECT_VGPU_MODE,
+> > +                    reserved: 0,
+> > +                },
+> > +            },
+> > +            GFP_KERNEL,
+> > +        )?;
+> > +
+> > +        let response_buf = self.send_sync_fsp(dev, bar, &*msg)?;
+> > +
+> > +        let prc_resp_size = core::mem::size_of::<FspPrcResponse>();
+> > +        if response_buf.len() < prc_resp_size {
+> > +            dev_err!(
+> > +                dev,
+> > +                "PRC response too small: {} bytes (expected {})\n",
+> > +                response_buf.len(),
+> > +                prc_resp_size
+> > +            );
+> > +            return Err(EIO);
+> > +        }  
+> 
+> IIUC `from_bytes_prefix` takes care of checking the size, so this
+> check looks redundant.
+
