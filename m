@@ -1,78 +1,98 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021141.outbound.protection.outlook.com [52.101.95.141])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022096.outbound.protection.outlook.com [52.101.101.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347AC2F1FC7;
-	Thu, 18 Jun 2026 14:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4BA2D738F;
+	Thu, 18 Jun 2026 17:04:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.96
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781792200; cv=fail; b=lTflcuBeAJwmFu295CUkMdfEihb8RfmnWD3VixeQj48nbpmFVu0f00KxFlciVUStHp9FCH5mtSLXDuYlsOayyHDvRAcdcOoYvrt89qHRC+W0QgYPv2sLRu9XVptnvNerVMlrk8APTVZFUR/t1J+YwIvjX/xqM57qV0mTkoJCtZ4=
+	t=1781802289; cv=fail; b=cRZvKkXwSRNQCur1jmw1Pe7Yt74W9XuFPoL9RNCj6gK7zKoH6N0AggU8n+fbjZJ5xvwOkqPhouKJ7/Mx5LDYUWsF1uJ/NK6OOzPCk0mPthV1XbdnOkNSXKM6Yo0rhFbNfs3Kh/s0Z0PqTbqJTwJ4zljVrJMWTWrCT9rRSbitlNc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781792200; c=relaxed/simple;
-	bh=gXpahiYrAvSbHlul9RMNau2lvObXbfnQQ4/zNx6t0G8=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=PI3UP8beU/zIprE5vrH1AGxZkA/V13Z5L6iSpcA2YTOrAULANEaZ9nmKcMPwBJltsHuiDScrU/o9DydlXH1uMGoxJXfvD4gFXjFAu2bnPCV2UunalXqhYbKOx1YGVP6ee3auKJwd3ghltSmtt4E4Q81vpnb1OqcsSzGpR2MaTDk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=BeVYaam4; arc=fail smtp.client-ip=52.101.95.141
+	s=arc-20240116; t=1781802289; c=relaxed/simple;
+	bh=CDWUnJAJ+rH6PqrYdhE9HnqkWK8hkgoOdYipk+Gk8gQ=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=P2R58GgiTP92sVrVE6Xm7BqXVU7dWOSXpMy1UFJWPNjOnuqle6T5GZ63obt2kxOixYsdjqdu+FDymsulv8szcaAv0zmZEXzbw/1iNCMSnyjSyBMnxZ/yMzvE5nclL5QHycTjjUXXkoX8nahkY6UKQt/5yjK7RyDGbIyf5WRMYN4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=OsrKObNZ; arc=fail smtp.client-ip=52.101.101.96
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="BeVYaam4"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="OsrKObNZ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wvl5pUc5EKFl4KihIE3elBFOiNT9QcZyznmyE2lvTMNpYm6lCDeUGAjFHFXd7strBBudcMkD5TbCJIrmTkCjED4qVXP5MrIAHNa+KiRtM6Ep0jXqlXeqKicuUm6c7dmVyqlUN1274kL2lEyOoQ4iTVQhv68FPNCehpWU+2NGmDA5zDGUKWh+/iZkyywwJBhGbZ0UUsQM2St9qlvI+g7WIjHzRtKLShqeAnOOjiYOYsB0T8QjM/egpXZmY/ta5t+KhGUvVglnv5m0yRK2u+JYOnv3s3toZTn+h6AbJolRAPD21iikKcV7ICsvVvrBd/hDZSF306yueLTEaCVNztk6EQ==
+ b=Fl1bxgHc72ExxcpJkiDtQ9urQPXiV5AaAbUROj9Dxk0IlIkK7ajksrVModPjm7Rq8KP4sP9kyVM/eqM+NJemSi11aDFjOi4GpsBp2xhsfzruqu53q2DWl8gZhL9vOzl1BxBHGs5j6MHDnysmPoLqwcIZ4n14Iauk8EzhSV7rZIVLRaRIfaNOk8BUzQRNmIe3XYXyq/iUSV9/rSrhlVomzgjlZxRBPZALhvfdxmk2kpaH1dlUvAVjYArKRibuQJmxrhvjGsSpTviy7KGfUplfkag6IoMaD6z3SNwDHurCrfFXtAl+BeqOyo249S/a3gOQV5G/E7cXyjEd1X54nh+JaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0NV8qzjTkCssO5bL3QcVxXD14lOzn5n/4d2bA+89Fv0=;
- b=N61F6cY6Zg33gewXNS1U+tPRc3jOpDtF8AejjWo+75tAbV1jF1Z0bGDjtdQ+iroz4uC23w6CQDU2WSdy74fDzMQzp/9OJKOB+O3pOboMuw2bq86fugm8dGK58TTCiR3ePBuzXtENTjsOrj9A9ElRFfe/k/48HKJPNunYuLJdXrbWYlT3S1heYxY6qq3XSGOhAUCsWJ1TKSzpw56YGiNsdVV/wt/L5LFQwXoAZorAk5vPti3cFVE6h7Q2OpeEbUSXY/EAb1CTd9JYEWwpnRnFoFVD7GPy7wMO7uABsFYpso8G8AEZNLvKH+ALvF9+kxbCXVzJOSvl78rP8vniEmpdxg==
+ bh=nfGgWH+/m/wnv/umrTyOPhln6+pFG+Sqa5avNpKldSI=;
+ b=Y5efKDaiAYk488sXfacJEPgjuMDKR7eE76s0wQLYu4plxWbvzEhry5SpfkWxK0CKdFQcPKitg1WQrLPylzgaZdDeb0xEREVDinSKCGqtynvLu9/IZ7f2nBqlGHn8lK84OyAZw2m0pe2LnChUyzAY1fsg3B8lSvHAy+UHnJtUjXQXn8x78t7YE/34mNRtaxR/2eT31KGOBPNxzdxkkwx6Nyr1bATdBdF3YnTDnAR/59Hamj0kXmeAJcYg330QBh730DbTsRv+8HjfrqJMAQK1a23uSJgcIMg1eCVfPRSzfhzGdYzKCheAjE17qwDFOgYJR2dxbiIkI3e1zIiJYPe91Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0NV8qzjTkCssO5bL3QcVxXD14lOzn5n/4d2bA+89Fv0=;
- b=BeVYaam4blH0M2GvWgeRUK3M7wUBQYbsW9BZbpSHszMoRyJVRxblVfjUub5ZPJAToxIbxNfSlHiq2PhkHEcptsELTYjRp/x9D66tSHr6NmTX5OVJblmvrPDE2qZwAvs4mi0dvQE0F+cvP5zq/6CiWE/COnHc2KpFN2Sk1Th24fo=
+ bh=nfGgWH+/m/wnv/umrTyOPhln6+pFG+Sqa5avNpKldSI=;
+ b=OsrKObNZQyzck3ZLmHZfbruGQNpF/+56UcnQoMbDEi1RGb/rIxskXRr1aMdonRX+QDADgI6sA0xi5qKLHILfO1o1cnzyhUa8PJZhOsfPXDH+aylJyu84UhhJ0U3PLUwmL3O89cNZGm57QISDWbbDHGOXS3t0dZ79of/rtXFBToI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CW1P265MB7964.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:212::5) with
+ by LO4P265MB6966.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34d::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.13; Thu, 18 Jun
- 2026 14:16:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
+ 2026 17:04:43 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 14:16:35 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 18 Jun 2026 15:16:34 +0100
-Message-Id: <DJC8MA4TZ9RE.3T3VXZU2USSJG@garyguo.net>
-Subject: Re: [PATCH v2 1/7] rust: module: add `THIS_MODULE` const to
- `ModuleMetadata` trait
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>, "Petr
- Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
- Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
- "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
- Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>
-Cc: <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <nova-gpu@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, <linux-block@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
- <20260521-fix-fops-owner-v2-1-fd99079c5a04@linux.dev>
-In-Reply-To: <20260521-fix-fops-owner-v2-1-fd99079c5a04@linux.dev>
-X-ClientProxiedBy: LO4P265CA0088.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2bc::7) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ 17:04:43 +0000
+From: Gary Guo <gary@garyguo.net>
+Subject: [PATCH 00/10] rust: driver: use pointers instead of indices for ID
+ info
+Date: Thu, 18 Jun 2026 18:03:37 +0100
+Message-Id: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOkkNGoC/yXM0QpAQBCF4VfRXFMMLXkVSWvMMi6WdpGSd7e4/
+ Oo/5wLPTthDHV3g+BAviw3I4gho0nbkRIZgwBRVqjIM7MSaJcGcSRclEg0VhHp1bOT8npr2t9/
+ 7mWl753DfDxB+litrAAAA
+X-Change-ID: 20260612-id_info-23eca472ccd8
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Dave Ertman <david.m.ertman@intel.com>, 
+ Ira Weiny <iweiny@kernel.org>, Leon Romanovsky <leon@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Igor Korotin <igor.korotin@linux.dev>, 
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>, 
+ Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
+ Fu Wei <wefu@redhat.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org, 
+ Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781802282; l=2475;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=CDWUnJAJ+rH6PqrYdhE9HnqkWK8hkgoOdYipk+Gk8gQ=;
+ b=JWv2t7kglzdUdALpK8VAlAf++FtvLSSLPTYQ2od+u83f1jgP7T3MiyT03aV1TPKnS02lstOfq
+ FfEHiBEgma7DIGdMO0mC5pIkIOiYin4z4bC0Fr9Ly736bQ0amaKsUdb
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::11) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -81,176 +101,122 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB7964:EE_
-X-MS-Office365-Filtering-Correlation-Id: 780213c6-6026-4f46-c6d7-08decd443462
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6966:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21adea04-fbf3-499c-ecce-08decd5bb162
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|366016|1800799024|376014|7416014|56012099006|5023799004|6133799003|22082099003|18002099003|4143699003|921020;
+	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|376014|366016|7416014|921020|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	nyrRYueL/GrSX3mgvXbn13vASDy9GB+vxeI+gIlWJWSuzE21yzW6mXcN8miJTs0NFz4s5/NnqfCGkMbnHhUEBakckltX3cXtNhOeXvsQcFg83kOWb/8rdUBDtpwxcRkN5JHyNJjdK8gW8jbKCXkBuQxQCDG/onUNaB5xfNgAK3wgY4W8rLgaaGKpSwATamr6OQhNlR8JoqZTPk4m315QllsWZXofXxUS5+t/ADSYBJLnWFH5j3mG5edv2+Z1qFLjPGdz/lKDaXQCLw0kEhYwBNAJ0tgUgjlq3ufrafP162onmKJP4qw3oGMXRTLKIFykLMIEGYQLh5PYwS01mM41QCvMRpc6OSXfyUmw8ToT+NEoeeOmff5d1CclQiL2cuQ/R9iLty0/qWkMFZNN27NFn6CjYZBC35kIKyiuBWNeAFywpR/3Nvf0gSx+xbJEvMUsOfVtB5PjefhqtoKeH5VyrMD1ZqlbfZ15aLkoT9rdT1KZl2+oScKjC08dt9s7gKOjRP4QZElpCrKCv59U786Yh7kDF7IU4+U4jMb2wtNCMu+OzwmyM9dd45EFGWvvvClpucKtlxrTReeLiTShR7sWN22onyDHmtNhldmVKgf4jamnZFVG5gBsNOOWw0YJfik3MrUu1CNQF5F0/evcCVSRCY7sGuPK4MSKoUx1WP0meVYNTJrEhJGSfTktCzp8xY6QHSPezcYcqsk1n2lhn1Gjb0xefW4oeayhbnk+mbjou40=
+	MJf3iRDNLJ9cGXL+5Iqn9jBjblQESWCoPtgvWbbUO1eNEGOs9dSOwU/YKr50MrCxmi6GeAFrUbPVPXdUdgDi9Pqy4PnwT/Gc6odUORR5fODap/dXaxOcC5GPyFZ2sDySp+2Xnnm0iidMaIc2b6m95I/2A9OERftkwxG/vJ73P6JlL7ftbqPh9w5XFtn/mU5Im6PziTT4Ehc1O2RImzefeu9zIT/X3RHeZ0YGhIqaUu0OQhKS6Xw89y9uwo+EEqiWwmzz70thkmb0O/Hzs/Cxkrpdgon1O+r5e4x23DfH2PaSoWaTRZbpRZCfgbsf//0PisbHn0rLbMBmQdsTrDHw3BZGgkMoRhwzJV7czkyBtQdjKG26A1q28//HUSqRVt186Wf0ShNCIktYG/hE0WKbGtmlW9obVGyue2k9k53uLFldZUT5oB5L6Wczup9sGWGHrulkIqGes3qGYtAwQ3sIwxvbQeeTA0LwsGodKQQAyzQLH7kiw+tyKDeWXU5bCJi28WR+rlyTOCpxK2VANBtzktxC+EL4zpLTxxE231ay9KTmksl8roRdti6tk8BSN6Y2qbPdk1szv3NhBBuqgd6EOvywQ/NdQF9f0+qTOEI1syF9ZbSAGEShg4V8oPdbZd7Rg3Hp2WyiByvby1SjjfA+0/fUlv9LafO85iGgPw5mTHx4aCQVIJ9ssChyb3OBY+V3OhHlsw4DrFlfbGFVvv7z/cnCJxy+0RVBJCuTs2Q5o8Q=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(376014)(7416014)(56012099006)(5023799004)(6133799003)(22082099003)(18002099003)(4143699003)(921020);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(366016)(7416014)(921020)(56012099006)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M3dxUGkzVHZ3R3pxTnkyY2JFeDdzMTVoYUxONE5ORkp0b29ZUVRtTUhnTlRh?=
- =?utf-8?B?bWNyc3Zaa1d4bzlKTjN2akR6TGt1VUJrR1k0L1ZoOGVzYXpxSFRyMG1VQ3I1?=
- =?utf-8?B?c1NFSExBZFNUZ0R5bXg2V1RuRlBwZUp2dEtXMTd3WmdzSysxVmhBaFNVWEk1?=
- =?utf-8?B?OVh4eldrRndqdVRMYS9xMTJLU3Zqc1lkMjF6SWxmNUJHeXByaU1HWlF2VUFv?=
- =?utf-8?B?cW1mc0YrQkVsbnRJekdoMCt6N0gwZW4xc3JTdVk2ZHhBRi9SSzVKdEdralpH?=
- =?utf-8?B?d1hCOEpLV2VTbng3Vi9wZERyb092aFp4eEdQclRBMGJiQUNEYmpVdFVjclQv?=
- =?utf-8?B?d25ZaWNSU1dsVWZiOERvSjdxcnZ0eFA4RGRuSnR0eWsyOGxZQUY4Mk9uWkEx?=
- =?utf-8?B?czNmcFNWUUppL285SGdHamhYZEtHSVd0Zm44VE9QQWdUeE1PVTEzcks3RElO?=
- =?utf-8?B?aVlsSW1BbTh1QXRrOStzZ0kvM00wU0pzMGM5WXJIZUwrcnpjNzlzMjNhYzFp?=
- =?utf-8?B?aHFBMWlKZzFlSnVqaENCeXBobGRjRnFvQTlmTFZSc2FqTHgxSkVFcjV5ZGVx?=
- =?utf-8?B?QTEvSlJRWFY4bVg4b01BOHJ5UzFjKzhuSzkvdnRJUkVvOXpLMmVpVHhGNEs2?=
- =?utf-8?B?V0ZDUFpzODdQYkEvd1MvaG9lbEtqUEg3cTZuOWVvMFVRczFIKzU4djlONDIz?=
- =?utf-8?B?Qng4ZFpDTE0vdU9McHJuSHhSRmxITmdweE5TTEd4MWc4a1VCVkJBczh4NnY1?=
- =?utf-8?B?TFhGeWNVRFpSY2xKNkY0WGVjYWZhUnRlZThSUHFDcWdjQ25yQmg5OEZuVmZj?=
- =?utf-8?B?dGdGK2ZRd1N0S0NxSHJLUUdDYTBlM0g1SDBoYTJpY2hYT1p0YlpvMkJGQzln?=
- =?utf-8?B?a1J4aXk0Rk9JRkJDNnFnWkR2V3pHWmhIZ2FGS3ZUbTIvSE9OWUlwV3VFSFFB?=
- =?utf-8?B?aG9samI0THZXOENZMUpueFB3c0FIMXg0ekJlOENsa1NwQWMzRXZxQit5UFBp?=
- =?utf-8?B?bFBaTGFQRnRKUnFyTVVBa2pqWHNmNXoxZzUrS3YyNHlBZHlNeXRQVnRlZVps?=
- =?utf-8?B?UFRhRmdhSVZ2ZWFlczJpdDZNZTVsZ3R0eEd0OHl2SzBZY3UxRlVPck5kTWdR?=
- =?utf-8?B?VEdRNmN4ajJleG1jRmo0WjJuZ2JUT3hvZTRSZ3Y0K2hMOFk0WmV0TVI3bmxC?=
- =?utf-8?B?QmNrVG42T240ajNEWmJvSGV3MXpvRVR1Y0MvVkhseWIzL214RXhjRjl3NzE5?=
- =?utf-8?B?OHE3aURrUlkrNXY4Y0E2UlZsSEthSWRVMlRVS0RKY2lNVUZ2TlNOanBSYVc4?=
- =?utf-8?B?QUxyd3NOVEh0N3dzSFpEWkJacm9uT3lBZW1tTDNOaTY1eTZ2M2dkazQwK1Vi?=
- =?utf-8?B?UHhZWWxqK0RkL2tndmgybThpT3hURG5Nb0laakdTYVpwcno1M0NhYngrZVVL?=
- =?utf-8?B?VDJRcVhROTcwK0JWbzBCb251SVVLTUh5K3YvMWZqQ0xtS1dJVEpuN2hLeUQ2?=
- =?utf-8?B?MGZCM0dIRFBXNmZrMWdqbWJSeFFsaHFFcmNPNTh6Q0RrN3ZTQTRCZzQ5UHVJ?=
- =?utf-8?B?Q3RtRjJmYWM1TEd2c040cWpHQVlsTW5EU0diblU2TStZYmt6ZDhGRDFiODFU?=
- =?utf-8?B?RTNzRVNhWUNpTkVxdWN0VkVDRFpvSytPdWVNSTJQZG5MYitDd0N2NkZhVFRM?=
- =?utf-8?B?K2FBTFY2ZkJ3YnBtUnFMeGR3SDdTT1pEcDBPVFRrVzZjcEQvY3NlVlRQNmND?=
- =?utf-8?B?SGtvM0ZsM2wvb2RrZUVWb084d2VKbHN3bzFORzkrL0JJVzd0VHI5ZDdWRE9u?=
- =?utf-8?B?cXpXM0VaSENGeXNON1BIY3BkRENGcU9abHJPM3lycnRGMXczdFVzUVVUMzM0?=
- =?utf-8?B?WTBEYzU0T2VUMk5Ia3BwY3BZVXJwM2J2RTBmcHFNVS8zWkJ1YU9KdU0zcldw?=
- =?utf-8?B?Y1RwZWxVdnlmL1JhY1hadTh3bUtMVU9lK3FoR0F0OTJMaGVhWUEzU3h4Q2Fq?=
- =?utf-8?B?aTRiK1ZHUEpMYVE0NDQrQmF3RUc5cG4yRTdDaDVjMndLWE95bENISXRqaTRr?=
- =?utf-8?B?clZqWUwyUXRnNDJjMDNjYlRFSXo1L2tFeXFianRUTkxKQ3ArK2hHVnBTRkxq?=
- =?utf-8?B?SFdCVGUwMTIvU1hGcy9NbkdMZjJZdVIrVGlQVktsRXUvQ0RhTEhDY3o4N2dh?=
- =?utf-8?B?UVhqeFpBTlAvdFB6ZGhzTzE1Vi90OVZZRk5YbkJRYm5wTUUwd2pSQSswa3Y5?=
- =?utf-8?B?WXV2VlZkZmJKMEUySnh1TS95ZkZ3b0E2eG5zenNhQ25odnRpbHV2Y1hhb3dh?=
- =?utf-8?B?SzlKd2xaMjA4K09CRUQ5U0NCVUxsa0owMjd0QTBHb0Z1WVZVQXV1QT09?=
+	=?utf-8?B?a2VOcUhiUGZmQ2FMNTNISUpzakp4RU11RHluc0RyV2dXQ3pXU2tOUHYrVjBa?=
+ =?utf-8?B?TmxSWXZackc0Y0M0ZjBZWVZ1RUx0UkwzWmptWEhJb1EwUlE2YXVRbzYySkN0?=
+ =?utf-8?B?QktVcnVwcnZVdElzam43QUJoM1BieWkwMHBuTW8wRnQxME5sU0E0dVhkQW1z?=
+ =?utf-8?B?SCszU0hPaUxWTXpQaXlBSmROc25ZdmZ4Vm1nWmx3cTV1SzdoT0pBTEVsRjFk?=
+ =?utf-8?B?bVUxL3BsUTVXQ29RSVhsaVRvMU1PQ1ZrL0tvOGlrbkorTERVL3hlVEdaZFl5?=
+ =?utf-8?B?UTJFYUhKT1dZblNBTVZkZTNJYWxFWlpHQ3RlWUxaNk5QY0Z5MjlTTTJROXJy?=
+ =?utf-8?B?ejRpTndBQ0E1bE1lVUJRTWNyMTB6cEtoQjF5VStLOElTbXRjOFk3UCtkYUQ1?=
+ =?utf-8?B?MmFITVlrTkYvWnNtSEcyMXcxUHNyNFpPanBNdmJEOUJHZEpXbFBvU0lCS3FG?=
+ =?utf-8?B?RTE5UXB2bFdtS21hTHFtcE5IbDZnMmgyTm1CRjlYNTVGNU1XQmo4ZnMvd1JF?=
+ =?utf-8?B?RjVFWlFGQWpWcXVnRWdJMGN0WFVPNmRHM2xpRnBkVFpIcWRIemtobWtTMVdV?=
+ =?utf-8?B?U3hUd1U1N1pVS2VBM2xqRzVnY3N3YlFGOG5oN05LNXBnV2VXRE5xSWozQmpo?=
+ =?utf-8?B?cWxSM0Z5VlkxakVrOExpdSt1aXVsTlR1Z05PR3FaMUpPQWJEMkFXbDZ5OUxy?=
+ =?utf-8?B?V2FCNmFrK1ZFeUJOMXMrL3FUNFRIL0d0cW5hRTkrR0xjOEpCUVhVTktmVDRX?=
+ =?utf-8?B?L2dLL0FvNzduUXlyRnpsRzc0aG1KSkRpN05RMWl6R2lGOXNIZGFSaUt0b2Rq?=
+ =?utf-8?B?WEdFdGVRM3RlYzRmTTJHaHNoL21ZczQwSTUrVVRHdmdTZzVId1RRalBPVVdK?=
+ =?utf-8?B?TE9TcnNDZGd5bWg1KzFORSsvRVRabVF3QUNFNFZEV0JHeWFFcTBUMUtoTkhZ?=
+ =?utf-8?B?RmVod2RHaDVGZWhiem5PU3NRdUlTL3RhVy9QUGM3cTJZMVpUU3k2VFBZRk9u?=
+ =?utf-8?B?K1ZuNWkwZ1dpcVFrc3RSdTBMSkZSNHh0OGEydzRseGVtTHp1b2hMWjg0NW56?=
+ =?utf-8?B?T0Z0em5hOExiRFpwQUVhU3NraDZDeE01M2JxTW93T05rcnBoZGZEV0RBdDZK?=
+ =?utf-8?B?VHo1YmRGQlczaWdSMTVQZXVWVFpEVU9VU1duMnVyb0hONGZGcHlpUXpjY3g1?=
+ =?utf-8?B?MWgzQW0yQTdqc3UzRzBKbzlkS2ZCNlpQYlUrbm1jVllzSEM4SFpaMDNSQUhI?=
+ =?utf-8?B?VDA5Q2NhMm5LZWd5a1VQVTZoc2draGtqRFRZOU9YZkZoM2N2NWpxVDRrbWVD?=
+ =?utf-8?B?U3dub25KZTZHQ3pVa1p2Y2hnMVlvZEJJVXZta0hmZU1kbDlmaUhxU1hXUVo4?=
+ =?utf-8?B?TWgzSzRSQmk2TVlIc1ZDWnN5VDljQlpmdlMxclpSOXczdjc4ZjlJRW04cFdH?=
+ =?utf-8?B?SU96eUZVK09XeW5aMS9TTHRlaDNVQWZaRjhiU3FLZmZxQnFQUU5ldWV6ck5C?=
+ =?utf-8?B?Q1RCREhqM1duMllPMmV3eUEyK29PdDhtK3JlL0NoMkgyZGt1TEFHblJ2UmJz?=
+ =?utf-8?B?MXpnd1FiUml2R3lJeVVhbWE0c2J2ZVJGZVF4WHJHYm5LZjFZaFhrdzdObkwr?=
+ =?utf-8?B?NEUycnlqcTdaWStHZ2VvZ2ZuUnRaNW9CeThudEtXUWdjN3owZHF6czhHQmRr?=
+ =?utf-8?B?RXNaUkRLaHVHQVluRE96ajE2YXlqQ1FCYTJyUzVnQlV5d0xPRGF4d09TWHVy?=
+ =?utf-8?B?ZTFtYWppd1ZYeDZIbm1OSGYwRlh6bXdNKzdOR0pBSllLdDZxSTNTWlZMOUVo?=
+ =?utf-8?B?YXNnSlZkc0o5SC9VeFUxVzBZQjhaRjVQd3djckxCY25oa3k4endaUnVxQnhZ?=
+ =?utf-8?B?VldXQjFuUFFZVko4blBRY21JN1pYSVFZLzIwQVFKdzJLVEE5ellhQXZqa2Ex?=
+ =?utf-8?B?Q1pXZG9wMEVFa0pkT216dm41eXA4TUV4SSt4Y0ROYVd2MWJGdXdmaHl3MnBs?=
+ =?utf-8?B?endsU3YxSDRKbjdWYzJkS2JSclphdFFBRjNPWHpUamd6WlpMVE5uVkV2MmlQ?=
+ =?utf-8?B?clFyZmlPblQvbmhmQjZobGdFbW80KzQrOHZIZ1o0YnRnMWt0SHdxc0U3R2lk?=
+ =?utf-8?B?N21FME1pNHY1RWtmYzVNUFpyNDh5UGVBMCtHOGVRdUJtck83SllxWWgyN0o4?=
+ =?utf-8?B?emJZRi94TFZNK3B6ejBSNGR0WXgxTllpQm1RVGlERnlkSEpJRks5Tis3SkxZ?=
+ =?utf-8?B?amwvRFd2NmRBR3ptMGl0c0o5Tit1c3VzcWZvRStLc0dhR0NJN2ZQQm1tV2M4?=
+ =?utf-8?B?QXkxSmprbHdMQVptUFFzQXNVb0k5TlN4RWtaMHdCeUtqNTNsekRndz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 780213c6-6026-4f46-c6d7-08decd443462
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21adea04-fbf3-499c-ecce-08decd5bb162
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 14:16:35.4442
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 17:04:43.5945
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TK4wFivKppD5lQbLCgRbLGD6XMveQrxlgnzMc096w5byiO5OCyZFSZPRuh0T0NqAyzCvNM32vIaB8gLOoaXtdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7964
+X-MS-Exchange-CrossTenant-UserPrincipalName: agVaPw6lEKGPQH7EV8t7IsbLTWJ+Kip5sn9Mu8iB395w/LUFfgiUsXy/tGWz7ry3YtQ0sR/oa0IsbiPtQVb2Lw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6966
 
-On Thu May 21, 2026 at 8:52 AM BST, Alvin Sun wrote:
-> Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that
-> modules can provide their `ThisModule` pointer usable in const
-> contexts such as static file_operations.
->
-> Move the `THIS_MODULE` static from the `module!` macro into the
-> `ModuleMetadata` impl, and update `__init` to use
-> `LocalModule::THIS_MODULE` instead.
+Most C drivers use a pointer (and cast to kernel_ulong_t) for driver_data
+fields in device_id. Rust code currently does not do this, but rather use
+indices. These indices then needs to be translated to `&IdInfo` separately
+and this is by a side table.
 
-Perhaps you could mention that this is made possible by const_refs_to_stati=
-c
-which is stable since the MSRV bump.
+This leads to open-coded ACPI/OF handling in driver.rs, which is not
+desirable. Convert the code to use pointers (or rather, static references)
+instead.
 
-Best,
-Gary
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+Gary Guo (10):
+      rust: driver: remove `IdTable::id`
+      rust: driver: simplify `IdArray::new_without_index`
+      rust: pci: use `Option<&IdInfo>` for device ID info
+      rust: net/phy: remove expansion from doc
+      rust: driver: centralize device ID handling
+      rust: driver: remove `$module_table_name` from `module_device_table`
+      rust: driver: store pointers in `DeviceId`
+      rust: driver: remove open-coded matching logic
+      rust: driver: remove duplicate ID table
+      RFC: rust: driver: support map-like syntax for ID table
 
->
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> ---
->  rust/kernel/lib.rs    |  3 +++
->  rust/macros/module.rs | 34 +++++++++++++++++-----------------
->  2 files changed, 20 insertions(+), 17 deletions(-)
->
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index b72b2fbe046d6..f0cf0705d9697 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-> @@ -184,6 +184,9 @@ fn init(module: &'static ThisModule) -> impl pin_init=
-::PinInit<Self, error::Erro
->  pub trait ModuleMetadata {
->      /// The name of the module as specified in the `module!` macro.
->      const NAME: &'static crate::str::CStr;
-> +
-> +    /// The module's `THIS_MODULE` pointer.
-> +    const THIS_MODULE: ThisModule;
->  }
-> =20
->  /// Equivalent to `THIS_MODULE` in the C API.
-> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
-> index 06c18e2075083..b6d7b3299fbf9 100644
-> --- a/rust/macros/module.rs
-> +++ b/rust/macros/module.rs
-> @@ -497,28 +497,28 @@ pub(crate) fn module(info: ModuleInfo) -> Result<To=
-kenStream> {
->          /// Used by the printing macros, e.g. [`info!`].
->          const __LOG_PREFIX: &[u8] =3D #name_cstr.to_bytes_with_nul();
-> =20
-> -        // SAFETY: `__this_module` is constructed by the kernel at load =
-time and will not be
-> -        // freed until the module is unloaded.
-> -        #[cfg(MODULE)]
-> -        static THIS_MODULE: ::kernel::ThisModule =3D unsafe {
-> -            extern "C" {
-> -                static __this_module: ::kernel::types::Opaque<::kernel::=
-bindings::module>;
-> -            };
-> -
-> -            ::kernel::ThisModule::from_ptr(__this_module.get())
-> -        };
-> -
-> -        #[cfg(not(MODULE))]
-> -        static THIS_MODULE: ::kernel::ThisModule =3D unsafe {
-> -            ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
-> -        };
-> -
->          /// The `LocalModule` type is the type of the module created by =
-`module!`,
->          /// `module_pci_driver!`, `module_platform_driver!`, etc.
->          type LocalModule =3D #type_;
-> =20
->          impl ::kernel::ModuleMetadata for #type_ {
->              const NAME: &'static ::kernel::str::CStr =3D #name_cstr;
-> +
-> +            #[cfg(MODULE)]
-> +            const THIS_MODULE: ::kernel::ThisModule =3D {
-> +                extern "C" {
-> +                    static __this_module: ::kernel::types::Opaque<::kern=
-el::bindings::module>;
-> +                }
-> +
-> +                // SAFETY: `__this_module` is constructed by the kernel =
-at load time
-> +                // and lives until the module is unloaded.
-> +                unsafe { ::kernel::ThisModule::from_ptr(__this_module.ge=
-t()) }
-> +            };
-> +
-> +            #[cfg(not(MODULE))]
-> +            const THIS_MODULE: ::kernel::ThisModule =3D unsafe {
-> +                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
-> +            };
->          }
-> =20
->          // Double nested modules, since then nobody can access the publi=
-c items inside.
-> @@ -616,7 +616,7 @@ pub extern "C" fn #ident_exit() {
->                  /// This function must only be called once.
->                  unsafe fn __init() -> ::kernel::ffi::c_int {
->                      let initer =3D <super::super::LocalModule as ::kerne=
-l::InPlaceModule>::init(
-> -                        &super::super::THIS_MODULE
-> +                        &<super::super::LocalModule as ::kernel::ModuleM=
-etadata>::THIS_MODULE
->                      );
->                      // SAFETY: No data race, since `__MOD` can only be a=
-ccessed by this module
->                      // and there only `__init` and `__exit` access it. T=
-hese functions are only
+ drivers/cpufreq/rcpufreq_dt.rs        |   1 -
+ drivers/gpu/drm/nova/driver.rs        |   1 -
+ drivers/gpu/drm/tyr/driver.rs         |   1 -
+ drivers/gpu/nova-core/driver.rs       |   3 +-
+ drivers/pwm/pwm_th1520.rs             |   1 -
+ rust/kernel/acpi.rs                   |  14 +--
+ rust/kernel/auxiliary.rs              |  18 +--
+ rust/kernel/device_id.rs              | 205 +++++++++++++++++++---------------
+ rust/kernel/driver.rs                 | 114 ++-----------------
+ rust/kernel/i2c.rs                    |  26 ++---
+ rust/kernel/net/phy.rs                |  66 +----------
+ rust/kernel/of.rs                     |  14 +--
+ rust/kernel/pci.rs                    |  24 ++--
+ rust/kernel/platform.rs               |   5 +-
+ rust/kernel/usb.rs                    |  18 +--
+ samples/rust/rust_debugfs.rs          |   1 -
+ samples/rust/rust_dma.rs              |   3 +-
+ samples/rust/rust_driver_auxiliary.rs |   4 +-
+ samples/rust/rust_driver_i2c.rs       |   3 -
+ samples/rust/rust_driver_pci.rs       |  11 +-
+ samples/rust/rust_driver_platform.rs  |   2 -
+ samples/rust/rust_driver_usb.rs       |   1 -
+ samples/rust/rust_i2c_client.rs       |   2 -
+ samples/rust/rust_soc.rs              |   2 -
+ 24 files changed, 166 insertions(+), 374 deletions(-)
+---
+base-commit: 4fa3f5fabb30bf00d7475d5a33459ea83d639bf9
+change-id: 20260612-id_info-23eca472ccd8
 
+Best regards,
+--  
+Gary Guo <gary@garyguo.net>
 
