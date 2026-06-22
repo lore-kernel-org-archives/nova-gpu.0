@@ -1,169 +1,202 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7824122D4D3
-	for <nova-gpu@lists.linux.dev>; Mon, 22 Jun 2026 01:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782090681; cv=fail; b=esdkt1fqWCRO960QScO8p+bkmOC44VcSolBajwcTXydXgOkj92E+7bqdWw8jFm1EZ7zJBHkinPKv//REzWWuxraEMWf5F3xQ+gRbGSduuXiyDrMtth7aboj7o+/ZE83L1vpHSlfTlYBkn6T7aUbvC0BNnrdbJgAqtioqlfnbMBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782090681; c=relaxed/simple;
-	bh=NHJz7/pYiuuq3IDBL3jBrc1J9GbxR/1+j5ru+2/s25U=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=NHI8VImNMxxOsMdDflCklqz4uc3IMQgkzUJnDOOAZjf9ERWSvkDPSGClK7PJyhsYybVBXJ119MTac/UYkkoBTc73z8wYBxCQXuOrSW31XIoDwrTUMfqjFX2XcSuIdPBq/faK+2uXsofnlBBWAc6EWyvUY5kjRkomwfUAJwyJytA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gi9TPIcw; arc=fail smtp.client-ip=52.101.46.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7809933555F;
+	Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782096302; cv=none; b=HSQVfO++xzqPtnmoPkkfUaZTcSP5A/DMdCgjCtutwzuuGvuBXsxAK3hpQrFFhnn20uFJCp5qO2kBzwJDhppAEx0nWIWotYJ3gtxU7230dXODuaJ6KsHvPL9S1+/OndqAU+tS0uvJJxcV+rkt9gETAq/a7WvgNnfrSd7QUjBzmaI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782096302; c=relaxed/simple;
+	bh=rOZbiAybc3rAq3B4b7mjMddMhfg1pnxw6+509keIaDo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jMWF2Tfatce+ORIfko81xfPWCM74ge5aM+G+//EnNxLDQmQ+8Ju/215ylxdJ15H1yLIpymUfryCzLLxgVEQSyb2HOKsiTWZEuY1DxVjUmevSc/4aw2RJ7fZw8te5WSPdm0T8rYR1KBZpvsJPMF7L02BJhJGTRQQjB37FkmkShtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TqZYl3hu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gi9TPIcw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JaOCQMXaLNGQ2iKfcAPZ55pHjxGtBmbUyMU8TQxEa2YVzQ4o1+c8YR45GeKSGiJxAm+Eu2XtcbfPI1rq9B+dl+UQBmMFXK5tF3ZLizo8pF5w6Dcd+RL4quN2wOVvCd0BX9LiF+hHcHQ5WcMT0PCN951Qr+M+aXsigf9XPxLNoGUsmvZy808oCWokMEhnorUfw9x+kQIm/LfPJok47eqBZQ+Vu6b99+POkEgxTLFGvAPLtKzEbmO1mGJIvcKWOq4OvRj6NzLlAckPTArpuAnri2cU6mO52dq4SZYuBy5RPdJEeLvvwcAeTOnPRnpgMJmI669bKAcPwyVWgrXQjf+8pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NHJz7/pYiuuq3IDBL3jBrc1J9GbxR/1+j5ru+2/s25U=;
- b=IBCq3o4QnEg0xJsMLY0Dmq3i3oEkTBHO9cAGl/Kw+RtlyIq/X0upf2N8Dg9QVUJYwh5axbSG0AbHFSK/FwXq1eJAggZ7dR4LgWaa2Lv/QN5IZd1Wd4zGRBgLMYmggnb9ysfGneJlT/KznQPll587Ue2t954KnKGg+nZSo6OFQxjS/90t/vRdzhNKWb1QsRhoBonbWrZqubL4kjP1IAr0VXs6jwAtm0T3PiaE2WY8iSXBl2ViNAZpOeo4N5m7oN1fgVf7P2tDaIn5HUlKHxdwpqwcISBCM/+ZAb3TIdzjRzDbJ08NyBDIJPBAGbLe5nUQt+jZopCM9h8OpY/q9c+R9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NHJz7/pYiuuq3IDBL3jBrc1J9GbxR/1+j5ru+2/s25U=;
- b=gi9TPIcwJ3ptpvBXJZde9UqM7wU7Ugk4XFgX5ZoDILhWGupoQOVJK+XzpBUGDM1Uha/SmjXi62H3VTMJoTl+haMYb+7WWJ0cefhhSxNGuOnEN9on/i70HrlU1qIfgYhJfO28BtbST5DFzFLpCmdR27EJrLtpFELR5+3/PNGuguce5UraaDaDkl7sDEcqgMskHxfC+Zy/cFnNjpcsSyicTwQgJdMW2mfNWgZFhffgv5B2Gclw6qnBAHYTMyqrhDkYQ81zwGOp8eNoLhNokAUelFRr2Fecml3LQMf5S+gO4Dw2wG3ylgk0xUJL2J6RCRU+pGBwuF2+Ro3lRGJ0Sdds6Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by PH0PR12MB7816.namprd12.prod.outlook.com (2603:10b6:510:28c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Mon, 22 Jun
- 2026 01:11:16 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 01:11:14 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 22 Jun 2026 10:11:10 +0900
-Message-Id: <DJF6F4194K7C.P89RQTXATU6O@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>
-Subject: Re: [PATCH v3 3/3] gpu: nova-core: gsp: Extract and display usable
- FB regions from GSP
-Content-Transfer-Encoding: quoted-printable
-References: <20260617-boot-vram-v3-0-20b9ec5fe9f2@nvidia.com>
- <20260617-boot-vram-v3-3-20b9ec5fe9f2@nvidia.com>
- <DJDUCF0FN8M3.OKSUDWCKJ4PR@kernel.org>
- <DJDXNDGXLZZY.8IEHLBTRKCQO@nvidia.com>
- <DJDY31W202BF.4OHIYPH1MEDX@kernel.org>
-In-Reply-To: <DJDY31W202BF.4OHIYPH1MEDX@kernel.org>
-X-ClientProxiedBy: TY6P301CA0029.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3ba::19) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TqZYl3hu"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EF79BC2BCB7;
+	Mon, 22 Jun 2026 02:45:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+	t=1782096302; bh=rOZbiAybc3rAq3B4b7mjMddMhfg1pnxw6+509keIaDo=;
+	h=From:Subject:Date:To:Cc:From;
+	b=TqZYl3huyNmQyqO88pLRZPg3f5PJk+Sfn1AAmZiXDh+8ZhDLO4+SfL8gFl6tH10Za
+	 nDFeGPM0QmMd1UEld3Rm/WQD14i2dueJXD45ZInojXvgGe+36Q9ArWf392OoX/ymRt
+	 U4zY7l+oeHHIuTAREa8QgUFDUOKMj0L6k7WUU//8=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB40ECD98E4;
+	Mon, 22 Jun 2026 02:45:01 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Subject: [PATCH v3 0/6] Fix missing fops.owner in Rust DRM/misc
+ abstractions
+Date: Mon, 22 Jun 2026 10:44:54 +0800
+Message-Id: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH0PR12MB7816:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed3ec62a-19fb-4ec8-ee3d-08decffb2790
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|23010399003|376014|7416014|22082099003|18002099003|6133799003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	7esZ6RUf0C0ZN5lj8YQOzblB775fzwd+Bl+iD3L7Vb4Fb58CaN4RDZx1UuPzzIdi0m0/kEWfZEDLWUzRfAA76qP5c9mflWwgT5C3nQ2QIOjrKL+uYGFSs9+sT2HWZfTCJ2IC9Et/3WpRTJxZohGUZK1bN7ZcDaoyFMlFT30i26dnFHAEbdcHBmA3Z1TznbsHgLTDBFAiRXMWXvGWRPKucpbIvdBU40+567pn00vKkp18c2XxgWOBCFM6EoslF1j0bhD1BoBrXIkH7QJux2XirjqWdkwO7IuM8gsSPbBHExjzpjAZEBdTGkgUZyOxD8CRcBj5Wscn/mdaycu9N85IHXq8QL6/jwbaPB2Sm3VNoYo8BGLAcb2wL09WBUvwntOtwS5i8BpLfqq3+90Miua9lvA6zK90RaN7cmqEi/c+oaszzzeEYHYQMoyg1JQvxuC7YHkl1KlOq71QfpbnMmvSR1Qj1+Gzhw2DeMiupQJcbfpRBWmDQPn3g3g9yJbum10XpwoblPHc77yZGW6k7CI6/9URhi87Ug+RVHA7VVJdc4WmIkSRqPyW/El46JHdcjZ8IpzbtxS4eOxAlCmVhd1zbMVSSWdvDt/lUErYX3V9bu9mV1OUdWXbqOd2GmHDQ8V4Kngs9rvk8b5H1ROSreh1Wbu7z8K7Gx3UuFNllQ1I5Uw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(23010399003)(376014)(7416014)(22082099003)(18002099003)(6133799003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tmc4TXBLdHlLTWRjZjYzeEpMc2RVT01aMDVPd3FDWWV2MU5lWXFuWXpvOUVj?=
- =?utf-8?B?TDFTT2tRa2FhOGlENFR1OEVSQ1hka3AzNXVHK3l2UlQxcFY0Y1BGYjNFemxZ?=
- =?utf-8?B?aEczcG5mbnJBMjA1akh1UEh6VCtQejk5cjFheDJLT0p6OWZnMll1QjlvMmcw?=
- =?utf-8?B?MjFFdnpFKzBTdnZ2YU1Xb2lPWnIwMngvWmlTbnQrQ1orblBibFNsdjBCcC9o?=
- =?utf-8?B?dzdpNXpKYjlERnlySDhoaGhxa2k3SlFMVWFIdENnRzQzZDR6bVkwaURocjJW?=
- =?utf-8?B?MVU0dEpXckViU3I1eE1kUnBWUDFRNXIvYmw1TzQ3L0lQRXdVUU1qOW1BUUhy?=
- =?utf-8?B?M1B3OWRYdUZaVThqU0ZyMG5jQ0RvOE9mK3FMYS9mb3lRb0Rlb256NkRGeUtU?=
- =?utf-8?B?VGdScmI1WGYya3U3VDJnMUxreEMwc2xzeXdiMkthOVlUVWV3RjZPN0Q1aHVo?=
- =?utf-8?B?WkVpTXd1K1dtRHhaVmRwKzl3cnNERXU0ZFhkOTFWZ1U3cHdDOUZSazZXWVhN?=
- =?utf-8?B?Tm9iNTJvY2g4bllVN1ZscW8zdWxzbHRaK1ZzbVl4TkhubjNoS1h1dm9Ca3Jx?=
- =?utf-8?B?TzZYMzIzNEJQK2Yvb05CbTJvblJSc29mQU5jSExKM1JvOE5BaDkzQjJCUEdt?=
- =?utf-8?B?UUMvMGFqc0pyRENmeGR3V2xxb21oa3lseEFBZGg3R0UxUWh5SXRjQkxKeERi?=
- =?utf-8?B?b2p2OHExb2wvZGNjclhjazNNOFVsV203ajZXWGhLUVBLd2MwR2ZGQmtTK0ZF?=
- =?utf-8?B?dy9XZHBZcU9sZGg2SWNiM2VTZ2lmNVhEYndLeGIxZEw0S1FXVzZPZGh4V1Fk?=
- =?utf-8?B?dTZpaFhlVnhxTGNSN1BNdWozQm9lbHBNYU1zQlFWMllDeXAybjFTejVTYWov?=
- =?utf-8?B?SkhueVJvdnR2QTh5eWY1MFg4TG9Nd1RkUWFaWTduRXhtMC9SWUNuSWhHS1lC?=
- =?utf-8?B?WTBPYVZheGhLSDM4NWZkSEtPZi84VUpUejBpL0plWlNXQVlVcExFdFVmcGFM?=
- =?utf-8?B?dzFqcnpWODNnWnI2SFRBR216VmdrK1hmWjQ5OVBZUm45RE1zT2h5TXNxT1Zi?=
- =?utf-8?B?VUVQL1RNUzUvQk1qOTVmVzQ2WGhJRGUrL0w3T2tacWZXbmFGbjhtU01lZXJO?=
- =?utf-8?B?OEdoRFhGc29PTmJFc2paVUdINWQydlAxR3JHWGQ0L0ltUzByREc2Sk1Ec0Vu?=
- =?utf-8?B?QXZ5cDhYWjY5VGFtSHIxZ1pQWFU2UUVKRHp4Y1c1eEg2NnlncXp2alRQb1pn?=
- =?utf-8?B?MHdZU3g5K3FjK1dIMlJuMXVqS0xEcjNmVXRCVWRidDAwQlpLQkNENUxnOExJ?=
- =?utf-8?B?bGRaZGhqT2sydEIyVExCRXJseWJMYlpndUtrRkhDdlpsSGpMdXhmbjVNUXVE?=
- =?utf-8?B?aUhPVml6dExhN2NFM0NpRjVrRGhCbkNHVWpURXoyQzREV2pWVTQzdEI2dTlZ?=
- =?utf-8?B?czNwRTg3d0JoczR5YmxPTnFiUjlXTGRmRVplTUNjWnZoWkFCRFNlSnpwVFFG?=
- =?utf-8?B?OTlFM2xFODNaZGhORjg1Wko5R2wyaVdiMlZJelhUUTBuMUxQZTlCSUNiNitl?=
- =?utf-8?B?OEhlZHhEL3RSUGt0cE9XQ2EyQmVacUxpckI5Yko3QzNsYWR1OHhDUlBZSEp6?=
- =?utf-8?B?K2RlcDhVci9FZVhSaTRyZDFBSWZjLzBpem1ZTTA0Q3B5d1dwc0ZNUk0xK3lE?=
- =?utf-8?B?VHJEU09wTXhUSHN0TmZtOW93WGdhb2N0a21scjZsUnNSSkF3U084aDAyVUh4?=
- =?utf-8?B?N2dka1VQOHNWYlQzWDk4Z2pWWUtFZkJIcjlCT2VDNzNoS1lBbEdocEVVblAw?=
- =?utf-8?B?Y1dMVWVzK2oyeW01YjYxN1BMaDBSd0tFdXpZV2pCVi9YM2dsaTEyeVQxY0R0?=
- =?utf-8?B?dGVXZU1SMzFXRllzSm4zcU9lbDZDRm45eHVwbHlTNlV3NGs3Rk9YM2lUTjFt?=
- =?utf-8?B?ek9hTDU3clhUTjVaVUVnSzNyM09zUzlkSmhTa2dHL2V0N2VVbGprS1RNQzBa?=
- =?utf-8?B?ck42KzZsZlVuWU9QMk8ya3liNzZBN3g0enJIeWd4c2ZuUEkxejNkTk9KaWFp?=
- =?utf-8?B?SW9Tb3ZyZTROREd0RU9rbzV0eG8zUEM5bW9QNjEyeHFLYkt5OVNkMEl5WVRa?=
- =?utf-8?B?c3FaRTBzYjR6a0JhRkw3M1VaWlJCbEwyeE1qUFI0bVlzQWZucFBINHlBZVVB?=
- =?utf-8?B?dU52WlNNb3h4SG1QZkJYN2ZvQmlpaWNEdlZjd290YWVMbE9DVTh3L0ZXem5B?=
- =?utf-8?B?QmhHZmQrbFMwdXg1K1NzTGxrNmNXVDJMTjhod2ZDVllEb0Vybm5ML0QwSmNl?=
- =?utf-8?B?Vms3b2I0b1V5NDlscGtrNkFDV3pIUzF0R0ZrN2VvLzlObUN4SHltSDloUGdD?=
- =?utf-8?Q?hAZIP4UQnvv9Hf4fOEaVxABmPiqoFXkdABXk4rsTUAtWs?=
-X-MS-Exchange-AntiSpam-MessageData-1: u4uXdxgR6ihG2A==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed3ec62a-19fb-4ec8-ee3d-08decffb2790
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 01:11:14.3216
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fLhe8kEy4pHLQGmRq4FSPy1nzv5cusxoPf0fDvn2LnSjx+peF+6W0Md/Bg/bgDZzbRtsfinZCtjjpej2iiibKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7816
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKehOGoC/3WP3U7DMAxGX6XKNZ7ihC1Lr3gPxEV+XGaJNiNpw
+ 9DUdyd0EhpCXH6Wz3fsqyiUmYrou6vIVLlwmlrQD50IJze9EnBsWSipDnKPFga+wJDOBdLHRBl
+ IO2O8VyYcgmjQOVPb2AqfX2450/vSeufbUHhXCEIaR577rpodQg5G3Pv67sc2cgmRKiyNGVIe3
+ QzWeUNH7TEg9lWLb8uJy5zy5/ZFxU3z38EVQYKKFO1Ry+jw8emNp+Wya5atqqo7XOEfXDV8iNZ
+ KY8PeyV/4uq5f+1dYplEBAAA=
+X-Change-ID: 20260519-fix-fops-owner-e3a77bb27c6c
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782096299; l=7358;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=rOZbiAybc3rAq3B4b7mjMddMhfg1pnxw6+509keIaDo=;
+ b=7x2gTH04HY3aq2VQHILbLxIs1tRuAD+9KY28LFYE/LJopMUunCQZzdT+ayz9kIblXtAaAxRYp
+ 1Gh7meur+H0AKgCEKrd8ibPkNGJYdVDofMDN+xCzJ45RHXw/QIf0xw/
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 
-On Sat Jun 20, 2026 at 11:26 PM JST, Danilo Krummrich wrote:
-> On Sat Jun 20, 2026 at 4:06 PM CEST, Alexandre Courbot wrote:
->> I expect that the users of the VRAM regions (i.e. the MM subsystem) will
->> not be able to contruct properly if no region is detected, and that soun=
-ds
->> like the right place to raise an error rather than making an assumption
->> here that no VRAM region is an error. For instance, I am not sure what
->> the regions layout will be on Tegra systems, although your comment about
->> OpenRM seems to hint that there are regions defined for them as well.
->
-> Well, the question is whether it would just be an assumption that no VRAM=
- region
-> is an error. I'm not entirely sure, but I think it generally is an error.=
- If
-> that's confirmed I'd rather fail early and with a clear message, and not =
-carry
-> on with something we already know won't work out.
+During tyr debugfs development, a kernel NULL pointer dereference was
+encountered after `rmmod tyr` while gnome-shell still held /dev/card1 open:
 
-I took a deeper look at OpenRM. The zero FB region error is emitted when
-mirroring the list of FB regions [1], which is a default HAL method.
-Zero-VRAM chips like Tegra replace it with an empty stub.
+```
+  [158827.868132] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  [158827.868918] Mem abort info:
+  [158827.869177]   ESR = 0x0000000086000004
+  [158827.869519]   EC = 0x21: IABT (current EL), IL = 32 bits
+  [158827.870000]   SET = 0, FnV = 0
+  [158827.870281]   EA = 0, S1PTW = 0
+  [158827.870571]   FSC = 0x04: level 0 translation fault
+  [158827.871043] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000108dec000
+  [158827.871623] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
+  [158827.872242] Internal error: Oops: 0000000086000004 [#1]  SMP
+  [158827.872246] Modules linked in: tyr sunrpc snd_soc_simple_card rk805_pwrkey snd_soc_simple_card_utils rtw88_8822bu display_connector rtw88_usb rtw88_8822b snd_soc_rockchip_i2s_tdm snd_soc_hdmi_codec
+  rtw88_core]
+  [158827.872337] CPU: 4 UID: 1000 PID: 11276 Comm: gnome-s:disk$0 Tainted: G                 N  7.1.0-rc1+ #331 PREEMPT
+  [158827.880534] Tainted: [N]=TEST
+  [158827.880535] Hardware name: FriendlyElec NanoPi R6C/NanoPi R6C, BIOS v1.1 04/09/2025
+  [158827.880538] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+  [158827.880542] pc : 0x0
+  [158827.880547] lr : _RNvNtCs257m05FHVbX_3tyr2vm8pt_unmap+0x8c/0x12c [tyr]
+  [158827.880578] sp : ffff800083c236b0
+  [158827.880579] x29: ffff800083c236d0 x28: ffff00013f8a0000 x27: 0000000000000000
+  [158827.880585] x26: 000000000000007c x25: ffff000108e6ed80 x24: 0000000000401000
+  [158827.880590] x23: 0000000000000000 x22: 0000000040000000 x21: 0000000000001000
+  [158827.880595] x20: ffff00010f778138 x19: 0000000000400000 x18: 00000000ffffffff
+  [158827.880600] x17: 000000040044ffff x16: 045000f2b5503510 x15: 0720072007200720
+  [158827.880606] x14: 0720072007200720 x13: 0000000000401000 x12: 0000000000400000
+  [158827.880611] x11: ffff800083c239d0 x10: ffff000141e4fd88 x9 : 0000000000000000
+  [158827.880615] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000400000
+  [158827.880620] x5 : ffff00013f8a0000 x4 : 0000000000000000 x3 : 0000000000000001
+  [158827.880625] x2 : 0000000000001000 x1 : 0000000000400000 x0 : ffff00010f778138
+  [158827.880630] Call trace:
+  [158827.880632]  0x0 (P)
+  [158827.880635]  _RNvXs6_NtCs257m05FHVbX_3tyr2vmNtB5_9GpuVmDataNtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm11DriverGpuVm13sm_step_unmap+0x3c/0x120 [tyr]
+  [158827.891166]  _RNvMs4_NtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm6sm_opsINtB7_5GpuVmNtNtCs257m05FHVbX_3tyr2vm9GpuVmDataE13sm_step_unmapB13_+0x18/0x34 [tyr]
+  [158827.891187]  op_unmap_cb+0x78/0xb0
+  [158827.891196]  __drm_gpuvm_sm_unmap+0x18c/0x1b4
+  [158827.891204]  drm_gpuvm_sm_unmap+0x38/0x4c
+  [158827.891209]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm7exec_op+0x1cc/0x254 [tyr]
+  [158827.894085]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm11unmap_range+0x124/0x188 [tyr]
+  [158827.894105]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeNtNtCs257m05FHVbX_3tyr3gem8KernelBoEBK_+0x44/0xd8 [tyr]
+  [158827.894125]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel5alloc4kvec3VecNtNtCs257m05FHVbX_3tyr2fw7SectionNtNtBL_9allocator7KmallocEEB1r_+0x3c/0x100 [tyr]
+  [158827.894147]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel4sync3arc3ArcNtNtCs257m05FHVbX_3tyr2fw8FirmwareEEB1p_+0x94/0x190 [tyr]
+  [158827.894167]  _RNvMs4_NtNtCsgmSOfgXi5CZ_6kernel3drm6deviceINtB5_6DeviceNtNtCs257m05FHVbX_3tyr6driver12TyrDrmDriverE7releaseBW_+0x30/0x98 [tyr]
+  [158827.899550]  drm_dev_put.part.0+0x88/0xc0
+  [158827.899557]  drm_minor_release+0x18/0x28
+  [158827.899562]  drm_release+0x144/0x170
+  [158827.899567]  __fput+0xe4/0x30c
+  [158827.899573]  ____fput+0x14/0x20
+  [158827.899579]  task_work_run+0x7c/0xe8
+  [158827.899586]  do_exit+0x2a8/0xac4
+  [158827.899590]  do_group_exit+0x34/0x90
+  [158827.899594]  get_signal+0xaac/0xabc
+  [158827.899599]  arch_do_signal_or_restart+0x90/0x3e8
+  [158827.899606]  exit_to_user_mode_loop+0x140/0x1d0
+  [158827.899613]  el0_svc+0x2f4/0x2f8
+  [158827.899620]  el0t_64_sync_handler+0xa0/0xe4
+  [158827.899627]  el0t_64_sync+0x198/0x19c
+  [158827.899632] ---[ end trace 0000000000000000 ]---
+```
 
-So `gpu.rs` doesn't look like the right place to do that check imho -
-especially since the list we are checking against is the list of
-*usable* regions, whereas OpenRM checks the full list. The current code
-is just getting the list from the GSP - the code that does something
-meaningful with it doesn't exist yet, and it is that code that should
-error if there are no FB regions at all.
+The root cause: `fops.owner` was `NULL` in Rust DRM drivers, so the kernel
+never blocked module unloading while file descriptors were open. This leads to
+use-after-free when drm_release (or other fops) is called on freed module code.
 
-[1] https://github.com/NVIDIA/open-gpu-kernel-modules/blob/570.148/src/nvid=
-ia/src/kernel/gpu/mem_mgr/mem_mgr_gsp_client.c#L61
+The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, threads it
+through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates configfs
+and rnull to use `this_module::<LocalModule>()`.
+
+Assisted-by: opencode:glm-5.2
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+Changes in v3:
+- Renamed vtable associated type `ThisModule` to `OwnerModule`
+- Added `this_module()` helper for ergonomic `THIS_MODULE` access
+- Refined vtable macro implementation: one-liner detection and single `defined_items` set
+- Reordered commits to place doctest fallback before vtable auto-insert
+- Link to v2: https://lore.kernel.org/r/20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev
+
+Changes in v2:
+- Merged old `static THIS_MODULE` and v1's `MODULE_PTR` into a single
+  `ModuleMetadata::THIS_MODULE` const
+- `#[vtable]` macro now auto-inserts `type ThisModule`, removing all per-driver
+  manual patches from v1
+- Added configfs & rnull usage site updates and doctest `LocalModule` fallback
+- Link to v1: https://lore.kernel.org/r/20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev
+
+---
+Alvin Sun (6):
+      rust: module: add `THIS_MODULE` const to `ModuleMetadata` trait
+      rust: doctest: add LocalModule fallback for #[vtable] ThisModule
+      rust: macros: auto-insert OwnerModule in #[vtable]
+      rust: drm: set fops.owner from driver module pointer
+      rust: miscdevice: set fops.owner from driver module pointer
+      rust: configfs: use `LocalModule` for `THIS_MODULE`
+
+ drivers/block/rnull/configfs.rs |  6 ++----
+ rust/kernel/configfs.rs         |  8 +++++---
+ rust/kernel/drm/device.rs       |  3 ++-
+ rust/kernel/drm/gem/mod.rs      |  4 ++--
+ rust/kernel/lib.rs              |  8 ++++++++
+ rust/kernel/miscdevice.rs       |  4 +++-
+ rust/macros/lib.rs              |  6 ++++++
+ rust/macros/module.rs           | 34 +++++++++++++++++-----------------
+ rust/macros/vtable.rs           | 41 ++++++++++++++++++++++++++++++++++++-----
+ scripts/rustdoc_test_gen.rs     | 16 ++++++++++++++++
+ 10 files changed, 97 insertions(+), 33 deletions(-)
+---
+base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
+change-id: 20260519-fix-fops-owner-e3a77bb27c6c
+prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
+prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
+prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
+prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
+prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
+prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
+prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
+prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
+
+Best regards,
+-- 
+Alvin Sun <alvin.sun@linux.dev>
+
+
