@@ -1,90 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F4F344DB9;
-	Tue, 23 Jun 2026 12:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995081D5ABA
+	for <nova-gpu@lists.linux.dev>; Tue, 23 Jun 2026 12:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782217758; cv=none; b=kv2lFNFObocre7KHD5QbHk8ETreVhjQ3JylbKs7Xqd/k6RvTxHLg7ZWhlYzTrENVPVkWlj44W9nt2w0cQf1tmLv9E+Ykbdv1eW11O1OQiw801sA5xE8VhTRPt/iy/p3nNuNCObeP33uGBS+kNS+bqsH0Ec/zwBUQ9BBPD6HPr90=
+	t=1782219047; cv=none; b=XT+5kFYk0GOcmn1/5DRvzRzyEVmhjqkGV8LklJON43GtnC880Ga9etYpOW9RwFPyQTIQJVnjms7Mve1NVEdejl4cXaF3iVld+TBxRoVg1TCkChKYMU+NXRZdCRzY4DecU64JWCaBfwnSKVDsmFGen8lTSWjPpCY984Gq3fnK+lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782217758; c=relaxed/simple;
-	bh=GEHMk1MA6K6TwBF71zdNKyey1sfGalpW8VXt5R1gxqA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=htuiCIO4l12It4COfyK1Pz+4Uc02q1wA5zRssmTAG9EjAIBgNYVoQQWXYlSrdhv1us3TVYgfPdDLxaxfhiJwU/wW8p684JNE/QWsTusv++HwT4q/ff+G7KYCQOEJubP6ZJU5BrZrJEjaxuJ7YwRsrIiF2zHuRkWS9SLXCcyyOlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arBH+uTK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782219047; c=relaxed/simple;
+	bh=TOUR2POP2vlf8YUNKv3dyet+eahX6OSdriA3fkqSbFk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=YBKPSg4G3kZ+me5rjbReO5XHbhWo9/L3XaWqsdQOq0xrGyfFcHM6zofsXw7so+rHcXNC8q8raBLCpQEh0H6C8ejeDtZaGc1HqLBBH3loWDLrTfYhK7ZGMFm6l76bEQk/XHm8dBqYBfBLWJ7WcvENW+yWK6MrgiVnm3zvakIUr5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A6wyLdMp; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arBH+uTK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60CF61F00A3A;
-	Tue, 23 Jun 2026 12:29:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782217757;
-	bh=GEHMk1MA6K6TwBF71zdNKyey1sfGalpW8VXt5R1gxqA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=arBH+uTKfknaykjzbwL1FfpyiT8xhOcMjL2AcHUXlbBmEENDHWaadoxrm535uPOOO
-	 XE1iX8GbG/xZLN6j35b0pRrvXlkJfnZKaCVpgJFRm/FLUBH5qGezlPaMKrzjjNh1Qb
-	 tXLXrOYGMoXE1yHnPqnjuA+JN1/8JlusNBl5903aDAhuRuyUvW23oZYRg5OudLMzkS
-	 xKaJh2kOg7gMsltBBI+2tmXJ2fCa6aTJ4UYC9WywvunR6sTOQVsykYeUmdmw1mZVo2
-	 ghY6sqNjOEI1tGem9MAlu8pLVjfB7g/bmLf5TAaKJh3xtZpv1ZNslXaEXfWDNTmNhB
-	 7jx1ru3eoIcag==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6r?=
- =?utf-8?Q?n?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu
- <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>, Arnd
- Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, Breno
- Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, Dave Ertman
- <david.m.ertman@intel.com>, Ira Weiny <ira.weiny@intel.com>, Leon
- Romanovsky <leon@kernel.org>, Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Arve
- =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, Todd Kjos
- <tkjos@android.com>, Christian
- Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v4 9/9] rust: macros: remove `THIS_MODULE` static from
- `module!`
-In-Reply-To: <20260623-fix-fops-owner-v4-9-0daf5f077d5c@linux.dev>
-References: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
- <20260623-fix-fops-owner-v4-9-0daf5f077d5c@linux.dev>
-Date: Tue, 23 Jun 2026 14:28:11 +0200
-Message-ID: <87echxe90k.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A6wyLdMp"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-519f9f13b06so38482021cf.0
+        for <nova-gpu@lists.linux.dev>; Tue, 23 Jun 2026 05:50:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782219046; x=1782823846; darn=lists.linux.dev;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dGj3g1KCk+kZNll4UB6dOm+IXncrIJjrxvMy5Ft1TB0=;
+        b=A6wyLdMprywZCG4Di/xGHXB+7wVQiNPCyOaqt1G2iBBZgWPmgcfKVVyh0tG5j6DmfA
+         gI0M5XQfNrTam7b9sZVFdYrSG0bG/+MTfciVfhlQzs9awepfkvQeB3uGkK0F/lWUWBAq
+         dvnMgTihwCc1Ywnkw/5R1MSHlJ3SFLEJ0MT7lD2/9Q71uxjD6y0Z/+aKsMpjRltHZB4X
+         DM4iOn+27Pgy12Foss/ICL7KeV8Md7tjGW8fWTQH0BkRqVmuxwL0MfPnPgRBn7Lhn0Zf
+         kKTaP+BBC+7MRU7DYPScIhXwRB//4x5KEDRZlW4qbJtWLmmrg0OZSbFCp47uu9Jn+2ml
+         eXdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782219046; x=1782823846;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dGj3g1KCk+kZNll4UB6dOm+IXncrIJjrxvMy5Ft1TB0=;
+        b=nxxwFH36mqnq4nFX56M+xjaZ27zEVPpqDCtPg7LJZAzlCklgSuKHVybPBN+aiZi+w5
+         QOHHlEOHJtPggN1QSEvTznVfSYOShc5ratnptbM6ZMjodfo1g7UIIe9/OcT38OxmhzsU
+         OJhf9ygiK0b/xgIcCx0XyU/MeOXFiiDSE2f8ey7KJNKa7C0uepv0tHgBMBYDBpwoVsBN
+         GA32TD/MZUAZrHFTMBx+ekQDqzsMzMsqP00Fflfe4gzLn9kfQgRCzSFs4WshIbJZzkJ3
+         7Y5ChtKzGHrafXlXz5VIym6tP1RlIO2nHOkEvDLGwPkv/vHCYEhT3A0nhwKXuwaGPPnD
+         +Hzg==
+X-Forwarded-Encrypted: i=1; AFNElJ/nBfcqX8ONWLsuEi8ZG5FZ9ssJObvlSNRnWm2KuKQuBZ9ut7mV6BaTPp0AQO6rRnlUtX8sF6Z0nw==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxnH9aMctj2WPMIq5rFvAltxtyIzQJJ9/TUVVp1SOxsT1kyxhmC
+	yuCVsVal8FFsrG25XuqSyV0kMSdYNdnInpsRe+H2ubq/tybZ+2/kTuY=
+X-Gm-Gg: AfdE7ckqfjGmUiaJcv+1uh0WpY3gwBtqxPDc1ky+uuJEdj8Fps7ywi5TkoNYCzjIk5A
+	ZDfxjG2eJftOtKi2h0O6Xxhp6yhRmy6gApe2+DpclhpWB1j4uv42jXZqn20vq7ePO6I0VSR1Esj
+	NbDYrq1rxUHWfk1M8m6yOMAwEgXk0Cc9YZCO+Ow8h8Vatxa5D2T3PTZnh0c477lfJTwimU9evgI
+	1R6whwZiXMN4HDwg0Kh4EveriGAPPJD9ZvZC4lb7UP2yqzC/iy1GDbr+1b6/4cDqcsz7q+7EftI
+	eN5y5NGlmiYzk5V0UZAV3XvZAxuz63FKUPp/SBUTUv/w21g93Nb5WIxg3a2dTk40yplxJpiKAFP
+	stAXLQcYT/egT81+81Qay+L79iDdcFRNvqiqC+RIoyVjfbcu3vNWEStXkGTGndECets3M3AZcZv
+	fyPMraY7n5HQdDGSlWpRmTT/md/gImDe1QcmXEAE+iAdOoujJ0
+X-Received: by 2002:a05:622a:408d:b0:517:917d:e3d7 with SMTP id d75a77b69052e-51a54807d1fmr37051071cf.28.1782219045378;
+        Tue, 23 Jun 2026 05:50:45 -0700 (PDT)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51a51106a09sm22340861cf.0.2026.06.23.05.50.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 05:50:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 23 Jun 2026 09:50:38 -0300
+Message-Id: <DJGFX7B3FJJP.3CI7CU0US8FYB@gmail.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Shuah Khan" <skhan@linuxfoundation.org>, "Simona
+ Vetter" <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ <linux-kernel@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>
+Subject: Re: [PATCH] gpu: nova-core: parse structs via zerocopy
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "Alistair Popple" <apopple@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260621143647.264770-1-nico.antinori.7@gmail.com>
+ <ajjj1yyMcrCA8H19@nvdebian.thelocal> <DJFUZJYZHOT1.M74T83PJE8GM@gmail.com>
+ <DJFVRMR67B0W.2AJBHU1PWDPFT@kernel.org>
+ <ajnPpyQcirSDIZTu@nvdebian.thelocal>
+In-Reply-To: <ajnPpyQcirSDIZTu@nvdebian.thelocal>
 
-Alvin Sun <alvin.sun@linux.dev> writes:
-
-> All users have been migrated to `ModuleMetadata::THIS_MODULE` const or
-> `this_module::<LocalModule>()` helper. The `static THIS_MODULE`
-> generated by the `module!` macro is no longer referenced anywhere,
-> so remove it to avoid having two sources of the same `ThisModule`
-> pointer.
+On Mon Jun 22, 2026 at 9:23 PM -03, Alistair Popple wrote:
+> On 2026-06-23 at 07:02 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+>> On Mon Jun 22, 2026 at 10:26 PM CEST, Nicol=C3=A1s Antinori wrote:
+>> > I did my work on rust-next [1] because drm-rust-next does not have the
+>> > zerocopy crate present yet [2]. linux-next contains both zerocopy [3]=
+=20
+>> > and the new users of transmute::FromBytes if I am not mistaken (BitTok=
+en,
+>> > PciRomHeader, and PmuLookupTableEntry), so I can make the changes ther=
+e.
+>>=20
+>> The drm-rust tree is a bit special, as it remains open for contributions=
+ even
+>> after it has been tagged for inclusion into Linus's (including throughou=
+t the
+>> merge window). However, all changes staged in drm-rust-next are not goin=
+g into
+>> linux-next until -rc1 is released.
+>>=20
+>> IOW, until -rc1 is released this may or may not resolve all conflicts wi=
+th
+>> drm-rust-next. Once -rc1 is released, it is backmerged into drm-rust-nex=
+t and
+>> drm-rust-next is picked up by linux-next again.
+>>=20
+>> Usually all of this remains rather transparent to contributors, but you =
+hit the
+>> case of using a new feature introduced through another tree before drm-r=
+ust-next
+>> caught up with Linus's tree (which will happen next Sunday).
+>>=20
+>> Before drm-rust-next caught up, this patch can't be applied anyways, so =
+all
+>> good.
+>>=20
+>> > I am fairly new to kernel development, I apologize for the mix-up.
+>>=20
+>> No worries, you did nothing wrong; thanks for the contribution!
 >
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> Yes sorry if I gave the impression you did something wrong - this also to=
+ok me
+> a moment to untangle as an experienced contributor so perfectly understan=
+dable.
+> Appreciate your contribution and hope to see more of them in future.
+>
+>  - Alistair
+>
+>> - Danilo
 
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Thank you both for the clarifications! I'll wait until the backmerge
+into drm-rust-next happens, then I'll rebase this patch along with
+the new conversions and send a v2.
 
-
-Best regards,
-Andreas Hindborg
-
-
-
+Regards,
+Nicol=C3=A1s
