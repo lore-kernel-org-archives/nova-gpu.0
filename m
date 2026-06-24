@@ -1,152 +1,131 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123AE38B7D6
-	for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 13:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782308382; cv=none; b=GlOgSvF0qXvC5cXyIQhB5yBWzbZRFuGMZDuDjFTl1STCVd8aoTxwKMtIkok6H/VakjPNmyzrOZWEPDvQbvwLpzqj7K0LtZCGy0OwHOY4fSJxZ6etM58Q2aFIofo/jP1U/xAgiInrK8Eh9sAetX+IFCwfy62mpzLgmk3bZyzS194=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782308382; c=relaxed/simple;
-	bh=bCN9QXSeKcThALlWIblZF+dwzG/gKPOqYW26oOCeuYE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XHiLH5FwJa8XwUfCZxc3mL2/vkYoLyA8SgwFTqsEDE+te9hqfPbnB18FriFOUa+9pKFxW6Tbt5j+YMBtNpnviC0DzXoN/uUs/JN58OpITS9uh0kQbvnCC3q+eTX2WI07/QuhdX+3pl3jokShUCMyqiNAqNCwiFapQbT0qOyRK/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ek+vMAHA; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B563BB111
+	for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 14:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782309793; cv=pass; b=X52IOmN9OJbifcCVw4wA/d3xb9AfwqUqJ4l8TJq/suG+zkjlYNQuYumhcka8Edu4VcuVYp5r1rLRw0hHeSju+1nNBaDXXzHaQE4vXcnQ47IGw9bYhUIPtA8Td6zI9MLeuESzlYVQuHVVNXIl0CSrvcXVbMjiCLn0S+1un5FuVoE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782309793; c=relaxed/simple;
+	bh=ksijtf2IRLNHsT3AVS8XAMToSq3zWqz1VXfdch2/aYo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aNhUtmXTXN230mHa5YWzE8x2v96yhmjDamfxSNg63SbhLZP+z+GgS1nHBdCKqhf8/o1EahcQwDB/fp15DIAzWCq/dC/YDdOR+mEYecIyqDl3SrVyFkBQS4JqjueoU9dEde3IhQLQ+N0zSj8snTQvKqx+jXULW4WOeNX3P3h3qW8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hAXQoHab; arc=pass smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ek+vMAHA"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4923fb1f095so10825935e9.1
-        for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 06:39:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hAXQoHab"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-30bb87c90deso164465eec.3
+        for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 07:03:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782309788; cv=none;
+        d=google.com; s=arc-20240605;
+        b=hJQGldMtIOuzp/4s1u/xVa1ZwWIqYGq9QlrnQs0RX93k5WN1bPulNBM6FuZ41oHogY
+         h1SeroBMDykfWiKTR7phynYMkFwxuRIf13bibblMSi0baetEG/Px5Y5tjsc4WGs6KO2p
+         3KTsV3y+BrWuyiYoGA98LERiZrqVx9EZSQnlfIAy1Oo7Ryo3X82Pnnc2LiCeRIx7FW35
+         sL/FDMLtfxpetLQ66FQpWhTEaVWU3glQytMaimFZZfOGfuQa/4MZlXVUMApaSZk6H9I5
+         HpQZL02kwAg/AZ42Ni2ewnbqqp4odTP+MDBLLDGvbzwtKxrGjyJIPME63+m0tbFkD1Oj
+         5ydg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ksijtf2IRLNHsT3AVS8XAMToSq3zWqz1VXfdch2/aYo=;
+        fh=NEWmqw40D6yKKi0L9XinFSvj7tfrFo2KxSR67tFBy/Y=;
+        b=B/F34ywIPVTKg4fGX2/nvW3Rwf1niaP4Qsv3A99A7V6iIEWqZc+DJw3BPPkEetUStl
+         fnX5x2d2A/7wUm+f4TAKtvDznXsiXH+G7LvAH3UFKZ0h/2uD6jo3YmR3AydW+FqhQzQC
+         g82AIm2GScK7tK44pJMAxRTfRCoDgIPSWfgVEaJ4HOLqNcPwcgZ15PqQtTKWcKdFDPps
+         rDGrDkn9GvElUVnLdJvlKBXDv/VUxg+jjEUS+gjK8nUtD5gLVJnw6sX/8OEVLXkGCG00
+         2Cqinj2+hOobeo8zVjz557scCn9C/qu+OeTyl59rubsWCVOYT4hk+SFg6nxmaftMC5A/
+         44gQ==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782308379; x=1782913179; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782309788; x=1782914588; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uwEU/3SC+a/Dow+usckYBKgjXhWK/UqDUFsUC31pETA=;
-        b=Ek+vMAHAUtAZIxJ5ch0Ucu4/+W/LSPsty15wVzFH5lLc8rwHd8uT5Iy1QGRG1N0eLx
-         6UP9fZ3xPdQFsV6YjTz3BqLwcmBy+qki/ov39reVe8aHl2WBhrNDAt2ORZd/NR9ubwkq
-         0AHAXvUZSEMgwrWOG1/kg3fdtLeHBtw16YK0Ygu+/aRap5FL+iL4ENevVS0/TCx9iXRl
-         oOx/JZymM32ZM7gpsIIEpZlz+m6cs3bMgOfFS17pLWqjRiWknyC6FzdlxCfEQzdws1Sv
-         3muDqdr7tSMLnj/Mv+GHiBxvigpcSz+ydJSfmLukJpUfqgL58tYCfXSK8wfXU5bY9DAk
-         3cqQ==
+        bh=ksijtf2IRLNHsT3AVS8XAMToSq3zWqz1VXfdch2/aYo=;
+        b=hAXQoHabp2gNK2S3fmUGePB34xpQmc8OWTrKiOiSRoGI7kLOoDrGWbcASvxM1Qewo4
+         6B8KC2QjeIvuciLwbxffkpgmuKZJwLT35L3Fqq5SYpSgdYhBairDx9afO6gQOsfavi7o
+         DbBgfn33qIsSwz0F5n0f4JRGzpuMFDOWMqYeVSbIIyERtoYt4xc25kTrGCNPUDjJT0bS
+         OQm6Y8wTchVmxpr4HcRrEY9kOqK8efT34epsF86bEIi7k6CiUH2kV5elx1uyH8xDz4Wt
+         iDXQZOiEz91jABLHcJkv25uWe3A/C76TuoJ7jDbJG6JG7U7zaQuBV21JgVip2AgZ8ni3
+         bvbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782308379; x=1782913179;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1782309788; x=1782914588;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=uwEU/3SC+a/Dow+usckYBKgjXhWK/UqDUFsUC31pETA=;
-        b=orY1F0+6BoWqH6CY402W8zgIfrHJo3AnzG5D3urp9guA1Mwf0VpZ2XMsQasYtGhuf3
-         xLQBTDnJZUAfKhgSkLjTpaDs4H8jgb7tEFkJlTtyD/dBboArxXG03TJQYTgiIDUtWSVb
-         FbDBqFsVThSaVgFR2S3rOUH+t4LZdZuItdI1wQxOM5j/zkN5q4NImKz9u0l7mzT9B8B2
-         ksZ0LX+MVrrL6f/heI57IElxDCnQl71AXQQ00RSx0Tih4Hobgb5txgJ1aPk7j57si4tq
-         2bpL17ow0pmcHtSNa7vhNGcChpmHjIaZ7UCE33Xu9A3XPcAvB+2IU38W84NajuVEUANp
-         DAPA==
-X-Forwarded-Encrypted: i=1; AFNElJ9skaNffcHap5BFj3Nmao9l+rb8stSZjR2jQjyHpvtajJ+u0/pJmRlTPb6ah5OAnWqXySGALAPt3A==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yw8DBbj8U5QZbA3aATb/nmh0IaVC00wumwcS/RvNTFUQz2MWLnT
-	vE1D6hKr+fnjyLz1knM6Pm37qMkJNjT23vXznDsnl/PWkMkmxt36oTpM
-X-Gm-Gg: AfdE7ck0gYmdIB+o1hY6Yoeh8hwFkXA7iHuxpt0PqPSK4aqvfO5WOINMTzc22LCuSgt
-	bQtNn1CDl5LnDMplzYdQyDxuuK6BPkC4TlHL0yt56xUGC70CwDMfQwzpa+yUicmM9JGbSdXGfS9
-	AVuhz0Y+dAYEOG7eq+b97ZwL11+FuuDkXk0x8SgtczS2DomH2OVlxs3FSf8u+kBXKE9InoS6yC5
-	vUZPqsAWjOo3Qkps1DPVFc+LBeDjdHlY6SMZOjKUvWN7hGZKgc7WsoXJ2njWkWYDSqIrXn6ttYj
-	P//IG8o48lHcUP9mep84yLlOBq8BoSE9/wF8dvZVoTAUtTmQ1qCyBVnu8M/TR+m4tMaiVQbnbhn
-	d57q2stl142bh5ki/snbFCQyGRGJ7S7RH8Nou7Nk1NjTWv4g7FscU/mzA/hYOO4qYh0IX3kBYQg
-	L653/Idt0A0a4YGmyfdIc25CkdwYSybxAsnjss+d2OSab8UrvyNrNDETlHHw3x
-X-Received: by 2002:a05:600c:8b77:b0:492:4911:8a with SMTP id 5b1f17b1804b1-4925b35a0f9mr107690435e9.12.1782308379175;
-        Wed, 24 Jun 2026 06:39:39 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fc47720sm802880225e9.0.2026.06.24.06.39.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 06:39:38 -0700 (PDT)
-Date: Wed, 24 Jun 2026 14:39:37 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Zhi Wang" <zhiw@nvidia.com>, <dakr@kernel.org>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
- <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
- <tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
- <joelagnelf@nvidia.com>, <apopple@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, "Bjorn Helgaas"
- <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v2 1/7] PCI/IOV: Return u16 from
- pci_sriov_get_totalvfs()
-Message-ID: <20260624143937.50499c29@pumpkin>
-In-Reply-To: <DJHAC9W05615.19MHKPF67OG2T@nvidia.com>
-References: <20260622194353.1308872-1-zhiw@nvidia.com>
-	<20260622194353.1308872-2-zhiw@nvidia.com>
-	<DJHAC9W05615.19MHKPF67OG2T@nvidia.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=ksijtf2IRLNHsT3AVS8XAMToSq3zWqz1VXfdch2/aYo=;
+        b=ZHVkWtSub4mW/8Dp5SPMLwbjnnj8WbUJBh18+UBHShMPvrfMFVMxcZ/6c/TTc5il3G
+         m3CzarfdbsC6sUfwzvOvw3iGBlW+MKNc/Of7ybwtbvDHvqVLmbUU2yokjEgTsFZPsVCf
+         RAGkTW5M/zSR/BPhzSdI83GYaeAvZminvCSk0JvKyo+BQ3U2r6lPVZgJyp8WnXGvGKbb
+         jXThNGFsCxbjJGmUQMFQdHRvJJAEa9OewaiW/CYNOGjX72jvS9AB9lGT0sDFvKirnE9A
+         8dNKtp+lhQaMn0HPUhcWGLZqYKLphOI7Rojee4beqq2VSq7McLGI3cTBl7CI3D95zpNk
+         DsBg==
+X-Forwarded-Encrypted: i=1; AHgh+RpaO2xzXYy/z7SrnmF1HTcXkxqppYZ4NSYsIoj6OHoqk06mFW3VsIDj5yZERMjPFJroANPS2fUsUA==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yydla3sen8QzBrkCZQpthwVVkTxf0nRI4F9MmhOiWeCWyg306Ik
+	rv0EUSl93wipsS151djKHIGbivJmzvToRKXcoRM/mY8jcD0UAY1m+2yLXf70nZGEv2SBx15kPw8
+	HwdqhwWLo6/n1yPwSPWCJerOykztCtUw=
+X-Gm-Gg: AfdE7ckgwABKRFZcHexddLJe0EHwYzCWAwhq+bDOXVoyMkBy98/s+r0PXisTNyU7Zoa
+	ZaiCNBkgdFdCXpaPwkUbN0n08xQy/Jgq0o1Y6Tx4EjTF7H/ubromx0pDJBkVjrunYy0sin3GGC/
+	SZmNyAS7eBlx0tb/5J0zAL/cL6eV57zpirUkRUFTl1mmWZu+Hin98ezOHfkrtWNk4B5AxhVnhx1
+	OotFmo46YGQ1XLVQwQLZVwDfvb1PGCsLDp5waIxruyf+JInH3ODxkTSZzJMvZW/3rPeedHCplhC
+	bnlOnKHeKz3i+G1UPy97sA0Hk+YXtfrzEO70c54dhFiqzcA9+rQe85P2SLoUUUwQlC3msuX1QXQ
+	xjLRxPweCMCwl
+X-Received: by 2002:a05:7301:658a:b0:30b:c8bb:588f with SMTP id
+ 5a478bee46e88-30c5240f7damr3538472eec.5.1782309787929; Wed, 24 Jun 2026
+ 07:03:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev> <8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com>
+In-Reply-To: <8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 24 Jun 2026 16:02:53 +0200
+X-Gm-Features: AVVi8CdZJD474qdF4GDgFLlfJ_vD8WsFaomaTI3YSRH6pluhcoRUR51gh_iz4VE
+Message-ID: <CANiq72m_LakPxHt99+3eBn2rXokr3vZbdJf=Wk-Yi8_ufQ2mvA@mail.gmail.com>
+Subject: Re: [PATCH v5 0/9] Fix missing fops.owner in Rust DRM/misc abstractions
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+	Rae Moar <raemoar63@gmail.com>, Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+	Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+	Igor Korotin <igor.korotin@linux.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+	Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-pci@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 24 Jun 2026 21:40:52 +0900
-"Alexandre Courbot" <acourbot@nvidia.com> wrote:
+On Wed, Jun 24, 2026 at 3:23=E2=80=AFPM Petr Pavlu <petr.pavlu@suse.com> wr=
+ote:
+>
+> I would only suggest adding the new file rust/kernel/module.rs in
+> patch #1 under the MODULE SUPPORT support entry in the MAINTAINERS file,
+> similarly to the other module-related Rust code, so that the module
+> maintainers are emailed when changes to this file are proposed. I think
+> you can change the existing 'F: rust/kernel/module_param.rs' to
+> 'F: rust/kernel/module*.rs'.
 
-> On Tue Jun 23, 2026 at 4:43 AM JST, Zhi Wang wrote:
-> > pci_sriov_get_totalvfs() reports a VF count, not an errno-style
-> > status. It returns 0 when SR-IOV is unavailable or the device is not a
-> > PF, and otherwise returns the PF's driver_max_VFs value.
-> >
-> > driver_max_VFs is stored as a u16 in struct pci_sriov. It is derived
-> > from the SR-IOV TotalVFs field or from a driver-provided limit, so the
-> > implementation cannot return a negative value.
-> >
-> > Change the declaration, CONFIG_PCI_IOV stub, and implementation to
-> > return u16. Update callers to store the result in u16 variables, remove
-> > obsolete negative-value checks, and use unsigned format specifiers where
-> > needed.
-> >
-> > Cc: Bjorn Helgaas <bhelgaas@google.com>
-> > Cc: linux-pci@vger.kernel.org
-> > Signed-off-by: Zhi Wang <zhiw@nvidia.com>  
-> 
-> Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-> Link: https://lore.kernel.org/all/DETDILPA1GFY.27WND0TEC5352@nvidia.com/
-> 
-> > ---
-> >  drivers/crypto/hisilicon/qm.c                   | 8 +++++---
-> >  drivers/crypto/intel/qat/qat_common/adf_sriov.c | 6 +++---
-> >  drivers/gpu/drm/xe/xe_sriov_pf.c                | 6 ++----
-> >  drivers/misc/genwqe/card_base.c                 | 6 ++----
-> >  drivers/net/ethernet/cavium/thunder/nic_main.c  | 2 +-
-> >  drivers/net/ethernet/emulex/benet/be_main.c     | 3 ++-
-> >  drivers/net/ethernet/mellanox/mlx5/core/sriov.c | 3 ++-
-> >  drivers/net/ethernet/sfc/ef10_sriov.c           | 2 +-  
-> 
-> I believe that you can avoid converting all these drivers in this patch.
-> The implicit `u16 -> int` conversion done by C should result in the
-> expected behavior, and it will be fewer Acked-by to collect.
+That would be great, yes -- thanks!
 
-The generated code is also likely to be slightly better if the function
-return value is a 32bit value.
-
-Similarly you don't really want to do any kind of maths on local variables
-that aren't 32bit (or 64bit on 64bit builds).
-
-The fact that the domain of a value fits in 16 bits doesn't mean that
-it is better to use u16 - it is usually worse.
-Pretty much the only place u16 should be used is to reduce the size
-of structures.
-
-So it is probably correct to change the return type to unsigned int and
-remove the error return checks, but nothing else.
-
-	David
-
-> 
-> I.e. just updating drivers/pci/iov.c and include/linux/pci.h should be
-> sufficient as the first step. Specific drivers can then be updated using
-> separate patches that will be easier to merge individually, if you want
-> to do so.
-> 
-
+Cheers,
+Miguel
