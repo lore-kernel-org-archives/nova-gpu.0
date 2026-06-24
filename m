@@ -1,194 +1,152 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B24B3B5E10
-	for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 13:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123AE38B7D6
+	for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 13:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782307406; cv=none; b=P01LserJp5p3IuoR+drTfv8d/mL1mwuZHTjXMDpQC1djKE0iWoLbCdrflJl3xBdKCRLQW/HHy40T36rOoIaAnx5rnVHTWm4e3XW5AIo2dOAIQ6/8lfSOuMQfxJpVrwtAlbC1ierurkJSJNUTKTs9BEVlRb//sxyQLSNAfiWgCWA=
+	t=1782308382; cv=none; b=GlOgSvF0qXvC5cXyIQhB5yBWzbZRFuGMZDuDjFTl1STCVd8aoTxwKMtIkok6H/VakjPNmyzrOZWEPDvQbvwLpzqj7K0LtZCGy0OwHOY4fSJxZ6etM58Q2aFIofo/jP1U/xAgiInrK8Eh9sAetX+IFCwfy62mpzLgmk3bZyzS194=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782307406; c=relaxed/simple;
-	bh=nOGI1wI+vpa0w8/Vtce1TwCsycM2v5+pG5SNHLWaxXs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gmgDQbfKDA92AkAlrdMsQxfWi2i05zJvfnZQfJiJIwtOla8ZUfOJEr6U1yUJnSVg2Am+fG1Ql2izEOzYvvnFTtW012BIzWVLTGJW3gIa8j01peAAILNItFakYFpx1ixnECeWXOgKJRRC2WnMp8ovFxTlm5kiVK4Y/hMmvgwidsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DPBPpFdE; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1782308382; c=relaxed/simple;
+	bh=bCN9QXSeKcThALlWIblZF+dwzG/gKPOqYW26oOCeuYE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XHiLH5FwJa8XwUfCZxc3mL2/vkYoLyA8SgwFTqsEDE+te9hqfPbnB18FriFOUa+9pKFxW6Tbt5j+YMBtNpnviC0DzXoN/uUs/JN58OpITS9uh0kQbvnCC3q+eTX2WI07/QuhdX+3pl3jokShUCMyqiNAqNCwiFapQbT0qOyRK/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ek+vMAHA; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DPBPpFdE"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c0e12cb1d90so121640966b.2
-        for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 06:23:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ek+vMAHA"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4923fb1f095so10825935e9.1
+        for <nova-gpu@lists.linux.dev>; Wed, 24 Jun 2026 06:39:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782307401; x=1782912201; darn=lists.linux.dev;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pcv3i8MxYGcE66nrV/kv3D5y9IOE8aUQHBcOTbfUFU4=;
-        b=DPBPpFdE+qSJHURbH7KJV2EQpyqZrkYXBQwC29x04PkQ3rlyv9Il08ONauOwfzjdRN
-         oqSBHtUDuQa3abE2QXqqkXsbVXSc9UeNEuoUJZ4jjO9o8Wn24aFE/CQRZEPRZAMQtGIB
-         L0zitsv+6DGeuJm1DW7y5RGR1uGTIp6RFaNFJUa3UugWK7YT+mnRoSVoW1tiKBzDiG43
-         l14pB7GbPjNs9B83j8F9SpwGPOMmxTgwhfY260cWMUYImqEf18kJv6+QzD12WsgEM6hd
-         EibPZuvLts9lXmS4AQp0ZMAKGPrvn00dLpzv9/jPnC3iBwcdFDcMaj1PRKyhPdvcE/5s
-         B8mw==
+        d=gmail.com; s=20251104; t=1782308379; x=1782913179; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uwEU/3SC+a/Dow+usckYBKgjXhWK/UqDUFsUC31pETA=;
+        b=Ek+vMAHAUtAZIxJ5ch0Ucu4/+W/LSPsty15wVzFH5lLc8rwHd8uT5Iy1QGRG1N0eLx
+         6UP9fZ3xPdQFsV6YjTz3BqLwcmBy+qki/ov39reVe8aHl2WBhrNDAt2ORZd/NR9ubwkq
+         0AHAXvUZSEMgwrWOG1/kg3fdtLeHBtw16YK0Ygu+/aRap5FL+iL4ENevVS0/TCx9iXRl
+         oOx/JZymM32ZM7gpsIIEpZlz+m6cs3bMgOfFS17pLWqjRiWknyC6FzdlxCfEQzdws1Sv
+         3muDqdr7tSMLnj/Mv+GHiBxvigpcSz+ydJSfmLukJpUfqgL58tYCfXSK8wfXU5bY9DAk
+         3cqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782307401; x=1782912201;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pcv3i8MxYGcE66nrV/kv3D5y9IOE8aUQHBcOTbfUFU4=;
-        b=r1x4Lj7A1ti+IzFH8dvZTpcNazo0mLIxzPqDWkCYMhdUNspsFzYFlG2E+FEYzzKwYq
-         B1rGkUhZSxR6Q4/l9mrZ2GvuAVhDVv5qsZJfGt88igFiyzE6uo8vyKfFs1bLDYwJlP8j
-         FeeNHAlyCJvrwszmNNyI3yotjy15PNo3rrCvM93ZZ9+SdAfNn8flSTOcBBMPblcJnr7w
-         2oX8T4VO8/zcbdEFt+OJhf6rXdSyLcAdnkKTfiJCBOotRMV7o/PgrmIRG3E21NtNcLS2
-         2ZHIKuMB+WfCQ1W6c6wls8e+6D+ZjWVySBQB9IzR/0/ddyPLHkmaDYaL0t+fjzsKgABB
-         2gtg==
-X-Forwarded-Encrypted: i=1; AFNElJ/uZ+mA0CVHoh8foOdAzCY8gxvtJ5/IAJXfL8G+0988qkA/AHxPB4hVl+QzT6GDxPKRR1QeSRTCiQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxpC1Y6gkmoZUwxNymxAV5escQBHDxQF7xl1bdQ/dpsBQ/vL4VL
-	Zv3aQ+epsEeXo7wn9uop3/S40zQmIZgjYeDyujta8lW1Ac4TumIbtwTLin0iOAe2Zb8=
-X-Gm-Gg: AfdE7cnYlzZvP7+U/KorAFRiQIZNG9IWMnueD3doqv6327lEVVdtwf+CmEBn4s8+v7o
-	ziDlPu0WggBO6J0IMPEU7Hko09/aFCRFJ1IKDqyaky5nk+0hmxDNOEjwCYPeOsCM5fNWVbCR177
-	J4GOm6RnFLD8XmrRHw49+jWIhDeaBd/Hs1Gs+CwSasTCxY4e0aamEd4JrJbII9v2CmzXUFmS7AE
-	NAMd91yqNOBxmtBF9jemcu3PsNEjzS3yiVvhaft0VYSPJStL5nL3kBWMYdIvqQO2I1nzYhKDp0O
-	XGJdcja9Yc3y9a2C7v5cwuUrK3SvznA0ilLZMnXiXxZ8NLklLDb7LPPSFdXQ0fr40JaRAehgn9M
-	fQgWms0vJjHLQS71cM0VTNvAv4WJw8nk2bTeEaJoIGBGzoR+Nth8imrLPYsSe9LO2Y5d5Ub178l
-	wJCkE5umkY/UD3t9N7zJEWgo6QgT0UqYBORp0N6jcIaN+kEez53QafToGXcqSP+uQRzcwmxXk5B
-	3PqPn7wNRsxHcVOWJQW30pFhTNN+vclqJp4LNMBMcHe9BUg048lFqF6O14=
-X-Received: by 2002:a17:907:a807:b0:c10:d41c:e540 with SMTP id a640c23a62f3a-c119e179685mr185363566b.11.1782307400601;
-        Wed, 24 Jun 2026 06:23:20 -0700 (PDT)
-Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100? (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz. [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c5e99e1aasm644551166b.25.2026.06.24.06.23.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 24 Jun 2026 06:23:20 -0700 (PDT)
-Message-ID: <8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com>
-Date: Wed, 24 Jun 2026 15:23:18 +0200
+        d=1e100.net; s=20251104; t=1782308379; x=1782913179;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uwEU/3SC+a/Dow+usckYBKgjXhWK/UqDUFsUC31pETA=;
+        b=orY1F0+6BoWqH6CY402W8zgIfrHJo3AnzG5D3urp9guA1Mwf0VpZ2XMsQasYtGhuf3
+         xLQBTDnJZUAfKhgSkLjTpaDs4H8jgb7tEFkJlTtyD/dBboArxXG03TJQYTgiIDUtWSVb
+         FbDBqFsVThSaVgFR2S3rOUH+t4LZdZuItdI1wQxOM5j/zkN5q4NImKz9u0l7mzT9B8B2
+         ksZ0LX+MVrrL6f/heI57IElxDCnQl71AXQQ00RSx0Tih4Hobgb5txgJ1aPk7j57si4tq
+         2bpL17ow0pmcHtSNa7vhNGcChpmHjIaZ7UCE33Xu9A3XPcAvB+2IU38W84NajuVEUANp
+         DAPA==
+X-Forwarded-Encrypted: i=1; AFNElJ9skaNffcHap5BFj3Nmao9l+rb8stSZjR2jQjyHpvtajJ+u0/pJmRlTPb6ah5OAnWqXySGALAPt3A==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yw8DBbj8U5QZbA3aATb/nmh0IaVC00wumwcS/RvNTFUQz2MWLnT
+	vE1D6hKr+fnjyLz1knM6Pm37qMkJNjT23vXznDsnl/PWkMkmxt36oTpM
+X-Gm-Gg: AfdE7ck0gYmdIB+o1hY6Yoeh8hwFkXA7iHuxpt0PqPSK4aqvfO5WOINMTzc22LCuSgt
+	bQtNn1CDl5LnDMplzYdQyDxuuK6BPkC4TlHL0yt56xUGC70CwDMfQwzpa+yUicmM9JGbSdXGfS9
+	AVuhz0Y+dAYEOG7eq+b97ZwL11+FuuDkXk0x8SgtczS2DomH2OVlxs3FSf8u+kBXKE9InoS6yC5
+	vUZPqsAWjOo3Qkps1DPVFc+LBeDjdHlY6SMZOjKUvWN7hGZKgc7WsoXJ2njWkWYDSqIrXn6ttYj
+	P//IG8o48lHcUP9mep84yLlOBq8BoSE9/wF8dvZVoTAUtTmQ1qCyBVnu8M/TR+m4tMaiVQbnbhn
+	d57q2stl142bh5ki/snbFCQyGRGJ7S7RH8Nou7Nk1NjTWv4g7FscU/mzA/hYOO4qYh0IX3kBYQg
+	L653/Idt0A0a4YGmyfdIc25CkdwYSybxAsnjss+d2OSab8UrvyNrNDETlHHw3x
+X-Received: by 2002:a05:600c:8b77:b0:492:4911:8a with SMTP id 5b1f17b1804b1-4925b35a0f9mr107690435e9.12.1782308379175;
+        Wed, 24 Jun 2026 06:39:39 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fc47720sm802880225e9.0.2026.06.24.06.39.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 06:39:38 -0700 (PDT)
+Date: Wed, 24 Jun 2026 14:39:37 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Zhi Wang" <zhiw@nvidia.com>, <dakr@kernel.org>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+ <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+ <joelagnelf@nvidia.com>, <apopple@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v2 1/7] PCI/IOV: Return u16 from
+ pci_sriov_get_totalvfs()
+Message-ID: <20260624143937.50499c29@pumpkin>
+In-Reply-To: <DJHAC9W05615.19MHKPF67OG2T@nvidia.com>
+References: <20260622194353.1308872-1-zhiw@nvidia.com>
+	<20260622194353.1308872-2-zhiw@nvidia.com>
+	<DJHAC9W05615.19MHKPF67OG2T@nvidia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/9] Fix missing fops.owner in Rust DRM/misc
- abstractions
-To: Alvin Sun <alvin.sun@linux.dev>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
- linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-pci@vger.kernel.org
-References: <20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 6/24/26 2:57 PM, Alvin Sun wrote:
-> During tyr debugfs development, a kernel NULL pointer dereference was
-> encountered after `rmmod tyr` while gnome-shell still held /dev/card1 open:
-> 
-> ```
->   [158827.868132] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
->   [158827.868918] Mem abort info:
->   [158827.869177]   ESR = 0x0000000086000004
->   [158827.869519]   EC = 0x21: IABT (current EL), IL = 32 bits
->   [158827.870000]   SET = 0, FnV = 0
->   [158827.870281]   EA = 0, S1PTW = 0
->   [158827.870571]   FSC = 0x04: level 0 translation fault
->   [158827.871043] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000108dec000
->   [158827.871623] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
->   [158827.872242] Internal error: Oops: 0000000086000004 [#1]  SMP
->   [158827.872246] Modules linked in: tyr sunrpc snd_soc_simple_card rk805_pwrkey snd_soc_simple_card_utils rtw88_8822bu display_connector rtw88_usb rtw88_8822b snd_soc_rockchip_i2s_tdm snd_soc_hdmi_codec
->   rtw88_core]
->   [158827.872337] CPU: 4 UID: 1000 PID: 11276 Comm: gnome-s:disk$0 Tainted: G                 N  7.1.0-rc1+ #331 PREEMPT
->   [158827.880534] Tainted: [N]=TEST
->   [158827.880535] Hardware name: FriendlyElec NanoPi R6C/NanoPi R6C, BIOS v1.1 04/09/2025
->   [158827.880538] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->   [158827.880542] pc : 0x0
->   [158827.880547] lr : _RNvNtCs257m05FHVbX_3tyr2vm8pt_unmap+0x8c/0x12c [tyr]
->   [158827.880578] sp : ffff800083c236b0
->   [158827.880579] x29: ffff800083c236d0 x28: ffff00013f8a0000 x27: 0000000000000000
->   [158827.880585] x26: 000000000000007c x25: ffff000108e6ed80 x24: 0000000000401000
->   [158827.880590] x23: 0000000000000000 x22: 0000000040000000 x21: 0000000000001000
->   [158827.880595] x20: ffff00010f778138 x19: 0000000000400000 x18: 00000000ffffffff
->   [158827.880600] x17: 000000040044ffff x16: 045000f2b5503510 x15: 0720072007200720
->   [158827.880606] x14: 0720072007200720 x13: 0000000000401000 x12: 0000000000400000
->   [158827.880611] x11: ffff800083c239d0 x10: ffff000141e4fd88 x9 : 0000000000000000
->   [158827.880615] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000400000
->   [158827.880620] x5 : ffff00013f8a0000 x4 : 0000000000000000 x3 : 0000000000000001
->   [158827.880625] x2 : 0000000000001000 x1 : 0000000000400000 x0 : ffff00010f778138
->   [158827.880630] Call trace:
->   [158827.880632]  0x0 (P)
->   [158827.880635]  _RNvXs6_NtCs257m05FHVbX_3tyr2vmNtB5_9GpuVmDataNtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm11DriverGpuVm13sm_step_unmap+0x3c/0x120 [tyr]
->   [158827.891166]  _RNvMs4_NtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm6sm_opsINtB7_5GpuVmNtNtCs257m05FHVbX_3tyr2vm9GpuVmDataE13sm_step_unmapB13_+0x18/0x34 [tyr]
->   [158827.891187]  op_unmap_cb+0x78/0xb0
->   [158827.891196]  __drm_gpuvm_sm_unmap+0x18c/0x1b4
->   [158827.891204]  drm_gpuvm_sm_unmap+0x38/0x4c
->   [158827.891209]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm7exec_op+0x1cc/0x254 [tyr]
->   [158827.894085]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm11unmap_range+0x124/0x188 [tyr]
->   [158827.894105]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeNtNtCs257m05FHVbX_3tyr3gem8KernelBoEBK_+0x44/0xd8 [tyr]
->   [158827.894125]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel5alloc4kvec3VecNtNtCs257m05FHVbX_3tyr2fw7SectionNtNtBL_9allocator7KmallocEEB1r_+0x3c/0x100 [tyr]
->   [158827.894147]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel4sync3arc3ArcNtNtCs257m05FHVbX_3tyr2fw8FirmwareEEB1p_+0x94/0x190 [tyr]
->   [158827.894167]  _RNvMs4_NtNtCsgmSOfgXi5CZ_6kernel3drm6deviceINtB5_6DeviceNtNtCs257m05FHVbX_3tyr6driver12TyrDrmDriverE7releaseBW_+0x30/0x98 [tyr]
->   [158827.899550]  drm_dev_put.part.0+0x88/0xc0
->   [158827.899557]  drm_minor_release+0x18/0x28
->   [158827.899562]  drm_release+0x144/0x170
->   [158827.899567]  __fput+0xe4/0x30c
->   [158827.899573]  ____fput+0x14/0x20
->   [158827.899579]  task_work_run+0x7c/0xe8
->   [158827.899586]  do_exit+0x2a8/0xac4
->   [158827.899590]  do_group_exit+0x34/0x90
->   [158827.899594]  get_signal+0xaac/0xabc
->   [158827.899599]  arch_do_signal_or_restart+0x90/0x3e8
->   [158827.899606]  exit_to_user_mode_loop+0x140/0x1d0
->   [158827.899613]  el0_svc+0x2f4/0x2f8
->   [158827.899620]  el0t_64_sync_handler+0xa0/0xe4
->   [158827.899627]  el0t_64_sync+0x198/0x19c
->   [158827.899632] ---[ end trace 0000000000000000 ]---
-> ```
-> 
-> The root cause: `fops.owner` was `NULL` in Rust DRM drivers, so the kernel
-> never blocked module unloading while file descriptors were open. This leads to
-> use-after-free when drm_release (or other fops) is called on freed module code.
-> 
-> The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, threads it
-> through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates configfs
-> and rnull to use `this_module::<LocalModule>()`.
+On Wed, 24 Jun 2026 21:40:52 +0900
+"Alexandre Courbot" <acourbot@nvidia.com> wrote:
 
-I cannot comment that much on all the details of the Rust
-implementation, but the series looks reasonable to me from the modules
-perspective. I'm glad this issue will be finally addressed.
+> On Tue Jun 23, 2026 at 4:43 AM JST, Zhi Wang wrote:
+> > pci_sriov_get_totalvfs() reports a VF count, not an errno-style
+> > status. It returns 0 when SR-IOV is unavailable or the device is not a
+> > PF, and otherwise returns the PF's driver_max_VFs value.
+> >
+> > driver_max_VFs is stored as a u16 in struct pci_sriov. It is derived
+> > from the SR-IOV TotalVFs field or from a driver-provided limit, so the
+> > implementation cannot return a negative value.
+> >
+> > Change the declaration, CONFIG_PCI_IOV stub, and implementation to
+> > return u16. Update callers to store the result in u16 variables, remove
+> > obsolete negative-value checks, and use unsigned format specifiers where
+> > needed.
+> >
+> > Cc: Bjorn Helgaas <bhelgaas@google.com>
+> > Cc: linux-pci@vger.kernel.org
+> > Signed-off-by: Zhi Wang <zhiw@nvidia.com>  
+> 
+> Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+> Link: https://lore.kernel.org/all/DETDILPA1GFY.27WND0TEC5352@nvidia.com/
+> 
+> > ---
+> >  drivers/crypto/hisilicon/qm.c                   | 8 +++++---
+> >  drivers/crypto/intel/qat/qat_common/adf_sriov.c | 6 +++---
+> >  drivers/gpu/drm/xe/xe_sriov_pf.c                | 6 ++----
+> >  drivers/misc/genwqe/card_base.c                 | 6 ++----
+> >  drivers/net/ethernet/cavium/thunder/nic_main.c  | 2 +-
+> >  drivers/net/ethernet/emulex/benet/be_main.c     | 3 ++-
+> >  drivers/net/ethernet/mellanox/mlx5/core/sriov.c | 3 ++-
+> >  drivers/net/ethernet/sfc/ef10_sriov.c           | 2 +-  
+> 
+> I believe that you can avoid converting all these drivers in this patch.
+> The implicit `u16 -> int` conversion done by C should result in the
+> expected behavior, and it will be fewer Acked-by to collect.
 
-I would only suggest adding the new file rust/kernel/module.rs in
-patch #1 under the MODULE SUPPORT support entry in the MAINTAINERS file,
-similarly to the other module-related Rust code, so that the module
-maintainers are emailed when changes to this file are proposed. I think
-you can change the existing 'F: rust/kernel/module_param.rs' to
-'F: rust/kernel/module*.rs'.
+The generated code is also likely to be slightly better if the function
+return value is a 32bit value.
 
--- 
-Thanks,
-Petr
+Similarly you don't really want to do any kind of maths on local variables
+that aren't 32bit (or 64bit on 64bit builds).
+
+The fact that the domain of a value fits in 16 bits doesn't mean that
+it is better to use u16 - it is usually worse.
+Pretty much the only place u16 should be used is to reduce the size
+of structures.
+
+So it is probably correct to change the return type to unsigned int and
+remove the error return checks, but nothing else.
+
+	David
+
+> 
+> I.e. just updating drivers/pci/iov.c and include/linux/pci.h should be
+> sufficient as the first step. Specific drivers can then be updated using
+> separate patches that will be easier to merge individually, if you want
+> to do so.
+> 
+
