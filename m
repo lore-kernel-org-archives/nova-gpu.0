@@ -1,51 +1,52 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022101.outbound.protection.outlook.com [52.101.101.101])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020128.outbound.protection.outlook.com [52.101.196.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F113E716F;
-	Thu, 25 Jun 2026 14:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCA8299A84;
+	Thu, 25 Jun 2026 15:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.128
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782399076; cv=fail; b=W4z9mvnClqHbm8WmHQSJgOt6izRUJF3vDw0tJMOh7zkBROG46kIIsN7d5bEEZqFqFyB2azQGPLlSst7YkBWn2E4h9xkCpfKB1XgZIj2iYX036S7ZAXTXpi0F4p+wqh797V2ECcH4g9lMM+A9tnnqs1753zGrW5AFj1O03AIiSh8=
+	t=1782400383; cv=fail; b=dXlI9QzeXFuVeOiWO0oaubrDZGnvU7/9CUNK6m4HKdk/36I5gnWmy6OTNMc7+STZf2aPabbzSm9Yu53YWOAL8aNpsMj/OiN/2iLg/xdCdARayVwqBpelp5/NQ2UnegFyzk0ZwxkxMtA6mVbPNIcr1oPpUAF3upYEQQeghQtxrIk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782399076; c=relaxed/simple;
-	bh=CvaTpUBtkiuvd1AYvmuckyQRSX1lbHJb6i4WqC0fPS0=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=On9M5BYp6rEGXezMKiDy4AtuLIvNNVkWItKwLqDWhsj99LV77mEQHz/1F+zXnDpndJQf5xoAi7SW1M5CO5PBkacvLCdMlCLrL2ZZgqgDZKuIwxNh332Jzkp3QBy94Y0mlII85w4RvbTqSSRBfD7A1IcLC1qUZWS9/iA4cfAGufk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=DQxjU4Ki; arc=fail smtp.client-ip=52.101.101.101
+	s=arc-20240116; t=1782400383; c=relaxed/simple;
+	bh=wE7cCfp8969JC5UWdVGTj+fJcsuTmvg/HGvnU5O1v0A=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=YKtUZab9Mobeq6w5x6EuIj+9eyD6d0NXRtpnrv1cB4/F5jvjF96BBjraR90/MTcSHA7Xf7Mc2iz8TBKGnDgNUHhh6grWhzv5TywpDTLWjQ8CnShgexdY4PHO9ZSFn0EgDxNmG1KUCXHDT6C04BEAjempwDlVLx1AfPNSyRfhIC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=c7cpKTcP; arc=fail smtp.client-ip=52.101.196.128
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="DQxjU4Ki"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="c7cpKTcP"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JBm6PZR2LLGEshZUiFXb7IQFnhryGz4B3BeBrO5gw0HgTxuXKwhXsmfO04KGOR0gvwbFs4jcD4T3vEqn1QVeyuzUU+WJYsF0cVbeYl1zhSVVDUUoRxwtOFxY+6CFgNHqFniYMS2G5kOVCtJydKnpFHa+yV2ceR+aTWKN232rSwhrhpHnM6HgK19h9+ljmAXibjW/UX3H15qTEMEtazaG1DiVst2nqvYLvF3P8jMv3bJ93C4scl76Mqpn/rtHr1HyBwXPfGPkZQkusafUXmJY2577BrpRE0aJz1/zPuzI/hSws+L5nhQx/R6GDUB/vhJM0iYQVxXGrv9SguCsdJBWDg==
+ b=Ipk/mTzeJNosewvTk/wQkM4QJqiRzXeBMvSZ1NfixITxG0sIfx9rmnsQbpcHuNUMIQUKC6cVMT5vwuB/Epz3n1smpYYBqSd6DRdgDYN50QXqgwO+m8uFh9LFGLpuA6FYVAl5rN+t3COG5xNGghSNztwAj/B44RY0kJ9cO4YhxRodWTQ8ssHkoGErQGzraDqaxCA5QKq7FBVvmafq0RiK3r2GFW5vgzAAPIQ3EVCZWjxprAyVxOHQoBf9BhZoH3L3wIFMYEnLbuWL+VBkkUVf8fOPYxuR8kIynu+9OLQ3uXJ0ncDhr7PEsoVJIIgZELnfWjdvzxUj0v0RPIYLsP0SuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TL5OeIKPlATiM+CDJs7KD8oUz2zj/gcSJKIMAdUDE9U=;
- b=geO95pOERPZSL02GfY5UgRaUkuGkPP59IbJrZ5NC+KbgzLqQ+kL5WR9fMOeT6WMvYIaYGyG6SHRLpqX2E4PkK4fLLHDF7/sU+bjbkvCJFPECrgMgv2+eGF51trH6HsF40kWjnwFONXseTuqAR1+ZfmdbL1q9/vVdHvSDA4jl2HtjMWcvYlpE7+2sUhcUaFPINYXkX1t3ExlSS1BeyKVlBnqBWCpCeWzNaNFOBlGGGgO6q0cKdz2qSw3Axr2UmMTF/nRrJJ6wBVgeeaqexswF0U6W8xoBd2fnRK2/9sUfMI7611FWPn2BZVrOYFxqPv28P/HdlKh7dh02CDJs3OofBg==
+ bh=fFaP7Uj3HL/fKy/Nf6zy+2RpwffAay0gLzFPyLDaxOw=;
+ b=Z2zVU6tiTXsjnrBPiX7s4J/E/r1iGo5K0+5PV1FffQzin+ndKdq1oBW79hvFHAfucrL0m6ujX2agOctkKDJ3HPGqcpV/2soGNmHMDDdTGvTzuHWQYokuolzGJREIid7nxsco0wHYbePEZ0UIKDHqXxiwfoZdwYa9jfx3g2/yGQixPNOGxOLEIG0Q4tAdIhLTukBMUXVpQLDXh5HYk0JhCZDuZoL3O7H9ExA5kwSAFrBy/4mIqj7J1KPGVQ1fq1mUiZOsp5EjOI4AwvG4n/HzM7E6kjjUTFguaXGgLtj/o+Jm+DV4KO5PsqMAaTdVhylFuwHKruN/QEQyrKHRRZKafw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TL5OeIKPlATiM+CDJs7KD8oUz2zj/gcSJKIMAdUDE9U=;
- b=DQxjU4Kie32s7taz0Agry6dmLmsNGqbciGWwtdrJ6sH9jJWuMKtVzHcqO5kIMt4s6KAeX5nt9i6oS7FOlSo8AtEkPFdmCrHgJcALSiLluwqcr7EKgmNTEYwXf3I4gaMQVYQAnqoGbvzy27quKMtnFFtMPm710bkBGbcqz2A1sVE=
+ bh=fFaP7Uj3HL/fKy/Nf6zy+2RpwffAay0gLzFPyLDaxOw=;
+ b=c7cpKTcPJ5gg4bYWuHNaRQ/wPvyTuUopXHqUXqS1LN+S9GwlbbToZOjH21Bnk8rKm+Pap3b3Krl5Lg+dHtPstGbcwy2cyoo/rbRa5k1ocAfZRPIibXvdYnlU3Lvm9H6at43msEbeD7HGt/9aZqmcmkhzgX3j7tmevP0J3xqIk74=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWLP265MB3618.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:f6::7) with
+ by LO0P265MB3307.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:16f::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Thu, 25 Jun
- 2026 14:51:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Thu, 25 Jun
+ 2026 15:12:58 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
- 14:51:06 +0000
+ 15:12:58 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 25 Jun 2026 15:51:05 +0100
-Message-Id: <DJI7QIWNZL9K.1Z49I1QZIBIOA@garyguo.net>
+Date: Thu, 25 Jun 2026 16:12:58 +0100
+Message-Id: <DJI879ROZKNI.2U77EST3OH7QI@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
 To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
  <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
  <ecourtney@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
@@ -55,17 +56,14 @@ To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
  <lyude@redhat.com>
 Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
  <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <stable@vger.kernel.org>,
- <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v4 01/16] rust: drm: ioctl: fix unbounded lifetimes in
- ioctl handler arguments
-From: "Gary Guo" <gary@garyguo.net>
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v4 14/16] rust: drm: Add RegistrationData to drm::Driver
 X-Mailer: aerc 0.21.0
 References: <20260620184924.2247517-1-dakr@kernel.org>
- <20260620184924.2247517-2-dakr@kernel.org>
-In-Reply-To: <20260620184924.2247517-2-dakr@kernel.org>
-X-ClientProxiedBy: LO6P123CA0029.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:313::14) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ <20260620184924.2247517-15-dakr@kernel.org>
+In-Reply-To: <20260620184924.2247517-15-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0075.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:190::8) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -74,204 +72,173 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB3618:EE_
-X-MS-Office365-Filtering-Correlation-Id: 381fef89-970b-4fb1-cc51-08ded2c92fbb
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3307:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a8186c1-bdab-45d9-919b-08ded2cc3ddf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|10070799003|7416014|376014|921020|6133799003|3023799007|18002099003|22082099003|56012099006|5023799004|4143699003;
+	BCL:0;ARA:13230040|10070799003|23010399003|376014|1800799024|7416014|366016|18002099003|22082099003|56012099006|4143699003|6133799003|921020;
 X-Microsoft-Antispam-Message-Info:
-	a+4ykgA48zgirTiFv1ZNtX1Tiw8oM7+BYL2/G0P1H0mRoRuWoAKwqa3Eah13tBU2uSwrCQ1kLkYRjHEKIW3H6OGqAztbmx62KgSxN5UryF9Wot2SeC6VBdAKFGYDepcqFiq3jMqPmZ+w8eRAny7qj53BeZgqcsUKv+sgxc2eFsB7BmKBvNpRkN10H/T6I4brB3jupgqftNjwGx2sJ2eqHxQgS0yjsO67gzyJp38EG2BqFYOnIEUJd6ZxE5up+N++d1cDKz4s3IsD5n/Ft1YwRAaf37zu1GmXrdfqZUG50LDPqStZ1ROF/D5H/Ge+OJmmqcG7pvTPs4M8ZLyAjkMYd58gfMr1/njXhPwJYftrEcpclpKB9JWgurFRaUCPoYYvdIpgUCU2yua3QpzSuO77NHS8bA+ed5KKsPbf/pAYUZx4oM3hWD45EM/ttlgUBa8CRLPgZt1r/Uvgsl0msaqVf3/RlBzRT7EL2a4FZ8a1zA23TDUl7o/9us5aNKWbxq3LNZebGzhBWpdIYfku83dIuI7WkDgvw80Qdn03x96yMulkihfCzWiV+nRoB3o5ukW5v9uGjqXoC89jEr7NYRe4enE4NWs6A7TcvshPQU3innTSDLRaUVeqZhbtMRqkFGHnagRKioFciEnKMeUSxzeG+UbzehIDDoCiLknntrMil73lgE3HD/GYFZ0lWD2hRRv32WyvDxTTNRRUEdDmwR8RrQ==
+	I4SK5VWw31fGyak7MpioyFQ/X65hc85SVAa3/QDco53Wa2yvoDBEpocVNsGSvkXThUGr3n6mlxDqY1ARpGyJtb9OxNrm4WIyfbZtyMkRQSJTF+UD00adU1tNnsNWw8aqbXXqbTZPrbjfYUBi5xlX0511F8IjTZHP+4ebWvrnJElPIrcmEL1McGSKKZpo6cFXaAmjxxvLmUoKCrdUpbqL+bos01mAiB8+QHeoSZcr6ckdatvP6jOo3vCP3ZZnxWPkkWrxN16gl6eQdsVlUs0tRNNLa3bQb0C+WEAB2ojMQ+MEvdWibrc0gz7jRv1eoeACjOOPBf62lUlICDcv1JyF3uPOr7jrSCp8Jwvj21ikzyvs2VJP41s5HzPcJmmNR9X6BpKuhGr5D4XlWu8oSLW4+utkLi+iF/w2gYI4bnLGasoLl5N7xYkjwr1zjFNCqfmbvbcY7lthNeOAUqv3sbkCTijM93tgDM5zyQ8MXE9b5/P3ZRVqVOOcucKOamEvc8ZQKwOBJ6oGPf4/ZN+ZoIP2LHJjiZNyptjIwCtysj9IZAP9izeXkjPfZWpUbqxA9Ez/8ePG4RHGvJQbSQbltUlW9lC9MMEILpCvgARRCNRHN3sp9JilqZZhkoLWyKSbtoBFKgPc4fv8kyeyTX18MOM9FFMyMgIqI72QAoyYp9FKRWigXCpeC0MjXH/nWjv1gzBpOxNWiwuhnjfL1jp2LkZUyg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(7416014)(376014)(921020)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006)(5023799004)(4143699003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(1800799024)(7416014)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(6133799003)(921020);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dEdjeUtOTzBHbHhKR1hERXZnYmVKTVlzR2dsa0pPdWxodEdpUFE2aXNPaUNj?=
- =?utf-8?B?WWxDQTFRaEpSQVByVEdWL3Mzc1dqWjA4UzJpOGVYZFRyODQ0c2xLVTd1QmFi?=
- =?utf-8?B?Qk5VLzVNVmZHVFVpVXpZMS9ITFNnZjBFRTBzbjJCOEltZFNNN0tvRERxTmIy?=
- =?utf-8?B?aDIrNDlyOU4wRmhwb1VrZ3o3UzZ4b3JZc1BVS0dkeXREaFpINnRiWm03TkhS?=
- =?utf-8?B?TkNibUY3Y0F6YUYxRldZYlNCczFDREdGeUxaQVdGK08rb2JOT1FEcS9aR1dD?=
- =?utf-8?B?bDAxYWxQSVQwWUwzNFlWelg0aDg0b2pSUE95ZVZkNi9HdDJSbS9MOWhpdHJ2?=
- =?utf-8?B?djhJSmFLcld1YVZxaHFEZTBRRmVobGtYQmJVNElMRmlpbEtVbWU2RU1JNmh6?=
- =?utf-8?B?VnJpMEZYNVdtZC9WbTZQY1hyYXh4aUtHSzJuUWxwT3c5VkZJSFkzTkgvN0E3?=
- =?utf-8?B?MnN6bU9keUtBVSswRmtYVTNCU3hGdWlTUGdkK3dxQnhiOHp3clhadVZibXRM?=
- =?utf-8?B?SVlSV2NoczdwdThPMkFSOTVMMmZSU1djU2ZDQnY4T0Nha0taYTAvcFpka2l1?=
- =?utf-8?B?Vzcyc0tVcXJlTDFiMDZLb3VFOFhyNGZSa0ZTUWllL09UbTRnNUVGTC9hUEdI?=
- =?utf-8?B?WkswRGlMYVhTOFVSQVY4bWc4VEJGZWJ4dFlDZVIrcTR1d1lyYkloK0lGVHpF?=
- =?utf-8?B?Qk1zUXZ3UnQ5aWVyNjMveXFFN3hhaENEUnl6YVRnelQvVDhlbzMyY3haeTJR?=
- =?utf-8?B?M0ZUaG5xRGRoT0lVQnlZcU9YcEV5NE12aXJ3NkFINFVSeE5VWFNpT05DNER1?=
- =?utf-8?B?U0ZTYm5yUHgxNm1wUmlka0o2S1BaRGRDSXBrWUcxa0V0U2c2UkFoL05RYVZn?=
- =?utf-8?B?NjBzejBpSm1HVmZDeTZnOFVOTFFZa0VRZUV4VFRzeVBjcWZROXpUOGwzc1lk?=
- =?utf-8?B?aVFnMzkxWDZIY0dySVNKWDkrNFVjeUFET3c5MHJ2OGMybnlkYmkwV3ZrZjc2?=
- =?utf-8?B?ckFVeFcwMXZ3MGFqNk9Edk96cFBxTXVlcW5UR0ZWcitKblppa3BTSVZHU3Zj?=
- =?utf-8?B?ZmFaV3d4a0ZpdmZqWGlpOTN3dDZzSVlUWW1DR0Jpb2hqRzVPcldJSTNkWkxH?=
- =?utf-8?B?TFloNCtManA5OHZFUUNnWlErTjd1WlFCckNvYk4wTXk2TUt3ZDNYbzBQTFRx?=
- =?utf-8?B?R3FZUTFpVFFzdytxd0tOQW0weGt5VVFUdHVsVFJaQmtFVkFDU2RqOUR0SnA1?=
- =?utf-8?B?N0M4T3ZFQlBaajkyM0RFY1ZxOEFYV3BQTEQydm81WDY2eU9xUVU2VXBlL2FB?=
- =?utf-8?B?UnFVek04ck5mQW9ISUg2aTM5YXRSSXJwbU1OcU5nSkNoQnhNWlh5VWhRL0ZE?=
- =?utf-8?B?bWhmaTAyOEdVRjQ5UmxhV25zVU1Db0htRFZyRzdlYkRKeTRwWVgzNzdGV1Z0?=
- =?utf-8?B?WWdOKzZKUXZraDJNNTFTc3NiOVA5OU5PcUI1alQzdmtMdytDODI2Z2FXR1Rn?=
- =?utf-8?B?VDQ1dHNCUlE2SC8vM0RveXc1UUlCcGlKMUNvTTBaZ1E5MFZxbHNES1kzUksy?=
- =?utf-8?B?QTBLT1lMWXp5Y3V1clUrQk0xZ0theXdaQjJaVlRNY1Ryem5CMjVQODlzeTNM?=
- =?utf-8?B?dy9FVWQ3by93VVlxODF4c0h2cmN6QWJiT3hCZ2tNUE9OTE41eHRDTFNFVFJn?=
- =?utf-8?B?M0picXJ1WWE0Zk9ZUnp6SGZyYi82U0hrYXh5QkdqenZ0NVI0QUtwb1lpbkVM?=
- =?utf-8?B?eDVjYXdxK2IxSUVsSFF0Nml6QmRtY0hkL2FvaG92a0xzZW9Uc25uUEg3SGJV?=
- =?utf-8?B?M0xsZlF0RVJqT3NUc2pFNkJFdmV5T2U1Q0lPbVNCRk1LTTJ1dVdhUk5WWjM1?=
- =?utf-8?B?eFJHdDNGcnVCUHB3Mko2bnF4YnVtREoyY3JuMkxESHFEMVBiN3hDaHdYdi9h?=
- =?utf-8?B?YS9kQnA3TUk2MEJMODFNclpYREpwaVA1cytsQmJpUDdOaHlsaXM0WER3aFhl?=
- =?utf-8?B?ekNZRldBY2psWFVlMXBFSjRhZER1L0ErbkRCRDJDZlJ2R3JGT0RBTndrTjEx?=
- =?utf-8?B?VTM5TEo4ZUlIUnp6WEUzd2crOFVFSU95ZmhxNldpdjY3bkhtcjYxbnc1V3VE?=
- =?utf-8?B?Q3o4bmZVV21Bc2d1dk8vUUVwSjRPUDQ1RTBmenFJNlVnWmR6QVA4eFpMeGhy?=
- =?utf-8?B?MjJVSjRiUldWY2tscVRjM25OQzZvbUQrck5sYTNtK2pZQ1FHd0Z4UUZhYTVC?=
- =?utf-8?B?M29GdTA1TS9BQUVCZGQyN2s5T0VxMDF4eVJDaTQvVVVtVVo2UjdVRkZnY1ll?=
- =?utf-8?B?ajhYbHJ6Q28xMGY5aGpPL0xub0dGazFmdjdxTnhDamU2bHo1b05jZz09?=
+	=?utf-8?B?L3RINUxoczZiYVJHUzh6VE1LbWZ0Nk9qMnFlc2RhRE9wSFFoN0dhQkVRZ09N?=
+ =?utf-8?B?QU5WcHFsbXNvaFZ0YWZGZVZwcFdSbDlKcmRSK3pOdjlCTG9lUTZTdFBMaEg3?=
+ =?utf-8?B?MUF6cW1lUTMvR0RjSmZYTStnZHhOM0JPTlEwT0t0MmU1YUVFeDBoWXBjMnlh?=
+ =?utf-8?B?ZXR1RytZMUFnZlNJSCtOaEtLTXZVSHRzQWM2SFYrak9ldysvNFRvbktuNzZL?=
+ =?utf-8?B?MVF5QmpRcG0xN1ZwT1F5WGhwQllXL2lsNGFUd3UxK0ppMFRjYUpLWFlDWFRY?=
+ =?utf-8?B?eGpCQkZMT2V5VGszSGVlbE5ramhFRGluczhOQ1hza3VRaDgvWmdXaEF1SW43?=
+ =?utf-8?B?Mnl1cVNaMDk4cEFYN0xFdWUwdjR1a0lzN2pXM1hjZG9sQmNmbXppc1d2ZXp4?=
+ =?utf-8?B?akxMM1p3UmJJejZYSmFrejJWWGp3OVM0enJBc3k1OG9FOTJjWWt2QWFMcC9L?=
+ =?utf-8?B?bXl2SXRVcnpEM1F5RGo2cmxyVFZ0RUUrTE91OFRxMXNwRHhqMS9CVjBUQ0J4?=
+ =?utf-8?B?VEVEVHRGYm5DVnAyQWpVa003NEdvR2l2K3BJcjY5dWdkaDJHVHhlS0RWQUUx?=
+ =?utf-8?B?U25JOU16SnVTVzZpeWw0bmFTWDZZeitEYk5PWFFWWDZLNU9vdkpITytrQ21n?=
+ =?utf-8?B?VjR5UzRCSitHSmhiOXA1d2ZFeXl5WUdLQmFuOXVENTVZNjNkeWgwTE9GK1Z2?=
+ =?utf-8?B?WWxOaVFtR3lOYlFLUXdyclhtWFFBQWFpZXFXOWNKMGFWTEZlc0NWOU9KcVRY?=
+ =?utf-8?B?WTVGdXBKVFlRaWE4M2l6Qy9ZS2pFbFdXRzlmWk5OY3lDVlo3d2pKVGNYbjQ4?=
+ =?utf-8?B?TnVuSC90UWE5RXBRRmRzQS9nVUl3UnVNWlY5OEp6M3lBZWhpMnIxTHBncmk3?=
+ =?utf-8?B?MVl4RXIzZmdDVnRRVnpmNXRFMmVyMDk5ZDN2S1k1OVFJUmxMV1FwSjNlQmxu?=
+ =?utf-8?B?RVdOOFAyMmVBZVN6L1BnT2FQcElHUllQaFAyUG5QL3N2b0NxdWpVWnNIWHpW?=
+ =?utf-8?B?aFM3b2dDRFVmU1Yzc1J6bmQxV2FyRnd1OFpVcDJHU3hENHIydFoyZkR4V1lP?=
+ =?utf-8?B?M0FDdFJvS0d2M2k0UjgzckVacGo0b3c4MmVBaFlkWnRtM3MreHptMjNTT1Nh?=
+ =?utf-8?B?dHlWdEU3akRsZVBOZVBtN1duNWtOcVFrZlN4d05PZVdrazFyNXVXc1h0VU53?=
+ =?utf-8?B?VDJiRk1HR2VGZnIvMVpRQ2lsS1RGVDNtbGpLK29mUGZLcTZaNHN4NWEyOTVv?=
+ =?utf-8?B?QzFNM0w5emRNOG1HMHN0N0R5aTllVUk0S1VWUmdsRmxOSllCT3hoRGZ3dGto?=
+ =?utf-8?B?YnI3aHhmNVlZUitnbkZmTGtlTEQ4Nk0zUGZMWmVONGZ0Rys4SnpkZ2wweC9a?=
+ =?utf-8?B?TDRpUnRTcjdpT2lUN29WRG5nZ1dvbHV4Y1ZqQjUwOGlHWmw2cFlVSWhJZ2dw?=
+ =?utf-8?B?TzlBcGtua3JuNGFCcVM4YS93eWdHR2xDUW5jTnR0R3RHZHRISmQxNGdTR3BZ?=
+ =?utf-8?B?K3AyaS8yaStGWThDcmxFYnhJbVN4alJhS0FZY3MxakNveUUxQzVlSTZrQzdt?=
+ =?utf-8?B?VDJtZ1RWWjBjSmxFTVJ1YzlCRGplTWNkVzBmMElHU3FUV1p1eTQrRGJUbmQv?=
+ =?utf-8?B?UXFlaXVKVVNxNktwOGJNM1pCQjB1MDZIaE12UXRkZDZvLzdKZStTYnVqRExN?=
+ =?utf-8?B?Yms0UmhBbGkwRVhjTnhkUFdBUCtFclpocTBNSk9YWC9OZURCQ3JFNHJheWhy?=
+ =?utf-8?B?VTNZKzVjV2oyN0FVOG9jYUFrUktjMFg4WWx0cyt4WGFWM1RJM1hNRVBqeUo5?=
+ =?utf-8?B?bngwbEl1dVhVc0s1ejdjWldrSHVjREZ3S0h3VXhQbktleEtRTlAxcHZ0dWVM?=
+ =?utf-8?B?SUtJNHRSaWpmZ1ZFVDQyeWNJclZXZk0wMU1BNXJzQ3pkTzBCeDRyaWpaMzZn?=
+ =?utf-8?B?OUhWNXYwVmZtV1c3Q3FIMnJxWU9DNTFXRVJvVmJWTkdKTk5BVU9vOG9aN1Nr?=
+ =?utf-8?B?a1JkVzl1MVZ4WHhXdlpQRllaUjZXa2swYkZ3T3JtUytFUU9kcnRSUnBPd0da?=
+ =?utf-8?B?TzBvNHFvQ1AzRGl4TU1GcytxL3lxZU8wQi9uM0tYaVZZRVNua2c3R2RqbDJY?=
+ =?utf-8?B?ZXZlYUpMQUovRnhvc1J0dWxVRUpXdE92NmN6b3kwREVVc3FGMmhXTEpsYng4?=
+ =?utf-8?B?VW92eEE5elp6WXFoV09mSkVDTk1HMGdDS1l1MjlaM3YrMXVGQ0lQUVNwc1A0?=
+ =?utf-8?B?T0QyQzM2SUgydmszUklpS0Z5U2VBc0dtWmxaMVB3a1RQc0lsL1M5RHNUYnF5?=
+ =?utf-8?B?SFJVS2JKS3pzeTZtbytYcjVuRm50bGNiOXpuQmVna2Zva3JNUXYxdz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 381fef89-970b-4fb1-cc51-08ded2c92fbb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a8186c1-bdab-45d9-919b-08ded2cc3ddf
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 14:51:06.5056
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 15:12:58.7357
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e3bmWIc3rbCG9gIuqBYfkscmfKEh7fYhkQ2goIXgeTVVqp7eL+95d8/6vCw/Vq+bsNsMKdUW04xdnUzA1pV7UQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB3618
+X-MS-Exchange-CrossTenant-UserPrincipalName: MavhMJTxy4PQZDXxsD0blzJLOTaAUtY+SsI/N+YK6iFlm0vBY4zPGmxOCgRufkhf3GUCmkLz/d3Of6IUzFKbAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3307
 
-On Sat Jun 20, 2026 at 7:47 PM BST, Danilo Krummrich wrote:
-> References to dev, data, and file in the declare_drm_ioctls! macro are
-> created via unsafe pointer dereferences, producing unbounded lifetimes.
-> If an ioctl handler explicitly annotates its parameters with 'static,
-> the compiler accepts this, allowing the handler to stash references that
-> outlive the ioctl call.
+On Sat Jun 20, 2026 at 7:48 PM BST, Danilo Krummrich wrote:
+> Add a RegistrationData associated type to drm::Driver. This is a ForLt
+> type whose lifetime is tied to the parent bus device binding scope.
+> Registration<'a, T> takes ownership of the data via Pin<KBox<_>>,
+> storing it with its real lifetime. The pointer is written to drm::Device
+> before drm_dev_register() to ensure it is already in place when ioctls
+> arrive.
 >
-> Fix this by routing all references through a helper function whose
-> lifetime parameter 'a is tied to a local anchor variable. Since 'a is
-> bounded by the anchor's stack lifetime, handlers can no longer demand
-> 'static on any parameter.
+> Device<T, Registered>::registration_data_with() provides access with the
+> lifetime shortened from 'static via a pointer cast. Since
+> Registration::drop() calls drm_dev_unplug(), which performs an SRCU
+> barrier waiting for all drm_dev_enter() critical sections to complete,
+> the data is guaranteed to remain valid for the duration of any
+> RegistrationGuard.
 >
-> Cc: stable@vger.kernel.org
-> Fixes: 9a69570682b1 ("rust: drm: ioctl: Add DRM ioctl abstraction")
-> Reported-by: sashiko-bot@kernel.org
-> Closes: https://lore.kernel.org/all/20260620011346.A47D01F000E9@smtp.kern=
-el.org/
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 > ---
->  rust/kernel/drm/ioctl.rs | 59 +++++++++++++++++++++++++++++++---------
->  1 file changed, 46 insertions(+), 13 deletions(-)
+>  drivers/gpu/drm/nova/driver.rs |  20 +++++--
+>  drivers/gpu/drm/tyr/driver.rs  |  18 ++++--
+>  rust/kernel/drm/device.rs      |  49 +++++++++++++++
+>  rust/kernel/drm/driver.rs      | 106 +++++++++++++++++++++------------
+>  4 files changed, 143 insertions(+), 50 deletions(-)
 >
-> diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-> index cf328101dde4..023e6da5c1e4 100644
-> --- a/rust/kernel/drm/ioctl.rs
-> +++ b/rust/kernel/drm/ioctl.rs
-> @@ -70,6 +70,39 @@ pub mod internal {
->      pub use bindings::drm_device;
->      pub use bindings::drm_file;
->      pub use bindings::drm_ioctl_desc;
-> +
-> +    /// Call an ioctl handler with lifetime-bounded references.
-> +    ///
-> +    /// The lifetime `'a` is tied to the `_anchor` parameter. This preve=
-nts handlers from
-> +    /// declaring `'static` on `dev`, `data`, or `file`.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - `raw_data` must point to a valid, exclusively-owned instance o=
-f `Data` for the duration
-> +    ///   of the call.
-> +    /// - `raw_file` must be a valid pointer to a `struct drm_file`.
-> +    #[doc(hidden)]
-> +    #[inline(always)]
-> +    pub unsafe fn __call_ioctl<
-> +        'a,
-> +        Dev: 'a,
-> +        Data: 'a,
-> +        F: super::super::file::DriverFile + 'a,
-> +        Ret,
-> +    >(
-> +        _anchor: &'a (),
-> +        dev: &'a Dev,
-> +        raw_data: *mut ::core::ffi::c_void,
-> +        raw_file: *mut drm_file,
-> +        f: impl FnOnce(&'a Dev, &'a mut Data, &'a super::super::File<F>)=
- -> Ret,
-> +    ) -> Ret {
-> +        // SAFETY: Caller guarantees raw_data points to a valid instance=
- of Data with the correct
-> +        // size and alignment, exclusively owned for the duration of the=
- ioctl call.
-> +        let data =3D unsafe { &mut *(raw_data.cast::<Data>()) };
-> +        // SAFETY: Caller guarantees raw_file is a valid pointer to a `s=
-truct drm_file`.
-> +        let file =3D unsafe { super::super::File::<F>::from_raw(raw_file=
-) };
-> +        f(dev, data, file)
-> +    }
->  }
+> diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+> index ceb2829985c7..e42b48e5cad2 100644
+> --- a/rust/kernel/drm/driver.rs
+> +++ b/rust/kernel/drm/driver.rs
+> @@ -7,11 +7,11 @@
+>  use crate::{
+>      bindings,
+>      device,
+> -    devres,
+>      drm,
+>      error::to_result,
+>      prelude::*,
+> -    sync::aref::ARef, //
+> +    sync::aref::ARef,
+> +    types::ForLt, //
+>  };
+>  use core::{
+>      mem,
+> @@ -110,6 +110,16 @@ pub trait Driver {
+>      /// Context data associated with the DRM driver
+>      type Data: Sync + Send;
 > =20
->  /// Declare the DRM ioctls for a driver.
-> @@ -135,19 +168,19 @@ macro_rules! declare_drm_ioctls {
->                              // dev/file match the current driver these i=
-octls are being declared
->                              // for, and it's not clear how to enforce th=
-is within the type system.
->                              let dev =3D $crate::drm::device::Device::fro=
-m_raw(raw_dev);
-> -                            // SAFETY: The ioctl argument has size `_IOC=
-_SIZE(cmd)`, which we
-> -                            // asserted above matches the size of this t=
-ype, and all bit patterns of
-> -                            // UAPI structs must be valid.
-> -                            // The `ioctl` argument is exclusively owned=
- by the handler
-> -                            // and guaranteed by the C implementation (`=
-drm_ioctl()`) to remain
-> -                            // valid for the entire lifetime of the refe=
-rence taken here.
-> -                            // There is no concurrent access or aliasing=
-; no other references
-> -                            // to this object exist during this call.
-> -                            let data =3D unsafe { &mut *(raw_data.cast::=
-<$crate::uapi::$struct>()) };
-> -                            // SAFETY: This is just the DRM file structu=
-re
-> -                            let file =3D unsafe { $crate::drm::File::fro=
-m_raw(raw_file) };
-> -
+> +    /// Data owned by the [`Registration`] and accessible within a
+> +    /// [`RegistrationGuard`](drm::RegistrationGuard) critical section v=
+ia
+> +    /// [`Device::registration_data_with()`](drm::Device::registration_d=
+ata_with).
+> +    ///
+> +    /// This is a [`ForLt`](trait@ForLt) type whose lifetime is tied to =
+the parent bus
+> +    /// device binding scope. References handed out by
+> +    /// [`Device::registration_data_with()`](drm::Device::registration_d=
+ata_with) are tied to
+> +    /// the closure scope.
+> +    type RegistrationData: ForLt;
 
-This could be more simply fixed by just adding
-
-    let _: for<'a> fn(&'a _, &'a mut _, &'a _) -> _ =3D $func;
-
-here.
+This could just be a GAT instead of using `ForLt`. It'd also have the benef=
+it of
+being able to have `Sync + Send` directly here instead of sprinkle the boun=
+d
+everywhere.
 
 Best,
 Gary
 
-> -                            match $func(dev, data, file) {
-> +                            let __anchor =3D ();
 > +
-> +                            // SAFETY:
-> +                            // - The ioctl argument has size `_IOC_SIZE(=
-cmd)`, which we asserted
-> +                            //   above matches the size of this type, an=
-d all bit patterns of UAPI
-> +                            //   structs must be valid. The argument is =
-exclusively owned by this
-> +                            //   handler, guaranteed by `drm_ioctl()` to=
- remain valid for the
-> +                            //   duration of the call.
-> +                            // - `raw_file` is a valid `struct drm_file`=
- pointer provided by the
-> +                            //   DRM core.
-> +                            match unsafe { $crate::drm::ioctl::internal:=
-:__call_ioctl(
-> +                                &__anchor, dev, raw_data, raw_file, $fun=
-c,
-> +                            ) } {
->                                  Err(e) =3D> e.to_errno(),
->                                  Ok(i) =3D> i.try_into()
->                                              .unwrap_or($crate::error::co=
-de::ERANGE.to_errno()),
-
+>      /// The type used to manage memory for this driver.
+>      type Object: AllocImpl;
+> =20
+> @@ -139,65 +149,82 @@ pub trait Driver {
+>  /// The registration type of a `drm::Device`.
+>  ///
+>  /// Once the `Registration` structure is dropped, the device is unregist=
+ered.
+> -pub struct Registration<T: Driver>(ARef<drm::Device<T>>);
+> -
+> -impl<T: Driver> Registration<T> {
+> -    fn new(drm: drm::UnregisteredDevice<T>, flags: usize) -> Result<Self=
+> {
+> -        // SAFETY: `drm.as_raw()` is valid by the invariants of `drm::De=
+vice`.
+> -        to_result(unsafe { bindings::drm_dev_register(drm.as_raw(), flag=
+s) })?;
+> -
+> -        // SAFETY: We just called `drm_dev_register` above
+> -        let new =3D NonNull::from(unsafe { drm.assume_ctx() });
+> -
+> -        // Leak the ARef from UnregisteredDevice in preparation for tran=
+sferring its ownership.
+> -        mem::forget(drm);
+> -
+> -        // SAFETY: `drm`'s `Drop` constructor was never called, ensuring=
+ that there remains at least
+> -        // one reference to the device - which we take ownership over he=
+re.
+> -        let new =3D unsafe { ARef::from_raw(new) };
+> -
+> -        Ok(Self(new))
+> -    }
+> +pub struct Registration<'a, T: Driver> {
+> +    drm: ARef<drm::Device<T>>,
+> +    _reg_data: Pin<KBox<<T::RegistrationData as ForLt>::Of<'a>>>,
+> +}
 
