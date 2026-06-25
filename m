@@ -1,244 +1,128 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020128.outbound.protection.outlook.com [52.101.196.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCA8299A84;
-	Thu, 25 Jun 2026 15:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.128
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782400383; cv=fail; b=dXlI9QzeXFuVeOiWO0oaubrDZGnvU7/9CUNK6m4HKdk/36I5gnWmy6OTNMc7+STZf2aPabbzSm9Yu53YWOAL8aNpsMj/OiN/2iLg/xdCdARayVwqBpelp5/NQ2UnegFyzk0ZwxkxMtA6mVbPNIcr1oPpUAF3upYEQQeghQtxrIk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782400383; c=relaxed/simple;
-	bh=wE7cCfp8969JC5UWdVGTj+fJcsuTmvg/HGvnU5O1v0A=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=YKtUZab9Mobeq6w5x6EuIj+9eyD6d0NXRtpnrv1cB4/F5jvjF96BBjraR90/MTcSHA7Xf7Mc2iz8TBKGnDgNUHhh6grWhzv5TywpDTLWjQ8CnShgexdY4PHO9ZSFn0EgDxNmG1KUCXHDT6C04BEAjempwDlVLx1AfPNSyRfhIC8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=c7cpKTcP; arc=fail smtp.client-ip=52.101.196.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297342F8E94
+	for <nova-gpu@lists.linux.dev>; Thu, 25 Jun 2026 19:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782414368; cv=none; b=p35ivsBHJaxpr9ya0u+fCFSiqmFm4+tw6CbpeRuiRgo0XDObvthSa+71gA3XjfcxGEn8ISfSuchZg3p3024lyK6MpDvKpypy5/vpZflN10SbvmI+jhLuJhBJJUFSVh6Bka5JijSY3XiFKQ7u+T7/7MyB/VBJ82Y+HM1DRdjMqTA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782414368; c=relaxed/simple;
+	bh=9Hfhgljl1UY5ILwqOqQyKOT7lHPCxq5wcO+q3ufQtUE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ODFtDAtrDPDmeZWCfgMBcoM3y3UgVQZI4OfqTEOO9HVAcJY3Nu+vM5VDfCBaqMTsPr6sC5lwSrRUQlSqSvMXyu52N5G/8GrwVOA9v4yB80C4ZwRby3Y4OciYGklEG+jGA8rv7h5wVyJlWVZgiXDflxEfv+upAN/QR9Cvkad0t/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br; spf=pass smtp.mailfrom=usp.br; dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b=arsuZtbA; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=usp.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=usp.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="c7cpKTcP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ipk/mTzeJNosewvTk/wQkM4QJqiRzXeBMvSZ1NfixITxG0sIfx9rmnsQbpcHuNUMIQUKC6cVMT5vwuB/Epz3n1smpYYBqSd6DRdgDYN50QXqgwO+m8uFh9LFGLpuA6FYVAl5rN+t3COG5xNGghSNztwAj/B44RY0kJ9cO4YhxRodWTQ8ssHkoGErQGzraDqaxCA5QKq7FBVvmafq0RiK3r2GFW5vgzAAPIQ3EVCZWjxprAyVxOHQoBf9BhZoH3L3wIFMYEnLbuWL+VBkkUVf8fOPYxuR8kIynu+9OLQ3uXJ0ncDhr7PEsoVJIIgZELnfWjdvzxUj0v0RPIYLsP0SuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fFaP7Uj3HL/fKy/Nf6zy+2RpwffAay0gLzFPyLDaxOw=;
- b=Z2zVU6tiTXsjnrBPiX7s4J/E/r1iGo5K0+5PV1FffQzin+ndKdq1oBW79hvFHAfucrL0m6ujX2agOctkKDJ3HPGqcpV/2soGNmHMDDdTGvTzuHWQYokuolzGJREIid7nxsco0wHYbePEZ0UIKDHqXxiwfoZdwYa9jfx3g2/yGQixPNOGxOLEIG0Q4tAdIhLTukBMUXVpQLDXh5HYk0JhCZDuZoL3O7H9ExA5kwSAFrBy/4mIqj7J1KPGVQ1fq1mUiZOsp5EjOI4AwvG4n/HzM7E6kjjUTFguaXGgLtj/o+Jm+DV4KO5PsqMAaTdVhylFuwHKruN/QEQyrKHRRZKafw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fFaP7Uj3HL/fKy/Nf6zy+2RpwffAay0gLzFPyLDaxOw=;
- b=c7cpKTcPJ5gg4bYWuHNaRQ/wPvyTuUopXHqUXqS1LN+S9GwlbbToZOjH21Bnk8rKm+Pap3b3Krl5Lg+dHtPstGbcwy2cyoo/rbRa5k1ocAfZRPIibXvdYnlU3Lvm9H6at43msEbeD7HGt/9aZqmcmkhzgX3j7tmevP0J3xqIk74=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB3307.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:16f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Thu, 25 Jun
- 2026 15:12:58 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
- 15:12:58 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 25 Jun 2026 16:12:58 +0100
-Message-Id: <DJI879ROZKNI.2U77EST3OH7QI@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <aliceryhl@google.com>,
- <daniel.almeida@collabora.com>, <acourbot@nvidia.com>,
- <ecourtney@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
- <lyude@redhat.com>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v4 14/16] rust: drm: Add RegistrationData to drm::Driver
-X-Mailer: aerc 0.21.0
-References: <20260620184924.2247517-1-dakr@kernel.org>
- <20260620184924.2247517-15-dakr@kernel.org>
-In-Reply-To: <20260620184924.2247517-15-dakr@kernel.org>
-X-ClientProxiedBy: LO4P123CA0075.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:190::8) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+	dkim=pass (2048-bit key) header.d=usp.br header.i=@usp.br header.b="arsuZtbA"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1397e093f90so673415c88.1
+        for <nova-gpu@lists.linux.dev>; Thu, 25 Jun 2026 12:06:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=usp.br; s=usp-google; t=1782414364; x=1783019164; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nwvsRk5K8KQIV+dAnZZRDBwFar88HbSp2Pk4XHAfdBs=;
+        b=arsuZtbAx90I0o3FgPu6nhbCLb0L40nrDGviGGoGOB9TMv0kf5k/FyZKRRhKrnw5V5
+         hzsbE4IZdA7rCav9OO3IkmcITaygcvZ92pcBW2NROiymB6JJrSiOAPPD/vbZHyR5DVby
+         jS8YoW7cxiF4sbSDSaj5aZpBjo4XSWPmfu56B1MlNVG0fiA1VzCXyqgLlB/iiDisMXmd
+         N4iNHrIOAIxVSowTzhtuHJZtMKMmsff09LUXcVA8YYqL3o/XhaPOjgZteEhZ4etGyeFW
+         ZHLuIwDdYr9k2QjMvTDNafr5t4Fuw84UBSEsBB0s3B39dxFcmzrkAQq6lKz628z4NkSG
+         XiMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782414364; x=1783019164;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nwvsRk5K8KQIV+dAnZZRDBwFar88HbSp2Pk4XHAfdBs=;
+        b=pPfwyyWOrWPQ5aFDqEhQSxBUlSQ5/GuPwVLXopYzVxLVx4Ljnju/C5sl7zYLfv34qJ
+         Jwvxn8VIgCD+sOGFWXcEAILIay+OAp/oTRp8geK7Jb0NTbFzjDXJTOv0LaSQreuTk2Bp
+         IcmR7B9a1Ard8hjlkWSzpOAIOJ1X0xylodJC0nlV1o2b2wKFr/jxgX+yUfWZ2yq9bIY8
+         5JFrKiKhgBq/KwVtFUZC7eamBZ0Ud5rVcy/1aW2v9rKUbOg16uFca/5X/PK0q2lsP99x
+         s4s9kUp2S7RzDYj8WB42JFMbXfHVQ2ZrKcR5TFTDS7VTbzhTdAyDXlU+jZ9TkEEMiFkJ
+         Sw+w==
+X-Forwarded-Encrypted: i=1; AFNElJ/PASjTBOaztWFguZ3XI6lOtnANsG70z+tL05bzdlIGniLeK3sHqL9fBD0nsBMO3TgPCZUEwdO6QA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyxJv3P7Z0RCovJxGh28M1t7p/PSxHZDe0fVoh+G+l2wBCqDCp4
+	9pYlToiTWcqJoPT5zalFIqKV2yQYkupJ+EKs6EmeFegOAOysMHIZTbI+K6fLe1R/IGU=
+X-Gm-Gg: AfdE7ck1/S6T/x+Y7O3ufyTXd5TS4INd+gjfjC0f5+NFywHaEy4RUZwUtR2jkIBeqWo
+	4oCI2MENR2kOPW4jVwx2ihlIYMWY6FussBBzWU2y8JrF4xIvTKLPUASpem4CiOfxkEfOIKDl6Qd
+	xbAF6+dvsQIztRWBH2N5d3CFrnxGPQtznJZC9r6ua6LtiP+6tgOV5b7BlL5wHhYQGB3gI626U9v
+	e9m9VzU2YdrkgpxY2KSdgf8XqJ8CgFwiDihI5skbrKN+HAtXOAAjgSB/EG0PBVGRsXpsRrgsqf4
+	VxSn7qS6qRf0F93zTDYyyaJTW2jMMMi6mhHhjKDbZGUvBSnUI2P6lO734dQVs7bey2S69kBuaAk
+	MmDj+4ie2CfZLBP5F43tkPrQnX4+iwLrR99Gz8srDzusQZcOIyXp7k3FoUNv5oIz1YrgGkHvSaa
+	vrFnl3GPuwzNt8GFfW7atDR+W17g==
+X-Received: by 2002:a05:7022:459a:b0:137:6bdb:5842 with SMTP id a92af1059eb24-139db93fademr3208663c88.0.1782414363978;
+        Thu, 25 Jun 2026 12:06:03 -0700 (PDT)
+Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d8f6acf9sm10742999c88.6.2026.06.25.12.05.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 12:06:03 -0700 (PDT)
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
+X-Google-Original-From: Pedro Yudi Honda
+To: dakr@kernel.org,
+	acourbot@nvida.com,
+	nova-gpu@lists.linux.dev
+Cc: aliceryhl@google.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	ojeda@kernel.org,
+	rust-for-linux@vgdm.kernel.org,
+	Pedro Yudi Honda <niyudi.honda@usp.br>
+Subject: [PATCH 0/7] drm/nova: replace `transmute` with `zerocopy`
+Date: Thu, 25 Jun 2026 16:05:46 -0300
+Message-Id: <20260625190553.7245-1-niyudi.honda@usp.br>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3307:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a8186c1-bdab-45d9-919b-08ded2cc3ddf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|1800799024|7416014|366016|18002099003|22082099003|56012099006|4143699003|6133799003|921020;
-X-Microsoft-Antispam-Message-Info:
-	I4SK5VWw31fGyak7MpioyFQ/X65hc85SVAa3/QDco53Wa2yvoDBEpocVNsGSvkXThUGr3n6mlxDqY1ARpGyJtb9OxNrm4WIyfbZtyMkRQSJTF+UD00adU1tNnsNWw8aqbXXqbTZPrbjfYUBi5xlX0511F8IjTZHP+4ebWvrnJElPIrcmEL1McGSKKZpo6cFXaAmjxxvLmUoKCrdUpbqL+bos01mAiB8+QHeoSZcr6ckdatvP6jOo3vCP3ZZnxWPkkWrxN16gl6eQdsVlUs0tRNNLa3bQb0C+WEAB2ojMQ+MEvdWibrc0gz7jRv1eoeACjOOPBf62lUlICDcv1JyF3uPOr7jrSCp8Jwvj21ikzyvs2VJP41s5HzPcJmmNR9X6BpKuhGr5D4XlWu8oSLW4+utkLi+iF/w2gYI4bnLGasoLl5N7xYkjwr1zjFNCqfmbvbcY7lthNeOAUqv3sbkCTijM93tgDM5zyQ8MXE9b5/P3ZRVqVOOcucKOamEvc8ZQKwOBJ6oGPf4/ZN+ZoIP2LHJjiZNyptjIwCtysj9IZAP9izeXkjPfZWpUbqxA9Ez/8ePG4RHGvJQbSQbltUlW9lC9MMEILpCvgARRCNRHN3sp9JilqZZhkoLWyKSbtoBFKgPc4fv8kyeyTX18MOM9FFMyMgIqI72QAoyYp9FKRWigXCpeC0MjXH/nWjv1gzBpOxNWiwuhnjfL1jp2LkZUyg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(1800799024)(7416014)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(6133799003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L3RINUxoczZiYVJHUzh6VE1LbWZ0Nk9qMnFlc2RhRE9wSFFoN0dhQkVRZ09N?=
- =?utf-8?B?QU5WcHFsbXNvaFZ0YWZGZVZwcFdSbDlKcmRSK3pOdjlCTG9lUTZTdFBMaEg3?=
- =?utf-8?B?MUF6cW1lUTMvR0RjSmZYTStnZHhOM0JPTlEwT0t0MmU1YUVFeDBoWXBjMnlh?=
- =?utf-8?B?ZXR1RytZMUFnZlNJSCtOaEtLTXZVSHRzQWM2SFYrak9ldysvNFRvbktuNzZL?=
- =?utf-8?B?MVF5QmpRcG0xN1ZwT1F5WGhwQllXL2lsNGFUd3UxK0ppMFRjYUpLWFlDWFRY?=
- =?utf-8?B?eGpCQkZMT2V5VGszSGVlbE5ramhFRGluczhOQ1hza3VRaDgvWmdXaEF1SW43?=
- =?utf-8?B?Mnl1cVNaMDk4cEFYN0xFdWUwdjR1a0lzN2pXM1hjZG9sQmNmbXppc1d2ZXp4?=
- =?utf-8?B?akxMM1p3UmJJejZYSmFrejJWWGp3OVM0enJBc3k1OG9FOTJjWWt2QWFMcC9L?=
- =?utf-8?B?bXl2SXRVcnpEM1F5RGo2cmxyVFZ0RUUrTE91OFRxMXNwRHhqMS9CVjBUQ0J4?=
- =?utf-8?B?VEVEVHRGYm5DVnAyQWpVa003NEdvR2l2K3BJcjY5dWdkaDJHVHhlS0RWQUUx?=
- =?utf-8?B?U25JOU16SnVTVzZpeWw0bmFTWDZZeitEYk5PWFFWWDZLNU9vdkpITytrQ21n?=
- =?utf-8?B?VjR5UzRCSitHSmhiOXA1d2ZFeXl5WUdLQmFuOXVENTVZNjNkeWgwTE9GK1Z2?=
- =?utf-8?B?WWxOaVFtR3lOYlFLUXdyclhtWFFBQWFpZXFXOWNKMGFWTEZlc0NWOU9KcVRY?=
- =?utf-8?B?WTVGdXBKVFlRaWE4M2l6Qy9ZS2pFbFdXRzlmWk5OY3lDVlo3d2pKVGNYbjQ4?=
- =?utf-8?B?TnVuSC90UWE5RXBRRmRzQS9nVUl3UnVNWlY5OEp6M3lBZWhpMnIxTHBncmk3?=
- =?utf-8?B?MVl4RXIzZmdDVnRRVnpmNXRFMmVyMDk5ZDN2S1k1OVFJUmxMV1FwSjNlQmxu?=
- =?utf-8?B?RVdOOFAyMmVBZVN6L1BnT2FQcElHUllQaFAyUG5QL3N2b0NxdWpVWnNIWHpW?=
- =?utf-8?B?aFM3b2dDRFVmU1Yzc1J6bmQxV2FyRnd1OFpVcDJHU3hENHIydFoyZkR4V1lP?=
- =?utf-8?B?M0FDdFJvS0d2M2k0UjgzckVacGo0b3c4MmVBaFlkWnRtM3MreHptMjNTT1Nh?=
- =?utf-8?B?dHlWdEU3akRsZVBOZVBtN1duNWtOcVFrZlN4d05PZVdrazFyNXVXc1h0VU53?=
- =?utf-8?B?VDJiRk1HR2VGZnIvMVpRQ2lsS1RGVDNtbGpLK29mUGZLcTZaNHN4NWEyOTVv?=
- =?utf-8?B?QzFNM0w5emRNOG1HMHN0N0R5aTllVUk0S1VWUmdsRmxOSllCT3hoRGZ3dGto?=
- =?utf-8?B?YnI3aHhmNVlZUitnbkZmTGtlTEQ4Nk0zUGZMWmVONGZ0Rys4SnpkZ2wweC9a?=
- =?utf-8?B?TDRpUnRTcjdpT2lUN29WRG5nZ1dvbHV4Y1ZqQjUwOGlHWmw2cFlVSWhJZ2dw?=
- =?utf-8?B?TzlBcGtua3JuNGFCcVM4YS93eWdHR2xDUW5jTnR0R3RHZHRISmQxNGdTR3BZ?=
- =?utf-8?B?K3AyaS8yaStGWThDcmxFYnhJbVN4alJhS0FZY3MxakNveUUxQzVlSTZrQzdt?=
- =?utf-8?B?VDJtZ1RWWjBjSmxFTVJ1YzlCRGplTWNkVzBmMElHU3FUV1p1eTQrRGJUbmQv?=
- =?utf-8?B?UXFlaXVKVVNxNktwOGJNM1pCQjB1MDZIaE12UXRkZDZvLzdKZStTYnVqRExN?=
- =?utf-8?B?Yms0UmhBbGkwRVhjTnhkUFdBUCtFclpocTBNSk9YWC9OZURCQ3JFNHJheWhy?=
- =?utf-8?B?VTNZKzVjV2oyN0FVOG9jYUFrUktjMFg4WWx0cyt4WGFWM1RJM1hNRVBqeUo5?=
- =?utf-8?B?bngwbEl1dVhVc0s1ejdjWldrSHVjREZ3S0h3VXhQbktleEtRTlAxcHZ0dWVM?=
- =?utf-8?B?SUtJNHRSaWpmZ1ZFVDQyeWNJclZXZk0wMU1BNXJzQ3pkTzBCeDRyaWpaMzZn?=
- =?utf-8?B?OUhWNXYwVmZtV1c3Q3FIMnJxWU9DNTFXRVJvVmJWTkdKTk5BVU9vOG9aN1Nr?=
- =?utf-8?B?a1JkVzl1MVZ4WHhXdlpQRllaUjZXa2swYkZ3T3JtUytFUU9kcnRSUnBPd0da?=
- =?utf-8?B?TzBvNHFvQ1AzRGl4TU1GcytxL3lxZU8wQi9uM0tYaVZZRVNua2c3R2RqbDJY?=
- =?utf-8?B?ZXZlYUpMQUovRnhvc1J0dWxVRUpXdE92NmN6b3kwREVVc3FGMmhXTEpsYng4?=
- =?utf-8?B?VW92eEE5elp6WXFoV09mSkVDTk1HMGdDS1l1MjlaM3YrMXVGQ0lQUVNwc1A0?=
- =?utf-8?B?T0QyQzM2SUgydmszUklpS0Z5U2VBc0dtWmxaMVB3a1RQc0lsL1M5RHNUYnF5?=
- =?utf-8?B?SFJVS2JKS3pzeTZtbytYcjVuRm50bGNiOXpuQmVna2Zva3JNUXYxdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a8186c1-bdab-45d9-919b-08ded2cc3ddf
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 15:12:58.7357
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MavhMJTxy4PQZDXxsD0blzJLOTaAUtY+SsI/N+YK6iFlm0vBY4zPGmxOCgRufkhf3GUCmkLz/d3Of6IUzFKbAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3307
+Content-Transfer-Encoding: 8bit
 
-On Sat Jun 20, 2026 at 7:48 PM BST, Danilo Krummrich wrote:
-> Add a RegistrationData associated type to drm::Driver. This is a ForLt
-> type whose lifetime is tied to the parent bus device binding scope.
-> Registration<'a, T> takes ownership of the data via Pin<KBox<_>>,
-> storing it with its real lifetime. The pointer is written to drm::Device
-> before drm_dev_register() to ensure it is already in place when ioctls
-> arrive.
->
-> Device<T, Registered>::registration_data_with() provides access with the
-> lifetime shortened from 'static via a pointer cast. Since
-> Registration::drop() calls drm_dev_unplug(), which performs an SRCU
-> barrier waiting for all drm_dev_enter() critical sections to complete,
-> the data is guaranteed to remain valid for the duration of any
-> RegistrationGuard.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  drivers/gpu/drm/nova/driver.rs |  20 +++++--
->  drivers/gpu/drm/tyr/driver.rs  |  18 ++++--
->  rust/kernel/drm/device.rs      |  49 +++++++++++++++
->  rust/kernel/drm/driver.rs      | 106 +++++++++++++++++++++------------
->  4 files changed, 143 insertions(+), 50 deletions(-)
->
-> diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-> index ceb2829985c7..e42b48e5cad2 100644
-> --- a/rust/kernel/drm/driver.rs
-> +++ b/rust/kernel/drm/driver.rs
-> @@ -7,11 +7,11 @@
->  use crate::{
->      bindings,
->      device,
-> -    devres,
->      drm,
->      error::to_result,
->      prelude::*,
-> -    sync::aref::ARef, //
-> +    sync::aref::ARef,
-> +    types::ForLt, //
->  };
->  use core::{
->      mem,
-> @@ -110,6 +110,16 @@ pub trait Driver {
->      /// Context data associated with the DRM driver
->      type Data: Sync + Send;
-> =20
-> +    /// Data owned by the [`Registration`] and accessible within a
-> +    /// [`RegistrationGuard`](drm::RegistrationGuard) critical section v=
-ia
-> +    /// [`Device::registration_data_with()`](drm::Device::registration_d=
-ata_with).
-> +    ///
-> +    /// This is a [`ForLt`](trait@ForLt) type whose lifetime is tied to =
-the parent bus
-> +    /// device binding scope. References handed out by
-> +    /// [`Device::registration_data_with()`](drm::Device::registration_d=
-ata_with) are tied to
-> +    /// the closure scope.
-> +    type RegistrationData: ForLt;
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
 
-This could just be a GAT instead of using `ForLt`. It'd also have the benef=
-it of
-being able to have `Sync + Send` directly here instead of sprinkle the boun=
-d
-everywhere.
+This series follows the introduction of `zerocopy` to rust-next and
+replaces `transmute` traits with `zerocopy` traits. These changes are
+mechanical and don't alter functionality.
 
-Best,
-Gary
+Specifically, the trait `transmute::FromBytes` is replaced by
+`zerocopy::FromBytes` and the trait `transmute::AsBytes` is replaced
+by `zerocopy::IntoBytes`. Additional traits such as
+`zerocopy::Immutable` and `zerocopy::KnownLayout` are implemented as
+necessary.
 
-> +
->      /// The type used to manage memory for this driver.
->      type Object: AllocImpl;
-> =20
-> @@ -139,65 +149,82 @@ pub trait Driver {
->  /// The registration type of a `drm::Device`.
->  ///
->  /// Once the `Registration` structure is dropped, the device is unregist=
-ered.
-> -pub struct Registration<T: Driver>(ARef<drm::Device<T>>);
-> -
-> -impl<T: Driver> Registration<T> {
-> -    fn new(drm: drm::UnregisteredDevice<T>, flags: usize) -> Result<Self=
-> {
-> -        // SAFETY: `drm.as_raw()` is valid by the invariants of `drm::De=
-vice`.
-> -        to_result(unsafe { bindings::drm_dev_register(drm.as_raw(), flag=
-s) })?;
-> -
-> -        // SAFETY: We just called `drm_dev_register` above
-> -        let new =3D NonNull::from(unsafe { drm.assume_ctx() });
-> -
-> -        // Leak the ARef from UnregisteredDevice in preparation for tran=
-sferring its ownership.
-> -        mem::forget(drm);
-> -
-> -        // SAFETY: `drm`'s `Drop` constructor was never called, ensuring=
- that there remains at least
-> -        // one reference to the device - which we take ownership over he=
-re.
-> -        let new =3D unsafe { ARef::from_raw(new) };
-> -
-> -        Ok(Self(new))
-> -    }
-> +pub struct Registration<'a, T: Driver> {
-> +    drm: ARef<drm::Device<T>>,
-> +    _reg_data: Pin<KBox<<T::RegistrationData as ForLt>::Of<'a>>>,
-> +}
+This does not replace the trait implemented in newtypes over
+bindings. Currently, the only solution I can think of is mirroring
+the bindings into another type and transmuting when necessary, but
+that does not seem practical. Another issue is a type like
+`gsp::cmdq::GspMem` that explicitly does not meet the requirements
+for `FromBytes`, but unsafely implements the trait anyway because it
+knows all of its uses. Unsafely implementing `zerocopy::FromBytes` is
+not allowed, and implementing `zerocopy::TryFromBytes` would add
+unnecessary overhead.
+
+Feedback from the maintainers on the direction in these cases would
+be appreciated.
+
+Pedro Yudi Honda (7):
+  drm/nova: use `zerocopy` in firmware.rs
+  drm/nova: use `zerocopy` in vbios.rs
+  drm/nova: use `zerocopy` in booter.rs
+  drm/nova: use `zerocopy` in fwsec.rs
+  drm/nova: use `zerocopy` in bootloader.rs
+  drm/nova: use `zerocopy` in riscv.rs
+  drm/nova: remove unused trait in commands.rs
+
+ drivers/gpu/nova-core/firmware.rs             | 16 ++---
+ drivers/gpu/nova-core/firmware/booter.rs      | 26 +++-----
+ drivers/gpu/nova-core/firmware/fwsec.rs       | 47 ++++-----------
+ .../nova-core/firmware/fwsec/bootloader.rs    | 16 ++---
+ drivers/gpu/nova-core/firmware/riscv.rs       | 10 +---
+ drivers/gpu/nova-core/gsp/commands.rs         |  9 +--
+ drivers/gpu/nova-core/vbios.rs                | 60 ++++++-------------
+ 7 files changed, 49 insertions(+), 135 deletions(-)
+
+-- 
+2.34.1
 
