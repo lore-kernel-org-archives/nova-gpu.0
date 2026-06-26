@@ -1,126 +1,123 @@
-Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F65A95E
-	for <nova-gpu@lists.linux.dev>; Fri, 26 Jun 2026 03:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725AE3B71CC
+	for <nova-gpu@lists.linux.dev>; Fri, 26 Jun 2026 13:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782442952; cv=none; b=e+NwJpve2F0XclB7YcDs53nw/OvYFMC1U12eW0hjsYy4y/uKo+gGlvw+cR+r8gRQRyYTanrSKlNx5L1agP8QPeGeY5ddw2degvf1pO/49Q4LQAgXvGBUTREg/rTbhVsNpp6Iv2ZdGowZHnq/jJhJeaMMbbyrwlQe0UX4QFkxTFU=
+	t=1782479743; cv=none; b=aVgkyV/1mG8O2s73IkvEe/NZukJjrSMwrGKAJW1OSiHlJHJrTnXcYyZeTqP+SDshBvST17Mk42RYQHWK1nLqAb2w58PdEyHVXZ1xb57TfTB6gmaxHqKZs1sTRjwxgZvvqP7U0BguthsmILAJf7e5eI1lZhX7pR217DY1zQm2XbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782442952; c=relaxed/simple;
-	bh=ZcsBLTieoNkA9TEUBhYNrRlE05FDe1x3P3jRfh8SjQ4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sta1EYhb659V6TgPzWsS+tWz68Y0ZH3qKGwP8p3tTAVUosx6yxNSRnO00hgx1pHYfpLF/soK1WBOIU2Tcid77t3towrG4Y6KyRZS7GQ3S81kh2FCq4AsWYfoZbM3nMvqQQaoATD6K4F2SEP/36JuzxY3DYwlpjQM9jM5UKitXBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Q3DWILNq; arc=none smtp.client-ip=95.215.58.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782479743; c=relaxed/simple;
+	bh=aUZS8arJTb9jzjwmvDWy0scqNm3RC59q/slorQATQUw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=hNTykmjjNHs9l/UiyZi/F6Oy3o06imacZ1PKFBNh1ipE/GA4ES60FVtizFTKqZV58v4rqP85MltafzcjMK4PGScYn+EF3Ru6iz4nUOc2Mpabmg5L/Q7QuYVM7M3G4V1uJh3qq08fuUs4UnEQcK5CbT8QpfxXbpOxJoZUzCxTV7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUCdrM0a; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Q3DWILNq"
-Message-ID: <6d2b7611-41ec-45f0-a155-3b5c90c5d883@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782442947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f271ICHhBS5Ku8NbvazkeutM3PKmnGfN//6w5jBctrk=;
-	b=Q3DWILNq4rp7hL2oZ6zGRWnQi51EjKsSeNeF9gJ2kjLwYticVzg/5adTwdCkossO18oJMv
-	IX52h1GK1926K2SnQvL/RfDBYyDo0cmHpp2mWBjWBwBXYlPzRxN9/ESbADYOUha3RRcoHu
-	ysyaxxln8iygLQDFXJyQQTJeou2c7/8=
-Date: Fri, 26 Jun 2026 11:01:48 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUCdrM0a"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-30c591fb1cbso1447667eec.1
+        for <nova-gpu@lists.linux.dev>; Fri, 26 Jun 2026 06:15:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782479741; x=1783084541; darn=lists.linux.dev;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aUZS8arJTb9jzjwmvDWy0scqNm3RC59q/slorQATQUw=;
+        b=WUCdrM0aUOwhHIiblEUovrglLTf1tc7IBPDS5NPoLodOYOMldGjrPDrUigFCyfyfwx
+         qmkdoqxOCcRdpmFHpB9VT9DfzLTfkLD07K2ekgXLTxRd87hp0J+MWqDxwmtBxTHz4o0C
+         m8HfKvJX2nLCDpuZQVcGsc1GJrMjD2Ed8JmndoVQD0w20KPsc3ovwSsPkWoRg1l8cPz2
+         nVSxyrY3oJDx9A1nKk9QMopFcI3+AEBpFinoeGz1ejM0mP0+o3A3zYIhZeWHDCNMNihv
+         0x6muwCW+qLBVVJgRTCYWNNKjhemus7ryK7PxyaQ6rhPh+8nZJzCqI/+9o1bMrO7cUWa
+         qddA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782479741; x=1783084541;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=aUZS8arJTb9jzjwmvDWy0scqNm3RC59q/slorQATQUw=;
+        b=exkjsEfrtL3sj13lNHdP85pW/d1pkdqx7e10yAlIkuNXDqAKRTu0jJtK2+iI4t3FvN
+         5atFiQfJxPwypt2ixHe1jB+avYLjcuL6Gp001IIFe1w+iBljA+jP99U3rGLG8ReWldIX
+         qjmNdJNT60EpKrqun1NeHujqb0pasH5xVU/pZHf+Evc6Pk36WzGLUJ2p1BZgGbjphc2q
+         9nBllozSvKRt2RmPMfhGG58IenGYBlifhSesXru9bvMB+1Jd1Xgxhm8c0rGs7+FghFmF
+         UN01UH/pscYJChLTriec22VsHzLoVT15JGjBKyAQWkdu4mud52tERQeJjYW6pVGUG04d
+         SJpw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro8CaaA3XnYI86vT13smuYTdUjkj36992LDKdXjNTnxa7DW7m1BoaoLSII3bBp2/f1XYcbRYFG1Gg==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yxtbu9ck2tKfpuyuP3LWVCnN58dHpfRIuQ7mlf8gCXjSS8pnL+3
+	4/Oyc7I21jRQrrmN2RWgyr/tDL2Kn9pI639+3XAHYZjFPlVbQ4oGce8=
+X-Gm-Gg: AfdE7cmLnDGCXhjTP+vkN5D00MzSU4wGFs2Q3E3ajvwN4BGZiOiEE+lB6Uxh2+WMqzY
+	pXs3hSm9M5J3Ecmbyk7eHVxjKWyAIdUKxwR2DZ9b+pjayjuxEiQM/Pqd2C7e2u6XE1ftnYHEPeu
+	jaflzTK04IMYMMAyK7eXIj4PUyCs6ZAhmAb+RctqvOUUIAHOYxgNIXiVaQZO9VXheWDT5miNCII
+	cugdzHVOb/RHkYl64D3n2z5ryDew/8vos/4l0NvEYy0SJbPoUngDrY2X2tA7O7PjPuMKjiv//BN
+	s1YmhdbNll4pUXdnelXG1Q9sxuVPSUmPzBZ4Bu1wVXOXt1orJG11sXvviEddMT+9o7VGuyV1Fwz
+	LbciUQqCPxsOaY1CZPwLrMw+EcZ/po6eZvg6wulBuXsTTcTbwI4GsPDvMbeDB5cMu3uKan+P4wG
+	uMnsSFckZZo40+34qfmr2XXzGGMUqlOlInQ5QJr/UFt9fbLpD2
+X-Received: by 2002:a05:7300:2321:b0:30a:e52d:fb27 with SMTP id 5a478bee46e88-30c84b84f6dmr6776480eec.11.1782479741405;
+        Fri, 26 Jun 2026 06:15:41 -0700 (PDT)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c4c691dsm17366960eec.5.2026.06.26.06.15.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 26 Jun 2026 06:15:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-Subject: Re: [PATCH v6 10/10] rust: module: update MAINTAINERS to cover
- module.rs
-To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
- <20260624-fix-fops-owner-v6-10-5295e333cb3e@linux.dev>
- <DJI7HR91X68U.3BVK3U4OJC18B@garyguo.net>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <DJI7HR91X68U.3BVK3U4OJC18B@garyguo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 26 Jun 2026 10:15:34 -0300
+Message-Id: <DJJ0BXFYH05I.3MV4GC91I0HTX@gmail.com>
+Cc: <acourbot@nvida.com>, <nova-gpu@lists.linux.dev>,
+ <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <ojeda@kernel.org>,
+ <rust-for-linux@vgdm.kernel.org>
+Subject: Re: [PATCH 0/7] drm/nova: replace `transmute` with `zerocopy`
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Pedro Yudi Honda"
+ <niyudi.honda@usp.br>
+X-Mailer: aerc 0.20.0
+References: <20260625190553.7245-1-niyudi.honda@usp.br>
+ <DJIGEANGKENH.3L3T55PFRGY3Q@kernel.org>
+In-Reply-To: <DJIGEANGKENH.3L3T55PFRGY3Q@kernel.org>
 
+On Thu Jun 25, 2026 at 6:38 PM -03, Danilo Krummrich wrote:
+> (Cc: Nicol=C3=A1s)
+>
+> On Thu Jun 25, 2026 at 9:05 PM CEST, Pedro Yudi Honda wrote:
+>> This series follows the introduction of `zerocopy` to rust-next and
+>> replaces `transmute` traits with `zerocopy` traits. These changes are
+>> mechanical and don't alter functionality.
+>
+> Thanks for your contribution!
+>
+> Please note that this patch series does not apply to the development tree=
+ of the
+> Nova driver; patches for the Nova driver must be based on the drm-rust tr=
+ee [1].
+> Please see this related explanation [2].
+>
+> Also note that there's already a submission implementing a subset of this
+> series. Nicol=C3=A1s mentioned to resend once the backmerge of Linus's tr=
+ee into
+> drm-rust-next has happened, please align with Nicol=C3=A1s and base your =
+changes on
+> top of his changes.
 
-On 6/25/26 22:39, Gary Guo wrote:
-> On Wed Jun 24, 2026 at 4:00 PM BST, Alvin Sun wrote:
->> Module types now live in `rust/kernel/module.rs` alongside
->> `rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
->> from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
->> files are covered.
->>
->> Assisted-by: opencode:glm-5.2
-> Did you actually use a LLM for this patch even? :)
+Hello,
 
-Yes, I've created a skill that generates commit messages for the code I 
-modify
-manually.
+I'll add Pedro to CC when I send the v2.=20
+
+Thank you both!
+Nicol=C3=A1s
 
 >
->> Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
->> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> This patch should probably be squashed into the actual move, i.e. patch 1.
-
-Sure. Looking at the change history of the `MAINTAINERS` file, the 
-modifications
-are always in standalone commits, so I followed the same convention.
-
-Best regards,
-Alvin
-
+> Thanks,
+> Danilo
 >
-> Best,
-> Gary
->
->> ---
->>   MAINTAINERS | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index e035a3be797c4..74733de3e41ee 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
->>   F:	kernel/module/
->>   F:	lib/test_kmod.c
->>   F:	lib/tests/module/
->> -F:	rust/kernel/module_param.rs
->> +F:	rust/kernel/module*.rs
->>   F:	rust/macros/module.rs
->>   F:	scripts/module*
->>   F:	tools/testing/selftests/kmod/
->
+> [1] https://gitlab.freedesktop.org/drm/rust/kernel/-/tree/drm-rust-next
+> [2] https://lore.kernel.org/nova-gpu/DJFVRMR67B0W.2AJBHU1PWDPFT@kernel.or=
+g/
+> [3] https://lore.kernel.org/nova-gpu/20260621143647.264770-1-nico.antinor=
+i.7@gmail.com/
+
