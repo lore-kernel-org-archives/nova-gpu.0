@@ -1,38 +1,39 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08BF248886
-	for <nova-gpu@lists.linux.dev>; Fri, 26 Jun 2026 02:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AE32BEFEF
+	for <nova-gpu@lists.linux.dev>; Fri, 26 Jun 2026 02:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782440403; cv=none; b=oX6HJQlragNC5lZrttMQXP7Oh/JeH/NDE4OTLqGt7TR3WIJD/4HaP8u3eoGuvQvJBIbGlk2ZdoU1nwn3l915l8fafevEl6BCexYJWD/umYpSfwdWkEg59ecd4mq3qSKf9chalWue4U7cDIOIzU+QtTlEUBsPI//jruAopOw+Y64=
+	t=1782440710; cv=none; b=Tx19ru9u3tlDnawpnQiE+23HdiJlJBaCoqNrB7PcJThm1KJEBptSUgocxK60/awWH65Pp/NXhmza4cmbCnZgOWQMUC4QCiA3e6T3ZCxyawt9xZvMIOU9s829WtI12xOHCG6p3rPwg/oT2QqISm5IzKUYOAYKWHCxcGvcnOi1Nmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782440403; c=relaxed/simple;
+	s=arc-20240116; t=1782440710; c=relaxed/simple;
 	bh=t/mjBz/RpVdE1ZzlAPFc4zsc+FTff/BVl2GJA5vZr40=;
-	h=Date:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=M7HMFSD1v3n1N+xGR/fCGQOItHrACHfFPilUIm00gVnrxMaMIU+2o70XwWKS4Sluz0hT+Vx7p1/vIRjLPCdL3rKgR25B5tuyHxxZEyYCT9gSl8Sxs+YexZMI4uTZbKUpvs4LCfDOZ/1KfyEiGgxLz8eVRaTcASO/+sE8SYl9Efs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=MPpKuaSH; arc=none smtp.client-ip=185.70.43.101
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=djvuYDsMbgCeKIbhNhGw4n/dFUoozWKmgbiPq+igSFxEX3qz0tfU2F48iB3n5vlOfWkJBpJ424UguHbXNYdM+k+RyBPo3t9jF0fv1MIw3p0jBhABNKpZnCHkUI+pyUwfiblm27rhtwifl9BACcZrNkGCopYbURHghZM4yp821EI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=aK0g47eb; arc=none smtp.client-ip=79.135.106.118
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="MPpKuaSH"
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="aK0g47eb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1782440386; x=1782699586;
+	s=protonmail; t=1782440695; x=1782699895;
 	bh=ZwFAqeXcsDXH97frF8MY7ipcPEZX/tUmD+0qnOX+1II=;
-	h=Date:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=MPpKuaSHik6KzkeHUoCWZJj/RI1DlYI4aRj/fle0ErvFkzitvAbTh3+Y5t5KDSGkD
-	 gRbuKZIgMxcILJ1NhK0pGRTspJa4eIPbNpJ4u5LNhkYJI93Cj9xxidQ9/BFhcNk6x5
-	 V8qjZ+x58zjuA3JkppDnqBoor2RGyfca2CQVrxMn7OPVmEPIgx3ZRRl1bwSe/iTvMB
-	 zoM3lbgEvOZ/+J60kcGq7RIMjtzhK6j20IvdawmdXeLJ+3qzCkRGkE5opvvWscS6Kw
-	 R9alwTqLMRdVEfoOiiWpsvPAo27tIsm1fow7zFBHBbAb3fC3CREZhY6km6O/AHNY41
-	 RsN2nzpd4xrIg==
-Date: Fri, 26 Jun 2026 02:19:39 +0000
+	b=aK0g47ebiX1Tb/HmDC1Z5Wc7/OOkm7ctz/aQ9MBApulp9YZQj5dzZSj/HqmLlmDLD
+	 plpe5dP1jOINuWUksGRBCQIG4xKmNmCxD8UIo3OaSF0wCl96OesWpe88RmVs/i9dec
+	 8hvpwAvv04SAOPLT6sJFAEpAUUxdM7D55kAsiMCp5qIzSe5DJEvSqIc2g3wer4PKhT
+	 mKAf5qAX/mGjOvrra1o2W+S5COqCLUrEQXezitdbfi0y1fndoUhR6gp1Rn0QAA2w9f
+	 NDju6Y6tsnNu6TbTBah58aYyfGoDqvVRFXyPWA7I9sTwhUxzSHBdgREOPbI8Gi8qXy
+	 HxwAHVbZzqYmw==
+Date: Fri, 26 Jun 2026 02:24:47 +0000
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>
 From: Tim Kovalenko <tim.kovalenko@proton.me>
 Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, rust-for-linux@vger.kernel.org, Tim Kovalenko <tim.kovalenko@proton.me>
 Subject: [PATCH v2] gpu: nova-core: falcon: store bar and dev in falcon
-Message-ID: <20260625-drm-bar-refactor-v2-1-a64e81bf5632@proton.me>
+Message-ID: <20260625-drm-bar-refactor-v2-1-9db6b890d92e@proton.me>
 Feedback-ID: 96458489:user:proton
-X-Pm-Message-ID: 876b7eb26efba33275162415aec0c7d0c341397f
+X-Pm-Message-ID: 348a6da0901755230f6c6410168449e7ec291ebc
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
