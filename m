@@ -1,226 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D22B3B8111;
-	Fri, 26 Jun 2026 18:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1DC211466;
+	Sat, 27 Jun 2026 09:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782499040; cv=none; b=h20FWLXUyY89qqNIxPa5cAWDfxmLjh9rsVlJ2M+o1rvkcOa75zTe+yxO3iqLcGRhkrOBDKnDAvW6KUn9zDA0yoMDDTcxzWcevL5XUwo+x4MkJI/6DKMgPeu/p4LdMRCkwYDp3C4UQ8NXzfIwTBZtCv2ncheOeitgNeTzBeTJf/g=
+	t=1782552528; cv=none; b=LfI7PAG2348PSrOUwpc/lorTtvVcXsbwkc1Wv8j6Y/7hufOVOLahpMuRm21QX3K9RidblOXiYrXywOsBOjdRAkrzuaSrk6yiDPGs5c/CXgrQLAvR4Wyo9uXZV8Zt8GBPU7FHl3XKl+bxwUo1Ca8zNS3a2rUcgw+iybgQQ8eLc7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782499040; c=relaxed/simple;
-	bh=3vq6P1Iw4sXv6SGnFg+bbfLw4+Lb6O7oa2Gy0xr+WUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=skztqXmdepYju6xIzqTW+g75B1Lz6AjIDfZ8H86bKiVY3sc8Yi71Z5OoyR7IXEovBgqFdKJ2dRGN+PXmfeSyeEQ7adRi5TvwQjVIFm51P8v5B2TI5vO7kOrOsbUPM63ARgtcMTpuzer3i9VhLBus0aNGbYsqgVuj5Gbv+bVWZnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pjv0/M6B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782552528; c=relaxed/simple;
+	bh=aF47iLMPZHY8ikZj0/3fPMH5Q4mRqmYCLQexdlk5/mo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gpNkYLfuBY0Qex4lGk0agh2UM+QZfUF17aNErYAofdhk77PPxS66PmwLC02V6I7OoG5EOPZc+bYo1W0zhb7itHhJf0u+5nvWELJHzXrMxDiUJWOiClbwo8dXHVNVaRxl3lqKehUPC0i23SWlmd2xxuZ84QGFaAsBFf25w0Yzn6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TsWvUQMt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pjv0/M6B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12DAE1F000E9;
-	Fri, 26 Jun 2026 18:37:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782499038;
-	bh=6+T5BgRhhhJbLfHU3dWuWHcFHzu9JMvhs9bH+sGOzcE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pjv0/M6BH1x/qeOi+9+m9NhNlLI7UO8quiwwWdGBBrUTndUHXbs1IByZ61m65CDig
-	 4oo2Klw+IJUWAVXBrCwg+/FLlcQEwjW1ZRiLAbjSZmytMME/6ymQwP3meiUQyUkmt/
-	 8Z8i0iz6QzWeZwppzrlA5dKKxJYZ0TNpYJ1prNC4ZnpwBI1prw42WPRpdPf0pq5ZBi
-	 2c/R46UcwDIFu0Jff0150P//Sfwkk2CE2MwABxsFw+b4oUWycczdR0zVD7jmSKaCX2
-	 8cNSHv/PrmAtgfZodt20iSd5Zs+15a6abPVR6EVtOsvqdgXyLnKPHLdC0M6hiUnxU8
-	 HdrrE5vy4Wufw==
-From: Danilo Krummrich <dakr@kernel.org>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	acourbot@nvidia.com,
-	ecourtney@nvidia.com,
-	m.wilczynski@samsung.com,
-	david.m.ertman@intel.com,
-	ira.weiny@intel.com,
-	leon@kernel.org,
-	daniel.almeida@collabora.com,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-pwm@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v4 7/7] rust: io: mem: return DevresLt from IoMem/ExclusiveIoMem::into_devres()
-Date: Fri, 26 Jun 2026 20:36:14 +0200
-Message-ID: <20260626183630.2585057-8-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260626183630.2585057-1-dakr@kernel.org>
-References: <20260626183630.2585057-1-dakr@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TsWvUQMt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BA97AC2BCF4;
+	Sat, 27 Jun 2026 09:28:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+	t=1782552527; bh=aF47iLMPZHY8ikZj0/3fPMH5Q4mRqmYCLQexdlk5/mo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=TsWvUQMt62wgvD+ef+UVGOqHtKVfLbwtduFNfuSabHEs0UrZfg2NB048fs4EnTH47
+	 IyBXPPvoPmzKjxGu0DOzlihUKYk/pHITmJb2ozXO8ZmBw6mJz+/CHablDhSUftGImD
+	 ulkY+iqbXG6A0X82GkvfDMPCAV0ObG/Wicl4DkP0=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA646C43602;
+	Sat, 27 Jun 2026 09:28:47 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Sat, 27 Jun 2026 17:28:40 +0800
+Subject: [PATCH v7 02/10] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260627-fix-fops-owner-v7-2-33cd3990edf0@linux.dev>
+References: <20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev>
+In-Reply-To: <20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782552525; l=3594;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=aF47iLMPZHY8ikZj0/3fPMH5Q4mRqmYCLQexdlk5/mo=;
+ b=7R/uNBFs1pvnOfA6/pe6CcnnqKBFT1zKiiahnOmqWa6q1JXz/QYMu5TA8HTmfpXdXZwymQcLc
+ qYCInzcENwBC5nnEPgxrUZrDd5pO/3oLK3qm3nWWEBIShkmRXUCzaor
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 
-Implement ForLt and CovariantForLt for IoMem<'static, SIZE> and
-ExclusiveIoMem<'static, SIZE> so that DevresLt can shorten the stored
-'static lifetime back to the caller's borrow lifetime.
+Since `const_refs_to_static` has been stable as of the MSRV bump, a
+`ThisModule` pointer can now be used in const contexts.
 
-CovariantForLt is sound because both types only hold &'a Device<Bound>,
-which is covariant over 'a.
+Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
+can provide their `ThisModule` pointer in const contexts such as static
+`file_operations`.
 
-Since DevresLt::new() handles the lifetime transmutation internally,
-into_devres() no longer needs an explicit transmute to 'static.
+Add a `this_module()` helper to retrieve the `THIS_MODULE` pointer of a
+given module type, and update `__init` to use it instead of the
+`THIS_MODULE` static generated by the `module!` macro.
 
-Add DevresIoMem<SIZE> and DevresExclusiveIoMem<SIZE> type aliases.
+The `static THIS_MODULE` generated by the `module!` macro is retained
+for backwards compatibility with existing users and removed in a later
+patch once all references have been migrated.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Assisted-by: opencode:glm-5.2
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/pwm/pwm_th1520.rs |  5 ++-
- rust/kernel/io/mem.rs     | 65 +++++++++++++++++++++++++++------------
- 2 files changed, 47 insertions(+), 23 deletions(-)
+ rust/kernel/module.rs |  9 +++++++++
+ rust/macros/module.rs | 18 +++++++++++++++++-
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pwm/pwm_th1520.rs b/drivers/pwm/pwm_th1520.rs
-index 3e3fa51ccef9..7102c60fd14b 100644
---- a/drivers/pwm/pwm_th1520.rs
-+++ b/drivers/pwm/pwm_th1520.rs
-@@ -24,9 +24,8 @@
- use kernel::{
-     clk::Clk,
-     device::{Bound, Core, Device},
--    devres,
-     io::{
--        mem::IoMem,
-+        mem::DevresIoMem,
-         Io, //
-     },
-     of, platform,
-@@ -86,7 +85,7 @@ struct Th1520WfHw {
- #[pin_data(PinnedDrop)]
- struct Th1520PwmDriverData {
-     #[pin]
--    iomem: devres::Devres<IoMem<'static, TH1520_PWM_REG_SIZE>>,
-+    iomem: DevresIoMem<TH1520_PWM_REG_SIZE>,
-     clk: Clk,
- }
- 
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index fc2a3e24f8d5..4691a01a3cf7 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -9,7 +9,7 @@
-         Bound,
-         Device, //
-     },
--    devres::Devres,
-+    devres::DevresLt,
-     io::{
-         self,
-         resource::{
-@@ -20,6 +20,10 @@
-         MmioRaw, //
-     },
-     prelude::*,
-+    types::{
-+        CovariantForLt,
-+        ForLt, //
-+    },
- };
- 
- /// An IO request for a specific device and resource.
-@@ -172,6 +176,19 @@ pub struct ExclusiveIoMem<'a, const SIZE: usize> {
-     _region: Region,
- }
- 
-+impl<const SIZE: usize> ForLt for ExclusiveIoMem<'static, SIZE> {
-+    type Of<'a> = ExclusiveIoMem<'a, SIZE>;
+diff --git a/rust/kernel/module.rs b/rust/kernel/module.rs
+index be242a82e86d2..d713705984477 100644
+--- a/rust/kernel/module.rs
++++ b/rust/kernel/module.rs
+@@ -42,6 +42,15 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, crate::erro
+ pub trait ModuleMetadata {
+     /// The name of the module as specified in the `module!` macro.
+     const NAME: &'static crate::str::CStr;
++
++    /// The module's `THIS_MODULE` pointer.
++    const THIS_MODULE: ThisModule;
 +}
 +
-+// SAFETY: `ExclusiveIoMem<'a, SIZE>` is covariant over `'a`; it holds an `IoMem<'a, SIZE>`,
-+// which holds `&'a Device<Bound>`, which is covariant.
-+unsafe impl<const SIZE: usize> CovariantForLt for ExclusiveIoMem<'static, SIZE> {}
-+
-+/// A device-managed exclusive I/O memory region.
-+///
-+/// See [`ExclusiveIoMem::into_devres`].
-+pub type DevresExclusiveIoMem<const SIZE: usize> = DevresLt<ExclusiveIoMem<'static, SIZE>>;
-+
- impl<'a, const SIZE: usize> ExclusiveIoMem<'a, SIZE> {
-     /// Creates a new `ExclusiveIoMem` instance.
-     fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
-@@ -198,15 +215,13 @@ fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
- 
-     /// Consume the `ExclusiveIoMem` and register it as a device-managed resource.
-     ///
--    /// The returned `Devres<ExclusiveIoMem<'static, SIZE>>` can outlive the original lifetime
--    /// `'a`. Access to the I/O memory is revoked when the device is unbound.
--    pub fn into_devres(self) -> Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
--        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the
--        // `ExclusiveIoMem` does not actually outlive the device -- access is revoked and the
--        // resource is released when the device is unbound.
--        let iomem: ExclusiveIoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
--        let dev = iomem.iomem.dev;
--        Devres::new(dev, iomem)
-+    /// The returned [`DevresExclusiveIoMem`] can outlive the original borrow and be stored in
-+    /// driver data. Access to the I/O memory is revoked automatically when the device is unbound.
-+    pub fn into_devres(self) -> Result<DevresExclusiveIoMem<SIZE>> {
-+        let dev = self.iomem.dev;
-+        // SAFETY: `ExclusiveIoMem` only holds a device reference and an I/O mapping, both of
-+        // which remain valid for the device's full bound scope, not just for `'a`.
-+        unsafe { DevresLt::new(dev, self) }
-     }
++/// Returns a reference to the `THIS_MODULE` of the given module type.
++#[inline]
++pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
++    &M::THIS_MODULE
  }
  
-@@ -232,6 +247,19 @@ pub struct IoMem<'a, const SIZE: usize = 0> {
-     io: MmioRaw<SIZE>,
- }
+ /// Equivalent to `THIS_MODULE` in the C API.
+diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+index 06c18e2075083..aa9a618d5d19e 100644
+--- a/rust/macros/module.rs
++++ b/rust/macros/module.rs
+@@ -519,6 +519,22 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
  
-+impl<const SIZE: usize> ForLt for IoMem<'static, SIZE> {
-+    type Of<'a> = IoMem<'a, SIZE>;
-+}
+         impl ::kernel::ModuleMetadata for #type_ {
+             const NAME: &'static ::kernel::str::CStr = #name_cstr;
 +
-+// SAFETY: `IoMem<'a, SIZE>` is covariant over `'a`; it holds `&'a Device<Bound>`,
-+// which is covariant.
-+unsafe impl<const SIZE: usize> CovariantForLt for IoMem<'static, SIZE> {}
++            #[cfg(MODULE)]
++            const THIS_MODULE: ::kernel::ThisModule = {
++                extern "C" {
++                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
++                }
 +
-+/// A device-managed I/O memory region.
-+///
-+/// See [`IoMem::into_devres`].
-+pub type DevresIoMem<const SIZE: usize> = DevresLt<IoMem<'static, SIZE>>;
++                // SAFETY: `__this_module` is constructed by the kernel at load time
++                // and lives until the module is unloaded.
++                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
++            };
 +
- impl<'a, const SIZE: usize> IoMem<'a, SIZE> {
-     fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
-         // Note: Some ioremap() implementations use types that depend on the CPU
-@@ -271,16 +299,13 @@ fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
++            #[cfg(not(MODULE))]
++            const THIS_MODULE: ::kernel::ThisModule = unsafe {
++                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
++            };
+         }
  
-     /// Consume the `IoMem` and register it as a device-managed resource.
-     ///
--    /// The returned `Devres<IoMem<'static, SIZE>>` can outlive the original
--    /// lifetime `'a`. Access to the I/O memory is revoked when the device
--    /// is unbound.
--    pub fn into_devres(self) -> Result<Devres<IoMem<'static, SIZE>>> {
--        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the `IoMem` does not
--        // actually outlive the device -- access is revoked and the resource is released when the
--        // device is unbound.
--        let iomem: IoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
--        let dev = iomem.dev;
--        Devres::new(dev, iomem)
-+    /// The returned [`DevresIoMem`] can outlive the original borrow and be stored in driver data.
-+    /// Access to the I/O memory is revoked automatically when the device is unbound.
-+    pub fn into_devres(self) -> Result<DevresIoMem<SIZE>> {
-+        let dev = self.dev;
-+        // SAFETY: `IoMem` only holds a device reference and an I/O mapping, both of which
-+        // remain valid for the device's full bound scope, not just for `'a`.
-+        unsafe { DevresLt::new(dev, self) }
-     }
- }
- 
+         // Double nested modules, since then nobody can access the public items inside.
+@@ -616,7 +632,7 @@ pub extern "C" fn #ident_exit() {
+                 /// This function must only be called once.
+                 unsafe fn __init() -> ::kernel::ffi::c_int {
+                     let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
+-                        &super::super::THIS_MODULE
++                        ::kernel::module::this_module::<super::super::LocalModule>()
+                     );
+                     // SAFETY: No data race, since `__MOD` can only be accessed by this module
+                     // and there only `__init` and `__exit` access it. These functions are only
+
 -- 
-2.54.0
+2.43.0
+
 
