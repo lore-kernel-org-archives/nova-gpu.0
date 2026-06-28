@@ -1,140 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574F33B27F0;
-	Sun, 28 Jun 2026 14:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F891E2858;
+	Sun, 28 Jun 2026 17:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782658536; cv=none; b=BheGMNbDVMUG82Xt8oAbeDFQGzo9sdR/k3XRv2Q4JqE8FPJfJeDwbOQO1LC+B838tw+hwDhN8ngmFUPwSooXUDB+iggu3FzDaPfRLYJlJl4vUZZMWJIfWVYKvmk5v5vfacc/LSYp8XqT+fVPLa7KJ394r7OH0puPabTxCYQ7a2k=
+	t=1782666616; cv=none; b=HtY9hkIyKr4A0AGY2Wo3EGhbI+7g1BMMW7L3jkDdXiN0sDf4J5ePcng/TdLBCnt5COUjt5QEDvrXQ4wuGvhyhQ2XRX2H4XzHHBN9VMyuED7MB1ZXRvYdL+DnrLRbr+hyNZBatjZuuxz7WIx0jHWDg+aRDn/HMQ8UIeKyXpv1BJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782658536; c=relaxed/simple;
-	bh=YD3o9OzyCUmfnsPcmCkY5mUagsUrbYKjH4nwSMicCF0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aQKHfISsO1//Tmx5YpxD+lrC38M8OdAdB7riDoM+sQHVwDKtJU1ZGGR/4+ld4/ncKonaPwy469R9IqhqqrtE4iINnQuIzfjepf+T1zQ1aFZOp1Plbfo4P5/ECflJ8ijk3W64itRAtbeXLIZFZm5QBE37pP4ZfC6QbttCsaSVji4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DdLIaW2D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782666616; c=relaxed/simple;
+	bh=MbhhfDxuj1yYAs9vqEGFr/7A/9WYijEGfRUwA4iJXlI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Hei6MrHPyKtxj/1lsVLUUHtA+fFJk0SdzqLSJI5EKdHBCikVrSqW0U5wRstpsJQfl++lzRyRMuDROAJWk6ogXMKMd+aParDLok/ygmX3oqg4UsaB16iVrKA4DN3MOqA+TqlrM1zrWxYP0K5C95KR9nN90lxJAXxaUIZXETKOJ1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JHjyTbJM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DdLIaW2D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9281F000E9;
-	Sun, 28 Jun 2026 14:55:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782658535;
-	bh=uMm8F5rJDzXasV8CQirEBISfvAruKBnGmjcz8vuPhB0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DdLIaW2DBwwK/hwCyyoKvAo0ywFilQd3eNKVoTcPQSwMp1D7KBv212sLVupWFZTed
-	 6IwTw7RtCdPXKqjEelGI06UZHEYN3kISMgbHGcVNdmx6gQlZ0PX2TJDoLIEi2Z+low
-	 9erXrwfQhPt88m+vrKqb7hlHKM3JDVGWWDiSh8YqJ7Jy92kwc6KuuCBGk8+GbWRea+
-	 efjRF+ddTX5++/vSkAEDrg/bcxkdKsTP9pbGy4x1BqjJb5XVYLNeyk5Tlc8ar1btXq
-	 zC/voNolnAHeOfGpvalpedcaPnfoOkTqSWC4gCcNDtisAHiXRVmlAlBqAJhM3vG3Xe
-	 XDoj30D0Ea4EA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org,
-	aliceryhl@google.com,
-	daniel.almeida@collabora.com,
-	acourbot@nvidia.com,
-	ecourtney@nvidia.com,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	deborah.brouwer@collabora.com,
-	boris.brezillon@collabora.com,
-	lyude@redhat.com
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v5 19/19] drm: nova: Use drm::Device<Registered> to access the parent bus device
-Date: Sun, 28 Jun 2026 16:53:39 +0200
-Message-ID: <20260628145406.2107056-20-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
-References: <20260628145406.2107056-1-dakr@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JHjyTbJM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C64DC2BCF5;
+	Sun, 28 Jun 2026 17:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782666616;
+	bh=MbhhfDxuj1yYAs9vqEGFr/7A/9WYijEGfRUwA4iJXlI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=JHjyTbJMrvpKPO14Ae7HViIEfnewdXXyo1ewJqzrX55Utr53TM5zctrZi9QELggg5
+	 WruztBtyo13L8dbGrLN3sGFig9p+sfeIuYKhh8nzZy9Y7tLb+J5SxAn55nA1rjVUg3
+	 FBb+SDCbQpXI83rfnRicG5dFMSRb8y4PdOtDW7SsN30TjkOOurEmuINmFhCe0PNmw1
+	 niV7lo6oXEBU41dARb7Plj/bEk7P5lVO/mPV8sSlGi0B8YZaz1NpQG+nUE5IgP4z8C
+	 33AzEFqxBtpjOxGUJeCcbMP3C9x5vTKKWAsXn9tpCj9kVweWQj0dqIwtbCYKSs/iVW
+	 xBYxWYWggGbcQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D156C43327;
+	Sun, 28 Jun 2026 17:10:16 +0000 (UTC)
+From: SeungJong Ha via B4 Relay <devnull+engineer.jjhama.gmail.com@kernel.org>
+Date: Sun, 28 Jun 2026 17:10:16 +0000
+Subject: [PATCH RFC 3/4] gpu: nova-core: gsp: derive zerocopy traits for
+ the msgq POD types
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260628-dma-zerocopy-bridge-v1-3-9a2895ebe30d@gmail.com>
+References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
+In-Reply-To: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ SeungJong Ha <engineer.jjhama@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782666615; l=4702;
+ i=engineer.jjhama@gmail.com; s=20260103; h=from:subject:message-id;
+ bh=R8N7uz7lecMVzg1CNhtXwHL1Y4crgy5OUPwWz3q1NvM=;
+ b=yd+JlLel3gWsMW5+EVRbKPADJedct6vwmdR42C6U1lhZI/wvT1BYNoEzObKVsrYUfI1ItXzf3
+ rG9dVLK/ikiC3DZMEGEquhZHRQOndHLy8C39W1iRWN6UaFo+ojGX2Fb
+X-Developer-Key: i=engineer.jjhama@gmail.com; a=ed25519;
+ pk=G5nmjm+RTiWBpyCvc5xjR1b3li/2zipLSMyz+T4fj5E=
+X-Endpoint-Received: by B4 Relay for engineer.jjhama@gmail.com/20260103
+ with auth_id=590
+X-Original-From: SeungJong Ha <engineer.jjhama@gmail.com>
+Reply-To: engineer.jjhama@gmail.com
 
-The get_param ioctl needs access to the parent auxiliary device. Since
-ioctl handlers run inside a RegistrationGuard, accept
-&NovaDevice<Registered> to obtain &auxiliary::Device<Bound> via as_ref()
-directly. This removes the need for drm::Device data, hence set it to
-().
+From: SeungJong Ha <engineer.jjhama@gmail.com>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Replace the hand-audited `unsafe impl transmute::{AsBytes, FromBytes}` on
+the msgq header newtypes (`MsgqTxHeader`/`MsgqRxHeader`), `PteArray` and
+the generated bindings (`msgqTxHeader`/`msgqRxHeader`) with `zerocopy`
+derives. These are padding-free PODs, so the derive applies directly.
+
+The bindings derives are hand-added for the demo; canonically they come
+from bindgen's `--with-derive-custom-struct`.
+
+Assisted-by: Claude-Code:claude-opus-4-8
+Signed-off-by: SeungJong Ha <engineer.jjhama@gmail.com>
 ---
- drivers/gpu/drm/nova/driver.rs | 11 ++---------
- drivers/gpu/drm/nova/file.rs   |  7 ++++---
- 2 files changed, 6 insertions(+), 12 deletions(-)
+ drivers/gpu/nova-core/gsp.rs                      | 13 ++-----------
+ drivers/gpu/nova-core/gsp/fw.rs                   |  8 ++++----
+ drivers/gpu/nova-core/gsp/fw/r570_144.rs          |  2 ++
+ drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs |  4 ++--
+ 4 files changed, 10 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index bd2a55405db8..739690bc2db5 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -29,11 +29,6 @@ pub(crate) struct Nova<'bound> {
- /// Convienence type alias for the DRM device type for this driver
- pub(crate) type NovaDevice<Ctx = drm::Normal> = drm::Device<NovaDriver, Ctx>;
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 69175ca3315c..d7da16e9177a 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -12,11 +12,7 @@
+         DmaAddress, //
+     },
+     pci,
+-    prelude::*,
+-    transmute::{
+-        AsBytes,
+-        FromBytes, //
+-    }, //
++    prelude::*, //
+ };
  
--#[pin_data]
--pub(crate) struct NovaData {
--    pub(crate) adev: ARef<auxiliary::Device>,
--}
+ pub(crate) mod cmdq;
+@@ -48,14 +44,9 @@
+ 
+ /// Array of page table entries, as understood by the GSP bootloader.
+ #[repr(C)]
++#[derive(FromBytes, IntoBytes, Immutable)]
+ struct PteArray<const NUM_ENTRIES: usize>([u64; NUM_ENTRIES]);
+ 
+-/// SAFETY: arrays of `u64` implement `FromBytes` and we are but a wrapper around one.
+-unsafe impl<const NUM_ENTRIES: usize> FromBytes for PteArray<NUM_ENTRIES> {}
 -
- const INFO: drm::DriverInfo = drm::DriverInfo {
-     major: 0,
-     minor: 0,
-@@ -64,9 +59,7 @@ fn probe<'bound>(
-         adev: &'bound auxiliary::Device<Core<'_>>,
-         _info: &'bound Self::IdInfo,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
--        let data = try_pin_init!(NovaData { adev: adev.into() });
+-/// SAFETY: arrays of `u64` implement `AsBytes` and we are but a wrapper around one.
+-unsafe impl<const NUM_ENTRIES: usize> AsBytes for PteArray<NUM_ENTRIES> {}
 -
--        let drm = drm::UnregisteredDevice::<Self>::new(adev, data)?;
-+        let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
-         // SAFETY: `reg` is stored in `Nova` and dropped when the driver is unbound; it is
-         // never forgotten.
-         let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, (), 0)? };
-@@ -80,7 +73,7 @@ fn probe<'bound>(
+ impl<const NUM_PAGES: usize> PteArray<NUM_PAGES> {
+     /// Returns the page table entry for `index`, for a mapping starting at `start`.
+     // TODO: Replace with `IoView` projection once available.
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 4db0cfa4dc4d..623ab33847c5 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -696,6 +696,7 @@ fn id8(name: &str) -> u64 {
  
- #[vtable]
- impl drm::Driver for NovaDriver {
--    type Data = NovaData;
-+    type Data = ();
-     type RegistrationData<'a> = ();
-     type File = File;
-     type Object = gem::Object<NovaObject>;
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 208be4e38188..298c02bacb4b 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -4,6 +4,8 @@
- use crate::gem::NovaObject;
- use kernel::{
-     alloc::flags::*,
-+    auxiliary,
-+    device::Bound,
-     drm::{
-         self,
-         gem::BaseObject,
-@@ -32,9 +34,8 @@ pub(crate) fn get_param(
-         getparam: &mut uapi::drm_nova_getparam,
-         _file: &drm::File<File>,
-     ) -> Result<u32> {
--        let adev = &dev.adev;
--        let parent = adev.parent();
--        let pdev: &pci::Device = parent.try_into()?;
-+        let adev: &auxiliary::Device<Bound> = dev.as_ref();
-+        let pdev: &pci::Device<Bound> = adev.parent().try_into()?;
+ /// TX header for setting up a message queue with the GSP.
+ #[repr(transparent)]
++#[derive(FromBytes, IntoBytes, Immutable)]
+ pub(crate) struct MsgqTxHeader(bindings::msgqTxHeader);
  
-         let value = match getparam.param as u32 {
-             uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => pdev.resource_len(1)?,
+ impl MsgqTxHeader {
+@@ -722,11 +723,11 @@ pub(crate) fn new(msgq_size: u32, rx_hdr_offset: u32, msg_count: u32) -> Self {
+     }
+ }
+ 
+-// SAFETY: Padding is explicit and does not contain uninitialized data.
+-unsafe impl AsBytes for MsgqTxHeader {}
++kernel::impl_transmute_via_zerocopy!(MsgqTxHeader);
+ 
+ /// RX header for setting up a message queue with the GSP.
+ #[repr(transparent)]
++#[derive(FromBytes, IntoBytes, Immutable)]
+ pub(crate) struct MsgqRxHeader(bindings::msgqRxHeader);
+ 
+ /// Header for the message RX queue.
+@@ -737,8 +738,7 @@ pub(crate) fn new() -> Self {
+     }
+ }
+ 
+-// SAFETY: Padding is explicit and does not contain uninitialized data.
+-unsafe impl AsBytes for MsgqRxHeader {}
++kernel::impl_transmute_via_zerocopy!(MsgqRxHeader);
+ 
+ bitfield! {
+     struct MsgHeaderVersion(u32) {
+diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144.rs b/drivers/gpu/nova-core/gsp/fw/r570_144.rs
+index 2e6f0d298756..4b6280fab674 100644
+--- a/drivers/gpu/nova-core/gsp/fw/r570_144.rs
++++ b/drivers/gpu/nova-core/gsp/fw/r570_144.rs
+@@ -23,6 +23,8 @@
+ )]
+ use kernel::ffi;
+ use pin_init::MaybeZeroable;
++// Hand-added for the demo; canonically emitted by bindgen --with-derive-custom-struct.
++use kernel::prelude::{FromBytes, Immutable, IntoBytes};
+ 
+ include!("r570_144/bindings.rs");
+ 
+diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+index ea350f9b2cc4..82b1e8b155f0 100644
+--- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
++++ b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+@@ -846,7 +846,7 @@ pub struct PACKED_REGISTRY_TABLE {
+     pub entries: __IncompleteArrayField<PACKED_REGISTRY_ENTRY>,
+ }
+ #[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable, FromBytes, IntoBytes, Immutable)]
+ pub struct msgqTxHeader {
+     pub version: u32_,
+     pub size: u32_,
+@@ -858,7 +858,7 @@ pub struct msgqTxHeader {
+     pub entryOff: u32_,
+ }
+ #[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
++#[derive(Debug, Default, Copy, Clone, MaybeZeroable, FromBytes, IntoBytes, Immutable)]
+ pub struct msgqRxHeader {
+     pub readPtr: u32_,
+ }
+
 -- 
 2.54.0
+
 
