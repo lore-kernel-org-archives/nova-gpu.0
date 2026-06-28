@@ -1,117 +1,189 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FC42E6CAB
-	for <nova-gpu@lists.linux.dev>; Sun, 28 Jun 2026 10:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782640818; cv=pass; b=ovJWxQdEU3rVnjaswWdlc0APgIhgaIiVMNu1nFrFzdp1zRe3/1aD6xrX4x+RZBhizpa68GVM9/5BHAS658EZctr9ChmI1xZ4YXa4weCnfjQB0rOKXpxYoFiC5fw/UE8FSthTmFi7uxHFuO3tlDDaeXfW0csmmBGFCO642W/7P1g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782640818; c=relaxed/simple;
-	bh=rKOr+bOPAaEop+QOsAuBUUdGUuxOSw34AqHhAUajUjs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rRMfHh7uww0mxMtnsW3YEBc6H/pQKvKwGxaclCuwJM7dndUmq4B6dLyuNCYRdZaKwqyM1oRKwycF3bQ8BYMnQJDJRr+ZblA7ZKRC9TaCZsPxrzpMAprVU5oyshtOumamzu1qfl6hQI1kQOt+S4ht+gmkaAY1CUBbopvLYUi8S24=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Onzy0EXN; arc=pass smtp.client-ip=74.125.82.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6A435B632;
+	Sun, 28 Jun 2026 14:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782658453; cv=none; b=mzkcmcMCzZY58iiQmwqWhNnMPcnWcLuf5XTkJ58AwbqjjRmnD74msBE23z5KpMd70qF61NoyaEuk55KCAEWtfruOk/yFYO2/LtBWsxlprcbte7DuIwKQFVFaoUJzMClaP8hvT2IIDqJE5ySHW6WRddjKhRxtIXd8HIZ1Bxg6jZg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782658453; c=relaxed/simple;
+	bh=9Pw3RQDbfdmP6ODjdE2M3W7+Wh6mgZfp4CQPCOn2hJo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AbQmuHRrkId28ik/vSVhiaaspfZQqmTYKchcw5vGd3OcX68qpG4f3ybFHC77EAzopHrUf/LacwYLQv5PYiiHF2NMU/WzEa6dA46n+fuTa1aQWaByDXcQVowhJyDyu3qJhUwoPrGOBwzJzhVqXAdnwA9+VJTS5yeMgff7i2La0v8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUv3LHPQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Onzy0EXN"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1364ff8099cso77854c88.0
-        for <nova-gpu@lists.linux.dev>; Sun, 28 Jun 2026 03:00:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782640816; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hDd65tSyorWtA/puf3bBN3ZVgB71MsXCxqgpj83SZq/1cjR3uNiVIggNd+iU0TV3rC
-         HJSf3XnrvrBQgtHI8Zy3fICeQNAbAKIS53SJUp9DIBKVBPmyqpEbiR4SAR5pMnJFdv7Z
-         gFXM/khPZRRiW8CmXtok7+DTl6tmw1ptSM97mJ9+WjgzCsCpH397OdY5480UeNNSF9tE
-         EYoO8YAtPq93bgiIOJSiteA86dxOM9/rUzxIHSbYF6ZbSdxYSVWIDpeX/r26TOrmV5la
-         6cCFeWJcUrgC9pVfiDdrb0HzFXd+6KA6pOsopg4zbY98JDWEOgP4kjnp8JvXLi3rn8U0
-         j9Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rKOr+bOPAaEop+QOsAuBUUdGUuxOSw34AqHhAUajUjs=;
-        fh=UxoQ1n98edDmwiawYyVPFX9QfcPIzEEFUh9pzpdLcTI=;
-        b=MIckXbGwk+rLTWDiXOA2WCJWG95UAH5+b2srGaLG0cUTSgYBmQNYhyHHFnocnYK5+c
-         ETacJth/ATIoIY/TTMDUeWNMmlVwVqChguXW07EuNlAOzD53av1nlf4a9eLTRmTFk1gD
-         uZnluv2rCInNXPF5Y87p7J8G+H/+he1LxpREJoDITpiFOmEYrYYbyc4bC1jCfmmAMbR2
-         Jn3QeQZ/ZSUdGtAMjgpBOFqt6pwvUHC/mYmuCSxyQ6sfanxCkQMUUDYiKrGUbADrzVD0
-         OrxDY4RMoF1ODoTBJXaeaquaW9bU8Q7OPRxdeUEDd/b76I+2iFv7fDl2VHtTg5yIHDOx
-         DhoQ==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782640816; x=1783245616; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rKOr+bOPAaEop+QOsAuBUUdGUuxOSw34AqHhAUajUjs=;
-        b=Onzy0EXNd2x4TBLNcMiTWfjYSxdjUDjoxGBvhHkbgHzHgHcXirmo5jCzCnvLCDHYNf
-         oo68TODW2vEg9jFPg/W3msJKj2KEyTy+j8lXZPQweXkwhzWJG0ilnPyfiP0V7EttbfcU
-         YyW7jh3RYXbKrnj4Y6iAWEnBqQZ9+4Uuyl8xxwCDYHJnGD3edUgz0xuwHs/6aYsT2tH0
-         8ETlyFtShCa+lSU4HDrzv7HqK2tzpxX3cgK94J3YQzPgUPLcDvHlJmF5rBXOanqqL3UQ
-         uVivhIOIuhYkRjiCdM9J6FMBm/AZlJmYCkoNX00fZKu6om6sbYTeF047e6vj5PvDowBb
-         kbOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782640816; x=1783245616;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rKOr+bOPAaEop+QOsAuBUUdGUuxOSw34AqHhAUajUjs=;
-        b=gAhDRl2XsR4DQ/MUBiFwK63uC4HyDk2F5JLUmGXZnpc74ZyaRh2IQNPp4rkY9Zivh3
-         chP0xLUitjrCVkwsfpnVAypWoUhGL9pjAJNe4yKWvLlKf3VTPRWGygCqV/FPMUyDS3fs
-         jdtrvuisWV+uxcIzflnoqddZzgIXZG/Ba51UVWML5UouCRYaTRZK5q8UMRQrM6uDaoLX
-         7syWrNbaykehiG2Tu8oomgf5WbljdVrBbRHCcjwNm96F1TtZX08W57UJFTJQ/cAT5BOF
-         KaEWHLDybKxVO5my5bKRj8HAsWBN5ZV69m01YsAyhh2PjzmX1jzJWrkfz5pXSRmwMq6K
-         X18Q==
-X-Forwarded-Encrypted: i=1; AFNElJ85dGCuba9AG0ERug7ye9IUq6k+J+iKT8TqSeQiaOqmGYVZoSEqpB6px5MOOGN0mTiXEE+TqOkh3Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0YyWS8Vg3Mbdgm9898vfN5A4MKnzTnj0qEZHJGfQdl/HfyOaJ9YY
-	1NEV9503e1DZJW82MLBATKdeErBdUT1rMHftU+v6//UJCpArS6rzvSKxYz9W0mk7sh5HqBXp5sx
-	F1kYcNCKMa/1/VLnwdbrRcqvysM54gts0WMkP
-X-Gm-Gg: AfdE7cm4BcD2+sw8LVr2MH1uUS/eHh3yycI3nthgydoBqWtESc2JXCcVTWEnJ4QF81/
-	/SRzlaw2M63srN4wOe+0JxQ+olCykJYOs6RxPvx1Fvwg6CxhmwiZiTS2ABN018hxC2W/RK2NGK8
-	+6l/B5ZyJUB7WeiVeujHg/iRctTw1jtqw+87lstVPp+Sq4ANbaQ//YobbkLeZe0Qkhglo+OPICh
-	A46nfA+JWcObYYTIZXso0TZsTTazVGZo5NVXhiPYuz4+AnUa6+FKW9n9TBnedzowsFbGLZEuodD
-	YCubswkAmJnFlQ5+4kOzDTF6N2cRfx/Qpaf78mwNQxJgg5qhD8Rxxb+6ee11ZJZNkjx7wbQ5sxx
-	zAaeMOcSDxwDw
-X-Received: by 2002:a05:7022:459f:b0:138:2790:149b with SMTP id
- a92af1059eb24-139dbaec420mr6043173c88.7.1782640816464; Sun, 28 Jun 2026
- 03:00:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUv3LHPQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0091F000E9;
+	Sun, 28 Jun 2026 14:54:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782658452;
+	bh=h0jpkAZNtsHGk3Wd8Y63SEq9/8SiZCMBQdR1ISNQCPs=;
+	h=From:To:Cc:Subject:Date;
+	b=BUv3LHPQjYAqdPFoBdrHya8vQsu22YPxE7YvShCVnkZSs/STb1N+UHgeDKV2JETjX
+	 nH/X2BBJbdG7VAj4/pz9r4CJHDABkH1bkJ/IMSMrm/jYwhUBtWLRA6Tn5xoLENMK3G
+	 hDeNSqISUKMG9B4+LMMAK1nu4LdaNcwLi3lYVpZ6UVb/dFTRQpj/bNmBIefDoQEAMk
+	 YxsLBUn+wM2UILeVcSJQg9WWaOphunP47BXSioLdGhrdfwF88hNDYp+L2U79bwzLWE
+	 mvNMg5dkbFoFNxLEn+wY4iLyeuWJES0bHVtiSrDz2Oh616FVlbFS3j+x3nH2ESKQw+
+	 PjaZ4s2E/1g7g==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	aliceryhl@google.com,
+	daniel.almeida@collabora.com,
+	acourbot@nvidia.com,
+	ecourtney@nvidia.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	deborah.brouwer@collabora.com,
+	boris.brezillon@collabora.com,
+	lyude@redhat.com
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
+Date: Sun, 28 Jun 2026 16:53:20 +0200
+Message-ID: <20260628145406.2107056-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260625205146.5047-1-niyudi.honda@usp.br> <20260625205146.5047-8-niyudi.honda@usp.br>
-In-Reply-To: <20260625205146.5047-8-niyudi.honda@usp.br>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 28 Jun 2026 12:00:03 +0200
-X-Gm-Features: AVVi8Ccn1HJ8X_hAz1-AEqOSd2k8M8FF3q-xf_jEPBCIJBTgp3WrHNp6qT-BDlM
-Message-ID: <CANiq72ki4YkLKUQw-iR_GcF_ernUvN75m8VdHCeWmQh8Amy6Ww@mail.gmail.com>
-Subject: Re: [PATCH 7/7] drm/nova: remove unused trait in commands.rs
-To: Pedro Yudi Honda <niyudi.honda@usp.br>
-Cc: dakr@kernel.org, acourbot@nvidia.com, nova-gpu@lists.linux.dev, 
-	aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch, 
-	dri-devel@lists.freedesktop.org, ojeda@kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 25, 2026 at 10:52=E2=80=AFPM Pedro Yudi Honda <niyudi.honda@usp=
-.br> wrote:
->
-> In gsp/commands.rs, remove unused `transmute::FromBytes` implementation.
+DRM ioctls run in process context without any guarantee that the parent
+bus device is still bound. This series solves the problem by introducing
+RegistrationGuard -- a guard representing a drm_dev_enter/exit SRCU
+critical section that proves the parent bus device is bound for the
+lifetime of the guard.
 
-I would change the title to say something closer to what you have in
-the line above, i.e. "removing a trait" sounds stronger (which made me
-look into the commit :)
+As initial plumbing for this, the DRM DeviceContext typestates are
+reworked: Uninit is renamed to Normal, defaults are adjusted,
+AlwaysRefCounted is restricted to Normal, and a Deref chain from
+Device<T, Registered> to Device<T, Normal> is established. This gives
+Device<T, Registered> the semantic that the device is currently
+registered and the parent bus device is bound, which makes the
+RegistrationGuard and ioctl dispatch much cleaner. An Ioctl context
+restricts registration_guard() to ioctl dispatch, where the DRM core
+guarantees prior registration.
 
-Also mentioning the trait name makes it less vague too.
+On top of that, add RegistrationData as a GAT (Generic Associated Type)
+on drm::Driver, allowing drivers to store data whose lifetime is tied to
+the parent bus device binding scope. The data is allocated in
+Registration::new(), lifetime-erased to 'static for storage, and made
+accessible through Device<T, Registered>::registration_data_with(). The
+closure's HRTB ties the lifetime to the closure scope; internally the
+'static pointer is cast back to the closure-scoped lifetime. The
+reference is valid for the duration of the drm_dev_enter/exit critical
+section held by RegistrationGuard.
 
-(The formatting on the import is strange, by the way)
+Also update the ioctl dispatch macro to wrap every handler in a
+RegistrationGuard, returning ENODEV if the device has been unplugged,
+and pass the registration data to handlers.
 
-Thanks!
+A branch with all patches can be found in [1].
 
-Cheers,
-Miguel
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm-lifetime
+
+Changes in v5:
+- Replace __call_ioctl() helper with a simple for<'a> fn(...) coercion
+- Rebase onto latest drm-rust-next, which requires a faux::Device type with
+  AsBusDevice impl and motivates the removal of the DeviceContext generic from
+  shmem::Object entirely
+- Replace ForLt with a GAT type RegistrationData<'a>
+- Fix drm_dev_register() error path race on the C side
+- Add a few missing #[inline] annotations
+
+Changes in v4:
+- Fix pre-existing unbounded lifetimes in ioctl handler arguments.
+- Fix registration_guard() being callable on unregistered devices by
+  introducing an Ioctl device context typestate; registration_guard() is
+  now only available on Device<T, Ioctl>, which is exclusively
+  constructed in ioctl dispatch context where the DRM core guarantees
+  prior registration.
+- Fix type inference allowing handlers to obtain Device<Registered>
+  before RegistrationGuard is acquired.
+- Make RegistrationGuard !Send via NotThreadSafe to prevent potential
+  lockdep splats from cross-thread SRCU unlock.
+- Store &Device<T, Registered> directly in RegistrationGuard instead of
+  calling assume_ctx() in Deref.
+
+Changes in v3:
+- Rename UnbindGuard to RegistrationGuard
+- RegistrationGuard no longer dereferences to &Device<Bound>; it
+  dereferences to &drm::Device<T, Registered> instead
+- Drop Registration::new() and rename Registration::new_with_lt() to
+  Registration::new()
+- Rework DeviceContext typestates: rename Uninit to Normal, restrict
+  AlwaysRefCounted to Normal, establish Deref chain from Registered
+  to Normal
+- Add AsRef<ParentDevice<Bound>> on Device<T, Registered> for parent
+  device access
+- Move registration_data_with() from RegistrationGuard to
+  drm::Device<T, Registered>
+- Ioctl handlers no longer receive &Device<Bound>, only registration
+  data and drm::Device<T, Registered>
+- Use Device<Registered>::as_ref() to access parent device in nova-drm
+
+Changes in v2:
+- Replace unsafe direct registration data access in ioctl dispatch with
+  safe UnbindGuard::registration_data_with() closure
+- Eliminate unbind_guard() free function; use type-inference anchor to
+  enable direct dev.unbind_guard() method call in the ioctl macro
+- UnbindGuard::registration_data_with() provides both parent device and
+  registration data to the closure
+- Add nova-drm conversion patch demonstrating lifetime-aware registration
+  data with &'bound auxiliary::Device<Bound>
+- Various safety comment and documentation improvements
+
+Danilo Krummrich (19):
+  rust: drm: ioctl: fix unbounded lifetimes in ioctl handler arguments
+  rust: drm: rename Uninit DeviceContext to Normal
+  rust: faux: add Device type with AsBusDevice support
+  rust: drm: Add Driver::ParentDevice associated type
+  rust: drm: change default DeviceContext to Normal
+  rust: drm: restrict AlwaysRefCounted to Normal Device context
+  rust: drm: restrict AlwaysRefCounted to Normal GEM Object context
+  rust: drm/gem: remove DeviceContext from shmem::Object
+  rust: drm: split Deref for Device context typestates
+  rust: drm: pin ioctl Device reference to Normal context
+  rust: drm: add Ioctl device context typestate
+  rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical
+    sections
+  rust: drm: Wrap ioctl dispatch in RegistrationGuard
+  rust: drm: return ParentDevice from Device AsRef
+  rust: drm: add AsRef<ParentDevice<Bound>> for Device<Registered>
+  drm: fix race between partial drm_dev_register() failure and ioctl
+  rust: drm: Add RegistrationData to drm::Driver
+  rust: drm: Pass registration data to ioctl handlers
+  drm: nova: Use drm::Device<Registered> to access the parent bus device
+
+ drivers/gpu/drm/drm_drv.c        |  34 +++-
+ drivers/gpu/drm/nova/driver.rs   |  38 ++--
+ drivers/gpu/drm/nova/file.rs     |  22 ++-
+ drivers/gpu/drm/nova/gem.rs      |  18 +-
+ drivers/gpu/drm/tyr/driver.rs    |  25 ++-
+ drivers/gpu/drm/tyr/file.rs      |   8 +-
+ drivers/gpu/drm/tyr/gem.rs       |  11 +-
+ rust/kernel/drm/device.rs        | 293 +++++++++++++++++++++++--------
+ rust/kernel/drm/driver.rs        | 111 +++++++-----
+ rust/kernel/drm/gem/mod.rs       |  98 +++++------
+ rust/kernel/drm/gem/shmem.rs     | 257 +++++++++++++--------------
+ rust/kernel/drm/ioctl.rs         |  56 +++++-
+ rust/kernel/drm/mod.rs           |   4 +-
+ rust/kernel/faux.rs              |  69 ++++++--
+ samples/rust/rust_driver_faux.rs |   3 +-
+ 15 files changed, 660 insertions(+), 387 deletions(-)
+
+
+base-commit: fa8cc4e3067f958ea2057f37a8a6f9c6b10a9c03
+-- 
+2.54.0
+
