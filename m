@@ -1,151 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C5F2E7387;
-	Sun, 28 Jun 2026 17:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12492F6911
+	for <nova-gpu@lists.linux.dev>; Sun, 28 Jun 2026 18:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782666616; cv=none; b=KRhVxlDCLZ9cCpa/D1iINzPca3a0h3QsaiMNO8EwX+QYyed2td5n0wfzbI8g6YN/c1d2568+bMssAGUbz5xgdBWtuAE35RO/afT2zmRKY6yvKVLlOGOqpZ8una9xhovIeV902WHcaNxt8mdNaTvP/ONsRwrJl6gVynCaYojD92M=
+	t=1782670970; cv=none; b=leyU9hyb/976hgYZWhaxljJ8/CMkj5odnK0zQOYgDSrmidtNtlvauX2uSuQuhvwOUIMGVuEVGeOJTCLj4veqvbRbRqQKHnB6H/Q0Z0F9z87bGjjsYnL05hnFFfwZEJL36x2WI0Lxce5Yfzg0Uq2vw2Uk9kzbx6JJV5+icW+1NjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782666616; c=relaxed/simple;
-	bh=np2+vPFSuN+cOSZOmNE6SH9tNHV5vMgBhylcZGo4+/Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qNb2Jfq6sLkhk3mcaXG3ckF8OHgR6CPVRJ74C0RwDAwlSVDbXltO4YphQSsUCl4MDG2DTBa4Gk07Lt9Zl6kf/mjhr21CC2NMkBfNMHLcntsPr9psMUJDyCKRjkePlNro1qppir2RnnykaSYKUq7ztt1Qe+gF+16EgoAGUyCgwoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gULMJxTc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782670970; c=relaxed/simple;
+	bh=Z0DQ9dWZ2koMQA8ywoE0uWtSaYihQ0LX5J4USq5K1Kc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G3Y6Ss5QSppKnsaGH6tzzta1vDEXWmQs0liwZ0dXcOL9pg+Su4Oc7isVZB3k5Dyjwxf4xYz1L0wWU85I4DfpURcrgMqwr32eV5e2960SJl4hOEJxbAZE1n/4exVFmuMq9I/4bOUXgaqBCZoBQ01j/Xg5j8VGr99UyQcRO1ONQ7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JygIFmjo; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gULMJxTc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8F0C8C2BD04;
-	Sun, 28 Jun 2026 17:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782666616;
-	bh=np2+vPFSuN+cOSZOmNE6SH9tNHV5vMgBhylcZGo4+/Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gULMJxTcv1fnLi6GBibNEu2LoPI8Ps5qEFyHdpGuZf7JYNJKS3e0ixOHEKsO7TYZ/
-	 5b08eksNn3ooFE+tOiZpQw8A7PTy0oqHcPyJ3TRmuWax+/Bvv3x4o7d2S1Xdan40MF
-	 JozJTSl4IEtX+Jukqv5jE0/py3LoOh64WCJKiYv1sJs7SWvaEn7hFNr4wL12E/MZLd
-	 w0RFs32nA/EVBCYLFU8ZYu/Q+Fcrdl+qMIxBWWavMub1Jl3eJ3QMevI53rQoNdKfza
-	 jyhZ3qAh+G6BEmeIFenqNQCuRDcnIXzatMxmpvvM6A5Y+lx92NVbqL56wL+bLI61+v
-	 5iM3l/o0k3jkw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C531C43458;
-	Sun, 28 Jun 2026 17:10:16 +0000 (UTC)
-From: SeungJong Ha via B4 Relay <devnull+engineer.jjhama.gmail.com@kernel.org>
-Date: Sun, 28 Jun 2026 17:10:17 +0000
-Subject: [PATCH RFC 4/4] gpu: nova-core: gsp: convert GspMem to zerocopy
- via the transmute bridge
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JygIFmjo"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-36b9d265355so1084266a91.2
+        for <nova-gpu@lists.linux.dev>; Sun, 28 Jun 2026 11:22:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782670969; x=1783275769; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z0DQ9dWZ2koMQA8ywoE0uWtSaYihQ0LX5J4USq5K1Kc=;
+        b=JygIFmjovCFvbmuKUejeCytkGwXTlX/oDC3q45OjMYBA4bQvY9fhCp/2vJlPm09FAz
+         JU7qrjmp2Vu0JHzF1daYiFBxorTNarOdKNLuofVwkSJkhdatgdDu9TSYWKpHUV6HbY7l
+         is8T6Ii6yzSE6b7Nh1OLaG65KSrcTijbuCxDNA8B7HHUUNGF5c5XSxEvc8Yt2q4qOTl1
+         Q7hjMhY+BsGPB996Q2vE8Y8w4oVclrB6RFVBudQHu7HMGUOw6QZV6yfSTvDMw6QjFQj5
+         lbY8eqPsspbbQw4gMn8acwzPhI0avF72rQejy5fBxwnhR4mPvk6vl9mlYV/I7PijB5Pi
+         Wz8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782670969; x=1783275769;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Z0DQ9dWZ2koMQA8ywoE0uWtSaYihQ0LX5J4USq5K1Kc=;
+        b=akKKGPwjJ04dB4+lghVlCZa2iUPjdwnpnXeLm4oSy7AinrcqGMSh/5ZRRXj6ZFNum1
+         G9AkNQ7x/q4kEf5cSAgHu578LZrxtOyur7PLXUcne8s0pVXruMreqFqhV9IOBQJ9Vcvt
+         QaMLxY5c0U19Hs0P9CWtVQ6oTcmhNmKNIVlqUo1ViVgsdmQF+wSIhKgjqjzJdLqUnh7P
+         8Kb3fMPTVXTjJ1ZPPvgkdZ9iPfJV64rwJewO5fbNx34Ea/hPXRjcAFK8977eMsSXr4bO
+         FPyDlDOFFD4WQulE/xycGbH5VO+YhACWUfemIjIxv9WJ8H6EdVpzgUMQLDeHX3DLq04O
+         qetg==
+X-Forwarded-Encrypted: i=1; AHgh+RqbUYDh5LlcYLiZCuE1mR+ZBELTLKfyI9Red84hlmWf3r5vLT9Hy00S+UckpgIFhu59CxhDc5mp5A==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwlaMi7Cwuz/bUdHktbadB035Pno77bCrEI2Hz0GyipmuVxjNhp
+	Ghn5cL9hdpDa7+vRFRXyFNXWp3zaCU0OT2xULPKTAQrj45frf5TKSnxL
+X-Gm-Gg: AfdE7ck/kvhEKY79z9d034cguG0G2tQmWHFhRHoiRTeh4hnUxXJww7/ITgkWr43RMen
+	GCsfBbCj3gxm06xRTqnfmGbD7LatiGLL5ULuKiBT0p+lzzxLBnH8zo884k6kcY5ZK/94Ym2Hg/N
+	bPN5RwsVsnahzj+i77xgrYFTAvELfO9+fv0a1YV9wyxe91vmXbwEZj5Xdv277L2ztbiAe9elLQG
+	yQqb8g8nreoBjGOeRqH2JSt0nG4U8QklObwqUi2oQ4PPBQnddJpoETEWkJFnOnBWnGwHix6R2Qq
+	e8lso0ehNWaL4Npmb9MWM20TErUXcPI2CsNXr824nwSLUM7Bw+kRgkODRHObWAmQUo6Iu6UFzfk
+	c+JOXu/b9eKL3zM/W0AaCUzz8xpo6mbpYtik/KnIOY0tltp/Yr0SHzVF+Uoatn9Xw93vaEeq6Ep
+	Jsh52ebWEx7ITp1UOYO6CvD5syDBAmUBfBn51suD8sq9C4sdeCb540W0j1eiTgZG8wkVdJcYpMJ
+	8NB5uvWLdZ4FwY7ahoSq+5Za4NiQyikEG2ccQ==
+X-Received: by 2002:a17:90a:da84:b0:37f:a915:1c29 with SMTP id 98e67ed59e1d1-37fa9151d83mr6068848a91.19.1782670969047;
+        Sun, 28 Jun 2026 11:22:49 -0700 (PDT)
+Received: from libra11 ([143.248.188.236])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37ffdc238c8sm781779a91.6.2026.06.28.11.22.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Jun 2026 11:22:48 -0700 (PDT)
+From: SeungJong Ha <engineer.jjhama@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: ojeda@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	acourbot@nvidia.com,
+	dakr@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	nova-gpu@lists.linux.dev,
+	SeungJong Ha <engineer.jjhama@gmail.com>
+Subject: Re: [PATCH RFC 4/4] gpu: nova-core: gsp: convert GspMem to zerocopy via the transmute bridge
+Date: Sun, 28 Jun 2026 18:21:54 +0000
+Message-ID: <20260628182154.712621-1-engineer.jjhama@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260628172200.B116D1F000E9@smtp.kernel.org>
+References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com> <20260628-dma-zerocopy-bridge-v1-4-9a2895ebe30d@gmail.com> <20260628172200.B116D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260628-dma-zerocopy-bridge-v1-4-9a2895ebe30d@gmail.com>
-References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
-In-Reply-To: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- SeungJong Ha <engineer.jjhama@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782666615; l=3247;
- i=engineer.jjhama@gmail.com; s=20260103; h=from:subject:message-id;
- bh=d48cCKivvnRDQm68ktq/uR1zz28Xdd0SmnJqbZoZy8s=;
- b=cbZUKUyzt14pXOSdfcV/Qr/zy05EzjhD6ozy2Be8nSFBJTeQdzYIN/uROEzeTl6S0D9Uj3Xh0
- LscCwKdgDkoD8EZCt4wGkOdBVvWJ8k51VxlaEYKAoUsoTH00crVDMue
-X-Developer-Key: i=engineer.jjhama@gmail.com; a=ed25519;
- pk=G5nmjm+RTiWBpyCvc5xjR1b3li/2zipLSMyz+T4fj5E=
-X-Endpoint-Received: by B4 Relay for engineer.jjhama@gmail.com/20260103
- with auth_id=590
-X-Original-From: SeungJong Ha <engineer.jjhama@gmail.com>
-Reply-To: engineer.jjhama@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: SeungJong Ha <engineer.jjhama@gmail.com>
-
-`GspMem` (shared with the GSP over a DMA `Coherent`) carried a
-hand-audited `unsafe impl transmute::{AsBytes, FromBytes}` that did not
-actually meet the no-padding requirement: `Msgq` embeds a page-aligned
-`MsgqData` after two small headers.
-
-Make that padding explicit (`_pad`), derive the `zerocopy` traits on the
-`MsgqData`/`Msgq`/`GspMem` chain, and bridge to `transmute` via
-`impl_transmute_via_zerocopy!`. The `unsafe` is now machine-checked.
-
-Unions (e.g. `GspFwWprMeta`) are left on their hand-audited impls, since
-`zerocopy::IntoBytes` cannot derive for unions.
-
-Assisted-by: Claude-Code:claude-opus-4-8
-Signed-off-by: SeungJong Ha <engineer.jjhama@gmail.com>
----
- drivers/gpu/nova-core/gsp/cmdq.rs | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 070de0731e95..d9929d24d316 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -152,7 +152,7 @@ fn read(
- /// This area of memory is to be shared between the driver and the GSP to exchange commands or
- /// messages.
- #[repr(C, align(0x1000))]
--#[derive(Debug)]
-+#[derive(Debug, FromBytes, IntoBytes, Immutable)]
- struct MsgqData {
-     data: [[u8; GSP_PAGE_SIZE]; num::u32_as_usize(MSGQ_NUM_PAGES)],
- }
-@@ -169,6 +169,7 @@ struct MsgqData {
- /// read pointer of `rx` actually refers to the `Msgq` owned by the other side.
- /// This design ensures that only the driver or GSP ever writes to a given instance of this struct.
- #[repr(C)]
-+#[derive(FromBytes, IntoBytes, Immutable)]
- // There is no struct defined for this in the open-gpu-kernel-source headers.
- // Instead it is defined by code in `GspMsgQueuesInit()`.
- // TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
-@@ -177,12 +178,16 @@ pub(super) struct Msgq {
-     pub(super) tx: MsgqTxHeader,
-     /// Header for receiving messages, including the read pointer.
-     pub(super) rx: MsgqRxHeader,
-+    _pad: [u8; GSP_PAGE_SIZE - size_of::<MsgqTxHeader>() - size_of::<MsgqRxHeader>()],
-     /// The message queue proper.
-     msgq: MsgqData,
- }
- 
-+static_assert!(size_of::<MsgqTxHeader>() + size_of::<MsgqRxHeader>() <= GSP_PAGE_SIZE);
-+
- /// Structure shared between the driver and the GSP and containing the command and message queues.
- #[repr(C)]
-+#[derive(FromBytes, IntoBytes, Immutable)]
- // TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
- pub(super) struct GspMem {
-     /// Self-mapping page table entries.
-@@ -205,13 +210,7 @@ impl GspMem {
-     const PTE_ARRAY_SIZE: usize = GSP_PAGE_SIZE / size_of::<u64>();
- }
- 
--// SAFETY: These structs don't meet the no-padding requirements of AsBytes but
--// that is not a problem because they are not used outside the kernel.
--unsafe impl AsBytes for GspMem {}
--
--// SAFETY: These structs don't meet the no-padding requirements of FromBytes but
--// that is not a problem because they are not used outside the kernel.
--unsafe impl FromBytes for GspMem {}
-+kernel::impl_transmute_via_zerocopy!(GspMem);
- 
- /// Wrapper around [`GspMem`] to share it with the GPU using a [`Coherent`].
- ///
-
--- 
-2.54.0
-
-
+This is pre-existing and not changed by this patch: it only makes
+explicit (via a checked `zerocopy` derive) what the previous `unsafe
+impl transmute::{FromBytes, AsBytes}` already allowed implicitly -- the
+layout is byte-identical and the message-handling path is untouched -- so
+it neither introduces nor addresses this. I'm not familiar enough with
+the GSP threat model to judge whether the TOCTOU is in scope here; if it
+is worth noting, I can add a TODO comment near the affected reads.
