@@ -1,64 +1,64 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3235A3955D0
-	for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 11:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D3D3E2740
+	for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 11:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782731824; cv=none; b=AOEwh6bLdr+6381opuodlUYFMRNl7rKLmtpj34sOJSxldDlT9kWMKK3qUKDaWY42JNopJSvV52236RE7+l1DmzoEG/VnUVhGZIQ/esPw4HBOzEbe9H3EILNVh5WYxi6JPghBbXaDOrtmR8f10UCyYN3KQ0cIJyz3ZlJGdHcBdP4=
+	t=1782733093; cv=none; b=Ki7Tb+8fRHVwRp88f4Bj0S/Db+57Y2mfU5Jfml4eUJAZf1ofPpfy31BmQNfQHfQKuVF8eymMHsBx1nj0LET/WMdQqtSWpT2hvJEoj3jxB0/cRVgOmd+hhndAVlMJHh+A02GZousgH2mVZcWYO+DdtMOAMpoLkk0D0wzYIKLyUB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782731824; c=relaxed/simple;
-	bh=eXKifjwGmgyNkfNyz4AW5WzTlql2ov9lymuZ6YjJItM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=WA0ZOG2oPbFsT8H86XzsF9DGhbTeSHUxO7kuh2R0ipYMaOIiUdhn5qg/GfTVlD9XLEsieKQD95Hxumk970oPL9g67hzKRW2JUo9ly88l9p2G5/C0PVuopuEMPZyHcj33YosnLlclGuyweM9twHiSrmFKEi7Csl8JaXgGlBWYT6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lViowg6N; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1782733093; c=relaxed/simple;
+	bh=TePgk28pw9nEpIK9yqXWWcC9xjXv9gsRt+7mXvf+SgM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=dVvtA9EB9ks01t+Jf7VM6B866k28ZdiHP8pvWtBZvFyX54KQBilvns+jvLJ+0x+GmRfPqhBMx3VOix/Qa8op9iyQsxX/UdcWuXgLrlyaRFMRADF+lQiIwzt4vrq70iaZzE49oAT7TP66kHCX28zhX5UHIV/3EQwpjwlz5AykV4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nDEhT1Rp; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lViowg6N"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-37f72212544so2647911a91.0
-        for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 04:17:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nDEhT1Rp"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-37d82f3a244so1287982a91.2
+        for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 04:38:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782731822; x=1783336622; darn=lists.linux.dev;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=gmail.com; s=20251104; t=1782733091; x=1783337891; darn=lists.linux.dev;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sf9modGDEu51qoKMDfa6F2dR4atoz1mf0fTmi7rEwIc=;
-        b=lViowg6NQDwLCDJmujoiUQ6lKHbLxbBVBybo/yNgy1cWZoQIUHZuer5dkZmIJUxVxR
-         t+zRgNQK9vfhJH7YNDYZVo73Qs4B9FeqdXRoFXsvnCJnETKJDTq7OszfgGBU9qywV3ck
-         5oC5feYLZtyp17Pli+QodM7UsqEt5cvfNZYUhFfzDCzSZJYwKyBxHLxZ5aY5PEgm5LuF
-         S4IxxU7JnndCbT2qrufM7g0cy6zXkshtBzko28ixqCp8O324vk/9JBO5M7rIPfa+vUbh
-         AsWGttWoWbOJ4dH6JX6eapaibiDr1e3EeJfi0HLrXvLx23S9M8nlfv5i79fSkuZArfyE
-         ho3w==
+        bh=TePgk28pw9nEpIK9yqXWWcC9xjXv9gsRt+7mXvf+SgM=;
+        b=nDEhT1Rp8N2DLZP17B0ysNXAalGz70Q7AHPvAcQWAYHhjrnZsZUpbdoDV70UfYIuvI
+         yhXYRZrhAClu5yM4fcEcfn2ScLJBLxt+MjCGlwD6iTnMau+gBFUB/mPYhKAe2ScmAJRL
+         tJmDbgvCSZTK0B+5LaxRA+uZ0/vYZGi26wopgleSip2QcNViMHEGaRFgrFBpMtfPKj+l
+         klKylTT2Mtm2Aj0Vli4ieFgkRY9lmmeF/OvZfm3onlMfeIQmFO3AYIpLqTAyPww0Ohfb
+         9q7oYt0sJA1z5NuwA1gGqGXAnsKPR8nCyuCbFUM1+Vi2XmNrfV6TvJqU0yxQt7hVSDf5
+         he6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782731822; x=1783336622;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=1e100.net; s=20251104; t=1782733091; x=1783337891;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=sf9modGDEu51qoKMDfa6F2dR4atoz1mf0fTmi7rEwIc=;
-        b=owV72bpnpyuXLdVNdmCkniUbyDu0uybyLwoMKNUNDbCqUVwBedJbTKkJKkwL4e5Pzx
-         YMC+ZE7CLkiOxyELO/pqPhjH3zQxy/QlRMfEvDrugb5TpUmlU8Z2Fw8OetR+CaoVG+Ps
-         9fKs/W0v1bnNnWrMeFymrbacLmYRjTsdk4iU3Jb9+GrDyT0tenHfnunsIIlWd8piIG84
-         KubaZK1fmLvww6LgdTcTmy93WYYxWiWIauaHwFWsdsZMWLtqkZNr7VCs/XDn+XcqG8QB
-         NU3wpDy+iTpdQheVCoZCKwFsS/7/nec6UfQnBQcpH+xRxBuA/0ePitW03m3o9Ht2Lqo0
-         Vn1g==
-X-Forwarded-Encrypted: i=1; AHgh+RoPx9mSY6tGi7NaCLSpgMzM424LcZQzLsoJYUvBUafs8589NfzgJRI4MRLaAhW9oXjdxVeognFDwA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxcWipXxkpmCT1OWQJ6vf8vSeMlI+C/HTpRMSfvPae24/uqVqZk
-	pECV/gxU8ltI+tQuk0s0y8ss38pKbELWHdpFtOiPZfqR9O8irs3MUu6B
-X-Gm-Gg: AfdE7cmAFp2/Ge7w3CelCj4iqJCl9hopKvOQaAVR8lMNpvyauGFmfV9trgUEj66UcVY
-	CmGEMkwWia/UxpEcOTd/tqCDBgOLnN6mZr3DEbtOU0jRGeHhc2R2gGg4KlsNGN5cmdO5mVPIFTM
-	z8ePDVxCJjsvqHmQsDdSTYT8O2//F4yA4deCT3KZQbMO4BY82eb44QLkxlDF+06d4F4rNKe4j2x
-	rPDj684heoOkN9hKKRVYz2x3o8sXU8ezTATVhc8J15ROD0F1pLQgNBmLD+WW/7vj4QEOwz50JIr
-	9z5A+vMeLzfeG713XPXNCCXzpu/aFisKkPiqdpB/5bDwMYR1FLFeUsbonIzh82SpiXWlY61haJn
-	DelIexoqVV5g5FUBqIe7If3KyfXz/LMpdCkW+j3aU4gcZwNG5cpVFflEEXuCf6ZDQ5XLfZO0nQW
-	0l8MMTWGWKG2854KScYKSaH3C1ssSQvWaNblhpH3s0/TvK7ZhjBfPEOKRW/cIySQ9dq+APOXBvj
-	duPBJwAzoaSoGDs9honM1O7bEQzvyMEsP+edOxC
-X-Received: by 2002:a17:90b:5830:b0:380:38d2:80bb with SMTP id 98e67ed59e1d1-38038d2824cmr453534a91.8.1782731822431;
-        Mon, 29 Jun 2026 04:17:02 -0700 (PDT)
+        bh=TePgk28pw9nEpIK9yqXWWcC9xjXv9gsRt+7mXvf+SgM=;
+        b=cOD1By2mHbG6y534ed27OAFC/kXyEXMzOUY0N7aV8cK/pcqBbe3pUK45E8gjkVnlmo
+         SG7jz4WPfNiss0KZtVfe3h9ZOOTyXWjOJ8IrQ8sB4p3AVVvh967azyqzaHPvMWXM0U58
+         46PrnydQ37MPzUHmNM56qDRAiKSHRoogETTRhR8WPZ6X2H+IQ5VaZQH6tIPkZan8qXbb
+         WqfDCRoB7epqecp9R3xDujgfzZFh1yWrmjcpsxKAJNOprMHt1jLqaIlEmOGvbL0L/kUJ
+         5LXk6GEacr/rGK+MCeQWGTES7Pd8j6taslnYyKXnYR2KtgMcBfC3tnWD2AqsDA/MWJrT
+         H6ew==
+X-Forwarded-Encrypted: i=1; AHgh+RpPCxV8NBGQkubbeCOWGbDU7Dl7HJeq+aCRve5/UZAvg2fh7xntB5DGDUq1pmrM11V5P7PKL80Mow==@lists.linux.dev
+X-Gm-Message-State: AOJu0YybcnwXrf+W37n4xM1T6nlgXCfO98nj9g6L8+0mBYKf+FnLSBtk
+	EVNqwslGECPcuxj4DRXtug6dY3HURWdHCwIj6ZZ2cJEYv7GySx9mfDXZ
+X-Gm-Gg: AfdE7cmFHpN/OXR3zNf2+TS+dQlCMWqP+CZYNX5CkmpWq8iUJdKEN0yd5rapkjs1ZAe
+	KYU9iog5Vzc7ssn53mnfn036GPq+bLWlASE6EHWNIE5paXoVtgKiV/agyinRT6ivPxf7Pc6EFAE
+	f6JEUy1sojOS3KWXLfb5EW2gUDtd1KE3iKBcotNH8/pdJc/oxq2JQzwrIEUkDpNsm4YdVXY2Psq
+	Z7yXpY+BU+XGAr31P7TITiusGWktEtOtGY9YWGj5t9n2L29pZyjYzZqxOzkkcMBmrOB7SB0iXEJ
+	zvAi5cyfR7vYwRiNnAPWwrY46pzUqR+kRjaFTSnJZ0pddPqAM9eCwbNiYUpPXOCOAoWqC/VO1sl
+	lic2LupRps9tRon8wZKGPgmdx4gZEHKxa15DzEZK4PRg6NybzWi0tlxd9cB1uzzSN8rxjb2IszX
+	EYUPq7SyiVWhetFj0gxWL5/E5T+NLSsPnt0ZWZOPWiFj9RZ7erazMp5zMZ3KQyKWBca+KzWmDLh
+	AlhQYV32GjrGq5II3TXXQvWSnJseIClNEQXa2TQ
+X-Received: by 2002:a17:90b:560f:b0:37e:1cac:d2f7 with SMTP id 98e67ed59e1d1-37f7a557912mr8306827a91.6.1782733091454;
+        Mon, 29 Jun 2026 04:38:11 -0700 (PDT)
 Received: from localhost ([143.248.188.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f5ac7c9asm91594835ad.4.2026.06.29.04.16.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37e24b13458sm5549594a91.13.2026.06.29.04.38.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 04:17:02 -0700 (PDT)
+        Mon, 29 Jun 2026 04:38:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -67,66 +67,63 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 11:16:56 +0000
-Message-Id: <DJLHOQA5UAP4.340P2TKXGMME5@gmail.com>
-Cc: <engineer.jjhama@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Date: Mon, 29 Jun 2026 11:38:04 +0000
+Message-Id: <DJLI4X05N1Y9.322KEILB5Z6RG@gmail.com>
 Subject: Re: [PATCH RFC 0/4] rust: dma: bridge zerocopy-derived types into
  the transmute byte-safety bound
 From: "SeungJong Ha" <engineer.jjhama@gmail.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "SeungJong Ha via B4 Relay"
- <devnull+engineer.jjhama.gmail.com@kernel.org>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alistair Popple"
+ <apopple@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "SeungJong Ha via B4 Relay"
+ <devnull+engineer.jjhama.gmail.com@kernel.org>,
+ <engineer.jjhama@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
 X-Mailer: aerc 0.21.0
 References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
  <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
-In-Reply-To: <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
+ <akIpejFWuKZ61n_v@nvdebian.thelocal>
+ <DJLEQ0UIBOQ4.2AQ93XKMH49X0@kernel.org>
+In-Reply-To: <DJLEQ0UIBOQ4.2AQ93XKMH49X0@kernel.org>
 
-On Mon Jun 29, 2026 at 7:17 AM UTC, Alexandre Courbot wrote:
-> On Mon Jun 29, 2026 at 2:10 AM JST, SeungJong Ha via B4 Relay wrote:
->> DMA-coherent allocations (CoherentAllocation/Coherent/dma::Pool) bound
->> their element type on kernel::transmute::{AsBytes, FromBytes}. This RFC
->> lets a type satisfy that bound by deriving zerocopy's byte-safety traits
->> instead of a hand-written unsafe impl.
+On Mon Jun 29, 2026 at 8:57 AM UTC, Danilo Krummrich wrote:
+> On Mon Jun 29, 2026 at 10:20 AM CEST, Alistair Popple wrote:
+>> I think the context is in the description for patch 1. It's not directly=
+ related
+>> to the bindings generator. Basically the problem is that these bindings =
+are a
+>> little bit unique in that we access them using the dma_write/read macros=
+. In
+>> other words we use these with Dma::Coherent which still requires the tra=
+nsmute
+>> rather than zerocopy trait bounds to be implemented.
 >>
->> The bound cannot be switched to zerocopy wholesale (some DMA structs are
->> unions that IntoBytes cannot derive), and a blanket bridge impl is
->> rejected by coherence. So the series bridges the two per type:
->>
->>   1. add the bridge macro impl_transmute_via_zerocopy!, which emits the
->>      transmute impls only for a zerocopy-derived type.
->>   2. re-export zerocopy::Immutable from the prelude.
->>   3-4. worked example: convert nova-core's GspMem and msgq POD types.
+>> That said I think the correct long-term fix here would be to fix Dma::Co=
+herent
+>> to make it work with the zerocopy traits. Not sure if anyone is looking =
+at that
+>> or not.
 >
-> Can you give more details about what the macro is for? My understanding
-> is that it is a temporary fix for the generated bindings; if so, I'd
-> prefer to apply a definitive solution (like using
-> `#[derive(zerocopy_derive::most_traits)]`, or updating the bindings
-> generator tool) rather than something that will be removed later.
+> I think it can just be done short term, please also see [1]. We can just =
+convert
+> the DMA code right away, no need for the proposed indirection.
+>
+> [1] https://lore.kernel.org/all/DJLEHDNJCUD0.38PFZ5773D6BX@kernel.org/
 
-This macro is giving safe manual derive from zercopy traits to
-transmute. However, it is not necessary if the transmute is going to
-be fully replaced with zerocopy. I found it seems to be true [1].
+Same here [2], It'll be better to make full transition from transmute after=
+ the new
+version of zerocopy[3] and auto derive is merged.
 
-> But intuitively I'd say that we can (and should) probably do without
-> this intermediate step. But please let me know if there is something I
-> missed.
-
-I agree. The only useful parts remain in this RFC patch is explicit
-padding in GspMem. AFAIK it is still necessary after the auto
-derivaiton of `most_traits`.
-
-Best Regards
-
+Best Regards,
 SeungJong
 
-[1] https://lore.kernel.org/all/DJLEHDNJCUD0.38PFZ5773D6BX@kernel.org/
+[2] https://lore.kernel.org/all/DJLHOQA5UAP4.340P2TKXGMME5@gmail.com/
+[3] https://lore.kernel.org/all/20260625231919.692444-1-ojeda@kernel.org/
 
