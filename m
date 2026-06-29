@@ -1,71 +1,73 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011052.outbound.protection.outlook.com [40.93.194.52])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012007.outbound.protection.outlook.com [40.93.195.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902473C108F
-	for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 07:17:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9683DDDD0
+	for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 07:49:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717465; cv=fail; b=Ml9vSjGb+THCokaR73wOd1wQKyUXfgFaHpBKALwLsQX/VF83aG6wDkGmjDd4Pl9OPiUSHo5JVUAWb2CR3Yy9Qhdc+M80+f9Cy/1LZH2+X0RorFzS9UhF409CdYHwSleGuPR0noPwhK6zIhTVbSU4KV70F+pU91wxNZDOMR7h1tA=
+	t=1782719371; cv=fail; b=aZW3vTR9gXCHYC4VyrueR5pH3xCqaK9FusX/SSYGWWbB0dtKWk2B2A+ooRrKGsB90i2Uzy5ZPLeezQ2wVFvr4VzYH5/M9DRz7YoxJRBAcDblVIbtcpoSAbE9Gu4T0x+oYFPXnm+OJ0EC1IWsqICKEbfnk+pXbqW7y9iP8uRUETk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717465; c=relaxed/simple;
-	bh=rNEQjPlzSCtwBskO0ZocS2SJVCEtdhK0pkuKh4HKHaE=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=aSOh+s2BmQsrHYO4APcWVyF5dp6DOHzusRoEnZj4MTL9/DO7YXTKcd0hYqmAXogYvHfq2LB79jWENBmYABjwOGgsgy59VF7WwxC/L5Dg7x1R0ME9HsObNybYjSQQS/Ke2OHj8YOdVyZkviCJE2/5aOFy9QEYtqnDqGfo1dKWHug=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CzCOQs35; arc=fail smtp.client-ip=40.93.194.52
+	s=arc-20240116; t=1782719371; c=relaxed/simple;
+	bh=qQWEj87qmNkrI8/RNNGUnRbALw+f2sQTrkIzbbkwYQA=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=X2a2BM1yZRoz7fY6ARr4A5Gq9HtFB73Uqm4FziurjtDAiGwlZHtZU7wB46pappvC+sJ/rd1GhKfaoIZQdK/8v+f3/O0DAFab9NH6OoiKlvfJssH6gO8N3TqFsdqQIaSS1eQ0+8xKp/GXpWduFxrPeAr33kAeUXn/RPRHh0nCm1A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fgULqBQP; arc=fail smtp.client-ip=40.93.195.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CzCOQs35"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fgULqBQP"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KUN8R+a4wtK392bRb5F47kcfavKSS2bs5JiAEsbY8tNqRIc2Uj50hF8Tjtj6KXO2a+0HUW+gHy1sD7m142ZZM6xX8PJ8Od14/sSWhJq0ur1RtrJbtZ92aaqGhx9KTfPN9vsvu8RFjA9OFiSUS1cvobhJgf9uwZJ9BRgytveHLa2+lfm61qt8f483OTLwpXIo4TMYgNKaJX/KGuaqREGshR2P3UwO7P3W++FvLt9kDSMftXy3GdJbIzGBYdGs4Ma7OmL+RVgT6pxE3qHcLXDRPr6I0q9Ut/HmUwTHj2BMLD+OS848X43hduxrv0PG4kZcBD0O7gLofO+0HstvSO+FWQ==
+ b=JCRNeg7HEz+9K/IjixE8M0r4UnmCUoIQABjre0/4Rz4RBfv8Bu3izCa7kwBqfeSr9EzYUsRP4sN6fAgeryAVYxnVQg7J91e9QTEFwgcFw/kqFJZU4ppPuaQ016KYH2FALTecEAWedJGuYUMTxQQKJPXB7SEuS49H8ec9VnVqIZ3vIVF0h4ruGndpmSk1PTTyE2izkQlm4qaXIH1RlyBYVwz4hL0xUEdq1QpHDzCYd8vMhsh8qywulw+9/lXhHlUHTiNF1W53EAey8/Gm8AwPiocBFOi3vU5JBiX2EaikGrHaID68XWcsYUeqC7GtS3YLYqGDAEvccLBWSa/Y09wYkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/X4253alAa6pstqYuuUv6nkI9Q19klW9YmygxHrYT4w=;
- b=LWWFDkb7LtIPmPa3wZYjKMjpMcHxvMkV5gj5RoUBp47k2QJRSn7lBK7JExNbe4MOrwBA19SkAZ5ttAEzEzirH5u+KoM8o9t01E06D8L7aY27kSE3SwqXaLWb7bvxp0qSY83oW94rxCRFDvnDjnRvdyeOi+jY2jlxxpVqQDsm7vyIdE3/B8y0AQdwzIMffjE4xofTg0giQxQTqglaKqwUXwOO3PGwPEMQfDJgnzAIcgzF7xHPM3e370uGj0uE1pzHYfC+c32XJofN4ZF5dUBjEVDYz1+TXwXQ27ZHZu0qT6IMNsU2A8ZXtwC4OJCT+merpv30bWtrqgUvEGBGrqiCxQ==
+ bh=ba0TW5byYSBvv8g4I4jtWT1FEsA26V85VFr2F9GLDW8=;
+ b=rWib+73aaZcMFFGJREOumvksKL8E0mPMLhjGpSTwUFqAbF8XpMek/udu9qsHexgc5sGrWhIlXl7K29Km2lw0/wi/Qmvd9vDgLbgli4FeWrmzVZP+WpCaVXQm/GvdBLTD7/jbx651RhuyQ01Zc9bASEf4aGFw03aM2pe/51CJU1Dt+29fOWGhYWcNducFgPHm+j4vhQfFvOldQAQHSipJErO4skY/qUf6MngdspF+cDXGOitPnydGbR41rvhQoVIGAxyJhdSMkbkykyn0o6Hsw9MIZswn7CLy6sASiu84EtZfe+nbptLfC7ssyv6MKH1g65TdviM7WvJs1272wI/YKg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/X4253alAa6pstqYuuUv6nkI9Q19klW9YmygxHrYT4w=;
- b=CzCOQs35IjjSIdgZo2by0Rw6ClcuhC8v3clRMq4F4MALQ/j5uxZ+VgUYgJfZg83WlGifoqKyR+cmVNbzApH4ScLp0FsgMnfs8UzYGYnIyWGdKTIyo5IoWJS6q0fcxJHiZmMYTIWypUAqyYwUcIgBRO9PAa4lg5/p/6ZwwR0gz+YI201lvixmaSKGESKHTsfKgjN8KAAYpvkyofA6APSLIGn4PsgO4Zi3QL2f6LyWqsf4mvTwPP2raYeU6uQe0bJqBkmMecidhk3GwahFZKRPVKDB/N/wNvc+l8FpDn6LWWEVNy5qYH444p0Mi8qo1MpvhR85I+oxG+zdCodqMs7YeA==
+ bh=ba0TW5byYSBvv8g4I4jtWT1FEsA26V85VFr2F9GLDW8=;
+ b=fgULqBQPPcNhMosEGqKZLy23dRretfRBHsJMGDj52PSuRSI5SS+QnQhRknbCffqB5dq2M5mgSqBEshjlMNDz8PFagnGac+kfORf8wHu9qIj6EN8Fp8rlWg4P2SnYhTaLarTqflf+AzKlsliWNLU9UR6vAohZq8OBF/mLulN5gpzuY7bofNJGxqHUjXh7ThcZ71sxr/BA2ZCgAnsJPVjSCatd7C12JYwcwW8ireybNecUN+NIsndVu1O6C66OsxzlUTZUxtculWzAYJn0fV94Qpgo4kWZgerF1VVJqbmdDLwOyvtkClDO1kvFPWC517yp5DyfauvGA+d5F5vyUWiigA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by BL4PR12MB9533.namprd12.prod.outlook.com (2603:10b6:208:58f::21) with
+ by SJ1PR12MB6075.namprd12.prod.outlook.com (2603:10b6:a03:45e::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 07:17:39 +0000
+ 2026 07:49:19 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 07:17:39 +0000
+ 07:49:19 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 16:17:35 +0900
-Message-Id: <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
-Cc: <engineer.jjhama@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH RFC 0/4] rust: dma: bridge zerocopy-derived types into
- the transmute byte-safety bound
+Date: Mon, 29 Jun 2026 16:49:10 +0900
+Message-Id: <DJLD9NK839PY.1MNE49NII0BGS@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 3/6] gpu: nova-core: gsp: move boot code into local
+ closure
 From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "SeungJong Ha via B4 Relay"
- <devnull+engineer.jjhama.gmail.com@kernel.org>
-References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
-In-Reply-To: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
-X-ClientProxiedBy: TY4P301CA0111.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37b::10) To CH2PR12MB3990.namprd12.prod.outlook.com
+References: <20260619-nova-bootcontext-v1-0-45193cd0a2e5@nvidia.com>
+ <20260619-nova-bootcontext-v1-3-45193cd0a2e5@nvidia.com>
+ <DJFF1W6VGY4Q.2PV5MEPMFXIDB@nvidia.com>
+ <DJFO5A5XN2EO.22B58J2O6D4JG@nvidia.com>
+ <DJG6S20KHJK3.TKRZLBYUPGG2@nvidia.com>
+ <DJGZX2MGM1DD.3VAEGR7G5QVBE@nvidia.com>
+ <DJH2L8IY3GGC.3NBPX6YNGPL82@nvidia.com>
+In-Reply-To: <DJH2L8IY3GGC.3NBPX6YNGPL82@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0104.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37b::9) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -74,96 +76,278 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|BL4PR12MB9533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9de2e158-953a-409d-ae2c-08ded5ae80b2
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ1PR12MB6075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06a94c5e-1c06-45f8-a69d-08ded5b2ecb5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|376014|7416014|1800799024|366016|6133799003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|366016|7416014|23010399003|376014|10070799003|18002099003|22082099003|5023799004|11063799006|4143699003|56012099006|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	OHX/pO0OxdgHr8uGDMKWb4husl/V+xrzTzCrtBCtPg/swM/odfyZ1GBFZ3TuDLqa/iNfbX793qQYrHa4LPrmoxxpyj+3efFgXKT+VcJge6uq/d+oa/98+aPDBlU+zRQt11gaeS7VjMtWNUNsgyriOzNo0GCgIwo6j1KN40RE9O2VL9Bx/9a8MpxUJRDToUiKsf27gT4l9gLw2QDgVrxuYZA/v5j5puMrnuDB6ALFhuKEgXsa+4Y0ljR/5/eJ+vpUB+LjxedOiiWrs2jpKTms5ZmjdcchRjFCbvQIKBgrIWmIiG8WiTePwJOzPxHIb0JAkWTJD7JPqaVYDdOpA4oEPagpxphb2x0t4troC2lmcoNTGETBAQu6A/neSNsw91DHQ+p4htYwL+E3whaitSovy+rPiPEKnFCq/x++5ucAkLNtJbiCmV9RHw92kuKpy2apmJcQlHjoaROl3GrkXPDjDVxub1RNM3sOAF3ys3b9TKIXYGNYckvXGVmYtoac7cLNFDKc3n6TuKdMiN6lN0Jh+CO25EAFvoUv587qupXsL029XSDlQ/38RzYXbp2JB3fU+UswDbDOoEbQKINnXAs6ptZTGKtpP0Qrh70/DTwRssW2Zl7FnnyreNyISef5u0doMVQsFRlkb8+QWJX+pE0U/fXtVA1Ol4gdWI3poOd+2Uw=
+	0iPXdnPs3rvcA+pTCxDQaA+p43Se7rF1EX2YclMD2me+56iHOHccVydWcMwiTBwx19vD4boqtgnvP5LBlBRIZTIEaHBYZ0jZKp85PrCmRN9jmE41BJK7lbrtwIXEt3mhDevB76NLL4lvJ1AXorZqdyupFg3NT9O2BpacN4ADGO1SfHz1l4bM+wo97tvPx8Y3XXHlcItytR/Scukx1IrqcqmbfBUR9/YXltcatd8buB1yzSIVtMPoqNRISkq4Z1EUKyFOogB5Gebgc8KDJrFTUOsHJsTPNvbZ5NCzCMrGZrVAAkY5eKnpBTvoGOG6PX+UQhfqdy9+a3HMRKG6KnJOrkGaGS01cKpa7AKp8EaDD8YcjYbgYRVYtfR17ZdSfmgfa0S4MrpzQTUJlTj8rj/Ij+wkrnp4//K6Dx4nYDZKMLcIZl6nuGY+TQ+JW8Qpl9pnjzNJlNE6Io5O0QCC1Lx75a4B58WGqrY21FP9yIY4Gffcs/EjHWMAM4bXhzh/GgCTYm5dkoo61K7dQx+7mUXHS5LRkxDUG8LqMU9TWDAjpF84RsYD/sIdA+Okvxlb/P/h6M8HUUEmW8m/9ZOF9NdMN7pph1Av3O9LvR9v6/aD7Sx/sXIiO8nzSvJi/Yzw0i+y8EhlITvLQ/6CXZXiVHR+63l9Kqi0FED8lK/bwx+z7Dg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(7416014)(1800799024)(366016)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(10070799003)(18002099003)(22082099003)(5023799004)(11063799006)(4143699003)(56012099006)(6133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OWMvNG9UUVo5NXpwcE1FVFBnSFQ1YzVwSzFaeGoyMEJxM25GclVFTnRHUEZ4?=
- =?utf-8?B?dERvcWZWZUFsdVNNRVB0ZHUrRlM5aUN2c2pJT0NRbmZzaHgzckpibXpPc2R0?=
- =?utf-8?B?cmdVWC9pdlZoS24zcktJZEE4N1pyUHdRdUxHNmpZeU1tNFBTNGJQbTR6YVNM?=
- =?utf-8?B?U3FoN01XMk45dGxoemc1UW01WXhmNkpJVEJwSXNtOGNCVVhpNWxSVm4raHNT?=
- =?utf-8?B?cUtLYVRVMys0ZlQ2YjJFTnhoTTcyL2pMeGQyWGdWb0xudjBPeWVhS21vTi83?=
- =?utf-8?B?dDFWR09lenBZZWI4QlhOb2NIa1piUnRDTjkwV0tWd29GYkZ1aUJHc1Urd2Rs?=
- =?utf-8?B?Y21kMWhoK01ITUUydDdnT2tlU01YK2VIbE5WVEo2aWpqY1JicHFaN2hyZkRq?=
- =?utf-8?B?UjdrcENrMzlMU2JITzc4SjFJZ2hONFczL2FNeHZRT3BmbEkwbUNvZCt3VUww?=
- =?utf-8?B?NnBXUTVlOFgwV1BEdWJ0SGhmMmYrUENMT0hnUGdNcnhMeEtBSjBBS0JZKzlM?=
- =?utf-8?B?Uldtc01BOVcvMkdKR3hhdW40Vmp5eWw0RlR5MSs1TFFMRlpQNy9mSGV1bEhY?=
- =?utf-8?B?WHArU3A1d3R5YUZsT1dRUnBUMnI3aTZaUXZtSWlWcVp0YjVHVk1DajUzV3dI?=
- =?utf-8?B?NUhwOTdYYXdIVzhseHBaSHpsYmlzOXlNQ0dRamZlVTlyeXFtclhyYnpnUGpW?=
- =?utf-8?B?WHh2SXlKM09VSG53RjRjOGdiV25xOEZUYXRUYkR5Vm0rSFVGZlM5KzhLRlNL?=
- =?utf-8?B?UGxxOWwrMEgvbHMvbm1ad2RIN2NTcW9QVUQvZURyaWhuNm81UWZSd1JQd3R4?=
- =?utf-8?B?YklUditzaXhhbTkxZU9RYlNDMWVMSzBmM0w2SU5Gb0lWSXdkNW9kSmZhQ0tT?=
- =?utf-8?B?dzhjWnZmZkJNTXozTDhWenhHVUtua2prVUhON1o1eW1jZERxR1BTbWdlYW1C?=
- =?utf-8?B?NDIvM0dzOGVUU2MyUXFYTnVGNWh1dXdrazlqcnQ0NmJyU2pRaUswcU4vS3lv?=
- =?utf-8?B?alV6QXdrUzliazFSNTZVa0o0dXRla0VLMjFBYjQ1Y2FsUjZoRlIzc1VVckp2?=
- =?utf-8?B?bWNxZHJ5V3JQR0tNbzB5OURzNmhvOXVnZjgzQVAyQVQxbnRVTFh0ekt5S3da?=
- =?utf-8?B?aWxBZ2NEUUpnWDBXTGFwbFpFRzQ1c2IwTm1Gb21TeGpUWTJrdUQ3Z1RMMllT?=
- =?utf-8?B?MFVrUHIxN1pGS3J6d0tJaVVscE9ydXUvUklMMHpaK0g0TkdLYWZrWnJQeURt?=
- =?utf-8?B?TTRVeDgwUWw4UE1IajZoUWsySEpKazRoMlhGbEYxQUZtMkRESXlXT043RXZB?=
- =?utf-8?B?bC9FYmxyYWhHUmltZlNjbSsxZnpZU3l4VFYwdVdTOW9CQTcxN3JLcWtEUDZR?=
- =?utf-8?B?NE5ERkY4bzU4ODRGTThyREViVXlrSHBGNGhwQjJOWkpqWGoxVTVRa3FDWXZX?=
- =?utf-8?B?SENCMkt0SStOY0JwL2xJM0YwZ2ZTZXVvNzNwNjJJRU1aa1M2ckx5WVZuV3pr?=
- =?utf-8?B?ckhyNkUrdlYxWEltTExhQ0V5RzA5aUFyTGgvc1Rqb1hhdTg2Yk5RZVBtZ1NS?=
- =?utf-8?B?RFc0ZjgzcFUxdk1Nc2tCaW0xVDhiOWlpTWwxZ012RDRsNmJITzhoYVBUNDQy?=
- =?utf-8?B?YmFPTG14R2hyNFY1V3QrcFFNZzhJb2p5RkxySVBPRU01Vkx1UmdrSWRxVTJH?=
- =?utf-8?B?VGtndGpUNmVvbjlJT0hTYkRQNFFFMytCcGlmalQ2TGFaZmJDNU4wdytsLy9D?=
- =?utf-8?B?QUduOXk1b2ducmg2ZytLMlJaSU55NVNSODdYcTU1Vnp5NThwbExuUUJFeVJo?=
- =?utf-8?B?TG9lR2FkUVRzU1NSRjdJTWViV3l3ZWR5bllNc1JHTDFhamhWTDF3RVlFRWxG?=
- =?utf-8?B?L2JOemYzZGFRdm5Vd1ExQ3JPYTBlMHhZbmdVcmF2WlBIQlptbHRJRFZ4bVUz?=
- =?utf-8?B?V20ycldFNmIrS3Vwb2FkZGdvUzF6WWJXVFZFaDd2a2pITjNOelozQ3N5VHJq?=
- =?utf-8?B?cHp4SlhiTDBYUVl2Q2pIeTZKcHAvdEJGYVV6NGovbjBpSncra1dzNDNlNjBF?=
- =?utf-8?B?emxZUWlMNDBtZnNqNm0vLzRyNVdhTzA2enkzbWwzWUZudmI4bWtEeGJXejBJ?=
- =?utf-8?B?VXR0dGZRQk55YXBvTmRyMEx0K1IvV1lmUjZvYTdJaytwcmJFblQ5TGI0d2l1?=
- =?utf-8?B?Z0tmbExmVmUvK2FSUnREM1habFVtV05ReStNZEduUFhkQXVsU3A5dDZPVFhm?=
- =?utf-8?B?NUdsRHFlZkNDMTIvbFV1MkdIQXk1TkNGK3pmTlNzQlpvS3dGeTJPTHo0Kzl5?=
- =?utf-8?B?M1ZwNkRveDFKNXF6SlNvQVg2bzZRTE45c3NINFFVUHpTUWxobTJhVWZyOUdK?=
- =?utf-8?Q?ZC+GkIPj4nf7Nz8pZswzBpoj4Jq1Ik+T7L2DxWTVWRs/E?=
-X-MS-Exchange-AntiSpam-MessageData-1: aDOyATptAP0Nsw==
+	=?utf-8?B?cFZSODlabjVSQlFYOEcrdDU5c2pxSHY1aHZHOS9EVVljWDVTYWpVeHFnQy9m?=
+ =?utf-8?B?cmtQQmNyS3U4OWoyR0NzMW9BVjRhbmxweGs0NnNrY2laUGNjMlptRERjTW1I?=
+ =?utf-8?B?OEhkNnlLWGdrSHhZL25MRXF3MWpFYzFVdzZUc3JiV29EOGhJRjE0aDMyKzhN?=
+ =?utf-8?B?WlZxRzZHUk5kMDlNRDNnWG5pb2VYSTB4SERuR0Rucm5IVlcrSjU4b2lTTEN4?=
+ =?utf-8?B?UFhJdi95Wmtzd0RiOGdmenVOelkyeVlna29tMkR1M3AyMU1FMWlwU1NnWDlS?=
+ =?utf-8?B?WnVOd3BQRGc1emQrUHlZRklFYTltVHBwdmd4R3NoTjRxOXJERTArRkxjV0s5?=
+ =?utf-8?B?cHB2bm92RWFocitHUlhNZENObnc2UHY5ajhVaGJGQ1J1Y1JhMitWQVEvSTVk?=
+ =?utf-8?B?dGNreGJiZWVjWmRRTVBaeDR1R1RyRG1oVVRGVXlseU05b2dVRWxEVnpRWEU5?=
+ =?utf-8?B?b3FOZDd2b3FpRm1md1FONjFDREdRUkJYRWdiYnN0amdGUUtscDJCaFFKaWFI?=
+ =?utf-8?B?YVVqR2d0VzZhUHJZT3RqTS8zeHJQUlRnTVNFbnZXdmtPQkhXb2hvNUNjWW84?=
+ =?utf-8?B?bzVRdjhDMnM0UnNkSW1RK2d1ZGhpRVBNdzFSc1o4a1NLYWpPL2pjL3JPVW9T?=
+ =?utf-8?B?VGpvakZVZ0E1ajV2dElWQjUwRjlYNzkvZEZHL0ZIaldBSmVCcUFDcnlkK0tQ?=
+ =?utf-8?B?Ly8xSnY5bkhjSDY2SFZNRytYNUZRZXVUeUd5d2Q0QVMyUzJGem1LblY0a01x?=
+ =?utf-8?B?M2dIRzlEVmRhQk95U1kvQjgrVGpJMXVFaG15UEE1RlJLMkU3b2pCV2ZtZHNt?=
+ =?utf-8?B?ZjZGRk52TkljMmFBYVFEZW5kcnlRazQraFNhM3hFN3p1eWxQRmR6YkYxR2pZ?=
+ =?utf-8?B?TXpaTXpDRGFxTE1rcWQxd2JGY2J1aHIvWmtmTGRjTUJlSGY3UTZhcUhvSnBL?=
+ =?utf-8?B?SE9qdnR1YmxHTXJxWW51VUEwUVdsSFhTUW5KQUI1QUlCYlpBcCtIRXRaOUpz?=
+ =?utf-8?B?TWZpRjBlUEphQ1V0VHdQNGZWcVBXZXpaUGxGSnNyR1NweDdUa2NEMVV1Z1BY?=
+ =?utf-8?B?RXVZVFQ4L01pUnQxamF6TXlIVGpUay9IYVphNDhmMTdvMmxYLzh5MGdYVHMv?=
+ =?utf-8?B?QkRNMjNjbktuS016K3FCcmhGVWRNeVdRcWNCdzFoSW5tZWlSNTJjSkVtWE5T?=
+ =?utf-8?B?RlNzYUZJMStFWGFqcFliTnQ2dUcyM2wvZUZzeTB2OHdCcUp4RHBlWWpaSXpZ?=
+ =?utf-8?B?ZkZQaWNUM2hzTHhLOTBGUEVLNTI4dXlCdFZLNjNyV1VtdWpuaGl6UW1OWmtl?=
+ =?utf-8?B?YVUwRWxnVkxIVW45bnJzYWVyRmlTQzJqV2JIWWFQc1dJcUptdnRtdW9OdzVl?=
+ =?utf-8?B?Mm54MUlpK2tBTXptOHNoL3JiQWNCS2NwSkF5THVGdU9LNUtCMTltVDRUOEsz?=
+ =?utf-8?B?bC9QYXlIRTlNaXY1WlJmZENCVDFTc3JLWVVwK3g1MG9PSEREN0ZFS0dGd29k?=
+ =?utf-8?B?WkRCRi91TjU0NWdkMmpFNFZCN3VqbzRxR3BVdm02dEFQbDdmQmF3aTVxUEdt?=
+ =?utf-8?B?dE84RnF4L1Q1Q25sTUl4cWhBWFVpSDlsdmRGazJKT0pGd09qbzk0OXVxeDR2?=
+ =?utf-8?B?QTFFQzU0SUV5eElMY1BMeWpIUmVYK3Nic2gxWmRYUzU1VFZqK3cyU2g0YnRG?=
+ =?utf-8?B?RSsxMHJ3T3p6S21KRG9jc2ErZXJwYWRMb1pwRkZXRmZPUHd4WnZtWTRXTnpv?=
+ =?utf-8?B?bkpsS1dtQllMM0NGVmN5cUVpdTR3S2dOTmpEMEUzOEdxY0FSRHNkdFRrY29j?=
+ =?utf-8?B?SkM0VTlDanJPMzBFUXdhQjJDQWpPVEZKUEh5MlJFbDQxL0RFYjNnc1R6R2Mz?=
+ =?utf-8?B?dkdPSnNOeVlpMk5xNUdueXk2UWZnYXgvMmd0d1Era3Z5NnprQXl6UmNNSmpt?=
+ =?utf-8?B?Vmg1aGVvWFpIczFjTnZqbG9iTUxKaUZtR1JlWVp2OEd2eGhVUGYzS0lrVkRx?=
+ =?utf-8?B?OVNmUmtLdlo1bkxmWWRXYnlWSC94TVZoczM1VzQyMERrS2FvV3BsWGpWd0t3?=
+ =?utf-8?B?NHBJWWhGMUk5RU9nYXJGaFJpaFFTUjhsaSs0ZTVrOVJBR0c3b1BaMElMLzZh?=
+ =?utf-8?B?ZGxlM1NWZG02aWhzRFRwNnQxZnhYMGxJV3BkNjdxL0xRc1hlWTc1ZXV3cTB4?=
+ =?utf-8?B?Y0N0RGgzQUJSU1dybEM0ekV1VzJ5ZmxEdjVYQUdkaEN4cFpCNUVaV1lZVFRH?=
+ =?utf-8?B?b1hmY21QZWNYTzNBcVVIUWdQckNOQnRXQWdkV2FkTUZwdUV0a1owYU9oeERo?=
+ =?utf-8?B?S01NajFNWEpOYUQzR0N0K0p1akg1bGJmd21OTXJKTGoyNkxXQTBzRnhaNkhO?=
+ =?utf-8?Q?rOKZOV8P8BrS4PLAxpV+6EU77krRayLkH1QrCwiKn2rwi?=
+X-MS-Exchange-AntiSpam-MessageData-1: CN1j41bhkCXVhQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9de2e158-953a-409d-ae2c-08ded5ae80b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06a94c5e-1c06-45f8-a69d-08ded5b2ecb5
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:17:39.5081
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:49:19.0142
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Uvj4rAvua7BL1wGVhhSrDdtxKtqen9aWBAzQ8xzeCI7TvVDewsFM9xAMtYtucyo1dqR5NhRRl9jreFVr3b+gQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9533
+X-MS-Exchange-CrossTenant-UserPrincipalName: jVD9pM26SMExYOa+LatBQ3CwRmtKXSYZ+iaPh2jaTpPqgu2zNqPTjQlevXN7BcJKMKVZgKGWTP6R9a3NVAXNmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6075
 
-On Mon Jun 29, 2026 at 2:10 AM JST, SeungJong Ha via B4 Relay wrote:
-> DMA-coherent allocations (CoherentAllocation/Coherent/dma::Pool) bound
-> their element type on kernel::transmute::{AsBytes, FromBytes}. This RFC
-> lets a type satisfy that bound by deriving zerocopy's byte-safety traits
-> instead of a hand-written unsafe impl.
+On Wed Jun 24, 2026 at 3:36 PM JST, Eliot Courtney wrote:
+> On Wed Jun 24, 2026 at 1:30 PM JST, Alexandre Courbot wrote:
+>> On Tue Jun 23, 2026 at 2:40 PM JST, Eliot Courtney wrote:
+>>> On Tue Jun 23, 2026 at 12:04 AM JST, Alexandre Courbot wrote:
+>>>> On Mon Jun 22, 2026 at 4:57 PM JST, Eliot Courtney wrote:
+>>>>> On Fri Jun 19, 2026 at 10:42 PM JST, Alexandre Courbot wrote:
+>>>>>> The next patch aims at replacing the cumbersome `BootUnloadGuard` wi=
+th a
+>>>>>> more local and less intrusive mechanism to run the GSP unload sequen=
+ce
+>>>>>> upon GSP boot failure. Doing so requires running the boot code in a
+>>>>>> local closure, which changes its indentation and would make other
+>>>>>> changes difficult to track in the diff. Thus, this preparatory patch
+>>>>>> moves said boot code into a local closure that is run upon construct=
+ion,
+>>>>>> so the next patch does not need to re-indent code that changes.
+>>>>>>
+>>>>>> This is a mechanical preparatory patch to make the next patch easier=
+ to
+>>>>>> read. No functional change intended.
+>>>>>>
+>>>>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>>>>>> ---
+>>>>>
+>>>>> I agree with removing BootUnloadGuard, but I think it's not great to =
+do
+>>>>> a bunch of lifting into closures then manually handling the result. I=
+t's
+>>>>> error prone imo (we already had several bugs relating to this kind of
+>>>>> thing). Instead, what about just using ScopeGuard directly? This lets=
+ us
+>>>>> avoid lifting into closures (which is a bit noisy) and avoids manual
+>>>>> result handling for failures (which is a bit error prone). With the
+>>>>> `GspBootContext` it's fairly easy to do now:
+>>>>>
+>>>>> ```
+>>>>> let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |unload=
+_bundle| {
+>>>>>     let _ =3D gsp.unload(ctx, unload_bundle);
+>>>>> });
+>>>>> ```
+>>>>
+>>>> Yes, initially I wanted to use `ScopeGuard` but ran into issues when
+>>>> trying to make the references mutable. However it looks like you have
+>>>> been able to overcome these issues, thanks for taking the time to craf=
+t
+>>>> a patch!
+>>>>
+>>>>>
+>>>>> I confirmed that it's also compatible with the v2 of this series that
+>>>>> has the mutable Fsp - you can stash the context inside the ScopeGuard
+>>>>> data (then making a &mut reference to the stashed context for brevity=
+)
+>>>>> or have a separate unload context type that doesn't use FSP or someth=
+ing
+>>>>> (could later be type parametrized along with Gsp, for example).
+>>>>>
+>>>>> For example here is a rough diff on top of this patch series (you can
+>>>>> change the Result<Option<UnloadBundle>> returns to like
+>>>>> Result<Result<UnloadBundle>> if you want to centralise teh error
+>>>>> handling of a failed unloadbundle although currently it can only fail=
+ in
+>>>>> one location):
+>>>>
+>>>> Yes, looking at it it looks like a cleaner approach than using closure=
+s.
+>>>>
+>>>> The only thing that I saw as a regression is that now each HAL needs t=
+o
+>>>> call `Gsp::unload` itself in its own `ScopeGuard`. I don't think that'=
+s
+>>>> the HAL's work - `Gsp::boot` should be the centralized point where thi=
+s
+>>>> happens.
+>>>>
+>>>> But we can make both work if `unload_bundle` is passed as an output
+>>>> argument to `GspHal::boot` instead of being returned:
+>>>>
+>>>>     let mut guard =3D ScopeGuard::new_with_data((ctx, None), ...);
+>>>>     let (ctx, unload_bundle) =3D &mut *guard;
+>>>>
+>>>>     // `unload_bundle` is a mutable reference to the
+>>>>     // `Option<UnloadBundle>` in `guard`.
+>>>>     hal.boot(&self, ctx, unload_bundle, &fb_layout, &wpr_meta)?;
+>>>>
+>>>> The boot method can fill `unload_bundle` early, and if it returns an
+>>>> error then the `ScopeGuard` will be able to use it. Also, and that's
+>>>> nice, the HALs don't need to use `ScopeGuard`. But output arguments
+>>>> aren't really something we expect to see in Rust.
+>>>>
+>>>> Another alternative would be to separate the unload bundle constructio=
+n
+>>>> from `GspHal::boot`:
+>>>>
+>>>>     let unload_bundle =3D hal.build_unload_bundle(ctx, ...);
+>>>>     let guard =3D ScopeGuard::new_with_data((ctx, unload_bundle), ...)=
+;
+>>>>
+>>>>     hal.boot(...)?;
+>>>>
+>>>> It removes the "1 boot -> 1 unload bundle" symmetry, but on the other
+>>>> hand it also splits concerns more clearly. And it removes the awkward
+>>>> return type of `GspHal::boot`, which come to think of it was another
+>>>> smell that things were not in the right place.
+>>>>
+>>>> The main drawback I see is that we now need to build `Vbios` twice for
+>>>> TU102, since it is needed both for the unload bundle and for booting.
+>>>> But the solution is the same as what the v2 of this series does to
+>>>> `Fsp`: the BIOS is a GPU-wide subdevice that is likely to be used
+>>>> elsewhere, not something to be confined in a GSP HAL. So I say, let's
+>>>> extract it and make it also part of `GspBootContext`.
+>>>>
+>>>> How does that sound?
+>>>
+>>> I think that currently it's confusing because we have two concepts in
+>>> use with very similar names. We have "unloadbundle" meaning what we nee=
+d
+>>> to run to unload the driver, and we have "unload_guard" which is for
+>>> running unwind stuff if we error. And for the most part these things ar=
+e
+>>> the same, but they might not be (e.g. in my other series where we need
+>>> to keep certain DMA allocations alive just for the error path, but not
+>>> for an unload later, or when we are partially loaded). So it might be
+>>> nice to make these two things more separate.
+>>>
+>>> I think that trying to build the unload bundle separately
+>>> (`build_unload_bundle`) is confusing because e.g. hal.boot() still need=
+s
+>>> to handle unwinding its state in case of error, so it adds a strong
+>>> assumption that unloading in success is the same as unwinding in error.
+>>
+>> I don't think `hal.boot()` can unwind its state properly - or I should
+>> say, I don't think it can unwind it better than just running its unload
+>> bundle itself.
+>>
+>> There is little point calling `Gsp::unload` from a HAL failure as it
+>> just queues an `UnloadGuestDriver` message (that the GSP wouldn't be in
+>> condition to process) before running the unload bundle. So here we can
+>> simply skip the guaranteed message timeout and run the unload bundle (or
+>> the relevant part) directly. But even doing so doesn't guarantee that we
+>> can recover.
+>>
+>> For TU102, the unload bundle runs two firmwares to reset the GSP falcon
+>> to its original state and to remove the WPR2 region. I don't think we
+>> can/should run them selectively, as they don't undo work in the same
+>> order as the boot sequence - or even from the same microcontroller! For
+>> instance, FWSEC-FRTS (GSP falcon) sets up the WPR2 region, but it is
+>> tore down by Booter Unload (SEC2 falcon). So the best we can do if
+>> something fails on the boot path is run the whole unload bundle and hope
+>> that we can recover.
+>>
+>> For GH100, the unload bundle just waits for the GSP falcon to get out of
+>> RISC-V mode, as a consequence of the `UnloadingGuestDriver` GSP command
+>> sent by `Gsp::unload`. The problem is, that in case of failure that
+>> command cannot even be sent as the GSP is not up! :) So the unload
+>> bundle will either succeed immediately (if we failed early) or timeout
+>> (if the GSP is already in RISC-V mode and stuck somewhere else). It's
+>> actually probably better to not even try to run it in this case, and
+>> just wait for the GSP lockdown release to try and address the DMA buffer
+>> lifetime you raised.
+>>
+>> Which supports your case that the HALs should be be responsible for
+>> their own unwinding - only not by running `Gsp::unload` IMHO.
+>>
+>> In any case, there doesn't seem to be a recovery path that we can
+>> execute reliably in case of GSP boot failure. So making the HALs
+>> responsible for recovering does indeed sound like the safest solution
+>> (with TU102 trying to run the unload bundle, and GH100 doing... I'm not
+>> sure what :)) and should address the issues you raised - but please let
+>> me know if I missed something.
 >
-> The bound cannot be switched to zerocopy wholesale (some DMA structs are
-> unions that IntoBytes cannot derive), and a blanket bridge impl is
-> rejected by coherence. So the series bridges the two per type:
+> Ok I think you are right w.r.t. it might be simpler to not have
+> significantly staged unwinding logic in the HALs. That said, IIUC, in
+> principle, it could unwind a bit better than the unload bundle. For
+> example, if we fail before we send the CoT message, then we don't need
+> to do anything to reset. If we fail after a CoT response, then we can
+> wait for GSP to halt and then try a falcon level reset if that fails. If
+> we fail sending the CoT message, then perhaps it needs a FLR to be sure
+> that things are properly reset - I think these are some options for
+> trying to ensure reset on GH100+.
 >
->   1. add the bridge macro impl_transmute_via_zerocopy!, which emits the
->      transmute impls only for a zerocopy-derived type.
->   2. re-export zerocopy::Immutable from the prelude.
->   3-4. worked example: convert nova-core's GspMem and msgq POD types.
+> I think we could centralise a lot of this reset logic, e.g. overall it
+> would be send guest unload, wait for halt, then start trying various
+> resets if GSP doesn't halt. This could be some HAL methods I suppose,
+> and Gsp::unload just deals with running the completely common Gsp guest
+> unload + calling the HAL bundle.
+>
+> So that fits with keeping Gsp::unload out of HAL modules, but also
+> keeping the ScopeGuard run unload bundle in HAL boot() etc so we can
+> allow HALS to e.g. keep resources alive until GSP is definitely reset.
+> Then in a follow up we can harden the reset process to handle more
+> cases.
+>
+> WDYT?
 
-Can you give more details about what the macro is for? My understanding
-is that it is a temporary fix for the generated bindings; if so, I'd
-prefer to apply a definitive solution (like using
-`#[derive(zerocopy_derive::most_traits)]`, or updating the bindings
-generator tool) rather than something that will be removed later.
+Sounds good, v3 will do the following, which I think aligns with the
+result of the discussion:
 
-I also notice that the macro is in the Rust `transmute` module, but the
-only user is Nova; so it should have been either be Nova-local, or used
-by other Rust modules.
+- Anything error happening in `GspHal::boot` is the responsibility of
+  the HAL to handle,
+- After `GspHal::boot` has returned, `Gsp::unload` can be called safely
+  so `Gsp::boot` does that using a `ScopeGuard`,
+- No closures. :)
 
-But intuitively I'd say that we can (and should) probably do without
-this intermediate step. But please let me know if there is something I
-missed.
+For now the error handling that HALs do is rather primitive (TU102 runs
+its unload bundle, GH100 waits for the GSP lockdown release) and I am
+not sure that there is room for improvement, but if there is the layout
+should let us address it.
+
+FLR can also eventually be handled at a higher layer if need be.
