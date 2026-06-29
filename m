@@ -1,154 +1,170 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011060.outbound.protection.outlook.com [40.93.194.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D899D3DC4B6
-	for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 07:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782719996; cv=none; b=nDv9oUEf6Ed6Sc/CdznG3yFkfeaI1gOmpKjMECMv9EuXs4XVMk/G9TEP97jeml43YYhkiu02lKUkfjZ6XrmNoKIEhdS+9Kq4G1HzoOxSAEiUkboSOFetRKie2IIoV2idl2XqgFa6j49ylOpLVpLyTTNWW1Ms2xJrGI+FZuuEnUI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782719996; c=relaxed/simple;
-	bh=Fjh6McgL6DD/8o9fAgQe2P5kMAp4EdOgL+d2WCEdkpw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=NUREUNUvy/+P7WpF7jk5qTF5pW8agVq20136K3L5ImVhxy253s3iCOIFZZTs9hRjsSJI5/SKON0A25PxCmXWdh+AOeVAvEyo/ConIIZMHNtDKoyPE3R6TZUAj1li5LGj/JpvITPwtug6SPRD/TpOg1Ms1uF3C+XjqiWdGcQNAB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RNYXr7cN; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26643BBFDE
+	for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 08:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782721254; cv=fail; b=l7oHvwfcoomghCCyNxXz0JkSn9u/GAgbtvP5XDKbC9xD1DhBLtafAFnLrjj75akzf4MLMb5BaZ4nrEFFmmfR2Tbq2GiAPUPwCpZSrh4yIstsp7GIpwYI2IttPdLqCQ+5y9TjQkOHg/IAzVXW2wRqXPzbdJ0Kwtcm7jOLGtrZvRI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782721254; c=relaxed/simple;
+	bh=//6Qi4XKzMQzJtgloJcIdkBm0er2FwWMqCSFRYPIopc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=fjsusepLyfjA4y/WWNcnCmKqFxfv3HlhZPd5QcdNDuIv0ggfxoq0asC5EOJ67dDZ3s8inUC+SXB7NAmVe+oPLpWL6nCj116nuhg4ngDm8hUIX0dFXXLZNKH0IBM8AezV+J7lXgkksTGM6acJjnntIkRJ425zsoT/81efJe3Ax78=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nlOLv6xY; arc=fail smtp.client-ip=40.93.194.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RNYXr7cN"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c7c61b5292so25484835ad.0
-        for <nova-gpu@lists.linux.dev>; Mon, 29 Jun 2026 00:59:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782719993; x=1783324793; darn=lists.linux.dev;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rezmMRoW0TY1v4PkJTz+2piz1eElRyv9KkMLuNl5nCA=;
-        b=RNYXr7cNXgo5QRDc31rlRD7Y7SySMFjCqdodK8zkQORvfiQJbNYQiiI9H+TS2qdTbq
-         UGHBvkKUGnr0BgBv87vFSwMUy60HkkoyAL3SZob/S0+qXTtOqCZ4PtL11/kl694urg3u
-         SYbOntRwUCCpd/OoSQBahX7FJtp20CBhh2r0qGyvuk3O5rWrz6BUjoqcFOibbXjTDZLN
-         Im9zjG0GPtEFIXQvYB8NWJkVK14cYyDB/i0bo2aWp14NLAW53n4dngDzRcxLjvEvRFcF
-         RKzhzJoyE+IO+yji1VtnO1iLSK78MWR+ghbM1q5/OX9FGM0+p4d4JWz+iQndgVfw0IUq
-         bfmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782719993; x=1783324793;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rezmMRoW0TY1v4PkJTz+2piz1eElRyv9KkMLuNl5nCA=;
-        b=rqcMtkuVA3QYIdntSD/8UuxKWXBk6g0cr8NgK2WXncJ6YRKYGa/IiUVKROSUuhqc3U
-         P+Wfq0vJtgLt6WET2GNFQknbwdy5JjuhL+DpHgzWuC2cmT8fOlpTolkE70BRTnD55iUb
-         rxqLGT+b0ciiX1+h7184GTowTh4dTri/0kllNWp8eVkpJMZ9ij2v0ovEOdwSWPedRwRu
-         dUIRTYdSOdyDQ6pbbaEEYOBzv69qWm2FsHJa+rRK8lPYC35LP2PkVOEiqkAGsMyYZt0U
-         9uEJwl1K+BadXTiadew8DYXLDfxYl4nS0ObkaQfEUCdJMPJ6uoAHCwCVyg8o2ZhUt+tE
-         dxtg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrx3eLI6FMNPnmIk4QkA0PA883kr6vuV9slTN9iR1r/1FNhxtmTA+rnZ0SDG2CMCIZfh1YQvYydhw==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxqLJUreDG10+/a/5W0qegAOxtQnW5D/x1dmUWejy7gcTV6q0po
-	roEBF/9VNFh6DjBHIANhwYv0fvck6lNgp+nvnRUmBO/eWrUL8PFIVusr
-X-Gm-Gg: AfdE7cm3ClGDzH0U3dyThtP90Qh+D2bPL+DnVDuoyBnWKTy6eATy6bSf4o8nQj1ehYp
-	gH0Fx2V8Zvp9ZubW7qKsnpPT1/Bh1/0KWAGxdluU+1GVInXOuevAKbcWg2pUZ8zrMpr4ZTKEbjN
-	VUY5Xi+CFLygq38TPKu+C/NnmVCCFBD61PdB0UpHhvd8j/JDeCuowXy0jKgsgBvxEhtxtg1jyct
-	toCX1W6wQptpllNyclFMvBayssa7/vS58a8rQNinIPBGvxPewQfMShlN2C6a9nnS4LabH29dGnV
-	lCb7OZ1+yh8jUat761brOkCc8gK89NEk85ZLtcR/9EKNDYw7Mmq/auTEfc4p/ZVrt3M6n+DMc9P
-	FGzt2vvbAYYS8Rf73iJY/s4S/h38pk4GNjtenfrp2jrWAC21ktISpodg+51vBFry/CKKO6cyDfl
-	Xjz+0e57jed/2+GCcIu/n0GYtcpZTakspnveSY1DVZCYZEyg5C8pJJeG3kK2oOnH2his9O+AdA/
-	2J1nilMNNdcrsLvmq9PO5ZrGqskTQIfMZn4WO88
-X-Received: by 2002:a17:903:2443:b0:2c9:ceb9:865b with SMTP id d9443c01a7336-2c9ceb989a7mr46743485ad.21.1782719993052;
-        Mon, 29 Jun 2026 00:59:53 -0700 (PDT)
-Received: from localhost ([143.248.188.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c9cd6916e3sm32503885ad.40.2026.06.29.00.59.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 00:59:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nlOLv6xY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j676VRpvNPOZPHbUi/LngoQJ5lkYirZShixA2uslOfTSYgblHi0OThP6+0U1NsPUQL9lEajejkW6M4IhH6kUaaLgI3CyQ9KQIZPT9tQzBNvv0jbCeKdxeH0KcTFEAedd2CUqjJevZFv+9/9+CSkA8m4BW75im6y1Teojche+Fvz/eda44Lofe2Ig0utcn555Lwlb6wekchzcpIQBzF6aN21+fhJHwHsFHQSjXOsGRE0yFGMGgkAqN0ppy2+MMekhMEi+skR0GfdaR6kFjR4wZOflO2IDyi0Y0DxIDBhbgiK7Sdt5MA75xq+vlMd7JFp+k945YhF4zUnyjHKSfnmfgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wE9BPr18iekWpfpDI8LXOVBLcXwz+8wEKmyo4IS1Lh4=;
+ b=TtM1/NltBUeiFQa9E54aCJlDtfNHsEYr+q7+k+qf0NmxkHsyh7gHzSiU+9Ri9viEBd+Oy7XJTs7F9wDdwQoKmX/yK+biYo6RS3jH+3FvJWbnxqnGraAOc0HiiOuDSASWvAB0k759ebwJbBAssOBbG7X3P25QlpinxwEtMv4hAUNPyi47dMOUtfr00c2rBluL9f/bCg5Ie1y+xg5FGh+KeDQ4d+3a6w8Qb2n6bgRB365NgmL9ETuyuCwwMgaWWoMUm5R4A/wZPB5RALKafI9ko2bt3x1c9gwM98lljSlysEklCGXG7pzZwq+NcGML169zaT9GWBpotVSZFmuu+4PLxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wE9BPr18iekWpfpDI8LXOVBLcXwz+8wEKmyo4IS1Lh4=;
+ b=nlOLv6xYZU8cFneB75l2s5Ly+OB7636Ji5VLr4UonQYZdPB9h/lnYXdxb/+Ph2rzoE/x7ilEcwp8OebQwZZvCU3hy/aYV0xD7H2L0TG+y3Zaf0uSTrMPLTzlMs22WJFJDVjcWU26HpulcfwNX84G1TCZI36jflRC4wIqx6i/d2uzg5MC1CJ60K3s3St1GF5zzugL9gD47rxRrHbIEGBSym3xAF/FhQIsGL/yIIkUvSNIoEfBEK/6REIL5X4Fw8DZFTKC/xB+5ZP6+/W3rco49BvNcYB6oyczhz20ihfdpNLYWFN6Qa67rUp7g/TIoWVtphMwx0qXNHik4tpCC3oPkw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ LV3PR12MB9167.namprd12.prod.outlook.com (2603:10b6:408:196::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 08:20:47 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 08:20:44 +0000
+Date: Mon, 29 Jun 2026 18:20:38 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: SeungJong Ha via B4 Relay <devnull+engineer.jjhama.gmail.com@kernel.org>, 
+	engineer.jjhama@gmail.com, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 0/4] rust: dma: bridge zerocopy-derived types into
+ the transmute byte-safety bound
+Message-ID: <akIpejFWuKZ61n_v@nvdebian.thelocal>
+References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
+ <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
+X-ClientProxiedBy: SY4P282CA0018.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:a0::28) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 07:59:48 +0000
-Message-Id: <DJLDHST0Y4ML.68M47LW7EDG4@gmail.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "SeungJong Ha"
- <engineer.jjhama@gmail.com>
-Cc: <sashiko-reviews@lists.linux.dev>, <ojeda@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <dakr@kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>
-Subject: Re: [PATCH RFC 4/4] gpu: nova-core: gsp: convert GspMem to zerocopy
- via the transmute bridge
-From: "SeungJong Ha" <engineer.jjhama@gmail.com>
-X-Mailer: aerc 0.21.0
-References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
- <20260628-dma-zerocopy-bridge-v1-4-9a2895ebe30d@gmail.com>
- <20260628172200.B116D1F000E9@smtp.kernel.org>
- <20260628182154.712621-1-engineer.jjhama@gmail.com>
- <DJLCGEB0ZTL7.3C1BGJRHW35HC@nvidia.com>
-In-Reply-To: <DJLCGEB0ZTL7.3C1BGJRHW35HC@nvidia.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|LV3PR12MB9167:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6e5c3d4-ba81-4591-cc9c-08ded5b75064
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|4143699003|56012099006|6133799003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	K5cvsCvRbpOBSj7tS2a6o+6iGerXKoWjbhgU4BD4HMnWC/UC9D9Zr3x03o4LisNQsG8ezrEJ2Xx2/p+9S4jXDsFEw4mfS012/LRBF2UqJEz+NDwx1V/7I0YQboTQlgPMNre+hi+Znij6pSBd5A4RQ3tJta+t5lq+5TyPLikTsX/U0f1WKDHuCKpzbhB8Us9GNUufsBqNPYXxeXwyZrP0Rtv0MyCcoVOwmUirvGgp/PfRS1pVhkUzOsCEOAKi1gjsyEOrs3XTmB7lHTsmXnRlKxr9dm3CLxYRpFbdG7ORyQAeRHvcC3div/0+Lofh6OC5jZ7YM+KyoI9ouws2foMyT21rIH46cW/C2PCZHPJIVIxu5jixyx39B0d+Wj5gKjB5O2ma8CfbOt+SLDpA+qIbxkzzfRZfwnLoYkUWCtyC0Dednz7hFlyaChFjmS1VJ7N1oQ3I8+DSNBPSgwxXcYeHsQ3FIv4IswqNsXCtAv+P7MECYLB2/RnmLrdOyqLcqrwWsftVeJmGqZE7haylAJRxugafyy1jPIs+9WvAqy0jK/37lF8HAFyhk9OM+51Q1y1oNcqC651gRp9spC5TRIWpGJzUVbc63AJu3dlwPSaF9bDQOXGrIeL/8/RnS4yC1aBbA6E93pAnWjoLqkQk/s3oNjR5rBQmtZII0bfr4CeptWY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FibKasfyZEsA4n0O5TRQFHprf9lnV3OIzNqjX2Yvfeow+CuDjRuohXzwU1Lb?=
+ =?us-ascii?Q?URBtLvPtlojLYuMQdJhdj5aO83AA4NXsvTk2mPd5X9s4mTuQ3/WBsU1IQtYj?=
+ =?us-ascii?Q?5NCrT1xcuxcwVCPXOuWfpDIP5WekI6eCw6i8sZpDN1n+eES6YPBu3TxU/jIb?=
+ =?us-ascii?Q?SlBESyV4i5LIj8vhAhDJ5UiPkTL18PV3We1e0A9I8ojFn5N9/ZzTYYtEAMEy?=
+ =?us-ascii?Q?JPjaCbJZPQsnBf1RKhX0rULm+cQIdVRsYi3lWHXvt/PHlLwGJA2n1nlfNKRz?=
+ =?us-ascii?Q?TcNufHcsFrxUR/xCtzAZIuwCt84vRDaQIvpN5V8QhMjAIEDyI6VYPk++aiE8?=
+ =?us-ascii?Q?8/PbagKZFrtLW70SKI2MBaF7ZVx6Dj7PoT3hLdhHji/V8+DzjhonSjm7vBYY?=
+ =?us-ascii?Q?v6BwXw/m7ahuuqaG+uJNonc/Qa5s7KnStz+7cEhcDu8I1TnpzkaS3OkubJP8?=
+ =?us-ascii?Q?awiiJXbB5ZaAYF9vqjHbg2TJiHE31EOMRlex+Id4Ca/FnB4I+zAJwPJn1Hid?=
+ =?us-ascii?Q?K2o+1piJBlaSOlHLBJj/kqyJahHXTvbRNh3Qq10JqyYEVH2KtHqqQ4H6yB+C?=
+ =?us-ascii?Q?jZhwnibPgDTkJR58snlS4k9PZSai4DxVoAia7wH827vrvdKFRsXEJn5W9A8h?=
+ =?us-ascii?Q?A7Q0oaMzIscr2gC5tZFZs0W7JoFAEyfiLZQ1JO/tEcPf6GX84yJ0KczEH6e3?=
+ =?us-ascii?Q?A9oPHKnx7mx/s+CZu2JQFraEtYRRuqcEYQtRpowDIPpkm/urYGnBj/aCD44C?=
+ =?us-ascii?Q?VBBURz3fAAMipZsa+acCxXQrSSpN5PlQaujUZXFuDwRcPjxOAeV0y9kLy0Cq?=
+ =?us-ascii?Q?iiy60883x5tmN7+/IfKxq0tHq9kEBbVRAYqkxuWCgbgi7VMjxXvAPjfp/5GX?=
+ =?us-ascii?Q?n8X9M0hbrkiCHfg0r1jUe64AEfU9R03PkTxFQF+W3vvQOqsfuzpID/oxrIoo?=
+ =?us-ascii?Q?pDyrzGUgYQCvOEW7nrLc3zuYwzZqy4+BQxMZzLAzHPECt9fo6sRQJu5nxlXM?=
+ =?us-ascii?Q?tuPjQn8qpq0TLRO4uEulLHPTXiELQszffx93sysfGlS7t5khL/LMN4x8DbNO?=
+ =?us-ascii?Q?EW7oWbpzW3y/NOcpG+Q4qFvCCMPzCT8W5LMFe5UBEXzDtheab50FH+15R6SU?=
+ =?us-ascii?Q?BvwwfmrAb6/sl5W9bh+mIR6JLvaLiffK+f0ItRpl2R3OUPVCQ8U/xrXe77jE?=
+ =?us-ascii?Q?w3MUvyOOwIksTEHc4F8WLSVe3V2UI+WlqnkrxikTPggMp5hu5EeWZcpJJRmA?=
+ =?us-ascii?Q?kA1vHxZImWq9PTDwS6t5WoldzrDBTeDLqfT+ofr5J7BGB8GcwayGm+OMIbxk?=
+ =?us-ascii?Q?BvkKHQzY3xtihcsQH0s6cJIQPdQtnls6gwuYImWCssovFx4Ao2Gm7HuEOQfo?=
+ =?us-ascii?Q?A6ZJypmI2i6IeQNGSjxyMTVIEmamyYQtDqSf0nCtOpK24zrTs9y6aRrBbxCG?=
+ =?us-ascii?Q?Op4G3MlGH/cl8csdf0K61aByuc1PX6XQlV18YW3xlJ+3sqchiSOJuZYRmdI5?=
+ =?us-ascii?Q?6acAs1r5aF/m3IZpsLfmBxcy0tH54EJaS4KW2EHicn6ytlD6NbwvQpIbg+Cq?=
+ =?us-ascii?Q?F7DXFWHXAlEHxKmm9Ax6laE4V2Zh/Dxr+etzwnEygFsXX7LVPSeQkqvi4gwW?=
+ =?us-ascii?Q?Rx1oGDxKo4DttOjnatVE5+ipLkrgUTq7TNSg9iB7F9sgZtP6kB1PRVcmv6Zq?=
+ =?us-ascii?Q?FYlISLLui3hF+Bl8jg0KukzLLoVDmWEYwedbpi4PTrP/R6ptaxmi3hw9YlVi?=
+ =?us-ascii?Q?GGQyDRCiNw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6e5c3d4-ba81-4591-cc9c-08ded5b75064
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:20:43.9379
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8Wk4pdhLcJTbLix7X3Sx5prp1fBzSHJWBwHNq9o0k/ddm9tvLwZDmUYJ600HeqqP0wisflzTz9Er/VYMFJBrcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9167
 
-On Mon Jun 29, 2026 at 4:10 PM JST, Alexandre Courbot wrote:
-> On Mon Jun 29, 2026 at 3:21 AM JST, SeungJong Ha wrote:
->> On Sun Jun 28, 2026 at 5:22 PM UTC, Sashiko AI review wrote:
->>> This isn't a bug introduced by this patch, but could this coherent shar=
-ed
->>> memory lead to a time-of-check to time-of-use vulnerability?
->>>
->>> The driver validates lengths and checksums by reading fields like lengt=
-h
->>> from GspMsgElement, which is mapped directly into shared memory. For
->>> instance, in wait_for_msg():
->>>
->>> wait_for_msg()
->>>     let (header, slice_1) =3D GspMsgElement::from_bytes_prefix(slice_1)=
-.ok_or(EIO)?;
->>>
->>> However, receive_msg() seems to re-read the header fields directly from
->>> shared memory to advance the ring buffer pointer:
->>>
->>> receive_msg()
->>>     self.gsp_mem.advance_cpu_read_ptr(u32::try_from(
->>>         message.header.length().div_ceil(GSP_PAGE_SIZE),
->>>     )?);
->>>
->>> Can a compromised hardware component modify the message length concurre=
-ntly
->>> after the initial validation but before pointer advancement, potentiall=
-y
->>> corrupting the host read pointer?
->>>
->>> Similarly, send_single_command() initializes a message header in shared
->>> memory and then reads its element_count to advance the write pointer:
->>>
->>> send_single_command()
->>>     let elem_count =3D dst.header.element_count();
->>>     self.seq +=3D 1;
->>>     self.gsp_mem.advance_cpu_write_ptr(elem_count);
->>>
->>> Does this allow the device to race and corrupt the host write pointer b=
-y
->>> modifying element_count before it is read back?
->>
->> This is pre-existing and not changed by this patch: it only makes
->> explicit (via a checked `zerocopy` derive) what the previous `unsafe
->> impl transmute::{FromBytes, AsBytes}` already allowed implicitly -- the
->> layout is byte-identical and the message-handling path is untouched -- s=
-o
->> it neither introduces nor addresses this. I'm not familiar enough with
->> the GSP threat model to judge whether the TOCTOU is in scope here; if it
->> is worth noting, I can add a TODO comment near the affected reads.
->
-> So I understand that this as a copy-pasted Claude/Sashiko block, but
-> would also appreciate if the human behind the keyboard could provide the
-> context required to easily understand which part of the code this is
-> about.
+On 2026-06-29 at 17:17 +1000, Alexandre Courbot <acourbot@nvidia.com> wrote...
+> On Mon Jun 29, 2026 at 2:10 AM JST, SeungJong Ha via B4 Relay wrote:
+> > DMA-coherent allocations (CoherentAllocation/Coherent/dma::Pool) bound
+> > their element type on kernel::transmute::{AsBytes, FromBytes}. This RFC
+> > lets a type satisfy that bound by deriving zerocopy's byte-safety traits
+> > instead of a hand-written unsafe impl.
+> >
+> > The bound cannot be switched to zerocopy wholesale (some DMA structs are
+> > unions that IntoBytes cannot derive), and a blanket bridge impl is
+> > rejected by coherence. So the series bridges the two per type:
+> >
+> >   1. add the bridge macro impl_transmute_via_zerocopy!, which emits the
+> >      transmute impls only for a zerocopy-derived type.
+> >   2. re-export zerocopy::Immutable from the prelude.
+> >   3-4. worked example: convert nova-core's GspMem and msgq POD types.
+> 
+> Can you give more details about what the macro is for? My understanding
+> is that it is a temporary fix for the generated bindings; if so, I'd
+> prefer to apply a definitive solution (like using
+> `#[derive(zerocopy_derive::most_traits)]`, or updating the bindings
+> generator tool) rather than something that will be removed later.
 
-Sorry, that reply was an unedited block. Here is the concrete context.
+I think the context is in the description for patch 1. It's not directly related
+to the bindings generator. Basically the problem is that these bindings are a
+little bit unique in that we access them using the dma_write/read macros. In
+other words we use these with Dma::Coherent which still requires the transmute
+rather than zerocopy trait bounds to be implemented.
 
-It is the message-queue read path in gsp/cmdq.rs (wait_for_msg() /
-receive_msg() / send_single_command()).
-I haven't touched that logic; this patch only swaps the unsafe transmute
-impls for a checked zerocopy derive. If it's worth noting, I'm happy to add
-a comment near those reads.
+That said I think the correct long-term fix here would be to fix Dma::Coherent
+to make it work with the zerocopy traits. Not sure if anyone is looking at that
+or not.
 
-Thanks,
-SeungJong
+ - Alistair
 
+> I also notice that the macro is in the Rust `transmute` module, but the
+> only user is Nova; so it should have been either be Nova-local, or used
+> by other Rust modules.
+> 
+> But intuitively I'd say that we can (and should) probably do without
+> this intermediate step. But please let me know if there is something I
+> missed.
+> 
