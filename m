@@ -1,71 +1,72 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013028.outbound.protection.outlook.com [40.93.196.28])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021095.outbound.protection.outlook.com [52.101.95.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8221933ADAC
-	for <nova-gpu@lists.linux.dev>; Tue, 30 Jun 2026 13:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45960283FD9;
+	Tue, 30 Jun 2026 13:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.95
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782826755; cv=fail; b=Zm/oIEYVXSwlYll9rPC1RVP5ga3A+EBb6l4OtP4v6W2wjoyOMzh46ZiWjFaqHoSF/GAU213aQKY/ZpCcOouD9w1W3YGWlmXK6ZuLn1WK0vMGMmekxOJVIwcTRkchMpNrZTwJI6CR7jwB/pgYj9Xcha6V4yLksn6OLfzqdstvJcI=
+	t=1782827450; cv=fail; b=iZ/HVP98RoEKZsjArC/qx1vZkRZiQVrXhMU4eoxV6kGSfrk7HjJLAK180wzegON8Wy7IR0FkNNzBwE91m3Ygn+mRawgGhWGuhL/aA8y/dxVbnnqGx7HGCjE089H1iO+M7cvzAkYEHkgiWTlJXqL9365FhwAO7NceUXxtvUVfieI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782826755; c=relaxed/simple;
-	bh=on7fulMmZl1rXLlGX1NfDH1x7HgrrG9HxbVA5avF5uc=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=pthn/XRsTkTk7f1xeO2zr3dlOkiS0ttRTR6Rf2NySjxc4uVOze/Gyg3t9J/lLRmqBD3l431IVThwuhkEogcMl6luVdfx9Lqa5tr/CG5CBdQkQGwrOKfY7fN81w5kTBWUWUM6gcP0GHDJCfN4cyb2JscnzyjWpHyI6rjKLKWvkac=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Y3PPLEnG; arc=fail smtp.client-ip=40.93.196.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1782827450; c=relaxed/simple;
+	bh=GAyoJt7bW8PPm8ADDXU17Z7rY+s8xiyab28unIER1+o=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=sf0C/PpJROmNjibN0ZTW2bWItBQ2bmxTN030nt9TBLJLBCJcdeo8yWcNvmzHN8SR8NNWcgVCmBKncwEjXuN/K4gTxO1aDQEEeEcK+yxxRSIYq5Fc7wpVgBuXj9hQUtFyr3v2U0WrSTEK4ThQ6hPWI2ayg+KBo0oQlt4ru0RB0Jc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=cg8nn9+u; arc=fail smtp.client-ip=52.101.95.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Y3PPLEnG"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="cg8nn9+u"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lFasw74aTmOWfPthRbj53FtHvNtN0Izd35A/1AtK9OsJxTJ9/kTlrNrO6/1eRBpVyYH17lXLEaU/G0nvwR6rN3JJiHIBahQILvRQSL4VkiusfX+qvpNxJFxbvLk/EfQWET5mDCWMFK3mRTuJZZnxl+SHgfaaEqGG53bZLENQcvRnz+3I+gfd+X93CavwSuN85DVscsUwB8LYkYl/M1boeOPOcdlSVLXUXHffayQQfx7rcc4kOIIKHWr1iBv3wLGrPsRwsL78zTvYa5z0Rze82FtDKd1jmo59hami/hdM4VJrKlqXuqHpbPEWyZdIAvp8z2ptf0zFo6Edma0N8LCsJg==
+ b=LXxVQJ3OfDaIFszGVR8vsvI30aI/VE5rWED0VZU4oj9E72/9QDQM0rFe04EGdLZOPXDWYApHv7UVfvqWkF4AyCf9peCXexXI6kZJzifwqyHCatLhD4FGyQZ56Yb/g3EumlPly5B0sNtRZ2EVSljIFb3Rdms257/7wyn/mITmYN/KK3AQztayBFigNuC4umS/o0Hv6qfjw7+tK3hwbO418uexIeXtFYFjlumKugkwruFxiVH99ISJyCtExzCBK/qKutXABP17BxBA1UVXz1/mn8O+2uE4zX17AirU9zaSfe1sg8FPlJCu7BHaIzYusv46M/Vv59p2wJXX8hUm+hTUAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f5iHc5opyRlXUWKwD2F0Xc3KbZtWY+k/0c/YEb0Snj0=;
- b=eVpak6fF6ZYIQpKbOygWAh/ErzrE25V2lZylfJa/5cijTDXzacAT1hen2q8O0jtbzGqdm1WaVCGb/ke4/VcD3Rpd3AduDIZQQJ5qG4tLuNhpZxP0YzK9+MJR6Ao8pG+k3kVZ9Hx+QZ1ybIU/FBBkX00TW6L9DLU/aUzXvRPdRXUoHmOOuAvTxIbWkKHaY4bBRzOUSAjRPYcBHcfQm0cCC2p1SBN6SHoehGrQCYwuL+pJ0Hud7q9ZO0JuQWTl+f7M7Rn1N0W8G9HDxawOhHVJS2gIpDBbD05dxbdNdrGB/dHvnI+xclBp7uKtZi/w3NnVNwhvJFQVh/bBM0q/RnRp0A==
+ bh=G53gXJ0IkuM6ajQP2Dw2xcZrW/Pv3EOgghUAyRU81Aw=;
+ b=Xt4ewPwAVrbM5pRtEzoYC7G4yyt9MVb5LFutg0KaTUw2fgV3LKibE5F9oFEzgtz4XohMj1MVN5Y8NRup/10ZW3bvRYoYqowwkUd96SOly1UYE2Gj+kS1e/g2CrM8xPVWFXMMKmBLWYL3TRsJ6h+H6ZZM3T8IxiG60OYRcgb7RCf6/FDlyk7NFB2vWJnNh59Wqb7mH7vcXOm1oqxxmcnayu2NoUID+lDp6R+WKQRqZogPqsUyLzDqiQBxwYX7EvXACITInKDvHuRO9KokQX0j33mMUHXR+9H8DAjfpcwSi4FHBk5i2opwhP6Xpy73a0Mcb7KkG8BExmeqNScsRFo7rQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f5iHc5opyRlXUWKwD2F0Xc3KbZtWY+k/0c/YEb0Snj0=;
- b=Y3PPLEnGgG49hIpWWoLoKZn7dovZRDRjVWXptSY2/vPCV52fEiSCQJIqJteag5MWc3em0b0p+PmIEzGYog1onXilJhIn59mG59pqMFopc07mwefllcKe7Q8wh8Vxv/qIV2ipwyxR4/91EVfLUVbBkUIpHYs8LdMFbKzYhbvXytgrP1Donqv3Ql4TxU/5sIMmgfcod28rowNaEESzyvAjdHWsWur71hB67VbZNc5igLr6iq2Lb9aaPKZw5Lm63aIWiLYMupmDszTzBcUZM8+nUwOs0Ld2RcS/r6jDdassGlCgwksU8dBmpj5I3p0A8yUimxBUgEMsaZe4uWg/kkJcjQ==
+ bh=G53gXJ0IkuM6ajQP2Dw2xcZrW/Pv3EOgghUAyRU81Aw=;
+ b=cg8nn9+u273OUWXp+01Qr1J3e3vlVKRV+P/DRpgzJ+KOhsmYA74uV1v5YapcnySTLI3G0+6RfmxtL27dKagRzPPnvdW4YKa2RYY6OqMvXLtEKUOdBfumyawLvx/aHyclP65lFilDbYKwGSF0Szc0QwqtkwK/BhBLypA6BT+6n08=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO7P265MB7437.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:41d::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
- 2026 13:39:06 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
- 13:39:06 +0000
+ 2026 13:50:44 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
+ 13:50:44 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 30 Jun 2026 22:39:01 +0900
-Message-Id: <DJMFC2HBBZD4.3FJWK6DAFI2YL@nvidia.com>
-Cc: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+Date: Tue, 30 Jun 2026 14:50:43 +0100
+Message-Id: <DJMFL0Z8UJJW.1CAZUYCA3WQZX@garyguo.net>
+Subject: Re: [PATCH v4 2/7] rust: types: introduce ForLt base trait for
+ CovariantForLt
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
  <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
  <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <joelagnelf@nvidia.com>,
- <apopple@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <zhiwang@kernel.org>, "Zhi Wang" <zhi.wang.ai@sent.com>
-Subject: Re: [PATCH v2 7/7] gpu: nova-core: reserve larger WPR2 heap for
- vGPU
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
-References: <20260622194353.1308872-1-zhiw@nvidia.com>
- <20260622194353.1308872-8-zhiw@nvidia.com>
-In-Reply-To: <20260622194353.1308872-8-zhiw@nvidia.com>
-X-ClientProxiedBy: OS7PR01CA0035.jpnprd01.prod.outlook.com
- (2603:1096:604:257::8) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+ <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <m.wilczynski@samsung.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <daniel.almeida@collabora.com>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pwm@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260626183630.2585057-1-dakr@kernel.org>
+ <20260626183630.2585057-3-dakr@kernel.org>
+In-Reply-To: <20260626183630.2585057-3-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0150.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:188::11) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -73,220 +74,236 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM6PR12MB4123:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cc227e5-cd53-4f78-a9fd-08ded6acf48a
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7437:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f1c20f8-7342-4b0a-b884-08ded6ae94d8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|7416014|376014|23010399003|22082099003|18002099003|3023799007|4143699003|11063799006|56012099006;
+	BCL:0;ARA:13230040|23010399003|10070799003|376014|7416014|366016|1800799024|921020|6133799003|4143699003|56012099006|5023799004|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	BtQTiX2EiRvp0tOpGyfnwXyggRN4/2EXTa4BsMTk7riD+Jb7Sn1dRKFPEG53wqOepT2kR3FKruWq5P+C1NFPkEdvhtKKKXwWsr7gV9Da+Ld3o1g3IMDCB3AlSeVje0BNLpYYVDbydaFSVcXtkzKdM6vGQIMxfQm5FRMAfSqLDQIaqMK9pp/5g1bFiH6X/gN0ToWOBWP/kHkisToqZh1mqKeEP9gGld1ptzQuqdP2xDW7As4uz4ECGwzNf0Lf+EyIKKajC6+rp8J7POrEsPiRGi0piJi8ngQhCDlDKSomXdhLLYAZUTvW1dWf2SuC4vo7Fl4aATf86fXvdFn3XAKFxdw5n7xDxZZuLBqyahlvYQfjE5gTLFNPruST3JVF5lSsRNNW/C5oiAVdCFCWRMgRIz2GAK9htNoHHsVlAK8YX99hdNxYgeXF1rwIeN0aUvH8vAWzzUeA+Ux3oWLCaEv1xCZJAHAzcBPWAGhtHKxN62asox1icMCiE9rqN2bGqOTdK9cWDz56jIQASfN1P7wDF3q9UyyUttNfI6g0ONHJoyHUD+jNQzMqTTnoTWiQjoIL7yXZlojLRioV/BwbkPp/WdMx13esJ2jzF2ym1+tLIgcGEfUzZSoZIBtnE3BP+ZM3ZKSgiNWC4lZYXihD8VJphG3+HMXl0zPw5lwc2N2i3zc=
+	fvJXimCaCsdelq8qbIM5OpvZg3KMT3OCb/Hf5CoOZv2kiu2gz0JlQn1qVPrHNWCaPl6t6cqOAiZeIaf0UX+0u8klulX0NbALBETs2Ax7ekjWQUXoUxIOBdhihm2gB9MxrGfrI8snWPm16zopeJ+fo9dVnCqnU+hTyhrkFTPkW61vO/nz/RW+UqyX09AUTlFshxpHPChM8hbredJr8EZGnrdPqyzxg9n498ny9EeEimvLo3YffeW9QdXwEfZTNZKiMgwp8WmIfmzYa/AjzP8rQQQmQ/WvyRgPR08nWDaDnzk7VEXXindwCJJW4Fw8vdlx6l1d3yWook5zNrP5AImldF31gvBEexjM0oHKj1b6SU85L5fUykCoOXba1WHL01hSXeIAtQ6k4DH+8KYuVcL+hasZScHAnyCftmjdXGYrie7z0Efr8cLuVQhtUHeXiM4zzTg3dFD2io2XGr6Oz8Ouh1eeUFgDiO+Ot5U/Bzg08A7gKbSlxYll9bwmIBM9bbPGQXZdAypaa3q3sucLHV5sb0oVhit99bvzmDkBPZMcFhh/2yowl46Yk0lQzZLADakLSWCLD1C5LsAny3rRu+WJ/u+Mkr5m9XxCqIXdo6X4dP+/0ZcqRy4jUvF+DGbRqmLcgpA/w0AY9UqF4YfRiTerih2OUZgkmTcmR9O3+98bYenWc/VqY4c7+2sqJDmyHvGnjAF282oKcfR9bVxOsqMFnw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(376014)(23010399003)(22082099003)(18002099003)(3023799007)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(7416014)(366016)(1800799024)(921020)(6133799003)(4143699003)(56012099006)(5023799004)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ym95ZFRkTTUxcnJMT3JZeHY0OW1hcTdBL3ZFa0d6Qi82RXU3UzlFNTRkYi9Z?=
- =?utf-8?B?bXhsOVhCRmlrWmJwTkFjUG1nT2ZUSy9INVA0aWJkSDcwcE0ydkdVQ1NRY1NT?=
- =?utf-8?B?ZzBLeVRQamJrWjFINk5leDcvNVowSUh5ZnBMakhaKzErR01CcVNPSVVhRDRj?=
- =?utf-8?B?WXpkNi8yQ1dHVHF5NzFUQ082SjJJc3BPNEZBYWxuQmgrc0lwN1BtS0g4UzJk?=
- =?utf-8?B?QTY5WjZ0TkRuQlUyenA4S05DblY1UXJDbGtKQnV4MW1qUTZmVEFpNU1ZVnFM?=
- =?utf-8?B?Z2ZBZ04wbmFqQ2NvM1ZpOFF1OERZV1NncXVVNTh3RHlHQ1FtdHJ4ME1aN2o5?=
- =?utf-8?B?eGd4dHpIR3pJdmJwUno4MnA3QU5DN3puYVYxeHIzZHBhM1FDNXZwVzhaNnZ6?=
- =?utf-8?B?TDhmbXdGTllyTkx0NlNXR2lzbUlLVTlyZnFnUHFxdU16R2V6OGwvSW9tMzBU?=
- =?utf-8?B?MGR1UjBTUksrY05QMk5aQ09uYkw4bFhZRFZsVlNOc3R2SHBIMlRjTkhuZ2w5?=
- =?utf-8?B?cEZsMVJSVUVnaGxBTE85VHpiK05UWUFGYmZBZ1Q3STF1UGwrWi9uZ05EQWtu?=
- =?utf-8?B?ZUozeVEzb2NPWUErR2hITVZjUnNQNlZrbHhxVTdWKzFqNlNkM3I4eDFYOVN3?=
- =?utf-8?B?WHRoM1NaYXNIalhUdzBuUm9aY1MvT3JyQ29WRzFLZjRaTlU5bjNscUZTT1lu?=
- =?utf-8?B?Y2VEV0wvRURnNDBzS3lTNTRtdE50a1MwSDlBVVJSSGYwTnhLeHFVSEMyQ0xQ?=
- =?utf-8?B?WlhGTzY4T3k0RVZlL0hTTy81dTRDRVpleSthVzR0RW9qSitaT1RKcWUzNkhT?=
- =?utf-8?B?ZDRFWXNNMUJ1M0hOTkY1Z3NFQ3RaN0d3OHpSZ2w4NTdQVFM1NTZNN2JLZGRL?=
- =?utf-8?B?N05HTit1OFc3Uy9OeCtWK2RXZFdLazRMbEpwcG5EWEN0S0F2WUlVdzlmeFpN?=
- =?utf-8?B?TzRCa0lTdzVqY05raWVwTGY2a2NKMFNySGJmODBoZzNidkFCVzQ5R21lT0Jl?=
- =?utf-8?B?ZU9aOGdMMDlSWE9WZldoTnloMG1Zck5yNFFRZ2RDYnB3MmlaYWpjSUNaWEJC?=
- =?utf-8?B?ejR5VUxwZnpEVkRCcHFPbW1iUWN0OXpuZzZVQ0I3VFhVYkl5T00yTTU0L1BN?=
- =?utf-8?B?M00rOFdGUzVTeitER01mR3JpOTZMcnBqSERaWFVmL2ZUZjRNYTdJWDJuRGRw?=
- =?utf-8?B?ejY4SGxXeEJ2UjBrcmdpOW1QNjJiWG5SY2ZUVnB3YmVwOVFuWDFOeS9NVk42?=
- =?utf-8?B?VHB2SVNHWllwTTIxQW9QSGtjQTJESlRmYWNrWUVOSXVJNmU3cEhCNm4vTFRW?=
- =?utf-8?B?eXBJNmRnN2pnSmF2L3FqZWlQYXVuTUthZ3hIczU4c2JXL25NM1lZbTZiVFV4?=
- =?utf-8?B?TXptdGlTKzIxOHVaUjZDU05lTVdoVmxTaEpLMjB4YVZBNVV5eXNWd1VaSEZO?=
- =?utf-8?B?cG1QWjlmejByaGp6bkNDWTZ2UWJEOWwvM0xhWFR3VGt1aGJZYldWdnpPcHBh?=
- =?utf-8?B?Y0xDYTEvUDYxa0Y4M0x3am8rRVZGbkpEQWJ2OXU3MjJuRlU2UTl3dE5YRzNF?=
- =?utf-8?B?dURqOFpTM2dOSi9jQ0hSNlVSMTNnK3dTd1hCNXB2NUFtZlgxRlR5R1lnWGpD?=
- =?utf-8?B?MW1hNmxYUGVDSW4wMS9xRW02QzJUN3pxZVhtakcrWmMxeGVsazdxOEcrM3pX?=
- =?utf-8?B?dDU1VUYwWlcrTmdTRVBIelZpSGlYWEJpTVJyQ25GV1dQbm56UHQ4aFAraFhC?=
- =?utf-8?B?cEU2eEE2Q1d0MGEzTHRsTzA1N2FFb0NNQWorR2xUWVFEYWdLbjVCMGlVMTFF?=
- =?utf-8?B?c29kVHJnYkVtdFVmalFSQjRYaHVmT1VUemVJN0MzOFFkL3RpaUlxZ3d6V2Fz?=
- =?utf-8?B?NFcxcmtMdzl0ZE5VNkQ3VXJwa2pJOUtDYlFsWGx4S0pYQWJNbFUwc0lnZU45?=
- =?utf-8?B?dTZ2K0JONjdSb1lZUzNYc1ZWTkFLREM2Z01OKzhJV1J1ejRBaWJ5cVp2ZldN?=
- =?utf-8?B?UGRjczkzVXllOE9SMW5zWXc5c0pXMWt6a25iVUF2dThCc3hZRW9pdkdRbUlL?=
- =?utf-8?B?U0VWdENwdTFVVjU2eTd1RFFBMFlBNFJrUDR5QnZ4cTVKbUtyMlY2aTdIQ0ln?=
- =?utf-8?B?YmV5OS9SZk1vYVJYejZVNzE2UktIQnJHTHpVQlY5UGV5REQ0azQwNUV3Y2FK?=
- =?utf-8?B?MjJPNkorYkkxYy9KQ2dCY0QvM0xEeWdaalFPOEFxQzBTNHB6bzhjcVRuREVm?=
- =?utf-8?B?RkZidStDWVhjSC82cHE5OHhwcDBRMUdPWU40OWpEOEY3a0o1Z1g4eFlURm83?=
- =?utf-8?B?Q0N1ZTNaQUdlMWJsLzJ4Y2JpSmkxdjdTek1hWmtabU5xYVB2SElqM3lvOXpQ?=
- =?utf-8?Q?qtEW6QdJHBkHDdzbBFIC5MkqURDyXv3fQays0dcQV2xmq?=
-X-MS-Exchange-AntiSpam-MessageData-1: zpTqulyyeLMD/Q==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc227e5-cd53-4f78-a9fd-08ded6acf48a
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+	=?utf-8?B?enN4WU52cjF0Y1AxU0JMUDJyWC9MdWRENTJYM0w5VHgrak13VW5rT1RRU3Ru?=
+ =?utf-8?B?cDBmN1RnUmZpN1g0eEdYUUFLQW9pTSttenY1QVBzVWpQYjhnUi9JSEdpcTRv?=
+ =?utf-8?B?MlREOGhIaFpJWlAxTjM4YmN6MXpELzk0RWVoZzZFWEk2VjlZYzhlOWV5c0tu?=
+ =?utf-8?B?R1YySUNQakZuOEVGWEpVdkpMLzRmYm9abjdxR3RLbXBVTDVZREdTYjZVVWJH?=
+ =?utf-8?B?M0NCb1lFYmtVTmc3YzI4dituaWpGdXczYUdrY2hqVzdLWElYOEVjUmltVmY0?=
+ =?utf-8?B?M3dpUU0xMlJVZmlQS2pRekFYSXB1OTd1NnAvYWtGYUdsUzFnWUZvK21ZbXZW?=
+ =?utf-8?B?V2o0N24yQ0l5a2NhcUszckVPNzY5UGRpbXBrbEo0ejJRd0QyZzR4QXVHcDFH?=
+ =?utf-8?B?c1hGT3ZEcWxmbUtoWG05UWdTcXFxY21MV0Z0REJVSktZSDdMaGthMlBPR3M0?=
+ =?utf-8?B?RTh3OVZFOVh4TUFyOGpFSWNUZC9kcGhLRFJ1SzRYcTY5bHZHZnNDeTV5ZmFU?=
+ =?utf-8?B?VXNjUVZtL2NFenAyNGV4Y2JNRTlKZmNWcloxUENJdmhmTmhER3NZN3E2alhi?=
+ =?utf-8?B?dU8zNmEvUlRTb0k4Wk4ycTJOUzJFVXpJd3N1SFFBbGhFQ1hrNmNBYmdqblV3?=
+ =?utf-8?B?blk0Nm5pNmkvOFg0enJKZythTFY5Y2VBWGpoT3o5QnBmTmMyYjVjbm5UODRj?=
+ =?utf-8?B?dU50cXovRzFLTUhvS0lMSUtacjJkY3pBWjFsa3lPbFdIWkcrTXVSRktCR2o0?=
+ =?utf-8?B?TFVFcjNlVXdTNTNsNHh4UytiNTNiZkYxYVR1YmI3ekJ5YWxkZDRFYXFtZVQ2?=
+ =?utf-8?B?WXRjUXNET0FwS1NlY2NzOEFKRWVidC93RXNjTmcwenZoSUh3VURsckQ4eTha?=
+ =?utf-8?B?cVIra1lXbEVVcXBuNlRNS1d0SDBrWjdHcmk5S2F4ajVZTTJBQzFaVjlMd2Jj?=
+ =?utf-8?B?aXBlR3p6WElSNzQ1SlZTelBuSVh5TG5FUW5sQlpBTEt0bW5MU09lTVVwbVJH?=
+ =?utf-8?B?ZmFDUmFOZHVUWi9yeGY0Uld0MThsMTFWZXlZWUJMa25nRXhDSmJCSG5nd25h?=
+ =?utf-8?B?TVNaQnBpN0R4RkdBbzkxRWEzQ3dibGFoQ2p2TmRBUWdGUGMrTGY1ZzVhejVt?=
+ =?utf-8?B?TVVaelVEOHBMUkdWU2RRc3NRNlhkYlptc1JvUDFKNGlrL1FWVDc1Tmc1WExQ?=
+ =?utf-8?B?UVFKZVFQSW5LNS9GZnRNZFRoNHNDZDgwS2V0NGVHNDV3VXJSMGFRMDB2S1Bn?=
+ =?utf-8?B?Vm5LQmV4OVB5VmFkZDUyZ0luaVpPL0tnOCthekhKTXlpRnVwd2J3eUtSNWtJ?=
+ =?utf-8?B?Mk9UQzZleGR0MUtXbnpCMnQ3Um5DVitUWVNsRzhPdzcyQStiRkE1M1V0cVU5?=
+ =?utf-8?B?NjhNOHVFSU9rMmtUV1Rxd3pvU2U5aWp0ZkpZbXYrMHlNazNBeGlsWjJxZU9J?=
+ =?utf-8?B?VGJIOG5QUmRid1pML3dCcWFqci9ZS2N1eTVDeWw5QmRGMXJXWVNENUpNcVdH?=
+ =?utf-8?B?ZVloNlBwdkRhMWIyN2pvcXBjOEZLRlV4Vkw0Q3B5TXRiZFFyUGlLb0U5MlhV?=
+ =?utf-8?B?TXNXWkg4R28wS2w2YUdsODZSVHg1TUlqZi9HaFFldjUzTXQ0YTBiZHdNRWpa?=
+ =?utf-8?B?NXh2SlMwZXRVdnhSSkE2TXdtNXgzUnQ1Tm91dy9tVm1sNlB5SzdUSTE3amg1?=
+ =?utf-8?B?N3ltWWFNKytPK0ZRSEcwK0lqSW12VkVJUWZEZUE4dTlQVXlOV1ZyeUE0dGlJ?=
+ =?utf-8?B?YXBBMXlnM0RlRlBZVEgvNkZuRXVUNDZPallWL0x0d0VWTFdKcHI2cjIxTWJZ?=
+ =?utf-8?B?RVhNNzlHNnMwSG9CVk1pbXhSOWZxQ3NvYWd5UG1OZG53Mnk2bVAxcHdhRjJi?=
+ =?utf-8?B?aFpWUWsrWXVuU3lRVk5wRVBoSDZSdGRkWStoOEVldEhObnZ1YWI1MjZVd2c4?=
+ =?utf-8?B?NStvaWFzbnp2T1JTRGpaZGtKWkhIcXh1dkl2bEJ5SGlEZXVaMFQvQ0s3UUdh?=
+ =?utf-8?B?ejJ4a0VNU0ZCSUNpVkhwQmo1TGwrVEM3NlltemtiT0YyRzZqNkp3S2pzNWlD?=
+ =?utf-8?B?ZzJwV1VSUXhwK0gyMWVvRkIrUkduQVU1dWtPelNSMHQxV0R4OHoyWXBvcHhk?=
+ =?utf-8?B?c0NNbzhMd0tXZGNmMDBXVzBpVThpdnFyN3NwVUwzRGI2a3pxQmxKRC8zOVI4?=
+ =?utf-8?B?NFE2Y2NORDE3T1FZc3hVS25aaVRIWW4yWUN6RjVSRkVETUlWVFZvdVRoUGln?=
+ =?utf-8?B?VGhSRDVmanBkT3NrQ05pYkVJVkNyeVVwTFo4VXpYejJuNm8zd1RMMVhDRnIx?=
+ =?utf-8?B?T1pLRjdacmF3eDI3N0xQZ21iTmhrdFArRlFtQlRPR1EvbkZzQk9SZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f1c20f8-7342-4b0a-b884-08ded6ae94d8
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 13:39:06.0093
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 13:50:44.3972
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B2Mb04UzH+ve9V1RjRDgIK1GlR7CYk8DiLVYRObRaGE+zDdFKXoOfzJQ6pWu3DFuskl/08mhSI7XAM/Bx9hmRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4123
+X-MS-Exchange-CrossTenant-UserPrincipalName: +JPTsd9Pe3+KDGp9NEqanPWPXOKpU2PogXOYjU7oduulKHJZLrbayHXhHdi+++TAH5eKmgaM/rfZmIOPKlKqOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7437
 
-On Tue Jun 23, 2026 at 4:43 AM JST, Zhi Wang wrote:
-> From: Zhi Wang <zhi.wang.ai@sent.com>
+On Fri Jun 26, 2026 at 7:36 PM BST, Danilo Krummrich wrote:
+> Add a new ForLt trait as a base for CovariantForLt:
 >
-> Reserve a larger GSP WPR2 heap when vGPU is enabled, using the VF count
-> reported by VgpuManager to select the heap size and to populate the VF
-> partition count in the GSP WPR metadata.
+>   - ForLt (non-unsafe): represents a type generic over a lifetime, with
+>     no covariance guarantee.
 >
-> Use the baremetal heap sizing path when vGPU is disabled. For vGPU,
-> reserve 581 MiB for up to 32 VFs and 1370 MiB for larger VF counts.
+>   - CovariantForLt (unsafe): becomes a subtrait of ForLt that
+>     additionally proves the type is covariant over its lifetime
+>     parameter, providing a safe cast_ref() method.
 >
-> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+> This split allows non-covariant types (e.g. types behind a Mutex) to
+> implement ForLt and participate in DevresLt / registration data patterns
+> that use HRTB closures for sound access, without requiring a covariance
+> proof that would fail to compile.
+>
+> Both macros share the UnsafeForLtImpl helper type, distinguished by
+> a const generic N: ForLt! emits N =3D 0 (no covariance proof),
+> CovariantForLt! emits N =3D 1 (with compile-time covariance proof).
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 > ---
->  drivers/gpu/nova-core/fb.rs       | 25 ++++++++++++++++++++-----
->  drivers/gpu/nova-core/gsp.rs      |  1 +
->  drivers/gpu/nova-core/gsp/boot.rs |  2 +-
->  drivers/gpu/nova-core/gsp/fw.rs   | 10 ++++++++++
->  4 files changed, 32 insertions(+), 6 deletions(-)
+>  rust/kernel/types.rs        |  1 +
+>  rust/kernel/types/for_lt.rs | 72 +++++++++++++++++++++++++++++--------
+>  rust/macros/for_lt.rs       | 68 ++++++++++++++++++++++++-----------
+>  rust/macros/lib.rs          | 19 +++++++++-
+>  4 files changed, 123 insertions(+), 37 deletions(-)
 >
-> diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-> index 725e428154cf..b5b1f6c13edc 100644
-> --- a/drivers/gpu/nova-core/fb.rs
-> +++ b/drivers/gpu/nova-core/fb.rs
-> @@ -24,7 +24,8 @@
->      gpu::Chipset,
->      gsp,
->      num::FromSafeCast,
-> -    regs, //
-> +    regs,
-> +    vgpu::VgpuManager, //
->  };
+> diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
+> index cbe6907042d3..c1ed05d1046c 100644
+> --- a/rust/kernel/types.rs
+> +++ b/rust/kernel/types.rs
+> @@ -14,6 +14,7 @@
+>  #[doc(hidden)]
+>  pub mod for_lt;
+>  pub use for_lt::CovariantForLt;
+> +pub use for_lt::ForLt;
+
+Import style
+
 > =20
->  mod hal;
-> @@ -171,7 +172,12 @@ pub(crate) struct FbLayout {
-> =20
->  impl FbLayout {
->      /// Computes the FB layout for `chipset` required to run the `gsp_fw=
-` GSP firmware.
-> -    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmw=
-are) -> Result<Self> {
-> +    pub(crate) fn new(
-> +        chipset: Chipset,
-> +        bar: Bar0<'_>,
-> +        gsp_fw: &GspFirmware,
-> +        vgpu: &VgpuManager,
-> +    ) -> Result<Self> {
->          let hal =3D hal::fb_hal(chipset);
-> =20
->          let fb =3D {
-> @@ -234,10 +240,19 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, =
-gsp_fw: &GspFirmware) -> Resu
->              FbRange(elf_addr..elf_addr + elf_size)
->          };
-> =20
-> +        let vf_partition_count =3D if vgpu.enabled() {
-> +            vgpu.total_vfs().try_into().map_err(|_| EINVAL)?
-> +        } else {
-> +            0
-> +        };
-> +
->          let wpr2_heap =3D {
->              const WPR2_HEAP_DOWN_ALIGN: Alignment =3D Alignment::new::<S=
-Z_1M>();
-> -            let wpr2_heap_size =3D
-> -                gsp::LibosParams::from_chipset(chipset).wpr_heap_size(ch=
-ipset, fb.end)?;
-> +            let wpr2_heap_size =3D if vgpu.enabled() {
-> +                gsp::vgpu_fw_heap_size(u32::from(vgpu.total_vfs()))
-> +            } else {
-> +                gsp::LibosParams::from_chipset(chipset).wpr_heap_size(ch=
-ipset, fb.end)?
-> +            };
->              let wpr2_heap_addr =3D (elf.start - wpr2_heap_size).align_do=
-wn(WPR2_HEAP_DOWN_ALIGN);
-> =20
->              FbRange(wpr2_heap_addr..(elf.start).align_down(WPR2_HEAP_DOW=
-N_ALIGN))
-> @@ -265,7 +280,7 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gs=
-p_fw: &GspFirmware) -> Resu
->              wpr2_heap,
->              wpr2,
->              heap,
-> -            vf_partition_count: 0,
-> +            vf_partition_count,
->              pmu_reserved_size: hal.pmu_reserved_size(),
->          })
+>  /// Used to transfer ownership to and from foreign (non-Rust) languages.
+>  ///
+> diff --git a/rust/macros/for_lt.rs b/rust/macros/for_lt.rs
+> index 9487a9352f1c..9270a069cd3a 100644
+> --- a/rust/macros/for_lt.rs
+> +++ b/rust/macros/for_lt.rs
+> @@ -176,8 +176,10 @@ fn prove(&mut self, ty: &'a Type) {
 >      }
-> diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-> index 6821008d48d9..a159f36bf704 100644
-> --- a/drivers/gpu/nova-core/gsp.rs
-> +++ b/drivers/gpu/nova-core/gsp.rs
-> @@ -26,6 +26,7 @@
->  mod sequencer;
+>  }
 > =20
->  pub(crate) use fw::{
-> +    vgpu_fw_heap_size,
->      GspFmcBootParams,
->      GspFwWprMeta,
->      LibosParams, //
-> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
-p/boot.rs
-> index c607081e8242..dea028f4b434 100644
-> --- a/drivers/gpu/nova-core/gsp/boot.rs
-> +++ b/drivers/gpu/nova-core/gsp/boot.rs
-> @@ -56,7 +56,7 @@ pub(crate) fn boot(
-> =20
->          let gsp_fw =3D KBox::pin_init(GspFirmware::new(dev, chipset, FIR=
-MWARE_VERSION), GFP_KERNEL)?;
-> =20
-> -        let fb_layout =3D FbLayout::new(chipset, bar, &gsp_fw)?;
-> +        let fb_layout =3D FbLayout::new(chipset, bar, &gsp_fw, ctx.vgpu)=
-?;
->          dev_dbg!(dev, "{:#x?}\n", fb_layout);
-> =20
->          let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::n=
-ew(&gsp_fw, &fb_layout))?;
-> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/=
-fw.rs
-> index 4db0cfa4dc4d..2fb72f8dc3c9 100644
-> --- a/drivers/gpu/nova-core/gsp/fw.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw.rs
-> @@ -101,6 +101,16 @@ pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Coh=
-erent<GspMem>, count: u32) {
->  pub(crate) const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: usize =3D
->      num::u32_as_usize(bindings::GSP_MSG_QUEUE_ELEMENT_SIZE_MAX);
-> =20
-> +const GSP_FW_HEAP_SIZE_VGPU_DEFAULT: u64 =3D 581 * u64::SZ_1M;
-> +const GSP_FW_HEAP_SIZE_VGPU_48VMS: u64 =3D 1370 * u64::SZ_1M;
+> -pub(crate) fn covariant_for_lt(input: HigherRankedType) -> TokenStream {
+> -    let (ty, lifetime) =3D match input {
+> +/// Resolve the higher-ranked type into a concrete `(ty, lifetime)` pair=
+, expanding elided
+> +/// lifetimes as needed. Shared by both `for_lt` and `covariant_for_lt`.
+> +fn resolve_hrt(input: HigherRankedType) -> (Type, Lifetime) {
+> +    match input {
+>          HigherRankedType::Explicit { lifetime, ty, .. } =3D> (ty, lifeti=
+me),
+>          HigherRankedType::Implicit { ty } =3D> {
+>              // If there's no explicit `for<'a>` binder, inject a synthet=
+ic `'__elided` lifetime
+> @@ -188,14 +190,33 @@ pub(crate) fn covariant_for_lt(input: HigherRankedT=
+ype) -> TokenStream {
+>              };
+>              (ty.expand_elided_lifetime(&lifetime), lifetime)
+>          }
+> -    };
+> +    }
+> +}
+> +
+> +/// Produce the `'static`-substituted type for the WF check. Shared by b=
+oth macros.
+> +fn ty_static(ty: &Type, lifetime: &Lifetime) -> Type {
+> +    ty.replace_lifetime(
+> +        lifetime,
+> +        &Lifetime {
+> +            apostrophe: Span::mixed_site(),
+> +            ident: format_ident!("static"),
+> +        },
+> +    )
+> +}
 
-Another thing: I would like to get these values generated from OpenRM,
-so they end up in `bindings.rs`, as these are firmware-dependent.
+I suppose this code motion is no longer necessary. If they're just part of
+`for_lt_inner` then the diff is going to be much smaller.
 
-I see that for 570.144 (the firmware we are currently supporting), only
-`GSP_FW_HEAP_SIZE_VGPU_DEFAULT` is defined. Is it ok if we limit
-ourselves to this value until the firmware upgrade?
+Regardless the code looks correct to me:
 
-If so, here is the diff you can include to declare it in the right place:
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers/gp=
-u/nova-core/gsp/fw/r570_144/bindings.rs
-index ea350f9b2cc4..ebcc9f9ae126 100644
---- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
-@@ -40,6 +40,7 @@ fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::=
-core::fmt::Result {
- pub const GSP_FW_HEAP_PARAM_BASE_RM_SIZE_GH100: u32 =3D 14680064;
- pub const GSP_FW_HEAP_PARAM_SIZE_PER_GB_FB: u32 =3D 98304;
- pub const GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE: u32 =3D 100663296;
-+pub const GSP_FW_HEAP_SIZE_VGPU_DEFAULT: u32 =3D 609222656;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB: u32 =3D 64;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB: u32 =3D 256;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB: u32 =3D 88;
+> +
+> +/// Shared implementation for both `ForLt!` and `CovariantForLt!`.
+> +///
+> +/// Both macros run the prover and emit `ProveWf` structs to check well-=
+formedness for all lifetime
+> +/// instances (workaround for <https://github.com/rust-lang/rust/issues/=
+152489>). `CovariantForLt!`
+> +/// additionally emits covariance proof functions and sets `N =3D 1`.
+> +fn for_lt_inner(input: HigherRankedType, prove_covariance: bool) -> Toke=
+nStream {
+> +    let (ty, lifetime) =3D resolve_hrt(input);
+> =20
+>      let mut prover =3D Prover(&lifetime, Vec::new());
+>      prover.prove(&ty);
+> =20
+>      let mut proof =3D Vec::new();
+> =20
+> -    // Emit proofs for every type that requires additional compiler help=
+ in proving covariance.
+>      for (idx, required_proof) in prover.1.into_iter().enumerate() {
+>          // Insert a proof that the type is well-formed.
+>          //
+> @@ -210,15 +231,16 @@ struct #wf_proof_name<#lifetime>(
+>              );
+>          ));
+> =20
+> -        // Insert a proof that the type is covariant.
+> -        let cov_proof_name =3D format_ident!("prove_covariant_{idx}");
+> -        proof.push(quote!(
+> -            fn #cov_proof_name<'__short, '__long: '__short>(
+> -                long: #wf_proof_name<'__long>
+> -            ) -> #wf_proof_name<'__short> {
+> -                long
+> -            }
+> -        ));
+> +        if prove_covariance {
+> +            let cov_proof_name =3D format_ident!("prove_covariant_{idx}"=
+);
+> +            proof.push(quote!(
+> +                fn #cov_proof_name<'__short, '__long: '__short>(
+> +                    long: #wf_proof_name<'__long>
+> +                ) -> #wf_proof_name<'__short> {
+> +                    long
+> +                }
+> +            ));
+> +        }
+>      }
+> =20
+>      // Make sure that the type is wellformed when substituting lifetime =
+with `'static`.
+> @@ -226,13 +248,9 @@ fn #cov_proof_name<'__short, '__long: '__short>(
+>      // Currently the Rust compiler doesn't check this, see the above `Pr=
+oveWf` documentation.
+>      //
+>      // We prefer to use this way of proving WF-ness as it can work when =
+generics are involved.
+> -    let ty_static =3D ty.replace_lifetime(
+> -        &lifetime,
+> -        &Lifetime {
+> -            apostrophe: Span::mixed_site(),
+> -            ident: format_ident!("static"),
+> -        },
+> -    );
+> +    let ty_static =3D ty_static(&ty, &lifetime);
+> +
+> +    let n: usize =3D prove_covariance.into();
+> =20
+>      quote!(
+>          ::kernel::types::for_lt::UnsafeForLtImpl::<
+> @@ -241,8 +259,16 @@ fn #cov_proof_name<'__short, '__long: '__short>(
+>              {
+>                  #(#proof)*
+> =20
+> -                0
+> +                #n
+>              }
+>          >
+>      )
+>  }
 
