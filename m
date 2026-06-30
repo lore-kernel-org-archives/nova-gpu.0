@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D0B21D3F5;
-	Tue, 30 Jun 2026 21:09:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E6C2D5C7A;
+	Tue, 30 Jun 2026 21:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782853769; cv=none; b=dgp6p1s4pl0G2nYL1R5zLOabqMotfloZHveEB3eLM1gG9TBVA/IFnf3QBscgagKHq6/3j/CucUanks/p0xlotSEB/hpva011J7msxqSw+r7DVygcKYYdDnmFeYBJt01nwtnjBCL5ilsXjbvu4Sjtf4FmaXq4M+2Zmewua+hELwg=
+	t=1782854829; cv=none; b=SVB1qrQ87CZ9XwbxSnndZnCQYctQ13PuegxEmeysCkRzAXbeE5XEIivDGzNQuXKD4DaMJ/0hnXk00WS3BJskuPUFi7noWFdjAfbIcHAB3AphJ4Gf4m2OksxqP6o34Qzkk/rkL7lPwspoVP1ZlIFPbJN5VLDjBSE+sMVh/vPfHt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782853769; c=relaxed/simple;
-	bh=Z8xN0Pgyzzrcaag0U4yXM2m9m+Vq39HOp9COonaGTUA=;
+	s=arc-20240116; t=1782854829; c=relaxed/simple;
+	bh=/InUm6RHkv772UffL3kodbWj9NWhKSLf/9Owm0zEcnE=;
 	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=ri1uXLc7lqyCcpAJbrnedW1eXOm9uuMfnKwkwso2VBmhtl5kPwa+wFf7ADy852M85/l+7KjnGUC8KqBh6NDyccOGbYzYwBmOzF9lpvWLvgJpFFxhhV/rFhnb9wecmi04STh5UrTz8yLL2bsZGhpF7hnljl4XespXSRsYBCwPSo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=az4n/La1; arc=none smtp.client-ip=100.103.45.18
+	 References:In-Reply-To; b=CcZMvq7C9j2M+lYol3hdScPcAIg3kNjjCk8futfuJWdoQvHqFd8I+4Gm2o/5E+9ekHJHKv37cFvzc8UcL61NcxJD3xB7j+ksBuw1kwIF+uaOO1NgFM/k6+9zT/FNiWkn7xvf/XoYapjqYYg+6FOOuKMDKoaaWHjoqrgBj9R+pLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YmhlD5yf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="az4n/La1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13DF91F000E9;
-	Tue, 30 Jun 2026 21:09:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YmhlD5yf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011441F000E9;
+	Tue, 30 Jun 2026 21:27:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782853768;
-	bh=fdPR9l+Tg1O9caxvFEzXmCFAAok284e1i6Pl08baN0c=;
+	s=k20260515; t=1782854828;
+	bh=QwXyVJSl4nmAXDcVsI6fa2y+BOMVig082sl359P4SMQ=;
 	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=az4n/La1sS17TmTqXgO3EJRHTutMitAeADN+RjneX2y13sudprQkx0cV6aZkNLWEx
-	 15rXWMRyaDSf5UuCXNrdUfSeWBA91WF3l7P0sYJyEXUTKo4Nd21rGs8H215UuYuEw7
-	 Lg8HsDv10Mz5nJ3JSPR/8W+3LvgevjMhVOGQ5ZGcLVueqJXogCCbwrLxUtW6mFTwY0
-	 E5iFtaRVmJNPNUBL87PTDYt9Vgzc6qQu44hcto8RywK70UO/qUOizQDCHc3r7WfkIo
-	 SnVK+R2ojJX3ovBX8lKLptKEAb70Xj3evZTO6gcACEmbrzvlC7hDahvNYeBMuyEprI
-	 EFgGZZZR87E1Q==
+	b=YmhlD5yf+yWapR3J0b5UOTjTyCpMdp0QRE1x5jTMimJmUZTAk3zUTcm5TTT61mOlI
+	 zmIhPkk7DpmJdiOJ4ymb/S+lEW3AbRaQ1DE+8GO+cQ17xeqlMySE8k+6SNrTeyiuIN
+	 p9LF9AnEEll18qaPK42xYF8lkCEuf2wKmW0iFYhUSBEHyYTt+tH4miGsXWt4Fbtonc
+	 w0sdiRij+lXjh/LgSsx7D3/vwxsfBYQY6UPUWdhdzJG+qZOICqgs/xG4Ysc6IkdEbg
+	 xKBp+l32uv0Yz7tND+wbdApALP6MZZsetb8pTqHIb3GbLEsrOy3rcABtBkPoTdXIjQ
+	 9BjdIL+/n2ZGw==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -34,9 +34,10 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 30 Jun 2026 23:09:24 +0200
-Message-Id: <DJMOWWJLKVZU.1N9RUO41QFAE@kernel.org>
-Subject: Re: [PATCH v2 1/7] rust: firmware: add request_into_buf()
+Date: Tue, 30 Jun 2026 23:27:04 +0200
+Message-Id: <DJMPAFJHWAMI.1SAJ3TCR5SYCI@kernel.org>
+Subject: Re: [PATCH v2 2/7] gpu: nova-core: add TLV parser for firmware
+ files
 Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
  <rust-for-linux@vger.kernel.org>, "Alexandre Courbot"
  <acourbot@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
@@ -46,72 +47,69 @@ Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
 To: "Timur Tabi" <ttabi@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
 References: <20260630194749.1209490-1-ttabi@nvidia.com>
- <20260630194749.1209490-2-ttabi@nvidia.com>
-In-Reply-To: <20260630194749.1209490-2-ttabi@nvidia.com>
+ <20260630194749.1209490-3-ttabi@nvidia.com>
+In-Reply-To: <20260630194749.1209490-3-ttabi@nvidia.com>
 
 On Tue Jun 30, 2026 at 9:47 PM CEST, Timur Tabi wrote:
-> +/// Load firmware directly into the caller-provided `buf`.
-> +///
-> +/// On success the firmware image has been copied into `buf`; the caller=
- accesses the data
-> +/// through `buf` itself.
-> +/// See also `bindings::request_firmware_into_buf`.
-> +///
-> +/// This is intentionally a stand-alone function rather than a `Firmware=
-` constructor. For
-> +/// the `into_buf` path, the firmware data lives in the caller's `buf`, =
-not in a
-> +/// kernel-owned buffer, so returning a `Firmware` would expose `Firmwar=
-e::data()` as a
-> +/// second handle aliasing `buf` (and `release_firmware()` does not free=
- `buf` anyway).
-> +pub fn request_into_buf(name: &CStr, dev: &Device, buf: &mut [u8]) -> Re=
-sult {
-> +    let mut fw: *mut bindings::firmware =3D core::ptr::null_mut();
-> +    let pfw: *mut *mut bindings::firmware =3D &mut fw;
-> +    let pfw: *mut *const bindings::firmware =3D pfw.cast();
-> +
-> +    // SAFETY: `pfw` is a valid pointer to a NULL initialized `bindings:=
-:firmware` pointer.
-> +    // `name` and `dev` are valid as by their type invariants. `buf` is =
-a valid writable
-> +    // buffer of `buf.len()` bytes.
-> +    let ret =3D unsafe {
-> +        bindings::request_firmware_into_buf(
-> +            pfw,
-> +            name.as_char_ptr(),
-> +            dev.as_raw(),
-> +            buf.as_mut_ptr().cast(),
+> +Tags and Length
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +TLV tags are always four-character words, with all letters being upper c=
+ase.
+> +Duplicate tags are not allowed.
 
-Sashiko's concern about buf being an empty slice, despite being nonsensical=
-,
-seems valid. The allocated_size field in struct fw_priv, if set to zero, is
-interpreted as "the driver did not provide a buffer" and hence the firmware
-loader assumes that it has to treat the data pointer as a self-allocated bu=
-ffer.
-In the case of passing an empty slice, this would be a dangling pointer.
+Technically this isn't enforced by the constructor.
 
-> +            buf.len(),
-> +        )
-> +    };
-> +    if ret !=3D 0 {
-> +        return Err(Error::from_errno(ret));
-> +    }
-> +
-> +    // The firmware bytes are now in `buf`, which the caller owns, so we=
- don't need
-> +    // the kernel to hang on to it any more.
-> +    // SAFETY: `fw` is a valid pointer returned by `request_firmware_int=
-o_buf`.
-> +    unsafe { bindings::release_firmware(fw) };
-> +
-> +    Ok(())
+Maybe a good reason to implement a HashMap? :) Just kidding, I think it sho=
+uld
+be good enough to document for the constructor that it doesn't check for
+duplicates and that if duplicate tags are present, the first occurrence is =
+used.
+
+> +/// /// Iterator over the [`TlvBlock`]s of a [`Tlv`].
+
+Stray '///'.
+
+> +///
+> +/// # Invariants
+> +///
+> +/// `pos` is a byte offset into `tlv.data` that always lies on a block b=
+oundary (in the sense
+> +/// of the [`Tlv`] invariant): it is either the start of a well-formed b=
+lock, or equal to
+> +/// `tlv.data.len()` (end of iteration).
+> +struct TlvIter<'tlv, 'a> {
+> +    tlv: &'tlv Tlv<'a>,
+> +    pos: usize,
+> +}
+
+[...]
+
+> +#[allow(dead_code)]
+> +pub(crate) struct Tlv<'a> {
+> +    data: &'a [u8],
 > +}
 > +
->  // SAFETY: `Firmware` only holds a pointer to a C `struct firmware`, whi=
-ch is safe to be used from
->  // any thread.
->  unsafe impl Send for Firmware {}
-> --=20
-> 2.54.0
+> +#[allow(dead_code)]
 
+Please use expect.
+
+> +impl<'a> Tlv<'a> {
+
+[...]
+
+> +    pub(crate) fn get_string(&self, tag: &[u8; 4]) -> Result<&'a str> {
+> +        let tlv =3D self.find(tag)?;
+> +
+> +        let bytes =3D tlv.value;
+> +
+> +        // To make sure the value actually is a string, make sure it's a=
+ll ASCII.
+> +        if !bytes.is_ascii() {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        core::str::from_utf8(bytes).map_err(|_| EINVAL)
+
+Technically, the error path is unreachable after the is_ascii() check, but =
+I'd
+keep it as is anyway.
