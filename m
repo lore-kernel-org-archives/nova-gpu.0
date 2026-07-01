@@ -1,75 +1,70 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011065.outbound.protection.outlook.com [52.101.57.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8FC1D86E4
-	for <nova-gpu@lists.linux.dev>; Wed,  1 Jul 2026 00:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817F73655CE
+	for <nova-gpu@lists.linux.dev>; Wed,  1 Jul 2026 02:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.65
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782864955; cv=fail; b=AN+vAByaNAQbLufXEP9+9raHtzdugtgv8iSN7jY4ua0KGSwJBDGOpcmTf5alJgNzEADXRwhliZxHYnaHQFe7sA+N/by9k1/wtSlra64Q39D9x3sebVguxCtGsPP59xdF6OlVq/J7GWrI0Gm2PJr+JDC97eFE1j+Ylwi/wsKZaGw=
+	t=1782874483; cv=fail; b=RitdQVKsy238zJU7gRVxMHi/BpcDm6mty2XkexQ/IP70txHQwjlrc/clJdBtDPxOIxIwd9Njcx2qTR4PO/maHLxN+LYD4g4p0zF6r+xvhZPOCsWcMCMfprDqUiiNOOYm5yz4ay4Nit/QxKgY9yuO1lAGJTnnYjptawyEzqiYSPY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782864955; c=relaxed/simple;
-	bh=9Qf8o9xG78do+9m8DzX1kSQqkDE1ClZmstZAiuE1HSw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=eKbaf1sryvfLUKFydT1WYvigbFYq6jhqiBCC/coVn5jNDwGwxf9tx+zFk9dxBS1xly+1S1tTfcXJA/Ork80x8tGGHqz+ZSY+Yn6CNS7Ad+/0M6f4VXDDgyz71MH01xXScud9Lt2uIp9ARa+YTps0k4mjif/mc0AsKcApCayXixI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iMOQNtuO; arc=fail smtp.client-ip=52.101.46.29
+	s=arc-20240116; t=1782874483; c=relaxed/simple;
+	bh=pAfMUSHmc19tnMIuf+KeZHPkrlfxIQOl1a6OXQiCNVg=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=T0tFp3ccDGlyRpoE9zTui1rr/s1DPToylXzqkZQelLsPz6VfP6cfFa5gKBYrn7ma0J2pYPLftc14z9UGTq1EFBAUyhgvxaYim8yVjCq6AFimzkT2VjWlLCU3D/Ztme+kWGgOm6HPA7kOUZOCkVTZfRQNbOiu3+XGnt/G3oJeGxk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Y2ovn2ki; arc=fail smtp.client-ip=52.101.57.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iMOQNtuO"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Y2ovn2ki"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d743rXyQ7HwkpRBuM9meTXWuTijl95FFLxr+szHl568grrHfVdwcumCnnfcr132WzYTIOfbNJIvHl9/dtsych3cOG0iEhCMz8bnF9/tSMLd3rMnEwU8ikhseCiHlgWZHZaIHBCLPEl4dHoX2tQeqTPjWUahgIRieajAb5HoBdCr8pEzjCPMP2yzYZNzsSed2CTNngowPRGjXh6QU2atQQppPXmcarBTiJbDbqTYiQbkYhks2IiytErfVK9CqqrXYcqt3G7ls7yPpNdfM+uRA93KJbA6Lr0hXr2oX9frNtx6sWi+PZ383oa/JSq76phroGAcqldwvuD98VUWJsfosvw==
+ b=PNusTiGfWo5D77suVSbuAVrXeYhQm97Lr1ZDVX18nt0lIliQZxAyJ7zQVV9dIRISChXTT/NB39jMUGgVorY3kCZSIhQV56ymLGBtx3sfKVDllWuFc9aE35h7lIZA+MHOEa+eLK0O5gbl/XKYWo1BBxPs93IVEhdATRN3bn+A6h/raMSELcUTdKylEyep6KKuW2giyXokBgfFDXW/n+XNo7PBGaUmigkE6mIOhe+N05hnzQ/eoJGmBcmvIy3szzePo+Fed121LcaknUpNNeYYIOEGStn05nJTQ4bPileaQLxhV+tmOYkWR7NEFWoL7wvhuc0v9H4KFgB/IMzB6pQ9FQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NZS80wOQ70xdXL8BiQxtYE8GAsm1DWVR4Hg4S3zOx6g=;
- b=T3zurmfPMj+h7BCloKKWuNcxsxJgseGQgOA+JvGODLuaImCYQ+6DbzIscRVVi/fF3cCfZxuQX8ReDK4gCU+uipQcRKVFY8GjhTqHrsX9SMtHAzIAuW6fEj927RotycTp9PvQCQGUPiyq1LM1+pjeRn2zuusClHfp1BzFdqC+ZCUHK6UtKuzOfHkUdc4bWExMcBRiIobBNGS3MPI4/5h5E8YjsmnjzqH5ffsD5/0p/ucHdx3/LPLykVmp/vMKvvXW//FGgFIknlgeOXtJAvyALNMsAywpPXE/j8Ia9CDAntsZOdwp8lwxVlY5XOu78MwnsWPuyhMS8/CfwhBUzDYOHA==
+ bh=ZU/3XkIK9QkQaDW4cTWBEgI4qRZGbi9nt7D0Ls7CFD4=;
+ b=yoshGs2v0GcZWtHYseSgG+j5bPn9xTempWL4I8ZHqb4ChcloS8Ikg3oINK7oaqIaq6PAJrUdIBzywgDbP5YhhaeAv/EkI2eUgfTF+yiFwG5kCkJkS66z/Wa3lYceQSEuId783vrNX0pLloE+/fnpNWjzutrYLibTQ68Jqyy0ReNLrdkk15iNx9eoyINNgMHC0G3VNyRv73DIkMTk1zMAQCuGEHUkGg5Y8HqDXPkNKbLYWK63p6rub/wkBAy7h8NkioMmPt/EiW+9iulD7K1JL5adWErmSOicY2u+5G3a/NO0EQcWauWwLleyfbKUzDxQ82JMpZXk9rW1lv3IgGmYDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NZS80wOQ70xdXL8BiQxtYE8GAsm1DWVR4Hg4S3zOx6g=;
- b=iMOQNtuOCkMU7OsIgbVzddfWMt7kz6IdDgprH2DEwl5kS05hSFFjui8wW2Ujux6bbP42e1iQcJiiGwLWJ8ZQoqrpsrDVYdP3WXf8OJ2cI0PebvsCBuNJd4tgnHfYNYpv69aktagFo9EDB9bExZurDTyCVHmpWOJ5ogpgAbpvqOUewxi1/vK6FheGhxibhN9R2EQ1ulnWg+PkLweDG7zQMdUXoc2WRR3Zb8X0n1c2RgGNzzq3avK+8mGoYCFD2pmlrQK6VFLCCQJu3WnJT0b+olrSPQe5MckAuCj+dgtxVlle4tJ9l7TOkLQj1khC21bwXhI6ZmKIzBcj1BoJNTg/fw==
+ bh=ZU/3XkIK9QkQaDW4cTWBEgI4qRZGbi9nt7D0Ls7CFD4=;
+ b=Y2ovn2kisZc5FuHx2+tmpxKvSIQAN1DVL5/oublFKl2Rn2jOJhKmjTUl9LgFFMUSmo3JoNwT/gw5edK4Eqgt+0qCd87/OT/KV+SDFcdnHCDSae+dy6DlUa4bAnG39u86L4oQsXsnDWHNyk2y4jsNbR5kWF1nC6FugFrnVbxXqunI2bqSbh35r5NSw38PwWXQz2FVpskXZR828DU+kQMy0vWCmz063sCUJgaQXxD9KrUYhFU1NsKtAGbZfJRYf6xXyPXCv19iohUd2M1hf/25jg0ko5je42h5xeRFJCTOIRWygHmBv597hcHxXhULKcL6JKEY3MbCEsHNjR2IIvQZPA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by PH8PR12MB6771.namprd12.prod.outlook.com (2603:10b6:510:1c6::6) with
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by IA1PR12MB8494.namprd12.prod.outlook.com (2603:10b6:208:44c::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
- 2026 00:15:47 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.018; Wed, 1 Jul 2026
- 00:15:46 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Wed, 01 Jul 2026 09:15:31 +0900
-Subject: [PATCH v2 2/2] gpu: nova-core: remove local bitfield macro
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-nova-bitfield-v2-2-2e949bf1836c@nvidia.com>
-References: <20260701-nova-bitfield-v2-0-2e949bf1836c@nvidia.com>
-In-Reply-To: <20260701-nova-bitfield-v2-0-2e949bf1836c@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0190.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:382::10) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
+ 02:54:36 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
+ 02:54:36 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 01 Jul 2026 11:54:32 +0900
+Message-Id: <DJMW95MDK2J2.1MWRD8I92FKW5@nvidia.com>
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v4 03/13] gpu: nova-core: gsp: replace BootUnloadGuard
+ with local handlers
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260629-nova-bootcontext-v4-0-5539d8469590@nvidia.com>
+ <20260629-nova-bootcontext-v4-3-5539d8469590@nvidia.com>
+In-Reply-To: <20260629-nova-bootcontext-v4-3-5539d8469590@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0077.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::9) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -77,417 +72,384 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH8PR12MB6771:EE_
-X-MS-Office365-Filtering-Correlation-Id: c49895ad-0dd9-485f-0497-08ded705e5f8
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA1PR12MB8494:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae67a2f4-4c3f-49e6-3bd2-08ded71c15d1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|1800799024|366016|921020|18002099003|22082099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|23010399003|366016|7416014|10070799003|376014|1800799024|921020|18002099003|22082099003|56012099006|11063799006|4143699003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	+T/+JxDxHU42+7tBSTQqTpirA9wkQOOERCOBI7S3sqTzzlI5IcbVYHwFsyTH0Pj8K5l8Zi3VdH1Q9vbXDmrIYxcZbPVSvjF37z20HDNnkN2mhGOIgQej++IpgIX5ir39s4Vg47P5pWEag3u/c5oSWGT985e4JzYv8nxJGgcF5IkORiQ9b2Qe+mpPbcHaKSeyU4EnLhCI1dfrCDd12FKzG8HXB1RcME5BvrnnHiiiZ2Rp8IKUXVLvJmLgY1PbyMsLsiWUn0MRPg+8LoXuC9gPuNvwi39UWhM6fyTajfxrW51cqL04T+75610YbzKuSZ1Yr1tIMURc+c3uIqLeXP2x1ENHh9enA6yCfoomNwGTqGhZjEAf7Uqb8Y1+6uGUuF+ScsAKIiOIcFdC8e8R8N50MiNMvPXCkR6p6qOgrbhGoDuUREcmFuSymbJ8bw8cL0a/MKHUsEpk6K3HRCkiMCxAUHJ7Gs5EgQug9DHhcy0z5Hvg8rYkpOmck9LDRozQY9u3h6ZFf0cvWQhxRoCdKeGkXTyz3i92CoZTZsqYoIgemno6XAroapMlsWUKPPkl9x7/IrHHwm3HIej0mkY/ImjsiaH/K2k02IUPAxNsJJWkpXa8oN9QjAzhF84B7Ej+PC/LDtb0sZ0UeDDhlnMOJDZrLZswNKBtSHcV+Ptm91h0yvZINkOOz9SRBdp/y63W5tn/mnV51woyV2EOs7IsHWyKTw==
+	G1qeJo/SnNuW3c0wr311m1H5nFQd8XByY0/huZEfwzyU8Xj8RNoLUi93AvV+rMBg2RMPMg3fJXSrLckWwJFfmGiH/hZWkk3QoaZH+OFDmipxOWXZHXPTl41oJejze9sfxN9NsD9KK6Z19mfS8e45BPZucrTwRApfX73R25hYc9SpO+xhwGw1C2gYTnUmCbm9T05mkXTKhaPywVVIHhnjTTMofhQuVgg9KjHdTwfia3pOIkXeAKSe+0iQQW3a+ef2M4v0KkP7tPEYOCYFlFSEIbP1rKC6NrWPmly5RwH/qS0aYv9PkehjyIbMl4FIuMWiiYouTkB24rI3Mh1jO6MVIaFqq29DKLRX8hqndCJLHYTZnCXU+ygchZ4R8oHA+8B1+f6o9+kTy/oYPFpw7+SH0ur06zmhQWQNBKvkEio4UjaGqZ1lZPG1AMESMAkDd8xhkWaS2XaXVIdEcJB9aLzqd/c8vwP6+nzkjw4awt1B0xwyx3eupfnYLoLRMQx9++ZjadFKrTOmrwBJiorvB2kuu6vHLXdn3g4yRtdHYPQ1xZ4WdkhiKQW3O8VnJxIzhOecaKjpVd1lEwi4KsuarTvE2WsxpLkVWx6YJ7sj1AhnMD1TigglQ6bvm8T6D5dyIAWIlJY1DLJKwJMHE/xUfZzwbS1SqwVmUF7nQmy56TjHPtto0RumOll4n1+In68FY4TZFdHLLmbBk5cxRzalVdyexw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(1800799024)(366016)(921020)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(10070799003)(376014)(1800799024)(921020)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TnV2SmRzbm1HNy80YTVZaTRTUTVUdUNkUVFpem54RHk4c3NxeThFdnQrM3p4?=
- =?utf-8?B?U0JQclBiSnBYRms5WWx4RDJTZkdZcGlYZWw4d2g1bVJ6QWhPZE1SZ1pjRXZI?=
- =?utf-8?B?RjlhTjlpU1ppdFRRU2ltZTZwZHk4T2xyNzJ3eG0rdUJXQ0FJdW5wRmtTOVpD?=
- =?utf-8?B?a3kxYXBnZkdNSVlkazBGUmltc2ZVbFpqb2JmcnV3WGlSYWthdnJOY1JrNXhn?=
- =?utf-8?B?S0NxTW1OdHY4VTRIVzg0dHVRVE9LSFVnL3hxdXNlbXdVN0JjWDJPK2NVcENL?=
- =?utf-8?B?VGxOVVVjSTJEQ3NvRVRCL1o2OXpoVFhwYmhYbE9rWnBSd250dDdMaGxhTlQ5?=
- =?utf-8?B?WjI5TkVCTDF0cHdQVSs5Q05GMWxhZk9yMm94VVgzOXpWREFmQnFvWWJ0cVFR?=
- =?utf-8?B?UHIyUWlUdWVYVmVOWld6OEZmS2VoUWE4VzNnV0hXZTRzTXh1NGh4aU03aFM5?=
- =?utf-8?B?TURYQTlTVERQcXByc1RSbThqWkhEOERoblN3RzI0MnJLdk1LUUkxbGRrbTln?=
- =?utf-8?B?QUtqNnRtUTYwZEhRK3E1TGdxVm8vZnlvNDlKd2dFUHdEdTJLdFFSd28yRXZw?=
- =?utf-8?B?R3FkM3J4cHFtOHVzQTcvK1l1OVRwRVJaR29UemcyNjJocVNCY2w5WEIzMGQy?=
- =?utf-8?B?bXZGd0lXQ2kvUVM5NGxYaXhNdW1FRVlDQUdMb25zTWkxM1V2eFhvemNyQzZJ?=
- =?utf-8?B?UDJ2TTdGOGdrQlg0eFUwTzA5MGVjRFBSV05rcTdqZGZuYmN3bzhpa2s0NEdP?=
- =?utf-8?B?dVlrTldTTVdSUE9uQVRhUCt3MGh2czlVWndJeG5Idk9mQ2ZuYnRXdWNYVGVM?=
- =?utf-8?B?VHpBQWp3ZTBTbmRwUzRFcEtJbFFqQ2thRklMa2c1VGlkeDFoa2VOYlY3WUJF?=
- =?utf-8?B?T1pkeVJEQ1Y3aVR2U0F2K0VPVXhYdThZVktTaGpoaG9lSlFiNDllRFhXeG95?=
- =?utf-8?B?V3FVQ2d5SUJBZDhwZFlYOUJlZzk0YWUxUXdqcGlIaVFqekQ2b3AzdFl3ZVNa?=
- =?utf-8?B?NFVvbHkva3k5R3dycGVJV3ZSQURnam9rZkcwMUNFOXdtZUVYTEZ4SE5iYXpq?=
- =?utf-8?B?K1U4NThFbFdHcHRjUEZSclFFLzNrS2REVElVREJWNC9ENzZmU1BQWTZnazda?=
- =?utf-8?B?K1pNZG9pU3lTd0dHOU1aRExZc3lvUXYxSW11ZUVJQnorbGF0TjRPdG1ZVDhm?=
- =?utf-8?B?ZjJaT0xhNlpyZUZtWXhsdi9OZkoxMUJZTUxRTWE3c2poYTczWUIxZ1hFUjhL?=
- =?utf-8?B?YXMyamhyRTJaR2RUTGd4NEpiUlk1dC9qc3RacDlLaTE1OW1yMlJGZEVHT3hv?=
- =?utf-8?B?YUp2YlZ5ME16eTRYZCtYQmdsbU1QSFI2ZGxmNTJHS3ZNRWFBQ3JoK3Rwb0I3?=
- =?utf-8?B?dk5ZL0htR2F6K3IrZXE1VXFYbXpxS01VWVdoZ3JRYjN0cXNwZk9Mc0FPTmhk?=
- =?utf-8?B?QnFaUHJyOFpHamhMRm5vK0orcmtaVFcyU244Kzlmcm90VlRzQ2pudWc2WnVG?=
- =?utf-8?B?MUJ4WHUxaTRLTVFDR0JZRzBFRWV4MlQ3K0FvWHBVcWxMOUhvSmxHVGRzcFJT?=
- =?utf-8?B?dmhZbWdIbEpaUjY5akcySTJib1ZDUSt0NG5IK0xyUEkvUmRITEZ6OFlLQi9H?=
- =?utf-8?B?Yy9pMXUrZTl0YXZhZmIwai8wQnFaQVVmbU1kSlJCZSt4NDF1MkQ5QnNTWEJR?=
- =?utf-8?B?eDNxYnpZZHJpNmtFa25JQWIxUUxyTlFZS0JSd012N003M3g1UENYY1JoZmtV?=
- =?utf-8?B?U2luSjR0L2h0K1JFeXgxVE5QOUZEWHNwV2J4SURsSExCbEtmSHVZeDVkUzdP?=
- =?utf-8?B?U0VXaERUMWtDZERCYWU4Q0JpQnJjcVB4MTgzeE84SElDV0grZ2t4SWRhZjBz?=
- =?utf-8?B?ZkJ6Q1pFQURaREFwZ1VrWFpmMWVTcm15WEdrU1FocmhpVjQyRUt1Smt0U1lq?=
- =?utf-8?B?LzZTbDV4UFJlaWoyWW5YeW94b3MyZVFrSzlvRkY3K2tycVNpTGU4UWRNQ214?=
- =?utf-8?B?bTlBa3F4YVRJS1h3b1VqaWc5S094ZlhtQiswMEtYOVZkNVg1REJPc0padTB6?=
- =?utf-8?B?eVpEMkZHL0pYVlZ3QkpiU3hNNnJyajZjY3JCZ0tNRjUveXRpTW5zQTd3Q1Iw?=
- =?utf-8?B?OVVwZEYxTjNlSG5XODFFOU1TbVpxQzExRjlHQ29OWmtGWkNhVkNLTDNRZ0gy?=
- =?utf-8?B?NGxRTE1pby9TOHRqSGt6azhZbGI2WDEyYnA5MlBwaDJHQnBWSWYzSTU4ZUVw?=
- =?utf-8?B?NnB1MzM2UUx2N2Z6Z3U2R05sbE1ncWI3Y0RlQUIxOHZ6a3FFUSswUUlmTnU5?=
- =?utf-8?B?UzRWZURlU3RBWnJPR3E3WjMvYUdVaktMeis1Y3hTLzE4Z0Jqd1FWeTZYNmcz?=
- =?utf-8?Q?lQddw0vHIylD872TZTvXSeHMj6s0NHEMOyt6wOxxgEpxo?=
-X-MS-Exchange-AntiSpam-MessageData-1: Odxg9NHw2ITyUA==
+	=?utf-8?B?N1FJcjlhV1l6NVRXQXdEZ1VzemVPb3NTN0hTNzdzd0tGQmRTS1pGY2FCL2Nt?=
+ =?utf-8?B?UWdyakR0RzA1L2RsNXhINnUvTjNjVHZ3cmdXKy9wZVZZeVBKa0s1Tk5TeXQv?=
+ =?utf-8?B?dERuNzhDK3AvNmRISm05bFNJZElCL0ZPd1BJWi9udmEzaWYycnJCT0tnT0lP?=
+ =?utf-8?B?UjlMS2ZlWGpKdGFPREhUMmhKaGV3cUhTQlV3VlBTOXBNSklmT0pEcFlPVmwv?=
+ =?utf-8?B?d0d1V3M3a0dTbHk0VmsyU0JHR0VrVEhnbzZ0dXNKWTVCUTZGU3RmdSs5TkZH?=
+ =?utf-8?B?RG9IZmZGb29hUWJCdlVSdUZ2QlBaYWpMK3dxT0UyR0lQR2pGK3hDTXhlN2RO?=
+ =?utf-8?B?TlFleFIxcmNsSHdSSFVyU2thd3MxS2hwbGhEZ1dZZmFGdlF1N3lQSmkwdzVJ?=
+ =?utf-8?B?M1VUM3c0VmdRSURyaFpsd3d6eExzam93V3h1eko1SFM3dXVIZE9JNkxBUkJQ?=
+ =?utf-8?B?cGNHY1dJdzNRYzRJR3czaEdYN3NDd2Ftb2wyWDR4Smd1dE1sbjFDT3dZU2h4?=
+ =?utf-8?B?QWxWU2lURTRZb2cyTGs1Nkp3Z2JXYlJUMWhva2xGOVJlRW5sc1RUYmtaOHZ0?=
+ =?utf-8?B?YTFJbTRmNk5ZcElsN0J0MERBVEUzTWVQcmh1L0JnbGVjY056RjRmeExUeUlh?=
+ =?utf-8?B?cTFQWXB6ZjlSUi9LQi93NXM0SlB1NEd0YjhveUp5MDNqNHYxRytoK1BBRDVp?=
+ =?utf-8?B?VjlJQ21LdzJXVncrOUhMSHZ3S3hLWG1iWWpENWhPSmVBSG5na2syc0FoVlhr?=
+ =?utf-8?B?MEpnQ2pyNCtQRE1WUTJBSEZSWXJIWE93dzAxK1dYeHNYYWZWMjVTcFRadFJK?=
+ =?utf-8?B?cWRFZnNBaHdabWNtUVRkWEtHRXdaUDZmZ0thODQ1eWo3WGovNTdBd3IyS2xK?=
+ =?utf-8?B?SXBMZEUrTGNadllURnBYeVlqRHhPbFhDSU5uUWMxTlRHQ3NIMGFOR1llT3dM?=
+ =?utf-8?B?T1V6TjJ6QU43ODZET0lyakFqS20wNnZMUTJ5NjhOS1VjanJQc2Y2MkdDZmZL?=
+ =?utf-8?B?Q0MweXZoVVIzZXBrOWlsTE5GRG5mRXJEdElXYWxtdlBLVEdqR2FpM1hLUlVB?=
+ =?utf-8?B?TXREcmhtRG5OUUpmNlNyTHEwOGw1Wk45M3FUT3VDR2R3TE1XK2lMSzliSllq?=
+ =?utf-8?B?Tk1RMklrcENId2w5NTdaNHpTVkU4MzFaeUZHaXgzMnFuaDJZOE1xcDYweHBz?=
+ =?utf-8?B?dUZQcEl6SjFwbzlWaHB1NEVadTcyRXlrK1hJajViL2Q3MWdKbkgxb05aa3ZH?=
+ =?utf-8?B?SlVYSlVnZnl6RkRVMWVldHZraGFidDhBdXluUjZIUXhFYUJ6WW1vM0lVcWxF?=
+ =?utf-8?B?aE5jRW9rekVVNytvcldCVVlkV2wyTFJQZTN1d3FIZFRaYXRTMWRUaGxEVkhB?=
+ =?utf-8?B?cVd3c21RQ05WS2J6cUUxbSsvMTU2SDVaOW95bko2akpEQW9rTndBMmJKNXFi?=
+ =?utf-8?B?MGMzWGFzSURmVWNzNmRmNEdpb0QrRXlqZ1JNTlJuVEhkcnU1MGdGR0VObTlw?=
+ =?utf-8?B?RmN3R0JUZkFDdndLRmhPN2MyRk1nUFFTVWUvYTRDM3VHYVVQU2p5VDNkWjhT?=
+ =?utf-8?B?VnJmS1U5bzd0VGt2R096Vm5KVTBWWEFNWU10L05PMk1VeVZzdHhCN0JHTVlp?=
+ =?utf-8?B?WGo3QmpXVzhlTi9UT3lGbXdmczJVMEltbm9HQkJLWnc2TFppd2xCZWxHQ3lU?=
+ =?utf-8?B?QktRTFJ1bi91VE5mWTJHQ1JFL0grMkcrWFRpR0l5QlBiQit0RG82blNEd3lB?=
+ =?utf-8?B?R3Y1cHU0bXdxeE4wYVVKMFpwUFdWTkxXcmVuOHEvWllrQVZXbVFrbWRDNkEv?=
+ =?utf-8?B?MFdkWmVLSjUzZDhJZS9ZQWZTclVGL05mMm5jOFJqS3R4MFFhNGFWU09tQUVa?=
+ =?utf-8?B?cStxVzZJVnVmcHpFRDI5ZVROanBEbjA3cmpsNTZiQzh1a1ZjbDYrYXFWN3Fv?=
+ =?utf-8?B?N1J4MnZxK0ZtaXZOQXRHc28zTWlGeG1mM3k5SXRncFc4emZQZWlSR2tXZkxS?=
+ =?utf-8?B?eE5QZkdHK2tXNjk4ejVVanI4MG04VDZRSnlaZUxCdTFmUjlCcEQrVVh5aWRH?=
+ =?utf-8?B?M2dmMVJkTGpqV1YvbXFsdVdBYnI4N3IxeDY1SVhpMGw4UHBnOFdBN2t4YmdJ?=
+ =?utf-8?B?ek84ZjJVQjdEVXUrc1QxQlJsUzRyb3l6UXFHaGRmOXBHYWtyK3lwQ1FuODFC?=
+ =?utf-8?B?Q0RUVnNjNnJHczB6RkdLTXlHSjhXYytpTmtjd0ZnZ3J2VkVWZFpJa3VCTDA0?=
+ =?utf-8?B?ZGFqWVBiYlBwS3BYdzJQR3hNdVV4amh2d1ltTklVS3A4QmdUM3FRckN3dDJN?=
+ =?utf-8?B?UkZ4NEJrRlV3MlM4TmNHUGltclRvN3pOWi9ZWW5tUWs5VkR0dUJnNGw2ZnBN?=
+ =?utf-8?Q?oNfornCpGR2KvDUtAJ8P0nd6r1+gEsCn6TTFZlfUqrhk6?=
+X-MS-Exchange-AntiSpam-MessageData-1: qhAfyYUMier/gw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c49895ad-0dd9-485f-0497-08ded705e5f8
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae67a2f4-4c3f-49e6-3bd2-08ded71c15d1
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 00:15:46.8445
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 02:54:36.1355
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uo9iVj7/OXvrrKbSkH/Cf7VZcr8pMs5fAuHPS5ZOSscGOdxfUP4jdwxUUOB8XGsuaPZQb62j/vZ/sH4xebN8LQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6771
+X-MS-Exchange-CrossTenant-UserPrincipalName: fPlzvSsbxwiMZiDs9UxXpNzQzR/PxdLYr88Cj8M+hEK1IXhJgrWBkpnsfD4dHETmJECUOsD7ErzQJpnVaw0RBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8494
 
-This module is now orphaned code, superseded by a kernel-global
-implementation, so remove it.
+On Mon Jun 29, 2026 at 11:09 PM JST, Alexandre Courbot wrote:
+> When adding the GSP unload capability, we introduced `BootUnloadGuard`
+> to automatically call `Gsp::unload` whenever an error occurred during
+> the boot process, in order to try to reset the GSP to a valid state.
+>
+> This approach is not well-suited to the errors that may occur in HALs:
+> by definition, an error occurring in the HAL means that the GSP is not
+> booted; yet the first thing that `Gsp::unload` does is queue a shutdown
+> message to the GSP, which will inevitably result in a timeout when done
+> from a HAL.
+>
+> Furthermore, `BootUnloadGuard` is problematic because it holds
+> additional references to the boot context, notably the `Falcon`s. These
+> extra references stand in the way of making some of the `Falcon`'s
+> methods mutable, since those methods would require exclusive access. As
+> this behavior is only needed in one place, introducing dedicated types
+> for it is distracting and unnecessary.
+>
+> Thus, remove `BootUnloadGuard` and adopt a two-level error handling
+> strategy:
+>
+> - HALs are free to handle their errors as they see fit (most likely, by
+>   running their unload bundle if it is ready by the time of the error),
+> - `Gsp::boot` uses a `ScopeGuard` that runs `Gsp::unload`, since the
+>   GSP should be up and running by the time `GspHal::boot` has returned.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/boot.rs      | 67 +++-------------------------=
+------
+>  drivers/gpu/nova-core/gsp/hal.rs       | 13 +++----
+>  drivers/gpu/nova-core/gsp/hal/gh100.rs | 20 ++++------
+>  drivers/gpu/nova-core/gsp/hal/tu102.rs | 23 +++++++-----
+>  4 files changed, 33 insertions(+), 90 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
+p/boot.rs
+> index ab0491b57944..536f2e341c01 100644
+> --- a/drivers/gpu/nova-core/gsp/boot.rs
+> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+> @@ -30,66 +30,6 @@
+>      },
+>  };
+> =20
+> -/// Arguments required to call [`Gsp::unload`](super::Gsp::unload).
+> -///
+> -/// Stored as their own type to avoid repeating a long and tedious list =
+in [`BootUnloadGuard`].
+> -pub(super) struct BootUnloadArgs<'a> {
+> -    gsp: &'a super::Gsp,
+> -    dev: &'a device::Device<device::Bound>,
+> -    bar: Bar0<'a>,
+> -    gsp_falcon: &'a Falcon<'a, Gsp>,
+> -    sec2_falcon: &'a Falcon<'a, Sec2>,
+> -    unload_bundle: Option<super::UnloadBundle>,
+> -}
+> -
+> -/// Guard that calls [`Gsp::unload`](super::Gsp::unload) with a
+> -/// [`UnloadBundle`](super::UnloadBundle) when dropped.
+> -///
+> -/// Used to ensure the `UnloadBundle` is run during failure paths.
+> -pub(super) struct BootUnloadGuard<'a> {
+> -    guard: ScopeGuard<BootUnloadArgs<'a>, fn(BootUnloadArgs<'a>)>,
+> -}
+> -
+> -impl<'a> BootUnloadGuard<'a> {
+> -    /// Wraps `unload_bundle` into a guard that executes it when dropped=
+.
+> -    pub(super) fn new(
+> -        gsp: &'a super::Gsp,
+> -        dev: &'a device::Device<device::Bound>,
+> -        bar: Bar0<'a>,
+> -        gsp_falcon: &'a Falcon<'a, Gsp>,
+> -        sec2_falcon: &'a Falcon<'a, Sec2>,
+> -        unload_bundle: Option<super::UnloadBundle>,
+> -    ) -> Self {
+> -        Self {
+> -            guard: ScopeGuard::new_with_data(
+> -                BootUnloadArgs {
+> -                    gsp,
+> -                    dev,
+> -                    bar,
+> -                    gsp_falcon,
+> -                    sec2_falcon,
+> -                    unload_bundle,
+> -                },
+> -                |args| {
+> -                    let _ =3D super::Gsp::unload(
+> -                        args.gsp,
+> -                        args.dev,
+> -                        args.bar,
+> -                        args.gsp_falcon,
+> -                        args.sec2_falcon,
+> -                        args.unload_bundle,
+> -                    );
+> -                },
+> -            ),
+> -        }
+> -    }
+> -
+> -    /// Disarms the guard and returns the [`UnloadBundle`](super::Unload=
+Bundle) it contains.
+> -    pub(super) fn dismiss(self) -> Option<super::UnloadBundle> {
+> -        self.guard.dismiss().unload_bundle
+> -    }
+> -}
+> -
+>  impl super::Gsp {
+>      /// Attempt to boot the GSP.
+>      ///
+> @@ -107,6 +47,7 @@ pub(crate) fn boot(
+>          let bar =3D ctx.bar;
+>          let chipset =3D ctx.chipset;
+>          let gsp_falcon =3D ctx.gsp_falcon;
+> +        let sec2_falcon =3D ctx.sec2_falcon;
+>          let dev =3D pdev.as_ref();
+>          let hal =3D super::hal::gsp_hal(chipset);
+> =20
+> @@ -118,7 +59,11 @@ pub(crate) fn boot(
+>          let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::n=
+ew(&gsp_fw, &fb_layout))?;
+> =20
+>          // Perform the chipset-specific boot sequence, and retrieve the =
+unload bundle.
+> -        let unload_guard =3D hal.boot(&self, &ctx, &fb_layout, &wpr_meta=
+)?;
+> +        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_met=
+a)?;
+> +
+> +        let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |u=
+nload_bundle| {
+> +            let _ =3D self.unload(dev, bar, gsp_falcon, sec2_falcon, unl=
+oad_bundle);
+> +        });
+> =20
+>          gsp_falcon.write_os_version(gsp_fw.bootloader.app_version);
+> =20
+> diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp=
+/hal.rs
+> index d3e47ef206de..851d1f24c137 100644
+> --- a/drivers/gpu/nova-core/gsp/hal.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal.rs
+> @@ -24,7 +24,6 @@
+>          Chipset, //
+>      },
+>      gsp::{
+> -        boot::BootUnloadGuard,
+>          Gsp,
+>          GspBootContext,
+>          GspFwWprMeta, //
+> @@ -51,15 +50,15 @@ fn run(
+>  pub(super) trait GspHal: Send {
+>      /// Performs the GSP boot process, loading and running the required =
+firmwares as needed.
+>      ///
+> -    /// Upon success, returns a guard that runs the GSP unload sequence =
+if GSP boot does not
+> -    /// complete.
+> -    fn boot<'a>(
+> +    /// Upon success, returns the [`crate::gsp::UnloadBundle`] to use wi=
+th [`Gsp::unload`], if one
+> +    /// could be created.
+> +    fn boot(
+>          &self,
+> -        gsp: &'a Gsp,
+> -        ctx: &GspBootContext<'a>,
+> +        gsp: &Gsp,
+> +        ctx: &GspBootContext<'_>,
+>          fb_layout: &FbLayout,
+>          wpr_meta: &Coherent<GspFwWprMeta>,
+> -    ) -> Result<BootUnloadGuard<'a>>;
+> +    ) -> Result<Option<crate::gsp::UnloadBundle>>;
+> =20
+>      /// Performs HAL-specific post-GSP boot tasks.
+>      ///
+> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-co=
+re/gsp/hal/gh100.rs
+> index 1d06405a32f6..5fe445d73599 100644
+> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> @@ -23,7 +23,6 @@
+>          Fsp, //
+>      },
+>      gsp::{
+> -        boot::BootUnloadGuard,
+>          hal::{
+>              GspHal,
+>              UnloadBundle, //
+> @@ -143,27 +142,22 @@ impl GspHal for Gh100 {
+>      ///
+>      /// This path uses FSP to establish a chain of trust and boot GSP-FM=
+C. FSP handles
+>      /// the GSP boot internally - no manual GSP reset/boot is needed.
+> -    fn boot<'a>(
+> +    fn boot(
+>          &self,
+> -        gsp: &'a Gsp,
+> -        ctx: &GspBootContext<'a>,
+> +        gsp: &Gsp,
+> +        ctx: &GspBootContext<'_>,
+>          fb_layout: &FbLayout,
+>          wpr_meta: &Coherent<GspFwWprMeta>,
+> -    ) -> Result<BootUnloadGuard<'a>> {
+> +    ) -> Result<Option<crate::gsp::UnloadBundle>> {
+>          let dev =3D ctx.dev();
+>          let bar =3D ctx.bar;
+>          let chipset =3D ctx.chipset;
+>          let gsp_falcon =3D ctx.gsp_falcon;
+> -        let sec2_falcon =3D ctx.sec2_falcon;
+> =20
+>          let unload_bundle =3D crate::gsp::UnloadBundle(
+>              KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBu=
+ndle>
+>          );
+> =20
+> -        // Wrap the unload bundle into a drop guard so it is automatical=
+ly run upon failure.
+> -        let unload_guard =3D
+> -            BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon,=
+ Some(unload_bundle));
+> -
+>          let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset)?;
+> =20
+>          let args =3D FmcBootArgs::new(
+> @@ -174,11 +168,13 @@ fn boot<'a>(
+>              false,
+>          )?;
+> =20
+> -        fsp.boot_fmc(dev, fb_layout, &args)?;
+> +        // Keep the result as we want to wait for lockdown release even =
+in case of error, to make
+> +        // sure `args` is not accessed by the GSP anymore.
+> +        let res =3D fsp.boot_fmc(dev, fb_layout, &args);
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/nova-core/bitfield.rs | 329 --------------------------------------
- 1 file changed, 329 deletions(-)
+In the error case this no longer runs the unload bundle (which waits for
+GSP halt). But, we need to wait for GSP halt to ensure stuff is properly
+torn down (e.g. in [1], not needing to wait on FSP queue is predicated
+on GSP riscv actually halting, to avoid an issue on reprobe, IIUC).
 
-diff --git a/drivers/gpu/nova-core/bitfield.rs b/drivers/gpu/nova-core/bitfield.rs
-deleted file mode 100644
-index 660c3911402d..000000000000
---- a/drivers/gpu/nova-core/bitfield.rs
-+++ /dev/null
-@@ -1,329 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--//! Bitfield library for Rust structures
--//!
--//! Support for defining bitfields in Rust structures. Also used by the [`register!`] macro.
--
--/// Defines a struct with accessors to access bits within an inner unsigned integer.
--///
--/// # Syntax
--///
--/// ```rust
--/// use nova_core::bitfield;
--///
--/// #[derive(Debug, Clone, Copy, Default)]
--/// enum Mode {
--///     #[default]
--///     Low = 0,
--///     High = 1,
--///     Auto = 2,
--/// }
--///
--/// impl TryFrom<u8> for Mode {
--///     type Error = u8;
--///     fn try_from(value: u8) -> Result<Self, Self::Error> {
--///         match value {
--///             0 => Ok(Mode::Low),
--///             1 => Ok(Mode::High),
--///             2 => Ok(Mode::Auto),
--///             _ => Err(value),
--///         }
--///     }
--/// }
--///
--/// impl From<Mode> for u8 {
--///     fn from(mode: Mode) -> u8 {
--///         mode as u8
--///     }
--/// }
--///
--/// #[derive(Debug, Clone, Copy, Default)]
--/// enum State {
--///     #[default]
--///     Inactive = 0,
--///     Active = 1,
--/// }
--///
--/// impl From<bool> for State {
--///     fn from(value: bool) -> Self {
--///         if value { State::Active } else { State::Inactive }
--///     }
--/// }
--///
--/// impl From<State> for bool {
--///     fn from(state: State) -> bool {
--///         match state {
--///             State::Inactive => false,
--///             State::Active => true,
--///         }
--///     }
--/// }
--///
--/// bitfield! {
--///     pub struct ControlReg(u32) {
--///         7:7 state as bool => State;
--///         3:0 mode as u8 ?=> Mode;
--///     }
--/// }
--/// ```
--///
--/// This generates a struct with:
--/// - Field accessors: `mode()`, `state()`, etc.
--/// - Field setters: `set_mode()`, `set_state()`, etc. (supports chaining with builder pattern).
--///   Note that the compiler will error out if the size of the setter's arg exceeds the
--///   struct's storage size.
--/// - Debug and Default implementations.
--///
--/// Note: Field accessors and setters inherit the same visibility as the struct itself.
--/// In the example above, both `mode()` and `set_mode()` methods will be `pub`.
--///
--/// Fields are defined as follows:
--///
--/// - `as <type>` simply returns the field value casted to <type>, typically `u32`, `u16`, `u8` or
--///   `bool`. Note that `bool` fields must have a range of 1 bit.
--/// - `as <type> => <into_type>` calls `<into_type>`'s `From::<<type>>` implementation and returns
--///   the result.
--/// - `as <type> ?=> <try_into_type>` calls `<try_into_type>`'s `TryFrom::<<type>>` implementation
--///   and returns the result. This is useful with fields for which not all values are valid.
--macro_rules! bitfield {
--    // Main entry point - defines the bitfield struct with fields
--    ($vis:vis struct $name:ident($storage:ty) $(, $comment:literal)? { $($fields:tt)* }) => {
--        bitfield!(@core $vis $name $storage $(, $comment)? { $($fields)* });
--    };
--
--    // All rules below are helpers.
--
--    // Defines the wrapper `$name` type, as well as its relevant implementations (`Debug`,
--    // `Default`, and conversion to the value type) and field accessor methods.
--    (@core $vis:vis $name:ident $storage:ty $(, $comment:literal)? { $($fields:tt)* }) => {
--        $(
--        #[doc=$comment]
--        )?
--        #[repr(transparent)]
--        #[derive(Clone, Copy)]
--        $vis struct $name($storage);
--
--        impl ::core::convert::From<$name> for $storage {
--            fn from(val: $name) -> $storage {
--                val.0
--            }
--        }
--
--        bitfield!(@fields_dispatcher $vis $name $storage { $($fields)* });
--    };
--
--    // Captures the fields and passes them to all the implementers that require field information.
--    //
--    // Used to simplify the matching rules for implementers, so they don't need to match the entire
--    // complex fields rule even though they only make use of part of it.
--    (@fields_dispatcher $vis:vis $name:ident $storage:ty {
--        $($hi:tt:$lo:tt $field:ident as $type:tt
--            $(?=> $try_into_type:ty)?
--            $(=> $into_type:ty)?
--            $(, $comment:literal)?
--        ;
--        )*
--    }
--    ) => {
--        bitfield!(@field_accessors $vis $name $storage {
--            $(
--                $hi:$lo $field as $type
--                $(?=> $try_into_type)?
--                $(=> $into_type)?
--                $(, $comment)?
--            ;
--            )*
--        });
--        bitfield!(@debug $name { $($field;)* });
--        bitfield!(@default $name { $($field;)* });
--    };
--
--    // Defines all the field getter/setter methods for `$name`.
--    (
--        @field_accessors $vis:vis $name:ident $storage:ty {
--        $($hi:tt:$lo:tt $field:ident as $type:tt
--            $(?=> $try_into_type:ty)?
--            $(=> $into_type:ty)?
--            $(, $comment:literal)?
--        ;
--        )*
--        }
--    ) => {
--        $(
--            bitfield!(@check_field_bounds $hi:$lo $field as $type);
--        )*
--
--        #[allow(dead_code)]
--        impl $name {
--            $(
--            bitfield!(@field_accessor $vis $name $storage, $hi:$lo $field as $type
--                $(?=> $try_into_type)?
--                $(=> $into_type)?
--                $(, $comment)?
--                ;
--            );
--            )*
--        }
--    };
--
--    // Boolean fields must have `$hi == $lo`.
--    (@check_field_bounds $hi:tt:$lo:tt $field:ident as bool) => {
--        #[allow(clippy::eq_op)]
--        const _: () = {
--            ::kernel::build_assert::build_assert!(
--                $hi == $lo,
--                concat!("boolean field `", stringify!($field), "` covers more than one bit")
--            );
--        };
--    };
--
--    // Non-boolean fields must have `$hi >= $lo`.
--    (@check_field_bounds $hi:tt:$lo:tt $field:ident as $type:tt) => {
--        #[allow(clippy::eq_op)]
--        const _: () = {
--            ::kernel::build_assert::build_assert!(
--                $hi >= $lo,
--                concat!("field `", stringify!($field), "`'s MSB is smaller than its LSB")
--            );
--        };
--    };
--
--    // Catches fields defined as `bool` and convert them into a boolean value.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as bool
--            => $into_type:ty $(, $comment:literal)?;
--    ) => {
--        bitfield!(
--            @leaf_accessor $vis $name $storage, $hi:$lo $field
--            { |f| <$into_type>::from(f != 0) }
--            bool $into_type => $into_type $(, $comment)?;
--        );
--    };
--
--    // Shortcut for fields defined as `bool` without the `=>` syntax.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as bool
--            $(, $comment:literal)?;
--    ) => {
--        bitfield!(
--            @field_accessor $vis $name $storage, $hi:$lo $field as bool => bool $(, $comment)?;
--        );
--    };
--
--    // Catches the `?=>` syntax for non-boolean fields.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as $type:tt
--            ?=> $try_into_type:ty $(, $comment:literal)?;
--    ) => {
--        bitfield!(@leaf_accessor $vis $name $storage, $hi:$lo $field
--            { |f| <$try_into_type>::try_from(f as $type) } $type $try_into_type =>
--            ::core::result::Result<
--                $try_into_type,
--                <$try_into_type as ::core::convert::TryFrom<$type>>::Error
--            >
--            $(, $comment)?;);
--    };
--
--    // Catches the `=>` syntax for non-boolean fields.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as $type:tt
--            => $into_type:ty $(, $comment:literal)?;
--    ) => {
--        bitfield!(@leaf_accessor $vis $name $storage, $hi:$lo $field
--            { |f| <$into_type>::from(f as $type) } $type $into_type => $into_type $(, $comment)?;);
--    };
--
--    // Shortcut for non-boolean fields defined without the `=>` or `?=>` syntax.
--    (
--        @field_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident as $type:tt
--            $(, $comment:literal)?;
--    ) => {
--        bitfield!(
--            @field_accessor $vis $name $storage, $hi:$lo $field as $type => $type $(, $comment)?;
--        );
--    };
--
--    // Generates the accessor methods for a single field.
--    (
--        @leaf_accessor $vis:vis $name:ident $storage:ty, $hi:tt:$lo:tt $field:ident
--            { $process:expr } $prim_type:tt $to_type:ty => $res_type:ty $(, $comment:literal)?;
--    ) => {
--        ::kernel::macros::paste!(
--        const [<$field:upper _RANGE>]: ::core::ops::RangeInclusive<u8> = $lo..=$hi;
--        const [<$field:upper _MASK>]: $storage = {
--            // Generate mask for shifting
--            match ::core::mem::size_of::<$storage>() {
--                1 => ::kernel::bits::genmask_u8($lo..=$hi) as $storage,
--                2 => ::kernel::bits::genmask_u16($lo..=$hi) as $storage,
--                4 => ::kernel::bits::genmask_u32($lo..=$hi) as $storage,
--                8 => ::kernel::bits::genmask_u64($lo..=$hi) as $storage,
--                _ => ::kernel::build_error!("Unsupported storage type size")
--            }
--        };
--        const [<$field:upper _SHIFT>]: u32 = $lo;
--        );
--
--        $(
--        #[doc="Returns the value of this field:"]
--        #[doc=$comment]
--        )?
--        #[inline(always)]
--        $vis fn $field(self) -> $res_type {
--            ::kernel::macros::paste!(
--            const MASK: $storage = $name::[<$field:upper _MASK>];
--            const SHIFT: u32 = $name::[<$field:upper _SHIFT>];
--            );
--            let field = ((self.0 & MASK) >> SHIFT);
--
--            $process(field)
--        }
--
--        ::kernel::macros::paste!(
--        $(
--        #[doc="Sets the value of this field:"]
--        #[doc=$comment]
--        )?
--        #[inline(always)]
--        $vis fn [<set_ $field>](mut self, value: $to_type) -> Self {
--            const MASK: $storage = $name::[<$field:upper _MASK>];
--            const SHIFT: u32 = $name::[<$field:upper _SHIFT>];
--            let value = ($storage::from($prim_type::from(value)) << SHIFT) & MASK;
--            self.0 = (self.0 & !MASK) | value;
--
--            self
--        }
--        );
--    };
--
--    // Generates the `Debug` implementation for `$name`.
--    (@debug $name:ident { $($field:ident;)* }) => {
--        impl ::kernel::fmt::Debug for $name {
--            fn fmt(&self, f: &mut ::kernel::fmt::Formatter<'_>) -> ::kernel::fmt::Result {
--                f.debug_struct(stringify!($name))
--                    .field("<raw>", &::kernel::prelude::fmt!("{:#x}", &self.0))
--                $(
--                    .field(stringify!($field), &self.$field())
--                )*
--                    .finish()
--            }
--        }
--    };
--
--    // Generates the `Default` implementation for `$name`.
--    (@default $name:ident { $($field:ident;)* }) => {
--        /// Returns a value for the bitfield where all fields are set to their default value.
--        impl ::core::default::Default for $name {
--            fn default() -> Self {
--                let value = Self(Default::default());
--
--                ::kernel::macros::paste!(
--                $(
--                let value = value.[<set_ $field>](Default::default());
--                )*
--                );
--
--                value
--            }
--        }
--    };
--}
+Separately, are you sure that GSP lockdown will release in an error
+case? I'm worried that we'll just timeout here, which while it probably
+works in that it waits long enough, is semantically a bit weird.
 
--- 
-2.54.0
+What about using a ScopeGuard that runs the unload_bundle? That way we
+will have waited for GSP halt. Later, we could add additional HAL
+specific common code for trying to reset GSP in case it doesn't halt.
+WDYT?
+
+[1]: https://lore.kernel.org/all/DJAZIGJQ72A9.1688NC74RA4SY@nvidia.com/
+
+> =20
+>          wait_for_gsp_lockdown_release(dev, gsp_falcon,
+>          args.boot_params_dma_handle())?;
+> =20
+> -        Ok(unload_guard) +        res.map(|()| Some(unload_bundle)) }
+> }
+> =20
+> diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs
+> b/drivers/gpu/nova-core/gsp/hal/tu102.rs index
+> 87ceb8878f01..f78e2489f5a6 100644 ---
+> a/drivers/gpu/nova-core/gsp/hal/tu102.rs +++
+> b/drivers/gpu/nova-core/gsp/hal/tu102.rs @@ -6,7 +6,8 @@ use kernel::{
+> device, dma::Coherent, -    io::Io, // +    io::Io, +
+> types::ScopeGuard, // };
+> =20
+>  use crate::{ @@ -32,7 +33,6 @@ }, gpu::Chipset, gsp::{ -
+>  boot::BootUnloadGuard, hal::{ GspHal, UnloadBundle, // @@ -259,13
+>  +259,13 @@ fn run_fwsec_frts( struct Tu102;
+> =20
+>  impl GspHal for Tu102 { -    fn boot<'a>(
+> +    fn boot(
+>          &self,
+> -        gsp: &'a Gsp,
+> -        ctx: &GspBootContext<'a>,
+> +        gsp: &Gsp,
+> +        ctx: &GspBootContext<'_>,
+>          fb_layout: &FbLayout,
+>          wpr_meta: &Coherent<GspFwWprMeta>,
+> -    ) -> Result<BootUnloadGuard<'a>> {
+> +    ) -> Result<Option<crate::gsp::UnloadBundle>> {
+>          let dev =3D ctx.dev();
+>          let bar =3D ctx.bar;
+>          let chipset =3D ctx.chipset;
+> @@ -290,9 +290,12 @@ fn boot<'a>(
+>              .ok()
+>              .map(crate::gsp::UnloadBundle);
+> =20
+> -        // Wrap the unload bundle into a drop guard so it is automatical=
+ly run upon failure.
+> -        let unload_guard =3D
+> -            BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon,=
+ unload_bundle);
+> +        // Run the unload bundle to try and recover the GSP if an error =
+occurs.
+> +        let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |u=
+nload_bundle| {
+> +            if let Some(unload_bundle) =3D unload_bundle {
+> +                let _ =3D unload_bundle.0.run(dev, bar, gsp_falcon, sec2=
+_falcon);
+> +            }
+> +        });
+> =20
+>          // FWSEC-FRTS is not executed on chips where the FRTS region siz=
+e is 0 (e.g. GA100).
+>          if !fb_layout.frts.is_empty() {
+> @@ -319,7 +322,7 @@ fn boot<'a>(
+>          )?
+>          .run(dev, sec2_falcon, wpr_meta)?;
+> =20
+> -        Ok(unload_guard)
+> +        Ok(unload_guard.dismiss())
+>      }
+> =20
+>      fn post_boot(&self, gsp: &Gsp, ctx: &GspBootContext<'_>, gsp_fw: &Gs=
+pFirmware) -> Result {
 
