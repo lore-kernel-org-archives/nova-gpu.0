@@ -1,128 +1,209 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278BE3D4121
-	for <nova-gpu@lists.linux.dev>; Thu,  2 Jul 2026 07:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978908; cv=pass; b=YScUfX1gVUAvSx++FIj5v0C86/B+dN0/Fg7GZPHJviRtMj3OqsZF9ffnUQJbme/7+alP3rDEwRRyJy4xgVkcyJYl7+1ffBtWZnzKjSsnAkAsCisvrETbU3cokc9FRCHUeqd4FngLIIsikBvkU3yNlhULxVeJvwr8gL6JQDo5CJU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978908; c=relaxed/simple;
-	bh=3wHUzHYNxBHACocz+MHx2rhMLTU+c4Oe46o/2eS2jTY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=umHWXPPDkAm+R6ra6LMeTxCmOhiKAoB06fWopBJmstKcizBpheTq/7Juqi2TF48vK1iyuehISgCRszvcimmqBmNS48zG07cVczu0iZueJhzI9iu0gSC53enx63mhWaLZW3fMCtNYVsQf1hH6qfwhH08lpvFeLjnNB9RAVPys/rg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OSj9H5D5; arc=pass smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2610B47CC69
+	for <nova-gpu@lists.linux.dev>; Thu,  2 Jul 2026 09:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782984766; cv=none; b=YCcc8GEd8usHqL5WXKMoITZlxYhfQPX8EI1Bo0A4FMfDYS1s2hRuAxiQOm/b4y8NDPAspWvAjrFd7diRwD1TE36bFrZCw99PtWk3AJaAErkuX51FCn+xLyGPtlTQyVvaBajXp4kTqWvCGRcebbhX11364IVf+NghgM6jrUSZvnQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782984766; c=relaxed/simple;
+	bh=e/KR3pjg8xMYjHFY5YReM2UoqngO3ghQki9OUFn+GLU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mTCb3URWWO+qxWANXeItU+RbJgRYtKIKSoz9Jm0S7ExgSA1lm6OjT9mcxa8orx6d/yIzQ1+IONK2HP1s5woQAiMKbqeawHls6LX12oPxbEURaq9rvQnNY+yLMCH/pZZLDqKsF2UYW4FZPYZjA3JlYDFRewRVAJT4NhT+IeuLjkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=N6gxHG4I; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=h6aft0XD; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OSj9H5D5"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-37fa897003bso154673a91.0
-        for <nova-gpu@lists.linux.dev>; Thu, 02 Jul 2026 00:55:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782978902; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fwmW/DOWBsXhWILBde6oUgV3fk0MRx+GYzWrmo0CKhp3j/vxHNlTaFfCSKm0Tt+fEd
-         H7GSN3nSprLdyFuvU/rdCUN19up6ZiBpr9Mfq4ibbZcqqgRcn/dQilPSe1GFwbK9Ep4A
-         k6uoJfl1zUCPOl4XfNipmWdJPSgwvfUDLWCjAUrXRAjByCFAUwOQf3WagcCZt/3EKVez
-         P3KRHvV9fQyKZihwA5hcVLnlIgIQeFqpdhp9EJXpA6rbPDZy6za1cRA7SherX21Z1/8T
-         fUKLtTzIPMRFAbzlwZTUxzjcqiSVImqgW5Jvh2H121sNgtIZ59uFBsp/XzJ6GS5XQJ0o
-         Soow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3wHUzHYNxBHACocz+MHx2rhMLTU+c4Oe46o/2eS2jTY=;
-        fh=gZizBkOBFVaNjXl2gI9ZePQU0fj8AByts+6AYMlw8Pk=;
-        b=gcXBprmAkgk8HO7hMnMtOBNDp/eOHHcR1wxbS/2yqhjpjiXStt2wcbzAKPhFkXA1Oe
-         PMAd6RPc16pMVViJDcU17X9CDVEnrGw3HVvoMGqrtNhURreTFggCZ5nrTWBNasCEZK/x
-         l8DjqwMHLbH+FAS2eywjiMkag/6XVKAz0TOD4TMWy9j8/z9ZBf9KAT38guK9TIHWhCZY
-         KmIgO8/dFVvJET/xrrxcs34Bpr62BtiSGzNqTxUS2Hdkqr8yuWjN2lA6o1VqT9bHJB6q
-         tHvnz5pRkzc8l8Y/6c0MJ+TbV2yl30o/prkvjpR3MlpfWQNIk0mUoZIfJigVW1od5yi3
-         c3xg==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782978902; x=1783583702; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3wHUzHYNxBHACocz+MHx2rhMLTU+c4Oe46o/2eS2jTY=;
-        b=OSj9H5D5A8sqA6HaAwc7qtYs8AMJKL93W076EqSPrdZgc/uFjLVwgKyG/CbJQfN+gf
-         EsK5ReWac4JYo6JAQKu1jPIbtXJaDznGQSEGhCKFvt7GJrsAtD3OZlGMmYTeG7rdLU99
-         QdaiDZ9LrfEcEE2m0hDxgqJA3NyYKsd0McdRPm+OPjjgQXf45dBGEx0y3a2HC2OzdRDh
-         rQij8kd4D2mGKRZMHI1hHM4JUk7rPfzesnclooEftM8fEzqy0WYkLshndTkJmDXKYZTH
-         E5aYeKEjyr/WuhlR2aCKPbVdAFqKwW506SNZR+RiHvZM/9E2+lThlvONIdkqkSWAXbWk
-         hO/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782978902; x=1783583702;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3wHUzHYNxBHACocz+MHx2rhMLTU+c4Oe46o/2eS2jTY=;
-        b=WD3k0z+94MpcYLrLOa/0mG6u9AREjH7n0jNPRoxaVFaRlw3sK7SE8nDedKxodU4vIG
-         xN7rRSKUJrMlG9pAAZA165hwYmIxGu1HX+yIMGfy1t/UtvrldsJXEO7C21kC4mpXMOZm
-         9QTFsRvTLaDKP2MSebpHvIFaYSbntJ017IqtSZR6xFvAR/+/5LBjf1kAu7cgMUhbnjj9
-         GFraHqDsTWmnqdUhrXiIeL+ppC0oXj6yfQkz2x3wY1bqmuNOgglGWPuaqs95hsVqWYsT
-         JOGq7QC8fbtlU4Tya4yNfh7V/HBiffgRllIJnjPCcYPmLt3HcH4piL+GrkZuFZMCn8xW
-         DAYg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8rh4mYwzR4TYUCPSJedDoS7ox3I2M03quTNQihU9bJBO7Jv0chJOqPj4jfPilgOIYRGHameSptQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzoBSpkEHeBrvDCZ69Cqn3XemxELqS98AsGxnGnd4ONd6Kfk9S7
-	ey2j2jYyz6gVt0RAVVnZScuR7GAkFIg2x11e6dcranwFd3F6eibLal4pyOtHGMHi6YSEwsKXihH
-	7GLPFkzh5YX9JY23czGmsq5s4Hn+5TNE=
-X-Gm-Gg: AfdE7clRY8C/oqbEgOh03cm/I5LP7gTc6o/x9cgT7K4sXsNPf8kCny+p04k1nMCQXSW
-	J1pnX2oJdTs+gb+2qUmfGbf5I9YQVP8/r875vETpL5H2Bjd/WnURPYKgYeQqUX8SBmNBdGzaWSF
-	r0U/pifKWao4YwI1UYIv7JS5lEwYr3/pw074ENYvCfeGg8GORA3l6YHfh8bzw0keZa6BFzEy98h
-	5oDQMKRV8JN/xfDFZwVme785bx6LoTrBfz85KhqnO2OPwW8zHWU5i1DZ5xu84VfmGSts7EmR5tV
-	K8nD9lE/y9Sz0fvjP91vpPKfhBOyOuZzmdh9W+75CwuoaOr0oNgF8Fd6j0vzWErH5yRavrO3Xa6
-	QzWC74e226tz7p3K72gEkjaY=
-X-Received: by 2002:a17:90b:164a:b0:37f:e7e7:ac3 with SMTP id
- 98e67ed59e1d1-380aa213029mr3471079a91.3.1782978901663; Thu, 02 Jul 2026
- 00:55:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="N6gxHG4I";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="h6aft0XD"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4grWrT691Yz8v1m;
+	Thu, 02 Jul 2026 11:32:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782984761;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=7WfiE+s2SeFtrvoI9W5dFWeRHJeYSPRvC61ln8/YJkw=;
+	b=N6gxHG4Ibu3Kwf+GC6iRb5iG4g7Grp79KHjyx032PRnXj2kmA2EvPZicVoXSvVWqjTAwI1
+	f9+Tb48u1gmMeq+YqFYXUcY56/STl4v10H09w3yhUJ4/WeHlaujKZG5eJw4qhLZzGJC6Y2
+	ZmBGfFYNJjqSOtR1IMm14UEcJB+w6LKAaM3YlwGZqaE+2B0hES24+3znWkVZP9k46/q0nH
+	q0OoJTiNUPPcNR2R883Jzm6yoCeg7H3oxALJkWpG68JbMfkuH3PJJXvuj9qW6d/ouTLw5k
+	csZzyUbtU29qIZToVtxUv99OC9NlgLkPxljbZK93+XnSvGYXYf7U6zvmzNmBaA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=h6aft0XD;
+	spf=pass (outgoing_mbo_mout: domain of mhi@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=mhi@mailbox.org
+From: Maurice Hieronymus <mhi@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782984759;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=7WfiE+s2SeFtrvoI9W5dFWeRHJeYSPRvC61ln8/YJkw=;
+	b=h6aft0XDzkcsGgpru5LYT1t1N7T9WTEIB61jVC2qH42PnEdf1j+H7Trqc+SjLWHUY3bAum
+	Jfv3orGYhlNqCqB0oha6LIxYCm0OFUmvuhV5jolxmIe2Qynzp02myn8NrDCWqrWIljU0th
+	tnZ9fY4CrYBvF6u03mv8ziAYbl88MGCOx2v4mmooFnWEW/7rnqtFl/T/mO/+uSO19Ma/KN
+	AGMwYep2BWK9LMUBfOC4aGJrfqMOREg/chDZISoUCc4lUUzplmxgdPWfeJYXjNuEjrLDmG
+	U7w2MS9gqBDlnp/0FjfebnLUNXQA6aDpbQ9N3gkPAEYisT5I5MqDcJQeS8+E7g==
+Date: Thu, 02 Jul 2026 11:32:27 +0200
+Subject: [PATCH] rust: pci: rework device enabling API
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260701-nova-rust-analyzer-v1-1-5209f486f10d@nvidia.com>
- <20260701123703.152958-1-work@onurozkan.dev> <DJNON0M9N1LM.SSDDO8N9AM2B@nvidia.com>
-In-Reply-To: <DJNON0M9N1LM.SSDDO8N9AM2B@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 2 Jul 2026 09:54:49 +0200
-X-Gm-Features: AVVi8Cc-jeKWuhlps3fpukVFGOkqyU8Zzqr229Z3ERQ1vr56XgIj4S5V-0WLn90
-Message-ID: <CANiq72=NSt8bKamtL8BpkwBAMRs9cnbXj5XvT7yB11ZY0wWdbQ@mail.gmail.com>
-Subject: Re: [PATCH] gpu: nova: fix rust-analyzer generation
-To: Alexandre Courbot <acourbot@nvidia.com>, Jesung Yang <y.j3ms.n@gmail.com>
-Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
-	Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-rust-pci-enable-device-managed-v1-1-75bc4ff2935c@mailbox.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQqEMBAEvyJzdiBGorJfWTzEpNUBNyuJiiD+3
+ eCxDlV1UUIUJPoUF0UckuQfMlRlQW62YQKLz0xa6Ua1SnPc08arE0awwwL2WXLgnw12gufKGAz
+ Go2tUTTmyRoxyvoNvf98PTCRLBXAAAAA=
+X-Change-ID: 20260702-rust-pci-enable-device-managed-155eb5de8603
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Maurice Hieronymus <mhi@mailbox.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782984751; l=4837;
+ i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
+ bh=e/KR3pjg8xMYjHFY5YReM2UoqngO3ghQki9OUFn+GLU=;
+ b=L4D2Uch8jcxc6wBza26Cc7mWCSkWEjGOkGFaqzPwjHOVQag7JY9G7O9l0MWlN6WtfCdo6AHiZ
+ qnLBzBmb5mvCfJVwOC1+c5myvNVk2MJlE6NW2uLLbH1AVO80yxMmX5t
+X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
+ pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
+X-MBO-RS-ID: 2b212682885282a8313
+X-MBO-RS-META: agoaqz13tinhriczj5a1doagmd63so6b
+X-Rspamd-Queue-Id: 4grWrT691Yz8v1m
 
-On Thu, Jul 2, 2026 at 3:09=E2=80=AFAM Alexandre Courbot <acourbot@nvidia.c=
-om> wrote:
->
-> Ideally yes - I expect that this is something the improved build system
-> will handle correctly. The current Nova build rules are a temporary
-> workaround, so I wanted to keep this "fix" as small as possible as it
-> will also be reverted eventually.
+`enable_device_mem()` wraps the unmanaged `pci_enable_device_mem()` and has
+no disable counterpart, so the enable count is leaked on driver unbind.
 
-Yeah, the current approach is just a workaround for the missing
-information, and we will be able to just do it "properly" instead.
+Replace it with:
 
-This is fine for now (and it is not the first "magic comment" in Linux anyw=
-ay).
+- `enable_device_managed()`, wrapping `pcim_enable_device()`, which
+  registers a `pci_disable_device()` cleanup that runs on unbind; this
+  is what drivers should normally call in `probe()`.
 
-Cc'ing Jesung too.
+- an unmanaged `enable_device()`/`disable_device()` pair, wrapping
+  `pci_enable_device()`/`pci_disable_device()`, e.g. for runtime PM
+  paths.
 
-Thanks!
+Unlike `pci_enable_device_mem()`, both variants enable I/O and memory
+resources.
 
-Cheers,
-Miguel
+Convert nova-core and the rust_driver_pci sample, the only users of
+`enable_device_mem()`, to `enable_device_managed()`; besides gaining the
+automatic cleanup they now also enables I/O resources.
+
+This is a prerequisite for the EDU PCI sample driver series [1], as
+requested by Danilo in its review [2]; that series will be rebased on
+top of this patch.
+
+Link: https://lore.kernel.org/r/20260620-b4-rust-pci-edu-driver-v2-0-6fd6684f2c14@mailbox.org [1]
+Link: https://lore.kernel.org/rust-for-linux/DJEPMYC7J6ZG.D0ODUD4YGFCT@kernel.org/ [2]
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
+---
+Replace pci::Device::enable_device_mem() with a managed
+enable_device_managed() plus an unmanaged enable_device()/
+disable_device() pair, and convert the two users (nova-core and the
+rust_driver_pci sample).
+
+Requested by Danilo [2] while reviewing the EDU PCI sample driver
+series [1]; that series will be rebased on top of this one.
+
+[1] https://lore.kernel.org/r/20260620-b4-rust-pci-edu-driver-v2-0-6fd6684f2c14@mailbox.org
+[2] https://lore.kernel.org/rust-for-linux/DJEPMYC7J6ZG.D0ODUD4YGFCT@kernel.org
+---
+ drivers/gpu/nova-core/driver.rs |  2 +-
+ rust/kernel/pci.rs              | 26 +++++++++++++++++++++++---
+ samples/rust/rust_driver_pci.rs |  2 +-
+ 3 files changed, 25 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 5738d4ac521b..b0711d98033b 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -75,7 +75,7 @@ fn probe<'bound>(
+         pin_init::pin_init_scope(move || {
+             dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+ 
+-            pdev.enable_device_mem()?;
++            pdev.enable_device_managed()?;
+             pdev.set_master();
+ 
+             Ok(try_pin_init!(NovaCore {
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 5071cae6543f..a408b3412077 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -453,10 +453,30 @@ pub fn pci_class(&self) -> Class {
+ }
+ 
+ impl<'a> Device<device::Core<'a>> {
+-    /// Enable memory resources for this device.
+-    pub fn enable_device_mem(&self) -> Result {
++    /// Enable I/O and memory resources for this device.
++    ///
++    /// This function is unmanaged and does not perform any cleanup when the device is unbound.
++    /// For a managed function take a look at [`Device::enable_device_managed`].
++    #[inline]
++    pub fn enable_device(&self) -> Result {
++        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
++        to_result(unsafe { bindings::pci_enable_device(self.as_raw()) })
++    }
++
++    /// Disable I/O and memory resources for this device.
++    ///
++    /// This function is the counterpart to [`Device::enable_device`].
++    #[inline]
++    pub fn disable_device(&self) {
++        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
++        unsafe { bindings::pci_disable_device(self.as_raw()) }
++    }
++
++    /// Enable I/O and memory resources for this device, with automatic cleanup.
++    #[inline]
++    pub fn enable_device_managed(&self) -> Result {
+         // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
+-        to_result(unsafe { bindings::pci_enable_device_mem(self.as_raw()) })
++        to_result(unsafe { bindings::pcim_enable_device(self.as_raw()) })
+     }
+ 
+     /// Enable bus-mastering for this device.
+diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
+index 1aa8197d8698..213ef14386ca 100644
+--- a/samples/rust/rust_driver_pci.rs
++++ b/samples/rust/rust_driver_pci.rs
+@@ -154,7 +154,7 @@ fn probe<'bound>(
+             pdev.device_id()
+         );
+ 
+-        pdev.enable_device_mem()?;
++        pdev.enable_device_managed()?;
+         pdev.set_master();
+ 
+         let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?;
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260702-rust-pci-enable-device-managed-155eb5de8603
+
+Best regards,
+-- 
+Maurice Hieronymus <mhi@mailbox.org>
+
