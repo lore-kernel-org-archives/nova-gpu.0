@@ -1,289 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011044.outbound.protection.outlook.com [52.101.52.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE2F352029
-	for <nova-gpu@lists.linux.dev>; Thu,  2 Jul 2026 04:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782968181; cv=none; b=BAcMeJ9z73ZivGjQk4JhGAOBSFphqQwkSF4WRBxoIdYJlUX7tWsArj0VJSRtY5k2LUovTLDxDRtijTZijNtDNgLsEd+zPJHEMBVlt/h3K5QWeP9NI2nQXCpjPiMjdnFb6J/cpuGllmjtB1s/pZKTp4cK/g4PqFg5QRze/6gsF+0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782968181; c=relaxed/simple;
-	bh=qUkknTqM3wAsDZGxnCk4r8uije4Ywksk31AJGFUwoio=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tg1bntLrpTKuDmGj6fgIsrQzpkfdYqMvoa6pN6fJlxIQH8tMlV/95Tp6RqSE6vJ+BMinmCGWwXQkcHAjWaccJAC9PU+J0mJJgHI1FQfVgmg8XYRMdDWhZTT3pkwvVNZQvjXEsZnDK8cTZofLeuQXhqota4ImZxU6uxgMOFHlRJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhNyVchm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7213603E9;
+	Thu,  2 Jul 2026 05:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782968676; cv=fail; b=K8NfAbMyMy7++CgHY9OOFkkSG3qWo4K120RfCAxNZCCQlYcuzpQaiiuA82ARm1OmEK9kPKEi7l1PzA2F3QSwx5CuO8OuAbzDfqhu1dmrIspxeUNcZbxEsnQv019kVFskIXgCRKeke4tkWmW3ewFfcYg+tSc/iSVkJfTdccO9uUU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782968676; c=relaxed/simple;
+	bh=FvujqGuAclaWI+m2FCGOBmX4YmvGLN/uZycCCvBaHM0=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=kgYgPcmVlS4ST5t0YzLpAkRZ/dLxg7Ldt9/Hd5UJzZ5LUSYgREbHvzTp9ncACj3kiKjBac5T3gUpzUtGjVgPRBtl1QtnIqJ8uRPRl0I0XlJfQjqG8F0Q1GdZiOIwPJaZ1ZvX7XJfcATtiIYYQzy+AqUuzZQDu9R2DtxIOcxSmO0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bsRCdg6p; arc=fail smtp.client-ip=52.101.52.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhNyVchm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1ABC1F00A3D;
-	Thu,  2 Jul 2026 04:56:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782968180;
-	bh=5FbdgVVCy1jGRJo4ul6m4avfjzpDyG/ZQhvkhAXSZdg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QhNyVchmjhlHqs+11k03JwG9AM8v2cmiR34mgIKLhP0kXuV2QU94MFPIUDJw4Iqo/
-	 CsS+7AIk3qvqAjDcbjovb8Q5mqWwjnRt2AGO1/W5R7LJKAwIUndZV2d3LPCKwEcMeB
-	 dPCSiUUTgwbEv4WlEjhtxRpglabrdOYM/ypBDCd4XmjDOzC3povRemtUdcbMpJJbK0
-	 ZkcCq06MbDfdcILP1pQxrio6oTPURshau5ZFwmkAwgtejXESNgYoS5kO1hp5PN3pmT
-	 KRg8nLkJK5zU9vwyxQY+GRAkIcG2v9AGDlgKuZjEKNPyz4BBGyBRAi4eYcYipqXEtv
-	 qcZjEZCqmPsaw==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.phl.internal (Postfix) with ESMTP id A6394F40074;
-	Thu,  2 Jul 2026 00:56:18 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 02 Jul 2026 00:56:18 -0400
-X-ME-Sender: <xms:cu9Faipocy07PwM0BMQo6FTFxRsAxfX2pUAdktPMN9qcTQBBXQtn9Q>
-    <xme:cu9FahGsD8LzNpD0Oh5RvHvsTzVLY9MCt28Mijdt2obSkHVeTtyZmJIaEZM6A8rD6
-    EUo3IaHh5y98HNIIReXqIYc1zqH74M1kKBfHVz0aTDEgV253cu2Zw>
-X-ME-Received: <xmr:cu9FauHLwe3FnkwAYe2bksGhXbQEICCkqGTZVyQ3Si-USIJGICL5Qhs-YmNq08sWiKYoKMqPzx3LUZsqZ-XoUtCUuarI7eO6>
-X-ME-Proxy-Cause: dmFkZTFJK+qC8Nw8QEmP6/3rDThTwyuB46e6V2yMR2v0UJoWpC1gb/Ej7QeegI3skXjY3V
-    StH+oMB43R2Lzr7nm8zsf1GbY6RHyo93FdKXx5GZxUfSHN2TOfDchyVY4B6a7Mp4twDbtp
-    CVsUJH1Q9q+lHVUoJhfoSy1JYEVYUi9FHBHIKlaax9Soxva4B6Xsmiq/eAybqL9IVSB0r/
-    wWTF95StWJxuQDLenlUnI9ooS68AJec0IADaG4p29nDovJhym/d151AKn2pyWvLaia/Cfk
-    5hbneZXgexxtz/ZvVNgnoUvBekzqxVJ71RkyLz+P7kCk6iTGQD49YS7R3vDkEzzncVTFqP
-    A30SqjHKVGj/BRr6bCGykTdwC35NMSfBzYo8mnI3wFpS7tHkmYSwq7S1vx2LPr8OimvfZt
-    feTK0Wds8vq6bRsPAvZNJPA++Jb1OLbckEfbz4nd885/DClpIRYR5pb4124dTnJbwX48sV
-    bswITlzNMwZA9OpGL8FxN9iXw6SQGyMIDz0TxBZpJvKXYn+1CSXwoe7anv2i0UfGrJr4gY
-    zOuDM10mcSHn3vkTtf3kpStr2jbBAVYL1WEVGGRnya6SOOug7ZUr3rS1hUqaTMGryzD6Lc
-    y6zzqwuEUiiKXnRD7OPq7c5/4l6Zh4b1Vt7lAVtaEOer4lAaJIEj0raT5JqA
-X-ME-Proxy: <xmx:cu9FaoJkL8GRnA0t7f2Os5kxwkjRUJAVlszp8XoTrEMu274AjyJN2w>
-    <xmx:cu9FavFRJzsQ88A0-WpGjExho1YknygXE8w7J7R1QVDcdzXXN8nZiw>
-    <xmx:cu9Fahqf-9WQh82Mx4ij6FmhSf4bNi-mZrBwI14sA71wMhIJkh03kg>
-    <xmx:cu9FatMR2sEd4nYgf_0bPB7-J3SMaCV_IeFi98DrhLByTde_iMnclw>
-    <xmx:cu9FapoL7ru2LeQJ4wszTKVs_VwFuOkMv1z8PY2UuRuNNU5O5HbE4LYN>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Jul 2026 00:56:18 -0400 (EDT)
-Date: Wed, 1 Jul 2026 21:56:17 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Andrea Parri <parri.andrea@gmail.com>,
-	Nicholas Piggin <npiggin@gmail.com>,	David Howells <dhowells@redhat.com>,
-	Jade Alglave <j.alglave@ucl.ac.uk>,	Luc Maranget <luc.maranget@inria.fr>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Akira Yokosawa <akiyks@gmail.com>,	Daniel Lustig <dlustig@nvidia.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,	rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,	nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org,	lkmm@lists.linux.dev
-Subject: Re: [PATCH v2 2/4] rust: sync: generic memory barriers
-Message-ID: <akXvcdhEN8Rk7QaJ@MacBook-0RXW5>
-References: <20260609-rust-barrier-v2-0-30fcc48e1cd0@garyguo.net>
- <20260609-rust-barrier-v2-2-30fcc48e1cd0@garyguo.net>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bsRCdg6p"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bt6NK0K8i6a7rpz2Ak4RNZ8qr9dCQqR9FQky0Y1P6F0joMKMFZroOHCCvBen60tIiEtx3ILxlrLrqBNb3PKO+cg0oi3d2GPZ2A3O7tA8AWv6c34sDxXm1i7kCovGy1qJbMKLWDlvEO6859MAeQA0O5pIufQ0QzCB8sE24obHIpJYSdC66gTzFN63d0c7ZXiPqvWLC3jrGieSndgp0tUVh0snuEywATeg48JNh5PPhxe1+OcMk+5MPGjL9mZ+NhzH/MwPJIq4swYHhMhPSYWu+zyfCp4P/IupoEjxZehqHj5E0nSNkWPMRBlRDN1Fp3d4DUs+qIRgtyoi0TFUJDQzcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PGHKT7iXAmIaJN3GicheL+pXix5apBcm/tJd3X0Hw1g=;
+ b=p7VAIqafW7xg8liv0VJ0UKW0ObVufYx9H1xq5XCwR5yQxmSFG4JjvjcyGnBh/pDl3cpJ3xXvGRdXj/r5of3YGDAk69okIQ0nTjNnmjL3Ks/MWrF3EC4W0AwU3vinXEAua1JpgU7qZTIEs4H4V6bPCG7f0o59BMP/c7XtC23qJBZGxnyPHu+OEyy65Y1NftwhV4dX2gzANd4mzoWygbwgdJrZmj8MbCBhQauTAubbnp7qKWUmMv3s6KWzyJUOFzHpGiffRaMzX9QQ5tKQY6hMvlt5gFpy1/oBgqQHtgGS8CZAEi/LWJvdmgT/pmIj1K5yItamgKH6isv8ypkfq1VcDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PGHKT7iXAmIaJN3GicheL+pXix5apBcm/tJd3X0Hw1g=;
+ b=bsRCdg6pPhd/AUwgaf1oKhV9RaASEiXxRSotHkR96avO5xrh79e13JuixRysBMZeytZE6d1HkdA6DJr7OUKV0OmnuyNS7jB3o+Rhz0P8gaChgMebSvLLi3PFk9ddaqVoL8oU28Uz1MFK2Yxwie/m0AF48ggH/BhinMkgxb/DIJL0BfBWEBAwEW477c2lWQVhso6nOKn3WcjVWchtHg9GxDifpctc/m5FPI2yjLXOSWgE0XdBmTOjq7LuGB+2dB//4+aum05iD2UlFyTMPH5NL00EZk0tCoKxBnHPd8YjGPba1uRgFGjjvsu3aN+H4DzWpWtTfBNW8uHe2YDjM8/E2g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
+ 05:04:25 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
+ 05:04:25 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Jul 2026 14:04:21 +0900
+Message-Id: <DJNTN3MEEYDZ.1PSWARQKO5TPO@nvidia.com>
+Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
+ <ecourtney@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
+ <lyude@redhat.com>, <driver-core@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v5 11/19] rust: drm: add Ioctl device context typestate
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260628145406.2107056-1-dakr@kernel.org>
+ <20260628145406.2107056-12-dakr@kernel.org>
+In-Reply-To: <20260628145406.2107056-12-dakr@kernel.org>
+X-ClientProxiedBy: TY6PR01CA0004.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bc::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260609-rust-barrier-v2-2-30fcc48e1cd0@garyguo.net>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CY8PR12MB7099:EE_
+X-MS-Office365-Filtering-Correlation-Id: c39d4809-3bec-4455-6b1d-08ded7f76327
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|10070799003|6133799003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	wKw1HAzQZeoMEqrrN63ns9XC6QGUrRSQn2/avkEJ5rUW/1fmSF+yZKAsL4ggTHjZZQwqsmnWVXZEkjuHHvD0shZK/w9LEXeOL1EPvbYfw4o+HTG6Em2ra2ujlU99dfX0iin41fUIQJqVjv2Vu9orForIAQGOrQa6zMQwAQfF/UK1CbouoXM9BIyq5GxxcY8FYf3ffkzfsybOvo8F8lh3kWraKUtgDqEIYrHhwVys1Nafx5duTferpC0pysP05O8WoKegYditgzK6ken4idp3aaikV1CNdDaX0K5xZ9GzN1N0SFSRauZV1Bn2WbcCCVF3CojnMDO3KgRj6hSo1RgVS52cEaSpzxf8XQgC/0W0FXCMUp6ISVDkINpTvQrqwyQgw0OmPkE3z+tAcNEBUdrAjmG+dFm1LB+veBDlfHWlEUIdVp8b3gu4iuxI//qs0tPP+0rgA4fhUAt4yvbdteShZqhmiq7tzAzSMFPeQ8UA0hBBdqxuAXKB5fw0UFsi7U0IIIFXeAXStxUz7/KNUd0SgorZmCSoJdxmtNEgAA0hGnRIwhcxO+5bGN4kcZcZ03wpnLC7nJB44RYWkso6ySDq6s0TqSm30FEHVfNS3+6VDSOoI2RdSm2Cp8xxt1QiuoJ4gL2MlzginnreXj+xk6Twc31Azv+0d59Y2lFNjUmuh5Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(10070799003)(6133799003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UHkvYkJsNUpnT2x1djNuUDdBMEROTzdDQkZVb0VoQ3gwU1lHckRBdnFNTzVm?=
+ =?utf-8?B?Z3Q1TjJoT1AxdndtdU9KSUhDbWZMcDM4aDZjNVBzMnZ3SG5sL1p1UWU4MEsr?=
+ =?utf-8?B?STFRZ29yM0M1RWlOR2x5SHFzTVY0bHdhRnhMem5uak9ZbFczYUlmRndTQzBK?=
+ =?utf-8?B?WjZqOHI4YVk0RnhSM21uc1Z3a0RRb1owNW4zQU1CVkpHNHU5RTZlVWd2NkY1?=
+ =?utf-8?B?d25CZm0wdGk4T0dYbk1oTytvOEtacVlCT2wrODNGYkc5d2ZwYWY2MlhwWkNF?=
+ =?utf-8?B?SldhankxQUU4UHhiY0svTU8zajhHajdTa3dOSk11cm41V3A3bGJvVW5LR1A2?=
+ =?utf-8?B?L3FuUVNtRFhJUlFqbDJpRE9QY0hRQ25YekdoeTltUW5qV3F1dXBLY0pXV0Fi?=
+ =?utf-8?B?N3lERncrM3dMdjZZYUtxMVNLMGZGaHVyOGhEd1RzMis1N3dPZWVCRVo0U2hM?=
+ =?utf-8?B?clEzK2R5c1RXbWhIc0F3dnQ1N1FEakFNOTloTDRQdjhYRW9kdytzaFFadzVT?=
+ =?utf-8?B?KzZ2OGFkWloveWhoRzRERDhaMEhYbHoyZzRSNWJQZDVGZ0VBM3lncm9lOVhy?=
+ =?utf-8?B?R2lDbCtuVXN5NHlHQVVieGNmQ0J1a0FVL1E4aSsxZndtSjRkK0FzWWUwT2ZT?=
+ =?utf-8?B?Zms2T0NpTkZ1a3RVK2IvM1pNVEYwMm1LYTdPTjlzTGF4U3BpYk9Jc3hZay95?=
+ =?utf-8?B?UXhCUnhnWHdGellscWhRU2g5ZnhPTzM4S0JoVlNMZnN4RXc2cldJaTF6cXpW?=
+ =?utf-8?B?bEtyODF2aFI1MElrbHBYOW5HQW5VNFVRZzgwa1BHcEkrL090MlIraXRQRWV6?=
+ =?utf-8?B?MjFidG43Q09aV21Jdnl6aG85V2ZsNm5qNVMzbG5XY2J6QlBpVy9NMDZZNUxy?=
+ =?utf-8?B?aWV2VWNSZUFyTnBzNWszT0w4dTlXc29MdXk4SUd6b0ovdlBDSnNBSkNXOW11?=
+ =?utf-8?B?T1FVVUkvaHJXUWlVNFo2T1Y4ZWFRWkJtSGVETElOS2ZuU25Eb0pNUmZQd0FJ?=
+ =?utf-8?B?c0hUT29DMVlFWTNQU3VEOHdQSzJMMG9WUDJybXJ6dlVKQnhyeVNwdVpNOFBU?=
+ =?utf-8?B?VTZRWFY0Kzg3eGEvdmgvMG5IQi9EeXNvZ0dycmo4YlRydFhKcytCb2N6UW9s?=
+ =?utf-8?B?RWVXd3pKbkIyYkFGb05VU3duQlBLT3Y0NWk4cjZ2aEhiUWRuR1g4UEpQNXRK?=
+ =?utf-8?B?RGlnRXRockgxL1lRT2NXOWd3N2phbVdSMlcrOWgxQ1BkYXdUMGtlYjlWTjdr?=
+ =?utf-8?B?a2MzRlphWnB1NGxXN1dwcFpkVUlFdmFNUGpSb1J4aVVkeng2T3p0YmQvd1VM?=
+ =?utf-8?B?cVZhWTJodUxsWXVsNzhPdDhJUUVpTWlXRzZXQWxyR2hIbmNoczNtS2lQRDJL?=
+ =?utf-8?B?Z2ovcFEzcGpFNVQ0cC9qYUp1VHA3cENnS3hMMllza29EQ3FXM1Q0N3dCZEQv?=
+ =?utf-8?B?WnZ5OW5RUFVNWXV3aHA1NXh4ZTJSdGIvOWZEbUo3Nmxpa2RKdGtuUGVDdEts?=
+ =?utf-8?B?VENCd1lsSzV6NlVOVnh1d21qbWZ0aWJ0cFVIdkJvS0xlSzM4Qm9vbCtsU2hO?=
+ =?utf-8?B?TTgreEJDZjlVbEFWaytsak92bXQ5a2pRajVQblpBUjA4VVQzTGdScGpKajV2?=
+ =?utf-8?B?RUlrNmZsUjdSbHZsNXNwV2lrZ1ozbUFUdDdkTHVOT0ViMVZOeHFYZUZYOGZG?=
+ =?utf-8?B?RTJNb2tTZlhGRVQ3NElUbEVKZ3JIM0xvWHNvZXUySEZpZ0NLRWRUdkxjRDB3?=
+ =?utf-8?B?ektIUGdYbmhQenZIR3JSQTJVVkZKbUxMdENJOENWUXJGbFZBTDVwa2xhd1Nk?=
+ =?utf-8?B?VW1ESWZQeGx6NHVXMGpwWFJZdnZMdnAwSGJDNDF5RXBFakYyTEF4aUorUWo4?=
+ =?utf-8?B?YzBiOEpNNTZBdDViSk5xaGE5R3doUFluT2FzOHFyZlhNZCtaN3hwTVZkL0lr?=
+ =?utf-8?B?NUtLbTdaY1ZSQXNidVg1VUZxTlRrdlNEZ2paQTZsbkNNbXQ5d25OTHpLeHBL?=
+ =?utf-8?B?QW1JM2Y2NDg5TUhjS3pwL0NSMnkrNXd6d2xsWW1NdWRWVlFNR2RDSXBua2J2?=
+ =?utf-8?B?ODNWb1NQR3BsblZIMjBKaWQ2OUl5aCt3Y0V6VHNBYkxMMmYycTFuOHZ4dXl1?=
+ =?utf-8?B?UjdDK0c1ZHkwaXlMak8wdmt4bDM0eHJyTUJCbkxEU3had1h0WGhHeWsyeHVE?=
+ =?utf-8?B?cVJ6ZFpZaDh0UEhQMjgxMy8vaWVzUzUzOURGN3pzY0k2YThVNTNad0kra2xE?=
+ =?utf-8?B?WjZGTEJ5Rm91WmlHNUV1MEV2VEdsNWgvK2lLYno4Sm9TUVB4OEpic0FwdFZy?=
+ =?utf-8?B?NjVoKzh0UDZZTHY3K3JLTHBDdHZtNWtwVXkrTDNvbnhkQ3ZITGZYRFlqUGI3?=
+ =?utf-8?Q?JjOUllnX956mebA1kiRKHkEKBr4NJX01eXVWmU+9IJkAZ?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4jznhVIb0C/9kg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c39d4809-3bec-4455-6b1d-08ded7f76327
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 05:04:25.7416
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f2pVaHkNqMx/kcEtf5n324LF21wM57EEW6k8I5kY83WhC0zyHA4GkmEgT1SHhtriRYFdzXjA1/EA/NkozvZKcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7099
 
-On Tue, Jun 09, 2026 at 04:38:38PM +0100, Gary Guo wrote:
-> Implement a generic interface for memory barriers (full system/DMA/SMP).
-> The interface uses a parameter to force user to specify their intent with
-> barriers.
-> 
-> Provide `Read`, `Write`, `Full` orderings which map to the existing
-> `rmb()`, `wmb()` and `mb()`. Generic is used here instead of providing
-> individual standalone functions to reduce code duplication; for example,
-> the `CONFIG_SMP` check in `smp_mb` is uniformly implemented for all SMP
-> barriers. This could extend to `virt_mb`'s if they're introduced in the
-> future. It would also make it easier if new ordering types are introduced
-> in the future (e.g. `Acquire`, `Release`).
-> 
-
-Queued with minor changes:
-
-* Added "Add" into the commit title.
-* Applied vertical import style.
-
-But I do want to get more memory model reviews on this patch series, so
-please do take a look if you're interested ;-)
-
-Regards,
-Boqun
-
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+On Sun Jun 28, 2026 at 11:53 PM JST, Danilo Krummrich wrote:
+> Add the Ioctl DeviceContext for DRM devices that have been registered
+> with userspace previously.
+>
+> A Device<T, Ioctl> has been registered at some point, but may be
+> concurrently unregistering or already unregistered. drm_dev_enter() can
+> guard against this, ensuring the device remains registered for the
+> duration of the critical section.
+>
+> This typestate will be used in ioctl dispatch context where registration
+> is guaranteed by the DRM core, and RegistrationGuard can safely be
+> acquired.
+>
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 > ---
->  rust/kernel/sync/atomic/ordering.rs |   2 +-
->  rust/kernel/sync/barrier.rs         | 123 ++++++++++++++++++++++++++++--------
->  2 files changed, 96 insertions(+), 29 deletions(-)
-> 
-> diff --git a/rust/kernel/sync/atomic/ordering.rs b/rust/kernel/sync/atomic/ordering.rs
-> index 3f103aa8db99..c4e732e7212f 100644
-> --- a/rust/kernel/sync/atomic/ordering.rs
-> +++ b/rust/kernel/sync/atomic/ordering.rs
-> @@ -15,7 +15,7 @@
->  //!   - It provides ordering between the annotated operation and all the following memory accesses.
->  //!   - It provides ordering between all the preceding memory accesses and all the following memory
->  //!     accesses.
-> -//!   - All the orderings are the same strength as a full memory barrier (i.e. `smp_mb()`).
-> +//!   - All the orderings are the same strength as a full memory barrier (i.e. `smp_mb(Full)`).
->  //! - [`Relaxed`] provides no ordering except the dependency orderings. Dependency orderings are
->  //!   described in "DEPENDENCY RELATIONS" in [`LKMM`]'s [`explanation`].
->  //!
-> diff --git a/rust/kernel/sync/barrier.rs b/rust/kernel/sync/barrier.rs
-> index 8f2d435fcd94..54c527fdb760 100644
-> --- a/rust/kernel/sync/barrier.rs
-> +++ b/rust/kernel/sync/barrier.rs
-> @@ -7,6 +7,34 @@
->  //!
->  //! [`LKMM`]: srctree/tools/memory-model/
->  
-> +#![expect(private_bounds, reason = "sealed implementation")]
-> +
-> +/// Memory barrier orderings.
-> +///
-> +/// The semantics of these orderings follows the [`LKMM`] definitions and rules.
-> +///
-> +/// - [`Read`] provides ordering between preceding load operations and succeeding load operations.
-> +/// - [`Write`] provides ordering between preceding store operations and succeeding store
-> +///   operations.
-> +/// - [`Full`] provides ordering between all the preceding memory accesses and succeeding memory
-> +///   accesses.
-> +///
-> +/// [`LKMM`]: srctree/tools/memory-model/
-> +pub mod ordering {
-> +    pub use crate::sync::atomic::ordering::Full;
-> +
-> +    /// The annotation type for read-read barrier ordering.
-> +    pub struct Read;
-> +
-> +    /// The annotation type for write-write barrier ordering.
-> +    pub struct Write;
-> +}
-> +
-> +pub use ordering::{Full, Read, Write};
-> +
-> +struct Smp;
-> +struct Dma;
-> +
->  /// A compiler barrier.
+>  rust/kernel/drm/device.rs | 34 +++++++++++++++++++++++++++++++---
+>  rust/kernel/drm/mod.rs    |  1 +
+>  2 files changed, 32 insertions(+), 3 deletions(-)
+>
+> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> index 86a7fca1d33f..d429b4655449 100644
+> --- a/rust/kernel/drm/device.rs
+> +++ b/rust/kernel/drm/device.rs
+> @@ -74,14 +74,16 @@ macro_rules! drm_legacy_fields {
+> =20
+>  /// A trait implemented by all possible contexts a [`Device`] can be use=
+d in.
 >  ///
->  /// A barrier that prevents compiler from reordering memory accesses across the barrier.
-> @@ -19,43 +47,82 @@ pub(crate) fn barrier() {
->      unsafe { core::arch::asm!("") };
->  }
->  
-> -/// A full memory barrier.
-> +trait MemoryBarrier<Flavour = ()> {
-> +    fn run();
-> +}
-> +
-> +macro_rules! define_barrier {
-> +    ($([$flavour:ident])? $ordering:ident, $binding:ident) => {
-> +        impl MemoryBarrier$(<$flavour>)? for $ordering {
-> +            #[inline]
-> +            fn run() {
-> +                // SAFETY: barrier methods are safe to call.
-> +                unsafe { bindings::$binding() };
-> +            }
-> +        }
-> +    };
-> +}
-> +
-> +define_barrier!(Full, mb);
-> +define_barrier!(Read, rmb);
-> +define_barrier!(Write, wmb);
-> +define_barrier!([Dma] Full, dma_mb);
-> +define_barrier!([Dma] Read, dma_rmb);
-> +define_barrier!([Dma] Write, dma_wmb);
-> +define_barrier!([Smp] Full, smp_mb);
-> +define_barrier!([Smp] Read, smp_rmb);
-> +define_barrier!([Smp] Write, smp_wmb);
-> +
-> +/// Memory barrier.
+> -/// A [`Device`] can be in one of two contexts:
+> +/// A [`Device`] can be in one of the following contexts:
 >  ///
->  /// A barrier that prevents compiler and CPU from reordering memory accesses across the barrier.
-> -#[inline(always)]
-> -pub fn smp_mb() {
-> -    if cfg!(CONFIG_SMP) {
-> -        // SAFETY: `smp_mb()` is safe to call.
-> -        unsafe { bindings::smp_mb() };
-> -    } else {
-> -        barrier();
-> -    }
-> +///
-> +/// The specific forms of reordering can be specified using the parameter.
-> +/// - `mb(Read)` provides a read-read barrier.
-> +/// - `mb(Write)` provides a write-write barrier.
-> +/// - `mb(Full)` provides a full barrier.
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// # use kernel::sync::barrier::*;
-> +/// mb(Read);
-> +/// mb(Write);
-> +/// mb(Full);
-> +/// ```
-> +#[inline]
-> +#[doc(alias = "rmb")]
-> +#[doc(alias = "wmb")]
-> +pub fn mb<T: MemoryBarrier>(_: T) {
-> +    T::run()
->  }
->  
-> -/// A write-write memory barrier.
-> +/// Memory barrier between CPUs.
+>  /// - [`Normal`]: The general-purpose, reference-counted context. A [`De=
+vice`] in this context may
+>  ///   or may not be registered with userspace.
+> +/// - [`Ioctl`]: The device has been registered with userspace at some p=
+oint; used in ioctl
+> +///   dispatch context.
+>  /// - [`Registered`]: The device has been registered with userspace at s=
+ome point.
 >  ///
-> -/// A barrier that prevents compiler and CPU from reordering memory write accesses across the
-> -/// barrier.
-> -#[inline(always)]
-> -pub fn smp_wmb() {
-> +/// A barrier that prevents compiler and CPU from reordering memory accesses across the barrier.
-> +/// Does not prevent re-ordering with respect to other bus-mastering devices.
+> -/// `Device<T, Registered>` dereferences to `Device<T>` ([`Normal`]), so=
+ any method available on a
+> -/// [`Normal`] device is also available on a [`Registered`] one.
+> +/// Both `Device<T, Ioctl>` and `Device<T, Registered>` dereference to `=
+Device<T>` ([`Normal`]),
+> +/// so any method available on a [`Normal`] device is also available in =
+the other contexts.
+>  pub trait DeviceContext: Sealed + Send + Sync {}
+> =20
+>  /// The general-purpose, reference-counted [`DeviceContext`].
+> @@ -113,6 +115,21 @@ impl DeviceContext for Normal {}
+>  impl Sealed for Registered {}
+>  impl DeviceContext for Registered {}
+> =20
+> +/// The [`DeviceContext`] of a [`Device`] that has been registered with =
+userspace previously.
 > +///
-> +/// See [`mb`] for usage.
-> +#[inline]
-> +#[doc(alias = "smp_rmb")]
-> +#[doc(alias = "smp_wmb")]
-> +pub fn smp_mb<T: MemoryBarrier<Smp>>(_: T) {
->      if cfg!(CONFIG_SMP) {
-> -        // SAFETY: `smp_wmb()` is safe to call.
-> -        unsafe { bindings::smp_wmb() };
-> +        T::run()
->      } else {
-> -        barrier();
-> +        barrier()
+> +/// A [`Device`] in this context has been registered at some point, but =
+may be concurrently
+> +/// unregistering or already unregistered. `drm_dev_enter()` can guard a=
+gainst this, ensuring the
+> +/// device remains registered for the duration of the critical section.
+> +///
+> +/// # Invariants
+> +///
+> +/// A [`Device`] in this context has been registered with userspace via =
+`drm_dev_register()` at
+> +/// some point.
+> +pub struct Ioctl;
+> +
+> +impl Sealed for Ioctl {}
+> +impl DeviceContext for Ioctl {}
+> +
+>  /// A [`Device`] which is known at compile-time to be unregistered with =
+userspace.
+>  ///
+>  /// This type allows performing operations which are only safe to do bef=
+ore userspace registration,
+> @@ -342,6 +359,17 @@ fn deref(&self) -> &Self::Target {
 >      }
 >  }
->  
-> -/// A read-read memory barrier.
-> +/// Memory barrier between local CPU and bus-mastering devices.
->  ///
-> -/// A barrier that prevents compiler and CPU from reordering memory read accesses across the
-> -/// barrier.
-> -#[inline(always)]
-> -pub fn smp_rmb() {
-> -    if cfg!(CONFIG_SMP) {
-> -        // SAFETY: `smp_rmb()` is safe to call.
-> -        unsafe { bindings::smp_rmb() };
-> -    } else {
-> -        barrier();
-> -    }
-> +/// A barrier that prevents compiler and CPU from reordering memory accesses across the barrier.
-> +/// Does not prevent re-ordering with respect to other CPUs.
-> +///
-> +/// See [`mb`] for usage.
-> +#[inline]
-> +#[doc(alias = "dma_rmb")]
-> +#[doc(alias = "dma_wmb")]
-> +pub fn dma_mb<T: MemoryBarrier<Dma>>(_: T) {
-> +    T::run()
->  }
-> 
-> -- 
-> 2.54.0
-> 
+> =20
+> +impl<T: drm::Driver> Deref for Device<T, Ioctl> {
+> +    type Target =3D Device<T>;
+> +
+> +    #[inline]
+> +    fn deref(&self) -> &Self::Target {
+> +        // SAFETY: The caller holds a `Device<T, Ioctl>`, which guarante=
+es all invariants
+> +        // of the weaker `Normal` context.
+> +        unsafe { self.assume_ctx() }
+> +    }
+> +}
+
+Since the `Deref` implementation is the same for `Ioctl` and
+`Registered`, do we want to add a private marker trait for these two so
+we can factor out this `impl` block?
+
+It wouldn't reduce the LoC count, but would make the logical connection
+between the two states explicit and set an anchor for potential future
+blocks with a similar relationship.
+
+With or without this:
+
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
