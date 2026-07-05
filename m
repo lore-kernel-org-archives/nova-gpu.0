@@ -1,125 +1,214 @@
-Received: from out-21.smtp.spacemail.com (out-21.smtp.spacemail.com [66.29.159.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021085.outbound.protection.outlook.com [52.101.100.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878F3433E93;
-	Sun,  5 Jul 2026 01:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.29.159.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783214160; cv=none; b=TJhwVQ7tMOD+qnuHT9xjbyQshjqxu1+M+xodCHdx5HT8X4KT9BtI1PQKb6oZw8camp53gv4TtF0ywGFiXVhriDmUNP+279as5OY1nqpyNLNXQqWhenNuLiGjsvD43LXvhJsVySbcvY/iU0n6tZIE/BoFJmg2zumOtS9hKJIROnI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783214160; c=relaxed/simple;
-	bh=QPy17h4e5yABRPwckIOx4tS7pXaXzbXdDl2ZbtQVdXQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VJfgjMPnlq5IEB7q/dLXC86EUJ0MlpjUsezbhTd0FrBd+9uefeGcf9U6L2RRvF8fjCDK/tVDuc3eCEFJdiKXcBcE9ny7KIGcy4vSP9NklDN0hRKlnDh2ptlwcaMfn+owo02UfKu+Qdwp0Kp/pogbwLmwtcnL+c0rHNN3BZDfOiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev; spf=pass smtp.mailfrom=gurudas.dev; dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b=YCR0Kndl; arc=none smtp.client-ip=66.29.159.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gurudas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEB0371068;
+	Sun,  5 Jul 2026 12:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.85
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783253339; cv=fail; b=rFv6D2FwJmaeUuYlMwaxf8yy0DvfiynVGdUXue0PG/es3mX11wUMikVZOmSx1/xmwsprmNT3GW1Y54+1YgrT6ikICTufcnLGUAS5xaCPl7rzsHcMdHnR3w6Zg97ptYHX8wP5W16CeibXCLmdtYCG2Y9X1SyeHBrEz3VSvgpsz24=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783253339; c=relaxed/simple;
+	bh=DY/ZJQ3rqnkCC0e1X/oyZqJVF8kR1+OKPNDi0K/7Hls=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=DgSqFE2EDkTqPdxiHQSbtl2u3yC8QniIT8f2Kml6NVH2KxrvJxml+fMdfUjUNJUkQcZ2ZZzcNDX5NwVZKm3wQGQ2o7zPx9w6R+9DAf2bpDoXFoOihEi7oHVYyiIbeJk8/Bpqh7mr679W2pVkRUmmPLGoD/5YJt6kG5pE+mw3iYk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=iRVGNrnK; arc=fail smtp.client-ip=52.101.100.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b="YCR0Kndl"
-Received: from gurudas.dev (107-194-158-19.lightspeed.sntcca.sbcglobal.net [107.194.158.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4gt8gn46MPz2x99;
-	Sun, 05 Jul 2026 01:15:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
-	s=spacemail; t=1783214151;
-	bh=OHTMZhj9UQl6REPNtWFTGyIxAJpWRu/Vu/bsjHn8Ex0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YCR0KndlSWOcBAYhlrSZDBeGTpdr14biiYKVLt+UmWumy96f3oqAWHqVF/TQ+IAtc
-	 W8CK29uX1Lh9CPRo7lR7pqTXojRf0OFI0LLCU7Px6m8NE+Kn2WS3aa7NRUioQkSDvc
-	 cgJAze28g5e+zTVGdX1qgjvHRlp4q9+m9doUoyofhgK1V4m2D5shrUlDAeXRZdXGcl
-	 SgncobJsd4Of3wxD2goIHgP2QgtaVKilrKBJlRnToBb0RV77b3HzBzq+HsOiO/jjii
-	 a4ALmIBRGCcVGFOd3uGxDUKLkPn8u+8SgblOttrfz3VAvBhsBRDTl8cEr+aABbPKOH
-	 LXVb/sykR+vPQ==
-Date: Sat, 4 Jul 2026 18:15:48 -0700
-From: Guru Das Srinagesh <linux@gurudas.dev>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>,
-	Michal Wilczynski <m.wilczynski@samsung.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	driver-core@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-block@vger.kernel.org, netdev@vger.kernel.org,
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/7] samples: rust_dma: use vertical import style
-Message-ID: <akmwRDWy0FkAPeXf@gurudas.dev>
-Mail-Followup-To: Danilo Krummrich <dakr@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>,
-	Michal Wilczynski <m.wilczynski@samsung.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	driver-core@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-block@vger.kernel.org, netdev@vger.kernel.org,
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
- <20260628-b4-rust-vertical-imports-v1-1-98bc71d4810b@gurudas.dev>
- <DJMAFSKM4K9W.19ED2PVPU6S3R@kernel.org>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="iRVGNrnK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i7yuJ/XJPfB6H416itnidLvU2Q+SFBYEPsHwzUllF3OUNw6M+GewX8/7QXzRkpX0KQXWtEBeI0dc9x9E+qAj64qyGOf4SAduLbiHyEFPXm692n5BwQgcBUmuE7QFcuRO53LUqHl9vhbQ1T9nGQVhAifdDgvjAaU2Jz/D/zEakDgya2lnzHKuvDaJGUz0wOqqZgKwJoOq0ypfdkSfa8BXHISmKETY0SZ8DRVpOqAS6N68XvGuSYvc+DEUBzpkKDv3a0CMedz2QM/lCWSIh5GKcZSeTa6kIcWSbFTBni0lKzGD1uAG1QfYN+7arxhoZ3uNFjl0YlpyfQ0mub1LcFdM4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6geqeTZ8oVqFzJKnxN6Ou9cSnOXfd1QdLC5R6btzXj0=;
+ b=OfEoDDAsFCWl7+OkmDFrXDqZLI58LRqwqX6MbiyPwI47sYjRgxYzAtPwpmKhOXPTBdf2BoK51C4kzyAz8U6KmpYyaIHFxiIwIZ3E3qMtDBUTL1JbSaNFoBU36HLGO9/MMrKXDm4UcFhorpEie760vgrPp3NcFWbFanBnhHsNTPK0v6JLUYWBlER0TI462JsF0D5VLt4/XyPJfEwgI5pjJrQx5VELQQbPGzRKgoDdB7xyHfQFymUnNoGXC3hyZKVUMMzXZW824jDqpRvpqku58ryc7sfUfUfxFd4jfTTifnCnhy0wda+pYByAy2gOlHWAQyqin2F9u5c1epudpqTL/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6geqeTZ8oVqFzJKnxN6Ou9cSnOXfd1QdLC5R6btzXj0=;
+ b=iRVGNrnKWi7fAz/tPSANgq3+NUdr2BXG7tq8skjuWq8+CH/moPYvnmZjey9Ezpl6qKKybIJsjSd4F2/IfeozZ9k5si7TR8KN0Lq6cKwny+Qp4cK6+kyr2whZyxA9gHaDGMPFzMzSDUM4fDu37gj+sra4II4Yn0PSZ0FGHLBRjIc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB7266.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:225::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Sun, 5 Jul
+ 2026 12:08:54 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Sun, 5 Jul 2026
+ 12:08:54 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 05 Jul 2026 13:08:53 +0100
+Message-Id: <DJQMJS0C3EDQ.278WBLVP566HU@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross"
+ <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Drew Fustini" <fustini@kernel.org>, "Guo Ren"
+ <guoren@kernel.org>, "Fu Wei" <wefu@redhat.com>, "Michal Wilczynski"
+ <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, "Viresh
+ Kumar" <viresh.kumar@linaro.org>, "Jens Axboe" <axboe@kernel.dk>, "FUJITA
+ Tomonori" <fujita.tomonori@gmail.com>, "Heiner Kallweit"
+ <hkallweit1@gmail.com>, "Russell King" <linux@armlinux.org.uk>, "David S.
+ Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <driver-core@lists.linux.dev>, <linux-riscv@lists.infradead.org>,
+ <linux-pwm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-block@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 0/7] rust: Use kernel style vertical imports in various
+ drivers
+From: "Gary Guo" <gary@garyguo.net>
+To: "Guru Das Srinagesh" <linux@gurudas.dev>, "Andrew Lunn" <andrew@lunn.ch>
+X-Mailer: aerc 0.21.0
+References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev> <c89a1bc8-6cc1-4e16-ac95-add389e45a2b@lunn.ch> <akmnh0AKFfu9-OYn@gurudas.dev>
+In-Reply-To: <akmnh0AKFfu9-OYn@gurudas.dev>
+X-ClientProxiedBy: LO4P265CA0048.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::8) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DJMAFSKM4K9W.19ED2PVPU6S3R@kernel.org>
-X-Envelope-From: linux@gurudas.dev
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB7266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fc16130-6fad-4dd5-d084-08deda8e2efc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|10070799003|7416014|22082099003|18002099003|4143699003|56012099006|5023799004|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	QihblXpvdEklQsRNqW5pdvrh4cjhymtOwvrUSKJkhXQji/x84dL/C8nM0EymlyR52WUCDwTjlyxAMJ8kFjG/5Ie+nnA16WvQbLSxfIZGz0PIOF7pnN6Kyfbt8vYUL64jlg8LFH3ph49deno3tfqTqwiApzuoSYQJZDDXIciAeonmyMnSxY5hJ+k7D9LaGtJodPPnUKd4NtBH5okovKgm3NKsDXCfEEtNEhJTwVC/X5AEi53N/ekfeIl4v1SnWeUh4yoxa3WirdyqimaCjGzSGXT2mAoiaGkSUNNQTcEbkQJLTA6mSLssAhznFWOj9TYemH0UXjw82Fu5rAlg1gMyJgEHGgerhkzuep9RE/rKTo2akbuyuGKH6vw1pVM7pkkNI8uPuSAh34IxLidBA2OOY6GyiOMBREMy03JVFtzzfaXHfmYQsZspqR1UZeAfQ0/uqP4nsi3gEnXi9yhy1sy8JKJTqt4o/XFuFo5RTet4NH3fuKKgr+aY2zbROLQ8u3YwnaNU+kFrFKANka5Nej3/w+vWc9AV2lnRzVKWplWe90kxiqtMVa5b2gRdnfZWEIJEEv3H/8PQg1pyOH1z7G6j7PMxiTcOA94kCz2vHvc1+xlJOxv5UOqG2/mYFbmkWPJJBFF7P2R5AMRKEaDaME0ZD/e/uPPzd8FL8zavBSDguco=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10070799003)(7416014)(22082099003)(18002099003)(4143699003)(56012099006)(5023799004)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MEtFRy85QkZxdkNDVXp5NFA2blRYQk5TRWJQTW1CTFFrRzZqRHhZTSt1b0ox?=
+ =?utf-8?B?QnNTa3c5R2p5MXlOUURMTzNCZm9adDlzQkkwdTRGRC9aWDk3MEpiUk9GQ1BB?=
+ =?utf-8?B?Z1JmK1lEbTJRanBKVmJBbUFERGpIZlArd3NxYXl5NlZHY3QrdzZZUHoyblll?=
+ =?utf-8?B?aHAxTHhWOWw1OUZpYlZZK2FkOXl2NFVJNGU5ak0wQk9oYnRwVmE2T0J1RkJC?=
+ =?utf-8?B?UjE2aldZSUV4MFZ6MzVReUZMeGo4dGxzZDdFUzdCSnBXU1RBcVlQMXZHTWUy?=
+ =?utf-8?B?dGZPVkRGN3d3S0hHUjJSai9YdmNCbkMwbDR2QlpQcTlCc1V5VFcxVXNCb1F5?=
+ =?utf-8?B?TytPUExhcVVwdldQR1cwQ0h6dnRmRXlyalVydUxVU01vYzQxQXdYR1orU3Rj?=
+ =?utf-8?B?b3BCbEJlNmtMaWI5YlNZRCtYcVY3S0V4WmJhZFRONVpkK012bDBSd3lnNmZj?=
+ =?utf-8?B?aWx5L3kyNExVR0JzVWU3TlBnWVZMdFJPdmpFdGpxYXdMQmZSV3BRWDV4dVlZ?=
+ =?utf-8?B?YUVBQXJZYXNWL1NRckkwN21YbzRVWnEyNUU4bUwwb1RUUjlxd2pQUVJqaWRW?=
+ =?utf-8?B?R24rc01McUM5MGMyM0htTllnaGxnNlhxQ1k5VndOUVJNQXR0aHdyL3c1T1FX?=
+ =?utf-8?B?UUYvTGdrdFBIUGhta2dLTUt3NENOczBla2VWNlVIOGc5S1YwT3RUVDJOT0Rl?=
+ =?utf-8?B?Z0dTcldabEtML05vdEZTNVlvTW4xSzQyeVVnYlNrcnZEM0doRnQwem5FMjlo?=
+ =?utf-8?B?UEVYYXpDR0VTRVNhczRTQTdzYU9LNHBtVGxIWjhycjR1N21Ic0NFVFdvdXMx?=
+ =?utf-8?B?YVJpNnN3TnEwM1VaeVF5enc1Unh3R0tXUHpwcUlSUE00RmhYSzBSTnozejQw?=
+ =?utf-8?B?OHUzZ1FnNjFMQnI0ZzBtNG9HaHFab0tQUE9rSWxnTzU1Z1V1TDRKUjduZllO?=
+ =?utf-8?B?NjhaL2NWckJwUVNWVC9oblVvNE4vZFFiWTNVQndYc01TOEx1Z0h5M2JMQVJF?=
+ =?utf-8?B?bzNTa1p5V1dBVWh4YzgwKzVWRGdTK0w0RjAzalNiYzJmTmdDOWtzSEdFZVZk?=
+ =?utf-8?B?cTd1L0R1ZEJjV01YVjlBOXNjT3NQRXVUR1EyWEQ4SmUzc0xkb1NnL0oxbkhW?=
+ =?utf-8?B?Tk1WdW1DRjM0NjBCNUJRZDNwSFVpMDAxb2pNZE9LdER6d2h2bG50R3FGaElJ?=
+ =?utf-8?B?YzdmUUdIZVc2UVhJWTRKalBkelJkK2dRSUxVd1dmV0JJTFFEeW93OVh0UGFN?=
+ =?utf-8?B?NmxuSitiMTJ4MnVCSnZtRno1ZzZYYnRsZUNtZjBYNW4vVmh6ajNvMFlnTnZl?=
+ =?utf-8?B?aERPZkNpaFdFejUwRUVwSlZGaDhlZGw2SUgvYTlvNmMyZTdYamRqeEc2NmI2?=
+ =?utf-8?B?ZG9vNWM2ZzZYL0RBUUIvanBHSGVjdmxzY3JCc0lYMjFCY2Y0bTBNbkM4ZXpD?=
+ =?utf-8?B?aXlidm9iUUc3Szdid0dTc0Q0aTNzK3NXN08zYVA2dTlIUVRaQkUrNlFPVXRD?=
+ =?utf-8?B?RHBuN2d1OVVxOUtYTGVhY0xGYjNiQjMvNDkySFFMZHRPRjFmWEFiQ3U4djRn?=
+ =?utf-8?B?WHpBSHV1RmRzeXZndnZ6N0REdmZKRzdtc0dNU0ZxYzM4S05yY3o3d1BUd2R1?=
+ =?utf-8?B?bnFQNFFlR2ZPQldhK04zNURrOWYxQno4WVlwRE1ndUMzYjc4M3E4d3c2Mjgw?=
+ =?utf-8?B?Qk4rN24yYnFqQjQ2WnAzdHdURUY3SSttQVZzTFJLbEhscDlBeGN1Y0JNU3ov?=
+ =?utf-8?B?UmozUG9TY29jb0RPN2xZZnIxZjJyWVJmOXZRc29mY3loaHBiai9LWkl6TDRJ?=
+ =?utf-8?B?eS9rYXVpNXNCd2FveUY1aE5wd2lnYkJQTjMwRkd5TDBiYklGY1BsVVBlcFcy?=
+ =?utf-8?B?bWlPKzVQRWl5NDFGYjBiWjZMbkhNRXVnVjErRTBsY2puSzFFLzRNNjFNN1V3?=
+ =?utf-8?B?WGVhRDRoRTEzSUtPamNrNkpIMVBnRnpjaHJud2wzQTYvVDQrTTErc0Y3T2d0?=
+ =?utf-8?B?NktkRVFJUVJ6SXc2cGI3a09sMklYV3kyOUI4d1BiblZmMlRFMXJhd3VGOHdv?=
+ =?utf-8?B?TUlJRVZoMkc1L2s2R1g4OUx4eVhHWEI1NjZSbUg4a1p3bENmZTlrSHJ6N2pi?=
+ =?utf-8?B?OWQ3NXVEUUI1QjZNZkNqVFZLbHd6YnZIWEttdjg5ZkhKcGNkbi9qbGRPWmlk?=
+ =?utf-8?B?VGtYWThlTElVTjBJUWdqcG4yQm9nL1lPRGt3YTFkY2REaGtCRml3cmJqa2pj?=
+ =?utf-8?B?a2RNUkxLV0JxMmszY0c5Q1Q5NmpkYnNOdHNBVC83YlFaYzM3dzRMYmthcWVH?=
+ =?utf-8?B?UjBtUnltUlZEL1Bwc1EvTkZOV3dTRlh3N1lvSDNISlVpaU1jZVZCQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fc16130-6fad-4dd5-d084-08deda8e2efc
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2026 12:08:54.2533
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JdwnKBPxCCwEeEGzF05qXAmbhqYKudY/Xb6P52svQLtX7DqZrHVHWxwaofl6FWN6ARCYIhokMbHTLyBvf36efg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB7266
 
-On Tue, Jun 30, 2026 at 11:48:48AM +0200, Danilo Krummrich wrote:
-> On Mon Jun 29, 2026 at 5:38 AM CEST, Guru Das Srinagesh wrote:
-> >      page, pci,
-> 
-> Can you please also convert this one? Patch 7 also misses at least one case.
+On Sun Jul 5, 2026 at 1:38 AM BST, Guru Das Srinagesh wrote:
+> On Mon, Jun 29, 2026 at 04:06:36PM +0200, Andrew Lunn wrote:
+>> On Sun, Jun 28, 2026 at 08:38:14PM -0700, Guru Das Srinagesh wrote:
+>> > Came across a recent commit bc58905eb07 ("samples: rust_misc_device: u=
+se
+>> > vertical import style") and found a few more locations that could
+>> > benefit from this cleanup. No functional changes.
+>> >=20
+>> > Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
+>> > ---
+>> > Guru Das Srinagesh (7):
+>> >       samples: rust_dma: use vertical import style
+>> >       pwm: th1520: use vertical import style
+>> >       cpufreq: rcpufreq_dt: use vertical import style
+>> >       block: rnull: use vertical import style
+>> >       net: phy: ax88796b: use vertical import style
+>> >       net: phy: qt2025: use vertical import style
+>> >       drm/nova: use vertical import style
+>>=20
+>> You have multiple subsystems here, so you need to split this patch
+>> setup, per subsystem, and submit them separately. Maintainers only
+>> accept patchsets for their own subsystems.
+>>=20
+>> For netdev, please take a read of:
+>>=20
+>> https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+>>=20
+>> You need to get the correct tree, and set the Subject: line correctly.
+>>=20
+>>     Andrew
+>
+> Hi Andrew,
+>
+> Thanks for the feedback.
+>
+> I was aware of the per-subsystem rule, but reasoned that since these chan=
+ges are
+> purely about Rust import formatting coding style with no functional impac=
+t on any
+> subsystem, they might go through the rust-for-linux tree with acks from t=
+he
+> respective subsystem maintainers. The Rust coding style is independent of=
+ any
+> subsystem-specific guidelines.
 
-Will fix this and the missed ones in Patch 7 as well. Thanks for your review, Danilo.
+Patches should usually be merged via their usual tree, otherwise you're jus=
+t
+creating unnecessary merge conflicts.
+
+There are obiviously exceptions to this for series that need to touch multi=
+ple
+subsystems and cannot be split, but it is not the case for this sort of sma=
+ll
+cleanups.
+
+Best,
+Gary
+
+>
+> Is that reasoning off-base, or is the right path to split these out per s=
+ubsystem
+> regardless?
