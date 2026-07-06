@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9DF42088C;
-	Mon,  6 Jul 2026 17:56:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283963AE712;
+	Mon,  6 Jul 2026 18:01:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783360589; cv=none; b=Sp3FzEDjPJCDo6scDXYKw2OEH+PpQWDtvGzLPqkwT/MKFVTwtwHB/TNhr3dXGUNKL4tF/VyBrOu7s50L/+vcFImq3F8323OG6C2YdaaxeX+7riDeR9pNN9KzAKi4a4s5cDj33bkCVDDBug7c+uneUFE1hV5I+28k3q7VQDbDpKo=
+	t=1783360876; cv=none; b=PHPrmCyr5oOZNv8Ex6O5L1MddoATIW4w6BKPzOl9D7kHHTfHiqx/4fhd2svIGP1cE6ecHZxwUeNhnnp9q9vuAnHGAsB8Y682i0dzxFNMBoKiJVSt50UyPfFOzJbHLBiCWLxEAlcOLol5vrqiFqegkfaC3zOZSI2lWuSIuS1NzPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783360589; c=relaxed/simple;
-	bh=4sJJaha7h91aNOht13zkLExWMQIdxFSKeN5/iS4YS98=;
+	s=arc-20240116; t=1783360876; c=relaxed/simple;
+	bh=c1GXMfCx52550DNiEApgfi9aH5BPtJqtflD6pgXnlYY=;
 	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=oaODLyIx+x0CBCYq1pTD3lA2lZehIvxg9jvMIZcbHfKnrPOGoAEMOQ+d/nAoXchi1Fx5jGSxuY/PbvanOzA8v1Sh2oCNI2GohNTnn97p+E7SLWCQY784qquy/ROUNxR7OKI9V1rdxmqlPWKTVbZy0My/l+JLkXO6EtKOzl0J6i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4ffZg7a; arc=none smtp.client-ip=100.103.45.18
+	 References:In-Reply-To; b=MOy1y5+AkDJfFxmhdlCuSIgAhKCybvfONQgtoyJ6efrDSj+5+vHMLEqaXkdhdBTODTBeygSC4ShcUy5oi5QKts/XcnDM/6qiQL08I6njt0l4iJOhmuQdTcOY8XTVxmZppqqEcStbQfbZi2zfU6VY32Mi2I80cAZYfBTGF70h1Mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T52Otafp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4ffZg7a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E351F00A3A;
-	Mon,  6 Jul 2026 17:56:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T52Otafp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BFF21F000E9;
+	Mon,  6 Jul 2026 18:01:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783360588;
-	bh=3Y+/Y5CwYs10KXLLxmpqapZy45ZNjQ90GHLjO/6w3rs=;
+	s=k20260515; t=1783360874;
+	bh=6rBZf4+GxWCnL6lksT5Jo1d6nii+Ri7wOm4ClVQQA2E=;
 	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=M4ffZg7awdC4io/+Ja+LjKF3KJudAwJL4q0LmJjxDLAFMS4moSWt8Qbkx52fvPxoS
-	 gkqa3WZj62/6hgU596qKNI8H2a+Dk7hYUBvOZfhgbDI0LlPkNOcKuXhidu4oM9nhby
-	 ev8mWwDmzhYpiPMcNIhPnuS4KIg39vGAEJFgf+NuN74dseIguALVBrLdh0D/qgq3Mf
-	 +pkyX1K/SmlbFoIBKP8VcUSGMmJWL9QLQLqjX8N0l4fVSt7V9DkOGEpP9Ka7VsIg0a
-	 EB/8/2VgNvdAL+wJi8T9IDsHoqIg4dRQlfFcweUvWzvgyvB3sft/0/R2c53zu0/pv0
-	 fPoH0Cr0uV57A==
+	b=T52OtafpclOFU4htSze6fYPynLauHBze8Ttb6LKkdmwwX1AlNLlSsMlNB/w3OILbX
+	 tOjOOCGYSn3ogge8mHqjS1s6YKe9HVO4kXybDGb8JwnKcU/WopUybpHLIuFQ1VK3VD
+	 MWgHSkrQNGqgQ+KZPoqWjnwtkuG2xIl1N15gF9SyDNJg3Db65eZ4LVXOtpURug2X5c
+	 hr+ynrKjPQbe7fgEN1qPuXirl8V5kR4oq6E3CJ4To3DWogJpgE39CC+JAxb/1YkL43
+	 cAxjUv3481Fk5UMwNIsFbNGsjAZuBONjGQS28b/K+dWpgtnU91augxTfAq6t0FRI/5
+	 Ze8iCZk6fiqEQ==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -34,9 +34,9 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 06 Jul 2026 19:56:24 +0200
-Message-Id: <DJROKEFANC4J.1RLIKVEMS878W@kernel.org>
-Subject: Re: [PATCH 1/4] gpu: nova-core: Add public driver API to nova-core
+Date: Mon, 06 Jul 2026 20:01:10 +0200
+Message-Id: <DJROO2091YJ9.2O9BMST1L8HQX@kernel.org>
+Subject: Re: [PATCH 2/4] gpu: nova: Add DRM registration data
 Cc: <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
  Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
  "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
@@ -46,97 +46,50 @@ Cc: <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
 To: "Alistair Popple" <apopple@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
 References: <20260706053413.154135-1-apopple@nvidia.com>
- <20260706053413.154135-2-apopple@nvidia.com>
-In-Reply-To: <20260706053413.154135-2-apopple@nvidia.com>
+ <20260706053413.154135-3-apopple@nvidia.com>
+In-Reply-To: <20260706053413.154135-3-apopple@nvidia.com>
 
 On Mon Jul 6, 2026 at 7:34 AM CEST, Alistair Popple wrote:
-> @@ -86,15 +90,34 @@ fn probe<'bound>(
->                  // (`try_pin_init!()` initializes fields in declaration =
-order), lives at a pinned
->                  // stable address, and is dropped after `gpu` (struct fi=
-eld drop order).
->                  gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
-) }),
-> -                _reg: auxiliary::Registration::new(
-> -                    pdev.as_ref(),
-> -                    c"nova-drm",
-> -                    // TODO[XARR]: Use XArray or perhaps IDA for proper =
-ID allocation/recycling. For
-> -                    // now, use a simple atomic counter that never recyc=
-les IDs.
-> -                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-> -                    crate::MODULE_NAME,
-> -                    (),
-> -                )?,
-> +
-> +                // SAFETY:
-> +                // - `NovaCore` is dropped when the device is unbound; i=
-.e.
-> +                //   `mem::forget()` is never called on it.
-> +                // - `gpu` is initialized above, lives at a pinned stabl=
-e
-> +                //   address, and is dropped after `_reg` (struct field =
-drop
-> +                //   order).
-> +                _reg: unsafe {
-> +                    auxiliary::Registration::new_with_lt(
-> +                        pdev.as_ref(),
-> +                        c"nova-drm",
-> +                        // TODO[XARR]: Use XArray or perhaps IDA for pro=
-per ID allocation/recycling.
-> +                        // For now, use a simple atomic counter that nev=
-er recycles IDs.
-> +                        AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-> +                        crate::MODULE_NAME,
-> +                        NovaCoreApi {
-> +                            // TODO: Use `&gpu` self-referential pin-ini=
-t syntax once available.
-> +                            //
-> +                            // SAFETY: `gpu` is initialized before this =
-expression is evaluated
-> +                            // (`try_pin_init!()` initializes fields in =
-declaration order), lives at
-> +                            // a pinned stable address, and is dropped a=
-fter `_reg` (struct field
-> +                            // drop order).
-> +                            gpu: Pin::new_unchecked(
-> +                                &*core::ptr::from_ref(gpu.as_ref().get_r=
-ef()),
-> +                            ),
+> diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+> index 298c02bacb4b..855b6ffe696f 100644
+> --- a/drivers/gpu/drm/nova/file.rs
+> +++ b/drivers/gpu/drm/nova/file.rs
+> @@ -1,11 +1,10 @@
+>  // SPDX-License-Identifier: GPL-2.0
+> =20
+> -use crate::driver::{NovaDevice, NovaDriver};
+> +use crate::driver::{DrmRegData, NovaDevice, NovaDriver};
 
-Hm...it's a bit messy to have this justified in two separate places. It wou=
-ld be
-better to have separate unsafe blocks for this until pin-init solves this
-properly. So, let's just do this.
+Please switch to vertical import style.
 
-+                _reg: {
-+                    // SAFETY: `gpu` is initialized before this expression=
- is evaluated
-+                    // (`try_pin_init!()` initializes fields in declaratio=
-n order), lives at
-+                    // a pinned stable address, and is dropped after `_reg=
-` (struct field
-+                    // drop order).
-+                    let gpu =3D unsafe {
-+                        Pin::new_unchecked(
-+                            &*core::ptr::from_ref(gpu.as_ref().get_ref()),
-+                        )
-+                    };
-+
-+                    // SAFETY: `NovaCore` is dropped when the device is un=
-bound; i.e.
-+                    // `mem::forget()` is never called on it.
-+                    unsafe {
-+                        auxiliary::Registration::new_with_lt(
-+                            pdev.as_ref(),
-+                            c"nova-drm",
-+                            // TODO[XARR]: Use XArray or perhaps IDA for p=
-roper ID allocation/recycling.
-+                            // For now, use a simple atomic counter that n=
-ever recycles IDs.
-+                            AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-+                            crate::MODULE_NAME,
-+                            NovaCoreApi { gpu },
-+                        )?
-+                    }
-                 },
+>  use crate::gem::NovaObject;
+>  use kernel::{
+>      alloc::flags::*,
+>      auxiliary,
+> -    device::Bound,
+>      drm::{
+>          self,
+>          gem::BaseObject,
+> @@ -30,12 +29,12 @@ impl File {
+>      /// IOCTL: get_param: Query GPU / driver metadata.
+>      pub(crate) fn get_param(
+>          dev: &NovaDevice<Registered>,
+> -        _reg_data: &(),
+> +        _reg_data: &DrmRegData<'_>,
+>          getparam: &mut uapi::drm_nova_getparam,
+>          _file: &drm::File<File>,
+>      ) -> Result<u32> {
+> -        let adev: &auxiliary::Device<Bound> =3D dev.as_ref();
+> -        let pdev: &pci::Device<Bound> =3D adev.parent().try_into()?;
+> +        let adev: &auxiliary::Device<_> =3D dev.as_ref();
+> +        let pdev: &pci::Device<_> =3D adev.parent().try_into()?;
+
+Nothing for this patch, but now that we can call into nova-core we can obta=
+in
+the information from the pci::Device via NovaCoreApi.
+
+The advantage is that NovaCoreApi can store the pci::Device<Bound> from
+nova-core directly, i.e. we get rid of the try_into() dance to obtain the
+correct parent device type.
+
+Subsequently, we can remove this TryInto impl entirely. :)
