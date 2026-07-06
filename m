@@ -1,185 +1,85 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012000.outbound.protection.outlook.com [40.93.195.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com [209.85.128.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE41D41D4D2
-	for <nova-gpu@lists.linux.dev>; Mon,  6 Jul 2026 11:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783338291; cv=fail; b=cuj21PpaFHcL6Qk+W56rwPMeMWlgioq8I0OMcIP0Jlh9EZSALI8y74Iik4Aev7rnP4QHNOewYJt9KcQD2OvqXtioqQqJjNc+BVNhZUQRvgnrWRWIHsIqh4yGtD5kMfgpyrXovkrPCNbYMhAdzFz9JwLFrrP5dmlb8UHvOC+8ZKY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783338291; c=relaxed/simple;
-	bh=WlcErjL9ZemD9Zt9/53hHPwp6Gce3jX4v/w57dXitTE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ivLPI6Ivud8/iw7vtkW3qmpxLytssY5EYVA1ovYiXrtbkPSr493mj5vSLggmeEc7n3RWVtRCEgmaVm5bm4cktDsggSqFG4204+LE8WhID2vszAXzKKYNUCGNdVv536u53buYUTLhKGQdynsyHc/s1j1GThyPrhorzym42p6Nono=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NggWVh6K; arc=fail smtp.client-ip=40.93.195.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD1B33A9C1
+	for <nova-gpu@lists.linux.dev>; Mon,  6 Jul 2026 11:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783338497; cv=none; b=jzJ13yJ9r4dSzyTcp5NpPC750sckIjbljNwb8CnaBCFbkIarwOk04YBc4fbSXInlTPdopv7SG8ROl22WmJE+aPs75lwTJO4pMotrXc4AR2nkqsP0dfIFHfyNpoeDbeC/05zqw0SV9uUDDsKPxrBAmV4KaVHKcYuQxn3+pfz9rX4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783338497; c=relaxed/simple;
+	bh=SkCbYuGW3eqT8pRjM9jVxDre32BJW2V3ocHTz8lleCM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=RhFhqkxfpoy9E+4v7HA2jGOBOaVNLwuHOzNLxHAs2+rtwaM5LA5hEhMhdOwggsZCjnJK2JF7l73H45Xe5yrfrlilZ8I40VNWdGxeRX59TlcMUHdFIcUschHDBW35FfYff64ErprUjmIUj4ijA8wsQoS31fA8M3FAZX4NTW2lemU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=d1HSBwP5; arc=none smtp.client-ip=209.85.128.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NggWVh6K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y9PkXQmQmEzuXZafZsqeDbmOJ4rbPbnUdy6cZYRrKUNdMtLDLsG1SrrpBjRE50LHEphj8rDMM4g7pncUmA09euXUY4PlJl0xnVQR30LY5RGURNt9B8wxXjia7JtkhjtSpdZaKsifYOlPfQxMKd+8+7LZNyjWHm+lPktqorEu07iHG2JsjnNjq0xUhn7s5kE84WTcdNcot0EjKI/Td5NFQq9juVDl9noiA9WvUVl3wrwpE9TA8URbQXXJEvM9skEQ0EsMJQcMOZnRs6V6CtimHZoB70lGWbov16eDcmFGerDZPygipmJOR5rlBtwB1ftiixBTDkOA01KE8cc/UoOSBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=50hSusGbINequJ6V8rQrPHZZwZ3qW2b4imyJ8FnwF88=;
- b=bi3IwrF8oRJKpyfu2W6vzb785b9Yg13uNxqMPaxMywY0Fb6M0AkmVRGVE7gpaTQ7uWQ+i3yg+DvVrh9naunsWzM5dIx57PrnxajdBYYqYiEmKTKD0kyZy8NRkqYIidkXXxXMpzb6fY+XsflYFIX+q+3uocw+iPGjca6izkWofEhlxdaJo4B+h84zOPZcBafbLk8IY3tFy25u794ojicHmGDbJxxhf8aPaIBifHXu4zl/ybivOscRCgex9sxpGq5u1ad+7HPbBV3AOPdRJNsYUe0qAdscItfmvopeRdOBHb3y9hN0Bc4ZBKiHuu/JyCNdd7kcp5KFjXqlD0G1pC/x5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=50hSusGbINequJ6V8rQrPHZZwZ3qW2b4imyJ8FnwF88=;
- b=NggWVh6KjHy0x2MtkWucurajgY81dtfeIRzQcZxq2IY39kju3FdYZvy/9Yy2m380nwK0sCk9R/A14jE3ll72vKtXRnXLFP10or5xp7gtGH5OvQR1neqMEPHu9sRj0tb9K18MfI+WglFD+5osgD9U3sIyNhdwft8uCzSwUta0T0cZ4BE7z+pgbZ08SSXQR7BV2H/mSZuRkfhfAFVSzfA/cearaHcb6PFXUkOzAxIECxx7oBFj0HJLe2RGdRjkDXPtZ5Bl0gH3OKjd1EUV/vDaqJ037TpEfVg73NAgfz1MtD2smenyD86AXZtxB7n2h927VsoiUEHE9BvrKQOGGwR0Tg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- PH0PR12MB7929.namprd12.prod.outlook.com (2603:10b6:510:284::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.10; Mon, 6 Jul 2026 11:44:45 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 11:44:45 +0000
-Date: Mon, 6 Jul 2026 21:44:39 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Pedro Yudi Honda <niyudi.honda@usp.br>
-Cc: dakr@kernel.org, acourbot@nvidia.com, nico.antinori.7@gmail.com, 
-	aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch, 
-	dri-devel@lists.freedesktop.org, ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
-	nova-gpu@lists.linux.dev
-Subject: Re: [PATCH v2 5/5] drm/nova: use `zerocopy` in riscv.rs
-Message-ID: <akuVDYsJHQanCsGe@nvdebian.thelocal>
-References: <20260702120324.40388-1-niyudi.honda@gmail.com>
- <20260702120324.40388-6-niyudi.honda@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702120324.40388-6-niyudi.honda@gmail.com>
-X-ClientProxiedBy: SY5P282CA0192.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:249::18) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="d1HSBwP5"
+Received: by mail-wm1-f74.google.com with SMTP id 5b1f17b1804b1-493bc2b376fso15009525e9.3
+        for <nova-gpu@lists.linux.dev>; Mon, 06 Jul 2026 04:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1783338494; x=1783943294; darn=lists.linux.dev;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=SkCbYuGW3eqT8pRjM9jVxDre32BJW2V3ocHTz8lleCM=;
+        b=d1HSBwP5hwLtzUgSbApg+idyp5MWbuI+AmNBYX39bYG/Q+PcEDOojvtUZw0hSxxnBr
+         KTVjLYpPc3MkXwdzXdNulyO38nVWob29Xm8X4WQFeKW6shm2DYmxT7jXfqGCz25LxZGO
+         fsW9otq/gbQXtpsJKXV4Gzc0A1UgoIJXz9rASXOthF694sQCPXVKLOaFjWC7wB9Bz4mF
+         LeGjjRWhX6QYJebqe8nJOVmo//LambruKIzIRUnmGJY2BqA9lxo4q0ac4VZc7sW6mxpl
+         dn1N27gHSO541Gg+59Nu1WTmhqUWoZp4uu+xC3ByiDVI9XxyujRvMXh0F3oaap6o0vAc
+         aEVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783338494; x=1783943294;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SkCbYuGW3eqT8pRjM9jVxDre32BJW2V3ocHTz8lleCM=;
+        b=k1bAeGcXDnR9z7qn/gI3Ppv8jG6kicSKIkx/fm0C+4BfcKXhODXV91qCHCAqT+56mk
+         U/o40G/giHzEBXDQhXsP5+TdrTkCZ3egESfoou0qMamwQnmXZIvXXetE2FktMtrl1x1W
+         /tG4wa6Kd4xo3XeJk4xNrrYQEMXigY8KHxh/0t779i9u33Mt/9I6PaN1LN5jFJ8jSwDi
+         9FFziy5nTuQxpMzIMl4rAYfDio+XmcHl9WqPdtVJmMe46TRCjPQI0WcN3K4GNsWTQL9D
+         f+TH3SrYS0eR4v6h0whYdlOZ89KgpO8ix7VJH6tWBl5bnzmkuWLlZIwBbbFBZFUOAam/
+         zq3g==
+X-Forwarded-Encrypted: i=1; AHgh+RopuWzB8UCfOq+/G2N+sobnFpK49hDqLdyH3ll2fhrdL9HSlz8mVm2fhY9BNu/9QCM6sDyQ3O7a4g==@lists.linux.dev
+X-Gm-Message-State: AOJu0YzpgV3N1MR6tvT3MHxOY1HEuCjBvvR5vONSOHetbHLXe4rEXhrM
+	DgbhCDrsv6TqZH2OXJQF7nrV/8DChcYr7+RhgzwCSJQS1advItTg3uhqgvMSdI4ELtN7BNvnjAP
+	Zs+wqTVo+dLQbM3uX5A==
+X-Received: from wmdd24.prod.google.com ([2002:a05:600c:a218:b0:493:bb1c:478d])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:8b66:b0:493:a7fd:15d6 with SMTP id 5b1f17b1804b1-493df08b4camr610775e9.9.1783338493893;
+ Mon, 06 Jul 2026 04:48:13 -0700 (PDT)
+Date: Mon, 6 Jul 2026 11:48:12 +0000
+In-Reply-To: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|PH0PR12MB7929:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57a98e28-623b-474f-1ce1-08dedb53f9f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|22082099003|18002099003|6133799003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	FABfW42y5V8DCpn2l6q33FIUcM4EonqoP/gGSDS/F00MRB5AF/1qpbghGOvKNbw0gJ1QkT/wwUmUkiIzvQOUWBbDuFVJbsdkL4bHa07WL6PpH8SfxCn9Ai865nOUMRveYYkQfKLrjXacDXXWe3ouHzoxSP4jjjWiU7zzlq5O9Z4hfkK6TNRmWOyb04YnOKav/f4W1bLakXoUTc9Uos6M/kz9gi47Y404/Cy6wKU2UgXrCDAzugrLfoA3k3ErNYl4MkiBhI9S9muO/WHCtCvH2TxrcNMLyF/v+ufrA3lzXoQQEd4P4GkJUktG4iujf8dsZ04dRpL+oXPxS2xdQn9Lb1nN1KZHjBAwCRy6TgD9MqnkiKCF8ItSJTtn0feCCzuEN7ouwgHDlDE1cCSvQ0jt0TfPFEnud2bs9PPKunIUtf06j+FwO59ZHWLjoqa6Jqimza7CV3X2/8j7VtqCy4aZLMXsKD8FblrfdAUqKFoWMxbhtAdqon8SU/KRKOpJdLZCKAvpsrr6d/V3M+u8vDUzo8yTkzQEHuHUEmOMw/fjyXf7Y0Ry8YyF611x5kT3Lsldj/7xa2Iy7Xc7sNGOowyIKplXUAgMPNIIa6SHEz/rthUECGnMk8Ae+6yD9FGBchwg5t3iOlP5BTwDk4hMGfnVmaH9FRBYJFSx/fi63kslvrs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zgvYO2Kwf7kSuKcpKFOIArjpfkZcTP+NYiHBVD+79BL/uCUNrSlr7N64K785?=
- =?us-ascii?Q?oB8Pr5EPBxf0XRcaFWrGqexsAyA6mah/lEia5DH6kSuopcCwX9XzZp9y8erP?=
- =?us-ascii?Q?L/Yq9PSf/FxUR9tS34uV0va85U/nPCiLXl5WmrgltT4cDNLiJ4as/tL7J5GM?=
- =?us-ascii?Q?VNUPkNTu1YgBMMaiWRXRoG2AbYLeLbC3UwwRIzbGVtaSg7EcCLnylMqBWGW4?=
- =?us-ascii?Q?OhFfx8JTV9sbx44NsQX9MqFAnPQgukN8Eu2nKLvNSKO6GztpXKKKxeDYRU4P?=
- =?us-ascii?Q?37ncbbBWhPhXIfeRq7uHSrd0XAicrOKXa39zrzuelhX0SmjnLNxD0r+zvnT1?=
- =?us-ascii?Q?IwdHvxFRfv//egftYG5WHRi7w154UmiiXFLR3GBUmsYdnIBlDCEc9yUiCmNb?=
- =?us-ascii?Q?1ELFQH5vW3ZTQCJQv3GOqNnIasHcceZre4yVWHKetTYe9Qi1LSlWN0OAzH/f?=
- =?us-ascii?Q?I63KLcQZoHwnGmUGBSSe9QFFwqJiNGgPLllK1XZrc0UEHB/w31vfE62eOery?=
- =?us-ascii?Q?S8z9BMrUVQsoxLfc/O5bBh+tCsc3fOqNpqUwtxRw3fDzoxGycpkx7Bet0Oh4?=
- =?us-ascii?Q?GxG+cec+irOFEvvH2NEkJpSfeUNeLthDd3MDdNUVLaAelxg/OjvkLhwPPs9y?=
- =?us-ascii?Q?58v43gYWvF/CEU6cgvyYsuj3WVgPDKLqWdqMynYymfCx0vFZZy5CpSC0V5KG?=
- =?us-ascii?Q?tIyQlEQQXUKCu6ZHelYYnNBD9rcLfbv4ANNPgRe/aSXhr4xpp7I9b3heHMen?=
- =?us-ascii?Q?FZA+5DU8HIqPgNuelzZfnc+JQST3d2qBgNct1fZhC9QKQBjPSujmrRjrjXY4?=
- =?us-ascii?Q?CqYSxPsMVbg4+77dxMXypcfDOiitA9Qp0XbgruMfkFWEWuCQjjVQOMTNjp39?=
- =?us-ascii?Q?BBJDSyg9xPZVY4X9nG9gIW11667hSQ8gvp7j4RhzfCiNlrMgkzO+6wBScsLb?=
- =?us-ascii?Q?axz1yD2tW5RMhZ1aDQ3RzemWJanhiSarm3bEufj0jpbfh1bwkDpFC5IvbmL3?=
- =?us-ascii?Q?VuQP3l6tmivi2Ir+MdWk6GIQcxlAUtberUfeMsgBA8Z/7/wx2W/6SWIC5v/k?=
- =?us-ascii?Q?pBSz8qQ8nrvqKgHyadpQZ52j50tdzoVDxclL/0ADX3olhTKJR+YXt3yU6B8D?=
- =?us-ascii?Q?Wusq1+Wgd79SoSzDcU9LivGjjWuyTYzyGPDvizn0InMPB6y8ry8bOhmfl/l3?=
- =?us-ascii?Q?wpnzBg7/B9BYExQWvX9nN0IrUnjKD6nYzL7xAtpfGZrZL/jEV/OK4SfiARWU?=
- =?us-ascii?Q?tssoeIADS4bRVVVTrwbYh87K7ioZZMEneufYrpJWkcsnXScNxuf5SHp1VmL4?=
- =?us-ascii?Q?DM2QoYsMDSajMWOzxE1ufzLEUAncm4PJ7B92nut804cbik+NazEy5K4GLR0c?=
- =?us-ascii?Q?HwKnfvf4pqL644mF1AqyfNYg+qJULj6WCgvBiHanIVifinppOrA0kNHuukYo?=
- =?us-ascii?Q?HqxNzAyPqUJhd0uV+kSBQ23ukXQG/2lAt5WL851PRjFpHVWI5E8FqJi7q+Jq?=
- =?us-ascii?Q?hnjc+a0crrMsVD8l9FBFSD/fRoyYXIW6T69QZ4DvWSyC+e1MVQ0sW8Rk0S/O?=
- =?us-ascii?Q?g7LMurPYMNteeXC8rPeB99fCnQIRJPAFjQ4r5aF5pbk6BadSXzbZYnhS1yuN?=
- =?us-ascii?Q?lAlgn5gIHsFIgrFjjmeZY773HON2P47WsaAE2sXPo1k237aZMw8YDIgNNar/?=
- =?us-ascii?Q?gR52a2o676Cn75jrp0kcKK3nv1Z2/PZF9FpvuRXbhA8WK2D7JJrj+AoDxJoa?=
- =?us-ascii?Q?cvUZloQg8g=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57a98e28-623b-474f-1ce1-08dedb53f9f1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 11:44:45.7020
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JRhQwTzewMoo01THS4K6q0BJAtNgwr2lMcXcSFdqW8Lrhl+BLtRlk/q8lHN6NqOe6AN5tQbahR/O/5jExK/zsA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7929
+Mime-Version: 1.0
+References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
+Message-ID: <akuV_GRAM4QPqf-o@google.com>
+Subject: Re: [PATCH 0/4] rust: Add support for reserving of ranges of IDs
+From: Alice Ryhl <aliceryhl@google.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Burak Emir <bqe@google.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
 
-On 2026-07-02 at 22:03 +1000, Pedro Yudi Honda <niyudi.honda@usp.br> wrote...
-> From: Pedro Yudi Honda <niyudi.honda@usp.br>
-> 
-> In riscv.rs, replave the following `transmute` traits with their
-> `zerocopy` equivalents:
-> 
-> - `transmute::FromBytes` -> `zerocopy::FromBytes`
-> 
-> Update call sites accordingly.
+On Fri, Jul 03, 2026 at 07:16:03PM +0900, Eliot Courtney wrote:
+> Add support for reserving of ranges of IDs, with a usage in nova-core
+> for channel IDs. This entails adding the helpers+users of the C bitmap
+> API for ranges of bits, then users of that in `IdPool`, and finally a
+> user of `IdPool` in nova-core, `ChannelIdPool`.
 
-Thanks for the clean-ups.
+If you need ranges of IDs, perhaps you want the maple tree instead?
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-
-> Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
-> ---
->  drivers/gpu/nova-core/firmware/riscv.rs | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/nova-core/firmware/riscv.rs b/drivers/gpu/nova-core/firmware/riscv.rs
-> index 2afa7f36404e..ba56bc7d4188 100644
-> --- a/drivers/gpu/nova-core/firmware/riscv.rs
-> +++ b/drivers/gpu/nova-core/firmware/riscv.rs
-> @@ -7,8 +7,7 @@
->      device,
->      dma::Coherent,
->      firmware::Firmware,
-> -    prelude::*,
-> -    transmute::FromBytes, //
-> +    prelude::*, //
->  };
->  
->  use crate::{
-> @@ -18,7 +17,7 @@
->  
->  /// Descriptor for microcode running on a RISC-V core.
->  #[repr(C)]
-> -#[derive(Debug)]
-> +#[derive(Debug, FromBytes)]
->  struct RmRiscvUCodeDesc {
->      version: u32,
->      bootloader_offset: u32,
-> @@ -36,9 +35,6 @@ struct RmRiscvUCodeDesc {
->      monitor_code_size: u32,
->  }
->  
-> -// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
-> -unsafe impl FromBytes for RmRiscvUCodeDesc {}
-> -
->  impl RmRiscvUCodeDesc {
->      /// Interprets the header of `bin_fw` as a [`RmRiscvUCodeDesc`] and returns it.
->      ///
-> @@ -50,7 +46,7 @@ fn new(bin_fw: &BinFirmware<'_>) -> Result<Self> {
->          bin_fw
->              .fw
->              .get(offset..end)
-> -            .and_then(Self::from_bytes_copy)
-> +            .and_then(|b| Self::read_from_bytes(b).ok())
->              .ok_or(EINVAL)
->      }
->  }
-> -- 
-> 2.34.1
-> 
+Alice
