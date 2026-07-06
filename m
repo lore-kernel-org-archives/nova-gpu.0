@@ -1,46 +1,46 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011050.outbound.protection.outlook.com [40.93.194.50])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011041.outbound.protection.outlook.com [40.93.194.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCF418BBAE
-	for <nova-gpu@lists.linux.dev>; Mon,  6 Jul 2026 05:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8534E3AEF2F
+	for <nova-gpu@lists.linux.dev>; Mon,  6 Jul 2026 05:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783316085; cv=fail; b=VxkoIjcYCuXiRWJxMi3OgO8hoqdrTqNcsJOebU5XbbxVlWa2XBJ4VB3vFO+D3Kzs7d6poj78jT+chH0Ml7enTXMCuNYa3A2BS7jPU1gsPdNEs7kJhwia1qrSPIVO1j4VtshEGTtlWZO1nIX8HYP68rAM5+9KcJ9m5W++04G9vLI=
+	t=1783316096; cv=fail; b=NOsXHcDB+o4DDnNYMpFU2+vXKc7Lf5BgcQ0b9oQjUKLnKxJJKr85S0giZnV4Pc41SvjvrMEFiVVRdAyQAQ8YsTRIkXgRZu1gyL3EDKpy07OQfQBVDbX3wkONocZFFFVPWgiQU1Dq/CQrqjn1hsEsopHS0M32AHeecW1y82eu4mw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783316085; c=relaxed/simple;
-	bh=oAeiVS9nHPdK8RueiakC3FiAoCrN+zc1/qfwXYUxEaY=;
+	s=arc-20240116; t=1783316096; c=relaxed/simple;
+	bh=Y2o+ZyPjy67hUrhQs8V9HYmVqkQBKWi2Xlbcrff8PUw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Mjxr0EjYVwMrBe2GVilNSroh4zZT/CWgMjyqEcPPoGM2Ntt92RbLtibAJw0z4k8d0rcOYgOd/VlYg3vjjfM2+9HZErZQjuFNV3w+GNY+lJlqJZFEFhoe4OK9otd5ec8ohS/9Ly8GAN7pnv+py8GeM5st5QaYQUAbz2vb/6Gtxk4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=G39AoaPQ; arc=fail smtp.client-ip=40.93.194.50
+	 Content-Type:MIME-Version; b=CFYl2bJweTVKRy9bfHP5JFjfDZRTtqKUKdOGexaDbXD0Npp4KarVEsqLzfslSa2cICW5qUE3KJZjYVLpNK4wsyRoFbgaVcLp4vUqK+QxNT8DQgxd7Ei2EpbyTfycq275T8Vgh66TcQBwboog7W7e5wI6Kk2NfCARjz9MWQL1ims=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PhJb9F/7; arc=fail smtp.client-ip=40.93.194.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="G39AoaPQ"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PhJb9F/7"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OLCUI1KUnJyQ9mJosC5qaNWPP+HoG2551k+kQEyOiOM7U//eO2u0tj5eGL2UI/uAly3iwHXYp1qbtMPG8Y9psxK0TYZmmfKOIHVCWWR3uRUq4HlhyX2AtcSeufbCVoFuS3S+o95ff8/sfiv+ffwSROtu3OrQNsmZkLEcoXyNeqMffTdiceyJtTclqwkNFlHXQYYgqGsR5QXbHYYd1R8Dr9mCHYudLRINRm7HXVh79ogZvSAhFWnSppZMlMVWgm2W8OY3xfqSnJhWI63J3My5Z7ZtVhNn+F2TYdwsM+JlJXN4sytr1F5FPl77lRx36EVmmu9Hi03f8OI3uD/HPBV9cQ==
+ b=VbtTQuMonZEnbNtqrlP9LMsDIpI3URnLAoBxP/hv2oN/fhIMDdUyodiK9Xj65EzzYScFPaAPqfu6tD+Lrh38VJo3EAI6Qz1Fge//0iPJ5QQGcD4KXLgklBMyTRwGpNQkMSXpiVJDgK+DpM0+N4NrReRxtnVDsjhonwMy3LBhpIoZ6q4XOygjo0kruWObnAjzJYjq73sZSKCxu+5LKtCYnGiYKptqNH25X/wgslnRFI6OClu7d/YvoIgd0stuz8kP/SEfhljnp4+Us+OmJddEg0v72Zbif0tSL8mPl4cnOB8VMCn9dyf+e185HaAHwMhtAfFf6ZFRmQHvdrDiBw9iOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vaz/E3f8yNvLw7q17uWn7a0kRPJ0HMM6R5S0A7kCNBY=;
- b=aFtZ98/hy53YC2HOuBp1/bpg5A8LuBzIKTZgrMGl+lyJruAvNvTl5eeSOLBQAVHnI7E9xSCqESDy87xtkPL8Gs/JT4WOFtOBdWAGGc7O7uyRjovCpEnQXA/jTQ6O4Gn356P+CTqTV6jdB/X3dO2Pa7dzqkGhedzl5tz4sRvhhG6UWJQxkwV52Q10O9mbkpw5eUXaxMdt2Av4m9fYDOVZbInEXc+GB7KRL0fH8b+dQUADCPtwu0H45SIO/mzCK75HbkW0hmQrwzcKCY3vRnWL2WlAoWR2fzEcCM0QIBiKh5IiPZaZ6GZN4+oLNPbM0OYkl1EDbwN0lbhM5wVJYSC68Q==
+ bh=oLAZXBavXag/SXWYsR1tZFJqcAChtS6OCBYHqR0gwa8=;
+ b=JKtZidv9VeP+a1dJe4/WMUTMuvzdiZKApAIWZc79NdcM6ZgPTWkOXZko+7X0soszo+5zdTirHDs9/ik2B5fKoCznAHlig7RWre6xaU4cNBJBBcNZXZjxJwLprACobWkA1k8E7K+f15kdvn8yigzmQQqe2WSqLLhO5W4yGFdcqS+dceTRWU8DtPDBj3PVnWK1b6jyQ6wzbIT+6hETUzdtxdvdk7GBwPfG1TgP3DRVfTqOEOdQl5LSrjgrqIPm9j6Yxqp+hCGGO/gEGJTL2ZZEQA5jW9XuW8tVXkz+6VEcdDC2eNUuE3Nrw4VeKPGm2ioLOx7mL5Ol8hpXAAnS7S3dBQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vaz/E3f8yNvLw7q17uWn7a0kRPJ0HMM6R5S0A7kCNBY=;
- b=G39AoaPQ7CRXTJzSNsPpcnNQJzdiBRFgZHU2Yh598NIFGfgUP3yyObcqKouIHStl7ccKjXvW/zKzuI1F7RZh3BOyLXKKEvnva+PRo/DmKrdYjDsBH4MP/V6fltK7PZhCCww/IqkJOWpXgSnEw/rCVL6rERouA3i1W6N16FOwExN1iLqiiZsCMNkpnV5xKrdDkpxOGbSAQZuQUUv5R2tSix0bh9FOJ9mcGkwDQn1Rio+zo0YGuM2pCiEvc535nzzwJRFBYPecKsyCZ2sH2kSG6BsMAR7dWDwlNglusv2bLWB9og886LDhbu6n1//LUGMDwxHrb51NuI88PjlLakRwzw==
+ bh=oLAZXBavXag/SXWYsR1tZFJqcAChtS6OCBYHqR0gwa8=;
+ b=PhJb9F/79XpJ7wcM5FehayCzYeABBdrJIWp8L79HEG8BTNoTMcHfetIWy3vbC1IKXNDaPwe8OAIMO6fZM7bZXNF7xaYdUoss97SaLqABem7FQvEiqfYxno4189LpmcB+E2eR/R+A/28jf7vkSSInrxF7ywjQRhjd+EHRKUHhJCjdteNVFTQCVEmnG1yEssrO9JTlUkrgAmooQuPVkhoYecPXCEYaHNR3S2f6BdXyBP3lYxgpQ81XJcH5lepOFfFjRowAw+flp1z78TNOff1ZIW19H3OX3N6gc1HK615lee1fMblbLsh8vG8on7IVIvxGmRbuAa6pVTIJrJ7vC5p25w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
  CH3PR12MB7714.namprd12.prod.outlook.com (2603:10b6:610:14e::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.8; Mon, 6 Jul 2026 05:34:39 +0000
+ 15.21.181.8; Mon, 6 Jul 2026 05:34:51 +0000
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 05:34:39 +0000
+ 05:34:51 +0000
 From: Alistair Popple <apopple@nvidia.com>
 To: nova-gpu@lists.linux.dev
 Cc: Alistair Popple <apopple@nvidia.com>,
@@ -55,16 +55,16 @@ Cc: Alistair Popple <apopple@nvidia.com>,
 	linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	rust-for-linux@vger.kernel.org
-Subject: [PATCH 1/4] gpu: nova-core: Add public driver API to nova-core
-Date: Mon,  6 Jul 2026 15:34:09 +1000
-Message-ID: <20260706053413.154135-2-apopple@nvidia.com>
+Subject: [PATCH 2/4] gpu: nova: Add DRM registration data
+Date: Mon,  6 Jul 2026 15:34:10 +1000
+Message-ID: <20260706053413.154135-3-apopple@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260706053413.154135-1-apopple@nvidia.com>
 References: <20260706053413.154135-1-apopple@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SY5PR01CA0010.ausprd01.prod.outlook.com
- (2603:10c6:10:1fa::19) To DS0PR12MB7726.namprd12.prod.outlook.com
+X-ClientProxiedBy: SY5P282CA0139.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:205::10) To DS0PR12MB7726.namprd12.prod.outlook.com
  (2603:10b6:8:130::6)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -74,208 +74,179 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|CH3PR12MB7714:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0505f55-eb57-4ded-3b50-08dedb20460d
+X-MS-Office365-Filtering-Correlation-Id: 7a054f61-83c1-4771-1b1f-08dedb204d16
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7136999003|22082099003|18002099003|11062099010|6133799003|11063799006|56012099006;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|6133799003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	1gpOCQa1vFpUSxkQt7CA3OAxg6vvKvXcxKzZ9w9Y28lAHecZ8wF0B/9x6RTVhr2yjjY2Jdu7SPOpGNh/8OQNcIRy/62HaYQ1nMNmIqaTIo6wHdHsTxgaXoZ88uTPhpcnWlV3iYSjFeqWKsSxDkRtHsS510YKlCivFEIfhMl4DcFmXS3voW3U2+pwpKsCxJBVJxmaUqRyqkwLLx3MRT1NbrH9IZJGsCi57+wVLk8WeLP6RPPQDo8Vmseb40UNqp9LjcfLuMnXR8CRXiy/PF/EeyNg1I/RzAs7sTNzBJzYq3qRJqcW6r84FY/CscEuI/ZxtEvBo6qPC1K/NO2zljoXoveC3zNajsHBg45UeQOYYSNuGuNc8OQKK5M6Pp7eXWgcWcP8pwAvkprVkA0MJHndQozTC7vo9N9z9v1usT/jIY2Y/8jwsyU/YwbaX1Hg1g7bXUqqoOc60M6i0LcAArXM/z7gNJCE4ANJGh4r6J2wbTAl6suTTJEBMhl7269pEthPW79kqL/E5N7tEir6YARiLhczG8GvdjMVZRKTCkx8BgnWFRXGzB2Cn9R8ViPE9mMhrNC9DLMV0PTDwN65hVuN3E0FlWOcc7ykeDlSZnI5LWBCCggWEt9gDJLPA84AGW6eryZ0op2KlfQlnfJVLMURTAVZHwkiAwIRky8moDuiH2c=
+	eyxm+bCDzv14JUemkDzAkRtNKCOuHPxeCj3EwHzg0TS5P6ygXLUx6kCSqkKE0CH39Yfi32BgSyERFZAiCxxXUxyVCWT2mxSu9u5a5IIFTbqCPkf3KwxQ4+r7lt7cTuxeDViuiD8wMbDvrsVfrOCe9pcFlaA03hsgIoupmEXbbfPw82LMt4RMCSq4Z9SOt1uMSKeFNs0DG9IceG4LbiGgb0EaHWoMPJNAZ+k3JDYfT3w4Jnhj9+ihp3/c8z+6X3sZ0dgbWF5tf7J2mjzju3lXLWMu8rYUEZOt3FiR7WTxNmLV8YdWmiSXgn/yub7XCOaDnPSy/SShSAoFwujdhZeZnq3RmeS82WQtzI/X/YcbmoC+BzcReKdANxGuG2lYxFWVfxQGPFV8APyIllg8F3NCz3gdpX8Y1cWspbe/YvBr5XfxovhbTyIbwpcFUWYAG5EIzknnIEX/7r5m6X1bGeXU7FWGd1lnb/20qlIybyr1UFtlcWM+TvQujl/70RMLh/jvvJ9Ikuo7FiCmF2A8fG7JRTZJXSLLhhL22Qxwt0LouF4aVG10vUTKaOQBlZmNJtXBHIyAPxIXSYO5+YX4gsxuP4A/p5tTTTPYDoI8whJRLlFWMNFywsUJpsrsfU3aOhgTVUwHvIVEPkn6OhQEyOeyo2iy721H/5g34JaMtyfjALs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7136999003)(22082099003)(18002099003)(11062099010)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CxUhmSlX92iEsOgI6As6WLzDeNVhj9Sa5YYjjEl3lm1FPe59fQJ32UkOWpB6?=
- =?us-ascii?Q?soUuc4mE5F236XeFEO9+VAZJeQud6HTQEjV/9XBudxwH7aN8rXnvZdtIUKSb?=
- =?us-ascii?Q?C6yUhX3NCafsLzXKCz0LPBpS+Flj+6CNSUA7i2voXJb7vLHqwaSzaBPJSFG/?=
- =?us-ascii?Q?5wg2jVZrHZwl7vwbbS4bQS/ADFW38V9ljmD5GW+VjYJgJmA9qgufGXdokImt?=
- =?us-ascii?Q?lazW9g7nKGA/Ouji8S4eWUtfktBFZ9LUi8pLAOy4vJ10BfKn5lAEGiU1nBZq?=
- =?us-ascii?Q?10+m4lTVcmq0vL8fQf43b6m+ri4bkRnCEWIpTvhrMB5pGdLhhxu83oFKSAjY?=
- =?us-ascii?Q?IuhYVF+TrKF6Au/7C9IzyqfWNhz4ym/S5VWDE0moC8jbt7vAtkfZ3rDNS4yx?=
- =?us-ascii?Q?F/880P+/5ZbQpKjXuVlyK9EILiNyHOL4yAkVlwZGIV1og8oARpmMm7BkHCC8?=
- =?us-ascii?Q?VXz9nHri0GI8UikvZq9SkLSVlrpua8kf1rrxQHPfRen036vwBgPQigG8eF8J?=
- =?us-ascii?Q?izDTlBQHBD2/nLERxEpqTJJOw3a/ZYQErq+1wvJIIt0J60MWmbsQVMoGlzXS?=
- =?us-ascii?Q?t7uFhCHyGnNCQ+n6eIgmHdEFhnObSzDRGHB0We0vzy5qVVYECuaxtgBC49Rk?=
- =?us-ascii?Q?k5TrmN6HDtPEwecCFQVlgWpxV6+7x4lsjT49lN8l9+2st9oSVboCyJRPnfrh?=
- =?us-ascii?Q?OvtcMEwfbxSFq+KRvZqwGxlivezqWwePZ+66XzCy4w7qRVQ8jrsJYhFaUyQS?=
- =?us-ascii?Q?n7dW4rvxZXo7GeMq3D7QVaINwgme9PgqswOXq8X7dyTUYc9y/ZwtbAf1CkoH?=
- =?us-ascii?Q?S7+LY4LSV6XHLf9OLBDMnTOqMSc34wXYAZ2HN2VcyICIjuqv7phDjjDFZwab?=
- =?us-ascii?Q?H8iC3SH9jYYm+lX+JsAsVmRfsYlrqyITLvsXtrSiwfKz5npRgEWjz/NbZk0/?=
- =?us-ascii?Q?+zvjFj4E5hPTq3J+wJuPkT/t5d/r2e88lzOfwEhm+s7ji9cHYTa7BMwXp3Bm?=
- =?us-ascii?Q?eOVuOa5Md5lsJZn0DELlg82P5dT1aboiTuORIat1Jb8mLFRRfjYWV/9wHGqw?=
- =?us-ascii?Q?qUq0CLJszA2JCdIvoP5UCXjaWDSmcXewe/+GuZus1fdBlbtCCKg4IYxP0fzQ?=
- =?us-ascii?Q?sToCNnfqDAJPEUDy/1maItCkSWovRJM4+asmpTa5FSIs/goXbzfaQAslS+z7?=
- =?us-ascii?Q?45k1mvWDoMfYnbSbkUP3b9yZV1fVvLNpXeZ8ua+GTNoDfLiGGQdVfJJe/UK1?=
- =?us-ascii?Q?nx//MR1rjKXH6BuHfxxV6/AGUwYmgHy93UwdMaBo6EZY0G1UQhuUffPb4oJ+?=
- =?us-ascii?Q?Eez+B3ZY/Ue6BYWz5w/PC89D6cAFhNIZMU7eG738VwjpDwfI3VWBkh/wJJRR?=
- =?us-ascii?Q?oYt+NayOaiD5cdBbJwpSsImShf2v+eTq9huA4wS+X050J9UeVgXXxFRFMopg?=
- =?us-ascii?Q?mbzalaLSHuMrbAftJ5Bm4WXCeGMnwo4BeQeGzgPWIgo81aV6OQn3j7hMYQQ5?=
- =?us-ascii?Q?bsiBT3BoKFVNz3VW3lrPdi12h1ygfQI6qjWijWU0DBP4MV0gn7mmSxdHqXIN?=
- =?us-ascii?Q?0K5F44EesVLOB1JU4srNEYT7DhGjfVQT7hzcEJV+/nOkyG69/4X0UIzIzJfu?=
- =?us-ascii?Q?yYDBJSFkEVZ/8/enOmZsUayD2RCsrhfYA3/JUX3lFhQwoxVLWAWEpZHEZGdu?=
- =?us-ascii?Q?IrKRnAsE1+69pecXIiCnGuhXUaveNIXbO3xhtifmVlL4ygCZ?=
+	=?us-ascii?Q?KUwzdPxaNOkEqyzUQ9lEI5+HGjKASyZth2vCeo6uRmzelDBecyCpLiVIYwoc?=
+ =?us-ascii?Q?8VkH22D2pecFchR+wpUlzQEly1yNNlrB2llAIpxZbC+u8dZRXpubwxXqS8N2?=
+ =?us-ascii?Q?yPnmPjHFjDEbGao/NyBUuvTMpOUobyfqBa0SteIFPbmVKCVbbKd3NbVpNKcY?=
+ =?us-ascii?Q?Mh0x5J12DcEDWPlZeI+WVUeu9xlKLsViiXMKOuSD2dTJ8IKASuOmlkIcyYLX?=
+ =?us-ascii?Q?Rar0Fq6Dq6c3QMLve3lmNHw04eab1Hj973hp8t5qd1PBps/qrHaNSMaB4e1X?=
+ =?us-ascii?Q?iX6zqHC+36ztaVDkmWRJjCSQGT3EjeheohLpCvJhvxkeRzDBR7NQyPZLl8IK?=
+ =?us-ascii?Q?+Ly8h7uHL3nv+0rBE8g0cCyqOwUnRUF/82VVMnEZoPwe+GrggkPItch3dQOy?=
+ =?us-ascii?Q?AU6CGwa1SQ3uLVT0IUjkkkB/gVwuEE7z6R86n9Up7rrIkpdrW0r2oR9aGuDQ?=
+ =?us-ascii?Q?ImR5+ClMmsKIamVvkoS9xSVsrkQjcG4qxKoKWsezCGzVVT0U6SU40MrEC0yv?=
+ =?us-ascii?Q?/PrY8C0GRFV4SFhEDkH+vTZJe4E6ecTuER13Y+CDNYhOQMqgBMVjwi1spqBI?=
+ =?us-ascii?Q?LuVUE2jszn9QgR5opCI7RCyTjOUQWNpmCH24DNwFDEGUEIycdkbC97yUbLB7?=
+ =?us-ascii?Q?gCG6Eu+wkTN3SdqpRQ/mEvvfB61aZtAY6NYQuTcdaIt7i1Vamb50mqhOjWVu?=
+ =?us-ascii?Q?ZKbawsVQDOYtGWQdbzxspaIZSl5ifLd3oYcymEh0WWtBwC65BffMruP5Vax8?=
+ =?us-ascii?Q?Uw93GnJw+T0p/x4LlUwWmX4ISmgPo6vGNLC7od4unimwwkUrZ0uRVgwsJi0n?=
+ =?us-ascii?Q?3h3ZZPQxj7KFoKU+/+08JbgRbidPovl6E0qaYY0q9PAc769eTuFbBUnqOe8S?=
+ =?us-ascii?Q?8swJ5JG70/7ys8RVBrtWLYksQ42ie5k6MynV/c1vKKjy6z9uJzMpcaui+ka0?=
+ =?us-ascii?Q?zL3BCKlyyZ1g59E0YCU1ht6r90ij/uAS/BMr4l9cp+T5asBArFPIWU+yH10l?=
+ =?us-ascii?Q?3fuiDz00AYRFp/HWBgnyxR/oDiloVFEgYaiYLkdsfkQisriAkwZVCyuovI8c?=
+ =?us-ascii?Q?3qhosr9haBp8H4ajrZ6slJb1CGTByZlDcUkRjKxim3a5+0B8QE2Nf0iMgdsF?=
+ =?us-ascii?Q?DltJ0Jf6lwryUZtgtrwoE4tsAW6fPSn6MKPbJnREUJnQXcpHlEXCwyTAvyI6?=
+ =?us-ascii?Q?ED3yq2tt9/UWagzOdl4UkJJvP/xOyNLwasdEzvaZFqIsmTpyLZQANFGV8/PM?=
+ =?us-ascii?Q?YZ1hgS+nlEc3CBnUKl2+0M+KR8yjPtre4m76JdiM+fRmIIRJJfKu5ijY4aiB?=
+ =?us-ascii?Q?0niwBzckxsy+kf2aXysVQTBRDqfqJIBRn+As5c08cWo1dMLv2pMuIusf6MYH?=
+ =?us-ascii?Q?iGynJka8TgWRCxGZZqOOui3mp1xs/2T2dA4Iu84P3XJ0+jUXyGI93Fj31rZ1?=
+ =?us-ascii?Q?oUaACwwe6H/MyEtVPOp7IwmWjdcKqyruNRKt3WS8G7QmOBoSV/bocTxieinM?=
+ =?us-ascii?Q?qyExTdi4lQsMcwbD/PVk12XukfQhvzEOAxRN1bGyHCL2BMCi8ITSWH70PfY5?=
+ =?us-ascii?Q?08yzAZLHbT50H/+PcU/q3kETSnnl7eJ7/TJnVWsXR+zH1IxGam0PShL4rm+u?=
+ =?us-ascii?Q?zBO0xoCz0ls1DrBujPzp7alD6bGZHPTQ7WobolAF0HbMYHmicwOK6ofMuaX7?=
+ =?us-ascii?Q?zins63d2RkY4SF6sNhrv6b61woYY25hGWE7hfd280zObzS+q?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0505f55-eb57-4ded-3b50-08dedb20460d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a054f61-83c1-4771-1b1f-08dedb204d16
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 05:34:39.7555
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 05:34:51.6014
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VBAtTvRzCdDdZX+DHPkxGOHmg8rywQO19OPQ0JCjtKFtqOCqG5zb3OK1GhtJGDTQ+2+XGuQHEHUKghU0I0+0Ig==
+X-MS-Exchange-CrossTenant-UserPrincipalName: f0WANz9Ld37JK1Tma4IQt5GA7Uk5W+uh/nNLUBLZLFZr2rbgp6gyXzv1lLPyEZcm2vX9aI4R8HfUAm7ENwrkeg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7714
 
-Nova core will be used to export core functionality to other drivers
-which will bind to it via auxiliary bus devices. Add a NovaCoreApi type
-which drivers can use to call nova-core methods.
+Currently the nova-drm stub driver doesn't really interact with a real
+device, so it doesn't have any registration data and has no way to call
+into nova-core.
 
-Auxiliary bus drivers can obtain a handle to call nova-core methods on
-a particular GPU using NovaCoreApi::of(). This takes a reference to a
-bound auxiliary bus device and returns a handle to NovaCoreApi.
+To allow for this add a DrmRegData type which will hold a reference to
+the NovaCoreApi associated with the auxbus device.
 
 Signed-off-by: Alistair Popple <apopple@nvidia.com>
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/nova-core/api.rs       | 29 +++++++++++++++++++
- drivers/gpu/nova-core/driver.rs    | 45 ++++++++++++++++++++++--------
- drivers/gpu/nova-core/gsp/hal.rs   |  2 +-
- drivers/gpu/nova-core/nova_core.rs |  1 +
- 4 files changed, 65 insertions(+), 12 deletions(-)
- create mode 100644 drivers/gpu/nova-core/api.rs
+ drivers/gpu/drm/nova/driver.rs | 16 ++++++++++++++--
+ drivers/gpu/drm/nova/file.rs   | 13 ++++++-------
+ 2 files changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-new file mode 100644
-index 000000000000..68ba8bda800a
---- /dev/null
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Nova-core auxbus data. Contains all the methods used by the auxbus drivers
-+//! to interact with nova-core.
-+
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
+index 739690bc2db5..3ae719540e4d 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
 +use core::pin::Pin;
 +
-+use kernel::{
-+    auxiliary,
-+    device::Bound,
-+    prelude::*,
-+    types::CovariantForLt, //
-+};
-+
-+use crate::gpu::Gpu;
-+
-+/// API handle for the auxiliary bus child drivers to interact with nova-core.
-+pub struct NovaCoreApi<'bound> {
-+    #[allow(dead_code)]
-+    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
-+}
-+
-+impl NovaCoreApi<'_> {
-+    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
-+    /// by nova-core.
-+    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
-+        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 48380ac15f68..c3c2acd72368 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -18,6 +18,7 @@
-     types::CovariantForLt,
- };
+ use kernel::{
+     auxiliary,
+     device::{
+@@ -17,6 +19,7 @@
  
-+use crate::api::NovaCoreApi;
- use crate::gpu::Gpu;
+ use crate::file::File;
+ use crate::gem::NovaObject;
++use nova_core::api::NovaCoreApi;
  
- /// Counter for generating unique auxiliary device IDs.
-@@ -25,11 +26,14 @@
+ pub(crate) struct NovaDriver;
  
- #[pin_data]
- pub(crate) struct NovaCore<'bound> {
-+    // Fields are dropped in declaration order: unregister the auxiliary
-+    // device before dropping `gpu`, and drop `gpu` before `bar` because `Gpu`
-+    // borrows `bar`.
-+    #[allow(clippy::type_complexity)]
-+    _reg: auxiliary::Registration<'bound, CovariantForLt!(NovaCoreApi<'_>)>,
-     #[pin]
-     pub(crate) gpu: Gpu<'bound>,
-     bar: pci::Bar<'bound, BAR0_SIZE>,
--    #[allow(clippy::type_complexity)]
--    _reg: auxiliary::Registration<'bound, CovariantForLt!(())>,
+@@ -26,6 +29,12 @@ pub(crate) struct Nova<'bound> {
+     _reg: drm::Registration<'bound, NovaDriver>,
  }
  
- pub(crate) struct NovaCoreDriver;
-@@ -86,15 +90,34 @@ fn probe<'bound>(
-                 // (`try_pin_init!()` initializes fields in declaration order), lives at a pinned
-                 // stable address, and is dropped after `gpu` (struct field drop order).
-                 gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) }),
--                _reg: auxiliary::Registration::new(
--                    pdev.as_ref(),
--                    c"nova-drm",
--                    // TODO[XARR]: Use XArray or perhaps IDA for proper ID allocation/recycling. For
--                    // now, use a simple atomic counter that never recycles IDs.
--                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
--                    crate::MODULE_NAME,
--                    (),
--                )?,
++/// DRM registration data, accessible from ioctl handlers via the registration guard.
++pub(crate) struct DrmRegData<'bound> {
++    #[allow(dead_code)]
++    pub(crate) api: Pin<&'bound NovaCoreApi<'bound>>,
++}
 +
-+                // SAFETY:
-+                // - `NovaCore` is dropped when the device is unbound; i.e.
-+                //   `mem::forget()` is never called on it.
-+                // - `gpu` is initialized above, lives at a pinned stable
-+                //   address, and is dropped after `_reg` (struct field drop
-+                //   order).
-+                _reg: unsafe {
-+                    auxiliary::Registration::new_with_lt(
-+                        pdev.as_ref(),
-+                        c"nova-drm",
-+                        // TODO[XARR]: Use XArray or perhaps IDA for proper ID allocation/recycling.
-+                        // For now, use a simple atomic counter that never recycles IDs.
-+                        AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-+                        crate::MODULE_NAME,
-+                        NovaCoreApi {
-+                            // TODO: Use `&gpu` self-referential pin-init syntax once available.
-+                            //
-+                            // SAFETY: `gpu` is initialized before this expression is evaluated
-+                            // (`try_pin_init!()` initializes fields in declaration order), lives at
-+                            // a pinned stable address, and is dropped after `_reg` (struct field
-+                            // drop order).
-+                            gpu: Pin::new_unchecked(
-+                                &*core::ptr::from_ref(gpu.as_ref().get_ref()),
-+                            ),
-+                        },
-+                    )?
-+                },
-             }))
-         })
-     }
-diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp/hal.rs
-index d3e47ef206de..06647b2b7894 100644
---- a/drivers/gpu/nova-core/gsp/hal.rs
-+++ b/drivers/gpu/nova-core/gsp/hal.rs
-@@ -36,7 +36,7 @@
- /// The GSP unload code might run in a situation where we cannot load firmware dynamically (e.g.
- /// because we are in shutdown and the file system is not accessible anymore). Thus, the firmware
- /// required for unloading is prepared at load time, and stored here until it needs to be run.
--pub(super) trait UnloadBundle: Send {
-+pub(super) trait UnloadBundle: Send + Sync {
-     /// Performs the steps required to properly reset the GSP after it has been stopped.
-     fn run(
-         &self,
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index 735b8e17c6b6..2d48d16a6ee8 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -13,6 +13,7 @@
- #[macro_use]
- mod bitfield;
+ /// Convienence type alias for the DRM device type for this driver
+ pub(crate) type NovaDevice<Ctx = drm::Normal> = drm::Device<NovaDriver, Ctx>;
  
-+pub mod api;
- mod driver;
- mod falcon;
- mod fb;
+@@ -60,9 +69,12 @@ fn probe<'bound>(
+         _info: &'bound Self::IdInfo,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
++        let reg_data = DrmRegData {
++            api: NovaCoreApi::of(adev)?,
++        };
+         // SAFETY: `reg` is stored in `Nova` and dropped when the driver is unbound; it is
+         // never forgotten.
+-        let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, (), 0)? };
++        let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, reg_data, 0)? };
+ 
+         Ok(Nova {
+             drm: reg.device().into(),
+@@ -74,7 +86,7 @@ fn probe<'bound>(
+ #[vtable]
+ impl drm::Driver for NovaDriver {
+     type Data = ();
+-    type RegistrationData<'a> = ();
++    type RegistrationData<'a> = DrmRegData<'a>;
+     type File = File;
+     type Object = gem::Object<NovaObject>;
+     type ParentDevice<Ctx: DeviceContext> = auxiliary::Device<Ctx>;
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index 298c02bacb4b..855b6ffe696f 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -1,11 +1,10 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+-use crate::driver::{NovaDevice, NovaDriver};
++use crate::driver::{DrmRegData, NovaDevice, NovaDriver};
+ use crate::gem::NovaObject;
+ use kernel::{
+     alloc::flags::*,
+     auxiliary,
+-    device::Bound,
+     drm::{
+         self,
+         gem::BaseObject,
+@@ -30,12 +29,12 @@ impl File {
+     /// IOCTL: get_param: Query GPU / driver metadata.
+     pub(crate) fn get_param(
+         dev: &NovaDevice<Registered>,
+-        _reg_data: &(),
++        _reg_data: &DrmRegData<'_>,
+         getparam: &mut uapi::drm_nova_getparam,
+         _file: &drm::File<File>,
+     ) -> Result<u32> {
+-        let adev: &auxiliary::Device<Bound> = dev.as_ref();
+-        let pdev: &pci::Device<Bound> = adev.parent().try_into()?;
++        let adev: &auxiliary::Device<_> = dev.as_ref();
++        let pdev: &pci::Device<_> = adev.parent().try_into()?;
+ 
+         let value = match getparam.param as u32 {
+             uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => pdev.resource_len(1)?,
+@@ -50,7 +49,7 @@ pub(crate) fn get_param(
+     /// IOCTL: gem_create: Create a new DRM GEM object.
+     pub(crate) fn gem_create(
+         dev: &NovaDevice<Registered>,
+-        _reg_data: &(),
++        _reg_data: &DrmRegData<'_>,
+         req: &mut uapi::drm_nova_gem_create,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
+@@ -64,7 +63,7 @@ pub(crate) fn gem_create(
+     /// IOCTL: gem_info: Query GEM metadata.
+     pub(crate) fn gem_info(
+         _dev: &NovaDevice<Registered>,
+-        _reg_data: &(),
++        _reg_data: &DrmRegData<'_>,
+         req: &mut uapi::drm_nova_gem_info,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
 -- 
 2.54.0
 
