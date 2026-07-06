@@ -1,62 +1,62 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010005.outbound.protection.outlook.com [52.101.85.5])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012027.outbound.protection.outlook.com [40.93.195.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3176341DED6
-	for <nova-gpu@lists.linux.dev>; Mon,  6 Jul 2026 11:43:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB2F420E75
+	for <nova-gpu@lists.linux.dev>; Mon,  6 Jul 2026 11:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.27
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783338203; cv=fail; b=touBTKJ6iYL+hGacasTUt00/pUe1Iyf5W0zZvO+yvGyJNMNMXh+Ss2FxQuAYuUBKax8KiYxgkXmdlBCugk4WKv8fQx76gHl2J2PU0A9g102BCjN1WIK12WbksqfAEpt3lSxNh+uccljCRPY3+OhPhelU0lNysbX25aUbZiQuenc=
+	t=1783338252; cv=fail; b=WrwZXnqTLk7a58Qak0WD6w+3r0NGYfLrJDncmL31EPVRmL8xvLnKP4juU8zvuva4kjJ3MqnHeFtZcKtXcIAEqY+asaTRtnl62hbXmdKpqZYMrCTZedI8kdpiJgb3DDeL7IyNPZIV0+ig4M1qhgh537qSvgJGAmjdNDv+sBiqeqA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783338203; c=relaxed/simple;
-	bh=pKWmbYu/MpxrzM3IhjL8Y/jBtDpfS4sPxOP+eh8X7N4=;
+	s=arc-20240116; t=1783338252; c=relaxed/simple;
+	bh=njESkGqsq5QHaAJ6lTyP0E05QBLsYLL+hzn0DC2PSLg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=rezSO4cBegO9Od3sYTu/lRr4iJM5DNT61JH930YC8ZwAFwtQNGkbWkvaob27cDN8YCUkPsIizle7oQ7KHpXoWuLVw2hitXfalOE8Ccp9NYiAZviSTLZV195w2ZazpIijnrY6PETScePI90Xy2WlOx37EHoeOEBvLbSI8GYCGBGo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Q/+L/X+K; arc=fail smtp.client-ip=52.101.85.5
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Vxq/bON0YTflEkSCYXhW/O6WGYMB+tm+zflYdZ5kGfE2WhGM78NnN/uXwumjIxjZZ6Cai8FhxD06fsJJf5p2FVyxaxnK7GXTjncfkg2ah/RORZ5vt9g3VaqrL1Njc/Tk/x0ywbVigco1zg3Fmoa6eF6k1zC2EE87E7PU964FwoM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=X8YQKUz3; arc=fail smtp.client-ip=40.93.195.27
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Q/+L/X+K"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="X8YQKUz3"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=owLbz9Klh99XDxTNMnYcEvNr0VDTUY2oshYlQgMxVmESL+v6vBS1JCRC8nvFe4zEVd88Y4wv5Q98o8vnk4DMOIF/xQSG4dZaL0kjEX/dC8dqiMxKSzBT+O89kP8cDxc+fmPrZ0hVq7mPzrrd62pipHdS6siBtrwxCWpqXR0kynfGN1pypq92aQQAud7Zr54TJr5Zae5mpE3qkTQkqPlp4X3DlCslL+pZdGeNGqJepVkWInofYv19n4vuBZUWcPUA0de8RDC+ExWEZ5FYBYerEZtaryixn6UV2CbALdbEVTvdUA3c9ql5hCbb1m5If2HRRtJOi7dVSyWyLi8Wr4WRQg==
+ b=gdA7oxUQWcE7x517XS5EJraT5kW7K1VxZqif0Mi5xOIbtloBJdJcs2rFdkC8hsapOcM4WSNerBW1pCcIFs3gqPj5K3aJDexJKMz72O085BJBwM4R4otJmOW0l52tRG3ehTR9kkSkZlaYRq2CI/pxq71q+iDT4m6MHdfIUD1QDY+/Ngpl9sE3nvjLCISzlZYKY0I1QkCHkpdFAw5rk1CK500yGmPkidgDVhcm6RZwWAuNoxyBZGi8LGoycAefI7hVEDRcoYG4nlKVgARPXbSd2+wpoI7RiY3pOVTjXVc/7bqjOIL4stp1ZqFAGHOrOggEXpg57kQTgCBQ1i56sslaLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nIYzDQDPqzFaGTI7BnAoIdUaWn32jjWILd/cD300sdU=;
- b=HAFU3kUg/aT7WTGVY7B/7rGyHE/WeNWu/0+W49YdIyOGire0QCaBevKiu/aQRwuojlipydYG8tlAV8+SBqIVPSI1U0xbW0H6LWSCCyHSofS6sibjnbtfpiWUZ65ehi4FuiZpz84gAXPJZTTtulzVp6/W1haGtgWqW7chZznxkzuGiiqjixJu+6siFEfOO6W57LDSBFPKkoToMaWTRbvFFNqOBBv4ZtMGUw98WNOQvAgx4CcVWwkte4phcTyjJdrMtwqtwjv2BXFPrxubFQ/jaTpaASPBEMJLS0XIMgLyLVCKaX3GB4EAKw2Zf+w2uLeDsU1bvHD/x1lrgx19xRAmhg==
+ bh=NuoG0Jr9iGeean18Om7YPNfgpZWf/OJBt6h3s32EVJ8=;
+ b=T7rZ4k/tYx+yWq2Yh9biWHFa410bfpsB+Dr5pYKH3TI84XMfFKS0+ITnpnT9efoLHS6gwp4QCUe/STE7cwTwq9O6d5g1qP8WqruDv+8nKFgsbWpXAtlZ5mFGyK1Ul9UV2/hU2Lp21cRh3R0Dw46eMSlBb596oYIlR2eXr0NA0U8Qrt90QEFM3YeO14UTEKLS2EfmY3N49zV17RZPU99x7vLeCwI4v0XGVTwID+mo8U0uXnZ1Q7qqB1PuZ3FmySwejDKhQqqSn6HJzzdcQPTZkNEWY+sy2Dh3pd4fuBy+MMdmxRqnE8/ZfyOwM7znnqQbaYKcF2vRHRtTp0skh4ry9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nIYzDQDPqzFaGTI7BnAoIdUaWn32jjWILd/cD300sdU=;
- b=Q/+L/X+KcVYSKjEWVYC1L0B4rXT0hEpelXCmpgBHOW5Z7A55KJOI+2jC7JubJZmDR+bEK5jVZ9i6ndP82Iezpeio6L0BBz7N7IQlbZGUX6XTz7RNh4lTbxybu14VZi/VS5hlp/ajfSl72rSo2vBycEvem3LxsVAdyH6qA86zkHZBHXG1ajGlhREaA3ku/guZfKvBJLLxmg0ZXi376a6PSLshbckJJszTdn1EVKsPWMLYLwSrjqIrAHYlii6OM58N7j4bdpM8xPvz85sTUA1971cN2N8o62AS7OjQJzmUZXBu/UI+m3tgivduG8tcEt2Hf05UjjwgibahJUoRgHnKkg==
+ bh=NuoG0Jr9iGeean18Om7YPNfgpZWf/OJBt6h3s32EVJ8=;
+ b=X8YQKUz3kBqCVMMOVITbxzWGB7haKvev9ziRr/wOdAWBic1KxLwJ0Xu1laHjQJ1MltufRl8qDBygP6sa/MxCnzHXdZR1aOYrgR3LdP6/h5KGP5PmHc4hRTxoBiv0UlCWoRqMDXACRNqac3Hp1/tp+7VyfSIEFOqgeA4W1F+cxFGEecXsRbinYMXmyLZmuwcmtWO8qH1cXW847MMh/9a1ADN81sVTwvHkA7czVplIuYmwtV5ANPqejyFbA4CC0gNGx2a785gu6zTrljIJlqytA9HR9hwBTPYYb7gxGF8hViRq/p2barAwp7CdCJ2UeIHCN8/LCoZMW/utEQt8WLw3+w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
  PH0PR12MB7929.namprd12.prod.outlook.com (2603:10b6:510:284::5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.10; Mon, 6 Jul 2026 11:43:15 +0000
+ 15.21.181.10; Mon, 6 Jul 2026 11:44:06 +0000
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 11:43:15 +0000
-Date: Mon, 6 Jul 2026 21:43:08 +1000
+ 11:44:06 +0000
+Date: Mon, 6 Jul 2026 21:44:00 +1000
 From: Alistair Popple <apopple@nvidia.com>
 To: Pedro Yudi Honda <niyudi.honda@usp.br>
 Cc: dakr@kernel.org, acourbot@nvidia.com, nico.antinori.7@gmail.com, 
 	aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch, 
 	dri-devel@lists.freedesktop.org, ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
 	nova-gpu@lists.linux.dev
-Subject: Re: [PATCH v2 3/5] drm/nova: use `zerocopy` in fwsec.rs
-Message-ID: <akuUWHkAPHC31Va5@nvdebian.thelocal>
+Subject: Re: [PATCH v2 4/5] drm/nova: use `zerocopy` in bootloader.rs
+Message-ID: <akuU7CUj1CgKsdmP@nvdebian.thelocal>
 References: <20260702120324.40388-1-niyudi.honda@gmail.com>
- <20260702120324.40388-4-niyudi.honda@gmail.com>
+ <20260702120324.40388-5-niyudi.honda@gmail.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260702120324.40388-4-niyudi.honda@gmail.com>
-X-ClientProxiedBy: SY5PR01CA0036.ausprd01.prod.outlook.com
- (2603:10c6:10:1f8::13) To DS0PR12MB7726.namprd12.prod.outlook.com
+In-Reply-To: <20260702120324.40388-5-niyudi.honda@gmail.com>
+X-ClientProxiedBy: SY5P282CA0088.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:201::14) To DS0PR12MB7726.namprd12.prod.outlook.com
  (2603:10b6:8:130::6)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -66,229 +66,144 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|PH0PR12MB7929:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd6372a3-df04-4668-301d-08dedb53c3d1
+X-MS-Office365-Filtering-Correlation-Id: 889ffcc6-f3b8-47f5-95a4-08dedb53e278
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|22082099003|18002099003|6133799003|11063799006|56012099006|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	0vNEhyJV88uTuufNzO/ePB7bylM4+kSAhxTS+tAAct550cME6wSTnB0E03W5myYa7qwdWLAyumyVqdLQo+saOUf19t075xKo/UYWxCYsifgwCzZwgeOOORhz/mbjZsgeHOjW7xk2kfLEC/Quo7BYLxrYVEMEC3xHU+urw2tfdZ1C12Z0vWyevOOd5Uk4R9fMJ6XUwRB2uaHtHoXEwJA3krnlOQIWjeGWfwsoVERAJEAaw1i4aoef4QJHfpVtxJelepStfSaJs7FBjB7tLgP1EDO4QF7JHMD8MxFv+EuCgz5Nt+TVLyJC8k5yM+CX5N4LcUp16cQxlDeqjZ0Ciyp22MBH0Xj2dfGzchIEZWVtHo+qMc9qc24G/k0Of8nHPkJrEBmmRkEw3o/ZfWnFGN3JJFREBLFkVEkAz9LT6rrKHF31G1QZ0I7cLL3NueJ4JLSV+xyztKVTDhKidvtHnIoqJauex4eQQtaUFp46ul8kdYJWklqS+cz1wAAg8cueECgz8CWH/qoNlN9GJoQIJhzl9V+h5KVzWgR9GD90JftAOp4ttmiN7eQtSHv737DMR23nN00CCHTKe8f3m3GfswAfYmqBvyCfZbt8pSUVYtea4Puhik3Eh8+tPVtBWF4+KGQEKSnCMiJZR1MZkGxrqv72EyvHZzGDvycAtPbQrAwejPw=
+	LACYINWY1WFohg4MHykJxtLGJVIy4u7QbKJbqe7OhS5nDYHCWr+KqVBi2+Vi6iLd8je4LynnLLjPA44OfMGN5fQAPMcx5yz/+BNbfSlVQMTOyhY2hkRFnkQ4XjTlZd3WtNFltLa7z53OTUty8xi4jA6Y7fn+94VP+jJOTZnVs7ftaK2USnt/wli2UHoqT1nNoayXoJC/nS6ij5ENVAUtz6eO6ZcQYVr5PBtA7scntVLzjNmf23zaOcObriBqhVfq3Ug1aH5zgSkRfnui929RJDTp0qBXXvqRhfYIWaRYOyJJ9YRJejU4kX+hMbQeFFTthN3JL1ZEmYCEpHCR9BaAAVvUXtDww5ppXhWHTYk11Ro8FEz7y0ZnyY2xPD/KFpnmBEUD42K7JQKGh83hyrKK1GmkMLDIonRJU2jNy3QTuTiXE7ceu+iN5M3CWRMB7v/9GxplsMbcD8MTu0Eh6yJwKuBdmykXQEf/Bx+pMZpxc4AtIuzDaYfWB53Wo9yqXpsou8fwQ6dbXg0cUta1USqRxyyp/wn6kITI7H/X9LYH7E29xEIlAlGkHywrcvWFKxQ31E+oRjZb+rrMn0M2lVi5lxq6bMNW7WRuYzhhMB+Ix2POUErKi0m+NIqoJh//jxVXhmTL8ei0Wnw+/mvN+EOYyHUIYyGzu00HvNBVAKooOFg=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fY4wlkHEljzI/9Ag7Z49Md9LCG1pYs9UOCZXh2NQIOfL3h8ILFb/nNLJOLUP?=
- =?us-ascii?Q?4ZBBqQZFnb96NIrL9G/iEIs1SExoPNB0Didj6PLkx8HkMNGk52Q23tTkrR+q?=
- =?us-ascii?Q?k7yetxQpBH/sSyGanyKdozh2iQoE9vn/CSetsZ6F2hd+0sQFIvuXABcVZsDK?=
- =?us-ascii?Q?OxdzEzRJwkpm+JP0222f6SBjd6amlIR7KPhj9K01/kOeLdm1uwQGpHXXVvcA?=
- =?us-ascii?Q?QulpF8+srCa4XhZNky6/qAFmYNRJwequzhSqPkSCGcLl8PTtGxSL9xCRy5Zn?=
- =?us-ascii?Q?CkbaStiOaVUzs+bWlAQuSPfLpT/mypmjDTn5gOdYJFqxLWnvh0kBZAt6VqKF?=
- =?us-ascii?Q?NmrxKcR8vwb69sCAs2Tvqr0etjQW1YhGS6hmqY+DUBiiFaJ2rXgX+xJw8w2H?=
- =?us-ascii?Q?ZnL7rOrnjRONf07Lz1L+HcBgm2zue/HdKKa4RWq3AjfNbr9jndGlkhiZybmI?=
- =?us-ascii?Q?kfK6EHJRUUpcycwMLhaBMh5cYdtUB86tH5I9eJfXsqXVIYtgj6xFggo1yosf?=
- =?us-ascii?Q?MBsnp5ttPPDs9e5QlIW/NlfrM1HpgP2qaac4o4PSlYgVItb4frkw878DURsQ?=
- =?us-ascii?Q?CtaXdZjpPdUXzkj0fjttQlVHNpJtVy3yHXT13gdsKCg5OfYP35N+NWlh+pzg?=
- =?us-ascii?Q?f2jDHnklUWtqnALBjQwELyA1mTVSR8ATwHnsyb/QHW1APVruIQufk05FHP7u?=
- =?us-ascii?Q?cuV0Dm3izvwEeYQkraZiYHYZG4a/Ri0nclr9aoRSgSqBmmaFWKS39Pnur8Ix?=
- =?us-ascii?Q?guqIk9TaQgTboaZ2EZIxs0Tn6h9Bttt4zFMk/q2FWxQMacQKFxrErXfREY25?=
- =?us-ascii?Q?RPQMsBUvEDnYvradWUTjFvlTRw9KgBLqg2aE9WjeREgdbr49M46W9oTWjyqI?=
- =?us-ascii?Q?SmpH4OzcHs3nZuJRbYAyRjYrh4UBYbSBbBd68YvI8sUsPhL3gN0mU2w9CFjN?=
- =?us-ascii?Q?OzpYaybOXav47xKNq1q0ncheXIfQiwWuNthzEPrX8/biLD2GPTy5+pC6e2JY?=
- =?us-ascii?Q?ukptY/nylYunrwE+zV1rmZDHHWmUFrOJdDJojJccRb2P2//6koVOYw3PrKTD?=
- =?us-ascii?Q?+OouL5Vx38TBqgmDC031AlqoNt9OGBnbozxkpKuU93kSg/Q/ahNDVJfkVLcI?=
- =?us-ascii?Q?sIpGlnO0xLVqTm8KIylrir6vjwu/L09vek6h1gFA7IuzAnkvmImzbPeyaiAh?=
- =?us-ascii?Q?hwnRCJPzfE8p+/a0o6+4I5V10EwRnuv6h7po1GYE3dMJf73d4Oz+PiCI2fIr?=
- =?us-ascii?Q?yL9y41rQgPfx3hBCQ/8YqDXVoTr4Ae00+/ta3gn2WR9KbcE7bBQAcpUjjapU?=
- =?us-ascii?Q?OqFGSb5Krnc6C+Mx0p46KOQsZYAzcr9kjR4NjxokWbnGXRUWODLia1DOK3z1?=
- =?us-ascii?Q?e+3c4sl0zI7kmZfwy8jlIS3mjFAnCIWOr34WOBptDUbfgDxzSg7RjOOUS2E5?=
- =?us-ascii?Q?Mh/xa1odVBpzoZ3+tCRphZRQlI1QpmBD7zuraX2S9/MvQ+Qs7kmok012qvuq?=
- =?us-ascii?Q?PX9TpiFAXrrUG9Ud7ku7R/fuRlAGaOo/nV+NeRBcmhW+8cKkuPLpl3jfySxK?=
- =?us-ascii?Q?LBq33hEn3qOa+yv0li1R3M3/N0dq5P/SNFZLCvlfSYjgT4TYLldm58fu7NeX?=
- =?us-ascii?Q?1aCIfHVuuENb3K/UEvnkiL9sbucYQrAlWoV+kZ6Gj/wP05R5FE3k0876dndx?=
- =?us-ascii?Q?LueGIASLNbN8R4yBTQaF0B3tth5URvUjHfNr7DXmoBpeXySuUXyndB0+sIh0?=
- =?us-ascii?Q?yq0P4pv8Nw=3D=3D?=
+	=?us-ascii?Q?Wmgx6mRmy/I9KRfcBDDcFKVEBNV05GCcoagMO3GfJ2FyTDPYcTSHhvm0395s?=
+ =?us-ascii?Q?ChBeOjLv49nrHXxjCe9m6rVBj44asefU4BmNqcTKfyljXkBUMCRxMZQTovAU?=
+ =?us-ascii?Q?ybdf5I6/MhtkAN3Mq1vUGlDietDGWu+yvvYMU5dTFSVaaeVOIPP9Rlswct6N?=
+ =?us-ascii?Q?xhQ+MNND8T53BeJ5dFPrX/Z0nclf3WCWJ2BRgUwCmp/uVFX31r0H+zzYZ54f?=
+ =?us-ascii?Q?pYB1chqbUmZb7yDEZfEsEQv9OFzMsONEYZOp0o7Wy5KhuBnSu06DdTSciADv?=
+ =?us-ascii?Q?woRXgXiUO43VVw/xtE6vIOgMxpcQ6AyT/EXvB6ZoXQWCLod1LHAGw1aBww3T?=
+ =?us-ascii?Q?BhHKWCX1bn7HbE1a8Klmf7oZVE58R9/CCFeg+uu9JhQtQCnO5n5WYBy7iH7m?=
+ =?us-ascii?Q?kFvth/Ggeeda6xjCzkdX2HadEAP4kYDXi+gnuu16wsNBVAHX5/+/5JDcoqko?=
+ =?us-ascii?Q?8CcOIvymH6mNvJA64IG4ixqQEJHB7uJLVxPJams7/xJU1w+JMrPdj1PXnE15?=
+ =?us-ascii?Q?4uMyzK+7xSXdvwaBsO1moMmdSkvrQxC3xD8OPZVyg4kPyF5JqfWTtzN+Y3JI?=
+ =?us-ascii?Q?lnVhBToFps/5gilBSgmCDPs4ZBQn9VXJXAGANb89BD6dF8ZAc1ILqu4ieGNN?=
+ =?us-ascii?Q?KXcC+9vZyYJtn7SQ/XmSXYBTC22mmYt8POcvcWvGJYYqJOpLyDcGzoB+9pRP?=
+ =?us-ascii?Q?sem1tFH7E83j/XYWKeR9belz1NW6B9sf3hsVN9HMxrwUJXV1wj3xG/49f/hX?=
+ =?us-ascii?Q?CcXDsCBDQgmYntBxYafNIAexjxLLfk2+MqtwQT/4lCUm4nWRh3oa0+lRU7DJ?=
+ =?us-ascii?Q?JVEsF2Pwt9wq47eV7uZLCNmSUDS1fYzsqMsHlSQhdhVwGZfFse54aVWNDGyT?=
+ =?us-ascii?Q?dqgK/sFf0KRAMSw33vOt8Ajjb33BRC8vs/FAJqIFTTMVe9wSU2L/YvtN6nA6?=
+ =?us-ascii?Q?b44sW5AV1oze9WVpbM4slkUhn2nfMJ3OWskit/+gOPo8wZrIT9q65HEetYly?=
+ =?us-ascii?Q?IUFoBhLbqsklNY6dtqCnABIlubQ200gbsXWDLQPfDYgK2m7jJwrv1fSq8jna?=
+ =?us-ascii?Q?8OGruO9skaK9rYbs263BuXjfeV+CzRiNUmMGsm6EDLh3kO8cCtxm9hCQVvUE?=
+ =?us-ascii?Q?gTk8GC4t4Fl+MnYo0Zf21C/GcP/me5dOMsnENwUhaCT8Z2/owk//+6PYegxF?=
+ =?us-ascii?Q?43c7ZiSM07uMR7r18D9YQlRcgVwuoegPv9lvHngxpYJWkOfDbcvsBtIuBuiS?=
+ =?us-ascii?Q?a7RATtQaPrAFf321Rybqew2OAeSP4/EwEpD2t8QWaJKA6FNyRIP2/HrXzDLa?=
+ =?us-ascii?Q?z3UevO3fU9QUVE9Vb2/P3vi/JWOxpYzGiO1X1G8E5Ngjfh2ra+yMMQbRH4tj?=
+ =?us-ascii?Q?NdCd6qGYTdfWlD8WGKXT8OiKARpWFi/+bDDh3+qfpgmnzA9sTceVqWXp1WBq?=
+ =?us-ascii?Q?idlx+upi/QGV7war32EvwITCL8xmYgMiU72TflNZ5WIviN1xMupI2aodthqg?=
+ =?us-ascii?Q?jUAp46C9I8lDb75EqAL9QWmmH+fGR0H03ui633IokkF/LJqfUmYJ51D+unm1?=
+ =?us-ascii?Q?CiR+5VtsjbCxYs2H7v5Zw92RZtkLNJW80EekuUX/w7Gge+kGh+fnps3P9coY?=
+ =?us-ascii?Q?uZBnWCX+mADjyVwNmQSBw49W62UkMbAuA+Gj2ls1TzAxI93cHp1WLy46A22o?=
+ =?us-ascii?Q?QN0EDQ9ZdSM7uHNWDCxhOc32Rb9Li4r7R8ZSiADJO2ovjl74ubgSmv03ip34?=
+ =?us-ascii?Q?mtfWV+D8PQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd6372a3-df04-4668-301d-08dedb53c3d1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 889ffcc6-f3b8-47f5-95a4-08dedb53e278
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 11:43:15.0124
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 11:44:06.5594
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qVeDjTdaji4z9TU7uAcHHfxyCVf2uk/IY797L95Glg2tI1YLIOy+s95NJILjEPELq+kpD8f0Xwrv2/UoZbGQBg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: RQFvXHsWyItrbxgL7Xdra3sujeieldY5uoZQjgmUaUDprg0uOuxVtweLND+sBeZV4q2PEizTOKeH1FNIIGxFEA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7929
 
 On 2026-07-02 at 22:03 +1000, Pedro Yudi Honda <niyudi.honda@usp.br> wrote...
 > From: Pedro Yudi Honda <niyudi.honda@usp.br>
 > 
-> In firmware/fwsec.rs, replace the following `transmute` traits with
-> their `zerocopy` equivalents:
+> In firmware/fwsec/bootloader.rs, replace the following `transmute`
+> traits with their `zerocopy` equivalents:
 > 
 > - `transmute::FromBytes` -> `zerocopy::FromBytes`
 > - `transmute::AsBytes` -> `zerocopy::IntoBytes`
-> - add `zerocopy::KnownLayout` where necessary
-
-Argh, ok. It makes more sense when there are more things in the list :-) That
-said I'd also be ok without, but either is fine.
+> - add `zerocopy::Immutable` where necessary
+> 
+> Update call sites accordingly.
 
 Reviewed-by: Alistair Popple <apopple@nvidia.com>
 
-> Update call sites accordingly.
 > 
 > Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
 > ---
->  drivers/gpu/nova-core/firmware/fwsec.rs | 49 ++++++-------------------
->  1 file changed, 12 insertions(+), 37 deletions(-)
+>  .../gpu/nova-core/firmware/fwsec/bootloader.rs | 18 ++++--------------
+>  1 file changed, 4 insertions(+), 14 deletions(-)
 > 
-> diff --git a/drivers/gpu/nova-core/firmware/fwsec.rs b/drivers/gpu/nova-core/firmware/fwsec.rs
-> index 95e0dd77746b..1b75cdc02256 100644
-> --- a/drivers/gpu/nova-core/firmware/fwsec.rs
-> +++ b/drivers/gpu/nova-core/firmware/fwsec.rs
-> @@ -19,11 +19,7 @@
->          self,
->          Device, //
+> diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+> index 66b9f4d1b41c..03d3090bd9ef 100644
+> --- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+> +++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+> @@ -18,15 +18,9 @@
+>          Alignable,
+>          Alignment, //
 >      },
-> -    prelude::*,
+> -    sizes,
 > -    transmute::{
 > -        AsBytes,
 > -        FromBytes, //
 > -    },
-> +    prelude::*, //
+> +    sizes, //
 >  };
 >  
->  use crate::{
-> @@ -49,26 +45,22 @@
->  const NVFW_FALCON_APPIF_ID_DMEMMAPPER: u32 = 0x4;
->  
->  #[repr(C)]
-> -#[derive(Debug)]
-> +#[derive(Debug, FromBytes)]
->  struct FalconAppifHdrV1 {
->      version: u8,
->      header_size: u8,
->      entry_size: u8,
->      entry_count: u8,
->  }
-> -// SAFETY: Any byte sequence is valid for this struct.
-> -unsafe impl FromBytes for FalconAppifHdrV1 {}
->  
->  #[repr(C, packed)]
-> -#[derive(Debug)]
-> +#[derive(Debug, FromBytes)]
->  struct FalconAppifV1 {
->      id: u32,
->      dmem_base: u32,
->  }
-> -// SAFETY: Any byte sequence is valid for this struct.
-> -unsafe impl FromBytes for FalconAppifV1 {}
->  
-> -#[derive(Debug)]
-> +#[derive(Debug, FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
->  #[repr(C, packed)]
->  struct FalconAppifDmemmapperV3 {
->      signature: u32,
-> @@ -89,12 +81,8 @@ struct FalconAppifDmemmapperV3 {
->      ucode_cmd_mask1: u32,
->      multi_tgt_tbl: u32,
->  }
-> -// SAFETY: Any byte sequence is valid for this struct.
-> -unsafe impl FromBytes for FalconAppifDmemmapperV3 {}
-> -// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
-> -unsafe impl AsBytes for FalconAppifDmemmapperV3 {}
->  
-> -#[derive(Debug)]
-> +#[derive(Debug, FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
->  #[repr(C, packed)]
->  struct ReadVbios {
->      ver: u32,
-> @@ -103,12 +91,8 @@ struct ReadVbios {
->      size: u32,
->      flags: u32,
->  }
-> -// SAFETY: Any byte sequence is valid for this struct.
-> -unsafe impl FromBytes for ReadVbios {}
-> -// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
-> -unsafe impl AsBytes for ReadVbios {}
->  
-> -#[derive(Debug)]
-> +#[derive(Debug, FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
->  #[repr(C, packed)]
->  struct FrtsRegion {
->      ver: u32,
-> @@ -117,22 +101,15 @@ struct FrtsRegion {
->      size: u32,
->      ftype: u32,
->  }
-> -// SAFETY: Any byte sequence is valid for this struct.
-> -unsafe impl FromBytes for FrtsRegion {}
-> -// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
-> -unsafe impl AsBytes for FrtsRegion {}
->  
->  const NVFW_FRTS_CMD_REGION_TYPE_FB: u32 = 2;
->  
->  #[repr(C, packed)]
-> +#[derive(FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
->  struct FrtsCmd {
->      read_vbios: ReadVbios,
->      frts_region: FrtsRegion,
->  }
-> -// SAFETY: Any byte sequence is valid for this struct.
-> -unsafe impl FromBytes for FrtsCmd {}
-> -// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
-> -unsafe impl AsBytes for FrtsCmd {}
->  
->  const NVFW_FALCON_APPIF_DMEMMAPPER_CMD_FRTS: u32 = 0x15;
->  const NVFW_FALCON_APPIF_DMEMMAPPER_CMD_SB: u32 = 0x19;
-> @@ -151,11 +128,9 @@ pub(crate) enum FwsecCommand {
->  
->  /// A single signature that can be patched into a FWSEC image.
->  #[repr(transparent)]
-> +#[derive(FromBytes)]
->  pub(crate) struct Bcrt30Rsa3kSignature([u8; BCRT30_RSA3K_SIG_SIZE]);
->  
-> -/// SAFETY: A signature is just an array of bytes.
-> -unsafe impl FromBytes for Bcrt30Rsa3kSignature {}
+> -use zerocopy::FromBytes as _;
 > -
->  impl From<[u8; BCRT30_RSA3K_SIG_SIZE]> for Bcrt30Rsa3kSignature {
->      fn from(sig: [u8; BCRT30_RSA3K_SIG_SIZE]) -> Self {
->          Self(sig)
-> @@ -228,7 +203,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
+>  use crate::{
+>      driver::Bar0,
+>      falcon::{
+> @@ -57,7 +51,7 @@
+>  ///
+>  /// Most of its fields appear to be legacy and carry incorrect values, so they are left unused.
+>  #[repr(C)]
+> -#[derive(Debug, Clone)]
+> +#[derive(Debug, Clone, FromBytes)]
+>  struct BootloaderDesc {
+>      /// Starting tag of bootloader.
+>      start_tag: u32,
+> @@ -73,15 +67,13 @@ struct BootloaderDesc {
+>      /// Size of data section in the image. Unused as we build the data section ourselves.
+>      _data_size: u32,
+>  }
+> -// SAFETY: any byte sequence is valid for this struct.
+> -unsafe impl FromBytes for BootloaderDesc {}
 >  
->          let hdr = ucode
->              .get(hdr_offset..)
-> -            .and_then(FalconAppifHdrV1::from_bytes_prefix)
-> +            .and_then(|b| FalconAppifHdrV1::read_from_prefix(b).ok())
->              .ok_or(EINVAL)?
->              .0;
+>  /// Structure used by the boot-loader to load the rest of the code.
+>  ///
+>  /// This has to be filled by the GPU driver and copied into DMEM at offset
+>  /// [`BootloaderDesc.dmem_load_off`].
+>  #[repr(C, packed)]
+> -#[derive(Debug, Clone)]
+> +#[derive(Debug, Clone, IntoBytes, zerocopy_derive::Immutable)]
+>  struct BootloaderDmemDescV2 {
+>      /// Reserved, should always be first element.
+>      reserved: [u32; 4],
+> @@ -120,8 +112,6 @@ struct BootloaderDmemDescV2 {
+>      /// Arguments to be passed to the target firmware being loaded.
+>      argv: u32,
+>  }
+> -// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
+> -unsafe impl AsBytes for BootloaderDmemDescV2 {}
 >  
-> @@ -246,7 +221,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
+>  /// Wrapper for [`FwsecFirmware`] that includes the bootloader performing the actual load
+>  /// operation.
+> @@ -160,7 +150,7 @@ pub(crate) fn new(
 >  
->              let app = ucode
->                  .get(entry_offset..)
-> -                .and_then(FalconAppifV1::from_bytes_prefix)
-> +                .and_then(|b| FalconAppifV1::read_from_prefix(b).ok())
+>              fw.data()
+>                  .get(desc_offset..)
+> -                .and_then(BootloaderDesc::from_bytes_copy_prefix)
+> +                .and_then(|b| BootloaderDesc::read_from_prefix(b).ok())
 >                  .ok_or(EINVAL)?
->                  .0;
->  
-> @@ -263,7 +238,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
->  
->              let dmem_mapper = ucode
->                  .get_mut(dmem_mapper_offset..)
-> -                .and_then(FalconAppifDmemmapperV3::from_bytes_mut_prefix)
-> +                .and_then(|b| FalconAppifDmemmapperV3::mut_from_prefix(b).ok())
->                  .ok_or(EINVAL)?
->                  .0;
->  
-> @@ -281,7 +256,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
->  
->              let frts_cmd = ucode
->                  .get_mut(frts_cmd_offset..)
-> -                .and_then(FrtsCmd::from_bytes_mut_prefix)
-> +                .and_then(|b| FrtsCmd::mut_from_prefix(b).ok())
->                  .ok_or(EINVAL)?
->                  .0;
->  
+>                  .0
+>          };
 > -- 
 > 2.34.1
 > 
