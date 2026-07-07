@@ -1,136 +1,162 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE12941737E
-	for <nova-gpu@lists.linux.dev>; Tue,  7 Jul 2026 13:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783431139; cv=pass; b=shOBl12Mm8LR53woEDzOZirhdjUuApRGcs2v/aYRZ7as1DLtNf5Ufzd/CsGXCZ3qtEqelltF94/o1ma/2vrIXzrYp2Czuhe54S+X/q42TVkkWndx5987M0K7HEKkUbeEmujW3okWsFHv9MIZVCdirVzqGprH4fDjp4KsrEH77aQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783431139; c=relaxed/simple;
-	bh=GUFsCk/2NzYF0/une/bLFGZZu5KrtRApK/yrChMm6zs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a8USXgS+do+Y+nkmAhYpFSMxgTa+xIg4Q1zIg4RBZ5ug9p7w9wDOIEwRcwwb6SkPNBKrR7HRyUM63XWSH1w4cHhj5shFXRXqa5MGfJ34fsNjGSDzy0J8635E/9kebP9x6bwt/VevHINdL5WUc7Qc0Lo50yxVsTLAgLwqBvlyF60=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=smdDSnKv; arc=pass smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4B341D4D9;
+	Tue,  7 Jul 2026 13:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783431180; cv=none; b=ovfWfNWywrf3QK8tk55a5noewarC+6ejfnxNuBHiWVZrDIOY3LyB+8lsb5PbkWpKzFy2LVlgDH2sUPZdNe7iMi6/xmJUiWJ5bBd9CloiD3zUp817R53fHVmygMcCc2IFS3/7vkVhu7L0jrh+R/r1uaFmjt1Ms/j8PAW/YD7ZfIU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783431180; c=relaxed/simple;
+	bh=x4JXL5MthhbcVUmt6JpsDYJ13gDvQUv0R5Dbfal+3dY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=ffq/55nWV6w25AKrZu6GPDqsjTqkQaAxa+OCFhIiBAirqlwv3485ou5dBj2bZIC7bCXu4az3phRp3ks3WPzytedYLYqIIcF9+OHGVBhtRuzp+l81SeoUmF3yfY84+n8BSkWDMLE4KvhMfdB1YjO0OndlN353R9/jDAJkQW9pMrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+ZMEndv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="smdDSnKv"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47122683cf3so2724934f8f.0
-        for <nova-gpu@lists.linux.dev>; Tue, 07 Jul 2026 06:32:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783431136; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cye4777AfwKckblPvl1X3H+XnQZB9ETjnyadewTQGoOQFySuyymHRaTWEAVKdpn0yw
-         en/wEl/3/kgjAiUwQIy29UxJAAYaqSB2jR3Sb2TNwLwiXdjjPwTdXDpa+pVBPSe06pg5
-         SF5EIM5E8TnvkmsP7gRWUGnX/Cv6IPt3ALjRVY6Sx581K3kUCdCwc5cz31DbkrYgi0xj
-         NU9zgTJH6RNASkZoVbjxmEIeIC51oI6l76H7R5+RK5HHxQXQ6sIJqJLwuq78RFK5wEZS
-         e9qbILap/INflYIFPwlTbrAh+/0dD053+ugHRSpkkFUsPkKDUNNXOu5JPR+Pfi7sbxcR
-         XYLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YbvH0rz9v2LuEGavTdE4vxLt1YV7PzWsO2f3mHG+f40=;
-        fh=MCfbGrfAxohbr5TKN0eqmz8a2BUvxFDlLYjjbHJQKGM=;
-        b=fPYPFuhMybwIyPpTm3ZG4XQt41RgQH0inPEUqknczvmZSZklV+EzPrKFghIKhSzAyW
-         mcOFClxjZd/y1X96w/Y0jmIgMpv8eDnuOcKQZ3XfDhM6DTnbXBIQCzb/YwNOOyuYqTA2
-         E64M7f2RjeSrAupWpyl/KDmZiu4s5C8tNQEwK/p2zXmSbZolljrll/zrOpdPtfRpdS4w
-         cYd7vCQ5EZLVdjPBEOmdmUcuvep/ZrhlyRcuKYfW3Dqjqip9kj6defF5TfTosDEBI3mB
-         iGVyArpluY4tQ1qUVRw/4m8MWHAozfgamXpfDcYKJb6YGhXFFgpgyxBWUd7gregxNYqw
-         i5yg==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783431136; x=1784035936; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YbvH0rz9v2LuEGavTdE4vxLt1YV7PzWsO2f3mHG+f40=;
-        b=smdDSnKvZbd2pqBg71qAXfUgdLQJS3Jyxh6FISI7bXk038woUwMklgup5XO/DPsUxf
-         RMG9sBeVlaEXidjrxZkTKlKx5+hY8J8wrsXtxaw6c2Tca6Ii+wdlN6aBDoI6mFRhVqNk
-         vfyoSrJ35suS9u8Kct4qd4bmpGFbglOmDdhWsnHZXWPBqp5Dw+BFoArwpUSqlzWwytEZ
-         F0av1Ia6zfpJpJtoKS6+dZ/o2alYh/RI5ZGjYI4QxGBdP5hvO04yG7t7TUUNYt8hCBaQ
-         Kx7r19bfvmhQJ1YYKQNNTgnf226BLVvn3rk2edXrJvVi0PkL1EMj255uH4CW7L4fLNRG
-         6WUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783431136; x=1784035936;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=YbvH0rz9v2LuEGavTdE4vxLt1YV7PzWsO2f3mHG+f40=;
-        b=oofBELwvNOmC01sPmSuP+Qt6be3hLzVsKujmjieZHkrvNOYlg6hGqSqE0lgXfmUzAC
-         WfYkUs0AzQOOJeApCjMWVg5Q+CqH2d71h933gMpMwq8XmkkZ75K8N7S4tPNGzS2ng71K
-         Hhzf1hHQigT4yL8XOAgwo/HEbvX6WlMyJFpTxE7M/8d0Ku8m95nbYDKjZy66NKWLtC7j
-         jOFgKyCwuG73nDdxmlcTh+cHL1OsbXDYdzTfRmACGh3KiKk7UEaNDQLL3Y/3/G4S4dys
-         0ewsfrc20kNP5l8XQe35AKpzVRLJuodohoaPcY0X/J+fk3npAdzICAdZRHrjrh9JdNwV
-         mUBA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpzx3h7D/MARlmg6jzUGOmoERqYmLNj2jj/rv+6/7xDDSBpK4mIaZeitTrbgunhDcEZVr8tzQGAuA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxHwK06WnuGxilY+Zk/8jccckXN032SblMUk6jjJblsTc2oIsJZ
-	z9otINopaNWduWGzWJAincUnKj9NyQHanImvEaw+gNWWHyYJLo6yMMjGyl0aGdaWH/pv23JTnMb
-	WyIxiGVaVGonKpkqhoCYezzWZij8/swXab+Qc1fXU
-X-Gm-Gg: AfdE7cnPPo9HQziFa2w1xS1abTpukZu17hFnbsav8HRfaImXC/p17w6bxpZ3CviqoNt
-	3TtVNDsjAJ9FEAIN4YoypIjByg5LlqcRld0V3soNp5nKbKITzCT4JLOq7nn78u180F8Ys+itj5G
-	YMYWLs9Ofm7BUBBEZ/5svMunEZFHLWhtdwllz3DtPMZMazGV8ygaXOFYADKEjSHz+5/yEkeSSm3
-	+DxlCl9HIu91QsjzIDDX3VXGNHM7Egwx8rNEBFxHsi8c2p/SAiueTqzq8DXWxsFve/3qkhsft2b
-	J8/PbxxTD/Aos+HkLNWbmgWx139P2mZiOqVH5g==
-X-Received: by 2002:a05:600c:3115:b0:492:3e66:6c84 with SMTP id
- 5b1f17b1804b1-493df095172mr60789075e9.30.1783431135794; Tue, 07 Jul 2026
- 06:32:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+ZMEndv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5B11F000E9;
+	Tue,  7 Jul 2026 13:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783431178;
+	bh=rhfHOQvTa498cQtDMgDpdpPPwFlV7FDZZQ3IECkJHjo=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=m+ZMEndvVUaCFJSjYulugDIcoLta67ck5AssagG9srrTxzPeISwZpbczJvzQFHp+b
+	 wY/cnPnCk3exWVxeKHXl7XecV0Wf4T4zLSV2InsAKanIZI4FFsPM0Y2pGJ+rAyOJKb
+	 I7ucoZFeXYqTXHp2SWuSKjKkA4vM5HnEQ2/IPfsdaxP1qoAijDzHBaLVkl4l6lZLWf
+	 Oo0KsI4mXS7ZXI+S5B2+iz8W3ScVrGVGGq1o4gLCyEL+tt8LsZX8RIMEzlcdU6Q1GM
+	 AhZwk/G18T54Ma/T79bGxHzh1q5o58PVD2FVI208g9Wb7cGolEDfaq4EAQFPM4lenh
+	 ku4sCfD375oIA==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com> <akuV_GRAM4QPqf-o@google.com>
- <DJSDG3RE8MDB.135TG7FX4Z1G1@nvidia.com>
-In-Reply-To: <DJSDG3RE8MDB.135TG7FX4Z1G1@nvidia.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 7 Jul 2026 15:32:03 +0200
-X-Gm-Features: AVVi8CeuDxVjaDzyUQSDcYcmcH9Nnk9YtXJ9KbqPE51Mhk7CXpF1V1tW2Dtgja0
-Message-ID: <CAH5fLgidT1MFYp8Qc70yeYmKBSi-LFKQWw+M_kjR6b2N1ypMEA@mail.gmail.com>
-Subject: Re: [PATCH 0/4] rust: Add support for reserving of ranges of IDs
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Burak Emir <bqe@google.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
-	dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Jul 2026 15:32:54 +0200
+Message-Id: <DJSDL78562EB.1RQP5C4UX55TL@kernel.org>
+Subject: Re: [PATCH v3 1/7] rust: firmware: add request_into_buf()
+Cc: "Timur Tabi" <ttabi@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "nova-gpu@lists.linux.dev"
+ <nova-gpu@lists.linux.dev>, "Zhi Wang" <zhiw@nvidia.com>,
+ "gary@garyguo.net" <gary@garyguo.net>, "russ.weight@linux.dev"
+ <russ.weight@linux.dev>, "mcgrof@kernel.org" <mcgrof@kernel.org>,
+ "rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>,
+ "driver-core@lists.linux.dev" <driver-core@lists.linux.dev>,
+ "ojeda@kernel.org" <ojeda@kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260702192712.3450652-1-ttabi@nvidia.com>
+ <20260702192712.3450652-2-ttabi@nvidia.com>
+ <DJR9ZKFB5WQQ.1CGI0N3GS1SFM@nvidia.com>
+ <DJRFIANMW0AM.2LAQJ114NJQYH@kernel.org>
+ <e1c7a5f2ca6fb05b27f76f8f1af2c11532c75ccc.camel@nvidia.com>
+ <DJS2WBOSQ1U7.AQQZA227X9MK@nvidia.com>
+In-Reply-To: <DJS2WBOSQ1U7.AQQZA227X9MK@nvidia.com>
 
-On Tue, Jul 7, 2026 at 3:26=E2=80=AFPM Eliot Courtney <ecourtney@nvidia.com=
-> wrote:
+On Tue Jul 7, 2026 at 7:10 AM CEST, Alexandre Courbot wrote:
+> On Tue Jul 7, 2026 at 11:54 AM JST, Timur Tabi wrote:
+>> On Mon, 2026-07-06 at 12:50 +0200, Danilo Krummrich wrote:
+>>> On Mon Jul 6, 2026 at 8:30 AM CEST, Alexandre Courbot wrote:
+>>> > Sashiko is correct to point out that this doesn't return the number o=
+f
+>>> > bytes actually written into `buf`. We might not use that information =
+in
+>>> > nova-core, but this is a kernel-wide API.
+>>>=20
+>>> Returning the size only doesn't carry a lot of value, please see [1].
+>>>=20
+>>> > Returning a `Result<&[u8]>` would take care of this and cover the
+>>> > general use-case nicely.
+>>>=20
+>>> I'm fine with either this or just Result, as we don't have a user for t=
+he
+>>> former.
+>>>=20
+>>> [1] https://lore.kernel.org/nova-gpu/DJ6JV2QQY0QD.1ZK1PRRBN5BRP@kernel.=
+org/
+>>
+>> Guys, please come to a consensus.  I had it return a size originally, bu=
+t then Danilo said don't
+>> bother, and now Alex says I should return a size.
+
+I said that both are fine for now, just Result or the slice, but only the s=
+ize
+doesn't serve a purpose (see [1] above or the reasoning below).
+
+> Incorrect; I said you should return a slice. :)
 >
-> On Mon Jul 6, 2026 at 8:48 PM JST, Alice Ryhl wrote:
-> > On Fri, Jul 03, 2026 at 07:16:03PM +0900, Eliot Courtney wrote:
-> >> Add support for reserving of ranges of IDs, with a usage in nova-core
-> >> for channel IDs. This entails adding the helpers+users of the C bitmap
-> >> API for ranges of bits, then users of that in `IdPool`, and finally a
-> >> user of `IdPool` in nova-core, `ChannelIdPool`.
-> >
-> > If you need ranges of IDs, perhaps you want the maple tree instead?
-> >
-> > Alice
->
-> I think maple tree would work, but it looked like not as good a fit to
-> me because:
-> - the number of channel IDs is small (limited to 2048)
-> - allocation of a contiguous sequence of channel IDs is sometimes
->   aligned to its size (which should be a power of two, AFAICT) - I
->   realise patch 4 doesn't reflect this (yet). The bitmap APIs natively
->   support this.
-> - maple tree's alloc_range stores a value: T for the range which isn't
->   necessary for ID alloc
+> What makes me a bit nervous with this API is that it is not sound
+> against incorrect size information or race conditions (e.g. if the file
+> on disk changes after we determined its size). But that's true of my
+> proposal as well anyway.
 
-The limited number of channel IDs (2048) is a good reason to use a
-bitmap. Please include this context in the commit message for the next
-version.
+There's nothing we can do about this, the file could also be corrupted, etc=
+. In
+the end there are only two cases, the hardware can't deal with garbage, the=
+n the
+size-sanity check is not sufficient and we need proper validation (e.g. thr=
+ough
+the returned slice), or the hardware can deal with garbage, then the size-s=
+anity
+check isn't necessary.
 
-Alice
+> Another inefficiency is that the buffer must be initialized when passed,
+> only for its content to be immediately overwritten. I'd like to make
+> this function accept a `MaybeUninit`, but that will require more generic
+> code.
+
+This is true, with the current approach we need something like
+
+	let buf =3D VBox::<[u8; SIZE]>::zeroed(GFP_KERNEL)?;
+
+which isn't the end of the world, especially in the firmware loading path, =
+but I
+agree it is a bit unfortunate.
+
+We could indeed get rid of the initialization requirement entirely, but in =
+this
+case just returning a slice isn't sufficient, as it leaves the caller with =
+e.g.
+a VBox<MaybeUninit<[u8; SIZE]>> for storage, which is annoying if you want =
+to
+access the buffer subsequently, e.g. to parse headers, etc.
+
+So, for this to properly work, you'd need to take the container (Vec, Box,
+CoherentBox) by value and return the initialized one on success and the
+uninitialized one wrapped into a custom error type on failure. But this is
+probably a bit overengineered.
+
+A simpler option would be to just use an initializer, such that
+request_into_buf() becomes something like this:
+
+	pub fn request_firmware_init<'a>(
+	    name: &'a CStr,
+	    dev: &'a Device,
+	) -> impl Init<[u8], Error> + 'a {
+	    unsafe {
+	        init_from_closure(move |slot: *mut [u8]| {
+	            // call request_firmware_into_buf()
+	            Ok(())
+	        })
+	    }
+	}
+
+And then allocate the buffer with
+
+	let init =3D request_firmware_init(...);
+	let fw =3D VVec::init_with(len, init, GFP_KERNEL)?;
+
+In any case, the current approach is fine for this series, this can be a
+follow-up if needed.
+
+The only thing that'd be nice to replace would be
+
+	VVec::from_elem(0u8, size, GFP_KERNEL)
+
+with
+
+	VVec::<u8>::zeroed(size, GFP_KERNEL)
+
+analogous to Box::zeroed().
