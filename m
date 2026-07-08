@@ -1,161 +1,543 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010018.outbound.protection.outlook.com [40.93.198.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8263C7E1B
-	for <nova-gpu@lists.linux.dev>; Wed,  8 Jul 2026 11:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307E63BFE3C;
+	Wed,  8 Jul 2026 11:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783510103; cv=fail; b=kTn8OCz72m/9BIwwEwU81M2XmI37uGp1TNIMFhou5pYGwguJzjTOjP9nFRTQkVqE3q2YV4ZKYyNUIi0XRCAptivwYPEiqoxAiFzvyylcaZQI1MxkwLUGF79kEhegNIegPY9+mdAtE5kESprexF39DjBQH436e5/Q+4NUd4YVySk=
+	t=1783511941; cv=pass; b=aeAfNKZwlra2zJWdehJZvliIUd9OoOFycJIIAOlhRqwHa0h1gMgoVqxvOhbkjAYffMrfZN0io/8ip+CP7ahhkf9v0Js0JGggNvmvEEnBUF5Ep+6PYDP3cjOnTdBdVnumUBPhNjbQ352vCZAaovOa/FXmG1XF+CJGaShhXX6YIYE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783510103; c=relaxed/simple;
-	bh=m7cDplBwOu0FwGfNTzPOUaHxrYt4EOj4gTNqQFyYV7c=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=XjI84zga7CwMhUfk5nZiOqSUSPj3Jcg5eMkYmwfkD3VHeF4DvpeXnBFZ7PJDX7sGxa/bj9RSd08/HG6dBv5jcdg7BK5O6n2muI/zIViEN0DnrPP/krS3z7WJrcQLsVyQhcZSfKx/hiqvTODeTx+14CKR1jMoQJLZw8xIkTVDEAM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BAtx5+gs; arc=fail smtp.client-ip=40.93.198.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1783511941; c=relaxed/simple;
+	bh=pmu0IU49odUB3SnA+99gvm1V/28YuAVo9gSdLtzGCFc=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=u4nSed1+hXfYMt1KNbNzjh+fPXOMp0UkwA8Q9v6O6bOFMNWfFuRhB0DihE1fRGJD/KKiClUrMU4oBcGBwvfYdeprsbFXaqUJURy1i9PWkBJXSIqxi3lkOYgZCSZkvsj/owPz7PakCxrAH0x/BIkbxDbb1J1d0XLR1q2wPdQq1P4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=TjtfzDXG; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BAtx5+gs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cw13LpS5t+bD3KRhHKGwfM8w1QilzctKAy2VeE6Szo30LVjqynU9hLQTkda6IBwILMSMUkDsiutwUL1aWrOlafqqsoW+3hDePqE+16R4h7UPuDVqCSNo0+luCLMTpRe5IX2CfDczaghWkKbppU8jeDidi7QBPRH8U7UKZRHUVgRVmG3yjLMLSJmDHSWkYk/60ccYfZrdtSlErn42IiSaUmbIRUr+Dmw3axl2u8Np7qsj/SY58c2XuqLFiwuB7Edl8/g6PcW80gaR8L5f02lrzLrVr1WK2mNyoY6QdayorbRLULGk+RohUoEpp0Qk8+XYjCT1VKu1/W/80/9f3NS+7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JCNCaIoB+QLC6ZUuz5YMlbstPducbiG+1nAymTEsEKg=;
- b=dxjVTYx1CrTZr/XxTJHIdSiMb2PExbJ14sre0i2DQxroXtKRU1evGkLnyMEnbgsSbR2m0uy5L+usk6DTKoWg7bz5A8QqqoLnaxcRSXK8CQBWwQe+N/iLFVZ5EDnmZXifl7W6geKLpDUenhSfDfuZVaUlDmnDj6YqLb3cze0pGSELzJKy5Na5HENQrcwOqmkSil6TlK3qXr37YRdnlsgHSrmU2BviwI55tJ+pIQZa2DkbywzcKJS1n5gc/9lkzUhyE0SXfzhZ1mqvQxE3859h/P512qdCFxLORCECZzhyLrcA779I8U568lVGjwg4e2FYtug05rDs+CprfRdKugZtiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JCNCaIoB+QLC6ZUuz5YMlbstPducbiG+1nAymTEsEKg=;
- b=BAtx5+gsgskJY8ELxwoVgpn5gAd5ikwA4Hfvm5fhh87FDTg/zISukRqQzYcGslKYajJAHjhbJx6/W3xsw72CluLeTQNz6JJqN1hyzeyAjuFVJ/C+iX2xrgNYwB01lUx5jLFXRf4r7B/2guABETB59HV4Amp1ShZsr9SeSh7jWQhC4GP0k8Bb2TUztQuhNOiBcST6nH6vDHQEjNabuCTZ1cuRkesystS2L/YCdCzreB/piXH+EQadRuj4GkiL/XSudO4p97Zp5UewmLqv36dgv9DvoWvUzGD9OocvqPS3NPANn6+hnxbJrjzndxDc6anD0Ld1XSk9WKB5FLtNqqU7TQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SA0PR12MB4416.namprd12.prod.outlook.com (2603:10b6:806:99::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Wed, 8 Jul
- 2026 11:28:18 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Wed, 8 Jul 2026
- 11:28:18 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 08 Jul 2026 20:28:14 +0900
-Message-Id: <DJT5KAE48ORE.28707LMPWN1FZ@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Pedro Yudi Honda" <niyudi.honda@usp.br>
-Cc: <dakr@kernel.org>, <apopple@nvidia.com>, <nico.antinori.7@gmail.com>,
- <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <dri-devel@lists.freedesktop.org>, <ojeda@kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>
-Subject: Re: [RESEND PATCH v2 0/5] drm/nova: replace `transmute` with
- `zerocopy`
-References: <20260702120324.40388-1-niyudi.honda@gmail.com>
-In-Reply-To: <20260702120324.40388-1-niyudi.honda@gmail.com>
-X-ClientProxiedBy: OS3P286CA0031.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:1f4::10) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="TjtfzDXG"
+ARC-Seal: i=1; a=rsa-sha256; t=1783511924; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Isr+7iqECTIhjqzfdavdO/aJjDjBPAO+eTyd8DfG3ik/JQZB/NzmHoo9k89YiBRFL4QzpsXly0u4gGKZymw8J2u9b1ovLOc5pzf1HLs1B8QMionsTrbaG9H0SRk5PgW8w+IVX9Cli5eBmOoly5Jb+qhXSwdFD7HyywAXIuGXQWg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783511924; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=DbGKIVPfPPT8Aj7brJgocrtAF1bRFi+RRGEvVzM985w=; 
+	b=WgmcHK8rHcLx3+3tCBkB6GFDEXhg1QgkOXg7uk86iPUHGdHQQ2gSqyTU1wv1tMYiqcx8/0r+09wkBte8neH3b7bfDfQjzIJiIUEqlXrhOnSUOk+/XkTVpk4Wxt0fTN8OqrQ3evpFgytH5bBoDF2NCXnh63Vf/946Ltlac6PGtgA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783511924;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+	bh=DbGKIVPfPPT8Aj7brJgocrtAF1bRFi+RRGEvVzM985w=;
+	b=TjtfzDXGkAZ8rnD30aWcRl1VmjIjLSt7ZPnYYt5UXknecAmwEvKz4EReH37EtdYg
+	NK4HduiWxXm9YE2sMeBtPplGuQvDAOxOTRlxg1XcyfnBuwVOFdJMBrCWediYssYyKQ3
+	kNsFnAheXoAvZVALv40DbuboOXx1myicmTuxLUVU=
+Received: by mx.zohomail.com with SMTPS id 1783511922397500.97047209613584;
+	Wed, 8 Jul 2026 04:58:42 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA0PR12MB4416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b6c6749-6209-4945-766b-08dedce40237
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|7416014|23010399003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	/rbPF8lcDR4HrotYZsn3yHNLckZV9Hrsjn9wXCbVgWgAubq1NceYdz/mAsUAZrWVf9/mvjknQGkslVwc00QyoshRpKeJBamztnoMLSqYCl1s6S4F9ov5C2kYXrK3k738J5eo5SDuU7G0uUSTYmMHnU/8fRILUpP3lJlOFnp3NzyUKeb0roPHxSIc9zRQabIB6qWg+/TfwxBIiunVNRRvfbdVQKAK5v+0P/LI3gz+HFYkv7OhztIonDlwgkyBm68E7DLWX76YA+urRP8iIOm+6Y6HNFxbsF/wCljsjbMls+919ccnCVzsBwOZUqvIXDnvQmPu6lH73w/T+wp3J9aGggk+TCDkrqDTVVepJ5QeL1iEoWdP48o/HdpiWdYn6AmoHAQdhhCZ4bkQXRvqITEdYxshych5cnKenrF/sVH25gSdGprfWNn+S+ih6KpWGII8d2vVNJqlBeviQEygzgq6psI0DHpJwXPKcqexIRhYo0iKoXpF/gUEL6a+KMT/jYg81y1cbCecb0TCPzuZMBoEGlgWFONIL7ygyQGFjmmww8V7K6Y7IKTjnccdC5IftqHnogCdhm6ZiaqeQZ2/N1FynnejdwkNzvWFESK5HIJW2N4Hc8nI+I5qCiuTMxQ4S9MNrLOR8lwGdwerZbl7pRsJUwTOYZQd3P3gwINUvlhuqqc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(7416014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UlpaRUlWR1hWRk9leWg3WUppOW8rUHBSRG9SMTJxelNwYld3dFpJSTlLTjNl?=
- =?utf-8?B?TkYweFNwRWd1RDdyWHdHd2ZaVzB6WitKK3AyRERvSnBaRnY0SEJJejR6Y1Vn?=
- =?utf-8?B?aGZFdzNiS0I5eUQ1dHJEYmdHNElHQ0RlaUtySHEzZG9MMHNIQytnSENqNkFD?=
- =?utf-8?B?dU1GWmRBdVE4OVcvejI3c2Q5bVFWUFlRYUd0VHJFTXE1OVZ0ZjNmWll6Rnkw?=
- =?utf-8?B?ODVIQS9zVktKZ0FiK2JpRTdjaUtRWXppeWFiTWdSV2Q5amdER2hPeG5LVzBi?=
- =?utf-8?B?aFh5UkdtMFZoMjdpcEpWUjZ3WjlldlR3WE14ekNub0NmZk1pOENqYVpsM1E5?=
- =?utf-8?B?ME1EaytxVDhZb3FzZ1FKWCtUcktoYUF2NmhJL3JNRmI2bDAzMHc5Y0FKaHpK?=
- =?utf-8?B?c1pKNVNNTVRobGN2Vk1QSlR0N0JtWlZvY3pSRGdZTFVZZnQreWh0dGlvSllZ?=
- =?utf-8?B?MUtFNnZBWGx5MkNzV0RkWkYzTzl0ZjRuYnExSzR6M1FaZEhEd24wdHRuN3Mv?=
- =?utf-8?B?RlEyQ2dmUnlhVC9RWEcweHZkeS9wQWZ1VHVOS09sUWdydGpBaHdtcDRKZHA4?=
- =?utf-8?B?cXZwWVNpbU5ad1Z4bE10VEtEZFVRdk10Zk9qMmp5QXZ1czhRZGVLOEhjRTMz?=
- =?utf-8?B?THFRenBLd25vOHN4N21KT3VNV2hEOUJsK3RVaGdDQTUyWVpSVlhDdDNzVndw?=
- =?utf-8?B?dFZGRzFZZkxHNWd0aERoTlAvRWxIZFczN2syajRCbUFnN2ovaWx0OEpXbm5v?=
- =?utf-8?B?RmEvNW0xbHY3MGNsQjNmRHlVQkZXTzk1bWVVVmNadVZRSFB2aXBhVXppQjJi?=
- =?utf-8?B?Q2lNL2wybkgyS3YzSCswcktNc3NwQ2t0dytDZ3JIRXVjR3pUMGRGVWM2dk83?=
- =?utf-8?B?ZGdPSWtwSDFGd0tSdmVBRzlyVTZaWXF4N0dQN1dsWW1BejkzQllMTnZqb0Nx?=
- =?utf-8?B?RVVuYW5Yb1RGLzFlck5XemxIZzh6b1BqVDk0RGhkY01FSktScW9mNGg5Zk8x?=
- =?utf-8?B?L3p1RHpWWVlzM1ZWQ2E5MjVqUUJzSjUvenROSy9XSy9TbHBUclZXcXhQUmtC?=
- =?utf-8?B?bW1IZTFyUW9jamVOTlU5N1laRnI5WmxNRUkxRUZPZVlYTzBrR3ZGV1F4L2cy?=
- =?utf-8?B?bEpqdzROaHNmSXB5UnYwWU00NCtSYVBrcUpxMFc1eE1DUmNoNEtsTUVWWGNV?=
- =?utf-8?B?TVRlSitoSXNWUzNTRS9pejJwN3BoTmY4K0tiNHBlTzZIcHp5ZHNGUzNQMUJK?=
- =?utf-8?B?NzdCVTMvZHJpUnNhOU5ZNjJ2OG5zYUVEczh4R0JiaTdmTG05TDZKUzd1akJr?=
- =?utf-8?B?dnIraU1mZklOUkludHBRQmJxdzRQQXR1cHdESEIrTFR1QmhkYWc0ZmpTMFJB?=
- =?utf-8?B?Vy9GNWFHeUJEaWg1ZjN2ZlBSUnJ5M3FLR25oWnVMUkhVU1hqWGVFeTRYQXJu?=
- =?utf-8?B?aFpZcUN2cHNvdFdWaVF0aWJ4TlhMUjZsS2wxSW4rVHNXcHhCK29KeU9lQVpY?=
- =?utf-8?B?dlRUZ1VKckpYUEI2ZVMrUkphQWVQK3NGY2VYdnJnUkdSTlprR0pNRTdjYkIy?=
- =?utf-8?B?YlN3MXdwNmlkcXh5c21VQkczd0dVa2N4aHJZem03SE5qL1lBWVpwcWlZREdH?=
- =?utf-8?B?WTRsWElLYTBjWTN6cDV1b1ZPMHIyVUIvdUxtQmhZYTV3VEVpSk1SVjEzUmZv?=
- =?utf-8?B?Ylh2UUJlVkloWVdqOFppaFZTT3RuZWhkK1NXVU5pMGJnK3lFZkVwOFY3U1JZ?=
- =?utf-8?B?S1VSUmxXNE1PMUVkeUw4TUx1cDB2RTA3Y0VOR0pjVExlSjlKOUN6WGRZK3o1?=
- =?utf-8?B?aVNyajQzb3Urcng0Q20rUzlleHhmM1ZSTzNlYUFXcTkydzFDakFoS3ZkeWdK?=
- =?utf-8?B?T0tjclA5Z3VJb2dZQTdjN2l3MWZlS0VsTXdvakY4aTlhMWhFTVlHaDdVUkhN?=
- =?utf-8?B?YTUrc015T1FMNVptWHNaUVZFV2dKWTNxRlRGTVVJemxYamx4b3ovQWNqOHdS?=
- =?utf-8?B?TGNmRnJXc3hpTFhCYmRRWmEzUnhSUWU2b3RLSFBHS29vR2Ryam01aloyZlp4?=
- =?utf-8?B?SFdvcGF4ZUV0UkVobVZOTGZoanRyOEdkWFlmQnBXYXRBMTVib05zT21XUnNO?=
- =?utf-8?B?dVZzdHc2Vy9aU3UwdVFWQ2pXVG40QU9JQWJrL1p6dElYOUd3cGFjUzA0cHdU?=
- =?utf-8?B?OE5KR3lQNmtnQjQxc1p4OUdaMU1NQ29TblJmTElOaCtHTDFGRWgwQ3ZmVHhC?=
- =?utf-8?B?bzgvOVJ0Qkh0OFV2MTY0d1MzbjBmMm5McHFMa1ZaeFBlMjl2M2ZpYU1lcTNp?=
- =?utf-8?B?Q3dsWnV2M1hTT3pHU210ZllXblVwaG92dEZ2ak5pMndYQ3R6aWJXNlNQRnRF?=
- =?utf-8?Q?uLtp1iHFHIBMf1j1YFJFe3caUiSDYEukTknIXV65NeT1W?=
-X-MS-Exchange-AntiSpam-MessageData-1: GeuLBMfllpsPWA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b6c6749-6209-4945-766b-08dedce40237
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 11:28:18.2801
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wU1Ast3r31RDHNW5RFAOSu+CpXJFQE68sjv0aDeh1ci9T7Ps4FqqSd6GxNZh5HRUp6KAis9APmyiZ8a+UoGETg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4416
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v6 04/20] rust: io: implement `Io` on reference types
+ instead
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260706-io_projection-v6-4-72cd5d055d54@garyguo.net>
+Date: Wed, 8 Jul 2026 08:58:23 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org,
+ nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org,
+ linux-pwm@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <88183651-927C-4A64-A3C9-BC5C4FE6C831@collabora.com>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-4-72cd5d055d54@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 
-On Thu Jul 2, 2026 at 9:03 PM JST, Pedro Yudi Honda wrote:
-> From: Pedro Yudi Honda <niyudi.honda@usp.br>
->
->
-> This series follows the introduction of `zerocopy` to rust-next and
-> replaces `transmute` traits with `zerocopy` traits. These changes are
-> mechanical and don't alter functionality.
->
-> This series is built upon Nicol=C3=A1s' recent patch, and does not touch
-> gsp bindings.
->
-> Specifically, the trait `transmute::FromBytes` is replaced by
-> `zerocopy::FromBytes` and the trait `transmute::AsBytes` is replaced
-> by `zerocopy::IntoBytes`. Additional traits such as
-> `zerocopy::Immutable` and `zerocopy::KnownLayout` are implemented as
-> necessary.
->
-> Resent because of wrong target list and wrong email in "From:".
 
-A couple of things for v3 so I can apply the patches as-is:
 
-- The subject prefix for nova-core is `gpu: nova-core:`. In particular
-  there is no `drm` in the path.
-- Make sure to collect the `Reviewed-by`s you received.
-- Optional, but see if you can make the commit logs less mechanical,
-  notably the single-item lists - that feels very AI-generated.
+> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> Currently, `Io` is implemented on owned I/O objects (e.g. `Bar`). This =
+is
+> going to change with I/O projections, as then `Io` needs to work both =
+for
+> owned objects and views of them. Views are themselves reference-like
+> (however they obviously cannot be references, because they belong to a
+> different address space).
+>=20
+> To facilitate the change, change `Io` to be implemented on reference =
+types
+> for the owned I/O objects, and make methods take `self` instead of =
+`&self`.
+> When I/O views are implemented, we can then naturally implement `Io` =
+for
+> these objects.
+>=20
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> rust/kernel/io.rs     | 82 =
+++++++++++++++++++++++++++-------------------------
+> rust/kernel/pci/io.rs | 12 ++++----
+> 2 files changed, 48 insertions(+), 46 deletions(-)
+>=20
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index 87141eb07056..9f060dd29182 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -223,7 +223,7 @@ pub trait IoCapable<T> {
+>     ///
+>     /// - The range `[address..address + size_of::<T>()]` must be =
+within the bounds of `Self`.
+>     /// - `address` must be aligned.
+> -    unsafe fn io_read(&self, address: usize) -> T;
+> +    unsafe fn io_read(self, address: usize) -> T;
+>=20
+>     /// Performs an I/O write of `value` at `address`.
+>     ///
+> @@ -231,7 +231,7 @@ pub trait IoCapable<T> {
+>     ///
+>     /// - The range `[address..address + size_of::<T>()]` must be =
+within the bounds of `Self`.
+>     /// - `address` must be aligned.
+> -    unsafe fn io_write(&self, value: T, address: usize);
+> +    unsafe fn io_write(self, value: T, address: usize);
+> }
+>=20
+> /// Describes a given I/O location: its offset, width, and type to =
+convert the raw value from and
+> @@ -294,25 +294,27 @@ fn offset(self) -> usize {
+> /// Which I/O methods are available depends on which [`IoCapable<T>`] =
+traits
+> /// are implemented for the type.
+> ///
+> +/// This should be implemented on cheaply copyable handles, such as =
+references or view types.
+> +///
+> /// # Examples
+> ///
+> /// For MMIO regions, all widths (u8, u16, u32, and u64 on 64-bit =
+systems) are typically
+> /// supported. For PCI configuration space, u8, u16, and u32 are =
+supported but u64 is not.
+> -pub trait Io {
+> +pub trait Io: Copy {
+>     /// Type of this I/O region. For untyped regions, [`Region`] can =
+be used.
+>     type Target: ?Sized + KnownSize;
+>=20
+>     /// Returns the base address of this mapping.
+> -    fn addr(&self) -> usize;
+> +    fn addr(self) -> usize;
+>=20
+>     /// Returns the maximum size of this mapping.
+> -    fn maxsize(&self) -> usize;
+> +    fn maxsize(self) -> usize;
+>=20
+>     /// Returns the absolute I/O address for a given `offset`,
+>     /// performing compile-time bound checks.
+>     // Always inline to optimize out error path of `build_assert`.
+>     #[inline(always)]
+> -    fn io_addr_assert<U>(&self, offset: usize) -> usize {
+> +    fn io_addr_assert<U>(self, offset: usize) -> usize {
+>         // We cannot check alignment with `offset_valid` using =
+`self.addr()`. So set 0 for it and
+>         // ensure alignment by checking that the alignment of `U` is =
+smaller or equal to the
+>         // alignment of `Self::Target`.
+> @@ -325,7 +327,7 @@ fn io_addr_assert<U>(&self, offset: usize) -> =
+usize {
+>     /// Returns the absolute I/O address for a given `offset`,
+>     /// performing runtime bound checks.
+>     #[inline]
+> -    fn io_addr<U>(&self, offset: usize) -> Result<usize> {
+> +    fn io_addr<U>(self, offset: usize) -> Result<usize> {
+>         if !offset_valid::<U>(self.addr(), offset, self.maxsize()) {
+>             return Err(EINVAL);
+>         }
+> @@ -337,7 +339,7 @@ fn io_addr<U>(&self, offset: usize) -> =
+Result<usize> {
+>=20
+>     /// Fallible 8-bit read with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_read8(&self, offset: usize) -> Result<u8>
+> +    fn try_read8(self, offset: usize) -> Result<u8>
+>     where
+>         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
+>         Self: IoCapable<u8>,
+> @@ -347,7 +349,7 @@ fn try_read8(&self, offset: usize) -> Result<u8>
+>=20
+>     /// Fallible 16-bit read with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_read16(&self, offset: usize) -> Result<u16>
+> +    fn try_read16(self, offset: usize) -> Result<u16>
+>     where
+>         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
+>         Self: IoCapable<u16>,
+> @@ -357,7 +359,7 @@ fn try_read16(&self, offset: usize) -> Result<u16>
+>=20
+>     /// Fallible 32-bit read with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_read32(&self, offset: usize) -> Result<u32>
+> +    fn try_read32(self, offset: usize) -> Result<u32>
+>     where
+>         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
+>         Self: IoCapable<u32>,
+> @@ -367,7 +369,7 @@ fn try_read32(&self, offset: usize) -> Result<u32>
+>=20
+>     /// Fallible 64-bit read with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_read64(&self, offset: usize) -> Result<u64>
+> +    fn try_read64(self, offset: usize) -> Result<u64>
+>     where
+>         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
+>         Self: IoCapable<u64>,
+> @@ -377,7 +379,7 @@ fn try_read64(&self, offset: usize) -> Result<u64>
+>=20
+>     /// Fallible 8-bit write with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_write8(&self, value: u8, offset: usize) -> Result
+> +    fn try_write8(self, value: u8, offset: usize) -> Result
+>     where
+>         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
+>         Self: IoCapable<u8>,
+> @@ -387,7 +389,7 @@ fn try_write8(&self, value: u8, offset: usize) -> =
+Result
+>=20
+>     /// Fallible 16-bit write with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_write16(&self, value: u16, offset: usize) -> Result
+> +    fn try_write16(self, value: u16, offset: usize) -> Result
+>     where
+>         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
+>         Self: IoCapable<u16>,
+> @@ -397,7 +399,7 @@ fn try_write16(&self, value: u16, offset: usize) =
+-> Result
+>=20
+>     /// Fallible 32-bit write with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_write32(&self, value: u32, offset: usize) -> Result
+> +    fn try_write32(self, value: u32, offset: usize) -> Result
+>     where
+>         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
+>         Self: IoCapable<u32>,
+> @@ -407,7 +409,7 @@ fn try_write32(&self, value: u32, offset: usize) =
+-> Result
+>=20
+>     /// Fallible 64-bit write with runtime bounds check.
+>     #[inline(always)]
+> -    fn try_write64(&self, value: u64, offset: usize) -> Result
+> +    fn try_write64(self, value: u64, offset: usize) -> Result
+>     where
+>         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
+>         Self: IoCapable<u64>,
+> @@ -417,7 +419,7 @@ fn try_write64(&self, value: u64, offset: usize) =
+-> Result
+>=20
+>     /// Infallible 8-bit read with compile-time bounds check.
+>     #[inline(always)]
+> -    fn read8(&self, offset: usize) -> u8
+> +    fn read8(self, offset: usize) -> u8
+>     where
+>         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
+>         Self: IoCapable<u8>,
+> @@ -427,7 +429,7 @@ fn read8(&self, offset: usize) -> u8
+>=20
+>     /// Infallible 16-bit read with compile-time bounds check.
+>     #[inline(always)]
+> -    fn read16(&self, offset: usize) -> u16
+> +    fn read16(self, offset: usize) -> u16
+>     where
+>         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
+>         Self: IoCapable<u16>,
+> @@ -437,7 +439,7 @@ fn read16(&self, offset: usize) -> u16
+>=20
+>     /// Infallible 32-bit read with compile-time bounds check.
+>     #[inline(always)]
+> -    fn read32(&self, offset: usize) -> u32
+> +    fn read32(self, offset: usize) -> u32
+>     where
+>         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
+>         Self: IoCapable<u32>,
+> @@ -447,7 +449,7 @@ fn read32(&self, offset: usize) -> u32
+>=20
+>     /// Infallible 64-bit read with compile-time bounds check.
+>     #[inline(always)]
+> -    fn read64(&self, offset: usize) -> u64
+> +    fn read64(self, offset: usize) -> u64
+>     where
+>         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
+>         Self: IoCapable<u64>,
+> @@ -457,7 +459,7 @@ fn read64(&self, offset: usize) -> u64
+>=20
+>     /// Infallible 8-bit write with compile-time bounds check.
+>     #[inline(always)]
+> -    fn write8(&self, value: u8, offset: usize)
+> +    fn write8(self, value: u8, offset: usize)
+>     where
+>         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
+>         Self: IoCapable<u8>,
+> @@ -467,7 +469,7 @@ fn write8(&self, value: u8, offset: usize)
+>=20
+>     /// Infallible 16-bit write with compile-time bounds check.
+>     #[inline(always)]
+> -    fn write16(&self, value: u16, offset: usize)
+> +    fn write16(self, value: u16, offset: usize)
+>     where
+>         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
+>         Self: IoCapable<u16>,
+> @@ -477,7 +479,7 @@ fn write16(&self, value: u16, offset: usize)
+>=20
+>     /// Infallible 32-bit write with compile-time bounds check.
+>     #[inline(always)]
+> -    fn write32(&self, value: u32, offset: usize)
+> +    fn write32(self, value: u32, offset: usize)
+>     where
+>         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
+>         Self: IoCapable<u32>,
+> @@ -487,7 +489,7 @@ fn write32(&self, value: u32, offset: usize)
+>=20
+>     /// Infallible 64-bit write with compile-time bounds check.
+>     #[inline(always)]
+> -    fn write64(&self, value: u64, offset: usize)
+> +    fn write64(self, value: u64, offset: usize)
+>     where
+>         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
+>         Self: IoCapable<u64>,
+> @@ -518,7 +520,7 @@ fn write64(&self, value: u64, offset: usize)
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn try_read<T, L>(&self, location: L) -> Result<T>
+> +    fn try_read<T, L>(self, location: L) -> Result<T>
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         Self: IoCapable<L::IoType>,
+> @@ -552,7 +554,7 @@ fn try_read<T, L>(&self, location: L) -> Result<T>
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn try_write<T, L>(&self, location: L, value: T) -> Result
+> +    fn try_write<T, L>(self, location: L, value: T) -> Result
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         Self: IoCapable<L::IoType>,
+> @@ -598,7 +600,7 @@ fn try_write<T, L>(&self, location: L, value: T) =
+-> Result
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn try_write_reg<T, L, V>(&self, value: V) -> Result
+> +    fn try_write_reg<T, L, V>(self, value: V) -> Result
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         V: LocatedRegister<Self::Target, Location =3D L, Value =3D T>,
+> @@ -631,7 +633,7 @@ fn try_write_reg<T, L, V>(&self, value: V) -> =
+Result
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn try_update<T, L, F>(&self, location: L, f: F) -> Result
+> +    fn try_update<T, L, F>(self, location: L, f: F) -> Result
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         Self: IoCapable<L::IoType>,
+> @@ -670,7 +672,7 @@ fn try_update<T, L, F>(&self, location: L, f: F) =
+-> Result
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn read<T, L>(&self, location: L) -> T
+> +    fn read<T, L>(self, location: L) -> T
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         Self: IoCapable<L::IoType>,
+> @@ -702,7 +704,7 @@ fn read<T, L>(&self, location: L) -> T
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn write<T, L>(&self, location: L, value: T)
+> +    fn write<T, L>(self, location: L, value: T)
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         Self: IoCapable<L::IoType>,
+> @@ -745,7 +747,7 @@ fn write<T, L>(&self, location: L, value: T)
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn write_reg<T, L, V>(&self, value: V)
+> +    fn write_reg<T, L, V>(self, value: V)
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         V: LocatedRegister<Self::Target, Location =3D L, Value =3D T>,
+> @@ -778,7 +780,7 @@ fn write_reg<T, L, V>(&self, value: V)
+>     /// }
+>     /// ```
+>     #[inline(always)]
+> -    fn update<T, L, F>(&self, location: L, f: F)
+> +    fn update<T, L, F>(self, location: L, f: F)
+>     where
+>         L: IoLoc<Self::Target, T>,
+>         Self: IoCapable<L::IoType>,
+> @@ -799,13 +801,13 @@ fn update<T, L, F>(&self, location: L, f: F)
+> macro_rules! impl_mmio_io_capable {
+>     ($mmio:ident, $(#[$attr:meta])* $ty:ty, $read_fn:ident, =
+$write_fn:ident) =3D> {
+>         $(#[$attr])*
+> -        impl<const SIZE: usize> IoCapable<$ty> for $mmio<SIZE> {
+> -            unsafe fn io_read(&self, address: usize) -> $ty {
+> +        impl<const SIZE: usize> IoCapable<$ty> for &$mmio<SIZE> {
+> +            unsafe fn io_read(self, address: usize) -> $ty {
+>                 // SAFETY: By the trait invariant `address` is a valid =
+address for MMIO operations.
+>                 unsafe { bindings::$read_fn(address as *const c_void) =
+}
+>             }
+>=20
+> -            unsafe fn io_write(&self, value: $ty, address: usize) {
+> +            unsafe fn io_write(self, value: $ty, address: usize) {
+>                 // SAFETY: By the trait invariant `address` is a valid =
+address for MMIO operations.
+>                 unsafe { bindings::$write_fn(value, address as *mut =
+c_void) }
+>             }
+> @@ -826,18 +828,18 @@ unsafe fn io_write(&self, value: $ty, address: =
+usize) {
+>     writeq
+> );
+>=20
+> -impl<const SIZE: usize> Io for Mmio<SIZE> {
+> +impl<'a, const SIZE: usize> Io for &'a Mmio<SIZE> {
+>     type Target =3D Region<SIZE>;
+>=20
+>     /// Returns the base address of this mapping.
+>     #[inline]
+> -    fn addr(&self) -> usize {
+> +    fn addr(self) -> usize {
+>         self.0.addr()
+>     }
+>=20
+>     /// Returns the maximum size of this mapping.
+>     #[inline]
+> -    fn maxsize(&self) -> usize {
+> +    fn maxsize(self) -> usize {
+>         self.0.maxsize()
+>     }
+> }
+> @@ -864,16 +866,16 @@ pub unsafe fn from_raw(raw: &MmioRaw<SIZE>) -> =
+&Self {
+> #[repr(transparent)]
+> pub struct RelaxedMmio<const SIZE: usize =3D 0>(Mmio<SIZE>);
+>=20
+> -impl<const SIZE: usize> Io for RelaxedMmio<SIZE> {
+> +impl<'a, const SIZE: usize> Io for &'a RelaxedMmio<SIZE> {
+>     type Target =3D Region<SIZE>;
+>=20
+>     #[inline]
+> -    fn addr(&self) -> usize {
+> +    fn addr(self) -> usize {
+>         self.0.addr()
+>     }
+>=20
+>     #[inline]
+> -    fn maxsize(&self) -> usize {
+> +    fn maxsize(self) -> usize {
+>         self.0.maxsize()
+>     }
+> }
+> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+> index b4996aa059d8..505305cd9b86 100644
+> --- a/rust/kernel/pci/io.rs
+> +++ b/rust/kernel/pci/io.rs
+> @@ -79,8 +79,8 @@ pub struct ConfigSpace<'a, S: ?Sized + =
+ConfigSpaceKind =3D Extended> {
+> /// Implements [`IoCapable`] on [`ConfigSpace`] for `$ty` using =
+`$read_fn` and `$write_fn`.
+> macro_rules! impl_config_space_io_capable {
+>     ($ty:ty, $read_fn:ident, $write_fn:ident) =3D> {
+> -        impl<'a, S: ?Sized + ConfigSpaceKind> IoCapable<$ty> for =
+ConfigSpace<'a, S> {
+> -            unsafe fn io_read(&self, address: usize) -> $ty {
+> +        impl<'a, S: ?Sized + ConfigSpaceKind> IoCapable<$ty> for =
+&ConfigSpace<'a, S> {
+> +            unsafe fn io_read(self, address: usize) -> $ty {
+>                 let mut val: $ty =3D 0;
+>=20
+>                 // Return value from C function is ignored in =
+infallible accessors.
+> @@ -94,7 +94,7 @@ unsafe fn io_read(&self, address: usize) -> $ty {
+>                 val
+>             }
+>=20
+> -            unsafe fn io_write(&self, value: $ty, address: usize) {
+> +            unsafe fn io_write(self, value: $ty, address: usize) {
+>                 // Return value from C function is ignored in =
+infallible accessors.
+>                 let _ret =3D
+>                     // SAFETY: By the type invariant `self.pdev` is a =
+valid address.
+> @@ -112,18 +112,18 @@ unsafe fn io_write(&self, value: $ty, address: =
+usize) {
+> impl_config_space_io_capable!(u16, pci_read_config_word, =
+pci_write_config_word);
+> impl_config_space_io_capable!(u32, pci_read_config_dword, =
+pci_write_config_dword);
+>=20
+> -impl<'a, S: ?Sized + ConfigSpaceKind> Io for ConfigSpace<'a, S> {
+> +impl<'a, S: ?Sized + ConfigSpaceKind> Io for &ConfigSpace<'a, S> {
+>     type Target =3D S;
+>=20
+>     /// Returns the base address of the I/O region. It is always 0 for =
+configuration space.
+>     #[inline]
+> -    fn addr(&self) -> usize {
+> +    fn addr(self) -> usize {
+>         0
+>     }
+>=20
+>     /// Returns the maximum size of the configuration space.
+>     #[inline]
+> -    fn maxsize(&self) -> usize {
+> +    fn maxsize(self) -> usize {
+>         self.pdev.cfg_size().into_raw()
+>     }
+> }
+>=20
+> --=20
+> 2.54.0
+>=20
+>=20
 
-With these I think the series should be ready to apply. Thanks!
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
