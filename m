@@ -1,122 +1,144 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504371DDC1D;
-	Wed,  8 Jul 2026 00:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783470260; cv=pass; b=QfNecxNLPUx5XNS3znYsvJW4Mh5tfTNzr/bBEOhuuF/LIpviOd+j6e1Q49PNnG/HBpof9u7T+nfT2zQPkAO18AXPy6n7tsD05vGdwJ/6plwHwlqaJsAMTfJx0NmbbTaTK6fY4ioLkwv/qzIWfxJdRFsNjTzqsArGX53FK1P7vyY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783470260; c=relaxed/simple;
-	bh=T5phQSMf9GvrAN5+gXMjqlbyH09POBaanjLNoMJje2Y=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=DU9D52WzYZDYs2hSkFIVc3cT95FMr6sMVQF+zrIosuhF11Oufls5aSTSTO5n135AjGOjIpI1P3API1oLm1fuuXH56UJee/ToCO3GpTU/JtGJlws4JfIYm7uYNdxevDYzdlLf+4UbzIW5Efs8yn3qgdOsxrujsG4tQUSZVgl2JKQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=fIy+B01d; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF47B363C75;
+	Wed,  8 Jul 2026 05:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783488801; cv=none; b=VLo9QmUgITjbQ6H/ulcsccI0ZMWlJIykB4bZvM7YTwFjBiRWy+IVMx/QNFXtyjtOSUYs1/+Fn0HKb4CpWa9hcSG082JZtqaC1tazTXdPKNUb2GjdT17BArodNcTOIhnx1q5Q3tugh834yUxCFrlJkkXkbIoT21Y1NhYiSJlf7P4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783488801; c=relaxed/simple;
+	bh=3t4X0QDl+bT+gyOUIts/28lvEOWzKR0WAuSUJXofI+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TFMIL1yBqcFSCbY8x14vscm9qftVH/QiDd1l4ro8Upq1qsEgS6cjHvT4vJNuzCC4Og7mdsTWqIG6w/GwCJS5T8VkSHGeJG6QUZsD4mbpPj+0FXX6rKAAEMBKJDGpE08g6valDlh4W/m/NTDIXDfflNywe+epdhBGyYqr3TsZKyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ickX3Tog; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="fIy+B01d"
-ARC-Seal: i=1; a=rsa-sha256; t=1783470238; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Eh/CRicKhYzjAv+NkC3XCS25mmZD96sPKSruzOkCfP5bgbvgku0FzBwmRFC07FGconTni+IdYYYThbTp1Tjy5PD0eI5FbEXxcMNXwHqW7tdlp9lrI3/eI5js2EzQU1IB864bb4zoX2tji6k/1/ZlUAnaywP1EtH/ESaghFo81FE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783470238; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=DYXyLoAY8AaVmLnx+7/pJaDvxt1RZKBKQrdv8WKrV+0=; 
-	b=gpRcMdoSv41OxUEsFya+v8vuaVmWGvUCXk9yOe5VzX0FpTr0vHlREjaDJJvS/XpAKnwoaorVF1uMqJGyzcBuR4jzI2vwxodq6dAIT/YxFi/R0xvm4b3lwwIp5FTBYlxnt/W2Z9GedSAbCKdqTScXp9phXD7MJyf1sb5Z+AEHrbw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783470238;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
-	bh=DYXyLoAY8AaVmLnx+7/pJaDvxt1RZKBKQrdv8WKrV+0=;
-	b=fIy+B01dwvb7JLCtbCEEFHMplUsc1qCuaJIei5Iz7trHUoEwhpaOfJzVIwr35YSs
-	Qf8VskDPmrcCsDL8a8X8eioLjPM1KhgXQCrOSxURNX1+Dk+9JyO9D2waeu7dxTN2I7N
-	ruMqs5dyw5VX6RVW2qXQH5+3mFEjLtb/GDpQfoNs=
-Received: by mx.zohomail.com with SMTPS id 1783470236194104.25200355621882;
-	Tue, 7 Jul 2026 17:23:56 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ickX3Tog"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093331F00A3E;
+	Wed,  8 Jul 2026 05:33:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1783488799;
+	bh=mMaPgHn6LKK741pznqikoYQd8ZVAb02xm7w612bJCcw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ickX3TogilGPdFLnxstj6n81B//8drCBx+ZPJgKRzk+nEcAiTcVVFHaRRJClHuBLn
+	 cnkT1TYylN5X9JmWxc64DGrpvzc1gHEd+PyNn11u7k9L2fcd9S8guDy2GdbAZAS4yW
+	 cFGl4g0cs7uLsWUAx3RjN+e9ctAc8WYwuUutz1vs=
+Date: Wed, 8 Jul 2026 07:33:16 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>, Burak Emir <bqe@google.com>,
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 3/4] rust: id_pool: add contiguous area allocation
+Message-ID: <2026070839-quadrant-gentleman-2334@gregkh>
+References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
+ <20260703-chid-v1-3-84fe8259e46e@nvidia.com>
+ <2026070334-dollar-hexagram-e49c@gregkh>
+ <DJSDFHOADWYL.V4WC2TI9UWYF@nvidia.com>
+ <2026070745-unwired-maybe-769e@gregkh>
+ <ak0pzDc69nAmnviD@yury>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 03/20] rust: io: restrict untyped IO access and
- `register!` to `Region`
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260706-io_projection-v6-3-72cd5d055d54@garyguo.net>
-Date: Tue, 7 Jul 2026 21:23:35 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org,
- nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org,
- linux-pwm@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <613EE0AC-716C-4382-8CB4-1EA03B915A46@collabora.com>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-3-72cd5d055d54@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ak0pzDc69nAmnviD@yury>
 
+On Tue, Jul 07, 2026 at 12:31:08PM -0400, Yury Norov wrote:
+> On Tue, Jul 07, 2026 at 04:13:30PM +0200, Greg KH wrote:
+> > On Tue, Jul 07, 2026 at 10:25:27PM +0900, Eliot Courtney wrote:
+> > > On Fri Jul 3, 2026 at 7:31 PM JST, Greg KH wrote:
+> > > > On Fri, Jul 03, 2026 at 07:16:06PM +0900, Eliot Courtney wrote:
+> > > >> Add support for contiguous area allocation. Add a new type,
+> > > >> `UnusedArea`, following the same pattern as `UnusedId`.
+> > > >> 
+> > > >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> > > >
+> > > > Why isn't the built-in idr library being used here instead of rolling
+> > > > your own data structure?
+> > > >
+> > > > thanks,
+> > > >
+> > > > greg k-h
+> > > 
+> > > For nova-core in this series, we need allocation of a contiguous
+> > > sequence of IDs with a specific length and sometimes a specific
+> > > alignment. IIUC, IDA/xarray do not support that (I checked
+> > > ida_alloc_range and it only allocates a single ID in a range, not a
+> > > contiguous sequence).
+> > > 
+> > > For IdPool before this series, I think it could have used IDA/xarray.
+> > > See [1] where Alice has posted some more context.
+> > > 
+> > > w.r.t. the structure choice, the IDs we need to allocate are channel
+> > > IDs, and the total range is limited to 2048 of them, so IMO bitmaps are
+> > > a better fit than e.g. maple tree.
+> > 
+> > But again, you are having to "roll your own" logic here, please reuse
+> > the data structures we already have in the kernel for this type of
+> > thing.  If a maple tree works, please use it.
+> 
+> I asked exactly the same question when Alice and Burak added wrappers
+> for bitmaps to implement their ID pool. This is the answer:
+> 
+>   An alternative route of vendoring an existing Rust bitmap package was
+>   considered but suboptimal overall. Reusing the C implementation is
+>   preferable for a basic data structure like bitmaps. It enables Rust
+>   code to be a lot more similar and predictable with respect to C code
+>   that uses the same data structures and enables the use of code that
+>   has been tried-and-tested in the kernel, with the same performance
+>   characteristics whenever possible.
+> 
+> And now it's in a commit message: 11eca92a2caeb
+> 
+> They measured the affect of their wrapper on performance, and it appears
+> to be ~5%. See lib/find_bit_benchmark_rust.rs.
 
+You are comparing the C vs. Rust data structures here, which is not what
+I am proposing.
 
-> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->=20
-> Currently the `Io` trait exposes a bunch of untyped IO accesses, but =
-if the
-> `Io` region itself is typed, then it might be weird to have
->=20
->    let io: Mmio<u32> =3D /* ... */;
->    io.read8(1);
->=20
-> while not unsound, it is surely strange. Thus, restrict the untyped =
-methods
-> and also the register macro to `Region` type only.
->=20
-> Implement it by adding a generic type to `IoLoc` indicating allowed =
-base
-> types. This also paves the way to add typed register blocks in the =
-future;
-> for example, we could use this mechanism to block driver A's =
-`register!()`
-> generated macro from being used on driver B's MMIO. The same mechanism
-> could be used for relative IO registers. These are future =
-opportunities,
-> and for now restrict everything to require `IoLoc<Region<SIZE>, _>`.
->=20
-> Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-> Link: =
-https://lore.kernel.org/rust-for-linux/DHLB3RO3OSF5.2R7F27U99BKLN@nvidia.c=
-om/
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+Also, is this code being used on a "hot path" like the binder stuff is?
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> I didn't see any side-to-side comparison between any native Rust API vs
+> imported C bitmaps. I'm sure, I asked for that, and I still believe
+> it's the important piece of data to avoid this back-and-forth type of
+> discussions. So, Alice, Burak or anybody...
 
+Again, I'm not talking about Rust API vs. imported C bitmaps, I'm asking
+to use the C structures like maple-tree and idr instead of open-coding
+logic around the bitmap code.
+
+> > > > Why isn't the built-in idr library being used here instead of rolling
+> > > > your own data structure?
+> 
+> Now having more context, the ID pool's primary goal is to allocate
+> individual IDs, which naturally lays on find_bit() API in C. The
+> native Rust alternative is considered and found 'suboptimal overall'.
+
+Allocating IDs is a probe() thing, which can be as slow as it wants,
+right?  Or is this some other hot-path where performance matters?  The
+patch was not very specific as to the tradeoffs needed.
+
+thanks,
+
+greg k-h
