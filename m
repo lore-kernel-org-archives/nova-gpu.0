@@ -1,279 +1,155 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010039.outbound.protection.outlook.com [52.101.46.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA03A3451D9;
-	Wed,  8 Jul 2026 13:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED298379C2A
+	for <nova-gpu@lists.linux.dev>; Wed,  8 Jul 2026 13:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.39
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783517344; cv=pass; b=gnBNWHyW76UpRY5URycNiZ78UbOkopka5EzKvcOyZWPvLr5ihkPakdIp/LOJUGXwsul1wjhE55HOzvrI0SFOQnBiOH85zIvzLnjfDACzf5tZiiNHwoPtnPEiR4FqUGxrhi58Sccff8bqRJs5TR6BIklAEsO2yedrpwdmrSfsidE=
+	t=1783517851; cv=fail; b=AaaLxb6+deKccP4khAUQ5ZJLSFn4VL95JXWy5raz0Zztsat5AJ/o3dRquKTZpW887fQL8ofobcvzaKSnIHrQshnA9uDP3Za2gSO5i0PqfHin4ZmJltKjqOVjB6SywVTIrXMGrwL1sW3M1CJKIFSXy5nwg3JdFixRf/cq6iz5H88=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783517344; c=relaxed/simple;
-	bh=ETQdonLxG6BeOHA2ebnsm6g2M7LbKtjJ01Uu/UKKt3o=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=mreDk/k9+jgnixUqw/UvZvBdVI0rCYOfjlidjRQPXcvPv5++G51o48/3kSyLI1jP1iX6mNduhJLyAXRTtlXqfBDCRK8pSwh95aekROgfAmWQYGKzpBut3Qm0TrbsrQVelTEtBQGTeTo8+22yfFO7lUCiiKsrlAKNpRQpeRKu8fk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=LJa8K7tM; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783517851; c=relaxed/simple;
+	bh=q7VYj9IrZAHzeeXFH9NOSUoysD4Yjml6qJ6XWPDSznE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=OpTrk7dZwTv+tKzkRSFLFCjwPNRG82quCcAByuRAOxaIQQrCKd11Oz0vw+SfMuoU/54GIZZSYPXIRYiJcD2ZkXQ/eeSV2SmW4UYDjXynHo9mA8P4l0NMX3aN/elsizrVtMomwFRepBfNqZkURtpCkOVlMiAtWsMlSFu13XeJCjM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LktJeYlR; arc=fail smtp.client-ip=52.101.46.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="LJa8K7tM"
-ARC-Seal: i=1; a=rsa-sha256; t=1783517327; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=B+Egv0Lv2asl5B+0Cz16zaqh+07u7bw/Z4PcDRUSCEp+Vg0J9eIaBCfrOLLfDFWE8vXa2bW5PqcCvTPlKLnNTQpeQf8YCfh2DuLflyV4Dj6xkS77wQJRi8voG+J1D8vqdtwkwE3arZhieL/72+4/eUB+P3QT+EPtoo4NZGDkszc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783517327; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZHKUpaaxOG3TiKrgenFjszrnO2+S4PB/WTF9AEj1jxc=; 
-	b=iYVogWpR7vcbX78qbgwKLENddeH4eO5kNoh+cYZIf8Vem02s+hnpZU8qmcF2taAYOM1r/36v+qFP6hFHPtj1DXrhz2pWho42ppgyMLMn/hKdYAFu5o7p/hXpocaYdjqm6hquwe4NcxaKoar+uQ4LUkOWZUUnp2GuZvTmFeNWROs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783517327;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
-	bh=ZHKUpaaxOG3TiKrgenFjszrnO2+S4PB/WTF9AEj1jxc=;
-	b=LJa8K7tMVVJNWGHpCGK3WFWR/3cneDzKZ6v8lQFSFL4wI9kDLA1FI7GN2sC2i0Zk
-	ZLdi1xXwKIG4LkYS9sPFvUKEoeev27ZUbx+zCoR5v0mx3cxcfM2l2GPOEZesq/9lkDL
-	RwNV2BHrJ/zIMx058CSwVWtL1nA/JH0DBB1NSufI=
-Received: by mx.zohomail.com with SMTPS id 1783517324399189.77230306485933;
-	Wed, 8 Jul 2026 06:28:44 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LktJeYlR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fdrrmX8vfs2p5e30V3XIIeJ7xGpE6GPG9qD+9SpyqqKEGY6P5BucndHB7sxp1DigolJAhbniX1wyzqzsTI2GmQhsgGcoofdOCAmFppJbMVEbW5JH8jx8aGDGR/pxcJCxS1yrtw2Vi4kG0aAiQCb54Dx5MyAeAZwfIOYNzRCG5LdjnLg1ESwfX4GHTVE9ST2ZJcsMvmMTrF05gCE1Ef84qyS8J0GFl/HrUy4wIOpitTIKqgDF+apslkJVTf1z4onCavWjAVAIAelNVTbgTmxh1BIEHFGxxaZNqEr33FCqbxMOAkKXvbGWeG9uApOrO4snJ2KsNqi3MCSkgLcEGBOx/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q7VYj9IrZAHzeeXFH9NOSUoysD4Yjml6qJ6XWPDSznE=;
+ b=kvds0P5fkJ/OEJ98lWwAiUZelRmYiM/OZB2tHxWSh37+oJ8vCmkGas3bgRHGmTxvpxiSw2yaIfzmXQsR7bnIeT5Jnmo2cAHBMYVHP63qa1mN0v1Tnm+Lh1wzqFNQ2DFjPB/wsljrDFZyUlybzakxXkLNqa80onjcfBYEGld/NPIKnd6rSQmgwHJdRDIK2AwS1kTJ0V2fkM3PSylc02W7rHyMSYv5vir6gl2L9SDsUWxFhgKtvLcFNh65rpd60kQfDdsfIdoU+l/uQKGPQo+LL0svGxVz5aZ4JEQRKfBwS++tzl45wU7ZUOZCo/WZTSOd4MranLp5atNvQtqgzrJNbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q7VYj9IrZAHzeeXFH9NOSUoysD4Yjml6qJ6XWPDSznE=;
+ b=LktJeYlRiNVTWeNw2BvIKp6iobTfNiXZvTkdA6xKqUpKCFkMvO/CuIi+nQvjmtgKVMf9xKcMkEUB3oMYp/xe6oL427N3jfwv7y+Kabc1cNx65/o6zELdoNSNeTXxag5av8u157zjopINVuUZrLCRQ0A14u68i5Iw3q5OE5+IEOFGfHErHxfSU1amYPJxjYiVTvAaqcG4H7WfIcRa4ktPg+8BkNgRIqa+pMKeqNnQN2M0uMuFqNRZMfkEM+B3GvArQUl7Gcj1wm7i/NOKuFef4CL4Kah6X1N7vIFp6Is3oeVM4Lh/DdLHx/bH0R5qv4FG2AWAM6oArqngGDKzD0Xnaw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by IA0PR12MB9011.namprd12.prod.outlook.com (2603:10b6:208:488::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 13:37:26 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Wed, 8 Jul 2026
+ 13:37:26 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 08 Jul 2026 22:37:22 +0900
+Message-Id: <DJT8B5RGYECU.2I9GZH1KISOTZ@nvidia.com>
+Cc: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <joelagnelf@nvidia.com>,
+ <apopple@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <zhiwang@kernel.org>
+Subject: Re: [PATCH v3 3/8] gpu: nova-core: fsp: rename FSP response header
+ type
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Zhi Wang" <zhiw@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260701062622.3499033-1-zhiw@nvidia.com>
+ <20260701062622.3499033-4-zhiw@nvidia.com>
+In-Reply-To: <20260701062622.3499033-4-zhiw@nvidia.com>
+X-ClientProxiedBy: TYCP301CA0020.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:381::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 08/20] rust: pci: io: make `ConfigSpace` a view
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260706-io_projection-v6-8-72cd5d055d54@garyguo.net>
-Date: Wed, 8 Jul 2026 10:28:23 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org,
- nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org,
- linux-pwm@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <043E32BB-789D-4ABA-9491-185108A19EAE@collabora.com>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-8-72cd5d055d54@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA0PR12MB9011:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91a07ef6-ea33-4a29-ffd7-08dedcf60c17
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|7416014|23010399003|376014|3023799007|22082099003|18002099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	5Ddc9mnqy8jEpbUbII0I+E2fKr7Q/hJ5St49oMjoJNEL4h5SCw3c48wHtenS6sKacIzi+OUGiwd5P8g0mBBQJuGPnnq5H7V/i4MmfTKphTDkZATzJGbJKsFJ6MeOsAkgUdocsV7hLAWxlgV0vRdi7aDv1U9xIw3/89xLgjiG2dcNx0KRmRS7dVw+tne22iM4AhR9DlyOyCyRIW+J4RKSmv7WKzkaEpIF8fNlYdPPcFU+KfFefH9iG5v3gGDs4NOMJHvlahPJaSz0BNyz7exTJFaGpOLKJrG3fj3zBYGQMq9ggNr+638byCOOmbhLEPU+qMcdw8KTMZrHNGZcgQZWJHHDz/xVBfSkgf1aqy+BYJJZlASETnjQD7KNucoyFakpHaZmFk/pbjHYUPLLXTqxdcGdcx9LqvW/ut/3Ww8YQtoxf79ISJ/fpWtv3W/Dd2s/oYpQoDf4sBTL1+G/DK51M7z8UUHotQmoGlEPE32C2dfy8tJUry3Y3jeGTlxf2ywHBUp+pNhioSd0/fajigxIdvwWiSBYDqF9vOHLsuT85DoyLT6efPun3N/X7SptL7410oeIhco1rf3U7aa4b9IUs4DMubuEjvW9ccvcP262I8yFc3XOZiy3S7L9XGmH+JWGGQaUtquZTTcwe4pQKvNCiQVA6qGkYvpJO3A4UT14mqs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(23010399003)(376014)(3023799007)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Tk4ybVphaGRsSlA0UVhJWHdCOTlWY0NMLzhWL1htN2lzWU1icWd3bnp6SU1m?=
+ =?utf-8?B?WmNOL0VWN3JvbmM0V05hM1VpYUZkUkJKdFBxUWZibGU3TVlwTVpkR0hFU0tP?=
+ =?utf-8?B?TlF3L1J4TVgrZ2RxN0RleVdObWJvWEhoWjlGbzVSZThyS3l1OVlpZHRZbzUr?=
+ =?utf-8?B?YmJCTWlrZE04MU9wYlBlOTJvQkxvd0VvNVVFZkw4bU81UFlGVnplSjZnQVIr?=
+ =?utf-8?B?dnVWNDg0ME1EZjJhbW10ZjdaRFVYZDdTcHMyS2RJaVlOU0hxT0lDWU9lZ01O?=
+ =?utf-8?B?WE5GQUV0SlNzc3pzdlNjcVMzSU1OeXBYSmFuUW1VcSt1RWtwYUNFQWdyM3ZS?=
+ =?utf-8?B?aWM3OWEyZlFrK0FDcjJOdkc3eDc4YkJGMWFyMW5nWTVpMkdYUW9rb240NmpJ?=
+ =?utf-8?B?dXd4d3JEZURkbks2aEQvZnNkQ2pIYWhHVFhOTmRxQXZKOGJJV2NOSGhTd2RK?=
+ =?utf-8?B?a0ZLT0dqRDZpT2lSMW14U0FWZkl0VHpaa3VZOW1UNitMQ1hvVHBUV2F2Y010?=
+ =?utf-8?B?L3IrOTZ6K0NVVzA3THR4eDNma1pNVHM4a2lTQ3FGb3N5dDhiajJRSzZDMi93?=
+ =?utf-8?B?Z2pCdGo1cWFXd1dvd2dtOXhGZXlURDQyMDUxdzV4RG1nY1BpTHh4Zk9yQkZ2?=
+ =?utf-8?B?Tzg0ZjhITllNSFZVaDJDS2VhK0kwM0xDaHltTFN2Y3k1eHRoWjdrcDhNTTRJ?=
+ =?utf-8?B?Y2JqM2Q0U1ZpUFd3RlZmMVpCTVArVThQRmI3ZkI2ZVRrM3JrS2pnWmJBSC8y?=
+ =?utf-8?B?YUswUDhlQ2JVUFRDb0lrM3MwYkpRT1JHcUxseXZUL3NpWXNvU1VqczlGWk5B?=
+ =?utf-8?B?ellMMVlESVgxQWNmTWxUazlSWkNhN2tuWE55KzhYQTg2NktIL3hSQmhsaE0y?=
+ =?utf-8?B?T1JqaUZKSVpPMWFRZVBLcVNPWktoVDNyR1Q2cEJTdGwvTHpRZytkMk5NNjRE?=
+ =?utf-8?B?YW1zazdxUnBkNTJNVmpXS1pFSmRKamd5Unl6RUtua010S3JSUHhNMUZsMW4z?=
+ =?utf-8?B?MXFzVWlvOUw2dlJ2a1hWZy9pWnVFVkIxZ2dIQ2JqNmNMRzJJZjBqOSs2VHZB?=
+ =?utf-8?B?SUhmT1RIK1RNd2J2bHVnZEJUNm1CaFZDRzh5b3BJTmdRWFlKUnZRZHdsUjBX?=
+ =?utf-8?B?NDZQSE5QUk9SamhVMnJjVXgzM2hTQjBud2o1VHZpL2ZnakZFdk1ORzdhVzdk?=
+ =?utf-8?B?RUZzZzNrVnF4U1B0ZEl6RGtGeWRxaWF5dUFrNXhsNUt2Mi9CM1F5OVdnZXZv?=
+ =?utf-8?B?WDRaRmtCeHdEbStEZEhnSGZJOUU3K1IzL2hVNVNFUitNVXNidisvUXZ4Nk9j?=
+ =?utf-8?B?MWxubTVqQnlvZzFXT3FBR09rcjRNWHpNLzJMUGVsZTdzVGxaVVl1OHo3S1JG?=
+ =?utf-8?B?dUQvWnpKS0l1OWxwRTNhSitiY2hzQjRDQlNsWlYyMjlyOEU0dlEvcDBGa0xE?=
+ =?utf-8?B?YWFFaGQ5c0lHelRiUjkvZzhZcUM4ZjZNMUVoeE13WWtuVUlKai9PakNjKzE1?=
+ =?utf-8?B?MHVSek1CSGdPSnNGbmZtUDRiaUx1RHQ0OWl5ZmVJWTRiRy9hQW8yQUF4aE9r?=
+ =?utf-8?B?dlN4VktPOGNhUm96Y1ViclplK2V5K1prVDFrN3VLeHVLdlRMWHJXNDZjdkRo?=
+ =?utf-8?B?cnQwUlJ6Q2g0U3UrS1hBSkswOWNzalBxZjRrSE5yVzlHT1RTL1JBeUpuR2Qx?=
+ =?utf-8?B?UDJwcFZzUUdRbnRoUTVwV0ZKZytSY1dpcmlWRUVTOE9uNlo4ZWJZa1kwWHhN?=
+ =?utf-8?B?a2E5dnNyOC90NmJJRU5BNlREUHVvellRZ0RjRWtQcVFwZTZIaUR6cHFPNnhs?=
+ =?utf-8?B?dDk3NFRCN1B5K05qYzZIbmtFQXdVTWtvZ1MvSTJCU0VJNHlDSzlwMzdOTnRS?=
+ =?utf-8?B?VnZKVkQ3dFlFUS9rb1lhd3RpRlBYM2JMcFRiWEc2SnpRcnNEMnRHeEF3VTRt?=
+ =?utf-8?B?eTFRTXg3alV1WTB2TkczWENkc3VLR3ZIMkNoOG03NHNpWXRBWU9UcG83QkdG?=
+ =?utf-8?B?SlNOcnFPZGFXV2poRm54cC8vcFJ0dnpoR3ZUU2JoVFdWYTlPUnR4UStXb3Y0?=
+ =?utf-8?B?K2VPcjJsOXAveXBxaTFObGpaOG95VW5WL3ZSS1FLWWhVc2FLU3ZKUG4rVHd2?=
+ =?utf-8?B?bkYvSUQzQ1RRaTMrdGxURTRDUzhRd3ZacjVaSDhpeC9nVUZuSHkzdGhWSkJ6?=
+ =?utf-8?B?azFhMElZV1c4Tm5IN2x3aEx6MDBlWG1OZ2p0SGl2UEN6TG1xZk9nTDd4bHZa?=
+ =?utf-8?B?SUJCL0xQeTlRMmJNbTNBREZFcU43Y1lzYWtDcXJ2Y3lOWUJBQWYwUFhYaGtL?=
+ =?utf-8?B?aXBDc1BaNE9UMmlQOEFWNkNOdGhNV21Ucy9GYnZnNStjazh6TEc0ems1akp2?=
+ =?utf-8?Q?TT0wXNVN36TfZcRW7quafebxY3xPjpGlNOQnWatcf+sp3?=
+X-MS-Exchange-AntiSpam-MessageData-1: wjTz2YjLJK2qzg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91a07ef6-ea33-4a29-ffd7-08dedcf60c17
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 13:37:25.9217
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wj+tZ1PR5YqTND6IGOdsShmY0+55LrYHBRRFpowYVM4ANye0H+y2UQCMe0BI7Wr5qNGEugIG7NKkPdwS2bd7WQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9011
 
+On Wed Jul 1, 2026 at 3:26 PM JST, Zhi Wang wrote:
+> FSP message handling currently uses FspResponse for the common response
+> prefix containing the MCTP header, NVDM header and command response
+> payload.
+>
+> That name is too broad once other FSP response formats reuse the same
+> prefix and append protocol-specific payloads. Rename it to
+> FspResponseHeader so subsequent response structures can embed the common
+> header without overloading the meaning of FspResponse.
+>
+> Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+> Link: https://lore.kernel.org/all/DJMBI9CN2Z67.2T02SR8TAWEC5@nvidia.com/
+> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 
-
-> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->=20
-> In order to support I/O projection, we are splitting I/O types into =
-two
-> categories: owned objects and views. Owned objects have a specific =
-type
-> that is related to setting up and tearing down, while views can have =
-their
-> type changed with I/O projection.
->=20
-> Things like `IoMem` or `Bar` are owned objects, which requires setting =
-up
-> mapping and cleaning up on drop. On the other side, `ConfigSpace` is =
-really
-> just a view, as the resource is associated with the `pci::Device`.
->=20
-> Remove the `ConfigSpaceKind` bound on `ConfigSpace` and make it a =
-generic
-> view. This means that `ConfigSpace` object now represents a subregion =
-and
-> therefore encodes offset (as address of pointers) and size (as =
-metadata of
-> pointers) itself. The full region case is still supported with offset =
-0 and
-> size of `cfg_size`.
->=20
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
-> rust/kernel/pci/io.rs | 64 =
-+++++++++++++++++++++++++++++----------------------
-> 1 file changed, 36 insertions(+), 28 deletions(-)
->=20
-> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
-> index e0acb62f58a2..89f4bb483a7f 100644
-> --- a/rust/kernel/pci/io.rs
-> +++ b/rust/kernel/pci/io.rs
-> @@ -18,7 +18,6 @@
->     ptr::KnownSize, //
-> };
-> use core::{
-> -    marker::PhantomData,
->     ops::Deref, //
-> };
->=20
-> @@ -53,33 +52,42 @@ pub const fn into_raw(self) -> usize {
-> /// Alias for extended (4096-byte) PCIe configuration space.
-> pub type Extended =3D Region<4096>;
->=20
-> -/// Trait for PCI configuration space size markers.
-> -///
-> -/// This trait is implemented by [`Normal`] and [`Extended`] to =
-provide
-> -/// compile-time knowledge of the configuration space size.
-> -pub trait ConfigSpaceKind: KnownSize {}
-> -
-> -impl ConfigSpaceKind for Normal {}
-> -
-> -impl ConfigSpaceKind for Extended {}
-> -
-> -/// The PCI configuration space of a device.
-> +/// A view of PCI configuration space of a device.
-> ///
-> /// Provides typed read and write accessors for configuration =
-registers
-> /// using the standard `pci_read_config_*` and `pci_write_config_*` =
-helpers.
-> ///
-> -/// The generic parameter `S` indicates the maximum size of the =
-configuration space.
-> -/// Use [`Normal`] for 256-byte legacy configuration space or =
-[`Extended`] for
-> -/// 4096-byte PCIe extended configuration space (default).
-> -pub struct ConfigSpace<'a, S: ?Sized + ConfigSpaceKind =3D Extended> =
-{
-> +/// The generic parameter `T` is the type of the view. The full =
-configuration space is also a
-> +/// special type of view; in such cases, `T` can be [`Normal`] for =
-256-byte legacy configuration
-> +/// space or [`Extended`] for 4096-byte PCIe extended configuration =
-space (default).
-> +///
-> +/// # Invariants
-> +///
-> +/// `ptr` is aligned and range `ptr..ptr + KnownSize::size(ptr)` is =
-within
-> +/// `0..pdev.cfg_size().into_raw()`.
-> +pub struct ConfigSpace<'a, T: ?Sized =3D Extended> {
->     pub(crate) pdev: &'a Device<device::Bound>,
-> -    _marker: PhantomData<S>,
-> +    ptr: *mut T,
-> }
->=20
-> +impl<T: ?Sized> Copy for ConfigSpace<'_, T> {}
-> +impl<T: ?Sized> Clone for ConfigSpace<'_, T> {
-> +    #[inline]
-> +    fn clone(&self) -> Self {
-> +        *self
-> +    }
-> +}
-> +
-> +// SAFETY: `ConfigSpace<'_, T>` is conceptually `&T` but in I/O =
-memory.
-> +unsafe impl<T: ?Sized + Sync> Send for ConfigSpace<'_, T> {}
-> +
-> +// SAFETY: `ConfigSpace<'_, T>` is conceptually `&T` but in I/O =
-memory.
-> +unsafe impl<T: ?Sized + Sync> Sync for ConfigSpace<'_, T> {}
-> +
-> /// Implements [`IoCapable`] on [`ConfigSpace`] for `$ty` using =
-`$read_fn` and `$write_fn`.
-> macro_rules! impl_config_space_io_capable {
->     ($ty:ty, $read_fn:ident, $write_fn:ident) =3D> {
-> -        impl<'a, S: ?Sized + ConfigSpaceKind> IoCapable<$ty> for =
-&ConfigSpace<'a, S> {
-> +        impl<'a, T: ?Sized> IoCapable<$ty> for ConfigSpace<'a, T> {
->             unsafe fn io_read(self, address: usize) -> $ty {
->                 let mut val: $ty =3D 0;
->=20
-> @@ -112,19 +120,17 @@ unsafe fn io_write(self, value: $ty, address: =
-usize) {
-> impl_config_space_io_capable!(u16, pci_read_config_word, =
-pci_write_config_word);
-> impl_config_space_io_capable!(u32, pci_read_config_dword, =
-pci_write_config_dword);
->=20
-> -impl<'a, S: ?Sized + ConfigSpaceKind> Io for &ConfigSpace<'a, S> {
-> -    type Target =3D S;
-> +impl<'a, T: ?Sized + KnownSize> Io for ConfigSpace<'a, T> {
-> +    type Target =3D T;
->=20
-> -    /// Returns the base address of the I/O region. It is always 0 =
-for configuration space.
->     #[inline]
->     fn addr(self) -> usize {
-> -        0
-> +        self.ptr.addr()
->     }
->=20
-> -    /// Returns the maximum size of the configuration space.
->     #[inline]
->     fn maxsize(self) -> usize {
-> -        self.pdev.cfg_size().into_raw()
-> +        KnownSize::size(self.ptr)
->     }
-> }
->=20
-> @@ -281,23 +287,25 @@ pub fn cfg_size(&self) -> ConfigSpaceSize {
->         }
->     }
->=20
-> -    /// Return an initialized normal (256-byte) config space object.
-> +    /// Return a view of the normal (256-byte) config space.
->     pub fn config_space<'a>(&'a self) -> ConfigSpace<'a, Normal> {
-> +        // INVARIANT: null is aligned and the range is within config =
-space.
->         ConfigSpace {
->             pdev: self,
-> -            _marker: PhantomData,
-> +            ptr: =
-Normal::ptr_from_raw_parts_mut(core::ptr::null_mut(), =
-self.cfg_size().into_raw()),
->         }
->     }
->=20
-> -    /// Return an initialized extended (4096-byte) config space =
-object.
-> +    /// Return a view of the extended (4096-byte) config space.
->     pub fn config_space_extended<'a>(&'a self) -> =
-Result<ConfigSpace<'a, Extended>> {
->         if self.cfg_size() !=3D ConfigSpaceSize::Extended {
->             return Err(EINVAL);
->         }
->=20
-> +        // INVARIANT: null is aligned and we just checked the =
-`cfg_size`.
->         Ok(ConfigSpace {
->             pdev: self,
-> -            _marker: PhantomData,
-> +            ptr: =
-Extended::ptr_from_raw_parts_mut(core::ptr::null_mut(), 4096),
->         })
->     }
-> }
->=20
-> --=20
-> 2.54.0
->=20
-
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-
+Pushed to drm-rust-next, thanks!
