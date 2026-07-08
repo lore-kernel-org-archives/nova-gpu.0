@@ -1,201 +1,395 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010045.outbound.protection.outlook.com [52.101.61.45])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1FB380FFB
-	for <nova-gpu@lists.linux.dev>; Wed,  8 Jul 2026 14:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA3636073E;
+	Wed,  8 Jul 2026 14:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783521691; cv=fail; b=RS3aMgNciQUSfzQn4WO2AVBK02LxXyaeEbhndWBthSCJILiCLKKDIQN9rlxg3aBYPrkaxqsc865dzJkhH43+3RER8SeLZGMFU31PgtD7oMMmgXNnN+Pc+HQ5ZFI487hzkbzc+t5aJAxX8HNV/piRb+7NkOd++fS876TH2R8ax/g=
+	t=1783522152; cv=pass; b=rXh9ZVET6/MbzgU9Cj7Iv9ObswCCuOWQq4UYyvIgOIjC7tC7pD2w9FMwIbYSQC/Pfi0m4QpOhLw9ZucN+KVSZT0dRpoeEDIn+4x95O4HKXh65tFw4R1uPeAFiLpb96/AGe7LH2L+0QDIeKcFOVTwiQEJIBdHjwtkG3GOmaOQkx4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783521691; c=relaxed/simple;
-	bh=9PryjEXEKXAlLywex62SYbkvZPeeZme6bTBbHR3KFZ8=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=MV3aCsrbaBzef5wZy0FmGkFPUjc7P2HlRJaugABUUX+S67FeMR2k80Rqn8Ye0zgw3Fpdc6WpdLgNqZZW5YGqvC999E49HF0nBf78wseDyJpvIevWXeV0D9JWli56TAJtmTWU9vMJHrxh7z4ngn9jWHRJwALxMNR1Kgu77bfCUlM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SMbBzW/7; arc=fail smtp.client-ip=52.101.61.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1783522152; c=relaxed/simple;
+	bh=p9UVZdQviaIM7RRmMiAoAltcfQyAv+LLnchHDDFUqR8=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=Kl6yIclpmTc6Ba+e4esM6lVbDw1f/Nno0qpON2Zk+VdnqyTfmkMH9hmQHfQcNY1lESIV5KET6QDw2ebUQlx4XXczzv2Q2Hgm/8tFYUOIkyjlcVvOPW8OCBbPM7gvVD1UK200Xwmm2b4j1WPte/QRK0JvGXmPmtjtoxauBVr+Dbk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=BqgX68aZ; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SMbBzW/7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jh1q8JT/KsTryeYLJiZaTpde3pHYolc6pjMXd2BG9D71xg/QNKO6z4Ece0mVNL1yMvY/HeTF4/HHZBHctbb+JrFsE6zW5pXMbYarAkC+ApvxV9wLI3740Co33ifxi4E+ICtUueKpPNkNja04uh78b7X9oHTK8w5Sy8LmHoryhDrrIMFfthlVXlF1aB5pOSGfZusJLZSkJiI2PQkSlL5MUs3SIUoQgJlI4j/RBlMQJf0LxrLHE4/cz21Xwh5eXKXDG+0NAM7aCQu3/tlPvC40iVoYewRgqst5I8T04UPSZ5GAXqlv8rl5hZbdbw0W7MsozL1DnlmyfXP0xMneSDS4OA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xhk4WbM40zqNVhEYHzOwEpuba0ev3T4zHVGsVkT/hyY=;
- b=IteHyRVXBLyUW5nOc6MiHGUCJzgjMF8CbVS+nCWX9vAp7N0mP6URFkRD+LMpr4vvNktMT4q0kLABdS/nJKjje2tUEvPYad6Z047+SMd1bIbrT6q2ovKX1RJ1izeXrSMAlA9STIMn109qfAwxR/Lcn3sVgsTwFS+4UwvWSxygTZkI5Z175zp+Ui41YHoy5127L5nl3qsbQVAjJf9NZ+aN0YOReG8wD+QtktcbsbLTf5J9POX9f9p+yVUg4k+Pt2q9xroi4v8Xmmc5v1bQi9GnUBMcNaT9Xe+az1QB8mRCO6s7Ivl8BwwEB5AmBCBKz5UImuDncj6URXNLlE5QmL/r8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xhk4WbM40zqNVhEYHzOwEpuba0ev3T4zHVGsVkT/hyY=;
- b=SMbBzW/7AmtPl4CmngztWZooKsIV/F0OE/7BAnNSq4NHOHgxC6XTO1L7NAh9eCE3ZaDzaLfM9nQVXtFzLAfS02w9JdTzIyV+uaUVENn3Jkgd6RQQwRXkhWx2agiVSACZbx0zUVw7UaPkMw3t8Nq8EHpXjTGyikgmfyY3MJ1MOzw8W4+zaWhLfQtRTOUJpzalSHHwSslwnDE9HW5Nt4KVdl5j1Kx+HA/0Hx2vaoqJ+ET1eh7KRiQfqwImb9jf1tjA0r8/mZ2GYQu5muLYuY7HAUtwvWQF+eBjrh9JF0Mdsg2cl0tt4AKGjqc5ZjjtcrUxErow9PVO80nSo1QMtpNZxg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Wed, 8 Jul
- 2026 14:41:24 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Wed, 8 Jul 2026
- 14:41:24 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 08 Jul 2026 23:41:20 +0900
-Message-Id: <DJT9O4W3W1E2.159ZIBHJLKXF5@nvidia.com>
-Cc: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <joelagnelf@nvidia.com>,
- <apopple@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <zhiwang@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>, "David Laight"
- <david.laight.linux@gmail.com>, <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 2/8] rust: pci: add sriov_get_totalvfs() helper
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
-References: <20260701062622.3499033-1-zhiw@nvidia.com>
- <20260701062622.3499033-3-zhiw@nvidia.com>
- <DJT8V05POUOC.1F5BQDTMHCTLF@nvidia.com>
-In-Reply-To: <DJT8V05POUOC.1F5BQDTMHCTLF@nvidia.com>
-X-ClientProxiedBy: TYWPR01CA0005.jpnprd01.prod.outlook.com
- (2603:1096:400:a9::10) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="BqgX68aZ"
+ARC-Seal: i=1; a=rsa-sha256; t=1783522135; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bpdfpAPoLcSj38gcmEk2W/IMuf6DLCeA1M8IV40jkNqT5xVAIxBmWxuxqB7ExufSghrKFbSVfQcs5J27DAy2Ut8z+NZbwCCnr8FUYKxZ9o1xQ2idOIp/hlNVhyywtN6G9wYvS2eVzalpAgO2OV8UYnxgPIqZIidkV+dzJd9igX8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783522135; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4szMuqOI9JIjS8/kOAhVMC5VSKoQ9b+UCMsEA4pJKao=; 
+	b=Q9Q2usmguFIY0JgQ8ctP2lfmqHIvDkwdj5XxEO0ghHgtG1xSNAeu3lzU70jxmsPU0lL3ept8wRTIbfssk0ZyqguMLJyijIna5ZOYLyzNsEOXMc1olPEt1MfHPNuMebvHmVGrdVBL8YhjBFlrsMdAEDnlKAH7iWIeyMcaonpBc54=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783522135;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+	bh=4szMuqOI9JIjS8/kOAhVMC5VSKoQ9b+UCMsEA4pJKao=;
+	b=BqgX68aZ2rJ5M0QZeOx8Q+mChiooQJyvC8he/hgev0iHS+XBMjSR779q2FrhT3W7
+	l8lWrFxj4G9ICt6BRakEGDBlQBJitE8uoetb4bKLUc7muIoR6m/XnuWdmXU51Zlm4zp
+	IbKX1oM2tbfP+poX6TmhAwenoHQCtzdU7wMUZKks=
+Received: by mx.zohomail.com with SMTPS id 1783522133821946.0992772309626;
+	Wed, 8 Jul 2026 07:48:53 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH2PR12MB4198:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb0bfa41-9d68-4bcd-b3d2-08dedcfefbc4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|7416014|23010399003|376014|56012099006|6133799003|22082099003|18002099003|4143699003|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	135d0X6iEmYQJuzZ5VrmiYRVGHccMxo9WfH1jkLFmwMqHYs26uY3TtDNG+KeVXq2Fp5tHZgzHFbyQy59d12GTfVOCZOw/F3Gc3yAKRSugTcHuL/OhZSeFBn80g5P1oYG6iEiC/QEH0ApuLTZ0kHx55lsxoWbeGyYIA7DVAGhyEf5Zk+PSorYvzHGrAkqEPSWbmZcXCrxM8WFbU/k1ecS5e8GkTe7d5My90enfMWZ0MNLRxXNQhkop9wnhKa4aP/hYPWmD+2QT6RmNT6TVSJwp5Xf/ALqmdfke/jFF4zFcfXcZSMWba2UAuNSRUBAj+xXDSEfrvFAvOp+fhPWRzJ7NDSW+8/6Oyk6Pt8imDS8GifSIKQl6bm+xHfCn4oIcWeoqG40csFnCFyQCShKJFn8GZ9ShMGJu0GGxqg4r7UvQR3U8XaXi21UUkic/wqQJ8nChh79oAvCy6R3PV23rv3GG8gJNty8XprdYmaq9WJadTPD4sE51A4cl9H3sJqJIW5p9zAuf8WmSJkQlBs67VKqLklp3cycQX9y96CBFdBI+WlaW7lqOleoW9Fin9eaUo4PoY3h+64uEPdarYPTLwSftq/CdwPvpGFp3OesyGyedHtGj2scGXdhsA6OqGA/2OeZaKW2feLE6UpfSPE3PLLdBn7o1nY3tn1v45ihYuz5uMQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(23010399003)(376014)(56012099006)(6133799003)(22082099003)(18002099003)(4143699003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cHErSzIwK0djbEtjM01HbTM3bFpTV1JsaXM1WGpTME43TEdRVWJhbWZka3Rt?=
- =?utf-8?B?bjVkRUcrZWt3K3hMQ3NVUkJRaXN0ZzFGWXVIaVlzQUZNbFFtK2MyajZ2VjZT?=
- =?utf-8?B?U1lhMnRkWXFQQVJTV2ZXTFd0UGF6UkNURkFwOHpONWkwb3dMRUdHNURJcU91?=
- =?utf-8?B?WGtZbmI4WHprcTRyMG84RDdlajA5UE42bFFmSzQ3N1lNcEJiWEtEYzg2UW5w?=
- =?utf-8?B?L1kxeVp0MXpkaUd2NXlQU3dqb21GODZTWldlT2l4dzdKNkwvNklxU3FuSjZo?=
- =?utf-8?B?SEovWm94Yk9HM1ZHbzFvbWNEUjcrYWwzMkRFMEoyMG9SNEFwZlNQRlVDbmdt?=
- =?utf-8?B?ZCtYVXMzNVI1TkVzd1VKUWVncStuMEdQOFdHN3d3MWpnVE1XdVNTQmF3SEMy?=
- =?utf-8?B?NlhYYjNlcTQ1aDhYUElxNG9aeFZvSGVBanBQTVdrWjFiK0JyR2o0V1V6eUZx?=
- =?utf-8?B?MStRaGRETXFmNzR4aEZmVE9ib3lpMjBXUk13QkpRd09BRGtrOFVoSm40V3lo?=
- =?utf-8?B?bjR2QmllaEJxSFNOTXpwaFNaWXc0SnlWRWVEdmJaaFVWT3crUjdENmVlS3pG?=
- =?utf-8?B?dlloZ29qNExnaWUraU9jeDJKMVRxYnFQR1RNdUU2QjZXQThFN0hjV3BHeXgw?=
- =?utf-8?B?V3hBRkVqVDQ0ZjhGZ3g3dW0zc0V3T1FQSnRsVDExcnl2SGRBTjFjNDAyM1BW?=
- =?utf-8?B?bjNwSnJsNjd4WFJYTXhxcVVLNU5OUkR4ODhVRGdNREs5R3FlcHJOZXYwMkJx?=
- =?utf-8?B?TVNwT3B6MFk4SnArNmtlczZ5YVhnd3JIZXpkV2V2bGQ3LzRidUhpM0QrdExU?=
- =?utf-8?B?ZkduaWsybU5YcFBKVklFYWg2UER5RTJBWnlBOTV5cXpET0w4bFpKOEhuZ0g0?=
- =?utf-8?B?Uk5KNFEvN1Z5WDFrVklGamE0V05kMCtjSmhQZzA4TVF1SjlQTmJkeGZTamNt?=
- =?utf-8?B?eGdsOFpmNW1YSU4wT0pJMGpYeE8rR0pLWnd1TUJxc09lYkhMc1VFMDZxTmRr?=
- =?utf-8?B?RWttY1VzcEcwTldYUko2RFNUQUdIQ3lNMEltcmRuckhyaHFwVm1KYlpJamdu?=
- =?utf-8?B?dC9memowcWtFL05ROG5CYXVVZVg2dTJ5VHkyUzB0UVlPQkNKN2ZlbmUwby9Q?=
- =?utf-8?B?TFVMSkg5ckVUd1EyM2pkY0J1MndxU3NDQ1NydWZMNHB2ZFRJNmJ3TDVhSkZN?=
- =?utf-8?B?Vlg2R3FSektrenRzb2h0R0h6a1NoMDhRMzdPcFpGZHhmYnNlUHZIRzRQNW9w?=
- =?utf-8?B?S3JkSUQ5b21SMEoxbFNmaFNDWTZlaVE1ZWZ3Q1RUWkJQNytVbENrQ2taZDZU?=
- =?utf-8?B?ZHg0VWVNZUVPMy9rL1VaUTBSN2llZXJrcnFUWitmREtzcmlaM0o3QjA2Z1ZH?=
- =?utf-8?B?WnRmaU5RaW9mS0pUOTErakI1cmFCMUoxZm1TM0dPRGxPTVB6STJIVXNDbmg0?=
- =?utf-8?B?Und2UXUwcGNvU3c2ZFNmYVJwY1ZUVWxCQjVIeFQ1TlBsdElzYStoTno3S2lo?=
- =?utf-8?B?ZjVpRnBsZVFYZm9ManI3NklnaDhZYkd2VWs5NTlVRk5OVW94UTdiOEpMWWxV?=
- =?utf-8?B?U1FQNzVKSWk0eVFITXRJcVBRbFg5N242YkYzdnlhdk5VYjRQZGVXTWRLRDQ4?=
- =?utf-8?B?MVFvRUtueVRxb3dCOUFuVEszVFZjeXJpL2hCWHlzRWczdDhRam1iUTZHcGlk?=
- =?utf-8?B?VkJiYmdPVFRod2J6SEE3OGJWYkFWZmdLQWs1Z2s2SFF4eEk3Ym1hYWptUkZm?=
- =?utf-8?B?NlFjK3AyRUNacjhNVTRLaGFiN2g4cDBFa1ZDYVJRVkxHZUUzdzNRQXZlWXRj?=
- =?utf-8?B?OFlUa1QvWVRrMjdSNUhXRHcwbUV5RDlVZDdRMXBIOWxVUXN2U0RIK1Nhb3pS?=
- =?utf-8?B?V0d2NXdtRHFZb0VSMlVFQXN2R1k5ci9tTlZtZE01cmo2NDJGL25LRHZuK2Jw?=
- =?utf-8?B?UTRMa2F6TmlGUENPWnZmZlh4aEJyc0FoL0NsMXhOeCtEQzM2eTBsZFdSWGFk?=
- =?utf-8?B?NVhTUGxrb0pNSGFZOGt2elprTE9URDRmcHJWMGZ0MEFLR2hWNEthQmIrSDRK?=
- =?utf-8?B?SDI2Q0VtNnZsbi9zbURQYkpadDYwNERDeUFTeWU1Tk5LMDZ4cGEwNXNINFpC?=
- =?utf-8?B?RVcrU0NCdmhXVjdIa21SVWZqK3R4NFdldGdoeCttbDFJRzhsVU9vdEpGRlZO?=
- =?utf-8?B?U2gwLzlyejBRa2V0RzhDTWFOSlI5M0k4cUdDUmxyM0tuR1VMdVluakdCdE9w?=
- =?utf-8?B?aWRuZ3o2WHp2V0dreENOS3lKNHhPa2hnaWRwdmhrM2gyU1RJWnlTaVMyZnMw?=
- =?utf-8?B?OVZ5bXkvcXFqZEVCU29vNG9UZ21wem9XWXR1UWsycFdWU1BsOWRhY3M2bXlI?=
- =?utf-8?Q?qNzQBZsD+hzQS/AfYA1mg4Z8Tp3unJ0fW/SmL3AuArk+a?=
-X-MS-Exchange-AntiSpam-MessageData-1: 0KbGAPO0Sna3nw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb0bfa41-9d68-4bcd-b3d2-08dedcfefbc4
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 14:41:24.0283
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yjLZbPevQ6wNeEthQJ+EKtzF4GFry71o/HWLq8Tr0AlDvtb3y4TTokYjvuRI3sDL883FlCKR9nmozMDf9+yANQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4198
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v6 11/20] rust: io: remove `MmioOwned`
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260706-io_projection-v6-11-72cd5d055d54@garyguo.net>
+Date: Wed, 8 Jul 2026 11:48:33 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org,
+ nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org,
+ linux-pwm@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BB56CB09-819F-48D3-8C71-B85C33E03065@collabora.com>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-11-72cd5d055d54@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 
-On Wed Jul 8, 2026 at 11:03 PM JST, Alexandre Courbot wrote:
-> On Wed Jul 1, 2026 at 3:26 PM JST, Zhi Wang wrote:
->> Expose pci_sriov_get_totalvfs() to Rust PCI drivers so they can query
->> how many SR-IOV VFs a device supports.
->>
->> Cc: Alexandre Courbot <acourbot@nvidia.com>
->> Cc: Bjorn Helgaas <bhelgaas@google.com>
->> Cc: David Laight <david.laight.linux@gmail.com>
->> Cc: Gary Guo <gary@garyguo.net>
->> Cc: linux-pci@vger.kernel.org
->> Link: https://lore.kernel.org/all/DJHPRE4TGGT8.BUTMYOF5YE05@nvidia.com/
->> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
->> ---
->>  rust/kernel/pci.rs | 11 +++++++++++
->>  1 file changed, 11 insertions(+)
->>
->> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
->> index 5071cae6543f..21c51981c02e 100644
->> --- a/rust/kernel/pci.rs
->> +++ b/rust/kernel/pci.rs
->> @@ -450,6 +450,17 @@ pub fn pci_class(&self) -> Class {
->>          // SAFETY: `self.as_raw` is a valid pointer to a `struct pci_de=
-v`.
->>          Class::from_raw(unsafe { (*self.as_raw()).class })
->>      }
->> +
->> +    /// Returns the total number of VFs, or 0 if SR-IOV is not availabl=
-e.
->> +    #[inline]
->> +    pub fn sriov_get_totalvfs(&self) -> u16 {
->> +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct pci_=
-dev`.
->> +        let total_vfs =3D unsafe { bindings::pci_sriov_get_totalvfs(sel=
-f.as_raw()) };
->> +
->> +        // CAST: The C helper returns `unsigned int`, but the value ori=
-ginates
->> +        // from TotalVFs/driver_max_VFs, so this cast cannot truncate.
->
-> nit: "from TotalVFs/driver_max_VFs (which are defined as `u16`), ..."
->
-> With that,
->
+
+
+> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> `Io` trait is now very easy to implement. Thus, implement it on `Bar` =
+and
+> `IoMem` directly and remove the `MmioOwned` struct.
+>=20
 > Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> rust/kernel/devres.rs |  12 +++---
+> rust/kernel/io.rs     | 103 =
++-------------------------------------------------
+> rust/kernel/io/mem.rs |  26 +++++++------
+> rust/kernel/pci/io.rs |  16 ++++----
+> 4 files changed, 32 insertions(+), 125 deletions(-)
+>=20
+> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+> index aed0c994fd30..3545ffc5345d 100644
+> --- a/rust/kernel/devres.rs
+> +++ b/rust/kernel/devres.rs
+> @@ -68,8 +68,9 @@ struct Inner<T> {
+> ///     devres::Devres,
+> ///     io::{
+> ///         Io,
+> -///         MmioOwned,
+> +///         Mmio,
+> ///         MmioRaw,
+> +///         MmioBackend,
+> ///         PhysAddr,
+> ///         Region, //
+> ///     },
+> @@ -104,12 +105,13 @@ struct Inner<T> {
+> ///     }
+> /// }
+> ///
+> -/// impl<const SIZE: usize> Deref for IoMem<SIZE> {
+> -///    type Target =3D MmioOwned<SIZE>;
+> +/// impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<SIZE> {
+> +///    type Backend =3D MmioBackend;
+> +///    type Target =3D Region<SIZE>;
+> ///
+> -///    fn deref(&self) -> &Self::Target {
+> +///    fn as_view(self) -> Mmio<'a, Region<SIZE>> {
+> ///         // SAFETY: The memory range stored in `self` has been =
+properly mapped in `Self::new`.
+> -///         unsafe { MmioOwned::from_raw(&self.0) }
+> +///         unsafe { Mmio::from_raw(self.0) }
+> ///    }
+> /// }
+> /// # fn no_run(dev: &Device<Bound>) -> Result<(), Error> {
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index 89039b3defd5..c7533d605678 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -98,8 +98,8 @@ fn size(p: *const Self) -> usize {
+> /// the represented MMIO region does exist or is properly mapped.
+> ///
+> /// Instead, the bus specific MMIO implementation must convert this =
+raw representation into an
+> -/// `MmioOwned` instance providing the actual memory accessors. Only =
+by the conversion into an
+> -/// `MmioOwned` structure any guarantees are given.
+> +/// `Mmio` instance providing the actual memory accessors. Only by =
+the conversion into an `Mmio`
+> +/// structure any guarantees are given.
+> pub struct MmioRaw<T: ?Sized> {
+>     /// Pointer is in I/O address space.
+>     ///
+> @@ -156,80 +156,6 @@ pub fn size(&self) -> usize {
+>     }
+> }
+>=20
+> -/// IO-mapped memory region.
+> -///
+> -/// The creator (usually a subsystem / bus such as PCI) is =
+responsible for creating the
+> -/// mapping, performing an additional region request etc.
+> -///
+> -/// # Invariant
+> -///
+> -/// `addr` is the start and `maxsize` the length of valid I/O mapped =
+memory region of size
+> -/// `maxsize`.
+> -///
+> -/// # Examples
+> -///
+> -/// ```no_run
+> -/// use kernel::{
+> -///     bindings,
+> -///     ffi::c_void,
+> -///     io::{
+> -///         Io,
+> -///         MmioOwned,
+> -///         MmioRaw,
+> -///         PhysAddr,
+> -///         Region,
+> -///     },
+> -/// };
+> -/// use core::ops::Deref;
+> -///
+> -/// // See also `pci::Bar` for a real example.
+> -/// struct IoMem<const SIZE: usize>(MmioRaw<Region<SIZE>>);
+> -///
+> -/// impl<const SIZE: usize> IoMem<SIZE> {
+> -///     /// # Safety
+> -///     ///
+> -///     /// [`paddr`, `paddr` + `SIZE`) must be a valid MMIO region =
+that is mappable into the CPUs
+> -///     /// virtual address space.
+> -///     unsafe fn new(paddr: usize) -> Result<Self>{
+> -///         // SAFETY: By the safety requirements of this function =
+[`paddr`, `paddr` + `SIZE`) is
+> -///         // valid for `ioremap`.
+> -///         let addr =3D unsafe { bindings::ioremap(paddr as =
+PhysAddr, SIZE) };
+> -///         if addr.is_null() {
+> -///             return Err(ENOMEM);
+> -///         }
+> -///
+> -///         Ok(IoMem(MmioRaw::new_region(addr as usize, SIZE)?))
+> -///     }
+> -/// }
+> -///
+> -/// impl<const SIZE: usize> Drop for IoMem<SIZE> {
+> -///     fn drop(&mut self) {
+> -///         // SAFETY: `self.0.addr()` is guaranteed to be properly =
+mapped by `Self::new`.
+> -///         unsafe { bindings::iounmap(self.0.addr() as *mut c_void); =
+};
+> -///     }
+> -/// }
+> -///
+> -/// impl<const SIZE: usize> Deref for IoMem<SIZE> {
+> -///    type Target =3D MmioOwned<SIZE>;
+> -///
+> -///    fn deref(&self) -> &Self::Target {
+> -///         // SAFETY: The memory range stored in `self` has been =
+properly mapped in `Self::new`.
+> -///         unsafe { MmioOwned::from_raw(&self.0) }
+> -///    }
+> -/// }
+> -///
+> -///# fn no_run() -> Result<(), Error> {
+> -/// // SAFETY: Invalid usage for example purposes.
+> -/// let iomem =3D unsafe { IoMem::<{ core::mem::size_of::<u32>() =
+}>::new(0xBAAAAAAD)? };
+> -/// iomem.write32(0x42, 0x0);
+> -/// assert!(iomem.try_write32(0x42, 0x0).is_ok());
+> -/// assert!(iomem.try_write32(0x42, 0x4).is_err());
+> -/// # Ok(())
+> -/// # }
+> -/// ```
+> -#[repr(transparent)]
+> -pub struct MmioOwned<const SIZE: usize =3D 0>(MmioRaw<Region<SIZE>>);
+> -
+> /// Checks whether an access of type `U` at the given `base` and the =
+given `offset`
+> /// is valid within this region.
+> ///
+> @@ -957,31 +883,6 @@ fn io_write(view: <$backend as =
+IoBackend>::View<'_, $ty>, value: $ty) {
+> #[cfg(CONFIG_64BIT)]
+> impl_mmio_io_capable!(MmioBackend, u64, readq, writeq);
+>=20
+> -impl<'a, const SIZE: usize> Io<'a> for &'a MmioOwned<SIZE> {
+> -    type Backend =3D MmioBackend;
+> -    type Target =3D Region<SIZE>;
+> -
+> -    #[inline]
+> -    fn as_view(self) -> Mmio<'a, Self::Target> {
+> -        // SAFETY: `Mmio` has same invariant as `MmioOwned`
+> -        unsafe { Mmio::from_raw(self.0) }
+> -    }
+> -}
+> -
+> -impl<const SIZE: usize> MmioOwned<SIZE> {
+> -    /// Converts an `MmioRaw` into an `MmioOwned` instance, providing =
+the accessors to the MMIO
+> -    /// mapping.
+> -    ///
+> -    /// # Safety
+> -    ///
+> -    /// Callers must ensure that `addr` is the start of a valid I/O =
+mapped memory region of size
+> -    /// `maxsize`.
+> -    pub unsafe fn from_raw(raw: &MmioRaw<Region<SIZE>>) -> &Self {
+> -        // SAFETY: `MmioOwned` is a transparent wrapper around =
+`MmioRaw`.
+> -        unsafe { &*core::ptr::from_ref(raw).cast() }
+> -    }
+> -}
+> -
+> /// [`Mmio`] but using relaxed accessors.
+> ///
+> /// This type provides an implementation of [`Io`] that uses relaxed =
+I/O MMIO operands instead of
+> diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
+> index 8f6c257c5b8e..d9b3189d09b4 100644
+> --- a/rust/kernel/io/mem.rs
+> +++ b/rust/kernel/io/mem.rs
+> @@ -2,8 +2,6 @@
+>=20
+> //! Generic memory-mapped IO.
+>=20
+> -use core::ops::Deref;
+> -
+> use crate::{
+>     device::{
+>         Bound,
+> @@ -16,7 +14,9 @@
+>             Region,
+>             Resource, //
+>         },
+> -        MmioOwned,
+> +        Io,
+> +        Mmio,
+> +        MmioBackend,
+>         MmioRaw, //
+>     },
+>     prelude::*,
+> @@ -210,11 +210,13 @@ pub fn into_devres(self) -> =
+Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
+>     }
+> }
+>=20
+> -impl<const SIZE: usize> Deref for ExclusiveIoMem<'_, SIZE> {
+> -    type Target =3D MmioOwned<SIZE>;
+> +impl<'a, const SIZE: usize> Io<'a> for &'a ExclusiveIoMem<'_, SIZE> {
+> +    type Backend =3D MmioBackend;
+> +    type Target =3D super::Region<SIZE>;
+>=20
+> -    fn deref(&self) -> &Self::Target {
+> -        &self.iomem
+> +    #[inline]
+> +    fn as_view(self) -> Mmio<'a, Self::Target> {
+> +        self.iomem.as_view()
+>     }
+> }
+>=20
+> @@ -290,11 +292,13 @@ fn drop(&mut self) {
+>     }
+> }
+>=20
+> -impl<const SIZE: usize> Deref for IoMem<'_, SIZE> {
+> -    type Target =3D MmioOwned<SIZE>;
+> +impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<'_, SIZE> {
+> +    type Backend =3D MmioBackend;
+> +    type Target =3D super::Region<SIZE>;
+>=20
+> -    fn deref(&self) -> &Self::Target {
+> +    #[inline]
+> +    fn as_view(self) -> Mmio<'a, Self::Target> {
+>         // SAFETY: Safe as by the invariant of `IoMem`.
+> -        unsafe { MmioOwned::from_raw(&self.io) }
+> +        unsafe { Mmio::from_raw(self.io) }
+>     }
+> }
+> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+> index e67c1e3694fb..4be33ecb4192 100644
+> --- a/rust/kernel/pci/io.rs
+> +++ b/rust/kernel/pci/io.rs
+> @@ -11,16 +11,14 @@
+>         Io,
+>         IoBackend,
+>         IoCapable,
+> -        MmioOwned,
+> +        Mmio,
+> +        MmioBackend,
+>         MmioRaw,
+>         Region, //
+>     },
+>     prelude::*,
+>     ptr::KnownSize, //
+> };
+> -use core::{
+> -    ops::Deref, //
+> -};
+>=20
+> /// Represents the size of a PCI configuration space.
+> ///
+> @@ -269,12 +267,14 @@ fn drop(&mut self) {
+>     }
+> }
+>=20
+> -impl<const SIZE: usize> Deref for Bar<'_, SIZE> {
+> -    type Target =3D MmioOwned<SIZE>;
+> +impl<'a, const SIZE: usize> Io<'a> for &'a Bar<'_, SIZE> {
+> +    type Backend =3D MmioBackend;
+> +    type Target =3D crate::io::Region<SIZE>;
+>=20
+> -    fn deref(&self) -> &Self::Target {
+> +    #[inline]
+> +    fn as_view(self) -> Mmio<'a, Self::Target> {
+>         // SAFETY: By the type invariant of `Self`, the MMIO range in =
+`self.io` is properly mapped.
+> -        unsafe { MmioOwned::from_raw(&self.io) }
+> +        unsafe { Mmio::from_raw(self.io) }
+>     }
+> }
+>=20
+>=20
+> --=20
+> 2.54.0
+>=20
+>=20
 
-Sorry, need to take my tag back. :( Build is failing if `CONFIG_PCI_IOV`
-is not set:
-
-    error[E0425]: cannot find function `pci_sriov_get_totalvfs` in crate `b=
-indings`
-      --> ../rust/kernel/pci.rs:458:44
-        |
-    458 |         let total_vfs =3D unsafe { bindings::pci_sriov_get_totalv=
-fs(self.as_raw()) };
-        |                                            ^^^^^^^^^^^^^^^^^^^^^^=
- not found in `bindings`
-
-Looks like you need to add a helper in `rust/helpers/pci.c` as the
-inline C function used when `CONFIG_PCI_IOV` is not set can not be
-invoked by Rust.
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
