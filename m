@@ -1,154 +1,159 @@
-Received: from mail-ed1-f73.google.com (mail-ed1-f73.google.com [209.85.208.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012066.outbound.protection.outlook.com [52.101.53.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CBF3EDE7D
-	for <nova-gpu@lists.linux.dev>; Wed,  8 Jul 2026 21:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.73
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783544898; cv=none; b=NHlwUu/eVWKVQZrlvdp6eA2W4tNUcIA6HLMkd9za4+j6HcK8etmwSlJYUS0/eUJaLh3OwOpj5ZWq+s7Ip7J8rmzSJzT7DJ8eG2h+h80WJck01vWYXDDx6UaGTjnk8SgEm7dLgU3IJ8Iuna9Ri1Q9GNdLKVv9fL6u/Dz57JhEp+o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783544898; c=relaxed/simple;
-	bh=biBH4PA9f5DhTc+4g0UROR8IKEhkILOsC139oJpGl6g=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bcQ7NGaUB/751TY4Hd2xwA8qXFP69Cw320XdMDG3BkQAFA9wr90N90OT+QhTyVF+t9kvitTwelFxN9pQZoNuiZsDhhWxG+A5Dl6xEOdvKeC91uhZiPaQnP52kGuTUCtivY+fJIo0VfIuH3DHJSIaU/gdRIdQJdGm+5GUUQMWjxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DwEbupbd; arc=none smtp.client-ip=209.85.208.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBA53FD127;
+	Wed,  8 Jul 2026 22:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783549602; cv=fail; b=j7rPakww3+x9ku/1zUbanqaefdHTgBxaWNDKT3vTIAfewQCh6b8YfakedOkLQw6sN4o0iV4W51EN83/IQ75bsL/x1HpVoRaZKX9busqa5kuoqwZd/WRtT2idDQNLd020l+bu/uJRUgV4LLvLqd88E2PON30euh0tr6wWrDV//+8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783549602; c=relaxed/simple;
+	bh=jb9G1++6M9bm5H1drrXl43cpskcMK64Z3zuVpmZtFS8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ka6WtSPnkg5z53AbogJoXYxm4f58pOnE0MN++RSU+5AWwFye7jvWoIBIYOFw7Gb+n+1fJYGph8l0PX2GZlDIzaUHmfIK/Lj9zJOUorpMD6zBuzoFX8adnSN5cMoQqAoMphvbLCp45bofFis81135X0GUYIoOK0lJxvHWHeZX6Zs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MltbxbVY; arc=fail smtp.client-ip=52.101.53.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DwEbupbd"
-Received: by mail-ed1-f73.google.com with SMTP id 4fb4d7f45d1cf-69aa09b90a1so1043692a12.3
-        for <nova-gpu@lists.linux.dev>; Wed, 08 Jul 2026 14:08:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783544895; x=1784149695; darn=lists.linux.dev;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gsxGWakqJeFwM90VS2bi5xlkNUrqBNf1v+hlTXOW8K0=;
-        b=DwEbupbdBQC/RST/h3Z87/QxMKUyV41697idgMssxZyVqw0N7k3VMpKyHPb0VT3yHW
-         sWodHzdYbhU4KriRNuqtvvmCYpPmUqtZly/Rs5p8PKHKpCsmbc8IikEWw+7OQlzav6yn
-         4drUIo4TjCRWmnYOIJMIR1jy/LJDdlMg6i66jYZlvBSpXvQ0lgZzOpR17I31XmD7CwG8
-         U5wMeFlg5PN9XPUiMAaDjDVOcgZ38/R+LifgfAd7Yuzw3z0KRV3pBdfIKWJSVSZaHfWY
-         3xrS638Q/Ch/soITGiBVht7zurIzgruVM+q2RT2vhMRctXRyxp4CkgjefuYFhpOZ0AQw
-         SGbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783544895; x=1784149695;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gsxGWakqJeFwM90VS2bi5xlkNUrqBNf1v+hlTXOW8K0=;
-        b=pGlywhHEWHg5Mb09Cn/WizZQnh3yrEO0YqONQSBTQA4GkFoHSAun8JT9k88xLXMR8R
-         sGlbZf6ytFsnTjYRPe3hrX57t9YAtaNT5QWXF0Xk2ehc5TVBE+YVVPQwz+f6redM7dVt
-         Xsu/BKmtxmdtjfNcqEOQOI2PA45hcaOZbk7B5F6LeX3cnSOx/9nykK8DH8TYkWXfODf2
-         kqlnkhXhj+VG4VzYETJTfzNvGFceqeE+lvb98uUyUaCH2lhqmkBsq1o5lOw2CvlAYp0I
-         s7v75/zV7FFoDACWPtTNO2/hc/1hfWqS0NW4sxN+a40OAtr7qeGrTmDzzi/ZuQ9HMDMw
-         vAOQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrxp1XU7deYBp8gSJiBu9xOWBgGHZz0TGQv6vgS85TeUb2ZFuDwmo5QkC87wUCAstGRrm3XXYwMLg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzdiW4VsZVMKFdFrMKD8KctgsatGBiYzlD5I//5VZ5n2zuCgNne
-	a1wGOgLW6YEWBvGOfe7FlrD/67+IOcG/5PTCAlZZc4WnR5syot/N64lOuuJKr4MkuHfJL+r/3Il
-	+N+kYs1uQuEztvW1XHQ==
-X-Received: from edaa23.prod.google.com ([2002:a05:6402:24d7:b0:698:c1e2:568b])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:5114:b0:698:5f89:9a51 with SMTP id 4fb4d7f45d1cf-69ab4453a86mr1833185a12.5.1783544894902;
- Wed, 08 Jul 2026 14:08:14 -0700 (PDT)
-Date: Wed, 8 Jul 2026 21:08:14 +0000
-In-Reply-To: <ak61Embrj0qH1vas@yury>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MltbxbVY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d3AvOH4eA08OVnn8Ut9/4c1bc4aZdYzasIMRU94HoZWvKmazzZHQUblI4hXGy9SpnA0Hi7Hl8LZqqafaGzGQkvaXFCrfEgMh6s7um2hMqC+5UIKoiIiplVvJly30iIz3LoT+yP+ng1UwVQ8G4986cHr5zvcR7k6SfuDwpEbJ4g/PyNALLGH61Rs63YTau/tEHGy1KVnjI/GuB4/pD56s2cAl0MyZ319utl77Zl84aUewPMl8mrCY4Fv8DDKCspx+Vmeii5xSHwcSO2tYcbGCupUSo6clzZpEnDI2qdJFSgK9AKCFl7deV+LxBS7hPxScTU4Te7FDU6hBDBsDddwFZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jb9G1++6M9bm5H1drrXl43cpskcMK64Z3zuVpmZtFS8=;
+ b=JLxpWs9T8/kgp2cSK1iX16oksFzLYpRhH7BBrl9P8a5HMMe534Oq2VYupfEoU0P/2vFzMTVx1AK2FQwbYL0wptT7xL+rZsg1LGVwdEbB7emLCrkwV34JoC4TNHJLGfeEewBMIHR3xTvIUlJHqCePN5QNM3QI7cQRTRXG3PtAPVTx4TzHac5AgaIJaTz+ZQBsUA9unuu1byYaeTHHCNzhW09fssnvFqGCMctONo6I6sAcs3AaDBmwyCxWFZBTJcjxRIKou6qLt5xOx4e55Kzcpt2q1gu+9xmqGUIndqkXDA26ckxbBLba73JvGqp/ClfLh1BCmoJ4ArYn308pxf+N/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jb9G1++6M9bm5H1drrXl43cpskcMK64Z3zuVpmZtFS8=;
+ b=MltbxbVYkkFIKdBd2Oluf6DtePCB8fVDVK248GqPcKqzd6236rY0WwZzCFVUvkunRy0yaJk3h5lh9m1tAyEAXyLIxcsqsLSqMRiiHr4wOIH1x15/gLXgWzFAzQFcCezCnHIJsVvXFFGO/pGCcVmHa3Zull27628Lkn2rtMa1bTo9T+2au/sh+wo3jiw0YJAOqBCa6Y6A2u8UwJZoLdxqBvzGl7TlDNJZ3TGNhCkynZc+WXvPH3r7eSE9MXBXb2aCKVxYHx7uOewX5RLByhiuaBK1cs6zkPaiCT1mVMgcNYaeX70qO+nrzl/irwnkgxGD0GnjdHHs70UrIvbXQb+Nxg==
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
+ by MN0PR12MB5836.namprd12.prod.outlook.com (2603:10b6:208:37b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
+ 2026 22:26:36 +0000
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970]) by CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970%5]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
+ 22:26:36 +0000
+From: Timur Tabi <ttabi@nvidia.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+CC: John Hubbard <jhubbard@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+	"nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>, Zhi Wang
+	<zhiw@nvidia.com>, "gary@garyguo.net" <gary@garyguo.net>, "mcgrof@kernel.org"
+	<mcgrof@kernel.org>, "dakr@kernel.org" <dakr@kernel.org>,
+	"rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>,
+	"driver-core@lists.linux.dev" <driver-core@lists.linux.dev>,
+	"ojeda@kernel.org" <ojeda@kernel.org>, "russ.weight@linux.dev"
+	<russ.weight@linux.dev>
+Subject: Re: [PATCH v3 5/7] gpu: nova-core: transition gen_bootloader to TLV
+ images
+Thread-Topic: [PATCH v3 5/7] gpu: nova-core: transition gen_bootloader to TLV
+ images
+Thread-Index: AQHdCljkwu1+XAkqMkK4e6h+pSRGELZgDX4AgAQve4A=
+Date: Wed, 8 Jul 2026 22:26:36 +0000
+Message-ID: <79b4033973c675355a25d8fcc701cdedf8f30bc7.camel@nvidia.com>
+References: <20260702192712.3450652-1-ttabi@nvidia.com>
+	 <20260702192712.3450652-6-ttabi@nvidia.com>
+	 <DJRA02VV16AS.3W0QHW9YYSLXE@nvidia.com>
+In-Reply-To: <DJRA02VV16AS.3W0QHW9YYSLXE@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.56.2-9 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB8412:EE_|MN0PR12MB5836:EE_
+x-ms-office365-filtering-correlation-id: b66a8e22-b4ad-45c8-ae18-08dedd3ff918
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|22082099003|18002099003|38070700021|4143699003|11063799006|56012099006;
+x-microsoft-antispam-message-info:
+ gXlYLk8fKcs5JALT1Ff8MtgfH4kYnyeyJMjK75Lu7qXSn11rOa0iE3tbxarQ4HOPTHy97Wm85h2ecZLgiyAPWmj6g8+EEucnLwM+ypkxuiPDy3V2DVd+lAG+vJQ6bn1aJXYwPeXR5AofvOeN6rESZSevilorfZTE65C3R8KwrFiTIN2tui3p/PdoiFFQG7AN6ZVr7V4qGpZyUQ6AFDn2vZFtNvQpkS2NPIjN3kpyT5SMwpaJ01fj2Qs1V6HNo/nyGghaqNZJI+dmXuK9HU0igLvI9tq3zU7BjMEMuJcgtfC9jpOZraTBRd4Wy0orDO4+5TPGmxaFrZ+pEQRRT64YFP9g5oj8z2DkkHhv0eWETIPQVtfO/zwXKKmZbQZNOwvI2iUQpUgQBDCkJOuJTgWKuFXNGpt8LIRWFvusUQnTRUjVlIkN/WflLuuDjaAZkrOtq0Rt+qgYHzxXuHbcajr7DR6F1aB9/qwLgId8M7iUBJ6RJqKLfFmF8pPGczCtDtd2fyBlz5bJWGrvM/NF8uRJ2ybOFjPIZ9XA65a1XwGpDn2kqG5wl49lJBJR4EgDGSASRqcCoCUAH4eUUJoyJUZnZEnGRUblwMbrcT3it3kThKs8dDbWGTjsRb30urdTw4V0+Tx4KYC3hWOyLX8IfSoHkGPrR3eOls04cpFgqfWPTmazmnLjgcuBir0RNAYuwFjRnbgHcQid9nrBiu78VT4Kcf/OA/IVb7NZhOTUMcBxGsQ=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB8412.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(38070700021)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VnI1RFlmRVVnb3lvSit0SGJQcC9XRXYxMFNQRllobmUrek0rMnp3WVNaamZB?=
+ =?utf-8?B?UGFhMUhrNmwxamVxeVlmNVRhM0hyYWgwOW9MbjYwNTBOZ2VSRkJQZklzbEl0?=
+ =?utf-8?B?L3hRenVWVHBDSTFMYXN5Tk1PeFhlWFVxSXY5WTVIbDVYbzJCQTR5TVpuMHMr?=
+ =?utf-8?B?Q1RRTWUrcGMxSkE3QjVVVUZSVytHMDUyYjAvWGlrMitTYkFVd3ZsSDhRbWh4?=
+ =?utf-8?B?bWxyU2ZvYzUvN0lHV0hxS3FMZFFyL0NZWHkzVnpYWHdUM1U0K2lFUk9BaWhh?=
+ =?utf-8?B?YWg0S1hIMlFuQUdqV2ZjS3VlMUxqMW9Hd3VqM1c4cTR5dFFZdS8yZ3dEaHVx?=
+ =?utf-8?B?UUtpT21XQlN1QkdaSHhNd0ZIVDdkVlN4YUZZQkNZRTdhMXQ2WFFhb2ZqWXJy?=
+ =?utf-8?B?YUEwNW9tZVprbmI5VEFMZWF4Ylh0ZVlnWjNOSlQ0czNuTDNadzhsK2NkUUdL?=
+ =?utf-8?B?MzAybDYvQk1MSml6eHlxcUs5ZW11REY4UU1UZWdhdDdoUG1kK3hKck5qbFBK?=
+ =?utf-8?B?MC9nZ1pPNW1HWktQalZNcFdBaWY1V0dNY0FxME4xRllnZmNXQXBIYXAwQUNR?=
+ =?utf-8?B?eUwzZDRnUlZjRUozMXN5Z1R5L3A0dlFLU3psSmcxQjdNV01TRjlQVFFMUWs5?=
+ =?utf-8?B?NXptcUx3UnZXeDBGazRrQkxSeG5zYlJ3ai9iNHZNdUdRdHFrZUlGbEpXNDl4?=
+ =?utf-8?B?TmhOejVNS0RVbmxaZ3BleTVhMVA0ZkJFd1JzN2VJcGRwOGhhWG0xeGtmd1gy?=
+ =?utf-8?B?d2dQemVPQStCaWFJN0JIclF5cmFqSWhxd0cwVXlwc3FIV21WblVHQzREZUhk?=
+ =?utf-8?B?aUtpRHc2YkNyZUE4c2NXZUVNZ0hMOHVhM2wxQTRMenVmb1RMeGZ6dFZOYk8w?=
+ =?utf-8?B?azR1QVRLQllpdjhlNkVNaW5yS2czYnV6TlBrVzdnQjZoaDlSa1NSTVltaVo0?=
+ =?utf-8?B?TExVcmNGY1poME9JNEsvQ2tLY3dxUWxGNUVnbkRQZURHV0J6VSs2T3lCbWZY?=
+ =?utf-8?B?V1pkSVdHdkFhaVdmaW5zZm1SWGhndTBzdWMzWUtreCs2Sm1QbVFYZXFIYkxk?=
+ =?utf-8?B?VllhNHUvbDVzY0FRSlREWm43QjUraEhVcllXSVBMYnl3am9KamM5dU5WNzhL?=
+ =?utf-8?B?clZ4VVNDSUg1dG9uWXZHVDFyYnkwMit1eDR5OWpHenJsRGdSc1I1VHFGSkk0?=
+ =?utf-8?B?Q3RlV0h6d0xpUkJrZHQvUXAvVXBaRlIwSWptSDhDWlF0TEo5SWZuYVFweDFx?=
+ =?utf-8?B?dSttV0FBbEF4UlB0bHBWaHZaWXBEYVptN2JIaXgxdWxZOXQ5UjNoN3B6WEE5?=
+ =?utf-8?B?VXkrazk3ZU1yaUZoOTFIcEtteGVIdm02eTZtWGF0eGc5dnVCM0l3aUlLS0t5?=
+ =?utf-8?B?cHE4TmQrcStRWTRIZ3NMSi9ONW9sMGlMMk5tV0srWEF1cWQrNFNmOWh5eVps?=
+ =?utf-8?B?dElSRzZnTkc3UHpzS0pZV05GN00vVko4K1VKSkRGaDBJakU4THdvbHJ5ZGtk?=
+ =?utf-8?B?QTZObVlmYUY0NWFHNjh2dGt1a1RkeXFIWlZHY2FuVXNsb0oyS244MTlPdnBW?=
+ =?utf-8?B?eEdmcUZsTnY2L3VNcng3bGNtT0VGTU9CNzFRK1JEUnpidEhsT2dDQkJYTnJ0?=
+ =?utf-8?B?VFVoZkZ1RmlacDRCYWh4T3Z3YTF5aXVQYUpONUhWSC8wR2RKMzRNMzNiWTVX?=
+ =?utf-8?B?UVlnK2RVSHgxbmQ3NTdkenMrcDV2UlJ2YzcvZFlDbTFSMlB5L0NCcFhiblJX?=
+ =?utf-8?B?NFRZN1U1VGdqc2Z6aTIyWCtSZUZYOTBzbHB4L2p0QWF1dDU1THZjZ1JxQ3hp?=
+ =?utf-8?B?ZVVhM1I2clczVFB2K0U2WjNEbXRzS3Z0Vm5RNU5oZGN4UFBmeHdoSUV1MEhi?=
+ =?utf-8?B?OGF1NnFxK0M1UVpremZnMzFkS1NzS3pJQnVTRisvZUxIZWkvWmVDT0lkbTB5?=
+ =?utf-8?B?dktDSlZPSTdlcm04UXNZL2sxcm9QMkVPai9sR0UvazB3TTBaTFNvRGxSQUF4?=
+ =?utf-8?B?UjlsYnJPZkZRNit6WEwxZVlUcFM2Q1BXSUptcmozQlphc2I2MkhORWtDbUFq?=
+ =?utf-8?B?MGlBcWZ6aURGc0xRb1hSQ29wRzBQY1NEZ0lKdUZpT24rKzhGN3E3UWozOFZQ?=
+ =?utf-8?B?UDJHaXVRVm9SbkJveGRVNnVmWVRoWlYwMkQ2ZUtpSE1lR1FoeEhneHc3RVFW?=
+ =?utf-8?B?UlNROHVUQTVHUCsxQU5lZDVlUzJqRmtGemwvUS8wNkZrS3lLWTkwYVZhZ090?=
+ =?utf-8?B?OHFGd1dPY3ppaC81UDhvZTJhVHZnVUVuQXRoekJYcVpsVUxiYUlTNHZQajdO?=
+ =?utf-8?B?U3pwZFJPUnNUczIyUlZFdTc5Vkx0ZzNOWW5QWno0M0ZuNTVvUDMzUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3FE88E356FFB1C43BA03A71E2D1394B9@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com> <20260703-chid-v1-3-84fe8259e46e@nvidia.com>
- <2026070334-dollar-hexagram-e49c@gregkh> <DJSDFHOADWYL.V4WC2TI9UWYF@nvidia.com>
- <2026070745-unwired-maybe-769e@gregkh> <ak0pzDc69nAmnviD@yury>
- <2026070839-quadrant-gentleman-2334@gregkh> <ak61Embrj0qH1vas@yury>
-Message-ID: <ak68PmjY97BHOZOd@google.com>
-Subject: Re: [PATCH 3/4] rust: id_pool: add contiguous area allocation
-From: Alice Ryhl <aliceryhl@google.com>
-To: Yury Norov <ynorov@nvidia.com>, burak.emir@gmail.com
-Cc: Greg KH <gregkh@linuxfoundation.org>, Eliot Courtney <ecourtney@nvidia.com>, 
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, 
-	dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8412.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b66a8e22-b4ad-45c8-ae18-08dedd3ff918
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2026 22:26:36.4811
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kTbnqiVJcMnVMu3RfscRkiODjh5tvSH84jCefeHXLZrSPIT3mUUP4errCEJkkd1g/Xog6q/dFkhQ0c1wpL+kqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5836
 
-On Wed, Jul 08, 2026 at 04:37:38PM -0400, Yury Norov wrote:
-> On Wed, Jul 08, 2026 at 07:33:16AM +0200, Greg KH wrote:
-> 
-> ...
-> 
-> > > I asked exactly the same question when Alice and Burak added wrappers
-> > > for bitmaps to implement their ID pool. This is the answer:
-> > > 
-> > >   An alternative route of vendoring an existing Rust bitmap package was
-> > >   considered but suboptimal overall. Reusing the C implementation is
-> > >   preferable for a basic data structure like bitmaps. It enables Rust
-> > >   code to be a lot more similar and predictable with respect to C code
-> > >   that uses the same data structures and enables the use of code that
-> > >   has been tried-and-tested in the kernel, with the same performance
-> > >   characteristics whenever possible.
-> > > 
-> > > And now it's in a commit message: 11eca92a2caeb
-> > > 
-> > > They measured the affect of their wrapper on performance, and it appears
-> > > to be ~5%. See lib/find_bit_benchmark_rust.rs.
-> > 
-> > You are comparing the C vs. Rust data structures here, which is not what
-> > I am proposing.
-> > 
-> > Also, is this code being used on a "hot path" like the binder stuff is?
-> > 
-> > > I didn't see any side-to-side comparison between any native Rust API vs
-> > > imported C bitmaps. I'm sure, I asked for that, and I still believe
-> > > it's the important piece of data to avoid this back-and-forth type of
-> > > discussions. So, Alice, Burak or anybody...
-> > 
-> > Again, I'm not talking about Rust API vs. imported C bitmaps, I'm asking
-> > to use the C structures like maple-tree and idr instead of open-coding
-> > logic around the bitmap code.
-> 
-> I understand your point. I asked both questions: are they sure that bitmap
-> is the most optimal data structure for the ID pool, and if so, why not use
-> the built-in Rust bitmaps? The answer was: yes, it's the most optimal, and
-> using built-in bitmaps is suboptimal overall.
-
-The Rust standard library doesn't really have a bitmap abstraction to
-begin with, so if we want to use bitmap then it's either handrolled
-bit-manipulation or the C bitmap api.
-
-cc'ing Burak's new email
-
-> > > > > > Why isn't the built-in idr library being used here instead of rolling
-> > > > > > your own data structure?
-> > > 
-> > > Now having more context, the ID pool's primary goal is to allocate
-> > > individual IDs, which naturally lays on find_bit() API in C. The
-> > > native Rust alternative is considered and found 'suboptimal overall'.
-> > 
-> > Allocating IDs is a probe() thing, which can be as slow as it wants,
-> > right?  Or is this some other hot-path where performance matters?  The
-> > patch was not very specific as to the tradeoffs needed.
-> 
-> I am a bitmaps maintainer, and I want them in Rust to perform equally well.
-> The ID pool case was just the first user. Even if bitmap performance is
-> not a critical path for ID pool, my role is to make sure that bitmap in
-> Rust is implemented well, including the performance part.
-> 
-> Said that, I recall that bitmaps performance was important for the ID
-> pool, and Alice and Burak spent some time optimizing the ID allocation
-> path. Particularly, added a logic to avoid allocation of small bitmaps.
-
-Yeah the Binder use-case is not the same as probe(). It's a per-fd data
-structure used to give names to kernel objects that userspace is
-manipulating, and the mapping is per-process.
-
-Alice
+T24gTW9uLCAyMDI2LTA3LTA2IGF0IDE1OjMxICswOTAwLCBBbGV4YW5kcmUgQ291cmJvdCB3cm90
+ZToNCj4gPiArwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8hKA0KPiA+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGRldiwNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAibG9hZGVkIGdlbmVyaWMg
+Ym9vdGxvYWRlciBmaXJtd2FyZSB2e31cbiIsDQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+dGx2LmdldF9zdHJpbmcoYiJWRVJTIik/DQo+ID4gK8KgwqDCoMKgwqDCoMKgICk7DQo+IA0KPiBz
+L2Rldl9pbmZvL2Rldl9kYmcuDQo+IA0KPiBBbHNvLCBzaW5jZSBgZGV2X2RiZ2AgY2FuIGJlIGNv
+bXBpbGVkIG91dCwgdGhlIGNoZWNrIHBlcmZvcm1lZCBvbiB0aGUNCj4gYFZFUlNgIHRhZyBleGlz
+dGluZyBpcyBub3QgZ3VhcmFudGVlZCB0byBiZSBwZXJmb3JtZWQuIFdlIHNob3VsZA0KPiBwcm9i
+YWJseSBleHRyYWN0IGl0IG91dCBvZiB0aGUgYGRldl9kYmdgIHN0YXRlbWVudC4gVGhpcyBpcyB0
+cnVlIGFjcm9zcw0KPiB0aGUgc2VyaWVzOyB3aGljaCBtYWtlcyBtZSB0aGluayBpdCBtaWdodCBh
+bHNvIGJlbmVmaXQgZnJvbSBhIGhlbHBlciB0bw0KPiBmYWN0b3Igb3V0IHRoZSByZXF1ZXN0X3Qu
+di9UbHY6Om5ldy9kZXZfZGJnIGNvbW1vbiBzZXF1ZW5jZS4NCg0KV2UgZG9uJ3QgY2FyZSBhYm91
+dCB0aGUgVkVSUyB0YWcgaWYgd2UncmUgbm90IGdvaW5nIHRvIHByaW50IGl0IG91dCwgc28gd2Ug
+cHJvYmFibHkgc2hvdWxkIG5vdA0KZXh0cmFjdCBpdCBvdGhlcndpc2UuDQoNCkkga25vdyBpdCdz
+IGEgY29tbW9uIHBhdHRlcm4sIGJ1dCBJIGNvdWxkbid0IGZpbmQgYSB3YXkgdG8gY2xlYW5seSBj
+b21iaW5lIHJlcXVlc3RfdGx2KCkgd2l0aA0KVGx2OjpuZXcoKS4NCg==
