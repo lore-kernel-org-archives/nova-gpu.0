@@ -1,70 +1,72 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012059.outbound.protection.outlook.com [40.93.195.59])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012020.outbound.protection.outlook.com [52.101.53.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8703A544A
-	for <nova-gpu@lists.linux.dev>; Thu,  9 Jul 2026 05:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF64D3C197C
+	for <nova-gpu@lists.linux.dev>; Thu,  9 Jul 2026 06:27:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.20
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783574739; cv=fail; b=aIQM7jjsIzxS7ULfU3Vwkr3JwYSISQAW99YZtJQghuvWnGrv17ekSSOQfmTBFI9Ax/2aSnytxhPzZSzRub6tDIo1w97USFN7mGvFOM4Od69HKCVFfnfNqGIxQIuajECx+IovZRIohmwgQoxRDuvg6elTvrpZXMfavzkQbUbrQ08=
+	t=1783578447; cv=fail; b=gXa1iP6lDlukObNi1tX83Cz6d61JoI1V3a5aNTL63YNTx8HU0tA5vffhvGC+zHlUEzm3vNHziuocpTTtijx96AF7VMieQulepNuaLfp2aQn9Tu0WXCILwFZjBVjZYspTs5kN+guFA0/MS/DAHNfmqGK60CdblHj5ItpciaqN360=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783574739; c=relaxed/simple;
-	bh=JwVBydvww2YayhltwaVSIHvCPx11ZLxJS75eM2VOlrc=;
+	s=arc-20240116; t=1783578447; c=relaxed/simple;
+	bh=l0M8kSw6/Dy4uF60XRFUVSDCfw4z/k7/of4Z67TxUNM=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=B+m9uBecr7b9YZ3XrqaTPlciiVaZalTlBPdGthkMBhL1Oa9iVO54zKw8TqE6YyKWoL+cnyWZkrkYdJ2tWuEVDcnVHmMkM081O+JLcnw7f6OlDTQ9SHumzaKDlHVEtpKWjHXOwqWQoiEjmpS5paojkrXUT5Nxup3BwbktrcWlzQk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F/7aeprz; arc=fail smtp.client-ip=40.93.195.59
+	 In-Reply-To:MIME-Version; b=BmCa2DF2eSCQwRUMwPTo6Q55RgWyQCZ1oqqROTRATnlpZgev4Bo5hCZD7vw5NCHROL7BBpxasz6qkrc3LM/GT2Jxr1rgYf1OurTZHqSjtZCxrVIIIWeBARdDd3uIpDWQzewns10AvQXpFxi8oJ3vrDJSCdbZqWiLPprG1l17xrE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iMs1dZB2; arc=fail smtp.client-ip=52.101.53.20
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F/7aeprz"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iMs1dZB2"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zn6p4csGDmTmoMsk8dZF4w6sxsgJ5NFNYsWEThbultymzuXbi2w2yrxKNLEfFKwcElRjU7S9/wfGnHnp3p+vH+MwOIabY33aIqOqMm0SpIX6JVTLOvuXE9rRbE2wGXkovzPhGpcY6lqJ0/RX7trLXdeVrWBSEUOmutBKOXue7XuxApxaD9gxuOHd5Ti+rJCoIxvsqSqFRFBLY8dAejtV51orKKbBqgprZs+kjKWYxItpkDdXTO0xhaiCCl0CHFLuqcrvdBabfXafGEGDpJI9ibS0jMhA3CQxyUkem6A1BAjsWmFq5UnmpO8kJbY9s/FtHzVgwjLp/Nv6rcX1I7btbg==
+ b=ZIisxYiqHHVd/omAvfXbYaRagkJFDa7Zbmrx13FT7DN1daYX6+fFYpYgwlXKOw4oYsuqNWXM0poMe+MaDmEdanQC1lm6m5bOIHGsjApi9G2D3M+x5o8loKXqP5TosGvvBbn11DUhH7ccG4AU3UAVNkaZDO9ujk2jRsUTLoPPPLTX+x/lzcEiZNtwV6aF3V2ZfD2uakNNWFtOurHCdDS2QGentoFVTbREVHQW65q98d1g3i1rccjfEYRdYRW1cX9aO2qtitm07YPYdlM79v9O+/nUR1+KVO81U31/Bxtx3x+pjlSrrd7XsQV9V1mttDpyWKE4CYB5hI8cCv4STgfouQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7cCj86GGujBPAEXEA5Oar7vjrvDm0WYUBUk+9V6P6aw=;
- b=iOrtWIGk9Q2qjfyNdQI+ZA9xjONXFYBU4ZIG4SM8wgypsIL8WJJoF3+heuXATJ5v1sueYBKJDNci7PR3yJGLpOWJipEjqjluPkBVhMh9+PAMe09K6qtpQUc84P+qN5xqgw2NWZZUco16W4zS5J8Fzt4kflCpaeT7jCAZk+f5wFjmpmFkvCY7oK7jjebbMCvklr4Cci91mwg8Pj9VkkLmeE0yPrugp8oNi1WeA4afP6zR0VCL/G4J2NopcBaX4LkmOh6iFf+t6oUH1bucBuS6O4yKbutEg/8hFrknt+6Vunb+9EiY5hlWWqsPvRtsbDAxBDemF1B+kc1ehCeQoNC0pw==
+ bh=DZ5/Z6QjkQhzF/SXGyeSVLxt/l5TzmLalkK0aEknHk8=;
+ b=O/cWlytPh+NXs4Hwwm50zyHdVssHG8jtnIith6e7Qp7R4KDcWC0nzne/vKII99lvI10WLO7EScyoZGDRx0m7jglTmWxI290JWcKBV0GeQ2LCSXMJzqZWKR3G516WweHIf+ZGtcSfelj5UhLaifAjOHK8uznFxSFfCs/53/DyoDI7coI3H2F5MiPj+8hinHhW6e2dNPhG6tYDF1G6s1xAQdZ6nqjQ4H/m7rCPonsjl5vWXc92XbQZoyw6AR6M3TPqUEKjeXfOSY+HttgOnvAyQntOtSgTJwsYWI3sRPsmlvieI7t8I2ybtrtgGvccLFAx53pMEmPKQimt1NHeen4stA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7cCj86GGujBPAEXEA5Oar7vjrvDm0WYUBUk+9V6P6aw=;
- b=F/7aeprzmTjMOlxnRKg/RjE03uUTiILQ5gl8R5Ko/8CyXyiQOasUex1X5LYFUolEXBSc1N9z6IY+3kmh7Y20xH+ClePZQOqIN1gVrDR6eiKyZhObLDlQuCNywYQlxtk/dz6MiLDruMfYwCcIX9+TthzMZMSnd7PQjGFKiQb/Q6wDvLwaCj7TshR6tSYxSBdn736Aj+s1AArpZovrSOTsC69Y2HxgcrMsAQMTe/CAg6QMgGSz7dSwwIpl3mdujBi6kJLShZOQyjdfBIxCDOfSDig1JGU4Xe+93lzRrEh0UidebomTgqOWfqVgvYr0yFMKSXcyEO5iHOkizPojhB1cxQ==
+ bh=DZ5/Z6QjkQhzF/SXGyeSVLxt/l5TzmLalkK0aEknHk8=;
+ b=iMs1dZB2vvlAlDEJZQy+76qI7kLM67vbceNgjVZZ7WY2TekAztP2PIBZXlZQVQ35WyojLsX1gvR/eY4RXeCHzK+r+LukCkEwe77KutVK36bdpJ+H83xB6OHm6Jf8wtMWlg9uyfW2/7/wTy5hmLEuVINK33936wylXKpwGImTudaA5fUdbcDBIBFJCYnZlLbxm0jFnhWUpR+TkHdNKymAhtpAo1fBFql02hgks4bCk53sGjzL9VulPYfOQ6JzfRHFUxAvc3lOCzIMkXqqzBrEzvQ8jbUI72AVqi+oHnBKd65OloMr81PtZfq4FZj5oYH3iWx4ygclCIoRqqbneUpHtA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MN2PR12MB3997.namprd12.prod.outlook.com (2603:10b6:208:161::11)
- by CH3PR12MB8879.namprd12.prod.outlook.com (2603:10b6:610:171::14) with
+ by DS0PR12MB8441.namprd12.prod.outlook.com (2603:10b6:8:123::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 9 Jul 2026
- 05:25:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 06:27:14 +0000
 Received: from MN2PR12MB3997.namprd12.prod.outlook.com
  ([fe80::73c6:e479:9b75:b2cf]) by MN2PR12MB3997.namprd12.prod.outlook.com
  ([fe80::73c6:e479:9b75:b2cf%6]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 05:25:30 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 09 Jul 2026 14:25:25 +0900
-Message-Id: <DJTSH1KINGX5.2LY0DQTNX8DEU@nvidia.com>
-Cc: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <joelagnelf@nvidia.com>,
- <apopple@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <zhiwang@kernel.org>
-Subject: Re: [PATCH v3 5/8] gpu: nova-core: add vGPU preludes
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
+ 06:27:14 +0000
 Content-Transfer-Encoding: quoted-printable
-References: <20260701062622.3499033-1-zhiw@nvidia.com>
- <20260701062622.3499033-6-zhiw@nvidia.com>
-In-Reply-To: <20260701062622.3499033-6-zhiw@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0076.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b3::13) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 09 Jul 2026 15:27:10 +0900
+Message-Id: <DJTTSBBHIIOF.3EQLS5MCBROFE@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v5 03/13] gpu: nova-core: gsp: replace BootUnloadGuard
+ with local handlers
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
+ <20260707-nova-bootcontext-v5-3-ecad9346387f@nvidia.com>
+ <DJS6M2YBO8RS.33T3S32EFHL1Z@nvidia.com>
+ <DJSCTKZ97STM.2D8YP8LIVELH2@nvidia.com>
+ <DJSDMDHQVBAR.SSK7451SWXO5@nvidia.com>
+In-Reply-To: <DJSDMDHQVBAR.SSK7451SWXO5@nvidia.com>
+X-ClientProxiedBy: TY4PR01CA0028.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bf::17) To MN2PR12MB3997.namprd12.prod.outlook.com
+ (2603:10b6:208:161::11)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -72,289 +74,404 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3997:EE_|CH3PR12MB8879:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b7f430d-ea06-4646-d061-08dedd7a7d33
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3997:EE_|DS0PR12MB8441:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba56a7a1-f45b-43ce-4a9b-08dedd831d48
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|10070799003|366016|22082099003|18002099003|3023799007|11063799006|4143699003|56012099006|6133799003;
+	BCL:0;ARA:13230040|366016|23010399003|10070799003|376014|7416014|1800799024|18002099003|22082099003|56012099006|11063799006|4143699003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	zhLj2iQJf47aiIWn0JAnc09DK3z6KBIWii+3wYajlc0DZvuO97Ixf27M6ixMWoLkHqcQEx6tRW1WWs8PELl/E4p135MGaNntId0dp2RmcdUV2hGbqVOis26g1F9AZxVMO2NbelsghZAitRJD8X3ZkRHnIaKRBi61PRROYhEGAKoOXo9VvWCxNodx4l9+4wPfjQYX22MC32+uwIj9Zdu+DiuetnT1PRdfVeinc7mfz5vjZRVRkA6NG/2+wcvMy7yj6l0EZRZnw02nT6czHr74wKyr8nU94rRjqsfwlTu7ANa19PpPvgtwA+aq7ONBZrVlavAcrLGubGHhtAjXTGk8z5+ynONwOUd7yF+YE6i/oo/hmx6AET3+q94rPKh8ACMwJptMkgwJ+KhtoM0SiznGTm+Ga0Z5LFJXbzXX2j3dvoGh5OmqA2Ml4PuOKbWi4i6He+t20ORbe/zf6bTH5HRrh+MPjF+yDEjf5TDke/fo+Tzk9eYQ+Ln96sFOOaF+WYU3lqSQZaRAGkgdmgY4WXA0VNBYxFt/N6BAnIM0M4DROf2IPOr3VtmbeDevaNfFoJrEAHqaJB0ovXqhFuDr7N0VRmv72U/Hl5c9bjRoD5KvusqVqL609emfTOsP6W+LPO3nALnD3StdHlgrKOFOjQOtX1iA4VL7EJsIRZ7m0vVKTIM=
+	2E5sUlQLOYoIHHYKtvWph7E7mN7X8SDIdZHWddT5HjwBvgl0waqCOABf14W+Mjch9of6NktJYz73HYqL49mon9Xi0ssketJXqR6USsnPG+YHDUeRrX0a7JoIn5YlJ1ROJYRl0DIiZsSF0ZnOjG8ZNu5WRKEuPjjwNfICz92BBOqQi0ZikSWrjW13+13LcUAlWA/uWGLoMjSPEz4wyTawX1BIEzIG6DPxFA0o1zBVnJe8Nd24SLIIX5r/q37cqzwdCsX+eNW1jCbepAw8Weif/+puWgXZqXDQxz5u8shwbyKE8tQ6rNN7PVMMXV0GqZYhyePW25Np2acCRX0HswKFtqE1UvD0C8/FcMN+rJdEe1fxfspR/M0IQMMzaud++Zylu1l0U2vASs4CWJ0GI+7ShEv4XVVnJ4CinAC0vMNdjZ/Hs/ZJ4d86bzSAN9mLvz6qA0TyQrxw0bmkmnNpl9w1gCs43aBqaVwCWMBwU8COXSdQVLSCZsN2I39I3bu75LHYIa1kmTOrV8f9z0ii6mA/ipSM/0VkB7+vyPqRu7G66lGaVGMP8Nraa16J5SKSFxrvhuvMVs5E6Q8FFPAfctxZ+MQhIVpH6EqFgCVZfOG/MbLibwyJPNmnEtAtQUOL550MFZzyPaMKBULVzlKc9a743izIDek1ol3daw4RL7mQk/s=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3997.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(10070799003)(366016)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3997.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(376014)(7416014)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUlzb2ZodGhKUXJTZGQycHB6MkoyY0p0RUhzdFlTTk5LQmVtN3RxMFhBR0dM?=
- =?utf-8?B?bkxnSXFTbTFXUU8zNm5tYnN2Q2hRMUJIWVhSVjNKOGg1TEFHSi9meDBlMVFp?=
- =?utf-8?B?eXpya1NxdG9Yay9GbkhCd3IyVlFqSW05MmVDVEh3N09QeU1NTlZmcDBzbnpD?=
- =?utf-8?B?SEwrUUh5T3hmRE8vc3NRL0toRDhNR1U4MlluTnBRMlc5VTBCMVd6NmZ2ZnFF?=
- =?utf-8?B?T2ZIUTQ5MWNwNGRoT3VIY2ZFb0UrZHErUWZDRVhESHhuU3c2MFBNUmFnR214?=
- =?utf-8?B?NDZWTUNyeGlKam40M25mdEp4OXpUTERMeGkvWjBzcDFPT05ib0tkUjhZeEU4?=
- =?utf-8?B?TmwzUmdGZzRBZEZrWVY2MnphcnI4aTVXek1rejZpT0MzRy9EYjRvbHNESlZP?=
- =?utf-8?B?dHZLK0lrUmcxbFgxbzRsc1JBQS96V2p6d0h3K2tPaExxbDRIZ3JIVTVmbm1K?=
- =?utf-8?B?dCtCTnAwUGpNS3lNR1FWMFFuU3BCc2dZbHFKMDJWcEE1a0dDYWVmdG9aZEpY?=
- =?utf-8?B?ZU93T0x0Qm55TG5RdkkvZGZtRHdDbGNEMW81alM3dXg5NGpvMGNZQzRzSHYv?=
- =?utf-8?B?WERIc3BiZ2FFald4Y3lBbmVsWllFNHY4dnpyNWo4bmVObnJyUE9XOCtJejEw?=
- =?utf-8?B?TG40WWFpWk95Q0xhMGt5S3UrU2V3UnNQb0FWQUkzc1kxd2Nvd3RFV2NBWFoz?=
- =?utf-8?B?MlNveEJUa01valZXZFNJai9rUmVYTGZNUDBxRUdsdWVZbzNUaEYrYi9ld1Vj?=
- =?utf-8?B?cTI2UWpYZ3lVcXlFWTd6aG1JQ21BNzZxR2o0cjJXNWlNVlNjbFcwbGQ5aTl1?=
- =?utf-8?B?RUVCVEd4OFNyNXNiTXlNYm10WHpZaEZSdDZ5TGJ6R2pQaU9EL3NUQVUvMHFn?=
- =?utf-8?B?NlppYzdleDdDTE5SbFJmWFo1ZFhkOXFRVWR2L240ZzhqamZMVHFYZFYyN2o2?=
- =?utf-8?B?d2QzM1A4cHgxbm9mMjdJNFI4MHNxQzVPd0pienhJQmw5OG5QMFoybkx5SkRr?=
- =?utf-8?B?UXRmNEZDcEhmNmxKL280R1pNcjc2VGpSbkYyNmQvTDF4Ylg0clc0VGZrNFNR?=
- =?utf-8?B?Ykl5cTNocjZKdm1mOFhHREgxTlMvOGxDdU5IZ2dDdVo3UFVJZ0diMjZUZ3FK?=
- =?utf-8?B?T2hDbHNNTkd4VUJoYTlxS3g4MEdxa3BGNytFNHlOa2NlM0xzMHk0RmFTbE5R?=
- =?utf-8?B?NDB4SmZyZGJaUVpuYVprSlZndXNJUzllRzgzNlZHNW9uK045Ly93VDJPWk9C?=
- =?utf-8?B?Z2x4ZEkrTlVyTEZMNHBFY3g2SzducTdmQTZHak1kbStWV1hGeGlqVFQ0aE9r?=
- =?utf-8?B?ZGMwWDMrelQxYnd5aVRDVzBHT29hblJhalB0cHJzRTg3Z0FLcTQyY0Z2cktV?=
- =?utf-8?B?TTBNczRpbTZXUkRNb2ViNzZOWUVxek9FWmwrbjM1aGVobjdjalRvcjc2bmxi?=
- =?utf-8?B?ZGNaL2pIdC9XMjB0S28rRnhQdWh0eDFKakVtZEpWSTh2QWhsUUF2MytGejNC?=
- =?utf-8?B?a0xBbExOQ2lIWVFiaXBHUDdBN3duRjVZZmdQRWUyVE1oSVBZUUFEQ2tveXhx?=
- =?utf-8?B?WHhyc0o2Mm91WmJnM045eWtkdjZrVDVjSXhwS0tkR0tpUGdsb0VhSUgzbFpw?=
- =?utf-8?B?dWlQZkV4dnBxMTRWclp0b2pVVTBjbDRjL0lmMEpzRCtFd2ZGQkFyKzU0ZW80?=
- =?utf-8?B?TWVjQlgvYWQ4dWxja0drT0JxYUZHdkJoUTBFT3cwRVNPblNoUmFXc2szYzF6?=
- =?utf-8?B?R1dSSUR5TFVOUFF1UlQ3SmduQnVPWFFhZTk2Y0x6MUcwdXZXT0cya2xMcUFD?=
- =?utf-8?B?cmphU3dMek03dUROYnVmREI2M2tlUTFsMFhQQTdmb0JGNGhHYWNKbU1xZjBk?=
- =?utf-8?B?SlpNelk1OHdFMW1VMXZ1TXhVK0ZuK0tXYkhMU1I1YTk3L0NNZzQ2NlpCLzRi?=
- =?utf-8?B?Q2pXTXptbTd2a2llajB5TFJqMTcwOHR5QWdsRGVUTjgxblFtbCtZV0hHN091?=
- =?utf-8?B?Nno5UFFXOWxrMU13eXh1SzdadWNhSmVTYnJ6ZCtrUEt2TWRzdDN2T0p2UVdp?=
- =?utf-8?B?VUxIRG5hYm5neU1pUGtMQkZTbHNWYk1iTmpORDFuaVVnb3JZcEw3V0o1SEx2?=
- =?utf-8?B?S0pXaWMxQVVPazRrQnpQZmljbjJDTlFFRlR4cUNtNTcwV01iMUEwalpVVWox?=
- =?utf-8?B?djN4bEhpR09mc3ErZVlvNnNLZSthVkFIektwNXJ0djhMOERvMCt1SEFZL2k0?=
- =?utf-8?B?RE43NStDNU52VkQxaEVLd3c4bm1MWU4vK29ISW5paExPSGtBWnc5RDE4WmhT?=
- =?utf-8?B?RDFHNVU2UTJuMjNyL0tSY1pTdGVieFRydmJGUkY1djI1VmxMdjBYUHJsM3pY?=
- =?utf-8?Q?m7pHB+DnRX/6XY8qYk3OC1hcOZ7y57i7Oj+9KiI+zlzOB?=
-X-MS-Exchange-AntiSpam-MessageData-1: vE2q2SzXJUh9hQ==
+	=?utf-8?B?R3h4Snl2V1JJK3lUUnhBQWlIOWtacHRwbzJSTHp1MTRFd2tQSXhrSDRrZ2hs?=
+ =?utf-8?B?ZHlZaTBXZit6M2ViVFFGanM3VFhhVDVDZmk1Y0llalZUdXloTUg2eDlHTHdV?=
+ =?utf-8?B?WUZlS1J6cDl5eTBpcEdkN0Y3VG9oQ2JjWUszWVJnTWtDUGxJOU1vd29vU1B3?=
+ =?utf-8?B?Rzg0NEV3K2oxRjFqd3ZybldZUFh0d0pRNkh4ZjJKaWJTUkNoc0VNT0h0Yy9Z?=
+ =?utf-8?B?Y1RJeVljZ2k5MWFHVENUREtFSHNidU5mcG5nbE9PR0F3SDhYMWduaUJXbC92?=
+ =?utf-8?B?UCtIcFRvZUVOOFdyTjBoR3RzUjhXdUVza0cxSVF6c3hkeFlweDIydS9zUGhN?=
+ =?utf-8?B?YkhmOW43RzdtTFFpL2Mzc0lUeHV4NCtnMDZHSkRCSE05cUxwMnZ2M0xTNGVF?=
+ =?utf-8?B?ZmFFb1Z3d0hqQXdOOCtHUU9aZjdJbjlRSkROZm9ERjVmbElnTHR6WHg2cXRK?=
+ =?utf-8?B?K1RYT3A5MUFzVzVSMzhHaUxTYXFLM1JGRmRMSjlTZHh2ZFBiRS91ZzZKaGVj?=
+ =?utf-8?B?cjBNWXA4bEQ4MXMzV2FyR3BPMjArVVNHK3Q3elBrYVNNT1YrdmpkUnQ5OWlm?=
+ =?utf-8?B?c3huRWMrdmFPRzYrR0RBNi9aUFhnN0tVQldGRFB6ZXN1V2Vjc0VMMzdFdUNp?=
+ =?utf-8?B?czc4WVp3Vk9hTDEyRjRlUzdXVE1mT3NFbkF5QlkzYSsvQnUzc1phNCszd29n?=
+ =?utf-8?B?djFsUWNORjJPU3hpdllGSEhIbGNkaURoaUZWdEdZeXordFlOQ0Zjc3lXWG1l?=
+ =?utf-8?B?SGNPMHNYVFFLWVJVUG1XYXUwT3RvNnp0Nk41bUZXdjJOVGdlSGppTE96MU4w?=
+ =?utf-8?B?K2VmNFJEWTlNczhuazBUM2ZhalFjbnp4cVJhTG9lcWcrV2tGSytDc1VHRTZn?=
+ =?utf-8?B?bkVJN1FlWklET1V0cllCQXhHUmhJOE42NThSYTJrcER2dFY5TlFLa0ZIdDlH?=
+ =?utf-8?B?M0Q5OG1RR0RYaGlQSDdIdHp2ZzAveVpHQ2gvRVlQWEt2V3FuMEZTbCtiVEQ4?=
+ =?utf-8?B?QjFVWjRyNWphNTFnbXNhWGVDczJDd0RBYmJPM2RBNHJ3aHRYa1NvL1Nkc2hZ?=
+ =?utf-8?B?OExUbnpyWmFRRTFYOWpYaTA1ek4vUWNaVkk2VkdCTllVUm1EUXJ2bitFb1dw?=
+ =?utf-8?B?MU83eE4ycU5iQlF0QitjeTlIZldpdXExb3hTdXp1a0dqTDQwZ2QyeU9tWnhp?=
+ =?utf-8?B?T2hrMFFmd2FEdmpMSzM5Y3FvV2UxWU00cHp5QzR3dW85VHZkbDdTRnlab3l0?=
+ =?utf-8?B?VmRKTnlTOUxrVS91QW81d2EyTjNSNEs2ZGVLNTZ2V0F6ZWUxbmhTd1hRVktV?=
+ =?utf-8?B?YXhwdFZKU3NCYjBpZ0JLOU52VFBYSGxtOHo4WmpBMGExMUlRSUYwYXBXV0pp?=
+ =?utf-8?B?OWZsQ0ZsaXNCN2FLc1VGWGpFdUJNV0lTcXZ6YTQySEtXaE9jaWVlMGxoWkFS?=
+ =?utf-8?B?b1hOTHkyaFJUUG1ZOUJWclpwcm1lVjEvc1owT1pTRDlLaXFseDkxY28zSzZD?=
+ =?utf-8?B?a2xDZ2xrTVRBK1lhMDA3MjRKL21TQzdtSjlQT0xhSTBJWXlFbHdSQWxreVBu?=
+ =?utf-8?B?OENXeGdBbFk1aHdUMSs5REt0Q0MvcnUvazllQXloTXZOWGhzd0hiaC9mc01r?=
+ =?utf-8?B?OEVwODVMSDBFbGVKaHBPN1FXVHBTd1l2Yll4eDU0VWZTeUJRWEhnSWVleWZl?=
+ =?utf-8?B?MVVJa0Noenp6QVlwZmI1TjIxTFRSR3JWd3lSZzFmc3Y2dDYxdDd3KytyUmlp?=
+ =?utf-8?B?dW1XL3B5OXNqU2dpRWRqOGdHVGhIUGd2dUR4ZWsvT3l6UVJSSnBVMDkyZzlv?=
+ =?utf-8?B?ZlBINjNnMUZrYnhoUFBzeHVwMG1YUHVNN1VzTTRUVmJFUUNDMDZZYi8xS0oy?=
+ =?utf-8?B?a3B3SjlaeG45Q1d2TU4rNnFvL2NYRW0xSHJIeFBPTm4yQVBGMHlQbzFJM1FH?=
+ =?utf-8?B?VFFWdDFseDlRVjk0ajZiczZUK0ZHTWI1ODJrVFpwL2ozWmtXcnJhVnhuYlF5?=
+ =?utf-8?B?bVI0UCtxQVN3cFNRWk5CS2ZhSTRIZW9MRzJ3UXJrcXhwKzZVUkhmNHdPT2hD?=
+ =?utf-8?B?SWtNc3VtaWZLVHMxMjk4aUJVTnR0TG9aclVlVGoxYjVGQjFuVHNrN09xbStS?=
+ =?utf-8?B?SWM2cXl4S3c3bkFCR2lIZzhXUUU1SVZhTWNoVlNBdDBCOFBRWUg0NWZUMnpa?=
+ =?utf-8?B?eWpPTUFhVmNmZEY0TnZhcXhYdHd0cVlJKzF4WS9CbXpWM01DYkNpS0h6Sjhh?=
+ =?utf-8?B?YU1rOGZMTkkyWXZoR1U5aDIrSEd3YmVidVp6OHM0bUtNak8ybTRhNXpONEdN?=
+ =?utf-8?B?eEw0VGhkNExlMloxWXdTdWFMS2J3UnhMYjdaZG1ZSC8xUlAxZXBFQ2ptT1Bu?=
+ =?utf-8?Q?MvnUOJYvBjXK+CBHM5yvizA4zr8QYpGophQVu7By0y42K?=
+X-MS-Exchange-AntiSpam-MessageData-1: Zo5TnLy+iG0HqA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b7f430d-ea06-4646-d061-08dedd7a7d33
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba56a7a1-f45b-43ce-4a9b-08dedd831d48
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3997.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 05:25:30.0812
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 06:27:14.5008
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y2Yv7AjZEv5bWM1KOOPQgx7slNtgdKpN8P9Tko7uLFL+SdkE5C9cj4+VnLH4R5Bg8hkLAF+qderUU22APwJInw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8879
+X-MS-Exchange-CrossTenant-UserPrincipalName: b99ZfPWTXHro3+xF0PQ398eVvtpz5kY7n/rTiD8R2daFKxOaObVceu+1KtUpB3ZJ1F4c/n+XVWb2hvSS7RZkOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8441
 
-On Wed Jul 1, 2026 at 3:26 PM JST, Zhi Wang wrote:
-<...>
-> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
-p/boot.rs
-> index c347558aa8e5..5abab54639a4 100644
-> --- a/drivers/gpu/nova-core/gsp/boot.rs
-> +++ b/drivers/gpu/nova-core/gsp/boot.rs
-> @@ -26,6 +26,7 @@
->          commands,
->          GspFwWprMeta, //
->      },
-> +    vgpu::VgpuState, //
->  };
-> =20
->  impl super::Gsp {
-> @@ -48,6 +49,18 @@ pub(crate) fn boot(
->          let dev =3D pdev.as_ref();
->          let hal =3D super::hal::gsp_hal(chipset);
-> =20
-> +        let (vgpu_enabled, total_vfs) =3D match ctx.vgpu.state() {
-> +            VgpuState::Disabled =3D> (false, 0),
-> +            VgpuState::Enabled { total_vfs } =3D> (true, total_vfs),
-> +        };
-> +
-> +        dev_dbg!(
-> +            dev,
-> +            "vGPU enabled: {}, total VFs: {}\n",
-> +            vgpu_enabled,
-> +            total_vfs
-> +        );
-
-This whole hunk is dedicated to collecting debugging information that we
-most likely won't ever display. Can you instead derive `Debug` on
-`VgpuState` and use something like:
-
-  dev_dbg!(dev, "vGPU state: {:?}\n", ctx.vgpu.state());
-
-That statement would also be better located in `VgpuManager::new` imho,
-right before returning the constructed value.
-
-> +
->          let gsp_fw =3D KBox::pin_init(GspFirmware::new(dev, chipset, FIR=
-MWARE_VERSION), GFP_KERNEL)?;
-> =20
->          let fb_layout =3D FbLayout::new(chipset, bar, &gsp_fw)?;
-> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/n=
-ova_core.rs
-> index 735b8e17c6b6..2df2f773ec8e 100644
-> --- a/drivers/gpu/nova-core/nova_core.rs
-> +++ b/drivers/gpu/nova-core/nova_core.rs
-> @@ -26,6 +26,7 @@
->  mod regs;
->  mod sbuffer;
->  mod vbios;
-> +mod vgpu;
-> =20
->  pub(crate) const MODULE_NAME: &core::ffi::CStr =3D <LocalModule as kerne=
-l::ModuleMetadata>::NAME;
-> =20
-> diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.r=
+On Tue Jul 7, 2026 at 10:34 PM JST, Eliot Courtney wrote:
+> On Tue Jul 7, 2026 at 9:56 PM JST, Alexandre Courbot wrote:
+>> On Tue Jul 7, 2026 at 5:04 PM JST, Eliot Courtney wrote:
+>>> On Tue Jul 7, 2026 at 4:21 PM JST, Alexandre Courbot wrote:
+>>>> When adding the GSP unload capability, we introduced `BootUnloadGuard`
+>>>> to automatically call `Gsp::unload` whenever an error occurred during
+>>>> the boot process, in order to try to reset the GSP to a valid state.
+>>>>
+>>>> This approach is not well-suited to the errors that may occur in HALs:
+>>>> by definition, an error occurring in the HAL means that the GSP is not
+>>>> booted; yet the first thing that `Gsp::unload` does is queue a shutdow=
+n
+>>>> message to the GSP, which will inevitably result in a timeout when don=
+e
+>>>> from a HAL.
+>>>>
+>>>> Furthermore, `BootUnloadGuard` is problematic because it holds
+>>>> additional references to the boot context, notably the `Falcon`s. Thes=
+e
+>>>> extra references stand in the way of making some of the `Falcon`'s
+>>>> methods mutable, since those methods would require exclusive access. A=
 s
-> new file mode 100644
-> index 000000000000..d2f311a8b2d5
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/vgpu.rs
-> @@ -0,0 +1,79 @@
-> +// SPDX-License-Identifier: GPL-2.0
+>>>> this behavior is only needed in one place, introducing dedicated types
+>>>> for it is distracting and unnecessary.
+>>>>
+>>>> Thus, remove `BootUnloadGuard` and adopt a two-level error handling
+>>>> strategy:
+>>>>
+>>>> - HALs are free to handle their errors as they see fit (most likely, b=
+y
+>>>>   running their unload bundle if it is ready by the time of the error)=
+,
+>>>> - `Gsp::boot` uses a `ScopeGuard` that runs `Gsp::unload`, since the
+>>>>   GSP should be up and running by the time `GspHal::boot` has returned=
+.
+>>>>
+>>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>>>> ---
+>>>>  drivers/gpu/nova-core/gsp/boot.rs      | 67 +++----------------------=
+---------
+>>>>  drivers/gpu/nova-core/gsp/hal.rs       | 13 +++----
+>>>>  drivers/gpu/nova-core/gsp/hal/gh100.rs | 31 ++++++++++------
+>>>>  drivers/gpu/nova-core/gsp/hal/tu102.rs | 23 +++++++-----
+>>>>  4 files changed, 44 insertions(+), 90 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core=
+/gsp/boot.rs
+>>>> index ab0491b57944..536f2e341c01 100644
+>>>> --- a/drivers/gpu/nova-core/gsp/boot.rs
+>>>> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+>>>> @@ -30,66 +30,6 @@
+>>>>      },
+>>>>  };
+>>>> =20
+>>>> -/// Arguments required to call [`Gsp::unload`](super::Gsp::unload).
+>>>> -///
+>>>> -/// Stored as their own type to avoid repeating a long and tedious li=
+st in [`BootUnloadGuard`].
+>>>> -pub(super) struct BootUnloadArgs<'a> {
+>>>> -    gsp: &'a super::Gsp,
+>>>> -    dev: &'a device::Device<device::Bound>,
+>>>> -    bar: Bar0<'a>,
+>>>> -    gsp_falcon: &'a Falcon<'a, Gsp>,
+>>>> -    sec2_falcon: &'a Falcon<'a, Sec2>,
+>>>> -    unload_bundle: Option<super::UnloadBundle>,
+>>>> -}
+>>>> -
+>>>> -/// Guard that calls [`Gsp::unload`](super::Gsp::unload) with a
+>>>> -/// [`UnloadBundle`](super::UnloadBundle) when dropped.
+>>>> -///
+>>>> -/// Used to ensure the `UnloadBundle` is run during failure paths.
+>>>> -pub(super) struct BootUnloadGuard<'a> {
+>>>> -    guard: ScopeGuard<BootUnloadArgs<'a>, fn(BootUnloadArgs<'a>)>,
+>>>> -}
+>>>> -
+>>>> -impl<'a> BootUnloadGuard<'a> {
+>>>> -    /// Wraps `unload_bundle` into a guard that executes it when drop=
+ped.
+>>>> -    pub(super) fn new(
+>>>> -        gsp: &'a super::Gsp,
+>>>> -        dev: &'a device::Device<device::Bound>,
+>>>> -        bar: Bar0<'a>,
+>>>> -        gsp_falcon: &'a Falcon<'a, Gsp>,
+>>>> -        sec2_falcon: &'a Falcon<'a, Sec2>,
+>>>> -        unload_bundle: Option<super::UnloadBundle>,
+>>>> -    ) -> Self {
+>>>> -        Self {
+>>>> -            guard: ScopeGuard::new_with_data(
+>>>> -                BootUnloadArgs {
+>>>> -                    gsp,
+>>>> -                    dev,
+>>>> -                    bar,
+>>>> -                    gsp_falcon,
+>>>> -                    sec2_falcon,
+>>>> -                    unload_bundle,
+>>>> -                },
+>>>> -                |args| {
+>>>> -                    let _ =3D super::Gsp::unload(
+>>>> -                        args.gsp,
+>>>> -                        args.dev,
+>>>> -                        args.bar,
+>>>> -                        args.gsp_falcon,
+>>>> -                        args.sec2_falcon,
+>>>> -                        args.unload_bundle,
+>>>> -                    );
+>>>> -                },
+>>>> -            ),
+>>>> -        }
+>>>> -    }
+>>>> -
+>>>> -    /// Disarms the guard and returns the [`UnloadBundle`](super::Unl=
+oadBundle) it contains.
+>>>> -    pub(super) fn dismiss(self) -> Option<super::UnloadBundle> {
+>>>> -        self.guard.dismiss().unload_bundle
+>>>> -    }
+>>>> -}
+>>>> -
+>>>>  impl super::Gsp {
+>>>>      /// Attempt to boot the GSP.
+>>>>      ///
+>>>> @@ -107,6 +47,7 @@ pub(crate) fn boot(
+>>>>          let bar =3D ctx.bar;
+>>>>          let chipset =3D ctx.chipset;
+>>>>          let gsp_falcon =3D ctx.gsp_falcon;
+>>>> +        let sec2_falcon =3D ctx.sec2_falcon;
+>>>>          let dev =3D pdev.as_ref();
+>>>>          let hal =3D super::hal::gsp_hal(chipset);
+>>>> =20
+>>>> @@ -118,7 +59,11 @@ pub(crate) fn boot(
+>>>>          let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta=
+::new(&gsp_fw, &fb_layout))?;
+>>>> =20
+>>>>          // Perform the chipset-specific boot sequence, and retrieve t=
+he unload bundle.
+>>>> -        let unload_guard =3D hal.boot(&self, &ctx, &fb_layout, &wpr_m=
+eta)?;
+>>>> +        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_=
+meta)?;
+>>>> +
+>>>> +        let unload_guard =3D ScopeGuard::new_with_data(unload_bundle,=
+ |unload_bundle| {
+>>>> +            let _ =3D self.unload(dev, bar, gsp_falcon, sec2_falcon, =
+unload_bundle);
+>>>> +        });
+>>>> =20
+>>>>          gsp_falcon.write_os_version(gsp_fw.bootloader.app_version);
+>>>> =20
+>>>> diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/=
+gsp/hal.rs
+>>>> index d3e47ef206de..851d1f24c137 100644
+>>>> --- a/drivers/gpu/nova-core/gsp/hal.rs
+>>>> +++ b/drivers/gpu/nova-core/gsp/hal.rs
+>>>> @@ -24,7 +24,6 @@
+>>>>          Chipset, //
+>>>>      },
+>>>>      gsp::{
+>>>> -        boot::BootUnloadGuard,
+>>>>          Gsp,
+>>>>          GspBootContext,
+>>>>          GspFwWprMeta, //
+>>>> @@ -51,15 +50,15 @@ fn run(
+>>>>  pub(super) trait GspHal: Send {
+>>>>      /// Performs the GSP boot process, loading and running the requir=
+ed firmwares as needed.
+>>>>      ///
+>>>> -    /// Upon success, returns a guard that runs the GSP unload sequen=
+ce if GSP boot does not
+>>>> -    /// complete.
+>>>> -    fn boot<'a>(
+>>>> +    /// Upon success, returns the [`crate::gsp::UnloadBundle`] to use=
+ with [`Gsp::unload`], if one
+>>>> +    /// could be created.
+>>>> +    fn boot(
+>>>>          &self,
+>>>> -        gsp: &'a Gsp,
+>>>> -        ctx: &GspBootContext<'a>,
+>>>> +        gsp: &Gsp,
+>>>> +        ctx: &GspBootContext<'_>,
+>>>>          fb_layout: &FbLayout,
+>>>>          wpr_meta: &Coherent<GspFwWprMeta>,
+>>>> -    ) -> Result<BootUnloadGuard<'a>>;
+>>>> +    ) -> Result<Option<crate::gsp::UnloadBundle>>;
+>>>> =20
+>>>>      /// Performs HAL-specific post-GSP boot tasks.
+>>>>      ///
+>>>> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova=
+-core/gsp/hal/gh100.rs
+>>>> index 1d06405a32f6..18c889f9f413 100644
+>>>> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+>>>> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+>>>> @@ -23,7 +23,6 @@
+>>>>          Fsp, //
+>>>>      },
+>>>>      gsp::{
+>>>> -        boot::BootUnloadGuard,
+>>>>          hal::{
+>>>>              GspHal,
+>>>>              UnloadBundle, //
+>>>> @@ -143,13 +142,13 @@ impl GspHal for Gh100 {
+>>>>      ///
+>>>>      /// This path uses FSP to establish a chain of trust and boot GSP=
+-FMC. FSP handles
+>>>>      /// the GSP boot internally - no manual GSP reset/boot is needed.
+>>>> -    fn boot<'a>(
+>>>> +    fn boot(
+>>>>          &self,
+>>>> -        gsp: &'a Gsp,
+>>>> -        ctx: &GspBootContext<'a>,
+>>>> +        gsp: &Gsp,
+>>>> +        ctx: &GspBootContext<'_>,
+>>>>          fb_layout: &FbLayout,
+>>>>          wpr_meta: &Coherent<GspFwWprMeta>,
+>>>> -    ) -> Result<BootUnloadGuard<'a>> {
+>>>> +    ) -> Result<Option<crate::gsp::UnloadBundle>> {
+>>>>          let dev =3D ctx.dev();
+>>>>          let bar =3D ctx.bar;
+>>>>          let chipset =3D ctx.chipset;
+>>>> @@ -160,10 +159,6 @@ fn boot<'a>(
+>>>>              KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn Unloa=
+dBundle>
+>>>>          );
+>>>> =20
+>>>> -        // Wrap the unload bundle into a drop guard so it is automati=
+cally run upon failure.
+>>>> -        let unload_guard =3D
+>>>> -            BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falc=
+on, Some(unload_bundle));
+>>>> -
+>>>>          let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset)?;
+>>>> =20
+>>>>          let args =3D FmcBootArgs::new(
+>>>> @@ -174,11 +169,23 @@ fn boot<'a>(
+>>>>              false,
+>>>>          )?;
+>>>> =20
+>>>> -        fsp.boot_fmc(dev, fb_layout, &args)?;
+>>>> +        // Keep the result as we want to wait for lockdown release ev=
+en in case of error, to make
+>>>> +        // sure `args` is not accessed by the GSP anymore.
+>>>> +        let fsp_res =3D fsp.boot_fmc(dev, fb_layout, &args);
+>>>> =20
+>>>> -        wait_for_gsp_lockdown_release(dev, gsp_falcon, args.boot_para=
+ms_dma_handle())?;
+>>>> +        // Wait for GSP-FMC to release the GSP lockdown, indicating t=
+hat `args` is not accessed
+>>>> +        // anymore.
+>>>> +        let lockdown_res =3D
+>>>> +            wait_for_gsp_lockdown_release(dev, gsp_falcon, args.boot_=
+params_dma_handle());
+>>>> =20
+>>>> -        Ok(unload_guard)
+>>>> +        match fsp_res.and(lockdown_res) {
+>>>> +            Ok(()) =3D> Ok(Some(unload_bundle)),
+>>>> +            Err(e) =3D> {
+>>>> +                // Wait for the GSP RISC-V core to halt in case of er=
+ror.
+>>>> +                let _ =3D unload_bundle.0.run(dev, bar, gsp_falcon, s=
+ec2_falcon);
+>>>> +                Err(e)
+>>>> +            }
+>>>> +        }
+>>>
+>>> IMO we should just ScopeGuard here too (after args creation) to run the
+>>> unload bundle. It will avoid manual manipulation of results which is
+>>> error prone (since a ? added later will break things) and also halt
+>>> happens-after gsp lockdown, so it's a natural sequence point. Also I am
+>>
+>> ScopedGuard here is reasonable - do you mean only for running the unload
+>> bundle, or would you also duplicate the lockdown release there so we can
+>> avoid using `and`?
+>
+> I would skip the lockdown release path on the error path since AFAICT in
+> every case halt happens, we would have also gotten
+> `wait_for_gsp_lockdown_release` to return if we had executed it. So it
+> doesn't buy us any additional waiting/sequencing, and we still need to
+> wait for halt anyway. So concretely I think something like this is
+> simpler and as robust (conceptually to me it also seems odd to wait for
+> "gsp lockdown release" when boot has failed):
+>
+> ```
+> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-co=
+re/gsp/hal/gh100.rs
+> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> @@
+>  use kernel::{
+>      device,
+>      dma::Coherent,
+>      io::poll::read_poll_timeout,
+> -    time::Delta, //
+> +    time::Delta,
+> +    types::ScopeGuard, //
+>  };
+> @@
+>          let args =3D FmcBootArgs::new(
+>              dev,
+>              chipset,
+>              wpr_meta.dma_handle(),
+>              gsp.libos.dma_handle(),
+>              false,
+>          )?;
+>
+> -        // Keep the result as we want to wait for lockdown release even =
+in case of error, to make
+> -        // sure `args` is not accessed by the GSP anymore.
+> -        let fsp_res =3D fsp.boot_fmc(dev, fb_layout, &args);
+> +        // Wait for the GSP RISC-V core to halt in case of error. We cre=
+ate this guard after `args`
+> +        // to make sure that boot args are kept alive until halt, in cas=
+e they are still being
+> +        // accessed.
+> +        let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |u=
+nload_bundle| {
+> +            let _ =3D unload_bundle.0.run(dev, bar, gsp_falcon, sec2_fal=
+con);
+> +        });
 > +
-> +use kernel::{
-> +    device,
-> +    pci,
-> +    prelude::*, //
-> +};
-> +
-> +use crate::{
-> +    fsp::{
-> +        Fsp,
-> +        VgpuMode, //
-> +    },
-> +    gpu::Chipset, //
-> +};
-> +
-> +mod hal;
-> +
-> +/// vGPU state detected during GPU construction.
-> +#[derive(Clone, Copy)]
-> +pub(crate) enum VgpuState {
-> +    /// vGPU mode is not enabled for this boot.
-> +    Disabled,
-> +    /// vGPU mode is enabled for this boot.
-> +    Enabled {
-> +        /// Total number of SR-IOV VFs supported by this device.
-> +        total_vfs: u16,
-> +    },
-> +}
-> +
-> +/// vGPU state manager.
-> +pub(crate) struct VgpuManager {
-> +    state: VgpuState,
-> +}
+> +        fsp.boot_fmc(dev, fb_layout, &args)?;
 
-Just to confirm: right now `VgpuManager` is a wrapper for `VgpuState`,
-but it is going to grow further in the future, right?
+After patch 13, `fsp` is borrows mutably from the boot context (which is
+also given to the unload bundle), so we end up with a double-borrow
+issue. I could solve this by passing a tuple to the ScopeGuard, and
+borrowing `fsp` from it:
 
-> +
-> +impl VgpuManager {
-> +    /// Creates a vGPU manager by querying SR-IOV and the FSP PRC vGPU k=
-nob.
-> +    pub(crate) fn new(
-> +        pdev: &pci::Device<device::Bound>,
-> +        chipset: Chipset,
-> +        fsp: Option<&mut Fsp<'_>>,
-> +    ) -> Result<Self> {
-> +        let state =3D Self::detect_state(pdev, chipset, fsp)?;
+    let mut unload_guard =3D
+        ScopeGuard::new_with_data((unload_bundle, ctx), |(unload_bundle, ct=
+x)| {
+            let _ =3D unload_bundle.0.run(ctx);
+        });
 
-Do we want to return an error (and make probe fail) if the vGPU state
-cannot be detected for some reason? Or should we prefer printing a
-warning and returning a `Disabled` state? I don't have a particular
-preference but thought it is worth pondering.
+    let fsp =3D unload_guard.1.fsp.as_mut().ok_or(ENODEV)?;
 
-> +
-> +        Ok(Self { state })
-> +    }
-> +
-> +    fn detect_state(
+    fsp.boot_fmc(dev, fb_layout, &args)?;
 
-Let's grant a short documentation to this method.
-
-> +        pdev: &pci::Device<device::Bound>,
-> +        chipset: Chipset,
-> +        fsp: Option<&mut Fsp<'_>>,
-> +    ) -> Result<VgpuState> {
-> +        if !hal::supports_vgpu(chipset) {
-> +            return Ok(VgpuState::Disabled);
-> +        }
-> +
-> +        let total_vfs =3D pdev.sriov_get_totalvfs();
-> +        if total_vfs < 2 {
-> +            // The current vGPU path does not support single-VF SR-IOV d=
-evices yet.
-> +            // Treat 0 or 1 total VFs as vGPU-disabled for now; single-V=
-F support can
-> +            // relax this gate once the manager handles that topology.
-> +            return Ok(VgpuState::Disabled);
-> +        }
-> +
-> +        let Some(fsp) =3D fsp else {
-> +            return Ok(VgpuState::Disabled);
-> +        };
-> +
-> +        match fsp.read_vgpu_mode(pdev.as_ref())? {
-> +            VgpuMode::Enabled =3D> Ok(VgpuState::Enabled { total_vfs }),
-> +            VgpuMode::Disabled =3D> Ok(VgpuState::Disabled),
-> +        }
-> +    }
-> +
-> +    /// Returns the detected vGPU state for this boot.
-> +    pub(crate) fn state(&self) -> VgpuState {
-> +        self.state
-> +    }
-> +}
-> diff --git a/drivers/gpu/nova-core/vgpu/hal.rs b/drivers/gpu/nova-core/vg=
-pu/hal.rs
-> new file mode 100644
-> index 000000000000..e6fb6cec2599
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/vgpu/hal.rs
-> @@ -0,0 +1,45 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +use crate::gpu::{
-> +    Architecture,
-> +    Chipset, //
-> +};
-> +
-> +trait VgpuHal {
-> +    /// Returns whether this chipset can support vGPU.
-> +    fn supports_vgpu(&self) -> bool;
-> +}
-> +
-> +struct Tu102;
-> +
-> +impl VgpuHal for Tu102 {
-> +    fn supports_vgpu(&self) -> bool {
-> +        false
-> +    }
-> +}
-> +
-> +struct Gb202;
-> +
-> +impl VgpuHal for Gb202 {
-> +    fn supports_vgpu(&self) -> bool {
-> +        true
-> +    }
-> +}
-
-`Tu102` and `Gb202` should be in their own sub-modules, even if they are
-small.
-
-> +
-> +const TU102: Tu102 =3D Tu102;
-> +const GB202: Gb202 =3D Gb202;
-> +
-> +fn vgpu_hal(chipset: Chipset) -> &'static dyn VgpuHal {
-> +    match chipset.arch() {
-> +        Architecture::BlackwellGB20x =3D> &GB202,
-> +        Architecture::Turing
-> +        | Architecture::Ampere
-> +        | Architecture::Hopper
-> +        | Architecture::Ada
-> +        | Architecture::BlackwellGB10x =3D> &TU102,
-> +    }
-> +}
-> +
-> +pub(super) fn supports_vgpu(chipset: Chipset) -> bool {
-> +    vgpu_hal(chipset).supports_vgpu()
-> +}
-
-We typically don't create functions for each hal method - let's make
-`vgpu_hal` and `VgpuHal` `pub(super)` and use them from their caller,
-like the other HALs are doing - `fsp/hal.rs` is a good model to follow.
+That's something we will need to do once the falcons become mutable
+anyway, so I'll use that approach for v6.
