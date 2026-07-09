@@ -1,106 +1,80 @@
-Received: from mail-ed1-f73.google.com (mail-ed1-f73.google.com [209.85.208.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38D73EBF13
-	for <nova-gpu@lists.linux.dev>; Thu,  9 Jul 2026 09:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB223F9F47;
+	Thu,  9 Jul 2026 10:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783587691; cv=none; b=Z++MRf9NXcwdYpEdvO9Wg0rnAWWgTThd+zgF0T/9FYbDeZSeZjMZ+AoXLKGZ5jLomNSfgbyp44NED1EY+9HNNpVhxA3u0G52MW3Nv1D9HPn1gLrQBTl/j33tbRf6kLE1GJhLAku7/pyX4GGJD8RuFHbuX+jZpG4Neg+N9w8CW0Q=
+	t=1783592305; cv=none; b=OBsL956PTJZrrh4zSKlyYrEazWl0qVadqqy6m+QjV8y0T3vY6y9phiu0W1XWaSPYIFZ08J6FHDVzC+L8BdHjtkxVBwaooGWEJg84s+JiJA78kZHbHHWim/7fawWq0bMnVvYH0OkFOrpZh2ESE3ZPJrN22NYjh3dv2MrXPi7+k7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783587691; c=relaxed/simple;
-	bh=zGyveR2WbexIXAL5cH6LAz1O8Yy1Bgi6o6rA6JtFqEc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ayrx7KCM2VGBX5xjx94jqK2QvzBPwSdI26Eqq9gH1F6t8aRnrEaiYoUp6q5YCyJ0i2+7sUJlAvEMXO805GaU7hroYKS7wtJNuhyHz2aWu2EVNwXfqMmyYO8+VGoFrXzy4DFOIezUVeCmwoLlfTirf7nozLxyPa2ur2yufZZE+LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F1a5p5H5; arc=none smtp.client-ip=209.85.208.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1783592305; c=relaxed/simple;
+	bh=L2z8gKFHa+Fv9UVV5fYM72xMTGx6WMZf3MFZLqI2YPc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=eGTxyohjMy/N/XN8b/4SzeK0q3jMDCSwA9zJlyxwMqQgTtq3rO6eBadc/VII3Bplnct4tFXUSIMTdvyQGkqVGWDmRCQJnkD9bIQNWhz7N74B/C4DCYOYeQ19DRW8OGYFLE730EYCGtVVE0pH6gS3vFm4OoBatFh+R8LWOTWJ4tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jct1N4Fa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F1a5p5H5"
-Received: by mail-ed1-f73.google.com with SMTP id 4fb4d7f45d1cf-698a99b6140so2311221a12.1
-        for <nova-gpu@lists.linux.dev>; Thu, 09 Jul 2026 02:01:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783587688; x=1784192488; darn=lists.linux.dev;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cKWh2FN+uopuAMuLcrvUAZLjx2pCwGenf//G8cQsjMQ=;
-        b=F1a5p5H5HQSBU1rjt/3+m1k9m0WhV6cYakxfwc1P923EAJFqWaOzrgoZCP7aGjXJhE
-         +9B/XdUpVNelTz3J6GVavS9wSOxyEiXv3syethmnsM21Fupw47uEel+yk04ZkufRDnTu
-         WYuoSI7psQK7BC2hyaHjQfVvDKSRTKd78h076gkdvAfJvfMG6/LCSNlVPIGWoufjCfZ5
-         2cw3+DF1PQjLJQvwLm7Ni7NkMIMRHJFfvJB1qGqJKNn+Dxs2YEjWm/aympkMIz6uH1HH
-         7iXc0sUsGlX5DID03XagNi417zW2AIXeozNFFOcxI/r/NuEDe2cyD6j66fuzXkw4xG45
-         xdug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783587688; x=1784192488;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cKWh2FN+uopuAMuLcrvUAZLjx2pCwGenf//G8cQsjMQ=;
-        b=a5MKJZylIuFQGMDRIlufY1RuBtiSsj2VwZq6hDrD4KWXG6WQB5ZIicY6S7G77FMQl/
-         BH35mwEDyARgb3dztLGaWsEKl+gkHk7MG2HHzDNsRa/Ot5xLMfNk/zEtaMTULr1KLtUT
-         1Fwh4T7E+2VIN4rwqSTxwun95zRBL6IHpSKaNIbCK1BGIHgLsHYBhJgS8OPSXqUUPxgT
-         HTmwqSo2Q5Aj+LNym7eLC5TbFpvqUtIk3M2/JFg+2cwziVx86fZq8WQ7BGUrS8KdQR3j
-         SL+31kjI7fgUZbu+ZJXScVGn48asFBjTBtBz2n+lwpoOc1jssKmIZeGCVBJ4zWVIXa/A
-         2f2g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7OLyiktuGpFBmhGp7ckei29jpXmZIHtlOXQ+L8OA9f5Q6RIhOG5jgjQNTkMM/LRee/1OM4DgatQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxGjXX65cLiQvOkVIE3QdHT9r7aurXBGAAO4gZQXgfk5SPQlD0m
-	4TpzAelsTGUgqLLOrqRUehVG2W+uQVbAqUEB0G7iBnzgXTFGlyWtL8zxOxaMdrf1wrD5Owfahag
-	r4OTBOOflUGgA8XgU2A==
-X-Received: from edfg18-n1.prod.google.com ([2002:a05:6402:a252:10b0:69b:3a15:6755])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:2b9b:b0:69a:57fb:4783 with SMTP id 4fb4d7f45d1cf-69ab445ed4cmr2326024a12.13.1783587687331;
- Thu, 09 Jul 2026 02:01:27 -0700 (PDT)
-Date: Thu, 9 Jul 2026 09:01:25 +0000
-In-Reply-To: <DJRP4CD15MC5.J47HDEUJS7V1@garyguo.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jct1N4Fa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FD971F00A3A;
+	Thu,  9 Jul 2026 10:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783592303;
+	bh=L2z8gKFHa+Fv9UVV5fYM72xMTGx6WMZf3MFZLqI2YPc=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=jct1N4FaB/jZWmHDROlv2/VbK5FOPisO/l/4+y0lhT0fI0vIvLL1pDkepDzvv/yj/
+	 Ohd1TDjfSKP10SBv8of+0bCVpbf45W81iyVQxl7Db9HXHDYMCMamSgMzwYKJ8h/vYG
+	 veJBhSrFxHIp/A6u9vh3PMOSmbXfKwdNUKVXs6ns9JIxG8iEQIbmUuQkp3qKGQrv1O
+	 J0668pkqH6uEtqUUsgayTOReFtSaMzioj6tcVt+BML+MkcI0wiSTevsWJnH3ukLHtp
+	 R5ICFJVlKYObXZ2SZKE862j881IWL/kv9u7AGDk6rth2ZXynZ4YgWNaYBZC+k/kVka
+	 UkjP68LpZ+PWw==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
-References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com> <20260703-chid-v1-2-84fe8259e46e@nvidia.com>
- <akvXzPd169ahMuCi@yury> <akvkNuh2bHhFwmQM@google.com> <DJRP4CD15MC5.J47HDEUJS7V1@garyguo.net>
-Message-ID: <ak9jZe11r-A4oVf0@google.com>
-Subject: Re: [PATCH 2/4] rust: bitmap: add contiguous area operations
-From: Alice Ryhl <aliceryhl@google.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, Burak Emir <bqe@google.com>, 
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 09 Jul 2026 12:18:19 +0200
+Message-Id: <DJTYPAM8RL0F.1LZHKFSTIURPF@kernel.org>
+Subject: Re: [PATCH 3/4] drm: nova: Add GETPARAM parameter to read the GPU
+ chipset
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>, "gary@garyguo.net"
+ <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "lossin@kernel.org" <lossin@kernel.org>, "airlied@gmail.com"
+ <airlied@gmail.com>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "rust-for-linux@vger.kernel.org"
+ <rust-for-linux@vger.kernel.org>, "aliceryhl@google.com"
+ <aliceryhl@google.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+To: "John Hubbard" <jhubbard@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260706053413.154135-1-apopple@nvidia.com>
+ <20260706053413.154135-4-apopple@nvidia.com>
+ <59948bff927bd4ad3af5fbe68d5d5e7565c5f729.camel@nvidia.com>
+ <DJRP5QO5JKVT.Y7LCZARVCWJ8@kernel.org> <ak7lU9X4pTwx5NDB@nvdebian.thelocal>
+ <6fe208cc-f095-4d92-b34c-ad227d2710a4@nvidia.com>
+In-Reply-To: <6fe208cc-f095-4d92-b34c-ad227d2710a4@nvidia.com>
 
-On Mon, Jul 06, 2026 at 07:22:27PM +0100, Gary Guo wrote:
-> On Mon Jul 6, 2026 at 6:21 PM BST, Alice Ryhl wrote:
-> > On Mon, Jul 06, 2026 at 12:29:00PM -0400, Yury Norov wrote:
-> >> All three are the wrappers around the regular outline functions:
-> >> bitmap_find_next_zero_area_off(), __bitmap_set() and __bitmap_clear().
-> >> 
-> >> The inlined version in headers is optimized for small bitmaps. But the
-> >> optimization is all based on inlining in the C code. It doesn't work
-> >> if you wrap it with a rust helper.
-> >> 
-> >> There was a discussion about the similar find_next_bit(). The function
-> >> itself is an inliner, but it's a wrapper around the true outlined
-> >> _find_next_bit(). So we decided to minimize the binder size for that
-> >> type of functions.
-> >> 
-> >> Please, keep the binder minimal unless necessary.
-> >
-> > If we can just call __bitmap_clear() without any downsides, then I agree
-> > we should do that, but we actually do support inlining the helpers now.
-> > See CONFIG_RUST_INLINE_HELPERS.
-> 
-> bitmap uses __builtin_constant_p which will only work with pure C inlining and
-> not LLVM IR based inlining.
+On Thu Jul 9, 2026 at 2:49 AM CEST, John Hubbard wrote:
+> Unless all, or nearly all of the ioctl values would be the same,
+> there is absolutely no value in trying to make a small subset
+> match.
 
-Ack in that case using __bitmap_clear() from Rust definitely makes sense. Thanks
+As mentioned in [1], it would also require layout compatibility between
+structures and at least to some extend the same implementation semantics.
 
-Alice
+So, no, we're not going to do this.
+
+It would probably be good to stick to some common tooling that exercises th=
+e raw
+uAPI though while we are still building things up and can't yet run "real" =
+test
+suites.
+
+One option would be IGT, but I also created [2] back when I merged the init=
+ial
+nova-drm skeleton driver.
+
+[1] https://lore.kernel.org/nova-gpu/DJRP5QO5JKVT.Y7LCZARVCWJ8@kernel.org/
+[2] https://gitlab.freedesktop.org/dakr/drm-test
