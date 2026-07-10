@@ -1,81 +1,81 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D80346A08
-	for <nova-gpu@lists.linux.dev>; Fri, 10 Jul 2026 14:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CD42F28FC
+	for <nova-gpu@lists.linux.dev>; Fri, 10 Jul 2026 15:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783693417; cv=pass; b=Mk8V70RGg7lj6X5Te7JyFcoXwj2LfU8A9We3fROwpZ6tHGgf6MJBTN0Zu2Fn0gzPJPpoWNEga/QAKyiTtNwguL9I0HEaFXcqYN2mHBEuKNunJ8X216UssQV8LFHw4+io5eXplBx7ew58envRV1VAlJ0lrHn6fuqGJiuOvPr2GeU=
+	t=1783696173; cv=pass; b=fMoX+3aVkXKi4fplPO8Uy3XkaijawXA/WhAzpwvgJpWOFZDuoIen4vddRotSKQJOocZzT4jKFvlo/3Bbuisl5UYt1CUTZPt2Z4Vf0MturVuw5snA0Hs+shCswQA0FvefzMbHfF2rVOU1QHq8FbZZM9pVPy+YWQGRQl4Nj/Z+j8k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783693417; c=relaxed/simple;
-	bh=GUhA3jFSbJcIsCXMljVbvLOXIxyxqgu1sDVkQU4+pPE=;
+	s=arc-20240116; t=1783696173; c=relaxed/simple;
+	bh=wFZ3WcatDhR5uImQkZGjiMV/Fklf+6X2ZjKbOG/rOjM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HYccOiq3GKPSEGKHfOttqPZcp7H2eWoCd/m+4pEwk89X82wHpF3O7rYtP2CKI048oPnHnI8TB4rIng9gIGS9GGOk+gMOodAjgXvM3EfK9Fj3htTB9OOrCx/rSrOKPWkMGVoiw4dpD9WVjLg3EK2cFzn2sH4Wj4FU4hi+BOTTzyI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i0YwvPm2; arc=pass smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=pv8GWtMSeJuQx6De8ecljLq2c/1qh00JVj/kNZ9J32DigTNRAB8Jq2jW/qGAAC9b9N/ejtZZSqv8O2/Ah0tjQj0YM2FXXph8vyKlrMkIHgDR6Hjd88M05PanC7Gh2msXVJuttt0BFvK5rm2gdw3mRpJO/iPV58oM2gj5SU7j0TM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X3B7C6fq; arc=pass smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i0YwvPm2"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-475417f010dso492989f8f.2
-        for <nova-gpu@lists.linux.dev>; Fri, 10 Jul 2026 07:23:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783693414; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X3B7C6fq"
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5bbc717c52aso442119e0c.0
+        for <nova-gpu@lists.linux.dev>; Fri, 10 Jul 2026 08:09:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783696171; cv=none;
         d=google.com; s=arc-20260327;
-        b=l72PFXFxWQm9apJbKdNIB4of/mRcEdMbTZLtZ9wtAEZO7yYGHszlPzQ0FvocwxhteR
-         YQMd02vJb52drr8+0Z2kz0l/9XD+MK5woOq4xTpQZQvnSsdIsNgPDYASazdwLkQyYUBY
-         r/rzml4s7Y/2IARirtJeAlEoPFzZWV3GlUAcTfPOfUfIJgkd5oTDQ3qKaOVVsMq8frEt
-         7zrgecIfV8BZ1t6vdC3pCR2bd4kZ5nbPQd3UQgTzYn+pTKdTWmSOK1u1wXec6UH3pabR
-         C64xHJvjtdk+9FWC5KX2zsjpwXl25r2v/v12JZ19kVC1No0pO1OZwMCzs0y3NM2g0zOq
-         HOfA==
+        b=gnNlIgf+n2NFxqrsswznVWvc0ixDC1R58nhnEs+d3mk58k978712Z/g7dyHqkOT5xe
+         dVU4y56iexDGFizJ5+Uvgul8NdgQH1c8y01M4K5LhwYQq3iKVryq+gZA/lW9sGPC1nAx
+         Us+BqSZaL84+hqa0E/SY+2jrq77LOFGqN/tZdQ8Lg1xTRLtPxQTC/lQgGooSTyBG7Mil
+         1IbIFiS/OvnxTz0GfkKdUaF0b/bXq/wd9sBBfHIfIKxd9bowfLNhtE5Vu61So1Zx4+SO
+         NZQuzNwN8NVyXrdrFBuhrSFX7NtcVLAq3pq+bSikMKtnJngz0/CMPyqM3jtGmqZeFQ2p
+         pyDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZdEXK77UFhy/cOL68bwMcQ0ItCStn1PAee3xYDI8PJ0=;
-        fh=JpNissZUx3VOkdM/OtPNDh30gr4Gps5GgWqnsJygXpw=;
-        b=k9vV0OPPSCdN1FZn2RfLyEG2wVGWOeVz/rLik+jFojnhXjiA1trKP940iwIooyvHru
-         h5WsQ+AVnKFvD6qUSr746W3xOzEKUcke7+j91ZiYEHt5pIdeZwFCyX2QT5SbWSStw4q0
-         aYo9l/ii3RFA3QvOXenO010SlUM0NcpZIT44YcAQIIxsoYYG9bz/JQTWMhmWY7lPmfXj
-         IW+vLjjQo+8zNNI40mOaciXQ/rd/CSNXLc4IUZUS9PEvKMp/mRu8sXDjKwkSbNRFTYXQ
-         I1rBKOnXxe8hha88vhKNSh72Ky25yVdKnCcwPHLYBHkEcWUd5dLNOZJWz5RJItsUL3i9
-         r5RQ==;
+        bh=xXUgud4G/O9l9flAkvY3taGec20Vgh1cA8EQbaLr8+g=;
+        fh=qdtWzm8fSP6Jq/t0pZfsA19qt6PYeuorCTj7GdEEn8U=;
+        b=Yz8kxmMlo46/26jQm89TfBQSX4msX0TMpeaTuHZ4NK2UP7IA4d1lEpR89YfF2OIm1O
+         PwKvyVFdPrT0gyxbkvLz4Yg7ppUE4YsVm7+GcK43GLVswu/y0X3BNiwXKtiRDRykPnSL
+         rg7WeREdxU+UYVKsDxjxsasBndLYT2PeDmgKCBYZ7xKU/BH83LoOS5Wq4wy219XNN414
+         GYQv1LjXh3dD60C/TcXxxTqN3KTm80sBiTxx72iaOpDxZgVxpS4CMuPxmrs/3GFNzDkb
+         xBMHoi4Gf894I5A9zwkbGCSd7Lx5QpK0p3kTWJk6b5H1TKD5Q1nap5Q2YiNXDvTxtJgx
+         LDRA==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783693414; x=1784298214; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1783696171; x=1784300971; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZdEXK77UFhy/cOL68bwMcQ0ItCStn1PAee3xYDI8PJ0=;
-        b=i0YwvPm2z301S8QGGcdiM/GfrG587IACjOcSxVMblrGiYW9C25H4CdX98RMRs6XhIO
-         +qhYaeQ4bsDFCVRoTr5t03ZDaSj7B/aWXsrhy5DkM0CCQNIclZvQASLTJS99Pzsk+VKB
-         hErGjbp6T6+As3E7c+NcLb/Wat6WSJYKK4NsGDm1vIk2004JVWRVxmiQoVRPOYpvk/CE
-         RANlV9oS/OJNwa+JbKeq+ATVSENsf1KEeGSaAfaC5mddlKpS7aKA1yQybOSkT+0wYMw5
-         EKRwnoQ99BcSzIkNp59fpwx419MJShytVsakJNRZLWyEu8dExGjdylDZfiiCOdzbFREw
-         uMYw==
+        bh=xXUgud4G/O9l9flAkvY3taGec20Vgh1cA8EQbaLr8+g=;
+        b=X3B7C6fq47/lUzp0MVeW/lYgwbYgPXACwqC5G93prY0IU4JHGkYXdfuQ6q3C8cDQIi
+         JsXL5hAwhnttB+aCkgeArWDToWU0i9+2DVAEEjNPMbsy/2WIthL09QSDh2W1EBWnSoqs
+         5SZSinSh7bJm+nz6I1K5JWGJehGqdisJAVnqrSGLGyt+Yxk4sr3sdlqkpBkxe7fJVlnv
+         sunvhXz250Tyu/Xttk5pdYjB+GjhBtIBw8C0/guijhEw0Bwxx1hP8KijSpkeAnXS+le1
+         y7lF6rplk8Ho5kyY4aDBgQBJQ+HU0UjhfjDEvW96gK7KQd0xpdCxQcWpjNYHTSsNH1Dr
+         kKAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783693414; x=1784298214;
+        d=1e100.net; s=20251104; t=1783696171; x=1784300971;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZdEXK77UFhy/cOL68bwMcQ0ItCStn1PAee3xYDI8PJ0=;
-        b=FNNqlOTGNYK5qrpW81LI+hncyMEwLKhLW5Sk0eH0jmloBOtoM35UalDAvixl2hl0rI
-         fD4gpaF0+U7qUdfTRfPZbNwBpeWShtEbUyyZonX4lVz1p72Q+9l8cFnTsUcs/uwzzRgF
-         mpyJ2VMGzBpDYh/f6rrzjxVscaD3FbgCQq+JQ8kiirI5HtwSAdqYcYaF0Zsj7Q54sk6q
-         Ly1cg8hzzS085vyNHxqYZGlkHT3Pt/jQ3PBXQeR/ocdSZRq7/u0ahDfq5WeXITS0oM4S
-         LbUtkKCTtPoamu4R8VwTfNjrq6AYj3uxfPKe54X+sWqkzwkq1CdWlKn7jlfFf60EEuTo
-         iWBg==
-X-Forwarded-Encrypted: i=1; AHgh+RqffQKhEN6zFkl6lIRf8Kwd6dn25Lvg71ifJtlTyJ4hxhBT6hMwQoly4XajpBeGzm2om8WVVYD+7w==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwAratapT80f8OxEAtPR/IcsWi8tOvFjbMUeomk0+rWNnGB7WMO
-	dn3rDEjUDk6dvRMK+Ui1mGA027RdiEZ1eBTvqulmnAweT200tnAujF1mQstEFPnk1XWVl8eVhXE
-	xNEUAWFvJk/4uPq5VoG0caAWgFWB16SK44T2QkmuR
-X-Gm-Gg: AfdE7clBAb62gqSgbPtlzJYR1zLEjJsj2Xe3QdYE5jaLRaedNbO6DYcklqIGBGulwrP
-	w7gpfgjs7Hbey4HhmximqR+7oGJt7FCWHjNOBlTW5pYBNG6ujJ8O9w0KFLFzY90NpPGXl75JbcU
-	3ZFzRp3XoJ5D5MZezYAv5vktBukW1yC/22a6377tb24Z8HsTDa9iDO1k4m6uw69Z5MXBBd52tdD
-	kBR6DMRcXvzrjmoynG9dXK0CIVkhB3jSHHFboY35ToVe7G+FWxKS7Cua7o0FmYPTg4TYoHCLOGk
-	0aZIb6bqL35x0RDKsH0V6RfS8BcJC729RBuTAhxnQoSWSTMXnPibMAeAg0U=
-X-Received: by 2002:a05:6000:2482:b0:477:6874:5415 with SMTP id
- ffacd0b85a97d-47df074605amr12898798f8f.26.1783693413737; Fri, 10 Jul 2026
- 07:23:33 -0700 (PDT)
+        bh=xXUgud4G/O9l9flAkvY3taGec20Vgh1cA8EQbaLr8+g=;
+        b=Qz3yesDIXac3RQoz/oJ/XoRQ1N6D2czHEnKa190/bNjW1osqrdwuYn1YK4ZptlOQ2V
+         GzpUTdpAq15K/t4q17SvIqEIKIk4hlORxYipFZVBXpsT02zGEoF/Wuq1X2pG8j/MIxls
+         oXd5oJp5FO8VkESXshwQMr9ynpKVpAcLzFpytF9MCooXdzUEsanwoFyAu5D5BvRYbE0c
+         yQgu8sx8oUN+TmBZjlqH1PQzoNgWhz9VBkAZfrQdh6dBaAOuUnOUm9o3U5S2xAdvpC8b
+         HRS/+LyRBWTHt0aG7wXtfy+cc73Myb302mAde60z4l0Acivc+/e/nn2pECBbqHW+bFh1
+         CCpQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1MOz7iquuWZEbzAHgyUddamPmSavLJ4ycdmS+F2oSrcHxlLZodPSf8FLkNJdk4JMNlkuG/HlzLQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yz1U2dVkYnBGt8r/YDx4JbVjDczj6rQb9/lWhcWDfhrivpM/+BD
+	aBgUY6be0gacz6AzBOfda9sq/yPj6n3rIF6h35QdA1uB1kDKOxEk3cLJwMQOHO7CDpvyaQUExnG
+	i2Qxr7vpBGYOYcs84fy+6rX11r/iS9BWGhEzufWGX8w==
+X-Gm-Gg: AfdE7cnBXq4i6FySdZjTg+RERqyDEda7gWpkhRUCsI9AY1DMbVRGULWvzWhsuoT3b8X
+	njrepdxdvU+FLFBKu4ylgSL89CSK471SJVXuYXBjy7O3Y1KQYsO5vgCohoHSEpH0LrOXI2wMy+R
+	1ukJrlRZppZ7iz2UKPGHfl38l7kEfhlICYdovLSQ6/MW3bmcwMoHX9VyFeuLslwe2QB+vqxg0Ox
+	UETUxNU0igAXTMUb9M/9oa9DNslQY7ZUxK+Yx5yGkqNqPB9WPlAWx99sADbVZduksqEBx/YrvIQ
+	y+6D4BWjcpz7lJYBHoEjZtm9dbz34IU0caqZRw==
+X-Received: by 2002:a05:6122:2883:b0:5bd:81fc:ebe9 with SMTP id
+ 71dfb90a1353d-5bf75a9fa9cmr6210645e0c.0.1783696170828; Fri, 10 Jul 2026
+ 08:09:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -85,17 +85,17 @@ MIME-Version: 1.0
 References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com> <20260703-chid-v1-3-84fe8259e46e@nvidia.com>
  <2026070334-dollar-hexagram-e49c@gregkh> <DJSDFHOADWYL.V4WC2TI9UWYF@nvidia.com>
  <2026070745-unwired-maybe-769e@gregkh> <ak0pzDc69nAmnviD@yury>
- <2026070839-quadrant-gentleman-2334@gregkh> <DJUYI5EL9MCS.F6LWYD6821YM@nvidia.com>
-In-Reply-To: <DJUYI5EL9MCS.F6LWYD6821YM@nvidia.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 10 Jul 2026 16:23:20 +0200
-X-Gm-Features: AUfX_mxGtzRTvhuK561wSbk819Xm8Or_NDy_i70dNzRqnXHoPTSZcfN6JkQkc_c
-Message-ID: <CAH5fLgi3tndgpVc_qNMCxk4PCB57EZLf9X7OwpEr=mg8FwGf7Q@mail.gmail.com>
+ <2026070839-quadrant-gentleman-2334@gregkh> <ak61Embrj0qH1vas@yury> <ak68PmjY97BHOZOd@google.com>
+In-Reply-To: <ak68PmjY97BHOZOd@google.com>
+From: Burak Emir <burak.emir@gmail.com>
+Date: Fri, 10 Jul 2026 17:09:16 +0200
+X-Gm-Features: AUfX_mz71O6wKNiBjknUzlHPuRHRfhmrp1Ke1wablmRwTKjPL09QiGzeg2wSZG8
+Message-ID: <CABwQupO-vow5+SqHUpyXZouP=rjNL3cuV=yWkK6v=xLt0MKEAA@mail.gmail.com>
 Subject: Re: [PATCH 3/4] rust: id_pool: add contiguous area allocation
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Yury Norov <ynorov@nvidia.com>, 
-	Burak Emir <bqe@google.com>, Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Yury Norov <ynorov@nvidia.com>, Greg KH <gregkh@linuxfoundation.org>, 
+	Eliot Courtney <ecourtney@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
 	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
 	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
 	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
@@ -109,119 +109,93 @@ Cc: Greg KH <gregkh@linuxfoundation.org>, Yury Norov <ynorov@nvidia.com>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 10, 2026 at 4:21=E2=80=AFPM Eliot Courtney <ecourtney@nvidia.co=
-m> wrote:
+On Wed, Jul 8, 2026 at 11:08=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
+rote:
 >
-> On Wed Jul 8, 2026 at 2:33 PM JST, Greg KH wrote:
-> > On Tue, Jul 07, 2026 at 12:31:08PM -0400, Yury Norov wrote:
-> >> On Tue, Jul 07, 2026 at 04:13:30PM +0200, Greg KH wrote:
-> >> > On Tue, Jul 07, 2026 at 10:25:27PM +0900, Eliot Courtney wrote:
-> >> > > On Fri Jul 3, 2026 at 7:31 PM JST, Greg KH wrote:
-> >> > > > On Fri, Jul 03, 2026 at 07:16:06PM +0900, Eliot Courtney wrote:
-> >> > > >> Add support for contiguous area allocation. Add a new type,
-> >> > > >> `UnusedArea`, following the same pattern as `UnusedId`.
-> >> > > >>
-> >> > > >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> >> > > >
-> >> > > > Why isn't the built-in idr library being used here instead of ro=
-lling
-> >> > > > your own data structure?
-> >> > > >
-> >> > > > thanks,
-> >> > > >
-> >> > > > greg k-h
-> >> > >
-> >> > > For nova-core in this series, we need allocation of a contiguous
-> >> > > sequence of IDs with a specific length and sometimes a specific
-> >> > > alignment. IIUC, IDA/xarray do not support that (I checked
-> >> > > ida_alloc_range and it only allocates a single ID in a range, not =
-a
-> >> > > contiguous sequence).
-> >> > >
-> >> > > For IdPool before this series, I think it could have used IDA/xarr=
-ay.
-> >> > > See [1] where Alice has posted some more context.
-> >> > >
-> >> > > w.r.t. the structure choice, the IDs we need to allocate are chann=
-el
-> >> > > IDs, and the total range is limited to 2048 of them, so IMO bitmap=
-s are
-> >> > > a better fit than e.g. maple tree.
-> >> >
-> >> > But again, you are having to "roll your own" logic here, please reus=
-e
-> >> > the data structures we already have in the kernel for this type of
-> >> > thing.  If a maple tree works, please use it.
-> >>
-> >> I asked exactly the same question when Alice and Burak added wrappers
-> >> for bitmaps to implement their ID pool. This is the answer:
-> >>
-> >>   An alternative route of vendoring an existing Rust bitmap package wa=
-s
-> >>   considered but suboptimal overall. Reusing the C implementation is
-> >>   preferable for a basic data structure like bitmaps. It enables Rust
-> >>   code to be a lot more similar and predictable with respect to C code
-> >>   that uses the same data structures and enables the use of code that
-> >>   has been tried-and-tested in the kernel, with the same performance
-> >>   characteristics whenever possible.
-> >>
-> >> And now it's in a commit message: 11eca92a2caeb
-> >>
-> >> They measured the affect of their wrapper on performance, and it appea=
+> On Wed, Jul 08, 2026 at 04:37:38PM -0400, Yury Norov wrote:
+> > On Wed, Jul 08, 2026 at 07:33:16AM +0200, Greg KH wrote:
+> >
+> > ...
+> >
+> > > > I asked exactly the same question when Alice and Burak added wrappe=
 rs
-> >> to be ~5%. See lib/find_bit_benchmark_rust.rs.
-> >
-> > You are comparing the C vs. Rust data structures here, which is not wha=
-t
-> > I am proposing.
-> >
-> > Also, is this code being used on a "hot path" like the binder stuff is?
-> >
-> >> I didn't see any side-to-side comparison between any native Rust API v=
+> > > > for bitmaps to implement their ID pool. This is the answer:
+> > > >
+> > > >   An alternative route of vendoring an existing Rust bitmap package=
+ was
+> > > >   considered but suboptimal overall. Reusing the C implementation i=
 s
-> >> imported C bitmaps. I'm sure, I asked for that, and I still believe
-> >> it's the important piece of data to avoid this back-and-forth type of
-> >> discussions. So, Alice, Burak or anybody...
-> >
-> > Again, I'm not talking about Rust API vs. imported C bitmaps, I'm askin=
+> > > >   preferable for a basic data structure like bitmaps. It enables Ru=
+st
+> > > >   code to be a lot more similar and predictable with respect to C c=
+ode
+> > > >   that uses the same data structures and enables the use of code th=
+at
+> > > >   has been tried-and-tested in the kernel, with the same performanc=
+e
+> > > >   characteristics whenever possible.
+> > > >
+> > > > And now it's in a commit message: 11eca92a2caeb
+> > > >
+> > > > They measured the affect of their wrapper on performance, and it ap=
+pears
+> > > > to be ~5%. See lib/find_bit_benchmark_rust.rs.
+> > >
+> > > You are comparing the C vs. Rust data structures here, which is not w=
+hat
+> > > I am proposing.
+> > >
+> > > Also, is this code being used on a "hot path" like the binder stuff i=
+s?
+> > >
+> > > > I didn't see any side-to-side comparison between any native Rust AP=
+I vs
+> > > > imported C bitmaps. I'm sure, I asked for that, and I still believe
+> > > > it's the important piece of data to avoid this back-and-forth type =
+of
+> > > > discussions. So, Alice, Burak or anybody...
+> > >
+> > > Again, I'm not talking about Rust API vs. imported C bitmaps, I'm ask=
+ing
+> > > to use the C structures like maple-tree and idr instead of open-codin=
 g
-> > to use the C structures like maple-tree and idr instead of open-coding
-> > logic around the bitmap code.
+> > > logic around the bitmap code.
+> >
+> > I understand your point. I asked both questions: are they sure that bit=
+map
+> > is the most optimal data structure for the ID pool, and if so, why not =
+use
+> > the built-in Rust bitmaps? The answer was: yes, it's the most optimal, =
+and
+> > using built-in bitmaps is suboptimal overall.
 >
-> Yeah, I agree that using maple tree avoids piling on more ID allocation
-> implementations.
+> The Rust standard library doesn't really have a bitmap abstraction to
+> begin with, so if we want to use bitmap then it's either handrolled
+> bit-manipulation or the C bitmap api.
 >
-> Channel ID allocation isn't on a hot path (absolute peak ~100 per
-> second, on average < 1 per second, AFAICT).
+> cc'ing Burak's new email
 >
-> I prototyped the implementation using maple tree [1]. It has some
-> awkward points:
-> - Allocating aligned IDs needs a loop on top of
->   MapleTreeAlloc::alloc_range + erase, which essentially replicates the
->   logic in `bitmap_find_next_zero_area`
-> - Since aligned allocation may take multiple tries we still need
->   exclusive access in `ChannelIdPool::alloc_area` to ensure an allocated
->   but about to be erased non-aligned alloc doesn't make it look like we
->   ran out of IDs. Alternatively, can do a try+restart kind of loop
->   instead (needs adding bindings for mas_empty_area). [1] is using the
->   extra Mutex.
-> - The alloc_area and Drop path of `ChannelIdPool` now allocates memory.
->   I *think* this is okay but it is a consideration.
->
-> These tradeoffs weren't obvious to readers because I didn't include
-> enough context in the patch series (and was going to add actual usage of
-> the aligned alloc later).
->
-> Anyway, maple tree does work for this, so if you prefer I'm happy to go
-> with it.
->
-> Thanks~
->
-> [1]: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nv=
-idia.com/
 
-If you need to make multiple allocation attemps to handle the
-alignment requirement, then I don't think maple tree is a good fit for
-your needs.
+(Thanks, I will update my email in the MAINTAINERS file.)
 
-Alice
+Binder needs to acquire bits *while holding a spinlock*. This is the
+biggest constraint.
+
+My understanding is that the IDA API call might need to allocate
+memory (and sleep) when getting a new ID, as a side-effect.
+So for the binder use case, it was not an option.
+
+@Yury, about the alternative of vendoring Rust bitmap crates: that
+would have duplicated the kernel's C bitmap functionality.
+There does not seem much point in duplicating that, and opening the
+door to have Rust and C code differently named API functions and such.
+So beside performance, maintenance and coherence are also a factor.
+
+The Rust ID pool code is merely a port of some existing
+bitmap-specific binder C code (that can hopefully be deleted one day)
+that deals with spinlock allocation fun. If the constraints match, I
+think it is good to see it generalized and used elsewhere. That is a
+conditional statement, I am not familiar with the nova use case's
+performance/allocation/sleep constraints.
+
+-- Burak
