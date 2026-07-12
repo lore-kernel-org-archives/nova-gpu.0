@@ -1,245 +1,129 @@
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1598430568B
-	for <nova-gpu@lists.linux.dev>; Sun, 12 Jul 2026 11:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96FB28DC4;
+	Sun, 12 Jul 2026 15:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783856184; cv=none; b=WxL4AaWBWRClQDKP7aRv7fpMYWLKav+PESga1b/CJKbDSngQejjOztD6k4pIK7tl56iGwgdJRyKH/iwSvGRdGSwtYxjHpoT+CRjX1SnUeyBld/vKZFUSg0VTYkyalIxO6avFfJgYCz8+n9fTNsSucjjkfKN8ZyBPqeJhDIEHejE=
+	t=1783870563; cv=none; b=fcuRSmtLXx/Nq8g4zcg+YtWuf370R4EV+1QGGpvlg/5y6NHf1gGnMkixqkIDzO67tRZkpdiR/5pcBWORVJ7XsG0Er+JWWL7MafgUiypqVRic3dT8TQ6JvKHdrbcBgu8bJWNhnRDLPJ1ly4NgOYLV2QOp/FrI/yd1myYvuHEfxgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783856184; c=relaxed/simple;
-	bh=MQgQ0IWFjAoCVpmJuvsFyksixFCSavh6UokVdFHNXp8=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=W2QzHn89rvyXoVobYbFg34TrsbW0VH8Q7QN994j7X61C9+8kTuDaYjPOEOQfKNsgqBfpZMF+WP8xK7lMzVnvLSRmizQdWEs7/lTH+Fd3wQxVREiFaxNPmzFB+doT2Pe7t5/DGz3Iy8fHspW13TIdfkv//R410Ctg7QGPzCfJ3yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=E8eegfOl; arc=none smtp.client-ip=79.135.106.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1783870563; c=relaxed/simple;
+	bh=B9rETD3vA+o8MvcBCmO5gs8wucqijoyXazRRPYjA+Uw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jjiZXmgkfztfnHBpX31L5Kk//gecZ7X8Yw8z8LA+7CnZoULMoxzvAsxUJhzyBYZ/gLhPg1SZ5sKfoInb/DqyaShPtfLDVfpDaakeMa+iwkbXwYz2PqpodbnPEdVYEet+PEsf8babGG7yr9zzWvNFfu9gKjgfpZfh1OIHUzS4AhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YM1SkcF7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="E8eegfOl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=idjl6gsmt5bhdow5z6z2rvgixu.protonmail; t=1783856171; x=1784115371;
-	bh=G1MjZuFHK3Lys9+L8NuiAc1Kc/+5IEFQrCjyjzdi0vU=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=E8eegfOl9Gh4aaUqD7FvJxo8017Jtu/z1+HCzOzj+kNJfHmZPQdSsvm8ZnaFBZEST
-	 5TZbGrGkNUNY3S9P/kQbmldmR4OSgaAKu1QSHauuaN+omW2RbwWy+NcSk5UE97eYiq
-	 UmVr6MhbV4Ebh7eyxHDgZP3E1rViSKBKnDM3PD55hatcnFZqAEBD3bPhBDU3qA6XfZ
-	 To8Y0VorGq9h8pxVwWThv+QAit4hUNjTghazU/GbBv3H0w3/Jc8CJrhyYpB4J9HLuI
-	 IOlyoSmZmL5itAx19NZpw/IJS3aSNCDREvb1LMO3j9p1kYGZV1NGVh2UQTSRkqSv11
-	 wlnuU0dE7IcPQ==
-Date: Sun, 12 Jul 2026 11:36:05 +0000
-To: Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>, Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, John Hubbard <jhubbard@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, Lorenzo Delgado <lnsdev@proton.me>
-Subject: [PATCH] rust: io: convert ResourceSize into a transparent newtype
-Message-ID: <20260712113602.389060-1-lnsdev@proton.me>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: edbbd905501a46a21956dba14434fbb5a51bd63e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YM1SkcF7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6B81F000E9;
+	Sun, 12 Jul 2026 15:35:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783870562;
+	bh=/c8dQlrD+UopIRGkuo0OWH1leob6jgbBkZdHtJYCJ9E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YM1SkcF7SY84HKWxBJqeyCkrPQB8hvipq1YbGjaTSOLWX2edqyfRC7/aRJY46FRVQ
+	 8OppOKhkEskZ1hFCJd8S15txrxcTrRJmIb/NqLzj49jVXwk3QgP4vq8zC4p9A8mBmi
+	 CxjTipfMBJocq1yS3ImtkUJJgX4VYcgU4E60RQRYVPmMFUv2j0sJ/zhOPTPedhTHG/
+	 A2WKkWkva4pDBjhwgQeL/3PwoU0A/3kGrtD8nLcDUrtjD6OG4vWC+JcI4QAwNZreMZ
+	 QU98zlLyaGlSsvG2T/X34wZJvv2XbSrTxW6uWGr8nrYkuhVbDUSKuvCM2U471/109U
+	 h1ezctZwG8/IA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: aliceryhl@google.com,
+	daniel.almeida@collabora.com,
+	acourbot@nvidia.com,
+	ecourtney@nvidia.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	deborah.brouwer@collabora.com,
+	boris.brezillon@collabora.com,
+	lyude@redhat.com,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
+Date: Sun, 12 Jul 2026 17:35:51 +0200
+Message-ID: <20260712153551.1097724-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
+References: <20260628145406.2107056-1-dakr@kernel.org>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-`ResourceSize` was a bare type alias for `resource_size_t`, so it
-inherited every integer operation and `as` cast. That silently permits
-operations that are meaningless for the size of a hardware resource:
-mixing it with unrelated integers and truncating casts.
+On Sun, 28 Jun 2026 16:53:20 +0200, Danilo Krummrich wrote:
+> [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
 
-Wrap it in a `#[repr(transparent)]` newtype so each conversion at a
-boundary becomes explicit and reviewable. The representation is
-unchanged, so this is ABI-identical; only the spelling at the FFI
-boundary changes. Provide the minimal conversion surface the call sites
-need: `from_raw`/`into_raw`, `From` in both directions, and a fallible
-`TryFrom<ResourceSize> for usize` for the page-count site that can
-truncate on 32-bit. Update the two producers, `Resource::size` and
-`SGEntry::dma_len`, and the `request_region` and nova-core consumers so
-the tree builds green. Add doctest examples for the new type.
+Applied, thanks!
 
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Link: https://github.com/Rust-for-Linux/linux/issues/1203
-Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
----
-An earlier attempt at this conversion was posted by Moritz Zielke [1]. This
-is a fresh, independent implementation that reuses none of that code; it
-additionally converts the nova-core consumer and adds doctest examples.
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-[1] https://lore.kernel.org/all/20251203-res-size-newtype-v1-1-22ed0b8a7a18=
-@gmail.com/
+[1/19] rust: drm: ioctl: fix unbounded lifetimes in ioctl handler arguments
+      commit: 68b151bc6145
+[2/19] rust: drm: rename Uninit DeviceContext to Normal
+      commit: fd0f827c532b
+[3/19] rust: faux: add Device type with AsBusDevice support
+      commit: 893f39dadaa1
 
- drivers/gpu/nova-core/firmware/gsp.rs |  2 +-
- rust/kernel/io.rs                     | 73 +++++++++++++++++++++++++--
- rust/kernel/io/resource.rs            |  6 +--
- rust/kernel/scatterlist.rs            |  2 +-
- 4 files changed, 74 insertions(+), 9 deletions(-)
+      [ Drop redundant 'struct device' invariant; implied by valid
+        struct faux_device. - Danilo ]
 
-diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/=
-firmware/gsp.rs
-index 99a302bae567..d7593888e65b 100644
---- a/drivers/gpu/nova-core/firmware/gsp.rs
-+++ b/drivers/gpu/nova-core/firmware/gsp.rs
-@@ -175,7 +175,7 @@ pub(crate) fn radix3_dma_handle(&self) -> DmaAddress {
- fn map_into_lvl(sg_table: &SGTable<Owned<VVec<u8>>>, mut dst: VVec<u8>) ->=
- Result<VVec<u8>> {
-     for sg_entry in sg_table.iter() {
-         // Number of pages we need to map.
--        let num_pages =3D usize::from_safe_cast(sg_entry.dma_len()).div_ce=
-il(GSP_PAGE_SIZE);
-+        let num_pages =3D usize::try_from(sg_entry.dma_len())?.div_ceil(GS=
-P_PAGE_SIZE);
-=20
-         for i in 0..num_pages {
-             let entry =3D sg_entry.dma_address()
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index fcc7678fd9e3..ebf00b4536d6 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -6,9 +6,12 @@
-=20
- use crate::{
-     bindings,
-+    fmt,
-     prelude::*, //
- };
-=20
-+use core::num::TryFromIntError;
-+
- pub mod mem;
- pub mod poll;
- pub mod register;
-@@ -25,11 +28,73 @@
- /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
-ctures.
- pub type PhysAddr =3D bindings::phys_addr_t;
-=20
--/// Resource Size type.
-+/// Resource size type.
- ///
--/// This is a type alias to either `u32` or `u64` depending on the config =
-option
--/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
-ctures.
--pub type ResourceSize =3D bindings::resource_size_t;
-+/// This wraps either `u32` or `u64` depending on the config option
-+/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a `u64` even on 32-bit archi=
-tectures.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::io::ResourceSize;
-+///
-+/// let size =3D ResourceSize::from_raw(0x1000);
-+/// assert_eq!(size.into_raw(), 0x1000);
-+///
-+/// // Round-trips through the raw C type.
-+/// let raw: kernel::bindings::resource_size_t =3D size.into();
-+/// assert_eq!(ResourceSize::from(raw), size);
-+///
-+/// // Fallible conversion to `usize` (can truncate on 32-bit).
-+/// assert_eq!(usize::try_from(size)?, 0x1000);
-+/// # Ok::<(), core::num::TryFromIntError>(())
-+/// ```
-+#[repr(transparent)]
-+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-+pub struct ResourceSize(bindings::resource_size_t);
-+
-+impl ResourceSize {
-+    /// Creates a resource size from the raw C type.
-+    #[inline]
-+    pub const fn from_raw(value: bindings::resource_size_t) -> Self {
-+        Self(value)
-+    }
-+
-+    /// Turns this resource size into the raw C type.
-+    #[inline]
-+    pub const fn into_raw(self) -> bindings::resource_size_t {
-+        self.0
-+    }
-+}
-+
-+impl fmt::Debug for ResourceSize {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        write!(f, "{:#x}", self.0)
-+    }
-+}
-+
-+impl From<bindings::resource_size_t> for ResourceSize {
-+    #[inline]
-+    fn from(value: bindings::resource_size_t) -> Self {
-+        Self::from_raw(value)
-+    }
-+}
-+
-+impl From<ResourceSize> for bindings::resource_size_t {
-+    #[inline]
-+    fn from(value: ResourceSize) -> Self {
-+        value.into_raw()
-+    }
-+}
-+
-+impl TryFrom<ResourceSize> for usize {
-+    type Error =3D TryFromIntError;
-+
-+    #[inline]
-+    fn try_from(value: ResourceSize) -> Result<Self, Self::Error> {
-+        Self::try_from(value.into_raw())
-+    }
-+}
-=20
- /// Raw representation of an MMIO region.
- ///
-diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
-index 17b0c174cfc5..a33a416b289a 100644
---- a/rust/kernel/io/resource.rs
-+++ b/rust/kernel/io/resource.rs
-@@ -58,7 +58,7 @@ fn drop(&mut self) {
-         };
-=20
-         // SAFETY: Safe as per the invariant of `Region`.
--        unsafe { release_fn(start, size) };
-+        unsafe { release_fn(start, size.into_raw()) };
-     }
- }
-=20
-@@ -114,7 +114,7 @@ pub fn request_region(
-             bindings::__request_region(
-                 self.0.get(),
-                 start,
--                size,
-+                size.into_raw(),
-                 name.as_char_ptr(),
-                 flags.0 as c_int,
-             )
-@@ -130,7 +130,7 @@ pub fn request_region(
-     pub fn size(&self) -> ResourceSize {
-         let inner =3D self.0.get();
-         // SAFETY: Safe as per the invariants of `Resource`.
--        unsafe { bindings::resource_size(inner) }
-+        ResourceSize::from_raw(unsafe { bindings::resource_size(inner) })
-     }
-=20
-     /// Returns the start address of the resource.
-diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
-index b83c468b5c63..5d67242befd8 100644
---- a/rust/kernel/scatterlist.rs
-+++ b/rust/kernel/scatterlist.rs
-@@ -93,7 +93,7 @@ pub fn dma_address(&self) -> dma::DmaAddress {
-     pub fn dma_len(&self) -> ResourceSize {
-         #[allow(clippy::useless_conversion)]
-         // SAFETY: `self.as_raw()` is a valid pointer to a `struct scatter=
-list`.
--        unsafe { bindings::sg_dma_len(self.as_raw()) }.into()
-+        ResourceSize::from_raw(unsafe { bindings::sg_dma_len(self.as_raw()=
-) }.into())
-     }
- }
-=20
+[4/19] rust: drm: Add Driver::ParentDevice associated type
+      commit: 49e27d58a06d
+[5/19] rust: drm: change default DeviceContext to Normal
+      commit: 903001300874
+[6/19] rust: drm: restrict AlwaysRefCounted to Normal Device context
+      commit: 506a7d63dab0
+[7/19] rust: drm: restrict AlwaysRefCounted to Normal GEM Object context
+      commit: ec8b2cc27c76
+[8/19] rust: drm/gem: remove DeviceContext from shmem::Object
+      commit: 7f994b8912eb
+[9/19] rust: drm: split Deref for Device context typestates
+      commit: 1c8a1f88ac32
+[10/19] rust: drm: pin ioctl Device reference to Normal context
+      commit: 499eb35cd477
+[11/19] rust: drm: add Ioctl device context typestate
+      commit: 86b20b11505d
+[12/19] rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical sections
+      commit: 2455d5f2d5e8
+[13/19] rust: drm: Wrap ioctl dispatch in RegistrationGuard
+      commit: 478da53e5b68
 
-base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
---=20
-2.54.0
+      [ Use imperative mood in commit message; clarify __dev_ctx_cast() doc
+        comment to reflect Ioctl-to-Registered cast. - Danilo ]
 
+[14/19] rust: drm: return ParentDevice from Device AsRef
+      commit: 47f600d40bc6
+[15/19] rust: drm: add AsRef<ParentDevice<Bound>> for Device<Registered>
+      commit: 453197b7cc32
+[16/19] drm: fix race between partial drm_dev_register() failure and ioctl
+      commit: eb197f7d60f0
+[17/19] rust: drm: Add RegistrationData to drm::Driver
+      commit: e15b88223dc1
 
+      [ Move registration_data_unchecked() to Device<T, Registered> impl
+        block. - Danilo ]
+
+[18/19] rust: drm: Pass registration data to ioctl handlers
+      commit: 3ba210061c29
+[19/19] drm: nova: Use drm::Device<Registered> to access the parent bus device
+      commit: 354a8f8b098b
+
+The patches will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patches are queued up for the upcoming merge window for the next major
+kernel release.
