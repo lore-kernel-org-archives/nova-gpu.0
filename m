@@ -1,50 +1,50 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010041.outbound.protection.outlook.com [52.101.201.41])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011057.outbound.protection.outlook.com [52.101.52.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757B335979
-	for <nova-gpu@lists.linux.dev>; Wed, 15 Jul 2026 01:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF0D282F3C
+	for <nova-gpu@lists.linux.dev>; Wed, 15 Jul 2026 05:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784080195; cv=fail; b=KmDhmxONP8U3R1Js99cvvKGpC4FtShwLqBU/s45EXvIJeh9MoBqJyj7KOqV1qGLah6OeKgHl0dpjJmT+qHpFmIPCSmfJKL4IiaWuApFntl+tiZkm8JmrvZdju1/a3BbNZgWmvpX6wwZO7NRYm9vw5u9ViAYHGl99637Iw0xQ5Eo=
+	t=1784091622; cv=fail; b=ibRbJlw3XkSOXXQgfsACHPsg8nxsy8hJqIm7uCzGO9Or6RFMNIB4GzMXmUdg1+GNAHoXSPXu0suZEV8BVGHSyAZDedsyfmh6DUjGbRTTB6/RrZFAXqAsMbwRku/3jxp8HhyatFNUR/hzpfo2Ga7zyp7iFDxEinfc+01ZfP/7XTI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784080195; c=relaxed/simple;
-	bh=HF78auQrxZuZtxjdl69JlyW/B3WzwAVnMbqrX49eN5M=;
+	s=arc-20240116; t=1784091622; c=relaxed/simple;
+	bh=SxmN7bJUj8z2/gEgSNPmVCn7ZwKT/4Xsw0EDrolNR58=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=lFb9lHPopAu/KGWE3+mFkF/xFc/S4Z/qTPREdu74S8goleLVDpFahv3ChPADLV/Ei86e4xHtTUyVjDhWrfZ7L8/tpOTSrQaSha4o7ijMTGXx+VtbqqrCG9JvOsHA9LGaV2bY/DDQzov3Mswi/aeMq8tlJh9IsNg0HTd44hp5VTg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=fail (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uqMMCBIc reason="signature verification failed"; arc=fail smtp.client-ip=52.101.201.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com
+	 Content-Disposition:In-Reply-To:MIME-Version; b=r26Ll6vAuS3OrXG7xaW0Jp8K+dSowdPQyRyzxAuIMuanDqAVdWNnadtJ80CyR4DOJmnxz65j7rkli8e3GN9up/QOjnWpPkWNB1SCxPJw1rKKNmNf7nzfw1f5CDHQUzfPaqjSentBxtWY94K83mjSlMf6J4WssTmfVsxV8Qs3EeY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dQirrTxI; arc=fail smtp.client-ip=52.101.52.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uqMMCBIc"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dQirrTxI"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZKhaCvgV1i6lMsEcrd4d7JUz0HJ/iSnJyf33tx3fucuLevlMwOLqFkQ92sNsnValvG6UMiSFr3BcLHpPNRu6yWEiykPOLZaK9GrRrJ4Oz1GxfO9YFsvpT9ExkPvWttSZ9eC2C0JWbhtVlAUDhOY/kxPBrW+HlqqwQ/qO7I3AQooT0XVwE6jCZsQPds3Aaaf8Wx++v9GbzaeA5lZgKT1V7W7tyOCk2L85v1uhI7k3SFoCXGOoaKmccUr6kE2EPlOIylp+olq4gR3jAuNx9Hoz59NTyd31Vf7RZsyRjdUnaNLqVRglYRJATZNR5xWkbVRo9RWhE84knsGu8mlgD8qVtQ==
+ b=Cy7vPnRi4H0FZGv5zHUuNpSewkGaelHMhfjtxJ8poqPAM2+vb8RvN+8BOxljWYRTSOGsXI+aFdu02cEKqOyHyH+2AVrmoEV19NKG/99vzJ7k5Jl2rXwH+gApmr3Tc06bMIxEbhF83iMDt2yaN98T2WhMWC0uZStVjAOYVMuMXpOqcc5CtJe2/u+8TvrM62LMTJpA7vhDA6HetD1Nu6SZzerPO6EOyABInQuwNdxD+TvS64bxMsw5rERK1lIG3xEYGtqLIFrYHZMkkM1B7OIZBQMgsOw+6/ba86amud8jL33sYtUc6ylmTJETgn4UQe+SixUaREWgD0XuS8sx19MoJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Vu+X2gnygESAb3PLoT+T0leX8t7SNMvbP+UeF7k9ck=;
- b=lv3yw9MKr5RPYZyp5YnI+T6VDqp4svlsxkg6kZwUFDnvJxMCPhdw8FUFXbx84BWHSZ/Z/5Gy6ug9lqsY2Fm/9UAGd1M5eaPmU2ak7W44M9e+B3+xD1Gwv3NNVlkOjohNL2IgQutFTn87oCwVAgWxPdaPs/DDIM6R1q0Zaxm3GsDXYL/EnYMU+EE0F85TwpTnToOPU9p+TYOdtqilch6wb+PSZE3yl7rwk+3kjBmyKdyH0ixMDNnU2uvfL2lXmsxpv1ty+2k82AgupYiFT4v6FoBimITeECRo0kaPsWJPkhceCc2nQwXgBErSi6EXSOI/UkB2oGihmHD4dZxaKDGk0Q==
+ bh=2b/e6+bnSYw4j7KDSygNg9yE6UUAwIHZa0itrO7YQ1w=;
+ b=GdmL68qGr1xC7BPfhz3YFhpQkbj9SfV59/JoLnir1+YmmBQwIqm2MQpWvWOzwe+Ip/rtZ6LDMN5xnO44NMfhsojHxefTyDa3vwlwkwbFiFBMuoSXFeAz/CaX5DHEZRd5RSx0z2dp4Qxi9x13qNVBWppH9Xjs4DExCK4CIKCV/6untyhuoZm3S7aUtnfBVYijrIq1Mag5D2olLv5xhF/76RrZ23U9OL8LxCeu68biahlafwpnxJYYh7tm4h+V8Bu4nDd+BBZTyi+97bCPFeR8Aq2lcRAxNV0uNEQPEwRxrH/9+DCag38aOIRmL8uTXrlgGS6fiVzx4iWESxTpeuBa8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Vu+X2gnygESAb3PLoT+T0leX8t7SNMvbP+UeF7k9ck=;
- b=uqMMCBIc2bdHze0Ks/MEwRJWURI6AzPEAOtujy883h7mI/SJqOBHwvZw/3yqlHAC2Ddbtnr81DzZ3ULHDg+whmoA1cHWB46MfIjMGiSb5lMUujZLB1qAjKoTd7Jc56ZqyxasrXMcGOqvBQsnD9C2RfEabq5QDSXzFEfUkW0jKscW1/idKFLMKZpxwrxhacnyl1iLGU3xQueZOxK1uzgpdOI6j5dj7eFJIJ4EzxP5bnoftWXOxLOvePGoLQwpODh+r7l9XmKwfmnsoVnsyVnwkkdQY9Yil/U+5s0bqF/5MkvYTeZ+7Rupj8kggjnwJBEjHXmPuXlPJkzASDSheRsCCw==
+ bh=2b/e6+bnSYw4j7KDSygNg9yE6UUAwIHZa0itrO7YQ1w=;
+ b=dQirrTxI0/MpkQEQ+1SQfHIA3IHJj+GuL5NYRoM2qj70QA/sRzMG4hsYmwRSewWIBwR9/tGfU2pNevQCb+A6Z5WsUyS2gFAem0VQue9eUNL1PYQjW9v9hlaTjR/33O3cHJ+fJd30GMgNRxt4Sy6nd+HMI4v7WGKyGsXeMJRAUW399krOUmKbs4JyCz91PSsojHe8wYWh1R94Wa5qXL/Q9IPx/q9eFtOduRmJgBrPi6hJNDa6V9Q4FCZcENDgLShf7e4U/H62jsy16ekQuZlG1TSbgXKy4DRws0Paz6CXzX/qr8yyWvqgDIr4P94D+HraAoDNDUewTe5LnvvLcHgygQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CH3PR12MB9121.namprd12.prod.outlook.com (2603:10b6:610:1a1::8) with
+ by CY5PR12MB6454.namprd12.prod.outlook.com (2603:10b6:930:36::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.9; Wed, 15 Jul
- 2026 01:49:48 +0000
+ 2026 05:00:15 +0000
 Received: from LV3PR12MB9356.namprd12.prod.outlook.com
  ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
  ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
- 01:49:48 +0000
-Date: Tue, 14 Jul 2026 21:49:45 -0400
+ 05:00:15 +0000
+Date: Wed, 15 Jul 2026 01:00:12 -0400
 From: Yury Norov <ynorov@nvidia.com>
-To: Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+To: Gary Guo <gary@garyguo.net>
 Cc: Eliot Courtney <ecourtney@nvidia.com>,
 	Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
 	John Hubbard <jhubbard@nvidia.com>,
@@ -60,8 +60,9 @@ Cc: Eliot Courtney <ecourtney@nvidia.com>,
 	Boqun Feng <boqun@kernel.org>,
 	Daniel Almeida <daniel.almeida@collabora.com>,
 	Danilo Krummrich <dakr@kernel.org>,
-	David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
-	Miguel Ojeda <ojeda@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+	David Airlie <airlied@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Simona Vetter <simona@ffwll.ch>,
 	Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
 	Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
 	Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
@@ -69,15 +70,14 @@ Cc: Eliot Courtney <ecourtney@nvidia.com>,
 	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
 Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
  region allocations
-Message-ID: <albnOd3yKOiF2GwN@yury>
+Message-ID: <alcT3HupA6TogWSa@yury>
 References: <20260711063602.426311-1-ynorov@nvidia.com>
- <20260711082725.12176-1-work@onurozkan.dev>
-Content-Type: text/plain; charset=iso-8859-1
+ <DJVSHL6XP43R.1INHQRXAG8UA3@garyguo.net>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711082725.12176-1-work@onurozkan.dev>
-X-ClientProxiedBy: SJ0PR03CA0109.namprd03.prod.outlook.com
- (2603:10b6:a03:333::24) To LV3PR12MB9356.namprd12.prod.outlook.com
+In-Reply-To: <DJVSHL6XP43R.1INHQRXAG8UA3@garyguo.net>
+X-ClientProxiedBy: BYAPR21CA0005.namprd21.prod.outlook.com
+ (2603:10b6:a03:114::15) To LV3PR12MB9356.namprd12.prod.outlook.com
  (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -86,97 +86,156 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CH3PR12MB9121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a680a69-c3a1-47a9-1809-08dee2135a29
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY5PR12MB6454:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6fd0e72-a140-422d-6c7c-08dee22df528
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|3023799007|4143699003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|4143699003|3023799007|56012099006|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	WfHMcq9Ple5SN7xJn/NYzHspFPpn1bdMs7E9dDNu7PfN1eoFV2fRZinAGXRyHN93CjlbITuzGE+Gl5mKK9yTcFM4Tx0rWPcUeQRHIuJJz/9kbLPGkjonjGhA91xCt9Y4Dx9EWCxK8mT0LBRK74JTI4X9o0Ik7OdQF5HuMx7SP7WGVcdlPOFnS0KDfsM5sGpertG9rJ6XArADiODhCJOAPi4wOV/Qsm9dJxGwi/oW40jVapK0ZAbh0bXoWwi+Umoy2JD+K1StcxTr6CurX4oBB1uYYtRY2kWI8ve6CyVnapfV4t3A2Q4aMudU4GgacgTq1T2oGBFtamDHx11tWpGJ8nbHjEZQzj3QMztcr4SoaCLWpDKW/mpea6gBlUbgWDrEmOdwCgXDnqY+LTFL/xz3XkfMHwC41pWDzNzjvNHxBJensOvHghkwN/qbpC1SSx6S1ED3AeukdRQ4Vwe7c/Kyp4l+JP+J0/+xOCnf8gBETcaXawtCB3s7nnym7Mhfqt+5GI8aIRC7hGaf5EbeqzHxesfBQzLFACpYrznwM+LMgi47gf1RCkVyv8R1IqXnGYRas8BEjvbvWR5kO13Dpq8Z49NegI6ObKpbx96zCak12F9SSs2Z/5qJlaAFHBGOAdy/FoSbs8V7VnhqdJGKUxCp618ep2HfhLnXlTwmIYJF/3c=
+	mKmOuVRKDudZccPCw/biSxjCLdt0q3pERMlqYbYGRRrAFF4XZZ6fb0u2VjAIhBifM907kX9t7WohLBDPmkuS6NASqEgR9KmGKFMXhjIDg3Upnbm5Rc0CtxvcXy8KfmlY4e2BX+7m9pndQXaSMHMpdSgjdMSOGQc7Ja8JDKvcXURxUiPSOgCkjEuvS3sm2+sTnZiBKZ2eDVVH45deswb8X5+C2rtSvjVmtUS3GhtlInRCmOsaVsoKCHesTPrVhSmXoQpVLSiG2UkvvcApf0A3l6wELbScvGJaEa/ekKr7RUYxKHJhnpuhukvrKGDnZ5ilinROCpji0Ws6GtTRpD+bAIBBq91nAIfOWwN2ji1cizLdZWOjnj1jRleEoWq1V3OiPw2EB4/2954negkVR4UsPEYWCt1V91vb7OYbEiHbMCcnKmvOUImYml/In2C8lzfXQdokKZWUKuBzaou0ZV9dgRehJUh2izLagVzAsBltFWAlmNz2iWj7O4mfqUfRxIKNTKb//nbELfJTl0VyJ7jNr003tlojsCHJDclhKvAhx2LRR39qRUSVBXu1EYbg/2KNiSggHH/EN1LqnNsDDXf9vD2lHs/e0WSaxrp0irmZfTalp/53gdHG76ta8idCS4Q5zoW5YxQEPMhqO2sfrWle4mx+ChFIiKXKIzuCX7b+RqI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(3023799007)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(4143699003)(3023799007)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?/2arx4+N/Q7dTRrijSSPoSsnumFj1XMiFX6KrZ09IYq2HyPhlpX9c3OebQ?=
- =?iso-8859-1?Q?feDpaoTwqYa4p5HYHxhRqkkkh1X6nZyzt2sQoMuZTREt/n/lUikRFBS7By?=
- =?iso-8859-1?Q?uwKgKJu+rcTo8z6wMnTrRNb1d5qGP5xiNptK62lVQrU73C50y59HPmjseM?=
- =?iso-8859-1?Q?PeOzR39J6Dhxy72YwjZIvIPDcJ5nSXpJwQna7PLhYYnjJLphpBbpdSJUht?=
- =?iso-8859-1?Q?mxBK+8xqxpx6qzDYw9Gux4URrlrL1v8mjTXu6f92ne2/phsDH+AREs3y+x?=
- =?iso-8859-1?Q?URaVzxosRlMKiWhghk7DhiTL1uCoJeQAVZ63IPEu978eqf8E72qcfG0bXo?=
- =?iso-8859-1?Q?OGTxKpQ5trnsim4a84Fqh7zBvRvCzfLDPnXmbfwYdp91cOZK8wBXGyLW6o?=
- =?iso-8859-1?Q?ezJXxdh3eY2n802xewHjhyWG88rA2NXDTgb7Kk5QKgf94MymazGh/geE+B?=
- =?iso-8859-1?Q?1mr/xdGKouM65b5d/WO/maBQi7gugn5MbQU3bPUceOygeyyrYKfvVtnTxn?=
- =?iso-8859-1?Q?FQmZLflGyftaNwAaKSv9gzyKa0yVsJE8VlSrBCWF/TvFh2T0Mgaa0KVOWm?=
- =?iso-8859-1?Q?mhvEjMG2mxMQmj8JYDcpQP2/fz9ogpjPixOHCFQ+3095AIXRELOb++cA6I?=
- =?iso-8859-1?Q?XijYcknHFyIK3pHGBN8NowVVvlmelctj19z4pgzvgJ3uW30IVCh5rCVK2f?=
- =?iso-8859-1?Q?oxuZKayWg+gdS3DzMkQ294t9PvLi69ogvQ9+NvRt52+20ToBZKYo0PrGkS?=
- =?iso-8859-1?Q?IsPiTTwte0JNMluNZeGYkq5xHyyyw8fqYonQ65Pa9Q2Egm3wFcIvlQWQQZ?=
- =?iso-8859-1?Q?LbtLwGe0V20Xt+OI7qozsfH6DiZmbBiQG7m5waiq1Dqotovzz7b6knmrmJ?=
- =?iso-8859-1?Q?yJBGomDiPEaEEeSv6LVFu/GUAPjcnpPIgZ2E4R13aD72M041nBE9htsUFg?=
- =?iso-8859-1?Q?gJVDDlIL3YH/UMN1HJ4ywlB4jD+DjPICrCePHaEojWPWchh+t07YybnJW3?=
- =?iso-8859-1?Q?VC179tbeHspzwHJYD8sFQar7Rg1B3JiP7BbmKAkFWNoAOThs54Q82rGg5y?=
- =?iso-8859-1?Q?XEGohZWuuZU237Abhxk42LcIZqEoDo7zpgFKu1/o3RNoGmQHx81G4wavhm?=
- =?iso-8859-1?Q?ohmd6vgckf1KuSoC8DCru2MRZ6tIJkWYp4wbvg5JKlhD/wmMgCxejgHm2E?=
- =?iso-8859-1?Q?pK9pvDSTia0aLKzgkfaTplF+/4K2OYaukvj46LynOOrAUIn7exTG9YQiYC?=
- =?iso-8859-1?Q?pJUwL58kemyH1dFioc3XkNz/kjVZfhkOILA/Ccsg79ezgw7WZi4sUBcGnJ?=
- =?iso-8859-1?Q?3QZWi/bTVgvlbFeSYEAkhHKoDmCggvCf6RMuGo/rdyUghEMx0a3VrT0QZB?=
- =?iso-8859-1?Q?uLR8fZvSj+rclg7imiNJodfIxSI4F0wyBqZfEvPomwQHAtaNPkAH9KD8iL?=
- =?iso-8859-1?Q?Xu4wLV6GoQ7hyRULE/HKkQ7x0uDahgMnP/QAWR3mvYqCnIaA1PN/BR2jo/?=
- =?iso-8859-1?Q?wAEYxl/4srXVXLExrcUbLn4a2jr3vQYz9VvrWR7sWaJkKMAlyQEunWAsKx?=
- =?iso-8859-1?Q?soFecg41Z1o/yt9Q8eBxpfhOKjtw5uh2ZmWjRXYZrd08JGFr48AZ1/DR32?=
- =?iso-8859-1?Q?9Dv/38dRDCSxb9Jb6aqOJ7lICxM9KNLpG1k71dFatxjFnMYRbvSuNJjrIn?=
- =?iso-8859-1?Q?XIvz9UrSpBQWTQWXqrvhDYXOmkcJ9X89qQiDs7u4+ykPnZjFPMSKAcHoBS?=
- =?iso-8859-1?Q?lG53IrnMd+hlfmIkYtJQ2/MkjpOUyQWPqP5tTce4nYO7rDu1b/loRg09T/?=
- =?iso-8859-1?Q?wv42oACVfg=3D=3D?=
+	=?us-ascii?Q?YFHzUjDR4VHuKb1+oho2Q/1rYwOwz/sCmjl8usAxAJmxW/fxNqJ4rR83hIlz?=
+ =?us-ascii?Q?kAOg3UTZ8nPbxuJZmaL1n4Y3dBHpw53hZDZmgZmQKkXnb+/Pti/a1WxlosS7?=
+ =?us-ascii?Q?wAptm5e6Hhhp4dnp0oRcLeyFZ2MeihjxY3ZLcAAVDWXjdvRrCQCwVA4hyhEA?=
+ =?us-ascii?Q?1rOtRuO+a65w8wWLCe8HrXUnb2ro6YuZKfziOGU7JVaGnmaTlLsUewM0MGy/?=
+ =?us-ascii?Q?puSEzRbfsUtBd4XlPXFyi1tOgHP8HiU63y9XSsieeo/VsHxJIxrA0YsffUsW?=
+ =?us-ascii?Q?fOgq4eG2XXCwmJ/VC21O9LjLq1UP6X6U291OcwVonKwOrUx1v4L8Su4JAah5?=
+ =?us-ascii?Q?ekdO0Y+TVtYvySfEIFjvRmLhMklhi1B3Zhv7xHEtKqjtJ2oHx5yGFk/fETNb?=
+ =?us-ascii?Q?w69NTQ4tyZF+mk6uS+DEif2Px96nxxm9hQTy+2fkkGDBFtPw3fKToO/vWxUo?=
+ =?us-ascii?Q?6DzVWmhJAHYtgR9Wn+Tke/oe2xkiXubZLCT2Xl1/ivYW6xDUO0JcYmn9wSgA?=
+ =?us-ascii?Q?ZR/RuNPBNj+L6/rorltbtLhVJAp0e+N4G3xxRovb7SjvSYPhF+ZvGOJL35ij?=
+ =?us-ascii?Q?mVrIMTvooWNn/tcuqW4YHKLL+J4iEtvIjF2F4lx0acrXpC+IIBiMdVgk07sQ?=
+ =?us-ascii?Q?/NwvjRy3Q+l02H0xxsYWMCkUBXFBW8NkLsVVf3k+1ZSOqD2AF5vH9aSO2xXK?=
+ =?us-ascii?Q?e/0266b/XiDd8v8BTGM0QaAwtktr+hWxt2k1qoKz5UHaAL47opm68XksfqAi?=
+ =?us-ascii?Q?fxa3qVmVaXiRNi4r1ITsWDCbnMCzSzJP8xzQ4XtqTVhEOLr5u2hH/57Mo2Us?=
+ =?us-ascii?Q?GcTMzwpemB0MX+iHu+kao/hZmVE2TaKtDw9hA/nKOAVete4LK0Ukr1Ae4Kiz?=
+ =?us-ascii?Q?5B/u+tnsVznwnuVc8OytwNBJqL5ovCGs/YADwwXSG8WUMrCrdHbgC2wvvNs4?=
+ =?us-ascii?Q?2ufky34kqMw+8U7AbQVm3o25pUnBlbR0jb92E+sMfJQVbmBoHa5SGvu7VAd0?=
+ =?us-ascii?Q?cVwmXcw+jyxiKyRm/BKiMVV/bWR/+2GsrErbUtZkOyxg10J60rRLVz7rVutq?=
+ =?us-ascii?Q?YqBu/yHEyM5oTq6fb6My9Wa8MNaA71AZ1cVcsT0S04VlwObG9kGbonrFYJii?=
+ =?us-ascii?Q?/rNQ0D6Lu8Dj1qs56SmtNUsKM9jjh5FdHE+Do7AC0daFRFZURxH3FNBILwMa?=
+ =?us-ascii?Q?cSFmM3G/WfskDYxZ7BEow7NLTxZhBvOstlPrRmNRpAdXIqiX4+uYvg5yfLku?=
+ =?us-ascii?Q?YjiDsYsVdcjosARcAdaRQju7SC+ybV95lbAH8DKM4NHf2lzS32eOsv9qCgM+?=
+ =?us-ascii?Q?fCNd2FP9CaANVBsgoE720/64CeT7W+qyq4cEYHvG0ewwuZdYdjKZ0u4at01r?=
+ =?us-ascii?Q?B1YYcX+WslHyWOaD79YfYhlr0WcpZk9rtS3T+Qopif927PyPOArOGl/BL2+H?=
+ =?us-ascii?Q?a/7dm1nwnty1a2EzqWmbZinBjwdXfu+hkP8QlZ7MeXZli/MWTzAJXfylaCK4?=
+ =?us-ascii?Q?OE781irUwoA2bjvTpVPyKZPYrk91Qk9J+HHc50zubmI+MFwFnKjEXyIj82Oq?=
+ =?us-ascii?Q?WTE+BFoKROESDTa0K93MbE1m9H2P4DG9MV+VhYo+FfWuSEB/rXN8vH4ma0O5?=
+ =?us-ascii?Q?q8VnC5aoYcLa5nCenRZKUvIo8uXWJwfHqPTG6bowyxgzdrL0305etqMdyeAb?=
+ =?us-ascii?Q?JbZ4pny7vQrYlq1rTeUUU1/P25a7f/jCGLOXpKe9ehjCLuZJHXJhh4Hbk1z6?=
+ =?us-ascii?Q?OZtADkeZHQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a680a69-c3a1-47a9-1809-08dee2135a29
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6fd0e72-a140-422d-6c7c-08dee22df528
 X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 01:49:48.0791
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 05:00:14.9815
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GXCVCvk903qmLktjkL5Vs33qwxiUcnN1IYztEEDI8rBooiCAwNbUD9E78muXUG0xgI0hGDozUIg+0AybIReaNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9121
+X-MS-Exchange-CrossTenant-UserPrincipalName: xj4/jW1RejFpqnisqikQut8olPPy/5wnu88lA8EomxX2Uz7WlAVduaKGglbFtMVC/uieKenPk26MkaGV6hvu6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6454
 
-On Sat, Jul 11, 2026 at 11:27:08AM +0300, Onur Özkan wrote:
-> On Sat, 11 Jul 2026 02:36:01 -0400
-> Yury Norov <ynorov@nvidia.com> wrote:
-> 
-> > Compare the cost of allocating and freeing variable-sized regions using
-> > a bitmap, IDA and a Maple Tree. All implementations process the same
-> > randomly generated sequence of region sizes, ranging from 1 to 32 entries,
-> > until the configured capacity is exhausted.
-> > 
-> > Run the benchmark at several capacities to show how the approaches
-> > scale. Report allocation and free times separately because bitmap,
-> > IDA and Maple Tree removal have substantially different costs.
-> > 
-> > On x86/kvm, the output example is:
-> > 
-> > type       alloc (ns)      free (ns)   capacity   memory (B)
-> > bitmap      179573071         342105    1000000       125000
-> > IDA          46555636       33931498    1000000       134864
-> > maple        18629665       19741396    1000000      1548304
-> > bitmap        1630912          30933     100000        12504
-> > IDA           6144785        3354590     100000        14288
-> > maple         1745026        1825032     100000       155408
-> > bitmap          28448           3374      10000         1256
-> > IDA            418978         333641      10000         1872
-> > maple          185398         211138      10000        15632
-> > bitmap           2253            610       1000          128
-> > IDA             42755          36432       1000          144
-> > maple           19728          23474       1000         1552
-> > 
-> > Reported IDA and Maple Tree memory figures exclude slab overhead
-> > and transient allocations. The Maple Tree figure is additionally
-> > a lower-bound estimate that assumes fully occupied leaf nodes and
-> > excludes internal nodes.
-> 
-> The report itself doesn't make it obvious. I think "memory (B)" can be
-> misleading. Perhaps we should use a clearer column name or add a short note
-> before/after the report for explaining the columns?
+On Sat, Jul 11, 2026 at 02:51:28PM +0100, Gary Guo wrote:
 
-OK, will add.
+...
+
+> > +static unsigned long __init benchmark_bitmap(unsigned long capacity)
+> > +{
+> > +	unsigned long count, index;
+> > +	ktime_t alloc_time, free_time;
+> > +	size_t memory;
+> > +
+> > +	bitmap_zero(alloc_bitmap, MAP_SIZE);
+> > +	alloc_time = ktime_get();
+> 
+> To eliminate possible effects of optimization messing up benchmark, please add a
+> barrier() after start timing and a barrier() before end timing. Probably you'd
+> want one between each loop iteration too.
+
+It was never a problem in find_bit_benchmark test, but OK.
+ 
+> > +	for (count = 0; count < ARRAY_SIZE(region_sizes); count++) {
+> > +		index = bitmap_find_next_zero_area(alloc_bitmap, capacity, 0,
+> > +						   region_sizes[count], 0);
+> > +		if (index >= capacity)
+> > +			break;
+> > +
+> > +		region_indexes[count] = index;
+> > +		bitmap_set(alloc_bitmap, index, region_sizes[count]);
+> > +	}
+> > +	alloc_time = ktime_get() - alloc_time;
+> > +
+> > +	index = count;
+> > +	free_time = ktime_get();
+> > +	while (index--)
+> > +		bitmap_clear(alloc_bitmap, region_indexes[index],
+> > +			     region_sizes[index]);
+> > +	free_time = ktime_get() - free_time;
+> > +	memory = BITS_TO_LONGS(capacity) * sizeof(unsigned long);
+> > +	pr_err("%-6s   %12llu   %12llu   %8lu   %10zu\n", "bitmap", alloc_time,
+> > +		free_time, capacity, memory);
+> 
+> I wonder if the numbers could be more useful if it is somehow normalized (e.g.
+> by how many iterations are performed?)? This number can be computed by adding
+> up the prefix of region_sizes until it cover all capacity.
+> 
+> Also, the capacity should probably be made part of the report header for all 3
+> ID allocators. Given this is randomized benchmark the single line, when taken
+> out of context, is not very meaningful anyway.
+> 
+> Something like this might be better (fake numbers below, you might also need
+> some fix point printing):
+> 
+> capacity = 1000000, regions = 100000
+> type       alloc (ns/region) free (ns/region) memory (B/capacity)
+> bitmap              1795.730           3.421                0.125
+> IDA                  465.556         339.314                0.134
+> maple                186.296         197.413                1.548
+> 
+> capacity = 100000, regions = 10000
+> bitmap               163.091           3.093                0.125
+> IDA                  614.478         335.459                0.142
+> maple                174.502         182.503                1.554
+> 
+> capacity = 10000, regions = 1000
+> bitmap                28.448           3.374                0.125
+> IDA                  418.978         333.641                0.187
+> maple                185.398         211.138                1.563
+> 
+> capacity = 1000, regions = 100
+> bitmap                22.530           6.100                0.128
+> IDA                  427.550         364.320                0.144
+> maple                197.280         234.740                1.552
+
+I can add the 'regions' column, mostly for completeness. My experience
+with find_bit_benchmark is that people mostly ignore it.
+
+Your version may look more 'human friendly', but the reality is that
+people understand the original version quite well. This "nice"
+formatting is a substantial complication for the log parsers.
+
+Printing anything else, except for the raw test output numbers, is
+simply wrong. I don't want to force people to *my* analysis. If you
+believe that ns per region is more informative, you can do that
+trivial math yourself.
+
+For more serious statistical analysis, one must take into
+consideration measurement errors, distribution skewness, random
+variables correlations and all that fancy statistical things.
+
+In your example, you divide one random variable, ns, to another,
+number of regions. Each of them has its own distribution, and not
+necessarily normal. Simple divide operation becomes not so simple,
+if you do it right.
+
+I'm not saying that this simple test requires an analysis of such
+complexity. I'm saying that raw output numbers are always preferred
+at data collection phase.
+
+Thanks,
+Yury
