@@ -1,90 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013037.outbound.protection.outlook.com [40.93.196.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368DD3128D7;
-	Wed, 15 Jul 2026 06:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784098070; cv=none; b=Igpo6EBranfc+o1EvjcqtTSeKAtIT4ElMlm0j4fsRlWo5RqZbsou4Nx6IMmFuHfn2IOnnSl7PU3mwgaLLzsnX7qBmTHZ93EHDBeXvx/MWE9wLC4TtaVHpOiGaYnyNaslHj+e1UkmFMgsoHPZvSq6wa9Dl8JvngIGZC6Sp6RK+Yw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784098070; c=relaxed/simple;
-	bh=Kspjd676zvs0DkYjbeRjHFL+eRleqOy5TmzjeLfcgxg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=PSzx5UyQQgmi+8J/y2QtgSOaOy8KhmPJgWkiDlTRd4TvH3jxvjndaMhXKCshghO8HOOcOfxyNSX8YJzbD4sP26we+Bvhd6WS4GIE/jgnyve0FyUeFGX7WrSptMUtU1Gaj/LIulZyNMjPPxWBNL4vfuRsdaAfCu0p26jOhFI8Aa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rxe5BH0x; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16F52EEE80
+	for <nova-gpu@lists.linux.dev>; Wed, 15 Jul 2026 15:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784130878; cv=fail; b=oM9W2dD9iwYVW07wUz9Jkn1tmjlFzWLRkASDirYu+q+sZMpjL3u4fSe4IdYtvfnmY/CBBXM4NrZvktOQFUMx0hQe939YcQobju8WdnF8FLmVul53DtPEIGP0nixv938fFGYC2j/Umenszo2J3pp3xJpvVVrbkMM/lSPaPxh6qJk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784130878; c=relaxed/simple;
+	bh=KyUzc4wlYKWKtCe8zgLx1Tdbjpge0p/6IdT/Yw5DptY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=jUfMRJdsdH93Idu3ABvPQwxRccnqYHnybOgVIVO9iAlAVY9CJrdBNb9rPSNcqkhbhKdgr+7ey0jrwucdK5B47fAw1ZUjZrJhhgd5gp1QhX9Hz/ix5uQHzd1bpWSDSduM17CDbtcnWvOU3fOixtx/lUs41iVXw0NZOYS6hgs6WxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nJkoGrUy; arc=fail smtp.client-ip=40.93.196.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rxe5BH0x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B7291F000E9;
-	Wed, 15 Jul 2026 06:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784098068;
-	bh=Kspjd676zvs0DkYjbeRjHFL+eRleqOy5TmzjeLfcgxg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Rxe5BH0xxS8Vh4oYbl/NJWNcYGvgJM17Umbc51sM7xu1SMeV4cV515HpEvcKV4FMP
-	 TGJ8PNvDRgCYG01V10/2gn5Q6f5ZuvzRtp9u8pLjXDAxuYDZUmjxg0UxhJR2UstyQm
-	 QQk0Exe4Ex7DMTCVrb5jDz0CQlyGwXtccd3Fv5EUvYKRyPrOtJ7wl03qR7SDDiSixz
-	 Vvx+lW4UtYvtbN14sNTyGLAY454TSkUZoEZ8NdAShabcq7GngGNDKCIne4gq9uY0XD
-	 W8mnw/OD5Qm36U8Ti0gXvCupfR0ODtgPQgMa4APmfNia4h6YM6yxGVLzQBjGW5yoyE
-	 ryb4o97GKAkIg==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6r?=
- =?utf-8?Q?n?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu
- <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>, Arnd
- Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, Breno
- Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, Dave Ertman
- <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, Igor
- Korotin <igor.korotin@linux.dev>, FUJITA Tomonori
- <fujita.tomonori@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Arve
- =?utf-8?B?SGrDuG5uZXbDpWc=?=
- <arve@android.com>, Todd Kjos <tkjos@android.com>, Christian Brauner
- <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v8 07/10] rust: configfs: use `LocalModule` for
- `THIS_MODULE`
-In-Reply-To: <20260713-fix-fops-owner-v8-7-2495cfa82d47@linux.dev>
-References: <20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev>
- <20260713-fix-fops-owner-v8-7-2495cfa82d47@linux.dev>
-Date: Wed, 15 Jul 2026 08:46:42 +0200
-Message-ID: <87ldbchhrh.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nJkoGrUy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qo7Tgt1jWMRAbbMe5bp//s7B8E6Waq2X9rUKhf71D7n/LgwyG9FBqKNLAPpRy3Bo1PwTVyFXthDXBfU6H0P9FEKMISN86fdlSPYf3fhu7jr33SLdhYgK0wizMnV0/kzsPvyD6XUSAL6RLc07tavUnfLfiOGOwBsZ13rc+UmmyCWJ6E0WFIiWmCi/GOrOgyThfsWcwlLyGj7J7VLY0pxyfvPpD/1DVNfSNjfq5tct1sUDF9YFFsVEV3NzaUasBcvmWH2J9wiCtikaRwzZ90fcYL5iQZdtXvGnWoEU1DOnOeIbR9eQDd6CIEpjeyjpSWYtD1weA/K+XYrtYME0o5ZbaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0Ah1sfaX7dHWn4S4nwD5Xgc/QaApwAk9MSaIAwCmMFw=;
+ b=Q3pK3sD6zcwUf0pJgtWs17q32erKTM74veLtDl+gJ5ItQ8ofvyEQAI0xvOOpLqF2onTRsDyNG8/uPqh9T0Lgz72xN8gPFUr7YeXhq+f6dfj+p6IWvc/RGpEgrTW8No8UvyQmq3f/jvWp7CIFs6hj1FM2zw9l4Ew0oIl6bVLhmc+H3RA6WOnMib7FFJ8XiXVd4DktbMgYRvwUGjGmUdVe2dpx0/rpZdB7abYnKe61/HJk1f8xjM4I2ZeG3eyqP4cLZphdNMCcCTb7K4VDlBJ0vrB8PEM0T5JX6vKpfACWPb04oWGAFhCHN56cBC4NBVPQL/IxusMu0q9aV5fz83FvfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0Ah1sfaX7dHWn4S4nwD5Xgc/QaApwAk9MSaIAwCmMFw=;
+ b=nJkoGrUyNNB/wvbdBZadth3UE1V7IvbLxi72IFWCnrgVMA4J1FzaEMJgXFRFnVMJ//fEhOE0lVHHqGJt3SIuzMEKHeE/eRcJgzdZuFWq9br7Ry72Enh4Pvw5ER6LZ/v2Ds+a/6+7D2JIz2h0EzNbakTdGiPCYCdA7ehhvdTiJ7U4f2hUm0Y24kA2maraRSpDR/piqKUjuCZoFNpHHQpNkJsIhWkv9lNQslVbQhHPb+bSAYvjwyB1cGgok2V9c9f0VP4t618Vn/krGhLCfi3IdyJ8c+7rKKG4869qb7mDPbKEKYQeI6byYt96fVR8ce8xA1DEQyvaMFmfosCoYULxYg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by DS0PR12MB6415.namprd12.prod.outlook.com (2603:10b6:8:cc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
+ 2026 15:54:26 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
+ 15:54:26 +0000
+Date: Wed, 15 Jul 2026 11:54:23 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: Eliot Courtney <ecourtney@nvidia.com>,
+	Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Benno Lossin <lossin@kernel.org>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	David Airlie <airlied@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Simona Vetter <simona@ffwll.ch>,
+	Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
+	Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
+	Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
+ region allocations
+Message-ID: <aletL7odX7uIDPxD@yury>
+References: <20260711063602.426311-1-ynorov@nvidia.com>
+ <DJVSHL6XP43R.1INHQRXAG8UA3@garyguo.net>
+ <alcT3HupA6TogWSa@yury>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alcT3HupA6TogWSa@yury>
+X-ClientProxiedBy: SJ0PR05CA0208.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::33) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DS0PR12MB6415:EE_
+X-MS-Office365-Filtering-Correlation-Id: fee12921-d465-4f56-5842-08dee28958c4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|7416014|23010399003|18002099003|22082099003|4143699003|5023799004|56012099006|11063799006|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	Xg0Rq2cFKOzqvehNvwHx2+hCOkdeRRrFdYb4XR5CbMZU6NGu9pkjRJZNR18VUB+c8ERJMCahDrz+6GZf43y3OXL6pRPF8/zpJfAbWecFubpCZ7Hd5MTVz7syJ9AKoY1lkO5XDyU1YrzDgkqt0L11o/I8PAN+XmRmYBTGgCmuYPAwFdJDBtyhRp9vC0pGLMgZUfMZcSrs6zz6j5suGbRmw85DFiP1CCwHqP5uz5CsOxMo/VzzUjEEUNLzJCSahRea0fUDkDcfeOjSttaaFLkrKz7asHHiYdF2fGbUccC+vMMZPGR7eN8WrGXSf+VTw0rtT0m6X+1gW1/PtXkCnKLWFPcyM5qzRPAOpXuo0gcOAnIBISRodVQWPoKZ344h05HYq42nqMSFITzFNUKLbKmdWW+J7RhTrWYbKG97Ka6TaXgoq9CL1JnVRDHxmNYVr15zLJvpcTk+rknTSJJtK7hLHRrQontCijxfbehKeM6P4Thrern+soKyvKXHoouLDcUb9XtTTzlUToDDAf9TuH1jHOhvau0e3NZ6lQifbvJ5TKWzH9UYwqSIAYh+IJ09JcJjIyutD4A6nq0ht6WvVt8aYa4PZkweQVbmmyeZZ3UfBoyl/SCNVBYKiThQdZA9fEjlLs+3veVfbljOVMeXHqBMTR+3g/t/cq10NTnDY+DrFA4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(23010399003)(18002099003)(22082099003)(4143699003)(5023799004)(56012099006)(11063799006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UU5ESW9hSEttakN6dkFHMnVDeVh4Y0w2SG90SUlsRkZwV1pwOEgwTVQ2dVVI?=
+ =?utf-8?B?K0crd04rZWhuL3ZuMXRXUmxSdEJlbm1jQ2ZsZ1FTelNMZVA4LzFkMGRQbE0z?=
+ =?utf-8?B?RTg0RnN6VXAxMlNKRWVsM01La3Q3cDNlVE83QkNnZXRJWE9kdHJzUEtRWGxR?=
+ =?utf-8?B?NUE4SHhubVFsY1hkeXN3QWNJVmFRYVRFaFh6VVNNeW02Z21USnVoaG0wS3oy?=
+ =?utf-8?B?eG5ndXM3b08wMlByaU9vNGVmL1I3RmRrMGpoWHEwd1BoUTQ2Vk5JdkJseXEz?=
+ =?utf-8?B?aGZMdUpRcmowc2x5OS9KQk9yZVdyZ0hFbnVOQ1doTStLbjVselhlcGR5NmM4?=
+ =?utf-8?B?Vk15dkhRbHI2d2ErNndPdUxiM2hiRFpFTVlpSzhqRlV0dEpjTjNoMklRSEoy?=
+ =?utf-8?B?OVorZnhUUlhtTmloWlV4UXp6NkV3bXFnOEZNTWRwdDExMG45RTFYWXM0NEp2?=
+ =?utf-8?B?TWlGRXppalBuaDh3cUNQbXB3a2orUUROQWhrQ1F3WGFHN2dpeVFXUmpWd0dl?=
+ =?utf-8?B?RVdGclBxNWFrQXBkZVdzYUJMdTdENGlSMWNNcmhKWUsxTisvZ2ZjTWY2MHFH?=
+ =?utf-8?B?RHBGT2N0YTZSZG5sWnJJRFBNd1EwR2YxaDB1N3RwMENoemJuSkZtL0xDejl6?=
+ =?utf-8?B?bnlEV3Z5VjlVUzMyZkduWURLQmFxNmk1cjZQKyszOFVqOGdxY1ZHczlyRHhk?=
+ =?utf-8?B?NnNSWEhKV0tqY2hvMlBYMThuQStZVkxWdW1PUDFDKzJ1b0xUNG53V3g1ekRi?=
+ =?utf-8?B?eXBRalc2azN1OVJjVjdabGg5bytMK0VDaGhIcVNIdkFUMjhrd2M2aUNlWUoz?=
+ =?utf-8?B?ZlFUN1JjL00xNjZiMHlyYkE4bXNxSktpNHBmWGtjb3ZDL1VEeThTOU1VZUdH?=
+ =?utf-8?B?N1Y1NllPTlp2WnlJc1YvMi8xZkNkN3YyK0N1WEowSFJIMG9WLzllaDNRcWFF?=
+ =?utf-8?B?Y2dwN3NrWXpxemo1eTkzTGZ6YmpKUGpTaVFuOXNWQlZLMzZoamloWnhtNWlP?=
+ =?utf-8?B?NWJtOU1SRzRWUjg4RC9sYm1idkhCQU4rVXVZY0lIQWFNaDFIKzRDellRa1E5?=
+ =?utf-8?B?djJEQnVNS3dSUmxhemxSUGFZMjlhcFZKTnRONWozR3ZDdU12SDB0YkdRSTBH?=
+ =?utf-8?B?cnBiUndDRTVncG5Hc25sYU1YSnNDRUo4amdCdjRaV25EYlBSWERRdjR3T1Yv?=
+ =?utf-8?B?ZThJS2F3ZW1kOG9mQ0xFRVZ4S0E4VzRPZTRveUc4YjlPb2tHSnpIZ2tHREtR?=
+ =?utf-8?B?QnI0NlBJTHNmdnVDM2ZCM1I2USt5cms4ZGYrcis5bG1SY04xb1RnMUtVZGFH?=
+ =?utf-8?B?SDlsWFMwQjd6S3QvZGVrZzkrTXM4UVhuNk9OZUlWWVJHR3FxTUltOUlKZ3VI?=
+ =?utf-8?B?aEVSQVhjOUxwTmQ1aHlOY1FRWE80UytoN0VrYWlZekF1d0lMdHh5cXcxWlpq?=
+ =?utf-8?B?L0M4SEZLR0hwaTlVKzkwYzN1dWFtWmNMb1RKOFhyL2padzJZL2o4Q25Ubzhm?=
+ =?utf-8?B?MlFqaG9wUGtlQkVLWTZ4dm5MZ3hlU2NGNnpWNVUvQ2hJNjJNY3dQSDcwdlhO?=
+ =?utf-8?B?dWJOTldWTWFBcDBDS1BKazRFRXdSMitIc25NRFJCU3Bvc25wbDRuY0lqYkUy?=
+ =?utf-8?B?d2wvbE5PSENBNnZORVRmUXQyRkgrZ0dSNTlnNDUyVjhKVS9jZXBhL0hkQmtG?=
+ =?utf-8?B?NWtYcG92c011RUIvM2JwcjNiRU1jcHMwUE9UZGpBcVF0SFFLK1pES050b1I5?=
+ =?utf-8?B?NjdGblg0OFNUN2Fqb3BoSVlITWhDNkJDVUcrakNGRFkyL3pTendpemI0SnZP?=
+ =?utf-8?B?OXBxYmFOWHp0c25SZDhRTkRXQnptNXdJMGJpTUZZdUJXdFluY2xxTmxoM1Vz?=
+ =?utf-8?B?aVh6QkFseS8wMllob3ZsM0tXRGN1MHVaeS9YZnh1TnB3SCswbzkwVEdvWWpo?=
+ =?utf-8?B?M2U4TW5GdlhqTWFKaXVwbEJJUWpNNTh0N0Z6aHJxS0gxR2dqYk96K2Joc1h3?=
+ =?utf-8?B?RXFYdDBERSs5Um1ZYzdFWSs3Yk8yWTdmR0RBcVFxeHIyQWVLNWwzWGdZUVlC?=
+ =?utf-8?B?NVBVNFR4VVBKS0JCY3hiaklSb1pBRzRRaDhiUlJRVWpBd1lsQTU5SDkzNU15?=
+ =?utf-8?B?MzdYSUFSYWZ5aEJYbEt1WndiN0VNajAxZ1JhdlplbWNpV01ManlZeC9oNmRq?=
+ =?utf-8?B?NnFzZi9xQnhtb1BaTlRCbXNjeDM5aCtjRnZFOVhMYmdTOE4yaW02K3IzWU9z?=
+ =?utf-8?B?NktTUUVCM1dZeXBteFNqVjBHeXphVHdDUGF1ZzdYSmpVRUM4QWEyQy9sWVFi?=
+ =?utf-8?B?UmxJMVMvRFNleVdWSW1QODVMTkY0UlRmMHd6NGlnQTkvOHRwc1Evdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fee12921-d465-4f56-5842-08dee28958c4
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 15:54:26.2378
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NRyiB5n8QyGoJEDdDE5wyKBjC3BakiotcPOt/1IieLBVEmYq6/cB+DSNjoNonZ63iLgSWoLhmD12OAckEp7b5w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6415
 
-Alvin Sun <alvin.sun@linux.dev> writes:
+On Wed, Jul 15, 2026 at 01:00:12AM -0400, Yury Norov wrote:
+> On Sat, Jul 11, 2026 at 02:51:28PM +0100, Gary Guo wrote:
+> 
+> ...
+> 
+> > > +static unsigned long __init benchmark_bitmap(unsigned long capacity)
+> > > +{
+> > > +	unsigned long count, index;
+> > > +	ktime_t alloc_time, free_time;
+> > > +	size_t memory;
+> > > +
+> > > +	bitmap_zero(alloc_bitmap, MAP_SIZE);
+> > > +	alloc_time = ktime_get();
+> > 
+> > To eliminate possible effects of optimization messing up benchmark, please add a
+> > barrier() after start timing and a barrier() before end timing. Probably you'd
+> > want one between each loop iteration too.
+> 
+> It was never a problem in find_bit_benchmark test, but OK.
 
-> Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
-> macro with `this_module::<LocalModule>()`, and update
-> rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
-> with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
->
-> Assisted-by: opencode:glm-5.2
-> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Acked-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+So, I ran some experiments: 5 times with barriers, and 5 times without,
+and repeated it for reverse order of capacities. 
 
+The results are:
 
-Acked-by: Andreas Hindborg <a.hindborg@kernel.org>
+Experiment               1,000,000             100,000
+Bitmap allocate    −0.28% (p=.631)    −5.63% (p=.0039)
+Bitmap release     +0.89% (p=.247)     −1.30% (p=.089)
+IDA    allocate    −0.03% (p=.971)    −19.98% (p=.035)
+IDA    release     −0.27% (p=.315)     +1.38% (p=.165)
+Maple  allocate    +0.09% (p=.579)     −1.06% (p=.529)
+Maple  release     −0.54% (p=.315)     +0.03% (p=.971)
+                            10,000              1,000
+Bitmap allocate    +5.19% (p=.853)    −3.17% (p=.739)
+Bitmap release     −2.16% (p=.853)    −0.45% (p=.912)
+IDA    allocate    −3.42% (p=.247)    −6.80% (p=.190)
+IDA    release     −1.21% (p=.315)    −5.39% (p=.063)
+Maple  allocate    −1.81% (p=.529)    −0.32% (p=.529)
+Maple  release     +1.39% (p=.739)    +0.11% (p=.631)
 
-Best regards,
-Andreas Hindborg
+The barriers were only present in allocation loops, so release
+measurements serve as a negative control. Most effects are small
+and statistically insignificant.
 
+Two allocation comparisons have unadjusted p < .05, but both show
+barriers making execution faster. Across all 24 comparisons, neither
+survives Holm/Bonferroni correction; the smallest adjusted p-value
+is approximately .093.
 
+Codegeneration-wise, both objects have:
+
+ - Identical text size: 2,413 bytes.
+ - Identical instruction count.
+ - No additional loads, spills, or fences.
+
+The barriers only changed scheduling of a few independent instructions:
+
+ - Bitmap: loop-counter increment moved across __bitmap_set().
+ - IDA: counter increment and ID accumulation swapped.
+ - Maple Tree: region_indexes[] store moved relative to the
+   loop-bound comparison.
+
+There is no code-generation change capable to produce visible performance
+impact.
+
+With all that, I'll drop the barriers. Instead, I've added the
+WARN_ON(!xxx_empty()) after the release completion for the data
+structures: to ensure the release is not optimized, and to
+additionally enforce integrity. 
+
+Thanks,
+Yury
