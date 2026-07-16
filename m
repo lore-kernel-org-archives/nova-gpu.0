@@ -1,83 +1,164 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012058.outbound.protection.outlook.com [52.101.48.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6EE424666;
-	Thu, 16 Jul 2026 14:02:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784210542; cv=none; b=CWSm8yny6xGEJsX/UaHsh4ipu7y2MiWn6XYf8vRGxXYGJVmEUIEjvc2ZIp+ICQMLAiZYcfzMkINxWF7Fr6yKW5K53gy7lyJiAnjhiwqqCLHWOVyR765QkbN8/VTIyS+ROkjJ5/lNK1+SsWKLyiiLVZHXj+LA3gv1YVnH7/M7c9M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784210542; c=relaxed/simple;
-	bh=BGlHcfZW7yB91Xa08RonUxe8Go/HQx88wWlDY0OQmp8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rzr6lbZFcJLo41QVAr5Waa0g4oXnfWlpL9+zh3c8Ht5OvUHuBgbniXzxb2s9AAzrpLxma391Z1X0CpFNJaJBOePCQa7fZnqQkTJrADbagUuK15NP4FEb3S4MUnu57SLxUMNaSWFO3ZSx2Dd/vjhFSxTUQ+2Fjlw8yrK7QY5Broo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Cl/wl1+M; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6CE42E8C5
+	for <nova-gpu@lists.linux.dev>; Thu, 16 Jul 2026 14:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784212897; cv=fail; b=PSQ0nWmTFubNgpx69foHp7hGrRIfHgWUzfiFtNnZ0T/khmmxDgOf0vn2vUx7/nlH8fNjIxt9F/VHEBP0f9Bcy9eoYauu4FCzus3iAcOb0ZJLIKcYZyB9beMPnNgW+2U4r48wdkW5lYTGKyN4n3LKXYygKNRTTt6THNtJE4ILnoc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784212897; c=relaxed/simple;
+	bh=bH1J2I524d2tNe5CN3b6KCw/MottnMUZ61p/ADrbNf8=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=XzFifd3z5ttBBsajOV7D6rSrcFq9U/Iex/np6Ux8RTBOTe32FvFzdGfNAcM+MhWbGjcP3kFfyN1q1rPgJ0vskrPvN1AsnP0Rq/QauFRhCsAxSV1Q9pwiP0z2xUWHILZnrOxW3kKhAxGueDJFJ2eU2BN+IVntMZzyzBgz4uC1620=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sfekNBj6; arc=fail smtp.client-ip=52.101.48.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Cl/wl1+M"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Yw0qM4Vl6ROJvhog0C+oQL24gbChejWRt36l3chQZbM=; b=Cl/wl1+MgZhok8096gtrdntDpt
-	8ErM4TVKXRHc1qtPOoeKk26yYhJKxsdrznzzOZv/FbtgdbAWO+bDSeO7mXrcEE+bWkjkm6ICE5hBo
-	PbZdfWZ5Fn4xv8IHkt30L1eKNU22DeVQXgut74yui9pSxvTcyVa/LaiUgporSJn9w68dWLN+fXzcV
-	qe9KyI6G9vAP+fKHJnMyKkLGIxgAdtHhFomSMoc9DZe/9TJTtr0J0HCut9ub4SAePa+Zew9qj+No4
-	7DEzwTaf0YXRy9/P1/+iAHJUm9oEz2RT0veCn6sV7VWtSjRqlreO35JWWJvma9K7mxBJ1pR+O0zXL
-	/FEognJA==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wkMf6-00000002dWs-1Zg2;
-	Thu, 16 Jul 2026 14:02:04 +0000
-Date: Thu, 16 Jul 2026 15:02:04 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Pedro Falcato <pfalcato@suse.de>, Eliot Courtney <ecourtney@nvidia.com>,
-	Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Benno Lossin <lossin@kernel.org>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Simona Vetter <simona@ffwll.ch>,
-	Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
-	Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
-	Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
- region allocations
-Message-ID: <aljkXMNLkciazVVi@casper.infradead.org>
-References: <20260711063602.426311-1-ynorov@nvidia.com>
- <alf1lUH0EDf3CRMl@pedro-suse.lan>
- <algrZLHyYcR2mwzX@yury>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sfekNBj6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yTilAOV5mWk/Dov7Cafi9FRneueEw6wVcYCBrHFgA5R8eP2Ri1DM7PnsnjfmrQH6G/1Y6s4OKWk8nRde21Vh/XT7zI5Q/eo/yqOC2muoCLuFPPQhMVu2yAMgyjA5qtyCy+wIgs/3Q0CfmxyaTtuWc2GpxgNebb9l76OK2EPgWpkx9mPi/UsfYMVOYeKRTLP3G05Mck2QLy/q0zMgtI4/QKMxA8A/q/o4hKAQvEGGTHJc9QI5Jkjgj0G6nEEaJ7V11edHeSKrJEl310FK2gnuvmrE65m+5AKi2Z39sUmy3T22onmHE0eA/cxOsnSUpxz/poNq2qOVx0r8W7/hsjV/dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bH1J2I524d2tNe5CN3b6KCw/MottnMUZ61p/ADrbNf8=;
+ b=rIF2t2CzZ9Q/hOQyDT8ptHwd2iaeLGzP0ec84lRbmhTL3xkVnPSyjNd3As+/jUTt5B36a1lIVCy1PWTapJQ6hitzvhRl/77c+BjtiJ2mDALxs+AGLKlvz5lH5RgSX/ZCoNi/iM7MYqVbCz9AoBGlAGIu28cAz01lgmcj0nXGmDUbjzDC+L/duGLUe/8a1qsX72+L/YfRSddESbEkVlWo/KqkJ/el1me+QigRJ9HtRXXcagcxqVHPOYJW5PTWEWD/o5YsFNGwtPBGlNZ/WjqL9hGZO5ZvXuHrI6flktWn7ML6xHS5wPZ0EiOqS6aV/9rCaKXmM2595M9/ncZzfWgK+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bH1J2I524d2tNe5CN3b6KCw/MottnMUZ61p/ADrbNf8=;
+ b=sfekNBj60dMF2Zq5BQ7U7r5wcv66oj/t5bdJsxzs74bgHps0gIHCIs8aRsnzUL70ppI6RiyIQyOMb9LBqpCoaaqu+Kf6Bdb4SkTqRVpwpXyhHgRS5F0U8o3tJdhAXG6bKglwcqJ874gbUhLspUvJNzhBV9vAqYy1rXmYsPI9PnolReeQXHHGwb1t7BSANtDR1F36yMsDQI/pqyaCwG0QdLpGHsyT952lIHP5yJQf68VE0qMsN1JLnCxFvLi9Ci6NcY13SCpd3Mq/624E8jVZCUNksEf6lHNJ2OyvHK3BYbxhqXbiH2SfC1kO8aN9JpdurnDOPZD5U7Tr8ePlJLelKQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SA1PR12MB9516.namprd12.prod.outlook.com (2603:10b6:806:45b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
+ 2026 14:41:30 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 14:41:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 16 Jul 2026 07:41:27 -0700
+Message-Id: <DK02OL2V85GC.3RA06XWW10NL5@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+Subject: Re: [PATCH v6 00/13] gpu: nova-core: consolidate and streamline GSP
+ boot process
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>
+References: <20260709-nova-bootcontext-v6-0-520cbf8b9b50@nvidia.com>
+In-Reply-To: <20260709-nova-bootcontext-v6-0-520cbf8b9b50@nvidia.com>
+X-ClientProxiedBy: SJ0PR03CA0112.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::27) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <algrZLHyYcR2mwzX@yury>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA1PR12MB9516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ce8d2d6-86ce-4541-2942-08dee3485265
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|10067099003|18002099003|22082099003|56012099006|921020;
+X-Microsoft-Antispam-Message-Info:
+	3a90fOtG51cSWTbYUqKrzG7XW/ehusq40oA6mrx7h8jzJlCSsOmKiS0gibwteU+v4pkOsE5Neh8UKwofB5xRLBQJj/kA0cxYvcGvWLDC9vKAiIDrujE8f+UTjKu6QqJRVRcN8y/UrVH0sXFO4hhXnBdjW0Rnun/vo6hNHrW3V4HS0biqvqzqAMY0rwny14LU5WejY4H6hcm6Ibh2lvqZXkaGSHumhbNoGqhHzEQzcEKF3PbthRGfcImJp/T/e0kiaGmlBJfcqhgPLRIEjMOdekfFaanNm4tQgtx9V/srP4yt6ks4XBYYku66thLqlz+oZNyf1Ec3OVErxeFYLv6aWLwZDXv+DMwFugSexxcYIhds6ukikC8oHO71r3IaDODbsJueLKsnQG213T4wBjJS5oaOKQKGAnBi09513i4c1ZdgNf8eUqfh1iQOt5DxFToAAmtyQj7c4rhHPzlp71OZcNYOreUDxANO/OVoYvbp1RgXczzbkvYpkSCCeJ3KTLpKYa8VBvgFsjWOwv4FlMW19GkajOBJRRgvvhrTd5cznd1zQZri/crWgOffUia7N3YtcIrseIAt8YCnDJ1P99QCdyc3ZsrrcPLdd4a8TgFhTS5w+gluW7PVwQIPg5dB8Nu6TpmojXTkG5jTQVCXXPbQcG/ME14hPDZX9jLwjJrNknl/LkErrgZe4nkDAPg102koDHCqC3GOC0z/432m+kSPRw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TCtkLzg2dHhVbzRFYU1KcHhnTy80UzFmLzFOUkMzbnJBOXNFK0pIcFVnZUhL?=
+ =?utf-8?B?SjZMV3BGOG9PYXlrWjdWWFBRd3RiYmRZaUEzWnFBNnNKbm54ZW5rTGc2Y0hU?=
+ =?utf-8?B?ck5rV1ZEdWZGYTRoQjl6a2x0YlZlcU84TGR2TVVodUd3RHkwa3NyWVZvRTRI?=
+ =?utf-8?B?N1ZtTWJrZ3Z5QjlnMmpYcDdLVUtCdHdUTHJJSk83bjNYY0N0ZmpKSnZxdXN2?=
+ =?utf-8?B?UEpVemdqUDlLVE9yNExFNXdiMW96bU5zRHJhdEcrVWtxcUFBYjdaM3Q1SU83?=
+ =?utf-8?B?aHhWYVk1RmQ2ckg0RVdTYmZlUW5xb1NrZEpVWUg2QnNPSjBuY09aRGhvYjBG?=
+ =?utf-8?B?OFg3dnFranJvL2pLV0p2ZzBmZXRQVnZPOEZ5K3AwNjhmS3h0WURIZ0Rud2VB?=
+ =?utf-8?B?Ny9XcW1qZHcwTER6VjBiaWhtcXdEWWtwU1lOZEIrNWRzQjJ2alpFdDNMR1lo?=
+ =?utf-8?B?U1hDRVIva2FIWHNsblFPRmxTMFovbEtGdVlkVDQ4ZWg4bmZaR3F1aVZidmxH?=
+ =?utf-8?B?dm1hVHJHSkdFM3R2Ni9mbGpiWXVjN2hqUUc3dVM5L25vMnRNbTZwMTF0OGhz?=
+ =?utf-8?B?RXhGM0MzVjlQY2JwYkY3bjRkZ1Q3Q0lrYXZqV0RVeWdMUW1tUzZQN2hwZUh5?=
+ =?utf-8?B?R08zVk9xMzBhaU42dlY1WW5OSjNkZHFVYmpaTk81MTlOMFNlU05qMVZma09L?=
+ =?utf-8?B?ak9uRkdDd0FkUjBqaGc2Y2dwSk9vMUR4UXQvNmFWS1BWZEpHTkVYWVFjeWgx?=
+ =?utf-8?B?eHFmVlFuSWdmSklnTUt6dHdJYnY1SkNoSG5tUHU4cDZPYVZtdXV0c01qZnR2?=
+ =?utf-8?B?SkdsMFhKVi94MlcvY3Zzbm1pY2tpdFEreDh5cTRYdEVHcCtmZW11M2Rub2p5?=
+ =?utf-8?B?Zkg2b0QvQUUyY054T01GSlpqZXRoc1hrNnJBbkJHQnVJdFl4Wm44R1FHK2VR?=
+ =?utf-8?B?T05QemR1MWRxaDc4WkV0RFQwdDZ6Ym84cGUySmJpeDg2WTAzanEwU1hqclBj?=
+ =?utf-8?B?ODN3WVZ0VW12OHVWUUNLRzFOUGE3WFJZOGh1clBBc0hpVGlJMmJ0dDVhdEFp?=
+ =?utf-8?B?S2Z6eVhWRkVMQlYyb2pKWENLQU1TRHlGTGdwc1FoR1ZOOFRSR1pndCtsU1hR?=
+ =?utf-8?B?K1lLbW5UREMwVDl4ajVsYUZhQUxSL2huSTg0TW5MM0VIczVXTUR0S2M2OUNp?=
+ =?utf-8?B?ak5kMldMa0RGVlBRckVzcTRrc2RYVG9QWngyOUtoRGRSUCtsOXlYcS8zUDZR?=
+ =?utf-8?B?M2RoUVB1WmQ4S3lGS2J4RGxsQXcwZUk0SjBTMm41elc1RTY3bmxLSGIyVkJE?=
+ =?utf-8?B?SVhDeHNEbGhOL2U0UzltUmxlWlZvbG8zUGtxdGYxSFJmK2IxdHBaMS9yU05m?=
+ =?utf-8?B?b0YyMjBzL3JkYldka3FJVU55eUszT04xODVQaFRhRituQTgrUGx6Zm9kRlNl?=
+ =?utf-8?B?TnJuTTF6VHQ0QloyNzFqRnM1bnNRb3FhR2J2OVJOUzkvVVFrZEdXcVV6Mm04?=
+ =?utf-8?B?VFd3QnJMUUJBNDMrN0RSUXluVHJ0S3NEbkM2UDdjU204dEtsN1AxVVpIY2RE?=
+ =?utf-8?B?WEpmbWd2TUFRZzJPazhIMVlLVDZNejE4akxLZDE5SlkzOWtPSEMyNjRQT0VL?=
+ =?utf-8?B?eEs5WkExWEt3ejBTbS9XTmVaNFViN1ZDTWFIaDAxTTBSeENOMUlFRnBoQnpr?=
+ =?utf-8?B?MEZTUEYveDNDanNPWGl1Z2pQLzVLeFFQN3hrdkFxZ0NsM3lSS1FaQXFVWU92?=
+ =?utf-8?B?MXVlMERuL1hpUlhhdmcrUVdnTHlabEpDMzQvWml3NzVZdktrcXh5SDZPUHRO?=
+ =?utf-8?B?QU5NWUVqdCtCK1FBWGhFVXhpRG5wVXVvS256dmdsUXdDMW5JRmcvQ1g1VXAw?=
+ =?utf-8?B?M2M3SU44akxueDMzM0Jya3dIOERrSEpwL0dOTERqODVtUnViYkVISnlqQmpJ?=
+ =?utf-8?B?QjVoMzRGVmdCZWpsVGhaZmpOTUl2UEFHUENLQjRkNXJlaGo0bjhSTVVQQ1Y0?=
+ =?utf-8?B?eGczU0I4T1hhZkR6YnBvWEE3cGZ1SEhHdXczWDUyS0hZOGw3SjhnUHAzclRa?=
+ =?utf-8?B?elRxb1Uwb1BDWFJCTFF4K3Y3TTdtcU5ZLzdjazJGR2RFNktTVHF5OVB3Myt0?=
+ =?utf-8?B?akFrVlNnZGpNc0pJejB6cXVwRWVuZ1pKRUJaSjZkNlhwdjVLZndJTjZub0pB?=
+ =?utf-8?B?Z2lRQ3k1TjZsd2ZGdXVzc1kvN1p4Wk9lS1hjSjEreEFlM2JPNkFzN0NlcGZz?=
+ =?utf-8?B?VGJ2ckt4c08xMU5zRXZUaTF5U3p3Z0lGWGcxdlpMTEZRRVZyQ3hucDhxVEFW?=
+ =?utf-8?B?MXhJaEFxek50a3RLQVNvQUtHN3ZlM1Q2VytlNHNJaHhkZ0dyT3RKdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ce8d2d6-86ce-4541-2942-08dee3485265
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 14:41:29.5590
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YhcqrtO1UUyobkTs9vRYraMeKnxIdiX2/aDVRctDSr9DkErHHy69CLKFysRaS+/AydRrmq1evXJx6r2Lc9t9Eg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9516
 
-On Wed, Jul 15, 2026 at 08:52:52PM -0400, Yury Norov wrote:
-> The test is very well motivated by that discussion. I'm not saying
-> it compares apples to apples. I'm trying to quantify the answer to a
-> very specific question: what is better for NOVA ID allocator. Or more
-> broadly: what's the best data structure for range ID allocators of a
-> given capacity.
+On Wed Jul 8, 2026 at 11:52 PM PDT, Alexandre Courbot wrote:
+> The recently introduced `GspBootContext` is useful in at least two
+> other places:
+>
+> - As a replacement for the sequencer's `GspSequencerParams`,
+> - As the main parameter of `Gsp::unload`, for symmetry with `Gsp::boot`.
+>
+> This symmetry can be further exploited to make `Gsp::boot` and
+> `Gsp::unload` generic over the exact boot context required for the
+> current chip. Doing so requires some more preliminary work that goes
+> beyond this series, but this groundwork is needed regardless.
+>
+> Another cleanup that can be performed as a consequence is the removal of
+> the `BootUnloadGuard`. This type is cumbersome as it holds extra
+> references to the boot context, making it difficult to make some of
+> these references mutable (as we want to do with the `Falcon`s that
+> should require exclusive access to load and run firmware). Furthermore,
+> it is only needed a single time in `Gsp::boot`, and is inadequate for
+> handling errors occurring in HALs.
+>
+> Based on Eliot's feedback on v4, the series then removes the last
+> remnants of the boot procedure leaking outside of the HALs, and
+> consolidates everything within the GSP and FSP HALs.
+>
+> This series applies on the latest `drm-rust-next`.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-From my work with the IDA, there are definitely ID allocators which
-allocate only a single ID, less than ten or less than a hundred.  Could
-you scale the benchmark down to 10 and 100 rather than starting at 1000?
+Pushed to drm-rust-next! Thanks all.
