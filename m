@@ -1,100 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013065.outbound.protection.outlook.com [40.107.201.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408F634A3AB;
-	Thu, 16 Jul 2026 21:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784238341; cv=none; b=pwtjtF8WWkflM5xeuAFLr6p1lZ1ADbdmoV98czGN3fYBTTSSaAkjceCSlbfN/z8KkWpBB5TIrMK+wu32fmfHmBXVO46YOfZM06HoStu0tZJLMHQiyhToGYB7gFb+toxhAP3XuHoPKkyWfvGH/6HR7bQlK87S0i6a5wrekmKVSqk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784238341; c=relaxed/simple;
-	bh=KnHukbFJpMu+avYQFX2AuAY5rj3s4RHoVW5of9xuwzE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=WNt++84QbZ+d2/iAkQuwuHtZldKcnaLWBnq+tg8NogBZiH/piduvAinVQUV1L6yHT6s/7vlEdmaZXDK4QaI8JgUgryiTf0Q3QJADNLTgi41tv3HvGpiEqr9E3SKJBAcs4cuW121i4GrI0db1IAiPZs1MZ664K+A+rfphA6CkSSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOVFBljM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C40A43F093
+	for <nova-gpu@lists.linux.dev>; Thu, 16 Jul 2026 23:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784246235; cv=fail; b=kFNAYcj6KsKRN28omq2iRHw2eAdydWyJ0dpwPvLTTLNcggbt5MsFLSw/sq5Zei61hED/s+Z/QelFRZzUhgfpQGjQgda055NZmJigHrYvI3c7F5ZQl3RfNi3g0THMGwOUgUyxUbtGtWT1JhSXdt/KaAZCZJfI0ityvD71J/yS0Y0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784246235; c=relaxed/simple;
+	bh=GqvFGMv2ZqDdV/J8hGce35p2XLnvKLz+EeyFTi8iWfg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=MZRwkhCx1+eDCPddUKtbR+4EvOg4GXQm+uzvdf7Fu1bUgAwTRexllXjbOjD4rK7J+Dlo3D0BYGk/NVGndIzGdS6pI/VAbqgS2TodvVa11t9azkQldUTxsat66jCyajL22qWLM0uZZzTcRgZsINW3Afrfhek50GMwIEh+M2HrhaE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AV2fAsDQ; arc=fail smtp.client-ip=40.107.201.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOVFBljM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83CD01F000E9;
-	Thu, 16 Jul 2026 21:45:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784238338;
-	bh=SJvdaIZRu8T0uCxoeY8INDcMoT1AGrOY6CE/xsqgPiQ=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=nOVFBljMUDhS1tefi/uZVzqRbpz4+zJHWFTJ2RwMJIQGtrUm5Yzk6q5PAiwbmkxlq
-	 yyPthBsWmThti+id+GXdUfY+vIP+vr7H5V+vSrqXI71XeRsjwHRpUWjJoaHnfFCYCR
-	 haBziRL1RkDk/3X+f8bTVhsLIRXy3OKtGMwqqViVR5eAMp4CgDgzdCs29g3owGGK3P
-	 jXykmXLx6VmdMXSy50bscJSsCFvYOnWTA2f1fhEudF1TdSk8wMsaWhynrsfzVB5W6q
-	 JorzK40hLr5Pqt+vIqBxi8xJsunhx+qMOAEYb/oel/Uoq2Jl5n5RC3id0tVMvO1ItA
-	 FVkJjoq7kVqCA==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AV2fAsDQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TJMLXfYhVzsAbKYiTLR8jKanUFwxJ9VyW11YOxBGdPZpcpBZIoxT4BdUBzRxsVL9vLfpL10y+wPs6FQdgXX6wFHFcONFDOobp+7rrJVh24T97s2ls0uBS22jSSPEW5nkfmj2EFSpQ96hefmpDQZfjlcS/tc4bsYx6MVYZZND7hV8FN52WtQX3jyL/177cKAmcU/YgAhGWK6CfEPD/nF6H+QwzLGmEThCWqyFX0LIocEzFaOoMNYSe0pvmOX74nAkxFBWt7vBKzQI81TIAPaMXOGQuGosTrpKQOBjtA7GDAFw7xDAVn+PITJv+E/xR8pw3XaV5wiIEmk0MDscSM8Lew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RVr3ytK8NMRykB9upMN+wey9639tVHNwD10T//b4i8I=;
+ b=zGtraYFEKKhgLJ1oYyzWJxK5H9r+JIlTDWhPrTNMkh7ectShjXRtHBwz/8g0wZhLaB3lwUSb0TmlN9xhxTI6l0gIyj9zg3FO63nKEBZN2Pmj+CetOAm8pCY6/NSMQP+1H6xuTEa8zzqbY0eaeWQijItXBpUIQhtBm5lVFJOmbvIRM5SnEq773o4YT/nVfoS4Mny8uV7ZDePUYmiZEoPa9Qpc41xHiYQXQD0bGK6FtqBO7wiTouKpWRpFKaFLn4j0RS3vawWu/m0Zp1O4rnc/Uc7pWKPK8M3U8nhp1kknCK/EzkEXVcWhIh75/XBFnUz4Totqi/bbn8J/Ol++B/BiZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RVr3ytK8NMRykB9upMN+wey9639tVHNwD10T//b4i8I=;
+ b=AV2fAsDQk0taVrCsMkag/S5LKuHcgj5f0z24e8D3z6U1hopW5uhuBc2IOmmWhn/lDGpl6it8XKf1qjGlqlQ/UWi/o1c9FaTziQWAFjX5BErVgBfL2b45NjRNT0/yib74MjBGEqANGFGyUzWfpC4ZA4o1SrKmUawhL2ckdP7NretnHp+EjuhCrB+j1AK9oDrfzFsrJ28cRe9VwRbPMXSHmgLHU2ViJieFhUkJQTa0wXXpAHRB5SeUCdo3sKLNchmTGXZ1anXeSWAW+yRKDIrrJuB0FIglQOnNPxx4fl1lXWOB0xvoZ4YlVoRapACgF75+OwVzN1aN2DpoFW1wOiCRbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by CY3PR12MB9678.namprd12.prod.outlook.com (2603:10b6:930:101::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
+ 2026 23:57:08 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
+ 23:57:08 +0000
+Date: Thu, 16 Jul 2026 19:57:06 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pfalcato@suse.de>, Eliot Courtney <ecourtney@nvidia.com>,
+	Greg KH <gregkh@linuxfoundation.org>, Burak Emir <bqe@google.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Benno Lossin <lossin@kernel.org>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Simona Vetter <simona@ffwll.ch>,
+	Tamir Duberstein <tamird@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
+	Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>,
+	Zhi Wang <zhiw@nvidia.com>, maple-tree@lists.infradead.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v2] lib: test bitmap vs IDA vs Maple Tree performance for
+ region allocations
+Message-ID: <allv0n0_xgE_IpyP@yury>
+References: <20260711063602.426311-1-ynorov@nvidia.com>
+ <alf1lUH0EDf3CRMl@pedro-suse.lan>
+ <algrZLHyYcR2mwzX@yury>
+ <aljkXMNLkciazVVi@casper.infradead.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aljkXMNLkciazVVi@casper.infradead.org>
+X-ClientProxiedBy: SJ0PR03CA0070.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::15) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 16 Jul 2026 23:45:32 +0200
-Message-Id: <DK0BPAHR8IS3.2KLSLH7K448RJ@kernel.org>
-Subject: Re: [PATCH] rust: io: convert ResourceSize into a transparent
- newtype
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Abdiel Janulgue"
- <abdiel.janulgue@gmail.com>, "Robin Murphy" <robin.murphy@arm.com>, "John
- Hubbard" <jhubbard@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <nova-gpu@lists.linux.dev>
-To: "Lorenzo Delgado" <lnsdev@proton.me>, "Miguel Ojeda" <ojeda@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260712113602.389060-1-lnsdev@proton.me>
-In-Reply-To: <20260712113602.389060-1-lnsdev@proton.me>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY3PR12MB9678:EE_
+X-MS-Office365-Filtering-Correlation-Id: 919ea4fc-a1c6-40d4-fbb0-08dee395f21e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|22082099003|18002099003|56012099006|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	L81XMNLFIptm5ESn8EIGx7ALwvwN+XXSgwnaB09UiQSzgZvfVJ7TBY2gJ7ne8+D3g1mLGZyXcWlQQs1YpQe2Cgmn3HvEeiOez/VXMwpgJ2r1wq2HNEvR0C97B04wkVnHz55dtRDe1MBlQFfALKhXE17tkQO2dWybknWMfUZwZg+R3QjLFmKwkUEAKCAgzkx47mRFUUcIE/BSl8CLY+KjBYVCHhJIsCuWQPQZkPn3PuDr9EWq2s6fHcHhHjFs4SE+klmgz22o+pX44p4gEA7AOFX1bpz0zHF86XqHXXgDMQXjVTWXvmC0rgmg9sNIzvDASAi8DdH3GJy1Mjeus56cFmJbJXFWpTYLKtmDKCFqlLcV44wRp63a1AVB7hvCoFRv7MrSPMO8a17JM6xmuiuL9ZLZEOQldWc+ss1jNhfewPir6q5domWPdEYc6vCFkDfY0uo9rhrdzOPvN77bo34/V72w+hFcsllvOCYsHEp7D0lCBsJcgA6/kLK8MB2HziMDEbLhab2RMnCutubTW8x7Q+gKNclzmK6QxiANtnsscH+zwQ/cP+O015vCKHPNTqoBMjeZnsaEecUDugpyyEYVV7D9ktWVPp5BCtWlAZ0WiX/2VbyTW3jArG9d54eI6waN59WtFtpTO5jSaRVs9y0a6iwYOPdIxqG0oEAjVyS/dYA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Nl+Zh4DbHCd7ABreXsE3kLykSdHSLIDIMOae+4g5Glah3nDjv20s8xtUKyt+?=
+ =?us-ascii?Q?2cn/D5mYm35BiQZhdvrKBMI+6BCqUKN/zW0TlZPmCy0ToRJuL57vYtMMcQcj?=
+ =?us-ascii?Q?156M25qDK5mgQQtFpNwqcMeu9GQImLzfdpuSZGLvx+fX2zQNcz9fULwtJBtg?=
+ =?us-ascii?Q?nkmkPk5Nrj7EZEv7m8JYzeijac0Qgfs7bJ0UVNfsaqXH42F7wyHZKwtczgbV?=
+ =?us-ascii?Q?w7/wT5CddxRqkQZIB4HAgEgwI1KTIEjlnrB/1Y4wdA73P8Hhgkv0HcbRZ1PJ?=
+ =?us-ascii?Q?1bZR98kpISqUuUI2iwo74XJd+2uHdmvY6f98c6V3di/nTvg5x92i9Uiiuonz?=
+ =?us-ascii?Q?Z7GvM1qJ62sihtYoJ03HLA/xMs/kVkdVkiEMsoYpmYD7jieCMrIgo0SVwSGv?=
+ =?us-ascii?Q?jdVoRl1x4NaGiVkPWetppPDoHJbhipJ0VLAdkR4JzgrtsuJYOf+xZJra2pw1?=
+ =?us-ascii?Q?CfURZ9e/NT94dTg2ssdVN9Jsrc01hJxAmMHLBLAugsehF5egabHP3XrYzfIM?=
+ =?us-ascii?Q?VFCHshJUtJI9cj0yBIUMqAotZRtsbvjxEwtRM70zdZ+1EZkqtIRWe04Hsn3d?=
+ =?us-ascii?Q?nC9if5F03rnANfRd/c7ks1VeE3cR2XL1nUm711javMvvRf2JrSEETbWbkFsa?=
+ =?us-ascii?Q?bNUzpP/imwxkxrelZ9vkVKaPSGLUn6IwT2HPJ63N5ZiSY8Ao6vJae6kN89WG?=
+ =?us-ascii?Q?855HUmdRAR7wLpAVZ1/W1mfgqUvFmnkmke4GOwWNGXE5yj05TG2QAYsKU5JS?=
+ =?us-ascii?Q?eLvt2kS/3/YQdEHJG3pyd68AL995zHor9/rPeGvuHvDzt2fUM2tmyWc6b9cU?=
+ =?us-ascii?Q?jznb9n3OWY6DwbwEELSdszsl7Tp3LsMhJI/e1eo8+/zW9F1e9+ywz9zvfOq+?=
+ =?us-ascii?Q?DKateklj2g4a4++hjBNvP/ZAEJUKhM5Yili29gi2L762l6DnCPS2q9eK6aOD?=
+ =?us-ascii?Q?A7M20X9Pn0ciWMx4LFEOhRW7aX/54T9yBSgJGVSEiMU78Y4ZyEM+RZEBVgTF?=
+ =?us-ascii?Q?ATMJ6tLGqxALZ5jtYGEnJ1NL9Bqxqhr16o76gwVQURCyto8Ryysc9VAHX0aI?=
+ =?us-ascii?Q?QuxB14lo6ndutbxydOSr4xU/YOmveDaMdkoQowK/ljsi0itAvB1TmwgLzn0C?=
+ =?us-ascii?Q?d1H8/IQzZ6/pwZswgFq8tnmgJSrDRyXl7xc4TLz9R0A1cjCkmcRr4dKU+AJs?=
+ =?us-ascii?Q?Hu4P7En+Sy+Px65RiRF93YCQ9Ck/XpF0dFdhPQRHcoplsPL6GTwn3SW8Xyj0?=
+ =?us-ascii?Q?YgqSmyL2gm4dbm1dKrETxA4wxjYqt67TLBBT0APJFjuBdzuglWY1Pm04MDpp?=
+ =?us-ascii?Q?PbJWJVziHV4RkvDdQXAh+Q7+lSi2qol2zCWz7HhC6gshaFFVvMdNlNqL7B9x?=
+ =?us-ascii?Q?xPhWZVzBLN0jBh5Vp9f8y/rp2XPK/EPU18VZFnexhPrTOYzIRIPFWPlZ9II5?=
+ =?us-ascii?Q?lqCtZ2XfGN6/77feMb+3/CU7K+ETTlPvpTmkmoXYtu2pqq8yDvbiLzX8Y2pq?=
+ =?us-ascii?Q?j/PovmPziJESAWT10pS0WCohVNDsatjyigZ9uOT99/w1ATWaZ5tdiin+jUOo?=
+ =?us-ascii?Q?qrXVMTxlu14h0L/5m07wAWbW11ZQhMj4fiwS2WruZyLxHaaNA8TRGteoZ5Xm?=
+ =?us-ascii?Q?uNZfol/pPcWrqxUB5s3cZnfHpwAxbbwLMOl2NXjhhIfqzImiwKpTaZqNWgFq?=
+ =?us-ascii?Q?HqpLGUVmvGdKg/ORqeFWuAxLROOCAjKrVeu5N+5jgl9FQqT0/2R051YLcYW8?=
+ =?us-ascii?Q?8CEFY/DfTA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 919ea4fc-a1c6-40d4-fbb0-08dee395f21e
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 23:57:08.6732
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QV+zjUYow39jxaa0c73yhiQI7PU2zZcVYfXgIhCgAUCT39BYK4yMyeVE2U3wDH478/fXJJWMESE62sTlIzqr2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9678
 
-On Sun Jul 12, 2026 at 1:36 PM CEST, Lorenzo Delgado wrote:
-> diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-cor=
-e/firmware/gsp.rs
-> index 99a302bae567..d7593888e65b 100644
-> --- a/drivers/gpu/nova-core/firmware/gsp.rs
-> +++ b/drivers/gpu/nova-core/firmware/gsp.rs
-> @@ -175,7 +175,7 @@ pub(crate) fn radix3_dma_handle(&self) -> DmaAddress =
-{
->  fn map_into_lvl(sg_table: &SGTable<Owned<VVec<u8>>>, mut dst: VVec<u8>) =
--> Result<VVec<u8>> {
->      for sg_entry in sg_table.iter() {
->          // Number of pages we need to map.
-> -        let num_pages =3D usize::from_safe_cast(sg_entry.dma_len()).div_=
-ceil(GSP_PAGE_SIZE);
-> +        let num_pages =3D usize::try_from(sg_entry.dma_len())?.div_ceil(=
-GSP_PAGE_SIZE);
+On Thu, Jul 16, 2026 at 03:02:04PM +0100, Matthew Wilcox wrote:
+> On Wed, Jul 15, 2026 at 08:52:52PM -0400, Yury Norov wrote:
+> > The test is very well motivated by that discussion. I'm not saying
+> > it compares apples to apples. I'm trying to quantify the answer to a
+> > very specific question: what is better for NOVA ID allocator. Or more
+> > broadly: what's the best data structure for range ID allocators of a
+> > given capacity.
+> 
+> From my work with the IDA, there are definitely ID allocators which
+> allocate only a single ID, less than ten or less than a hundred.  Could
+> you scale the benchmark down to 10 and 100 rather than starting at 1000?
 
-I think this is worse, as the conversion becomes fallible.
-
-You could implement From<ResourceSize> for u64 and then keep using
-usize::from_safe_cast() in nova-core.
-
-Alternatively, we could also consider moving the FromSafeCast trait to
-rust/kernel/num.rs and add FromSafeCast<ResourceSize> impls for usize.
-
-I originally proposed the approach [1], since in nova-core we had a lot of
-fallible conversion, while our Kconfig mandates that they can never actuall=
-y
-fail.
-
-However, by making it commonly availble I do see a risk with the cfg-gated =
-impls
-silently breaking the build.
-
-Now, technically that's the feature and 0-day etc. should usually catch it,=
- but
-on the other hand we also usually try to avoid cfg-gates in the kernel.
-
-Miguel, I think you were in favor of this as well, what do you think?
-
-[1] https://lore.kernel.org/rust-for-linux/DDK4KADWJHMG.1FUPL3SDR26XF@kerne=
-l.org/
+OK.
