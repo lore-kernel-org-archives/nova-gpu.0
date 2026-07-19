@@ -1,96 +1,267 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605CD218ADD;
-	Sun, 19 Jul 2026 14:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28B52FDC28
+	for <nova-gpu@lists.linux.dev>; Sun, 19 Jul 2026 20:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784472790; cv=none; b=MPE+MICIpdA6KM+IbnKiTRieXtt5fwgiZTGt0uDhW9q4S4pi7Ei720mb8XLanFoUY81TRYXRgQ0UuVobhLSq4ACdRkaYlJaDyvI5c6EYnJpmvZ1VHD8+BTX7vbYjmed2r7pB0Gwsj1bVaZbJaBAJzifQvKHK+4udyDueL6K6xE8=
+	t=1784491809; cv=none; b=C4goBURJ/f7i9DXi5ZNVof7FfEna1O9fbpAwT7JNBNEHrjJgEZrW3mg9zXe4ZmisEzGNqREa1rGsQEHiloWLsDL1m0DD6c3Gbg/NqjyMumL1z5ptdS93bOq/jvEi2pRFVumGe6YngWmeumOBnBsXH6AeV3Kpb/50l/CVUhsKZss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784472790; c=relaxed/simple;
-	bh=aq3pOZqJK91IG7gtQO8DiXpAlrA8wVZEXASV9iiiAjU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=EHEf/lhpv9gUEjpgGyWXEh2YKR0v7dOJ8LybXoKoYcLLGTwNvkln5f9zPX9t3CVuqLb2ey4etlCPWkBdqk25Nr2dICPeieXQNJMzsgRLkZEFG4bbrw1vdZ8g1tFfk1cFw/zQu3pX7R484DJoghmMMCrUfeFpE/yyk4BNk7TFICs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jbul1uGA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784491809; c=relaxed/simple;
+	bh=X5iAEHz2hxjPsXMerElFIw8SISqLEikb1wSYP2eCe74=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I2Obccrdp7/OHC5IqDD5HGxXhdJs0Zqh6aMlEPepo4OclKc4EUEZtLxQg2biYIWTcm9nGoGmP3NzPEDb7ocJ/lDOx2UAFvWNfGxhnhKo9S4LBnB3gXFhkY2VWW0jb33p9hF/1Z1KX0V+LlUw8zt0UwnOQUhDCip/IHdpo07UGEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=XIDe5Bxp; arc=none smtp.client-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jbul1uGA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48E4F1F000E9;
-	Sun, 19 Jul 2026 14:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784472788;
-	bh=ZnAmwB0XbvWs3mSwaXG7uF2RwKAnPAZGV/EgsVpSugI=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=Jbul1uGA5LlZ2vA4tGyqEGSxgutYrj8WHuhA8xgV9ZvwE4k0kPwCbOQmyrKYh8Unf
-	 QTpX7Si2dzkGIH2zsiaePJjooJbCDL6fxOv86jTDEB4KfoFOSrbbznR2x4cH9cRTqy
-	 xq3o1/Py9QvD6pWnJy2d2cBfYwdstpouRgzoMier1fAmzslNYi59p0rTVaGu8+ZvfK
-	 a+PiADKO6Duf5NXDuXnTLuXNSPb/aEiN66It0PD8877SSVsPqfMSp4FX07dcyUBspa
-	 djEkvZjP9ekgd7slqSY4NzaHbvZ9DzptlMjmaR1uYyWyK9xkf83WtjLrWG+G+iDZXy
-	 OoRpV4ObjZbhA==
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="XIDe5Bxp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=hr7fef3m5bcb3nzwxv7hcawpkm.protonmail; t=1784491794; x=1784750994;
+	bh=YIlA/ffz+CiSppXBfyyFp/DZEaOzhgtsaIbJf8IEPJk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=XIDe5BxpOiZPwyCj4Yuh5bU57cJs5z9EkFRs7WjCxWGWBRLdSDo36yxkjjNUrKBi6
+	 BJIK8IWmBZljUseKpghmQSzhH4/YboOWW62wW9sr3Cu5eFdr9Jn//oKltxrn33U9lv
+	 a4xGmGYzXCR5dNaMXg6cVUGeUODfrhTmn+nbEHlvXSk/m2SGTW8cEt8COeG9ZU51mf
+	 YmOPeMX1gQo5pdt0oIcwI/WVx+0QkRO4jlq0Lt2S4CPyDdzNGzE72lwG5t5vfYODzE
+	 V5zl36MlUXVH2KwaWJPTmMI9Cy0FOVck8k3+jbJXoiM67leHx5XPGTApRwjgt0Skus
+	 VpyQOHmAN2ZFw==
+Date: Sun, 19 Jul 2026 20:09:49 +0000
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>
+From: Lorenzo Delgado <lnsdev@proton.me>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, Lorenzo Delgado <lnsdev@proton.me>
+Subject: [PATCH v2] rust: io: convert ResourceSize into a transparent newtype
+Message-ID: <20260719200945.687904-1-lnsdev@proton.me>
+In-Reply-To: <20260712113602.389060-1-lnsdev@proton.me>
+References: <20260712113602.389060-1-lnsdev@proton.me>
+Feedback-ID: 53083996:user:proton
+X-Pm-Message-ID: 81b8f77747862653e1bf7a1622bfe2725ec30257
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 19 Jul 2026 16:53:02 +0200
-Message-Id: <DK2MT37NYCTQ.3JCJ9EAQ9TJEE@kernel.org>
-To: "Lorenzo Delgado" <lnsdev@proton.me>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: io: convert ResourceSize into a transparent
- newtype
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Robin
- Murphy" <robin.murphy@arm.com>, "John Hubbard" <jhubbard@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <driver-core@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>
-References: <20260712113602.389060-1-lnsdev@proton.me>
- <DK0BPAHR8IS3.2KLSLH7K448RJ@kernel.org>
- <20260719104012.364283-1-lnsdev@proton.me>
-In-Reply-To: <20260719104012.364283-1-lnsdev@proton.me>
 
-On Sun Jul 19, 2026 at 12:40 PM CEST, Lorenzo Delgado wrote:
-> I tried that, but it doesn't build. ResourceSize wraps resource_size_t,
-> which is u64 on 64-bit (CONFIG_PHYS_ADDR_T_64BIT), so the impl the patch
-> already has,
->
->     impl From<ResourceSize> for bindings::resource_size_t
->
-> is already From<ResourceSize> for u64 there, and a second one conflicts:
->
->     error[E0119]: conflicting implementations of trait
->                   `From<ResourceSize>` for type `u64`
+`ResourceSize` was a bare type alias for `resource_size_t`, so it
+inherited every integer operation and `as` cast. That silently permits
+operations that are meaningless for the size of a hardware resource:
+mixing it with unrelated integers and truncating casts.
 
-Sure, but in the case a cfg-gate is perfectly fine, as the impl will always=
- be
-availble.  Either through impl for u64 directly or through impl for
-bindings::resource_size_t.
+Wrap it in a `#[repr(transparent)]` newtype so each conversion at a
+boundary becomes explicit and reviewable. The representation is
+unchanged, so this is ABI-identical; only the spelling at the FFI
+boundary changes. Provide the conversion surface `from_raw`/`into_raw`,
+`From` in both directions, and a fallible `TryFrom<ResourceSize> for
+usize` for checked narrowing. Update the two producers, `Resource::size`
+and `SGEntry::dma_len`, and the `request_region` consumer. In nova-core,
+add an `impl FromSafeCast<ResourceSize> for usize` so its page-count
+conversion keeps the infallible `usize::from_safe_cast(sg_entry.dma_len())`
+unchanged.
 
-> There's a simpler way that stays infallible and adds nothing to io.rs.
-> ResourceSize already has into_raw() (io/resource.rs uses it at the C
-> boundaries), so nova-core can do:
->
->     let num_pages =3D
->         usize::from_safe_cast(sg_entry.dma_len().into_raw()).div_ceil(GSP=
-_PAGE_SIZE);
->
-> into_raw() gives back resource_size_t, and from_safe_cast handles that
-> as u32 or u64 depending on the config, so it stays infallible. I'll use
-> that in v2 unless you'd prefer something else.
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Link: https://github.com/Rust-for-Linux/linux/issues/1203
+Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
+---
+v2: keep the nova-core page-count conversion infallible, per review
+    (Danilo Krummrich). v1 changed it to a fallible
+    usize::try_from(sg_entry.dma_len())?; instead of touching the call
+    site, add an impl FromSafeCast<ResourceSize> for usize in nova-core's
+    num.rs, so drivers/gpu/nova-core/firmware/gsp.rs keeps
+    usize::from_safe_cast(sg_entry.dma_len()) unchanged. FromSafeCast is
+    to move to the kernel crate subsequently. io.rs is unchanged from v1.
 
-I don't want to grow it arbitrarily in nova-core - which is also why I open=
-ed
-the question of moving FromSafeCast to generic infrastructure again - but i=
-n
-this case we should rather add the FromSafeCast<ResourceSize> for usize imp=
-l in
-drivers/gpu/nova-core/num.rs for now and move it subsequently.
+v1: https://lore.kernel.org/r/20260712113602.389060-1-lnsdev@proton.me
+
+ drivers/gpu/nova-core/num.rs | 10 +++++
+ rust/kernel/io.rs            | 73 ++++++++++++++++++++++++++++++++++--
+ rust/kernel/io/resource.rs   |  6 +--
+ rust/kernel/scatterlist.rs   |  2 +-
+ 4 files changed, 83 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/num.rs b/drivers/gpu/nova-core/num.rs
+index 6eb174d136ab..7c0e878bbfb2 100644
+--- a/drivers/gpu/nova-core/num.rs
++++ b/drivers/gpu/nova-core/num.rs
+@@ -6,6 +6,7 @@
+ //! crate.
+=20
+ use kernel::{
++    io::ResourceSize,
+     macros::paste,
+     prelude::*, //
+ };
+@@ -137,6 +138,15 @@ fn from_safe_cast(value: u64) -> Self {
+     }
+ }
+=20
++// A `resource_size_t` fits into a `usize` on 64-bit platforms, where a `u=
+size` is a `u64` and a
++// `resource_size_t` is at most a `u64`. Delegates to the primitive impl f=
+or the underlying type.
++#[cfg(CONFIG_64BIT)]
++impl FromSafeCast<ResourceSize> for usize {
++    fn from_safe_cast(value: ResourceSize) -> Self {
++        Self::from_safe_cast(value.into_raw())
++    }
++}
++
+ /// Counterpart to the [`FromSafeCast`] trait, i.e. this trait is to [`Fro=
+mSafeCast`] what [`Into`]
+ /// is to [`From`].
+ ///
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index fcc7678fd9e3..ebf00b4536d6 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -6,9 +6,12 @@
+=20
+ use crate::{
+     bindings,
++    fmt,
+     prelude::*, //
+ };
+=20
++use core::num::TryFromIntError;
++
+ pub mod mem;
+ pub mod poll;
+ pub mod register;
+@@ -25,11 +28,73 @@
+ /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
+ctures.
+ pub type PhysAddr =3D bindings::phys_addr_t;
+=20
+-/// Resource Size type.
++/// Resource size type.
+ ///
+-/// This is a type alias to either `u32` or `u64` depending on the config =
+option
+-/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
+ctures.
+-pub type ResourceSize =3D bindings::resource_size_t;
++/// This wraps either `u32` or `u64` depending on the config option
++/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a `u64` even on 32-bit archi=
+tectures.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::io::ResourceSize;
++///
++/// let size =3D ResourceSize::from_raw(0x1000);
++/// assert_eq!(size.into_raw(), 0x1000);
++///
++/// // Round-trips through the raw C type.
++/// let raw: kernel::bindings::resource_size_t =3D size.into();
++/// assert_eq!(ResourceSize::from(raw), size);
++///
++/// // Fallible conversion to `usize` (can truncate on 32-bit).
++/// assert_eq!(usize::try_from(size)?, 0x1000);
++/// # Ok::<(), core::num::TryFromIntError>(())
++/// ```
++#[repr(transparent)]
++#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
++pub struct ResourceSize(bindings::resource_size_t);
++
++impl ResourceSize {
++    /// Creates a resource size from the raw C type.
++    #[inline]
++    pub const fn from_raw(value: bindings::resource_size_t) -> Self {
++        Self(value)
++    }
++
++    /// Turns this resource size into the raw C type.
++    #[inline]
++    pub const fn into_raw(self) -> bindings::resource_size_t {
++        self.0
++    }
++}
++
++impl fmt::Debug for ResourceSize {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        write!(f, "{:#x}", self.0)
++    }
++}
++
++impl From<bindings::resource_size_t> for ResourceSize {
++    #[inline]
++    fn from(value: bindings::resource_size_t) -> Self {
++        Self::from_raw(value)
++    }
++}
++
++impl From<ResourceSize> for bindings::resource_size_t {
++    #[inline]
++    fn from(value: ResourceSize) -> Self {
++        value.into_raw()
++    }
++}
++
++impl TryFrom<ResourceSize> for usize {
++    type Error =3D TryFromIntError;
++
++    #[inline]
++    fn try_from(value: ResourceSize) -> Result<Self, Self::Error> {
++        Self::try_from(value.into_raw())
++    }
++}
+=20
+ /// Raw representation of an MMIO region.
+ ///
+diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
+index 17b0c174cfc5..a33a416b289a 100644
+--- a/rust/kernel/io/resource.rs
++++ b/rust/kernel/io/resource.rs
+@@ -58,7 +58,7 @@ fn drop(&mut self) {
+         };
+=20
+         // SAFETY: Safe as per the invariant of `Region`.
+-        unsafe { release_fn(start, size) };
++        unsafe { release_fn(start, size.into_raw()) };
+     }
+ }
+=20
+@@ -114,7 +114,7 @@ pub fn request_region(
+             bindings::__request_region(
+                 self.0.get(),
+                 start,
+-                size,
++                size.into_raw(),
+                 name.as_char_ptr(),
+                 flags.0 as c_int,
+             )
+@@ -130,7 +130,7 @@ pub fn request_region(
+     pub fn size(&self) -> ResourceSize {
+         let inner =3D self.0.get();
+         // SAFETY: Safe as per the invariants of `Resource`.
+-        unsafe { bindings::resource_size(inner) }
++        ResourceSize::from_raw(unsafe { bindings::resource_size(inner) })
+     }
+=20
+     /// Returns the start address of the resource.
+diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
+index b83c468b5c63..5d67242befd8 100644
+--- a/rust/kernel/scatterlist.rs
++++ b/rust/kernel/scatterlist.rs
+@@ -93,7 +93,7 @@ pub fn dma_address(&self) -> dma::DmaAddress {
+     pub fn dma_len(&self) -> ResourceSize {
+         #[allow(clippy::useless_conversion)]
+         // SAFETY: `self.as_raw()` is a valid pointer to a `struct scatter=
+list`.
+-        unsafe { bindings::sg_dma_len(self.as_raw()) }.into()
++        ResourceSize::from_raw(unsafe { bindings::sg_dma_len(self.as_raw()=
+) }.into())
+     }
+ }
+=20
+
+base-commit: 7059bdf4f04a3e14f4fafb3ac35fdca913e3e21a
+--=20
+2.54.0
+
+
