@@ -1,267 +1,173 @@
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021139.outbound.protection.outlook.com [52.101.95.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28B52FDC28
-	for <nova-gpu@lists.linux.dev>; Sun, 19 Jul 2026 20:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784491809; cv=none; b=C4goBURJ/f7i9DXi5ZNVof7FfEna1O9fbpAwT7JNBNEHrjJgEZrW3mg9zXe4ZmisEzGNqREa1rGsQEHiloWLsDL1m0DD6c3Gbg/NqjyMumL1z5ptdS93bOq/jvEi2pRFVumGe6YngWmeumOBnBsXH6AeV3Kpb/50l/CVUhsKZss=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784491809; c=relaxed/simple;
-	bh=X5iAEHz2hxjPsXMerElFIw8SISqLEikb1wSYP2eCe74=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I2Obccrdp7/OHC5IqDD5HGxXhdJs0Zqh6aMlEPepo4OclKc4EUEZtLxQg2biYIWTcm9nGoGmP3NzPEDb7ocJ/lDOx2UAFvWNfGxhnhKo9S4LBnB3gXFhkY2VWW0jb33p9hF/1Z1KX0V+LlUw8zt0UwnOQUhDCip/IHdpo07UGEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=XIDe5Bxp; arc=none smtp.client-ip=79.135.106.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BA02E762C;
+	Sun, 19 Jul 2026 20:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.139
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784494442; cv=fail; b=SwG01dY8Y1C5+JBE6CaTaaZgeBe2iQeD4KFUx64amyFe9bSk8mTMhERovqij5gtYJCx+ORU9JlFMuKgEYg7vEmofoIwSrCDEu4gxoj1WoCWSQhnQgBEwcTyUeC8J8oUhT335hCCLYq/C+99dvyBKZb0nEVIjro56nLyhIHvSG1I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784494442; c=relaxed/simple;
+	bh=qOObCuXtV8xJhE+HohxpwkyLUz7jH6alOj+IbEI6wbU=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=ppXu62BPnwaONy/Mjkb0LYf0YadBn0sjkf8SjbUG6f7FZCVbFEIHs+xP+m7DmnN6P57S+IL/nt0uq9WrjNkz47alpsMH1pESjE1y004MIOF2iViFJrbqPuzcwfjXKUFDbMl1mOlgpN/R4CAy+5M6W5yH9k97LiJBlamvXaYHH7w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=U2gK/VOs; arc=fail smtp.client-ip=52.101.95.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="XIDe5Bxp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=hr7fef3m5bcb3nzwxv7hcawpkm.protonmail; t=1784491794; x=1784750994;
-	bh=YIlA/ffz+CiSppXBfyyFp/DZEaOzhgtsaIbJf8IEPJk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XIDe5BxpOiZPwyCj4Yuh5bU57cJs5z9EkFRs7WjCxWGWBRLdSDo36yxkjjNUrKBi6
-	 BJIK8IWmBZljUseKpghmQSzhH4/YboOWW62wW9sr3Cu5eFdr9Jn//oKltxrn33U9lv
-	 a4xGmGYzXCR5dNaMXg6cVUGeUODfrhTmn+nbEHlvXSk/m2SGTW8cEt8COeG9ZU51mf
-	 YmOPeMX1gQo5pdt0oIcwI/WVx+0QkRO4jlq0Lt2S4CPyDdzNGzE72lwG5t5vfYODzE
-	 V5zl36MlUXVH2KwaWJPTmMI9Cy0FOVck8k3+jbJXoiM67leHx5XPGTApRwjgt0Skus
-	 VpyQOHmAN2ZFw==
-Date: Sun, 19 Jul 2026 20:09:49 +0000
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, Lorenzo Delgado <lnsdev@proton.me>
-Subject: [PATCH v2] rust: io: convert ResourceSize into a transparent newtype
-Message-ID: <20260719200945.687904-1-lnsdev@proton.me>
-In-Reply-To: <20260712113602.389060-1-lnsdev@proton.me>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="U2gK/VOs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wknGdTyUtU3c0kpefjh8gUk2tAVt8Wbdlv9gFAm3vt/kx5kvWN9jWcvNpzXJyLb/AXqVYcvDIg9v+ojyphybtryw4M/ze6je0jXSRtM1X0KBGC5G5iUt5E/rXJzLi14Y4ZZBKRutAKQbH0kvAGjbKVawHhgZZZiHWIvZ5DEEuPXf6DP6gB6ZnOnb2ZQ69MjS3afPNMP0ZuPl8HYNYGhiCdLrvBysp0wU3yDz5+9bKmP7DTzy4c1MBSvCWr6ATt573kD+OLGSqQvAAAeLRyn+TVQjkixS8mQx2QYrBEhHZKADXKblOdP8Dtuf1K3ca/YCFZn8hR1g6czisivIPhTeGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JYyHU8c5joNEUFLXt1lHcrmkZlaV1jPk2DbZNAEQhSE=;
+ b=ExQm35JBwFN2h2GH7qL65LRFg6fMuYRej9/rYx4icE399LMgeAGwAM04oCsQTi6n920FZ8qBnbYqymJNqMJihloTK8dgeoXzBf8KVpX4Ivu383Y8Rbkg8xYjPKUnzAEMxQGPRZXuvbr4i1hLgrEEFZZe4xyuTgqXzX52KZeYlHwsxHhFylQ8btpbauhexXP4nLSy6Eb15mH18ZW/LxPGZHC6u6nn1Awrcj7pzcNn6OIeYTn6/+tKZ273UrkotlhV3x7NoFd+Foh5i08/UA7w8wQo4v/wxAJ4bLqgwuR2fo6CSYwjU3XshqrQKiUgg1XhchisacolOXnRV65yJDWPWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JYyHU8c5joNEUFLXt1lHcrmkZlaV1jPk2DbZNAEQhSE=;
+ b=U2gK/VOsNhHg8hL61Qy1XQv13r6UMnB444x2Aczyr2YvdhTbjlEcCx8c/do0NTtBZMZyZMUfa1V5U/3R5WB5yBoCNOQEhwaw8Rj6FheN9rzU18jw7q+j9RI3gvg4KwbN4D/HeOxzc2HyHDhd1OYQvxovmUUjLK04D6/0OS6PD7A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CW1P265MB8634.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27f::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Sun, 19 Jul
+ 2026 20:53:57 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0223.015; Sun, 19 Jul 2026
+ 20:53:57 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 19 Jul 2026 21:53:56 +0100
+Message-Id: <DK2UHF0JHVJW.39W4VPL8H5CM8@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Tamir Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Robin
+ Murphy" <robin.murphy@arm.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Timur Tabi" <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <driver-core@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>
+Subject: Re: [PATCH] rust: io: convert ResourceSize into a transparent
+ newtype
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Delgado"
+ <lnsdev@proton.me>
+X-Mailer: aerc 0.21.0
 References: <20260712113602.389060-1-lnsdev@proton.me>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: 81b8f77747862653e1bf7a1622bfe2725ec30257
+ <DK0BPAHR8IS3.2KLSLH7K448RJ@kernel.org>
+ <20260719104012.364283-1-lnsdev@proton.me>
+ <DK2MT37NYCTQ.3JCJ9EAQ9TJEE@kernel.org>
+In-Reply-To: <DK2MT37NYCTQ.3JCJ9EAQ9TJEE@kernel.org>
+X-ClientProxiedBy: LO3P123CA0023.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:388::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB8634:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1937ae5f-1f50-4bd8-1d37-08dee5d7da27
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|10070799003|22082099003|18002099003|56012099006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	ruO0APhMqNqaoO1HI9dBeKsb1gwcIAqlxruYq3mZ06fDPn0Bj6ANyyfpE0GK7U5hoppOJL8LiFJfx4pWRRpp3ETFzXsqHciA+DgJFo+mRhzc4m1BO1Bx4oI/U4+4k/JJ1WJRBy2Tb48e5YXkoB2Qafr4qcSrh3ZBtl76nC/YRiTSlJw6/DDr0yKODzPKSPTynczg482XGaa7IxsnWpjp660rHntNPVR762W77Ft1D/vG/IN3R5iQZyl+el/JRMJXTdZOrKsLUPEmlSChJJQrypozKU1yYjQ5uOPmcTLIBbScD8MzgQtixTVajeaaTzQAkjuxDcmNSRwwMlfzH0+XLoACW0fc4bGEffssKg6m5MSR/7qoqqpI4s0sllYU3vdQKUndXyRs4k5E2ZYPNV2Zp7AxLtPS00k+fknitasQXG3KXeuL+xpk5bQrqe2qEOauMCB2/i9pySS/to/FJjcd4RN03HIrtdM+GibO90vNECMHzG5mQWKsap/PRIzTmmzHqab91nfZkpP2+HHUuT68BdQpVBVsQ5PG3gIcPpkP/KP+gHyjNyBTaRmMAX1skT/1SpQgsUipiLoYUT8NkLLklCKJe7JJrKLtB0eiRoEzVnyBFYvHxtiX9KDK1jwPFTWnhkAs+AXBAvzvZGF1DWtxjcOfSw0XrKhvEADZSvwUS9k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(10070799003)(22082099003)(18002099003)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZE1ZdGcycFcxRm10azVkOHZBK0xqeHdMTHYwMFYwT2c1ZEVYNGdHRTJqMVRK?=
+ =?utf-8?B?SjdaSjdnZi8rcFlVMi8vcU4wcXZZRFFFZnR4OGVIV0IvMGtSR1Nka2RtWDZm?=
+ =?utf-8?B?V1VZbDEvaW5Sc0xOWDZDem83K0JhTSszbndLbFhjTlBvVVRvcTFUTUZkYmtG?=
+ =?utf-8?B?NHNtUVd5ZkNEQTdxOTNDR1BsNURJazBZb3BTalNmNHBKQ1pINnhmMkFDRnBm?=
+ =?utf-8?B?L0ZHWVJ3eE0yRWNaNW4xOE1xVy8xTVRBVnU3eXlRN2ZiSXBiN0xOQ1A1T1Fx?=
+ =?utf-8?B?WGVDTWQ4MUVaLzlFeUFiRXo5b0N6M1h1ZXptY0tRZ1Bkb0FEa3R0OUlIUkVM?=
+ =?utf-8?B?NXRIYzRoOGVmOU1kR0k4RXhvelhFRzBramNJcjRlMTBFOWtwVWErL1YyRVpk?=
+ =?utf-8?B?bHBKNzNYZksvWncrMEE2blRPUHFscCtVSlphTEZGdXREeGtiMGppM2VzMmJO?=
+ =?utf-8?B?aThLTGk5a25jVkhpVjYwaitYQi90eVg0NTlidXBzNjZsRE5Vd1lDS0hrYmo3?=
+ =?utf-8?B?VXVVSGpNdlRDc0VvTGY1V2lEdUpZbE1kaGdtY1lDOTNQczF0cDE1UEF1NkVE?=
+ =?utf-8?B?a3pydUxvK0trOGZsN0FuN1FMNVMvTGhrMmRheG9iZGR0UGVmeVJIN0ZLdnRY?=
+ =?utf-8?B?RkdudlZUM0IvTWMxeklrdWJaaksxYTNoL1dveHJDdzBWdXJUY3hRN3dpWTdR?=
+ =?utf-8?B?ejRqRUxDUmRldXBtVlRhYytMMTA2QjdPaGFsY3N4TkFQa3o3Zm5zdWJHNWsx?=
+ =?utf-8?B?WmphWmVFRDRkZWpBWEZ3a1E4bURaMzF2UFdkU0FMcVhIZ3k3WWpUclYxRXU3?=
+ =?utf-8?B?NTlmcFRsUEp5Qnd2ay9Ua25PUkMvdDdyKzZYOElTYjJtQWJhTWNhcEdoNm9v?=
+ =?utf-8?B?dTk2N25kZFU2Q1I5RkVjTTFsOGFXNTlaclRqa1Z5bFVkeEFPZVFUYUxjZVFa?=
+ =?utf-8?B?RkRaeVBUUU1nTDZNQzBXbWQ3TnJYOEN2QTc5eElabE9QSFZLWkFjRWlGQlZJ?=
+ =?utf-8?B?OXhMMkRZS1ZNd3pocVRXVlc2a094N3M3Vkt3UXVhOUV1emcySW1YK09CMlov?=
+ =?utf-8?B?eXRsM1dySUQxa1VxUDM5eHkvbU5WSnZ3TythSklBc2VWQnRvdC9WRFVYbXNw?=
+ =?utf-8?B?TmZQNE15SXBVdG5XQ0N0MVowcnBVMkV1ckgzNXk2cnVvSi94dEM0SzZNQnFU?=
+ =?utf-8?B?bVBzOGJDUFI4ZTZQYmgwSUlQT2gxWHo5V3A2RVdjVklheW4zVGdkektNUlp0?=
+ =?utf-8?B?VTZvUFlWbzVHLzBBckUzcnhIdC9ma2ZGc3NPWHA4RlROOThTK0paSEpGWXpV?=
+ =?utf-8?B?UFZjZm1yUUNkWW1lMUp5cUl3c1cyV1FDTXYzcHRJajBWeUYxVnVCa3dFTGFK?=
+ =?utf-8?B?bzR2R0JVTGZnWm9TRGp6eFRlTGg2VEEyYWZYbWNUc1JqRmlUUUszT2c0ek5V?=
+ =?utf-8?B?NmVPUEZjbHNJVmMrczFJc2FoZ2Myd3hxQzg1Z3d2ODZ3LzcyTmk0aFZ0K0dn?=
+ =?utf-8?B?d3pwYXUxcnkrc015UDFBd2MreU9OTXk5dFUyUWpPTGt0WHRkUTA2MGJuRDZy?=
+ =?utf-8?B?WmlwKzIyblJQdmNYWXZHWjNRL25XQ3BOUzNhVzNMcnAzQmgxc2Jjell4VHM3?=
+ =?utf-8?B?SVJrVngxUE1OSXQvb2tkQVRzZmJ4MlRlclB5NDl2Q2plMXFRNzErYlNlWHlD?=
+ =?utf-8?B?UmFrVTZCREdHR0NNdEhPdHk2YVVVTGoyRUVMS2FwUzNKR2tUVkpySjFOTER6?=
+ =?utf-8?B?cXJtOVVtMm9tbkJDUzdVNmVaWEJYeGlXYVQ5UUd6OEJmbnp5ODZNR0VXU3lj?=
+ =?utf-8?B?cWN3dW9QdGRTU3YzU0tTb2dpODZyNGkyY2p0U0lzV05qSUR4V1kwbEN1b0xt?=
+ =?utf-8?B?aEt5WnNzYWhMSTVCdW1nMHpMQWtCM1crdUwrUDVsQ0NGODJlMk0xOC95RjQ5?=
+ =?utf-8?B?dTIwUURqM09iL2k2RS9Jd0dNeFdtVHhLTUkydExjbmxVYS9WbnZnbVdKQWIr?=
+ =?utf-8?B?WVJqU2dhaXYvSVdPZ3hZNEJyS3dXemtHcnlhUDlsSGJrRWtTU0dHOTFpNEsy?=
+ =?utf-8?B?anpBTk9wQm5EUTJBa1Y1NC83M3M4ZWdFLzdVWXpWM1ZNLzg0eFk2ZEhRWWl5?=
+ =?utf-8?B?ZHc5cXRsZkttVzU2T0doWWRLSmx6ZHBaNkZXWllYeTdHMlYwR1V1RDVhZVlP?=
+ =?utf-8?B?SjQzWVk0c29Va0VGcHVJamhuWkZUbk5rZk5sNy9sM0tvVzVqSFZPNXVmLzlI?=
+ =?utf-8?B?a3ZRM1JRR2NuRHJaTnRIaUl0ZFJBaEVNa0dkTTdRWjZXWUJPL0tnWEg3Q0Ju?=
+ =?utf-8?B?Y2twODV6UG1hQitKckF0T3JaeHM5YTBxQi9RN0RHSjRZblhTNXRFUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1937ae5f-1f50-4bd8-1d37-08dee5d7da27
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2026 20:53:57.4679
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: crAksFfM+nUifen50LwwiHaADWI7bxd2VS6R0oAbZYczjLpIzwgmIU1h/7psEVfe7WNw7cFZSjY2bmk0iH04Bw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8634
 
-`ResourceSize` was a bare type alias for `resource_size_t`, so it
-inherited every integer operation and `as` cast. That silently permits
-operations that are meaningless for the size of a hardware resource:
-mixing it with unrelated integers and truncating casts.
+On Sun Jul 19, 2026 at 3:53 PM BST, Danilo Krummrich wrote:
+> On Sun Jul 19, 2026 at 12:40 PM CEST, Lorenzo Delgado wrote:
+>> I tried that, but it doesn't build. ResourceSize wraps resource_size_t,
+>> which is u64 on 64-bit (CONFIG_PHYS_ADDR_T_64BIT), so the impl the patch
+>> already has,
+>>
+>>     impl From<ResourceSize> for bindings::resource_size_t
+>>
+>> is already From<ResourceSize> for u64 there, and a second one conflicts:
+>>
+>>     error[E0119]: conflicting implementations of trait
+>>                   `From<ResourceSize>` for type `u64`
+>
+> Sure, but in the case a cfg-gate is perfectly fine, as the impl will alwa=
+ys be
+> availble.  Either through impl for u64 directly or through impl for
+> bindings::resource_size_t.
 
-Wrap it in a `#[repr(transparent)]` newtype so each conversion at a
-boundary becomes explicit and reviewable. The representation is
-unchanged, so this is ABI-identical; only the spelling at the FFI
-boundary changes. Provide the conversion surface `from_raw`/`into_raw`,
-`From` in both directions, and a fallible `TryFrom<ResourceSize> for
-usize` for checked narrowing. Update the two producers, `Resource::size`
-and `SGEntry::dma_len`, and the `request_region` consumer. In nova-core,
-add an `impl FromSafeCast<ResourceSize> for usize` so its page-count
-conversion keeps the infallible `usize::from_safe_cast(sg_entry.dma_len())`
-unchanged.
+Given that `resource_size_t` is either u32 or u64 depending on cfg, essenti=
+ally
+`From<ResourceSize> for bindings::resource_size_t` has cfg-gating. So basic=
+ally
+we always unconditionally have u64 impl, and for `!CONFIG_PHYS_ADDR_T_64BIT=
+` we
+have a condition u32 impl.
 
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Link: https://github.com/Rust-for-Linux/linux/issues/1203
-Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
----
-v2: keep the nova-core page-count conversion infallible, per review
-    (Danilo Krummrich). v1 changed it to a fallible
-    usize::try_from(sg_entry.dma_len())?; instead of touching the call
-    site, add an impl FromSafeCast<ResourceSize> for usize in nova-core's
-    num.rs, so drivers/gpu/nova-core/firmware/gsp.rs keeps
-    usize::from_safe_cast(sg_entry.dma_len()) unchanged. FromSafeCast is
-    to move to the kernel crate subsequently. io.rs is unchanged from v1.
-
-v1: https://lore.kernel.org/r/20260712113602.389060-1-lnsdev@proton.me
-
- drivers/gpu/nova-core/num.rs | 10 +++++
- rust/kernel/io.rs            | 73 ++++++++++++++++++++++++++++++++++--
- rust/kernel/io/resource.rs   |  6 +--
- rust/kernel/scatterlist.rs   |  2 +-
- 4 files changed, 83 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/num.rs b/drivers/gpu/nova-core/num.rs
-index 6eb174d136ab..7c0e878bbfb2 100644
---- a/drivers/gpu/nova-core/num.rs
-+++ b/drivers/gpu/nova-core/num.rs
-@@ -6,6 +6,7 @@
- //! crate.
-=20
- use kernel::{
-+    io::ResourceSize,
-     macros::paste,
-     prelude::*, //
- };
-@@ -137,6 +138,15 @@ fn from_safe_cast(value: u64) -> Self {
-     }
- }
-=20
-+// A `resource_size_t` fits into a `usize` on 64-bit platforms, where a `u=
-size` is a `u64` and a
-+// `resource_size_t` is at most a `u64`. Delegates to the primitive impl f=
-or the underlying type.
-+#[cfg(CONFIG_64BIT)]
-+impl FromSafeCast<ResourceSize> for usize {
-+    fn from_safe_cast(value: ResourceSize) -> Self {
-+        Self::from_safe_cast(value.into_raw())
-+    }
-+}
-+
- /// Counterpart to the [`FromSafeCast`] trait, i.e. this trait is to [`Fro=
-mSafeCast`] what [`Into`]
- /// is to [`From`].
- ///
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index fcc7678fd9e3..ebf00b4536d6 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -6,9 +6,12 @@
-=20
- use crate::{
-     bindings,
-+    fmt,
-     prelude::*, //
- };
-=20
-+use core::num::TryFromIntError;
-+
- pub mod mem;
- pub mod poll;
- pub mod register;
-@@ -25,11 +28,73 @@
- /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
-ctures.
- pub type PhysAddr =3D bindings::phys_addr_t;
-=20
--/// Resource Size type.
-+/// Resource size type.
- ///
--/// This is a type alias to either `u32` or `u64` depending on the config =
-option
--/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
-ctures.
--pub type ResourceSize =3D bindings::resource_size_t;
-+/// This wraps either `u32` or `u64` depending on the config option
-+/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a `u64` even on 32-bit archi=
-tectures.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::io::ResourceSize;
-+///
-+/// let size =3D ResourceSize::from_raw(0x1000);
-+/// assert_eq!(size.into_raw(), 0x1000);
-+///
-+/// // Round-trips through the raw C type.
-+/// let raw: kernel::bindings::resource_size_t =3D size.into();
-+/// assert_eq!(ResourceSize::from(raw), size);
-+///
-+/// // Fallible conversion to `usize` (can truncate on 32-bit).
-+/// assert_eq!(usize::try_from(size)?, 0x1000);
-+/// # Ok::<(), core::num::TryFromIntError>(())
-+/// ```
-+#[repr(transparent)]
-+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-+pub struct ResourceSize(bindings::resource_size_t);
-+
-+impl ResourceSize {
-+    /// Creates a resource size from the raw C type.
-+    #[inline]
-+    pub const fn from_raw(value: bindings::resource_size_t) -> Self {
-+        Self(value)
-+    }
-+
-+    /// Turns this resource size into the raw C type.
-+    #[inline]
-+    pub const fn into_raw(self) -> bindings::resource_size_t {
-+        self.0
-+    }
-+}
-+
-+impl fmt::Debug for ResourceSize {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        write!(f, "{:#x}", self.0)
-+    }
-+}
-+
-+impl From<bindings::resource_size_t> for ResourceSize {
-+    #[inline]
-+    fn from(value: bindings::resource_size_t) -> Self {
-+        Self::from_raw(value)
-+    }
-+}
-+
-+impl From<ResourceSize> for bindings::resource_size_t {
-+    #[inline]
-+    fn from(value: ResourceSize) -> Self {
-+        value.into_raw()
-+    }
-+}
-+
-+impl TryFrom<ResourceSize> for usize {
-+    type Error =3D TryFromIntError;
-+
-+    #[inline]
-+    fn try_from(value: ResourceSize) -> Result<Self, Self::Error> {
-+        Self::try_from(value.into_raw())
-+    }
-+}
-=20
- /// Raw representation of an MMIO region.
- ///
-diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
-index 17b0c174cfc5..a33a416b289a 100644
---- a/rust/kernel/io/resource.rs
-+++ b/rust/kernel/io/resource.rs
-@@ -58,7 +58,7 @@ fn drop(&mut self) {
-         };
-=20
-         // SAFETY: Safe as per the invariant of `Region`.
--        unsafe { release_fn(start, size) };
-+        unsafe { release_fn(start, size.into_raw()) };
-     }
- }
-=20
-@@ -114,7 +114,7 @@ pub fn request_region(
-             bindings::__request_region(
-                 self.0.get(),
-                 start,
--                size,
-+                size.into_raw(),
-                 name.as_char_ptr(),
-                 flags.0 as c_int,
-             )
-@@ -130,7 +130,7 @@ pub fn request_region(
-     pub fn size(&self) -> ResourceSize {
-         let inner =3D self.0.get();
-         // SAFETY: Safe as per the invariants of `Resource`.
--        unsafe { bindings::resource_size(inner) }
-+        ResourceSize::from_raw(unsafe { bindings::resource_size(inner) })
-     }
-=20
-     /// Returns the start address of the resource.
-diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
-index b83c468b5c63..5d67242befd8 100644
---- a/rust/kernel/scatterlist.rs
-+++ b/rust/kernel/scatterlist.rs
-@@ -93,7 +93,7 @@ pub fn dma_address(&self) -> dma::DmaAddress {
-     pub fn dma_len(&self) -> ResourceSize {
-         #[allow(clippy::useless_conversion)]
-         // SAFETY: `self.as_raw()` is a valid pointer to a `struct scatter=
-list`.
--        unsafe { bindings::sg_dma_len(self.as_raw()) }.into()
-+        ResourceSize::from_raw(unsafe { bindings::sg_dma_len(self.as_raw()=
-) }.into())
-     }
- }
-=20
-
-base-commit: 7059bdf4f04a3e14f4fafb3ac35fdca913e3e21a
---=20
-2.54.0
-
-
+Best,
+Gary
