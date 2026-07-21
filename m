@@ -1,75 +1,75 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011043.outbound.protection.outlook.com [52.101.57.43])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020122.outbound.protection.outlook.com [52.101.196.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D6320E334;
-	Tue, 21 Jul 2026 11:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36392C21DD;
+	Tue, 21 Jul 2026 14:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.122
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784634124; cv=fail; b=GQyFUK1fg7006xJPjhL8wEamIP/YZhXIVRyYehe+22h4TZ8KjLp6faMA5LPvFXar67x/t7eiOno7GAZ5acRESPao0K+VeQoCxBVaiMVbzsjZgVluBo98fGAY/mbhl9Ec3f8W+id3ims+g5zR5E48YmjoSSWunL4Ujbm8AzJZO9A=
+	t=1784643472; cv=fail; b=pCp9+uyzxmY9X1NKIEA9wLpC6yDfzQLhd5On/tD+VbbDAPuq8QaK1yolgIUtBin6rQkxn3cpLLAzbyiFIiL/xV7o4tCgyF4k5yRXXIfDTfdbzdBSsBBp1nkBEF38utR6MrLAQq2BuQo/My0z4kLcQczsWs2JiLiDJ629wrGZnEM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784634124; c=relaxed/simple;
-	bh=A7NTFKZPivE2nlmE/+HQFoMe3Y/oQbzJEZW39mSR7pA=;
+	s=arc-20240116; t=1784643472; c=relaxed/simple;
+	bh=IwMPQF1yVC8KQStKfdZmKgB5TEsMvcdnKStwPWVYpCc=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=ONjuvmMx21oiUTfmqLzO8Kld2L7lNOw0zxHhjIpqMOz+qyHlLLm7bmjM2nGq8U+WSDh4cpARvqsL4aZc8waYWwpAYtiOLm/FUCGE6UMnz1nT9AF5QnULORK78b0ZUIxfY4rdgXdZYcOcBqRIZcDkDQespa17GYMTZdVPfE1XwDs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=i2iewtWl; arc=fail smtp.client-ip=52.101.57.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 In-Reply-To:MIME-Version; b=BSBHTCr57XNtRCuYI8JLd41DIh5ISazCnZzCE6V4IXknipFmG7kEMX5kiHmGM81nwJRqSmL2OVvrzykjIrAz3v6lGHctzHQwpUn+WmwTDegJfszdrEaAukujZ/Wn3dKY9betBveoChOHzoxKXe1ncr45/L35H6IlS6Jfki2hrXU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=W0ZH0ipX; arc=fail smtp.client-ip=52.101.196.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="i2iewtWl"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="W0ZH0ipX"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c1HV/1OqbkpWzTn4QNs6c/+4f5gsiZ00VXEd40imPsQbNtZGnQsl945duACzoGGpqPPmrFVeijzaGNjSCKC59T2sT8+SSYc2ZAlTlJ5lF7l6vMahBvubba3FTCNCosX1U7Tu3Sk0AN+2z6kT7Qu8hiAotvHY7tlS2hDAvLjlnDK/8kslicf+oKe7WAKeryUUdu3w2mMUn4xb4cxtqslp0v9IiYkscxUvalWuM73HsliugJfyg+NGZgmF+ff53yki0mT5Sn942oaXG/AnE/igRUgtPQB0dTOCsbV2fa0MfBDgMSqQ3cWdipu9TBt1kUUQpwRkwfZ1P7ISWcxKsL6nWg==
+ b=MxuqlUegDLGneATdHc99Q+ZZxB/cP+vkLdA+mLaxqpQxxQlBepaCD7WVC7up4MQpy9yoK/hipJmTo7g+dWKBel4o1jdPGVCCRzoz3zRAGUWZpcgetNRiGRWL2MhGpT4SPKJtOFVELOLwEEMRCKwESR6k26NlTXS90soZgMRveLYKoejg2FBGvjo3CGJjgF9x2yzG3+OpYUlOhjCPSEpoGaCOUfpg+QFTUyDbJaj/oXMMd+Uj4PdEN8QbJ/Vt9WElP/4vXGUgD0L1+W8AnD/ztrmqQSrLrXPCYtPia6S39zQUetv14+C3exF99J49vH9bCK5B7xoe6MdQZ+B+WOATyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KMODG3hcoUX3esNJBCnlzYd/gPP6sl8gyPobkZ4dHkM=;
- b=nhiu5WkNNF7ngDQiMHUS0xa9OjIrtko8OEpPRcXvVSikSoRNdnPoxajtk+W9jgrUhodhpdLvPeIYIxBpEfkMbHRNMMblh6uqGWSUeD+CfSjPwJR6bTO7ezmb+0FE14dcQOjY+bvpnteN+wvxGORVe8I4oQdywgITOyt3qV0VRv8EfmouCSGoLb1AkxSmJV+Pnm/+jgBMIpzMLeH+bhPhPlZcJAyyh0i8v8L8tRzd8JI6AAxHmdK5gKTNduZSnrRqgYRzWY8I9g2BTlCNIyrX4aGWN/ROpljNtoxz5GSa3V2BsljRz9oh0dc8lkMm1F+3UjxwwZ5x3TW2XKEbhDa6Jg==
+ bh=wP573uT7GLfLxseyREnBV80ef2TgiFgq1VZ9sks6W/w=;
+ b=sbMBV9+TmQX/J+kFopZLIxRs5M89WPry36tyuHZ1wPxy0QCxW0kgC/5kCuFhaMv34PXB07HcpYP7COLvPd5UF1Yxy0xud/4Z2S3AzuKYVs2gdNpuSif/m8b9csucDTZ0HfU424QQKb5kGjKkiAS8zz8RTWYOJ52LzE0s6oHyW3wqngJFJWg/n7KsBq7d7S6f7RBQuQVonITTm6A0ZQnCJGNRfUxseYMMwcbl3W8diSs/a7Dk2TmNDXOEC2J5gpPxun/mJQSMdXRkZu0Fb2shGawk4gif+q+4t3D1Y5FmnXQF9gMrFrK0GFa1pV/BVmvJ8WTrpZAt7cLqOfBhzsoilg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KMODG3hcoUX3esNJBCnlzYd/gPP6sl8gyPobkZ4dHkM=;
- b=i2iewtWlFSXGxVm7fsn76xbGMtz3tVSGlr9CUW8jh4Qy9+tmgopHVazoZx7LTMm0z+m4gUJxDqHq1qUytTjOIkGozW71M2KKvjLd2FYIVnnrZE0SCsftAcGo/AZIfjrTwCc2XhYNyChDZUa2NUI6OvtZGU3u61CB59XhvDQGbDNm7y8tE5EleV2fxk4svG87BYHzz277ZZhqY+j3D8VLprIbTrWcd6lN5P41EZUsRQjU1fqYrIB8VE1ThWLoBc5Ohl7K6TRAHt6PO6A0vI6XQFL5BtGRZem9n+3u9HZjm2yVD+jVXC61nuj4IYCvvEHLH6Q9IVqrJzc11bmDRLU80w==
+ bh=wP573uT7GLfLxseyREnBV80ef2TgiFgq1VZ9sks6W/w=;
+ b=W0ZH0ipXrLTvcIkqMDMRIAAgC4dZX+f0HTBikL7rPrB9D2B5wkHWrfmwIYeVN/NktZfnGj0iROYovwydvw21IZO1UJ/7zzx3jK1Hf6WZ2zXuWZuI+kqDmbDNIenp7OvOBp835XFDn9F7gO2EhSC6bWY1xpFlr/c9XYenrUTsGlk=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM4PR12MB5771.namprd12.prod.outlook.com (2603:10b6:8:62::16) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO5P265MB9348.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ca::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.14; Tue, 21 Jul
- 2026 11:41:53 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 11:41:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
+ 2026 14:17:43 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
+ 14:17:43 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 21 Jul 2026 04:41:49 -0700
-Message-Id: <DK47ZRUL6UBX.1V6XG5QZ2YB8W@nvidia.com>
+Date: Tue, 21 Jul 2026 15:17:42 +0100
+Message-Id: <DK4BB4LQNZQI.O9099MATRI0H@garyguo.net>
 Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
  <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
  <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
  <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>
-Subject: Re: [PATCH 4/8] rust: io: register: use path fragment in relative
- internal rules
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary
- Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>
-Content-Transfer-Encoding: quoted-printable
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 1/8] rust: io: register: dispatch fixed array shortcut
+ internally
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: aerc 0.21.0
 References: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
- <20260721-registers_fix-v1-4-3711b2317e1f@nvidia.com>
-In-Reply-To: <20260721-registers_fix-v1-4-3711b2317e1f@nvidia.com>
-X-ClientProxiedBy: TP0P295CA0034.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::19) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+ <20260721-registers_fix-v1-1-3711b2317e1f@nvidia.com>
+In-Reply-To: <20260721-registers_fix-v1-1-3711b2317e1f@nvidia.com>
+X-ClientProxiedBy: LO6P123CA0007.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:338::9) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -77,157 +77,81 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB5771:EE_
-X-MS-Office365-Filtering-Correlation-Id: d80c63e2-a7a4-4b48-0b4f-08dee71d0f9e
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO5P265MB9348:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38606d39-657a-47fb-b5ff-08dee732d480
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|18002099003|22082099003|4143699003|10067099003|11063799006|56012099006|921020;
+	BCL:0;ARA:13230040|366016|376014|7416014|10070799003|1800799024|23010399003|22082099003|18002099003|5023799004|56012099006|4143699003|921020|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	DQSy74Ln2C7u0tGfvPRiijK0EPdUq/363ouGbfCzoZxF7nsL4pBBx6jXriuXBwT1A7z1rkR4lPwdORvTb/QmerfsZj3negIQ60xEADUepNn1D5Ux174EzdPPgIWOoCl/yGfXTV10vqkDmy945Ik5AjEqC6wX63T8OMBdePKO2x4GGRKDXzVq5/5tj0OHqJh+GY+FSWGu4LZkaIGsbD8v11kYpOpvtq9Gfjt99KxKdNPTMFdJDGKUV0RYNPsVumlY8xk6X1r6oRCEpBu0GevWlb3H91dQEIE5ySpeODUfHlVsppwQlJyp7EdpEFga3DsqfuGmNbs3KF1tvET+Ub/RT7LXGKuwkEScPA8TSUUO56iT6sMs1ZeZh4t81Ca+7m4hVIr4MdOl0kFmJwqdBFtSg7AUvxlPM3quxs3IiWFXhPll4nQbThnZF70QQ0cVOKNr1fXbbxWphXtiOdLD6h2EhnPRMoQyDAd11/LJyPlwu6r+JcvV18x4qiqpqqKxuwlhQ/617t9rSMtme2DaD53YQHuX09ofxRRopB026M+QZrSZEMkTQkKYZsjbqZf+ostUL9CvVpPaS+Y9c67FuFhZOd0KIqHmxZCou+XgLrRsw/DTAw++f6G/j8bqK+pTd3w6cN/IzgTyryKVnObKRjopXdTet23ep0ySWs++NTD5cjlJHz8NvpOCiDaA0KC2N4NCVrNqIsyuia5x45RGkERNBA==
+	WuoVvTrjq6I2FpR3p7+59mJbE9xRlNUXqwZtXxbEPD64QktaZltxy/LCZ8iUFtmz+ofFq2hBirD2lGkGKpJJTUMEoC0SF2KH9SVk/HDEhjITwlR6wF9JMhGsiUxpgxs2PCeHEVyiUn2nG62HGaeLFj0L/N5bZkhU6f4k2XEUo6hoLuyUsnRYo334cIWKXF8y6a4SbEeac+xTq1LwQpfS2TZufLSFd1ws8BNOIFoz9DD22/CjWob6rV1Q7UFL0trt2Cq7KT1H8+kDEdOGt6rWuOHGmly8zDnv/iigb2qEPV6djLbr5tTrQYLJYx7Bo/MdIIoOJN5P7bxVvtKebIPhWdJW3RXj3LyHIaD3Wpg5lQK0Z00furYGCQiX4qq3MyAmbgPYr8rlOs3NDdDXRvQ/5UrKKwSaWbna7PdlZho0nE8TSHJ+zlmUtDbJNyDyHvwTyzk3nw/PGoyqSYNEncHXPppDe0WeZXhwOF5FZZ3w9iULRHWuMXar4vt9lt7HCzXiF4DRyYj8ab4TaUhbLFYL1aXj/LCyWYs0aE6lyAKMKkYaiznUd6UBu/LrbhuUe31lbXXO5JNYYL7Pu8Zq2/ByHTHRlZDkz9S3cdMmTRggVHfNXcTrxzpjJfvGH0jpR5OVz5vP3+3dUoaNWpFLl9SQkivjJAbpx17BWRxrho9dMAennYHU5izWechbY2vFt893klvnCwH4cdI8BIToP3X+CA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(56012099006)(921020);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(10070799003)(1800799024)(23010399003)(22082099003)(18002099003)(5023799004)(56012099006)(4143699003)(921020)(10067099003)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N2tFd2JaaHVuQkZSckUzcW1ZOHpORXpDQ0JrL1Z0ZXgxRDJiMDhLL1NWK1h3?=
- =?utf-8?B?UmY3eXlzK3NKR2t3VE9pT3UzbjBFdDExMU5sMUkwNmdOb0laeFJuRTdwYUFM?=
- =?utf-8?B?aUtlR25hUGx6a2RGU3dLakRhSk9OMFpJanNxbUJ3TUloekh3NjdGc2QvcUQr?=
- =?utf-8?B?OWZkbklja25mbmlBQW9oeFM2TW1JWU1tMmpiaWVScWRzeU15a3hXeEZVb2lq?=
- =?utf-8?B?RDFIV3c0amVpSXNCRkVnWkhQdjlQTDBnNFkxdHhsRXZDL2F4UmhPR3NqMUtJ?=
- =?utf-8?B?WWt3Qkx3MXo4d2o0bWI0aWFoT09FVlhUbHRBclNBZE9GZHNCRVZqRGd6QTAx?=
- =?utf-8?B?bWlYT1NoWTBoS0tiaTR2bWliYWMwRFlBZndZNnIvZjUyRWI3amZEaTdxOUxD?=
- =?utf-8?B?bWJMbWxqUzc5M1R6cTh6Tmo0OXRDSmw2TUJEQU1UQnE4ak5EYktzVlZaR2RC?=
- =?utf-8?B?ejViSFJ3SUo2Y3IwRGd5SjlDbVYwQnVkRXpQOW5ZclZVeUVjRzdFOTcydXhX?=
- =?utf-8?B?RGc0TFZnMWNYRXF0Yi9hdzZrTUQvK25mZzdBQ2hkNTVHWEEyWkdEMHVxcFBo?=
- =?utf-8?B?YTBhK3ViMEpnUmdIdlA0czF0UEFWWVdCaExzb0tnd1NjbVJOalZvYkJnc0JD?=
- =?utf-8?B?RVhweHlpQjRDZEk4VVJYRkZSSHJYVGhJalZiV09vUXFSVUtkdmg1RUZER21k?=
- =?utf-8?B?eWFJYkZXUjJqMzQ4S1BpRDlEME9oekJ0SmcxbFg2ekFLbUthdDAwZy9CZm9V?=
- =?utf-8?B?cVFaT2tDYTVNWEhoVFJHaXJmd20rZEszaWQxUDRtSi94TmluNVN0Q2FiOXg1?=
- =?utf-8?B?TmpjVTNZdlUzSDNQSVBFMnY3VU96Z2lvR2Ywc1U3WHAyUVJkMEV5a05MTnNr?=
- =?utf-8?B?V2R0UFNUNWVKQXlsUGNjb2h6dVdVRXJRaG5LaTBpMFVSZHhlWG1WRHExR0k3?=
- =?utf-8?B?K3NsVTJjUTQvMUVTVnZGRThhNVEzMkZYamhrMThrakYyY2duM0Vndkpad2JO?=
- =?utf-8?B?TkhocEJ1SzhYVFVhY0hVT1RLS1FGVUpwRVI3Y29yZUFlcGY4eDNtbVJBYzBC?=
- =?utf-8?B?dEJEZ2lJVzBRTWI0SXc2cXJjOVJ1RHhGS2xndExGVEg4L2xoblVlRXFlQU9z?=
- =?utf-8?B?aWc1dDBqOEZBbjE2YUxwbjRaRXNoVnhrTkdYM2NGcGFFckQyN3c4ZitINGhu?=
- =?utf-8?B?NDMxWHZ2cTduZnhJK1c2ZFVzQTZkUTRvZWdXWk9rbllKVUVZbS9IOE8ra255?=
- =?utf-8?B?QjVWL1pMTVpMa3hwWVZ6M1g5QTJlNlJoQkg5U0JuVDhuaDlYdmtDcFlHSlFF?=
- =?utf-8?B?eWFTTFhvNGF6d212RGlKUkxmMTFJTGFJWW1HMEhhcnBWUzR0NHprY29VaGJ4?=
- =?utf-8?B?L1R1RlNFa1lpUDlaTSsxQ25ROHZmVHhpMTVZMkx1eThTemU4YU1valNzZUdt?=
- =?utf-8?B?YnA0TDUvVWt1dDFDdUVyT0E4ZU9DVSs3WTdRVnQ5Q2RQWWg5M1BrN1FsUzho?=
- =?utf-8?B?YVNsQVd1bUZDMzBvYmo3Uzd6Wm8rYm1UcXlYaHM1dkg5WWl2Y1JHd2MrWWNX?=
- =?utf-8?B?MXA0TjhvcVU1cE5Fc0ppVjFDMW5ROGtuWXBzK0RadDJpdEowNElOUHVORUlQ?=
- =?utf-8?B?WFNmRkFFZmVydzVRMTRJQWduMEhhV0dldVB0cllOcElEYkFLV294VHI5ZGQ5?=
- =?utf-8?B?SWhmdnNOdkxjN0N1V0JUWkJMcHpZUkJYbmc1NzBvT04zQk9lY0g3czhtZDIy?=
- =?utf-8?B?L1NBNkZWbjFEeEVCZUhzVEt0Sk1WcTYyYXRGVXRPUklYamUxMS9RVC83U0s1?=
- =?utf-8?B?Wk5FVE93NUVyT2psTFdrcTlNdGNUcU1TU1N3WitVdkovOGU2d2w2VXNpTmpr?=
- =?utf-8?B?aHRxbnBzV2dNS3ZsK0cvUkN0V2ZYMGhrTWNQUVB2ZlluajNEdTVWa2NhMzRq?=
- =?utf-8?B?a25yRm9TTk8rMnJWMXNPRFdVUnFJT2lIWnJxTlNxV0VsK2dRQXNoNnlkOFJV?=
- =?utf-8?B?VDVWWnFMQlcvM25FQ2p6NGc4anFzZm1kV2REK0piNmFydkVQRlhOYkM3S3pK?=
- =?utf-8?B?S3hUYXBtQUJHeXpBaXE1M0k0Vnp0RktLTDF4Z0puZ3c1elBHQ3NZazFFUkZs?=
- =?utf-8?B?VkVJYUtvbTRWajJCZTBHRXgxaGRyYlFYN3hEMDM0QmhIY0E4clpSa295VWNz?=
- =?utf-8?B?cVhoWkV6WS9LRFUrTk5jNmhKUUZabmxIUWFZUHhRaHhVelVDZUhoZUVSSDZD?=
- =?utf-8?B?YjJZbDA4SzRVNUtqWlR1ZzJ1bGcyRXZ5Rmx3bFdWLy81TVFFS25maFBpcEJC?=
- =?utf-8?B?NDF4dCtwdHN1a3hhQXFxVDYzOEZHbFFGZW5vSlVYQlZ2RkR3aHFnQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d80c63e2-a7a4-4b48-0b4f-08dee71d0f9e
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+	=?utf-8?B?NEpjb29kVitzNUM3SUJlNmx3UFdEOWtsMnpCSWVCcXprMEhCOUV6RlZ5QXNr?=
+ =?utf-8?B?N04xYnNWenlTV1ZnSGFCNUJwWTZjTGxuckFjOWZQK0RBQjlDKzlMaUgyNi82?=
+ =?utf-8?B?Nzh1c1Jka3piQU1VQlFkRi84U0lzYmV0b09oZWxEbmFoY1loUzJqQ21lVW5h?=
+ =?utf-8?B?cHZsN1hrazFWenFOdU1WeFc0M3NYODJVUnBEelFkNXEvUkZUdmlNN2piMzRo?=
+ =?utf-8?B?c1hCR1p1VjMwemFRbFJiZTk4Z3FpQjBEZ011Y3VONHBvNjhOVXZ5elZwdU9r?=
+ =?utf-8?B?NnVZc0ZEd0JPZDM0QitmbzEramljVDlhZXBxR1pPak9tSVVxSzQzRTRHaE1h?=
+ =?utf-8?B?RlkwNk1MVXNxN3VONXJYZVJ4cVBDUFVNMWQvdHRSenhYUlFlUm0vMHViWmdD?=
+ =?utf-8?B?L0pPR1dzVDlrWk1EeGtPM29KQmp0TnIwSHhZeDQveXlNcXBScmxPSlJBb25v?=
+ =?utf-8?B?a2ErMVZNZkpkaGdsVjZBeDZLdm5LUlBZSUZoSzRyeDJKeTJpcmM2NmlObkM4?=
+ =?utf-8?B?WHV0U0hrRlhWbmJUZmJNMG8vRGJjWjlaODlqWjBUZVRub2J5VEhGaVBManZu?=
+ =?utf-8?B?NU5wL3hxN0tXcnhORVduYlV4YVB1K3VzT2tjRlh0NzI1TnVMYjlDWkJwL0xk?=
+ =?utf-8?B?QmhGaExZT3IycXJtaDd0YTBWcGIzRFpaNkgvbTNQR0d2d3E5SGJaNk5DaDdr?=
+ =?utf-8?B?dndEbjJRZFk5K1pscThNZ2g3V2ROczBrcHY4ZjQ5NE5JTk0xRDMwNEZvRXAy?=
+ =?utf-8?B?ZFJtV0pJWndaZG1jMURvNGd0eE9HUG50YVVCTUU3V3hMd3V1UGNRM3ZQUU1O?=
+ =?utf-8?B?RlRLUFhWV29aZFhOUkpiWDlTS2o0b21LQnBYTWg3NURkRFVKeUZzQUowWE96?=
+ =?utf-8?B?bHJEWjAvRnVXYkVIbHVrTTdRbWEwRUlEaFNvTW9TUVkycWVMSDVNWS9XZ1Nq?=
+ =?utf-8?B?cDQ2TVNHdFJCRkxZTElVemRuaWJYaCtBQThTdC9qb3dCZmpLMHNiS29LWEhw?=
+ =?utf-8?B?MWpCS3c0RTA5eENOaDRhcm15UDZUVFFvcGJTYVZNYTdqS0xjdFcwSnl3aEpM?=
+ =?utf-8?B?d216YmFJM0RvZGp3RGNUeWtjSXRCWGpHMUJIbVhSWnU4NnA2QllNWDFCTWNj?=
+ =?utf-8?B?Ny9ycWoyNDFjTlkzUm5UaE8rNCtDb0hzcFJZQlRDODVkQm9yeWs5ZGo1dXI2?=
+ =?utf-8?B?b3F1VkRUd0lSeW55TUhXZlFLOFk2TVFHaTdpZU9qMjNqcmh1Ylg2U3JteEVZ?=
+ =?utf-8?B?b05WS2VQbmxBYkpJaDAxbm5qT1pCam9Db3R2SG9lbE02U0IvVHA5QUh0RnZu?=
+ =?utf-8?B?OG4zY1R4WXJLMGhtYUtuNzU0RnF6ek5NdjFqai9PSDN3Vkd0cGphNzN3cEN2?=
+ =?utf-8?B?QkQ5TWlseERERWtpUU5zMWNURmdLeVdWcWNsU2pHM29GWTZ3Q05RMHJiaVBU?=
+ =?utf-8?B?VGlkczM2SzY3aTErNTVIM1FtK2pqc3pCWWxrOEN2ZlZhVDI3WjNNSlczTWhQ?=
+ =?utf-8?B?cDRFTXltRmJBL1NYcEN0ZEp1OGU1aDN0ZlltZGNIKzdjSmdmbW9BbUpvMnBZ?=
+ =?utf-8?B?WmNuNmZDUjFuTDYzcWRyai81bVcvaUhJMnZCMmtLQ1JYYWh4SW94UHV1Mk9F?=
+ =?utf-8?B?dDlWZ1pKNmExNWhwN0Y5VXBacGVSM0h3T0dOdHRMZTArZmw1NENBaE5UNS85?=
+ =?utf-8?B?WmpNM1QxdnBLckhzcHJyNnJOL0duV01rVE1idXlvV1ZUcEVOV2lLaGZjUHc4?=
+ =?utf-8?B?ZTlGTzVUcU9aeGthTG1meDJPR2duN0ZjazVydGd2a0pKUm5qQ2ZaN3Q3TWcr?=
+ =?utf-8?B?cWh0NnptdWlteGE0MWJhTkx6U3RuL1c5RDZrM2kycEVrWkZoUWRmN3dWUFl3?=
+ =?utf-8?B?QVRDbXZBcUZ4Yy82Q3NxUHdxelNCWDNVWFdUV2VkdGNlNzVmbTFuckQwdzV5?=
+ =?utf-8?B?MUN1RlRJbEtCZWNZT2Y0blNKQ2l1OS9VRDVhUE5CTU9tMjNzdDNDbEFFUnhL?=
+ =?utf-8?B?b1hRSnYxZElxMDZnS3V1b2FXbjJvWURZQXFmc2xYRThVZy9VbkJJU1FCYjVR?=
+ =?utf-8?B?Ym1NZkZIQzJiTVZzVSszV1N1VVQ5UzFlUXJaTnYwdE1TLy9iVldvTWpLNEZQ?=
+ =?utf-8?B?MXlNcjVpZlo2WDMzZnA3eGczdUNUQjJUVFpCeU1CYjI3djlkWDdkZGplcWZj?=
+ =?utf-8?B?SWJPQnJEaUl4N3ZBVk9FdldBYXRWbnpqMDlXTGwycnN3N3d0aWRHNVc2NU44?=
+ =?utf-8?B?TUYxK2hvc2tlazNnY3NJUzM4T1FRWFNxNHhvVUUrMU8xOHo2c0ZFV2hJLysw?=
+ =?utf-8?B?czhZU0VYSzdITlduVkMycGJzNFhldXg2RWxFd1NCN2JiY1RKd0xkZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38606d39-657a-47fb-b5ff-08dee732d480
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:41:53.8111
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 14:17:43.3788
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 85SE3TlJM6iCXRf0wdv0yndncqoiy5BdglgMSbcThGCGI2oADw73Wwo49w5UF+kPG55DV++hD2RNpgIo5XK+kA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5771
+X-MS-Exchange-CrossTenant-UserPrincipalName: OZaPpREvKerO+mFSYrQ6YKxqpOTalzCUoW5x/tFqhMgs0U1unxdlnE7t/aiJNOZm/OIgDWv37kTYHj4Idzxwqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO5P265MB9348
 
-On Tue Jul 21, 2026 at 4:00 AM PDT, Alexandre Courbot wrote:
-> The base of a relative register is a type, but its current fragment is
-> `ident`. This prevents referencing bases that are e.g. declared in
-> another module.
->
-> The `path` fragment is more accurate to represent relative register
-> bases, but bases are currently followed by `+`, which is forbidden right
-> after `path` fragments.
->
-> `:` is another separator that can carry the desired semantics, and is
-> legal to follow a `path` fragment. Thus, replace the `+` separator with
-> `:` in the internal rules so we can change the fragment for relative
-> register bases to `path`.
->
-> The public rule still uses the `+` notation and an `ident` fragment, so
-> there is no user-facing change yet; only a minor replumbing of the
-> internals to better support the new syntax introduced in the next patch.
->
+On Tue Jul 21, 2026 at 12:00 PM BST, Alexandre Courbot wrote:
+> The contiguous fixed-register-array shortcut redispatches an already
+> normalized declaration through the public register! entry point. This is
+> unneeded - the public rule should only be invoked by users.
+>=20
+> Dispatch directly to the appropriate internal @reg rule instead.
+>=20
 > Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
->  rust/kernel/io/register.rs | 23 ++++++++++++-----------
->  1 file changed, 12 insertions(+), 11 deletions(-)
->
-> diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-> index 1e0e23e4233f..62208f52752a 100644
-> --- a/rust/kernel/io/register.rs
-> +++ b/rust/kernel/io/register.rs
-> @@ -816,8 +816,8 @@ macro_rules! register {
->          $(
->          $crate::register!(
->              @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride =
-=3D $stride)?])?
-> -                $(@ $($base +)? $offset)?
-> -                $(=3D> $alias $(+ $alias_offset)? $([$alias_idx])? )?
-> +                $(@ $($base :)? $offset)?
-> +                $(=3D> $alias $(: $alias_offset)? $([$alias_idx])? )?
->              { $($fields)* }
->          );
->          )*
-> @@ -850,7 +850,7 @@ macro_rules! register {
-> =20
->      // Creates a register at a relative offset from a base address provi=
-der.
->      (
-> -        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $bas=
-e:ident + $offset:literal
-> +        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $bas=
-e:path : $offset:literal
->              { $($fields:tt)* }
->      ) =3D> {
->          $crate::register!(@bitfield $(#[$attr])* $vis struct $name($stor=
-age) { $($fields)* });
-> @@ -860,7 +860,7 @@ macro_rules! register {
-> =20
->      // Creates an alias register of relative offset register `alias` wit=
-h its own fields.
->      (
-> -        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) =3D> $=
-base:ident + $alias:path
-> +        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) =3D> $=
-base:path : $alias:path
->              { $($fields:tt)* }
->      ) =3D> {
->          $crate::register!(@bitfield $(#[$attr])* $vis struct $name($stor=
-age) { $($fields)* });
-> @@ -916,7 +916,7 @@ macro_rules! register {
->      (
->          @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
->              [ $size:expr, stride =3D $stride:expr ]
-> -            @ $base:ident + $offset:literal { $($fields:tt)* }
-> +            @ $base:path : $offset:literal { $($fields:tt)* }
->      ) =3D> {
->          $crate::build_assert::static_assert!(::core::mem::size_of::<$sto=
-rage>() <=3D $stride);
-> =20
-> @@ -928,11 +928,12 @@ macro_rules! register {
->      // Shortcut for contiguous array of relative registers (stride =3D=
-=3D size of element).
->      (
->          @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $siz=
-e:expr ]
-> -            @ $base:ident + $offset:literal { $($fields:tt)* }
-> +            @ $base:path : $offset:literal { $($fields:tt)* }
->      ) =3D> {
->          $crate::register!(
-> -            $(#[$attr])* $vis $name($storage) [ $size, stride =3D ::core=
-::mem::size_of::<$storage>() ]
-> -                @ $base + $offset { $($fields)* }
-> +            @reg $(#[$attr])* $vis $name($storage)
 
-Mmm looks like this `@reg` should also have been added by the first patch.
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
+> ---
+>  rust/kernel/io/register.rs | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+
