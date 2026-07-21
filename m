@@ -1,150 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D340372B5E;
-	Tue, 21 Jul 2026 15:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2104E46AA7E
+	for <nova-gpu@lists.linux.dev>; Tue, 21 Jul 2026 15:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784648497; cv=none; b=nRL8ERFAaEfAAjfQebgSnmhR1jsbwV4llxKjiT459eJeT15/rVHUuX1173cY7PP2TIGd2pqdDGKMUJqXFaK0z0mapLCAG6zKbcdLaxxzEq9x3I6p9h+N9nqxRVo0SyQlkc/xA6cWkZjSduuqDc9jGdq8RP6H3aQGfgnSkxsQouY=
+	t=1784648829; cv=none; b=QNGhQIRI4ysOVjb9RucCl4u3OOY272aRnO+rRKlHh/t4MlBC3Nk1lGW92CnanZR6AhUN5g/fIn3FMxt22H3CuxtxVnXOGADJ7QX+YvxX/Rs85LSokZZjyIsE6x3988SUqwE/XngPro6+BFMKdQJ6Th0aloX4Gibae4Vkx+8zqEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784648497; c=relaxed/simple;
-	bh=xCrGYxU4hkG+PaSe09d6ghqEvxQQlBSumY/aVPg4+tg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KNy6KdhLnZSvmdIZzu4w+fHu2CPd7UWD5Xl7mU0Qv2bMqqekSiJeJMKnKvtDyjpoaBM3zm+1lOMWt01hf1c/T2A1X2R695pk/BpKdJbJ1pGywVzmGoo2ecEvmq4QkKMLeYPHibNmZW00Zoc2zmLF1aJtnzL6UFl807uwlW7wgCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C0+R5mOD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784648829; c=relaxed/simple;
+	bh=Tvspvt2GGB5WeJMf3tziUwgpyawLuiKlqpdsJaZrv0U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G20JA3xyA5qA2kmODrWyPOPM+NJD4M6X6yZeo5YcWqNlPl1PUt2taaMjwhZLJ0mE7GZQiQxvipW/HiB/9GbSmrQIj51FqWi4UEqhgofxj+CNu7wI9fLNd0kNwwVe7FsZrSbsyRFndG7/RPlMUxSmI2J/+aJKJ8nWMgFYxGphkR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com; spf=pass smtp.mailfrom=nanonej.com; dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b=dDtaIwDV; arc=none smtp.client-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nanonej.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0+R5mOD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0CD1AC2BCFD;
-	Tue, 21 Jul 2026 15:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784648497;
-	bh=xCrGYxU4hkG+PaSe09d6ghqEvxQQlBSumY/aVPg4+tg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=C0+R5mOD3cA1G+qhfZKoYijhGz06FvbK6WOg5/3EMdJy9SgMemmh7zvcJ6Ym6EtNf
-	 kPlAH2eRhzmTZcQ88Z7eTMzS5gpJi18tbV0G/9OTm412OA9x8iqreegJ6GkBeQCDNt
-	 TvXQ9Evo04QoN0+BplZTkdRj+4EUtiJe41VemAKO+irrO0qMCywb+ddz2k94G65Rmo
-	 H77TGitN/I5UP8vQqNavaaDt99R4IUTk06ZxtN7W8uXiMzjhPLy6XaKZLOUTV6MWP3
-	 B5e4T+51tZCWb8IGJwuN/OGAM0BQndY4Qyf1oe3TFaxR7Ju7mnE/hItI81uNPAPO8D
-	 6Z65Hsgkzx8Zw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E45B4C44532;
-	Tue, 21 Jul 2026 15:41:36 +0000 (UTC)
-From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Tue, 21 Jul 2026 17:41:09 +0200
-Subject: [PATCH 3/3] gpu: nova-core: Move one PBUS register definition
+	dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b="dDtaIwDV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
+	s=protonmail2; t=1784648822; x=1784908022;
+	bh=sejJ10464xWNGyKrf8hceYDLJk0iFdB37wranr0KVcE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=dDtaIwDVdKjz6jQlhpmx3Qjgmmz/1WWdhLYDDS3p909+rbY7oRFUMNTVmmCW9MdEo
+	 nGjvXU7pRJ5mIFBb8N2FMi9k6CwRIcoUTvaO11oR0Zh2Vmo9mJcE1MHZpMbr9GQCFl
+	 hs+3Acr8FZZFjc3o6eKWKufWx8OCbp5qS5LENb9rHdttoggTaHHVHFCxfruL167LOJ
+	 rPcEUHFkN6D6KQyYE2ffMqflQH7T/NE7MmrlURt6w1WLDyvzRu7/TtQPJEGiDf7Rpc
+	 YtZALD3CB1c1w/4hPxIMEh7GfXTEtmrj5rt3ylhfee8j676E01xlQ8VXYz+gvpVLiJ
+	 Uz4DU1LwqvLTw==
+Date: Tue, 21 Jul 2026 15:46:59 +0000
+To: Alexandre Courbot <acourbot@nvidia.com>
+From: Nanonej Dev <dev@nanonej.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel.almeida@collabora.com
+Subject: Re: [PATCH 0/3] gpu: nova-core: Move PFB and PBUS register
+Message-ID: <OprRCKDmuvyHtJbjO71JS5CO4up4JGOsy85dYGzOQu6mwC8N-9dihiX_h-NmEcCoxb2bUVDb_kGcpA-H58Y6ZOrumPp_Dj5X3iUa4AjZLts=@nanonej.com>
+In-Reply-To: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+Feedback-ID: 32181229:user:proton
+X-Pm-Message-ID: 62932c73e2bbd3959f507078ac28bf6b08bdc139
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-nova-core-regs-split-v1-3-384fa2a42244@nanonej.com>
-References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
-In-Reply-To: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, daniel.almeida@collabora.com, 
- Antonin Malzieu Ridolfi <dev@nanonej.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2078; i=dev@nanonej.com;
- h=from:subject:message-id;
- bh=bO+SB+QdzWlFEnKzthXbRE6mmjHZMmu3RJMJ0HXXY+c=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqX5Mt4IxqTt5dVTWxHBWYyBEDhr7RLWoOGDk3h
- AuNZoGhPPqJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCal+TLQAKCRBmh/EjChUV
- /bprD/9Mkj9a4c8Z0kei+Bm3WJHQ9mUI18uUqtuwOEDF7pOwqtbhcSK0S1PGpmah3//8SUjekR7
- MGa3vJv9Ahg8g8joDzOy5R2RwZWYca7gD3N0Tvw4wqMjD07vO5/3VvLHraGoe/6YtZm+3d41QsO
- hH74Xc6TzQAfUWdN0nr0NG9JLO0MX64aT+v+0UVEMKEZET4VAU8R0VTqflC4WzGreDM8UfTNhWV
- +T1LzXato0K1zUxmKdsWTvz0WqKA/UbydXkTqKmRx70ZFPKTUyQWhLcyXumlQQC8/H+fXTcqS2l
- NeHe/ZrO8dYs/jKS1OPIUrBSynkvusfXOZ45bj4ib+2SuvlGvDvHECBp7vemtldwTqBImIvJ+Ml
- bPyDX7A9P/v8jPMHkv35ViQUimt4PaVCB+nTaK77n94+AxpuJa43v3x+S+xFj6t0ipnYQgEwVkP
- chsIkLSiVLihToVGkukrv8dNq+PxyHYCAz1shRFbIPvav8lW+mCqOiNMg8HqT0PcyykICVFLSkI
- WfTYwMYgS2c5w6bWG9iKhWYyxoKSixWHkd4wfSviTW92GsZy+xXGtx+akLIqGn8Pt6wIUXDLyQa
- fvoJt8Tq4hyiLjJYyiUVvbeIpifbpSXIelWlLW8qXbCkKBb4sulsbYMK+/0wzhwmGpqmC3RXvm9
- VJBMD3eQD6M9ieg==
-X-Developer-Key: i=dev@nanonej.com; a=openpgp;
- fpr=83B64FB07C91212F5285227D6687F1230A1515FD
-X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
- auth_id=825
-X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
-Reply-To: dev@nanonej.com
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b"; charset=utf-8
 
-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b
+Content-Type: multipart/mixed;boundary=---------------------b6fea5139d6c13f745785138f2175e27
 
-Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
----
- drivers/gpu/nova-core/gsp/hal/tu102.rs |  2 +-
- drivers/gpu/nova-core/gsp/regs.rs      | 11 +++++++++++
- drivers/gpu/nova-core/regs.rs          |  5 -----
- 3 files changed, 12 insertions(+), 6 deletions(-)
+-----------------------b6fea5139d6c13f745785138f2175e27
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-index b3242aaeea45..91b995c2ee57 100644
---- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-@@ -40,12 +40,12 @@
-             GspHal,
-             UnloadBundle, //
-         },
-+        regs,
-         sequencer::GspSequencer,
-         Gsp,
-         GspBootContext,
-         GspFwWprMeta, //
-     },
--    regs,
-     vbios::Vbios, //
- };
- 
-diff --git a/drivers/gpu/nova-core/gsp/regs.rs b/drivers/gpu/nova-core/gsp/regs.rs
-index a76dea3c3ab0..9a48aa87e7fb 100644
---- a/drivers/gpu/nova-core/gsp/regs.rs
-+++ b/drivers/gpu/nova-core/gsp/regs.rs
-@@ -2,6 +2,8 @@
- 
- use kernel::io::register;
- 
-+use crate::regs::NV_PBUS_SW_SCRATCH;
-+
- // PGSP
- 
- register! {
-@@ -9,3 +11,12 @@
-         31:0    address;
-     }
- }
-+
-+// PBUS
-+
-+register! {
-+    /// Scratch register 0xe used as FRTS firmware error code.
-+    pub(super) NV_PBUS_SW_SCRATCH_0E_FRTS_ERR(u32) => NV_PBUS_SW_SCRATCH[0xe] {
-+        31:16   frts_err_code;
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index f7304b27ae0c..dda3be837f62 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -109,11 +109,6 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
- 
- register! {
-     pub(crate) NV_PBUS_SW_SCRATCH(u32)[64] @ 0x00001400 {}
--
--    /// Scratch register 0xe used as FRTS firmware error code.
--    pub(crate) NV_PBUS_SW_SCRATCH_0E_FRTS_ERR(u32) => NV_PBUS_SW_SCRATCH[0xe] {
--        31:16   frts_err_code;
--    }
- }
- 
- // PGC6 register space.
+> There could be a function in the `fb` module that reads the registers
+> and returns an `Option<Range<u64>>` - `None` if `is_wpr2_set` is
+> `false`, or the WPR2 range otherwise. Then the GSP TU102 HAL would just
+> use this function instead of poking the register as it currently does.
+> =
 
--- 
-2.55.0
 
+> Doing so would move the WPR2 registers to the right place, and provide t=
+he
+> right abstraction for the WPR2 region.
+> =
+
+
+> A patch series doing this could look like this:
+> =
+
+
+> - Add the `fb` module function abstracting the WPR2 region registers and
+>   use it in the GSP's TU102 HAL.
+> - Move the `NV_PFB_PRI_MMU_WPR2_ADDR*` registers under the `fb` module.
+> - Move the `NV_PBUS_SW_SCRATCH_0E_FRTS_ERR` register under the `gsp`
+>   module, since it is clearly themed after `FRTS`, which is part of the
+>   GSP boot. But, without moving `NV_PBUS_SW_SCRATCH` (the actual
+>   register being aliased). I expect you will hit a bug of the `register`
+>   macro when doing this one - I'll try to address it, but the first two
+>   steps should be safe to do and correct.
+
+Thanks for the plan Alexandre, worked like a charm.
+
+-----------------------b6fea5139d6c13f745785138f2175e27--
+
+--------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmpflFsJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmeAsFbFD8EepBCx9XY+x0Eu6GhsEMYdWe02x+Kx
+lamwiRYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAADy4AD+KhUkNxpNcXkcZ2p+
+wA47FeTA/Z1+LqsetiGdBFiHtEwA/2DzSUFqPoZKYx1BWMbg1cMUcTuxIobW
+45ZN2/TlVasH
+=PPKZ
+-----END PGP SIGNATURE-----
+
+
+--------3095c324009ef214f1bf2869700201677b558d96d572de11cafb61feb736ed1b--
 
