@@ -1,73 +1,74 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011010.outbound.protection.outlook.com [40.107.208.10])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011043.outbound.protection.outlook.com [52.101.57.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9589937D110;
-	Tue, 21 Jul 2026 11:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D6320E334;
+	Tue, 21 Jul 2026 11:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784631695; cv=fail; b=jWUoRnHaNzVi2fW5lXWkbhWamNZyD910dXYSD+9oFuiaMN4p5zJMFc6WInyDK4zErc2iHzYukxTc3Dlf8iVbgPMDP/ETbmfWnH/n/u5PLO5a7rJFqiv8ejmfRYClZPrrcVKQakBG0ld1KObup6Q4FFWMukoZwSwj/OtCFM5iqp8=
+	t=1784634124; cv=fail; b=GQyFUK1fg7006xJPjhL8wEamIP/YZhXIVRyYehe+22h4TZ8KjLp6faMA5LPvFXar67x/t7eiOno7GAZ5acRESPao0K+VeQoCxBVaiMVbzsjZgVluBo98fGAY/mbhl9Ec3f8W+id3ims+g5zR5E48YmjoSSWunL4Ujbm8AzJZO9A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784631695; c=relaxed/simple;
-	bh=cWpSr6Upc1BERB7mOa5f2bkLZr7Ce8xX4QsmuVrVXho=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=LIXoElwxSOOxIjaTkj7iXSf7Pre3M9g2e8zVtGlg27qQISh3FvTQR65ki3/hkmhrE4uVrcJ+9VciKP0rxqFelXSqFmpE4vWxi2+7AkdehDz0n2TrqwQFeGwNfBcG4H95sd8f4ilRae4VaNlxlhHjOvi4lZgP2lOHrw9LayI8pPg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lp0fPofI; arc=fail smtp.client-ip=40.107.208.10
+	s=arc-20240116; t=1784634124; c=relaxed/simple;
+	bh=A7NTFKZPivE2nlmE/+HQFoMe3Y/oQbzJEZW39mSR7pA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=ONjuvmMx21oiUTfmqLzO8Kld2L7lNOw0zxHhjIpqMOz+qyHlLLm7bmjM2nGq8U+WSDh4cpARvqsL4aZc8waYWwpAYtiOLm/FUCGE6UMnz1nT9AF5QnULORK78b0ZUIxfY4rdgXdZYcOcBqRIZcDkDQespa17GYMTZdVPfE1XwDs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=i2iewtWl; arc=fail smtp.client-ip=52.101.57.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lp0fPofI"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="i2iewtWl"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E92vkY3SK9XXWpdS7sWDbP4KTf+MDSKoKhRJ5cZ7sQJE5UyDdM0Tr+wR2F9x0pHuuRX6hzErKRsFNVfEVGFTAdW7XKcNjhAwOmVo8nyFHusFOJNdVCd0Due8YHy+F1pbId4Z9NBmPdr7FpGAoa9qra7nhQzZ6/4zx29ZqPVl9Nzd5tijr+zIjr0HSc4ZKbvnJmqJGshu6NKGq5Xi6pEmDpPzMc+rQavcw/+NZ/mWEhLb2Kr/5v3y2s6+lyCPC63hJGW5z5ReX96ez4qGRjlLCvrxK+fQA5XYwLysAl11KBBvUuRVBGmiKBWvGO7wku7r4y24zj6XZy4uusL3iJ5sSg==
+ b=c1HV/1OqbkpWzTn4QNs6c/+4f5gsiZ00VXEd40imPsQbNtZGnQsl945duACzoGGpqPPmrFVeijzaGNjSCKC59T2sT8+SSYc2ZAlTlJ5lF7l6vMahBvubba3FTCNCosX1U7Tu3Sk0AN+2z6kT7Qu8hiAotvHY7tlS2hDAvLjlnDK/8kslicf+oKe7WAKeryUUdu3w2mMUn4xb4cxtqslp0v9IiYkscxUvalWuM73HsliugJfyg+NGZgmF+ff53yki0mT5Sn942oaXG/AnE/igRUgtPQB0dTOCsbV2fa0MfBDgMSqQ3cWdipu9TBt1kUUQpwRkwfZ1P7ISWcxKsL6nWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7qtPw4WvS/IJUeKdZuUP7VnjY20rtwIw0y8xhQcyJZQ=;
- b=UgaAEBDfVrkricEfzZ2o8Ahn1ip/gLiDZAodK7dVcn1T3kly+c0yLcuL5xtlswQ03mDPlMGESB1yvVGBv0AT/qh0CgPKnKJwByXXYpguqnY9a2x+9j2NBn3XnnTgn2MXXJmL6q64jAvsIlqpiwVf3sFy8q0iXOk8R6FaDOrirKpTviON5Sy4NetHPkV7/1Kz3Zuu4nk2OykN/Ll9a3W6gGA964X53f9dTZmbBfuHZ9GvpnUqUsohZrot5N2+xbe9U3p7M1x5gnViWMjmaLHEPzBn+2LxZ0kHyRnetwf6eESXkw83TUCBqNZuL9xNF/TwF82aAKPikCXIONfhx+mIYg==
+ bh=KMODG3hcoUX3esNJBCnlzYd/gPP6sl8gyPobkZ4dHkM=;
+ b=nhiu5WkNNF7ngDQiMHUS0xa9OjIrtko8OEpPRcXvVSikSoRNdnPoxajtk+W9jgrUhodhpdLvPeIYIxBpEfkMbHRNMMblh6uqGWSUeD+CfSjPwJR6bTO7ezmb+0FE14dcQOjY+bvpnteN+wvxGORVe8I4oQdywgITOyt3qV0VRv8EfmouCSGoLb1AkxSmJV+Pnm/+jgBMIpzMLeH+bhPhPlZcJAyyh0i8v8L8tRzd8JI6AAxHmdK5gKTNduZSnrRqgYRzWY8I9g2BTlCNIyrX4aGWN/ROpljNtoxz5GSa3V2BsljRz9oh0dc8lkMm1F+3UjxwwZ5x3TW2XKEbhDa6Jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7qtPw4WvS/IJUeKdZuUP7VnjY20rtwIw0y8xhQcyJZQ=;
- b=lp0fPofIrrQtQRD+Xd9bPDF5fc0ph4mCU7TWuRNeUoVJdFB3PvsMEcecCQoKhdP0ksQ/dr7+TkORESreVE8XGT0V+giN9ubHMcfe/lwij2xo3uXfuNQiQZ8hzgP0YzWkg9c0d2gbPwh8VBNS7k4SryGKVH0olypecoXKE5nzIX4IzrS/3VI5Tpm1KS6pNU8HHDfozAPK734rFckX+BKAWC2/jI/232ZRbTyjK0eK/EymhtfTdNwft+NuJCunY0lrTxaPDmPfiS02cD+7U5WyP+cy0IK9WNYdsvGmCyAgK/ahQ8l44lxV3tJ+Z0k2dKHcyentrYO+VnFoOo/TpFiQvQ==
+ bh=KMODG3hcoUX3esNJBCnlzYd/gPP6sl8gyPobkZ4dHkM=;
+ b=i2iewtWlFSXGxVm7fsn76xbGMtz3tVSGlr9CUW8jh4Qy9+tmgopHVazoZx7LTMm0z+m4gUJxDqHq1qUytTjOIkGozW71M2KKvjLd2FYIVnnrZE0SCsftAcGo/AZIfjrTwCc2XhYNyChDZUa2NUI6OvtZGU3u61CB59XhvDQGbDNm7y8tE5EleV2fxk4svG87BYHzz277ZZhqY+j3D8VLprIbTrWcd6lN5P41EZUsRQjU1fqYrIB8VE1ThWLoBc5Ohl7K6TRAHt6PO6A0vI6XQFL5BtGRZem9n+3u9HZjm2yVD+jVXC61nuj4IYCvvEHLH6Q9IVqrJzc11bmDRLU80w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by CH3PR12MB7667.namprd12.prod.outlook.com (2603:10b6:610:14f::19) with
+ by DM4PR12MB5771.namprd12.prod.outlook.com (2603:10b6:8:62::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 11:01:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.14; Tue, 21 Jul
+ 2026 11:41:53 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 11:01:22 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 21 Jul 2026 04:00:17 -0700
-Subject: [PATCH 8/8] rust: io: register: remove deprecated relative
- register rule
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-registers_fix-v1-8-3711b2317e1f@nvidia.com>
+ 11:41:53 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 21 Jul 2026 04:41:49 -0700
+Message-Id: <DK47ZRUL6UBX.1V6XG5QZ2YB8W@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>
+Subject: Re: [PATCH 4/8] rust: io: register: use path fragment in relative
+ internal rules
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Tamir Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>
+Content-Transfer-Encoding: quoted-printable
 References: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
-In-Reply-To: <20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI1PR02CA0026.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::11) To CH2PR12MB3990.namprd12.prod.outlook.com
+ <20260721-registers_fix-v1-4-3711b2317e1f@nvidia.com>
+In-Reply-To: <20260721-registers_fix-v1-4-3711b2317e1f@nvidia.com>
+X-ClientProxiedBy: TP0P295CA0034.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:4::19) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -76,109 +77,157 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH3PR12MB7667:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9276800-8fbb-4d3f-1c5e-08dee71766ba
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB5771:EE_
+X-MS-Office365-Filtering-Correlation-Id: d80c63e2-a7a4-4b48-0b4f-08dee71d0f9e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|11063799006|10067099003|921020|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|18002099003|22082099003|4143699003|10067099003|11063799006|56012099006|921020;
 X-Microsoft-Antispam-Message-Info:
-	qBeAtGQk0s1WcRxfooRJkAcfXbryFG/27F06NckVfxAjyXCV4H+9x0IDynlrNeoYtKqqxepvr3khaWK8FyGSR4remOo5e2X0RiZy+AQgALJIQA/W0ByviphMzXnB7MEgRk5/QwwWxKP5cKbUHHPbXp/5aZS7pYUUqF9qMCkNXKTCePMrkWTiDKA67E7Y33m18nAYvChFgVwq2g93hV6sXfDd7+7ti2+4FxnR1G1SXnTqkz0WxYpVI4RUN5Cf5H3Nw/o7L1ykAbP69o0AUMUO3HMrY7qFMmouJ57mR9t7PwtlnINaEDed3tSWOQeaRpHZSg6cmJZqcyAz1V+2v1uSZ2H2xOF3sZ2lDUIfaUrsiqlfECTDkDwrzvoXs/eBzVX/NyM5m9+y07CwuvpfkHCzFsaRFZbUplVPNmqVRr7eYKX+WRpa0UPu1VQQbCtogUnnyNNkbDZG1BDAF1OScThGdY+FtXtnZBmXp3Y2ZMuMrEw4NtxTFcVgfeaMIYDR6Qpiu8YpgU4e/nP7XIFisRrW6g/lyhjg7IDz4tBS15z3QhUADwBhcylKHhsun1wsPs2i2mPS8ST4yvQuCFOHtDRPwGXa+6sPS8uoOnWG/DGWZxLBD3Lb1Yjmt4q9P6fUVCoOG7az7EnBE/S3eEMX/62JDitogBTGNrMGWPHIjfa4a+3pFMUZxVQFRGJy4X/eUU50ldlXCUVdaiJDuunXX0ooQg==
+	DQSy74Ln2C7u0tGfvPRiijK0EPdUq/363ouGbfCzoZxF7nsL4pBBx6jXriuXBwT1A7z1rkR4lPwdORvTb/QmerfsZj3negIQ60xEADUepNn1D5Ux174EzdPPgIWOoCl/yGfXTV10vqkDmy945Ik5AjEqC6wX63T8OMBdePKO2x4GGRKDXzVq5/5tj0OHqJh+GY+FSWGu4LZkaIGsbD8v11kYpOpvtq9Gfjt99KxKdNPTMFdJDGKUV0RYNPsVumlY8xk6X1r6oRCEpBu0GevWlb3H91dQEIE5ySpeODUfHlVsppwQlJyp7EdpEFga3DsqfuGmNbs3KF1tvET+Ub/RT7LXGKuwkEScPA8TSUUO56iT6sMs1ZeZh4t81Ca+7m4hVIr4MdOl0kFmJwqdBFtSg7AUvxlPM3quxs3IiWFXhPll4nQbThnZF70QQ0cVOKNr1fXbbxWphXtiOdLD6h2EhnPRMoQyDAd11/LJyPlwu6r+JcvV18x4qiqpqqKxuwlhQ/617t9rSMtme2DaD53YQHuX09ofxRRopB026M+QZrSZEMkTQkKYZsjbqZf+ostUL9CvVpPaS+Y9c67FuFhZOd0KIqHmxZCou+XgLrRsw/DTAw++f6G/j8bqK+pTd3w6cN/IzgTyryKVnObKRjopXdTet23ep0ySWs++NTD5cjlJHz8NvpOCiDaA0KC2N4NCVrNqIsyuia5x45RGkERNBA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(56012099006)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MVBGVGkybDFJKzY2UkZqcy9oMTB6U3Ftd2VnVFg4TFpmVXptNmxoR1lTZFVx?=
- =?utf-8?B?bmhrK1h6SVI4ZElOZDhmVExHbHdMaWtCWS9UQ3ZTVWxjK25RVGswQ3dHd3c5?=
- =?utf-8?B?N1A4dXRkaFk2Zi94T3lXM29OTW5yc1FWdnNNcmpxb200VFVFY2FaaWRhb21X?=
- =?utf-8?B?NHYyMHdsVkt5VEU5aFFlL3kyd0djN2pNelcwOVBkNk9ubUJ5aC9ZVFF2bmpR?=
- =?utf-8?B?UzZOWGRUZ3JYcG53Vk5HWXoydmR2Qjc5d3doMnhUL3llTDZDOXgwbWNsbXpO?=
- =?utf-8?B?OHhnanJvYjk0M241cSswSkJ0SzQ2U1ZpNDJjazhCRzBnQS91bmd0dFZ1eTJR?=
- =?utf-8?B?TjZVSlNpNk1mb2lTc0R0MHZROXdQaVFEYlpXSzRBM2pESFFKV3lxV2hlbmxh?=
- =?utf-8?B?eVBxc2N1a1BsNXNsYUFlRHVzMUZsalYrVUs0U0FFc0paSHdhcWN0dXkrdFlw?=
- =?utf-8?B?cjBpaHovNURaZmJLNS9hVk52dW1Xd0Q0K1Q5ODNvQWNtckZEdEI5RTJTc1BN?=
- =?utf-8?B?QWZqcDQxWUVwSHFHdVJ3dTRGUUpweG1STXQ2T1pXc0dlbTlwazVhMmNOY2d0?=
- =?utf-8?B?ZEd2QmFyMDhpaFRZYm5YOHNzSjUzSUdIWUo0R3hQWGx6eVVZRjhSczN1aW03?=
- =?utf-8?B?d2VEKzZjR1pxWTZDN1FSekNCSnM4aFhmTjJDOVZwWWRlK3pWWnpXSCsrZENZ?=
- =?utf-8?B?V0U5MmpkOTBRTFJPWWZwcXJyZHNmU1pMbDQ0Uy9CZ3l3YXpDUHVXYWRHWXNh?=
- =?utf-8?B?eS80VmY1SXpsMTZCZUZLbUpDL1VkRVpxRkhtU1dHSjNHM0p3QUJSRjY1RzZi?=
- =?utf-8?B?eWNNSjk0b25INXZZVlh0akFLL0RaaGcwNlRwRkZkY1Zid1hrTUQ2dEtnVTNP?=
- =?utf-8?B?SERQZFV2QWEwV3gvK08vd1ltNWlBYStrcXFxM1ppc3o5OHdlRncwNXQ0Nzgx?=
- =?utf-8?B?d2FiMFd3UkpaSEJ0aDRGbkdHZnNGT1ArWEFwbzdqTlB0aTdFWEF4bjNZTHRw?=
- =?utf-8?B?UENzK1FFNTdVZGo5ZFFjcm0xdzYzdVVpSjJrdDVuUlJuYlA4WjlobnJVUmJs?=
- =?utf-8?B?MDBIekR3am91S0p5cU9sVENFQlVZN0dLbWdrNEttUGEzeW5BOW1JeHhVcDRX?=
- =?utf-8?B?N21Gd3pBOUJvRytPMEp6NFVITHVhR2tkS3R0blFwTVFubzJDa0ZHcHRDVjFU?=
- =?utf-8?B?WU9iZ3hLZjdId1NCVnMzRUkwendKUEM4SFNDSzdwVlBlM2tvd0ppaWcwamo1?=
- =?utf-8?B?bFZyeUJoem9pZ3pEUWxLRlF3NDM0ZEYwQ0pqcUNQWnppM2FVbmpGZkdmaHhx?=
- =?utf-8?B?cmFhTE5MY3MwUlZpeEtsQlJqWDNCZHhDblU3aDZBdjl3YXFhd0l1SW00R1pO?=
- =?utf-8?B?S1dpT0ZzSWhFNUt5djRZb0UxelBjYXJQSDQvRzRIb1RuR3lETHBGcEJCT1l0?=
- =?utf-8?B?cmlLMVN4MzRiaXVOcjFqR1NrZnluWVhjdHFJV2liSGg3TkVEeS9TemowMG0r?=
- =?utf-8?B?MkNjQ1NzZWhoVitEM1NNRXV5enNuZWdJTG1abnM0SVVuUXEyaFFKbHkvWXpZ?=
- =?utf-8?B?c2pIL2I2YmcxWStoNUhuZGJBTkZtVjhFTSt6bkkzUUpIczAyOGpudUcvRGZ4?=
- =?utf-8?B?SUh4Wm4zQkQ2VVZFSEo2dnZmUFNjU1FxNmRiUG4yK0Vmano1SlhSSEp0TUZy?=
- =?utf-8?B?T09MM09BdDc2RjJnV000bFJ1R2U4eWF3V2ZhUEdKVG5FOU05Tm1GMWx3NHNr?=
- =?utf-8?B?V1FhZlJwZHlTWWpzOGhPTmtNWHhBUU8vcXVmTGlZZVpaMUxVZjc4YjFKUnRa?=
- =?utf-8?B?b2JlbU5mQVNuaGFJVk9WZys3NE42WGdLOGllYk5pUGw2cFFIb1BGcmlTWDlh?=
- =?utf-8?B?aWpBZjF2ZlBJVTlhOGlpblZBelFwU3h5a2t6NWp0MXM4ZnJvTWNWaFArNVRq?=
- =?utf-8?B?aHlEV3JUUzFYTEkzbzlyaTVhN2ExVWdab2lxc3A4N0NEb3ZNSjZDTHRNWDVD?=
- =?utf-8?B?aUJyWGJUdXN3WDEyU3hPc2ZHZCt5Mmw3ZUVxL3NwVDAzUVNDaURMNDlOWExT?=
- =?utf-8?B?Zlo3RFFpemN5alEyVkpXUjI4T3Q2UWlKKzU2V0poUjk4UmprQWJpbHZyUHJ4?=
- =?utf-8?B?bWxSL2JwaThKWFh6dUVOT2VTNjI5UVFpTFZzYnExcUp0Z3ZFcktxdkdhLzBP?=
- =?utf-8?B?Wjk0bUY3U2Z5YTB4SDZFWTlReXQwclR6TytkbzhlZk9XWWxibnZ5eXVzQS9T?=
- =?utf-8?B?VWx3ZDBmd0VRTXBkdnZrQy9ER3dVZkxwYUFrVis4SG12SGY5MVh5aXhVZlpx?=
- =?utf-8?B?eXF2bHFYSE1wa3VmQVpzWlNqMW42U0NYc3l4dXBPSDhRQnJsVGNhUT09?=
+	=?utf-8?B?N2tFd2JaaHVuQkZSckUzcW1ZOHpORXpDQ0JrL1Z0ZXgxRDJiMDhLL1NWK1h3?=
+ =?utf-8?B?UmY3eXlzK3NKR2t3VE9pT3UzbjBFdDExMU5sMUkwNmdOb0laeFJuRTdwYUFM?=
+ =?utf-8?B?aUtlR25hUGx6a2RGU3dLakRhSk9OMFpJanNxbUJ3TUloekh3NjdGc2QvcUQr?=
+ =?utf-8?B?OWZkbklja25mbmlBQW9oeFM2TW1JWU1tMmpiaWVScWRzeU15a3hXeEZVb2lq?=
+ =?utf-8?B?RDFIV3c0amVpSXNCRkVnWkhQdjlQTDBnNFkxdHhsRXZDL2F4UmhPR3NqMUtJ?=
+ =?utf-8?B?WWt3Qkx3MXo4d2o0bWI0aWFoT09FVlhUbHRBclNBZE9GZHNCRVZqRGd6QTAx?=
+ =?utf-8?B?bWlYT1NoWTBoS0tiaTR2bWliYWMwRFlBZndZNnIvZjUyRWI3amZEaTdxOUxD?=
+ =?utf-8?B?bWJMbWxqUzc5M1R6cTh6Tmo0OXRDSmw2TUJEQU1UQnE4ak5EYktzVlZaR2RC?=
+ =?utf-8?B?ejViSFJ3SUo2Y3IwRGd5SjlDbVYwQnVkRXpQOW5ZclZVeUVjRzdFOTcydXhX?=
+ =?utf-8?B?RGc0TFZnMWNYRXF0Yi9hdzZrTUQvK25mZzdBQ2hkNTVHWEEyWkdEMHVxcFBo?=
+ =?utf-8?B?YTBhK3ViMEpnUmdIdlA0czF0UEFWWVdCaExzb0tnd1NjbVJOalZvYkJnc0JD?=
+ =?utf-8?B?RVhweHlpQjRDZEk4VVJYRkZSSHJYVGhJalZiV09vUXFSVUtkdmg1RUZER21k?=
+ =?utf-8?B?eWFJYkZXUjJqMzQ4S1BpRDlEME9oekJ0SmcxbFg2ekFLbUthdDAwZy9CZm9V?=
+ =?utf-8?B?cVFaT2tDYTVNWEhoVFJHaXJmd20rZEszaWQxUDRtSi94TmluNVN0Q2FiOXg1?=
+ =?utf-8?B?TmpjVTNZdlUzSDNQSVBFMnY3VU96Z2lvR2Ywc1U3WHAyUVJkMEV5a05MTnNr?=
+ =?utf-8?B?V2R0UFNUNWVKQXlsUGNjb2h6dVdVRXJRaG5LaTBpMFVSZHhlWG1WRHExR0k3?=
+ =?utf-8?B?K3NsVTJjUTQvMUVTVnZGRThhNVEzMkZYamhrMThrakYyY2duM0Vndkpad2JO?=
+ =?utf-8?B?TkhocEJ1SzhYVFVhY0hVT1RLS1FGVUpwRVI3Y29yZUFlcGY4eDNtbVJBYzBC?=
+ =?utf-8?B?dEJEZ2lJVzBRTWI0SXc2cXJjOVJ1RHhGS2xndExGVEg4L2xoblVlRXFlQU9z?=
+ =?utf-8?B?aWc1dDBqOEZBbjE2YUxwbjRaRXNoVnhrTkdYM2NGcGFFckQyN3c4ZitINGhu?=
+ =?utf-8?B?NDMxWHZ2cTduZnhJK1c2ZFVzQTZkUTRvZWdXWk9rbllKVUVZbS9IOE8ra255?=
+ =?utf-8?B?QjVWL1pMTVpMa3hwWVZ6M1g5QTJlNlJoQkg5U0JuVDhuaDlYdmtDcFlHSlFF?=
+ =?utf-8?B?eWFTTFhvNGF6d212RGlKUkxmMTFJTGFJWW1HMEhhcnBWUzR0NHprY29VaGJ4?=
+ =?utf-8?B?L1R1RlNFa1lpUDlaTSsxQ25ROHZmVHhpMTVZMkx1eThTemU4YU1valNzZUdt?=
+ =?utf-8?B?YnA0TDUvVWt1dDFDdUVyT0E4ZU9DVSs3WTdRVnQ5Q2RQWWg5M1BrN1FsUzho?=
+ =?utf-8?B?YVNsQVd1bUZDMzBvYmo3Uzd6Wm8rYm1UcXlYaHM1dkg5WWl2Y1JHd2MrWWNX?=
+ =?utf-8?B?MXA0TjhvcVU1cE5Fc0ppVjFDMW5ROGtuWXBzK0RadDJpdEowNElOUHVORUlQ?=
+ =?utf-8?B?WFNmRkFFZmVydzVRMTRJQWduMEhhV0dldVB0cllOcElEYkFLV294VHI5ZGQ5?=
+ =?utf-8?B?SWhmdnNOdkxjN0N1V0JUWkJMcHpZUkJYbmc1NzBvT04zQk9lY0g3czhtZDIy?=
+ =?utf-8?B?L1NBNkZWbjFEeEVCZUhzVEt0Sk1WcTYyYXRGVXRPUklYamUxMS9RVC83U0s1?=
+ =?utf-8?B?Wk5FVE93NUVyT2psTFdrcTlNdGNUcU1TU1N3WitVdkovOGU2d2w2VXNpTmpr?=
+ =?utf-8?B?aHRxbnBzV2dNS3ZsK0cvUkN0V2ZYMGhrTWNQUVB2ZlluajNEdTVWa2NhMzRq?=
+ =?utf-8?B?a25yRm9TTk8rMnJWMXNPRFdVUnFJT2lIWnJxTlNxV0VsK2dRQXNoNnlkOFJV?=
+ =?utf-8?B?VDVWWnFMQlcvM25FQ2p6NGc4anFzZm1kV2REK0piNmFydkVQRlhOYkM3S3pK?=
+ =?utf-8?B?S3hUYXBtQUJHeXpBaXE1M0k0Vnp0RktLTDF4Z0puZ3c1elBHQ3NZazFFUkZs?=
+ =?utf-8?B?VkVJYUtvbTRWajJCZTBHRXgxaGRyYlFYN3hEMDM0QmhIY0E4clpSa295VWNz?=
+ =?utf-8?B?cVhoWkV6WS9LRFUrTk5jNmhKUUZabmxIUWFZUHhRaHhVelVDZUhoZUVSSDZD?=
+ =?utf-8?B?YjJZbDA4SzRVNUtqWlR1ZzJ1bGcyRXZ5Rmx3bFdWLy81TVFFS25maFBpcEJC?=
+ =?utf-8?B?NDF4dCtwdHN1a3hhQXFxVDYzOEZHbFFGZW5vSlVYQlZ2RkR3aHFnQT09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9276800-8fbb-4d3f-1c5e-08dee71766ba
+X-MS-Exchange-CrossTenant-Network-Message-Id: d80c63e2-a7a4-4b48-0b4f-08dee71d0f9e
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:01:22.8295
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:41:53.8111
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /7hRjwNoJ4WP+bYG3Spxe3G+C7mWPWVPviO7oJc1iNKVQpJcBrYpxJ6+8saT4s3WIljHrHEHH07pnX/GUbWylg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7667
+X-MS-Exchange-CrossTenant-UserPrincipalName: 85SE3TlJM6iCXRf0wdv0yndncqoiy5BdglgMSbcThGCGI2oADw73Wwo49w5UF+kPG55DV++hD2RNpgIo5XK+kA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5771
 
-Now that all users are converted to the new syntax, remove the
-deprecated rule for the `Base +` relative register base syntax.
+On Tue Jul 21, 2026 at 4:00 AM PDT, Alexandre Courbot wrote:
+> The base of a relative register is a type, but its current fragment is
+> `ident`. This prevents referencing bases that are e.g. declared in
+> another module.
+>
+> The `path` fragment is more accurate to represent relative register
+> bases, but bases are currently followed by `+`, which is forbidden right
+> after `path` fragments.
+>
+> `:` is another separator that can carry the desired semantics, and is
+> legal to follow a `path` fragment. Thus, replace the `+` separator with
+> `:` in the internal rules so we can change the fragment for relative
+> register bases to `path`.
+>
+> The public rule still uses the `+` notation and an `ident` fragment, so
+> there is no user-facing change yet; only a minor replumbing of the
+> internals to better support the new syntax introduced in the next patch.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  rust/kernel/io/register.rs | 23 ++++++++++++-----------
+>  1 file changed, 12 insertions(+), 11 deletions(-)
+>
+> diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
+> index 1e0e23e4233f..62208f52752a 100644
+> --- a/rust/kernel/io/register.rs
+> +++ b/rust/kernel/io/register.rs
+> @@ -816,8 +816,8 @@ macro_rules! register {
+>          $(
+>          $crate::register!(
+>              @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride =
+=3D $stride)?])?
+> -                $(@ $($base +)? $offset)?
+> -                $(=3D> $alias $(+ $alias_offset)? $([$alias_idx])? )?
+> +                $(@ $($base :)? $offset)?
+> +                $(=3D> $alias $(: $alias_offset)? $([$alias_idx])? )?
+>              { $($fields)* }
+>          );
+>          )*
+> @@ -850,7 +850,7 @@ macro_rules! register {
+> =20
+>      // Creates a register at a relative offset from a base address provi=
+der.
+>      (
+> -        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $bas=
+e:ident + $offset:literal
+> +        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $bas=
+e:path : $offset:literal
+>              { $($fields:tt)* }
+>      ) =3D> {
+>          $crate::register!(@bitfield $(#[$attr])* $vis struct $name($stor=
+age) { $($fields)* });
+> @@ -860,7 +860,7 @@ macro_rules! register {
+> =20
+>      // Creates an alias register of relative offset register `alias` wit=
+h its own fields.
+>      (
+> -        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) =3D> $=
+base:ident + $alias:path
+> +        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) =3D> $=
+base:path : $alias:path
+>              { $($fields:tt)* }
+>      ) =3D> {
+>          $crate::register!(@bitfield $(#[$attr])* $vis struct $name($stor=
+age) { $($fields)* });
+> @@ -916,7 +916,7 @@ macro_rules! register {
+>      (
+>          @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
+>              [ $size:expr, stride =3D $stride:expr ]
+> -            @ $base:ident + $offset:literal { $($fields:tt)* }
+> +            @ $base:path : $offset:literal { $($fields:tt)* }
+>      ) =3D> {
+>          $crate::build_assert::static_assert!(::core::mem::size_of::<$sto=
+rage>() <=3D $stride);
+> =20
+> @@ -928,11 +928,12 @@ macro_rules! register {
+>      // Shortcut for contiguous array of relative registers (stride =3D=
+=3D size of element).
+>      (
+>          @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $siz=
+e:expr ]
+> -            @ $base:ident + $offset:literal { $($fields:tt)* }
+> +            @ $base:path : $offset:literal { $($fields:tt)* }
+>      ) =3D> {
+>          $crate::register!(
+> -            $(#[$attr])* $vis $name($storage) [ $size, stride =3D ::core=
+::mem::size_of::<$storage>() ]
+> -                @ $base + $offset { $($fields)* }
+> +            @reg $(#[$attr])* $vis $name($storage)
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
----
- rust/kernel/io/register.rs | 20 --------------------
- 1 file changed, 20 deletions(-)
-
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index eeb7f859f8b9..2c88ebf0057e 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -801,26 +801,6 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// ```
- #[macro_export]
- macro_rules! register {
--    // Deprecated `+` syntax for relative registers and their aliases.
--    (
--        $(
--            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--                $([ $size:expr $(, stride = $stride:expr)? ])?
--                $(@ $($base:ident +)? $offset:literal)?
--                $(=> $alias:ident $(+ $alias_offset:ty)? $([$alias_idx:expr])? )?
--            { $($fields:tt)* }
--        )*
--    ) => {
--        $(
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
--                $(@ $($base :)? $offset)?
--                $(=> $alias $(: $alias_offset)? $([$alias_idx])? )?
--            { $($fields)* }
--        );
--        )*
--    };
--
-     // Entry point for the macro, allowing multiple registers to be defined in one call.
-     // It matches all possible register declaration patterns to dispatch them to corresponding
-     // `@reg` rule that defines a single register.
-
--- 
-2.55.0
-
+Mmm looks like this `@reg` should also have been added by the first patch.
