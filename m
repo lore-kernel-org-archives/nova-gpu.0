@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357AA46AA93;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3587E342173;
 	Tue, 21 Jul 2026 15:41:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784648497; cv=none; b=c6x3CHsu9ADA+akbZIC2UMC/C6fykTeMhU5t+Zhv46aQ405k2rLPI+qp5H3zKVvXvL4Kp1julVgflLcPiz+gFbHsawD/ExaB+lYe6Qgq1VtkAoGcSMGQeoJ09d8GBtcMlvYVfDxVOhk7VzHcgMwWf4iIIsU9W8eTqhEg98oVVr8=
+	t=1784648497; cv=none; b=odBnKLh5K3qeluDBr83ERCe/OHgoT0mElofqjiiyXDB6Zqi25RyywWhG2iKGjjmY96WgXA6F1rhIEry9kw2cU0JK7H2Ww1/umokWmSDxQtBqArPyhxTm6C5I0razhgLHBfIy45GEkiwHsU7dlOZFzRXfB24+etrIK62GkrgjqDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784648497; c=relaxed/simple;
-	bh=ZbffgWN1kX4ZHQUBKZKA6y26aw/ky0IhdmuCiZYJ8QM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Zx26eYLvfgUqdkHxJfe/zMo9BI9rfkHSLh1VMwjSEmBp7ODppjlpC5A2fMu27j6K0jhCO4eqaBmI0+O/8FT/ly6AaJY7FgKEPd82vD4BEcGD+rLzIwJsIknUBEV1GDjLCia/HjQIiBXMVVR94B/wQQ4s0L9dvvIrqpQBcam5v9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdGOkI5C; arc=none smtp.client-ip=10.30.226.201
+	bh=T1fGJquZ1PQ3x9Puk6RACOZxVIFWT/srP2SCTPcbPAA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Y5y14Pl6pPqF//yPHR+Afzob8CiCC/h++i34JVcpGlFyTCYVmFCT2uca3ggWIkURl9NJkpgOhBqUR2S675sLQuqXdSMn9eXOZ8d7eVb1LtqOjJLqi0kzzh6FqzU/50KnLWn3GEPYk5rPvi5v35kHG72h89RdzgAvGRMfrj0NBJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rf+Y4B9A; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdGOkI5C"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D5673C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rf+Y4B9A"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E5CD9C2BCF6;
 	Tue, 21 Jul 2026 15:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784648496;
-	bh=ZbffgWN1kX4ZHQUBKZKA6y26aw/ky0IhdmuCiZYJ8QM=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=cdGOkI5CpOhXcefJMLZrETlDrwZVfSx+KJ00/iv6Cyq7xRIZ3SoSK7GKkXwnTbtpm
-	 FgHyzifUpnSYeU3ejWHoCY/SsdQEG4EGUghmeOisHuw1aW+5khagvg9SzW3xxGsK32
-	 4F30KJkdl5Y1tufTOBq7K4EI1XHLpZPa4FhYSyvLYmQAl0YvR3uFi3UbjLXhiw97D8
-	 970caAqvMCvZ9OVP1nzsY1EnN90RUJWHq0U3WtLvxscNQXcEQdkHklzf8EHGvHjB8D
-	 L6kOI70UX/twPMUWBmLdlmx3uzP3WBGbX3vmSaGu3Yj22GtPdOAAnYMG4WGMJ4shHK
-	 f7uMi1Ia2y8Gg==
+	s=k20201202; t=1784648497;
+	bh=T1fGJquZ1PQ3x9Puk6RACOZxVIFWT/srP2SCTPcbPAA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=rf+Y4B9AvnYKrzG7WGv/h9SE6C4H8zF+DW4H/ZWU3zQ+8uDhhnw+r9BsAjS8DAwZe
+	 XW8S0E4YrJHzbpO+mCzGI5N5fX1N8mvq+CB4jckzfsVokqgqYo6VUau+pUHFnAT1Yk
+	 m0tHiAUe8Kec3yr6wrHEVR9qdx8ZiUqmaGe6Itbr2Lg0VF12GyAVMwIc8VDnnibW2O
+	 L5VtSmS3PlgzHMUJ4WU1BO7zw5V/ORq515GQCzQrGmtlvC7lvVFM1DztVPTn9iR2ya
+	 A57exQtSindmZiq8Ab7S8mkwxZgxDLLMshes9E5uCKypQmtQXU1ro8Ta2S2wlSISmW
+	 yIm/6qRBHS8XA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B182CC4451C;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C43B1C44533;
 	Tue, 21 Jul 2026 15:41:36 +0000 (UTC)
 From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Subject: [PATCH 0/3] gpu: nova-core: Move PFB and PBUS register
-Date: Tue, 21 Jul 2026 17:41:06 +0200
-Message-Id: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+Date: Tue, 21 Jul 2026 17:41:07 +0200
+Subject: [PATCH 1/3] gpu: nova-core: Add function to query WPR2 range
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -40,10 +40,9 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDtgEvyhVyldpMlUR0oiMyoF8
- e6mdvkt3ttBSZgU7tUOQhsr51RgbhWE0aeBkGMx2Nq2dWcNprx5DFkIhQZFnT+8YOyc6503TUM
- RSjoLvfl7bR/Pv3V9TRSW3wuO4wRNFyhxeAAAAA==
-X-Change-ID: 20260721-nova-core-regs-split-d73383a155ed
+Message-Id: <20260721-nova-core-regs-split-v1-1-384fa2a42244@nanonej.com>
+References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+In-Reply-To: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
  Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
@@ -51,21 +50,21 @@ Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, daniel.almeida@collabora.com, 
  Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1687; i=dev@nanonej.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5155; i=dev@nanonej.com;
  h=from:subject:message-id;
- bh=ZbffgWN1kX4ZHQUBKZKA6y26aw/ky0IhdmuCiZYJ8QM=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqX5MlfFPdj9d0agONH2SWdbsnkVH1uxCaAHG3f
- M7NMGRyDSqJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCal+TJQAKCRBmh/EjChUV
- /W4tD/9ilWfV5dVSZo2RhjUS5eMld167E+NfAUtKbS58ckvT0Nt3deTt+J/4CKyu2k0qwMfaTqK
- cghdIy6FF1chdc7819EMkuUAXQ4bYZWUO5/4qZTjURGFedlmCnN5+EveL6Kmc/m9oRIX+NmzfqS
- 7/CDKrJ2J9pnpl85fBXsSGyxEscTOAUUjKOZufiFjKoAUAS1X8rSJ5Dfh5NSoP0soPH6afmCzMn
- fm3RtuFocHxvbWih3ijYwyD45v7G0656Q74KEblqKaWMaKa5wiygN4p8qVYwGN+NPOZscPJCsoV
- RLGaO6EbRnpYpHdd1eqwsIIE7JkWAYcVPj3kb1MCzXiLN8zNk/O5tmbxymFrPQxsU+sLYAWBVzt
- Anj1zl6ApdA992onra62vBlTyX3cYRjc7aa29UJvRCx+84VdF5Bgu66dKHpi01XosyfI43OEeL7
- 4EIaaJ7RT5bYAJjXrA1Qlr8Me/LSeruNbUJcchprKtzYhQ0YZIxHlOOXm70sQ1c80pO7AFfAX8a
- bs/3JshNPieWjcu+fwJUiEmrS59brKdlzHDb8T55kKgs5Dw+qRLn0+O6rN4BmpwfCEvhSfBBhOs
- OhHpkL63K+E2Gu/8qk8ZbCOkHVT7HFmait6HfKScdgHwEwNKL2MrKXUq2ekH4sXsHDcDNyejPn4
- sODTXl4jXEi6gTw==
+ bh=VlhUb7uLUDcrDDc81OAAEbtjZcATBSKEOEjEUDRfBGo=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqX5MtR7OCSOaTB7f95uxZ5CMIwjTPCK7TGBH60
+ mjyQm1eFAaJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCal+TLQAKCRBmh/EjChUV
+ /W/iD/9jaSQEbjCMeg1Mx4sE5SFlECu638a1tBA6Zq/yFVBYaJS1GItxZT0QHsukoZMNONxYSrF
+ qOPfWHkyhGFEVV8mSdvrXn463aOAvWZ0CbTyU6DoRqk1c5u3jroLIswpJdjj+obS51v0RPtc24q
+ L9yPmKB6yQUEj9kmlHsGQra7l59luiFdR06/W9kFAwNOXNl3VR5A+dgiuBVPFSh8Al2zuI9642k
+ He9OgHKRk9RPZOmxn4RYZa1dBx0qbSbhMbELLepVrmkBOSd4yzHwsEuHwpejgMu+Z/6vfZIMCBJ
+ PXRRPlSXWmKVu+DOQgBh5vKg+/W0g73BB9DFBf8Io6ebpTnnl9z1jzC35LZEVea7nayAlL+D6DN
+ b23dd71oz23NWaSeotE4J7phbFnqkr8vZRX170SkEvKrR0jfM6n2MB5FQHWQA4eKSlm5PZ3JiyZ
+ ECbOmyq1dAd50R6FqdfJnx7he2HccyyJWeN+l1RDoH8XrIOTaQ2seZLVT9wmo5et+MZwJwMaxv/
+ i0GyG3y2eYRFLWo9/YpLYJfRrVczTzhzIXJa2aJCeFG3DGbtKpCpKn8/Ki7eRuVVzUoR3RUD7qX
+ oM0SVo3I3Ig/baNzmH0jAtLjrcqie9TGj7H19xdJWPatt48QQGpe5LpQgvtBGytdVudyWXX/pwL
+ wHbEhOQl7M6sGqg==
 X-Developer-Key: i=dev@nanonej.com; a=openpgp;
  fpr=83B64FB07C91212F5285227D6687F1230A1515FD
 X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
@@ -73,46 +72,146 @@ X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
 X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 Reply-To: dev@nanonej.com
 
-Split part of the registers definitions grouped in nova root register file to
-belonging modules whom actually use them.
-Add WPR2 range query function to fb module.
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-To: Danilo Krummrich <dakr@kernel.org>
-To: Alexandre Courbot <acourbot@nvidia.com>
-To: Alice Ryhl <aliceryhl@google.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: daniel.almeida@collabora.com
+Create new function abstracting WPR2 region range query.
+Refactor gsp hal tu102 to query the WPR2 region range using this new
+function.
 
 Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
 ---
-Antonin Malzieu Ridolfi (3):
-      gpu: nova-core: Add function to query WPR2 range
-      gpu: nova-core: Move PFB registers definitions
-      gpu: nova-core: Move one PBUS register definition
+ drivers/gpu/nova-core/fb.rs            | 15 +++++++++
+ drivers/gpu/nova-core/gsp/hal/tu102.rs | 58 +++++++++++++++-------------------
+ 2 files changed, 41 insertions(+), 32 deletions(-)
 
- drivers/gpu/nova-core/fb.rs            |  15 ++++
- drivers/gpu/nova-core/fb/hal/ga100.rs  |   8 +-
- drivers/gpu/nova-core/fb/hal/gb100.rs  |   6 +-
- drivers/gpu/nova-core/fb/hal/gb202.rs  |   6 +-
- drivers/gpu/nova-core/fb/hal/gh100.rs  |   6 +-
- drivers/gpu/nova-core/fb/hal/tu102.rs  |   8 +-
- drivers/gpu/nova-core/fb/regs.rs       | 132 ++++++++++++++++++++++++++++++++-
- drivers/gpu/nova-core/gsp/hal/tu102.rs |  60 +++++++--------
- drivers/gpu/nova-core/gsp/regs.rs      |  11 +++
- drivers/gpu/nova-core/regs.rs          | 132 ---------------------------------
- 10 files changed, 206 insertions(+), 178 deletions(-)
----
-base-commit: 22e77d81d0a9ab3aee1c5538b3f2f8a66930bfa7
-change-id: 20260721-nova-core-regs-split-d73383a155ed
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index 273cff752fae..864a34ca20b8 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -270,3 +270,18 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Resu
+         })
+     }
+ }
++
++/// Reads the WPR2 memory region registers and returns the range if set.
++/// Returns `None` if the WPR2 region is not set.
++pub(crate) fn wpr2_range(bar: Bar0<'_>) -> Option<Range<u64>> {
++    let (wpr2_lo, wpr2_hi) = (
++        bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO),
++        bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI),
++    );
++
++    if !wpr2_hi.is_wpr2_set() {
++        return None;
++    }
++
++    Some(wpr2_lo.lower_bound()..wpr2_hi.higher_bound())
++}
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index 29bb17171f56..b3242aaeea45 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -17,7 +17,10 @@
+         sec2::Sec2,
+         Falcon, //
+     },
+-    fb::FbLayout,
++    fb::{
++        wpr2_range,
++        FbLayout, //
++    },
+     firmware::{
+         booter::{
+             BooterFirmware,
+@@ -90,9 +93,8 @@ fn run(&self, ctx: &mut GspBootContext<'_, '_>) -> Result {
+             .inspect_err(|e| dev_err!(dev, "FWSEC-SB failed to run: {:?}\n", e));
+ 
+         // Remove WPR2 region if set.
+-        let wpr2_hi = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
+         let booter_unloader_res = (|| {
+-            if !wpr2_hi.is_wpr2_set() {
++            if wpr2_range(bar).is_none() {
+                 return Ok(());
+             }
+ 
+@@ -110,8 +112,7 @@ fn run(&self, ctx: &mut GspBootContext<'_, '_>) -> Result {
+             }
+ 
+             // Confirm that the WPR2 region has been removed.
+-            let wpr2_hi = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
+-            if wpr2_hi.is_wpr2_set() {
++            if wpr2_range(bar).is_some() {
+                 dev_err!(
+                     dev,
+                     "WPR2 region still set after Booter Unloader returned\n"
+@@ -144,9 +145,9 @@ fn run_fwsec_frts(
+         bios: &Vbios,
+         fb_layout: &FbLayout,
+     ) -> Result {
+-        // Check that the WPR2 region does not already exist - if it does, we cannot run
+-        // FWSEC-FRTS until the GPU is reset.
+-        if bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound() != 0 {
++        // Check that the WPR2 region does not already exist -
++        // if it does, we cannot run FWSEC-FRTS until the GPU is reset.
++        if wpr2_range(bar).is_some() {
+             dev_err!(
+                 dev,
+                 "WPR2 region already exists - GPU needs to be reset to proceed\n"
+@@ -189,34 +190,27 @@ fn run_fwsec_frts(
+         }
+ 
+         // Check that the WPR2 region has been created as we requested.
+-        let (wpr2_lo, wpr2_hi) = (
+-            bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO).lower_bound(),
+-            bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound(),
+-        );
+-
+-        match (wpr2_lo, wpr2_hi) {
+-            (_, 0) => {
+-                dev_err!(dev, "WPR2 region not created after running FWSEC-FRTS\n");
++        let Some(wpr2_range) = wpr2_range(bar) else {
++            dev_err!(dev, "WPR2 region not created after running FWSEC-FRTS\n");
+ 
+-                Err(EIO)
+-            }
+-            (wpr2_lo, _) if wpr2_lo != fb_layout.frts.start => {
+-                dev_err!(
+-                    dev,
+-                    "WPR2 region created at unexpected address {:#x}; expected {:#x}\n",
+-                    wpr2_lo,
+-                    fb_layout.frts.start,
+-                );
++            return Err(EIO);
++        };
+ 
+-                Err(EIO)
+-            }
+-            (wpr2_lo, wpr2_hi) => {
+-                dev_dbg!(dev, "WPR2: {:#x}-{:#x}\n", wpr2_lo, wpr2_hi);
+-                dev_dbg!(dev, "GPU instance built\n");
++        if wpr2_range.start != fb_layout.frts.start {
++            dev_err!(
++                dev,
++                "WPR2 region created at unexpected address {:#x}; expected {:#x}\n",
++                wpr2_range.start,
++                fb_layout.frts.start,
++            );
+ 
+-                Ok(())
+-            }
++            return Err(EIO);
+         }
++
++        dev_dbg!(dev, "WPR2: {:#x}-{:#x}\n", wpr2_range.start, wpr2_range.end);
++        dev_dbg!(dev, "GPU instance built\n");
++
++        Ok(())
+     }
+ 
+     /// Load and prepare the resources required to properly reset the GSP after it has been stopped.
 
-Best regards,
---  
-Antonin Malzieu Ridolfi <dev@nanonej.com>
+-- 
+2.55.0
 
 
