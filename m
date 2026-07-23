@@ -1,106 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ABE3E9584;
-	Thu, 23 Jul 2026 20:09:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727C141B355;
+	Thu, 23 Jul 2026 20:33:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784837379; cv=none; b=nIiRV4/PyhOts7vLdMW8Cr8KRL9WVoB5ROWEEsDY5krMob8xxvRlAfENL9UY8ROOOgV7AoywQeVH3zPBfGIIFROpYa0jIlvDcFwyhkff0/h6McBLtLaDl5Vr4Lijl6iOyw3mc17dA7AVC+zA5gLvcrdW54nY5B/Ur+qPSMy8JlE=
+	t=1784838815; cv=none; b=G0oUKYCsPFuknqLH9DWf1lYUPHLbbhU0BfHXIZvMXh7eH7fECWmuSdKc6CMTvHExS3e4lh5vYa4w+DKHQi2g7dMsmCeRimo1V32XU3vTr+tIR5n/OCf1MmxWqUwGJe3kaFmStLcXA1+qm1XF8Fj6he8fHqF5EaG3AA3hqehlIes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784837379; c=relaxed/simple;
-	bh=IDpirxHa/6fs4T3NLiWrDLqkq4MF5x5c8ImmAUT5/bM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hESWOLzzifgEfs5Rw64DdkvyWW1vRrVYOmTHc1n3+nERblG3VN1IezMo06RU5exHpEqQpdKz2wUwSxkIWEIp23MLMKP1e9UWIllXr2m85cOpDZoT3E3j5gd4g9CYF1r4E9yQ6oKYay7rjhJCj1+uw1r/Mcdken6XVLcOkqisec4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iw60ZoQi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784838815; c=relaxed/simple;
+	bh=DO/gJqdawW9CmZ4EJe+UiBo1+9edT2zPkjP1BwpP49o=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Bi2nlTGEuVDOOjTKXl1Z/ZASLex342/8knfiOESV3xiKggjVeKvzRb1nE8ajK2BzsEeouOOTJ2qes2uZfyhK3uQmiAOY05mcN/Vh09v4oHsujnpX+YCqz5RdbYaDgIck1kyGY7KXoDtykAjrcbpPB+YouRlwwtzxI5451mc7EPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyQO0eHk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iw60ZoQi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3AD11F00A3D;
-	Thu, 23 Jul 2026 20:09:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyQO0eHk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6450D1F000E9;
+	Thu, 23 Jul 2026 20:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784837376;
-	bh=MHicQjVDR/Fzc1uyzb0fVCPmZeJjLHF/HVKFRDv2zQ0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iw60ZoQiU2SFXPQOTT56RkGQslM5B7MhN2n9Y6y04LgZH3FrVFsMOncRYtERGuT4m
-	 7L/Oe2Djc2HpxD6SlcMbf48PCQ74ci79y3zZqPZwFaaqgRnwskkvrNM9Uxn+26tI7I
-	 bqR+93nfPMh0CSA+NiVAXB8XmDileY2dfVNXy7dRtZiCCMCwh9b3Ouy2py2W23oQnO
-	 g0EXk4/B5zMm4ZxAoMkERhBXxDAt6PVghZAWNd0enxMVHqBXKidmcwXBfFtbcXFn5q
-	 5UoHKIzw5CMyEmEuk+Sxp3OEGR8Y7Lj50gYxygPSP60OJA60sf4NiQ72JTCCmwy5Ix
-	 qVyh5hYSu0QCw==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Zhi Wang <zhiw@nvidia.com>
-Cc: dakr@kernel.org,
-	acourbot@nvidia.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	ojeda@kernel.org,
-	alex.gaynor@gmail.com,
-	boqun.feng@gmail.com,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	jhubbard@nvidia.com,
-	ecourtney@nvidia.com,
-	joelagnelf@nvidia.com,
-	apopple@nvidia.com,
-	cjia@nvidia.com,
-	smitra@nvidia.com,
-	kjaju@nvidia.com,
-	alkumar@nvidia.com,
-	ankita@nvidia.com,
-	aniketa@nvidia.com,
-	kwankhede@nvidia.com,
-	targupta@nvidia.com,
-	nova-gpu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhiwang@kernel.org
-Subject: Re: [PATCH v5 0/6] gpu: nova-core: boot GSP with vGPU enabled
-Date: Thu, 23 Jul 2026 22:09:24 +0200
-Message-ID: <20260723200924.3388236-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260722073913.1807677-1-zhiw@nvidia.com>
-References: <20260722073913.1807677-1-zhiw@nvidia.com>
-X-Patch-Reply: applied
+	s=k20260515; t=1784838803;
+	bh=qKMBkfA4Fscc9gb2Mwxxm/SG+O1Cf4fPyQiewhN8Y88=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=WyQO0eHk6YYNhnOQuGfvCK+4OXDBlKSRtLW2n42OKeh+sdzsP4j+ATDn/yv3MXCuc
+	 qIbtqjSeZ2bzRTL1G5pBiJsfWbK5TsR1OI8I38sJ08+0OkaU/yv0f7RFokmF4EAr9y
+	 7vkku2frWqcCajVSImHbP0ptjJWOM1pu9W9R/IMe3l++jearHhB72v82hRjCRVs48e
+	 mF4N9QL5vHzIRBMktag3UFz1fQGdrRmPzI7k9DbnWEhiDY0uR/vQ+b9Rj/oWngAKb/
+	 zPpYmJNQqM5axXZFgefC3lN2fzg/EuCGmG1mMoDaewVP3BstCva8lQfn29BHlo0i+p
+	 bqYwfHljPIJog==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 23 Jul 2026 22:33:16 +0200
+Message-Id: <DK68JRVCSLFU.3MCXVFEF3EE5T@kernel.org>
+Subject: Re: [PATCH 6.18 0000/1624] 6.18.40-rc2 review
+Cc: <gregkh@linuxfoundation.org>, <achill@achill.org>,
+ <akpm@linux-foundation.org>, <broonie@kernel.org>, <conor@kernel.org>,
+ <f.fainelli@gmail.com>, <hargar@microsoft.com>, <jonathanh@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <linux@roeck-us.net>,
+ <lkft-triage@lists.linaro.org>, <patches@kernelci.org>,
+ <patches@lists.linux.dev>, <pavel@nabladev.com>, <rwarsow@gmx.de>,
+ <shuah@kernel.org>, <sr@sladewatkins.com>, <stable@vger.kernel.org>,
+ <sudipm.mukherjee@gmail.com>, <torvalds@linux-foundation.org>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, <nova-gpu@lists.linux.dev>
+To: "Miguel Ojeda" <ojeda@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260722142910.893804136@linuxfoundation.org>
+ <20260723154303.11008-1-ojeda@kernel.org>
+In-Reply-To: <20260723154303.11008-1-ojeda@kernel.org>
 
-On Wed, 22 Jul 2026 10:39:07 +0300, Zhi Wang wrote:
-> [PATCH v5 0/6] gpu: nova-core: boot GSP with vGPU enabled
+On Thu Jul 23, 2026 at 5:43 PM CEST, Miguel Ojeda wrote:
+> I suggest dropping commit
+>
+>   d8fa174e21c8 ("gpu: nova-core: vbios: read BitToken using FromBytes")
+>
+> for now -- it was not marked for stable, and as far as I know, there are
+> no production users of Nova, especially in stable kernels.
 
-Applied, thanks!
+Yes, we can just drop the commit. In general, for now we should only backpo=
+rt
+nova patches that could get into the way of testing stable releases in one =
+or
+the other way.
 
-  Branch: drm-rust-next
-  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
+> If we want to fix the bug, then we may want a custom minimal patch.
 
-[1/6] PCI/IOV: Return unsigned int from pci_sriov_get_totalvfs()
-      commit: 7cffd051ae54
-[2/6] rust: pci: add sriov_get_totalvfs() helper
-      commit: 6afbbc27f582
-[3/6] gpu: nova-core: read vGPU mode from FSP via PRC protocol
-      commit: c1cad6dfb116
+Yeah, I don't think there's much value; in the best case it fixes something=
+ that
+isn't used in production anyways, and in the worst case it causes noise if =
+it
+breaks the build.
 
-      [ FspPrcMessage is small and short-lived; stack-allocate it instead of
-        using KBox. - Danilo ]
+> I hope that helps!
 
-[4/6] gpu: nova-core: detect and store vGPU state
-      commit: 4d40a785fdb5
-[5/6] gpu: nova-core: set RMSetSriovMode for vGPU
-      commit: 1d8118c256f1
-[6/6] gpu: nova-core: reserve vGPU WPR2 heap
-      commit: e5b5de8e9ee2
-
-      [ Use checked arithmetic to calculate wpr2_heap_addr. - Danilo ]
-
-The patches will appear in the next linux-next integration (typically within 24
-hours on weekdays).
-
-The patches are queued up for the upcoming merge window for the next major
-kernel release.
+Thanks!
