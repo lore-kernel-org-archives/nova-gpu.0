@@ -1,81 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727C141B355;
-	Thu, 23 Jul 2026 20:33:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24AE376A13;
+	Thu, 23 Jul 2026 20:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784838815; cv=none; b=G0oUKYCsPFuknqLH9DWf1lYUPHLbbhU0BfHXIZvMXh7eH7fECWmuSdKc6CMTvHExS3e4lh5vYa4w+DKHQi2g7dMsmCeRimo1V32XU3vTr+tIR5n/OCf1MmxWqUwGJe3kaFmStLcXA1+qm1XF8Fj6he8fHqF5EaG3AA3hqehlIes=
+	t=1784840015; cv=none; b=uvRkb8vMIM2xB23Upjvz1XZoaFrCD4PcBBiCfZw6mVCkZnzimHmVA1Zu+6ZxTZafHt7rl22jvrDIZ8QGEZNeh/Jn7nFwdzonQ92ZyuTDlFW2xKSxTXa6VZ6wHVWQ9Yr4ulm/+uT5BdB4Sa82guZSloAfYlitUCeZwbD5YR2Bj20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784838815; c=relaxed/simple;
-	bh=DO/gJqdawW9CmZ4EJe+UiBo1+9edT2zPkjP1BwpP49o=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Bi2nlTGEuVDOOjTKXl1Z/ZASLex342/8knfiOESV3xiKggjVeKvzRb1nE8ajK2BzsEeouOOTJ2qes2uZfyhK3uQmiAOY05mcN/Vh09v4oHsujnpX+YCqz5RdbYaDgIck1kyGY7KXoDtykAjrcbpPB+YouRlwwtzxI5451mc7EPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyQO0eHk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784840015; c=relaxed/simple;
+	bh=+yyrVCSALxKd+wydMZFhMIEn2LEZ8lnBDlMZVBmr2C0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R1raQYN1osN2LS3YxA+ZRMCCVslHrikRGZHy1LnLHLLRbiu6A8TdaH7pm8rnU8CnyIwX0/RdL1AX7yLWttzFy4ERzu4G1LKGujdG1vBI+T6lwBN3eNf6JosBuNCFFwflQDh/bN6mDqdJtdTo7CUuDk2F++nhoS/P7mpSovrFHHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bK7ab2yN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyQO0eHk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6450D1F000E9;
-	Thu, 23 Jul 2026 20:33:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bK7ab2yN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F27001F000E9;
+	Thu, 23 Jul 2026 20:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784838803;
-	bh=qKMBkfA4Fscc9gb2Mwxxm/SG+O1Cf4fPyQiewhN8Y88=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=WyQO0eHk6YYNhnOQuGfvCK+4OXDBlKSRtLW2n42OKeh+sdzsP4j+ATDn/yv3MXCuc
-	 qIbtqjSeZ2bzRTL1G5pBiJsfWbK5TsR1OI8I38sJ08+0OkaU/yv0f7RFokmF4EAr9y
-	 7vkku2frWqcCajVSImHbP0ptjJWOM1pu9W9R/IMe3l++jearHhB72v82hRjCRVs48e
-	 mF4N9QL5vHzIRBMktag3UFz1fQGdrRmPzI7k9DbnWEhiDY0uR/vQ+b9Rj/oWngAKb/
-	 zPpYmJNQqM5axXZFgefC3lN2fzg/EuCGmG1mMoDaewVP3BstCva8lQfn29BHlo0i+p
-	 bqYwfHljPIJog==
+	s=k20260515; t=1784840013;
+	bh=+yyrVCSALxKd+wydMZFhMIEn2LEZ8lnBDlMZVBmr2C0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bK7ab2yNAZwkH9b+8Ue228FS3c71Us30g2PIRc319nff/GA8jlDJAlK14hkPJlzE+
+	 8nl75v3PH/iamIxUWx6XKBHrrnYTDf7iWoaV7plFqWeJwnRs0dMuz5ZWbWCE9NW5ya
+	 X3W8vXt1ntFYN+YsTMPI6wpZllXonvMu/N7mlqsku2LbP2Zzux0xHGRFxWGjXYD7Dg
+	 b9X2uXYXz0wG/n46BVE9VqXjecw/sntO89ZU7yL54yDenTPNXb+Blj0AQ7Mpc+3whr
+	 QdK5Q2NPVoxHLqUFsRIr5ZsETId39GmMCBWQxo9VdcrbNyZ0CJ44xTdr/qpFHpSsBa
+	 6b3kYiXVszbjA==
+Message-ID: <33490805-bf55-4321-bbb4-1fec8a0d7646@kernel.org>
+Date: Thu, 23 Jul 2026 22:53:25 +0200
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/6] rust: pci: add sriov_get_totalvfs() helper
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Zhi Wang <zhiw@nvidia.com>, airlied@gmail.com, simona@ffwll.ch,
+ ojeda@kernel.org, alex.gaynor@gmail.com, boqun.feng@gmail.com,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+ jhubbard@nvidia.com, ecourtney@nvidia.com, joelagnelf@nvidia.com,
+ apopple@nvidia.com, cjia@nvidia.com, smitra@nvidia.com, kjaju@nvidia.com,
+ alkumar@nvidia.com, ankita@nvidia.com, aniketa@nvidia.com,
+ kwankhede@nvidia.com, targupta@nvidia.com, nova-gpu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, zhiwang@kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ David Laight <david.laight.linux@gmail.com>, linux-pci@vger.kernel.org
+References: <20260722073913.1807677-1-zhiw@nvidia.com>
+ <20260722073913.1807677-3-zhiw@nvidia.com>
+ <DK5PCSJORNAQ.SAAUYDBMSESK@nvidia.com>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <DK5PCSJORNAQ.SAAUYDBMSESK@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 23 Jul 2026 22:33:16 +0200
-Message-Id: <DK68JRVCSLFU.3MCXVFEF3EE5T@kernel.org>
-Subject: Re: [PATCH 6.18 0000/1624] 6.18.40-rc2 review
-Cc: <gregkh@linuxfoundation.org>, <achill@achill.org>,
- <akpm@linux-foundation.org>, <broonie@kernel.org>, <conor@kernel.org>,
- <f.fainelli@gmail.com>, <hargar@microsoft.com>, <jonathanh@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <linux@roeck-us.net>,
- <lkft-triage@lists.linaro.org>, <patches@kernelci.org>,
- <patches@lists.linux.dev>, <pavel@nabladev.com>, <rwarsow@gmx.de>,
- <shuah@kernel.org>, <sr@sladewatkins.com>, <stable@vger.kernel.org>,
- <sudipm.mukherjee@gmail.com>, <torvalds@linux-foundation.org>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, <nova-gpu@lists.linux.dev>
-To: "Miguel Ojeda" <ojeda@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260722142910.893804136@linuxfoundation.org>
- <20260723154303.11008-1-ojeda@kernel.org>
-In-Reply-To: <20260723154303.11008-1-ojeda@kernel.org>
+Content-Transfer-Encoding: 7bit
 
-On Thu Jul 23, 2026 at 5:43 PM CEST, Miguel Ojeda wrote:
-> I suggest dropping commit
->
->   d8fa174e21c8 ("gpu: nova-core: vbios: read BitToken using FromBytes")
->
-> for now -- it was not marked for stable, and as far as I know, there are
-> no production users of Nova, especially in stable kernels.
+On 7/23/26 7:30 AM, Alexandre Courbot wrote:
+> The series looks ready to me, but we need a Ack on this patch to take it
+> through drm-rust-next - Danilo, does this look ok to you?
 
-Yes, we can just drop the commit. In general, for now we should only backpo=
-rt
-nova patches that could get into the way of testing stable releases in one =
-or
-the other way.
+Yes, I picked the whole series with two minor changes.
 
-> If we want to fix the bug, then we may want a custom minimal patch.
-
-Yeah, I don't think there's much value; in the best case it fixes something=
- that
-isn't used in production anyways, and in the worst case it causes noise if =
-it
-breaks the build.
-
-> I hope that helps!
-
-Thanks!
+Thanks,
+Danilo
