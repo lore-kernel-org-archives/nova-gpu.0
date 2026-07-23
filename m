@@ -1,72 +1,72 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012067.outbound.protection.outlook.com [52.101.43.67])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012058.outbound.protection.outlook.com [52.101.43.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DB4345EDE
-	for <nova-gpu@lists.linux.dev>; Thu, 23 Jul 2026 06:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD2E3BD625
+	for <nova-gpu@lists.linux.dev>; Thu, 23 Jul 2026 06:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784788295; cv=fail; b=htLfNyie4SBpcxEl3Smn0FNHrluWZqmyElgBK01aaq0OB7qnujxWvScMTkosTaktPdtLPkoDR48qfatRSy6pTCV8gdeQGssMA8hDYxtKWml7TAmTcLDfiSdW+5x8cKILmLdrsuiDkAAKb1avt7sMy5oy1AffoNo+t5FMiIMgVx8=
+	t=1784788473; cv=fail; b=m3PLC3uGpjUWWqosrcVYS/KDIIx2NfrGq4VfZ34p7BkKlqdMSwJef1GJS/zgefsfG8PxLQp94/zlJU3cai73AwGsl+4JbQ06ZzMl6GXzg8ZunU1IpToHued7he3gp44ruj2y/dK88c7NcSnm2UHqaw0v1hjurf4JpMkiOsRP5Pc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784788295; c=relaxed/simple;
-	bh=nUxwns9aBZ3SzZovRXSc+181uX2yPjaBwDo0adECYBY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XG/S1O2pjLLmPBgx6lzRsboxBOQGtZkD+Yx0l7ktbWBwCLNiVOPczp3trp96qh1Pjg/lmbu9F+s2onu4gvuMUzdJ+dJyv/KC5VBe3j45pKB+FNnJ9c9sYxWKwTGB+4tLIAnwRkq4Cc+KxT3RU9PylaG/icgbIcQ8Unp7vrhO6Ik=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=H/m3btlP; arc=fail smtp.client-ip=52.101.43.67
+	s=arc-20240116; t=1784788473; c=relaxed/simple;
+	bh=S6xLTBBRHVKemuWsLtFZVHqO7B6CCMmP8G27vSlBJik=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=QLrqY0/rtJdCYCAdvHsKMH/nkS3ivfKGeIvoxwehSmD6uXg2RrPiC2uppPxNpKN8/oUiHssxmmimx0r0lfg16WfL5qM/2EeHg5UQqUmPmrjXRDPcxynGOcA7c3SgAYtOLnlvpa3OPJTrBYBqafkJWa/orkmHsjuk5ctMqtCxslw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LydzzaEg; arc=fail smtp.client-ip=52.101.43.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="H/m3btlP"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LydzzaEg"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oZy9mOS8oCywPLJo24rUeA3xxRa8GVKhpWlQOFNwC/V8fH2qumtCrkTfMWV9rf3oy452DkV+zSrYMRA+qItKorOfTzzg1VGmpmdXvUHUfh2m7lf5qMJ9TmGrGsSOy9LnO9G61nIu3gfqwImfv6EjoprSuXPghxoN7MXmysAqmdgAMBvWapTf8XjX5Hsx5r4S0RqKYu9dvIRwTF8A3RkXWlTfSBF0KM4ITHXNoR0PmTJRnpSnN0lRMiN7qFzQa2F7CFfSxHxI+CM7aXBLldutUMNJCwzulipDGEmMTK1/L0+F7a//HcZeaGR1Q5oqsoeTjSbhDa+YWbHwwgZqENNjBw==
+ b=Fz9GGkzknjpO93EzwhJ5Dr/BW3mAbPPNnhUBHIyAhtXV6NzvXqtrq9gU+/vWs08/tP63PJYOuWB5Y4CSj0WqSr4g6UCLUv1K6PJlVdF+l+pXke9V4WYOnpQSIBSlt4lUyhxf3WhN3gSjFxJhakPujzl7Y6LHGhZqir4RKar7ExzLFlSOt8OjEBAjym6bWqNeAPz/HPGTWdDWkh1kLxonPET6lvLp62LfUvFdNdYth0EXoamUsbzd9NZdkPpQoj+YBUizGO4/7JGUQgmY+DjINlESgMUmHvltM5wgzBBMb773f2uiBk5fxIPmtOzzvq4/BCvIT7VAqh0CbFGhQuwzRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MphItZCZsHePfRTVbUPppufbkiwK8oS8qz/uOgEMPAg=;
- b=VpzGufe12YsJSBl3Biv9AfRB4kahMdk4bK/dlJz/YeZrNGkl6UvsDDI0c8TvwG7VrtGRivHC1oZeldKOjdrhLxVhh8k5dK1MFLOw07RLSzgTaoG2MQNizHhBCLKcjdd3phnHpaSJFuPhuccNgd1W6kxmnfjSrh+Ve4twLbTwvyEzpueW40ggvpaDtknvcZtx6AH2l3N2XsoA+kws6P9pX0i8oSUd3jXSDp1xcaV/2zQVCKoHXt2jmslLoNgsYiq9FfZmgl4vf4gEXSu7dBJA1x4LD5HPvOf/HcAVFYPDSkKsg1eAdKW0PiLQXotTyFuhKGnq9noO1vXzzFw4y+iXmQ==
+ bh=dwDQkFgnl16nRc7wiR4Ls4ScXDKhBmW5R03Tvulk/XQ=;
+ b=WTpFqxBU+E/8T81H01qEl+eiO3uzPU7jWZkTFjBDgk4/p/NpShEKmsWlLvN9LQ2VCeXrwkwYzxlzfYwRI63/B2++AVeZl+M+Mp6pBgq7GxMkComIZjytU27d1SbHRjuKOApWh2zFZ2ikkxiS6Yi302bEjZiTySiwlJQdvuRDwKW3W9ij7FcRJ1IHw7kHSLM/qyK8vGBNPnKQvFJGM0a1iVpKUUA3j28Kqml0yEJA0GYUHV8FiGrT1UwlagLviyynodsgD0c+oFQdJU9CsRPQuKJk6YKNVuBBeeO0Nj0qukCXoL00X9T3BQt7cZJrAEriqMGi+TMCd7odH+gmXtJj4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MphItZCZsHePfRTVbUPppufbkiwK8oS8qz/uOgEMPAg=;
- b=H/m3btlP5voDeCavtBFwa3NVYrlBXRKLwr4EcOj7ANXraDg+r2GLPJyMfwTIncVlKmIrWdt0kcxxyIINu0bkVdDQK0Lo2kdSLi4r7oRwEAU1bTDDqZAv6msZQmLS82hso5pkOEhNaTreAJqVbh8NpB70VM+xsDHlMLs99QYQzolzRgM9BJQ1LECkpCnwJwWfupR6cnaGT1ddpcGhYKWOkSOqVfj7bNBVV7luvEyl2p9PrbhCeE8v//ziPAmxM+A8Up3uNkz/B/8mKo8oq0Ppn+fw1sJ69E3O9OHUcda4LJN0PXh41sEYg9T1/mIWxFD/WovtKKaCK/3awbix6P4frQ==
+ bh=dwDQkFgnl16nRc7wiR4Ls4ScXDKhBmW5R03Tvulk/XQ=;
+ b=LydzzaEgiMGL13NmS8WmC9GGIXlMx9J0HhMzc8Tmn/ziwofz2Gti0VtL4RaZFKQSQCfrtvzrHeh9VTI3eoDwm7IdxyzFB1pig3x41N125U+WTdpH/6dC1Ngq2c+z9RmsECedgQbZcceMekpx8skxPMeGyBSW76Xtat+BpztYaM5b0DPSto70J0BUekIWfm4Tu/xYz36vf3y8HfhG4Boagwl0rkgEGQBIyzyW9lAn9BB9zCpEtp3pk7wHFmlnoQqU0enURVRe94xt7akkIVjAmmarl5Gg1zgMcL+EjtHBXcqhqft86OZKLqcRYNy0rQfdPIFZMwzAtDlJH6+E1zwlfw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- CH1PPF0316D269B.namprd12.prod.outlook.com (2603:10b6:61f:fc00::604) with
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by IA1PR12MB6556.namprd12.prod.outlook.com (2603:10b6:208:3a0::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 06:31:30 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
- 06:31:30 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: nova-gpu@lists.linux.dev
-Cc: Alistair Popple <apopple@nvidia.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 7/7] drm: nova: Expose a render node
-Date: Thu, 23 Jul 2026 16:30:45 +1000
-Message-ID: <20260723063046.1265791-8-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260723063046.1265791-1-apopple@nvidia.com>
-References: <20260723063046.1265791-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY5P282CA0028.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:202::14) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+ 2026 06:34:25 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
+ 06:34:25 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 23 Jul 2026 15:34:19 +0900
+Message-Id: <DK5QPF7HKME7.3D1CKLL5V2Y66@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 05/10] gpu: nova-core: split FbLayout into FSP and
+ non-FSP versions
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260703-blackwell-fixes-v2-0-8e3d8bc32bb9@nvidia.com>
+ <20260703-blackwell-fixes-v2-5-8e3d8bc32bb9@nvidia.com>
+ <DK5OQWB04ZRE.1AHZZ9O7MPA75@nvidia.com>
+In-Reply-To: <DK5OQWB04ZRE.1AHZZ9O7MPA75@nvidia.com>
+X-ClientProxiedBy: TYCP301CA0036.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:380::20) To SN1PR12MB2368.namprd12.prod.outlook.com
+ (2603:10b6:802:32::23)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -74,90 +74,591 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|CH1PPF0316D269B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a975fb7-0a71-4a17-b09f-08dee8840836
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA1PR12MB6556:EE_
+X-MS-Office365-Filtering-Correlation-Id: 683b1bef-9a88-4af4-35ab-08dee8846f25
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|56012099006|11063799006|10067099003|10063799003|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|10070799003|366016|3023799007|6133799003|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ZxOPYhDXjbdG4X6VNE6bh84trar/2xFHEAaIqtkbaGN0LZeyQtTC+MOM0nFKs9caqmAKIYVttnxceOuT/ZfwvxmCvGsQYLHmTvckiKkDNry4CDE98TuseDo3QeF+pMZ3QBE1xsY65AOiVN2wdtBeM0gEswueJp+CB78TzIdiK64eLU8PZnlmFHPUnjR0IzDuo28DJjWjT7Yf7U2PHrZt9oBMqMOVFkhuNX2wwbSFKWOqmXo7mbVe9SNM+yxP3oB2C7nLn2vZTC2NDs2BU0N7XKXJjYsNxQuTvrmEkD1varct0KoX8KSHz85pY4p8MlVZS4qx9xKA/PeIrQgK3Bjb3qB68t3NUXVPrZA5qtYiGWzhQ1FrTfniI2gj6TZpDFflStLvBwY4hLM9zfe/LdfM0FCi72wo8w6Nois8CPF+dNQNKkMZ8m9Cdz3kxNWEW74wfpOJSco10H9MX62UKiJXyoxKXzNM8NDH/VIPInrd8dIzJk/y+at5tERn2k/9Cq9blS5ZNaCZ6yC6iGLpN/LrSPRKzqTS1rU1z2CTCTIgE31EgIwuFV7+2QV8h+FfiuDLRnNSyVp7au49YLWTxMPfeGU6JrpnIInd3rpJ4UzO2XWjJxP4HTEHzv6RPJoo3pAhbJkNToG2GOZmV+Awg4j8zuBQkP3JrOr4JMxr85BWaZk=
+	G76blGPIMLZ75Cam8UwjKeUZM/pX1uy+KUr+kUQApnS+tNk9o2YnNa7jRBy57oPCKikkCd3x0Nt/ufcVUysKySZueaZkJlxy1I2Rv2EuC/9XsftJq5303oAjbpv6eOzVVD8eMTNa5yay/Ut8+DffxgIGoumhkNdOIy8FVjlaXiNJ1yAFn8DtDKn33A4B/TeYQhDrJ0o4kMXzU3UxG4s9H1QbfiKzXbHVUyOVEcDc3Ng/iVS0rzeYoZz6r0UVknabroGIuE6i4IP+OHX65QWBHPFl4vj+DUucjn5Basc6RF3Tn2qzRU755XbVaXvfK8XD+oCfzuD+ePB5r8K481qCksxUJe9MWMcMcib4Dd9cCLMJq3NiBk50NuZ3XVB3PQJeeQFGD8lKVq7Sy3w2teeaFl2tpDMtqiRYBLTrszd0qkVXFiiCrLFt+7jJw3VMeNhSvD2nsmmpmb6BCwN9+s/KGCFvOLI+/vT+JFJiTBn51lcEAicTCHAgYruPgRIclr5XS3RXSOellz0Qn8BbKDmbiRLOzGgQNeAj5Q559/fCZ40eH0SXiSfC5vclDPLKERoxdm+2ov566T2oRhKKCA6bz3ZR0szey2CznHk3yGUWXEdHpAise/2Mzs8IiG8zZD0/mFfzKrTTLJTcRwhL8Gz8vn9r4Zznoo4DySOpXYJIZVo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(56012099006)(11063799006)(10067099003)(10063799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(10070799003)(366016)(3023799007)(6133799003)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?c2BhXATNfbqJXJO0dheXcsgERXgPs0SrrXkL5lXu7aOQqApFd4pQpatlnA9l?=
- =?us-ascii?Q?tWMYv1bRyXIErTM1JGfSYSvhdU3Yv5n/pM1uUugAgXxKGAayEaZBVMtzrF4Q?=
- =?us-ascii?Q?mls/eYYC5IUUcZBLSOz1lcO8kobY3mhUuMPyWB30VKfIMl7lfKNREV34Ybdc?=
- =?us-ascii?Q?1LkGy3EyoXeiH2RC5yK4ol7+q+jXvrn6qGuuXYpEbkFRtD6rNYX2qUzHdos0?=
- =?us-ascii?Q?5nx353rTY312FlDtXXVDr/jtl+7uQvJatXDir/i2OAz9OgDhwRRWLa0JcPn4?=
- =?us-ascii?Q?BCY3NnznQ7MudZCnLvvG4Pdxj8d+HZ0QLZA8M/lzOBpUYHMf9Orh17pNhp9E?=
- =?us-ascii?Q?y45qCU895nAKuCmDphFBdffhHoedp9jZF/Q3UQ51ejtCTT5GU7SlUwU59Oya?=
- =?us-ascii?Q?FLlL10dOjTHaZRgLCc/U9rJRE6LuZJKG2ZNGfIchfPYAg/n4j6OeR+z9FRMf?=
- =?us-ascii?Q?oCLjjQMrqci2TZGv0F7AaOCXU5dS8jrWbLOx05SZf0c0xK7xFjEfFGFTrPDR?=
- =?us-ascii?Q?3F8Em++nz5cZJtIYiw38eFWZT+Z8levjEFkD/hZUE/OOXd2spsWQOCz+jciv?=
- =?us-ascii?Q?2NctmJJC0EuanLfFoIUgUHVRmmcbNhRhBndQ1PTenRLlGQ9/qBNZuEu/Hidp?=
- =?us-ascii?Q?6AOWWMsUl5m+vY4Ag5VHB+x3tQhxGwiPXWKIYG4vdDycT7Jmf4GflKwVVpPO?=
- =?us-ascii?Q?Awu9Wdc2iF0esviOodCcNc4u1+FtxsIZQGPjjoffksofbQTPHTON1HyMbg3l?=
- =?us-ascii?Q?Hg3Rx5qvQVgvgdqoScZ/tk5AdNLAnGg62Fwv/GzsMRZ2WJHUfHni8hUFXQmZ?=
- =?us-ascii?Q?5NB1RGDn6fnSzZ6VG/DHKTW2mQffQu6ysUpbN27FgVEGbSFN7xPvK7Nh35pd?=
- =?us-ascii?Q?puTK5VGhu/UouGA5P4kkAq8IRCsm7uyFQ3Qx/OVv9lrNTS99fEfH0OW0T99f?=
- =?us-ascii?Q?jsfKI0XonujC+TzTxc0EZ/gmzuZd51aeTLBE7xmdewr8anQF0f4cPG/KMdRy?=
- =?us-ascii?Q?vbGppGJVhOUj00Ao7b8taGDab3gTPUlD6WPTl4oOjyo9nLjf2jajpOXXQivN?=
- =?us-ascii?Q?7n6J0lUGPf5wIVsX5Yr8imNDBetUKBomqb5AYivaPpn7jWFoxS4Kmcs+OxXE?=
- =?us-ascii?Q?bJSnFFSdZ5/eX2n43iOqzZ7OY7+9H/jS7/whFfdP7v0QtQzXr13EeUdUWPal?=
- =?us-ascii?Q?MFoxLIXh2iremHRtXyHaqDRvaG2uzsaZq8Kp8xyNJvBPxbWOYdBuEnhQftWG?=
- =?us-ascii?Q?BHEqTDOk36qza/fa68lJftb4IKXGeDnyWtMOk9XkFkkR4+WWxT8w6eAVvbtf?=
- =?us-ascii?Q?tbr6sLn6UyqP+UGFeGtwj+hNHrvr6kUbWPRcWg6+WvwrarqP8oaRlIT8nktZ?=
- =?us-ascii?Q?XEGT+l8r1pBM45W70DctY9lc2Mg4AvRs/3BvwnwqntzTps1i0Ryyb6+WKPcL?=
- =?us-ascii?Q?HdBMNp5K+qwLxy5Hpo8xApNAOebh9l/jSvSVbCva36I7d9pHeUX1q2twF3Hj?=
- =?us-ascii?Q?c/RgWzcSJr2myICg3t+Ufpn9Ig6unA8gmFHBTHfkvaIMpnfb1z9440qHQ3ql?=
- =?us-ascii?Q?eJeftA91E2jlOBra1ZyIHh0aAZSmRgbQHW4qrTD335f28Q0BeDzV33luMYoy?=
- =?us-ascii?Q?8GWO4ToLPQWXSYRl24ThunWylw2Ux9op4BT1m/VJxMdwaKMpZvG8TwOprre4?=
- =?us-ascii?Q?zysJswLkEGiCv6lQfXr1lDuhEAZMgM4wgFKR0Bz4F4ZxIQ4fuO0POhPsCKHF?=
- =?us-ascii?Q?yMzpekrgwg=3D=3D?=
+	=?utf-8?B?L1F1TCtoSnk0VUJiN0tPcnBDcVhKV0RsVWI3NVkyckpWaDhxUHMzU2ZVYjVU?=
+ =?utf-8?B?aXdmUS9aanBIWEhEaU83ZE9jWHpzNkJpU1FGVVpKaVJsWHJkZEhFUHBEYTI4?=
+ =?utf-8?B?VkJYTmJGaDdtQTErV3llYm4veUMvQnIyNFoySEZDc1BiK1VQMEp3bGgrR29w?=
+ =?utf-8?B?MUF2aTRqTnZtMDJEaXppbC8zWWFVc24wZGxMZlptQkVIa3cyc3VlRCtOa0tZ?=
+ =?utf-8?B?NFdQdEFzdERGLzhNcVM1TlF0WFlNa3N0VmJIQkttcEJFbG1KY0ZYT09yMU9i?=
+ =?utf-8?B?U3hHbmlJaWplcVJtdUdJdGZnbXFWZk9ldWFkQzJSS3hRR3BiZm5NQStrL09N?=
+ =?utf-8?B?VEl3QlY2YUhDNWxNUklXK21pNVNRME9YbFhyQkl2U2Exa3AvWDRQRDVXVGtv?=
+ =?utf-8?B?bXl5c1hoZTVtUWtWQjViN0x4S2puZUgrK1k0aW9iWVh6UlluNzZvazFKSTV0?=
+ =?utf-8?B?MnRsckw5SU9zZktpVVZtWWk4VHJXbzl0QW9Jb1J0SG9GS2RGd0JwQ2NUZ01H?=
+ =?utf-8?B?QXpsWGZCNVdqV0JKK2FJb3JCdk5QMjdTTHQwTW5lV1d6N1B1SnNOOGVyK255?=
+ =?utf-8?B?bEZxaDU4V3ZtN2EzSS92YUIvWU1CcXJ0SnhuSEt6WXNjVWFzS1E5dCs4R1dS?=
+ =?utf-8?B?QjNlOHlza2JSOVIyWVUzUTNUWTBZQ2crdktlZUhsZEtSOWE5RHZ1UVVxbUw1?=
+ =?utf-8?B?YjQ2OFE5S0VTQVY1QUtZK2pzMkw3dEFvMEVGRGg5eG8xTzNHYjE3MjJYZjNs?=
+ =?utf-8?B?d0FYdlhMTTBvOW96K3J2NE5DZ01jQmJaT0x3NHQyUHNrNmwzQTA2UWJidmZs?=
+ =?utf-8?B?c29WS1RWcXY1SzFjdUJEQkF6K2x1dkVNOG9kbFJraWtSWGNXbXdtdFdVVnZt?=
+ =?utf-8?B?U2FiU2xiVExhRE5oTm9hVW5na0lpWkhzeUcrSkdObkVKUGJzdkdHK3dQRkVY?=
+ =?utf-8?B?dTY5NTl5LzVpOVZsSGRzMjlBY0dMRVplbmZ4YnFmVGNpR0FFRWwxUUNRYlFY?=
+ =?utf-8?B?YmtpL01XOTFkREJtWEF1UXd4bU45a3oxYlVMSUt1RENPZFJFaUcwZjU2V3lW?=
+ =?utf-8?B?N0dVUmoyZHhMc2FnZklJaGF5WmxFWW5RY2VacW1YY2ZTekJHQk1oQkM5b0tE?=
+ =?utf-8?B?R2ZPS0VGOThBOEpObmZXZVFNbUgybHhuQTFEK1phamkrSUNZa09QclcxVExi?=
+ =?utf-8?B?NGZaRDNTdndxaE1WQTdZR1pKOEtRTXhGTWZYOThnS3VKeW9ZbUR5MzFVNkM3?=
+ =?utf-8?B?akIxakhZVHhqNU8xaTFhbE44YTlOU3FqZzYySWhOZk8rSHJ6UUphS243QXlV?=
+ =?utf-8?B?NE1rTDZkTDhHeHJ1MDV1RVJNY2RvQUtFTUdnWko1TXFsTW5IY0RFM2VsaXdu?=
+ =?utf-8?B?TTJzcHp0ZzhCVG5Eb3dYVkpDSUFJWmlXNTR2dUcrdjlHRER0a0lkR2o2SkM0?=
+ =?utf-8?B?cmxkbjhYZFMvUWNRS0VNeENIYkxGb01GV3h0ZnIxY2xwK1hSSmJRRHcvakxz?=
+ =?utf-8?B?a0tITGxUMjlmRUNaN1JaWU5RUWFGTEhzQ2RVbzZQeDdMTlJFQVRwaE4ycXcx?=
+ =?utf-8?B?bVBjdGs0MVJZcGZDVmVQeWlnZGR5TEUzM1dhZDR4OVlVS0JPQ2xEOXQxOUx6?=
+ =?utf-8?B?cStIb3B6cnpDbTFTcEVqWGhJelFyUTFWeUczazduVTdmRndJTzBBSHh0QjZW?=
+ =?utf-8?B?eHFVSU5QbHFTY0dsTzJhdmFXNFRtZmJLV3cvVjFldnZHeHkrendjV1lvVS8z?=
+ =?utf-8?B?UWIvc1lzUWMrZHV4MVROYUZzTTZCemJmSWdIVDNPVTMxNkxINld1bCt1clgv?=
+ =?utf-8?B?aXFWTWJkQlJHQUtnZlFseDRaZHhHSFZ6QmFKNHMyaVhUR2wrZytpR0cxOFJL?=
+ =?utf-8?B?UTllV1pNSjBpbmtQTnVOaUJpbENLM2lTRWNJSjlLakpvclRQUzlnUlE4TlUz?=
+ =?utf-8?B?K3FzM2dEWEI2MjlPanlMM0ZkemFvdTdSK25BSEI5Rlh2ekpyZ0xXUUJndlZF?=
+ =?utf-8?B?ZGYvd1hyajE3TnB6WkQ1Q1VZWmVZM1dwVVRDTmlEU1F6d1VZZTR4VU0xK0J3?=
+ =?utf-8?B?YkwvS0JLaFdodWNxdi94UERkUDhaMG0vZ3hQemxWS0dJcUhrR0tJQzdTem1n?=
+ =?utf-8?B?UzE2WDJWbExaUVNvZFQvRkZOaTgyVHVKNHkyanU3Yll2M21PR2pOR2RhVitp?=
+ =?utf-8?B?VmRBNFZrOWh3MXhVWFc2dFhNdkgyeVpobnFhZW9RWXplVGZxR0VzWFNaYWZG?=
+ =?utf-8?B?MXVtSUYvM0ZsSWhTZUpIdnNCdnhVZENxOXRrRFVCYUxpaHZVd3NJR0QxVU5P?=
+ =?utf-8?B?d0w3bW1La1diUmNSV3pVVW5zSGs1eVFKeGJqNEhqb0xubm5RUkZ3TzQyaUUv?=
+ =?utf-8?Q?+S/o+bJEWAxQTURnESDKin1OghnwamlQsKUHrVqF4vSMs?=
+X-MS-Exchange-AntiSpam-MessageData-1: lzW/S29pQt3z2A==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a975fb7-0a71-4a17-b09f-08dee8840836
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 683b1bef-9a88-4af4-35ab-08dee8846f25
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2368.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 06:31:30.5268
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 06:34:24.6573
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 55Z3C5QXFxvFUkxWrM8K6Otx5wqAX/tEo7EZX5keNeRDLf6eCpfuoBcAOz9Eeb8zooVqv5Astv4ppZjeh6oR0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0316D269B
+X-MS-Exchange-CrossTenant-UserPrincipalName: OGfrnnCWrPwk2fsjvLbamINj8qPpq3ogr2ZdC53iUFWgTslwaiJ4a6pGlctsEtdGXLOS/FQBDO4m2GnRJi4Egg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6556
 
-nova-drm currently only exposes a primary node even though all of its
-ioctls are already marked DRM_RENDER_ALLOW. Set the DRIVER_RENDER
-feature so that a render node (/dev/dri/renderDXX) is created as well.
+On Thu Jul 23, 2026 at 2:02 PM JST, Alexandre Courbot wrote:
+> On Fri Jul 3, 2026 at 7:22 PM JST, Eliot Courtney wrote:
+>> `FbLayout` is currently used for both pre and post FSP architectures. It
+>> contains ranges for each region of framebuffer, but on post FSP
+>> architectures, only the size is actually used by GSP. The offsets are
+>> not decided by the driver. So, for post FSP architectures `FbLayout`
+>> contains essentially guesses for the offsets. Instead, make separate
+>> types so that we only store the information that's actually needed,
+>> rather than keeping around offsets that may not be correct.
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>
+> These patches (5-8) are the only one remaining from the series, which is
+> not entirely a coincidence since they are kind of a different series by
+> themselves. :)
+>
+> The patch's premise looks correct to me; although I wonder if we
+> couldn't avoid the enum by making the FB layout information more local.
+> Its use in `boot.rs` is what makes it difficult.
+>
+> Ordering nit: this patch introduces an architectural change, following
+> by smaller fixes (at least for patches 7-8). If the fixes had come
+> first, they could have been merged first and the larger change would
+> operate on a better base. This is not a request to reorder if doing so
+> is not easy; just a note for future series.
 
-This is required to allow render and compute clients to interact with
-nova-drm.
+The reason I used this order is that the next patch introduces
+`fb_end_reserved_size` (which is needed to actually calculate the right
+values) but it's only used on FbSizes (since it's FSP only). Doing the
+reverse order would mean adding a new field that is only sometimes used
+to the existing `FbLayout`. The other two patches after this could have
+gone before this so that's fair enough.
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+>
+> Some more comments inline.
+>
+>> ---
+>>  drivers/gpu/nova-core/fb.rs            | 70 ++++++++++++++++++++++---
+>>  drivers/gpu/nova-core/fsp.rs           | 15 +++---
+>>  drivers/gpu/nova-core/gsp/boot.rs      | 26 +++++-----
+>>  drivers/gpu/nova-core/gsp/fw.rs        | 95 ++++++++++++++++++++++++++-=
+-------
+>>  drivers/gpu/nova-core/gsp/hal.rs       |  4 +-
+>>  drivers/gpu/nova-core/gsp/hal/gh100.rs | 10 ++--
+>>  drivers/gpu/nova-core/gsp/hal/tu102.rs | 24 +++++----
+>>  7 files changed, 178 insertions(+), 66 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+>> index 273cff752fae..fd60f93258a9 100644
+>> --- a/drivers/gpu/nova-core/fb.rs
+>> +++ b/drivers/gpu/nova-core/fb.rs
+>> @@ -144,11 +144,30 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::=
+Result {
+>>      }
+>>  }
+>> =20
+>> -/// Layout of the GPU framebuffer memory.
+>> -///
+>> -/// Contains ranges of GPU memory reserved for a given purpose during t=
+he GSP boot process.
+>> +/// Framebuffer information required for GSP boot.
+>>  #[derive(Debug)]
+>> -pub(crate) struct FbLayout {
+>> +pub(crate) enum GspFbInfo {
+>> +    /// Concrete framebuffer ranges for host computed framebuffer layou=
+t.
+>> +    Ranges(FbRanges),
+>> +    /// Sizes of framebuffer ranges for GSP-FMC computed ranges.
+>> +    Sizes(FbSizes),
+>> +}
+>> +
+>> +impl GspFbInfo {
+>> +    /// Computes the framebuffer region information required for boot.
+>> +    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirm=
+ware) -> Result<Self> {
+>> +        match chipset.gsp_boot_method() {
+>> +            gsp::GspBootMethod::Fsp =3D> FbSizes::new(chipset, bar).map=
+(Self::Sizes),
+>> +            gsp::GspBootMethod::Sec2 { .. } =3D> {
+>> +                FbRanges::new(chipset, bar, gsp_fw).map(Self::Ranges)
+>> +            }
+>> +        }
+>> +    }
+>> +}
+>> +
+>> +/// Framebuffer ranges needed for GSP boot process.
+>> +#[derive(Debug)]
+>> +pub(crate) struct FbRanges {
+>>      /// Range of the framebuffer. Starts at `0`.
+>>      pub(crate) fb: FbRange,
+>>      /// VGA workspace, small area of reserved memory at the end of the =
+framebuffer.
+>> @@ -163,15 +182,17 @@ pub(crate) struct FbLayout {
+>>      pub(crate) wpr2_heap: FbRange,
+>>      /// WPR2 region range, starting with an instance of `GspFwWprMeta`.
+>>      pub(crate) wpr2: FbRange,
+>> +    /// Non-WPR heap, located just below WPR2.
+>>      pub(crate) heap: FbRange,
+>> +    /// Number of VF partitions.
+>>      pub(crate) vf_partition_count: u8,
+>>      /// PMU reserved memory size, in bytes.
+>>      pub(crate) pmu_reserved_size: u32,
+>>  }
+>> =20
+>> -impl FbLayout {
+>> -    /// Computes the FB layout for `chipset` required to run the `gsp_f=
+w` GSP firmware.
+>> -    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirm=
+ware) -> Result<Self> {
+>> +impl FbRanges {
+>> +    /// Computes concrete framebuffer ranges required on non-FSP bootin=
+g architectures.
+>> +    fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Re=
+sult<Self> {
+>>          let hal =3D hal::fb_hal(chipset);
+>> =20
+>>          let fb =3D {
+>> @@ -270,3 +291,38 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, =
+gsp_fw: &GspFirmware) -> Resu
+>>          })
+>>      }
+>>  }
+>> +
+>> +/// Framebuffer region sizes needed for GSP-FMC boot.
+>> +#[derive(Debug)]
+>> +pub(crate) struct FbSizes {
+>> +    /// VGA workspace size, in bytes.
+>> +    pub(crate) vga_workspace_size: u64,
+>> +    /// FRTS size, in bytes.
+>> +    pub(crate) frts_size: u64,
+>> +    /// WPR2 heap size, in bytes.
+>> +    pub(crate) wpr2_heap_size: u64,
+>> +    /// Non-WPR heap size, in bytes.
+>> +    pub(crate) heap_size: u64,
+>> +    /// PMU reserved memory size, in bytes.
+>> +    pub(crate) pmu_reserved_size: u32,
+>> +    /// Number of VF partitions.
+>> +    pub(crate) vf_partition_count: u8,
+>> +}
+>> +
+>> +impl FbSizes {
+>> +    /// Computes the framebuffer region sizes for GSP-FMC boot.
+>> +    fn new(chipset: Chipset, bar: Bar0<'_>) -> Result<Self> {
+>> +        let hal =3D hal::fb_hal(chipset);
+>> +        let fb_size =3D hal.vidmem_size(bar);
+>> +
+>> +        Ok(Self {
+>> +            vga_workspace_size: u64::SZ_128K,
+>
+> If this is a const, do we need to store it here? Can't we define it and
+> use it where needed?
 
----
+Yerp, I think so.
 
-Changes since v2:
+>
+>> +            frts_size: hal.frts_size(),
+>> +            wpr2_heap_size: gsp::LibosParams::from_chipset(chipset)
+>> +                .wpr_heap_size(chipset, fb_size)?,
+>> +            heap_size: u64::from(hal.non_wpr_heap_size()),
+>> +            pmu_reserved_size: hal.pmu_reserved_size(),
+>> +            vf_partition_count: 0,
+>> +        })
+>> +    }
+>> +}
+>> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
+>> index 5b782aa2e3fd..533fb95573ab 100644
+>> --- a/drivers/gpu/nova-core/fsp.rs
+>> +++ b/drivers/gpu/nova-core/fsp.rs
+>> @@ -31,7 +31,7 @@
+>>          fsp::Fsp as FspEngine,
+>>          Falcon, //
+>>      },
+>> -    fb::FbLayout,
+>> +    fb::FbSizes,
+>>      firmware::{
+>>          fsp::{
+>>              FmcSignatures,
+>> @@ -136,14 +136,14 @@ struct FspCotMessage {
+>>  impl FspCotMessage {
+>>      /// Returns an in-place initializer for [`FspCotMessage`].
+>>      fn new<'a>(
+>> -        fb_layout: &FbLayout,
+>> +        fb_info: &FbSizes,
+>>          fsp_fw: &'a FspFirmware,
+>>          args: &'a FmcBootArgs<'_>,
+>>      ) -> Result<impl Init<Self> + 'a> {
+>>          // frts_vidmem_offset is measured from the end of FB, so FRTS s=
+its at
+>>          // (end of FB) - frts_vidmem_offset.
+>>          let frts_vidmem_offset =3D if !args.resume {
+>> -            let frts_reserved_size =3D fb_layout.heap.len() + u64::from=
+(fb_layout.pmu_reserved_size);
+>> +            let frts_reserved_size =3D fb_info.heap_size + u64::from(fb=
+_info.pmu_reserved_size);
+>> =20
+>>              frts_reserved_size
+>>                  .align_up(Alignment::new::<SZ_2M>())
+>> @@ -153,7 +153,7 @@ fn new<'a>(
+>>          };
+>> =20
+>>          let frts_size: u32 =3D if !args.resume {
+>> -            fb_layout.frts.len().try_into()?
+>> +            fb_info.frts_size.try_into()?
+>>          } else {
+>>              0
+>>          };
+>> @@ -339,15 +339,12 @@ fn send_sync_fsp<M>(&mut self, dev: &device::Devic=
+e, msg: &M) -> Result<KVec<u8>
+>>      pub(crate) fn boot_fmc(
+>>          &mut self,
+>>          dev: &device::Device<device::Bound>,
+>> -        fb_layout: &FbLayout,
+>> +        fb_info: &FbSizes,
+>>          args: &FmcBootArgs<'_>,
+>>      ) -> Result {
+>>          dev_dbg!(dev, "Starting FSP boot sequence for {}\n", args.chips=
+et);
+>> =20
+>> -        let msg =3D KBox::init(
+>> -            FspCotMessage::new(fb_layout, &self.fsp_fw, args)?,
+>> -            GFP_KERNEL,
+>> -        )?;
+>> +        let msg =3D KBox::init(FspCotMessage::new(fb_info, &self.fsp_fw=
+, args)?, GFP_KERNEL)?;
+>> =20
+>>          let _response_buf =3D self.send_sync_fsp(dev, &*msg)?;
+>> =20
+>> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/g=
+sp/boot.rs
+>> index c347558aa8e5..14fd96084746 100644
+>> --- a/drivers/gpu/nova-core/gsp/boot.rs
+>> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+>> @@ -16,7 +16,7 @@
+>>          gsp::Gsp,
+>>          Falcon, //
+>>      },
+>> -    fb::FbLayout,
+>> +    fb::GspFbInfo,
+>>      firmware::{
+>>          gsp::GspFirmware,
+>>          FIRMWARE_VERSION, //
+>> @@ -50,23 +50,21 @@ pub(crate) fn boot(
+>> =20
+>>          let gsp_fw =3D KBox::pin_init(GspFirmware::new(dev, chipset, FI=
+RMWARE_VERSION), GFP_KERNEL)?;
+>> =20
+>> -        let fb_layout =3D FbLayout::new(chipset, bar, &gsp_fw)?;
+>> -        dev_dbg!(dev, "{:#x?}\n", fb_layout);
+>> +        let fb_info =3D GspFbInfo::new(chipset, bar, &gsp_fw)?;
+>> +        dev_dbg!(dev, "{:#x?}\n", fb_info);
+>> =20
+>> -        let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::=
+new(&gsp_fw, &fb_layout))?;
+>> +        let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::=
+new(&gsp_fw, &fb_info))?;
+>> =20
+>>          // Perform the chipset-specific boot sequence, and retrieve the=
+ unload bundle.
+>> -        let unload_bundle =3D hal
+>> -            .boot(&self, &mut ctx, &fb_layout, &wpr_meta)?
+>> -            .or_else(|| {
+>> -                dev_warn!(dev, "The GSP won't be able to unload properl=
+y on unbind.\n");
+>> -                dev_warn!(
+>> -                    dev,
+>> -                    "The GPU will need to be reset before the driver ca=
+n bind again.\n"
+>> -                );
+>> +        let unload_bundle =3D hal.boot(&self, &mut ctx, &fb_info, &wpr_=
+meta)?.or_else(|| {
+>> +            dev_warn!(dev, "The GSP won't be able to unload properly on=
+ unbind.\n");
+>> +            dev_warn!(
+>> +                dev,
+>> +                "The GPU will need to be reset before the driver can bi=
+nd again.\n"
+>> +            );
+>> =20
+>> -                None
+>> -            });
+>> +            None
+>> +        });
+>> =20
+>>          let mut unload_guard =3D
+>>              ScopeGuard::new_with_data((ctx, unload_bundle), |(ctx, unlo=
+ad_bundle)| {
+>> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp=
+/fw.rs
+>> index 2590931262af..3b148147cb18 100644
+>> --- a/drivers/gpu/nova-core/gsp/fw.rs
+>> +++ b/drivers/gpu/nova-core/gsp/fw.rs
+>> @@ -29,7 +29,7 @@
+>>  };
+>> =20
+>>  use crate::{
+>> -    fb::FbLayout,
+>> +    fb::GspFbInfo,
+>>      firmware::gsp::GspFirmware,
+>>      gpu::{
+>>          Architecture,
+>> @@ -215,11 +215,65 @@ unsafe impl FromBytes for GspFwWprMeta {}
+>> =20
+>>  impl GspFwWprMeta {
+>>      /// Returns an initializer for a `GspFwWprMeta` suitable for bootin=
+g `gsp_firmware` using the
+>> -    /// `fb_layout` layout.
+>> +    /// framebuffer information.
+>>      pub(crate) fn new<'a>(
+>>          gsp_firmware: &'a GspFirmware,
+>> -        fb_layout: &'a FbLayout,
+>> +        fb_info: &'a GspFbInfo,
+>>      ) -> impl Init<Self> + 'a {
+>> +        #[derive(Default)]
+>> +        struct WprMetaFields {
+>> +            gsp_fw_rsvd_start: u64,
+>> +            non_wpr_heap_offset: u64,
+>> +            non_wpr_heap_size: u64,
+>> +            gsp_fw_wpr_start: u64,
+>> +            gsp_fw_heap_offset: u64,
+>> +            gsp_fw_heap_size: u64,
+>> +            gsp_fw_offset: u64,
+>> +            boot_bin_offset: u64,
+>> +            frts_offset: u64,
+>> +            frts_size: u64,
+>> +            gsp_fw_wpr_end: u64,
+>> +            gsp_fw_heap_vf_partition_count: u8,
+>> +            fb_size: u64,
+>> +            vga_workspace_offset: u64,
+>> +            vga_workspace_size: u64,
+>> +            pmu_reserved_size: u32,
+>> +        }
+>> +
+>> +        let fields =3D match fb_info {
+>> +            GspFbInfo::Ranges(ranges) =3D> WprMetaFields {
+>> +                gsp_fw_rsvd_start: ranges.heap.start,
+>> +                non_wpr_heap_offset: ranges.heap.start,
+>> +                non_wpr_heap_size: ranges.heap.len(),
+>> +                gsp_fw_wpr_start: ranges.wpr2.start,
+>> +                gsp_fw_heap_offset: ranges.wpr2_heap.start,
+>> +                gsp_fw_heap_size: ranges.wpr2_heap.len(),
+>> +                gsp_fw_offset: ranges.elf.start,
+>> +                boot_bin_offset: ranges.boot.start,
+>> +                frts_offset: ranges.frts.start,
+>> +                frts_size: ranges.frts.len(),
+>> +                gsp_fw_wpr_end: ranges
+>> +                    .vga_workspace
+>> +                    .start
+>> +                    .align_down(Alignment::new::<SZ_128K>()),
+>> +                gsp_fw_heap_vf_partition_count: ranges.vf_partition_cou=
+nt,
+>> +                fb_size: ranges.fb.len(),
+>> +                vga_workspace_offset: ranges.vga_workspace.start,
+>> +                vga_workspace_size: ranges.vga_workspace.len(),
+>> +                pmu_reserved_size: ranges.pmu_reserved_size,
+>> +            },
+>> +            GspFbInfo::Sizes(sizes) =3D> WprMetaFields {
+>> +                non_wpr_heap_size: sizes.heap_size,
+>> +                gsp_fw_heap_size: sizes.wpr2_heap_size,
+>> +                frts_size: sizes.frts_size,
+>> +                gsp_fw_heap_vf_partition_count: sizes.vf_partition_coun=
+t,
+>> +                vga_workspace_size: sizes.vga_workspace_size,
+>> +                pmu_reserved_size: sizes.pmu_reserved_size,
+>> +                // When only sizes are supplied, offsets and several ot=
+her parameters are not used.
+>> +                ..Default::default()
+>> +            },
+>> +        };
+>> +
+>>          let init_inner =3D init!(bindings::GspFwWprMeta {
+>>              // CAST: we want to store the bits of `GSP_FW_WPR_META_MAGI=
+C` unmodified.
+>>              magic: bindings::GSP_FW_WPR_META_MAGIC as u64,
+>> @@ -237,25 +291,22 @@ pub(crate) fn new<'a>(
+>>                      sizeOfSignature: u64::from_safe_cast(gsp_firmware.s=
+ignatures.size()),
+>>                  },
+>>              },
+>> -            gspFwRsvdStart: fb_layout.heap.start,
+>> -            nonWprHeapOffset: fb_layout.heap.start,
+>> -            nonWprHeapSize: fb_layout.heap.end - fb_layout.heap.start,
+>> -            gspFwWprStart: fb_layout.wpr2.start,
+>> -            gspFwHeapOffset: fb_layout.wpr2_heap.start,
+>> -            gspFwHeapSize: fb_layout.wpr2_heap.end - fb_layout.wpr2_hea=
+p.start,
+>> -            gspFwOffset: fb_layout.elf.start,
+>> -            bootBinOffset: fb_layout.boot.start,
+>> -            frtsOffset: fb_layout.frts.start,
+>> -            frtsSize: fb_layout.frts.end - fb_layout.frts.start,
+>> -            gspFwWprEnd: fb_layout
+>> -                .vga_workspace
+>> -                .start
+>> -                .align_down(Alignment::new::<SZ_128K>()),
+>> -            gspFwHeapVfPartitionCount: fb_layout.vf_partition_count,
+>> -            fbSize: fb_layout.fb.end - fb_layout.fb.start,
+>> -            vgaWorkspaceOffset: fb_layout.vga_workspace.start,
+>> -            vgaWorkspaceSize: fb_layout.vga_workspace.end - fb_layout.v=
+ga_workspace.start,
+>> -            pmuReservedSize: fb_layout.pmu_reserved_size,
+>> +            gspFwRsvdStart: fields.gsp_fw_rsvd_start,
+>> +            nonWprHeapOffset: fields.non_wpr_heap_offset,
+>> +            nonWprHeapSize: fields.non_wpr_heap_size,
+>> +            gspFwWprStart: fields.gsp_fw_wpr_start,
+>> +            gspFwHeapOffset: fields.gsp_fw_heap_offset,
+>> +            gspFwHeapSize: fields.gsp_fw_heap_size,
+>> +            gspFwOffset: fields.gsp_fw_offset,
+>> +            bootBinOffset: fields.boot_bin_offset,
+>> +            frtsOffset: fields.frts_offset,
+>> +            frtsSize: fields.frts_size,
+>> +            gspFwWprEnd: fields.gsp_fw_wpr_end,
+>> +            gspFwHeapVfPartitionCount: fields.gsp_fw_heap_vf_partition_=
+count,
+>> +            fbSize: fields.fb_size,
+>> +            vgaWorkspaceOffset: fields.vga_workspace_offset,
+>> +            vgaWorkspaceSize: fields.vga_workspace_size,
+>> +            pmuReservedSize: fields.pmu_reserved_size,
+>>              ..Zeroable::init_zeroed()
+>>          });
+>> =20
+>> diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gs=
+p/hal.rs
+>> index 46428c623087..ddd356fafc1e 100644
+>> --- a/drivers/gpu/nova-core/gsp/hal.rs
+>> +++ b/drivers/gpu/nova-core/gsp/hal.rs
+>> @@ -11,7 +11,7 @@
+>>  };
+>> =20
+>>  use crate::{
+>> -    fb::FbLayout,
+>> +    fb::GspFbInfo,
+>>      firmware::gsp::GspFirmware,
+>>      gpu::Chipset,
+>>      gsp::{
+>> @@ -42,7 +42,7 @@ fn boot(
+>>          &self,
+>>          gsp: &Gsp,
+>>          ctx: &mut GspBootContext<'_, '_>,
+>> -        fb_layout: &FbLayout,
+>> +        fb_info: &GspFbInfo,
+>>          wpr_meta: &Coherent<GspFwWprMeta>,
+>>      ) -> Result<Option<crate::gsp::UnloadBundle>>;
+>> =20
+>> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-c=
+ore/gsp/hal/gh100.rs
+>> index 270703d0f5c6..6fc6d487e4c8 100644
+>> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+>> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+>> @@ -15,7 +15,7 @@
+>>          gsp::Gsp as GspEngine,
+>>          Falcon, //
+>>      },
+>> -    fb::FbLayout,
+>> +    fb::GspFbInfo,
+>>      fsp::FmcBootArgs,
+>>      gsp::{
+>>          hal::{
+>> @@ -136,13 +136,17 @@ fn boot(
+>>          &self,
+>>          gsp: &Gsp,
+>>          ctx: &mut GspBootContext<'_, '_>,
+>> -        fb_layout: &FbLayout,
+>> +        fb_info: &GspFbInfo,
+>>          wpr_meta: &Coherent<GspFwWprMeta>,
+>>      ) -> Result<Option<crate::gsp::UnloadBundle>> {
+>>          let dev =3D ctx.dev();
+>>          let chipset =3D ctx.chipset;
+>>          let gsp_falcon =3D ctx.gsp_falcon;
+>> =20
+>> +        let GspFbInfo::Sizes(fb_sizes) =3D fb_info else {
+>> +            return Err(EINVAL);
+>> +        };
+>
+> Mmm I wish we would avoid that, this is another example of a runtime
+> check that should not need to be performed.
+>
+> In this case I think we can, as we also have access to the
+> `GspFwWprMeta` which contains the FRTS size information that we are
+> using. We would just need to construct the range from it, pass it to
+> `run_fwsec_frts`, and we remove visibility from a lot of information
+> that this method didn't need in the first place. This could be a
+> standalone cleanup patch that comes before this one.
+>
+> All the same (and again IIUC), the GH100's GSP HAL `boot` method should
+> be able to work entirely with `GspFwWprMeta`.
+>
+> With these two out of the way, the only place where the FB layout
+> information is required becomes the construction of `GspFwWprMeta`;
+> which should give us more opportunities to make things more local and
+> remove `GspFbInfo` altogether, maybe by making the construction of
+> `GspFwWprMeta` a HAL method of `Fb` so we can hide `FbRanges`/`FbSizes`
+> there?
+>
+> It's still not completely clear to me, so let's first see if my
+> suggestion can be applied and what the resulting code looks like once it
+> is done. But I sense room for simplification. :)
 
- - New for v3.
----
- drivers/gpu/drm/nova/driver.rs | 1 +
- 1 file changed, 1 insertion(+)
+Yeah it is unfortuante to have the runtime check but it's just another
+consequence of pushing stuff across the dynamic dispatch boundary on the
+HALs (see below for a method to avoid this). I am not sure about using
+GspFwWprMeta as the source of truth though, for the following reasons:
 
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index f144417b29c9..a9016fcd6518 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -92,6 +92,7 @@ impl drm::Driver for NovaDriver {
-     type ParentDevice<Ctx: DeviceContext> = auxiliary::Device<Ctx>;
- 
-     const INFO: drm::DriverInfo = INFO;
-+    const FEAT_RENDER: bool = true;
- 
-     kernel::declare_drm_ioctls! {
-         (NOVA_GETPARAM, drm_nova_getparam, ioctl::RENDER_ALLOW, File::get_param),
--- 
-2.54.0
+1. The next patch adds `fb_end_reserved_size` which is used by the FSP
+   code. It's not part of `GspFwWprMeta`. Meaning that GspFbInfo encodes
+   more info than just the wire format bindings required by some of the
+   hardware.
+2. It feels a little gross to me to use such a bindings adjacent
+   structure to be used upwardly instead of downwardly to the
+   firmware/RPC boundary.
+3. If fb.rs needs to depend on the hardware/firmware-specific
+   GspFwWprMeta I feel it dilutes the meaning of having fb.rs be a
+   separate module holding general info about the fb layout used by
+   multiple modules. The dependency direction feels a little awkward to
+   me.
+
+Instead, I think it may be better to remove Coherent<GspFwWprMeta> from
+the boot signature and create it inside the HAL. I think it's a bit
+nicer to push that more HAL-y object downwards.
+
+If we do this we can also push the creation of FbSizes/FbRanges into
+each HAL implementation and get rid of the GspFbInfo enum and the
+runtime check. WDYT?
+
 
