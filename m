@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A4444C51A;
-	Tue, 28 Jul 2026 20:07:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED24B474255;
+	Tue, 28 Jul 2026 21:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785269259; cv=none; b=cM9EapITZQfpc25JXFaglkoqdKX7vT96lAbSSAcPi/X56gKOjk7Jy+o92dBUzvwGhcl08yEFZYWICeiIUFliIL7np3FS18g+sFpJqcOa6EYryarShqrDoEhmHEgFhOC2c8xZ4eiSpXwennr/dHuW8Qwx3jU7KNSffTRrplYWK5M=
+	t=1785274189; cv=none; b=d06cIRA2FsPFo7hs6jV2Va9sI6MYVE1vcK5RPGndFD2ahgZWC33uzA+ykx8ZWsVZTOPXCp7ahr0O15P6wC64cQphaBtgiGy88eh4ESvPaTdCYWN9j+9WOabLa2XNahVU+Z6tLrluWQykfJtVRn/llYb5krG4JPslBfc5gdxNliE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785269259; c=relaxed/simple;
-	bh=g58gRfs5c0V3SCdYvHY5lSFx4//gOQF/FXNiiAMSmC8=;
+	s=arc-20240116; t=1785274189; c=relaxed/simple;
+	bh=YLdeaGEFbKGRmZSXUlGHDOBavDHDKTs18J+VwNhzfWg=;
 	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=LL6Kdg05gpUWvf8PwZMPvqySuPnPsgl7JbkVyVs6rELH6/NUpH1di8AJXke2N8OZ1tBQ636QoFJRTb0BF/tQ0/FcvT0NItZy11yRg+e2XAZMIt2YkmD7tNsz9ZD2eeE6Glz53vxv73sQjf1JxR5aljhEzmIw/+MFMycCfQGwLoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SeDRXvjI; arc=none smtp.client-ip=100.103.45.18
+	 References:In-Reply-To; b=k8B1TQMQnA38WMAgkaHBrOb6NuLxvNdg3tnqSg0Yt3s2BlV2l4LRD+GREufTo8snvYeUG1kl8A3QPSq4F8OH1wCgQr7jhEQLaFT+jdm8usfdfJQ485iCYy0J2N3sSqZgqcHf8acXGJm8+QWVh6lr7+sPClYwHBsHtehSqXhBPJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hLkP+1Kj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SeDRXvjI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728331F000E9;
-	Tue, 28 Jul 2026 20:07:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hLkP+1Kj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E6551F000E9;
+	Tue, 28 Jul 2026 21:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785269257;
-	bh=g58gRfs5c0V3SCdYvHY5lSFx4//gOQF/FXNiiAMSmC8=;
+	s=k20260515; t=1785274187;
+	bh=qo02jaG/iaehK9IgIjzDd8LisvcZ4kRjvn4JiVQc3xA=;
 	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=SeDRXvjIo0PeOAWB+qm714ij5PQEMCtF/M5mCTstkRgZ5GlDTjfpliDRdVBI01r24
-	 A3mnQRZfkOZz1ImfR3pup6DRJGJAXc8bp6jDvuUQ6vmzewnNFVDqc212us6hPGnbQg
-	 itJjunYpXKxrSJvCRsQsgLR+fqzJ86ZG/k7ji2fpN780oeUu1BQtUlomxQEWx9lPeP
-	 e9GMLHy8TXVI55RXMR5QGi9kUQURJV8RhboPjw9lH944vH0J9PRhJKWHnK1eljsRX4
-	 zXiTvp1K/R5u52VQHfNvycvV7Nuwud/mx5T2+cfbOHNA/igp4artW42pcwECRKvhMJ
-	 m+39UEt+/dkIw==
+	b=hLkP+1KjEAlsQ19hJQFFhwP8059JEmTMPHxmns1KbC3HsrXzLCpwR9ubnvCM+HEzF
+	 TsWbPvsjfIZ8b40jj7Hj09FSfmQHyv6J/nWJaEjktZ12u8g8YbcDF52/cssvpJDvBt
+	 4SXXY5r0ZAyyZDBlkKOdf2ZgjDNfYCR84AdYB6te9Luvsjh//xV5LqoAWLVlwvSQya
+	 hUffvZa7w5+CvAFJ8ueKgNx6pPWyFcRb2Ev+i2QGG2k9oXInP7Hl+s9fqw9YHUNvfm
+	 eYAXIGSsKckyFAJ+gofeeIxPH4gJ/TmraMb3trcZ22l5PM4D+iVXq0ZEDWyH54GSgu
+	 FTP98qXm9cS6A==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -34,88 +34,88 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Jul 2026 22:07:31 +0200
-Message-Id: <DKAH4S5IE3RZ.10VD33NMVVLDR@kernel.org>
-Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
- PFALCON2 registers
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Boqun Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>
+Date: Tue, 28 Jul 2026 23:29:43 +0200
+Message-Id: <DKAIVPSA45O9.1NZES5S3BII10@kernel.org>
+Subject: Re: [PATCH v3 3/7] drm: nova: Add chipid enum to nova-drm UAPI
+Cc: <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "Alistair Popple" <apopple@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
- <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
- <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
- <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
- <DKAASRCK3M06.G9XODK0T5AAK@nvidia.com>
- <DKAD64Q7CEQD.Z15OS6MRHEKE@kernel.org>
- <DKAEZ4LDA10F.1RFA9JKBGY2CF@garyguo.net>
- <DKAFMD8X5LFP.UPKPHK5FYZPH@kernel.org>
- <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
-In-Reply-To: <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
+References: <20260723063046.1265791-1-apopple@nvidia.com>
+ <20260723063046.1265791-4-apopple@nvidia.com>
+ <DK7R7PB91GUE.1PS77AQM8ZR99@kernel.org>
+ <amhdA35CcMD_uY2f@nvdebian.thelocal>
+In-Reply-To: <amhdA35CcMD_uY2f@nvdebian.thelocal>
 
-On Tue Jul 28, 2026 at 9:03 PM CEST, Gary Guo wrote:
-> On Tue Jul 28, 2026 at 7:56 PM BST, Danilo Krummrich wrote:
->> On Tue Jul 28, 2026 at 8:26 PM CEST, Gary Guo wrote:
->>> On Tue Jul 28, 2026 at 6:01 PM BST, Danilo Krummrich wrote:
->>>> I may have a slight preference for a separate subregion() variant for =
-the
->>>> purpose of working around generic_const_exprs, as it probably is a bit=
- closer to
->>>> the final solution, but trait methods are fine with me too.
->>>
->>> I am not sure that's the final solution that I want. I want arg-positio=
-n
->>> const-generics which would syntactically look more similar to `build_as=
-sert!`.
->>
->> arg-position const generics would be great, but that's just a syntax dif=
-ference
->> and not related to supporting expressions involving const generics?
->>
->> In any case, I think my point about being closer to the final solution h=
-olds
->> regardless.
->>
->>> Personally I think most issues with `build_assert!` can be fixed by hav=
-ing
->>> lints, which is on my radar.
->>
->> I think it can be improved, but in the end it relies on compiler optimiz=
-ation
->> that may or may not happen as expected.
+On Tue Jul 28, 2026 at 10:00 AM CEST, Alistair Popple wrote:
+> On 2026-07-26 at 01:23 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+>> On Thu Jul 23, 2026 at 8:30 AM CEST, Alistair Popple wrote:
+>> > diff --git a/include/uapi/drm/nova_drm.h b/include/uapi/drm/nova_drm.h
+>> > index 3ca90ed9d2bb..cb13fba6b952 100644
+>> > --- a/include/uapi/drm/nova_drm.h
+>> > +++ b/include/uapi/drm/nova_drm.h
+>> > @@ -25,6 +25,39 @@ extern "C" {
+>> >   */
+>> >  #define NOVA_GETPARAM_VRAM_BAR_SIZE	0x1
+>> > =20
+>> > +enum drm_nova_chipid {
+>>=20
+>> It seems trivial, but let's add at least some documentation.
 >
-> It'd be a compiler bug if const folding is expected to happen, the whole
-> BUILD_BUG_ON depends on it working.
+> No, good idea.
 >
-> `build_assert!` is a useful tool that I'm not giving up. If there is a ne=
-ed to
-> use it, then I'd use it compared to having two variants to do the same th=
-ing
-> with different syntax.
+>> For instance, what's valid for userspace to extract from this? Given chi=
+pid is a
+>> composed value, is userspace e.g. allowed to make assumptions on extract=
+ing the
+>> architecture? Or is this something we want to expose separately and tell
+>> userspace that the chipid is an opaque value identifying a specific chip=
+ only?
+>
+> I _think_ it makes sense for this to just be an opaque value, but it's a =
+good
+> question that I should probably try and get some internal feedback on as =
+well.
+> Reading the arch would then be a separate parameter.
 
-It is indeed useful and I don't want to give up on it either.
+I'd prefer exposing it as an opaque value and provide other information
+separately; the kernel already does the work anyway, so why duplicate it in
+userspace. It would also remain much cleaner if encoding details ever chang=
+e.
 
-But, it is more fragile than const evaluation, so we should only use it whe=
-re
-const evaluation is not sufficient.
+>> > +	/* Turing */
+>> > +	NOVA_DRM_CHIPID_TU102 =3D 0x162,
+>> > +	NOVA_DRM_CHIPID_TU104 =3D 0x164,
+>> > +	NOVA_DRM_CHIPID_TU106 =3D 0x166,
+>> > +	NOVA_DRM_CHIPID_TU117 =3D 0x167,
+>> > +	NOVA_DRM_CHIPID_TU116 =3D 0x168,
+>> > +	/* Ampere */
+>> > +	NOVA_DRM_CHIPID_GA100 =3D 0x170,
+>> > +	NOVA_DRM_CHIPID_GA102 =3D 0x172,
+>> > +	NOVA_DRM_CHIPID_GA103 =3D 0x173,
+>> > +	NOVA_DRM_CHIPID_GA104 =3D 0x174,
+>> > +	NOVA_DRM_CHIPID_GA106 =3D 0x176,
+>> > +	NOVA_DRM_CHIPID_GA107 =3D 0x177,
+>> > +	/* Hopper */
+>> > +	NOVA_DRM_CHIPID_GH100 =3D 0x180,
+>> > +	/* Ada */
+>> > +	NOVA_DRM_CHIPID_AD102 =3D 0x192,
+>> > +	NOVA_DRM_CHIPID_AD103 =3D 0x193,
+>> > +	NOVA_DRM_CHIPID_AD104 =3D 0x194,
+>> > +	NOVA_DRM_CHIPID_AD106 =3D 0x196,
+>> > +	NOVA_DRM_CHIPID_AD107 =3D 0x197,
+>> > +	/* Blackwell GB10x */
+>> > +	NOVA_DRM_CHIPID_GB100 =3D 0x1a0,
+>> > +	NOVA_DRM_CHIPID_GB102 =3D 0x1a2,
+>> > +	/* Blackwell GB20x */
+>> > +	NOVA_DRM_CHIPID_GB202 =3D 0x1b2,
+>> > +	NOVA_DRM_CHIPID_GB203 =3D 0x1b3,
+>> > +	NOVA_DRM_CHIPID_GB205 =3D 0x1b5,
+>> > +	NOVA_DRM_CHIPID_GB206 =3D 0x1b6,
+>> > +	NOVA_DRM_CHIPID_GB207 =3D 0x1b7,
+>> > +};
 
-In the case we are discussing the problem is that const expressions involvi=
-ng
-const generics are not yet supported, but in general it should be.
-
-This is different compared to e.g. read() where the syntax difference would
-actually hurt and const generics would limit flexibility, where we actually=
- rely
-on the compiler to eliminate unreachable code paths regardless of a value b=
-eing
-known at runtime only.
