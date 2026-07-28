@@ -1,506 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012050.outbound.protection.outlook.com [52.101.48.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA5A3BB12D;
-	Mon, 27 Jul 2026 15:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785167514; cv=none; b=bPQ/7Kfy/bSbEQC0HTKnZkNdqZbnwI3VkfnO1YkVAozff93d8R2qG/hmoaWn0QCI02p4WqXsx0b51fEdnvAAdM2lnNqNFZXStuZi6po4TBmpvMvpGN9xhHly7ie4RfrNNiFLwqaHx7mNRpZcuyB2mA8Xe/L1/qv6vibG5vA/1nc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785167514; c=relaxed/simple;
-	bh=t4A6a4gmEZdvrKt1CTzUuRF8QSoofQimkq+1NRIxhZM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ciVXTxOBBaKEL/0ZBCDr/b47PobVj2oiEFILkb+In/z7jAJaiodBowIyEd6NZRnGfmkkYWmWaCspDy7/MOOAOG58NJLDXIRAa/39DhwWEtczS53NnV9CXrDl9+7euSirGbRgD7P2jehhsqzB5ng88k1DnJ+Zw99YhUM7jgvYL88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uanm94JY; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21943288D0
+	for <nova-gpu@lists.linux.dev>; Tue, 28 Jul 2026 00:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785197399; cv=fail; b=tpZPfprKV6Oy/qIqu9kgZ0UrTFEdEeg1KevmiK6y5oP+WSLAsAueTBYhlUXW/0cfCLrm5M12Gp4QP5Ump9okD3Te0wK9y1deCm4371Dq43MTKJ30MBc76qhGykqb7E3D3eaToqFKXMI/sxOmyZJHqBmAmYTk+YsVj4xaYmMbQn0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785197399; c=relaxed/simple;
+	bh=Pl3vKG3je9xpcYbpCWko5SL3zjgu4Sh+oh7AMWA+iFE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=MAVnfA1Vhx+s+ZDIzDjdt8Kl86R/uX3lCvyWP8D355Z8U/Wmi4cytNqWSJildBCfirbmNyNH6wtGHlgV+kgRNidDQRJ6eQxP2EUdtpwuF6f7rvzjf8y7ClhYQXsKi3b/GSupoVemTDQ2lteccw+txqWLD+8NFBp/cEBbIWAycKs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fNmMR7vt; arc=fail smtp.client-ip=52.101.48.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uanm94JY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E6B97C2BCF7;
-	Mon, 27 Jul 2026 15:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785167514;
-	bh=t4A6a4gmEZdvrKt1CTzUuRF8QSoofQimkq+1NRIxhZM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Uanm94JYYOJ2ug6TKjf8dbqtO2ah5VSdYW5Eeo38rbuU5aeVicSpv/8j8cYsOv9oG
-	 fPPgeVW02AcWrF/sMJRnq4+dGp4o4W2i+CYIzo05v9jZHB2BeYQs93eIrK1nbNh+8z
-	 oNMZDtmdZgSdGO/Kww+nQ5EruPHKXpImREhonoynEXuIltW2Aj96h1bEZIngk+bz7M
-	 nD+MmYKtaaA9MGrRzqEmQWO948prKivXDrDMM/IYSVctVRFlbJsYF6jbta9F+lob/K
-	 Mkb1uEXssaC580gRHPVmWo5dcKQcSQCWSnfTFogjffafb4uGd5j+mlucHtGoUxbkpK
-	 JmnBjnH7tsvzA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9D61C531D0;
-	Mon, 27 Jul 2026 15:51:53 +0000 (UTC)
-From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Mon, 27 Jul 2026 17:51:52 +0200
-Subject: [PATCH v2 2/3] gpu: nova-core: Move PFB registers definitions
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fNmMR7vt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C2l/63BUOS/J8GtxLloOXMv7jmj/L9Bluw33kg5LbH8/AsyAw1CpWyacYoDXnOeCAAUuhDyVQPTyubIvvxQDk7m0x4EDwqpjtq8/5LVYcdgO9GYzsjl53Rx9ZxK+gj+634gKRBvx44AXu++msRjY1gND3sJK7LsLD+x24fnY313d7JPjOiKYlXbLtO5lwsCK2hxVJmNlBEJ6QQnzrSuHEV4vG9Kc+7HsyW1reeKfkUmwMiTDyOFIOQ7ST8RhxPfU01WTVg1qseHk4mps/UNjmOnwqIZ/1epHLU7+gBrC7koezimHz+dxFl7yFC7vZfUDyxAHU/MrLjntArKzCwyG5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pl3vKG3je9xpcYbpCWko5SL3zjgu4Sh+oh7AMWA+iFE=;
+ b=pUhx+gME12JcjhvcrR+iGjZwXHSA7jdIL1ZDGK2AO1lfFFNv/nirjMYnYQ1972iAvq7WgAQTRu3KuuGBjfqL3ebWpT8cMPTizgEtqIWmQ7oFaJSWKiRq1N7BTODU8iQ3Ksh+zCPePhYFklYew83OU8JuoZLUGS9sRkEsjtD757SEAGnE/mJsQZNhkFYs5vO1qa3AB7MfjmJEO+WCGr9ugKK2Fm8caVZEkyEeYToMb+9eeoHwTM4aKBwgCQuaezLAHCkp5YBNNkGVDkMecyQp7qscycDcFl56GQk+pEZTJFJqggHk17kjLXGpYIDFgho4//Z81d0caTK1V1Et6TF6xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pl3vKG3je9xpcYbpCWko5SL3zjgu4Sh+oh7AMWA+iFE=;
+ b=fNmMR7vt9XTuByMUknio7e46iemRgvRX73HfyyfKMqfhExgzejLXwOOHZ4vZg0sWDROnjSZ/EYUOEPVT0tYV4RTbAXuTW48i/IXYSXynD3wymtGaDNxLKfmX4rIXl21vVLsotuFOQG5Y55a06Njkh5zCgMOwfDuSc/OXmkVt9epDi8ytBI0OFQ7wobhTW8SnHAV6DqPr1Ff4G/YTXB4MKbzOqudUr1Ge/dEuypnjJbkBPzbjDNA7BdKhRA/hzOfQOOYnDZmnP5lFTiSDz2+gM79G0hKnAj00qKtBrJZ9RDd6wKt97qVbwiuGnE2apfv1U0v0rQVju0PHk4Ga9R+Rng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DM4PR12MB6399.namprd12.prod.outlook.com (2603:10b6:8:b7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 00:09:53 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
+ 00:09:52 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Jul 2026 09:09:49 +0900
+Message-Id: <DK9RNQWROGCF.1639C80DTQN91@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "Sashiko" <sashiko-bot@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+Subject: Re: [PATCH] gpu: nova-core: fix packed registry table size
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Alistair Popple" <apopple@nvidia.com>
+References: <20260723-nova-registry-size-fix-v1-1-8f471ba00ab4@nvidia.com>
+In-Reply-To: <20260723-nova-registry-size-fix-v1-1-8f471ba00ab4@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0084.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:36d::14) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-nova-core-regs-split-v2-2-21b5e6e32ea5@nanonej.com>
-References: <20260727-nova-core-regs-split-v2-0-21b5e6e32ea5@nanonej.com>
-In-Reply-To: <20260727-nova-core-regs-split-v2-0-21b5e6e32ea5@nanonej.com>
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, daniel.almeida@collabora.com, 
- Antonin Malzieu Ridolfi <dev@nanonej.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14488; i=dev@nanonej.com;
- h=from:subject:message-id;
- bh=xr5w4a/wy5PAYiBxGbjBR9GmBVzfPwBR1s2YeoKgvrQ=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqZ36YU41u5hLWzKcp2lmMvcexdnuCg4wIXyrvS
- /oq8ztZDs+JAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCamd+mAAKCRBmh/EjChUV
- /RNmD/4kgp5zNy3ekTeafhJA6F9xJZ66wb1+AI7ojIYiQXt9H3OJ5y6ZNVz1mFHzNYXY79tJ9eI
- NY+Vhs+dAUTpfremaQgMtN/XTWqVWwAegt21Y0g1+3UafZ3bJtuax5hDvlLBBru2KHvHgkgE4Sb
- +KOP+jEnAWHXF62Ow4JC0SsN+XwbC2CkcoDmsZgcoWwJ/ylyv8h+2jIcliKX+0OAwr20X7iO3mZ
- QVu+T1VpPlTOlqslQslSUpAas0dYILoTs7wT2tW4i0igb89RrV2cKShS2Twm4tsWKiJbCnphS88
- EW01TBMk+J7DkNeHtXizpC5hkMVuwopd6hub+kScN7B3NEUu9dAjHaBqRSk6CZmO3oaecwe+OEv
- g4l67VhVE45HnJLFlJvxWkT82SqxeggtH4Cd47vAMlLUAT5040J3o5+vLuqDABANWC2JsTQ14uF
- 5FdJRwb7JK+Ki81f+Lz8YB9/rDQf+V7O/02/MlJiYzwhGOmFS1AeltuEYImbNVAmq5kDc3K/HYB
- E6sU93AtztBRSJD6cuoFvOTubbdLXlQZJ1DAIckZFN3apocLhP1azOA4wXKoqaq8q9HOdn2sTE/
- /dd5aURkV5xGne0XPuqmu2GuvDNuhaFL/exEokTzUX4WLt0ZqnnfLMI+dDOQYD3sXkmHI5xq8Ai
- 4+K+cosdo0fPsfQ==
-X-Developer-Key: i=dev@nanonej.com; a=openpgp;
- fpr=83B64FB07C91212F5285227D6687F1230A1515FD
-X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
- auth_id=825
-X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
-Reply-To: dev@nanonej.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB6399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a2538fa-6d2d-4495-820b-08deec3c8bfd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|10070799003|366016|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	++Sgh5+KW9oDkceNfV1vANFnCsMM903XoEy2uIaqIUU2QrV8uhfEVbner7DdG70c0bR9PqU+FFX9OpM789X0qewYi4iPFbnSKA7pFuLiFG70+XK6Yy1pQa+neTDSWnAwxDW3Vvi0SPMzMtDBx4+sN6JN3kafD1ZUhX9InhiU2S2VI2yYjnYO6zmdS1toYP3LDhwfRn3qc0eLUAG6TYaAbmtZgVxiPRMhPq43V+nU45NNluozVigWxbgN3jEP5MVsMgqUHV3BWVBTH0iwH1nGda2kq3bGqsUP4qQ3ErZjBKTO8SylrYWIvgrGqd3Sl/xjGJZFE+8RzhMIiYifaiECBmeRtYGmqQZ5VuusU3Jxs9mHURb3JymWghxlrGwU0jZBHJVVVmZUeAER2ISGUt969CUxzz+Y+KnNQujCcwt+aHSSCdrM10yykcGiB+P3dXN/+KVWyCZHI4kltXpC5k0pxlZtMr51+tBzO/ZiTZYAg8wEbu2NaTaxnlENDXfyuJS+BShG7+Bhk0XcijbbbSXmn4awD/5RaURuA3SB2+T7YVw74cWrMD/ceFHs8MMfcACBM7vnsHQb3jSurCh60XN8yy7Dm+MREKULzaM3O7v9zgW18YVK/PsuSMPeUzS4Z7CLRIuRiuBy1p5SmqGwX8oo4Jzmf4SFNGENWP5V8XcVZ5A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(366016)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S2hoZU8rMzdlOHZFa2FLWXFFanUzaDc4dExuaFBGL3htbis3UlN2cU5IOGhK?=
+ =?utf-8?B?KzlsV3dZb1BDWU5ZeENrZnQ5ZkN0SlZMVWFYZXpmNExlRlgwWmc1SUo5UTN6?=
+ =?utf-8?B?bzNNSlVmSzUrK0sxN2ZLbW5JRWE3Ynh6ZkFXQ0lQV25LUGE0ZlZtTml2aUdl?=
+ =?utf-8?B?ZmdKS3FYMk9qbE4yZW1XemJ2WDJTaUlGaUZtcWdZSjVIYm14Mlh0enU5cjkx?=
+ =?utf-8?B?Mlc2S3U4SFZ3ekN0SHZiQ1F2djUvMm1kUW1DWVROMVN2cUNqbS8yK3daYVQ4?=
+ =?utf-8?B?YXpSZWdLWGJRelZvNllGTURERUNOUzQ4cHNpQWpFekhjVm1QSkVQUmJLaTFV?=
+ =?utf-8?B?US9ycENjNGg0VTkwa1NwRmUzcXdIZWFXRFE3c1hGbXBrbWtVWEc4TVdRVG0w?=
+ =?utf-8?B?dDNwdVZiSHF2bkROSmRYYXlldFNrZkg1SjMxNVhhejVoRnR2aGd3SkZ5dDly?=
+ =?utf-8?B?Zm1tbEJENlg1N0M0ODIxZmRBK2pzMTdsSU5KbzhWMFgwa2xaMWg3QzhISTVa?=
+ =?utf-8?B?TVJmaW90dXVnTHQxUUF5a2FqcC91WkpGaCsyMDlHRTR4MlNXZy9jQ2ZqZUtL?=
+ =?utf-8?B?TXZqQm1Xc3BZWWpxdWVla2FkMnYzODkwSlQ0UXQ0MmorUUU2ZDdVZVNua3dE?=
+ =?utf-8?B?RkR5Ym9oN2x1MjNDS3Z1eXhCQmFhblBQeDFnQVBBcW5hckNFSWRHdkxpUkJJ?=
+ =?utf-8?B?WU5Gand1UTQrZ3NFQXg5RWYvRzV3VWhJRGdXSFMyTXFsbVhySlJ5WW5meGNo?=
+ =?utf-8?B?SlZjR1ZTSkNUZEY3TTg0bjJSNzdJOWphZlFRSnVURUJFNW00MWhDNnVucHhu?=
+ =?utf-8?B?QS9mUlZqRkZOZE1tYWJUVS9vWjFJejI1Z0N4R1BWa1FpRzhreGtpSWVVUzJh?=
+ =?utf-8?B?OTlrOCtuZmpXdDFXWndhalVNRzYyS3FyUkYxVVlaMkxFZ09Kd2YyakZZQUtE?=
+ =?utf-8?B?d2Zab2cxQkE0ck1jb2RYZDQxQVB0MitjTzcwdXpUdUllZnJQeWpFQk9kdzEz?=
+ =?utf-8?B?djQwaFBQUDVpVURzUnVFWThuRVlXbUlUKzJla01HMWZWS3VzMm1BWWJJN1h6?=
+ =?utf-8?B?WGZhSHhLR09FNDdPYmlrZGVuVHVZMEk3NXQ5cnFkUHV3dEpCcHgwUE1mcG9V?=
+ =?utf-8?B?T3ovaXlPME9lbzU3U0huK1pscjAxaWNkNExrWkxqaEd4a015WEROUDR2Tjcy?=
+ =?utf-8?B?UUVUV3ZVUVZuWWZoQnk2OHdQcU1TeGxkZ1Y0OGNHbjRybzdyL0diWGtYS2J4?=
+ =?utf-8?B?MEFiZ3JjeENTbnc0RmMzUllGc3FKWjhKbVY2VWVuaC84WDI5NXNhK1JOVEsw?=
+ =?utf-8?B?RGUyazRFcFJ0bmx4dVpNV21HanN1SHNxMmwvZ256T1k4WUZNMXBLUEVXSmZq?=
+ =?utf-8?B?WlZuaUJTU3RqdzlwVGFOVVJwcnB6cUlGSkxUdHBURjhXWC9udWhyZU14cTNU?=
+ =?utf-8?B?cElPa0RXWjV2ZzNyNjRoUDhFYU5HU1JZRVpzZE9oTVdCL1JxanBTUEhVZ0ps?=
+ =?utf-8?B?WFV0ZTY0eVRuRGpMdjN3RHB4QlAwRjJXb0lEQ0JsYVZicnlXaTlNREtMcUxZ?=
+ =?utf-8?B?Z1RLMFF3eFNyRGNDb3lSTnN2U1cyckxpMCsraFhuOCtQQVdXRjc1L0NFU2lz?=
+ =?utf-8?B?VDZBQ0RJakgxOWJXWktHZmpBRWxKRTV6WElSSzFMd1hYN2pHYXNhSU84eno5?=
+ =?utf-8?B?ZWN2WG1Pb2trK2JwaFdORm1RZU9JT3F3VDdOcU1aS1VOZzFYcUUraWk4clZF?=
+ =?utf-8?B?VnRyVFBqUWZvcUpGR2ZqS0w1eUczRVJuay93S05jZGlYRnFaUVZ0SzVVOVd4?=
+ =?utf-8?B?Y2U1dVNnRk4zWGtHWkZ1U1hDQmdHcXpQS0MxMTVBSk0waDRKeDNmeTBXZ1Fs?=
+ =?utf-8?B?RXBpYTZwY21pUE1yR01tVlh2eEVKTlEwRGJOOUJRVnZDNXpEUWUxMnErcTh0?=
+ =?utf-8?B?QXFhN1ZrRVZSS0RaWVNjdnZzUlByMWFrandNMW9wNVg1L1FYMkU3UHF2ZmZk?=
+ =?utf-8?B?MXpQa29VeU9sdmg5LytQQmRkdXN3YlY0SmdNaVpQcjliejgweDhtTU5uOTlo?=
+ =?utf-8?B?OXE0aTlJbjNwanhhVWx2bmF0ek0zZTVvRGRmenJacXVMaG9QbmNvamMyTHFB?=
+ =?utf-8?B?dVhUSzVHL3Nac1NkNUZKWXVJeU9VZ0hDYkIwRHFWVE4xeG9Rd1JlV2N6a3o4?=
+ =?utf-8?B?Vkx4bENYYlFBdkZlWW9LMVUwTUUrUy8rM0IxYlE2TTNtL0pnT0trVis1UjZU?=
+ =?utf-8?B?bkkzWWlkZGRMUnZDZk9GV3c4RzJ1a0l6NHNZNUpNWVBOOTlvYzF3VkZoUSto?=
+ =?utf-8?B?MmZmYWdlTG5VUHdNdnRQMUE2QnJGak5taDVhOVhXaXJaZ1ZqZDIyUjRtMlVT?=
+ =?utf-8?Q?WSZe3i2X+5OjCNZevyX8zNPlvpShdO5riBIhOX3HsPfob?=
+X-MS-Exchange-AntiSpam-MessageData-1: zoucYCNq2Ng6Tw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a2538fa-6d2d-4495-820b-08deec3c8bfd
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 00:09:52.7297
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QjTe7KpQ/StEO/KFYhml/FsG0sr3svayBiTcjQsln2W9SdSY4bGhbysQyG/cJFkJApV9cCHvy4UU8yiOy8U7Dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6399
 
-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+On Thu Jul 23, 2026 at 3:54 PM JST, Alexandre Courbot wrote:
+> `PACKED_REGISTRY_TABLE::size` describes the entire table, including its
+> fixed-size header. `SetRegistry` currently initializes it with only the
+> variable payload length, omitting the 8 bytes header.
+>
+> Fix this by using `CommandToGsp::size` to obtain the actual command
+> size, including its header.
+>
+> Fixes: 19b0a6e7c2be ("gpu: nova-core: gsp: Add SetRegistry command")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/20260722075253.B6DDB1F00A3D@smtp.kernel=
+.org
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-Move PFB registers definitions into fb module and update registers
-visibility.
-
-Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
----
- drivers/gpu/nova-core/fb.rs           |   4 +-
- drivers/gpu/nova-core/fb/hal/ga100.rs |   8 ++-
- drivers/gpu/nova-core/fb/hal/gb100.rs |   6 +-
- drivers/gpu/nova-core/fb/hal/gb202.rs |   6 +-
- drivers/gpu/nova-core/fb/hal/gh100.rs |   6 +-
- drivers/gpu/nova-core/fb/hal/tu102.rs |   8 ++-
- drivers/gpu/nova-core/fb/regs.rs      | 132 +++++++++++++++++++++++++++++++++-
- drivers/gpu/nova-core/regs.rs         | 127 --------------------------------
- 8 files changed, 155 insertions(+), 142 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index 8934efc5f436..9e475efb1150 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -293,13 +293,13 @@ pub(crate) fn new(
- /// Reads the WPR2 memory region registers and returns the range if set.
- /// Returns `None` if the WPR2 region is not set.
- pub(crate) fn wpr2_range(bar: Bar0<'_>) -> Option<Range<u64>> {
--    let wpr2_hi = bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
-+    let wpr2_hi = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
- 
-     if !wpr2_hi.is_wpr2_set() {
-         return None;
-     }
- 
--    let wpr2_lo = bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO);
-+    let wpr2_lo = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO);
- 
-     Some(wpr2_lo.lower_bound()..wpr2_hi.higher_bound())
- }
-diff --git a/drivers/gpu/nova-core/fb/hal/ga100.rs b/drivers/gpu/nova-core/fb/hal/ga100.rs
-index 3cc1caf361c7..d13c9a826eef 100644
---- a/drivers/gpu/nova-core/fb/hal/ga100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/ga100.rs
-@@ -9,8 +9,10 @@
- 
- use crate::{
-     driver::Bar0,
--    fb::hal::FbHal,
--    regs, //
-+    fb::{
-+        hal::FbHal,
-+        regs, //
-+    },
- };
- 
- use super::tu102::FLUSH_SYSMEM_ADDR_SHIFT;
-@@ -41,7 +43,7 @@ pub(super) fn write_sysmem_flush_page_ga100(bar: Bar0<'_>, addr: u64) {
- }
- 
- pub(super) fn display_enabled_ga100(bar: Bar0<'_>) -> bool {
--    !bar.read(regs::ga100::NV_FUSE_STATUS_OPT_DISPLAY)
-+    !bar.read(crate::regs::ga100::NV_FUSE_STATUS_OPT_DISPLAY)
-         .display_disabled()
- }
- 
-diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
-index 6e0eba101ca1..ec55ec3fc7e1 100644
---- a/drivers/gpu/nova-core/fb/hal/gb100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
-@@ -22,9 +22,11 @@
- 
- use crate::{
-     driver::Bar0,
--    fb::hal::FbHal,
-+    fb::{
-+        hal::FbHal,
-+        regs, //
-+    },
-     num::usize_into_u32,
--    regs, //
- };
- 
- struct Gb100;
-diff --git a/drivers/gpu/nova-core/fb/hal/gb202.rs b/drivers/gpu/nova-core/fb/hal/gb202.rs
-index b78e0970f66d..69ba35d2ea08 100644
---- a/drivers/gpu/nova-core/fb/hal/gb202.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gb202.rs
-@@ -12,8 +12,10 @@
- 
- use crate::{
-     driver::Bar0,
--    fb::hal::FbHal,
--    regs, //
-+    fb::{
-+        hal::FbHal,
-+        regs, //
-+    },
- };
- 
- struct Gb202;
-diff --git a/drivers/gpu/nova-core/fb/hal/gh100.rs b/drivers/gpu/nova-core/fb/hal/gh100.rs
-index d39fe99537ed..2867ae058d0a 100644
---- a/drivers/gpu/nova-core/fb/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gh100.rs
-@@ -10,8 +10,10 @@
- 
- use crate::{
-     driver::Bar0,
--    fb::hal::FbHal,
--    regs, //
-+    fb::{
-+        hal::FbHal,
-+        regs, //
-+    },
- };
- 
- struct Gh100;
-diff --git a/drivers/gpu/nova-core/fb/hal/tu102.rs b/drivers/gpu/nova-core/fb/hal/tu102.rs
-index f629e8e9d5d5..541f163b52d3 100644
---- a/drivers/gpu/nova-core/fb/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/fb/hal/tu102.rs
-@@ -9,8 +9,10 @@
- 
- use crate::{
-     driver::Bar0,
--    fb::hal::FbHal,
--    regs, //
-+    fb::{
-+        hal::FbHal,
-+        regs, //
-+    },
- };
- 
- /// Shift applied to the sysmem address before it is written into `NV_PFB_NISO_FLUSH_SYSMEM_ADDR`,
-@@ -31,7 +33,7 @@ pub(super) fn write_sysmem_flush_page_gm107(bar: Bar0<'_>, addr: u64) -> Result
- }
- 
- pub(super) fn display_enabled_gm107(bar: Bar0<'_>) -> bool {
--    !bar.read(regs::gm107::NV_FUSE_STATUS_OPT_DISPLAY)
-+    !bar.read(crate::regs::gm107::NV_FUSE_STATUS_OPT_DISPLAY)
-         .display_disabled()
- }
- 
-diff --git a/drivers/gpu/nova-core/fb/regs.rs b/drivers/gpu/nova-core/fb/regs.rs
-index b2ec02f584be..95adbe124a30 100644
---- a/drivers/gpu/nova-core/fb/regs.rs
-+++ b/drivers/gpu/nova-core/fb/regs.rs
-@@ -1,6 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--use kernel::io::register;
-+use kernel::{
-+    io::register,
-+    sizes::SizeConstants, //
-+};
- 
- // PDISP
- 
-@@ -23,3 +26,130 @@ pub(super) fn vga_workspace_addr(self) -> Option<u64> {
-         }
-     }
- }
-+
-+// PFB
-+
-+register! {
-+    /// Low bits of the physical system memory address used by the GPU to perform sysmembar
-+    /// operations (see [`crate::fb::SysmemFlush`]).
-+    pub(super) NV_PFB_NISO_FLUSH_SYSMEM_ADDR(u32) @ 0x00100c10 {
-+        31:0    adr_39_08;
-+    }
-+
-+    /// High bits of the physical system memory address used by the GPU to perform sysmembar
-+    /// operations.
-+    pub(super) NV_PFB_NISO_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100c40 {
-+        23:0    adr_63_40;
-+    }
-+
-+    pub(super) NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE(u32) @ 0x00100ce0 {
-+        30:30   ecc_mode_enabled => bool;
-+        9:4     lower_mag;
-+        3:0     lower_scale;
-+    }
-+
-+    pub(super) NV_PFB_PRI_MMU_WPR2_ADDR_LO(u32) @ 0x001fa824 {
-+        /// Bits 12..40 of the lower (inclusive) bound of the WPR2 region.
-+        31:4    lo_val;
-+    }
-+
-+    pub(super) NV_PFB_PRI_MMU_WPR2_ADDR_HI(u32) @ 0x001fa828 {
-+        /// Bits 12..40 of the higher (exclusive) bound of the WPR2 region.
-+        31:4    hi_val;
-+    }
-+}
-+
-+/// Base of the GB10x HSHUB0 register window (`NV_HSHUB0_PRIV_BASE` in Open RM).
-+///
-+/// The base is provided by the GB10x framebuffer HAL.
-+pub(super) struct Hshub0Base(());
-+
-+register! {
-+    // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
-+    // through a primary and an EG (egress) pair that must both be programmed to the same
-+    // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
-+    // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
-+    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
-+        31:0    adr => u32;
-+    }
-+
-+    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
-+        19:0    adr;
-+    }
-+
-+    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
-+        31:0    adr => u32;
-+    }
-+
-+    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
-+        19:0    adr;
-+    }
-+}
-+
-+register! {
-+    // GB20x FBHUB0 sysmem flush registers. Unlike the older
-+    // NV_PFB_NISO_FLUSH_SYSMEM_ADDR registers, which encode the address with an
-+    // 8-bit right-shift, these take the raw address split into lower and upper
-+    // halves. Hardware ignores bits 7:0 of the LO register.
-+    pub(super) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x008a1d58 {
-+        31:0    adr => u32;
-+    }
-+
-+    pub(super) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x008a1d5c {
-+        19:0    adr;
-+    }
-+}
-+
-+register! {
-+    /// Low bits of the physical system memory address used by the GPU to perform
-+    /// sysmembar operations on Hopper.
-+    ///
-+    /// Like the GB20x FBHUB0 registers, and unlike the Ampere
-+    /// `NV_PFB_NISO_FLUSH_SYSMEM_ADDR` registers (which encode the address with an
-+    /// 8-bit right-shift), these take the raw address split into lower and upper
-+    /// halves. Hardware ignores bits 7:0 of the LO register.
-+    pub(super) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x00100a34 {
-+        31:0    adr => u32;
-+    }
-+
-+    /// High bits of the physical system memory address used by the GPU to perform
-+    /// sysmembar operations on Hopper.
-+    pub(super) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100a38 {
-+        19:0    adr;
-+    }
-+}
-+
-+impl NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE {
-+    /// Returns the usable framebuffer size, in bytes.
-+    pub(super) fn usable_fb_size(self) -> u64 {
-+        let size = (u64::from(self.lower_mag()) << u64::from(self.lower_scale())) * u64::SZ_1M;
-+
-+        if self.ecc_mode_enabled() {
-+            // Remove the amount of memory reserved for ECC (one per 16 units).
-+            size / 16 * 15
-+        } else {
-+            size
-+        }
-+    }
-+}
-+
-+impl NV_PFB_PRI_MMU_WPR2_ADDR_LO {
-+    /// Returns the lower (inclusive) bound of the WPR2 region.
-+    pub(super) fn lower_bound(self) -> u64 {
-+        u64::from(self.lo_val()) << 12
-+    }
-+}
-+
-+impl NV_PFB_PRI_MMU_WPR2_ADDR_HI {
-+    /// Returns the higher (exclusive) bound of the WPR2 region.
-+    ///
-+    /// A value of zero means the WPR2 region is not set.
-+    pub(super) fn higher_bound(self) -> u64 {
-+        u64::from(self.hi_val()) << 12
-+    }
-+
-+    /// Returns whether the WPR2 region is currently set.
-+    pub(super) fn is_wpr2_set(self) -> bool {
-+        self.hi_val() != 0
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 49591c3dcfa7..d58dc6dd0f04 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -116,133 +116,6 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
-     }
- }
- 
--// PFB
--
--register! {
--    /// Low bits of the physical system memory address used by the GPU to perform sysmembar
--    /// operations (see [`crate::fb::SysmemFlush`]).
--    pub(crate) NV_PFB_NISO_FLUSH_SYSMEM_ADDR(u32) @ 0x00100c10 {
--        31:0    adr_39_08;
--    }
--
--    /// High bits of the physical system memory address used by the GPU to perform sysmembar
--    /// operations.
--    pub(crate) NV_PFB_NISO_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100c40 {
--        23:0    adr_63_40;
--    }
--
--    pub(crate) NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE(u32) @ 0x00100ce0 {
--        30:30   ecc_mode_enabled => bool;
--        9:4     lower_mag;
--        3:0     lower_scale;
--    }
--
--    pub(crate) NV_PFB_PRI_MMU_WPR2_ADDR_LO(u32) @ 0x001fa824 {
--        /// Bits 12..40 of the lower (inclusive) bound of the WPR2 region.
--        31:4    lo_val;
--    }
--
--    pub(crate) NV_PFB_PRI_MMU_WPR2_ADDR_HI(u32) @ 0x001fa828 {
--        /// Bits 12..40 of the higher (exclusive) bound of the WPR2 region.
--        31:4    hi_val;
--    }
--}
--
--/// Base of the GB10x HSHUB0 register window (`NV_HSHUB0_PRIV_BASE` in Open RM).
--///
--/// The base is provided by the GB10x framebuffer HAL.
--pub(crate) struct Hshub0Base(());
--
--register! {
--    // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
--    // through a primary and an EG (egress) pair that must both be programmed to the same
--    // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
--    // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
--    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
--        31:0    adr => u32;
--    }
--
--    pub(crate) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
--        19:0    adr;
--    }
--
--    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
--        31:0    adr => u32;
--    }
--
--    pub(crate) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
--        19:0    adr;
--    }
--}
--
--register! {
--    // GB20x FBHUB0 sysmem flush registers. Unlike the older
--    // NV_PFB_NISO_FLUSH_SYSMEM_ADDR registers, which encode the address with an
--    // 8-bit right-shift, these take the raw address split into lower and upper
--    // halves. Hardware ignores bits 7:0 of the LO register.
--    pub(crate) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x008a1d58 {
--        31:0    adr => u32;
--    }
--
--    pub(crate) NV_PFB_FBHUB0_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x008a1d5c {
--        19:0    adr;
--    }
--}
--
--register! {
--    /// Low bits of the physical system memory address used by the GPU to perform
--    /// sysmembar operations on Hopper.
--    ///
--    /// Like the GB20x FBHUB0 registers, and unlike the Ampere
--    /// `NV_PFB_NISO_FLUSH_SYSMEM_ADDR` registers (which encode the address with an
--    /// 8-bit right-shift), these take the raw address split into lower and upper
--    /// halves. Hardware ignores bits 7:0 of the LO register.
--    pub(crate) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x00100a34 {
--        31:0    adr => u32;
--    }
--
--    /// High bits of the physical system memory address used by the GPU to perform
--    /// sysmembar operations on Hopper.
--    pub(crate) NV_PFB_FBHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00100a38 {
--        19:0    adr;
--    }
--}
--
--impl NV_PFB_PRI_MMU_LOCAL_MEMORY_RANGE {
--    /// Returns the usable framebuffer size, in bytes.
--    pub(crate) fn usable_fb_size(self) -> u64 {
--        let size = (u64::from(self.lower_mag()) << u64::from(self.lower_scale())) * u64::SZ_1M;
--
--        if self.ecc_mode_enabled() {
--            // Remove the amount of memory reserved for ECC (one per 16 units).
--            size / 16 * 15
--        } else {
--            size
--        }
--    }
--}
--
--impl NV_PFB_PRI_MMU_WPR2_ADDR_LO {
--    /// Returns the lower (inclusive) bound of the WPR2 region.
--    pub(crate) fn lower_bound(self) -> u64 {
--        u64::from(self.lo_val()) << 12
--    }
--}
--
--impl NV_PFB_PRI_MMU_WPR2_ADDR_HI {
--    /// Returns the higher (exclusive) bound of the WPR2 region.
--    ///
--    /// A value of zero means the WPR2 region is not set.
--    pub(crate) fn higher_bound(self) -> u64 {
--        u64::from(self.hi_val()) << 12
--    }
--
--    /// Returns whether the WPR2 region is currently set.
--    pub(crate) fn is_wpr2_set(self) -> bool {
--        self.hi_val() != 0
--    }
--}
--
- // PGC6 register space.
- //
- // `GC6` is a GPU low-power state where VRAM is in self-refresh and the GPU is powered down (except
-
--- 
-2.55.0
-
-
+Pushed to drm-rust-next, thanks!
