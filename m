@@ -1,251 +1,233 @@
-Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022125.outbound.protection.outlook.com [52.101.96.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB8F230BDB;
-	Tue, 28 Jul 2026 08:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785227959; cv=none; b=oLkT+Lg1KzKZSDcwkXr5JaE9NuVmIT9OFsq7VhelUlM8mOS+j0Gi8Gi5qDIbmTZyuNVJyyYv46fp3DMqaVz4wOeZFuD2SwW6Yi69Ly/guViC268eq6FPoG6kc26szteF6X9x4z7SNNkijPtoDS/vXWohM2I+wOxBWiakLPZC7ig=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785227959; c=relaxed/simple;
-	bh=CRg/Nh54HZ99tMwpElMnVNEMdGg+zKH3+U7LRFD/tYE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bqBHKO1dwoD2r2Oj8kVI02H1qOFidffjnjySXDiMMsdD5QV5ms+VR//BLDBqO/SY2yCjiDzeMud/EbVBkb/JFhn10M1Iy+P2pD0DlyHIloZZ6WtKGFRPQDVZZLPiwuwB1AVBhI3O5vezQy5okTe+dV0PWlV4Z9BMHmOkvuAVWl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D+tASYGg; arc=none smtp.client-ip=91.218.175.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF9440E8D3;
+	Tue, 28 Jul 2026 10:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.125
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785234259; cv=fail; b=V0xUCz+IBN58ylwzG8nxVnwArBRlhNP7so0f+3iTtsfu2aljzk/datr1VSx1DZ4P8w0BmAfTf5h+vYLUUkj2zGVWyVjfGEjIY+9QKZ84Hk199OI6O8ky3y4Rj497elGQcvK/s2VYmkoeYzSxQF3+bJmxu9mNiEGD5GgPmxUZKUQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785234259; c=relaxed/simple;
+	bh=9IFsaPOneclCrskgWjD38C+vddTOPBmwcA6Io2klX4Y=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=TSMAQ7my4HFuxwCW+9w4gnWREkYiIItHlLUBZk/56vKBtIF30E+vnEZWPmhOOwcf+DcYhShzIJ9xVLa11yd1JsAfm6m9PIE8LTAti7FlCKLypEeg+TgUVVjGH+uv29GqGMZcOUNPppq3AB80zyVCFxEGCL2LJ2RmChvqKFrXWD4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=k2sWR89Z; arc=fail smtp.client-ip=52.101.96.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D+tASYGg"
-Message-ID: <a9dde63a-5f2d-494b-95dd-7567879de38d@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785227954;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QbXjOIDNQAqLnMcNmNhhIkcZFnXKaj7v9jSB+IKjoGY=;
-	b=D+tASYGgBFHhUl7vxy1SvTJuUlL1fyINBlClOvQ9K4T3edtuSqXNpaYIxcusYBqtHtCGKn
-	4YFV+wfUruytiAPKlK/iMkIxiHxJeSoVj5BDR22K0phFcndN0nozhMJatVZeJF2M3nsdd0
-	JVFwwEIRGf5pB3U4V6tfCHcV69RCL/I=
-Date: Tue, 28 Jul 2026 16:38:44 +0800
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="k2sWR89Z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yasptY5YNzpiu4x5w2MAIE9Er9j9wCtzhWrbPLM60FEIyVJTlgLMlWzT/TjV2fXM0dZl80BnsdTTaIae+ZQXtZALOo3f0AkhnJtjXM9eTGbw3D633Vbwsgspat42sKJF4pE84r2xIbJrvZyFztzXElOw1JLBAPb/UgUNqBogxTVj/HUGh8jrcYds3ApcuZf1MqknlcH/oHjUJv4p+mP7Sd+MsSwEdr8Pw6UT3NsXrTRSwT3aGfK4GiAIWqTZEO1bS8cvQWSarcq2vyjWofYVMDosfc1lP1riTxV4Zvx9KnzzsYmPYaEupyRNVfBzOGAur706fMdQFT8qpxH3Iya3Hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=17JWjymosbOvB189m9F3qQAiCUNLQoRUACSrJfvhIE0=;
+ b=Dw+oRaI4XxwA0mBQoGyM8qitZQuA5WWO8BsSf1WdPuz/9SsRJ2NN9Nq2QlUa0NuSAt9VcTwX6fzfaFmbjAifex7v5JisO9BbYqXyaKqkF1u9Gs14Yuu5gUDV9nCdRmiJjDVxMLzoZiddzz+xVfsQQX1C0uMh7qYca7dxv8dkQT5/flQFdx3dtAo3FvyWr7vCG9QPBpaWX+WmUIBL+cAAwwyLfBqZ+1pbngyay5+bXnh4b5Ql/tUDEksHoLs09JnLMK2U8dNp6AWYmm1kTOumQIu/kfqMQaU5RjlpP/Kh4hQzTnmjR1IC0SeCI+3UenIaUH3sU32lG5q+0h4Uw6Kqvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=17JWjymosbOvB189m9F3qQAiCUNLQoRUACSrJfvhIE0=;
+ b=k2sWR89ZGxro3p6mOQ01nOY+ity6B0Miuei3C5oSR9BrvKoRaW7lT3NPRgXenz7iWpsav03awmlhKqVTyQ8LH7P4aLhTvLholnidmYpIGBRErTyMbzKLZxj3K3yVqpmT0juUzIe5odojdWpgyhgTWAK+iOHG2aqBFBqz73YTGeE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO0P265MB3227.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:15c::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
+ 2026 10:24:13 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%2]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
+ 10:24:13 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Jul 2026 11:24:12 +0100
+Message-Id: <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+ <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+In-Reply-To: <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0122.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:192::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc
- abstractions
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>
-References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3227:EE_
+X-MS-Office365-Filtering-Correlation-Id: 929fb716-237f-416c-6c06-08deec925ed8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	QJgCTfWQ5Rr/MH9TR6h9Kl0NNNgVFlI+PPPfKlOB51JQmD/Gle8HhmyTamHTX1OghwHV/3Cv5ko2kg/jJOheQlEUNGKeLtFBQ88zwsJn3SdzLWt/QKA9/t6o5cLHSpVPK6XGB2NodW4oeyTU33txkTp5LD0iC1KqzcYiZqx3uavbYjyUX6u2gyq6VWPaEF6yP8r81qHs7sxwOBWmCukk0tQ1PcuMvbriYkh9QGXRyENlYCRnwg/sdrVMjBV4kLbQo1Dh2/DMmGNsBT9TlBJtIT4ezw74Aa/Hzl8H0dBSgfTJ27ma1Z5yvPzWI32sZbjjjzuJdXajmKaM/U6iASvPRNke6K+9DYQZX2q+MIZFEoLzYWs/5FgFrPbeaOcnvFXJ1ZHu9qoTtrF8FT4QTC2gNk4mq+AsrnmCc4EL2rY+u/IH7eu5oR5QULpHmR8gdTILGY7m3j9zvvDMZZcVW4zTHZIgSYd2r9RZ56Bd6ouRj2Qiv6BmVqdl0JFVXZhmR3us43N40VQf0ieCeOMzgDmKzNIe1iyMG8Eq/T0RCiC9l7tlMq+Y4QDGEZkThvjlB8/hHP5U9Z0Y9TW1p/oSNQHzXAbUsdZLtuN+1AePwgWcpCwgofX1C2lRNZ3kZcDLPuoG129yoi4uYgwM59L9Mkzkyu4Jjtq6RsMB49ib6exBmiQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K0pYMDh2WVZ4YVhEdUJjbkdqMUxEdDNyVHgwSThIdTg1bVRubkhMK2M4TkxD?=
+ =?utf-8?B?SFpYOGxVWUIxcVlFeUNPZjYxVU5aSmVOK3RsV2ZmOXZUcFFjRW0zTkpZUDha?=
+ =?utf-8?B?d0p1VTJuWE43ckVQZTFRaDJDMERaamptdXpkWUFGeEs4dEkvVmVlQXRla0Yz?=
+ =?utf-8?B?dEh1Y21JOVJRcVVtMDZ4TDNUU2tpL3NkbkRBTUlVdWxKbldtcXU5NnNNNnMw?=
+ =?utf-8?B?T1kyTXcxVkRBU2VTdDM2UFlkS1B2ZW1jT1BnN3g0N0llNG1xbFpBZHNMTWth?=
+ =?utf-8?B?bHFteFF1bWJZR3V4R21lV0NWWWZXMFJQSWc4dXNBeHFWT0pVRVBKczNrQ3dF?=
+ =?utf-8?B?Y0NLTFRNc2U4WEdkYTRxb2o4Q2JFWXROTXZaSGF1cy9kZUMrbGo2cSs2K1lj?=
+ =?utf-8?B?bGpjYk1DeDdiNnFaVVI5cVNjbGorTlordXhvc3NCRy85blFXMzROc0w5Mkhj?=
+ =?utf-8?B?dkZyeFZndk45Qm5zeWZYSzdFSFduRE1JZ0VFbGxLSWxrQ0N3TmROOWZ0SmZT?=
+ =?utf-8?B?RkdXN1RoVTlyTWxnRDc3eStPTnhyYkw5eUFQNkVDZXVZUVFZa0ovSVVTajU0?=
+ =?utf-8?B?SHVaRG1WYjdaSkRTYUhYT2I2dzdyU3VYMi9ZRkhEby9jeWdCMCs0RjFFYWUw?=
+ =?utf-8?B?NVRKcDdPSDhicnhGemhoaWZBVDdxaDdhcmQ2RDF2dWVDWWI1YjZTTUZuWEJr?=
+ =?utf-8?B?RzFDUm5PM0tKdFZiaGhoL0tGeFFMZGdYc3kwT1M1L3hYR1pQVGk4OWdQRVg2?=
+ =?utf-8?B?SkFzeGZoQndwTVptZEE4U0VNdGNMNXBmdzFEd0JveTRiN2ZKN3FNRURJMGt0?=
+ =?utf-8?B?a1pPNDVQQlpiSXJmZno1dm5UMUFFZzcwUGVnYWhXbGUvVkhWOU1renU0M1lZ?=
+ =?utf-8?B?MlRJN1YzdTVaL21hNzVjK3pyOUZUWVRMKzRaR0pQeE56emIreHdKZHZEbWx4?=
+ =?utf-8?B?dm1vMGNhTTRuVnoxVFNVbkFBblU1eElnczFtZEwwWXlsNlp6SnFMVUFHV0E5?=
+ =?utf-8?B?MVZsYVl1RmJHVkRZS3JaRFh0cTkxOEUrbVpheklZa09WUE03aWJjaWlNS2ZD?=
+ =?utf-8?B?bjZLcXE2STllRUtOUzZuUUxCemZ0YWw0NVZuMHBOYUcvRCtqZFRPMTZ0cUlO?=
+ =?utf-8?B?SGF6QUdMREZGdGE4RTduakloNjdUY056UUVVdHlvZ2V2Mjd5TkdtZHFmUk0z?=
+ =?utf-8?B?WkkxcVE5ZWxSZnp5MWg1cHJsOXQ2NlNSZDhiWG5KcStWc0NyYW93N3J1ZUF5?=
+ =?utf-8?B?d1lnVHMwcm9NVzFSTGVLUG1xZjFQQjAxcngvbkNoaWlXamdRam5IZlVyZVpY?=
+ =?utf-8?B?TGVhYXc1bEE0cURxN056Y0g3Y2cyZmJxWFFkWSszVHBYS2p2MEhpTDg0WVp5?=
+ =?utf-8?B?SHh4NGdCbGpsaXowYmd3VFFYZnA2WjJwWVpFU0xXbE1MZFpNQ0xiTTZBeWNw?=
+ =?utf-8?B?OVFPejg5V1M0UDAvaVlZdCs5cWJwVnFBd1V3cStnbmg3VHpnNFVZVmFobExi?=
+ =?utf-8?B?MGlyeUFDUnp2a3lwQXNTVitDNVhES0g2M0lnN1U2amJjT3ZNdFdhSStMSXk4?=
+ =?utf-8?B?VVV3cjQrQnBJQmR5UDFGYnJkcElIREwxbGZlMW1aTlgrcyswNWZhQnZESmcz?=
+ =?utf-8?B?MEs5VlBaVEg5RDBGRzlRQzd3SDFSbmIvSXV0UStONGNHUXBNbGNsdE1MRWVY?=
+ =?utf-8?B?cktudUJLN1RpQWhDenozUC8xSXd0SmRrNTRacmtWeG5icEpKT1JSQ1F0WXNP?=
+ =?utf-8?B?Uk4vaGpKaGhIbklsT2ZMclBJalZjRStDM0hjbnJ2VmVNd1VkZjNmeEtoZGNU?=
+ =?utf-8?B?R2hIdmcwSlI3eTgzK21USWd5NW5lbE83QkFsalRXQ2d5anRhbTVrZ2lneE1a?=
+ =?utf-8?B?eCtYczQzSlFPck1TWjBackROaFZLWS81SGhOUmZleWhmeTFpVU9tZWVCb1dY?=
+ =?utf-8?B?UjB0dEpDa2RkSlNlZjR2TUZEWjBRWnBmbitLWHlpK1FxNnJsSmp6Z1pFWkpo?=
+ =?utf-8?B?QTVXZHVqRVBRWERMeXVrL2x3TS80QWxjQ0YxR1Mwczk2S3hqaFM3d2NRck8w?=
+ =?utf-8?B?OVlUdElMY2dFVVk5aldsL0RjanRXaDZoVkw1c0Zjb0JFOU9rMkZWZG9yTXcw?=
+ =?utf-8?B?eTFxVitneXFqcURYWVcxR01pbzhRWitxNEZHVlBCWDdUdVV3NG1YZ1NGNWd6?=
+ =?utf-8?B?YWdYdmdWZUtscVRPeGhXWnBEcmx1bE81L29VbW42WnZhSGc4U21vWjhIellk?=
+ =?utf-8?B?SXc2Q3dxQmd5aWJSQVF2RGZpNHhuandJbndRalAxemphamhvMEswODYrSFZD?=
+ =?utf-8?Q?dHFLKmrxyYhiA/h8fi?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 929fb716-237f-416c-6c06-08deec925ed8
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 10:24:13.4467
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9hwXlBLE7Gvumw/obmGPxkt4l0/qQzkxw/Fts5Joxxq/oFyJZ5l8Oc4SPSBofP5x567S2YxaWGMgGVy9rBkDoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3227
 
-Hi Miguel,
+On Tue Jul 28, 2026 at 7:45 AM BST, Alexandre Courbot wrote:
+> On Wed Jul 22, 2026 at 1:54 AM JST, Gary Guo wrote:
+>> Add fixed size region types for these and add projection methods that
+>> project from `Bar0` into these. Update these registers to be registers o=
+n
+>> `PFalconRegisters` and `PFalcon2Registers` and not relative registers on
+>> `NovaRegisters`.
+>>
+>> The use sites are updated mechanically; calls to the projection methods =
+are
+>> not extracted in this commit.
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>>  drivers/gpu/nova-core/falcon.rs                    | 158 +++++++++-----=
+-------
+>>  drivers/gpu/nova-core/falcon/fsp.rs                |  53 +++----
+>>  drivers/gpu/nova-core/falcon/gsp.rs                |  43 +++---
+>>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  39 ++---
+>>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   8 +-
+>>  drivers/gpu/nova-core/falcon/sec2.rs               |  32 +++--
+>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  11 +-
+>>  drivers/gpu/nova-core/regs.rs                      |  81 ++++++-----
+>>  8 files changed, 193 insertions(+), 232 deletions(-)
+>>
+> We are calling these methods quite a bit throughout the code. I
+> understand they are supposed to be optimized away, but that's still a
+> lot of repetition.
+>
+> Since we now have HRTB and `Falcon` is already referencing the `Bar0`,
+> how about storing the projected `Mmio` inside the `Falcon` instance?
+>
+>     pub(crate) struct Falcon<'a, E: FalconEngine> {
+>         ...
+>         pfalcon: Mmio<'a, PFalconRegisters>,
+>         pfalcon2: Mmio<'a, PFalcon2Registers>,
+>     }
+>
+>     pub(crate) fn new(...) -> Result<Self> {
+>         Ok(Self {
+>             ...
+>             pfalcon: E::pfalcon(bar),
+>             pfalcon2: E::pfalcon2(bar),
+>         })
+>     }
+>
+> That way all the
+>
+>     E::pfalcon(self.bar)...
+>
+> Can become simply
+>
+>     self.pfalcon
 
-Back in v3, Gary suggested this series go via the rust tree.
-Would you be happy with that, or would you prefer a different
-path? If so, is there anything else needed from my side?
+Right, this is the direction that I do think we should head to. As describe=
+d in
+commit message, this commit is intended as a mechanical conversion and refa=
+ctors
+are left to the future.
 
-Best regards,
-Alvin
+>
+> And I suspect that once this is generalized, `Falcon` won't even need to
+> store a reference to the `Bar0` (and potentially poke the I/O of other
+> engines) anymore.
+>
+> Actually I would like to push that even further and replace the
+> `pfalcon()` and `pfalcon2()` trait methods by associated constants used
+> to construct the projected view in `Falcon::new`, since the projections
+> are all constructed the same way, but doing so requires
+> `generic_const_exprs`. :/
+>
+> We could make it work by moving the `OFFSET` generic argument of
+> `subregion` into a regular argument and enforcing its invariants using
+> `build_assert!`, but that would require `subregion` to be
+> `#[inline(always)]`. I don't know if there is another trick we can use,
+> if not otherwise I guess the trait methods are ok, especially if they
+> are only called once in the constructor.
 
-On 7/23/26 10:10, Alvin Sun wrote:
-> During tyr debugfs development, a kernel NULL pointer dereference was
-> encountered after `rmmod tyr` while gnome-shell still held /dev/card1 open:
->
-> ```
->    [158827.868132] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
->    [158827.868918] Mem abort info:
->    [158827.869177]   ESR = 0x0000000086000004
->    [158827.869519]   EC = 0x21: IABT (current EL), IL = 32 bits
->    [158827.870000]   SET = 0, FnV = 0
->    [158827.870281]   EA = 0, S1PTW = 0
->    [158827.870571]   FSC = 0x04: level 0 translation fault
->    [158827.871043] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000108dec000
->    [158827.871623] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
->    [158827.872242] Internal error: Oops: 0000000086000004 [#1]  SMP
->    [158827.872246] Modules linked in: tyr sunrpc snd_soc_simple_card rk805_pwrkey snd_soc_simple_card_utils rtw88_8822bu display_connector rtw88_usb rtw88_8822b snd_soc_rockchip_i2s_tdm snd_soc_hdmi_codec
->    rtw88_core]
->    [158827.872337] CPU: 4 UID: 1000 PID: 11276 Comm: gnome-s:disk$0 Tainted: G                 N  7.1.0-rc1+ #331 PREEMPT
->    [158827.880534] Tainted: [N]=TEST
->    [158827.880535] Hardware name: FriendlyElec NanoPi R6C/NanoPi R6C, BIOS v1.1 04/09/2025
->    [158827.880538] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->    [158827.880542] pc : 0x0
->    [158827.880547] lr : _RNvNtCs257m05FHVbX_3tyr2vm8pt_unmap+0x8c/0x12c [tyr]
->    [158827.880578] sp : ffff800083c236b0
->    [158827.880579] x29: ffff800083c236d0 x28: ffff00013f8a0000 x27: 0000000000000000
->    [158827.880585] x26: 000000000000007c x25: ffff000108e6ed80 x24: 0000000000401000
->    [158827.880590] x23: 0000000000000000 x22: 0000000040000000 x21: 0000000000001000
->    [158827.880595] x20: ffff00010f778138 x19: 0000000000400000 x18: 00000000ffffffff
->    [158827.880600] x17: 000000040044ffff x16: 045000f2b5503510 x15: 0720072007200720
->    [158827.880606] x14: 0720072007200720 x13: 0000000000401000 x12: 0000000000400000
->    [158827.880611] x11: ffff800083c239d0 x10: ffff000141e4fd88 x9 : 0000000000000000
->    [158827.880615] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000400000
->    [158827.880620] x5 : ffff00013f8a0000 x4 : 0000000000000000 x3 : 0000000000000001
->    [158827.880625] x2 : 0000000000001000 x1 : 0000000000400000 x0 : ffff00010f778138
->    [158827.880630] Call trace:
->    [158827.880632]  0x0 (P)
->    [158827.880635]  _RNvXs6_NtCs257m05FHVbX_3tyr2vmNtB5_9GpuVmDataNtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm11DriverGpuVm13sm_step_unmap+0x3c/0x120 [tyr]
->    [158827.891166]  _RNvMs4_NtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm6sm_opsINtB7_5GpuVmNtNtCs257m05FHVbX_3tyr2vm9GpuVmDataE13sm_step_unmapB13_+0x18/0x34 [tyr]
->    [158827.891187]  op_unmap_cb+0x78/0xb0
->    [158827.891196]  __drm_gpuvm_sm_unmap+0x18c/0x1b4
->    [158827.891204]  drm_gpuvm_sm_unmap+0x38/0x4c
->    [158827.891209]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm7exec_op+0x1cc/0x254 [tyr]
->    [158827.894085]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm11unmap_range+0x124/0x188 [tyr]
->    [158827.894105]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeNtNtCs257m05FHVbX_3tyr3gem8KernelBoEBK_+0x44/0xd8 [tyr]
->    [158827.894125]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel5alloc4kvec3VecNtNtCs257m05FHVbX_3tyr2fw7SectionNtNtBL_9allocator7KmallocEEB1r_+0x3c/0x100 [tyr]
->    [158827.894147]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel4sync3arc3ArcNtNtCs257m05FHVbX_3tyr2fw8FirmwareEEB1p_+0x94/0x190 [tyr]
->    [158827.894167]  _RNvMs4_NtNtCsgmSOfgXi5CZ_6kernel3drm6deviceINtB5_6DeviceNtNtCs257m05FHVbX_3tyr6driver12TyrDrmDriverE7releaseBW_+0x30/0x98 [tyr]
->    [158827.899550]  drm_dev_put.part.0+0x88/0xc0
->    [158827.899557]  drm_minor_release+0x18/0x28
->    [158827.899562]  drm_release+0x144/0x170
->    [158827.899567]  __fput+0xe4/0x30c
->    [158827.899573]  ____fput+0x14/0x20
->    [158827.899579]  task_work_run+0x7c/0xe8
->    [158827.899586]  do_exit+0x2a8/0xac4
->    [158827.899590]  do_group_exit+0x34/0x90
->    [158827.899594]  get_signal+0xaac/0xabc
->    [158827.899599]  arch_do_signal_or_restart+0x90/0x3e8
->    [158827.899606]  exit_to_user_mode_loop+0x140/0x1d0
->    [158827.899613]  el0_svc+0x2f4/0x2f8
->    [158827.899620]  el0t_64_sync_handler+0xa0/0xe4
->    [158827.899627]  el0t_64_sync+0x198/0x19c
->    [158827.899632] ---[ end trace 0000000000000000 ]---
-> ```
->
-> The root cause: `fops.owner` was `NULL` in Rust DRM drivers, so the kernel
-> never blocked module unloading while file descriptors were open. This leads to
-> use-after-free when drm_release (or other fops) is called on freed module code.
->
-> The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, threads it
-> through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates configfs
-> and rnull to use `this_module::<LocalModule>()`.
->
-> Assisted-by: opencode:glm-5.2
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> ---
-> Changes in v9:
-> - Rename the binder commit prefix from `rust: binder:` to `rust_binder:`
->    to match the in-tree module name.
-> - Link to v8: https://lore.kernel.org/r/20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev
->
-> Changes in v8:
-> - Remove unused `crate::LocalModule` import in rnull configfs.
-> - Link to v7: https://lore.kernel.org/r/20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev
->
-> Changes in v7:
-> - Use `crate::LocalModule` in `configfs_attrs!` and silence `clippy::crate_in_macro_def`, per Gary's review.
-> - Link to v6: https://lore.kernel.org/r/20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev
->
-> Changes in v6:
-> - Update MAINTAINERS to cover the new `rust/kernel/module.rs`.
-> - Link to v5: https://lore.kernel.org/r/20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev
->
-> Changes in v5:
-> - Add `#[inline]` to the `this_module()` helper.
-> - Fix configfs doc comment to reference `crate::LocalModule` instead of
->    bare `LocalModule`.
-> - Link to v4: https://lore.kernel.org/r/20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev
->
-> Changes in v4:
-> - Move module-related types into a new `rust/kernel/module.rs`.
-> - Migrate binder from the `module!`-generated `THIS_MODULE` static to
->    `this_module::<LocalModule>()`.
-> - Reorganise the series so that every commit builds independently, and
->    drop the legacy `THIS_MODULE` static once all users are migrated.
-> - Link to v3: https://lore.kernel.org/r/20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev
->
-> Changes in v3:
-> - Renamed vtable associated type `ThisModule` to `OwnerModule`
-> - Added `this_module()` helper for ergonomic `THIS_MODULE` access
-> - Refined vtable macro implementation: one-liner detection and single `defined_items` set
-> - Reordered commits to place doctest fallback before vtable auto-insert
-> - Link to v2: https://lore.kernel.org/r/20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev
->
-> Changes in v2:
-> - Merged old `static THIS_MODULE` and v1's `MODULE_PTR` into a single
->    `ModuleMetadata::THIS_MODULE` const
-> - `#[vtable]` macro now auto-inserts `type ThisModule`, removing all per-driver
->    manual patches from v1
-> - Added configfs & rnull usage site updates and doctest `LocalModule` fallback
-> - Link to v1: https://lore.kernel.org/r/20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev
->
-> ---
-> Alvin Sun (10):
->        rust: module: move module types into `module.rs`
->        rust: module: add `THIS_MODULE` const to `ModuleMetadata` trait
->        rust: doctest: add LocalModule fallback for #[vtable] ThisModule
->        rust: macros: auto-insert OwnerModule in #[vtable]
->        rust: drm: set fops.owner from driver module pointer
->        rust: miscdevice: set fops.owner from driver module pointer
->        rust: configfs: use `LocalModule` for `THIS_MODULE`
->        rust_binder: use `LocalModule` for `THIS_MODULE`
->        rust: macros: remove `THIS_MODULE` static from `module!`
->        rust: module: update MAINTAINERS to cover module.rs
->
->   MAINTAINERS                                |  2 +-
->   drivers/android/binder/rust_binder_main.rs |  3 +-
->   drivers/block/rnull/configfs.rs            |  5 +-
->   rust/kernel/auxiliary.rs                   |  2 +-
->   rust/kernel/configfs.rs                    |  9 ++--
->   rust/kernel/drm/device.rs                  |  3 +-
->   rust/kernel/drm/gem/mod.rs                 |  4 +-
->   rust/kernel/i2c.rs                         |  2 +-
->   rust/kernel/lib.rs                         | 75 +++-------------------------
->   rust/kernel/miscdevice.rs                  |  4 +-
->   rust/kernel/module.rs                      | 80 ++++++++++++++++++++++++++++++
->   rust/kernel/net/phy.rs                     |  6 ++-
->   rust/kernel/pci.rs                         |  2 +-
->   rust/kernel/platform.rs                    |  2 +-
->   rust/kernel/usb.rs                         |  2 +-
->   rust/macros/lib.rs                         |  6 +++
->   rust/macros/module.rs                      | 34 ++++++-------
->   rust/macros/vtable.rs                      | 41 +++++++++++++--
->   scripts/rustdoc_test_gen.rs                | 16 ++++++
->   19 files changed, 189 insertions(+), 109 deletions(-)
-> ---
-> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
-> change-id: 20260519-fix-fops-owner-e3a77bb27c6c
-> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
-> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
-> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
-> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
-> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
-> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
-> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
-> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
->
-> Best regards,
+This was definitely one option that I have considered, however as `NEW_SIZE=
+`
+still needs to be generic so we're not entirely turbofish-free. But if maki=
+ng
+`offset` become an effective const parameter helps nova impl, it might make
+sense to use `build_assert!` for this.
+
+Best,
+Gary
+
+
+
