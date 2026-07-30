@@ -1,271 +1,157 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012018.outbound.protection.outlook.com [40.107.209.18])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA0B41E6A9
-	for <nova-gpu@lists.linux.dev>; Thu, 30 Jul 2026 11:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785411994; cv=fail; b=oSqfX8fW93jnQkDo3bNFxmD/fkJO+uqemZhfb3FjK33eg0eeyyOdb4Wzfz46HY0SMA9SBocJZxSzu9bEQ2ESVKy3WdFC5VX3s7SyDCO9qYu+KHD4VqUd5NNLtyvD+DAEu70e7SaHINl2WwHVaJZd6zAyU+OgvoKdVhQxDeW7llk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785411994; c=relaxed/simple;
-	bh=Jf/6Fa149OlketnNx6mubdsr5H7Oxar2WFCApRZGXPY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Wx5O9Ar0XazGCqQ132ZnUHdKwEs6/xwGP6xF2j0NnsUv+5bMVcYhBkCY+Evq/3sIH6BhDLr8blVwdXtnySbFri3+XD32lZ1IU4lBkvgxF8YHvDWN2tzVVVx/8RdaZhrYffg92irP1xnyjjOQhdO/7h78dfRDLgnXUY3X4h9JqN8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=B4JZm9Iz; arc=fail smtp.client-ip=40.107.209.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9305C434E5C
+	for <nova-gpu@lists.linux.dev>; Thu, 30 Jul 2026 13:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785418004; cv=none; b=JAKhtKmKI/QC2Q/SvnyEIDioXGfRHofOSCXFuwQzQQOJftfLk72enz6GMMEJRaeH6kUYhKmRqBKQf7hbwA++vKNfjK1XWxypRLv1mSBEVrS9SSfM6LHxlt9nxv6gPR0erxg8I5JdL5yUky7WI9Wmp0JVnL17FCNBPOpD6TNPNsU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785418004; c=relaxed/simple;
+	bh=WhsfbxJNUJU+JpKff+AqhCVUkHGabT0rlsK7PyT+nMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=K+XWsJXCUB7KS5oNkpk/C5utsIsPUAlTc5b+SlOfbKvsRyfgXwHaSlfRiwUPm+eKQ+kDqpbP97+bT/LIdXfGB1x9qIkTomrbQdRHKJffW2liEFDaVS4nC6835Oy4Ma2QPfc9o7GSwdI5ig5N+TUEhzbYTpbZCylhKmX/FqP/n8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=C73xepXR; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MhZtO5xh; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="B4JZm9Iz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pIPagjjkIe8PgfZt/AkqHswRssNucfTAkmJ/hn1+zly6RGy/8GFoqkdRWE/7+7vG6TL97RB5iOM1o+wUJhwTEnhysV0qAzsPDNyt2LKLi02R6ic1xmInd7gq7ihiyhDSzVW4oCm0J5Oh6dk4jiVEu2o3OGvOm9aPQA1XJNqYYN68DMPAv7AXdbNKMQFn6jT+sReVReOIr1S/GW/MI3727FSnRJypljSt5LS6XZNepjA2j1BMTH/zfP4LP5lXcFL/Y4Gju5dkRnlwijiLAqodlgEHRM23SVmKasHaTtIt1a1CbhLUf9pyPK3oiUECJVesrutDJDAzw2Xsym9vEfn18A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CR9WwBkJzrbpDgiWeSj7W2y8BCQ9JWYN4OHDc524HWs=;
- b=x4+DEGGZW6oLWjy6MKzqLdjpe9/Bcj7O/F18YLYWaySDEkQ3jplQWQr2PwhU21C4oxigCMNSeWSW/U4lUuCmop0Y8+uMNBrfRq6vKgwCzsSgaGrA9N1xVnl+ZakhAAVye/8Z+WIDy3WSl6YCuZ8EMCGyzCgXk8cPSAS5MVK03zymn6bZRgtDc1x4E4gOmifzOk6yQ+WDoWu0pNvwgVdwBq+I0C1M7OzwyUNqDls47lSXqAFgvP6O5VcNpqvTl1IqAC8xouh6O7PcQ6TuERAcOnqMeWGPVt4a/54MjnfNHj+k7X1hbsIV2OQWfIK+1JVBOA1Ac/wBpDNlClz6TwtYHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CR9WwBkJzrbpDgiWeSj7W2y8BCQ9JWYN4OHDc524HWs=;
- b=B4JZm9IzwrxK9piMJhrMANp37g3GgbbjDXul9rVPeyjL2qWeRdYMm6QJMVBgK1gmyGVgBwdlUFKL0pHjv5c4IaCu6h3bxzePp/vp/APvXIiYj30qgf1vYRMGa1nxflRnSqT2gclyWI7ypR99CLrppY1LVzFxC5ImezLfCTumBBfr6Gn2jRigJHFvwqM7+MBobBoHbegMYh+qEasO/CoSNORSjMyi5k/PEdxrZ5cd3hKa/z7JMKpPGiXNi5l1IFopt98B2Uz5aEuC5yPZtaNx0M+3ZR6ZplpHpILYV4c92DIyHdDNwbhd/fdgnlGPcOw+Mwa7y1jb+Q3qpCVXKxjBoA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- BL3PR12MB6524.namprd12.prod.outlook.com (2603:10b6:208:38c::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.13; Thu, 30 Jul 2026 11:46:27 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 11:46:26 +0000
-Date: Thu, 30 Jul 2026 21:46:21 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: John Hubbard <jhubbard@nvidia.com>, nova-gpu@lists.linux.dev, 
-	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Eliot Courtney <ecourtney@nvidia.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="C73xepXR";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MhZtO5xh"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4h9qjQ6JxJzKw1t;
+	Thu, 30 Jul 2026 15:26:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1785417994;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WhsfbxJNUJU+JpKff+AqhCVUkHGabT0rlsK7PyT+nMs=;
+	b=C73xepXRanIMcUY4yirDcK80BGvMW251Gf8gqtK8+l9hUiYXJa3+B6t7e140qAd1fm2iSE
+	MpfgSkxUFSU0MeapYTPYWipNYRzBYJ8le52U3k+lhTEtQlKJgymdrC1Dc0YHvT2FoCHp1n
+	gdks611XqeMZtV8O1wHvygRYSpFS9LvEq8zi9NW+c22vTp3WbH1JmsCvVsGf3Kz49FVSzc
+	FiPB289W5lOsgexaIxxRxPMvwQYZ4PGxipC7OjqyOAnw/35VXsm2eGxy5vuKXRGe0azlFk
+	hVAW9ZU4OelEjmx/ockYIfg9jH16JHr/rEBWRflSrtCfWpTVEFMTzVOZI01LUg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=MhZtO5xh;
+	spf=pass (outgoing_mbo_mout: domain of mhi@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=mhi@mailbox.org
+From: Maurice Hieronymus <mhi@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1785417992;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WhsfbxJNUJU+JpKff+AqhCVUkHGabT0rlsK7PyT+nMs=;
+	b=MhZtO5xhpjbC5YGyWpmkivFgwZGOsD4dwvYxjirMwm8A8EgBcy06dZSYesM+G4H6Cinsta
+	9q23IJB6Lu/AJsiM7PRI4EcWGT+ih2DgK10gbZ2HYN+aIbEnHa3yb6ZEk1QVUaMvnk5Fme
+	tY8oWQPXl54sLRBmblyxmmq8JmWX9FDssFaR1MPwfhsQ6jkiFqFC8XleHXMxYrdYFZShWt
+	zmbNURbB7A73I55IdPUyW3yeceKLJrK4UjqBSirLnPlEGwy/ijg755cd32j+poizapFPEA
+	qkj/YHLp912YZeAFWt2oWxmlidbUyZRNELfKKsvSwcB7KEh2SpUB6FkECHckig==
+To: Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Maurice Hieronymus <mhi@mailbox.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	=?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+	Beata Michalska <beata.michalska@arm.com>,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
 	rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] drm: nova: Add chipid enum to nova-drm UAPI
-Message-ID: <amsx2tAppi1OV28C@nvdebian.thelocal>
-References: <20260723063046.1265791-1-apopple@nvidia.com>
- <20260723063046.1265791-4-apopple@nvidia.com>
- <DK7R7PB91GUE.1PS77AQM8ZR99@kernel.org>
- <amhdA35CcMD_uY2f@nvdebian.thelocal>
- <DKAIVPSA45O9.1NZES5S3BII10@kernel.org>
- <57e2b956-89fd-43e8-8cb3-a15aee272660@nvidia.com>
- <DKAKR85QX9UM.1VYAAL82QBWJ5@kernel.org>
- <ammyfspYkXOwMsdU@nvdebian.thelocal>
- <DKB0L93Q3OKI.26PNHHQOIF3EH@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKB0L93Q3OKI.26PNHHQOIF3EH@kernel.org>
-X-ClientProxiedBy: SY5PR01CA0057.ausprd01.prod.outlook.com
- (2603:10c6:10:1fc::13) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Subject: Re: [PATCH] rust: pci: rework device enabling API
+Date: Thu, 30 Jul 2026 15:25:58 +0200
+Message-ID: <20260730132559.65566-1-mhi@mailbox.org>
+In-Reply-To: <DJVUHS5VHP4Z.G2FV1QJQ8ZYH@mailbox.org>
+References: <20260702-rust-pci-enable-device-managed-v1-1-75bc4ff2935c@mailbox.org> <DJOEYVBS17MJ.1YD3TNGQBWHNK@kernel.org> <DJQXXV5KC973.1XAINGJFCKSWE@mailbox.org> <DJVUHS5VHP4Z.G2FV1QJQ8ZYH@mailbox.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|BL3PR12MB6524:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbb441fb-a6b4-4a18-b161-08deee303017
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|18002099003|22082099003|3023799007|6133799003|10067099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	tdpLb8ixnSF49vdMJK6Vw0emOyRJ30QFiDEtOKLq9e/jphm+0lVtELvMCeUomFEm0+4oKAG3kM5n4gLDqhcoys2V796lETTBNb+EZnAWI45uNfzzOxuvUwiyYSLEtGzn1fFLn0untTsd1tvy2yrSAvpNqY/+Jrtr+oUuX0fDVky8kKSb+IE8lQdywjqUJpKKXRuxQvdJTWrxo09BbnM46EiN77hAQxVt92gXMIpnzCo9Dd76Cc8n5AZJQzrOt/dlMLr/s28Mnvszkh+Rw2T+5dpvc7ElVaMwdMcyvFZ5twbtp9N79kD2q8HxpKOmRd9Ifk2AzyIqFw65iPa17w2idXBjbj8bhgqvpCV1TV19P/H+bm6yCzvF/cvk5FOKqyD4a5ih0H9Ky4J7uHYXvkfEfpEAdni4Yd0NYNu9vgKwBuECr5MMz6q165tNd2OH3J3A95HYm7QZOOt/xDl1ongGoxDVxi+EYjZ7VYvBFs4OhHsVSLSbMCJaKjltkpowDcTKQ0slP94fFxpJLYkFH6UAcljRwcPRcKFd/hwrrhP7ZKrD3SsSkvtspk9+bRYcpaH4NIeZiTkyaLPkTtjk0iD8ZRFhB2a5NIzfuFqX4g0LJZmUwIW0TABjQ6RRlWazyfO5peW+QW54Le/QkPfGDRmdOhD6FizeXKCU1/hOHeFcfkM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(22082099003)(3023799007)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Encb+fSpSPCmJkR87/AFMVjn4rSbmofZVWGS6ghIHYb9lwTwJJAT/od3waHA?=
- =?us-ascii?Q?f+L5qc96qKNh4h/QP8MlF3qGtAov86nhl3Ng9I/sZHaU74MTsM+MRJ6Obdjr?=
- =?us-ascii?Q?GrUDCJtRFL5gE66wfexhbKzPCqmnt7G0qugEeAbB3akHu873SJzGFxtRe1kj?=
- =?us-ascii?Q?ENLH3lW++uKA/adofCC/zdDdnt8itQf+UVvWgpFFmq/YU6I/Eft8gvvDcy1Z?=
- =?us-ascii?Q?FI8m6Ej2VuGqo515RfTR4OYa+U9NOMV50yS3Lbddqk2Gh8DiTq4ibJfePkQB?=
- =?us-ascii?Q?I/o8fP1guj4eqjptxuQmeVbhtgnLEkyyvNajEl3/2zCHcxvLse5ppsO4g5oi?=
- =?us-ascii?Q?lQ6MK9j2sUy32BDp9u9gFvHwYxDU1H4csIvNWDB0RNXoiPn8762N2jvWaICa?=
- =?us-ascii?Q?m/3hDv5qMiVlvlbVsv3H5chugT9bbeXgoqY49v9jgpkEm6mjllOaQTQ2RdEA?=
- =?us-ascii?Q?0yyyKEvD6VhZ9GhKwQTuVeCHH87JFK4Oz7CgqJ36U70RNdd4uWG/Y6oc5clT?=
- =?us-ascii?Q?426LnL9uc4XudVu2WgAfMiHUAChus49i3MIF0Rsf9t9P9UGHhZfXQ1/xs7/X?=
- =?us-ascii?Q?4HGtEr2xJU/5330U3BYpAEwcYaX2cwKPpYu1hKJJhzqbEO0gcNyaItVo76VW?=
- =?us-ascii?Q?IwdYUi9EVefG57ANjD7C3/XSwCIUVHO6A5Nh79qHiArb/B7FbU67WAi8xo2x?=
- =?us-ascii?Q?T2zLPEQb8LIgfTgLz+UGP1HZzgRGSF58o6yeGTtRkoFDPTptGQyAbwknkdbT?=
- =?us-ascii?Q?mJv5bLvFhQS/Zoj115mulbTtCscsS02Mt4tU0HtMnNgrJWUI9X12qG4o3UGF?=
- =?us-ascii?Q?PdIiCl3NyOLPeZ3YaOGyYJrA4likPM8IT24JAsR3NbE7ui+0okFL6uGh11MM?=
- =?us-ascii?Q?7/mkUQmJimJFp42WNLsVzhvNEYuVuNhIahHs1J8SdDlMUe5GKszXjKhK/Uqc?=
- =?us-ascii?Q?NOnZVmfyRmmbTQDC0gXog8S2AfTcjTIZ6fmzc+vJQRHk0/Jr4o3ZOKVnGf2I?=
- =?us-ascii?Q?66g8Xr0uddl/RIvA+3Go5JSTKzew6gH5Pc2oTSDBfoJoRSj1r3uqOx05eSWP?=
- =?us-ascii?Q?06f27ieMhKk8hwUDTABNPPbJuWGnnHD3LfOvYT5JBJ8h+jA0Vn+lVzE/QLzi?=
- =?us-ascii?Q?dGZSUdkKCNSU4iU2kGcs5TuDbZwolWMTYtgGZWh/WKoaxWMvBsYuaV+PD7rD?=
- =?us-ascii?Q?+cTjZj4JFtxo5GIjknUTiZrL8aE594srau9G0ITD/oXiKvXz0FROI1sdAlTI?=
- =?us-ascii?Q?lwRVT6EHmFcgAopDLFWT/2gWvnAHFodnrVRwjl2WSudNMGMj7Ju+nuqMkYyk?=
- =?us-ascii?Q?gHkI4Ite5YQz5j355IxVY5lWBIYAmVR5TuKQgA+444BoxJR1xI3tWtiYjMiV?=
- =?us-ascii?Q?DmWI3zSlRSdNfsrcjds8ZBv0+JoL/KYb/kqo/pocN7vpXUtka+YLtFUfDrWx?=
- =?us-ascii?Q?zKvM9P4K9n1hqARE2nXoTPeipMBSZTq8V2LjkVSNIhT3OKqKBbSJHQrlNsrX?=
- =?us-ascii?Q?woALeKpYsvu7rnLOgJUa5Z/7yWCEtRt+0cysSO+mxNkOcZuy+GqdLZjOyhBh?=
- =?us-ascii?Q?ePxOTAHnH1x4NWTJvnxHX3uezD/y8JnEWYcaoXNA9KnfBgFHMRbrtHT4w1Tg?=
- =?us-ascii?Q?xAabZ4+1h9TwoshRK5ApBPGu7NAbPsBMmDnPRQ1zRS8vj9aFIPKC4PiqYGDK?=
- =?us-ascii?Q?TBa+Zx0h3X9EFCLyM7eqKsT5nLzFqBeQ25/W5K+9473Tmcjq/jdnM6sbpquT?=
- =?us-ascii?Q?W+vMf1D9tA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbb441fb-a6b4-4a18-b161-08deee303017
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 11:46:26.7723
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VGKBeRmqTgYuUqjt58NpXhGGOIoU0JfDbIW64dmY4RB8L1umRP6znop3AIVzgLTyd/WoL7I9GA08R2q0Nt+Hbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6524
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: c8c216fc37f6dd43612
+X-MBO-RS-META: jya1fohjaisgaipdd6cdz453njrmkyrz
+X-Rspamd-Queue-Id: 4h9qjQ6JxJzKw1t
 
-On 2026-07-29 at 21:22 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> On Wed Jul 29, 2026 at 10:24 AM CEST, Alistair Popple wrote:
-> > On 2026-07-29 at 08:57 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> >> On Tue Jul 28, 2026 at 11:49 PM CEST, John Hubbard wrote:
-> >> > On 7/28/26 2:29 PM, Danilo Krummrich wrote:
-> >> >> On Tue Jul 28, 2026 at 10:00 AM CEST, Alistair Popple wrote:
-> >> >>> On 2026-07-26 at 01:23 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> >> >>>> On Thu Jul 23, 2026 at 8:30 AM CEST, Alistair Popple wrote:
-> >> > ...
-> >> >>>> For instance, what's valid for userspace to extract from this? Given chipid is a
-> >> >>>> composed value, is userspace e.g. allowed to make assumptions on extracting the
-> >> >>>> architecture? Or is this something we want to expose separately and tell
-> >> >>>> userspace that the chipid is an opaque value identifying a specific chip only?
-> >> >>>
-> >> >>> I _think_ it makes sense for this to just be an opaque value, but it's a good
-> >> >>> question that I should probably try and get some internal feedback on as well.
-> >> >>> Reading the arch would then be a separate parameter.
-> >> >> 
-> >> >> I'd prefer exposing it as an opaque value and provide other information
-> >> >> separately; the kernel already does the work anyway, so why duplicate it in
-> >> >> userspace. It would also remain much cleaner if encoding details ever change.
-> >
-> > Yep, I agree. Just want to make sure we get everyone in agreement.
-> >
-> >> >
-> >> > Just to orient myself, I'm assuming that by "opaque values", you mean using
-> >> > something that just counts up from, say, 1, instead of using real boot42
-> >> > values below, right?
-> >
-> > No. We'd just document these as a unique magic value that identifies the GPU
-> > chip rather than something that could be decoded into anything else.
-> >
-> >> > That seems like a good approach to me, too. Because I can't imagine anything
-> >> > particularly good coming from providing unnecessary details to user space
-> >> > here. :)
-> >> 
-> >> I'd probably not be too worried about keeping it as is, but just document it as
-> >> being an opaque value that shouldn't be messed with.
-> >
-> > Yes, agree with this. I don't think we want to mess with the value. It just
-> > makes life hard when a new chip is added thats only difference from the nova-drm
-> > perspective is a new chipid. You don't want to have to worry about backporting
-> > patches to distros and kernels just to add the identifier for say TU117 even
-> > though it's functionally the same as TU116 from a Nova perspective.
-> >
-> > Obviously chipid would still get added to the header and eventually backported,
-> > but having been there and done that it's not a good user story to require it.
-> >
-> >> If we expose the encoded information separately I don't see a huge incentive for
-> >> userspace to redo the work and mess with it anyway.
-> >> 
-> >> The advantage of keeping the values as they are is that we avoid having to deal
-> >> with mapping values back and forth. I kind of like that nova-core uses the
-> >> values from the uAPI header to define the Chipset struct, passes it to nova-drm
-> >> and nova-drm does use it to fill in the userspace exposed data.
-> >
-> > So do I.
-> >
-> >> Something else worth to consider in this context is whether we really want to go
-> >> with the key-value pair GETPARAM approach, which can become a bit tedious.
-> >> 
-> >> I think for the basic GPU information we could have a struct drm_nova_gpu_info,
-> >> which contains all the relevant information obtained at probe time, such as
-> >> chipid, architecture, VRAM size, etc.
-> >> 
-> >> If everything is available in a single struct there should be no reason for
-> >> userspace to mess with the chipid value. However, I'd also not object to make it
-> >> a "real" opaque value.
-> >> 
-> >> In order to deal with additions to the struct we could take a two stage approach
-> >> to obtain the information from userspace; probe size first, then allocate with
-> >> the returned size:
-> >> 
-> >> We can have a DRM_NOVA_INFO ioctl, which takes a struct containing the info
-> >> identifier (e.g. DRM_NOVA_GPU_INFO), a size and a pointer to the actual info
-> >> structure.
-> >> 
-> >> 	struct drm_nova_info {
-> >> 		__u32 id;
-> >> 		__u32 size;
-> >> 		__u64 info;
-> >> 	};
-> >> 
-> >> Userspace can call the DRM_NOVA_INFO with the identifier (e.g.
-> >> DRM_NOVA_GPU_INFO), size and info pointer set to zero, and the kernel fills in
-> >> the size of the info struct (e.g. struct drm_nova_gpu_info).
-> >> 
-> >> Subsequently, userspace can allocate memory with the size reported by the kernel
-> >> and call the same ioctl with the info pointer set to the allocated memory.
-> >> 
-> >> This way existing info structs remain extensible (as long as the layout isn't
-> >> changed of course) and new ones can be added at any time.
-> >
-> > I did consider an approach like this but having to do the two ioctl memory
-> > allocation dance doesn't seem any less tedious.
-> 
-> Well, it is two ioctls for a structured set of properties, whereas GETPARAM is N
-> ioctls with no structure and slightly less type information.
+On Sat Jul 11, 2026 at 5:25 PM CEST, Maurice Hieronymus wrote:
+> I went ahead and sent a series implementing the second option, a
+> public flags bitmap with generated accessors following the driver
+> core precedent, converting is_busmaster and broken_parity_status:
+>
+> https://lore.kernel.org/r/20260711-pci-dev-flags-v1-0-2fcf2811138c@mailbox.org
 
-I guess I could be convinced of the struct approach, but there's no need to
-do the whole two ioctl dance. Fields can only ever get appended so just do it
-based on size - an old user-space passing a too small struct doesn't get the new
-fields and a new user-space passing a too big struct can get an error code or we
-allow it and return the actual size written.
+A status update on that, and two questions.
 
-> > Also my experience is these structs tend to just grow over time and become
-> > unwieldy as new bits of info get added
-> 
-> Note that there's no need to grow existing info groups endlessly; if something
-> truly becomes a separate concern we can just add a new group, e.g.
-> DRM_NOVA_MEMORY_INFO.
+v2 [1] moved the bit into `priv_flags` instead, as Lukas preferred. He
+then asked me to convert xen-pciback's two direct `dev->is_busmaster = 0`
+assignments to `pci_clear_master()`, so that nothing outside drivers/pci
+writes the flag [2].
 
-Fair enough, although you likely end up with duplicated information as items
-from one group get copied into another which would be a bit ugly, having two
-ways to read the same thing. My main motivation here was really just that
-GETPARAM is very easy to extend as we discover we need other parameters given
-that we don't know what they all are yet.
+That conversion is not behavior-preserving: the assignments clear the
+software flag only, while `pci_clear_master()` also clears
+PCI_COMMAND_MASTER in config space. Commit 7681f31ec9cd ("xen/pciback:
+Don't disable PCI_COMMAND on PCI device reset.") deliberately removed a
+PCI_COMMAND write from directly above the first assignment, so putting
+one back at that spot looked wrong to me.
 
-I was also thinking there wasn't much of a downside, but you make a good point
-on slightly less type information.
+I said so in that thread on Jul 18 [3], and asked the xen maintainers
+directly in a separate mail on Jul 23 [4]. Neither has had a reply, so
+the C-side prerequisite has not moved since.
 
-> > and old ones deprecated forcing userspace to allocate memory for things it
-> > might no longer care about.
-> 
-> This is equally true of GETPARAM; we accumulate keys that nobody uses anymore.
-> 
-> Allocating for one or two deprecated fields for a single query doesn't seem like
-> a big deal; plus we can always create a new info group and leave the old one
-> alone, just like a deprecated GETPARAM key.
-> 
-> > Ultimately though I'm thinking (hoping?) there will not be a huge number of
-> > these - a lot of this info should probably get exposed via sysfs anyway.
-> 
-> I don't think sysfs is a good fit; it seems tedious for a UMD to do a bunch of
-> sysfs file reads, each of them requiring at least three syscalls. Plus the
-> effort to parse the value from the string sysfs provides, which is more error
-> prone than reading a typed struct.
+On proceeding on the Rust side in the meantime:
 
-Yeah, that was an idea I'd heard floating around and I thought it may have come
-from upstream but I'm not entirely convinced of it for the reasons you state.
+I would like to keep the enable/disable rework in the EDU series rather
+than drop it. `enable_device_mem()` has no disable counterpart, so the
+enable count is never dropped on unbind, and the sample does not come
+back up after rmmod + modprobe.
 
- - Alistair
+The races the guard would expose are not introduced by this series.
+`is_busmaster` shares one bitfield word in `struct pci_dev` with a
+number of other flags, and those are written from unrelated contexts, so
+several of them can be updated concurrently with it.
+`broken_parity_status` is only the clearest example:
+`broken_parity_status_store()` (drivers/pci/pci-sysfs.c) writes it from
+sysfs without taking any lock at all, so userspace can already race an
+`is_busmaster` update today.
+
+So my first question: would you take the `DeviceEnableGuard` design
+while that word is still a C bitfield, given that it can already be
+raced from userspace today, and let the EDU sample land on top of it,
+replacing `rust_driver_pci` as you asked? Or do you want the bitops
+conversion merged first, in which case the series stays blocked on
+linux-pci.
+
+My second question is a behavioural one, since I do not have much
+experience here: what is the accepted way forward when a list does not
+respond? I do not want to resend the same question every week and turn
+into noise, but I also do not want to guess at xen-pciback semantics and
+break someone's setup.
+
+[1] https://lore.kernel.org/linux-pci/20260714-pci-dev-flags-v2-1-a1d7dc441cf3@mailbox.org/
+[2] https://lore.kernel.org/linux-pci/alcSjoypegNolW48@wunner.de/
+[3] https://lore.kernel.org/linux-pci/DK1UXXRGW737.2IVTYCHPRM9ET@mailbox.org/
+[4] https://lore.kernel.org/linux-pci/20260723161638.9838-1-mhi@mailbox.org/
+
+Best,
+
+Maurice
