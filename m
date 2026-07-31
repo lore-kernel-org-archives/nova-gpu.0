@@ -1,134 +1,178 @@
-Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010008.outbound.protection.outlook.com [52.101.201.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064AF40A94A
-	for <nova-gpu@lists.linux.dev>; Fri, 31 Jul 2026 16:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785517105; cv=none; b=vBa1Bz06Ssf01Uc6gh1phVc9knydZyOKH6wNdgmPKzhNSuyYZWOncjsVaVmSzdVv4NKFhaKTc98Uu/VxKQpN9DQuuvBQUUh0A9xnmIFBcUe8QG0ypmjLKfu+l/s33JSc7GBmb/uCdednVQP4KVn/PwGpBMXHuFNdY3BCkPtJiBY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785517105; c=relaxed/simple;
-	bh=7Wkc5vnPJfK8+T6cj+GxOwF6aP8t3LLmOUCwYz0pevc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eJ6ywt5LQddsv6DbL9zYscSuBYI4mO/g9VXKeoiaCX1K3r7dl/C2yKi7y0cZFaQN1AmDxh8ZlXg7dm7PKzKDWo1Tkr3JBTkZ5qRyMejbJGFdZIZ1ptQ/Tf4ppI6UP93ubrbnZJ/EjVBk8Aa8ZhAEG+glxuCG1myMsxuckSWkNXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QDupzw9e; arc=none smtp.client-ip=95.215.58.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4459F36F8E7;
+	Fri, 31 Jul 2026 20:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785528648; cv=fail; b=cwggWbmbjmqT3jTf27Gw4T5ZSkzDk25i3FqPIm2AT9mOqQ/xwApbukM2PBqtrnxPsXyJLnJ6rj6DqDkmZOX7V6eqbJHOZWv5BfQ9rD+nQWMUh/Yn1QAZPnNNuu3VCNuIUlF7FOWgOKBYELjbOPteJkzbUlwy+aNAIk74nyo8yw8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785528648; c=relaxed/simple;
+	bh=KSU499FpS2ensEdzMHwQrj3Kk9JswOnllbpWCSBH1oo=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VKOX7I78vel7x+OnaQH9nqKAA0eqwE5IAW9A8VF4E1NLxev6OH4i0bTGEFw9qVoTunUfnWVwuakylf4j+LUGRMDGvCq53D2vtaRY9CT4o352EbjBBk2KyF1rnBPDkiX/VTUMK3tnoD+Dv2slHPKtisCJuaK5t5ub3u94v3CuRGk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nveG4mhK; arc=fail smtp.client-ip=52.101.201.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QDupzw9e"
-Message-ID: <191efe80-24d1-4aab-8746-21afb4c379bc@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785517090;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Wkc5vnPJfK8+T6cj+GxOwF6aP8t3LLmOUCwYz0pevc=;
-	b=QDupzw9eNh0JVgtVkhnk9fpyAzqrfoSZcykUG5rIYn9PyeUrXBswOnBQUHvPKBV/p2MNUf
-	mfRJ1cQlIl9txEmp6iCYbDFObuLFKeBZy0GRG3CtTIljNnrDbkEdkJiywNamh8zB4FrxIM
-	8PggOuJ4D54cvOEyYOsxvLigg1zLIWo=
-Date: Sat, 1 Aug 2026 00:57:22 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nveG4mhK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qxDiCpyckCW1fQ9nf/qkDD6yzl7UWxYAmdCoCeu4zrY6XkvaWR6bk7Fb/v1HNSPjiF1+SaCviLfWnH9PZwQx+Q2vMf1EoFkS/dmUb8G348egS+j3CIYBvnYS3+mqIWgl9kKUTGqEXogkds9UXhzWghceNb7FwKjjNVykvrqtUQl7Cd3WpaztUb39gcXiKFSsqNqWb8LM+MGWSBzE6JUBcaqUX3OyuYtxH8ieOFyN/kUcLlgiH7crn9Jid637X4XnNV02lRw9qK/nYJQCp+UV6TtkHR0zNuF8p8HLuAOduFWDMsSmBmJ6T9lzrayWPuXB7rxZQsiJUUQLB1aXharnOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vU+7PXj57ge8O0m81INIgG9BWvB6BggCz3nlkmTaDhg=;
+ b=WuKBaV8G5ApWm9H+YWECxv5TdOhLiwvnweh0GUW0uuSUYjX6weqj4lpqfq1Gkyd1e7rgCm5YW0rFH1Y9kUkUHigYEs3ppoYsTU4gN3w19fObgllhQmglLZyuBhC+LF8H3+L4tZOOdFC66pfvLRgELhABxjLMxH0IWCdP7h3UVxhqKgYMmoFc9MFHl5cHcV2g5GAmyTlgmpLSFY1DKRWd8+K6HCb0mAWvxqi3bBOIOEI0NPInafogX8O+eHMwiK1sLwa0Fz4/xEdDaEwQ6bIE770RhFTDN+6V8S3A1gzeU0TNb2FKVg5I7H0Bp6HouW1QJO6JNWMBvw3rXnzB7R6AgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vU+7PXj57ge8O0m81INIgG9BWvB6BggCz3nlkmTaDhg=;
+ b=nveG4mhKYLhrBw4n905CaAaI7hfNLBZ1urrzkkQci0zcyUMflJ1HD3TWtzd6p7qrYhnyBCoeqZvfsIJ60hTI9BBZXkRr7iFo/Q62WH2YMToC4QteGFDdpQl80Zo97ihP5ZVLgLFwuuW0vcyFdVerXDFmfxnddRVu9EMfIPmbkzp2jup2a2P+7tLObJh3R5SEeux/b5+Szc8yBUcYCnKbUJoePUpgMWc8a/KGwUt8VBgkj7jiE3baoFbRJAdcNOsF/jdhpU3hKcTaiP4LKYNah5dJ5bE6pyRjcoIqEjJErRB1ATHFs0NufS2iK8KC91j3c87nXgoi0iRjW0L/zkY5og==
+Received: from DS7P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::16) by
+ MN0PR12MB6152.namprd12.prod.outlook.com (2603:10b6:208:3c4::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 20:10:42 +0000
+Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
+ (2603:10b6:8:1ca:cafe::83) by DS7P220CA0011.outlook.office365.com
+ (2603:10b6:8:1ca::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
+ 31 Jul 2026 20:10:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 20:10:41 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 31 Jul
+ 2026 13:10:27 -0700
+Received: from ttabi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 31 Jul
+ 2026 13:10:25 -0700
+From: Timur Tabi <ttabi@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, "Luis
+ Chamberlain" <mcgrof@kernel.org>, Russ Weight <russ.weight@linux.dev>, "Gary
+ Guo" <gary@garyguo.net>, Alexandre Courbot <acourbot@nvidia.com>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
+	<zhiw@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+	<driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>
+Subject: [PATCH v7 1/8] rust: alloc: add Vec::zeroed method
+Date: Fri, 31 Jul 2026 15:10:10 -0500
+Message-ID: <20260731201017.2580713-2-ttabi@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260731201017.2580713-1-ttabi@nvidia.com>
+References: <20260731201017.2580713-1-ttabi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc
- abstractions
-To: Gary Guo <gary@garyguo.net>,
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
- linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-pci@vger.kernel.org,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>
-References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
- <CANiq72m59O-ruHUvUcZC7yCvu0KV0w_m5vMO4e0rxyHdRmihJw@mail.gmail.com>
- <68c43a03-5fa0-42a8-b886-2c756e39515e@linux.dev>
- <DKCWO60T6JPR.1P3AAJAATMXBI@garyguo.net>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <DKCWO60T6JPR.1P3AAJAATMXBI@garyguo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|MN0PR12MB6152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42716746-416d-4614-a782-08deef3fcc0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|18002099003|22082099003|11063799006|56012099006|10067099003|921020|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	e5Dwgprt1vcUAzqXe6IabyffWjMBHPjnrD0QWvYt1TfJ1WFg+nZ3GQJmyfwD1Ok1QMZeA/bWoQK14flnDLrdjbNsxFXy5/hM7Lkf6Vha0lGknbunzIZloBPtWExsMYgRQULBMK3/QSO3+RVnw8AR17SYX8jjF+so3zYOWRF+NIle0Pt6L4DEPhiEi7thbYVsmnZR7wjVzVYXRXswGVpY3objTfI/m15u3ie6C7UaegunnzPWeenHefwCdAFxVaRtAJ4YevoNkBhtu9JGpHYpOMSOkmcibv9ZKrLUJaTCA4XXXBfei11E51mmnS/xeCbX/W5fHJVTXx0z8rqo6HUuVDrfmkSjxaoWjA9/x9X95TRJLWPF0TDMLOtIz9TTzFS3Fdw+T+iON9GxqkVZfgWD+WlX/4AGDGdTbaHzrMizf16OqS3cjn5t/ZgJjRy0/T/72HNV7RDX0atX73jO/z4mVI6NbjQDBQ1sQdbbWeFDq228Wu04z7OTCWMUD/aZfQpKT9Z3/PPLokAZRk814qHLzOAkS877puMxpZbgMZP6p9CRGuVdQlqIWvVicnDAb2P0r0GHcyJulj0Wo3vO32dENBgrbMK554qFu52j/JWKgoZ3DD+nyPxur828gSJQlGA3Y+whk8gSubsE899aFi+xPbnow4BYZWmMUD7Yv+jCgcyjEZtdb0uQ+Up8nfiMRHOwjT98YPXXGD0Hwmmfe3YZJqsLQxjiZ25YuUXpy3rT1c+Q5CNYQCbrvhCsT5X9FYvy
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(921020)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ufbVLeUSRepZ8uKkbs011LzGIZIHkSiFz1Rw2hOEHHQA3KjgIkQ2r6rkgJRKE5HAPsCfVUEX+yOZ8hJ9cSw9AFGObWD+B1XZTg/7MmSiAs9mboDKCwg/RJ6tdq2a2Et/jxWRB8pke3EWLxiztCKz14cDupUZglX0MvDwFTTJEP7r9dnXfZVNpAEeJ9xihCa2v5dUV/xV6c0rvmCkNCx5QWW/7JpeimmiE+e+E86+OgpDoxLu+xF6/vSDsGQqQ5XyFu0ZR3cmd5XyBlMN9d9QSXqEYiLNggXLwvSJytiJDMVSGcxiRgTGfNd2X8T4kHYzABjt3TwetDQ+xZNNxnDc+Z3t8crDd7LMoDlhpBCV61fUmGVRx0dnB3Np+QignGtgX7aCQYgZ2iJSq3sYAEn4928kjBTu+4FftOsvMxYnhWhKv6wBQ3uwps5Gy17T2wFu
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 20:10:41.7643
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42716746-416d-4614-a782-08deef3fcc0d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6152
 
+Add a constructor for kernel Vec that allocates a vector of a given length
+with all elements zero-initialized. Memory is allocated with the __GFP_ZERO
+flag, matching the existing KBox::zeroed() pattern.
 
-On 8/1/26 00:43, Gary Guo wrote:
-> On Fri Jul 31, 2026 at 5:34 PM BST, Alvin Sun wrote:
->> Hi Miguel,
->>
->> Thanks for taking a look!
->>
->> On 7/31/26 14:46, Miguel Ojeda wrote:
->>> On Thu, Jul 23, 2026 at 4:11 AM Alvin Sun <alvin.sun@linux.dev> wrote:
->>>> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
->>> Was this old tag used for some reason?
->> That was an oversight on my part - I forgot to rebase onto the latest
->> tag before sending v9. The series is now based on v7.2-rc4.
->>
->>>> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
->>>> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
->>>> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
->>>> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
->>>> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
->>>> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
->>>> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
->>>> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
->>> Are all these actually needed? Some seem unrelated (some were already
->>> applied too).
->> The prerequisites were just some import formatting changes that the
->> series depended on at the time. After rebasing onto v7.2-rc4, I was
->> able to drop all of them - the rebase was clean with no conflicts.
->>
->> I'll send v10 shortly.
-> If the patch applies cleanly then there's a no need to send a new version.
+Signed-off-by: Timur Tabi <ttabi@nvidia.com>
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+ rust/kernel/alloc/kvec.rs | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-Sounds good. I'll hold off on v10 then. Thanks!
+diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+index f7af62835aa8..c7546b9da4fa 100644
+--- a/rust/kernel/alloc/kvec.rs
++++ b/rust/kernel/alloc/kvec.rs
+@@ -9,6 +9,7 @@
+         Vmalloc,
+         VmallocPageIter, //
+     },
++    flags::__GFP_ZERO,
+     layout::ArrayLayout,
+     AllocError,
+     Allocator,
+@@ -51,6 +52,8 @@
+     }, //
+ };
+ 
++use pin_init::Zeroable;
++
+ mod errors;
+ pub use self::errors::{InsertError, PushError, RemoveError};
+ 
+@@ -532,6 +535,30 @@ pub fn with_capacity(capacity: usize, flags: Flags) -> Result<Self, AllocError>
+         Ok(v)
+     }
+ 
++    /// Creates a new [`Vec`] with `n` zero-initialized elements.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// let v = KVec::<u32>::zeroed(20, GFP_KERNEL)?;
++    ///
++    /// assert!(v.iter().all(|&x| x == 0));
++    /// # Ok::<(), Error>(())
++    /// ```
++    pub fn zeroed(n: usize, flags: Flags) -> Result<Self, AllocError>
++    where
++        T: Zeroable,
++    {
++        let mut v = Self::with_capacity(n, flags | __GFP_ZERO)?;
++
++        // SAFETY:
++        // - `n <= capacity - len`: `with_capacity(n)` guarantees capacity >= n, len is 0.
++        // - All elements in `[0, n)` are initialized: `__GFP_ZERO` zeroes the allocation,
++        //   and `T: Zeroable` guarantees all-zeroes is a valid bit pattern.
++        unsafe { v.inc_len(n) };
++        Ok(v)
++    }
++
+     /// Creates a `Vec<T, A>` from a pointer, a length and a capacity using the allocator `A`.
+     ///
+     /// # Examples
+-- 
+2.54.0
 
-Best regards,
-Alvin
-
->
-> Best,
-> Gary
->
->> Best regards,
->> Alvin
->>
->>> The only one that seems needed has Andreas' Acked-by, so
->>> I guess it is fine.
->>>
->>> (By the way, I will use this second message to take this chance to
->>> move the modules maintainers in the To: in case it helps, since I
->>> didn't do it in my previous message)
->>>
->>> Thanks!
->>>
->>> Cheers,
->>> Miguel
->
