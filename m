@@ -1,146 +1,118 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285BF341660
-	for <nova-gpu@lists.linux.dev>; Fri, 31 Jul 2026 06:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785480383; cv=pass; b=YhTe891yhzsNXhZ9T6v44ukb+czCitPZ7TsN5XOyk43ega2ysA9bhEBPgGrHhTnyNTSHc0Kv0kIAuUCoge+Shju6vvd4oJee6S2iIny3LPsRvDEYBu1XpCgTmccUVmvYuqmNDRCrKnqURWWWSJRIs9ojCXGijquoNdgcVddEMI4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785480383; c=relaxed/simple;
-	bh=qSWRSbOj71BNGeOr+HBxtLFfbntXDiooltzuw+HXglM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UbERnLClxch1xZQTvW90dSX/wjL1buglF35wn7xuj5XDx8sgwP6O/5IhnE9MxQj6uAFPvK3Ng1pYNz8x2fMqmS59Pn2XWBcten8ZQtovmGtnOLvJaXfD+ye51v1amvvS0LPZD/s5ooXYgVlVzo1W/oy/NV34w1bs4j+XiUrvDTU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DpyNAIGn; arc=pass smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C5840910F;
+	Fri, 31 Jul 2026 10:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785493049; cv=none; b=P3eTn/9MxFclyPyRFivpZged8HWss0cMXx/jiDzxBogRigZ8wGq1r2E7NtPAYS6TLxp0j/lHHd7bMLCjU7VhHvx505M4pZ4172q+y/fCxxDdXXL6KjYGidEk9tpjk3j4wxCBOGBuyjk2JPoP8m7UEA+QHBKl0gB3/0kaCa8TUhY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785493049; c=relaxed/simple;
+	bh=ryUIrfwLhwmOaFyadnky7X8MCgTqNwrP15Ps6HbJRew=;
+	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WLIT0iQmJlnfQdVqOdKyCuSCwvlbfxh9CE6rJaTuMHhOGQ/CrNe0Y56N+Ic3JADD7TbppP5f2fkT4Yr14NUroZpPszMyRlDcEtKkmnUZ71vqcUQNLt0vZHYC77jRE5aXnafFgQ05N8n92VSjpc05xH4gr8nkNYm2HyfulrUzNKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=IVW8HFTb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EcAf9nM/; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DpyNAIGn"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84e2061eed9so94265b3a.2
-        for <nova-gpu@lists.linux.dev>; Thu, 30 Jul 2026 23:46:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785480380; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RQH8mtJEn7IrtwBm5khz8mRrd2TK50ES8dz5OJjd6MlRQMvkW0G5Es37VePQto0AV5
-         ly3KxAgQThaopl0koXogleZulcqqKS2RtPHa9IhLVRRoZWtpzkTPdAXw0WIl8Oio85nQ
-         pvzmzcoHUQ6nSH2WAXSxVDZA3wvXlu+ZmyjZm9FeldS+BC8onDneYhCe8JU+2R+nH3Go
-         DqGGpgSA/sXW46P2NwzK2+tCWMC+3m7ghfUKwwlphQxVzcOLtkT8eCu7yUyu12b1pBXq
-         k4RuoudtAQn1lR9m2EELknlPBiLxfGUZ26NkjZeiNQiGpxMmCvJpsInsY/wtyvrs3mSo
-         nloA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qSWRSbOj71BNGeOr+HBxtLFfbntXDiooltzuw+HXglM=;
-        fh=HIXbFk2L5Uy8xfI41tDcsIyKk4G7dRWFSVlR9gbFv/Q=;
-        b=WVwy/pSO2Y9ftwjTV2rxVufW7XXeb4/okZC+fhP7/xXytSaVhql2V5uKXpHBGf6RR8
-         vc5DNcDNKuuDqVHX6HTTjHnewaB+DhY7qxWoj7YCL5qMqGHrOLxpvaSxsvRtHDnXU9tQ
-         zqLT5Ntx3UNlLxRTlcc/eP/B+fFKnqVTQ8OUui1RWY7kZdphnRXMzmMfYvp9BkFRgWU0
-         jWd5TmO6Nd3VPE9Sgbyw76TFRocn7ePuQZNp1Mo1P01YH4JFyppU1fDIPW0zSM+TF1DX
-         UBDN/9x0695ZgAIMiVtW9RDoA96uLjOnBKAESQrIytFll/1/QnLSWRqS5EJo8JtOm8wX
-         4NOQ==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785480380; x=1786085180; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qSWRSbOj71BNGeOr+HBxtLFfbntXDiooltzuw+HXglM=;
-        b=DpyNAIGnL3HHQWCY3lq2mBt+B7PwKaJ2Fe9UKhRYySc6IUC0fXQyJLnA29tDZQQeDC
-         ovZcN2chXdGH6Py0JhyerFsnblc7ZzgD2AOk7OYkXjZlPw5AR2n+U7gi58XNzch5SDeo
-         iAnCh9IMLJ7ZD4BXZwg9ND8n1RvBySBUmRxsG8c61Jj+Qqg/cwrD8NdqXDcA9P3qJfvw
-         AhmJ4Mw81uYuwgd3Le7FAll3fQxYpf0DDaR1S5bKDVnM2z/lpMbYTQu71rm0J+kDG50O
-         JR4bfmj2pPPKTf99jRwOrNM7Bp/QlvDsHoZPTQpCe0rbAd6xYcptGbpPtIyC2pNcvUaB
-         T9pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785480380; x=1786085180;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qSWRSbOj71BNGeOr+HBxtLFfbntXDiooltzuw+HXglM=;
-        b=CFbaVdsHx5vh0Dk95m0HGPFOd41YNRONSMENDilt9iS5oB7gIc/BHHqwCDvAlCTfGA
-         wMeJw39XUUNJVZaYWTcLmbfitrJ1ev2mW4hPvgCTQaG6J6F1I6Ps2AiSUGp+dQsbzDXS
-         DMiDFi4NykLUDZcK185hlO2oqclO8N9cBhEXmrs0dOIzUZcUkmK0C7cnFAngx/7N7D3q
-         G4bGKTIiv9t5H7j5OaKJzLgNyfnHTHZq6N2L6K/3X+t9Qf1hjrG9t+SyRgZvzl8n2pwL
-         u4ZqbOw95zN8DIeeFGcIkHD7QMgHzxlYre+21MfDNGRwSg3rVM4agUFP77XcgUXWJB4O
-         l/KA==
-X-Forwarded-Encrypted: i=1; AHgh+RoIDbEX5wMdc1r1Al/cSAFxNDghyLpjV8mBT34LYxcVga4DDSP9Trduxndawq7oZ9Pvmn5sxbBl7Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwGdCV8FteO5R3zVPfT8fzXGCJyZqSDLbDCIW1tClHnHWSIhKm5
-	uuLBaBwU+/MAmZCKz8bjTo/lwM5CAD40nkpFyS6czZbAr5qK8dVs0OExP8vs58tV6XxSMTCG10z
-	vwRUQFPYZMW+0YwVmwtp4TmRNl40bi/4=
-X-Gm-Gg: AR+sD13JsXyShbqUk51UAUnWcTmUJ9X5XN7KlUDUrKbb//+3Rvj+7JiqUAY0JAEYzgM
-	oUyRUYhhU1qJ4WwkA1M5NOi7log/TnYKS1SSIJbasWLxzazAb8hNksSyCk2g/SmoZpRNCsYIdKC
-	r5VIVALBWNWVaGFmFp8I2RAmETWEf/85NFTyGVjzE/WCjlQ8JeyvMuoDKCze2PvnH4ss70zbGoJ
-	zDEbOcunVnjP8xZqpsvIa8sUfaKUeYLfet3I/silarVCwrmbIVb2UOq5wT5/zoO+pcBSdhQrQ+V
-	VEKjAzuMcmSnxko3L34CWM8qxrMWwkQhKR9v0piVldywVhGpM5YkH5GvoT/sOExoGWsaPZQdKxu
-	hDRKlKGAS0+oZGfhGwKb4Rz5mvsn91f0lqT+zEUld5o8T9NRodOASziZuEYDD
-X-Received: by 2002:a17:902:ce08:b0:2c9:b96a:2855 with SMTP id
- d9443c01a7336-2d046b459b3mr15748155ad.0.1785480380480; Thu, 30 Jul 2026
- 23:46:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="IVW8HFTb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EcAf9nM/"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.stl.internal (Postfix) with ESMTP id D43F9130007B;
+	Fri, 31 Jul 2026 06:17:17 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Fri, 31 Jul 2026 06:17:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1785493037;
+	 x=1785496637; bh=GK3P8P19kG8dXqY7osPQDP/iPoqGbBmtaXA7tO2dwhk=; b=
+	IVW8HFTbbVEeFIw4IKo/saEqH8ptOlB1vDBuvZp6QQcinyktarELLiXP02UB5ZSc
+	dRfZOM9CseWYhlYsMYEtpLrdGzoS2Ci2O+3fJBTj6B3oKsT3DV1nselK77aKZZ/M
+	lsoabYUm9oFf2ucYTE76IGweptLHuRsYXVUvOBV7PJqPFI2wnlfZuEzsdbSmDHc8
+	U/0XzzWNzbyG+4U3w50E1kMDdFTJ8G2LkSCjDI2fq0WwXzSw/7TUM+WHjY+5SZQ0
+	PkvsHb6FD+4uyx+jMTTd+DbtPIlUNpN1gUceKb+463oznUfBhSvKHMZuW8s4YJnO
+	Gs/J3tANeahs3hd5ntD9zA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785493037; x=
+	1785496637; bh=GK3P8P19kG8dXqY7osPQDP/iPoqGbBmtaXA7tO2dwhk=; b=E
+	cAf9nM/mr49QV3OsKrZes0K1n8ngTKGd7Lxc7mEcQHCKJMeYtJOupDFh7C2A4uzF
+	e2NX5xzsrCiGMlM3Qq+VMA0qyywz0ltMWDoePQ9SiIgnXfb0w9w/q7Jfu7CHrl5u
+	v3SOXl+Vg6xdzO+sBbKvV1MBaf+NMT1mZu80nKSAgfDocOPjenzif1GXDqrqlI+x
+	5PSQbMDzulOIVUdAjdfriV2s9YPr0wN6yh5UN5LtQ3RUvWQaEseD16Bh1/bNdm8i
+	dV/dgGtYcT1KZusEsx7yW+xek2Esme0cfD6jgbG2155nipWjBB9ylY2y6bbnOXRW
+	S1Obl0gmiRgzKu5Qwwaog==
+X-ME-Sender: <xms:LHZsauShn8mGFCBuzq4_3YtOHd463pJuoe67EelvbJPVY2G1uMlmsA>
+    <xme:LHZsat_EgCrb3ej7iUCs4U1KllQMytjiHTNl5bKTcAfZbB3wVk9MTLm8pANNXkvJh
+    2I6vVKbOPMqZRTlWu7Mu6QzeHW7DzQV_DL5yUR4XwbAUgQ2x_zYWGk>
+X-ME-Received: <xmr:LHZsagdLKjIoDE1t5h_c7McrnjAesBaTDcOfF_3W7yuNmT4yE1ngt7rw6Mo7oqV7kcy2o6yPsV1ft0xyleTfcOtW>
+X-ME-Proxy-Cause: dmFkZTGxdK/tDV8VBNof2Hwu53b8KvHPCYjs9XaeFidCuyISaxjRqGVq+n3C7bA9+5sHpb
+    LCVWu1bA2cgrHl+YI5p2wukXY79TwzXEfH0aQVSK+ECk31Mx/Qut1UhvX14kTvB0cat/9F
+    klapUXPtOnJXJy80ECRgMDUxqUYtLXv0GQZiElMq8mOdIFjlyYg1HipJwZ6E91jPe1EJZe
+    xR9APzJgxE+KWIpFKucjXA76vslaUWLYenUcUOJf0Uf92d05S8XhlqgTXqrzXn76b5/7yG
+    Yq2yZmBObo3AXVSwn2b08Bq/2OQPrE2OkQ3HOdn1TfL5WmeoAByXUC3SrdK3HdgCJNojBu
+    D34tKBwU0vdLVRDubLweHmqH0xaE8BLVk7w6XxyF5aeaKXCNss4RmSqanPKFCqEsPuHZ53
+    yLyqzrwUZz8yDiSDZLbNEmFUaM+nhag/lnVfHPFl3h3wdnUUlk0tJjUUEO+xXh5y+EQpgq
+    xjb1uhEe5BEVD0n2Cty22Xq/R090ZFTqFxhoodpUALfQbT7Ng14rtFYXWVVz6zX582m9zJ
+    t2IB2MQDXayKiEfBCHfy9W7RLS4aEt8HndKwHnN8iW7SHWFren+5qHQVGXSCslkyEc5Oc/
+    CMLxSiTdXHGP3Am2+ziJksV4aCMbllhTNA5ai2YGfGb/8N5cbR8Y0S/R7Ppg
+X-ME-Proxy: <xmx:LHZsaqnEO53AFzAEMmVwAew5Js5b4uh-Gs6pngewQIFPEYsbYA6OgQ>
+    <xmx:LHZsarzXJSD6C5JAG86e7rj2TO0DsuQmMGKauAUWRPgPy27L3KH1gw>
+    <xmx:LHZsaqjMHrFZZ0tDEJr20PuwzSv_LQxCqtiZEMd-sodWdnSc3nL3qQ>
+    <xmx:LHZsaqCS40YyiCR9tcWAf8XngC43cHCkPDBLsRu4-2OjGN8j6bUZkw>
+    <xmx:LXZsatpdL4STtOM5NbrYjkX2mgbV-eFXCZ-uRmFTDolsykFW1gpTjVLL>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 06:17:06 -0400 (EDT)
+Date: Fri, 31 Jul 2026 19:17:02 +0900 (JST)
+Message-Id: <20260731.191702.2195123016093141361.tomo@flapping.org>
+To: gary@garyguo.net
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+ ojeda@kernel.org, boqun@kernel.org, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, daniel.almeida@collabora.com, tamird@kernel.org,
+ acourbot@nvidia.com, work@onurozkan.dev, fujita.tomonori@gmail.com,
+ airlied@gmail.com, simona@ffwll.ch, bhelgaas@google.com,
+ kwilczynski@kernel.org, abdiel.janulgue@gmail.com, robin.murphy@arm.com,
+ david.m.ertman@intel.com, iweiny@kernel.org, leon@kernel.org,
+ lenb@kernel.org, igor.korotin@linux.dev, robh@kernel.org,
+ saravanak@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+ fustini@kernel.org, guoren@kernel.org, wefu@redhat.com,
+ ukleinek@kernel.org, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ linux-acpi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-usb@vger.kernel.org
+Subject: Re: [PATCH v2 05/11] rust: net/phy: remove expansion from doc
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20260629-id_info-v2-5-56fccbe9c5ef@garyguo.net>
+References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
+	<20260629-id_info-v2-5-56fccbe9c5ef@garyguo.net>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
-In-Reply-To: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 31 Jul 2026 08:46:07 +0200
-X-Gm-Features: AUfX_my5gmBTyBxP6uEcBbaVDtTCrtAGlQbEryzjfR6FoeX2UBUc_vHFPgNtGlo
-Message-ID: <CANiq72m59O-ruHUvUcZC7yCvu0KV0w_m5vMO4e0rxyHdRmihJw@mail.gmail.com>
-Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc abstractions
-To: Alvin Sun <alvin.sun@linux.dev>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
-	Rae Moar <raemoar63@gmail.com>, Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
-	Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
-	Igor Korotin <igor.korotin@linux.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
-	Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
-	linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 23, 2026 at 4:11=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> wro=
-te:
->
-> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
+On Mon, 29 Jun 2026 13:39:39 +0100
+Gary Guo <gary@garyguo.net> wrote:
 
-Was this old tag used for some reason?
+> The expansion serves little purpose and it can easily diverge.
+> 
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  rust/kernel/net/phy.rs | 56 --------------------------------------------------
+>  1 file changed, 56 deletions(-)
 
-> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
-> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
-> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
-> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
-> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
-> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
-> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
-> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
+Agreed, it has already diverged, so let's drop it.
 
-Are all these actually needed? Some seem unrelated (some were already
-applied too). The only one that seems needed has Andreas' Acked-by, so
-I guess it is fine.
-
-(By the way, I will use this second message to take this chance to
-move the modules maintainers in the To: in case it helps, since I
-didn't do it in my previous message)
-
-Thanks!
-
-Cheers,
-Miguel
+Acked-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
