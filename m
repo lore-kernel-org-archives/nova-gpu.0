@@ -1,79 +1,68 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012056.outbound.protection.outlook.com [40.93.195.56])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010066.outbound.protection.outlook.com [52.101.46.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F317B43CE65
-	for <nova-gpu@lists.linux.dev>; Tue,  4 Aug 2026 08:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FE7356766
+	for <nova-gpu@lists.linux.dev>; Tue,  4 Aug 2026 13:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.66
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832681; cv=fail; b=FxUsmOiARg+te1mFK3PvulG3ThTed00yS1BGv1RDuLjJEBZ1PN+8PspbIoKmE5/JJiB2KzzxfTiXdM0dGXdrvaqZlKvAXAY0f4RBoX5xGMuL86F2WJk41dpSJVVRcrXc8QIgrbg/Ry7icewaCWi22U+ccm9s8mKeP7aGVOPZ0bo=
+	t=1785848903; cv=fail; b=KLDDg9VQAgG6wn9qyJDRWx5JhUogcdPo1cb/TbHTYPdMkRe48YY4tQtOEUEA+vPrTd1hkAnv1i8ZYMXNVhRmi262DvhzCsSTujpARJHC2wOy87b8Ti0OwhlvIGq9wwtYRtNST45P+9q6fMWP2YmG/IUSht/u2la5fojc86N03hY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832681; c=relaxed/simple;
-	bh=xL4LgtM/g9cwzRJ3WnA1ZJ6HAV1trgTVfQU8t3ApNLk=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=bRf77kRB6J/wdtNvJXXAE25xptGNSTd/4QnVOC2cU2AoDh4lgVDzHBKnQgQo42/LcIj67cVRsTmuR1TwINXzLP5KEj+EUyZ0oZm+bXYwlrZCQLiWp0D0nkl44nbsWmCwuNBdzX/zuP7l0Qxk9ri07tM+G6idP9+9t+BFF9hzLmo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uYYzJRno; arc=fail smtp.client-ip=40.93.195.56
+	s=arc-20240116; t=1785848903; c=relaxed/simple;
+	bh=5wCqhnLWW48FWCoRtCtvOVO2HKbNQDdcpBL/dhqW4+Q=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=dEs1ckkWRK7ts+poInMK5N7UdYlXqFxldjYZrWhqjszvT6Hx3jkZd1ix2wgDh/0WGm8UIXuD+c/NG/e/OJ0HIcQ7h/OWl88ojCpbRPrwbHpqZNFu0PWRpDH+W+bgowdh299Hjk7TXqiRCsxTdv802OvMYKfVMbWTtPXpMwmdG0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mvTzZrKa; arc=fail smtp.client-ip=52.101.46.66
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uYYzJRno"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mvTzZrKa"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wxt7rCbdx1a8nYEd/Zw+J20C00bUpOqUuzhgP2rVAz5TlrCtaCPvm0afIjXuyEbt6ltXNzJ+w+s+OsB+fGVeD+Sm+HBO8k5r6ngivxCYN8S2E/q3fCgg3Vq71w4BynxfUnZAXsiPjflPzX8663GyuBl6VAo3891eHACbNIZY7A565omtUa/ysi2ny2UiT1+kH+NHL8B89ptMtskUjaVZdJ28NgJzO8ZV9JCJyUeSL33Gg8ZWmBumqMOWowdgUHgA6VJw/1D+lAOLSqXDi3j/jRSUqerHBUpAyD8cGY1LQrm3AM/ndjTi0x9mZPzGdMfRPchjkE3Nsp1yeaWcZbiutg==
+ b=NYU/9xdqNO0XN3s0mPUpUWggyyJZ8v356C9DObnPxLg58SBSG11b+Fr2fmCM4dTP6c8B88LezVsOiidsbCYZn/Gl8PCfrjXjfIRnR1Rd5Gkj7Qi8mtYFWsj11MhQsE9+w/EOITrdP4/4kYl6/dQ/YebxT5dulQpw3thyTGZ/Qq+Z6gJ5hjTtLS2I2IT7uEMvPm2ORHMx9MulnAEIEkacwaaRUzdQ888NEfYwCgge2A1NRpd07WjUnaLweJQfV8ntBY2QnUu6NGYM78uGL3IcnnWclX0S9hwAeUysevIB+R+VjNhMxDdFP4Pm01ENANxi0S9DEF9tYrZ/jE8ksT7faQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7C1ppodPgGEKAbw5a43DRy79IxJrmOjGRUWQYc6Knfs=;
- b=PS7YtazYZZ1FHRhYNibTQAqBgsTw70t9CD+5GSFjiOsz0vkHmOGhuomDtmCOEbsqhYoa/HODblCw4YKRsWfq1pky7eK+V8RBBdDxNASWKSSXq38o0DfxekoogAWzPZoGA/XSQWkqKJVKgY0ipkmB/bz5dAPV2eySuXFspY+Uz3rYjhSdpYWBhMa84XydcSpMbyw7eabRveVd+vEt88yfpvfONtdLzzXR492iajN76LeiKH4wywgYP4g885U8Ep7v31yLkrtb0UEgPTmnGqlAxxqNLYnUNYMI4csIvZrnkMqAbe6GlKVB6yKDOyXvDgex0R4gTKC4Va8YAVUYXQ9tYw==
+ bh=Sy5JR8eTzqJlWVnbuIpDbR9Ltx42piHTkl5mtLCJRXg=;
+ b=lIqg8pWOuiHjWdOJKo10YAb2nPoaZv74xl2qSHiqIJhhesUmPP9bOkCjOw5ZX/bkb5pdc0UUhumzDZTfHJALcBTXqp8DF2N2d9VyrwAlI3rdmA0h0XzOAFBI8KaepCXN9fs3PzR/Tsm7cXzmVNSOUc5DHy1rta7IGGO8lcVDRSnjvR9kk6hfcRcbEAZ3f80uMuRs8zIIyb5SIesx6FYC+rkxrGxEr1vcwFcvUvXME+yue+SxZJuwgKElz2NTJVu73AtZJwBcBee0LnQvScNY200bseB9CnduGawUWV3zJ2FzWOL61CEDQh3JWnSQMER3MuXM+vpjd1U1/pSkM9gc4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7C1ppodPgGEKAbw5a43DRy79IxJrmOjGRUWQYc6Knfs=;
- b=uYYzJRnonTGi0+RQ/75Z/FCesG8hxOqaKxA/EhLLt1pSJ5GBB+lximAqf1weTiXdOz5b9Xtkpy/ovzvOXOSXW8BCljLWcprFB0mO5e7PbgT7kfWVCg9MDqPf5+jX0J3E8RS3+j73Ma5n/O2Zwv9vA1r1IX2b414XGvDYsivi0AMzZsMYC4GEtjmSaBbum6zr9lcI4iiJW+QulUKlScIMRoZVcTx1rbxRku3oon++uLT8y3PpFmVJ8Lt3OCY0uSwWGrlpcALk7g1TU6ucm5DdfbciiLb3n2jp55ezBxjhqIGxfzJASF0FOJxHevxZtij526/lxk6AnKTCE08CK5yM+A==
+ bh=Sy5JR8eTzqJlWVnbuIpDbR9Ltx42piHTkl5mtLCJRXg=;
+ b=mvTzZrKaikOUDRUed4NlyqT5bEXUP/Wd7YM9kW9PtEY5MHLqzLC74337UDwRA6UuHdCumH63Oq/gM32zxi63MqcNCixqDKQ0SPQIMYn+7b79hp8VblzNlAs8LxDJEvdG2V9ff/IH4afQV6rNuPx4IMbH7Aqi8pasXGDs4P2ZSR3yzh/vrGP0ABtEceeaVcpE+a2ZtELyi61e4MbmgE9p6IKAn6h0NbOqMHBZWlbfVVFv+ZLniBWy+ROWyCL+z477IvCN5Mz98M3lv8SZUPgVRnCwusDhMwXw0TkV50ylxl/DJ4CAifurj1D4jErf7PR1W0HmCqfd9lb0da1PiANF+g==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by CH3PR12MB7762.namprd12.prod.outlook.com (2603:10b6:610:151::16) with
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SJ0PR12MB8166.namprd12.prod.outlook.com (2603:10b6:a03:4e2::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
- 2026 08:37:32 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
- 08:37:32 +0000
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
+ 2026 13:08:09 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
+ 13:08:09 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 04 Aug 2026 17:37:28 +0900
-Message-Id: <DKG0U8RLO7LZ.2I1AIH0S38PAP@nvidia.com>
-Subject: Re: [PATCH v3 2/4] rust: bitmap: add contiguous area operations
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Yury Norov" <ynorov@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260729-chid-v3-0-20cc08032bbc@nvidia.com>
- <20260729-chid-v3-2-20cc08032bbc@nvidia.com> <amrZcX33BGJCTDMp@yury>
- <DKFBEPDNAD1V.1LFARFHMO5WKC@nvidia.com> <anELwosZSI5MZR4d@yury>
-In-Reply-To: <anELwosZSI5MZR4d@yury>
-X-ClientProxiedBy: TY4PR01CA0070.jpnprd01.prod.outlook.com
- (2603:1096:405:370::18) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Date: Tue, 04 Aug 2026 22:08:06 +0900
+Message-Id: <DKG6LGDZGWNQ.1FL8VTVTZGTGJ@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v4 1/5] gpu: nova-core: correct FRTS vidmem offset
+ calculation
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260804-blackwell-fixes-v4-0-ac858b6a1935@nvidia.com>
+ <20260804-blackwell-fixes-v4-1-ac858b6a1935@nvidia.com>
+In-Reply-To: <20260804-blackwell-fixes-v4-1-ac858b6a1935@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0311.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38b::6) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -81,271 +70,221 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|CH3PR12MB7762:EE_
-X-MS-Office365-Filtering-Correlation-Id: b975420d-1275-4a41-a1a6-08def203a024
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ0PR12MB8166:EE_
+X-MS-Office365-Filtering-Correlation-Id: eae3f621-4d71-4e3c-55fa-08def2296e37
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|4143699003|5023799004|56012099006|10067099003|11063799006|6133799003|18002099003|22082099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|376014|7416014|10070799003|366016|1800799024|10067099003|56012099006|22082099003|18002099003|3023799007|11063799006|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	6aQwGbKFycT52roOQSHWxGxtYtwI/ZTfMEKpOugl1NsrEJca2rots5XfUoOiETV+VvZmAGc07DNFuw6Mtg1BsB4R3QvWXdPxIXngENH/T4wh8SmYOlOl6q/nNwba2PXOxEbLSsQZY34MAfG/gVyUnVobIAvO+u5jfNW0eEZYYio6Azt/+clBioG4BC/hL4uETnP+IuYscwstbMB1Ids6Y0FctJSEX7uVdHIw7jK1rhOIDbXcoSg5veUWIhyc3T6d1uIdiVRzC1KFDmiDO0C6X9IkZlvTGKUUrF2SWiMCnKDb3lsOJxbxqL36pF5n6STAfWdUAPLD753wGaWbpIfnu/H0h/69Ze7Pi5ly84p9tyJr4TebUJWw4aZw0CRJcq2AEQU85XkzM1T8mnUFp+hezJ6AZEsOv3oPHP8o7hK9RGGcz6Z2NiyTgaEP4n56TpysneweZ4EjKST1QZTdKPhYbj9J+NRHpGYVprTqd2JUYryqZKguQR8bnCRo0a581/4mi/qd7As8cPIrwFuKJb3tVRZ8GR24T05bbOI66Kg1K8whP6kOCIgZTD+yHTF2XXAjmeHLYSIo6kA1VY3Ik+4OJXYa7wA6vnBGzdeVb5SlBq5jw8dLab+nv9IQukryPeroTvMJna6xKfR7sLkR2oixIpyCNR24iZjAbdR/n4zrRcg=
+	m2ni3edp6HdI54AdIr1r406zhHQabQHeB872FVzItvsMTQjayRDKc4vPL/X2mMYOZLRpOsalzcf5nwWDLGtxkQ0pJZS7RdnKNVrqU7P6QwuPfWHPO4bu/7WWwMQG6hRYuqh3T8iEbt3xZOHsaB91z68w0KN3BP2eKKbqTRqEtU1W/95IbBL8xdcp8Lhf55E6HfGjf7WeJKn7J/tVPLWJ3mwHl/Vr9PQRRXq8i3UK9YVnHsWATdOIYJmqsu3UmcmtfITMVlRRoWM136fzMuyvlHm6op8nPVbGVbWvby3JldIj6qX4HeWiOwoOgmwQzMzZoMxDnMCh06bbIGBqZwj5W9l1UoNVIHarKgZyF3l7Zo/YXnQB2gj8zj4FnACgZxBjJF/BYHy+rPDLqvM7vYzSVEdCb69RVjF52R5QgebvPveC9gSd129b6LZCJvw5Wlg089yYEVa6Q0nGVHlo9BTbyKlJzqzQqZYf9JtzP2i30AoxDTBTpRT3fimiE3jU4rfQVyTmApfEkbq9wKVWaad0Cd+Yi3tpCasHrm/4fVmrAPQsGjpuxvmYd/qKuVuv1zWLg/CeBFb+ec2q98rtblUR3AfeqO71yMEcU2JtXvw3lEhbnrXWLbKZjgJlh5g6eOa9lUGaqKqSfcv+ourLv8Se9JkH7+3qfWn77MskkhXMuAg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(4143699003)(5023799004)(56012099006)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(366016)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TE9LMWxVSlFaMkpEaHlyckx3WG5JT1JSYVc3ZTBOM0psOHNDMmM4Z3ZldmFn?=
- =?utf-8?B?T0sxVys0czJvSE4wbnhyUTdFdWFHOG03a21OU3BMc3B1MU0zc1VxUEQ0dEJV?=
- =?utf-8?B?VCsxdlZJN0tzTHUyZTIwZnV1dUo3UDZZa3QvL1ROd2pkVG84ZGUyYjVTRFpM?=
- =?utf-8?B?MkNIN2NJUHozcFBZd2xNVWdjcVVRMk5kYTdSSm5FSi9mZUVmOFQ1NTU4VlNw?=
- =?utf-8?B?SmVuNGc3YUNmcHhxVjdQenZQZWpSRmM4WHRrN21jMlhrU3NlTTY0eUlubjBG?=
- =?utf-8?B?em5PRDNkeUhlbHc2Q1lxVzhiOVNHVC9ZclNaRGtJOUljejQvRkVHZDJTOGhI?=
- =?utf-8?B?KzBMbWpSZVFQeHZhU1BhcFc2YjhCRXVOZlFDUlRVckU4WUF0M2lJdDdmcVRZ?=
- =?utf-8?B?RUFWNTRhZFplU1g2RWtZM0hEai94Qjd6VHcrbWYxODhycUd0YXNjMFVZQ3Iz?=
- =?utf-8?B?NG5qK3ViU1dnMmsxTm9IamtZQU5kcFptZno0OGxwbU5SWGEvakN1cW1wbGtD?=
- =?utf-8?B?c1lNVzZVN08rVXlXMU5CTEl5TWcyM01kME9rZi81ZmptRzRHUjVTTVc2bmli?=
- =?utf-8?B?TkR3K1A3Yy93c3RVVThFZWlveURKbG1kdktCaThoY0w1c3BKUDlFUGNIeHNM?=
- =?utf-8?B?QU5nb1JrVXBMd0pGMzJXaHFtU2FYYnhxc1pwc2ZWbnJnZkdtQTNTWE9WdThK?=
- =?utf-8?B?b2NyeDJIaTErRE9Hd21Jd2lmV0FKc0F1dHFZeXFlZlZlUS9Vczk3SnI5eWE4?=
- =?utf-8?B?QVVrUkFhc1pEeWJJY3BSTklNUyswQmhYeVBxZ2VSb3l6MHVSSGR3Ujdrbzk1?=
- =?utf-8?B?Tms5VGdFaUVmQ2lQRkVwUUs2dDFMWGlCTTd4QXNyRUhNdS85ZER5Mjk5MUlC?=
- =?utf-8?B?WlJ2Nk1tcTFnWi9GL1AxMmgrQUo3SG45S1ExVTJHSTZqMSs5Rm1JQU1TLy9x?=
- =?utf-8?B?M05QNlVzZ3lIVGVrem5jQlpqVnlEOGFkT1B4Slo5cVY5OGx1OFVQbWtkVGtU?=
- =?utf-8?B?VElTdFhhWXdlTk5QYjVsU204NTd5Mmg4WWYxZlR3VW5Xd2NzaXE5QlVFZmQ0?=
- =?utf-8?B?RmVwRlEzWWJyWFltdTdwOUVOMjEvYkg2d1FMTy9vVmpURVk3MW9XTTJCcC9L?=
- =?utf-8?B?UmJVeTVzRUI0MWJJMUV4c3pzakd6cFdyVWpoQUNjUWFCRnVSUlJ2Ry96SDJr?=
- =?utf-8?B?L2x4S2pjcWRIeGhoc1Y3UkNEZ1ZhanpxY0FUcmpiemdDR2JMclcrcjlEeHI1?=
- =?utf-8?B?OWRoVGwzVVNwVjFXaWZqdjBQZmNIa25uSFZpOHk2Sk56bjFXb2lmMElrQTdM?=
- =?utf-8?B?cUZZQUErQUNnbk9rc0liclZtZTRLMkc5YUZnWENpTDFmVElqNVpCZ1UrR3h5?=
- =?utf-8?B?c0hldVdXZGN4TGovSlQzejNLSHZUY2NRdTJQTjNUbjBOdmVnODZLREY3UnFK?=
- =?utf-8?B?L0cvUFRDaS8wcURJQWFPVmVXaXJHWGU1bXB1cGc1dWF5Rjd3Z3d4OUhNSjln?=
- =?utf-8?B?c2kyb0x1QlRZcDNDT3BpWGZYQVVaVWhYSjl4dHpjQTFOdzI0SkVOTDcyaktk?=
- =?utf-8?B?elJmS0tpbjhKVzROYXdjT3c5Z1F4OUxkZlk0YlJVWkFpUjk4Yk1mK0lLb1Fi?=
- =?utf-8?B?dFM2WDNIcGxzVTlMaHFacFNkRVFCL24xdjZ3WFJrOFlSemlUU0ZQd3pYS0Uv?=
- =?utf-8?B?VzVJRmREbWhwem1xRHFGOTZNTVBMRCtZYTJsQ05vdHVxZ3diZkkwMzJCYkpU?=
- =?utf-8?B?c1JQZTllYWp2KzZrRXkwLzRUU2ozc3dycGJhc0Uxc2ViWWx5Qy9pdko1Y0ZX?=
- =?utf-8?B?ZFJzQndVeDgwVnpkMC9GY2lMbWRIRncxUFZPZENHaFdJK0Rmam1BS09FajZN?=
- =?utf-8?B?bU52cFdqcEtNU3l4RERNNkZQZ3ZDYld1Z3o0SnRnbjBIMUpWVGJma09tVFlO?=
- =?utf-8?B?MWNTWi93MlB5VmZuRFhiN3ZCVkNQZGliamx5L3VVdXV4M0plaW50UnpVMENz?=
- =?utf-8?B?R1dGR3dsbmxwSWowWVdmOWdCNWtlLzhHbzNoSlV2ZUY2Qm16VjJUVXpJZkpO?=
- =?utf-8?B?eWl2M3VoYVI2Ylp5bmlMazlHMjR2SUIrWmcxUGdDSU0xYzBPQTJaRUg1MWQx?=
- =?utf-8?B?UTV5aVJVZ0piZUdxdXI2MUV1N1YrVzRkS3dVYlVXc1kvaWt4YWxkV1BVV3Z6?=
- =?utf-8?B?bitnalhyVXdEYVZyS2tBTzZMRDRQcHh0UVZSc3VqV3c2SDJRcEVLZnpYQ0F5?=
- =?utf-8?B?YThrNVRnZ0l6LzhRN29MUVVRRW4xOUlLZ1YvZVlHNExqWVA0OVNTWHVEOFhN?=
- =?utf-8?B?WjBsRTVqYytGVzU2QW5PUlE4T2YrZlA5OGticktjQWtjSWRWWGwvK1hTZFhL?=
- =?utf-8?Q?MmpG/EcCzMgRWp1dkRcdvGSAg1LSvztLgib2HYc0/R2Sc?=
-X-MS-Exchange-AntiSpam-MessageData-1: DCO+W6KfnBoi7A==
+	=?utf-8?B?TkhSbStxYjVteTArRjFhZFdST25MeDVmcGxUMUQyUGgrZW5veFN6UEY4YWNs?=
+ =?utf-8?B?Rk9NMXVhQjVFcTArcHhMdmNSNWk4V1orYkZ1Q3FrcjNWUi9yVm1PS0Z0UDNm?=
+ =?utf-8?B?REZCYVZRcll1Smp6V2pCOW1QeS9pcDc0MUU1dUdaL1NHd3MzZlQ1dG15WnVM?=
+ =?utf-8?B?VG04UlUxWjAzaDhoUmlaQXM2ZmRua09KVXYva0ZtOVRZdEhVSFB2MWJndDNo?=
+ =?utf-8?B?VVlQbVlQNWkvT3k2YVhUUFYyOHNscTFIdVhCa3c0NjVBOXo4SWRoNHpEUDlT?=
+ =?utf-8?B?cVJpVkNkZUxYaFZuNzJBWE45dXdnZndlU2lkU1hrV0RJSHgweWVsaDhUVzJm?=
+ =?utf-8?B?aTB3T3JjTnVxNktRS0FKQzY5UTJMSzNXTGptTlJpOFRwb3B0RVQ3eVNUWkZv?=
+ =?utf-8?B?Z2RUODBCUVdvbkJ6MGMzL0ZJY3UwdTY4dGJoZWhJMzBza3lkMmFuSHQ2ckEr?=
+ =?utf-8?B?b3g4R2JlcnRZc3owMkd5dmN0Q1RJYW44SE52anAxeXYvV0xFZkRWTjUyZmla?=
+ =?utf-8?B?ZThEdUcrSzQ4UythOHRLdGZrRmhRRlFnUGNhOVFwYlpCTFF2ZWNJQVdkanBk?=
+ =?utf-8?B?dk43czBpSjJHcU5Ia1FtaVZ3NEd1TVZFVFJ5YzhjL0tsNFZzdXZtN1A3R1FR?=
+ =?utf-8?B?K3VmcXFLQ1Z0Y2lYa1Y3c2tEZDQxZ2NGKzBhY1g1U20yTitWSHZGc2tYZXJH?=
+ =?utf-8?B?QU1VWDl3ZFNBNkdSaFVDakp4UnFSVXJudjNOWGxTRkF0YmR5Wko2bzU5anN0?=
+ =?utf-8?B?MHRDV1NVc01KSy9MRXFGN2F2V2NCRlVSd1lMOENKUGtrRUVMdTV2N0NsZDhJ?=
+ =?utf-8?B?SkczcHdmLzMvK0RYVGduMHUrSXQzaXRleWJXa3BPaVA0NlhCaTk1cWw4UnZT?=
+ =?utf-8?B?bFZEZVovaWxjSm9rdi9XZkd2R0FaYUFqQWlabVR6VUF3V0NvN1VhaFl4d0ND?=
+ =?utf-8?B?T2psL1lIU2pSQVA4WVVxbVprcWw0YUdKandOb0ZMMGpOcWhVMHhkWFRlMXlw?=
+ =?utf-8?B?Y0RCYWFyTFZ6UjFaQk9HR2ZSUnZEYW10R1diK1h4b2lLMnhsc3Q4Tzh3MURs?=
+ =?utf-8?B?Tm81V2dxOWJnSjltY3kyY2JKYjU1TkxNdEVJMHBwcUV5TEIvcU95cFNZUWJi?=
+ =?utf-8?B?dG85bGR0V2pGY2pWV1ZrOXd1Z3YyNTVZVEdFdWlWeHp1TlJ6SUJUR1ZNd3h0?=
+ =?utf-8?B?NCtVMit6TE5hcnpGZVdQd25YTXp3Z2RqMlMydWVNRVd5ZjRubWdnRjBCRVd4?=
+ =?utf-8?B?NGxMczhJUEx4ZkRkQUovZ2txUDFzOE1QRmoyODNJVFFSZkNUcG1YTG5xbDJS?=
+ =?utf-8?B?RzVZSkpualFWSXFiaWdRSWVQQmlIcjNNOXczelBydzVodm95ZGgzbFVEQWhj?=
+ =?utf-8?B?RmNxOXBmellXdzIrRlJHS0p1Mm5Ia25SbFVESzFqdkFqOEltd05ycVRkZlhq?=
+ =?utf-8?B?YjJXMXF1Q2VLa1RRT3FEaFVaUC9NNzQ3cGdBdngvaExFd2VBTExac1FROFlI?=
+ =?utf-8?B?K1M3NGFlb0ZmUTllUUhOSmtFc2QwK200VG8zTjU4T1lkSmgvNktmWk1IeS9D?=
+ =?utf-8?B?Ly9udHhmTFlKMHdNRDBwRkF6ZEpXVzlUVWI1NTJLaTNIRmp1TkFKeUVPSGI0?=
+ =?utf-8?B?Vld3cG95L1FPMXYrcStRR3lGVUc4eDdyazVyYThaWnlVZ3NlZDNYb3RpSkZw?=
+ =?utf-8?B?S0ZxU3RtSUJ2YWptZUgwU2tPT2NITnN2OWJTSVRWeGI1ZXNYNy82K0t0WGJz?=
+ =?utf-8?B?Ulh1TGIwRlY5alphRTMxTWRXaXA5T282RFZhUTRLVlQyS1BDS2xLenlKSEtW?=
+ =?utf-8?B?MjlzNnZoRlB0eUREZzNCQVR4bWZqR202QmhPcVRiY2NscnB2MDk1WFcrdTR6?=
+ =?utf-8?B?ZFlJQktPeVpaQlFBcGpQcHhvYzNDQ3J5VFZ3ZHBvZVBpOGhLNDJvNG5WcUVx?=
+ =?utf-8?B?NzNaUi9HSW5YNjJxNW5oLy96ajJPNFZKVm1DOURhU1RLUlVGMnhkdjFMOFp2?=
+ =?utf-8?B?aDdwbGsxcHE2MG9RSDdobmtiN25EZCsrWEJTSm1CM3RFZnNjbVU1emRnNDYx?=
+ =?utf-8?B?WTg2aWtLOXRQemFmVWZqOXhIVkZuSkdpdTFGZTBaMWkwMElBenZtdm1BRGda?=
+ =?utf-8?B?YmdGTlZ3WDR4L0dCMmNaczJMT0MrcCs2OUIybTBnTXJTUHdGTEpVc2N1SnUz?=
+ =?utf-8?B?YTFsNjQ0MDlGaTl0MGxxSWIzK0tYOTVzUkpVeWhYempxU05rVzZ0OGhaNTFU?=
+ =?utf-8?B?Q2gvcGdyZzRNMDJsb3F6UlFZMUZTbEJoaUZSckNwV2NqVUhKb2l6Yk9RV2hX?=
+ =?utf-8?B?aHBtM0FBeVh6ak1BeDlRdUUrOFkxNU96L2V5dEJxdnA2M1diS2pSQkVBSW1i?=
+ =?utf-8?Q?eOmYCcP7nosVj4v2cSI1WPtBIaeawcb+39vAqeRflXSVR?=
+X-MS-Exchange-AntiSpam-MessageData-1: mpAzvY87MhDAVQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b975420d-1275-4a41-a1a6-08def203a024
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eae3f621-4d71-4e3c-55fa-08def2296e37
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 08:37:32.0476
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 13:08:09.2383
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3bce3thWjc8+lTrUlv7/ClXH05G7LBq1Jnf5uNeC2PS4B1RKpOz84kwOboJ3q7yO2bjsQ99uMlilG68FaYYN+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7762
+X-MS-Exchange-CrossTenant-UserPrincipalName: wGkUkwXpZ/MrdJ5hXUxyuTzrynWXyhhU0PN7qPCJ4EkvoByIR8aigsXxI427WdqMQgW78qffrTL3nOJRlJGuRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8166
 
-On Tue Aug 4, 2026 at 6:44 AM JST, Yury Norov wrote:
-> On Mon, Aug 03, 2026 at 09:41:42PM +0900, Eliot Courtney wrote:
->> On Thu Jul 30, 2026 at 1:56 PM JST, Yury Norov wrote:
->> > On Wed, Jul 29, 2026 at 03:54:13PM +0900, Eliot Courtney wrote:
->> >> Add bindings for area operations on bitmaps. Each one is
->> >> made safe by adding some extra checks compared to the underlying C co=
-de
->> >> (for example, checking bounds) and with additional checks to catch
->> >> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
->> >>=20
->> >> The C code uses signed integers for some parameters, for example the
->> >> length for `__bitmap_set`, so bounds check against i32::MAX. We can't
->> >> rely on `BitmapVec::MAX_LEN` because `Bitmap` may not necessarily be
->> >> backed by `BitmapVec`.
->> >>=20
->> >> Add tests demonstrating the edge cases.
->> >>=20
->> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> >> ---
->> >>  rust/kernel/bitmap.rs | 194 ++++++++++++++++++++++++++++++++++++++++=
-++++++++++
->> >>  1 file changed, 194 insertions(+)
->> >>=20
->> >> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
->> >> index a43bfe0ec3dc..f4b0b8ae39d8 100644
->> >> --- a/rust/kernel/bitmap.rs
->> >> +++ b/rust/kernel/bitmap.rs
->> >> @@ -10,6 +10,7 @@
->> >>  use crate::bindings;
->> >>  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
->> >>  use crate::pr_err;
->> >> +use crate::ptr::Alignment;
->> >>  use core::ptr::NonNull;
->> >> =20
->> >>  /// Represents a C bitmap. Wraps underlying C bitmap API.
->> >
->> > Some comments use indicative form in the file, but the imperative
->> > 'represent' is a more standard way. Can you please use it instead?
->>=20
->> I think in rust, indicative is the standard even in the kernel - e.g.
->> see Documentation/rust/coding-guidelines.rst around line 208-ish, and
->> that's also what I see generally in code. But please let me know if
->> you'd like me to use it in this file regardless.
+I'm basically ready to apply this, but a couple questions inline for
+potential push-time fixes:
+
+On Tue Aug 4, 2026 at 2:41 PM JST, Eliot Courtney wrote:
+> Currently, the frts vidmem offset is calculated based on the non-wpr
+> heap size and pmu reservation size, but this is not right. The layout
+> actually looks like this:
 >
-> The documentation you've mentioned doesn't say: use indicative. This
-> is just a one example.
+> | non-wpr heap | WPR2 .. FRTS | PMU reserved | ... | VGA workspace |
+>
+> It's just by coincidence + generous alignment that the values happened
+> to match. Instead, define a per-architecture reserved size at the end of
+> the framebuffer and use this plus the PMU reserved size to calculate the
+> frts vidmem offset.
+>
+> Fixes: d317e4585fa3 ("gpu: nova-core: Hopper/Blackwell: add FSP Chain of =
+Trust boot")
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/fb/hal/gb100.rs  |  1 +
+>  drivers/gpu/nova-core/fb/hal/gb202.rs  |  1 +
+>  drivers/gpu/nova-core/fsp.rs           | 27 +++++++++++++++++++--------
+>  drivers/gpu/nova-core/fsp/hal.rs       |  4 ++++
+>  drivers/gpu/nova-core/fsp/hal/gb100.rs |  6 ++++++
+>  drivers/gpu/nova-core/fsp/hal/gb202.rs |  9 ++++++++-
+>  drivers/gpu/nova-core/fsp/hal/gh100.rs |  9 ++++++++-
+>  7 files changed, 47 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-cor=
+e/fb/hal/gb100.rs
+> index ec55ec3fc7e1..7e5b0e3ffc67 100644
+> --- a/drivers/gpu/nova-core/fb/hal/gb100.rs
+> +++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
+> @@ -80,6 +80,7 @@ fn write_sysmem_flush_page_gb100(bar: Bar0<'_>, addr: B=
+ounded<u64, 52>) {
+>      );
+>  }
 > =20
-> This is what my AI machine says:
->
->   Among the 1,266 verb-led function comments, that is:
->
->   - 67.1% indicative
->   - 32.9% imperative
->
-> So, unless there's a strong (and not aligning with the rest of the
-> kernel) rule, please use imperative form in bitmaps.
+> +// This PMU reservation size is r570-specific.
+>  pub(super) const fn pmu_reserved_size_gb100() -> u32 {
+>      usize_into_u32::<{ const_align_up(SZ_8M + SZ_16M + SZ_4K, Alignment:=
+:new::<SZ_128K>()).unwrap() }>(
+>      )
+> diff --git a/drivers/gpu/nova-core/fb/hal/gb202.rs b/drivers/gpu/nova-cor=
+e/fb/hal/gb202.rs
+> index 69ba35d2ea08..c590e5b1269c 100644
+> --- a/drivers/gpu/nova-core/fb/hal/gb202.rs
+> +++ b/drivers/gpu/nova-core/fb/hal/gb202.rs
+> @@ -73,6 +73,7 @@ fn pmu_reserved_size(&self) -> u32 {
+> =20
+>      fn non_wpr_heap_size(&self) -> u32 {
+>          // Non-WPR heap for GB20x (see Open RM: kgspGetNonWprHeapSize, G=
+B202+).
+> +        // This size is r570-specific.
+>          u32::SZ_2M + u32::SZ_128K
+>      }
+> =20
+> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
+> index ba4544210e40..a81b51028282 100644
+> --- a/drivers/gpu/nova-core/fsp.rs
+> +++ b/drivers/gpu/nova-core/fsp.rs
+> @@ -251,20 +251,31 @@ struct FspCotMessage {
+>  }
+> =20
+>  impl FspCotMessage {
+> +    /// Computes the FRTS vidmem offset for the Chain-of-Trust message. =
+It is measured backwards
+> +    /// from the end of the framebuffer.
+> +    fn frts_vidmem_offset(hal: &dyn hal::FspHal, fb_layout: &FbLayout) -=
+> Result<u64> {
+> +        let mut offset =3D u64::from(hal.fb_end_reserved_size());
+> +
+> +        if fb_layout.pmu_reserved_size !=3D 0 {
+> +            offset =3D (offset + u64::from(fb_layout.pmu_reserved_size))
+> +                // The 2 MiB alignment is r570-specific.
+> +                .align_up(Alignment::new::<SZ_2M>())
+> +                .ok_or(EINVAL)?;
+> +        }
 
-Yeah I got a similar result using my AI machine too~~
+Sashiko pointed it out, and I was on the fence about commenting on that
+in the last revision, but I find it strange that we only align on
+`pmu_reserved_size !=3D 0`. The only chipset for which this doesn't run is
+GH100, which is already 2MB-aligned, so this would be a no-op for it
+anyway. And worst FRTS would sit slightly lower in memory, wasting a bit
+of space above it.
 
-There is a strong rule for rust specifically and it's encoded in RFC
-1574 [1].
+WDYT about applying the alignment unconditionally?
 
-[1]: https://github.com/rust-lang/rfcs/blob/master/text/1574-more-api-docum=
-entation-conventions.md#summary-sentence
+I'm also fine with keeping it the current way, but the condition
+deserves a comment at the very least, say:
 
->
-> ...
->
->> >> +        bitmap_assert!(
->> >> +            start < self.len(),
->> >> +            "`start` must be < {}, was {}",
->> >> +            self.len(),
->> >> +            start
->> >> +        );
->> >> +
->> >> +        let nr =3D u32::try_from(nbits).ok()?;
->> >> +
->> >> +        // SAFETY: `bitmap_find_next_zero_area_off` is safe to use w=
-ith an out of bounds `start`
->> >> +        // value and never reads beyond `self.len()` bits.
->> >> +        let index =3D unsafe {
->> >> +            bindings::bitmap_find_next_zero_area_off(
->> >> +                self.as_ptr().cast_mut(),
->> >> +                self.len(),
->> >> +                start,
->> >> +                nr,
->> >> +                align.as_usize() - 1,
->> >> +                0,
->> >> +            )
->> >> +        };
->> >> +
->> >> +        // In case of overflow, we may get back a range outside of w=
-hat we requested.
->> >
->> > No, we can't. We've got the test_bitmap_find_next_zero_area_off() for
->> > it (in next). If you think the test is incomplete, please extend it.
->> >
->> > If you believe that bitmap_find_next_zero_area_off() may return someth=
-ing
->> > like that, it means the function is buggy, and you shouldn't trust it =
-at
->> > all.
->>=20
->> TL;DR: Included some tests below that demonstrate overflow/OOB issues on
->> 32-bit (with increased vmalloc) in some extreme cases. To keep the rust
->> code completely safe we need to check for these, or update the C code,
->> but not sure if the perf tradeoff is worth it. Please let me know.
->>=20
->> Ok it seems I was looking at the code previous to df81d444dc74 ("lib:
->> bitmap: optimize bitmap_find_next_zero_area_off()"), but overflows can
->> still cause wrong behaviour after this commit too:
->>=20
->> [1] On 32-bit, suppose we have an empty bitmap with size=3D=3D64, start=
-=3D=3D32,
->> nr=3D=3D2^32-1, and align_mask=3D=3D0. Then, computing `end` overflows t=
-o 31.
->> Computing `end - off` then underflows (31 - 32) which can cause OOB
->> reads. So actually we need a check before calling
->> `bitmap_find_next_zero_area_off` to avoid this case.
->>=20
->> [2] On 32-bit, suppose we have a bitmap with size=3D=3D2^31+2 and all bi=
-ts
->> set except the 0th and 2^31+1st bit, and start=3D=3D1, nr=3D=3D1,
->> align_mask=3D=3D2^31-1. We'll compute start=3D=3D2^31+1+2^31-1 which ove=
-rflows
->> to 0. Then we'll end up returning 0 which is below start. So we need the
->> `index < start` check.
->
-> Both examples overflow int32::MAX. It is not supported in rust.
-> See the BitmapVec code. Your case is just 2048 bits, so it's not
-> a limitation for you.
->
-> On the C side, there's a historical mess - some functions work with
-> unsigned longs, some with unsigned ints, and so on. I'm aware of it,
-> and there's a process of unification the API toward the unsigned
-> longs. That wouldn't help 32-bit architectures because they are all
-> ILP32, but there's no real use case for them that would overflow the
-> 32 bit.
+    // As per OpenRM's `kfspPrepareBootCommands_GH100`.
 
-Currently it's possible to construct a non-BitmapVec backed Bitmap using
-Bitmap::from_raw that is larger than i32::MAX, and it's not part of the
-unsafe requirements. If we can restrict all Bitmaps (even non-BitmapVec
-backed ones) to have a max size of i32::MAX then that simplifies a few
-things. If ok, I'll add a patch adding that requirement to the unsafe
-requirements on Bitmap::from_raw, Bitmap::from_raw_mut, and the
-invariants on Bitmap.
+As that's where it comes from, but the OpenRM code does not give a much
+better explanation.
 
-But, if we want to keep the rust code completely safe even with
-requiring all Bitmaps to have max length i32::MAX we still need a check
-somewhere since OOB reads can occur even for a small bitmap. IIUC, we
-want to make sure all rust code is safe regardless of the inputs.
+> +
+> +        Ok(offset)
+> +    }
+> +
+>      /// Returns an in-place initializer for [`FspCotMessage`].
+>      fn new<'a>(
+>          fb_layout: &FbLayout,
+>          fsp_fw: &'a FspFirmware,
+>          args: &'a FmcBootArgs<'_>,
+>      ) -> Result<impl Init<Self> + 'a> {
+> -        // frts_vidmem_offset is measured from the end of FB, so FRTS si=
+ts at
+> -        // (end of FB) - frts_vidmem_offset.
+> -        let frts_vidmem_offset =3D if !args.resume {
+> -            let frts_reserved_size =3D fb_layout.heap.len() + u64::from(=
+fb_layout.pmu_reserved_size);
+> +        let hal =3D hal::fsp_hal(args.chipset).ok_or(ENOTSUPP)?;
+> =20
+> -            frts_reserved_size
+> -                .align_up(Alignment::new::<SZ_2M>())
+> -                .ok_or(EINVAL)?
+> +        let frts_vidmem_offset =3D if !args.resume {
+> +            Self::frts_vidmem_offset(hal, fb_layout)?
+>          } else {
+>              0
+>          };
+> @@ -275,7 +286,7 @@ fn new<'a>(
+>              0
+>          };
+> =20
+> -        let version =3D hal::fsp_hal(args.chipset).ok_or(ENOTSUPP)?.cot_=
+version();
+> +        let version =3D hal.cot_version();
+>          let size =3D num::usize_into_u16::<{ core::mem::size_of::<NvdmPa=
+yloadCot>() }>();
+> =20
+>          Ok(init!(Self {
+> diff --git a/drivers/gpu/nova-core/fsp/hal.rs b/drivers/gpu/nova-core/fsp=
+/hal.rs
+> index b6f2624bb13d..aa2f8bda59d2 100644
+> --- a/drivers/gpu/nova-core/fsp/hal.rs
+> +++ b/drivers/gpu/nova-core/fsp/hal.rs
+> @@ -19,6 +19,10 @@ pub(super) trait FspHal {
+> =20
+>      /// Returns the FSP Chain of Trust protocol version this chipset adv=
+ertises.
+>      fn cot_version(&self) -> u16;
+> +
+> +    // TODO: consider moving this into the TLV firmware metadata when re=
+ady
+> +    /// Returns the size reserved at the end of the framebuffer, in byte=
+s.
+> +    fn fb_end_reserved_size(&self) -> u32;
 
-In particular, we need to check that `self.len() + align - 1 + nbits`
-does not overflow in `Bitmap::next_zero_area`. e.g. on bitmap-for-next,
-an empty bitmap with size=3D=3D2 called with
-Bitmap::next_zero_area(start=3D=3D1, nbits=3D=3D2^31, align=3D=3D2^31) read=
-s OOB (on
-32-bit).
-
-Alternatively, an exact fix for this in the C implementation is as
-follows (obviating any need for the rust side check I mentioned above).
-I briefly benchmarked it (region_alloc_benchmark) and didn't see a
-slowdown, at least on x64. I'm not necessarily suggesting this, since in
-C I think the answer is just don't call with nonsense parameters, but
-just for reference:
-
-diff --git a/lib/bitmap.c b/lib/bitmap.c
-index ed685127a107..e500091c7e6a 100644
---- a/lib/bitmap.c
-+++ b/lib/bitmap.c
-@@ -435,18 +435,21 @@ unsigned long bitmap_find_next_zero_area_off(unsigned=
- long *map,
- 					     unsigned long align_mask,
- 					     unsigned long align_offset)
- {
--	unsigned long end, i, off;
-+	unsigned long index, end, i, off;
-+
-+	if (nr > size)
-+		return size;
-=20
- 	for_each_clear_bit_from(start, map, size) {
--		start =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
--		end =3D start + nr;
--		if (end > size)
-+		index =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
-+		if (index < start || index > size - nr)
- 			break;
-=20
--		off =3D round_down(start, BITS_PER_LONG);
--		i =3D find_last_bit(map + start / BITS_PER_LONG, end - off) + off;
--		if (i >=3D end || i < start)
--			return start;
-+		end =3D index + nr;
-+		off =3D round_down(index, BITS_PER_LONG);
-+		i =3D find_last_bit(map + index / BITS_PER_LONG, end - off) + off;
-+		if (i >=3D end || i < index)
-+			return index;
-=20
- 		start =3D i;
- 	}
-
-
+Only noticed now, but since this is immediately converted to a `u64`,
+and in the same spirit as patch 3, how about returning a `u64` directly
+here? I can also do it on apply.
