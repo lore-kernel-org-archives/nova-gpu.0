@@ -1,68 +1,67 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013071.outbound.protection.outlook.com [40.93.201.71])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012035.outbound.protection.outlook.com [40.93.195.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A11436BCD7
-	for <nova-gpu@lists.linux.dev>; Wed,  5 Aug 2026 07:58:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BD13E0093
+	for <nova-gpu@lists.linux.dev>; Wed,  5 Aug 2026 07:58:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.35
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785916706; cv=fail; b=TyPFIQuL+v8yTESqw8txhVyvt9oLLJMdnhcXKVe9GzlofI9YzFyAszEap5NmX9KD1bG3cQFAzvA4W9Y+lAasdGm8Fsb4ndn651rL0lVMm9e4ix8YGwk/4ThgcXu0x08oArxof49sAlFuE20JZWBJ/NTY3cW68mJ8z+rLdZsGO24=
+	t=1785916712; cv=fail; b=T9IT6R1flDP8IPwCJZfsTHBXRJQkVwJxDHtf7mmkee6lHkmse6z/o6eDfBuHm/FCXQwFQGk6Vspgu/HBzE4eJIk16Mj7i4dQyO6RbPbMJtc7JXkSnAYbQGwsdeoHFrX+YWaETvw8S9QNhvyGE+tpvcrvdkUwzAM5Cie8uDmzYAk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785916706; c=relaxed/simple;
-	bh=jWVH8tpRz1MyEwBhjLlZmR1eWKrsFLErn8DH2rd79FA=;
+	s=arc-20240116; t=1785916712; c=relaxed/simple;
+	bh=C72TtyzIa6kKqGat6e8d3vCaQ78ajX94L7fcLlgPYbw=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uQJgkGNo2KszX8JKcuTxx1VzFh5kh/LWYxdfz131zAaDbEFV7ZazB64wuyPIVGQZVEEA1vmKQN7VqPtZsz5DaJZDAe1IHrapdypOgDzhQ0fHoA80NlcOMlK9CP+0vsUc06vdN1O40j0kcmV9MTU0u91alQK7bNOnEfJLx0Vnmks=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dU3vTY+l; arc=fail smtp.client-ip=40.93.201.71
+	 MIME-Version:Content-Type; b=dONbzSGwP5ihnLXohGICAAnvBk9b92EZ15Pa83XZSY0ferXZDPa9HM1aRxZBGBEZDxakahds5Ymy0sO9Xf48CZfQf2yymrkmITM1aG5IwJ+V9+bdZ4y0ibcfQUpCesomGJJwjFu2SUDTIRec1Nvv73abFncuYYVF67YaPw1bdoU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rAVw2Pmd; arc=fail smtp.client-ip=40.93.195.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dU3vTY+l"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rAVw2Pmd"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kf9dDTyMDwLgDwhzfHdjVz9JcN8R3EnZU8cEHE/260q8i8eyZpCvBr1hXfBDKGn2MXVlkmYVesoOoBwKGdatOTsdXNxQiwLac0aRA6uxH8LAq69xotZcA8pgQH18CHSeeClhSLhlPlm51A6s758x0sRIAk/BpY1ALCbod+4gGLGZFk9gLlpApA0A9pMyd9J8u3Ne5w6DEp+mSEvElX471VEoOdTKDfkuSPdNHhZOslremcf3W/YDN9pXED4PJpIv3Nz6nEODDMvRprnfre/E6UcV8aAU2icRLhiaNyWtfUiswcA8PJhKf4UjW0yE8BPgjkTeyxx0/X4e5QelKXOImg==
+ b=O8HiIozAekAryijcewTgPJQAtJZx4EcVpOeTMFwDj8+PsM4j4Ckq6qu0IJOpUX2SO4HmwJJ7CPjH5T93bCam1TTBxM1ZmFdlGiim2MzZ1btSvEp5s40ZsKpFx7TH0OVyJc3rxIYWkgjov0gsJ3jTWqwrccPrzSpPOidHZHVIbjyKX+d+jvPgrneUdR0Hrn9gU40rUR5Xxu0lDjeV5/s2WDOWG76Kyw5jMjR0Cfhk0CDqqndafFxsoyEGgoiRgS2xwCh33q5m3KXPn6cKc/obUopsSf+EiRO6D55pbpYNuOlqWQf8t9+iiNcYJ0DRqNmoAF7tH/MHd70qX/u6u4Q3pA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zr2ejSlAB5Zfo2Kub9mhi/D/JSp62YB1o6jF4+OMpBQ=;
- b=aRC4radzrqDDNjFK+WYtgZUuBZRoGjJTaDX7wiH14I0bj+qfA4JLK8PY5C37oVxrkIBru2cO6SE9MeTzrSqesCAoGp47NSaAZngLXDgIMhy20NXbLaOMylRFqmBLcjmzMvQx+9InmuQAZrbYcS9fLg8ZMUe+Asdcb7ISBNuPtdVUAhQh9BinmL9kMX9XHLMMV3rQA3SSuyrImt8m74M6ctMxvoa93A20fJ45VMvQwMHZ9dDNtQYwyRPPZBf69Smh9WauhN0E3Wi0HYgh8j+7e3N/c42XaH7Dh680lQ5+ggZcoG4xddJGSkzRA7mgN9unqq09zYpOPojWWcVVTAs11A==
+ bh=DoW7Cszn9nI8PSaS34wgKJCeULjdP7OLtl84Ot6AZZo=;
+ b=IbjQL7720RiAfzF6v5QJ9awFN5xcuHRDxObj6L+/sGq7yQoiwcAbyKD54LSf3ncu9m2gm1KrOiA05077MPxdxEX34tNi08dLWSNo7nABCWM24vlYFtrvoXDFMYQaN34XtcQTahLe3b8IIGrWsdC8zVjptGlWa4cZHEzB2V9yCxTXW9qJXoEPksCbhDLUXALy4Zwzdlri1EMT4dB6cLMPbYF1bj+wJpJHtdGk7WJ1zT4kBHq4I/vYe6AHyVOcW4Z90iPd5ST3yEHSNahAmF7EuGzGbT6ivQqsUlZOVFwCgrvdRxfuzWhNfHUXADcfRSGgtkpZWhveDDVYA7Vh3aCbqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zr2ejSlAB5Zfo2Kub9mhi/D/JSp62YB1o6jF4+OMpBQ=;
- b=dU3vTY+lYDDhrKRkhQ3v4kV8wTjB7kM9xIxeuXhAPG01oNJmubSIdi10J+a9b1Dz5bIJoztDgUjfDovrQnDZnblgAQetbuV27IHPMaa3VWdhDgQKPrf9PqeiEOPm/rL+qiC1CgMF84p1EJhCERghJB5PNGmDzjOFBYaQcDQqzCPKzK9pWOhjt04G+TwpzcXsyyRRDEaJKbeSgKSBJgiz8UaaXBm+VmaptupBcJhlHlthBwWtYs5qatifYbEAtLImr62Rg7+Ugpb6NmKA0Njb/milOqAcZteq02MkXLJK5he0tfIMQkgC4N3ME2NdTiSr3l/ZxdsqKrPtr7wX3+ipGw==
-Received: from BL1P223CA0043.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::9)
- by CH3PR12MB7715.namprd12.prod.outlook.com (2603:10b6:610:151::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 07:58:17 +0000
-Received: from BL02EPF0001A101.namprd05.prod.outlook.com
- (2603:10b6:208:5b6:cafe::16) by BL1P223CA0043.outlook.office365.com
- (2603:10b6:208:5b6::9) with Microsoft SMTP Server (version=TLS1_3,
+ bh=DoW7Cszn9nI8PSaS34wgKJCeULjdP7OLtl84Ot6AZZo=;
+ b=rAVw2PmdFK7uIDhdJcDNKwKKtmUioiIoZqZrVy+gOGHsFidqBISIJ8PF+mpbPcTg4X2GoSNkw/Cqlk3VndLCkG6txHl5L3KvKZVu5+fnfPO6nh9Po5hmqqXEy+N/SaFQfBzQL/xsCO0d6A/csGPFS6jEsdYOOUmf8ypSmTGitD3F4BTXw/HOAY+lLG9yiBipaTxNquOQP98Bblz7WSPTeye8nO1rNw8u7bE9Dtqc5bsPOutSBXBgkUN5Iut7yUcnJI2pigfoTAyL8WYNWgTAFktEpVU6b2mK7EkGFl7Un3QMm/wGf5Iwq1zqtkisTtL6R3InaPsbyTXgz6d/7euPrg==
+Received: from SJ0PR03CA0286.namprd03.prod.outlook.com (2603:10b6:a03:39e::21)
+ by DS0PR12MB8343.namprd12.prod.outlook.com (2603:10b6:8:fd::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.18; Wed, 5 Aug 2026 07:58:23 +0000
+Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::a4) by SJ0PR03CA0286.outlook.office365.com
+ (2603:10b6:a03:39e::21) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
- Aug 2026 07:58:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ Aug 2026 07:58:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 07:58:16 +0000
+ 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 07:58:23 +0000
 Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 5 Aug
- 2026 00:58:03 -0700
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 5 Aug
+ 2026 00:58:11 -0700
 Received: from drhqmail201.nvidia.com (10.126.190.180) by
  drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Wed, 5 Aug 2026 00:58:02 -0700
+ 15.2.2562.20; Wed, 5 Aug 2026 00:58:11 -0700
 Received: from inno-dell.home (10.127.8.14) by mail.nvidia.com
  (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
- Transport; Wed, 5 Aug 2026 00:57:54 -0700
+ Transport; Wed, 5 Aug 2026 00:58:03 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
@@ -75,9 +74,9 @@ CC: <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH 2/3] gpu: nova-core: trace driver probe and firmware messages
-Date: Wed, 5 Aug 2026 10:57:22 +0300
-Message-ID: <31b82553743082add89f2e4434b82c6a291cac71.1785907106.git.zhiw@nvidia.com>
+Subject: [PATCH 3/3] gpu: nova-core: trace vGPU state
+Date: Wed, 5 Aug 2026 10:57:23 +0300
+Message-ID: <4dbd55dab7529e58c5fa2d4c4be887d59a1d4b42.1785907106.git.zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1785907106.git.zhiw@nvidia.com>
 References: <cover.1785907106.git.zhiw@nvidia.com>
@@ -92,204 +91,81 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|CH3PR12MB7715:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d902b8b-10dd-4836-c570-08def2c74f00
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|DS0PR12MB8343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13ead8e1-de11-4278-2419-08def2c752e2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|3023799007|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|5023799004;
+	BCL:0;ARA:13230040|36860700016|7416014|23010399003|376014|82310400026|1800799024|3023799007|18002099003|22082099003|56012099006|11063799006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	OEZNUp6iyG9Zc7QtQmMlmdSEl4wR3bfj3c1QBc6WL8ugUH1SkBIdvXPJdMdl2tCja0r39qFA09vI01b6kJrAQVo5ixXXpUSkr0I/dHVz+PAo5WcCNaQPTXNBdFcv9pRgRy7qwL9eHOzhLQSxuHHAWhNRLYFQAgxfXN9ys7BGH5kIO0rZfOsPoWBF5/2YarNiVMxK91lFodvIRgGXST9scwV/FG77etD1ruOcs7W7Bwbw3SBzOOFQwvLc5DzCaw5Ww3dNZQ2aHbHjewdEwKJLdJhDpzKDV4jvW8S6LJ0gadtBEwDkZjg9nV1zHWsNntJrcJBjzdF6ftyKKxm7d0Hy5KOYyoRuq3RcIUKc1ZaHNHlK5nWWp75eVToA4D0bsJDTxuqsbzzEHOB3bm46bTtDflr6IKoOP/GXW4k6YPhVZeXBSr4r5NISg4KZjdfzqZir6L2Ws1VbenNTtBT7bREaYQ7DD581cRaWdcpdy9JQ31jqPRiFgkX/t64wn5in3ZkxdVov/XKn/yF/nHG0kppkhTxZiX9OrUQgFXked13KRq6D+14ZeRAmsD9Tjv+Ynye0D6HK1EhDGymdtEbCzQqYnl1SeY9r3y/CaL+O155vLZXkMHCeb1g3lHjcUhiEgsg0RQ9u7isJ/I7gxaDzrHsfR1yFfvKssqW8kZo8psAo+r44xvcHyCF7DcIy6TAsVHc7PPERqOuQui+CkkFG5EFOLg==
+	0n0S7LS/oZp7hdx4P7ENnppQ39+kr8o8fe8fo/qjc7CQD2VTNvgOvnAO0oUsF2VA1RSOd51KK8+xV+B1dEEf6JsskT3eqRkxZBITAOPwpCSwJdluD+3Vumtcz0UtEQEwp3EhedrEw4hHjT3ghWEtP5KsSU5jeskvZbUUOuO76dsBcKM/nXSQy7FDJ9BVYEmhzcQKPHNydVxll7ZNU6tKjYdlJrsAoovIh7g5LQ0HcMB8n5jjuu7T2Q+DlTpBqPs3Zc2OTHqK47/Pgs814I+o6nWrf134Q9pSMPRDUEsrGMpB3MKVjFJ53fbvdb/wHuyXsdeWlO0tsVfyxeU4Orul1ak3mVlR4Q1JzYeHix/mAHACoDI2t/Q9iSWN97pKNfxpAx38Q9E5JIkv/qnAdxaCx+NaVvXpsL5et34bUl/rqdAYh6TVM+VKC/KD0T6H/ZrjRLC4CHID21ygIzHZcY2yFeEtFGHqMvivpfDN3inBoeNK2qk5FE5/Iy0pNFZ1jxeIF8IyYOBVsdsOwQ2UXCmNJEuKnuWrxxKqynv3quLqXNW65mMmJBwt+pyZtc6pLIv+TkY1rpKo93HFOWWaMbwdkdStciE1ITULMudCreS8ueaoQdCN1i5rVRz0A1elXvBgUcuETOkLd0r7k+JMh95tvMOgRelKwkH5zGKKLRDs4frd1LS6j5ORUkN1LjkwondT24HZR+iYFF3zzhPMgDD/yQ==
 X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(3023799007)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(82310400026)(1800799024)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	6F4UmquL9bJkraKaZqxpuy3BVyJlOHiKcNpGHC2sAAF/tycjjJznnQO4RSTgzG8t3FUV6nPZLRpZGyf39sBO7fg/++N0hfTdRJaHbrC0eIclxHSHQHC2jDGc8blf1sS2/729ksHOf0O2Qo7O+hIWKVmXfwAXeWFnaf4kdiPaNuONNjF4FC1QaHWHr0NussbV27CQK4x6Jk29/hF9dPTNDk9V9xsOTQJ+kPQkzOooymOcvs4k9ioyZdpWTYOSezinjlTDxprF3WiclXO1OooSz4jjBkjXiO9Xmaa4iF68tgxb2QB3o0s5On3b2vu4Zgm8Z6StWsyPL9AKMT4vXluFSR8GE6IdS4WuHElxz9n/ZXsOXPvWg2ARnw4ubxyP4yIPtuM61IX9MWD+IodfmeATZ6aCQvCKgDxB5YqfjTe/4JriO/lJwGQa4aIxl+VDrkBt
+	4I8/i+tEfBiOhBhOQl3Gg4j5vclw2CWCMfJHZ16p3ig+csMz0gskiwK11+v3atuzio//WnNeh8KKLpkteO84DiC8ik0jhru3ynrUQeB5wNt212/hyPgYQISwhAAo0JividjXjHcDfeM1cwGCDF0qyjB0KkP9EBUvK1fkA3EetpOKGa+OTbTSlj6sP1p12U/mhauOYwcN3UC00M3FVwPTrn4tPUgl+u6aYkm6JoNf1bcvCNligyAimwxj0A7aSr+kCrUS1FMKlJoXgWcbtRcFbpwyf2fSnTxsZemqejc5l9BzxDxwzVYzipQNS1Ofm3MdXB14sDd4S9AJ+GFQkujuRZmZnyI4kp4aZkPGK9rsQ4dnGCVl8Q5qmfu3Y4vaBYtc903Dzay/71ByBio3t02IP0/LKOzKgz5itPAgLflbsmCaOuiGtvFtvOWcWKMMa8bV
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 07:58:16.9222
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 07:58:23.5963
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d902b8b-10dd-4836-c570-08def2c74f00
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13ead8e1-de11-4278-2419-08def2c752e2
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A101.namprd05.prod.outlook.com
+	SJ5PEPF000001D5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7715
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8343
 
-Use independently selectable trace streams for driver, GSP and FSP
-activity. Replace the probe and GSP dev_dbg() calls with formatted
-traces, and add FSP NVDM send and receive traces with the message type
-and length.
+Record the vGPU state in an independently selectable vGPU trace stream.
+Replace the vGPU state dev_dbg() call with the formatted vGPU trace
+event.
 
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- drivers/gpu/nova-core/driver.rs   |  7 +++++--
- drivers/gpu/nova-core/fsp.rs      | 16 +++++++++++++++-
- drivers/gpu/nova-core/gsp/cmdq.rs | 11 ++++++-----
- drivers/gpu/nova-core/trace.rs    |  9 ---------
- 4 files changed, 26 insertions(+), 17 deletions(-)
+ drivers/gpu/nova-core/trace.rs | 2 --
+ drivers/gpu/nova-core/vgpu.rs  | 5 +++--
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 5738d4ac521b..cb92ce9a594e 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -18,7 +18,10 @@
-     types::ForLt,
- };
+diff --git a/drivers/gpu/nova-core/trace.rs b/drivers/gpu/nova-core/trace.rs
+index db975804f855..17967a686fa2 100644
+--- a/drivers/gpu/nova-core/trace.rs
++++ b/drivers/gpu/nova-core/trace.rs
+@@ -139,7 +139,6 @@ macro_rules! nova_core_trace_gsp {
+     };
+ }
  
--use crate::gpu::Gpu;
-+use crate::{
-+    gpu::Gpu,
-+    trace::nova_core_trace_driver, //
-+};
- 
- /// Counter for generating unique auxiliary device IDs.
- static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
-@@ -73,7 +76,7 @@ fn probe<'bound>(
-         _info: &'bound Self::IdInfo,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         pin_init::pin_init_scope(move || {
--            dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
-+            nova_core_trace_driver!(pdev, "Probe Nova Core GPU driver.");
- 
-             pdev.enable_device_mem()?;
-             pdev.set_master();
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index ba4544210e40..9dc919de2200 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -51,7 +51,8 @@
-         NvdmType, //
+-#[expect(unused_macros)]
+ macro_rules! nova_core_trace_vgpu {
+     ($dev:expr, $($arg:tt)*) => {
+         $crate::trace::nova_core_trace_impl!(nova_core_trace_vgpu, $dev, $($arg)*)
+@@ -149,5 +148,4 @@ macro_rules! nova_core_trace_vgpu {
+ pub(crate) use nova_core_trace_driver;
+ pub(crate) use nova_core_trace_fsp;
+ pub(crate) use nova_core_trace_gsp;
+-#[expect(unused_imports)]
+ pub(crate) use nova_core_trace_vgpu;
+diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.rs
+index 6b7e045acea8..e4fc7e101c93 100644
+--- a/drivers/gpu/nova-core/vgpu.rs
++++ b/drivers/gpu/nova-core/vgpu.rs
+@@ -13,7 +13,8 @@
+         Fsp,
+         VgpuMode, //
      },
-     num,
--    regs, //
-+    regs,
-+    trace::nova_core_trace_fsp, //
+-    gpu::Chipset, //
++    gpu::Chipset,
++    trace::nova_core_trace_vgpu, //
  };
  
  mod hal;
-@@ -434,6 +435,12 @@ fn send_sync_fsp<M>(&mut self, dev: &device::Device, msg: &M) -> Result<KVec<u8>
-     where
-         M: MessageToFsp,
-     {
-+        nova_core_trace_fsp!(
-+            dev,
-+            "FSP NVDM: send: type={:?}, length=0x{:x}",
-+            M::NVDM_TYPE,
-+            msg.as_bytes().len(),
-+        );
-         self.falcon.send_msg(msg.as_bytes())?;
+@@ -50,7 +51,7 @@ pub(crate) fn new(
+             );
+             VgpuState::Disabled
+         });
+-        dev_dbg!(pdev, "vGPU state: {:?}\n", state);
++        nova_core_trace_vgpu!(pdev, "state: {:?}", state);
  
-         let response_buf = self.falcon.recv_msg().inspect_err(|e| {
-@@ -489,6 +496,13 @@ fn send_sync_fsp<M>(&mut self, dev: &device::Device, msg: &M) -> Result<KVec<u8>
-             return Err(EIO);
-         }
- 
-+        nova_core_trace_fsp!(
-+            dev,
-+            "FSP NVDM: receive: type={:?}, length=0x{:x}",
-+            M::NVDM_TYPE,
-+            response_buf.len(),
-+        );
-+
-         Ok(response_buf)
+         Self { state }
      }
- 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index cd844fe48f05..6137c60b6231 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -58,7 +58,8 @@
-         GSP_PAGE_SIZE, //
-     },
-     num,
--    sbuffer::SBufferIter, //
-+    sbuffer::SBufferIter,
-+    trace::nova_core_trace_gsp, //
- };
- 
- use super::regs;
-@@ -675,9 +676,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<'_>, command: M) -> Result
-                 dst.contents.1,
-             ])));
- 
--        dev_dbg!(
-+        nova_core_trace_gsp!(
-             &self.dev,
--            "GSP RPC: send: seq# {}, function={:?}, length=0x{:x}\n",
-+            "GSP RPC: send: seq# {}, function={:?}, length=0x{:x}",
-             self.seq,
-             M::FUNCTION,
-             dst.header.length(),
-@@ -754,9 +755,9 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-         // Extract the `GspMsgElement`.
-         let (header, slice_1) = GspMsgElement::from_bytes_prefix(slice_1).ok_or(EIO)?;
- 
--        dev_dbg!(
-+        nova_core_trace_gsp!(
-             &self.dev,
--            "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}\n",
-+            "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}",
-             header.sequence(),
-             header.function(),
-             header.length(),
-diff --git a/drivers/gpu/nova-core/trace.rs b/drivers/gpu/nova-core/trace.rs
-index 893479b3fcb5..db975804f855 100644
---- a/drivers/gpu/nova-core/trace.rs
-+++ b/drivers/gpu/nova-core/trace.rs
-@@ -55,7 +55,6 @@ pub(crate) unsafe fn $event(
- ///
- /// `trace` must synchronously consume `dev`, `message`, and `message_len`
- /// according to the `nova_core_trace_class` event prototype.
--#[expect(dead_code)]
- pub(crate) unsafe fn nova_core_trace_fmt(
-     dev: &CStr,
-     args: fmt::Arguments<'_>,
-@@ -81,7 +80,6 @@ pub(crate) unsafe fn nova_core_trace_fmt(
-     }
- }
- 
--#[expect(unused_macros)]
- macro_rules! nova_core_trace_impl {
-     ($event:ident, $dev:expr, $($arg:tt)*) => {{
-         #[cfg(CONFIG_TRACEPOINTS)]
-@@ -121,24 +119,20 @@ macro_rules! nova_core_trace_impl {
- 
- // Frontend macros expand in their caller's module and invoke this helper by
- // path, so the re-export must be visible from the parent module.
--#[expect(unused_imports)]
- pub(super) use nova_core_trace_impl;
- 
--#[expect(unused_macros)]
- macro_rules! nova_core_trace_driver {
-     ($dev:expr, $($arg:tt)*) => {
-         $crate::trace::nova_core_trace_impl!(nova_core_trace_driver, $dev, $($arg)*)
-     };
- }
- 
--#[expect(unused_macros)]
- macro_rules! nova_core_trace_fsp {
-     ($dev:expr, $($arg:tt)*) => {
-         $crate::trace::nova_core_trace_impl!(nova_core_trace_fsp, $dev, $($arg)*)
-     };
- }
- 
--#[expect(unused_macros)]
- macro_rules! nova_core_trace_gsp {
-     ($dev:expr, $($arg:tt)*) => {
-         $crate::trace::nova_core_trace_impl!(nova_core_trace_gsp, $dev, $($arg)*)
-@@ -152,11 +146,8 @@ macro_rules! nova_core_trace_vgpu {
-     };
- }
- 
--#[expect(unused_imports)]
- pub(crate) use nova_core_trace_driver;
--#[expect(unused_imports)]
- pub(crate) use nova_core_trace_fsp;
--#[expect(unused_imports)]
- pub(crate) use nova_core_trace_gsp;
- #[expect(unused_imports)]
- pub(crate) use nova_core_trace_vgpu;
 -- 
 2.53.0
