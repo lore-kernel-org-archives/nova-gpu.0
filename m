@@ -1,46 +1,46 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013065.outbound.protection.outlook.com [40.93.201.65])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012064.outbound.protection.outlook.com [52.101.53.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBD03806C9
-	for <nova-gpu@lists.linux.dev>; Sat,  8 Aug 2026 03:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBAE3909A8
+	for <nova-gpu@lists.linux.dev>; Sat,  8 Aug 2026 03:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786158718; cv=fail; b=rDcQh600/DQfIRvO0QzETWVzdJ7i3r4hLyEOgl2bAT+h16/DaHRApzOW4wbP8LhlXixiDq/+tdhQ48AyQ5bC2x+cVLcyVsOH0ZzMeUbs7WNvnuD8k4oubU2kNbiR81IKKhidJ7zCpAeu9TksJ5C8R1cUgf1KM6tQA6zHH8EZ2f4=
+	t=1786158719; cv=fail; b=rVNL5X2anyJdqbMI8kQuD1qb7Tz1sad7FmhMlYxE+sEOT2aNI9ny51nEU528qAnV9QcEeAXOr2RmtSIZ9iVwUOpzWIKpMwgAT/hQySKAvH14xywVdU/gKFH45BwPiWXvRUq4xp/5UPrDU3mByYvtfaoZqrM1SBH2tXf/FBPl684=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786158718; c=relaxed/simple;
-	bh=a8ZAZSugf0VJ7yO6Jm4Ulkwb/9LQJjcPDILD/wJmxTM=;
+	s=arc-20240116; t=1786158719; c=relaxed/simple;
+	bh=evnDeYWsbDECJwSflo7XxRmeh+7kIQG4DoXHKKaYeTM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tuXYd43HWb1Y8yWTRbDm+bVF5LjW41aP/79ynCa4W6TB+8mMB06zLIb8jlYgefI3BuU9avyHDVsWViMfAJSGgh9jEWnseBm2kZxbNlNJP/jaA/+SVd6yYFhT6e1BeRxMo9lCGHyxKumwzlX97zudV4yRUi7mvq+TjBEfQ6Gw9TI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OmZXvQdv; arc=fail smtp.client-ip=40.93.201.65
+	 Content-Type:MIME-Version; b=uEmoS/n1YCHb20Ol5n5/NHxv7v3faHBJlgQxw5xnwakdv6G4V1kPWBu2PjFcxTdkUgcBOu1bN3TMPLaIPyl0Hq0mZUE0YmXR5bBvK22mnx6rGUUKn52iwodUy3Zj6vXMekYGcYZPu7X/FJAeHaTDdAiVeTiMNee6hBnpLMSpcNE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YKkSNP2F; arc=fail smtp.client-ip=52.101.53.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OmZXvQdv"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YKkSNP2F"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oAzs3m7h4vffSjeUIGT40FhBYq2qObecTm9rnfQToU0N8SMC6Q5pgf29ZYS5T7CBkuWIbgqIgUKQMCX+C0KxI2Ta0ClQ+hIcU7tGYp/YNlzMkLQSgIR0rsEUM7JzPLARwH/63jPanZoxq3QspV31UeNIamGNXfrhpbNrkKUAlqtdeSmTmoltt/Ek8krlJhqC3h36JDGRe0AFpG8qVBfzECzl9Vwy0LGP2OMMlZEuWgeXKpfyo8NFgstDjugFlw21BoFR6VZdGbywyuxNkaQe4C+Z6+O4I4ByfpDbl0g3sWBNRL+aPZKrjKOeoVtUUq07fm7PrxlPaZNtzLxGwmJNXg==
+ b=JFhMIjGx6etfch3hLIAHs2r+VpkFC7c0eQP7LlKnp/usQfHqs58NMwtndk65x1ppI71g0824BzDMsOVupTtdPFEEHyGRKs97Gt5wev04FtXtG5Gn3rZRPe0nMIlQ7O6Afvc/mniiMcpqut2a4q4bBw064zhgNjF2r6JZ4HfHBcg1hLs9pEOrh1WmWmRYi2nvLG6FQwm1jh+Ij4aKOkzh7fAQF0ATtNRNf6tatYuBCTdEKkUU/x9fdN5bI0O9sQ03S9czFOGW5llcquzlQj0SMbQ7FzxQz8syPDQD7vb5bGOwHtY+4MkeYbvuA3hsCO5ZqJhuVinmgBHdVwWIoTWI8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tKHPP3vp4p6e224uudtoDkHbPQb2z0AiAZYy3ybFZc0=;
- b=P21Fy1T2hAm76UGrJIgOzobWuATSZd6zcwNZrztS/jJcviPa/ZtS9Sqzu6uGrDOsonbPGry7Cmf8o50y3g8Z+POc1mLdquhvOsQLmEX4iNFEn9b7uZ8vJhbAqGWjIIhZ0ibVG2bshoL02XL/6SR1LmQimVqbRHtVLI4tBGJkdM1Cd80KzBA5vsC+ywpITyn1XlFviwP9WWlXue9130FczTfRvCD2OUGtW1888rUmuLPJeAuKXLxunnfEzJMzBo/w0MMRLbptUxFKO0rLVBS6nSGKLDLw6OpLS7mRiIW/eWuy/800A9a1Div1yQudkBcat5XA6ZyhL+5wL211PDYsfw==
+ bh=n/X1cb403rOEFwBmvsVJiAiU5RIpM+v9EPxNBHtCrUs=;
+ b=P/eR3n2b9VgNQiP5pfAtKQSFABTlTLPv6WRcKCXiN2lH+p9FRlzjVvxWIuFPxS2vH6U8PsUESy+ZXaHl2LVNd70EI4f8Yfnx9y9pLP9XtKzIQpHyVaDsAXpgMiFz1UzPmgzQdUnXMVRFJ9I/gY+/43Su++T4wdpe5HPDaAdE5IVCfgAX4va9miUeTokmienWaZ0AKzPyR4zxO5Re2NF4CAdXcQPjhZtSGscpGmkwbDOHUqyY2+pLK7hTpt1o/y7MEqZeGR4qJpIpm4Nnz6ZIL586Rnwp6RAaeelyQuGcxyWEUWwRSIiQHpUpgUquCwPVmYc42GIckj8idAfUHh2WUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tKHPP3vp4p6e224uudtoDkHbPQb2z0AiAZYy3ybFZc0=;
- b=OmZXvQdvOwCmuOR1OsTp2jTqRcR3dxz1RtgzeroLrts93GXvCro65qeKSTjf3euASNpYmjRNorXkCzwm/rfygjpHbSJ/xOreowUtAE+DzuMDs9a9vJ2bsnUdlu8i/qXgMRB0KucZqm/Goa45CmHp/PoT5F2RCUCiPoGb1uSruHyhE/FvCxWBmsH+34+d32RpsuEXQ4aMZ3U1rlK7543QA9srcPXEavZnPjI4Kvaj16Soc3gTwkBqEK01u4WuJgfKNH/MsQhWe+E0rggkAieLBeboJPLDnjOiJm30w9RQ1t0r7ngcWKIObQptIqKUkVdXr2uatfdg5YNFtNnJqLsNGQ==
+ bh=n/X1cb403rOEFwBmvsVJiAiU5RIpM+v9EPxNBHtCrUs=;
+ b=YKkSNP2F+ohxg37+j2lsyRuMbmgpU7NrbGCGn3Zo4y2YuKlyyIKJ3rx/BJMCZ8fk9XTIcS/f4FjH//16fajgYP+XfFE6oh+YrDUfdffAc3aoIzJWOfuKE8rUWDUsHW8R4u35Co5FuOTXYlqBG5MQtdQeo4lE20jCfJbUwTD6grv70ePc4INsOEnxQGwP6fpwopahrnoc8V3CNy5c7zTuweIYlH98DVTmxgWbVOgQP6yWO9HvPMna6yaOlVg1M2VcWxpfYy6/ON2LEK0tmrUpHzTSRcM47JMe0Zm6DOfRj9cZl+jSfGNvjIlvVcz2wCCYj+uGI0wAvdDqFsn/AxxfsA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.21; Sat, 8 Aug 2026 03:11:40 +0000
+ 15.21.292.21; Sat, 8 Aug 2026 03:11:43 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0292.022; Sat, 8 Aug 2026
- 03:11:40 +0000
+ 03:11:43 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Joel Fernandes <joel@joelfernandes.org>,
@@ -66,17 +66,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>,
 	Will Pierce <wpierce@nvidia.com>
-Subject: [PATCH 14/17] gpu: nova-core: drive GSP events with the SWGEN0 interrupt
-Date: Fri,  7 Aug 2026 20:11:16 -0700
-Message-ID: <20260808031120.363869-15-jhubbard@nvidia.com>
+Subject: [PATCH 17/17] gpu: nova-core: document the GIN interrupt controller and GSP events
+Date: Fri,  7 Aug 2026 20:11:19 -0700
+Message-ID: <20260808031120.363869-18-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260808031120.363869-1-jhubbard@nvidia.com>
 References: <20260808031120.363869-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BY3PR05CA0036.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::11) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0336.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::11) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -86,792 +86,783 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CH2PR12MB4198:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab31e852-f8d6-4fbb-40a1-08def4fac3d3
+X-MS-Office365-Filtering-Correlation-Id: fd158c0b-b7dc-4d2e-b50e-08def4fac61d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|7136999003|10067099003|6133799003|56012099006|5023799004|11063799006|18002099003|11062099010|22082099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|10067099003|6133799003|56012099006|5023799004|11063799006|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	eTs5t1cjw+mUn5nKAIO7tPTCQkJxtErASWAn8k81wcyCxiibhyIR2Q1F1Bca/xagCtqKM/aSbYv8qGYqw2GIWENN5wovoJomzPPPw5YWCGNDDbR4QvvTfQPJsqmWaNwUMTRmpH8vvsCP+CEKhTVXHxxntXwnNsSh2cJcTj/vICMZxD7GcC3JV/I25+AQLBT+eICkZOYLrdMKyL3CJEyiT/5Bk5dIJLGluojJ9hj26m6AhjtyhsNTe2iTgXb82r/Nlsu50kCp+RNkR+93Kla65BgB8Z5le0eO2LlmbxJ07j+2rEjwZrEbQfAGeL2jfVj9dkLpObzWm+vUa/HGg3EHwSpMoNSdyNBzWt9umWbwaJ8iLd+B/CzG4EFLQc0Ne3qmQL3Xm5uXnI1x0ltMjuYsLQOuuGcodc3KvrcwJSdGd9in3lhEs5+joNtBd5IY8tf6tCtIWHq4C+FuTWi45XvnJp9+kNj4HvUNCOECz4T1wHWYuJBwJZuBcdWik7Op7UxYpwlgqRZbX/pVSBG3TplpSWgM1rcJNfYMPav7uDzgWj/RCbabuLp85zYhF/x9Th2RaTb9xh7RcSGLaBdwABZausyWGwmokWmB/avEogUQktwXHVN95RKUU4NO7j7xg2X7wpE9sStpXzrEjLfNXeeJlXLQVikDPkdV9iP0Ld0pc18=
+	KRcMbcm7YDwHux0tn2Uupm7JUV1PxlaTa64CP/SwgMIaUr3RlrENMORTOdKzMze/z2AigotDyrd6El3+D8iP37xLgXU5LHhrnDO2o/n+hBxyjJFhYmfvDvvZniorJ3yQjrpJvH+H+zbvJaRAf8AA5s6AVtxbUbliPmWfx+KQ03SAYpvS5WCjhvrH3ZbdDrNzdCaEU4GMLGNF54VCo11VOKk+N4KJ/1p2r5Wgqbig1kjZy+J5ot3KXSg6OYNiv4UW1M/Lf7NqA4pW3TDX8L3X5jKN2gu583fw0HKJDWyNzeJvCiOhQRUyVvjcL0j0l6YHVRh18gL7A9ieBnSm2bnmMlClXQOBITlJsq36j/YaazetIm9cOXU0g0LkrcsaCvf36kpCwW7CwuxsTePcQLeDYXqkY/i2oyuLilzaSn2WUsN7PfrK8/6sLr5YNs6U8RQiT/sl3YKFAVAIgM5Y4ZfDMLt+q+PZN8A60i2RT2piiHWpe4yEP0SHrtFLKEBAlTNaEKnyZ8fhNR0PybZ59JFdRigyGfNbRQ5jdy2NIJq8kG2wpoiKW6/yth/DZ0X9NFNlsNkR21EPPOVM/Gi3Xqi6UCNmSaxqaIROiHQUC/DgE+ZS4ufKgY9VO8zoT4Or3jCHgqj2cHnZxy48YpspDRpS5Va96bg8/q9wCc1WZn9UPC8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(7136999003)(10067099003)(6133799003)(56012099006)(5023799004)(11063799006)(18002099003)(11062099010)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(10067099003)(6133799003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yq1tm8J+Zmao7sZ+WXMvABW0tfD7etuPIl1PcgpzMbQZ/urnRDEHB8v+28Eo?=
- =?us-ascii?Q?3L8GtNggqNyu7grAU7Y2fol+Ilypykv/td+VKmene/hSXlpAURhZqnqF+slO?=
- =?us-ascii?Q?o70R3E2SYLXuf1Zzau5RCs60zKpOG0BNeiG1UQDMO/Yb6zYOKFL8uJypuI/D?=
- =?us-ascii?Q?+rpR1vjT9piMp7cnyxIFpd7j/jX7s141v6LNOtzFk7J9slgwaArJAa3AYkDL?=
- =?us-ascii?Q?AvSR5bDD9AJ5Dg9K4LY7OYTPYDeTLWTGOr4HHaJ30tkXA0E0lcY2nlZ07ENx?=
- =?us-ascii?Q?wg+r9tvCXMmfZfhm5CklHBG+JHmb22GrfvoeNtkV1gatOql1ZpbHpEYSIua5?=
- =?us-ascii?Q?FWS1jTSyieA4S5jGZidx4ndfZAZ25wP48HLCeZpN1Fo78R5c5JzNL9x6rmEn?=
- =?us-ascii?Q?eOUoJylp/ORz62mnplA5eeGswzmm6oAVAV//jA2/g2ej8cLP9DVe54Yr6IIC?=
- =?us-ascii?Q?Vc1F3oV9BbONFh8OcSygPFsff3ZoyIitkepKggGCXvBZr93SEjDErV7/X3lK?=
- =?us-ascii?Q?63zZ1XakzXFXrva3majt9s7mhcJ5ZJDw7prLuyxqGOI9JqyUbqVrgKb+t6+J?=
- =?us-ascii?Q?xMHtWaIG1Q6rneN12sS/1JHocsi6upfHi0HAyXempXWINMlKboAhUf+9MaZf?=
- =?us-ascii?Q?0mBzTQ89Pw8Ylr59C5hKJzaf0EmSUT2Q/GoUdMxBuVhbHl2s+baROrGQsqQ2?=
- =?us-ascii?Q?oH7baCjdDIIWbf1tU8s+lwClYxj9HxspnvZ6maRKSU+6C63y71AVY5p+zajU?=
- =?us-ascii?Q?xtOpP5F8SYOyqi2Wf6WQHVxOzdWDE8wNUw+BCFVqagNZ5hALB6SBMJNV9uEx?=
- =?us-ascii?Q?GXrGJrmG4okEato0kYNxfG4Y6qJrFUnTG13th1uFhozmD/m1aThjzdfknMkK?=
- =?us-ascii?Q?MZcLmQooYVLv+wcCMwyaxr72jp74Ma1VRZJJOsAP6+udh+vFEvQnGmy/l4ld?=
- =?us-ascii?Q?ndybhNFMAcBUHwYktlUaxILuayTWQmP513nDM3n1r9oUnE2Mn0wpiegPikfi?=
- =?us-ascii?Q?6LdkzoSaID3LKqu3BxnHvJ6b3z0bx8uNAYCSPIiI7qNdaW3ivuMOGGLKLnNf?=
- =?us-ascii?Q?2LWAmLsOGaq7ubj9wvz+WcPcWqxKj5wZLlAloRmHQjkgb8zUrljycgQu+bLF?=
- =?us-ascii?Q?eEoB2xZPqPLBobS7lN8HdLS5kR5GTgROyuiel1RRlW9uqwH6wOrO2enRcBBu?=
- =?us-ascii?Q?c2OwV3ViQ1BPkTAZRqBQFy+TkYaz/qbadNXy3l72R238PKZ8pWhVmxLBLXp7?=
- =?us-ascii?Q?WZd1Ha79MzrU9961laWZrZzm03/vy+dloaGFzJsKPilq95BZ7doVyiHHdOLl?=
- =?us-ascii?Q?93+pMdmodQuHa3FwmsSTHe82oErgPWbvSawVufDw6JysGP31uszkL/1oGy09?=
- =?us-ascii?Q?6xUJh7VktqHL6XIF3KTS7Uzpl7+NlWmHcXWpjnovgVkS+SmechjIfVaK7jM2?=
- =?us-ascii?Q?Bsmr5+8FQ8FlsxAQSHY+B9c3D0Ebn0A01DkZVA1tYyhFKAXUY81xStA6OGc2?=
- =?us-ascii?Q?fla+hjI6OWLDp76x9Xx20aO7d62RKZmcX5U5/IbvuHBwfZl7cFE3GctJus/P?=
- =?us-ascii?Q?soD/6yhJXtsljjGQUXHxtn8M3ftUrEr0axYdPXKzA2khp7kBV6DwO1zH0mUQ?=
- =?us-ascii?Q?ByRKMu7TEbjxtJoGrzNUSNjEXS3vJLNjZjiCCBkwAWfnPfR/4CtWpRJJE6aU?=
- =?us-ascii?Q?Tc4arvWVo0YNqAQUCoLbN1quK/JrwVhogKgJOZP5hHks4FGSbP7bzFA8/3DD?=
- =?us-ascii?Q?DNdnwVRZrA=3D=3D?=
+	=?us-ascii?Q?bytvzvEzikjp2h7a1nqvehCRZUhFiCw2/wdyBJzgB0Iv0MYqj07bLJLQZr9k?=
+ =?us-ascii?Q?CZcYkuVozP0a/QChgCFQpNnA3xTLxT8lA9n9j3xLtUcQ18TWxoRfi7NYemvl?=
+ =?us-ascii?Q?XCfpwa0rPj0NXm+6CZNmB2d3nwo9oG08SgFgNNja2Zsx2Fzq/8sFklgWo9aS?=
+ =?us-ascii?Q?8/DgimRtVFVuQxs4oUe85o5MSRXvlXA7W8amjOnuLiuKNVESCKeaxcDWDjp5?=
+ =?us-ascii?Q?VfF3yw7nfIKi3zYtvxXn58b50OH6ldlCES80HCA2k0CD+dA0MKQgmptc7Gmd?=
+ =?us-ascii?Q?ATJM8/ssjrwor4iiITdkhE8o4yG/Tyws0ZPJ2MJGeKeGWiC1EQw63+3bFznX?=
+ =?us-ascii?Q?c4qrysuTfQkK0yQJnNQ8bA5oVQ2fF48cklmW0uh6cri15WBRCxhtaHov3Azs?=
+ =?us-ascii?Q?Y30BsMyyP+XGncn+TpvuJRxLT2ZR1x6lDa9tGjkSMJHtuWAeEgi4KZ46AqzY?=
+ =?us-ascii?Q?+IlRCCYc9qGuARGVBWkrg0+J/uNEq9ws77sZpB2TmUIsucAiy7mhJTMprMtJ?=
+ =?us-ascii?Q?AezB3Rzxqx+I++8TxDy8MXU62Y7OdeDpGK4uSNg4TyZL8l2rJ+mE7JmC6WqE?=
+ =?us-ascii?Q?MJMPi7w1JcLRvoCNlpcGGlcEJnbhXXpMnBB7d13oZ3U9svm0d42yur4H7SaP?=
+ =?us-ascii?Q?/LRMKmNT4Z+xlPSZ7nhjRzQGY76cx9dnF6+gtVolE4oY1GVIPBIyxUOFc0hU?=
+ =?us-ascii?Q?6plJbssaM5T0iSZwzdj1njidEhaFFrh51OiHgXxEyO7pFhfD4eyL4yralbWO?=
+ =?us-ascii?Q?jr+ZSQaIl657i9msLGaLMA0WV8m6bQaOsZ1KiovQs3/HyeOjZwzctOVRrtqx?=
+ =?us-ascii?Q?xjS3GBmK+2CGl96kS/ZiuR0QS5cO4CsohJTFsBXT3Gaywl57a31TbOf1qnCf?=
+ =?us-ascii?Q?xBnGkiEPijIjxLl0hAASE6K6ydeXIIKUZ34Y1JcHJ6i3nqFALmH7eCCi1z89?=
+ =?us-ascii?Q?D3aeP+yVJa0peDUCce/w+KGgTlYEhaJ8WztTPaszoO4hW744CHSaIcYNEc+B?=
+ =?us-ascii?Q?WKLvGD42H6bDXkvvoiq6ytDCfR7cf8FLUb+Nap2LBlj10eNk66vfLlXzS3Fc?=
+ =?us-ascii?Q?9vC7tfXgzQFXcsQ6wT+c37oXOOd0dhQ8WLsg6isunWEp5afrEwbydiFVpKYS?=
+ =?us-ascii?Q?B07nHnyd0LI4sN/lquLTrdlpwRq0zDAui7MoynKPExk3Pd0LaHD2/xxO56Y7?=
+ =?us-ascii?Q?HjIzTD4mm9XsKRl8k4Ag8CygBX2f/wfRY6XH/+vPfkU6I3vWpCt/Mu2iaUQE?=
+ =?us-ascii?Q?EU8kqoVXH5JhrYJetd5+bnAN+BY65TpEokCIBnPxFaOEeiNSPhtK9EqdZzTM?=
+ =?us-ascii?Q?D+9PQXWt/MJcxYHBs69PWrYJA9kDILdUomjQZx/RYIiAIWbUv+I+l91X7IHg?=
+ =?us-ascii?Q?7by364z13Oh9RWZs5M/DnfsCc1kmzzDfl+esKkdQlLGoVKMUusV7rYJtrVRV?=
+ =?us-ascii?Q?9qGabGZFtrhGNAHT76PBN9V8GX62A1B0LRLkUIkhUh2C0u9tYoGWJEfGg5NN?=
+ =?us-ascii?Q?MCENdomPTEpLKLYPXSONhfVTUJFkkYDU7NLhLy7hZE5gSc73JFabb2v7JFPJ?=
+ =?us-ascii?Q?xmH6i4MOYh0CgnLk6JUDp6SrzgAcCiqykqKSEyqbyj+H8KAaF0qRK72EXk8u?=
+ =?us-ascii?Q?FHCQMhi9+XJZfiBI1pj1/KJo6Yx81LUUeDeVWCyfH1zfn9mmhSsNoafxzWot?=
+ =?us-ascii?Q?uI+g5JHR+1h9xxq5rrdrZ2Hyu/XspkKg3n3kLaJ1+ihsZpxtqlSUbJNaZKG4?=
+ =?us-ascii?Q?0OnisXRHCA=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab31e852-f8d6-4fbb-40a1-08def4fac3d3
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd158c0b-b7dc-4d2e-b50e-08def4fac61d
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2026 03:11:40.0883
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2026 03:11:43.7859
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: criVTmNYPYgKluSNhZssFbsFqwlF8ck0tpAoFVf7e+BVevb9iztG6j2m4oG4CD+zH6g84/ly7t+IJm9JrNcxLw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: In0eOx/lgVn3uyax1Fw3K9XsifWaUxTeFl+Y51XctIOBnE0kDzzcB1xxXWeJmacmmax1m6/StcyEmCNzuk2wYw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4198
 
-The GSP posts events, logs and error records to the GSP-to-CPU queue and
-raises the falcon SWGEN0 output. GSP boot polls for its own
-notifications, which leaves the latch set and pending bits in the tree.
+The hardware behind nova-core's interrupt support is not obvious from
+the code. Delivery is edge-triggered and needs a rearm after every
+interrupt, the rearm operation differs by GPU family and PCI interrupt
+type, and a vector that latched while disabled is invisible in the TOP
+summary register. Three different numbers are also all called a vector,
+in GIN, the MSI-X table, and the Linux IRQ API.
 
-nova-core drained the queue only while polling for a command reply, so
-an event sat unread until the next command was sent.
-
-Service the queue from a threaded handler on the GSP notification
-vector. The top half runs in hard interrupt context and touches only
-registers: it clears the GIN leaf, takes the falcon's SWGEN0 latch and
-rearms PCI delivery. Draining the queue takes the command-queue mutex,
-which can sleep, so the top half wakes the IRQ thread to do it.
-
-Quiesce the tree, clear the latch and rearm PCI delivery before
-registering the handler, so none of that boot state reaches it.
-Pre-Hopper MSI rearms through a configuration-space write that the tree
-drain does not perform, and an interrupt delivered before probe leaves
-delivery un-armed.
-
-Move the vector allocation out of the self-test and into probe, because
-the vectors are allocated once for the whole PCI device rather than per
-handler. The self-test and the GSP handler each take the vector for the
-subtree they service.
+Add a design document covering the two-level register tree, how it
+reaches the CPU under MSI and MSI-X, and the rules those behaviors
+impose on a handler. It also covers the GSP event: the falcon retrigger,
+the handoff from boot-time polling to interrupts, and how its messages
+are classified. A glossary names each term after the register or the
+specification that defines it.
 
 Assisted-by: Cursor:claude-opus-5
 Reviewed-by: Will Pierce <wpierce@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/driver.rs             |  54 ++++-
- drivers/gpu/nova-core/falcon/gsp.rs         |  35 ++-
- drivers/gpu/nova-core/gpu.rs                |  22 +-
- drivers/gpu/nova-core/gsp.rs                |  17 +-
- drivers/gpu/nova-core/gsp/cmdq.rs           |  42 ++++
- drivers/gpu/nova-core/irq.rs                |   1 +
- drivers/gpu/nova-core/irq/doorbell_test.rs  |  30 +--
- drivers/gpu/nova-core/irq/gsp.rs            | 239 ++++++++++++++++++++
- drivers/gpu/nova-core/irq/interrupt_tree.rs |  18 ++
- drivers/gpu/nova-core/nova_core.rs          |   1 -
- drivers/gpu/nova-core/regs.rs               |   4 +
- 11 files changed, 433 insertions(+), 30 deletions(-)
- create mode 100644 drivers/gpu/nova-core/irq/gsp.rs
+ Documentation/gpu/nova/core/interrupts.rst | 686 +++++++++++++++++++++
+ Documentation/gpu/nova/index.rst           |   1 +
+ 2 files changed, 687 insertions(+)
+ create mode 100644 Documentation/gpu/nova/core/interrupts.rst
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 5738d4ac521b..3fbf117a99ee 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -18,13 +18,22 @@
-     types::ForLt,
- };
- 
--use crate::gpu::Gpu;
-+use crate::{
-+    gpu::Gpu,
-+    irq::gsp::GspIrq, //
-+};
- 
- /// Counter for generating unique auxiliary device IDs.
- static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
- 
- #[pin_data]
- pub(crate) struct NovaCore<'bound> {
-+    /// GSP event interrupt registration.
-+    ///
-+    /// Declared first so it is dropped first: `free_irq` runs (waiting out any in-flight handler)
-+    /// before the GSP is unloaded (`gpu`) or the BAR mapping is released (`bar`).
-+    #[pin]
-+    _gsp_irq: GspIrq<'bound>,
-     #[pin]
-     pub(crate) gpu: Gpu<'bound>,
-     bar: pci::Bar<'bound, BAR0_SIZE>,
-@@ -78,14 +87,51 @@ fn probe<'bound>(
-             pdev.enable_device_mem()?;
-             pdev.set_master();
- 
-+            // A PCI device has one interrupt vector allocation, so it is made here for every
-+            // subtree nova-core services, and each handler takes the vector for its own subtree.
-+            let vectors = crate::irq::alloc_vectors(pdev, crate::irq::gsp::GSP_SUBTREE)?;
-+            let gsp_vector = vectors.vector_for(crate::irq::gsp::GSP_SUBTREE)?;
-+            let irq_type = vectors.irq_type();
-+
-             Ok(try_pin_init!(NovaCore {
-                 bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?,
-                 // TODO: Use `&bar` self-referential pin-init syntax once available.
-                 //
-                 // SAFETY: `bar` is initialized before this expression is evaluated
--                // (`try_pin_init!()` initializes fields in declaration order), lives at a pinned
--                // stable address, and is dropped after `gpu` (struct field drop order).
--                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) }),
-+                // (`try_pin_init!()` initializes fields in the order they appear here), lives at a
-+                // pinned stable address, and is dropped after `gpu` (struct field drop order).
-+                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) }, vectors),
-+                // Quiesce the interrupt tree before registering the handler below.
-+                _: {
-+                    // SAFETY: as for the `bar` borrow above.
-+                    let bar = unsafe { &*core::ptr::from_ref(bar) };
-+                    crate::irq::gsp::quiesce(bar, gpu.chipset(), irq_type);
-+                },
-+                // Register the permanent GSP SWGEN0 handler before enabling the interrupt.
-+                //
-+                // SAFETY: `bar` is initialized before this expression is evaluated, lives at a
-+                // pinned stable address, and is dropped after `_gsp_irq` (declared first, so
-+                // dropped first), so the handler's borrow stays valid for its whole lifetime.
-+                // `_gsp_irq` is stored in `NovaCore`, whose `Drop` runs `free_irq`, so the
-+                // registration is never leaked.
-+                _gsp_irq <- unsafe {
-+                    GspIrq::new(
-+                        pdev,
-+                        gsp_vector,
-+                        irq_type,
-+                        &*core::ptr::from_ref(bar),
-+                        gpu.cmdq(),
-+                        gpu.chipset(),
-+                    )
-+                },
-+                // Enable the GSP notification now that the handler is registered, then drain any
-+                // messages the GSP posted during boot before relying on the interrupt.
-+                _: {
-+                    // SAFETY: as for the `bar` borrow above.
-+                    let bar = unsafe { &*core::ptr::from_ref(bar) };
-+                    crate::irq::gsp::enable(bar, gpu.chipset(), irq_type);
-+                    gpu.cmdq().drain()?;
-+                },
-                 _reg: auxiliary::Registration::new(
-                     pdev.as_ref(),
-                     c"nova-drm",
-diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core/falcon/gsp.rs
-index ae32f401aeb0..f9d9e8e0386b 100644
---- a/drivers/gpu/nova-core/falcon/gsp.rs
-+++ b/drivers/gpu/nova-core/falcon/gsp.rs
-@@ -14,6 +14,7 @@
- };
- 
- use crate::{
-+    driver::Bar0,
-     falcon::{
-         Falcon,
-         FalconEngine,
-@@ -36,14 +37,40 @@ impl RegisterBase<PFalcon2Base> for Gsp {
- 
- impl FalconEngine for Gsp {}
- 
-+impl Gsp {
-+    /// Clears the GSP falcon SWGEN0 interrupt latch.
-+    ///
-+    /// The latch holds until it is cleared, and the GSP drives no new edge into the interrupt
-+    /// tree while it is set, so a caller that consumed a notification by any means other than the
-+    /// interrupt handler must clear it or no further notification is delivered.
-+    pub(crate) fn clear_swgen0_intr(bar: Bar0<'_>) {
-+        bar.write(
-+            WithBase::of::<Self>(),
-+            regs::NV_PFALCON_FALCON_IRQSCLR::zeroed().with_swgen0(true),
-+        );
-+    }
-+
-+    /// Reads the GSP falcon interrupt status, clearing the SWGEN0 latch if it was set.
-+    ///
-+    /// Returns the status as it was read, before the clear. The GSP raises SWGEN0 when it has
-+    /// posted messages in the GSP-to-CPU queue. The interrupt tree routes every falcon cause to
-+    /// a single vector, so the rest of the status identifies a cause other than a posted message.
-+    pub(crate) fn take_swgen0_intr(bar: Bar0<'_>) -> regs::NV_PFALCON_FALCON_IRQSTAT {
-+        let status = bar.read(regs::NV_PFALCON_FALCON_IRQSTAT::of::<Self>());
-+
-+        if status.swgen0() {
-+            Self::clear_swgen0_intr(bar);
-+        }
-+
-+        status
-+    }
-+}
-+
- impl<'a> Falcon<'a, Gsp> {
-     /// Clears the SWGEN0 bit in the Falcon's IRQ status clear register to
-     /// allow GSP to signal CPU for processing new messages in message queue.
-     pub(crate) fn clear_swgen0_intr(&self) {
--        self.bar.write(
--            WithBase::of::<Gsp>(),
--            regs::NV_PFALCON_FALCON_IRQSCLR::zeroed().with_swgen0(true),
--        );
-+        Gsp::clear_swgen0_intr(self.bar);
-     }
- 
-     /// Checks if GSP reload/resume has completed during the boot process.
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index d5df0ebf67ae..9700eff6db86 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -10,7 +10,8 @@
-     num::Bounded,
-     pci,
-     prelude::*,
--    sizes::SizeConstants, //
-+    sizes::SizeConstants,
-+    sync::Arc, //
- };
- 
- use crate::{
-@@ -25,10 +26,12 @@
-     fsp::Fsp,
-     gsp::{
-         self,
-+        cmdq::Cmdq,
-         commands::GetGspStaticInfoReply,
-         Gsp,
-         GspBootContext, //
-     },
-+    irq::SubtreeVectors,
-     regs,
-     vgpu::VgpuManager, //
- };
-@@ -323,12 +326,27 @@ fn drop(self: Pin<&mut Self>) {
- }
- 
- impl<'gpu> Gpu<'gpu> {
-+    /// Returns the chipset this GPU was identified as.
-+    pub(crate) fn chipset(&self) -> Chipset {
-+        self.spec.chipset
-+    }
-+
-+    /// Returns a shared handle to the GSP command queue.
-+    pub(crate) fn cmdq(&self) -> Arc<Cmdq> {
-+        self.gsp_resources.gsp.cmdq()
-+    }
-+
-     pub(crate) fn new(
-         pdev: &'gpu pci::Device<device::Core<'_>>,
-         bar: Bar0<'gpu>,
-+        vectors: SubtreeVectors<'gpu>,
-     ) -> impl PinInit<Self, Error> + 'gpu {
-         let dev = pdev.as_ref();
- 
-+        // `vectors` exists for the interrupt self-test below, which this configuration omits.
-+        #[cfg(not(CONFIG_NOVA_CORE_IRQ_SELFTEST))]
-+        let _ = vectors;
-+
-         try_pin_init!(Self {
-             spec: Spec::new(dev, bar).inspect(|spec| {
-                 dev_info!(dev,"NVIDIA ({})\n", spec);
-@@ -352,7 +370,7 @@ pub(crate) fn new(
-             // never observes or clears GSP or PRIV_RING interrupts.
-             _: {
-                 #[cfg(CONFIG_NOVA_CORE_IRQ_SELFTEST)]
--                crate::irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
-+                crate::irq::doorbell_test::run_selftest(pdev, bar, spec.chipset, vectors)?;
-             },
- 
-             // Initialize this early because `gsp_resources` depends on it.
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 13f361406a6c..43eec3f4f573 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -18,7 +18,8 @@
-         Io, //
-     },
-     pci,
--    prelude::*, //
-+    prelude::*,
-+    sync::Arc, //
- };
- 
- pub(crate) mod cmdq;
-@@ -152,9 +153,8 @@ pub(crate) struct Gsp {
-     /// Log buffers, optionally exposed via debugfs.
-     #[pin]
-     logs: debugfs::Scope<LogBuffers>,
--    /// Command queue.
--    #[pin]
--    pub(crate) cmdq: Cmdq,
-+    /// Command queue, shared with the GSP event interrupt handler.
-+    pub(crate) cmdq: Arc<Cmdq>,
-     /// RM arguments.
-     rmargs: Coherent<GspArgumentsPadded>,
- }
-@@ -173,8 +173,8 @@ pub(crate) fn new(pdev: &pci::Device<device::Bound>) -> impl PinInit<Self, Error
-             // _kgspInitLibosLoggingStructures (allocates memory for buffers)
-             // kgspSetupLibosInitArgs_IMPL (creates pLibosInitArgs[] array)
-             Ok(try_pin_init!(Self {
--                cmdq <- Cmdq::new(dev),
--                rmargs: Coherent::init(dev, GFP_KERNEL, GspArgumentsPadded::new(&cmdq))?,
-+                cmdq: Arc::pin_init(Cmdq::new(dev), GFP_KERNEL)?,
-+                rmargs: Coherent::init(dev, GFP_KERNEL, GspArgumentsPadded::new(cmdq.as_ref()))?,
-                 libos: {
-                     let mut libos = CoherentBox::zeroed_slice(
-                         dev,
-@@ -220,6 +220,11 @@ pub(crate) fn new(pdev: &pci::Device<device::Bound>) -> impl PinInit<Self, Error
-     pub(crate) fn get_static_info(&self, bar: Bar0<'_>) -> Result<commands::GetGspStaticInfoReply> {
-         self.cmdq.send_command(bar, commands::GetGspStaticInfo)
-     }
-+
-+    /// Returns a shared handle to the GSP command queue.
-+    pub(crate) fn cmdq(&self) -> Arc<Cmdq> {
-+        self.cmdq.clone()
-+    }
- }
- 
- /// Opaque bundle required to unload the GSP. Created by [`Gsp::boot`], consumed by [`Gsp::unload`].
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 76d51155c49f..ac3e6642031a 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -647,6 +647,18 @@ pub(crate) fn await_msg<M: MessageFromGsp>(&self) -> Result<M>
-             }
-         }
-     }
-+
-+    /// Drains and dispatches every message currently pending in the GSP-to-CPU queue.
-+    ///
-+    /// Routes each message the GSP has already posted through [`CmdqInner::dispatch_event`] and
-+    /// returns without waiting for more.
-+    ///
-+    /// # Errors
-+    ///
-+    /// Propagates a receive error, in particular the `EIO` of a queue poisoned by corrupt framing.
-+    pub(crate) fn drain(&self) -> Result {
-+        self.inner.lock().drain()
-+    }
- }
- 
- /// Inner mutex protected state of [`Cmdq`].
-@@ -977,4 +989,34 @@ fn dispatch_event(&self, function: Result<MsgFunction, u32>, seq: u32) {
-             }
-         }
-     }
-+
-+    /// Drains and dispatches all messages currently pending in the GSP-to-CPU queue.
-+    ///
-+    /// Processes whatever the GSP has already posted, dispatching each message as an event, and
-+    /// stops once the queue is empty. There is no awaited reply during a drain, so every message
-+    /// is routed to [`Self::dispatch_event`].
-+    ///
-+    /// # Errors
-+    ///
-+    /// Returns the receive error that stopped the drain, in particular the `EIO` of a queue
-+    /// poisoned by corrupt framing (see [`Self::wait_for_msg`]).
-+    fn drain(&mut self) -> Result {
-+        while !self.gsp_mem.driver_read_area().0.is_empty() {
-+            // A message is available, so this returns without waiting.
-+            let msg = self.wait_for_msg(Delta::ZERO)?;
-+
-+            let pages =
-+                u32::try_from(msg.header.length().div_ceil(GSP_PAGE_SIZE)).map_err(|_| {
-+                    dev_err!(&self.dev, "GSP drain: message length overflow\n");
-+                    EIO
-+                })?;
-+            let function = msg.header.function();
-+            let seq = msg.header.sequence();
-+
-+            self.gsp_mem.advance_cpu_read_ptr(pages);
-+            self.dispatch_event(function, seq);
-+        }
-+
-+        Ok(())
-+    }
- }
-diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
-index 5b449759b333..ddf322f2e623 100644
---- a/drivers/gpu/nova-core/irq.rs
-+++ b/drivers/gpu/nova-core/irq.rs
-@@ -10,6 +10,7 @@
- 
- #[cfg(CONFIG_NOVA_CORE_IRQ_SELFTEST)]
- pub(crate) mod doorbell_test;
-+pub(crate) mod gsp;
- mod hal;
- mod interrupt_tree;
- 
-diff --git a/drivers/gpu/nova-core/irq/doorbell_test.rs b/drivers/gpu/nova-core/irq/doorbell_test.rs
-index fae770339fd7..bfdfee732892 100644
---- a/drivers/gpu/nova-core/irq/doorbell_test.rs
-+++ b/drivers/gpu/nova-core/irq/doorbell_test.rs
-@@ -28,11 +28,14 @@
-     time, //
- };
- 
--use super::interrupt_tree::{
--    vector_leaf_bit,
--    vector_subtree_mask,
--    LeafIndex,
--    Tree, //
-+use super::{
-+    interrupt_tree::{
-+        vector_leaf_bit,
-+        vector_subtree_mask,
-+        LeafIndex,
-+        Tree, //
-+    },
-+    SubtreeVectors, //
- };
- use crate::{
-     driver::Bar0,
-@@ -56,8 +59,8 @@
- 
- /// Subtree carrying the doorbell vector, and the only subtree this test services.
- ///
--/// Derived from the vector so that changing `DOORBELL_VECTOR` moves the allocation, the subtree it
--/// enables, and the handler together.
-+/// Derived from the vector so that changing `DOORBELL_VECTOR` moves the subtree it enables and the
-+/// handler together.
- const DOORBELL_SUBTREE: u32 = vector_subtree_mask(DOORBELL_VECTOR);
- 
- /// Index of the subtree carrying the doorbell vector. Under MSI-X this is also the index of the
-@@ -184,17 +187,18 @@ fn drop(&mut self) {
- ///
- /// # Errors
- ///
--/// `EIO` if the doorbell is already pending before the test, if the delivery count is not two, if
--/// the doorbell bit is still set once the source is stopped, or if either delivery found a pending
--/// bit other than the doorbell. `ETIMEDOUT` if either delivery does not arrive within the timeout.
-+/// `EINVAL` if the doorbell's subtree is not one nova-core services. `EIO` if the doorbell is
-+/// already pending before the test, if the delivery count is not two, if the doorbell bit is still
-+/// set once the source is stopped, or if either delivery found a pending bit other than the
-+/// doorbell. `ETIMEDOUT` if either delivery does not arrive within the timeout.
- pub(crate) fn run_selftest<'a>(
-     pdev: &'a pci::Device<Bound>,
-     bar: Bar0<'a>,
-     chipset: Chipset,
-+    vectors: SubtreeVectors<'_>,
- ) -> Result {
--    // The allocated interrupt type decides how the handler rearms delivery, so the vectors are
--    // allocated before the tree is built.
--    let vectors = super::alloc_vectors(pdev, DOORBELL_SUBTREE)?;
-+    // The interrupt type decides how the handler rearms delivery, so the tree takes it from
-+    // probe's allocation.
-     let vector = vectors.vector_for(DOORBELL_SUBTREE)?;
-     let irq_type = vectors.irq_type();
-     let tree = Tree::new(chipset, irq_type, DOORBELL_SUBTREE);
-diff --git a/drivers/gpu/nova-core/irq/gsp.rs b/drivers/gpu/nova-core/irq/gsp.rs
+diff --git a/Documentation/gpu/nova/core/interrupts.rst b/Documentation/gpu/nova/core/interrupts.rst
 new file mode 100644
-index 000000000000..1fce315410f3
+index 000000000000..d7ddbfd6a0af
 --- /dev/null
-+++ b/drivers/gpu/nova-core/irq/gsp.rs
-@@ -0,0 +1,239 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++++ b/Documentation/gpu/nova/core/interrupts.rst
+@@ -0,0 +1,686 @@
++.. SPDX-License-Identifier: GPL-2.0
++.. SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+//! GSP event (SWGEN0) interrupt handling.
-+//!
-+//! The GSP firmware raises SWGEN0 when it has posted messages in the GSP-to-CPU queue. That
-+//! signal reaches the CPU as a PCI interrupt through the GIN tree. This module provides the
-+//! threaded IRQ handler for it. The top half services the GIN leaf and the falcon SWGEN0 latch,
-+//! and the IRQ thread drains the message queue.
-+//!
-+//! See `Documentation/gpu/nova/core/interrupts.rst`.
++=================================================
++GPU interrupt handling: GIN and the GSP event
++=================================================
 +
-+use kernel::{
-+    device, irq, pci,
-+    prelude::*,
-+    sync::{
-+        aref::ARef,
-+        Arc, //
-+    },
-+};
++This document describes how nova-core receives interrupts from the GPU on Turing
++and later parts. It covers the GPU Interrupt and Notification unit (GIN), which
++is the GPU's interrupt controller, and the GSP event interrupt.
 +
-+use super::interrupt_tree::{
-+    LeafIndex,
-+    Tree, //
-+};
-+use crate::{
-+    driver::Bar0,
-+    falcon::gsp::Gsp as GspFalcon,
-+    gpu::Chipset,
-+    gsp::cmdq::Cmdq, //
-+};
++Throughout, *CPU* means the CPU and the nova-core driver running on it. The GPU
++also has on-chip processors that run their own firmware and receive their own
++interrupts, and the GSP (GPU System Processor) is one of them.
 +
-+/// Fixed GSP notification vector.
-+///
-+/// The resource manager pins the GSP SWGEN0 notification to this vector on every supported chip,
-+/// so nova-core uses the constant directly instead of discovering it at runtime. The leaf and bit
-+/// serviced by the handler are derived from it.
-+pub(crate) const GSP_INTR_0_VECTOR: u32 = 155;
++The register names in this document are the names from the GPU hardware
++reference headers. The CPU tree's registers live in the per-function
++``NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_*`` aperture on every supported part, and
++the controller itself has a second name on pre-Hopper parts (see "Register
++naming").
 +
-+/// Leaf and bit index of the GSP notification vector within the interrupt tree.
-+const GSP_LOC: (usize, u32) = super::interrupt_tree::vector_leaf_bit(GSP_INTR_0_VECTOR);
++Terminology
++===========
 +
-+/// Leaf holding the GSP notification vector.
-+const GSP_LEAF: usize = GSP_LOC.0;
++Three different numbers are all called a "vector" in the surrounding material.
++This document gives each one its own name and never uses "vector" on its own.
 +
-+/// Bit of the GSP notification vector within its leaf.
-+const GSP_BIT: u32 = 1 << GSP_LOC.1;
++GIN vector
++    The GPU-internal interrupt source number, 0 through 511 on Hopper. It is a
++    bit address within the tree: leaf ``vector / 32``, bit ``vector % 32``. The
++    CPU doorbell is GIN vector 129 and the GSP event is GIN vector 155.
 +
-+/// Subtree carrying the GSP notification vector, and the only subtree nova-core services.
-+///
-+/// Probe allocates PCI vectors for this subtree, and the GSP handler names it as the subtree it
-+/// serves, both when it takes its vector and when it rearms.
-+pub(crate) const GSP_SUBTREE: u32 = super::interrupt_tree::vector_subtree_mask(GSP_INTR_0_VECTOR);
++MSI-X entry
++    An index into the device's MSI-X table, 0 through 7 on Hopper. Linux's
++    ``struct msix_entry`` names its Linux IRQ number ``.vector``, which is a
++    third meaning.
 +
-+/// Clears the interrupt state that GSP boot left behind.
-+///
-+/// Disables every vector in every implemented leaf, clears the falcon's SWGEN0 latch, clears the
-+/// tree's pending bits, and rearms PCI interrupt delivery. On return no vector is enabled, so the
-+/// tree delivers nothing.
-+pub(crate) fn quiesce(bar: Bar0<'_>, chipset: Chipset, irq_type: pci::IrqType) {
-+    let tree = Tree::new(chipset, irq_type, GSP_SUBTREE);
-+    tree.disable_all_leaves(bar);
-+    // GSP boot consumes its notifications by polling the queue, which leaves SWGEN0 latched.
-+    // Clear it before the tree drain below, so the drain clears the tree state the clear sets.
-+    // Messages already posted raise no interrupt of their own, and the caller's queue drain
-+    // covers them.
-+    GspFalcon::clear_swgen0_intr(bar);
-+    tree.drain(bar);
-+    // The `TOP_EN` cycle in `drain` is the rearm for the two enable-cycle methods, but pre-Hopper
-+    // MSI rearms through a configuration-space write instead. An interrupt delivered before probe
-+    // leaves delivery un-armed on that path, with no handler to have rearmed it.
-+    tree.rearm_pci_irq(bar, GSP_SUBTREE);
-+}
++Linux IRQ number
++    What ``request_irq()`` takes, obtained from ``pci_irq_vector()``.
 +
-+/// Enables the GSP notification vector at its leaf.
-+///
-+/// The GSP interrupt is delivered from this point on.
-+pub(crate) fn enable(bar: Bar0<'_>, chipset: Chipset, irq_type: pci::IrqType) {
-+    let tree = Tree::new(chipset, irq_type, GSP_SUBTREE);
-+    // A message posted after `quiesce` latches this leaf bit while the vector is still disabled,
-+    // so enabling the vector raises that interrupt rather than losing the message.
-+    tree.leaf(LeafIndex::new::<GSP_LEAF>()).enable(bar, GSP_BIT);
-+}
++The remaining terms, each named for the register or the specification that owns
++it:
 +
-+/// Threaded IRQ handler for the GSP SWGEN0 event.
-+///
-+/// The top half clears the GIN leaf and reads the falcon SWGEN0 latch. The IRQ thread drains the
-+/// GSP-to-CPU message queue, which takes the command-queue lock.
-+#[pin_data]
-+pub(crate) struct GspInterrupt<'a> {
-+    /// Borrowed BAR0, for GIN and falcon register access from interrupt context.
-+    bar: Bar0<'a>,
-+    /// The GSP command queue, drained by the IRQ thread.
-+    cmdq: Arc<Cmdq>,
-+    /// The GIN interrupt tree for this chipset.
-+    tree: Tree,
-+    /// Device, for logging from interrupt context without taking the command-queue lock.
-+    dev: ARef<device::Device>,
-+}
++enable / disable a GIN vector
++    ``LEAF_EN_SET`` and ``LEAF_EN_CLEAR``.
 +
-+impl<'a> GspInterrupt<'a> {
-+    /// Creates the handler for `chipset`, borrowing `bar` and sharing `cmdq` with the rest of the
-+    /// driver.
-+    pub(crate) fn new(
-+        bar: Bar0<'a>,
-+        cmdq: Arc<Cmdq>,
-+        chipset: Chipset,
-+        irq_type: pci::IrqType,
-+        dev: ARef<device::Device>,
-+    ) -> impl PinInit<Self, Error> + 'a {
-+        try_pin_init!(Self {
-+            bar,
-+            cmdq,
-+            tree: Tree::new(chipset, irq_type, GSP_SUBTREE),
-+            dev,
-+        }? Error)
-+    }
-+}
++enable / disable a subtree
++    ``TOP_EN_SET`` and ``TOP_EN_CLEAR``.
 +
-+impl irq::ThreadedHandler for GspInterrupt<'_> {
-+    /// Top half: clears the GIN leaf, takes the falcon SWGEN0 latch, and rearms PCI interrupt
-+    /// delivery.
-+    fn handle(&self) -> irq::ThreadedIrqReturn {
-+        let bar = self.bar;
++serviced subtree
++    A subtree nova-core enables and has a handler for.
 +
-+        // Only service our own vector: require the GSP bit in the leaf and clear just that bit, so
-+        // a co-pending vector in the same leaf stays pending for whoever services it. The subtree
-+        // stays enabled, so there is no whole-tree disable and enable.
-+        let leaf = self
-+            .tree
-+            .leaf(LeafIndex::new::<GSP_LEAF>())
-+            .read_pending(bar);
-+        if leaf.pending_bits() & GSP_BIT == 0 {
-+            // Nothing to service, but nova-core is the only consumer of this PCI interrupt, so
-+            // skipping the rearm here would silence every later interrupt as well.
-+            self.tree.rearm_pci_irq(bar, GSP_SUBTREE);
-+            return irq::ThreadedIrqReturn::None;
-+        }
-+        leaf.clear_vectors(bar, GSP_BIT);
++rearm
++    Restoring PCI interrupt delivery after servicing an interrupt. It is a
++    ``TOP_EN`` disable-then-enable cycle everywhere except under pre-Hopper
++    MSI, where it is a write to the end-of-interrupt (EOI) register in the BAR0
++    configuration-space mirror (see "Rearming PCI interrupt delivery").
 +
-+        // SWGEN0 is the message-queue notification, so wake the IRQ thread to drain it.
-+        let status = GspFalcon::take_swgen0_intr(bar);
-+        let ret = if status.swgen0() {
-+            irq::ThreadedIrqReturn::WakeThread
-+        } else {
-+            // The tree routes every falcon cause to this vector, so something other than a posted
-+            // message fired it, for example a HALT from a GSP crash. There is no recovery path for
-+            // those causes, so report the status rather than discarding it.
-+            dev_err!(
-+                &self.dev,
-+                "GSP interrupt with no SWGEN0, falcon IRQSTAT {:#x}\n",
-+                status.into_raw()
-+            );
-+            irq::ThreadedIrqReturn::Handled
-+        };
++mask
++    Reserved for the two places hardware and the PCI specification use the
++    word: the MSI-X per-entry Vector Control mask bit, which Linux owns, and
++    the falcon cause masks. It never names a GIN enable.
 +
-+        // Delivery resumes only after this, so it must happen on every path that services the
-+        // vector, including the fault path above.
-+        self.tree.rearm_pci_irq(bar, GSP_SUBTREE);
++latched, pending
++    A ``LEAF`` bit records its source whether or not the GIN vector is enabled.
++    A disabled vector's pending bit never appears in ``TOP``.
 +
-+        ret
-+    }
++clear a leaf vector
++    Write a 1 to the vector's bit in ``LEAF``. Open RM spells the same
++    operation ``intrClearLeafVector_HAL``.
 +
-+    /// IRQ thread: drains and dispatches the GSP-to-CPU message queue.
-+    fn handle_threaded(&self) -> irq::IrqReturn {
-+        if let Err(e) = self.cmdq.drain() {
-+            // A queue that fails to drain cannot advance past the message that failed, so every
-+            // later notification would repeat this failure. Disable the source instead.
-+            self.tree
-+                .leaf(LeafIndex::new::<GSP_LEAF>())
-+                .disable(self.bar, GSP_BIT);
-+            dev_err!(
-+                &self.dev,
-+                "GSP event drain failed ({:?}), the message queue is no longer serviced\n",
-+                e
-+            );
-+        }
-+        irq::IrqReturn::Handled
-+    }
-+}
++pending bits
++    The plain bitmask value read from a ``LEAF`` register.
 +
-+/// The registered GSP event interrupt.
-+///
-+/// Wraps the threaded IRQ registration so that teardown disables the GSP source at the interrupt
-+/// tree before `free_irq` runs. This closes the window, including a probe partial-unwind, in which
-+/// an interrupt could be delivered to a handler that is being freed.
-+#[pin_data(PinnedDrop)]
-+pub(crate) struct GspIrq<'a> {
-+    #[pin]
-+    reg: irq::ThreadedRegistration<'a, GspInterrupt<'a>>,
-+    /// Borrowed BAR0 and the interrupt tree, used by the teardown to disable the GSP source.
-+    bar: Bar0<'a>,
-+    tree: Tree,
-+}
++unit
++    A generic interrupt-raising block. "Engine" is reserved for the blocks that
++    do usermode work: GR, CE, NVDEC, and the like.
 +
-+impl<'a> GspIrq<'a> {
-+    /// Registers the GSP SWGEN0 threaded handler on `vector`.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must not leak the returned value: its [`Drop`] runs `free_irq`.
-+    pub(crate) unsafe fn new(
-+        pdev: &'a pci::Device<device::Bound>,
-+        vector: pci::IrqVector<'a>,
-+        irq_type: pci::IrqType,
-+        bar: Bar0<'a>,
-+        cmdq: Arc<Cmdq>,
-+        chipset: Chipset,
-+    ) -> impl PinInit<Self, Error> + 'a {
-+        let dev: ARef<device::Device> = pdev.as_ref().into();
-+        try_pin_init!(Self {
-+            // SAFETY: the caller guarantees the returned `GspIrq` is not leaked, so this
-+            // registration's `Drop` (`free_irq`) always runs.
-+            reg <- unsafe {
-+                pdev.request_threaded_irq(
-+                    vector,
-+                    irq::Flags::TRIGGER_NONE,
-+                    c"nova-core",
-+                    GspInterrupt::new(bar, cmdq, chipset, irq_type, dev),
-+                )
-+            },
-+            bar,
-+            tree: Tree::new(chipset, irq_type, GSP_SUBTREE),
-+        })
-+    }
-+}
++The GIN controller
++==================
 +
-+#[pinned_drop]
-+impl PinnedDrop for GspIrq<'_> {
-+    fn drop(self: Pin<&mut Self>) {
-+        // Disable the GSP source before `reg` drops and runs `free_irq`, so no interrupt reaches a
-+        // handler being torn down. This `PinnedDrop` runs before any field drops, so the order is
-+        // disable-then-free_irq.
-+        let this = self.project();
-+        this.tree
-+            .leaf(LeafIndex::new::<GSP_LEAF>())
-+            .disable(this.bar, GSP_BIT);
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/irq/interrupt_tree.rs b/drivers/gpu/nova-core/irq/interrupt_tree.rs
-index 73f5afadea3e..f4f1494cddba 100644
---- a/drivers/gpu/nova-core/irq/interrupt_tree.rs
-+++ b/drivers/gpu/nova-core/irq/interrupt_tree.rs
-@@ -135,6 +135,8 @@ pub(super) fn leaf(&self, index: LeafIndex) -> Leaf<Idle> {
-     ///
-     /// `EINVAL` if `vector` lies outside this tree (`vector >= num_leaves * 32`). `EOVERFLOW` if
-     /// `vector` does not fit in the trigger register's vector field.
-+    // Only the interrupt self-test injects a software interrupt.
-+    #[cfg_attr(not(CONFIG_NOVA_CORE_IRQ_SELFTEST), expect(dead_code))]
-     pub(super) fn trigger(&self, bar: Bar0<'_>, vector: u32) -> Result {
-         if crate::num::u32_as_usize(vector) >= self.num_leaves * 32 {
-             return Err(EINVAL);
-@@ -143,6 +145,22 @@ pub(super) fn trigger(&self, bar: Bar0<'_>, vector: u32) -> Result {
-         Ok(())
-     }
- 
-+    /// Disables every vector in every implemented leaf (`LEAF_EN_CLEAR`).
-+    ///
-+    /// Boot, or a driver that ran before this one, can leave leaf enables set for vectors
-+    /// nova-core does not service, and such a vector delivers to nova-core's handler once its
-+    /// subtree is enabled.
-+    ///
-+    /// This clears enables outside the subtrees nova-core services, so it is a probe-time
-+    /// operation only.
-+    pub(super) fn disable_all_leaves(&self, bar: Bar0<'_>) {
-+        for index in 0..self.num_leaves {
-+            if let Some(index) = LeafIndex::try_new(index) {
-+                self.leaf(index).disable(bar, u32::MAX);
-+            }
-+        }
-+    }
++A GPU has many interrupt sources: the GSP, copy engines, the graphics engine,
++video decode and encode, the MMU fault path, timers, and others. Each one has a
++GIN vector number, which is internal to the controller and is not a PCI vector
++index.
 +
-     /// Clears every pending bit in every implemented leaf.
-     ///
-     /// Disables this tree's serviced subtrees at `TOP` across the walk, then enables them,
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index 65ce547bd44e..68b5abfe494d 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -17,7 +17,6 @@
- mod fsp;
- mod gpu;
- mod gsp;
--#[cfg_attr(not(CONFIG_NOVA_CORE_IRQ_SELFTEST), expect(dead_code))]
- mod irq;
- mod mctp;
- #[macro_use]
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 1db92d36c5ac..2a0489472a66 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -196,6 +196,10 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         4:4     halt => bool;
-     }
- 
-+    pub(crate) NV_PFALCON_FALCON_IRQSTAT(u32) @ PFalconBase + 0x00000008 {
-+        6:6     swgen0 => bool;
-+    }
++GIN records which vectors are pending in its own two-level register tree and
++raises the PCI interrupt when an enabled vector becomes pending. The CPU's
++handler reads that tree to tell the sources apart, clears the pending vectors,
++and runs the work for each.
 +
-     pub(crate) NV_PFALCON_FALCON_MAILBOX0(u32) @ PFalconBase + 0x00000040 {
-         31:0    value => u32;
-     }
++How the tree reaches the CPU over PCI
++-------------------------------------
++
++How many PCI interrupts the tree needs depends on the interrupt type Linux
++grants.
++
++MSI has a single message, and every subtree raises that one message. One
++allocated vector serves the whole tree.
++
++MSI-X raises a separate table entry per subtree, so a subtree's interrupts
++arrive on the table entry whose index is the subtree number. Linux masks each
++table entry a driver did not allocate, and a masked entry sends no message: the
++request sets a bit in the pending-bit array and waits for an unmask that never
++comes. A driver that leaves out the entry its subtree raises loses every
++interrupt on that subtree, and loses it silently, with the GIN leaf and TOP
++registers showing the vector pending and enabled while no handler runs.
++
++The serviced-subtree invariant
++------------------------------
++
++Every subtree enabled at TOP must have an allocated PCI vector with a registered
++handler.
++
++MSI satisfies this with one message that every subtree raises. MSI-X needs one
++allocated, unmasked entry per serviced subtree, and a PCI allocation cannot be
++sparse, so it runs from entry 0 through the highest serviced subtree::
++
++    MSI-X, with subtree 2 serviced:
++
++      subtree 0  ->  entry 0   allocated, no handler, stays masked
++      subtree 1  ->  entry 1   allocated, no handler, stays masked
++      subtree 2  ->  entry 2   handler here, and its rearm covers subtree 2
++
++    MSI, with any serviced set:
++
++      every serviced subtree  ->  the one allocated vector, whose handler's
++                                  rearm covers the whole serviced set
++
++The entries allocated below a serviced subtree that the driver does not service
++cost nothing: Linux unmasks an entry only when its interrupt is requested, and a
++disabled subtree raises nothing.
++
++nova-core services exactly one subtree, subtree 2, because both the vectors it
++uses are in leaf 4: the GSP event (155) and the self-test doorbell (129). That
++is also the subtree the resource manager assigns to its ``UVM_SHARED`` interrupt
++category on every chipset nova-core supports.
++
++Interrupt trees
++===============
++
++GIN keeps a separate interrupt tree for each place an interrupt can be sent to:
++
++* One tree per PCIe function. The Physical Function (PF) has a tree, and each
++  Virtual Function (VF) has a tree.
++* One tree per on-chip microcontroller that receives interrupts, starting with
++  the GSP.
++
++Each destination reaches its own tree through its own BAR0 and cannot reach any
++other tree. GSP firmware selects the tree each unit's interrupt is sent to.
++
++nova-core services the CPU tree of one function. The VF trees and the
++microcontroller trees belong to firmware or to virtual functions.
++
++The two-level tree
++==================
++
++Each tree has two levels. The bottom level is the LEAF registers, which hold one
++pending bit per vector. The top level is the single TOP register, which
++summarizes the leaves.
++
++* Each ``LEAF(i)`` is a 32-bit register holding the pending bits for vectors
++  ``i * 32`` through ``i * 32 + 31``. A set bit means that vector is pending.
++* ``TOP`` is a single 32-bit read-only register. Each of its bits summarizes one
++  *subtree*, which is a pair of adjacent leaves. TOP bit ``N`` reflects
++  ``LEAF[2N]`` and ``LEAF[2N + 1]`` as filtered by their leaf enables, so a
++  vector that latched while disabled does not appear in TOP.
++
++A subtree is two leaves, so a part with L leaves has L / 2 subtrees and uses
++that many TOP bits. An 8-leaf part uses TOP bits 0 through 3, and the other 28
++bits always read 0. A 16-leaf part uses TOP bits 0 through 7::
++
++    TOP  (one 32-bit register, and an 8-leaf part uses only bits 0..3)
++
++      bit 0  ->  subtree 0  ->  LEAF[0], LEAF[1]   vectors   0..63
++      bit 1  ->  subtree 1  ->  LEAF[2], LEAF[3]   vectors  64..127
++      bit 2  ->  subtree 2  ->  LEAF[4], LEAF[5]   vectors 128..191
++      bit 3  ->  subtree 3  ->  LEAF[6], LEAF[7]   vectors 192..255
++      bits 4..31: always 0 on an 8-leaf part (a 16-leaf part uses bits 0..7)
++
++    A LEAF is one 32-bit register, one bit per vector. For example, LEAF[4]
++    holds vectors 128..159:
++
++      bit 1  = vector 129  (CPU doorbell)
++      bit 27 = vector 155  (GSP event)
++
++Registers
++---------
++
++All the registers are 32 bits, defined in ``regs.rs`` under the
++``NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_*`` names. The leaf registers are arrays
++indexed by leaf number:
++
++* ``LEAF(i)`` holds the pending bits for the vectors in leaf ``i``. Reading
++  returns the pending bits, and writing a 1 to a bit clears that vector
++  (write-1-to-clear).
++* ``LEAF_EN_SET(i)`` and ``LEAF_EN_CLEAR(i)`` enable and disable individual
++  vectors in leaf ``i``.
++* ``TOP`` is the read-only summary: bit N is set when an enabled vector is
++  pending in ``LEAF[2N]`` or ``LEAF[2N + 1]``. A vector that latched while its
++  leaf enable was clear does not appear.
++* ``TOP_EN_SET`` and ``TOP_EN_CLEAR`` enable and disable subtrees.
++* ``LEAF_TRIGGER`` makes a vector pending in software. The self-test uses it.
++
++Mapping a vector to the tree
++----------------------------
++
++Each vector occupies one bit of one leaf, and each leaf belongs to one
++subtree::
++
++    leaf    = v / 32
++    bit     = v % 32
++    subtree = leaf / 2
++
++Both of the vectors nova-core names by number fall in leaf 4: vector 129 at bit
++1 and vector 155 at bit 27, so both arrive under subtree 2.
++
++Enabling and clearing
++---------------------
++
++Each bit of a set or clear register acts on its own: writing a 1 performs the
++action for that bit, and writing a 0 leaves the bit's state alone. No caller
++ever needs a read-modify-write.
++
++* ``LEAF(i)`` is write-1-to-clear. Reading returns the pending bits. Each bit
++  must be cleared before its vector is serviced.
++* ``LEAF_EN_SET(i)`` and ``LEAF_EN_CLEAR(i)`` enable and disable individual
++  vectors in a leaf.
++* ``TOP_EN_SET`` and ``TOP_EN_CLEAR`` enable and disable whole subtrees.
++
++A vector reaches the CPU only when both its leaf enable bit and its subtree's
++TOP enable bit are set. The leaf enable governs delivery and the TOP summary,
++but not the latch: a disabled vector still latches its LEAF bit, and that bit is
++visible only by reading the leaf directly.
++
++How a unit interrupt reaches the CPU
++====================================
++
++A unit does not write a LEAF register itself. Each unit has an interrupt routing
++register, and GSP firmware programs it once at boot. Firmware writes three
++things into it: the unit's VECTOR (which leaf bit it uses), its GFID (which tree
++to post to: the PF or a specific VF), and its destination flags (which consumers
++get it: the CPU, the GSP, or another on-chip microcontroller).
++
++Later, when a unit has an event, three things happen in turn::
++
++    1. The unit sends an interrupt message to GIN, carrying the VECTOR, GFID,
++       and destination flags from its routing register.
++    2. GIN sets bit (VECTOR % 32) in LEAF[VECTOR / 32], in the tree that the
++       GFID and destination flags select.
++    3. If that vector is enabled and its subtree is enabled, GIN raises the PCI
++       interrupt to the CPU.
++
++Because firmware assigns the vectors, nova-core does not hardcode which vector
++belongs to which unit. The one exception nova-core relies on is the GSP event
++vector, which firmware pins to a fixed number (see "The GSP event vector").
++
++Edge behavior and rearm
++=======================
++
++The pieces behave as follows:
++
++* A LEAF bit is a latch. It is set on the rising edge of its source and stays set
++  until the CPU writes a 1 to it. A source that stays high does not set the bit
++  again.
++* TOP is read-only and reports the subtree's *enabled* pending state. A vector
++  that latched while its leaf enable was clear does not appear in TOP.
++* LEAF_EN and TOP_EN are CPU-controlled enables that allow or block delivery.
++* GIN raises the PCI interrupt for subtree N when the subtree's enabled pending
++  state goes from low to high::
++
++    Per vector, in leaf i at bit b:
++        LEAF[i][b] AND LEAF_EN[i][b]
++
++    Per subtree N, across its leaves 2N and 2N + 1:
++        OR of every enabled pending bit  ->  TOP[N]
++
++    Delivery for subtree N:
++        TOP[N] AND TOP_EN[N]  ->  rising edge  ->  PCI interrupt
++
++    TOP_EN applies below TOP, so disabling a subtree halts delivery and leaves
++    what TOP reports unchanged.
++
++Because a disabled vector is invisible in TOP, code that must find every pending
++bit cannot descend from TOP. It has to read the leaves directly. Open RM does
++the same: its stalling-interrupt path never reads TOP, and instead walks every
++subtree it implements reading LEAF registers.
++
++Because delivery is edge-triggered, writing ``TOP_EN_SET`` while an enabled leaf
++bit is still set produces a new edge. A full tree walk uses this: after it
++clears the leaves, it writes ``TOP_EN_SET`` so an interrupt that arrived during
++servicing is still delivered.
++
++A unit that holds an internal level signal high does not produce a new leaf edge
++after the CPU clears the bit, so rearming alone does not re-deliver it. Such
++units have an ``INTR_RETRIGGER`` register that forces a new edge.
++
++Retriggering a falcon
++---------------------
++
++A falcon signals the tree on a transition of its enabled interrupt causes.
++Clearing the tree leaf while a cause is still latched leaves no transition, so
++the vector stays clear however many further causes arrive. Both clear orders
++have that window, so a handler on a falcon vector writes ``INTR_RETRIGGER`` on
++every path that services the vector.
++
++That re-emit must not be able to raise a cause that nothing clears. A cause the
++handler does not service is removed from the falcon's enabled set with
++``IRQMCLR`` and cleared with ``IRQSCLR`` before the re-emit.
++
++``INTR_RETRIGGER`` is absent on Turing falcons and present from GA100 onward, so
++the write is conditional on the architecture. A Turing handler cannot supply a
++transition that went missing, so it must leave no cause latched: it reads the
++status once and takes every cause that status reports, rather than stopping at
++the first one it recognizes. A cause left behind holds the falcon's enabled set
++non-empty, and no later cause from that falcon signals the tree at all.
++
++One window stays open on Turing. A cause that arrives between the status read
++and the clears is not in the status, so it stays latched after the tree leaf has
++been cleared. Open RM has the same window: ``kgspService_TU102`` ends with
++``kflcnIntrRetrigger``, which is implemented from GA100 onward and does nothing
++on Turing.
++
++Rearming PCI interrupt delivery
++-------------------------------
++
++Clearing the GIN state is not enough. A message-signaled interrupt is
++delivered once per edge, and the PCI side delivers no further interrupt until the
++CPU rearms it. Which operation does that depends on the GPU family and on the
++interrupt type Linux granted:
++
++==================  =====  ===========================================
++Architecture        Type   Rearm operation
++==================  =====  ===========================================
++Turing through Ada  MSI    write the configuration-mirror EOI register
++Hopper and later    MSI    clear then set the serviced TOP enables
++Any                 MSI-X  clear then set the handler's own TOP enable
++==================  =====  ===========================================
++
++The MSI forms cover every serviced subtree, because one message serves all of
++them. The MSI-X form covers one subtree, because each serviced subtree has its
++own table entry and its own handler.
++
++INTx is level-triggered and needs no rearm write. nova-core does not allocate it,
++so it never reaches a handler.
++
++A handler must rearm once per delivered interrupt, on every path that services
++one. A handler that skips the rearm receives no further interrupts at all.
++
++The rearm is separate from the TOP restore at the end of a full tree walk, even
++though two of the three forms write the same registers. The walk clears TOP_EN
++on entry so that it can read and clear without new interrupts arriving, and sets
++it again on exit. For the two enable-cycle forms that restore also rearms, but
++pre-Hopper MSI rearms through the configuration mirror, which the walk never
++writes, so the startup sequence rearms explicitly after the walk.
++
++Servicing an interrupt
++======================
++
++nova-core services the tree in one of two ways, depending on which code handles
++the interrupt.
++
++The GSP event handler services one vector, so it leaves its subtree enabled and
++reads and clears only its own leaf bit, touching a single leaf per interrupt.
++
++The startup drain walks the whole tree instead, because it must clear whatever is
++pending across every subtree rather than one known vector. It disables the
++subtrees, clears every pending leaf, then enables them again.
++
++The drain reads every implemented leaf rather than descending from TOP. Boot
++latches vectors while they are still disabled, and those bits do not appear in
++TOP, so a TOP-driven walk would skip exactly the state the drain has to clear.
++
++The two paths as register operations::
++
++    Full tree walk (the one-time startup drain):
++        write TOP_EN_CLEAR = serviced        disable, to stop new interrupts
++        for each implemented subtree N, for i in {2N, 2N+1}:
++            pending = read LEAF[i]           pending vectors in this leaf
++            write LEAF[i] = pending          clear (write-1-to-clear)
++        write TOP_EN_SET = serviced          restore TOP_EN
++
++    Notification, subtree stays enabled (the GSP event handler, and the
++    self-test, which deliberately mirrors it):
++        pending = read LEAF[gsp_leaf]        is our vector's bit set?
++        write LEAF[gsp_leaf] = GSP_BIT       clear only our bit
++        rearm PCI interrupt delivery         see "Rearming PCI interrupt
++                                             delivery"
++
++Two rules for the full walk:
++
++* Clear every pending leaf bit, including bits nova-core does not handle. An
++  uncleared bit holds its subtree in the pending state, and restoring TOP_EN
++  over it produces a delivery edge straight away. The walk writes back every bit
++  it read.
++* Restore TOP_EN only after clearing every pending leaf. Otherwise a still-set
++  bit raises the interrupt again while the walk is still running.
++
++The notification path clears one bit, so a vector pending alongside it in the
++same leaf keeps its bit and stays pending for whoever services it. Both paths
++must rearm PCI delivery for the interrupt they serviced.
++
++Interrupts and notifications
++============================
++
++Two kinds of source use the tree:
++
++* An interrupt means a unit needs servicing.
++* A notification means a unit is reporting that something happened, such as a log
++  record or completed work.
++
++The GSP event is a notification. Its handler leaves the subtree enabled and
++clears only the GSP leaf bit.
++
++The hardware manuals also split the vector space into "stall" and "nonstall"
++ranges. Those name address ranges rather than describing behavior. nova-core
++does not service the stall range.
++
++Per-architecture differences
++============================
++
++The tree is the same on every supported GPU except for its size, and there are
++only two sizes, split at Hopper:
++
++===================  ======  ========  ====================
++GPUs                 Leaves  Subtrees  Implemented subtrees
++===================  ======  ========  ====================
++Turing, Ampere, Ada  8       4         ``0x0f``
++Hopper and later     16      8         ``0xff``
++===================  ======  ========  ====================
++
++Only the lower eight leaves exist before Hopper, so TOP bits 4 through 31 read
++zero there. Hopper and later have 16 leaves, though sources do not populate all
++of them.
++
++The implemented subtrees bound which TOP bits mean anything. That set is wider
++than the set nova-core enables, which is the subtrees it services, per the
++serviced-subtree invariant. The startup drain still reads every implemented
++leaf, because a vector that latched while disabled is invisible in TOP and can
++be in any leaf.
++
++The HAL provides the leaf count, and the subtree count (leaves / 2) and the
++implemented-subtree set derive from it. The rearm method is the HAL's other
++per-architecture value.
++
++Multi-die parts
++===============
++
++On multi-die parts the controller is replicated per die, with an aggregation
++level above the per-die TOP registers. nova-core services the CPU tree of one
++function on a single-die part, so it does not drive the aggregation level.
++
++The GSP event
++=============
++
++When the GSP has output for the CPU (log records, error records, and other
++events), it writes the messages into the GSP-to-CPU queue in shared memory and
++raises SWGEN0, one of the software-generated interrupt outputs of the GSP
++microcontroller (a "falcon" in NVIDIA hardware). SWGEN0 is routed through a GIN
++vector, so it reaches the CPU as a PCI interrupt::
++
++    GSP writes messages into the GSP-to-CPU queue
++    GSP raises SWGEN0
++    GIN sets the GSP leaf bit, and the subtree becomes pending
++    PCI interrupt -> Linux IRQ -> nova-core top half, in IRQ context, which
++                                 must not sleep:
++        read the GSP leaf bit and clear it (subtree stays enabled)
++        read the GSP falcon IRQ status, clearing SWGEN0 if it was set
++        for every other cause that status reports: report it, then remove it
++            from the falcon's enabled set and clear it
++        retrigger the falcon
++        rearm PCI interrupt delivery
++        wake the IRQ thread if SWGEN0 was set
++    IRQ thread, which may sleep: take the command-queue lock and drain the
++        GSP-to-CPU queue, routing each message
++
++A halt and a posted message can be pending together, so the top half handles
++every cause the status reports rather than choosing between them (see
++"Retriggering a falcon").
++
++The interrupt is only the trigger to drain the queue. A thread polling for a
++command reply routes the messages it reads through the same classifier (see
++"Draining and classifying the GSP-to-CPU queue").
++
++If the drain fails, the queue cannot advance past the message it could not parse,
++so every later notification would repeat the same failure. The IRQ thread
++disables the GSP vector before reporting the failure, which leaves the queue
++unserviced until the device is reset.
++
++Enabling the GSP event
++----------------------
++
++SWGEN0 is a latch, and the GSP drives no new edge into the tree while it stays
++set. GSP boot consumes its notifications by polling the queue, which leaves the
++latch set and leaves stale state in the tree, so the handoff from polling to
++interrupts has a required order::
++
++    disable every implemented vector    drop enables left by boot or by a
++                                        driver that ran before this one
++    drain the tree (full walk)          clear stale GIN state from boot
++    clear the SWGEN0 latch              so the next assertion makes an edge
++    rearm PCI interrupt delivery        the walk does not do it under
++                                        pre-Hopper MSI
++    register the threaded IRQ handler   nothing can reach it yet
++    enable the GSP vector at its leaf   deliveries become possible here
++    drain the GSP-to-CPU queue          messages posted before the clear
++
++Clearing the latch makes the first interrupt possible. Messages the GSP posted
++before that clear produce no interrupt, so the queue drain follows.
++
++The tree is quiesced before the handler is registered. Registering unmasks the
++PCI interrupt, and a leaf enable that boot left set would reach a handler that
++services one vector and has no way to service any other. Open RM clears all
++leaf enables at the same point for the same reason.
++
++The latch is cleared after the tree walk, not before. The walk erases every leaf
++bit, so a message posted between an earlier clear and the walk would leave the
++latch set with nothing in the tree to show for it, and on Turing no later
++message would signal the tree at all. Clearing last can instead leave the GSP
++vector pending with the latch already clear, so enabling the vector delivers one
++interrupt whose ``IRQSTAT`` reads zero. The queue drain that follows reads the
++message.
++
++The GSP event vector
++--------------------
++
++The GSP event uses a fixed vector, ``GSP_INTR_0_VECTOR`` (155), on Turing
++through Blackwell. Vector 155 is leaf 4, bit 27, subtree 2. nova-core enables
++that leaf bit and services it, with no runtime vector discovery.
++
++A full unit-to-vector table can be fetched from the GSP by RPC. nova-core does
++not fetch it, because a pinned vector needs no lookup.
++
++Draining and classifying the GSP-to-CPU queue
++=============================================
++
++The queue carries both command replies and unsolicited events. Each message is
++routed by its function code and its RPC sequence number, into one of three
++classes:
++
++* Function code and sequence both match the awaited reply. The message is
++  decoded and returned to the caller that sent the command.
++* The function code matches but the sequence does not. This is a reply to a
++  command that already timed out, so it is logged at warning level and dropped
++  rather than satisfying a later command that reused the same function code.
++* Anything else is an unsolicited event. OS-error and robust-channel records are
++  logged at error level. An unrecognized function code is logged at warning
++  level. Other known events (GSP logs, libos prints, assertion records,
++  lifecycle notices) need no action and are not logged again, because the RPC
++  receive trace already records their arrival.
++
++The read pointer advances past the message in all three cases, and also when a
++matched message fails to decode, so a message is never left at the queue head
++for the next receive to parse again.
++
++Corrupt framing is the exception. A message carries its length inside the
++region the checksum covers, so once the framing or the checksum fails there is
++no trustworthy length with which to skip the message. Such a failure poisons the
++queue and every later receive fails, which the IRQ thread reports before
++disabling the GSP vector.
++
++The classifier is a fixed set of function codes rather than a handler registry.
++The events that need action are handled directly in it.
++
++Both the polling path and the IRQ thread route messages through this classifier
++under the command-queue lock. Replies and events share one queue and one set of
++read pointers, so one lock covers the whole drain. A thread waiting for a reply
++dispatches any event it reads first and keeps waiting, under a single deadline
++for the whole wait rather than a fresh timeout after each message.
++
++One lock means a drain waits for an in-flight command's receive to finish or
++time out. For log and error records that delay does not matter.
++
++Design notes
++============
++
++Register naming
++---------------
++
++nova-core uses the ``NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_*`` names for the CPU
++tree on both pre-Hopper and Hopper-plus parts. Any function reaches its own tree
++through that aperture. The Hopper-plus central aperture (``NV_GIN_CPU_INTR_*``)
++configures other functions and is not used by the CPU path.
++
++The controller has two names in the hardware headers and in Open RM.
++``NV_CTRL`` names the tree on pre-Hopper parts, and ``NV_GIN`` names the
++Hopper+ unit that contains the tree along with arbiter logic. This document
++calls the controller GIN throughout, because the tree nova-core drives is the
++same on every supported part.
++
++Type-state tree API
++-------------------
++
++Servicing a leaf has a required order: read its pending bits, then clear them.
++The code encodes the two stages as distinct types (``Idle`` and ``Pending``) so
++that clearing a leaf before reading it does not compile. ``Top`` carries no type
++state, because enabling and disabling a subtree can happen in any order.
++
++The types order the calls on a single handle. They are not a lock and they do
++not coordinate the tree as a whole. Nothing stops two walks from running against
++the tree at once. nova-core does not run concurrent walks: the GSP event handler
++touches only its own leaf and never walks the tree, and the only whole-tree
++walk, the startup drain, runs once during probe.
++
++Threaded handler
++----------------
++
++The drain sleeps: it takes the command-queue mutex and walks shared memory, so it
++cannot run in hard-IRQ context. nova-core uses a threaded IRQ handler. The top
++half clears the GIN leaf, takes every cause the falcon reports, rearms delivery,
++and wakes the IRQ thread if SWGEN0 was among them. The thread takes the lock and
++drains the queue. The self-test does no sleeping work and uses a non-threaded
++handler with a completion.
++
++Shared BAR0 mapping
++-------------------
++
++The GPU, the self-test, and the GSP event handler read the same BAR0 registers.
++nova-core keeps one BAR0 mapping and lets each of them borrow it. An interrupt
++handler is torn down when the device unbinds, so it only runs while the mapping
++is alive.
++
++Self-test
++=========
++
++The self-test runs during driver probe. It registers a real interrupt handler
++and confirms that an interrupt injected at the GPU is delivered all the way to
++that handler, so it needs a working GPU and PCI interrupt path. It is gated by
++``CONFIG_NOVA_CORE_IRQ_SELFTEST`` and runs before GSP boot, so it never touches
++GSP interrupt state.
++
++The parts with no hardware dependency are covered by KUnit tests instead: the
++vector encoding, the subtree and leaf arithmetic, and the per-architecture rearm
++policy.
++
++The test drives ``LEAF_TRIGGER``, a hardware register that every supported part
++implements. Writing a vector number to it latches that vector exactly as its
++unit would, after which the vector takes the ordinary path to the CPU under the
++ordinary enables.
++
++The test drives vector 129, at leaf 4 bit 1. It registers a handler for that
++vector and triggers it twice, waiting for the first delivery before triggering
++the second. Its handler deliberately mirrors the notification path: it clears
++only its own leaf bit and rearms PCI interrupt delivery, rather than walking the
++tree.
++
++The two interrupts cannot coalesce into one, because the second is triggered
++only after the first handler has finished. A handler that fails to rearm times
++out on the second delivery instead of passing. A single delivery serviced by a
++full tree walk cannot detect that, because the walk's own TOP_EN restore
++produces an edge by itself.
++
++The test passes only if both deliveries arrive, each one finds the doorbell bit
++and nothing else pending in the leaf, and the leaf is clear once the source is
++stopped. Anything else fails probe. Requiring the exact mask on the second
++delivery shows that the first handler's clear reached the hardware. The test
++runs before GSP boot on a leaf the drain has just cleared, so no other vector in
++that leaf can be active and the exact mask costs nothing.
++
++The test borrows the allocation that probe made for the serviced subtrees rather
++than allocating its own, and looks up the vector for the doorbell's own subtree.
++A doorbell vector moved to a subtree nova-core does not service fails that
++lookup, and with it the self-test and probe, rather than being misrouted
++silently.
++
++The test exercises the interrupt path from the GPU to the handler without GSP
++firmware, which is useful when bringing up PCI, MSI, MSI-X, and passthrough
++setups. Under MSI-X a pass also shows that the per-subtree table entry routing
++works, since the delivery arrives on the entry belonging to the serviced
++subtree.
++
++Virtualization
++==============
++
++The per-function trees, the GFID routing, and the central ``NV_GIN`` aperture
++support virtualization: each VF gets its own tree, and the PF or firmware routes
++a unit's interrupt to the right function. MIG (multi-instance GPU) partitioning
++adds more structure. nova-core services the CPU tree of one function, and
++implements no VF tree management, GFID routing, or MIG support.
++
++References
++==========
++
++* nova-core source: the register definitions in ``regs.rs``, the interrupt HAL
++  and tree API in the ``irq`` module, and the GSP command queue in the ``gsp``
++  module.
+diff --git a/Documentation/gpu/nova/index.rst b/Documentation/gpu/nova/index.rst
+index 2afa58e8f08d..2130d1caf4c3 100644
+--- a/Documentation/gpu/nova/index.rst
++++ b/Documentation/gpu/nova/index.rst
+@@ -34,3 +34,4 @@ vGPU manager VFIO driver and the nova-drm driver.
+    core/fwsec
+    core/falcon
+    core/tlv
++   core/interrupts
 -- 
 2.55.0
 
