@@ -1,379 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011022.outbound.protection.outlook.com [40.93.194.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DF3282F0C;
-	Mon, 10 Aug 2026 22:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786402410; cv=none; b=Faa7sCm8X6RQb+sw3tB5u+7dv6t/quX+Xsu/rWrewBxELA1kr/2eibk4estZ3eClUwN98W2KCFVYZwc3U5akwAIk2ZODtgyTzgP9SHJe1A0vDSBYBLucavFJrhuyBc/b+SmG+n4T/SZrmSesL8Qzv/7sOM9lV3GNR5i7RYSwwLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786402410; c=relaxed/simple;
-	bh=Rrm4sJE02SfvtbKScGAlZRJippRpvd74kb13f0pPKyw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=BF8AE70YP50g8FZy9UwcLt/bjWSXgOnPjLjSS1yQd7SKlLwWdY2zdDZ7xBOi7KOpvu6SQhnHJO97v/VvJZTojOWnpGIJvgynUNrwXwnyoDhK4J/OofOOX4aOplUgGuYVAHBe9G8+DA5Vt1l3Fbw/vNLd40aUAWDjMONo0MLOM2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eoMHAHoH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB113B71AA
+	for <nova-gpu@lists.linux.dev>; Mon, 10 Aug 2026 22:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786402563; cv=fail; b=hJRPx1pQ4AzY+i0nkFymy0+swHMjkzH71JkXTJIlogLe9jaBc/lnn/ucy9leaoy3yLZkVb0CZ0mxbXYRcdwa09mfPj9UvgyXS12Rr6u1hch4cKw16EnBU+MpHRt7sWYpQuV9p9lbiroeOFZD8T6kQ7uxawXwvC+qAtvz0LRWKiU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786402563; c=relaxed/simple;
+	bh=HkbGsbGO4jDIivfP+a9wZ1BeSnk17KJvBTwliEUBvpw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ch5yAVZBLq39jjQnnq92BtQVnetlh4Wf9+SoL1mYiwwVUA4fD2SYlkfupYdQhrCgWzLWz9v4npW68NKLFpk67nejdvfeUbZ2QyRJbTqkdVDd1xHLR2bu46Ygl+kbYbgr4T3rTbIvLrQF89qbPon7EoHQH+cL5nwS2DJo+5G/igM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YGvvM5Dx; arc=fail smtp.client-ip=40.93.194.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eoMHAHoH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BBD31F000E9;
-	Mon, 10 Aug 2026 22:53:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786402408;
-	bh=0Ol5mJic5aYP8BELl0StHqAIqgZa2oSXH6gzH01WIMk=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=eoMHAHoHikMwk9cHG7p/zFORgYcjuuj/Q/bCJxJnV00NTU/0FjSSv3asSyG+HDMqt
-	 FMPDpl+4I8oobCnL9fw6mNv3Ox92xY1uVGeeh8/ne28N6/eRZSAhwMvxoFEBOIHzr+
-	 TkM9uwK6LfY6F7JFohQxunVgTSJ34DobcMsY0vtmkSBvxlCv9GC42jsn8v52mDEKhP
-	 lVn9KPTUlMJaaFcQhJu9lnvFL0DKRArIAKepaGGbJ25f2XS2BaqFZw81URt4jQoN+2
-	 VQ38LZLKuAagOvjNrRWXPS9TJOsLvsdTpeOD2hGmBs0HvwtcVr/4p7akay4UsblqCo
-	 7SibkBJsv3jDQ==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YGvvM5Dx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Isz3wS86IkFSgDgJlcg5efM5iLfhNoVG0o9oxLfyZnRgKXCCT/drfkdG1sXMU+bgtlCxMpK4wpyRqf/fUDUbaPk3KeXEpX9/0GITuJOVY8eQ2/Qlzsw4YlN/ENnUmERQha7b+U2QCHv4DbHOJ9wqQxFTxO+9BLiRVorUuvv/AwP+ohWvL8DMnmCJuPzRcNja6BqTjzKf6G+rfw7FfsxMLE8uhl6y4+Yms8pjYRIx/Sv6OBrHmqaMUe0N2XoeeLNDZOAdZWJ/Iqz3NpKBrvDkYRA6Oef/ltMggkqqs1jwCcCedkggpemxBsoTSNUDVsGePcTJh7/FAr8U6Fcvwg70SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oBvz7yBwfGW9JiiJujoCufxzOzNwVDRqClDML0nbuCk=;
+ b=xlYc23fejv+osv6t9KyV4cmwRCzwiPqaHWMkyGrgc2ZuUqttOxNbjgoFnny1e53IA50JxCsW8I75Y8eVWl4JFCgEQ4sUsroQafIf9uIpWsjKL3S4D4s+Z7eqFkIAjdgjPabYgDep8eSxUnJMTjTOIbc7Up5hyA6R6QGJWC4u62zq4nYd7B9WizzQtHVwBRjXrMgBRoGsLr5Yjwv6qj2TieYOYylJ6yCZWT2C8yr5Ham3pLBQU9HoB18WRaVmfWbuMWEULNYkWKKhGDemNpyVWe7N9kD0Es7Buqguj1YMjC/gmLOm1CVRCO0NE1SjTvQY8FfUsTJP/3GJA/2NcuFkNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oBvz7yBwfGW9JiiJujoCufxzOzNwVDRqClDML0nbuCk=;
+ b=YGvvM5Dx3y/HNMTXddcIGoc+0G13vJM2eC2KKhPggMib/keD/m8n9xsbcFoQBEi7aUl3endpizjYfRVr7D8DeTLls007nb1YwJm+h4D3V706Sn75dfoT8blRUK7Q9XycLqyi56PUi9sul4gW3xocCq49DvmPBOxCYksQ+mSlgyMCpUaSR7tra7l1jenzvhPTYPmWlc8NbX2ZPMdx22AEvGmX2zxc8Pe+fKoKkvNSBSvCVCHa33xTz+0T6uXnT3iJQ8Pp+ascEw1Cx9JM4tLV6dS0ypxk4pdPIpCoKfuUD0E99Ab7oCBLKi47k9xZNXR5Aud11sm08hivNiQktgjgFQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ DS0PR12MB8413.namprd12.prod.outlook.com (2603:10b6:8:f9::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.25; Mon, 10 Aug 2026 22:55:53 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 22:55:53 +0000
+Message-ID: <a4749bb6-736e-4f28-a25c-f3e787152f97@nvidia.com>
+Date: Mon, 10 Aug 2026 15:55:51 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/17] rust: pci: expose the allocated interrupt type
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Joel Fernandes <joel@joelfernandes.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ Shashank Sharma <shashanks@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, nova-gpu@lists.linux.dev,
+ LKML <linux-kernel@vger.kernel.org>
+References: <20260808031120.363869-1-jhubbard@nvidia.com>
+ <20260808031120.363869-4-jhubbard@nvidia.com>
+ <DKKG2QM3YJYB.Z2H2B2UXJ75N@kernel.org>
+ <e2aa36cb-984a-4f8a-b6d5-6cb70a31a30b@nvidia.com>
+ <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0224.namprd03.prod.outlook.com
+ (2603:10b6:a03:39f::19) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 11 Aug 2026 00:53:23 +0200
-Message-Id: <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
-To: "John Hubbard" <jhubbard@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 03/17] rust: pci: expose the allocated interrupt type
-Cc: "Joel Fernandes" <joel@joelfernandes.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Shashank
- Sharma" <shashanks@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
- Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
- Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-References: <20260808031120.363869-1-jhubbard@nvidia.com>
- <20260808031120.363869-4-jhubbard@nvidia.com>
- <DKKG2QM3YJYB.Z2H2B2UXJ75N@kernel.org>
- <e2aa36cb-984a-4f8a-b6d5-6cb70a31a30b@nvidia.com>
-In-Reply-To: <e2aa36cb-984a-4f8a-b6d5-6cb70a31a30b@nvidia.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS0PR12MB8413:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d462c67-cc46-4edd-5456-08def73287e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|18002099003|22082099003|10067099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	vzTWf7x4ihQ7jH0QQBH/LFJFIuY/wus8bx9rmANQAit9gJAIe1ROuGTuM6Ju2UyBEGJkIgSx2RYS3pIJMBsds8puPN3wtQFqcyYK53GJY7L/ip4ppKN2SuZOUHKN57XezDWLuMwSK8sae1MgX4OEhvqAkz+id+vgW8JLMsQGPKkyHFRp4Ziw8wG7gyKw1UMX1n+GsNznmk+cs4/3xIBK2s0nxmEqEbH7LghY/Sa958OfLlgjgvYFEX0zVaHzQPrJTFVNQlzyk3bWnI6WqOHRI1JHUFFSXxDtKwij05820ut75ivvQvONxd6MooT9CC+kxHLXL80YKjk7IW8pjz6m4Em5c7/6v0WSILkBIKK1ihy3x9idBlfSdp2JFm5qWOmm7vJ5RELTDPFy15HH0SRPBWkA0TZN7Ma8aYOMpTqASFeLa7CnFs3D71AqdlgQ/TAL7ehyywBJefuNjNFTMAc93Ne7JOWfdp+4u6fDNdhQbq2Z0gzlVZ0yUN1QN3cUxaPguBVmNA0n14jHfg+GtrKcZoJxTfuCzvOL2b3lrqncykPl3UMJeVlVRX1Tk3NpSraLZeYonjVFE4HmNO5Gp/e5OkfBEudkHHSm8KwtT5gYgaP2ZHgXOB2kGp4kypZBALfYKn3No6y3ueHkERs6AyDUZF5IAM+UXoC9o4X+ojmVGVc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TUpsL0h2QmFCYWRsRTBWZXZvTnYxRHB1M1dLZnBWRXVQMGR3RzNOMzUzdjRj?=
+ =?utf-8?B?YkNyQ2V3SHB4L0d4dXUxRTFMMVJGMzZ3YngwcW11R2FPbkxHMTd5K205OElG?=
+ =?utf-8?B?a3E2TXZwY1c4QUs3bmV6c1FBbGg2UU5JRTVpSlRyRjlJeGRmSHd6RU9uemdq?=
+ =?utf-8?B?cGNPbjdrTmVwL2JDMDRLMGhuZUFYTnFYVVQxRFgxcXlNcEFoZVl3bUM4OVBD?=
+ =?utf-8?B?c3BjNmJMTElTNnZEV3pXcGtWNTdLZWkvTWxaN2xiU3JoT3VxblA1K1luOVMr?=
+ =?utf-8?B?YTZPVVBZTSsrOS83dWpnTm5QalQ5ak9JU3FkTFNOcDEzRFp3dDM3SEFaUGhK?=
+ =?utf-8?B?bnBPTHVZTjhZUENzNzJiWjRCZC9paHZhRGhQV0ZqMlNLaE9OaE1LU3k0YVJi?=
+ =?utf-8?B?WlJHczVaSW1QbDJSSDRtYWY3cFFITnM4MWtuVXRtWHBmV1hiTW5ZMVZFc0lz?=
+ =?utf-8?B?aUw5VmxENkQ0RFVPR0NtRy9HUEFhWEh6YXN4aUFtblNvV29sa2dPK3VzV3dE?=
+ =?utf-8?B?RmtXWTB6dXVHL1Y4OUpSa3JGS3MrV3BOVjcwUXRQeGRVS2l0eHJQMDNqM05P?=
+ =?utf-8?B?NXUyeDBSdVB0QisreUVvY3piTWlwWU5STVpUa1NVS1JEcmZjUlhCbGhYc0Jh?=
+ =?utf-8?B?WUIycWg2Q041eS9ybUdvSzRmOEdrNFFDMGZ4VVZPSEZaVzhOTkFBek9JWC80?=
+ =?utf-8?B?Z3F6cnh4ejdId2lmeDJ0dkVTZ3Rublo3Yk1rcUZTbG9lZW1WSEJzS2Z4R0VX?=
+ =?utf-8?B?b3lqN1pPclRxS1hFMTMxNDFhUVd0eVhqZ0s2VmFYeDRrV0RSZEx6NGZnb3U0?=
+ =?utf-8?B?eHNyR2h0OWVjdUh2N0o0UU1lZDBON2cxUnRzbW5hRmQ3Tk5Tc3EzZG1vRGhi?=
+ =?utf-8?B?N1YxUXNTRTZBT3p6amFqS24wWTg0bElnTkhMZWtER1ZJUkkzbHh3R1hsQnEx?=
+ =?utf-8?B?aENxemNtb0NWeTVFamNEc0FobkJSVWJPMkg2VDlPT1dYcGVjUWhNSk1mTjE2?=
+ =?utf-8?B?bDAwbnFQZCsxY3RwbldIVGlsOGhmMWhpNFVjY0M5Y09Qa3V1WlJLVHk1MWxN?=
+ =?utf-8?B?YlVXY0JKSXcrTm5hRmwyUHEzeTNBTWV4WldQeFloNE9HK1ptRUV3c0w4ekRT?=
+ =?utf-8?B?UW91Ym0xQ0ZoWnMrV2c1cWF0TThoRG1hTWUrUGJMYlIzNFlvWWw3YnluWW9Z?=
+ =?utf-8?B?Um9tTDJKakN4bjlITXkvdU9WbmN2bk9oVCt2cHAvaE5xN1V6SHFUYkRYVDAr?=
+ =?utf-8?B?SmlRbXN5czliYVR5UElqWjViSVdjYkVKV1k0ZCtHVTF3TlhRVkVNeUNZa3Zw?=
+ =?utf-8?B?Z3lkQTJORVZvSXdaamdmeVY4dEIwelh6OEVHdUhOQ1VBQXd2MCtpVDZFTTlZ?=
+ =?utf-8?B?UTMyNHpJLzcyOFBNQkJhNHRFWmZPTjErTW1GaHFiYW5wbkxYMFRSVzZkKy83?=
+ =?utf-8?B?aDhsTzc3ajNBMzdhdnpFV1hoYytTWVpESVhPRVI5ZFUwdGVBQVVwekZickZx?=
+ =?utf-8?B?K09zdS9zQjB5UTRUcmQvcytKNnA2dUE4WVg5VHFFZ3N3Z3I3Vlo1R2I1OTV1?=
+ =?utf-8?B?UzFoUEp3c2RxSDhhNmU4YXZlYnFGNDRHRHgwRnBjd2xkcmU2SzBTb1lXZEZU?=
+ =?utf-8?B?NzlCeGY2ZmRnUXhNMHM1cU13SVJlY3ViU3FhdXVNaG1ibGJPdkg5VEFXVzRs?=
+ =?utf-8?B?Zm56UjNqbTAzUjhUZEE2UXBodG5tV2JDNEpzZTJqTU1Na3VRczVMdnY0N0Fz?=
+ =?utf-8?B?Mno2K0xJcEpHTlBUSHBUZWtIK09MUjNpN0xrSmhnZVFvbTZ1dk9POWlaZXBZ?=
+ =?utf-8?B?Sk9vb0RZNG5iaFJ6eU5sMmtFL3hqL2VZWnBQTjc5M2Y1bHBIbnpCc0pHQmxT?=
+ =?utf-8?B?eFZDY3FJT1JOWWdkOUdJZGFwWnpkZVowK09EZ0g5S21GRUgvZTVsRmpuRlhG?=
+ =?utf-8?B?V1N5YzcvajJPaTBNL096MS9uUEZYV3FRNWVnM2hjSEZ2M0t2VjBPUkhTVTFG?=
+ =?utf-8?B?cklpNTNHM05HMFp1VEQ2dnVvd0ZCNFhjcUh1dmx1a25zcElhRFlxTDRnb3lV?=
+ =?utf-8?B?ZVJRK2h3blBZc0k5L1Mrdm5CMnN5MEVad09lbll1d3o3SmxHS041bmFuRkQ3?=
+ =?utf-8?B?L3h0UEJ4Zk9FMndzZkVrWGVSMTB3TlJHNFBpUlpsQmF4OWQ1QlRLYk9IQVhn?=
+ =?utf-8?B?ZXVWd1gwK1Z5T0xUU2YzekdOSm1aaWhnc0Rxa2h5ejZaZElNOGwzSVVYaGcv?=
+ =?utf-8?B?U2FQWUpOcHJxK25pMitwcXhscTVSWnkxUGFydzdhUnZyaEU4bE1mYVIzMkVP?=
+ =?utf-8?B?ZWx3U29vYzNlOFRlU2V4K2prR0M5eXdLajY5MnI1VWFteUprSGFOQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d462c67-cc46-4edd-5456-08def73287e5
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 22:55:53.5179
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8GDhnmCmgih1mZx00IFPtMQqh2YWn94jA8eu/jeXPUfkrZm/0ktg3MgWThxhFXyOEXc/9T4RHPa+/OTRV/tXXw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8413
 
-On Sun Aug 9, 2026 at 11:42 PM CEST, John Hubbard wrote:
-> Yes, please. Then my patches 2 and 3 collapse into a single patch that
-> adds count(), irq_type() and an index-to-IrqVector accessor. Or, they go
-> away entirely if you end up putting those on the type yourself.
+On 8/10/26 3:53 PM, Danilo Krummrich wrote:
+> On Sun Aug 9, 2026 at 11:42 PM CEST, John Hubbard wrote:
+>> Yes, please. Then my patches 2 and 3 collapse into a single patch that
+>> adds count(), irq_type() and an index-to-IrqVector accessor. Or, they go
+>> away entirely if you end up putting those on the type yourself.
+> 
+> I sent out a patch series [1] for this, applied your nova-core patches on top of
+> it and resolved the conflicts with the diff below (also pushed a branch in [2]).
 
-I sent out a patch series [1] for this, applied your nova-core patches on t=
-op of
-it and resolved the conflicts with the diff below (also pushed a branch in =
-[2]).
+Great, I saw that. I'm going to try it out, and review it, asap. 
 
-Note that I optimized for a clean diff and not for optimal code. I think th=
-ere
-are more improvements we can make; I will comment on the corresponding patc=
-hes
-of this series.
+> 
+> Note that I optimized for a clean diff and not for optimal code. I think there
+> are more improvements we can make; I will comment on the corresponding patches
+> of this series.
 
-[1] https://lore.kernel.org/all/20260810224800.2314458-1-dakr@kernel.org/
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=
-=3Dnova/irq
+ack
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver=
-.rs
-index 3fbf117a99ee..21d7df0744ed 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -20,7 +20,10 @@
+> 
+> [1] https://lore.kernel.org/all/20260810224800.2314458-1-dakr@kernel.org/
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=nova/irq
+> 
+thanks,
+-- 
+John Hubbard
 
- use crate::{
-     gpu::Gpu,
--    irq::gsp::GspIrq, //
-+    irq::{
-+        gsp::GspIrq,
-+        SubtreeVectors, //
-+    },
- };
-
- /// Counter for generating unique auxiliary device IDs.
-@@ -39,6 +42,12 @@ pub(crate) struct NovaCore<'bound> {
-     bar: pci::Bar<'bound, BAR0_SIZE>,
-     #[allow(clippy::type_complexity)]
-     _reg: auxiliary::Registration<'bound, ForLt!(())>,
-+    /// Self-referential borrow of `vectors`, so this does not have to be =
-repeated in the
-+    /// constructor. Will go away with self-referential pin-init.
-+    vectors_ref: &'bound SubtreeVectors<'bound>,
-+    /// PCI interrupt vector allocation. Dropped last (struct field drop o=
-rder).
-+    #[pin]
-+    vectors: SubtreeVectors<'bound>,
- }
-
- pub(crate) struct NovaCoreDriver;
-@@ -87,38 +96,34 @@ fn probe<'bound>(
-             pdev.enable_device_mem()?;
-             pdev.set_master();
-
--            // A PCI device has one interrupt vector allocation, so it is =
-made here for every
--            // subtree nova-core services, and each handler takes the vect=
-or for its own subtree.
--            let vectors =3D crate::irq::alloc_vectors(pdev, crate::irq::gs=
-p::GSP_SUBTREE)?;
--            let gsp_vector =3D vectors.vector_for(crate::irq::gsp::GSP_SUB=
-TREE)?;
--            let irq_type =3D vectors.irq_type();
--
-             Ok(try_pin_init!(NovaCore {
-+                vectors: crate::irq::alloc_vectors(pdev, crate::irq::gsp::=
-GSP_SUBTREE)?,
-+                // SAFETY: `vectors` is initialized above, lives at a pinn=
-ed stable address, and
-+                // is dropped after all fields that use `vectors_ref` (str=
-uct field drop order).
-+                vectors_ref: unsafe { &*core::ptr::from_ref(vectors.as_ref=
-().get_ref()) },
-                 bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/b=
-ar0")?,
-                 // TODO: Use `&bar` self-referential pin-init syntax once =
-available.
-                 //
-                 // SAFETY: `bar` is initialized before this expression is =
-evaluated
-                 // (`try_pin_init!()` initializes fields in the order they=
- appear here), lives at a
-                 // pinned stable address, and is dropped after `gpu` (stru=
-ct field drop order).
--                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) =
-}, vectors),
-+                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) =
-}, vectors_ref),
-                 // Quiesce the interrupt tree before registering the handl=
-er below.
-                 _: {
-                     // SAFETY: as for the `bar` borrow above.
-                     let bar =3D unsafe { &*core::ptr::from_ref(bar) };
--                    crate::irq::gsp::quiesce(bar, gpu.chipset(), irq_type)=
-;
-+                    crate::irq::gsp::quiesce(bar, gpu.chipset(), vectors_r=
-ef.irq_type());
-                 },
-                 // Register the permanent GSP SWGEN0 handler before enabli=
-ng the interrupt.
-                 //
--                // SAFETY: `bar` is initialized before this expression is =
-evaluated, lives at a
--                // pinned stable address, and is dropped after `_gsp_irq` =
-(declared first, so
--                // dropped first), so the handler's borrow stays valid for=
- its whole lifetime.
--                // `_gsp_irq` is stored in `NovaCore`, whose `Drop` runs `=
-free_irq`, so the
--                // registration is never leaked.
-+                // SAFETY: `bar` and `vectors` are initialized and pinned =
-(see above). `_gsp_irq`
-+                // is declared before `vectors` in the struct, so it is dr=
-opped first, ensuring
-+                // `free_irq` runs before the vectors are freed. The regis=
-tration is stored in
-+                // `NovaCore` and never leaked.
-                 _gsp_irq <- unsafe {
-                     GspIrq::new(
-                         pdev,
--                        gsp_vector,
--                        irq_type,
-+                        vectors_ref,
-                         &*core::ptr::from_ref(bar),
-                         gpu.cmdq(),
-                         gpu.chipset(),
-@@ -129,7 +134,7 @@ fn probe<'bound>(
-                 _: {
-                     // SAFETY: as for the `bar` borrow above.
-                     let bar =3D unsafe { &*core::ptr::from_ref(bar) };
--                    crate::irq::gsp::enable(bar, gpu.chipset(), irq_type);
-+                    crate::irq::gsp::enable(bar, gpu.chipset(), vectors_re=
-f.irq_type());
-                     gpu.cmdq().drain()?;
-                 },
-                 _reg: auxiliary::Registration::new(
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 9700eff6db86..11a66a597298 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -339,7 +339,7 @@ pub(crate) fn cmdq(&self) -> Arc<Cmdq> {
-     pub(crate) fn new(
-         pdev: &'gpu pci::Device<device::Core<'_>>,
-         bar: Bar0<'gpu>,
--        vectors: SubtreeVectors<'gpu>,
-+        vectors: &'gpu SubtreeVectors<'gpu>,
-     ) -> impl PinInit<Self, Error> + 'gpu {
-         let dev =3D pdev.as_ref();
-
-diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
-index ddf322f2e623..6f2ab85ccdc9 100644
---- a/drivers/gpu/nova-core/irq.rs
-+++ b/drivers/gpu/nova-core/irq.rs
-@@ -16,6 +16,7 @@
-
- use kernel::{
-     device::Bound,
-+    irq,
-     pci::{
-         self,
-         IrqType,
-@@ -28,9 +29,8 @@
- ///
- /// MSI-X raises a separate table entry per subtree, so subtree `N` arrive=
-s on entry `N`. MSI has a
- /// single message that every subtree raises, so all of them arrive on the=
- one allocated entry.
--#[derive(Clone, Copy)]
- pub(crate) struct SubtreeVectors<'a> {
--    vectors: pci::IrqAllocation<'a>,
-+    vectors: pci::IrqVectorRegistration<'a>,
-     /// `TOP` bit of every subtree nova-core services.
-     serviced: u32,
- }
-@@ -41,18 +41,21 @@ pub(crate) fn irq_type(&self) -> IrqType {
-         self.vectors.irq_type()
-     }
-
--    /// Returns the vector that delivers `subtree`, a single `TOP` bit of =
-the form
--    /// `interrupt_tree::vector_subtree_mask` returns.
-+    /// Returns an [`irq::IrqRequest`] for the vector that delivers `subtr=
-ee`.
-     ///
-     /// # Errors
-     ///
-     /// `EINVAL` if `subtree` names anything other than a single subtree n=
-ova-core services.
--    pub(crate) fn vector_for(&self, subtree: u32) -> Result<pci::IrqVector=
-<'a>> {
-+    pub(crate) fn request_for(
-+        &self,
-+        subtree: u32,
-+    ) -> Result<irq::IrqRequest<'_, &'_ pci::IrqVectorRegistration<'_>>> {
-         if subtree.count_ones() !=3D 1 || subtree & self.serviced =3D=3D 0=
- {
-             return Err(EINVAL);
-         }
-
--        self.vectors.vector(entry_index(self.irq_type(), subtree))
-+        self.vectors
-+            .request(entry_index(self.irq_type(), subtree) as usize)
-     }
- }
-
-diff --git a/drivers/gpu/nova-core/irq/doorbell_test.rs b/drivers/gpu/nova-=
-core/irq/doorbell_test.rs
-index bfdfee732892..2c123d0cdc52 100644
---- a/drivers/gpu/nova-core/irq/doorbell_test.rs
-+++ b/drivers/gpu/nova-core/irq/doorbell_test.rs
-@@ -144,7 +144,13 @@ struct SelftestGuard<'a, 'r> {
-     bar: Bar0<'a>,
-     tree: Tree,
-     doorbell: LeafIndex,
--    reg: Option<Pin<KBox<irq::Registration<'r, DoorbellTestHandler<'a>>>>>=
-,
-+    reg: Option<
-+        Pin<
-+            KBox<
-+                irq::Registration<'r, DoorbellTestHandler<'a>, &'r pci::Ir=
-qVectorRegistration<'r>>,
-+            >,
-+        >,
-+    >,
- }
-
- impl<'a, 'r> SelftestGuard<'a, 'r> {
-@@ -195,11 +201,11 @@ pub(crate) fn run_selftest<'a>(
-     pdev: &'a pci::Device<Bound>,
-     bar: Bar0<'a>,
-     chipset: Chipset,
--    vectors: SubtreeVectors<'_>,
-+    vectors: &'a SubtreeVectors<'a>,
- ) -> Result {
-     // The interrupt type decides how the handler rearms delivery, so the =
-tree takes it from
-     // probe's allocation.
--    let vector =3D vectors.vector_for(DOORBELL_SUBTREE)?;
-+    let request =3D vectors.request_for(DOORBELL_SUBTREE)?;
-     let irq_type =3D vectors.irq_type();
-     let tree =3D Tree::new(chipset, irq_type, DOORBELL_SUBTREE);
-     let doorbell =3D LeafIndex::new::<DOORBELL_LEAF>();
-@@ -252,7 +258,14 @@ pub(crate) fn run_selftest<'a>(
-         // SAFETY: the registration is owned by `guard` below and dropped =
-before this function
-         // returns, so its `Drop` (which calls `free_irq()`) always runs a=
-nd the registration is
-         // never leaked or `mem::forget`-ed.
--        unsafe { pdev.request_irq(vector, irq::Flags::TRIGGER_NONE, c"nova=
--core", handler_init) },
-+        unsafe {
-+            irq::Registration::new(
-+                request,
-+                irq::Flags::TRIGGER_NONE,
-+                c"nova-core",
-+                handler_init,
-+            )
-+        },
-         GFP_KERNEL,
-     )?;
-
-diff --git a/drivers/gpu/nova-core/irq/gsp.rs b/drivers/gpu/nova-core/irq/g=
-sp.rs
-index ecd716b92d4e..558f944c4c0d 100644
---- a/drivers/gpu/nova-core/irq/gsp.rs
-+++ b/drivers/gpu/nova-core/irq/gsp.rs
-@@ -202,22 +202,21 @@ fn handle_threaded(&self) -> irq::IrqReturn {
- #[pin_data(PinnedDrop)]
- pub(crate) struct GspIrq<'a> {
-     #[pin]
--    reg: irq::ThreadedRegistration<'a, GspInterrupt<'a>>,
-+    reg: irq::ThreadedRegistration<'a, GspInterrupt<'a>, &'a pci::IrqVecto=
-rRegistration<'a>>,
-     /// Borrowed BAR0 and the interrupt tree, used by the teardown to disa=
-ble the GSP source.
-     bar: Bar0<'a>,
-     tree: Tree,
- }
-
- impl<'a> GspIrq<'a> {
--    /// Registers the GSP SWGEN0 threaded handler on `vector`.
-+    /// Registers the GSP SWGEN0 threaded handler for the GSP subtree in `=
-vectors`.
-     ///
-     /// # Safety
-     ///
-     /// The caller must not leak the returned value: its [`Drop`] runs `fr=
-ee_irq`.
-     pub(crate) unsafe fn new(
-         pdev: &'a pci::Device<device::Bound>,
--        vector: pci::IrqVector<'a>,
--        irq_type: pci::IrqType,
-+        vectors: &'a super::SubtreeVectors<'a>,
-         bar: Bar0<'a>,
-         cmdq: Arc<Cmdq>,
-         chipset: Chipset,
-@@ -227,15 +226,15 @@ pub(crate) unsafe fn new(
-             // SAFETY: the caller guarantees the returned `GspIrq` is not =
-leaked, so this
-             // registration's `Drop` (`free_irq`) always runs.
-             reg <- unsafe {
--                pdev.request_threaded_irq(
--                    vector,
-+                irq::ThreadedRegistration::new(
-+                    vectors.request_for(GSP_SUBTREE)?,
-                     irq::Flags::TRIGGER_NONE,
-                     c"nova-core",
--                    GspInterrupt::new(bar, cmdq, chipset, irq_type, dev),
-+                    GspInterrupt::new(bar, cmdq, chipset, vectors.irq_type=
-(), dev),
-                 )
-             },
-             bar,
--            tree: Tree::new(chipset, irq_type, GSP_SUBTREE),
-+            tree: Tree::new(chipset, vectors.irq_type(), GSP_SUBTREE),
-         })
-     }
- }
