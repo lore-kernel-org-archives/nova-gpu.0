@@ -1,54 +1,54 @@
 Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012039.outbound.protection.outlook.com [40.107.209.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571253E0C75
-	for <nova-gpu@lists.linux.dev>; Mon, 10 Aug 2026 13:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2C73D9DB0
+	for <nova-gpu@lists.linux.dev>; Mon, 10 Aug 2026 13:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.39
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786370311; cv=fail; b=nFUquClphQZxNpMs1l18pUFLnIXP565KqTqfw4JRW2F/DV8OuG1vUUKJQtWA1XoFpjTk+nt0AtUjk461xhIfnsi1HWqAr2kmIcMg4ox/+I32D11VbkmSph/vvP4C+t+x0z2uUCYSN9e26sZthNrrqVv9DLEgyHK/bFviwVD8Jz8=
+	t=1786370313; cv=fail; b=UDatqidBArgQJ3lGpM8lkQe/D0ikDVfMVNy0abGJUz67pGWLULagfsFWlITJDzmf64T1eWVN0L7/sbalEkYYxaNFckrmLbudSwWBZ1DzV/FzUSuBrJviKS7UI+0AUvVG0OOZU+efs6hfzvTm/2u1a5jUQZv+FXH1BgtRjVV4WSY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786370311; c=relaxed/simple;
-	bh=gUaGrX8GFBmLWErDoDpY94dZf7YBHUEH+8GAovUci/M=;
+	s=arc-20240116; t=1786370313; c=relaxed/simple;
+	bh=wHBEAaJuh+iwpnS3RC3VpHn5/V0n0LNNiAeW0RbtL4M=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=beXY40n7v7cIsG/+n61aQdfAJGuH2yoy9dtJgVWIu97F+dvIV2NePi89hog+BNFn/ollUrYH5GGIC4Z4dWeAaay99sQCLS1b5qaPWngYh2YFzDTKBsOdueuVrRc35qGPlNhAovn7XBBz7Fc2OtnK6DQo9s7CQnT3jF6loHA5l1Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Nxuu18EG; arc=fail smtp.client-ip=40.107.209.39
+	 To:Cc:MIME-Version; b=jzMKuQF7euaRVUbpheCJoZkdzkxKtYe4K2WDBmgRvRAbUOo2P5jeQh5uglVMjt2Wm7hIvMSqZquspkpFVnlutPK8OV5FiDr9vw8PcE2FVRSg3EULmS7hKeGvbKG83KV/X2oY6WJNc+I+hXcPB9bwNRRIvUfhB6/HJykFyEDF0qk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Don6a/ox; arc=fail smtp.client-ip=40.107.209.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Nxuu18EG"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Don6a/ox"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XBMVhWMRlRLa2ZzLrKJKQ62CTBHZmYPne/sWpUOva6lVvKzVOM7UJ/cYiaraktdLpnI1q9TkckoGtZUzC52l7MSZk7XLwP5f44P6rhvamYmFAE56k6wRF5Ddzz9UiI6ewno8UKWi+LKgCVq2n59rxcV0W4hpC+miHu/+oD6DtaX06lZ2sXExDtBmUNSsCVQeazNzfFi3aeiO93YZnDuZV7ANla8YoUEXZUJrIWy56MLPZi+KJmKLjMIf+RxRPU/LJR3hz2+Al5yH/68SLilG3OXLKDJwuy6j79KGjfHTLvC8hWlxsfACUkllRmmd9qQZjFRPoawVfQcmUjg7f2R29w==
+ b=FDQAM5+XFlKPt/Yc6X/vykVzK3GA4qWjdAu/c5NkginkyiyJcneNdP0RIaVuhGv6GKpmiYauC8/6NShid1Yux7Y5CBWMm9rBVrmnJyD34D5okfYlDzFtzXELYs+bC15brmx1jNzFKJvf6mccOtsp9cwDsZxcRYbh2dzc7vDBT7vF9Eyihkp3o2lelcwH3KLwtqoC6e49TLDlTWddF0ycgc6KfT0CO6vO5q9tFa3VIGyYb9I3f4Z76hKZZHqF/0ZNw3FaI7HppW03iDq4bX+Sa8qwE70QUliwrRlU89eCKRkpzf2/+HXhu1YqtNLRRxiZDtchn8zvhLrTUZYgvfE+EA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qHvlATAeu0qkPCZ5AX8NUgZP6iYc8IERZT3DSyy1WpE=;
- b=M5V+lU7HXpQJQ6rqT3OiDsDn/GrESxirpMSJpnnoB7RGauu/81Lpra1xJBGQoPPhftJD7BJhcNr5WxkzWILBqmBN3hRzX9Ye/svNNox81vZhoUbI96QnZVnExaPOfa6SIGeztUHbQN54WCauVbH5kIXd09gwcIP2QwqbvPh9GyILX9A4XZwUxzC7As3nlWl76nUuAfTloXx2ONjsHJWTSwtuBtp3AcfTBB7tK62A7VyH0YgsoDR/GuuGgPz1WcgNi9MgPgtT0MVzXNViBP70/ETz9VQGHXuEkY77EZBonoOW9MV/ttuACSF40bEIPObC7HSfwtM/vLZoSGliYWTSNQ==
+ bh=gigmGCIOVqvxs2914t+WF719FvdRl53yUroWkDzyx70=;
+ b=GfxbcJatFg71mpmzJav2kYwYkgtiBapeCSncYtGlo/SVdoeirrM2qKFAkID+V8ErC7W5/DKMVWP1s1oMEp0awDRnm+93MguPXi/Wd8QOPGXhFAkLT+eIMF9wuJOQNOfgFdZgMLNJkVjiY4q9JFx3rG4whDbWVFGjyTHcsRBqsbpZCz9/q7TythurspV7BMde1iFoObQssS2fGHR9SNgB7Ue7DWAF4MiV9xHHDr4A600xdfrFjFQ76PQACBQJThjkRVGLww50dR1iYsDtmyd8580+/2NXXtzTofudDrVm/R/U6ChTF5cVomKZqeAXc47/+1daAXzAxXowRxfoW2TXqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qHvlATAeu0qkPCZ5AX8NUgZP6iYc8IERZT3DSyy1WpE=;
- b=Nxuu18EGP6bSxULVQdvp1UYdKEX3oKGB8+QWiOvPRqvukAi074/Ct5W8KkYoia+1SKZ3zLU+XaTk+2GGzyBdAyTUv9qZphmXlQawi7CVW4pa+nqKv/TTDubgiFs3kZoUrhXoPmq2zoi8VPx+r7Swii5y7vxXq3z5dWZ6VmL9m2/9ya22OZbE/saOzAgrTbb9lgD6vYa3QfIQV50OPJB1gEZdwRYRwnZx6HIn525G0vBB+xyhSpF7bOvMkr48IlxSfL5Lve03+uEljLBbPtSrgEvyE44qVXVxYe5U62ZuZpVVw6c5TAEOruEMbQoz5agOPsGNwNVJrXol0B0XtDqm8w==
+ bh=gigmGCIOVqvxs2914t+WF719FvdRl53yUroWkDzyx70=;
+ b=Don6a/oxmNv6nha7yZ5fYcnmnINbj5zQ/FiJcVWt7BWwV638TWvqKJyy7fST1flDw23DCu9z9KnVih3EQen3y9DIQfzC5g50NUYReX3Q+WwOwHFEncB8ipjOAQL1vHy0sUJCFHNxwiD7UqVSG7RbQINrq6NLhxHmDOzNizHh8Wzp2E1KQy8uSEQR79XrQyYS0YNdrwRu1+nDim4U0zKRWkbeFSW+B7IS9OVLd5uO6Fjgte9Zuv9K5RysRf7Y+ieTvCV3KLkMaNHbqIrIzX9a6XGjnRSHaXsXgZtcjOUc3g91SzUhPfPbxQlIj/CagYUfuaEV2ShetfgE0ZlvcINKow==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 13:58:19 +0000
+ 2026 13:58:22 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 13:58:19 +0000
+ 13:58:22 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Mon, 10 Aug 2026 22:55:32 +0900
-Subject: [PATCH v2 10/12] gpu: nova-core: mm: Add GpuMm centralized memory
- manager
+Date: Mon, 10 Aug 2026 22:55:33 +0900
+Subject: [PATCH v2 11/12] gpu: nova-core: Add self-test assertion macros
+ and config option
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-pramin-split-v2-10-65a00b3c7309@nvidia.com>
+Message-Id: <20260810-pramin-split-v2-11-65a00b3c7309@nvidia.com>
 References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
 In-Reply-To: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
 To: Alexandre Courbot <acourbot@nvidia.com>, 
@@ -69,11 +69,10 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
  rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>, 
- Joel Fernandes <joelagnelf@nvidia.com>
+ linux-doc@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWP286CA0008.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::11) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY6P286CA0030.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b7::6) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -83,232 +82,185 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA0PR12MB8208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77b0316c-4b7f-4347-a499-08def6e76f22
+X-MS-Office365-Filtering-Correlation-Id: 6a94a08d-da1c-44bd-883a-08def6e770e9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|10070799003|22082099003|18002099003|11063799006|56012099006|3023799007|6133799003|10067099003|921020;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|10070799003|22082099003|18002099003|11063799006|56012099006|10067099003|921020;
 X-Microsoft-Antispam-Message-Info:
-	H3d0ksIq+7LLyvhT5hoWw4sFe1xeYDN9QqQ0euC67E/86cI0mUE6RTDI5PNJzb6uiHpZ8uv9eZn8cdWJz7BsK8AMxSihys6kNVU3xW1nhi8WuJFRrjG9vQv9nLSkfZXA/7VmLuQhgBn3zwKXcaCOwU68g5gpXjSiXLfLXB7MRyluHytAH5sETqInYrmNp6f72fh0ccd4+P/BtQLxmRbrcEl7I3Gn7GSbstrnsdb3OSvgkFSFXpoW0hM6uEyEkxJol9BvLB5V5++xs8t+qmS9RRN5jDeRqHLVz4PExr+NxzqBJa/7iO1ZzU5qox8sy3K+bEh9DWrumqn+9UiXEB+iDKw9/fSDeb3iUapHxl8JtJogSsfMEQH4q3t9s+KI1U94xpQM35a+N/V8PNIq0bCTZIC9Zd5IuKhY1yfFzN8hLrAHNogESN+wUA7Dr0iszLmdRCcCMiyFyTM7ksgZCy9UBnHoTiLCn2oXnlM2b9n2V/yKFdoxIys6frBF8jmWUp4Ejq9+QXqq7wIqKRm3CpSE/Yrh3a2KIVPhTRAn4ylccWQpumyrh2EwwvBUu97eztDtAhZfHz20jkDq0HyR/JCy3boTXEKkI21K+OcANgprz6X9+a/Uy1zZDgnKFt9Pk5bpkq2xUGozwtqtudERiGirgZf5OwafbT+Zgjt4w6IOKQIpz9IFOZkkr5h5LS13ovl3fNXHse1XDRKwu6eCWNMPBA==
+	L+2wvCYc3KSZuPpir7AmyNg9bowxF/EGQjYNkFzTBmSclzPqp6ObecSzoWX/g0gJCqv9WvVv8DA8NNF/JVIdkxORWPlbUR0drAEd3j2QTvXZsT9Cnia2DbodHyIR/mpUY7fzCvpx9EOxfc5amIFkh9k83uSYy7YfI/ecWndd3zCjpaTtI+6k68EkYcY//Bzg5g6iqUbwTBuMFfk7fTJNjpIzIh4gG8mPDP9Hf44HXhI4cUvuD2zZeekfC1fkbKK4g2HZeok5wWbczTANm0PxzqBHBawIhWskxvlA9KIxunmI470WctPKlVPLv0FsE63M+RonJ7LT+Kk/IHdQEZpgzdL9pHofEgWz80QMD0rwa0I5DrFNd2wqwheVnlArN8XG2ju4wfH1pIGJof0wNh9Ep9s/yPS50/hsEMofw82MUTs+xO4KDzjoirpxIkEBHJTlDNlk/XZC7owJBCQi3BRncUZS2ViZk7v9ruaiDvt+PGd3cHh9QzHtdOGl2vV2xckIihEUEq/kkRhVN9He/yUr/kXH+M28GbhuPKl8ibVMn29msQWKNbQdhlFVdl6C5w/VtjlQCABk8A2MK4AJLXKY7tF6gLnJk3WRk5+Dq63937BCMioY4TDTD0vYpX52gs4j4YlUt369xItG8N9iIcsu6FODXdGIaRNnFBWT1+1XuXysGAS32ramdG4huV4dsasxgdHGZnnI6CRmcc3sFoZBuw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(10070799003)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007)(6133799003)(10067099003)(921020);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2353.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(10070799003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R0tmTjNwMUFLYjZZcXBxTWMzY2RweWhNRlhNMlJYcWdsRDltK2hvSTJlK015?=
- =?utf-8?B?K3Q5VjY1dGpCcFZRQWthWWZSZnVNSmtUYnJCVVczV3c3K2EwbTIvNlhPVm5K?=
- =?utf-8?B?SS9wa3N2KzdiM0pNb0JwLzVrcXBycUVLV1pLK1ljeG1CUksvdzFSQ3lZbnhv?=
- =?utf-8?B?UFZGMDFmNWNzc2tQY0FMeDVycmtNWTR0MEhCQ0dtTTdzbFZ3cnpvUWdSMW8r?=
- =?utf-8?B?aFYyQXZTK2tsM2ZoSkRmOVJ6b3N3bng0bUdUaHp3Ui80VHhNZ2JDRm1OUUpK?=
- =?utf-8?B?RDJTZ3VaNzhDUXZIV0VrejdNRnpIbS9IL1ZEVEYwelk0N2FHNlQ3b05BY01u?=
- =?utf-8?B?VG4xQnJzNlN0SDF6MDB1b1dMNDVwc0V2QzEvb1BPZzRYaEhFWlJRdVM3eFRZ?=
- =?utf-8?B?SzdJRDR5cDlQUGV3SENSakF5R0MxQ3pBZVMyTTRpT1VBWHo4cmVwUE5OOFhT?=
- =?utf-8?B?aWdnbzFJeC9xWHNadnFFMFNKZVVFaU9ZNlNhN29aQUZmcTFVekh5TFN1WlFk?=
- =?utf-8?B?ZVRjRE5oNkFKVG5JRXg0N0k0K252ZW1Oa3pLQU83MmV1VnJ0MFo4RlhNT3FQ?=
- =?utf-8?B?c3N2QURycTFjRnB3dUM3UTEvaWRGaWt6SW9xWTJQTnBFU3ZtKzF5YXh6Q3FZ?=
- =?utf-8?B?ZldpbCtxQ25QV2JUQlNLdGZFaWg5dFBHZ0ZvdVQvU09BWnRmaWJzR2hHRWJi?=
- =?utf-8?B?RWozK2xaVncvMktTYWVvdmhYdWRUTUo3TytBWFNJWHRFVjRXU0VUWjhNNnd4?=
- =?utf-8?B?MEdGSkFpRExlQ3RQc0ZuMFBPa2FrUjk1S1Zob3hFU21DL0VRRjJIeHIxMmg2?=
- =?utf-8?B?eUJUT0oxbTBGcFluK1BXa1ViYmlvSkF6Vm5uV1ZPRFRRYkpST3ZiTFhWNnlS?=
- =?utf-8?B?WS9MUXQzajFqc0Z3djVtVUluSWpPMWdKMzJsT1NUV3N6bmxUMVNHSTR3cE5O?=
- =?utf-8?B?allIRGpMSkptUkVEVHhjU2RjeThnYm53YmFOMWFPcTBxVE81dFpGQmRmODRO?=
- =?utf-8?B?R1dodE1SQ295b1lZeUFUMmVuTDFkNTNQTjNZU3NCbkpxU2Z5OWhpYnUveko2?=
- =?utf-8?B?TDRKSUlzUW5TNUtjT3VON3RxdjRzY1dIeWtNUGw4REJISXU2bmU2eEhGaEs1?=
- =?utf-8?B?b1RvbmNkc1lTMDRTVzNUMXk0WCswS2h1SmhrZXN0SHJPZmtJM2k2cGRnOTJa?=
- =?utf-8?B?KzBrS3gxbEk5VkExRFo1UHJTeFlNUldYV043d1FRaDBubzJtalA2WVNMS21r?=
- =?utf-8?B?TFFzazVXalo0NEorS3BqakhiQldGK1l2cDEzY2xEdUdOSGVFalVpb29xbWp2?=
- =?utf-8?B?UVh5Qld5bmZtd2U1ZDdpeTBtYUZyajNxdEwvbzZnLzE5dXNvZ1dhS3QxMktB?=
- =?utf-8?B?RUN1VHpWbXhnL2c0WC9LWTVaQU03eDRJOXZOMXNsejBUY2xVOGJhUFNoczdr?=
- =?utf-8?B?RGhXOFlWckhmZjA5cFZ2aVpyTGU2cUt6OGtYYVNHZW83aXZNbWpXSmJ1azBL?=
- =?utf-8?B?cVJabW4xVzE0TnZ6Ym1aeVdRN2J5UWxVTjRkNzBzZEcwcW9kWW5TQVRuV3pE?=
- =?utf-8?B?TlJJN05JQ0szWlJ5NEVCb3Y4K1dpVUJSRkF5OVZJb09RTnlQT3BxZ2I4cHlR?=
- =?utf-8?B?bm4vaWxETmdFelFJY3JtaVdlc0wvYVMyTDFaUG1US2dMcVZxdHoxZldUeWhU?=
- =?utf-8?B?aGRQN3BSVlE3Wkdqb2lkTzJHUFhIUURBSTNVcTFVRk1wbGUzWGJrSVFSMUdq?=
- =?utf-8?B?aSs1SlV4dCtUYTV5eXMydldoVklCeDVUTVE5cStrWFJab2RBVDI5eVowYXhk?=
- =?utf-8?B?ZkVOV2pFSFdyM25hRE1iMDhBRXBId2x5VVlPUVJkY1d2ODZwaXRYMll5SlJs?=
- =?utf-8?B?c3dKd0tEYUpBQW5ZUEgwWHIwNmVPYkp2SnFZTXBiTTJnK0xvNVVpcTZXRkkw?=
- =?utf-8?B?ZkNyS1M4TjRsdWhvVDB2Z2tZRng4cGYvU3Jza0h0bkhqU0c1Z25sMEF6VDNO?=
- =?utf-8?B?VlYvZ2FOeVZQdEF3bGE3YjVXQWFrdHphckRwU3BnVU45djE1WUVZZjZHSmhr?=
- =?utf-8?B?ZFNxZkltNXgvMVJkZ1JXODZvTVZ0U1Iyb3gzN09zVnAxZnNWTGliRDNFZlBL?=
- =?utf-8?B?QzVTZlFFN0xSYUpJMHdzdFhlUkU3cUxTb1UwZDVVZVRNbXNVTVNPaTRHUWpT?=
- =?utf-8?B?NGJvRzFjbndBcUsrUE04RWpZNHBqVUxKbU54MHZMRkc2bUlRZkNtWHVaWjJl?=
- =?utf-8?B?bXlWU1VHbTBabU15TkpDL2F0UVdVbEdDZVRFZCtEUHFMYWpYNkJUaCszMzVM?=
- =?utf-8?B?UDVHdWlkbXJ4MjZrN2Y1Q0JPeklIVTJlZmFNdjIwN1d4M3YvMnE1aVQzWXJR?=
- =?utf-8?Q?yZAP2q6FjH9NVtmV0MUEE6HcxVCX9xFtTQ0wFmAQGY86X?=
-X-MS-Exchange-AntiSpam-MessageData-1: xoSViyz98W9lXQ==
+	=?utf-8?B?RTYyVGc3bGl1SDVnNXoxenlFTDd3akNmUG1qN0ZwMDVUMUNBN21mcGlPSitC?=
+ =?utf-8?B?ZHJMN1NyYVc5R3pNOWYxK2p0bzlWZUVubFkwdk1KamZXcDBmOHduOWFrZHpa?=
+ =?utf-8?B?bGFteGVTKytScy9sSmpEaGtuSmFCMENiVmVkbVFTOGUzYXlpS2N1OFRreGhJ?=
+ =?utf-8?B?S0tlNmpWbXl5Q040UkdhZ0xITnh1OXZXWFhQWU9qY3kxU2Y1TDdVcHp5YWVy?=
+ =?utf-8?B?OGVTeUp6bVI5OXVpTWo3YVFnaXNvdmdwcG9kNlFac2NLVTVIZjVJbU96bzJ1?=
+ =?utf-8?B?M0I0RUh5Y3JkQkhxSmFSNHBrVGI0NkhyQnM1Q3ZSOExlRFFOZll0V1VsZ0o5?=
+ =?utf-8?B?V2JKdkRuZld3WTJSZ1BZcmZ5QkpzTlRoaTNmUmNwMmV4eXhCclJlNWR4YXd3?=
+ =?utf-8?B?dWpOaWF5dVBxU3NEMGMybitaT1BxblJZZFk5TkVLZURMTElUNVg3QzNLUUpn?=
+ =?utf-8?B?eW0zNDd4cUhISWtPZEdodkJqS2FuUjQzUVVETCtYU243MUVTUVkvZ3VmMDd1?=
+ =?utf-8?B?ZGMxbTRKcWtQNXRPY2J5bElPYkpLWS9ZMHFOTklrcnJ6UWtsT3Z3SFhNMFEz?=
+ =?utf-8?B?amhzMzdIeEU3ems3QVlNTG4yMVU4dWpnVENUZGd5L1dzZDJBWWgvWVBQOFBx?=
+ =?utf-8?B?NCtwUDJCNklPR1BaWHpBQ1Z1Vmt3SUVxT0M3V2NYTlJPZnF5ZmE2L1dNVmtN?=
+ =?utf-8?B?QVNtN0hXM0JiVHB2R0pOTk9haW4vTElQejJhVGE0NCs1Rm9RNjBGaWQvRklv?=
+ =?utf-8?B?cWhmSEhTRDhVdFFUQUhCWk5lS1VYRmpvZWFOcWRpR2lBVGFnTDRmVkpnR013?=
+ =?utf-8?B?MmpNTVZaak1wb0xjK1dKY1JzaDBMQTAzaVBnOGpscWpldE9OUzIwQnluRTgw?=
+ =?utf-8?B?ZG5vbXYxT2dLZXZVQThjL203d2J5VmlDMy95L290aEJMQ05wMmhSb25IcVBG?=
+ =?utf-8?B?M2tweVVrRk9tZXBNOUdnOHpxTTBramdPcCtZdWp6S0p3aXp6NzJnT1BiSyta?=
+ =?utf-8?B?RmtTRFl3T0VFM0NzN01sUU9VY3hqMnRPNDFOWlVQU0lpYUJMQnpmSDhsdDdW?=
+ =?utf-8?B?alZiUTZKQnVjOWg1T2RTcFBJbHc2WjdXVFNaNklYSnpZSWtlVUUxaS9qNEtB?=
+ =?utf-8?B?R241STJneHBBNFg4djJ6d3l5Y3BGeE5tQjVtckRycFMwZ2xabUY1aDdpdnpu?=
+ =?utf-8?B?Ky9sRlZ2RXNJSC9DVi9HS3BJQVVoQ2xPQlpORnlZVlRNVGNFWGh5ZlNlQzd0?=
+ =?utf-8?B?UkV4aVBnNkdwK0tYV3BEeEEzYWI2TmVDemp3SG5BVE5tSkcvdTV0M0s2VzYx?=
+ =?utf-8?B?aFBSYldDdnQ5OW9TaXlvQUhkckpMTW9VSHQ0bXRhYlUyRVhsT09EcDYxMUF1?=
+ =?utf-8?B?NWUzOG12NlhOcHRRa0E3UmdpTmxsNlNKRnlEZTRzaDRtbkw0ejRDYUJSVWF1?=
+ =?utf-8?B?dVJEMlhmemQ3eFJQNWhmU2pkTHZ0ZE5oQkdvU2VmMm1Oc1Z6WnlNMTdvMmUy?=
+ =?utf-8?B?dTd3YkVxUzdVUFlKMnQ3aGZGaWQ3WUdOclcwNURJZG9ObnBTY01idS9DcDhn?=
+ =?utf-8?B?M1RHVFZIdkJwakM4WitPMEVWeE9IalJFdmczRCt3YndXQnZiRnlrR0k2Vi9m?=
+ =?utf-8?B?RXFWU0h2dVlVMU1Pc0lGcEwwalkyeWRLTGsxSVJGYlVoZ3hBcmRtUVNWLzZ4?=
+ =?utf-8?B?ZjdiMCtvT2lONm01VldzRGNZQ0NFV0VqQzZkaUdZRDdvMHVGK3dOMC9SYkVF?=
+ =?utf-8?B?anFVcUI5R3REeXNTOE5GeG1SRWhmSFQrdE9NeE80MVEzM1QybHJjVHp5dDQv?=
+ =?utf-8?B?NGhVSGc0eDBrQkt5dEJrdlhDUDVsVmlFUmNnMTk2NUQyTEcvSnJ3MURmMWZR?=
+ =?utf-8?B?K0hSRVJuYmdKNTk4WUg5cmFjeUUvOXVLZTFncGc0SlVtakxRTzdjS2tob3JW?=
+ =?utf-8?B?WUIxd0NYUUVHTHpCUDV4d2tnMXJLN0w3RmZkT2UvdkdQSnpPcXZLRHQwTEZB?=
+ =?utf-8?B?UHRCM1lMWjJJdjdFV2VGclNXcFlrb2Z6S3VWdm10RnRxaDI4WllmZHA5ME9U?=
+ =?utf-8?B?cFNIWmhTSmZJRkxIbG16bzJOdy91R2lnL0hqUzlxYzRRNUhOYWFkb29ZVXRo?=
+ =?utf-8?B?L3VzMDJTK0t0OE1DNS9zNlRKbWRuSTh5U0UzbGFYbUlqbUl6dXRaNzdydk5u?=
+ =?utf-8?B?T0FScW15NXRYSWdnSTRTS3pmZk4xUUYwTlFrcVp3SDZUcVBtSEpFZERZMFRx?=
+ =?utf-8?B?cEI4SE5aMXoyUHc0dG9PQ0VhTXduOTcvOUNzOFBjbDErT1VzMTU2alJpY1lj?=
+ =?utf-8?B?a2RWOVZHWlJSNVA4a0w3VncwL0cwMmFsT3pKYmg3RkFHMWIrY3VHWHRUYXY3?=
+ =?utf-8?Q?SwRjOPfW8bcC0hUjNBYJSTI9cfUMktrQEV/Zpwn5yzBph?=
+X-MS-Exchange-AntiSpam-MessageData-1: 3dfYtO7AWZMIug==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77b0316c-4b7f-4347-a499-08def6e76f22
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a94a08d-da1c-44bd-883a-08def6e770e9
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 13:58:19.7438
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 13:58:22.7252
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PBwrMdW18faHTQZaq/zkDyevrEgg2k5QQAGO+CSLwgMfxRxL+WRmwqJ6OsYv7iVZUevP31ydPtc3z3gJhOnBjw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: kq0D+Q8RiBlaNs491GHbOrTU2IEemJVeXBs3o0rhQrZvG03ImkK/8vCULojEecbLicvE2GCudrX92H276Y+WSQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8208
 
-From: Joel Fernandes <joelagnelf@nvidia.com>
+The existing assert! and assert_eq! macros cause a panic. For self tests
+in nova-core, it's inconvenient to cause a panic since these need to be
+run on actual hardware. Instead, define similar macros that log an error
+then return an Err.
 
-Introduce GpuMm as the centralized GPU memory manager. At this point in
-the series, GpuMm only owns the PRAMIN window for direct VRAM access;
-the buddy allocator and TLB manager are added later when those backing
-types become available.
+Also add the NOVA_CORE_SELFTESTS Kconfig option that gates the driver
+self-tests.
 
-This provides a clean ownership model where GpuMm provides accessor
-methods for its components that can be used for memory management
-operations, and lets follow-on patches (such as the PRAMIN aperture
-self-tests) reference `pramin_mut()` cleanly.
-
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-[ecourtney: squash the total VRAM end patch, drop its dev_info print]
-[ecourtney: take the maximum FB limit before adding one, fail with EINVAL]
-[ecourtney: rebase for the Bar0 lifetime and ownership changes, drop Arcs]
-[ecourtney: source the chipset through gsp_resources]
-[ecourtney: build the VRAM region in new(), pramin() becomes pramin_mut()]
-[ecourtney: declare mm before gsp_resources, doc wording cleanups]
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gpu.rs             | 18 +++++++++++++++-
- drivers/gpu/nova-core/gsp/commands.rs    |  4 ++++
- drivers/gpu/nova-core/gsp/fw/commands.rs |  5 +++++
- drivers/gpu/nova-core/mm.rs              | 35 ++++++++++++++++++++++++++++++++
- 4 files changed, 61 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/Kconfig      |  9 ++++++
+ drivers/gpu/nova-core/nova_core.rs |  2 ++
+ drivers/gpu/nova-core/selftest.rs  | 64 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 75 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 42a4cd7971fa..e29e07488e78 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -29,6 +29,10 @@
-         Gsp,
-         GspBootContext, //
-     },
-+    mm::{
-+        GpuMm,
-+        VramAddress, //
-+    },
-     regs,
-     vgpu::VgpuManager, //
- };
-@@ -283,6 +287,11 @@ pub(crate) struct Gpu<'gpu> {
-     spec: Spec,
-     /// Static GPU information as provided by the GSP.
-     gsp_static_info: GetGspStaticInfoReply,
-+    /// GPU memory manager owning memory management resources.
-+    ///
-+    /// Must be kept declared *before* `gsp_resources`, so that its components are dropped while
-+    /// the GSP is still operational.
-+    mm: GpuMm<'gpu>,
-     /// GSP and its resources.
-     #[pin]
-     gsp_resources: GspResources<'gpu>,
-@@ -410,7 +419,14 @@ pub(crate) fn new(
-                 }
+diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
+index f918f69e0599..cb7f0b00f796 100644
+--- a/drivers/gpu/nova-core/Kconfig
++++ b/drivers/gpu/nova-core/Kconfig
+@@ -15,3 +15,12 @@ config NOVA_CORE
+ 	  This driver is work in progress and may not be functional.
  
-                 info
--            }
-+            },
+ 	  If M is selected, the module will be called nova-core.
 +
-+            // Create GPU memory manager owning memory management resources.
-+            mm: GpuMm::new(
-+                bar,
-+                gsp_resources.spec.chipset,
-+                VramAddress::from_raw(gsp_static_info.total_fb_end),
-+            )?,
-         })
-     }
- }
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index ffc25fd8c47b..eea1c9ed4684 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -216,6 +216,8 @@ pub(crate) struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-     /// Usable FB (VRAM) regions for driver memory allocation.
-     pub(crate) usable_fb_regions: KVec<Range<u64>>,
-+    /// Exclusive end of the FB physical address space.
-+    pub(crate) total_fb_end: u64,
- }
- 
- impl MessageFromGsp for GetGspStaticInfoReply {
-@@ -231,10 +233,12 @@ fn read(
-         for region in msg.usable_fb_regions() {
-             usable_fb_regions.push(region, GFP_KERNEL)?;
-         }
-+        let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
- 
-         Ok(GetGspStaticInfoReply {
-             gpu_name: msg.gpu_name_str(),
-             usable_fb_regions,
-+            total_fb_end,
-         })
-     }
- }
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 6dc31d1bf5ae..6e85442a4b13 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -165,6 +165,11 @@ pub(crate) fn usable_fb_regions(&self) -> impl Iterator<Item = Range<u64>> + '_
-             }
-         })
-     }
++config NOVA_CORE_SELFTESTS
++	bool "Nova Core driver self-tests"
++	depends on NOVA_CORE
++	default n
++	help
++	  Build the driver self-tests and run them when the GPU is probed.
 +
-+    /// Computes the exclusive end of the FB physical address space.
-+    pub(crate) fn total_fb_end(&self) -> Option<u64> {
-+        self.fb_regions().map(|reg| reg.limit).max()?.checked_add(1)
-+    }
- }
- 
- // SAFETY: Padding is explicit and will not contain uninitialized data.
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index ef5b1cad56c3..58dce211a337 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -19,10 +19,45 @@
-     },
- };
- 
-+use crate::{
-+    driver::Bar0,
-+    gpu::Chipset, //
-+};
-+
- mod hal;
- mod pramin;
++	  If unsure, say N.
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 8f59cfa97017..1133c6ce5c55 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -23,6 +23,8 @@
+ mod num;
  mod regs;
+ mod sbuffer;
++#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
++mod selftest;
+ mod vbios;
+ mod vgpu;
  
-+/// GPU Memory Manager - owns all core MM components.
+diff --git a/drivers/gpu/nova-core/selftest.rs b/drivers/gpu/nova-core/selftest.rs
+new file mode 100644
+index 000000000000..f5b5965b7e6a
+--- /dev/null
++++ b/drivers/gpu/nova-core/selftest.rs
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++//! Assertion macros for driver self-tests.
++//!
++//! Self-tests run against live hardware during probe, so a failed assertion should not panic. These
++//! macros log the failure on the device and fail the enclosing test by returning
++//! [`EIO`](kernel::error::code::EIO) instead.
++
++/// Like [`assert!`], but logs the failure via `dev` and fails the enclosing test instead of
++/// panicking.
 +///
-+/// Provides centralized ownership of memory management resources:
-+/// - [`pramin::Pramin`] for direct VRAM access.
-+pub(crate) struct GpuMm<'gpu> {
-+    pramin: pramin::Pramin<'gpu>,
++/// As with [`assert!`], a custom message with format arguments can follow the condition.
++#[macro_export]
++macro_rules! selftest_assert {
++    ($dev:expr, $cond:expr $(,)?) => {
++        $crate::selftest_assert!($dev, $cond, "assertion failed: {}", ::core::stringify!($cond))
++    };
++    ($dev:expr, $cond:expr, $($arg:tt)+) => {{
++        if !$cond {
++            ::kernel::dev_err!(
++                $dev,
++                "Selftest: {}:{}: {}\n",
++                ::core::file!(),
++                ::core::line!(),
++                ::kernel::prelude::fmt!($($arg)+)
++            );
++            return Err(::kernel::error::code::EIO);
++        }
++    }};
 +}
 +
-+impl<'gpu> GpuMm<'gpu> {
-+    /// Creates the GPU memory manager.
-+    pub(crate) fn new(
-+        bar: Bar0<'gpu>,
-+        chipset: Chipset,
-+        total_fb_end: VramAddress,
-+    ) -> Result<Self> {
-+        // PRAMIN covers all physical VRAM (including GSP-reserved areas
-+        // above the usable region, e.g. the BAR1 page directory).
-+        let vram_region = VramAddress::ZERO..total_fb_end;
-+
-+        Ok(Self {
-+            pramin: pramin::Pramin::new(bar, chipset, vram_region)?,
-+        })
-+    }
-+
-+    /// Access the [`pramin::Pramin`].
-+    fn pramin_mut(&mut self) -> &mut pramin::Pramin<'gpu> {
-+        &mut self.pramin
-+    }
++/// Like [`assert_eq!`], but logs the failure via `dev` and fails the enclosing test instead of
++/// panicking.
++///
++/// As with [`assert_eq!`], a custom message with format arguments can follow the compared values.
++#[macro_export]
++macro_rules! selftest_assert_eq {
++    ($dev:expr, $left:expr, $right:expr $(,)?) => {
++        match (&$left, &$right) {
++            (left, right) => $crate::selftest_assert!(
++                $dev,
++                left == right,
++                "assertion `{} == {}` failed: left {:?}, right {:?}",
++                ::core::stringify!($left),
++                ::core::stringify!($right),
++                left,
++                right
++            ),
++        }
++    };
++    ($dev:expr, $left:expr, $right:expr, $($arg:tt)+) => {
++        match (&$left, &$right) {
++            (left, right) => $crate::selftest_assert!(
++                $dev,
++                left == right,
++                "assertion `left == right` failed: {}: left {:?}, right {:?}",
++                ::kernel::prelude::fmt!($($arg)+),
++                left,
++                right
++            ),
++        }
++    };
 +}
-+
- /// Physical VRAM address in GPU video memory.
- #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
- #[repr(transparent)]
 
 -- 
 2.55.0
