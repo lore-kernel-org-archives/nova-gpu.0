@@ -1,77 +1,79 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010058.outbound.protection.outlook.com [52.101.201.58])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012014.outbound.protection.outlook.com [40.107.209.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1393B3BEC
-	for <nova-gpu@lists.linux.dev>; Tue, 11 Aug 2026 03:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C953D2459C5
+	for <nova-gpu@lists.linux.dev>; Tue, 11 Aug 2026 03:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786417768; cv=fail; b=aJaPRAEs3rZDQn0ZvrmL9r6uO9L6lbfK1ym7BxvNf00eqywSv6R9tJtByCeQGsJxT4UthWD3ep0qqEyQ9Qslqrbd4CigSbQMA6AtbrYHcHKVMkLOFTsY54SAMDPwgs8Qp1ssiC30FaNJfEcutfvpUCIwOGiQ+8lwGa3xjQXQg4c=
+	t=1786418228; cv=fail; b=ae65IGL1e6/pR/N18YnCqV+Lvo9BB30qXTebsHKmagMbEJMNr1M3r7EFIMZ5/E9VHRBU23CYS2TDuimL3nPZn/BA5QGbjl9nGEFM4QwDdcE6RTiU2kW+ZR7OuyrHCdFcyJcm7EcNP6D9gsp6CSRiSoIgCgjuswbtN6hqbO1v2/k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786417768; c=relaxed/simple;
-	bh=Tm3D2FM9bgMmS7j6ILZwuginLk6WF0i+Gw88v/LZqAg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=KpZTJWeGzgGLpuzAiHQq9FsebSHZuO36WV/CcLFsAgLV/GhGreQqSZ95BpqVk8Gvf2ebQw5I1JVPPsARPnvamJCQ47kMYyBJabc9gY0oahOX8NUDUlhNfBKlLySFvjodXpSnulr58gUNTNcq9XmYUGVrhnhraOBsn5NRROz8BeA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PqPriLpC; arc=fail smtp.client-ip=52.101.201.58
+	s=arc-20240116; t=1786418228; c=relaxed/simple;
+	bh=4vwd4Dn3iV9tdUreiyx6+TQ8PxLNz5wkamvS9W9op50=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hJRkN5Do74zHGIsGWeX/UXo7Pz4YUlMQlBLBtfrL/sQOc+LsllFTzeCSyaEDECdCplOQfsUiNu/YyegLjvtHAmu34pD6foVg+rh1o6PzGIyhSDPeCAyHGUgAS15uRV83APJtRgXjVzEm0UYSZYMizQXq3pef/ykqFHmfJ1JC9Uk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YWq8PXRi; arc=fail smtp.client-ip=40.107.209.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PqPriLpC"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YWq8PXRi"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vQKb3XcQHopwLSEEBphqZ+u1ATXJFdtNw04w3vFMQdZRku0LgK7GOZY7qsLpmVk0IZwdrowH40BB3dxwM/4ZcTKVcgRs3UbiRNbkfv0bIj5dvSZjUTM0LjRT1vun4wV6phSLx5i9GyLLjw8oc2WGvSugbyhdbf2g1OwnnYIuv2w0+VgfHP/f3rG22+65/q0wpv5k41IT+qy+FKJHWRcIFR/kX1cVUpnwVJrYwFdMc88niEC7P/MHAhUK6AGFLfpqP/YLN36cYXowsMtx0VCUkSUygxGWv/Ol501oLpGzfUAvHfBsm1b+Z+S57qHPW5GB5xLf1phXepIf9PHSeOLJhg==
+ b=vmdCXODR+d3fDcN2mbLEIGWs5xhx1dMIz+rNBWJUN6bLyuJPTO+EjhQQcGe8/xz3RF29GmrYPtd8KGixJxHfiI3gBM1KjqO6iPVzBvF7cPV3fcwzfdB3rclAfCh2UJW6IffScUh4mq3eOaHilw6vWrd3B5fUgOq9HDpFYQrFXTZFESInpeBdWDj2F0iXd/mIG2jyOYKR0i4tbyRpfyRnBrs3H6FQUZCRXDKPOBxhOIaoK9yzuYYKEVgkVC/wp4SHQtkbeKZMW7GrYX6JXdD0vX37JG4fYB9Ddw05zPaKz0RLQ/Q7siKymRuro0cph1EfRoAytBYyuSkYaeV1paoKXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cMVSXutmmoDtB9r4TFWDSMU8peFUl3WPiLSXmjH79bI=;
- b=SvyVQDW3wNm42RHHVebwqXKf31iz16ENsOfmZMf3sphXEyCSyiSNxwxwNFE999SRei7cV3TfgqTNvQii5Q+nM1S7q+8AEmzxoRo2H8n7KBS+F/dc3L2Gk9vjGhBk72GlTE4h/U/G+/pHxeA0wPObsYsSD55/6USu5R//nRJ3Ko9J2xV/WFBmEZzbZJdeX/Ek7Ru1PziFThR3EfY3208rb1uKKJ4MuwY/46NDiq1sx93ubqnOL4iz5c0oaeA0ivz2FiMD5sCjcv5VwtUSPuqOWrN4gvC5QsTQ3Y/YCQgI/FKXs2Z9HdwcFw3sYLZvT8xNIE3/fKxQzr7+aBX4Ioor/g==
+ bh=gceyc33LDJfcd8diyTQQm0z6t+gVGjvPzIemtDCfOvU=;
+ b=f7s28OQ4KOejW+QhhBq4JSYewDxoyyW3j2iZFTUQkgalFMTuSu8lRHMjXoymrSA+Y2/9aaTp8x4re+L3ZR83QRdvNeMmcuudyJqhkxMtDMPCPQkuvTEAuHY9CnyazUwK9d5gpVvWBd1tS5mnmtg1o9gXBu9JOnI9AmL/V8fbZX+FnjuHsnbt25Q9DWT/dMjFtBuVEixdG+7v082TFSpyfpr/IT/21i/NUKelnERDY0T+SK/j+ZZrvymMgurZ3spe1QV6qR1FfoC1I1go9YFH3dBU9kGbAIhWOzyFwlZ8nlE/ZlGTvWNPzUTAB7edTyBEqp0eDsfarbmiq9TBi+IZdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cMVSXutmmoDtB9r4TFWDSMU8peFUl3WPiLSXmjH79bI=;
- b=PqPriLpCJdxko/IB2qhbs04FY4/OLvrsZUzxOZff4M7p0HEfruHjkxj/9M+qrLqfFkr6XDo/9WLWFFZ5nqiRkNQEUZjdNyVe7ONDUhYPnlwSfPVJqvXNuNdcdhOSwuXDNmjo4WJPFCtibvbJ4uqYHgr4a9RVFdTbo4ojiyz3luTBYuDbT0lhGyrzcx/nBD1rLLfOW6hkBAkfx9Z0MRrzihNYNER9ntosacrL2M+Y7q+46RrV/0Tupgrilc2jW12ImIi8G4IgNz8NSilRPmpKrucqn4NCcy1tB05kX6rkKdDL8wSqi1tsx/JJTUCx+2PFun6vptsSkHRvaxoMK5eQ2Q==
+ bh=gceyc33LDJfcd8diyTQQm0z6t+gVGjvPzIemtDCfOvU=;
+ b=YWq8PXRi4mKfGY/huVWy+zFBtm7RGXqsd2Tlu9UMD9yOwy6iCv665ttItVVzaxyJb+s6gZhVSDGXbEnl9Itsx6Iof4wOK2NLX3tCt03lKDvMhSDkAPL1QJss62bFHt4cy06fry5KA62Q4yQWIbr7kTFtg6iAozC+sXIbMsvBeMDUMRs9V2dLP1lW4wALk5Hb0UrrYk/+FUeDqYut9EE1OYFLlkzP+Sg2WMExYdqWds0wFSTeCClMdLJ5cD61fEv8IODs2P00MODSZkQ+FDU+jmYN4+UNP9Wz97JhCkjCT8uqgt2frcrL9ISVHw2ixX77aPQk1H4ihhLWcHkGLn0GhQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15) with
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by CH3PR12MB7571.namprd12.prod.outlook.com (2603:10b6:610:147::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 03:09:20 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 03:09:20 +0000
-Message-ID: <6d08c833-adea-4b34-a9eb-457cc4fc0ba3@nvidia.com>
-Date: Mon, 10 Aug 2026 20:09:18 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/17] rust: pci: expose the allocated interrupt type
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Joel Fernandes <joel@joelfernandes.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- Shashank Sharma <shashanks@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Helgaas <bhelgaas@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, nova-gpu@lists.linux.dev,
- LKML <linux-kernel@vger.kernel.org>
-References: <20260808031120.363869-1-jhubbard@nvidia.com>
- <20260808031120.363869-4-jhubbard@nvidia.com>
- <DKKG2QM3YJYB.Z2H2B2UXJ75N@kernel.org>
- <e2aa36cb-984a-4f8a-b6d5-6cb70a31a30b@nvidia.com>
- <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0352.namprd03.prod.outlook.com
- (2603:10b6:a03:39c::27) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+ 2026 03:16:56 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
+ 03:16:56 +0000
+Date: Mon, 10 Aug 2026 23:16:55 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 3/5] rust: bitmap: add contiguous area operations
+Message-ID: <anqUJ9VMapPmhAHr@yury>
+References: <20260810-chid-v4-0-c9f206fdcb97@nvidia.com>
+ <20260810-chid-v4-3-c9f206fdcb97@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810-chid-v4-3-c9f206fdcb97@nvidia.com>
+X-ClientProxiedBy: BN9PR03CA0713.namprd03.prod.outlook.com
+ (2603:10b6:408:ef::28) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -79,92 +81,339 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN6PR12MB8591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09033feb-57b9-4b5e-af45-08def755efc7
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CH3PR12MB7571:EE_
+X-MS-Office365-Filtering-Correlation-Id: b428033e-6cb3-45df-d60c-08def756ffab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|22082099003|18002099003|11063799006|56012099006|4143699003|10067099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|56012099006|11063799006|5023799004|10067099003|6133799003|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	5uDj35GCe4QpWtBbC24fG5J80inkwpuZtpdbJ+XyuF2XYxB37UE5FJ/Hatu2ohLAEg24uFdvqvM7fSwUbwzme7h/1KcD8Flulp8qzsoMKCuR0t8A/+7NVqM2u0La6QCXAClkUkZjgrZrB79CG2yqcBXXCwF1AvuHUG4yiXvzQgPRIbvLBWNNbvPKWiwq8UyGUS5BpLWse8m2c+pNZKze3YqIQ2As8Bx4h7Z5FwcA/WWmC66dGiYAnNhUNVXd/d733N94BlxyD3DRn7AHVIn+ICURSnOWlZZ0KqSRerQ05kgj2rK+BD0vyLMQr60HZaO+GHstlpKZ46TnOfpgQS3HQ01lA7QzRQTPaRbj2uJfg2c+dppWI1Pi7+Fz7YUfKuIzKQtLIL31F1w/vT50Y6KVlH83jXa9VKGoMFEOYL47G/w48mFj+pYNQhAlWyxV2FLeMdBtV6j0iME/QY9gPllZP2kkQDN+L0Bh4kiqsVqR5YptPtxuUSr6Dxo0Z7z8hlmLWsA9W5jhV8nhJeCiagOhMrt6bm4XS6pujfy52hCxev676AcjQvdetbhAWiZ0/6QLUXPNY54X5BxrECnH2hCgGzqW5WVehnAap+dTTbjcOlO+/58hvENZT31/j0729b1p2tji7v1nlAvGLXmlpvhWYqY+2yLwhoX5eUmIKj8gmEM=
+	j90cTM3cCA9RuCsgvVpqagU/wsSC261RkBXWFJZaTIpaNajQ/A5MG3R6Qmjhjcc5eD0JXd+4tLciNIsJOkBdvHRGygeiK/zuLCTyVQerhUn6iNRM3IXcGJYgPkNWQTIIbFTQGVuf1WCZSSD1NhMq6BS06cBqqgV6ZrgoFj2ptQEgl4bbg+cydCcodaI9XcNIfBxUnYrJTU3/S7J5WXtkuNR2lwmIvnTdOvE+eruDW4pgG4RNBi8M7Xk05mycu/tQOK3p7R2BK2u6shPPVMnQ17ofrShYmenXKwhqBCu2dFEDd5AQxjOWTUfO6wp0HqF05sAUBa1dO3m/QJ9HS4+4JzcppWVh5j+4xeRC+dSmq/OEKLXrD8PrmhioCgTaXkRjZ1La32H9VMDLql7VQ057yrTStxXy7fhpM/khLjIk4EDDWfSt9gZiZJC3mt3bWo7kbvLFFnopxBsS4c6ZWuQPzklkaOVwze6du7kZfgwFjMjeUv8VM5ZW0JAY4y9b2C4OAxBWGjXnc6I5NizTCO7JOM7UyCggLTBvA3JCuiA86tu/jUVRZlZtbZV2ORkmrFQmrb9Bci/s33sokBNKQDOLb+fymkiD6/hqGVP0Ut9qvOcNyv1GrwvVvAw3Jbxezh1Hyh2cD2V+O5YpqMc6sHQS8cn0ABxDWNOdsZQq3EfNv6Y=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(56012099006)(11063799006)(5023799004)(10067099003)(6133799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bzVwZk5WWDhJbDhwRVlWcUZSSm5KWWY3dEZwbzNnVCtHVy85NkV1eVVPMmUx?=
- =?utf-8?B?QVEvTlh0Q1lBWDNuOGIrU3NmTjFqOS8veVJleVF1Wkl2OHR0eDJhaFBsQ1hS?=
- =?utf-8?B?dnowamFaSnVlNzIzaVp4TnNiSXZUdy9HQVpuOFpYaURSRkJiZzZzS0NzZEtK?=
- =?utf-8?B?Ny9zTkpLeE1MVERJc0xQc3BjS241aDlvWDZqZmdFbm45bVVybll6b2g2bkFP?=
- =?utf-8?B?T1JUWjJCTEJVTWY0Z2taWWtERk5jM1FHT214VytoZG9BbElHYWVaTDVQM2d6?=
- =?utf-8?B?N3lYeW4yU0RGVXVhRHRMVHRQUEVKSWZzb0pQY3QzN3AxMTNVNGRHTlY0a2NI?=
- =?utf-8?B?NkhRN29HU3Z0VW5aYjVRelU2ejFHSU8zU2dLTGJJVXJtT05vSDRWOHVsVzE2?=
- =?utf-8?B?TWI2RWdsckVYUitzajQzdGFQYnNDT0FjbnFGMm1MM1ZmOUhZbDFueWdvRVUr?=
- =?utf-8?B?Y0VZdGhxWEhnQ0VQTG1pQU5lelJxd093dVJjUXhQRmNWRUlqVEk3RjhnTnJX?=
- =?utf-8?B?S29sOTBQandyWWlpOGVwMGo4cU1TSmRNM0lBeEhUUFF1TmtxcFlrL00weWxS?=
- =?utf-8?B?RUNRQWlTaEx0aXBBRmxhZEplVTk1djE5dkRCZWJaNmFUcm5YeDFsbmNtV1h2?=
- =?utf-8?B?Ti9tdHRuZXpKOWJrZmxpQVArcDYyZ2ZmdFNPYUtyZE1YNk1LaUlpcjdkVkZn?=
- =?utf-8?B?YjVyVDRnbU44M1hYUFBCMHFQckF4VkkvSHBaQ0tqVmxPaTh6d2w5bEc5Y1BD?=
- =?utf-8?B?NVZUUWh3QllWM0o5TVBBUG5SZ0kycFE2Vk9EMG5iVzhqZlNDaWEybnR2cVdR?=
- =?utf-8?B?ZjJBTjVXeUpTMmZCK1NCd2d3bzZSTUoxcm1JdE1tVzlPYTRsRGZOcTRZL1k0?=
- =?utf-8?B?aDBkK2J5REJIWHQrU1V0OTF5TXJZY3Fvbm4xVXRRdVBpMHN0cXBCamgvSW80?=
- =?utf-8?B?WWtmcVZCSTdEd1dDUURmcnAvV1VTT09IRnVFNk9nRzdsZS8xWnB2VGRhVlow?=
- =?utf-8?B?ZnNrWU5mVFBOQVNuOG5WZG1yem5LbmZpV3ExdDlwZVV1dS8zZmJzSFlqRlJh?=
- =?utf-8?B?SCtQdTZOQ0FHZDEvNkY3ZXEzNTFMY2oyM3RraC9rWEg4RTZNQ0d2QmlxZTZQ?=
- =?utf-8?B?UHByTDY2T053LzMvcXhKTUpGSU10Vk5QVWxWMDhkOTNqNG01SThtV1VHaHZC?=
- =?utf-8?B?K1V0NTl0YktaeDVTcHpDemJPV0syQStTUURndEFzanFSRVRmNFVJeUtJcTFJ?=
- =?utf-8?B?WEF6cDRsU21KK3RJaHJKZjZGNFBVVGhDU1hQZ2xrN29rOWJhWXFzRlViVGtZ?=
- =?utf-8?B?M3Zsc0FScTZNaUNYNytkWks4bHUxYWJiSVo4TThWZUsrN0h2TXp3ZlRuZXRK?=
- =?utf-8?B?d0xvTGliNlV6WTZXOGwxcU40aVpGNnZuVytyZkt2S1NMM3N1UXF6VFBRNXpr?=
- =?utf-8?B?SWw5eEwwd0NJR2pFcDBSeW9jWGgyb21oam1WclZ5R3JjazBzdkZuMzBxZTlQ?=
- =?utf-8?B?aVcrNHZodzV0bFdWTVpyaXVaOVhRU3dMTkNiUWl2NEhvMXEwN1BXUWlCSlZG?=
- =?utf-8?B?bzFSY3BERGVnYVVsZFovd1N0YzFFK3lEcEpqUW8wUlVENFozYXc5ZzlZVGxt?=
- =?utf-8?B?bFNrT1hzWXEvb1ZJWUw0WEJwSWFUb0pCNHZ4Q3diZFU3ajNFL3FFOFVYYmRr?=
- =?utf-8?B?bmtCT21GdExZQWRxS2hyeXMvVGdHdEo5QUM4d3dEZGVWdGdrR25UQUNvWWha?=
- =?utf-8?B?QlVTRHpUZE95UUx0b3FDRDlWVi9CT2JHSEVpSEs0V28xNmk1dnNrbUtYUGFB?=
- =?utf-8?B?b21CczQwL1hLdFoyMVk4Z1lYUjJONW4vWEUzQTU2NkVqODRZM2hYdzd2ZDN2?=
- =?utf-8?B?NHhEYVlsSWNnbFJtWi9iMlVGRkQvNU42S2NqSEFSQTJVblB1L25DNlFzWXVU?=
- =?utf-8?B?aWhSdFM3dHlxUVJlL2xBTTBIbTJkeWlvU0lKTGtwTTBobEN6YVJxcHVSZ0tQ?=
- =?utf-8?B?K3BZengxVEZSdVhKa3ZKbk1ieUJsdFo2SjBIM0NzNU0rNFhkdjBKYnBPTEFs?=
- =?utf-8?B?aUFwSSs5dVRHV0FNSDlpS1J6YXk3YWMxN294VTlkMy9DRDFOMVRrVGRwM3hO?=
- =?utf-8?B?TGpmQVpGMktSOFBLYThaMGs2UDcyVHA5ZFRwRGJhc0NTWW5QaXJzZ2ZFL0Ry?=
- =?utf-8?B?UWgzL2lxNnV0clZJRmd1RU1lMGE2NlF5dzNmUExIaWJzcG81TXkzcks4aEJn?=
- =?utf-8?B?N2ZqU2tzcFhGRzF2amV5Y29xcGY2T21LMUFDbDlVTW1PRFlRd1JVNTJFOFgz?=
- =?utf-8?B?MVhaV0IxK1VSUWNJdFB2WVpDdTlNVzdhc2JiZ05xSTBFZWlzelFLQT09?=
+	=?us-ascii?Q?Q1Wh/QHc6AZO8kuXs0iJu+I6/I5wAkjTr//Cqmvf/StUlRj2eWdXrM31LCIu?=
+ =?us-ascii?Q?SIeaofSXAoVuGjuFDVae/xs1u5m/TXBKp8fkcTZJ/jjBuRshV/WlcAHGE4FP?=
+ =?us-ascii?Q?oC21JOzmvXPpN9g56nDv5e8wCQ606d1PY66bbpWu2kkXuapgnkYb6eVcNhdS?=
+ =?us-ascii?Q?QjmLK5JE5XhsvdOZ8+EtcS9kQriU0l3iRodJLKqt9xFKlMPljcNfMloq7C90?=
+ =?us-ascii?Q?EKz3tooGcCnX0UvRbmxfM+USRIfB8HLAFcL0QU8IMsDaTvegQj3vxRCbXek1?=
+ =?us-ascii?Q?ATUItW/U4U/Z7UG9PB3yS7OubwhJLPA9VWpQ9Ww4te1Dpc405Q/oIxT5yiLc?=
+ =?us-ascii?Q?UTZB0RKQZOqnN5SzBD/Z52tMhe8z/fKVsg/yMLpnGr8/wvNmTRPQR4dQC/qi?=
+ =?us-ascii?Q?clmtW4Pv+Mq1h3CNBWo5vOmqQdLjJEqStOkvbx/L9jVjPFvvOdYB/lVrklrp?=
+ =?us-ascii?Q?4CofbJtZtPdE+SOwVO6LYoNCSxfedgBKab+BkfpGuk0ul36jKQjnXndetAWa?=
+ =?us-ascii?Q?kpOOyFQ0KJxUXmtmf6vSMz5Xkm81AvPwJ73FOtFn7oZTbjykfaZdOhvbjYFO?=
+ =?us-ascii?Q?DUh3je+gsBsG7ctT7Cm/WSJyujujSd16H5upJ8349sCre51N+r9WDYkjkb9o?=
+ =?us-ascii?Q?nDlSc/1RlUFKHmOgDN6Xhvzn+swjq2ROLfPoK+Rfq/Nuy0PUNM56+XeSyfMV?=
+ =?us-ascii?Q?HP6yIhHTJUPiUo6P7Rk9rTEOSg34OQfXysijlr3ODcbytb2TyEvTTiXpwTr8?=
+ =?us-ascii?Q?sLeLQhCDrxD9MeZ3W3f7mjWp0L34duF1Exgaf29rcuADLSF5ur3/vmSt8vFk?=
+ =?us-ascii?Q?MB13aUsVUpuU6ieDM0I/6kSPL2+4WYMPtmDGYnkXMcNF6ZHRlzwJ1uMvJV0W?=
+ =?us-ascii?Q?lvHKw5GTNCXb8YBM82A1ZXgrcdePgbdR986NSd8KJ6xdk9RtQ777E/YHup1d?=
+ =?us-ascii?Q?r840GtaZ2wuxvIC1kL65WIU+KY6UuIePejPyE2pOjhygDuev68LRrm5Jli8a?=
+ =?us-ascii?Q?V1Td6+VnuA70BkH4o2h1LxPUFId6KdVtyHAUryFENufuYZISfmGieox83hdb?=
+ =?us-ascii?Q?8PgeQnOgQuwDASNB3K0kRk9/GzdK1BWkIeDbxe3WpQ9j2RuGvwKwCZg6QtwH?=
+ =?us-ascii?Q?WKoKg8KHwC4QekXnRbMXTpS/onvTqHh2zhA04LTT/jWBgwwwx7hCdhNpwW9G?=
+ =?us-ascii?Q?acBJbknmrWxIMo0Tpp+DYwIZQYQlZcgOMeJe5pFf7zK9cm8i1OFQvfo0clg+?=
+ =?us-ascii?Q?CcWpQu3J5IW/l/Bo94TO6IOYmjFRj+AtIi82ij9KdfGTiFeEZSV4O/y7VfEI?=
+ =?us-ascii?Q?X2PestTxRyXa0dk8HnXHu1DBabgztQh/GU7dJimxfGnZzIiig26Ojpe9TCaG?=
+ =?us-ascii?Q?OJWho8ZhY4TwLiKuXhQFM0AKtOaNihVz4pFHsdPD0YI/lmmXEaP4cIer+rDs?=
+ =?us-ascii?Q?am7sL7EnKwPWwg8grzPNU8ndE7Afsb0oSHhQpKiyA2H4qNbc15FiXkGRBG83?=
+ =?us-ascii?Q?QO+mKR65WuF4gm3KxO1fbUp7S9jMXQkTXqVsTKTeJIX2rSo0f6nHCIoRxJzw?=
+ =?us-ascii?Q?jLk6jItiknbKNUf4O75txDLJjhqQdGCdrP1949nuPydWhU+gbv/QhXBede9A?=
+ =?us-ascii?Q?EVSbhEwVcG7VMLtVrZSDPi+GUT+CFiqo38os4w2KjdxAUBM4Z54l9WPXrGf9?=
+ =?us-ascii?Q?c06ereK7aDphXGFe/UKWq9MHE/KQf71k73fZwGvvOZZPzCl6LM6eEEuJABem?=
+ =?us-ascii?Q?ppVAx+4Ekg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09033feb-57b9-4b5e-af45-08def755efc7
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b428033e-6cb3-45df-d60c-08def756ffab
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 03:09:20.2007
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 03:16:56.4162
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 42zastMyRILKQVZUniH76Rr0oLaI16WWdW+gcXAtTlTWecuzsQGBKKgoQKUo1ssCaHbU0SBOHsh+EGGAHIDb2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5vm8hqk1o2RscnTaCcgvMbvHjGSFST+RDqpRHs0cDkwdbcpLCoZpWxEJKjYC/X7wPuyoaMZQ3PQzz9APM7TA3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7571
 
-On 8/10/26 3:53 PM, Danilo Krummrich wrote:
-> On Sun Aug 9, 2026 at 11:42 PM CEST, John Hubbard wrote:
->> Yes, please. Then my patches 2 and 3 collapse into a single patch that
->> adds count(), irq_type() and an index-to-IrqVector accessor. Or, they go
->> away entirely if you end up putting those on the type yourself.
+On Mon, Aug 10, 2026 at 05:34:11PM +0900, Eliot Courtney wrote:
+> Add bindings for area operations on bitmaps. Each one is
+> made safe by adding some extra checks compared to the underlying C code
+> (for example, checking bounds) and with additional checks to catch
+> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
 > 
-> I sent out a patch series [1] for this, applied your nova-core patches on top of
-> it and resolved the conflicts with the diff below (also pushed a branch in [2]).
+> Add tests demonstrating the edge cases.
 > 
-> Note that I optimized for a clean diff and not for optimal code. I think there
-> are more improvements we can make; I will comment on the corresponding patches
-> of this series.
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  rust/kernel/bitmap.rs | 235 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 235 insertions(+)
+> 
+> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+> index 0d481d761f2a..a2557e9c5cfe 100644
+> --- a/rust/kernel/bitmap.rs
+> +++ b/rust/kernel/bitmap.rs
+> @@ -10,6 +10,7 @@
+>  use crate::bindings;
+>  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+>  use crate::pr_err;
+> +use crate::ptr::Alignment;
+>  use core::ptr::NonNull;
+>  
+>  /// Represents a C bitmap. Wraps underlying C bitmap API.
+> @@ -503,6 +504,138 @@ pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
+>              Some(index)
+>          }
+>      }
+> +
+> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, where the area plus
+> +    /// `align_offset` is aligned to `align`.
+> +    ///
+> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
+> +    /// the bitmap exists.
+> +    ///
+> +    /// The returned index plus `align_offset` is a multiple of `align`.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds.
+> +    #[inline]
+> +    pub fn next_zero_area_off(
+> +        &self,
+> +        start: usize,
+> +        nbits: usize,
+> +        align: Alignment,
+> +        align_offset: usize,
+> +    ) -> Option<usize> {
+> +        bitmap_assert!(
+> +            start < self.len(),
+> +            "`start` must be < {}, was {}",
+> +            self.len(),
+> +            start
+> +        );
+> +
+> +        let nr = u32::try_from(nbits).ok()?;
+> +
+> +        // The C alignment and end arithmetic must not overflow, or it can read out of bounds.
+> +        // Overflow is only possible on 32-bit.
 
-I've folded your series and the fixups into a v2 work-in-progress branch, here:
+That doesn't sound optimistic. Can you add a check for 32-bit case?
 
-    https://github.com/johnhubbard/linux/tree/nova-core-gin-interrupt-tree-v2
+The rest looks good.
 
-Let me know if it would be better for me to post that now, given that the
-earlier parts are all different now.
+Thanks,
+Yury
 
-
-
-thanks,
--- 
-John Hubbard
-
+> +        let align_mask = align.as_usize() - 1;
+> +        align_mask.checked_add(self.len())?.checked_add(nbits)?;
+> +
+> +        // SAFETY: `bitmap_find_next_zero_area_off` is safe to use with an out of bounds `start`
+> +        // value and, given the overflow check above, never reads beyond `self.len()` bits.
+> +        let index = unsafe {
+> +            bindings::bitmap_find_next_zero_area_off(
+> +                self.as_ptr().cast_mut(),
+> +                self.len(),
+> +                start,
+> +                nr,
+> +                align_mask,
+> +                align_offset,
+> +            )
+> +        };
+> +
+> +        (index < self.len()).then_some(index)
+> +    }
+> +
+> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, aligned to `align`.
+> +    ///
+> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
+> +    /// the bitmap exists.
+> +    ///
+> +    /// The returned index is a multiple of `align`.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// use kernel::alloc::{AllocError, flags::GFP_KERNEL};
+> +    /// use kernel::bitmap::BitmapVec;
+> +    /// use kernel::ptr::Alignment;
+> +    ///
+> +    /// let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +    /// let unaligned = Alignment::new::<1>();
+> +    ///
+> +    /// assert_eq!(Some(0), b.next_zero_area(0, 8, unaligned));
+> +    /// b.set(0, 5);
+> +    /// assert_eq!(Some(5), b.next_zero_area(0, 8, unaligned));
+> +    /// assert_eq!(Some(8), b.next_zero_area(0, 8, Alignment::new::<8>()));
+> +    /// assert_eq!(None, b.next_zero_area(0, 65, unaligned));
+> +    /// # Ok::<(), AllocError>(())
+> +    /// ```
+> +    #[inline]
+> +    pub fn next_zero_area(&self, start: usize, nbits: usize, align: Alignment) -> Option<usize> {
+> +        self.next_zero_area_off(start, nbits, align, 0)
+> +    }
+> +
+> +    /// Sets a contiguous area of `nbits` bits starting at `start`.
+> +    ///
+> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
+> +    /// bounds, does nothing.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
+> +    /// of bounds.
+> +    #[inline]
+> +    pub fn set(&mut self, start: usize, nbits: usize) {
+> +        bitmap_assert_return!(
+> +            start
+> +                .checked_add(nbits)
+> +                .is_some_and(|end| end <= self.len()),
+> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
+> +            start,
+> +            start.saturating_add(nbits),
+> +            self.len()
+> +        );
+> +        // SAFETY: The area `start..start + nbits` is within bounds and a `Bitmap` is at most
+> +        // `i32::MAX` bits, so the casts are lossless.
+> +        unsafe { bindings::__bitmap_set(self.as_mut_ptr(), start as u32, nbits as i32) };
+> +    }
+> +
+> +    /// Clears a contiguous area of `nbits` bits starting at `start`.
+> +    ///
+> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
+> +    /// bounds, does nothing.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
+> +    /// of bounds.
+> +    #[inline]
+> +    pub fn clear(&mut self, start: usize, nbits: usize) {
+> +        bitmap_assert_return!(
+> +            start
+> +                .checked_add(nbits)
+> +                .is_some_and(|end| end <= self.len()),
+> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
+> +            start,
+> +            start.saturating_add(nbits),
+> +            self.len()
+> +        );
+> +        // SAFETY: The area `start..start + nbits` is within bounds and a `Bitmap` is at most
+> +        // `i32::MAX` bits, so the casts are lossless.
+> +        unsafe { bindings::__bitmap_clear(self.as_mut_ptr(), start as u32, nbits as i32) };
+> +    }
+>  }
+>  
+>  #[cfg(CONFIG_RUST_BITMAP_KUNIT_TEST)]
+> @@ -620,4 +753,106 @@ fn bitmap_copy_and_extend() -> Result<(), AllocError> {
+>          assert_eq!(Some(17), long_bitmap.last_bit());
+>          Ok(())
+>      }
+> +
+> +    #[test]
+> +    fn bitmap_area_set_clear_find() -> Result<(), AllocError> {
+> +        let mut b = BitmapVec::new(128, GFP_KERNEL)?;
+> +        let unaligned = Alignment::new::<1>();
+> +
+> +        assert_eq!(Some(0), b.next_zero_area(0, 5, unaligned));
+> +        b.set(0, 5); // Now contains {[0, 5)}.
+> +
+> +        assert_eq!(Some(0), b.next_bit(0));
+> +        assert_eq!(Some(4), b.next_bit(4));
+> +        assert_eq!(Some(5), b.next_zero_bit(0));
+> +        assert_eq!(Some(5), b.next_zero_area(0, 5, unaligned));
+> +        assert_eq!(Some(8), b.next_zero_area(0, 5, Alignment::new::<8>()));
+> +
+> +        b.set(8, 8); // Now contains {[0, 5), [8, 16)}.
+> +        assert_eq!(Some(16), b.next_zero_area(0, 4, Alignment::new::<16>()));
+> +        assert_eq!(Some(16), b.next_zero_area(0, 4, unaligned));
+> +
+> +        b.clear(0, 5); // Now contains {[8, 16)}.
+> +        assert_eq!(Some(0), b.next_zero_area(0, 5, unaligned));
+> +        assert_eq!(Some(8), b.next_bit(0));
+> +        assert_eq!(Some(15), b.last_bit());
+> +
+> +        b.clear(16, 0); // Zero-length in-bounds clears are no-ops.
+> +        assert_eq!(Some(8), b.next_bit(0));
+> +        assert_eq!(Some(15), b.last_bit());
+> +
+> +        // A zero-length request returns the first aligned position at or
+> +        // after the next zero bit, even if that position's own bit is set.
+> +        assert_eq!(Some(1), b.next_zero_area(1, 0, unaligned));
+> +        assert_eq!(Some(8), b.next_zero_area(1, 0, Alignment::new::<8>()));
+> +
+> +        b.set(60, 10); // Now contains {[8, 16), [60, 70)}.
+> +        assert_eq!(Some(60), b.next_bit(16));
+> +        assert_eq!(Some(69), b.last_bit());
+> +        assert_eq!(Some(16), b.next_zero_area(9, 40, unaligned));
+> +        assert_eq!(Some(70), b.next_zero_area(0, 45, unaligned));
+> +
+> +        b.clear(62, 6); // Now contains {[8, 16), [60, 62), [68, 70)}.
+> +        assert_eq!(Some(62), b.next_zero_area(60, 6, unaligned));
+> +        assert_eq!(Some(61), b.next_bit(61));
+> +        assert_eq!(Some(69), b.last_bit());
+> +
+> +        b.set(64, 0); // Zero-length in-bounds sets are no-ops.
+> +        assert_eq!(Some(62), b.next_zero_bit(62));
+> +        Ok(())
+> +    }
+> +
+> +    #[test]
+> +    fn bitmap_area_exhaustion() -> Result<(), AllocError> {
+> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +        let unaligned = Alignment::new::<1>();
+> +
+> +        assert_eq!(None, b.next_zero_area(0, 65, unaligned));
+> +        assert_eq!(None, b.next_zero_area(0, usize::MAX, unaligned));
+> +        assert_eq!(None, b.next_zero_area(1, usize::MAX, unaligned));
+> +
+> +        b.set_bit(0); // Now contains {[0, 1)}.
+> +        assert_eq!(None, b.next_zero_area(0, usize::MAX, unaligned));
+> +
+> +        b.set(0, 61); // Now contains {[0, 61)}.
+> +        assert_eq!(None, b.next_zero_area(0, 4, unaligned));
+> +        assert_eq!(Some(61), b.next_zero_area(0, 3, unaligned));
+> +        assert_eq!(None, b.next_zero_area(0, 1, Alignment::new::<64>()));
+> +        Ok(())
+> +    }
+> +
+> +    #[test]
+> +    fn bitmap_area_off() -> Result<(), AllocError> {
+> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +        let align8 = Alignment::new::<8>();
+> +
+> +        b.set(0, 5); // Now contains {[0, 5)}.
+> +
+> +        // The area plus align_offset starts at a multiple of the alignment.
+> +        assert_eq!(Some(7), b.next_zero_area_off(0, 8, align8, 1));
+> +        assert_eq!(Some(5), b.next_zero_area_off(0, 8, align8, 3));
+> +
+> +        // A zero offset behaves like next_zero_area().
+> +        assert_eq!(
+> +            b.next_zero_area(0, 8, align8),
+> +            b.next_zero_area_off(0, 8, align8, 0)
+> +        );
+> +        Ok(())
+> +    }
+> +
+> +    #[test]
+> +    #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+> +    fn owned_bitmap_area_out_of_bounds() -> Result<(), AllocError> {
+> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +
+> +        // Should be ignored since out of bounds.
+> +        b.set(64, 4);
+> +        b.set(62, 8);
+> +        b.set(usize::MAX, 0);
+> +        b.clear(usize::MAX, 0);
+> +        b.clear(2048, 8);
+> +        assert_eq!(None, b.next_bit(0));
+> +        assert_eq!(None, b.next_zero_area(64, 1, Alignment::new::<1>()));
+> +        Ok(())
+> +    }
+>  }
+> 
+> -- 
+> 2.55.0
