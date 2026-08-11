@@ -1,144 +1,97 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA529276028
-	for <nova-gpu@lists.linux.dev>; Tue, 11 Aug 2026 12:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786451524; cv=pass; b=N/J3pX6+OzrQMOv5X6o+ZEUndGrPit41PcN9aJ9B9rCd5wGsd4IlOOacIX1YS9I7ZrxmMm0a/m0qZPePEg52BRG4ATdaoHR79K0R0YOPAON4k+7r2WyefedyqCYXwEc8lyzYjTmgrO8JT/qaozcOoyGfu0+PrW7bAq09ZtDu82s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786451524; c=relaxed/simple;
-	bh=VV7t6wHWEE7xZB0c0ALAUrHcYMkXiim8886mu4yeAcs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FzElrMreboC4rPliTddDZY3vuxTApm2KK014/f1i73zI5h0JBFZiRoOUwuEl5hrKuw3WFiax3N75TQ/wRHIYLadTlh7dwcYw/PPnnjBvgGaxrKHDQYRL/0wZAvraL8vZy7LcCmfEhYz9vbY8Tb9PBQgoMZ8EZKUWUOCX/VCN0u0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mz/UtZuU; arc=pass smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D19E7260D;
+	Tue, 11 Aug 2026 23:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786492614; cv=none; b=kqWwTLYT58dXXNBV1NvJyCl55CNlCOSiVtGaFYPfs53/73fx69xJR8JV8M4uTdvxeoIHkScav29w9Q0vNAiWW2SgWufGp1kEvgE+fhUq7l8Z36aTfeuDUk22bvjA1B1War5NC4+bjarkx1M8GEJoMAKF351/y4tYR1HZOnrZTeA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786492614; c=relaxed/simple;
+	bh=uKMa/ub/G6pzi1SriN6ySG7tkUN6WF/VGaRWgg8qA8w=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=ceDR3xLA61MGOzT93BeRqHjCzqDNkdDkpQljfXRbZoauRyxKC/CZsX22aJf1Sdo2M3cJAmsa53tNjRKaO25JjHhaXnsDi6nxYF+VrfL3X0TVn/On6bLvWCJsLcqxLiGzKai4uU+CyRAgRHsHKUbrikYCxvYB9j+38x9XZ0uVOE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KL8v1lhH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mz/UtZuU"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cf4c37dbe6so2703945ad.2
-        for <nova-gpu@lists.linux.dev>; Tue, 11 Aug 2026 05:32:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786451522; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f4CPh2I5aEAHbrrwGRAwMW8kPxg96ZSytn8yOWhUrsZTPVyAP9y08H9RognsW2LFTL
-         VWWpXOjjRpJrw6XDXE++AxsyhuldgoTpNE2mvFAzbcNq2TtfVpVNxSExHsNaUjAja2px
-         tAq6/J1zWZb60BPdDEtIdMqDisEVZt5n480/5gxXInmWsZrNVH2O8ntuRkNdgqO0dBhF
-         UFf0ZAjOtlVWTx+TXexY8T2xXKqMeWxt/xKk3gihK4DwIakPfKvtkvWH0jmlcztrxk4E
-         /nh793IwvvyZfgKMngZghaOWBUe9mIJ334qlKBmneyE5XM6TqMackvL3NxVsxZkfGRto
-         h7Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=orvbh+9JL+FbxIqTNlcfLvYH6xrqqMswPRU7oLw3bow=;
-        fh=Ag3Fm4n2qr3ZloqKINa5k7xwKq4bqPgA11vVF9dZYdQ=;
-        b=ZVuPACdN70BB4Vo+kF7VxFLKoVbEzFV73nEjdrV19RuQxD+q9lhG98L0f96xK6lDjW
-         9jk/fIb0l659UTiz+tzeTWpRcHPKOBxPYEC4IzdeVfNYWXaDc25mkQ8fxE9z0pMus+g8
-         soWovHerB0JF9lRrbetOaC9GVdGadU4Or7WQdr50BIUxXLh+iqbISjIcnf7eJViwKpeE
-         WBCyG4OBqbXU9z/l7RJ4uJI2gQsZf8Z0j6gGYisMO7XdY0841kSpMzqz+fFMVWsKfGdy
-         tv5KS0hK3jh4/KQjYiccMBwLnK4qeZykg+2Qza+c/ebbClJL7+WwqTP+QIMPUj1zvK2+
-         2+Yg==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786451522; x=1787056322; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=orvbh+9JL+FbxIqTNlcfLvYH6xrqqMswPRU7oLw3bow=;
-        b=Mz/UtZuUly0dytp9R/6iu0dORtXxP6huN2iPGVFzjzwA5pT7KikINQUgozA6P/HsSD
-         kDY8B2pjnA0YNB02lYNYmoWZ4TqWlSR+7VRSjR+q2YGcEHRNdyAOAQ3YrpVWxrxi79QB
-         hqQ9nMXvuKBM7aMSXN0hybv/2hz0Ve3iNGchZnXTkpTeKviFQXcYMuz8eZE3ksIQpXJ8
-         Y+zV+3kdkrESb5iHj9+gMXJk/Wlv++lSGkJubaty4Y8CPu048li0jrAkshTi52inHZRp
-         Ev98NBF4mXZR1raJfNYe4EODLmcpVmu4wjAXW6Azw3V7bTjHiLlk9wkBRLFbe9xYHEdx
-         P4zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786451522; x=1787056322;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=orvbh+9JL+FbxIqTNlcfLvYH6xrqqMswPRU7oLw3bow=;
-        b=phGsT939fubpIr6Cxf72RxiAL4Jd3H6jp81uFmR6y1pzBGrKbVmfxs6oYJLSq05o1H
-         3XveIrzgLrCzDRyi0Si6Jjw9gPQCxDe078Ek/igF+HkwXgyYlqEPtrsPvbKQsJE4//vw
-         g+W2U4eRV4/TSNhOciFgWhxGZrk/N32Io1jFvDZ1SI0dUnMwHMRssDVdVd00i7onckZk
-         n2JeFZi7cC91LUxohJ2eSjbb9cudQ6TdQlc0NMQJgdII6RPz4gHaSsWnHp5lEK6WMALP
-         0BubEjHQTIkFAIFru5oeXc7qhIkGBmjWl6fZKfiQb+x3uE21SIdyRt/ydBDgSBfY0l/F
-         FV4A==
-X-Forwarded-Encrypted: i=1; AHgh+Rp9nPdOpGrAi8UYLCof3FqtKEPtp9i89UAVAkiv+qUduV0BY7qfUBtKonVCKx6svHbOdEMLzm9OGA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwWnkaqUu9qkTsdCIK7aPOKoC+gF2a46UPakoAHrIrdKj7l5PmR
-	DJYCwK6dKL/lg455hi1LeGaKo2TZwCxCYdT6xq4Js4Sru+2bakQEEkjdrB62eojACIffFrwVj0+
-	LuBTqYgBOBDgcSfJQLSV8enDJYhwyHSYY/fpUO0mi9g==
-X-Gm-Gg: AR+sD12uMtTxBHlRdPUjlPgbZtFLMZ8AN5SqPu6m0rceJzGQfHcAlX4NFzoHOao7UqG
-	/o6EqUxfxTLRk5tpl6i+RQ4A9aPkFVAK+VegT1ok5bJkRUB+QaAJj8tqVxDZZzRxScNFNUFwqr+
-	ZdfX/Dx4xTY1a/CL1q7YglzzK5s7pQwIoPjlItgjGGQRvL4Pyu9858gECcddehfbLRvbD8xq/Us
-	sQreo5jX9H+H/7otqqJnG+IthoVxDXYw36L1W2kE7YReaankh2igi4y4pE0CXK4sZrNGeb4gcrD
-	xGN61MXLBCJJ+uog+pW4wOYwch+E13umviwijhzi9a2w8deJ0OyVJrFCxZVfMa4+FR47fddYFOw
-	qbtbiBbdraSByBvDtPATh1GKWVPuAGiB6ook3hkUKNtYJar36bCiEwlpT8IWO
-X-Received: by 2002:a17:903:950:b0:2c7:ef84:c58e with SMTP id
- d9443c01a7336-2d317790400mr26287245ad.1.1786451521959; Tue, 11 Aug 2026
- 05:32:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KL8v1lhH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664481F000E9;
+	Tue, 11 Aug 2026 23:56:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786492613;
+	bh=nI75wCHuPAIGl+LjrGpjbMMM3+ASoUPkNSLTJDJ6zDo=;
+	h=Date:From:Subject:Cc:To:References:In-Reply-To;
+	b=KL8v1lhHjN3NwSqcgtRtkoQ04jJpYfd8squLoN6KtFtgV93+1qWapflD9IdQX3rKU
+	 9sgPQ9p71cuDs+At8TZQBe4nTh/ENFCCIWFo10yWA19k9MYSXfFIALt9WmTiZEDKJ0
+	 B52HtdhgoUeJr0r2inpl4bbbg2CdeZBSrqp8V4o1+VInywrFW8k4ApCQ0naD5qpeO7
+	 ddVqAmy2qfD2f3EPDCMeWtS/VnZ9U3QqzkeVga7npPq2VwEO2bGLD7dWvzp+bQMatG
+	 8tqUAJqXhgZeTzNBhtWj38PyZ1SPFoD/wsey1B+E9y7GswBfLn9IOaRLSVX4WxQg4P
+	 aY0zmvDDDW9Dw==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
-In-Reply-To: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 11 Aug 2026 14:31:48 +0200
-X-Gm-Features: AUfX_mw-sYa6mBs4ValMgNlBU-v6shu4N24mrRNJSqO0XtM0upSdH02iosArTGY
-Message-ID: <CANiq72n9TaUgWgZYg3Xzm2mn3Ed36B7O+f544a5BXik_XUh8FA@mail.gmail.com>
-Subject: Re: [PATCH v2 00/12] gpu: nova-core: add PRAMIN window support
-To: Eliot Courtney <ecourtney@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>
-Cc: Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
-	Joel Fernandes <joelagnelf@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 12 Aug 2026 01:56:48 +0200
+Message-Id: <DKMIRY6WMUPL.FW2S62K4GIUB@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 03/17] rust: pci: expose the allocated interrupt type
+Cc: "Joel Fernandes" <joel@joelfernandes.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Shashank
+ Sharma" <shashanks@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
+ Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+To: "John Hubbard" <jhubbard@nvidia.com>
+References: <20260808031120.363869-1-jhubbard@nvidia.com>
+ <20260808031120.363869-4-jhubbard@nvidia.com>
+ <DKKG2QM3YJYB.Z2H2B2UXJ75N@kernel.org>
+ <e2aa36cb-984a-4f8a-b6d5-6cb70a31a30b@nvidia.com>
+ <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
+ <6d08c833-adea-4b34-a9eb-457cc4fc0ba3@nvidia.com>
+In-Reply-To: <6d08c833-adea-4b34-a9eb-457cc4fc0ba3@nvidia.com>
 
-On Mon, Aug 10, 2026 at 3:57=E2=80=AFPM Eliot Courtney <ecourtney@nvidia.co=
-m> wrote:
+On Tue Aug 11, 2026 at 5:09 AM CEST, John Hubbard wrote:
+> On 8/10/26 3:53 PM, Danilo Krummrich wrote:
+>> On Sun Aug 9, 2026 at 11:42 PM CEST, John Hubbard wrote:
+>>> Yes, please. Then my patches 2 and 3 collapse into a single patch that
+>>> adds count(), irq_type() and an index-to-IrqVector accessor. Or, they g=
+o
+>>> away entirely if you end up putting those on the type yourself.
+>>=20
+>> I sent out a patch series [1] for this, applied your nova-core patches o=
+n top of
+>> it and resolved the conflicts with the diff below (also pushed a branch =
+in [2]).
+>>=20
+>> Note that I optimized for a clean diff and not for optimal code. I think=
+ there
+>> are more improvements we can make; I will comment on the corresponding p=
+atches
+>> of this series.
 >
->       rust: num: use const_assert! in Bounded
->       rust: num: reject Bounded::shr overshifts at build time
->       rust: num: add Bounded::shr_exact
+> I've folded your series and the fixups into a v2 work-in-progress branch,=
+ here:
+>
+>     https://github.com/johnhubbard/linux/tree/nova-core-gin-interrupt-tre=
+e-v2
+>
+> Let me know if it would be better for me to post that now, given that the
+> earlier parts are all different now.
 
-Applied to `rust-next` -- thanks everyone!
+Thanks! I think it's fine as is, will go over the series on Thursday.
 
-Alex: I didn't add an implicit Acked-by to the first one but I assume
-you are OK with it:
-
-    Suggested-by: Gary Guo <gary@garyguo.net>
-    Link: https://lore.kernel.org/rust-for-linux/DKIY9YGIPUUE.SZD2DUQM9NGK@=
-garyguo.net/
-
-The second one is actually fairly important so I did:
-
-    [ This implies we can break the type invariant, which in turn means
-      we can trigger UB via `Deref`, e.g.:
-
-          rust_kernel: panicked at rust/kernel/num/bounded.rs:528:22:
-          unsafe precondition(s) violated: hint::unreachable_unchecked
-must never be reached
-
-        - Miguel ]
-
-    Cc: stable@vger.kernel.org
-    Fixes: c59a2d14cd24 ("rust: num: add `shr` and `shl` methods to `Bounde=
-d`")
-
-Cheers,
-Miguel
+I've sent a v2 (and updated the branch I shared previously), as I think
+preserving the source of IRQ via the anchor type doesn't really add a lot o=
+f
+value and keeping IrqVector as a new type over IrqRequest turns out nicer. =
+The
+changes required from v1 to v2 should be minimal.
