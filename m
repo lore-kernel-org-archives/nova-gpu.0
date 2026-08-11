@@ -1,80 +1,77 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011046.outbound.protection.outlook.com [40.93.194.46])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010058.outbound.protection.outlook.com [52.101.201.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABB3233933
-	for <nova-gpu@lists.linux.dev>; Tue, 11 Aug 2026 02:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1393B3BEC
+	for <nova-gpu@lists.linux.dev>; Tue, 11 Aug 2026 03:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786414835; cv=fail; b=pPMFOyK+UNtArU/Ikmi2iZ7dQ9h8h8mH4DwzrIe0rfaRfudkxAStjjaZ7DuXEHduOh6EzjSPyL7L16nPqMOqH9tNqbqqnLXjQ283fnVOLW0WoPhBEmrRfuSdBPclp9NnEUy/32ZVBYhIXmM/yXT3F2F/gvzXmJhCXcfN58ucil4=
+	t=1786417768; cv=fail; b=aJaPRAEs3rZDQn0ZvrmL9r6uO9L6lbfK1ym7BxvNf00eqywSv6R9tJtByCeQGsJxT4UthWD3ep0qqEyQ9Qslqrbd4CigSbQMA6AtbrYHcHKVMkLOFTsY54SAMDPwgs8Qp1ssiC30FaNJfEcutfvpUCIwOGiQ+8lwGa3xjQXQg4c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786414835; c=relaxed/simple;
-	bh=4PPqWPT0R23C4oVePmD/WnbsmDqpkL3SrbrQLYWRwRc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=DKatfpVgvIT2T7o0w4dlEqQqwEbyzSvEPHV5SOENs9VTlZ7AL7VU5o6ibYnfY/LvCLTnKfz0mAnqNJASxT8Ng8BsxL1W/x9OrBL9uLyXWDkioYimod55i4bqkV1JZoWcAu2dbCUwEzA6wPjbj2ToH2JEEp14uc59AFmU3nTckiM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Wo9DklOk; arc=fail smtp.client-ip=40.93.194.46
+	s=arc-20240116; t=1786417768; c=relaxed/simple;
+	bh=Tm3D2FM9bgMmS7j6ILZwuginLk6WF0i+Gw88v/LZqAg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KpZTJWeGzgGLpuzAiHQq9FsebSHZuO36WV/CcLFsAgLV/GhGreQqSZ95BpqVk8Gvf2ebQw5I1JVPPsARPnvamJCQ47kMYyBJabc9gY0oahOX8NUDUlhNfBKlLySFvjodXpSnulr58gUNTNcq9XmYUGVrhnhraOBsn5NRROz8BeA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PqPriLpC; arc=fail smtp.client-ip=52.101.201.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Wo9DklOk"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PqPriLpC"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sfyQehFYb00GKGrzy8Of9a0rliqd6Yra++nxgmxcniCDcR1dajG8jSWqO8fEzqI+0OxqUG6tPIsTUtYMRm6lM7NIl4Pu/s88Q2IdWzUmGzKvSDnqJBIMksHY6lMcM/xrsGdkugdAtSxPMc3ijggfIjkb/lhi0IkzFqy2ZbnBXQ97qbj0/p7nrQO/JddtgJClJ4dJ2enRCQJvcCxULZ/5Fi7/UU8bjG6m6J4uzweWV9Fn7wxSyYyPsuJInoyVZ1uJPJVcOP7H4eNT4KtDEeklVNTN6plfvLaehS65VUTnR0b2SOkzuQer/1Q8mF9fT8Xdr/V9M14ifqHbkPBfb7uBBA==
+ b=vQKb3XcQHopwLSEEBphqZ+u1ATXJFdtNw04w3vFMQdZRku0LgK7GOZY7qsLpmVk0IZwdrowH40BB3dxwM/4ZcTKVcgRs3UbiRNbkfv0bIj5dvSZjUTM0LjRT1vun4wV6phSLx5i9GyLLjw8oc2WGvSugbyhdbf2g1OwnnYIuv2w0+VgfHP/f3rG22+65/q0wpv5k41IT+qy+FKJHWRcIFR/kX1cVUpnwVJrYwFdMc88niEC7P/MHAhUK6AGFLfpqP/YLN36cYXowsMtx0VCUkSUygxGWv/Ol501oLpGzfUAvHfBsm1b+Z+S57qHPW5GB5xLf1phXepIf9PHSeOLJhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o31r5jby1J2rGOybn/hGxbpK9ITmy4DU+Qlq1Z0azpg=;
- b=L8B6mjuG2NjrPWpUQM0NJRZGZlSCd+Rhe6QIrZeh66FQziVytO+8sP26X0eqoI+6y8uSk+TWOkXyGcZu0dUEYgjPefpr5xfHPmIKkwGTmQxvL8O/aiTCWdltz9YfIGf7lTbiuuRGQYis8PpRllOiiKppamdolZYQQ4pZkqJKVOwZL2Kb3bgjc5RSY/MzmZSqeCOrr8zq50hUPH4aeWoVggtMo6yWnFjtkhskjWeSLiJajIeE7MnQ0m8ArzyrEoxbhrqq5YYJjdCWVvbiHfm25HNDdyr+TCIcTSirVzLpQFMOqkkjINrev3nBrle2UP55UZCEVwyCNbFLs2FITNeIGg==
+ bh=cMVSXutmmoDtB9r4TFWDSMU8peFUl3WPiLSXmjH79bI=;
+ b=SvyVQDW3wNm42RHHVebwqXKf31iz16ENsOfmZMf3sphXEyCSyiSNxwxwNFE999SRei7cV3TfgqTNvQii5Q+nM1S7q+8AEmzxoRo2H8n7KBS+F/dc3L2Gk9vjGhBk72GlTE4h/U/G+/pHxeA0wPObsYsSD55/6USu5R//nRJ3Ko9J2xV/WFBmEZzbZJdeX/Ek7Ru1PziFThR3EfY3208rb1uKKJ4MuwY/46NDiq1sx93ubqnOL4iz5c0oaeA0ivz2FiMD5sCjcv5VwtUSPuqOWrN4gvC5QsTQ3Y/YCQgI/FKXs2Z9HdwcFw3sYLZvT8xNIE3/fKxQzr7+aBX4Ioor/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o31r5jby1J2rGOybn/hGxbpK9ITmy4DU+Qlq1Z0azpg=;
- b=Wo9DklOkqwR+NU13H44IvEB7j6PUSMOtKo6tDLTxP5F4HysUJMr184qmuHH/xZFr7InxCCCwBgB8fZuxBf/1Q8SiwQ9ZV/cZ7QSgaQc75PEhYuvyBLO4wtzR6cSCjoqp6RIkGHIaG7BG/3OqUvSfG78dOKHhWo578xtjp7mKO3VkGrVsLQjcILkvdO+xmJh5ciGKHzRs8XPeOagg2GNXulFvKomexkbNMRtP/BXhvLZqwj0obeztB5kf9966seEUt6mdgmC9fqSAiAvTV8zWwvHPboXvXMUo4XkfM739u1d8TWJYvxMKBA5AmoEZeUUpPcsr9G8T22w2tac5+l3tpg==
+ bh=cMVSXutmmoDtB9r4TFWDSMU8peFUl3WPiLSXmjH79bI=;
+ b=PqPriLpCJdxko/IB2qhbs04FY4/OLvrsZUzxOZff4M7p0HEfruHjkxj/9M+qrLqfFkr6XDo/9WLWFFZ5nqiRkNQEUZjdNyVe7ONDUhYPnlwSfPVJqvXNuNdcdhOSwuXDNmjo4WJPFCtibvbJ4uqYHgr4a9RVFdTbo4ojiyz3luTBYuDbT0lhGyrzcx/nBD1rLLfOW6hkBAkfx9Z0MRrzihNYNER9ntosacrL2M+Y7q+46RrV/0Tupgrilc2jW12ImIi8G4IgNz8NSilRPmpKrucqn4NCcy1tB05kX6rkKdDL8wSqi1tsx/JJTUCx+2PFun6vptsSkHRvaxoMK5eQ2Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18) with
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 02:20:29 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 02:20:29 +0000
-Date: Mon, 10 Aug 2026 22:20:26 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v4 2/5] rust: bitmap: restrict bitmap length to at most
- i32::MAX
-Message-ID: <anqG6jrrHTBuDis4@yury>
-References: <20260810-chid-v4-0-c9f206fdcb97@nvidia.com>
- <20260810-chid-v4-2-c9f206fdcb97@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810-chid-v4-2-c9f206fdcb97@nvidia.com>
-X-ClientProxiedBy: BN9PR03CA0810.namprd03.prod.outlook.com
- (2603:10b6:408:13f::35) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+ 2026 03:09:20 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
+ 03:09:20 +0000
+Message-ID: <6d08c833-adea-4b34-a9eb-457cc4fc0ba3@nvidia.com>
+Date: Mon, 10 Aug 2026 20:09:18 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/17] rust: pci: expose the allocated interrupt type
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Joel Fernandes <joel@joelfernandes.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ Shashank Sharma <shashanks@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, nova-gpu@lists.linux.dev,
+ LKML <linux-kernel@vger.kernel.org>
+References: <20260808031120.363869-1-jhubbard@nvidia.com>
+ <20260808031120.363869-4-jhubbard@nvidia.com>
+ <DKKG2QM3YJYB.Z2H2B2UXJ75N@kernel.org>
+ <e2aa36cb-984a-4f8a-b6d5-6cb70a31a30b@nvidia.com>
+ <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DKLMSULDBL2C.1JSX46NQDH1JU@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0352.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::27) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -82,134 +79,92 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|MN2PR12MB4223:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5fe73f2-66fa-4377-fd64-08def74f1cfb
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN6PR12MB8591:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09033feb-57b9-4b5e-af45-08def755efc7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|6133799003|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|22082099003|18002099003|11063799006|56012099006|4143699003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	GX98B+C2viZDbiLrc223Sn54qBKblxZzy4iOUCr6qRNRLdN4gItk+AMbOxz4b4JPvAxR2qgZ4GzAnESQ4CpQdSdM4VPKMV5YLSHh6R7UBsH2Wc7fCaVSpFCdUWsLmwftGsfu9jJ7llaOXJt5iOmA3flPLDDe6mk+wHHxy+CLpdNZ/2n2J99Nh2WTZ570bmHhXev7ST+yvtyu+tzKFlciAnlsDGqn/XpYR5cL8OJL7bjACUHRv4FVeZxXJIICmQzodbGSXSgMZTbtLh/ks8hibMWhcESiMkb8qMWjfgvYPQSuG1ehQgM2J/wSJZLStTWhtRaM+X+KWGnBIow3ldZ8fsS+QUUa9UcbLb1weLvDY81BU45wZVlsx0qt7ZrO77NglJvKAZq27l6K8exdKMxuJmWWycPzni2ZxHmDz+vjIAPe0UUH/AUK0nHjPdUCCAPTWosTGynyxBHi+IAVnakvX/HoRYlatGtUnfmSLEccKyELt92503J1Ua1OhMk7MtnZDP5IzHkyTaXDKikv8nOF/jCqZDK7R1y9rxwwmBe89NbCQThVQRotjjs9ZS3wW5sTdlhPyoHtmVCAm4M19IcWuSP+52nbI+ma/24YzS46eO4lGEJz8WRY78bydw/suYwYa327eUXRKyE+bjkXYS9H1PPzyKj97z9f8QuYEPOj2QQ=
+	5uDj35GCe4QpWtBbC24fG5J80inkwpuZtpdbJ+XyuF2XYxB37UE5FJ/Hatu2ohLAEg24uFdvqvM7fSwUbwzme7h/1KcD8Flulp8qzsoMKCuR0t8A/+7NVqM2u0La6QCXAClkUkZjgrZrB79CG2yqcBXXCwF1AvuHUG4yiXvzQgPRIbvLBWNNbvPKWiwq8UyGUS5BpLWse8m2c+pNZKze3YqIQ2As8Bx4h7Z5FwcA/WWmC66dGiYAnNhUNVXd/d733N94BlxyD3DRn7AHVIn+ICURSnOWlZZ0KqSRerQ05kgj2rK+BD0vyLMQr60HZaO+GHstlpKZ46TnOfpgQS3HQ01lA7QzRQTPaRbj2uJfg2c+dppWI1Pi7+Fz7YUfKuIzKQtLIL31F1w/vT50Y6KVlH83jXa9VKGoMFEOYL47G/w48mFj+pYNQhAlWyxV2FLeMdBtV6j0iME/QY9gPllZP2kkQDN+L0Bh4kiqsVqR5YptPtxuUSr6Dxo0Z7z8hlmLWsA9W5jhV8nhJeCiagOhMrt6bm4XS6pujfy52hCxev676AcjQvdetbhAWiZ0/6QLUXPNY54X5BxrECnH2hCgGzqW5WVehnAap+dTTbjcOlO+/58hvENZT31/j0729b1p2tji7v1nlAvGLXmlpvhWYqY+2yLwhoX5eUmIKj8gmEM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(6133799003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Ubpx9nDdSsg9pv/6Xl8Vwv2EAkiiLpgxpY6QH/NgFN5keHzO+PlXKGbLjKge?=
- =?us-ascii?Q?wprTY3VI+DGNz9tY6N0PrkL5214DGrDE3RqiXlN4W1bbUwR0Ga2X9NG+9xqn?=
- =?us-ascii?Q?GVXn/zVVyK4v+R1MEke4ecRMlk1SmnSfDoLW50GGkbOay/VozPjtOT7YUDnx?=
- =?us-ascii?Q?I3jM7POOZcp6GuzcTVhEGmOFE/S1T497R3Uv69IzAB2gLrDIQJzL2UH6qfAI?=
- =?us-ascii?Q?4E+csu6M+n4iV9+FRT30W+E0eMBze7PF6MkIaW2QoOarNn2uVOP7ccrL+8EN?=
- =?us-ascii?Q?7fTX8oh2H7t+YnGVhi1wWY8A0fERAAN64OffSu6ODS04NViWqxqbd2zgOzpv?=
- =?us-ascii?Q?k2oJ3QVgBiB7xzOiylRg7XOflnJBVjNr6lfY0RXdWUgiIUlfY81TTasglRCb?=
- =?us-ascii?Q?t8vx973dpz3p7wW8zb1LtTfOD2SdWV5d7iRpVDMP9wP55ONSZ2zdou1Y8n04?=
- =?us-ascii?Q?VBlokdA7HFAACzxGZgmYnOVbQuTzHdnkvkgNtssTxzvBLgiLF1T2pKbo6BkJ?=
- =?us-ascii?Q?omq7o0TEzlufpQp3mVn0GRQo4U+2oNNTP5XOWtB5ziKMWF3ED4KvBbkquIy/?=
- =?us-ascii?Q?4bB75k0EI8IdvB06VRgapGEPmabLDtJvy+GzCX7bbvNMugmqCH10MnhOvhTb?=
- =?us-ascii?Q?VCC1hC1+gvoAr5Ale+YL5JkZ/GiizxcS9e+2URYmPwj/4CfRl1z8uzetnAFA?=
- =?us-ascii?Q?OzRED+uKcaWAszVBYOWRT0XJeGGU4uz+Cv8gyIEYsXBfmN9UQ1LWOOQxiuwG?=
- =?us-ascii?Q?U2wk1QnRim6zKn9oekijRyd0KNRP78uI/+ieAPj9CSzJlRMRIa0Y8lfuxrzF?=
- =?us-ascii?Q?mZiofL3VT/WzMcHYyh8ndMVgVjXs0EUG7omBnhVCfkmfhG4C0CLRthsoRMU8?=
- =?us-ascii?Q?xBtKe8M/oAsP4Wk/7hCg3CWzQ2qiK5saN8akM+hERUDJh6xWMED/sF1ShVlC?=
- =?us-ascii?Q?eol3jHNBy+z5224J2iepglSb0JMyqlbZBPdrft8Rp8DUa3pa6sX3hcmRkGGM?=
- =?us-ascii?Q?Dr059SYkdmwtHcXwfVKdl0gKzyq8F7XeKR7ZdfwJ9VMscc6ZZjfOCkPVJN00?=
- =?us-ascii?Q?CwLPOppvqoRW11291gyCwhADsMphu1J8XJPpKzG7f4Gh7e9oBbBqyqQ4WcYN?=
- =?us-ascii?Q?8yQrpLJX73XuY1Av2G7A1FHiM6Pu/g3q8MUlF/X7AsbXsN3gxC7b0RXJHnae?=
- =?us-ascii?Q?hlJ719syKHXo1ITogCScHA78BlfDulWtrGtW8w0E8Prv6YkzELbmRg9kMg3Q?=
- =?us-ascii?Q?dEnlb/UqLUFe5hEx5XhvEKlfKj5JDilhnuKIbUN/l4l9Qr+Hnxbam0IIHIyL?=
- =?us-ascii?Q?C/46xe8jIPKTif2vqmf1CQeHRWAshEHjjDXjlgYNMB8aB0Qff9Eb8GjEne8k?=
- =?us-ascii?Q?bVEt05JwfwpWZ8pcCStQUoo8rnlLrTXDm8HJGsAO8vqsYnnOwsfkqNEbQwvt?=
- =?us-ascii?Q?zxyCvVdIB8x8nsuck9TikWNUwLNybh/f4MOMUB7GqwSqfLhobWcyPp4FBb60?=
- =?us-ascii?Q?ct6viW1UyukEJvBGafki8vOLbq8slJQRkPgZr3msSHZofHsug4ji8Vd0EmXj?=
- =?us-ascii?Q?vEjREtb8RptKjRUJgfwb6oGnzbY34rs4IYTFlcgAtZC+rHYTk5+Dui3f6Faw?=
- =?us-ascii?Q?4SVP/4AIqBA41GBFa8gJSq7SQg5vkR+bTL5+eUEQQfcrkTdZir9+zjGQC0OO?=
- =?us-ascii?Q?hK+wx+tQqLbjDVHkqDbJB15875p7M1BefNykqMfKOswJ0SBpW3Ye+2TEY0ou?=
- =?us-ascii?Q?v11m+RrftA=3D=3D?=
+	=?utf-8?B?bzVwZk5WWDhJbDhwRVlWcUZSSm5KWWY3dEZwbzNnVCtHVy85NkV1eVVPMmUx?=
+ =?utf-8?B?QVEvTlh0Q1lBWDNuOGIrU3NmTjFqOS8veVJleVF1Wkl2OHR0eDJhaFBsQ1hS?=
+ =?utf-8?B?dnowamFaSnVlNzIzaVp4TnNiSXZUdy9HQVpuOFpYaURSRkJiZzZzS0NzZEtK?=
+ =?utf-8?B?Ny9zTkpLeE1MVERJc0xQc3BjS241aDlvWDZqZmdFbm45bVVybll6b2g2bkFP?=
+ =?utf-8?B?T1JUWjJCTEJVTWY0Z2taWWtERk5jM1FHT214VytoZG9BbElHYWVaTDVQM2d6?=
+ =?utf-8?B?N3lYeW4yU0RGVXVhRHRMVHRQUEVKSWZzb0pQY3QzN3AxMTNVNGRHTlY0a2NI?=
+ =?utf-8?B?NkhRN29HU3Z0VW5aYjVRelU2ejFHSU8zU2dLTGJJVXJtT05vSDRWOHVsVzE2?=
+ =?utf-8?B?TWI2RWdsckVYUitzajQzdGFQYnNDT0FjbnFGMm1MM1ZmOUhZbDFueWdvRVUr?=
+ =?utf-8?B?Y0VZdGhxWEhnQ0VQTG1pQU5lelJxd093dVJjUXhQRmNWRUlqVEk3RjhnTnJX?=
+ =?utf-8?B?S29sOTBQandyWWlpOGVwMGo4cU1TSmRNM0lBeEhUUFF1TmtxcFlrL00weWxS?=
+ =?utf-8?B?RUNRQWlTaEx0aXBBRmxhZEplVTk1djE5dkRCZWJaNmFUcm5YeDFsbmNtV1h2?=
+ =?utf-8?B?Ti9tdHRuZXpKOWJrZmxpQVArcDYyZ2ZmdFNPYUtyZE1YNk1LaUlpcjdkVkZn?=
+ =?utf-8?B?YjVyVDRnbU44M1hYUFBCMHFQckF4VkkvSHBaQ0tqVmxPaTh6d2w5bEc5Y1BD?=
+ =?utf-8?B?NVZUUWh3QllWM0o5TVBBUG5SZ0kycFE2Vk9EMG5iVzhqZlNDaWEybnR2cVdR?=
+ =?utf-8?B?ZjJBTjVXeUpTMmZCK1NCd2d3bzZSTUoxcm1JdE1tVzlPYTRsRGZOcTRZL1k0?=
+ =?utf-8?B?aDBkK2J5REJIWHQrU1V0OTF5TXJZY3Fvbm4xVXRRdVBpMHN0cXBCamgvSW80?=
+ =?utf-8?B?WWtmcVZCSTdEd1dDUURmcnAvV1VTT09IRnVFNk9nRzdsZS8xWnB2VGRhVlow?=
+ =?utf-8?B?ZnNrWU5mVFBOQVNuOG5WZG1yem5LbmZpV3ExdDlwZVV1dS8zZmJzSFlqRlJh?=
+ =?utf-8?B?SCtQdTZOQ0FHZDEvNkY3ZXEzNTFMY2oyM3RraC9rWEg4RTZNQ0d2QmlxZTZQ?=
+ =?utf-8?B?UHByTDY2T053LzMvcXhKTUpGSU10Vk5QVWxWMDhkOTNqNG01SThtV1VHaHZC?=
+ =?utf-8?B?K1V0NTl0YktaeDVTcHpDemJPV0syQStTUURndEFzanFSRVRmNFVJeUtJcTFJ?=
+ =?utf-8?B?WEF6cDRsU21KK3RJaHJKZjZGNFBVVGhDU1hQZ2xrN29rOWJhWXFzRlViVGtZ?=
+ =?utf-8?B?M3Zsc0FScTZNaUNYNytkWks4bHUxYWJiSVo4TThWZUsrN0h2TXp3ZlRuZXRK?=
+ =?utf-8?B?d0xvTGliNlV6WTZXOGwxcU40aVpGNnZuVytyZkt2S1NMM3N1UXF6VFBRNXpr?=
+ =?utf-8?B?SWw5eEwwd0NJR2pFcDBSeW9jWGgyb21oam1WclZ5R3JjazBzdkZuMzBxZTlQ?=
+ =?utf-8?B?aVcrNHZodzV0bFdWTVpyaXVaOVhRU3dMTkNiUWl2NEhvMXEwN1BXUWlCSlZG?=
+ =?utf-8?B?bzFSY3BERGVnYVVsZFovd1N0YzFFK3lEcEpqUW8wUlVENFozYXc5ZzlZVGxt?=
+ =?utf-8?B?bFNrT1hzWXEvb1ZJWUw0WEJwSWFUb0pCNHZ4Q3diZFU3ajNFL3FFOFVYYmRr?=
+ =?utf-8?B?bmtCT21GdExZQWRxS2hyeXMvVGdHdEo5QUM4d3dEZGVWdGdrR25UQUNvWWha?=
+ =?utf-8?B?QlVTRHpUZE95UUx0b3FDRDlWVi9CT2JHSEVpSEs0V28xNmk1dnNrbUtYUGFB?=
+ =?utf-8?B?b21CczQwL1hLdFoyMVk4Z1lYUjJONW4vWEUzQTU2NkVqODRZM2hYdzd2ZDN2?=
+ =?utf-8?B?NHhEYVlsSWNnbFJtWi9iMlVGRkQvNU42S2NqSEFSQTJVblB1L25DNlFzWXVU?=
+ =?utf-8?B?aWhSdFM3dHlxUVJlL2xBTTBIbTJkeWlvU0lKTGtwTTBobEN6YVJxcHVSZ0tQ?=
+ =?utf-8?B?K3BZengxVEZSdVhKa3ZKbk1ieUJsdFo2SjBIM0NzNU0rNFhkdjBKYnBPTEFs?=
+ =?utf-8?B?aUFwSSs5dVRHV0FNSDlpS1J6YXk3YWMxN294VTlkMy9DRDFOMVRrVGRwM3hO?=
+ =?utf-8?B?TGpmQVpGMktSOFBLYThaMGs2UDcyVHA5ZFRwRGJhc0NTWW5QaXJzZ2ZFL0Ry?=
+ =?utf-8?B?UWgzL2lxNnV0clZJRmd1RU1lMGE2NlF5dzNmUExIaWJzcG81TXkzcks4aEJn?=
+ =?utf-8?B?N2ZqU2tzcFhGRzF2amV5Y29xcGY2T21LMUFDbDlVTW1PRFlRd1JVNTJFOFgz?=
+ =?utf-8?B?MVhaV0IxK1VSUWNJdFB2WVpDdTlNVzdhc2JiZ05xSTBFZWlzelFLQT09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5fe73f2-66fa-4377-fd64-08def74f1cfb
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09033feb-57b9-4b5e-af45-08def755efc7
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 02:20:29.6625
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 03:09:20.2007
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2KeBwuDueC3/16uQfTc+/0qEd+//dsOcE//Asi7sE+IrEjZoljixHBz1wQnOIzJL6ZBf0MWLj7QpW0lxKDdixQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
+X-MS-Exchange-CrossTenant-UserPrincipalName: 42zastMyRILKQVZUniH76Rr0oLaI16WWdW+gcXAtTlTWecuzsQGBKKgoQKUo1ssCaHbU0SBOHsh+EGGAHIDb2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
 
-On Mon, Aug 10, 2026 at 05:34:10PM +0900, Eliot Courtney wrote:
-> It is currently possible to construct a non-`BitmapVec` backed
-> `Bitmap` using `Bitmap::from_raw` that is larger than `i32::MAX`, and
-> it is not part of the unsafe requirements. Restricting all bitmaps
-> (even non-`BitmapVec` backed ones) to a maximum size of `i32::MAX`
-> simplifies a few things and matches `BitmapVec::MAX_LEN`.
+On 8/10/26 3:53 PM, Danilo Krummrich wrote:
+> On Sun Aug 9, 2026 at 11:42 PM CEST, John Hubbard wrote:
+>> Yes, please. Then my patches 2 and 3 collapse into a single patch that
+>> adds count(), irq_type() and an index-to-IrqVector accessor. Or, they go
+>> away entirely if you end up putting those on the type yourself.
 > 
-> Add that requirement to the unsafe requirements on `Bitmap::from_raw`
-> and `Bitmap::from_raw_mut`, and to the invariants on `Bitmap`.
+> I sent out a patch series [1] for this, applied your nova-core patches on top of
+> it and resolved the conflicts with the diff below (also pushed a branch in [2]).
 > 
-> This also fixes u32 casts truncating in `copy_and_extend`, which could
-> otherwise lead to OOB writes.
-> 
-> Fixes: 11eca92a2cae ("rust: add bitmap API.")
-> Link: https://lore.kernel.org/DKG0U8RLO7LZ.2I1AIH0S38PAP@nvidia.com
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  rust/kernel/bitmap.rs | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index a43bfe0ec3dc..0d481d761f2a 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-> @@ -17,6 +17,7 @@
->  /// # Invariants
->  ///
->  /// Must reference a `[c_ulong]` long enough to fit `data.len()` bits.
-> +/// Must not be longer than `i32::MAX` bits.
->  #[cfg_attr(CONFIG_64BIT, repr(align(8)))]
->  #[cfg_attr(not(CONFIG_64BIT), repr(align(4)))]
->  pub struct Bitmap {
-> @@ -30,11 +31,13 @@ impl Bitmap {
->      ///
->      /// * `ptr` holds a non-null address of an initialized array of `unsigned long`
->      ///   that is large enough to hold `nbits` bits.
-> +    /// * `nbits` must not exceed `i32::MAX`.
->      /// * the array must not be freed for the lifetime of this [`Bitmap`]
->      /// * concurrent access only happens through atomic operations
->      pub unsafe fn from_raw<'a>(ptr: *const usize, nbits: usize) -> &'a Bitmap {
->          let data: *const [()] = core::ptr::slice_from_raw_parts(ptr.cast(), nbits);
->          // INVARIANT: `data` references an initialized array that can hold `nbits` bits.
-> +        // INVARIANT: the caller guarantees that `nbits` does not exceed `i32::MAX`.
->          // SAFETY:
->          // The caller guarantees that `data` (derived from `ptr` and `nbits`)
->          // points to a valid, initialized, and appropriately sized memory region
-> @@ -55,11 +58,13 @@ pub unsafe fn from_raw<'a>(ptr: *const usize, nbits: usize) -> &'a Bitmap {
->      ///
->      /// * `ptr` holds a non-null address of an initialized array of `unsigned long`
->      ///   that is large enough to hold `nbits` bits.
-> +    /// * `nbits` must not exceed `i32::MAX`.
->      /// * the array must not be freed for the lifetime of this [`Bitmap`]
->      /// * no concurrent access may happen.
->      pub unsafe fn from_raw_mut<'a>(ptr: *mut usize, nbits: usize) -> &'a mut Bitmap {
->          let data: *mut [()] = core::ptr::slice_from_raw_parts_mut(ptr.cast(), nbits);
->          // INVARIANT: `data` references an initialized array that can hold `nbits` bits.
-> +        // INVARIANT: the caller guarantees that `nbits` does not exceed `i32::MAX`.
+> Note that I optimized for a clean diff and not for optimal code. I think there
+> are more improvements we can make; I will comment on the corresponding patches
+> of this series.
 
-Can you enforce it in code, instead of comments? Maybe under
-CONFIG_RUST_BITMAP_HARDENED?
+I've folded your series and the fixups into a v2 work-in-progress branch, here:
 
->          // SAFETY:
->          // The caller guarantees that `data` (derived from `ptr` and `nbits`)
->          // points to a valid, initialized, and appropriately sized memory region
-> @@ -415,7 +420,8 @@ pub fn clear_bit_atomic(&self, index: usize) {
->      #[inline]
->      pub fn copy_and_extend(&mut self, src: &Bitmap) {
->          let len = core::cmp::min(src.len(), self.len());
-> -        // SAFETY: access to `self` and `src` is within bounds.
-> +        // SAFETY: access to `self` and `src` is within bounds. Both lengths fit in `u32`
-> +        // because a `Bitmap` is at most `i32::MAX` bits, so the casts are lossless.
->          unsafe {
->              bindings::bitmap_copy_and_extend(
->                  self.as_mut_ptr(),
-> 
-> -- 
-> 2.55.0
+    https://github.com/johnhubbard/linux/tree/nova-core-gin-interrupt-tree-v2
+
+Let me know if it would be better for me to post that now, given that the
+earlier parts are all different now.
+
+
+
+thanks,
+-- 
+John Hubbard
+
