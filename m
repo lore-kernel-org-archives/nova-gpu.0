@@ -1,193 +1,121 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010037.outbound.protection.outlook.com [52.101.46.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08804411F9E
-	for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 22:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786573402; cv=fail; b=Wy11lFHJhSahlUW00AL1kBxiidoO87hWv+USIcKAsryj57i5zoSgIFN3sDns+2uv1ACKsEd9qFCgdwhvq9XUcwgGWB4otsowBNM08clzOmqjzUTJ/hw3bRmbMXhiDCs8KJTB0EJxg2kAK5XhxggWhJpllXs7C02Xp7olMHj+mNI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786573402; c=relaxed/simple;
-	bh=fjg8XWGFuDUE+0PORGjE/9KAwtKZw7CmHjJrNuRfPrc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=lchgiXBi1pm8R+4fTKwL7TvkBGAkKz/4NMo13FroZEUqjV0KjzwGAT98ovwEP/g0UYNGuFFwT+TKInOhnNoYSwKOdSUm5YXiprXNh5yRKR21PIt4Rw/EZwvTUduTBL5kjIqbhJvxWXT0Brjg+ZCMZgUfUN/jlBGIhKieawOb8uA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=moO8e+th; arc=fail smtp.client-ip=52.101.46.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09845339365;
+	Wed, 12 Aug 2026 22:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786573973; cv=none; b=Udc9iUfMDTIUL846Efk7b+WPRv6fPFEvr4DoUpJX0r1fx9qMqtIv5j2KEi/cyc4CCK4a+bbiF9szF14Mr1DCd2p4UpAFMaQFrixesP1Zyyl95BAOtIkJNp+We7VZdQAsJdrarhjlVxW82PvGW3Q41H1yEknNLr8JA3XdwfMP79M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786573973; c=relaxed/simple;
+	bh=6BeS81DWL6o8u3TAJVI1R5uPB8t2fBRrKP3xI6O1tBU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=SFiodya0nHF5TfzfKam7TnFaYB+0ZaYA+6F78nGvedZr4SnGurHVbqylp9uOTVqIflyt/7JXKX9V8/axYgIAer3CWhyPTHetoHqXuTvyGlBcAQ9zLEJiC+3UfKtea2zKeeLsYzsfE3s18fMvvuu8Q1pCHNljG44uDay8u536fxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cZyL++4B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="moO8e+th"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uz5kTPoLaCMIu/g/XcBVB4UhB5DihB4y27YqurmPNceH3bftA5FUK558BnbIYxNUf+zyy+7u/f3KbNEXz3f8perABr2M/BIaixl8QkC/GmVBTQ287iMQP7FI11FCymEIwDBh1zl99zhjCrCXkNWXRCGXn0Tia2gxhHQIwz/jAovbPUhenrzRyZxdEAUDiChOroJEv3rI64FDSBM8KsFXAsNAgV+gjTnOAyqKVcV748XbCjACysFCEP5mUb0yToYYYeGpBZpBDU2QL7YD+Wchh7G8QnZu+MzLN0pwFkep5DWB5LUbTqpyt2TeFPe+2j2l37ByWUyzVGkEPJXhZKvtGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kvfCkjKxQ+FzsTwmuHyD4fqtHQy3TuuvRPbmP5meh4o=;
- b=ELtu+VfW7QGYTkEJCE7O6csECZ9/CxErfva60vljCevfTM7ovgbDTDB84Hf3yNjRM2JJNkz8gcEzEJ7U6bl2Bf+xUfd1ny+qBLpsHs44rFIXmcEgnCGahE7Qi+9YysrUqWbWyjEWJ7c/W8ggoJ/DDLsloc6/M0cIqJK6IrofrdcNQ9iYb2FyM07QrQTAictCnoYX6i0PQrM8vo9u4crFrXKmknb0Lh/iqThvi9aGrUXU3yjE+pf/JfOfHsJOX4t2KKwZxmG3vLgxKWUWtidNW7foQFOfpuR/JLceNaPfeNNLauTfA7QUEIHEsetTvXUF0eH3v5mdjW8a+owKJ/hFKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kvfCkjKxQ+FzsTwmuHyD4fqtHQy3TuuvRPbmP5meh4o=;
- b=moO8e+thWyL26dtVkRjxoCV4HfybnFp3l51QkYOE5hkqzaq78bbJEznhgQpP2YQdu+ABEfZcPKCqnK0qdXe9sR5nnyWTvrbV5uRxmbnUQfdIw/xQ7ZI/kcxDPc35VNiB21goHAy/ToegwDjvuMs4RdfIMe2SyZFjjcfvq7B/kwnmnNtiYgOuMNxMeQX0JvGNY/O7Q9slzSaW1goYpI6ck9DBmvbjxBwRbTAKFDOybZYk2lbMxBHJuj0wRb181i+DUTwNhb1oNx/ToHWRuFDdKyyiF4G0PNqosTUQuZulwd6uAbwE+tiVRRCXW0DfZEK8n8PXbABwNLjSemR3YpQ3Bg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CY1PR12MB9651.namprd12.prod.outlook.com (2603:10b6:930:104::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 22:23:16 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
- 22:23:16 +0000
-Date: Wed, 12 Aug 2026 18:23:13 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v5 1/5] rust: bitmap: use function-level cfg on kunit test
-Message-ID: <anzyURqQkllsQdui@yury>
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-1-6c767770b3f4@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812-chid-v5-1-6c767770b3f4@nvidia.com>
-X-ClientProxiedBy: SJ0PR03CA0003.namprd03.prod.outlook.com
- (2603:10b6:a03:33a::8) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cZyL++4B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7461F000E9;
+	Wed, 12 Aug 2026 22:32:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786573971;
+	bh=8r5wf+1EdOu9kDZSeKuRUzd6DU8YYx8iwDviFqjhf3w=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=cZyL++4BmFmoo9BIgo8g3pYbTdpvjKtLU46K+doWAdWyQ+ABhkt23ZDudjHO5RtyR
+	 ZarOQLDtGP/B0WDAIE0SVLWw50HTB/yJHcBYbIUAKU3+awH3DeKveuyLhKSMz4fBTP
+	 4VxEVl3pCR6JLAzBNZA7b/y/5cWqnsHDOgApmd6MDamKw28/LNP2IHuKKWiXHzxGET
+	 BSXbE+aWud+vt0Uy7W99wvRsN3lqE6fpsKQ25D3vnMSTrA/HnxoVdj9pvoxCGtQrxX
+	 mSzIyw+UeqfRWJxqm0fsbCIpB/XmgKQJCXLwuAWLr4OpKqBjChKAms8D1RcLMaN//H
+	 UGSKLCo5/h34g==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY1PR12MB9651:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9686c136-f68d-462f-f04c-08def8c04df8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	BUT8WUW02+VNpgNdJC1DfSMvTpTBOtqmRT418Ao7Fna1vzoil1r1FIditDNC19lqGlhoWYOUVQv6hugegYEwm2YtasdQb7WY7iTIER+GtsE3fxuy1zYbbb9Uxbd3LTHFI9WqoQlWagXIh3ssvOaGXOXaEpP6dn4JvgkrBS9R14RwzgckA3OktJOkJDz5brCjYb1iKNHx+Wd7iDuMXkKXMOtEIWXn8zvByYBEa5CEi5p+Oq8Oq3oLRsC7tT+rQW83LFY94vDpfwe3gubDoxtDpE705Fep10sBL8vAc358ExatfhLyl5vV0IYt3LX+yn2sBnZJt/tJQwOuQH6c3bYQWXlh9j7am6AP2nAB6XGntjfbmu15Dq3G7ld4RX2y+AqJ3oDHXS0n+oMh9JKx+zURyAZcYE16rf7XJZkDQ00vkci76xosaP+zwgaM+wRX+xt9Awz8PbmSRwf0ZYG9mTGqSlLZtdo4IjMEMB4fMdipUpqeuTmfTSarYyI861JuYl0wBdaa9zipjWkm1b7p4DEUNBe25dN180rAKzhpFGQL29mdtIDZZjXNOCouiDgyMmg20yKo8mXHkTxhSZkgUfnhwXp7xzLp2wnuilgHa4xLSOaXMdv2/DnI0In1xKJnekrBT4kAGdFgcKI/o0Gk97t5qZb+o8CYwjp7G35Z5GDyfjI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?I9GFX33uOga44Nz6xXaEKLr7oO//BQUrTVZ46/zF6IzGO0F/836VPo9VBG7V?=
- =?us-ascii?Q?f+gsYP9/0KyXoGMq3U5FfdYxRTsKdrc1ho5ekX/0yLh2xrkJVyTLdqgsVqMB?=
- =?us-ascii?Q?ImW7bFXGHbgXBf3ZurGENZNtwQMk/Ns41qHE7H7NuQ3+G/xNrjMOCFhYtB89?=
- =?us-ascii?Q?SoH2gKfPAxXRm73fxGxbvn0ignxQNASBjXIH/FDgVKkoPwjidrk3ObfLMHZa?=
- =?us-ascii?Q?c0dpPWjq6C40n4gZffIFT5J+ch9tMzdIpSU8q2c7IsJyDDpPtfXj+B1SAVM5?=
- =?us-ascii?Q?11jSbbamz6P3DpGVKfO87I2wmJuFJO/ye47RiNrGzgsIbBIxv16f+APVJU3J?=
- =?us-ascii?Q?/Ob7pT9wU5PQ4OQa5KCLBaA6Q/209OQ4zYZXmuwhdD1QpLSoHIw31IM8pkUC?=
- =?us-ascii?Q?zsU8QzggNpGPSeYUb59lhhSSrAsBncxpz767vL4ilKloVUJmD4V3YaIdAYoc?=
- =?us-ascii?Q?p2UxYCAsSaqGpKtfrFVD4FvkT8J39vPlwIxCuzZqYsYU1kCMDAPsWMCHTpGk?=
- =?us-ascii?Q?d6IRi1qtdkBpxMSa/TKN5jK1hRuYn6o7fOom5uUJmxM3XQCfgaj5o1sVBcp1?=
- =?us-ascii?Q?CkjGyAqJ1xiMYpf3DnEkjxcgtmsaHOknIUEL3DYPLgJrpr+eqsCrBekAIW+Y?=
- =?us-ascii?Q?lfSuSiziMT2/Y2fCJOmQX5o/n9ON9hzkQj/zKBk/bSrnTbwW+bMGYURTAXOT?=
- =?us-ascii?Q?wCOpMM8phAlDc/7P1plbuH10d41kvRHPhkSNzFuC7WS3tl8smo7JGfKxOQjC?=
- =?us-ascii?Q?MZITKe496ed4qoYRbVOADdixs2hBLCXGOK0fFFRtj/7Q8kUxilYpKyF8BHqi?=
- =?us-ascii?Q?9KdOrpBA0dtPBoTUel1l0ihsiXDFYyeWeJLY54/3/08KZXL13Ejo92+MKeB5?=
- =?us-ascii?Q?vVSEpmxUNBtTXmRnSbxxKtjEtHQdUKNQaZvINxxyL5RqTQe6b2Q9LuQUTe1y?=
- =?us-ascii?Q?jgskxry1puJISC8s4GbX7ldUFqTP+pLeh7LH2jhAEllNOs6gKJhmS0gTCtx8?=
- =?us-ascii?Q?ec2JVrU+pnXulYE32obcp8pDGCmHVFVsUUV97StZxSHSBvWeZwvCKkO082Hg?=
- =?us-ascii?Q?PvLCNEXpuZQ28gxVUxjojF+zhif5lnOSDx208mJkYoW/HYVhvRIMgdMaYbjj?=
- =?us-ascii?Q?Hbn93j96hi2Unt9wTUxZXQfD0xcwit6uzHDF3miUAGq6INAz++Khg7gFdmlT?=
- =?us-ascii?Q?AB+X06h957w4eacbkFj3J7JxEuwF5PIbblyKSPkARXUqvy9ninm7BcyOA49x?=
- =?us-ascii?Q?LXW3nEgopp3ZbaAK1EF9FPqlxxJactTHxrNyjCokDTeMXQvlADqojmZd3QsT?=
- =?us-ascii?Q?gwcwSqTojIN7o8ExPwwzhujiNZZqHO1TAkFOHjZl94BDRa0xIqM7I7MXA86I?=
- =?us-ascii?Q?z8rGQDZB40fKTmuNUeuU5UZPZC481xoC/D9jiwQcpmcS7e/x0pjLgEoJPjGO?=
- =?us-ascii?Q?1wgjC9DIYQ8o99SAQJf4PmILp25+lJXi9Kxim7fcOAo2ZBflG+G0KigIc8W3?=
- =?us-ascii?Q?ko0g38ed1Q0xgSKBIjsnF6zKEDX5gz6OmjgfA8jASdQaVgkDmK59N/vQH66J?=
- =?us-ascii?Q?YgtU4NqdkNJWthdnaCLxlBq+vUtKgmsFp3ueBEb6N+Ca7P4eMG8QZQgj5pJh?=
- =?us-ascii?Q?tSC9HAOZPv0o4SHfmk5r9A9toHAky+CLMCBgs7NecL6xhjwZNsdYIJ6WWYOx?=
- =?us-ascii?Q?AJZJw1wEKB9VdZzFJmS1V0mrsnHCROdCG+didSUXKyMhLXvNAYtpyoIhY9fl?=
- =?us-ascii?Q?64Xkyj7N9A=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9686c136-f68d-462f-f04c-08def8c04df8
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 22:23:16.2321
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q+9jtRqtB0C2+SWANGeUXoEeReO4HRA+2tDNd9tQR+mRy5CYOUh5POaVkSmZIV+AWWaCYZGQjYMW4wycXkV+gg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9651
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 13 Aug 2026 00:32:45 +0200
+Message-Id: <DKNBM5C0CWIL.1Y659FEPPM2G0@kernel.org>
+Subject: Re: [PATCH v2 2/3] rust: dma: rename dma_handle to dma_address
+Cc: "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Abdiel Janulgue"
+ <abdiel.janulgue@gmail.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260805-falcon-dma-projections-v2-0-4cc9f3f13ee9@nvidia.com>
+ <20260805-falcon-dma-projections-v2-2-4cc9f3f13ee9@nvidia.com>
+ <3a87960b-8a20-4947-a8b5-d5197174317c@arm.com>
+ <DKHATVF1WAE7.NGVXJQD12XQ@kernel.org>
+ <DKIQEJX6H5A0.1D3POLLNZB9YS@garyguo.net>
+In-Reply-To: <DKIQEJX6H5A0.1D3POLLNZB9YS@garyguo.net>
 
-On Wed, Aug 12, 2026 at 05:51:21PM +0900, Eliot Courtney wrote:
-> Since commit c652dc44192d ("rust: kunit: allow `cfg` on `test`s"),
-> we no longer need this workaround.
-> 
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+On Fri Aug 7, 2026 at 3:04 PM CEST, Gary Guo wrote:
+> On Wed Aug 5, 2026 at 9:39 PM BST, Danilo Krummrich wrote:
+>> On Wed Aug 5, 2026 at 1:32 PM CEST, Robin Murphy wrote:
+>>> To be fair, that is sort of the intent in the C API as well, to be clea=
+r=20
+>>> that DMA addresses must not simply be treated as physical addresses, an=
+d=20
+>>> aren't necessarily address-like in general e.g. comparing two=20
+>>> dma_handles is pretty meaningless, since they could have different=20
+>>> values but still refer to the same underlying memory, or vice-versa.=20
+>>> Adding or subtracting offsets within the bounds of the original=20
+>>> allocation/mapping size is pretty much the only arithmetic that _is_ va=
+lid.
+>>
+>> Yes, I did suggest a dma::Range type [1] for this purpose, such that onl=
+y this
+>> kind arithmetic is possible to do.
+>>
+>> The dma::Range type should have a method returning its embedded raw valu=
+e which
+>> then can be used to program registers etc.
+>>
+>> This patch is only an intermediate step, that clarifies that intent of t=
+he
+>> current usage of dma_handle() (or now dma_address()), which is not to se=
+rve as a
+>> handle.
+>
+> I suppose with I/O projections now it's rarer that people need to operate=
+ on dma
+> address directly? What do you envison as the use case for `dma::Range`?
+>
+> Also, I suppose we can also represent dma address ranges as `Io` views th=
+at does
+> not implement any accessor methods, so projection still works on them.
 
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
+Yes, that covers most cases. What about SGEntry cases and CoherentHandle?
 
-> ---
->  rust/kernel/bitmap.rs | 25 +++++++++++--------------
->  1 file changed, 11 insertions(+), 14 deletions(-)
-> 
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index b27e0ec80d64..a43bfe0ec3dc 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-> @@ -572,24 +572,21 @@ fn bitmap_set_clear_find() -> Result<(), AllocError> {
->      }
->  
->      #[test]
-> +    #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
->      fn owned_bitmap_out_of_bounds() -> Result<(), AllocError> {
-> -        // TODO: Kunit #[test]s do not support `cfg` yet,
-> -        // so we add it here in the body.
-> -        #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
-> -        {
-> -            let mut b = BitmapVec::new(128, GFP_KERNEL)?;
-> -            b.set_bit(2048);
-> -            b.set_bit_atomic(2048);
-> -            b.clear_bit(2048);
-> -            b.clear_bit_atomic(2048);
-> -            assert_eq!(None, b.next_bit(2048));
-> -            assert_eq!(None, b.next_zero_bit(2048));
-> -            assert_eq!(None, b.last_bit());
-> -        }
-> +        let mut b = BitmapVec::new(128, GFP_KERNEL)?;
-> +
-> +        b.set_bit(2048);
-> +        b.set_bit_atomic(2048);
-> +        b.clear_bit(2048);
-> +        b.clear_bit_atomic(2048);
-> +        assert_eq!(None, b.next_bit(2048));
-> +        assert_eq!(None, b.next_zero_bit(2048));
-> +        assert_eq!(None, b.last_bit());
->          Ok(())
->      }
->  
-> -    // TODO: uncomment once kunit supports [should_panic] and `cfg`.
-> +    // TODO: uncomment once kunit supports `#[should_panic]`.
->      // #[cfg(CONFIG_RUST_BITMAP_HARDENED)]
->      // #[test]
->      // #[should_panic]
-> 
-> -- 
-> 2.55.0
+For instance, in nova-core we currently have
+
+	for sg_entry in sg_table.iter() {
+	    let num_pages =3D usize::from_safe_cast(sg_entry.dma_len()).div_ceil(G=
+SP_PAGE_SIZE);
+	    for i in 0..num_pages {
+	        let entry =3D sg_entry.dma_address()
+	            + (u64::from_safe_cast(i) * u64::from_safe_cast(GSP_PAGE_SIZE)=
+);
+	        dst.extend_from_slice(&entry.to_le_bytes(), GFP_KERNEL)?;
+	    }
+	}
+
+which could become
+
+	for sg_entry in sg_table.iter() {
+	    sg_entry.dma_range().for_each_block(GSP_PAGE_SIZE, |addr| {
+	        dst.extend_from_slice(&addr.to_le_bytes(), GFP_KERNEL)
+	    })?;
+	}
