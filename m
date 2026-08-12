@@ -1,238 +1,412 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013017.outbound.protection.outlook.com [40.107.201.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571CF40801E;
-	Wed, 12 Aug 2026 21:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786571625; cv=none; b=bkgYARdG5dNs/rEP+UfoUCmf2GTo1JU7YFM2aGQYT2lXygAVASncc5nVhFpv8tGzIL6NfX/MMmGJStnwF1379pKfW8AWulmzuGEjozwf7mPpZMDAHrmOYPzWYr1gXlPC83TRFw+1rmlyhJcvmIPuvAp77+YR+PRfUeAirO07m10=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786571625; c=relaxed/simple;
-	bh=zoOEOQ43+sDxWy+UnOrNn2U9dUnrZIIC52tkbdcIiuY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=mMcG0vAz0Itg0Ld07aoICQSsSbD2KTLExaFc92QeWnvu3WBUnf004y+y+TqPjwRHwSfVpMZFHWaecXBCqib/2r8f2wRgfLOxQQraQ4PeHduTgT17vJD3Q3VwGMTzgpIcANI5IF1AJG09W/AR2PQAbQSwm0lGzlZlqsqwM+uD2IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXsVTdQ5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30173310779
+	for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 22:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786573109; cv=fail; b=YwzkQIktPipdx9iWGRFaNaGS8MV3HhHfpiRQT2S09WcmnV9YA/oY6ITvv+uyZXWZw5S70/gu+sPh58ZgNTlw03QqVogNHXP8J8dK/JPWkV9Ecj6B5jqVRrw4dwPDiOL98mEjLVZGrA52Padyyj7vNLEDvpYIFxyYb8x8E7ED1hQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786573109; c=relaxed/simple;
+	bh=+2FduhfbO0daj2tyjmd88FCMs50/A5kx14GpTSQO8sg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=WYq/tqG1xAau+RkjKoqJhFJOHCRfY++ij4KBsC3w5HboKQPmaXGHUpwml7eq9EtxkIqm+1NwzlEta6esFwf8HA4ck+L/5jR6ftTtV0Doc+YzEJl7ANI9QdxmeuDHXL6r71U8POxuqWv07uenvonwXU7TXVUqiAaBZs4dPvOoHbU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FnZNHQpy; arc=fail smtp.client-ip=40.107.201.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXsVTdQ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987811F000E9;
-	Wed, 12 Aug 2026 21:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786571623;
-	bh=6nEU+aeRluycxdNo/6s4mZZKrJ1RxjlgPtIHRp6CvKk=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=IXsVTdQ5zQUuKR4Iw6ZK3MQhGzcBbD5D+BmAgP90RIhowNF15Qvl/daAVQJt8uLyy
-	 rIkJAZ6sNBkDjUGtU3cI/VGEiGebXer+9cErer6IqhdmgixYvy4Hz1W7Q7pabBrv8x
-	 YQXaZcdMYk+oUEFaZT6hbmwff+KV39BTSqdgf6+R+2uOUvAmAbz9PrPAOS6WKy0Fa1
-	 O6EgPhBJzHIifIXXh8zwYLZJluIm96rhQ3IQSP1gu3YzsVqWyoQ5I/w3Dm6bN1SHUD
-	 PeamQtayFym7qz9Jcw3jlL3cOB+eq9PY/6eF6heTF+y3ojTLfgHj8GMUmuJum26dfp
-	 gSeZSwkGxdiXg==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FnZNHQpy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AKvrhX2kLNLoAgfvdVSFQxdafYFhnP/1tZfhxoLpEb7s+3i7hZA4VSjV+zSCIvfW1L3TSa1hKoNM76bhDclRA0qH82rez2PD8BVSC48THFqMreM2G9dKTGP1+7FJKj0zTv+xh6GCjpuryG/RZI00FtsaCFjW0y7QkFHsOO4uHATvBrO3h3gqGKRE9Ukj8iPW1UJ/wybaZWjBMxThsUZThqVb9DM/LISUNgGmBXAwt256ZAmgldvbad7+6TDGcsNHj1GeaHUF+2RCuiyrYgDpA6mICLfIhGKhxtTFIfm4knvYcDUR9kxu9GEQEebbDdAojeo/RZH2Q/SjTO9rNEgBXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rB27bqgp72E8ROZQt6W6quy2nP4RrJiBqG/aAiETPjE=;
+ b=NsMePK5va8s+jaLb+kFbEHs9Z9me7sWVQRrjJ88G/Vixq5O/fowPJ4un5edBUZEEO/DQckVbxFcDtIOD5O7E7vozWVrbxT2yiXLeSRbduKv+RvPGO0gdUDsA9BKfFYyl1XqiU1KGVXPNMkaP2HVFVhXaUdgrTCnHSHEHwJf/xny3f1s4TFjcLf44ujSqYL5/cehpo9za202anbAf0881DWOFvPfvMa1mKrxBtjRRtrJb8NHBW9VzlnZGJYule5M14WgBWO5BO4+9gkFYpMfxOvRNfQoEG4VEN8eLeJm8YJVEqgZqb4Cr4MCaRVIP5OYu+I4301Iysu9FZDc5i1xj6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rB27bqgp72E8ROZQt6W6quy2nP4RrJiBqG/aAiETPjE=;
+ b=FnZNHQpytmQvz5Uk6LmHi/wB5ma71LKEp8t468BsYvGwWDcZf0wovMef4PPTS18bvHJSwVKbzSiIft4nbGNvYzNBji7+UYzgir6mkdjITSS22V94ULO0A2GjXS+Qs3qTYis3PdOHRHEGybjJCPhWyC9D5/yiSzHCX1jbnFUnYru1PnAjGxUroEDRai/e40a4ZWDP7ycEoHOH6q9Y+89wv0iDtux8jOu6dirDbAS4D13CFhXQzXXemFlc+1dHAi+b9YgZDYw9aBf0CTUgKAIu+n2ngdmzllZzcysNsDCKbm0AG/9RNWvKc3oLANIIeA5NBQ/bZ5R5WEvFnu9sZ3LtfQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by CY1PR12MB9651.namprd12.prod.outlook.com (2603:10b6:930:104::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
+ 2026 22:18:22 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
+ 22:18:19 +0000
+Date: Wed, 12 Aug 2026 18:18:16 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
+Message-ID: <anzxKO0X1OrNRD32@yury>
+References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
+ <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
+X-ClientProxiedBy: SJ0P220CA0002.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:41b::10) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 12 Aug 2026 23:53:34 +0200
-Message-Id: <DKNAS52KYWLD.M15VEC6U0F6R@kernel.org>
-Subject: Re: [PATCH v10 00/10] Fix missing fops.owner in Rust DRM/misc
- abstractions
-Cc: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Luis
- Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu" <petr.pavlu@suse.com>,
- "Daniel Gomez" <da.gomez@kernel.org>, "Sami Tolvanen"
- <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
- "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
- Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
- <david.m.ertman@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Igor
- Korotin" <igor.korotin@linux.dev>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <brauner@kernel.org>, "Carlos
- Llamas" <cmllamas@google.com>, <rust-for-linux@vger.kernel.org>,
- <linux-modules@vger.kernel.org>, <driver-core@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>,
- <linux-kselftest@vger.kernel.org>, <kunit-dev@googlegroups.com>,
- <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-pci@vger.kernel.org>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Mark Brown"
- <broonie@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260811-fix-fops-owner-v10-0-7e71776f9dbe@linux.dev>
- <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
-In-Reply-To: <CANiq72=bhfofrbdf1qeA380-eWeKj5yXhC0NzaU_nbB9SpxYHA@mail.gmail.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY1PR12MB9651:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8435371c-b19c-40f9-4600-08def8bf9d4b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10067099003|11063799006|4143699003|56012099006|22082099003|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	T6vzJW2U6Ub8JLFgEL9Ef23BGiO3LTrSVb3E1L/autICy08vIiskixdugML1ll9w8mmcAO+YxxjqN+0tfWvIwZR7LRSN3QqJqCbnQPA7MiSXv+C69lIsb70H3JFy4xgK6h0F0wQ1pj0IqUP6M0bQLEkbU5ICJ4nXZVKh0ZCf0XaFN0jDqsHl+KOSypMlZJ6sYQTXz5nZOj5mUcnffxdXMkIzgoB5JzjsCuyRzyZuqJ5cquW9yxyv0lmQRdvGvgKRslvGAyHEZ/8yYosOWoclFrNp8QWxGomAAKPpmm0r7/J7mKHIilCAseZNq1MKuiN2IB4SP9HXYGjDnkZRfn0SErzdoDs+jbjUqeBvA9MUo+cVhsVOV7AbH5QWoVxhIJe66bMsb0e21zGSrx0AHhVvyKqnUf9bbDocAFQjYQJJf8ttDv0C3DWPWpxDRI3iToYX990aTgY30GVrH+h0y8TMzDsYYGQ53lbMcTd0ldW7rOn4U7ZMCpgRuVuYaIFXjXbU5qqvmvG2k243njYyvx52Gi+qhNLt7UfoVwEHcZg1gFkq80DE/M6ZPfgwNXHgTPtN5koNIOS4iIyCmAeBxJJ+BRkSgoK5Ohl1Sd7aiNhgGYlOE2md8YgOp5PIUTCq6e5eITpfRCE8onk2SywBK7G8Mb8zt7e8U94zjqsp3/FNQy4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?7tcHsimJTBpF/gBlpYWNDOAJKddQ+JuZciSoP9D+JDx/Xoz06dqnLSq06JQX?=
+ =?us-ascii?Q?iyI/gIdJHKtK7gOpoOzRqIXzZjfTv9RnGRurDXjb3Szgb7DRVHehvWfgy7ob?=
+ =?us-ascii?Q?fZqS+WDKyOGywKxB8aXX/3041V/Bx8EzHo5uy1tXntQu39PsbGra0YgeJOul?=
+ =?us-ascii?Q?jPVHNbc40sEoyT6ZIOAyKic0j2Y9vCAjGUOPUtfdgCTlj881t4e9gq282mw8?=
+ =?us-ascii?Q?k6DHRy/of8ykWKskt6R8JFdNgxTSVgfpF2vC2WkMMJSaLyt+t+eBNUXOdcaJ?=
+ =?us-ascii?Q?I9bBGykS3w9cBFCNcdXeJ15O7S9rQ264A431ZG20jC8ZwVdf2PfTtRGkldpP?=
+ =?us-ascii?Q?2ijeoKXOJEKckmdHifLekDiSNsSR8fo1lxRKSNcFm/lkbxeqWz0kIUkfnErB?=
+ =?us-ascii?Q?95TAbk9DULi5ADpoxkCnWNUntyzs0ju6gqmdCMUPnLRjzUAXsr9zC2a7qTzI?=
+ =?us-ascii?Q?a8vLe2twqhxFAeBmulLyiH8D3rP2WorFxdmqqWSvBtvFM8G2SRdBb8Cb0One?=
+ =?us-ascii?Q?4RC2N2Tc0oR0frrWhGZBPZRdPJy3z7CvLGWGSZ94/oRVqWsRrT6DdF95HyyZ?=
+ =?us-ascii?Q?SgJwQCThfaMNuDj+Fdsz9P7xrqlIEueF5XeJ6O68Bm0MBe3uEztLdt2Ex85n?=
+ =?us-ascii?Q?pytoHTZ+uBBiWtSpa5wqJmL2dgyGGjEf6cVbjzuEQTI+qaIlrE/jgu5bY7jh?=
+ =?us-ascii?Q?jcibdO+uei+cJ1YzAXehvYj/q2wx5DXDpb+urY5qrPb4+EjLBZfPhWL0r42I?=
+ =?us-ascii?Q?pai3I7XScvoqCd+qYa6Wx4ehrO3pZnQq7F72uBHA/DtO4+UlxqWelU5TFwJb?=
+ =?us-ascii?Q?UdId+TjiSnZXoJHLJd8zUXXxraAuPIHi25rbYJLP4ob0jYtvPjcu8BbbAmtI?=
+ =?us-ascii?Q?MssA3SiC38+kN6g+RTeoYFVnfJ2E/VxIPHU8/YRgVhe8pF8+nAujM4T5Wa0g?=
+ =?us-ascii?Q?iB5AInqNmcjvjp9OTSmbvzO+JUEUdtu0w8cJDKtxON53vYL2dcvoSXuN+kTG?=
+ =?us-ascii?Q?tdjOLL+yTzY+fvSuVMkAl3vS8YZ8iEcNP3RpFlC08XCs3IRLZv3GoP5a2bpC?=
+ =?us-ascii?Q?7g1VYS+ZWK69lkvwxgEniYNYLlJaY6GwPcAKYQgChpHro05ASo4nxOh2dfig?=
+ =?us-ascii?Q?ykHLEKJ8wS19h9zNfldyZ9ALeCcByRTsdsTpSO8j+jyySN/nn+EAxnDPHq9u?=
+ =?us-ascii?Q?iwx8KnPhitgKwREhrfoaZvZUFa+X5w2w58JKdP3wuilAkdDtS/7H1LdHLpBm?=
+ =?us-ascii?Q?hpDXpInM9jxQKx4G3coPQaEtP0HeDwXWTFV2qFplVy7eMAAXmGy9E3D8yGey?=
+ =?us-ascii?Q?q6uT3G1JG5n07TTou2qowup/c748jhbazNP7YKUVVyU5H2VGeEnkMo+9I2UQ?=
+ =?us-ascii?Q?TrlTLypWoJ6420UAsrzJjaB+nnJGIoFMch5rXWIMa8fn+MJRCaV+EnBC0jl+?=
+ =?us-ascii?Q?EnusK3J0ht2rTqt8nQ4hU5lHALuBBfpkl90/BqrbqMch+xOk7IP3kdaIZt2E?=
+ =?us-ascii?Q?6RMHrOpEm87WEMUsk3JpvmtAFk17KgN/QLa+yLVzzBrMy+URVUz47dYtYawT?=
+ =?us-ascii?Q?QlVjn/8kQ0yQZnBmOBnzynbUQReZ5O/AqUYTo5ohH19+6P1hunpJqVV19zuH?=
+ =?us-ascii?Q?R9u29eRBPBYG3zOvdASB9mo/jc4kTD228vg0oAcN6w7li0zBzOjDJmPTfiLQ?=
+ =?us-ascii?Q?FauzgqBq84x0r+DES0w3cNJDkp1/5kPOV+2okrIyVyJgyBDgPxU/cfeXtOb4?=
+ =?us-ascii?Q?kd83YHoXWg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8435371c-b19c-40f9-4600-08def8bf9d4b
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 22:18:19.6811
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aoVOVFPSYCPKSBVkAT4rOp+6kdll0KIoG19FQc+J4EsSLPuZ9s8n6zWnAz+zfc4vsyS2yG3Zj+eSbDoKg/s5RQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9651
 
-(Cc: Mark)
+On Wed, Aug 12, 2026 at 05:51:25PM +0900, Eliot Courtney wrote:
+> Add `ChannelIdPool` which adds automatic tracking and releasing of
+> channel IDs on top of `IdPool`. This is necessary for apportioning
+> ranges of channel IDs to be used in e.g. vGPU.
+> 
+> Channel IDs are allocated as a contiguous sequence with a specific
+> length and sometimes a specific alignment [1] for vGPU. The ID space is
+> small (limited to 2048) and allocation is not on a hot path, so a
+> bitmap-backed `IdPool` is a better fit than IDA/xarray (which allocate a
+> single ID within a range, not a contiguous sequence) or a maple tree
+> (where aligned allocation needs an alloc_range()+erase() retry loop that
+> essentially reimplements bitmap_find_next_zero_area()) [2]. It is
+> also faster than maple tree [3].
+> 
+> Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/ # [1]
+> Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/ # [2]
+> Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/ # [3]
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gpu.rs         |   2 +
+>  drivers/gpu/nova-core/gpu/channel.rs | 180 +++++++++++++++++++++++++++++++++++
+>  2 files changed, 182 insertions(+)
+> 
+> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+> index 42a4cd7971fa..66ea697a89f8 100644
+> --- a/drivers/gpu/nova-core/gpu.rs
+> +++ b/drivers/gpu/nova-core/gpu.rs
+> @@ -33,6 +33,8 @@
+>      vgpu::VgpuManager, //
+>  };
+>  
+> +#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
+> +mod channel;
+>  mod hal;
+>  
+>  macro_rules! define_chipset {
+> diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
+> new file mode 100644
+> index 000000000000..b755d2184aee
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/gpu/channel.rs
+> @@ -0,0 +1,180 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+> +
+> +//! Channel ID allocation.
+> +
+> +use core::{
+> +    num::NonZero,
+> +    ops::{
+> +        Deref,
+> +        Range, //
+> +    }, //
+> +};
+> +
+> +use kernel::{
+> +    id_pool::IdPool,
+> +    prelude::*,
+> +    ptr::Alignment,
+> +    sync::{
+> +        new_mutex,
+> +        Mutex, //
+> +    }, //
+> +};
+> +
+> +/// Pool for tracking reservations of channel IDs.
+> +#[pin_data]
+> +pub(crate) struct ChannelIdPool {
+> +    #[pin]
+> +    inner: Mutex<IdPool>,
+> +    num_chids: usize,
+> +}
+> +
+> +impl ChannelIdPool {
+> +    /// Creates a pool managing `num_chids` channel IDs.
+> +    pub(crate) fn new(num_chids: usize) -> impl PinInit<Self, Error> {
+> +        try_pin_init!(Self {
+> +            inner <- new_mutex!(IdPool::with_capacity(num_chids, GFP_KERNEL)?),
+> +            num_chids,
+> +        })
+> +    }
+> +
+> +    /// Reserves a contiguous area of `count` channel IDs starting at a multiple of `align`,
+> +    /// returning a guard that releases the area on drop.
+> +    pub(crate) fn alloc_area(
+> +        &self,
+> +        count: NonZero<usize>,
 
-On Wed Aug 12, 2026 at 6:33 PM CEST, Miguel Ojeda wrote:
-> On Tue, Aug 11, 2026 at 8:41=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> w=
-rote:
->>
->> The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, thr=
-eads it
->> through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates c=
-onfigfs
->> and rnull to use `this_module::<LocalModule>()`.
->
-> Applied to `rust-next` -- thanks everyone!
+OK, here you use NonZero. Please do that in the lowest layer.
 
-This series has a semantic conflict with both the driver-core and the drm-r=
-ust
-tree:
+> +        align: Alignment,
+> +    ) -> Result<ChannelIdArea<'_>> {
+> +        let mut ids = self.inner.lock();
+> +        let area = ids.find_unused_area(0, count, align).ok_or(ENOSPC)?;
+> +
+> +        // If the pool is small, the backing bitmap may be rounded up to a larger size.
 
-@Mark: When you merge driver-core-next after rust-next (which I think is th=
-e
-case) then you need to include the diff in [1] into the merge.
+Not sure I understand this language. Your ID pool is a fixed-size. Or
+do you mean something else?
 
-In drm-rust-next the build fails with:
+> +        if area.range().end > self.num_chids {
+> +            return Err(ENOSPC);
+> +        }
+> +        Ok(ChannelIdArea {
+> +            pool: self,
+> +            range: area.acquire(),
+> +        })
+> +    }
+> +}
+> +
+> +/// A reserved contiguous area of channel IDs.
+> +///
+> +/// Releases the whole area back to its [`ChannelIdPool`] when dropped. Releasing locks a
+> +/// sleeping [`Mutex`], so the area must be dropped in a context that is allowed to sleep.
+> +#[must_use = "the channel ID area is released immediately when unused"]
+> +pub(crate) struct ChannelIdArea<'a> {
+> +    pool: &'a ChannelIdPool,
+> +    range: Range<usize>,
+> +}
+> +
+> +impl Drop for ChannelIdArea<'_> {
+> +    fn drop(&mut self) {
+> +        self.pool.inner.lock().release_area(&self.range);
+> +    }
+> +}
+> +
+> +impl Deref for ChannelIdArea<'_> {
+> +    type Target = Range<usize>;
+> +
+> +    fn deref(&self) -> &Self::Target {
+> +        &self.range
+> +    }
+> +}
+> +
+> +#[kunit_tests(nova_core_channel)]
+> +mod tests {
+> +    use super::*;
+> +
+> +    const fn nz<const N: usize>() -> NonZero<usize> {
+> +        const { NonZero::new(N).unwrap() }
+> +    }
+> +
+> +    #[test]
+> +    fn chid_area() -> Result {
+> +        let pool = KBox::pin_init(ChannelIdPool::new(2048), GFP_KERNEL)?;
+> +        let unaligned = Alignment::new::<1>();
+> +
+> +        let first = pool.alloc_area(nz::<48>(), unaligned)?;
+> +        assert_eq!(0, first.start);
+> +        assert_eq!(48, first.len());
+> +        assert_eq!(48, first.end);
+> +
+> +        let second = pool.alloc_area(nz::<48>(), unaligned)?;
+> +        assert!(first.end <= second.start || second.end <= first.start);
+> +
+> +        let first_start = first.start;
+> +        drop(first);
 
-	error[E0425]: cannot find type `LocalModule` in the crate root
-	   --> rust/kernel/drm/gem/shmem.rs:628:5
-	    |
-	628 |     #[vtable]
-	    |     ^^^^^^^^^ not found in the crate root
-	    |
-	    =3D note: this error originates in the attribute macro `vtable` (in Ni=
-ghtly builds, run with -Z macro-backtrace for more info)
+You test the drop() only once. Can you add more tests? At least, make
+sure that 2 allocs followed by 2 drops ends up with an empty pool.
 
-which is because the kunit test in rust/kernel/drm/gem/shmem.rs uses the
-#[vtable] macro.
+> +        assert_eq!(first_start, pool.alloc_area(nz::<48>(), unaligned)?.start);
+> +        Ok(())
+> +    }
+> +
+> +    #[test]
+> +    fn chid_bounded_by_num_chids() -> Result {
+> +        let pool = KBox::pin_init(ChannelIdPool::new(4), GFP_KERNEL)?;
+> +        let unaligned = Alignment::new::<1>();
+> +
+> +        {
+> +            let a = pool.alloc_area(nz::<1>(), unaligned)?;
+> +            let b = pool.alloc_area(nz::<1>(), unaligned)?;
+> +            let c = pool.alloc_area(nz::<1>(), unaligned)?;
+> +            let d = pool.alloc_area(nz::<1>(), unaligned)?;
 
-This should be fixed up with a patch on top of this series in rust-next.
+OK, here your alloc_area() means the find + alloc, and it returns
+a Range - not area.
 
-I came up with to potential solutions [2] and [3]. I think with the new bui=
-ld
-system we want [3], but I'm not entirely sure this works correctly with the
-current build system in all cases (at least it did survive my tests).
+To me it looks like the intermediate UnusedArea layer is excessive.
+If you just do find + alloc in this pool.alloc_area(), you seemingly
+don't need the UnusedArea.
 
-Alternatively, we could just open-code a dummy module as in [2] for now.
+Can you try without it, please?
 
-[1] driver-core-next merge fixup
+> +            assert_eq!(0, a.start);
+> +            assert_eq!(1, b.start);
+> +            assert_eq!(2, c.start);
+> +            assert_eq!(3, d.start);
+> +            assert_eq!(
+> +                Err(ENOSPC),
+> +                pool.alloc_area(nz::<1>(), unaligned).map(|_| ())
+> +            );
+> +        }
+> +
+> +        assert_eq!(0, pool.alloc_area(nz::<4>(), unaligned)?.start);
+> +        assert_eq!(
+> +            Err(ENOSPC),
+> +            pool.alloc_area(nz::<5>(), unaligned).map(|_| ())
+> +        );
+> +
+> +        let head = pool.alloc_area(nz::<3>(), unaligned)?;
+> +        assert_eq!(0, head.start);
+> +        assert_eq!(
+> +            Err(ENOSPC),
+> +            pool.alloc_area(nz::<2>(), unaligned).map(|_| ())
+> +        );
+> +        assert_eq!(3, pool.alloc_area(nz::<1>(), unaligned)?.start);
+> +        Ok(())
+> +    }
+> +
+> +    #[test]
+> +    fn chid_area_aligned() -> Result {
+> +        let pool = KBox::pin_init(ChannelIdPool::new(16), GFP_KERNEL)?;
+> +        let unaligned = Alignment::new::<1>();
+> +        let align4 = Alignment::new::<4>();
+> +
+> +        // Alloc 0 so the first fit for the next area is unaligned.
+> +        let pad = pool.alloc_area(nz::<1>(), unaligned)?;
+> +        assert_eq!(0, pad.start);
+> +
+> +        let a = pool.alloc_area(nz::<4>(), align4)?;
+> +        assert_eq!(4, a.start);
+> +
+> +        // The area skipped over by the aligned allocation should still be available.
+> +        let b = pool.alloc_area(nz::<1>(), unaligned)?;
+> +        assert_eq!(1, b.start);
+> +
+> +        let c = pool.alloc_area(nz::<8>(), Alignment::new::<8>())?;
 
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-index a4927452016e..17ca504b7f8d 100644
---- a/rust/kernel/serdev.rs
-+++ b/rust/kernel/serdev.rs
-@@ -87,7 +87,7 @@ unsafe fn register(
-         }
+Is it possible to make it somehow simpler:
 
-         // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
--        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.=
-get(), module.0) })
-+        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.=
-get(), module.as_ptr()) })
-     }
+           let c = pool.alloc_area(8, 8)?;
 
-     unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
+All the parameters checking must be a part of implementations, not the
+interface.
 
-[2] Open-coded dummy module
+We had a very similar discussion in the bitfields implementation thread,
+and many people in CC list of this thread spent quite a long time to find
+a way from:
 
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index c04e6c5aa7e0..274924cfcc05 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -157,6 +157,15 @@
- /// Prefix to appear before log messages printed from within the `kernel` =
-crate.
- const __LOG_PREFIX: &[u8] =3D b"rust_kernel\0";
+        let color = Rgb::default()
+           .set_red(Bounded::<u16, _>::new::<0x10>())
+           .set_green(Bounded::<u16, _>::new::<0x1f>())
+           .set_blue(Bounded::<u16, _>::new::<0x18>());
 
-+/// Dummy module type for `#[vtable]` impl blocks within the kernel crate =
-(e.g. kunit tests).
-+struct LocalModule;
-+
-+impl ModuleMetadata for LocalModule {
-+    const NAME: &'static str::CStr =3D c"rust_kernel";
-+    // SAFETY: `try_module_get`/`module_put` handle null module pointers g=
-racefully.
-+    const THIS_MODULE: ThisModule =3D unsafe { ThisModule::from_ptr(core::=
-ptr::null_mut()) };
-+}
-+
- #[cfg(not(testlib))]
- #[panic_handler]
- fn panic(info: &core::panic::PanicInfo<'_>) -> ! {
+ to:
 
-[3] Allow module!() for kernel crate
 
-diff --git a/rust/Makefile b/rust/Makefile
-index 48adcd9b7851..4f6bf1b4d194 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -279,6 +279,7 @@ rustdoc-pin_init: $(src)/pin-init/src/lib.rs rustdoc-pi=
-n_init_internal \
-        +$(call if_changed,rustdoc)
+         let color = Rgb::default().
+           .set_red(0x10)
+           .set_green(0x1f)
+           .set_blue(0x18)
 
- rustdoc-kernel: private is-kernel-object :=3D y
-+rustdoc-kernel: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/lib.rs
- rustdoc-kernel: private rustc_target_flags =3D --extern ffi --extern pin_i=
-nit \
-     --extern build_error --extern macros \
-     --extern bindings --extern uapi \
-@@ -351,6 +352,7 @@ rusttestlib-pin_init: $(src)/pin-init/src/lib.rs rustte=
-stlib-macros \
-     rusttestlib-pin_init_internal $(obj)/$(libpin_init_internal_name) FORC=
-E
-        +$(call if_changed,rustc_test_library)
+Can you do the same here? Please refer:
 
-+rusttestlib-kernel: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/li=
-b.rs
- rusttestlib-kernel: private rustc_target_flags =3D --extern ffi \
-     --extern build_error --extern macros --extern pin_init \
-     --extern bindings --extern uapi \
-@@ -386,6 +388,7 @@ quiet_cmd_rustdoc_test_kernel =3D RUSTDOC TK $<
-        rm -rf $(objtree)/$(obj)/test/doctests/kernel; \
-        mkdir -p $(objtree)/$(obj)/test/doctests/kernel; \
-        $(rustc_target_envs) \
-+       RUST_MODFILE=3Dkernel/lib.rs \
-        OBJTREE=3D$(abspath $(objtree)) \
-        $(RUSTDOC) --test $(filter-out --remap-path-scope=3D%,$(rust_flags)=
-) \
-                -L$(objtree)/$(obj) --extern ffi --extern pin_init \
-@@ -788,6 +791,7 @@ $(obj)/uapi.o: $(src)/uapi/lib.rs \
-     $(obj)/uapi/uapi_generated.rs FORCE
-        +$(call if_changed_rule,rustc_library)
+https://lore.kernel.org/all/aXCZeVqkDrBWr1uq@yury/
 
-+$(obj)/kernel.o: private rustc_target_envs =3D RUST_MODFILE=3Dkernel/lib.r=
-s
- $(obj)/kernel.o: private rustc_target_flags =3D --extern ffi --extern pin_=
-init \
-     --extern build_error --extern macros --extern bindings --extern uapi \
-     --extern zerocopy --extern zerocopy_derive
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index c04e6c5aa7e0..7df9159788ad 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -154,8 +154,21 @@
- };
- pub use uapi;
-
--/// Prefix to appear before log messages printed from within the `kernel` =
-crate.
--const __LOG_PREFIX: &[u8] =3D b"rust_kernel\0";
-+struct KernelCrateModule;
-+
-+impl Module for KernelCrateModule {
-+    fn init(_module: &'static ThisModule) -> error::Result<Self> {
-+        Ok(Self)
-+    }
-+}
-+
-+macros::module! {
-+    type: KernelCrateModule,
-+    name: "rust_kernel",
-+    authors: ["Rust for Linux Contributors"],
-+    description: "The kernel crate",
-+    license: "GPL",
-+}
-
- #[cfg(not(testlib))]
- #[panic_handler]
+> +        assert_eq!(8, c.start);
+> +
+> +        // Only 2 IDs left.
+> +        assert_eq!(Err(ENOSPC), pool.alloc_area(nz::<4>(), align4).map(|_| ()));
+> +        assert_eq!(
+> +            Err(ENOSPC),
+> +            pool.alloc_area(nz::<1>(), Alignment::new::<32>())
+> +                .map(|_| ())
+> +        );
+> +
+> +        assert_eq!(2, pool.alloc_area(nz::<2>(), unaligned)?.start);
+> +        Ok(())
+> +    }
+> +}
+> 
+> -- 
+> 2.55.0
