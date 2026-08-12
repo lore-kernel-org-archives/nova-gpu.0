@@ -1,80 +1,77 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54BF336881
-	for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 11:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C779B3A9630
+	for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 12:06:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786534682; cv=none; b=tgOV/EmDAfkAtEgDx7whDrOObjlnUdGDMx4x43l8/vlns21LxS44SHoiaFIbKtnYgAgRSENXahNIPTu387xAgEwyT0Rij82ugq8Q1x4ViVuMqoaycjYmp2Q+KHYltej0t6MswKGeTMX4d/UtNx0fWnv+OmWxUyqBm+MNTTay6bY=
+	t=1786536372; cv=none; b=Dfe6qcFs7CvrJaZN2hxJiFIhgG6i/SfjO1d7a2mhwPGR5pOoc0XctrSWFIDm24B7mOxAzTdrlht9t09WDwFO+lybIgGVFeQZ3ZIOEF2V31+AMEyYcvCudkuxUewGmzoc/3BLBzEmWDMVWrSBuHxKR5ctlFa+3TVuC1siElzkdWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786534682; c=relaxed/simple;
-	bh=jDfIbzSqGcbqJ/gqdcs2ubDNX1rWm1iyF+1niHiRsgo=;
+	s=arc-20240116; t=1786536372; c=relaxed/simple;
+	bh=jwQe5AqkZRV6AycdDoCBJdkEwP9l6TMebpmQtJszUio=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CU81pxDMFoHQHeiyGbb+lo50/SsJzGT0KhLiA5Sonn39vOsI7v686h66tjdzCLuhoDcniaXLDqiZ+8Vo2/54B4dIjZdQSjjrC+VGp46d3ZG3Gde8cybKgJIkSC/fRevWuU5mPFQW+v9Ist67cxKROeXhkKqklUwGgQwK2xjUfPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gXgV4j1F; arc=none smtp.client-ip=209.85.208.171
+	 MIME-Version; b=S18/hQsnHeZ0mv9459nY37dE1yXnHx4F3o0qHKTuNJYbKKt+/JocNeZL7egleKHRxy3JAZ1lcGYg81+fpicXk5APTojQy1v7KidjH4KkBBLhyWME821+cv+gzYjVCzidE3sdw1fjUsGbo5hLtkvFnpD9Z80bv1y7V0YoCZXXWD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6tXXcR5; arc=none smtp.client-ip=209.85.167.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gXgV4j1F"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39c9452244aso6091861fa.3
-        for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 04:37:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6tXXcR5"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so1194319e87.1
+        for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 05:06:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786534678; x=1787139478; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1786536369; x=1787141169; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LeOecHaUfHefnAFIhbafWVLtAYJ8GXSjd2T8fSVMv8s=;
-        b=gXgV4j1F3q+UTYYGmRF41TQXbMPaO+X8g3xqzDSISmLF6A3Y3UK0aE5WiS1gf1FS9y
-         WBRxP3NYqe6zEqo6n/dfEB5QhlyRYtGOWqedJbKShohIv6Ce6bcJLuwUR+JKEsD/vCwb
-         hfXEuL7tY4W17S80HKlWYc6TuB6/ET3gK1dPxtLXMWm4XzPV3qwVM2kn61gmX5XLJRds
-         GhwxWnmyDoxkdp6s4crla8h+1iNi3ufHokvyK/Zqt4vAL8wedVjWRQLe8Io5cRuw8F33
-         4OkLv7O9xZR0lEDVOFBnaFCeUARq5t0rU7aBHw1WY6bnOywSVM5OphCdxpuahRH8UVOE
-         90Wg==
+        bh=jwQe5AqkZRV6AycdDoCBJdkEwP9l6TMebpmQtJszUio=;
+        b=E6tXXcR5M/8j2XyYtXn1pGSfcCHCfNmXIzhDJOuEqFW8DMeIvAN4SU9nlnxt4fU58C
+         A3mZNUdF/aZhzkVXuz+ps5UCC6ZPAx/YPzIjsEldReELlBP56jPFPBRXxWIAnoS+2JJT
+         DC7OPAEt/MStbvPZ3sCzG9HXXYrnqnHL9kyRuveKuEM/jz1AtHtnbNd9NVK00WoH8fZc
+         bn+/0hNxpuL7hfT8PW84HjquKjbWmwBc/PbqvRXUk/vwmfoK4U8gmo6sZqoF4go9r8FW
+         fjT6NISVl7L5Gi6jECJvThqzxbNvrhZH55n6qgQzVdwc2u7RT4wHlioMbEPsOqApFE+7
+         dEQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786534678; x=1787139478;
+        d=1e100.net; s=20251104; t=1786536369; x=1787141169;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LeOecHaUfHefnAFIhbafWVLtAYJ8GXSjd2T8fSVMv8s=;
-        b=XqYSGAvHxBxGb/gYja8TNxxNrqf4OoAGgA8jK9lA/ux+YP8tz5g/ozAZvHd87k17CG
-         lAKFkieyruyVtDQdV0OCO7iBkEN8hHL2E5I2nL71mequSlUmf7HcqRPpPF5omx1xBqCE
-         cc9MoMxDuk9EMCi51FFddqn6eZFWL8H+AjOvfYSGTSEWpRTDAJIot/g4tIV8TjPR+d64
-         60BZDRII45qCj8AT7frleIi63b4zmFPdOICzaZz5A1Z5bL8r8Ne1v03jFxH9UH/fAjeX
-         ZEl7SWkdxABNuaXfVFGhHvhT15fCTj3AeLBKld7+rdGC/AtBhFwbbrObhwCG52tm7GCe
-         9n8w==
-X-Forwarded-Encrypted: i=1; AHgh+RoLl2XQaJnxX6oATDdfEVX8pnbpWD+Hm05K4QIxinjiVxGA1JbnqecMCxAHqmebQ65cihUmMZttIw==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yybt5PnTOSywYgy6u1EdN0tKuCQSIRJHt9Y24D6DswDRcGc9WiX
-	j+OQOQfmCJ1DPFXsSATvydffgNzwgsYTS4U/Va1pAaOHH0PNu3aWaILZ
-X-Gm-Gg: AR+sD113n/c1ORYmsLcLkkJpkeG5vS43e5tsv0wF0DdmbkrCDeJHhEJH72u8Z94cZwC
-	TWc7GwMQoE6fmRtjRSL1Y2joarwlz7OQYo/vVGi2OGVv2hdVLt1owqQZIaEV0L2WG0cbDsKTVhx
-	paD5zsPurcNjdyUaQ6bie7RLPHqglZRbKxaDNZrieLiKw21Xo0ie/xQ0nEDGmEU2iOzKYCoPCG4
-	snOOXBNyz4zZyfCo3Ka+OgMVu67Mf5iS1fNEXuYyu0rytS+i5g/134HyqTFZNaCf62hvpNehI+M
-	EAb5vHvwwYCZm1kBOml44C7T9wz3XN9O8JgsLaPet340E2lNUC5H3eiCldGt5FBSlHxavzB/fh5
-	dJLjO01hSskkTi68m/aohe4y1h/q1A9nrfE5NKRAD28vbMqY21VmFN10L3fzD9/lfH06a5+18kM
-	9cvXeeRJay6H6FO1uNWbYD6QBuyovwV6/FJgnKwW2v1CaeXl1SGnfb8Pceg3Tlvw01on+2j2G/8
-	KeYMRI=
-X-Received: by 2002:a2e:a9a5:0:b0:39c:7200:b9b9 with SMTP id 38308e7fff4ca-3a10d53515emr4862991fa.13.1786534677463;
-        Wed, 12 Aug 2026 04:37:57 -0700 (PDT)
-Received: from localhost ([176.210.177.198])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a1082d11b9sm3881101fa.33.2026.08.12.04.37.56
+        bh=jwQe5AqkZRV6AycdDoCBJdkEwP9l6TMebpmQtJszUio=;
+        b=AEDWlWHB8pjy4o2605AyjTNF57tboI/d3ommBlInlfJAi5oz/V7jzxyU43Rd/L2zNg
+         4rvo+N1BJPaun5RPvNAI7qjQRu1uIIy49q8WOMka6mikP85nrU7RXwf5eqrrAcEbMQkg
+         judaSOBZQjr9sA4xJ1chRhiBclOCTv+WH8kFac9toMCffPHH0HYMhFy2FEH+I8hByCq+
+         XOvBxqm3Ogl0lkTRcfNXetgAFJEl2V8J8tICbGI6HbRKor8PhqSk36SBuPJKDKpMBbkf
+         6NQLMy+ASqpIBiX7Qs70EJKd+cJXAoN/xXjgfOatuHv44CnPg9DRY39w+f87mZJSKB9+
+         ruxA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0asuv8o3LzbK8fqt5jwW4ssu2pBQmLaI/r8GMSLx0ymXyttknQGNR5VPxVlDs8dsVJlnNMhV3nA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwGEy2QiqYxw2YniOiNaZdynXLX8bhnqKId76KpemH/VWzjDb7n
+	3CR1EvG7rBJsIl2uKcRPKm3WtEgR7L35b0471mnxgyHSBW34W1xW2Gnf
+X-Gm-Gg: AR+sD11MVFJ4b2S9zu+BfoifIrzutSK6wBkQFJag8incCXYeQTagJjaa2DnC/ZRdo+b
+	S6nyRTGxwnM4EBxb5LvoKVvmbBxVurLZfVd9UuC04VtOJ+Jfq/ot6AtisZNx10gkobo2ii3BCnA
+	/3KC/nTO/ZWN0XHpOWlEfYRlZl6WV+/srLhuTEKdnRLF8p4ZVwcmJi8rZBC2q0Qkg+lkAg0rbvu
+	WKDHuycLcteevRbfMnrbhLmkRpatBSnw2nQDwFF8za48IPgXGzYqR73O/9hVkwosgJxMCWGyhl6
+	Oq+/VHNlTqImpicGrEga0/NCT9AJbYXxzSHb9JCgaVjMFcqvJPxeYx2MBaBhuRvlHYqIYfJOhx6
+	UrmwdAL4weMh+2vikW0ssULSUJSQYJjBU/rl66V/cIUddhYMbq6LdXXJxQjIlKWGhbpiGFwZSik
+	RdOe5tts/sQyFt4XNTnvJAGUG3IM0EU23/3iNOluEQARkgu8HmeHkj9OQ+r1EvehVOhQ==
+X-Received: by 2002:a05:6512:a34d:b0:5b2:aa5d:9ce7 with SMTP id 2adb3069b0e04-5b44bb2312fmr944010e87.10.1786536368688;
+        Wed, 12 Aug 2026 05:06:08 -0700 (PDT)
+Received: from localhost ([95.190.105.95])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b44d04903esm447818e87.76.2026.08.12.05.06.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 04:37:57 -0700 (PDT)
+        Wed, 12 Aug 2026 05:06:08 -0700 (PDT)
 From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	acourbot@nvidia.com
-Cc: aliceryhl@google.com,
-	ttabi@nvidia.com,
+To: sashiko-bot@kernel.org
+Cc: dakr@kernel.org,
+	acourbot@nvidia.com,
+	aliceryhl@google.com,
 	nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH 2/2] Documentation: nova: remove completed GSP log buffer task
-Date: Wed, 12 Aug 2026 18:37:52 +0700
-Message-ID: <20260812113752.532537-3-vladazaharova2018@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: retain the GSP-RM log buffers after unbind
+Date: Wed, 12 Aug 2026 19:06:06 +0700
+Message-ID: <20260812120606.191456-1-vladazaharova2018@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260812113752.532537-1-vladazaharova2018@gmail.com>
-References: <20260812113752.532537-1-vladazaharova2018@gmail.com>
+In-Reply-To: <20260812113752.532537-2-vladazaharova2018@gmail.com>
+References: <20260812113752.532537-1-vladazaharova2018@gmail.com> <20260812113752.532537-2-vladazaharova2018@gmail.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -83,39 +80,30 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Exposing the GSP-RM log buffers through debugfs is implemented, and with
-CONFIG_NOVA_CORE_KEEP_GSP_LOGS they now also survive a failed probe,
-which was the part of the task that was still missing.
+sashiko-bot@kernel.org wrote:
+> Does this code need a memory barrier (such as dma_rmb()) between reading
+> the 'put' pointer and copying the buffer contents?
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
----
- Documentation/gpu/nova/core/todo.rst | 12 ------------
- 1 file changed, 12 deletions(-)
+Not in the path this code is written for. snapshot() is called from the
+drop path of the log buffers, which is only reached after PinnedDrop for
+GspResources has run the GSP unload sequence, so the GSP is no longer
+writing to these buffers and there is nothing to order against.
 
-diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-index d5130b2b08fb..cae0578d32f1 100644
---- a/Documentation/gpu/nova/core/todo.rst
-+++ b/Documentation/gpu/nova/core/todo.rst
-@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
- GPU System Processor (GSP)
- ==========================
- 
--Export GSP log buffers
------------------------
--
--Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
--(even after failure to probe the driver) through debugfs.
--
--This is also an interesting feature for nova-core, especially in the early days.
--
--| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
--| Reference: Debugfs abstractions
--| Complexity: Intermediate
--
- GSP firmware abstraction
- ------------------------
- 
--- 
-2.55.0
+The one case where that does not hold is a Gsp::boot() that fails by
+timing out: the GSP may then still be alive and appending while the
+buffers are dropped. The copy is best-effort there - it cannot be made
+atomic either way - but reading a non-zero 'put' and then reading
+contents that predate it is indeed the pattern dma_rmb() exists for.
 
+I am happy to add it, but there is no dma_rmb() abstraction in
+rust/kernel at the moment: sync/barrier.rs only provides the smp_*
+family, and smp_rmb() is not a correct substitute, as on arm64 it uses
+the inner shareable domain rather than the outer shareable one that
+dma_rmb() needs.
+
+Would you prefer a small prerequisite patch adding dma_rmb() to
+rust/kernel, or is relying on the unload ordering acceptable, with the
+requirement spelled out in a comment on snapshot()?
+
+Thanks,
+Vladislav
