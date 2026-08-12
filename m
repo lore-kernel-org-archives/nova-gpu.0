@@ -1,577 +1,316 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011056.outbound.protection.outlook.com [40.93.194.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A722437E5E9
-	for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 19:53:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786564402; cv=none; b=iZGgCadoaDZ5aAaOWW0ztaqyOgHTVcCTmSykXrkHcdMTEq9MbeOW6tG2LgjPX3x+/hdgmFOLvgkTcDZXuVmwOyFVKhEkU0cQKBusShZUGRocfS1KeWbH7q5/Ceu9G7kpOD2bwUMoFu84VCQiCjCBlgVtas90/PQfkRAyTv9Q09o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786564402; c=relaxed/simple;
-	bh=jsMdOjd6Feo0yskvr73lK8H4nDlWqQEkm8dAuS4hQoQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tttOTuPH6Q+zMVGoit2VdurctO6K+qA1b3dli2p6t55KtQ/WjhlraY08nmNwwh4exDbvNcSCmv2EE70EY+4f7I9bfNh3wfi1NWUsplfOytLMyppUg+iNgE/S48vXPiGbCXlDVs5y+pCU1XXkFhK3QVlEGFa+KMII/QhzSxcbuHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ceh4qsb+; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=pe5/VAdq; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C068372EC5
+	for <nova-gpu@lists.linux.dev>; Wed, 12 Aug 2026 20:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786566707; cv=fail; b=NafKQT53qcwQoSdOvfCclP/hxAVQOmOLYlcDl/4zne+nHAJ/A7F0e4+k3EwHkzlen1Fx7we8wZxgFWTyrVZ0uH9Fde/Q01H6SFWEMsbVmimyg73iVuLiWKGmJ/6sp88FtijeW7hJUBli/X46nzO+6Z45oGU24cDnSQuDpIdaqV0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786566707; c=relaxed/simple;
+	bh=aZ32LlSqoLfzWCNNtHblkNcMemQajokqNVUBi+0EGlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VuoTpHMNjRH8dfDNNoxULJvuaUfCy1sgs9tsw4YjLKFxy8FvMo0k3m9Ld5nKGSOPdtvrSIFcf7ObcD0BmQLlu7Q/0IjZcsH32lFQ7DKOuSpCDPKkD5oPiBv+NhcAqrLl5EWpO8jVAGuXwMVmhYj5fzxjlamppZRbdcuvJOCi+dw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rIQRwaQZ; arc=fail smtp.client-ip=40.93.194.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ceh4qsb+";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="pe5/VAdq"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hKzgd4v3Dz8tc4;
-	Wed, 12 Aug 2026 21:53:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1786564397;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FNQ8CmopTMw8BUQn4Y1TnuhBPIe3lpAQ4PrvTv888rs=;
-	b=ceh4qsb+hry5jdLMnzlZdHWVNCgEd1IHjy14cNqnpN87HQ/JEFqOYiSqala8VJAYCOXQza
-	RSCEyK+pOUvIyxJQufSdikuNv/bYkBwLPiiv+Zy27hKIvg9E06qGt62ybqAWjL1XRGvreS
-	iDScW3PUYFVrn3ibazDv7m0vnbIM8YgPwg6FiYVwfq1kCdY6rhyFMsVXqpeAR/ikwqeflo
-	deCHmGkuHJMVi3400XDW5d6z6x8OKS1BRttWkDMGs1yo4igyzKEgiyPcrs7itGrbfVWart
-	3gjp6QC993Ay+wTk1+VaGqpQTiVIPtiU+/u8PK8ApdJqrpQV1k2fWCiU/0Vs8A==
-From: Maurice Hieronymus <mhi@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1786564396;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FNQ8CmopTMw8BUQn4Y1TnuhBPIe3lpAQ4PrvTv888rs=;
-	b=pe5/VAdqwpqvVE3pipJSQ7TXpcvG1mkw/X8DTU9Uj5lt6RWDDvuujWrNsbthGrri4PkD4G
-	ToAx5dKPCU4UYEsNkSfVkq71hAoK9PSF2LHvtt6jwAOUGap184jHPxWuGYyGKsG/Z76j56
-	lwj0Qir4Vwd142KKdzQ9mNfz1YzrVn2AQhOrYzRaye5Xe+72snv0kDgMXHUThu9h/DtFnc
-	zhpWHh6iArasJBt+h8lvTrcIFin1Ckyx0wvfgSsgI/y+Ayddn/B7hhEry4+q4wXtc4os1U
-	jsanLgt/h5gntOuGcDM66OmRxsIw2319G/lAcRGVbVysZW5gx990A9CDhzj4gA==
-Date: Wed, 12 Aug 2026 21:52:39 +0200
-Subject: [PATCH v3 5/5] rust: samples: add EDU PCI driver sample
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rIQRwaQZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wmKKo5MfmhmehWvy9zZvEpIO6c3qidbm73eJCMxMCeoc8K76Ki1+EPKdfp5w3+clNllt5DtP0WBfQmxSLyXLnhO6ArZRerDky8ESuekxPsGrcMR0ucMQkv8FSHoROAaOniU73vPftulJxGbO9f+5Qb8V+5NSfWj7s0SEO+bol/KDND48qKx8NpwQcljORQM/8F7mYBziNJAMt6hf3CmRpd6G+9ScUS1/2k2PMDQFtEOvUtowhpOMGV8bh4UhcAQAg500CVzRA7LYkywSRVlNNWDwF0bhnW+nfaOOww1qHkliOUHn4ycvhwVuXJUO/1BseEx4S7NYt1DlamGTcWesmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k1S5ppFM/ihwZ8v13+WSDYy7B6g876CCJerOayB2quE=;
+ b=QUPVmhc2QrYf2IXY3tADw4bBPxmzZsNKEhnrGFjqLMgYpSmGUUoDIVY80rLZoXdhXHKbJ3h3VTNy1MxwIlT3yMOsrObXJ2eZTpYMZ8h/RZa7i4abQlSF+UWv++zAExgdQL4H84nHs2vhcGWD8UFrnn7EPb89bb4ug/GVLnrkyHZBmdYLdDBRK1kIArWmyXGZe/U6tMooWrgdQScw7TRqyEb3PoT1Cv75wsr5A3MiXdUYW40RB7n6r1oYce+n9/kqyJdiC5rUR1h7xLLPNfTH7TNHVZYQuzFEO6NvfYlacuX2KxHRxCTgQBX425uzWi5UDZ/uKBlVgEFsWqjiwF1lqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k1S5ppFM/ihwZ8v13+WSDYy7B6g876CCJerOayB2quE=;
+ b=rIQRwaQZT3j4CVlIOZWxSz10kPpDt3LHiW8Zy61ReWkapwNxjHqXeNHQ1FWo4axvJomkHALvb52qbLef5NLgqTDI3Bke0M3CpfcWKgZHIrlEXOeXPyKhp+6wAq2yveAEhoiw3ry7RLs6F47/RUGALYwXM6skPlsElMs2q1g0zwWiqLzNw063F7uXgW+u+jeuVrIOZ4ZThQHZ03GITZ0Xdbn/1UZnDZLsiWl5mV12WduzU4dz6tMsXgcwJs32I6GfqoQUsPo2Hhor/0EyOCgV85rSIo3hFPV/lZsAjqZ63kyhlrtudGJG950ueEqemBzBFoGeBOfCSnBactDJ6DwbtQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by PH0PR12MB7094.namprd12.prod.outlook.com (2603:10b6:510:21d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Wed, 12 Aug
+ 2026 20:31:37 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
+ 20:31:37 +0000
+Date: Wed, 12 Aug 2026 16:31:34 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v5 3/5] rust: bitmap: add contiguous area operations
+Message-ID: <anzYJhbIr-aix4qX@yury>
+References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
+ <20260812-chid-v5-3-6c767770b3f4@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812-chid-v5-3-6c767770b3f4@nvidia.com>
+X-ClientProxiedBy: BY3PR10CA0015.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::20) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260812-b4-rust-pci-edu-driver-v3-5-5d0b5594e52b@mailbox.org>
-References: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org>
-In-Reply-To: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org>
-To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, Maurice Hieronymus <mhi@mailbox.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786564358; l=14935;
- i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
- bh=jsMdOjd6Feo0yskvr73lK8H4nDlWqQEkm8dAuS4hQoQ=;
- b=8ip8ypLSA65L7u+Tk7ETKqd4Kek3QqPJ4x39/56sxojnfJsSpHYlJUcLxRR8fMH+BykHE94kg
- a+wxsw9OXfMB8fTdmXypeWvFLQxs7sc7Snjw5UR5rZj7Qrx2oEcIA7n
-X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
- pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
-X-MBO-RS-META: wwtuxjik61xooc15ms49wf6nfz7qzfbs
-X-MBO-RS-ID: 7c651f304e1330fa7a6
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|PH0PR12MB7094:EE_
+X-MS-Office365-Filtering-Correlation-Id: af2bae3c-f364-4c9c-b79a-08def8b0b564
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|6133799003|10067099003|56012099006|11063799006|5023799004|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	PMt8K3lxNSMVuBgyGdJErC+hiuqEpNQhtdOd2KjBN0LviJS1slYur3odG9MC7q6Frlm01YkNhWbCnd7q9HsS3p+il0GGFFmPoqjXiPLjiH8akoM08vcn9/gEloEmwd5a8r0b08af6LZZvv98QqvXHChyhvak1EsrXPBWufGF9FDbVtP8wVxgH99Cmi0degDOzD/599YBsFuXN1tdeChuK3p09qsJJTR1i32eaxofWr6SgLMWh3zrjKJdCT2I1buYhhhoK4/TR8Q297RN+lnR3SFXLRf/QegZ5GNKr3wRQDrZnV80xzNoeusYXJpbRE0ZQZYlpaCiJNqWN/IP7yvy8UneucjKwhNnRZgncd57tSA+8zJYtwNEFOar483aJD8UsbfGrPRHbXexAlqvQimF8RrSEasoJNsDEd2d7j5ZElStCMqafs/XLs5cZmGsV/M8bDSYGnCQadQuvL3VG3rSMX/ntJskaZ49wulzyQf7/Bmst948afCSYIcacgbsTi3IXHhtezGamlkDOdNh41GrGa4YI3kNEu2AW3xsgANknD4th/GqD4UpHFECAFpxKTPIM0FxmYYYKpb05DQB7rdQt8np2BUdIsnGHjLCZLZbnbkSAvoLCfipT7LG39kV+pS/z58036t3ml42uu3k7hZ4etP+zXqZQ6ijeHgqPZ1HXA4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(5023799004)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hISZWmVSWnUWV7x4VjAqp4OvVg3sr+BdUOoAr/7CjaV7jvYs/jUN5JHewZ0d?=
+ =?us-ascii?Q?SDUzWR+zM08ieLL1iJQUu4dJwDDf/BBVohm2FZ3ENTRFSkJDceAxMLkYE2j7?=
+ =?us-ascii?Q?ISXxpNAI8I/di6q90C2vBHuuepBGS5SqKkKHlL96sEvKJjebQqB3XGVkbc5s?=
+ =?us-ascii?Q?XmOFd+iQM1y1ZBxlsOktySxZ4KqhGZLDeL5WJaZF67Ct7BnohYz2EE1YYKre?=
+ =?us-ascii?Q?TUfmvkFaWoYUk230WGi89YS3/46GUJMlPNn/zgLeT3GtGyGCLTaz+bdIzO/b?=
+ =?us-ascii?Q?29nUoUdSxZ7N7auCJjcsY7p/mhW30052gBe+Myy9CEPFrjgflw+91bAeh/Z+?=
+ =?us-ascii?Q?S7k2x8vC0BMghcUEVVMVq5NGZAdSfAeCzBNNSmuiFhYOnnoaXDBKHez59xUd?=
+ =?us-ascii?Q?uthGu0/HDkElnaO6U1ov/WN8ehloeLKy9ob3LGfQWc5Sb5WmAkxXzoJ77Po0?=
+ =?us-ascii?Q?8nIJlxMUrlasN4FNumlHv+y9MBvVQusMk5tXUVKidkGp/5rjwQMgzO+aBdLZ?=
+ =?us-ascii?Q?8Hmg82w7nNFbmehudt5RXJDORn3f5/DNfE1DTVB9R6+PeWvPiIi9dS0eOJvZ?=
+ =?us-ascii?Q?1ysmNF2P5oxjh+p+SidjbY9db/kR+dOgR2VyajNRfjsrK6mWPFjSWx0pO7NK?=
+ =?us-ascii?Q?ZT4S/A++3B7WP8RGU9ejvhZ8nTqhD7/RPQdemDwRUjxu09ABSkdwe3J3qoI6?=
+ =?us-ascii?Q?l2wNQ0ijyInmvY0mNN2+uI8PEj1teWjfFzOO7PmsPLldlX8aPOycjPQsSbfK?=
+ =?us-ascii?Q?IMDnTCixYbCj+cKYQRtxsw63pYfdnaLA999MBF+uiinhf69HXMOnUU0h/oat?=
+ =?us-ascii?Q?TyJhQ4UnD8ncYvyo7Z8p1sm87ReEHERv+w+lC59Ute5QY5A4vBfmUjcCyFzh?=
+ =?us-ascii?Q?jLNpf5eO8dXSDWUmAy94hIuVPeANN+gYxo6PZjdj824thqEliEzC5h8fMxVu?=
+ =?us-ascii?Q?PFW7xGaFE60N0NcmxaSccGN2HJCFnR/W85ybj84HglpZ8xQZFg3lfFtFpj5p?=
+ =?us-ascii?Q?wL45VWODuzhYE7aEPdkbJotaP+Be/r6rYMJP6uLPNW3YMNbletgMDYRgJx0l?=
+ =?us-ascii?Q?9Z98puSU7g7yURZWp8yGA5Q/dNvnE6M0R/lAvIe7dx04i/KCbvveAroBYCIN?=
+ =?us-ascii?Q?HbhOltZbIEvRBKgUMQ+ygVTRvvwD4DGJ4ZSzY5vyTMhEsWSZn8VuH1WrcpeE?=
+ =?us-ascii?Q?Dt+xUVxx6uogIxgv5ABlqr8IQR9+ZTp/3e2yvQT1zCY7SEAxOo1nGm8J8zaq?=
+ =?us-ascii?Q?ZF8dfEjJpbyWplX+qqAymDyj6XmdLqp94tUHjbKgcTiyDQXWL9XlMT6UEYH8?=
+ =?us-ascii?Q?suSEm77ewzHOe4Y1B2QZSWyOLP3e+kAiXcMnEYwnS+KYbWn93UxUZbxH8Zd+?=
+ =?us-ascii?Q?WwIUE88z/qrP13GEAjBWgMBkK/+WlmWOfq+v7YVpnKyxnfe+jCzy95QLM4Ma?=
+ =?us-ascii?Q?sXmWngks8yFHm26tcq2nrLCk8ew1jazBfoF2PS08F74UKlzZikAnYALLLxDl?=
+ =?us-ascii?Q?bJzTq6rAFgmzQAcPey4mtmYvDO6Yk0AS/y6QsV4RdqrUVpvqk+V9do4whS2W?=
+ =?us-ascii?Q?3t3CXMt6GqtL8fV67vxuUfNW2PI1pINs4ypbvkDbOIrlEklkV5IH75QE+/CF?=
+ =?us-ascii?Q?XLCp3zCIR86EPB/BnsFr84pFQID7IHE+nauAU3Ofl3klybEMHXzhcHWbDz5Z?=
+ =?us-ascii?Q?EVU7kx5DQYQE9ZfGU5qIPFQuPgx+qbxW6PydTJ31Q3UCEm0JbSG5USkLAdbs?=
+ =?us-ascii?Q?ohCMmMWoRA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af2bae3c-f364-4c9c-b79a-08def8b0b564
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 20:31:37.6692
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /GTdRsNvJ69iapTbrnjNSn68WvgJNh1R0AquSz4+sKkosxzaq0Oo8z2BnKMKxU99sEg4kiq9lDoO9NoePc44nQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7094
 
-Add a Rust sample driver for the QEMU EDU device, wired up via a new
-SAMPLE_RUST_DRIVER_EDU Kconfig option and the samples Makefile.
+On Wed, Aug 12, 2026 at 05:51:23PM +0900, Eliot Courtney wrote:
+> Add bindings for area operations on bitmaps. Each one is
+> made safe by adding some extra checks compared to the underlying C code
+> (for example, checking bounds) and with additional checks to catch
+> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
+> 
+> Add tests demonstrating the edge cases.
+> 
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  rust/kernel/bitmap.rs | 236 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 236 insertions(+)
+> 
+> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+> index fdcfc0409773..74c92cc452c9 100644
+> --- a/rust/kernel/bitmap.rs
+> +++ b/rust/kernel/bitmap.rs
+> @@ -10,6 +10,7 @@
+>  use crate::bindings;
+>  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+>  use crate::pr_err;
+> +use crate::ptr::Alignment;
+>  use core::ptr::NonNull;
+>  
+>  /// Represents a C bitmap. Wraps underlying C bitmap API.
+> @@ -523,6 +524,139 @@ pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
+>              Some(index)
+>          }
+>      }
+> +
+> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, where the area plus
+> +    /// `align_offset` is aligned to `align`.
+> +    ///
+> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
+> +    /// the bitmap exists.
+> +    ///
+> +    /// The returned index plus `align_offset` is a multiple of `align`.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds.
+> +    #[inline]
+> +    pub fn next_zero_area_off(
+> +        &self,
+> +        start: usize,
+> +        nbits: usize,
+> +        align: Alignment,
+> +        align_offset: usize,
+> +    ) -> Option<usize> {
+> +        bitmap_assert!(
+> +            start < self.len(),
+> +            "`start` must be < {}, was {}",
+> +            self.len(),
+> +            start
+> +        );
+> +
+> +        let nr = u32::try_from(nbits).ok()?;
 
-Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
----
- MAINTAINERS                     |   1 +
- samples/rust/Kconfig            |  11 ++
- samples/rust/Makefile           |   1 +
- samples/rust/rust_driver_edu.rs | 421 ++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 434 insertions(+)
+What about nbits == 0? In C, this is a undef, and thus in the current
+rust implementation. Maybe make it NonZero?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 92bc1f8c4f8a..f8a16d7b8260 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20915,6 +20915,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
- F:	rust/helpers/pci.c
- F:	rust/kernel/pci.rs
- F:	rust/kernel/pci/
-+F:	samples/rust/rust_driver_edu.rs
- 
- PCIE BANDWIDTH CONTROLLER
- M:	Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index 0cae695acd84..115f71ed6328 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -107,6 +107,17 @@ config SAMPLE_RUST_I2C_CLIENT
- 
- 	  If unsure, say N.
- 
-+config SAMPLE_RUST_DRIVER_EDU
-+	tristate "EDU Driver"
-+	depends on PCI
-+	help
-+	  This option builds the Rust EDU driver sample.
-+
-+	  To compile this as a module, choose M here:
-+	  the module will be called rust_driver_edu.
-+
-+	  If unsure, say N.
-+
- config SAMPLE_RUST_DRIVER_PLATFORM
- 	tristate "Platform Driver"
- 	help
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index 70495fed886f..a005d578b7c2 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_SAMPLE_RUST_DEBUGFS_SCOPED)	+= rust_debugfs_scoped.o
- obj-$(CONFIG_SAMPLE_RUST_DMA)			+= rust_dma.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_I2C)		+= rust_driver_i2c.o
- obj-$(CONFIG_SAMPLE_RUST_I2C_CLIENT)		+= rust_i2c_client.o
-+obj-$(CONFIG_SAMPLE_RUST_DRIVER_EDU)		+= rust_driver_edu.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
-diff --git a/samples/rust/rust_driver_edu.rs b/samples/rust/rust_driver_edu.rs
-new file mode 100644
-index 000000000000..52f6c4cf3b08
---- /dev/null
-+++ b/samples/rust/rust_driver_edu.rs
-@@ -0,0 +1,421 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Rust EDU driver sample (based on QEMU's `edu`).
-+//!
-+//! To make this driver probe, QEMU must be run with `-device edu`.
-+
-+use kernel::{
-+    device::Bound,
-+    dma::{
-+        Coherent,
-+        Device,
-+        DmaMask, //
-+    },
-+    io::{
-+        poll::read_poll_timeout,
-+        register,
-+        register::Array,
-+        Io, //
-+    },
-+    irq::{
-+        self,
-+        Flags, //
-+    },
-+    pci::{
-+        self,
-+        IrqTypes, //
-+    },
-+    prelude::*,
-+    sync::Completion,
-+    time::Delta, //
-+};
-+
-+const QEMU_VENDOR_ID: u16 = 0x1234;
-+const QEMU_EDU_DEVICE_ID: u32 = 0x11e8;
-+const QEMU_EDU_DEVICE_MAGIC: u8 = 0xed;
-+const QEMU_DMA_BASE: u64 = 0x40000;
-+
-+const IRQ_MAGIC_VALUE: u32 = 42;
-+
-+/// Bit set in `IRQ_STATUS` when a DMA transfer has completed.
-+const DMA_IRQ: u32 = 0x100;
-+
-+mod regs {
-+    use super::*;
-+
-+    register! {
-+        pub(super) IDENTIFICATION(u32) @ 0x0 {
-+            31:24 major;
-+            23:16 minor;
-+            7:0 magic;
-+        }
-+
-+        pub(super) LIVENESS_CHECK(u32) @ 0x04 {}
-+
-+        pub(super) FACTORIAL(u32) @ 0x08 {}
-+
-+        pub(super) STATUS(u32) @ 0x20 {
-+            0:0 computing;
-+            7:7 raise_interrupt;
-+        }
-+
-+        pub(super) IRQ_STATUS(u32) @ 0x24 {}
-+        pub(super) IRQ_RAISE(u32) @ 0x60 {}
-+        pub(super) IRQ_ACK(u32) @ 0x64 {}
-+
-+        pub(super) DMA_SRC(u64) @ 0x80 {}
-+        pub(super) DMA_DST(u64) @ 0x88 {}
-+        pub(super) DMA_COUNT(u64) @ 0x90 {}
-+        pub(super) DMA_COMMAND(u64) @ 0x98 {
-+            0:0 start_transfer;
-+            1:1 direction;
-+            2:2 raise_irq;
-+        }
-+    }
-+
-+    pub(super) const END: usize = 0xA0;
-+}
-+
-+type Bar0<'a> = pci::Bar<'a, { regs::END }>;
-+
-+struct EduDriver;
-+
-+#[pin_data(PinnedDrop)]
-+struct EduDriverData<'bound> {
-+    pdev: &'bound pci::Device,
-+    #[pin]
-+    irq_handler: irq::Registration<'bound, IrqHandler<'bound>>,
-+    // Declared last so the device stays enabled until the IRQ handler is freed.
-+    _enable: pci::DeviceEnableGuard<'bound>,
-+}
-+
-+#[pin_data]
-+struct IrqHandler<'a> {
-+    pdev: &'a pci::Device,
-+    bar: Bar0<'a>,
-+    #[pin]
-+    irq_test_completion: Completion,
-+    #[pin]
-+    irq_dma_completion: Completion,
-+    dma: Coherent<u64>,
-+}
-+
-+impl EduDriver {
-+    fn init(pdev: &pci::Device<Bound>, bar: &Bar0<'_>, handler: &IrqHandler<'_>) -> Result {
-+        Self::config_space(pdev);
-+        Self::magic(pdev, bar)?;
-+        Self::liveness_check(pdev, bar)?;
-+        Self::factorial(pdev, bar)?;
-+        Self::test_irq(pdev, handler)?;
-+        Self::test_dma(pdev, handler)?;
-+        Ok(())
-+    }
-+
-+    fn config_space(pdev: &pci::Device<Bound>) {
-+        let config = pdev.config_space();
-+
-+        // Some PCI configuration space registers.
-+        register! {
-+            VENDOR_ID(u16) @ 0x0 {
-+                15:0 vendor_id;
-+            }
-+
-+            REVISION_ID(u8) @ 0x8 {
-+                7:0 revision_id;
-+            }
-+
-+            BAR(u32)[6] @ 0x10 {
-+                31:0 value;
-+            }
-+        }
-+
-+        dev_info!(
-+            pdev,
-+            "config space read8 rev ID: {:x}\n",
-+            config.read(REVISION_ID).revision_id()
-+        );
-+
-+        dev_info!(
-+            pdev,
-+            "config space read16 vendor ID: {:x}\n",
-+            config.read(VENDOR_ID).vendor_id()
-+        );
-+
-+        dev_info!(
-+            pdev,
-+            "config space read32 BAR 0: {:x}\n",
-+            config.read(BAR::at(0)).value()
-+        );
-+    }
-+
-+    fn magic(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Result {
-+        let identification = bar.read(regs::IDENTIFICATION);
-+
-+        let magic: u8 = identification.magic().into();
-+
-+        if magic != QEMU_EDU_DEVICE_MAGIC {
-+            dev_err!(
-+                pdev,
-+                "magic mismatch: expected {:#x} got {:#x}\n",
-+                QEMU_EDU_DEVICE_MAGIC,
-+                magic
-+            );
-+            return Err(ENODEV);
-+        }
-+
-+        dev_info!(
-+            pdev,
-+            "major: {:#x} minor: {:#x}\n",
-+            identification.major(),
-+            identification.minor()
-+        );
-+        Ok(())
-+    }
-+
-+    fn liveness_check(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Result {
-+        let test_value = 0xabcd;
-+
-+        bar.write(regs::LIVENESS_CHECK, test_value.into());
-+
-+        let inverse_value = bar.read(regs::LIVENESS_CHECK).into_raw();
-+
-+        if inverse_value != !test_value {
-+            dev_err!(
-+                pdev,
-+                "inverse mismatch: expected {:#x} got {:#x}\n",
-+                !test_value,
-+                inverse_value
-+            );
-+            return Err(ENODEV);
-+        }
-+
-+        dev_info!(pdev, "inverse test successful\n");
-+        Ok(())
-+    }
-+
-+    fn factorial(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Result {
-+        Self::wait_until_compute_has_finished(pdev, bar)?;
-+
-+        bar.write(regs::FACTORIAL, 4.into());
-+
-+        Self::wait_until_compute_has_finished(pdev, bar)?;
-+
-+        let result: u32 = bar.read(regs::FACTORIAL).into();
-+
-+        let expected = 24;
-+
-+        if result != expected {
-+            dev_err!(
-+                pdev,
-+                "factorial result wrong: expected {} got {}\n",
-+                expected,
-+                result
-+            );
-+            return Err(ENODEV);
-+        }
-+
-+        dev_info!(pdev, "factorial test successful\n");
-+        Ok(())
-+    }
-+
-+    fn test_irq(pdev: &pci::Device<Bound>, handler: &IrqHandler<'_>) -> Result {
-+        dev_dbg!(pdev, "raising irq\n");
-+
-+        handler.bar.write(regs::IRQ_RAISE, IRQ_MAGIC_VALUE.into());
-+
-+        handler.irq_test_completion.wait_for_completion();
-+
-+        dev_info!(pdev, "irq test successful\n");
-+        Ok(())
-+    }
-+
-+    fn test_dma(pdev: &pci::Device<Bound>, handler: &IrqHandler<'_>) -> Result {
-+        dev_dbg!(pdev, "testing dma\n");
-+
-+        let dma = &handler.dma;
-+
-+        const DMA_VALUE: u64 = 42;
-+
-+        kernel::dma_write!(dma, , DMA_VALUE);
-+
-+        handler.bar.write(regs::DMA_SRC, dma.dma_handle().into());
-+        handler.bar.write(regs::DMA_DST, QEMU_DMA_BASE.into());
-+        handler
-+            .bar
-+            .write(regs::DMA_COUNT, (dma.size() as u64).into());
-+        handler.bar.write(
-+            regs::DMA_COMMAND,
-+            regs::DMA_COMMAND::zeroed()
-+                .with_start_transfer(true)
-+                .with_direction(false)
-+                .with_raise_irq(true),
-+        );
-+
-+        handler.irq_dma_completion.wait_for_completion();
-+
-+        // Destroy previous value to test roundtrip
-+        kernel::dma_write!(dma, , 0);
-+
-+        handler.bar.write(regs::DMA_SRC, QEMU_DMA_BASE.into());
-+        handler.bar.write(regs::DMA_DST, dma.dma_handle().into());
-+        handler
-+            .bar
-+            .write(regs::DMA_COUNT, (dma.size() as u64).into());
-+        handler.bar.write(
-+            regs::DMA_COMMAND,
-+            regs::DMA_COMMAND::zeroed()
-+                .with_start_transfer(true)
-+                .with_direction(true)
-+                .with_raise_irq(true),
-+        );
-+
-+        handler.irq_dma_completion.wait_for_completion();
-+
-+        let result = kernel::dma_read!(dma,);
-+
-+        if result != DMA_VALUE {
-+            dev_err!(
-+                pdev,
-+                "dma result wrong: expected {} got {}\n",
-+                DMA_VALUE,
-+                result
-+            );
-+            return Err(ENODEV);
-+        }
-+
-+        dev_info!(pdev, "dma test successful\n");
-+        Ok(())
-+    }
-+
-+    fn wait_until_compute_has_finished(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Result {
-+        read_poll_timeout(
-+            || Ok(bar.read(regs::STATUS)),
-+            |status| status.computing() == 0,
-+            Delta::from_millis(10),
-+            Delta::from_millis(100),
-+        )
-+        .inspect_err(|_| dev_err!(pdev, "computation bit did not clear before timeout\n"))
-+        .map(|_| ())
-+    }
-+}
-+
-+impl pci::Driver for EduDriver {
-+    type IdInfo = ();
-+    type Data<'bound> = EduDriverData<'bound>;
-+
-+    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
-+
-+    fn probe<'bound>(
-+        pdev: &'bound pci::Device<kernel::device::Core<'_>>,
-+        _id_info: &'bound Self::IdInfo,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        pin_init::pin_init_scope(move || {
-+            let vendor = pdev.vendor_id();
-+            dev_dbg!(
-+                pdev,
-+                "Probe Rust EDU driver sample (PCI ID: {}, 0x{:x}).\n",
-+                vendor,
-+                pdev.device_id()
-+            );
-+
-+            let enable = pdev.enable_device()?;
-+            pdev.set_master();
-+
-+            let mask = DmaMask::new::<28>();
-+
-+            // SAFETY: There are no concurrent calls to DMA allocation and mapping primitives.
-+            unsafe { pdev.dma_set_mask_and_coherent(mask)? };
-+
-+            let ca: Coherent<u64> = Coherent::zeroed(pdev.as_ref(), GFP_KERNEL)?;
-+
-+            let irq = pdev
-+                .alloc_irq_vectors(1, 1, IrqTypes::default().with(pci::IrqType::Msi))
-+                .inspect_err(|e| dev_err!(pdev, "alloc_irq_vectors failed: {:?}\n", e))?;
-+
-+            let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_edu")?;
-+
-+            // SAFETY: The Registration is not leaked.
-+            let req = unsafe {
-+                pdev.request_irq(
-+                    *irq.start(),
-+                    Flags::TRIGGER_NONE,
-+                    c"rust_edu_irq",
-+                    try_pin_init!(IrqHandler {
-+                        pdev,
-+                        bar,
-+                        irq_test_completion <- Completion::new(),
-+                        irq_dma_completion <- Completion::new(),
-+                        dma: ca,
-+                    }? Error),
-+                )
-+            };
-+
-+            Ok(try_pin_init!(EduDriverData {
-+                irq_handler <- req,
-+                // Ordering matters: the handler is registered (`irq_handler <- req`)
-+                // *before* the `_:` block runs the self-tests, one of which raises an
-+                // interrupt and waits for the handler. Raising before the handler is
-+                // registered would hang (the completion is never signalled).
-+                _: {
-+                    let handler = irq_handler.handler();
-+                    EduDriver::init(pdev, &handler.bar, handler)?;
-+                    dev_info!(
-+                        pdev,
-+                        "rust_driver_edu successfully initialized\n",
-+                    );
-+                },
-+                pdev,
-+                _enable: enable,
-+            }))
-+        })
-+    }
-+}
-+
-+impl irq::Handler for IrqHandler<'_> {
-+    fn handle(&self) -> irq::IrqReturn {
-+        dev_dbg!(self.pdev, "irq handler called\n");
-+        let status: u32 = self.bar.read(regs::IRQ_STATUS).into();
-+
-+        // DMA_IRQ
-+        if status & DMA_IRQ != 0 {
-+            dev_dbg!(self.pdev, "handling dma completion in irq\n");
-+            self.bar.write(regs::IRQ_ACK, DMA_IRQ.into());
-+            self.irq_dma_completion.complete();
-+        }
-+
-+        // TEST_IRQ
-+        let magic = status & !DMA_IRQ;
-+        if magic == IRQ_MAGIC_VALUE {
-+            dev_dbg!(self.pdev, "handling test completion in irq\n");
-+            self.bar.write(regs::IRQ_ACK, magic.into());
-+            self.irq_test_completion.complete();
-+        }
-+
-+        irq::IrqReturn::Handled
-+    }
-+}
-+
-+#[pinned_drop]
-+impl PinnedDrop for EduDriverData<'_> {
-+    fn drop(self: Pin<&mut Self>) {
-+        dev_dbg!(self.pdev, "Remove Rust EDU driver sample.\n");
-+    }
-+}
-+
-+kernel::pci_device_table!(
-+    PCI_TABLE,
-+    MODULE_PCI_TABLE,
-+    <EduDriver as pci::Driver>::IdInfo,
-+    [(
-+        pci::DeviceId::from_id(pci::Vendor::from_raw(QEMU_VENDOR_ID), QEMU_EDU_DEVICE_ID),
-+        ()
-+    )]
-+);
-+
-+kernel::module_pci_driver! {
-+    type: EduDriver,
-+    name: "rust_driver_edu",
-+    authors: ["Maurice Hieronymus"],
-+    description: "Rust EDU driver",
-+    license: "GPL v2",
-+}
+The same question about align and align_offset.
 
--- 
-2.54.0
+> +        let align_mask = align.as_usize() - 1;
+> +
+> +        // The C alignment and end arithmetic must not overflow, or it can read out of bounds.
+> +        // Overflow is only possible on 32-bit.
+> +        #[cfg(not(CONFIG_64BIT))]
+> +        align_mask.checked_add(self.len())?.checked_add(nbits)?;
+> +
+> +        // SAFETY: `bitmap_find_next_zero_area_off` is safe to use with an out of bounds `start`
+> +        // value and, given the overflow check above, never reads beyond `self.len()` bits.
+> +        let index = unsafe {
+> +            bindings::bitmap_find_next_zero_area_off(
+> +                self.as_ptr().cast_mut(),
+> +                self.len(),
+> +                start,
+> +                nr,
+> +                align_mask,
+> +                align_offset,
+> +            )
+> +        };
+> +
+> +        (index < self.len()).then_some(index)
+> +    }
+> +
+> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, aligned to `align`.
+> +    ///
+> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
+> +    /// the bitmap exists.
+> +    ///
+> +    /// The returned index is a multiple of `align`.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// use kernel::alloc::{AllocError, flags::GFP_KERNEL};
+> +    /// use kernel::bitmap::BitmapVec;
+> +    /// use kernel::ptr::Alignment;
+> +    ///
+> +    /// let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +    /// let unaligned = Alignment::new::<1>();
+> +    ///
+> +    /// assert_eq!(Some(0), b.next_zero_area(0, 8, unaligned));
+> +    /// b.set(0, 5);
+> +    /// assert_eq!(Some(5), b.next_zero_area(0, 8, unaligned));
+> +    /// assert_eq!(Some(8), b.next_zero_area(0, 8, Alignment::new::<8>()));
+> +    /// assert_eq!(None, b.next_zero_area(0, 65, unaligned));
+> +    /// # Ok::<(), AllocError>(())
+> +    /// ```
+> +    #[inline]
+> +    pub fn next_zero_area(&self, start: usize, nbits: usize, align: Alignment) -> Option<usize> {
+> +        self.next_zero_area_off(start, nbits, align, 0)
+> +    }
+> +
+> +    /// Sets a contiguous area of `nbits` bits starting at `start`.
+> +    ///
+> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
+> +    /// bounds, does nothing.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
+> +    /// of bounds.
+> +    #[inline]
+> +    pub fn set(&mut self, start: usize, nbits: usize) {
+> +        bitmap_assert_return!(
+> +            start
+> +                .checked_add(nbits)
+> +                .is_some_and(|end| end <= self.len()),
+> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
+> +            start,
+> +            start.saturating_add(nbits),
+> +            self.len()
+> +        );
+> +        // SAFETY: The area `start..start + nbits` is within bounds and a `Bitmap` is at most
+> +        // `i32::MAX` bits, so the casts are lossless.
+> +        unsafe { bindings::__bitmap_set(self.as_mut_ptr(), start as u32, nbits as i32) };
+> +    }
 
+In the case of bitmap_set/clear(), nbits == 0 makes it a no-op, and
+guarantees that the pointer is not dereferenced. So, no undefined
+behavior. But in rust case, I believe, it should be a stronger policy.
+
+I'd add an assertion, at least, or better make it NonZero.
+
+Thanks,
+Yury
+
+> +
+> +    /// Clears a contiguous area of `nbits` bits starting at `start`.
+> +    ///
+> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
+> +    /// bounds, does nothing.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
+> +    /// of bounds.
+> +    #[inline]
+> +    pub fn clear(&mut self, start: usize, nbits: usize) {
+> +        bitmap_assert_return!(
+> +            start
+> +                .checked_add(nbits)
+> +                .is_some_and(|end| end <= self.len()),
+> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
+> +            start,
+> +            start.saturating_add(nbits),
+> +            self.len()
+> +        );
+> +        // SAFETY: The area `start..start + nbits` is within bounds and a `Bitmap` is at most
+> +        // `i32::MAX` bits, so the casts are lossless.
+> +        unsafe { bindings::__bitmap_clear(self.as_mut_ptr(), start as u32, nbits as i32) };
+> +    }
+>  }
