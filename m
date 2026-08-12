@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D87A33936B;
-	Wed, 12 Aug 2026 23:15:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F198B430CCA;
+	Wed, 12 Aug 2026 23:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786576515; cv=none; b=cJMJ6nG8cGSii/thQH6TKEGArKEOEhwnVMFs7VTcceNf4aXnTC3+7on0U0TB0K8R9V+SQrzpHFfl3+7UZwgTMoLyFxe1uxbajSMdo8C8536eH7BrW8GUE7rAmADGfecT0pEDMIDund2xrlp85RaHsLB5S07gW7nikPIrIkwfDP0=
+	t=1786578244; cv=none; b=Y9NgFH8wpgryxT8OrKq57yYGHykV758779l9SzYn+bno64ew9gPWUdKz50vKgLV5gjVWEOn+7mjpQBgOALcAku8YfnwN/fml6qkWT7hZciKoCsmzH7OztX5QmP8t0Jgc3UHpeCa1W9vQan5tu7JeUORjO/hpKx8fO/h9CTSDxbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786576515; c=relaxed/simple;
-	bh=9riEFF4pNfrUS8nXbREomHAlcpz0VMXUt2FDXJcbCnM=;
+	s=arc-20240116; t=1786578244; c=relaxed/simple;
+	bh=bNYLaLg1bl/qgsNoelBcYQl/YypqE0xlSRIpA4YBJ6Y=;
 	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=BePIStLkGE686rOf8pNAUnbO4F8krQ3R9u41g+78ljqYXccsY7hB4IdWrG3QXV/pGg3jigIuaH3VyyyUmO276rY7Usf3eSP92bO9vF5HMjMMzmPOhQAxqJw+pnILdgFVx9NvqAjX+QcPIVj3Y63B437jj9da7/nuj5bqARfl+q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+2d8PF8; arc=none smtp.client-ip=100.103.45.18
+	 References:In-Reply-To; b=Q5Oqa2vtGwnSysTy03cbgi3baEEXc41C8udByUwgOIwsm6477dwRdo0NdfW+bkiiUrrOO/UQnOtCa0gyByNHNvxLpWqyCUaNMBKq4m3AGjxPe2m4YhQXO1NfFAEDn1UbhOXSMMnmO7wlgVOqgRKb5+WGCgDvxHBRRpPjNtMPiBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTRaB0u8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+2d8PF8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0392F1F000E9;
-	Wed, 12 Aug 2026 23:15:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTRaB0u8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1AB31F000E9;
+	Wed, 12 Aug 2026 23:44:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786576513;
-	bh=9riEFF4pNfrUS8nXbREomHAlcpz0VMXUt2FDXJcbCnM=;
+	s=k20260515; t=1786578242;
+	bh=qN1nHzHYc9IBamgWW2yAn7hhH8RW5Ex2R8ZyORav0sg=;
 	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=n+2d8PF81yk7gnDknORv9sG1adGZBHQ2qvgfIQWAMizMhaVBAWBIDKPiZrUZqwKTv
-	 RhFxnP+PGPsazbZmIHtQANlYTh1sBCHrkrm0vX1rR6L0S0tChjLAfuHjD6Xp0f7Y7X
-	 J84K8qp0HyiTRpYnh4ykoicrku7kKr1aYa4NmPfe+xNedtGvY6NDAcYdf7wH3eMw4d
-	 NbGBoIfnBtGN9u91ilk23iVZLyZmr+LGggKtIPYxZ3RR5Ke0BhEkp/mzGVRe3wNkVV
-	 ULMiWPj09CeayA7IO6XdlQ78Ge7MMstzgMD7sv59xwg9WlqsiTR/WTIa90qIjxYKz0
-	 GKk9xbW9UHNHg==
+	b=cTRaB0u8/UBL3SSClUBBNIBqRw4pXYvnih8umtI2tBUEqCiQFvlO/DDZwf4qGHBn6
+	 Jh2PrV0WgItWD1B4SRDk0Nbci6O5qzF6Alu+ocJDwubjZRttmhiuh1/MrKNAxM2E1N
+	 Fot/pGW/5Xkd47UuhaN8kv+E+ATiXVvwCDZafgPT4XsumeTmUGucmWWhbhGg35qW9g
+	 wCTK6dH4g0cHJfSDiQ70Apyk8kKZc0aclQoEEzJUvj46resDEOtmK+vyOFcJVZeYvz
+	 fx6Ph5WHG/ewhsPf+BwCB7WpCwicuBB99NDDmdIBJD+CM7E17vldh+xKbWxf7dp8Jb
+	 /ZXWkDK7V0n1g==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -34,42 +34,136 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Aug 2026 01:15:10 +0200
-Message-Id: <DKNCIMHM4AG6.145KTN1QZLFTD@kernel.org>
+Date: Thu, 13 Aug 2026 01:43:59 +0200
+Message-Id: <DKND4OSMTWUQ.27FAHZ1JSUKYJ@kernel.org>
 Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: retain the GSP-RM log buffers
  after unbind
-Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
+Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
  <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-To: "John Hubbard" <jhubbard@nvidia.com>
+To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
 References: <20260812113752.532537-1-vladazaharova2018@gmail.com>
  <20260812113752.532537-2-vladazaharova2018@gmail.com>
- <a72edc5b-49c0-42e0-b21c-940e71909666@nvidia.com>
-In-Reply-To: <a72edc5b-49c0-42e0-b21c-940e71909666@nvidia.com>
+In-Reply-To: <20260812113752.532537-2-vladazaharova2018@gmail.com>
 
-On Thu Aug 13, 2026 at 12:41 AM CEST, John Hubbard wrote:
-> I'd *much* rather use a kernel parameter: keep_gsp_logs, instead of
-> requiring a rebuild of the kernel. As you mention above, nouveau
-> arrived at the same conclusion, and yet even after mentioning it,
-> you went off in this other direction, but without explaining why.
+On Wed Aug 12, 2026 at 1:37 PM CEST, Vladislav Zaharov wrote:
+>  struct LogBuffers {
+> +    /// Device the buffers belong to. Also names their debugfs directory=
+.
+> +    #[cfg(CONFIG_NOVA_CORE_KEEP_GSP_LOGS)]
+> +    dev: ARef<device::Device>,
+>      /// Init log buffer.
+>      loginit: LogBuffer,
+>      /// Interrupts log buffer.
+> @@ -144,6 +167,127 @@ struct LogBuffers {
+>      logrm: LogBuffer,
+>  }
+> =20
+> +/// Copies of the log buffers of a GPU that is no longer around.
+> +#[cfg(CONFIG_NOVA_CORE_KEEP_GSP_LOGS)]
+> +struct RetainedLogBuffers {
+> +    /// Device the buffers came from.
+> +    dev: ARef<device::Device>,
+> +    /// Contents of the init log buffer, empty if it was never written t=
+o.
+> +    loginit: KVec<u8>,
+> +    /// Contents of the interrupts log buffer, empty if it was never wri=
+tten to.
+> +    logintr: KVec<u8>,
+> +    /// Contents of the RM log buffer, empty if it was never written to.
+> +    logrm: KVec<u8>,
 
-Not sure if Vladislav read that, but it might be on us; we were both talkin=
-g
-about a Kconfig in [1] back then, but meant a module param actually. :)
+I think those should use VVec.
 
-> If someone is debugging, all they need to do is reboot with that
-> parameter, in order to get the logs. That's a big improvement over
-> requiring a kernel rebuild.
+> +}
 
-I think for development it doesn't make a huge difference, but a module par=
-am
-might be easier to deal with if something unexpected happens in some less
-controlled environment.
+Let's move all the LogBuffer code into gsp/logbuffer.rs to keep gsp.rs clea=
+n.
 
-So, while I'm usually not a huge fan of module params, I do agree in this c=
-ase.
+> +#[cfg(CONFIG_NOVA_CORE_KEEP_GSP_LOGS)]
+> +impl LogBuffers {
+> +    /// Preserves whatever the GSP logged, so it can still be read once =
+the GPU is gone.
+> +    ///
+> +    /// The buffers are DMA allocations of the device and cannot outlive=
+ it, so their contents are
+> +    /// copied into memory owned by the module and exposed through fresh=
+ debugfs entries. Those
+> +    /// live until the module is unloaded.
+> +    fn retain(&self) -> Result {
+> +        let logs =3D RetainedLogBuffers {
+> +            dev: self.dev.clone(),
+> +            loginit: self.loginit.snapshot()?,
+> +            logintr: self.logintr.snapshot()?,
+> +            logrm: self.logrm.snapshot()?,
+> +        };
+> +
+> +        if logs.loginit.is_empty() && logs.logintr.is_empty() && logs.lo=
+grm.is_empty() {
+> +            return Ok(());
+> +        }
+> +
+> +        let mut retained =3D crate::RETAINED_LOGS.lock();
+> +
+> +        // An earlier run of the same device may have left a copy behind=
+. Its directory carries
+> +        // the name about to be used again, and its logs are the older o=
+nes, so drop it first.
+> +        retained
+> +            .gpus
+> +            .retain(|gpu| gpu.dev.name() !=3D self.dev.name());
+> +
+> +        let dir =3D match retained.dir.clone() {
+> +            Some(dir) =3D> dir,
+> +            None =3D> {
+> +                #[allow(static_mut_refs)]
+> +                // SAFETY: `DEBUGFS_ROOT` is set before driver registrat=
+ion and cleared after
+> +                // driver unregistration. This runs while a device is st=
+ill bound, or on the way
+> +                // out of a failed probe, so the driver is registered an=
+d nothing can be modifying
+> +                // it.
+> +                let root: &debugfs::Dir =3D unsafe { crate::DEBUGFS_ROOT=
+.as_ref() }.ok_or(ENODEV)?;
 
-[1] https://lore.kernel.org/all/067c6016-ce21-449e-b0d6-86252ac483a0@nvidia=
-.com/
+I think we can avoid this additional unsafe if we just create the retained =
+dir
+right away in module_init().
+
+> +
+> +                let dir =3D root.subdir(c"retained");
+> +                retained.dir =3D Some(dir.clone());
+> +
+> +                dir
+> +            }
+> +        };
+> +
+> +        let scope =3D KBox::pin_init(
+> +            dir.scope(logs, self.dev.name(), |logs, dir| {
+> +                if !logs.loginit.is_empty() {
+> +                    dir.read_binary_file(c"loginit", &logs.loginit);
+> +                }
+> +                if !logs.logintr.is_empty() {
+> +                    dir.read_binary_file(c"logintr", &logs.logintr);
+> +                }
+> +                if !logs.logrm.is_empty() {
+> +                    dir.read_binary_file(c"logrm", &logs.logrm);
+> +                }
+> +            }),
+> +            GFP_KERNEL,
+> +        )?;
+> +
+> +        retained.gpus.push(scope, GFP_KERNEL)?;
+> +
+> +        dev_info!(
+
+dev_dbg!() should be good enough.
+
+> +            self.dev,
+> +            "GSP-RM log buffers retained until the module is unloaded\n"
+> +        );
+> +
+> +        Ok(())
+> +    }
