@@ -1,100 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469A6384232;
-	Thu, 13 Aug 2026 20:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786651225; cv=none; b=pwmiojfiL+dPe6LD8H9I8HDfNf/4FwG1HqpvF982vUYNac9IEW3HTRtOfdHk1obzt/JDuJbvm60Z5shXpQ3fIqEaEJan/1u7jz5o52ZWFzQYIe8GYCZDYeN3shWf+9UlsvRnpYzGBSoSpQiVJ0fwYGkuT7QOU+wPygU+RRz4yRs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786651225; c=relaxed/simple;
-	bh=YdR1lCv2pNsCoD35ucLwZ0S+f85NVjY5MCjg/fm0UD0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=fMOKNpR3rnmLtBQSZ4qosJFd59aAKTZPf43Y/qI4th3+qJutVIeQ2+oZZTW5ErX7o3hip54ar+W/U9enCLtitONufkd5hPWaHiq/3ybefmQeqQ8AyW8l03/OtnZhaPa0LdlzW4ZuWKndKhx34gV5cj7HeNCiwch8yGehruU8nq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRqSVfFA; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3267373BF3
+	for <nova-gpu@lists.linux.dev>; Thu, 13 Aug 2026 20:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786652440; cv=pass; b=AC/M71WH3pMmgrWmwcNx+tYms9+sZjBN9CC+YBjd6a7HdfUxTuHSkI+CGlERkT3AfSaEjqhOZ7BBfA3zZ079Hfe9yN0vV1DoD7w0OOr9cYGb2MxtfA9ogVI/YUabikb/9rpTTXHXL3GOndQj6jBb68g4SAnqS6U/tUIRzBrZPaw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786652440; c=relaxed/simple;
+	bh=cehTam5I/PsI0xQ5rE+zJQchPnCweU4qjkmMXExiRUs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B+CjZisFAzsQOjA5E51TpWUZXkKrpXcZUfiMUAFLYfhq134aPS7l0TD/yNSC+KApckcoBKG2DTMxgxvqWkTeUoferhJz1kGZZfTdNPpUH3Ygy5LqUwPkRh+ZJWijYZ/+UBUYSaCFEksMlGqzJ31bkCHq5OPoYNBTbyLRsJkpAv8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dwKe15eo; arc=pass smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRqSVfFA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C6B1F000E9;
-	Thu, 13 Aug 2026 20:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786651223;
-	bh=QiaJZv1odoPlOyxmY+lNT4TcM3zQ6uvi+7GgTHIP83w=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=lRqSVfFAKnGHJM2qTZJ82qsKiZFKAY79vTyxmRnQ4PGHOCUscCGApKjOWSEgFPY5s
-	 cbcOLZEPzOkDQH1QdqQzebLiPKRU0oGDnZ5mwjXQJp8aR2HcWgXE330MvkHcfH2wv0
-	 keDIqMfpbWmv2rpRfy+RKz4jM4lk8PTcI9ByKuAcaeo9hhWO69PYqKp3Yr8OiKZVfZ
-	 g9DdVq6bFRVc23qKcJdQ/870GCPkiUzbMa5hj0To85PY66yU7okulypL8mMjGRrBYq
-	 87H4T3TAtMYaDrDhz5+L3HJ7d374myFLh86+tcYUKfehgNQR0UA+mi6xCEH+rfKcih
-	 T0lkYxEVaKx6A==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dwKe15eo"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca132e9c54aso20503a12.3
+        for <nova-gpu@lists.linux.dev>; Thu, 13 Aug 2026 13:20:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786652438; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ntx7yJltT94wdGCynkxcTjcvRTBdLwpVgLotGF/4fitYCXGskAAYEJ54FEgI9AaVq4
+         LlbIU/zc4+AsJ0E0FJexXSHjyAglHf039M0WBgXS/xge9Y3IP+SNYfKtx7wW1l2iDIC8
+         Z34+TR+U7qXAx4s+ATzqtKx/w+6c9ytt4Rd7PqCW1aq9CP9EJhQ73rLriDTRJRRwQuwh
+         N5crpcqbCKGarV03TLFW3JXwreMVyCLfZqS08sOOAxrUbGkXbL4E14NVGx+0kCGYXjpW
+         JwaXglrFJVcoUw7HejQwzg42tza34/Ggh7/MhSWzq5h2gBOISZT6coHEBog2SohzGLLD
+         bd6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cehTam5I/PsI0xQ5rE+zJQchPnCweU4qjkmMXExiRUs=;
+        fh=j+SGjIN1H/4KDZwaaCrJ97D5OLompIZr9qvybDejP5c=;
+        b=ln3A+Fdffaull49L4VPe3EzK0ix6Qybcx091Epej9aLw0eAr8AW92jp7KjRXHy5YgT
+         xrbG7FxtFKKPlGBp1ws+y+CAh7kHjcImI4gKmKIcKCZWP+phUiwPnC7ubrsyntugC6MQ
+         yJa0Uvt/gGUQewFRKG5eAib/jYyrjf3RJkKpQ5A0c2MO2pX9meKicAqbeY7YeEsHHgYe
+         do4nnjPcYFYkDZAnd0Sw9KC4KkrDtTodhAN0lT6smqX6cievojtnHrDN5H5Wy7dMggFK
+         oze7156ZW5bzoq0PaCwoXdciSdPfyZxSaLPvy7Iu9i4ignFAFQ9gwB9uCy1xIys1ioGC
+         LzEQ==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786652438; x=1787257238; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cehTam5I/PsI0xQ5rE+zJQchPnCweU4qjkmMXExiRUs=;
+        b=dwKe15eokmkBckRoRfa70Ll74NFPialenYjywQWQuPVqbbCgCdfL2xwxJbFJoRDArs
+         1lu/FHU9yHoTlBty+sC2yG69E1bKRGqPHPrwu0EMRZjOKTpVhNaHl9gRcxQkJ2JZS1Yt
+         MijMiLpnBARqvz0jRpAv3i/fcIujdEWMDLtaUkzoxDmGnEt/9gEjLDX62ZecnCu4SQqD
+         AS7PvfFJnugCv6rj4bNRaQzE0U7Vnk48COg5rDQASpRbbkKDo+5doqN/PpWjtPY1Kte2
+         HbvUjTxvBzlmuDf+rvUuCJvWeUddJBq6wcwJPkxWK6tZ0uWZs8mGoRyKYYrqIFYK59wq
+         NqBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786652438; x=1787257238;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cehTam5I/PsI0xQ5rE+zJQchPnCweU4qjkmMXExiRUs=;
+        b=dBHBDiXoC+FmXp/MMq6dG3XiP6unwRjMsNNPdp0bokDoSEyrRwFPVDeLJnSjeWqQea
+         gXJo1/MbHLUVe901pDcjhumoszr3jPbJoKxjm3pw5Ul6rvt/tnMx0q5rl5r7WISjklzj
+         AcUkvGUJLe5i0tLOtCQt8kAMpKwxLWtDcrk3UWFpKQ5k/9ElVOpCVRa3oLOf5qmy9CPB
+         Jtm3q3AIYBqhHJQQ8iWU9wMTYA6CBo6X9IbHX6UyC46spCkKxZb6K7Tg+1tM5OfwtJSW
+         pNjj8ST8402qgLXJGOgmnC3NwqjnRxN9CU9iwjTMOQy9HRUCNFWXtxKoj2GNnZYcDLJA
+         Epkg==
+X-Forwarded-Encrypted: i=1; AHgh+RqXA2TnJ7OnKvxaiuVg9yM2KpOock0KiNYdx5RNctbzFiwmv8nu7DzWxx2qbIR9zE7aIw3xIBr6fg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyZk+na2iGfzBuoFVXHxpp6eqVpdTebyNeGoQ1+GoYqVnxna2ir
+	kveGriTRCYhMV5+gG4ceSpJrmoYNXvpqclHOhOw3shsqqNewrYDaRb0rGl+/nrR8A1JeShkR7QW
+	I3Te6tPNK+chVRfZbpLUd23A1ZpFvHmo=
+X-Gm-Gg: AR+sD13PEUBkUY5ZlKo1B+t314f0rbmXdP1R16eAnjqWSxMHLoOzV5Utc595El0TinN
+	G8JoEfhjBYchV4LkKCVXeSAx3xfFHUQkdmHqfr78mQaZzpW6JMNgRP+Pv37zCcHQ08BdW8TBxHG
+	4BvIom7FSdMdsNBwvRUP2Fq3TJGGzBDxFgpSF4q6jgwP48lF3/cbTVzI9Bd7ifI8Kdq7nou3tmn
+	nhmLATWmQ1xpLoYyXMNeK2UOufZtuT67KaE3kt02Xhr+StJ5VlbE+/uFK3G6voqNTHopGrTSoQL
+	xDTDOA8aT5a7u/MadflR2yYIuC1GE5QfMWRs8Uhi59CJpAFibmUuHHEXSPprjwHG54KONYen1Bt
+	BdE+ZppzIsUlPppdiMAfAZETxKatDykFVqctpgilVhdzwlry5Ae5qCujSW0VL
+X-Received: by 2002:a17:903:2451:b0:2c9:d298:6c0a with SMTP id
+ d9443c01a7336-2d3b0d7af99mr4135785ad.2.1786652437935; Thu, 13 Aug 2026
+ 13:20:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com> <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
+ <anzxKO0X1OrNRD32@yury> <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
+In-Reply-To: <an4NvQBt3389jP6E@yury>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 13 Aug 2026 22:20:24 +0200
+X-Gm-Features: AUfX_myQRhMg_1RjW0BdPohelYryX955pzu-Kspe5KhUk7UGyWS_4IH5HccmtXA
+Message-ID: <CANiq72mDrC+43kbj-X0dpSKP6zFM61R3QFPa+2_xKEP-RHUppw@mail.gmail.com>
+Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Aug 2026 22:00:20 +0200
-Message-Id: <DKO2ZZQU2MQ9.B0PAI47OAV0I@kernel.org>
-Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: retain the GSP-RM log buffers
- after unbind
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "vladazaharova2018@gmail.com"
- <vladazaharova2018@gmail.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "nova-gpu@lists.linux.dev"
- <nova-gpu@lists.linux.dev>, "aliceryhl@google.com" <aliceryhl@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-To: "John Hubbard" <jhubbard@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260812113752.532537-1-vladazaharova2018@gmail.com>
- <20260812113752.532537-2-vladazaharova2018@gmail.com>
- <a72edc5b-49c0-42e0-b21c-940e71909666@nvidia.com>
- <5efa940cf5271c7bc0d725b7f0df365f247f08da.camel@nvidia.com>
- <aecd067a-e308-44b5-ae46-8f9947c9b44e@nvidia.com>
-In-Reply-To: <aecd067a-e308-44b5-ae46-8f9947c9b44e@nvidia.com>
 
-On Thu Aug 13, 2026 at 9:30 PM CEST, John Hubbard wrote:
-> On 8/13/26 9:29 AM, Timur Tabi wrote:
->> On Wed, 2026-08-12 at 15:41 -0700, John Hubbard wrote:
->>> And so should nova! (Except for the strangely worded "keep_gsp_logging"
->>> param name.) See below.
->>=20
->> The patch set that added that parameter to Nouveau was under review for =
-months, and no one had
->> any complaints about it until now.  Regardless of whether it's "strange"=
-, I think it's important
+On Thu, Aug 13, 2026 at 8:32=E2=80=AFPM Yury Norov <ynorov@nvidia.com> wrot=
+e:
 >
-> I'm not keeping a close eye on the nouveau list.
+> Not OK is complicating interfaces and life of your users.
 
-That was back in 2024 and when I reviewed this series I wasn't paying too m=
-uch
-attention on the name.
+No, we don't want to introduce interfaces with unconstrained integers,
+especially so when we have already types that express what we want.
 
-That said, the name is in fact misleading as we do not keep the GSP logging=
-, we
-only keep the logs.
+In other words, we don't want to introduce impossible states and error
+paths that aren't needed -- we want to rule them out statically. That
+is the point of all of what we are doing with Rust.
 
-Since we're now already in the game of bikeshedding over the name, I'd like=
- to
-go with "gsp_keep_logs". :)
+The unconstrained interface you are proposing is actually the
+complicated one, because it means now you have to provide more
+documentation about both the allowed input values and the new error
+cases. Not only that, you have to provide more tests for all that. And
+you have to duplicate information that types like `Alignment` already
+explain if you click on them.
 
->> that both Nouveau and Nova use the same parameter for the same functiona=
-lity, so Nova should
->> also call it "keep_gsp_logging".
+And on the callee side, similarly, if someone already has e.g. an
+`Alignment`, then we don't want users to be forced to convert back to
+an unconstrained integer just to call the function that requires an
+alignment to begin with.
 
-There's not much value in doing that, and as I've mentioned previously in a
-discussion about the uAPI, I don't want to constrain nova on anything becau=
-se of
-how things work in nouveau.
+Now, if a function is truly something that we want to call with e.g.
+integer literals all the time, then maybe it is worth a workaround --
+but those cases are rare, and even then it is likely to just be a
+wrapper to the normal interface.
 
-> Completely disagree. There is no need for these disparate drivers to shar=
-e
-> a name, especially given that a better name is available. I'm quite
-> unhappy with your continuing efforts to add artificial constraints
-> along the lines of "nova must match nouveau", tbh.
->
-> Nothing is stopping nouveau from adopting nova's names, if that is
-> desirable from their end.
-
-It's not.
+Cheers,
+Miguel
