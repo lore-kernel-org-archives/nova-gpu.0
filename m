@@ -1,204 +1,94 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013011.outbound.protection.outlook.com [40.107.201.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7460B3806B6
-	for <nova-gpu@lists.linux.dev>; Thu, 13 Aug 2026 21:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786655012; cv=fail; b=g+g7wNn+mrnu7UF5KfH1GyooTHOcfx2GnIc0VvUSJbg95QtHAQl0IU/amlXDe03i7R3go4tpypZM67KTdiFx+F7xNNuhZ9N8sxJj3FXvdBX9iWYR+lZygB5ZE0VXdOc7OssRhgWTNwMjGtflOcU3kM34vGPI7tsM7aOYP14qZiI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786655012; c=relaxed/simple;
-	bh=/nyIzgjBVfxKDFvrtTvsfSwuzWP3ny6009Ihrmxk7KY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=kj3gVVIBXvUKBITqJT7A4x0r2SB4qT6iyKMk3Snj5ApjlNR2wWjXSXiZtxANp8eW5CCZ/KJDxsAUcfLUuBC69HwuRCYXp0OjNMmPHeSu2c+6VjCBrTVuFFCXciz7gCCuXI+zgLveBfH6KDI+cYyifmZiR95sEfH5CKezSm87/Z4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=h53x63Ai; arc=fail smtp.client-ip=40.107.201.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FF73B71AC;
+	Thu, 13 Aug 2026 21:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786656682; cv=none; b=u1K3OFPZ4xSgp7Rb5iesnWS93mn6MmCVTBXAy2uj7UG2uvn7iCdfnmqSSbetVlPWXUAntTbE5fiiOu8tKOg4jHwDONM/zn24bh8/s76cIrY0UXXqbdewQ8KHndI5bVY953yoIWM64zDXSOQxuTxX/7MuA09hC52h0r5sS+zxqMo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786656682; c=relaxed/simple;
+	bh=+n6PnZDAHr2Fn9RJz1oXrtJDxqN31ciPP1VU50Po3Fs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=JPXBzksGn6WXGSTN3n5bthwmn0Lc4jRfIO1DSmFUJZ2oW4pjscIY3Hk+EDD6x40m2/cCO5yZ6+3upsEOwBWxFcqjje07A7qvSn3xyuZBjsS0nzdZXJNyLbrvWQQxdCIsvwQkauToPd8SYg08qxmAYcHRxQ//K/+NJJKzAzoyEO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxDO9/bw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="h53x63Ai"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JZv6XZ4woTZDwx5iqHwv917vg4jLxTa7uX/h3emG08g2HaY397fifUqmS6eY9QvWv/Ew5mQgDYJfls/8OgTNjXlwHRfzWGECH/HE0oyRFQSaieNa+Y9qnLzQJEbAmQXNOk3lzK3WllgFXQLN1tIOPqIP97s/ORnES52FYtkNA14WQDYhO5Ne+r4rKqKDQmqZ7o6Df47dI96ul4yN3I4W9/7hMFSL6VmzaL439CsoA3dF0ggJV9tm32Eax+1XqslXk9fOS7p7eqIANAhzA4/sUgzYlNrmrkmPdh4qoDf4PUI53245dCb4r9zoojETvE4/G3isVV2MU9IALotlJOg+Eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z0qJbGGLFeYX+Qh3RfAwA8GTlIaTq2yvG1kadI5AG8s=;
- b=elEy2DYmu5GHuq5jtWfhzvUIxJ2/bA59bIZjZDuEWx4Yehfg4sZVFm+3MGbK/kzcrvOMkdaqv/iARFBle3GijzkT2VdLd/4RgveYT8BrLxW1UJk6Az9rUyjSkZJVogewTjYVnLND8P94sMt5WJq8lp0zEVTZ7oqQyjjqHoWwcDBIrosc0nAmyQFntgrkMCqVz5iY/uomd/53G1h6LsMA5miKS4SeWBji1hV6ZmqWrGPG127jed4nH5f3P4nD3/oEV2edgsyx1XdvOfqFxWYAb+FdrFBBJE2X9EP4aBnkGjuPnnHhD56WQI+0rYgbHcFVagSkFwY0I4QZiYBtooGNyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z0qJbGGLFeYX+Qh3RfAwA8GTlIaTq2yvG1kadI5AG8s=;
- b=h53x63AiWpgu8r3f3rrrWMbSn80RlAZa8vXipcTGvjZ1IpOL1dvVym3twwIWeY7vwlnOK1eiFFI69iOySI/XrIIYtcRe9IEMsc96oaDwwaULAHG8tVTzGZSFK3e3jy18bTvfQrpxraAtgiQx8uamPw8NVJLWqAPhuOx3bL3DmPOFrfpdC/kFCF5iMkf7gPjgvRgd9h7KxvKZwIbTFIoteFwkR4odV/dn0/1R+HgPnX59iY7Z2x2p5X000HjzS0Eeoy125k4gQylcv1KTU3E8nNCt/FfsM1+J2tIPu7hegKMmCRmKAPCVgUvRKjWPZL5C/HcZ35S/Iw4evMXGb9s6lA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CY3PR12MB9578.namprd12.prod.outlook.com (2603:10b6:930:109::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Thu, 13 Aug
- 2026 21:03:13 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
- 21:03:13 +0000
-Date: Thu, 13 Aug 2026 17:03:10 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Eliot Courtney <ecourtney@nvidia.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-Message-ID: <an4xDp29VX8Am0uR@yury>
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
- <anzxKO0X1OrNRD32@yury>
- <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com>
- <an4NvQBt3389jP6E@yury>
- <DKO414SNC0B2.248FUBGJGSPLU@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKO414SNC0B2.248FUBGJGSPLU@kernel.org>
-X-ClientProxiedBy: SJ0PR03CA0151.namprd03.prod.outlook.com
- (2603:10b6:a03:338::6) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxDO9/bw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4B151F000E9;
+	Thu, 13 Aug 2026 21:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786656678;
+	bh=bUhaiWgQYJu/0QDZBGUBxAU0zaMS1O8lN+hvtRT1FdE=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=BxDO9/bwRxYP2h6ngTwvaUme/Jw/91ReJya46kK13woKSAmBtJsi0w26sbOA0ALFS
+	 gwoXpSIc8KBJuFEU58eDAK5/o3NcSnx24mOtWITpGTWaXQ+KPDHcewyjkKOV3zT6tg
+	 oa0VMBpipOQoiXS+T9pYN0WO4q9PsBPBjF25S4Cpv3dpJPhOAYCPdmF6jusg2TLcNB
+	 brTIXQ+Zr8qcq1KJo8VzdWh5fMOxHMJnbyQGtzUIZHWPMIek6hfZfTD7XyhHTqFdjS
+	 n/6RwmM+RlwyOdYNlWcwFDmNAd/JHC8XUbK5FlEtOF2SNvLcfRiVaef2kTLNMMFRnE
+	 U+c4PzOfqbBng==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY3PR12MB9578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66903731-2b42-4634-4675-08def97e49e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|22082099003|11063799006|56012099006|18002099003|3023799007|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	kZ0dtfMCMtKFAHdgcgxw5qtVnLiBuaY4XhGZSn0D3uS69kdksCDeRQfld4DzVoikgahHroxBT6xa+DeVc/4ksKJqcdYPowxUnWBDmDtNo7HQBb61WZtN0QqhLYfuN2mloaXmR89UkU4qcEyxgbmisL0h2pOfkMmniGXtJezPfq31uv3QufmDrmM8B52eKs1Yt1mrenAO/b5+L3R84ZAt2m/HQ2FNDoBilZMJFJGd8kp0L1Ii7qOtq74ll7VSrC1OpX47pt7sCiFCmSZkuDWpms8gIBkpeEf4RAHlerPHAQ6SZeK8qsQO4OWvg5+x12vxLUd5eGsQSh8nwU4HHjVMFznjXpJ5poCRu1BuPDrAyXPHhJQ7LWjyHaBrg4Cvqa72RojqlP7AZ+AoLBcHEf2IJ29tIKGYNYlVH74AhSlh7Zp1vO5lAJP94Ddp+jmTkcgoc/ElsrhIW2SMvT3dadPkxdDS1UbngYisWGZDz7ST47s3WDX5Yg+yZxEJFfnqoKIar074p7wh6FndUwVckhmbi2BKOpkDJW8a5QGeTzB4qdlLtXvDshdwzoUbDBMZuzKYT6XXLo9T0bq3fH30aM2slkrnZBtKphtMXHRdtpWAabjxf+6jJcOnVP8cxkX6ToVU3jKrfd4loT76muXxTfudIdbAXefW+4imy927cg4rg8M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(22082099003)(11063799006)(56012099006)(18002099003)(3023799007)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?hmlUEgL4EJarnPF5vB89ObElQeiE9cu7fT0HtFX7lcV9YF/PtMpe7mfDPDIi?=
- =?us-ascii?Q?9cRso542cCEqxe7mQ1N6WcbaHyTKR02ktI6h6c2z7brVjA0puWCRnu8qJVr0?=
- =?us-ascii?Q?YEgmqr6YXwIsEXSocxLoseRUPUSLP/52WVJqdnP9uNPJJ2+QAiJ1n+NjfJjR?=
- =?us-ascii?Q?Ezxzs3F9L3CiRY9DbFUs+CPdzlw5QrnubvI4Rlt3gO1RcWlNEvdRTHd3YxZs?=
- =?us-ascii?Q?X4k/ejSkWju9gmX3vp8KqMgtGQEMunBpGSCJkpZyCg1MJW2h0fj80cbMaNDD?=
- =?us-ascii?Q?5rNWOSXHxw0oN1dq3DaWjapXTfWVbUrjyGRZ8uxrbQNHFmscZxUnFHEoueQZ?=
- =?us-ascii?Q?ExqboNvSI/RYaZQqgO51OVd7ogyry9t4SIZY5MufMhGVm5TJ1McTX4GfbsXO?=
- =?us-ascii?Q?cAY+w08GsQHFaERdUBuenivQPlkNfsYUWqK1xzJsZOlw8nDTmUkQU+aM2IEK?=
- =?us-ascii?Q?+0lTbpR1lbmUG/h3F5fff0PlzKroAI1h1v7nZydaQ1qSTmiewj2zPASISAm3?=
- =?us-ascii?Q?wxawUPXI3eQ8ZlybNDFgvcNMk2/uN6dN8Y6/rvYgltZv6pnyX0Atezx7Ja74?=
- =?us-ascii?Q?8yEN6yyADuSUj6X15/t8M61pcqVU2mM7wkcsy6Z8YvSB8mNmRGKR7zcwyRTu?=
- =?us-ascii?Q?LPKMpXikRVbXrmFKyf4Cfzm6kBUvnGaF99daQlc0IeMRj7sAHVpTE8gh+oYX?=
- =?us-ascii?Q?EK5o9TuXWNUfu3SndIU4w+eex6A1e1xRVLXPej5eCcxY/A2v7ufgm20lQfDS?=
- =?us-ascii?Q?DnAp14DSRbDMz7aIe2NLnpsrjf/rYpccO/M1bKiNRkvdgKc/fUvkqCgaoDa8?=
- =?us-ascii?Q?N4fWEbPPTdIHKvHkKYnzznN2oFuDYtjIYt2OGYdtIKEJI3sXUChOa9hTyeQq?=
- =?us-ascii?Q?gloIlOf2S0nX8KmAOXiB+JH/VXyY6SE6uhq8NZ3B/Ed4zx0gSuklM1rMZlMh?=
- =?us-ascii?Q?1Ezb4wn39x60XzXH9q2VReoXsUaGX5V6NFpjViTow478on69NjRRZoVkhiHV?=
- =?us-ascii?Q?xS9SeOJvaF0RnUXgZeQ6ArwaZdVBN3g1QcLrPMdDdLGZkLHDXTs6n4t9PuJy?=
- =?us-ascii?Q?fqd3PhS7r5OkY/4CkTH4ZLIdF5oOecC3OvsvzDv+px2dOuk5x9E6u/guHRIm?=
- =?us-ascii?Q?RVHkiPQ7TQ2ApcNTYaG1o7GyirvvYNEGusCk03KVF5u5Y70iOIfAluOi1jHy?=
- =?us-ascii?Q?w2lSzZukdHh6h6SfjXHFGCjzuuRzxPwbPpwKyV82enXmb+L/AGmZL5Wl+p/L?=
- =?us-ascii?Q?Sz4yR8nL4GlVnhUiaHPjxiWaQZdkUXdPAd0KTvNzR3i8KrpqBSQ6UgOVtUlD?=
- =?us-ascii?Q?Jw59Q+4IAHjclHXMkFTKT+qX2KK+Y81IhCq06cYN5eFXSgcBYjJxJYWX0X0G?=
- =?us-ascii?Q?BsQpKUCGx+q5EzTE/tWk4Q1jbthyf3rka0FNAe2GWPoj9UZvSW5+Od0vE8x5?=
- =?us-ascii?Q?2Xnaw3O7KXZC/APQH3MBG27TW0Dj9y6CE5KXPfmXGXLD2UYaL9kNgLG00V7A?=
- =?us-ascii?Q?WoI84qbG3ZiDef+dd0NgYaLOt+Jw6WCDOb8YBYqbynvfpVnPCBjEnTtCUmgi?=
- =?us-ascii?Q?WvQss4NwZNkSW7f2X43sLgJpokL90Kh3UzGXKf9EyHROc3iIymrL8gMZQLB2?=
- =?us-ascii?Q?SmQ3lbZgQHZ2jusw2WO+sKCVznP7A9hlOJiTc3MSKAqlaJAcqVWlsJQf9+Jp?=
- =?us-ascii?Q?Eq39bKd1IRe5eoLCRd6ZmyTgqkejJ+9uq+hWEsYt1sYm18fQxPZxxCp86AY9?=
- =?us-ascii?Q?RJbLG2gRhg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66903731-2b42-4634-4675-08def97e49e1
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 21:03:13.6141
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Si68juVvmu1MeQfWMvMOIl7UTmZCbB8VXUPYvtGD55a/b2yU40ROCUOMhSlLX0NCsV7mEvUU1Gz0y/6Ej+AzMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9578
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 13 Aug 2026 23:31:12 +0200
+Message-Id: <DKO4XKBWD8W5.1K2R6QLREBJVG@kernel.org>
+Subject: Re: [PATCH 04/17] gpu: nova-core: allocate PCI MSI vector during
+ probe
+Cc: "Joel Fernandes" <joel@joelfernandes.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Shashank
+ Sharma" <shashanks@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
+ Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
+ "Will Pierce" <wpierce@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260808031120.363869-1-jhubbard@nvidia.com>
+ <20260808031120.363869-5-jhubbard@nvidia.com>
+In-Reply-To: <20260808031120.363869-5-jhubbard@nvidia.com>
 
-On Thu, Aug 13, 2026 at 10:48:50PM +0200, Danilo Krummrich wrote:
-> On Thu Aug 13, 2026 at 8:32 PM CEST, Yury Norov wrote:
-> >   pub(crate) fn alloc_area(
-> >       &self,
-> >       count: usize,
-> >       align: usize,
-> >   ) -> Result<ChannelIdArea<'_>> {
-> >       let count = NonZero::new(count).ok_or(EINVAL)?;
-> >       let align = Alignment::new_checked(align).ok_or(EINVAL)?;
-> >
-> >       let mut ids = self.inner.lock();
-> >       let area = ids.find_unused_area(0, count, align).ok_or(ENOSPC)?;
-> >
-> >       // If the pool is small, the backing bitmap may be rounded up to a larger size.
-> >       if area.range().end > self.num_chids {
-> >           return Err(ENOSPC);
-> >       }
-> >
-> >       Ok(ChannelIdArea {
-> >           pool: self,
-> >           range: area.acquire(),
-> >       })
-> >   }
-> >   
-> >   let area = pool.alloc_area(8, 4)?;
-> >
-> > See the difference? You still check the parameters, but don't make it
-> > the part of interface.
-> 
-> Miguel already replied to this, so just briefly adding to this.
-> 
-> We usually want the arguments to already carry the invariants we require. If we
-> make the arguments unconstrained, we may end up in situations where we already
-> have types that provide certain guarantees about value constraints and yet we
-> have to give up on them because the API takes unconstrained arguments and
-> revalidates.
-> 
-> The code from Eliot does actually already takes advantage of this. In
-> 
-> 	pool.alloc_area(nz::<8>(), Alignment::new::<8>())?;
-> 
-> both arguments are already validated at compile time, whereas with unconstrained
-> arguments we're left with a runtime check.
-> 
-> Yes, nz() does not actually validate it statically, but it easily could (and
-> probably should).
+On Sat Aug 8, 2026 at 5:11 AM CEST, John Hubbard wrote:
+> Allocate a single PCI MSI interrupt vector in the probe path.
+>
+> Try MSI/MSI-X first. If that fails (possible in broken VFIO setups),
+> fall back to INTx with a dev_warn so the issue is visible in dmesg.
+> The allocation is devres-managed and automatically freed on unbind.
 
-Alright, I'm not against the static checks, and I don't insist on my
-version. My complain is about readability and unnecessary complexity
-for end user.
+[...]
 
-let's find a way to convert this beast:
+> +pub(crate) fn alloc_vector(pdev: &pci::Device<Bound>) -> Result<pci::Irq=
+Vector<'_>> {
+> +    let msi_types =3D IrqTypes::default().with(IrqType::Msi).with(IrqTyp=
+e::MsiX);
 
- 	pool.alloc_area(nz::<8>(), alignment::new::<8>())?;
+I was about to ask if we really need to bother with MSI and shouln't just g=
+o for
+MSI-X only.
 
-to something more readable, ideally:
+But then saw that the commit message mentions broken VFIO setups; can you e=
+xpand
+on this a bit? Which setups is the commit message referring to?
 
- 	pool.alloc_area(8, 8)?;
-
-We were able to do this for bitfields, and I don't think we should
-give up here.
+> +
+> +    let irq_vectors =3D match pdev.alloc_irq_vectors(1, 1, msi_types) {
+> +        Ok(vecs) =3D> vecs,
+> +        Err(_) =3D> {
+> +            dev_warn!(pdev.as_ref(), "MSI not available, falling back to=
+ INTx\n");
+> +            pdev.alloc_irq_vectors(1, 1, IrqTypes::default().with(IrqTyp=
+e::Intx))?
+> +        }
+> +    };
+> +
+> +    irq_vectors.vector(0)
+> +}
