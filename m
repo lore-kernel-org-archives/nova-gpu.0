@@ -1,428 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020133.outbound.protection.outlook.com [52.101.195.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F96046AA75;
-	Fri, 14 Aug 2026 12:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786709634; cv=none; b=HnD/qdgE4PjBrZ1ndyxqZcHfx8KAPphiXukRRtrdIxSPE2k+CPtKNLM9dZRlkl4Co6mDzLwILsk9GMjch8JpY9svZUfFg58qVcS8Lj4dcKCAc7Pkwv8TRwiGXEq/abpP2E86xUOKbgpFRC+NN2GLneMUDZKjeeF/dMlt/ESOahY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786709634; c=relaxed/simple;
-	bh=vbBcP1TyavnfW/sYV7zS2U2FHb3pKvXxNUPT+80RbDc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=FBPFleeijAn6Ulp8gCc2zHFHUu83Y6rp9aVyccpDig2RuT63lg3nU4Y+jrJ9sCRrJZg6oOKiJ/KrB8WKJrBw/V5awzUZsya9dpkzLixQtNk43ORDgIfQvem6ccITx3UZP+o7GR0HMiSnY+8CmUEmc7k5a6duSAXNPyaKwofAB0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdS8Phtc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8833B20E6E2;
+	Fri, 14 Aug 2026 13:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.133
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786712731; cv=fail; b=hbSxx3SwEz2RJL/L0DDnSstEs71NnZYdI6z8I/YvYbhdv/op4TdRwwSyQ4Cj9zaukLKd61rBPhdHgcEWOwcHdd1YXrPMQS3Pht+VXCwND1iea48IhLgEzWnnGSOkt4DF6QotwX+uL+WSLyZsQH4Df4JUsdzdPZoFyZ+rI7EN/P0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786712731; c=relaxed/simple;
+	bh=UDk6nOSkAT48IAETSZMgL9RQmAiE9LEnVdeh3qzJ/4g=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=pOpzcIKRnQ7he3t4+mmPj4AjvBBHcLX17t3NJFq3yx8e1YB6bkCp24lQVZ1mnFMIVUX5TB4w7TmiPZZpecnKn4DvPTh0veTeOPt8KIl3fQuDylix7bUOhyBNybR252lG60eSXsQecdGweLrqCGm7TttsSJQne7hSUWZk5L04Jt0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=EdLw4fem; arc=fail smtp.client-ip=52.101.195.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdS8Phtc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD211F000E9;
-	Fri, 14 Aug 2026 12:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786709632;
-	bh=VvoawG1V9Ufx+24ijzXKluOODJaRXMW3MMq3m2bUCFc=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=ZdS8PhtcRyS+ZUDCI8gIbR9nbk4U3KarrrKbguGoT7o+DUJRRTa+5m4e0QmIK7rT7
-	 4r+Z3hdOI5JwrRMObldPykZE4Mrse4ozu8UpVatqX8hSl/O8r3nLKbMuXUxxWQJwWO
-	 ohdJFn4YEvLeTEaslRc/Pi4mQa9EXSXQH/H1IgzqZHrAzmqToTjGsUvecACmK8m65X
-	 ErfeQsqI1kcU4X3jYLVmgPgOoAm+yp8+llp+T69I8EGuOWZz3cSEv5xF1tZT8G/h1S
-	 /4KwaIpcyKD5NRY35bxgU2E82ifB4yEZ/40zhCbTSX0X+yBirdxln86mCePM8pSGWG
-	 gsenRYn/p1cLA==
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="EdLw4fem"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZhY9ZAENzJb8W49vxAahrEkr5E9CnWFVW5UdLZR7NOkwzgbns8O+7cMdkVV0nB8OzU/rhB2bk9JJzD0vYh7/CBGCPkHMVgQGRYd5V+akAuLhesg8xJbA2ZHPIV6bWm6CNIJwqCs3aX9AqnHCflGmf/WcbDiS/GJuTU2Jv8pE0GRUcoJPcgO3Fnj0cwnZo3IPVJ4xR5l5+jo2HB/tVrk88tELBewfQDww5Gzv4oDvhTq1Ut7rjRedjbhBM5KlC/i956gNsf6mIvtOVy4Fit367hJTrXK3HrSUbAJ3uDCwDM1S8McePQhx9FbTJFD5hdGn8DSUUsJFFghd/7O4tT3tHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=heb2WB+gjBpzLcCikgq5lLw1oJ/BlfFSOYMt3NnilFc=;
+ b=R+bFI+mVKnj7F6UhTU1u3cPi+qvkcTsgfi5TjJyBZbYagCv3oA86UUXccfAehCztf/MugNq+1KeMB66DOqCDLGCcURbJBYSZmAq9XdmnABuo7mO7FwLSeUDRTOGX7XUE2QNAaLimBbXHHNnUpsRsHq5Mhz2STUkft4rjCXTlrX6ovxSzcTMfbWweUOVjXNZB/SkADiec7DBkp4wWIWb9SOg5XgfXxbD3feeBJdqmmYVWV7lQgnVgPvXdSSl9bSdijsud9TJq8/BUNI56hJXLfIaTe1eURjMcsI6Xq9BU9ID48rTE1D0YwigMmO07UZq0SpW/pRqtHlXvQvF9fIEXdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=heb2WB+gjBpzLcCikgq5lLw1oJ/BlfFSOYMt3NnilFc=;
+ b=EdLw4fem3R2al4lMfDhRtFCc5bVuzBzD3BpPICp64ZgC3KNucggbA44ZnmdyII3OSkSR+UqgBxJ2T9RM7k6QK7MIEh1TtzvWm6/fcr2M7G68OjlHMUj4Hnf0CvHuxYzjRCKtPonciqGOZ4xWowW+dxPBimb7Hk6cF4Y9AVpPrfE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO2P265MB3514.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:1a3::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 13:05:22 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 13:05:22 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 14 Aug 2026 14:05:21 +0100
+Message-Id: <DKOOSSXDVVUK.SY5IAXJXUX5F@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v2 12/16] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
+ <20260805-typed_register-v2-12-c3ca142220a0@garyguo.net>
+ <DKN1QEH1HWD1.1ZV0LWLNCZJTH@nvidia.com>
+In-Reply-To: <DKN1QEH1HWD1.1ZV0LWLNCZJTH@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0310.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:197::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 14 Aug 2026 14:13:46 +0200
-Message-Id: <DKONPB717CY7.4UDYVW6C29FY@kernel.org>
-Subject: Re: [PATCH 06/17] gpu: nova-core: add the GIN interrupt tree API
-Cc: "Joel Fernandes" <joel@joelfernandes.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Shashank
- Sharma" <shashanks@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
- Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
- Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Will Pierce" <wpierce@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260808031120.363869-1-jhubbard@nvidia.com>
- <20260808031120.363869-7-jhubbard@nvidia.com>
-In-Reply-To: <20260808031120.363869-7-jhubbard@nvidia.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB3514:EE_
+X-MS-Office365-Filtering-Correlation-Id: b28162e1-53dc-4598-6c47-08defa04b2ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|22082099003|18002099003|56012099006|5023799004|4143699003|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	ZtQxL9xQXhbdSmoBV/j7InO/rWadIX47hX9F6k4cjpG1yr+/jsXDRB8m7W8TgqUsYlz6DQ9UqujcKFOUM+jOanq3awuUAlnjMj8CPQy8g7+uIMlWz1K2+DdE1fWKoz2vzQcnWGUYH3O/rTnSEjn7+CtsBjpDgxP46OWWQU6Yr0QJqD4uT+FVr5I9KfjAhPtpjtvGiLrsnXSQQ7OQ9Azej+g12jQIRnB8LWhnx0PPm5ROR2vtrZZQbtZGK0rD4te/qe8t+pSUE6C4xZfF9MsbT6JcfYUSNunEQUXUQS5dSiTxu1tunSpvqytjg4uRaiw7OC8BJ2gPzKOp+zWU5bruX629rV7zh/Hy19ycI3t6SJ6IDMvfiTELR+ONfa/L6T8/LxnffZYpc2Mf9//2tyuaPipgS9bqSRq4G3v9CYjcYqR1aPMtu4lSUfwGf9Ph48f7shB5bMX1nacYI8ZGw8+ch96RX6bDt+Fvn/w5FgyqffnZry6qAj8iRhAmti6ToQWs4N7GamQSXNauq1Jk2crFE6T2PGqY0r2zfiPqqChlIpj04Q4kbqvk8hfAppUBMFp2bP55j8I0ZDw7An2VeG24UZJ0RIu1fERMiyARLTPJaAONH7LUqGiAWw7GRZl8m0sY9LX4vNqNwH8VXUY0+NcfR+YWhmcJeyb8BzyzTdjC9xc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(5023799004)(4143699003)(10067099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aDVTUlgwZ0k1dE9jQ3VweGtyTW1DVGE4VnM4RkJTMlovbUo0UkJCQ1IvTXFZ?=
+ =?utf-8?B?S3M5Q2czTkllZk9ka2k2VGFDcGx5VW5NMWpGazZLL0tkcTBZYllPOThKUCt3?=
+ =?utf-8?B?WDdWNkFJTWlaWTdVelBSMHZmeUl3bloyc1BCV3ZrWmpwMHg4RXNmaWRMWkY0?=
+ =?utf-8?B?by9GVGxFNGhpRVc4cWtQS21LSzYvc09YVmpja1JpZUVEWnF5MFprQmlrRjB5?=
+ =?utf-8?B?OEU1UzlFK3RiUUQ2aVU3N3ZBbC9hUjU2TmcwTkRLM0dCNVpwU3l2b0dEOWVY?=
+ =?utf-8?B?WjlhZU9GS2pEYnR4cUV1M2tQV3V6MmphK0lHYmVSay9LSTBZaTA0RXBsYWRy?=
+ =?utf-8?B?VnNuRVhIU0Z4YWYzd0FObWp6RVdrTndwaWlaVHdkYUlDS3pZS0dqbXhZZVFj?=
+ =?utf-8?B?RE15SzNieXJCN0d0S0gwMzJBTlhYK0ZYZFk1MHBBQ2dXWTlJWVgrdFBSZVZH?=
+ =?utf-8?B?dTUxaVQrVFY2Y3BwNnNkYUxVTDYyN2k4VWJMVXp5WUxYMVNGZmhBOXhCUm9Y?=
+ =?utf-8?B?Ym1HSEpLVEVJdlJVSmlrN2c0d1RUcTdvWERMcmJEaUZQV0gzK3NwYUR5cmIy?=
+ =?utf-8?B?cjc3ZnBPOStEOTVEYmFpMVRzUFhaMkJ2dXl0a0VOa0VmOUlOWWpJNHp1SS96?=
+ =?utf-8?B?ZjBTY2liRFcvcXZaNTQxTk9MVU1SajZxUlFaOXI2blIwVkFWMGV0TGVTbkgv?=
+ =?utf-8?B?RUd0WEhjaVhJbzB6VERIY0J1QUdSOGdvNjF6SDFRd3YzdXRTZFNpeEZNamMv?=
+ =?utf-8?B?RS9WZ2VhSGE1YXdLc1JtTlhUQlkrd3ZzdWRmRlAreUI2T3k2bWpHdmUraGI2?=
+ =?utf-8?B?RDl0dUk1aGFZcUJ6NC96cTdsZCtlSXZ6Z2trek1tYUljcjBQSDExWU5sSzE3?=
+ =?utf-8?B?RlJESlNwYkN6ZGZUQytINXBqVHA1N0NIbTlSSlo5eXIzV0ZJb3Q4MTRJcUVN?=
+ =?utf-8?B?YjZNbmxVNGJQUnFrQitFMzRmMnMyOC9VY1AwQ0IralljcDZ6MDFZZitwTGMz?=
+ =?utf-8?B?a29WemF4MnE2a3BBQmdQWUhyTTMvTjdNdTlmOXM5aTRVY0hoNzlIWWRMTkNS?=
+ =?utf-8?B?c1kxZzlITWpBU1RvM2FSSFFIODNOQlhSY2RoK01iRkNxMHh5UktoWnBWVkd6?=
+ =?utf-8?B?WEIrR2pUY205T1N6RVdyVXFaNHVmR0NDOHc3ZXlPUjZMWXdRMk1IM3NQNDVv?=
+ =?utf-8?B?VFA1QVBhYUxGV2Fvc1JWTWdDaDFobGREb3JTYXdOdTN2WHJTQzUzZDJUSFhr?=
+ =?utf-8?B?d2NIOC9UMFVoNFBEV2Vpbm5OSC9EdWp2eHgwc3YyZUFDeUtxcVQvS21rdmQ3?=
+ =?utf-8?B?V1NJZldVcnY5bnI1OEV1MU1iT09hMStadGxUUVBOaFk2eFFCSkRJTkFOYW5E?=
+ =?utf-8?B?SWJlU2VjUWYwOXloSDBMMFBHRWQrd2ROM1RHa0R3Njh2amwrR28vRWxYL3Zs?=
+ =?utf-8?B?TUQ5Z2x1VTZXM1p6UTE0N0dWNlloV2Uyb3BEcVpMWGFRQkZ5bXRmcnByTmhy?=
+ =?utf-8?B?bjdSMm90U2Y0cjk5ejVYMnNia0p3NkN5ZTdkVk4rK0pHd2RXQ3hKNGRVN3Ny?=
+ =?utf-8?B?ai9CN0tyby9yL1NIYzBwZmhYSDBrQ3ozZGQycjZGYllYaTQwOVBkNXI4Rjk3?=
+ =?utf-8?B?ZjhHQ0RibHhSd2xwaWI5MVZmY0FMR2x0VGxsaUVnd2JlMGpSUXYxRFRsY3RY?=
+ =?utf-8?B?cm5UTDM4aEdEMlBqUHY5Ly82a1c5SVIzTnc1Njc5TVo2M3hrY2JSTWpEcWJv?=
+ =?utf-8?B?S0Q0ZzBLa2JOdzl2VmhZLzR0M1NGUlUzNFkxQ2tBdGlFci9zaUhZUS9lOTU1?=
+ =?utf-8?B?dW5HTU14c3g1OTljNkZFTWQ3Sm1PL21odElWNVNFRnl3Rk1jRzlRdVVUWm1C?=
+ =?utf-8?B?ejVLdEJJMCtjRVQ3Sk54SFV3Q2cwS0hZelFtNGg3N2tkcU0rY3k3YjdocHlm?=
+ =?utf-8?B?aUlFZDcxNytDVFgwQ3ZJblFpaWRKWWlXY0sydHpYZVpiUDJsUWU4VndNSEZH?=
+ =?utf-8?B?VWx5QWI0Vm1zQlFXZGxSSm5LU3FCVXU5WEoxWFFGTmYwcXpDc0lMOGhqSUc4?=
+ =?utf-8?B?S2hsRGx1L3VKeVVkRTV4YitVL3U3dWQvYmlxR2V6cXRkVlJkVVlMbklzZy9G?=
+ =?utf-8?B?RmxuTUNqOVVRVkh4T3hHTTlIREJKL1crRlZZVThMaTFmWTJ6eXdKek5pSnNO?=
+ =?utf-8?B?ejlIaGNXVU1Ea1ZVR1Z2Uk9YYW5NNCtZQnhrZjFvd3c3R3FpMFRWT0pSRFFi?=
+ =?utf-8?B?SDJJbFp1RXpzbVRMa2ljWlMrQU1WYS9NdU1tV25ocDRBZ3ZsY0ZjSGF2OE81?=
+ =?utf-8?B?Q1N1YlpKbTFBbUZHRmlwWExDaEtLRGRyUC9CbE54cVNVaTIyK0w2Zz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: b28162e1-53dc-4598-6c47-08defa04b2ce
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 13:05:22.1014
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GHX4TTEBUazSmNc0u7zKwEP0CIamLDCOaMwaTZfgRSilUS/NY4nDxmHrsrrgPnpgm7cemmm8IFkEW/i0T+ox+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3514
 
-On Sat Aug 8, 2026 at 5:11 AM CEST, John Hubbard wrote:
-> From: Joel Fernandes <joelagnelf@nvidia.com>
+On Wed Aug 12, 2026 at 3:48 PM BST, Alexandre Courbot wrote:
+> On Thu Aug 6, 2026 at 1:35 AM JST, Gary Guo wrote:
+>> -/// Type used to represent the `PFALCON` registers address base for a g=
+iven falcon engine.
+>> -pub(crate) struct PFalconBase(());
+>> +/// Type used to represent the `PFALCON` registers.
+>> +#[repr(align(4))]
+>> +#[derive(FromBytes, IntoBytes)]
+>> +pub(crate) struct PFalconRegisters([u8; SZ_4K]);
+>> =20
+>> -/// Type used to represent the `PFALCON2` registers address base for a =
+given falcon engine.
+>> -pub(crate) struct PFalcon2Base(());
+>> +/// Type used to represent the `PFALCON2` registers.
+>> +#[repr(align(4))]
+>> +#[derive(FromBytes, IntoBytes)]
+>> +pub(crate) struct PFalcon2Registers([u8; SZ_4K]);
+>> =20
+>>  /// Trait defining the parameters of a given Falcon engine.
+>>  ///
+>>  /// Each engine provides one base for `PFALCON` and `PFALCON2` register=
+s.
+>> -pub(crate) trait FalconEngine:
+>> -    Send + Sync + RegisterBase<PFalconBase> + RegisterBase<PFalcon2Base=
+> + Sized
+>> -{
+>> +pub(crate) trait FalconEngine: Send + Sync + Sized {
+>> +    fn pfalcon(io: Bar0<'_>) -> Mmio<'_, PFalconRegisters>;
+>> +    fn pfalcon2(io: Bar0<'_>) -> Mmio<'_, PFalcon2Registers>;
 >
-> Servicing a GIN leaf has a required order: read its pending bits, then
-> clear them. Clearing a leaf before reading it discards every vector
-> latched in it, and nothing reports the loss.
+> Remember on v1 when we contemplated using associated consts? Turns out
+> we can with this version:
 >
-> Add an API for one PCIe function's CPU interrupt tree. The leaf handle
-> carries that order as a type state, so the wrong order does not compile.
+>     // Need a better name, but you get the idea.
+>     pub(crate) type PFalconRegs =3D OffsetLoc<NovaRegisters, PFalconRegis=
+ters>;
+>     pub(crate) type PFalcon2Regs =3D OffsetLoc<NovaRegisters, PFalcon2Reg=
+isters>;
 >
-> The CPU doorbell self-test added later in this series is the first user.
+>     pub(crate) trait FalconEngine: Send + Sync + Sized {
+>         const PFALCON: PFalconRegs;
+>         const PFALCON2: PFalcon2Regs;
+>     }
 >
-> Reviewed-by: Will Pierce <wpierce@nvidia.com>
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> [jhubbard: use the canonical NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_*
->  register names, name the module interrupt_tree with a Tree type, drop
->  the type state from the Top handle, take the leaf count from the
->  chipset, define the vector encoding here, reject a trigger for a vector
->  outside the tree, and read every implemented leaf in drain() rather
->  than descending from the TOP registers, which cannot see a vector that
->  latched while disabled]
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ... and make `Falcon::new` call `io_project` directly, and it works! At
+> the cost of importing `OffsetLoc` in `falcon.rs`, but that removes ~30
+> LoCs in total, and I'm not sure `OffsetLoc` should be hidden anyway.
 
-It would make more sense if this patch is merged into patch 8 after the HAL=
- is
-introduced in patch 7.
+Originally I want the type of consts created by `register!()` to be conside=
+red
+as implementation detail and thus ideally not to be named by the user. To u=
+ser I
+want them to treat it as just `impl IoLoc<>`.
 
-(The newtypes mentioned below need their own commit first though, as they'd=
- also
-be used by the HAL.)
+However, thinking about this again, I think we might be able to have a sing=
+le
+type for all registers after all the cleanups, so it'd make sense to make t=
+his
+public API. However, I do want a better name than `OffsetLoc` if we're goin=
+g to
+make this use case supported, though.
 
-> +/// Index of a leaf register, bounded to the `0..16` range covered by th=
-e leaf register arrays.
-> +pub(super) type LeafIndex =3D Bounded<usize, 4>;
-> +
-> +/// Maps an interrupt `vector` to its position in the tree: the leaf tha=
-t carries it
-> +/// (`vector / 32`) and the bit index within that leaf (`vector % 32`).
-> +///
-> +/// The returned leaf is a raw index. [`LeafIndex::try_new`] bounds it t=
-o the leaf register
-> +/// arrays, and the architecture's leaf count is a separate, narrower bo=
-und.
-> +pub(super) const fn vector_leaf_bit(vector: u32) -> (usize, u32) {
-> +    (crate::num::u32_as_usize(vector / 32), vector % 32)
-> +}
-> +
-> +/// Maps an interrupt `vector` to the `TOP` enable mask of the subtree t=
-hat carries it.
-> +///
-> +/// A subtree covers two adjacent leaves, so the vector's leaf is in sub=
-tree `vector / 64`. The
-> +/// result has that subtree's bit set, in the form `TOP_EN_SET` and `TOP=
-_EN_CLEAR` take as a
-> +/// value.
-> +///
-> +/// The result is not validated against the subtrees that the architectu=
-re supports.
-> +pub(super) const fn vector_subtree_mask(vector: u32) -> u32 {
-> +    1 << (vector / 64)
-> +}
+Best,
+Gary
 
-I think we use new types for those. I'm thinking of:
+>
+>>  }
+>> =20
+>>  /// Represents a portion of the firmware to be loaded into a particular=
+ memory (e.g. IMEM or DMEM)
+>> @@ -358,6 +361,8 @@ pub(crate) struct Falcon<'a, E: FalconEngine> {
+>>      hal: KBox<dyn FalconHal<E>>,
+>>      dev: &'a device::Device<device::Bound>,
+>>      bar: Bar0<'a>,
+>> +    pub(crate) pfalcon: Mmio<'a, PFalconRegisters>,
+>> +    pfalcon2: Mmio<'a, PFalcon2Registers>,
+>>  }
+>> =20
 
-	struct GinVector(u32);
-
-	impl GinVector {
-	    const fn leaf_index(&self) -> LeafIndex { ... }
-	    const fn leaf_mask(&self) -> LeafMask { ... }
-	    const fn subtree(&self) -> Subtree { ... }
-	}
-
-With additional new types LeafMask and Subtree.
-
-This removes the need for
-
-	const GSP_LEAF: usize =3D GSP_LOC.0;
-	const GSP_BIT: u32 =3D 1 << GSP_LOC.1;
-
-and subsequent
-
-	LeafIndex::new::<GSP_LEAF>()
-
-Subtree should represent a single TOP bit produced by GinVector::subtree().
-
-This way Subtree already carries the invariant we need and we get rid of th=
-e
-runtime count_ones() check in SubtreeVectors::request_for().
-
-The semantics of serviced is different and can be represented by a SubtreeS=
-et
-type, so the check becomes serviced.contains(subtree).
-
-Now, there's already an existing Subtree type, which represents an index. B=
-ut I
-think we should just get rid of it, as it doesn't really add any value. The=
- two
-methods it implements, iter_leaves() and iter_pending_leaves(), are rather =
-Tree
-methods.
-
-If we add Subtree::index() they can still take a Subtree argument, but I'm =
-not
-sure it's worth. They are only called by drain(), which creates this new ty=
-pe
-from a raw value, just to immediately convert it back to a raw value. So, h=
-ere
-I'd just work with the raw value.
-
-> +
-> +/// Type state of a [`Leaf`] handle: `Idle` before its pending bits are =
-read, `Pending` after.
-> +pub(super) trait State: private::Sealed {}
-> +
-> +/// State in which the handle holds no pending bits.
-> +pub(super) struct Idle;
-> +impl State for Idle {}
-> +
-> +/// State holding the pending bits read from hardware.
-> +pub(super) struct Pending {
-> +    pending_bits: u32,
-> +}
-> +impl State for Pending {}
-> +
-> +mod private {
-> +    pub(in crate::irq) trait Sealed {}
-
-This can just be pub.
-
-> +    impl Sealed for super::Idle {}
-> +    impl Sealed for super::Pending {}
-> +}
-> +
-> +/// The GIN CPU interrupt tree for a single PCIe function.
-> +#[derive(Clone)]
-
-I think we don't need Clone on this, I know it is used in the doorbell test=
-, but
-we can simplify the doorbell test significantly by getting rid of the custo=
-m
-SelftestGuard and replace it with
-
-	struct SelftestResources<'a, 'r> {
-	    _leaf_guard: LeafEnableGuard<'a>,
-	    reg: Pin<KBox<irq::Registration<'r, DoorbellTestHandler<'a>>>>,
-	    _top_guard: TopEnableGuard<'a>,
-	}
-
-Note that a LeafEnableGuard will also be very useful for the GspIrq introdu=
-ced
-later.
-
-	pub(crate) struct GspIrq<'a> {
-	    #[pin]
-	    reg: irq::ThreadedRegistration<'a, GspInterrupt<'a>>,
-	    bar: Bar0<'a>,
-	    tree: Tree,
-	}
-
-just becomes
-
-	pub(crate) struct GspIrq<'a> {
-	    _leaf_guard: LeafEnableGuard<'a>,
-	    #[pin]
-	    reg: irq::ThreadedRegistration<'a, GspInterrupt<'a>>,
-	}
-
-And the open-coded destructor of GspIrq goes away.
-
-> +pub(super) struct Tree {
-> +    /// Number of implemented leaves in this tree, either 8 or 16.
-> +    num_leaves: usize,
-
-If it is really just one or the other, maybe worth to consider something li=
-ke:
-
-	#[repr(usize)]
-	enum LeafCount {
-	    Eight =3D 8,
-	    Sixteen =3D 16,
-	}
-=09
-	impl LeafCount {
-	    const fn into_raw(self) -> usize {
-	        self as usize
-	    }
-=09
-	    const fn subtree_count(self) -> usize {
-	        self.into_raw() / 2
-	    }
-
-	    const fn subtree_set(self) -> SubtreeSet {
-	        SubtreeSet((1u32 << self.subtree_count()) - 1)
-	    }
-	}
-
-A HAL can then only ever pick an expected leaf count.
-
-> +    /// Mask of subtree bits the architecture implements.
-> +    subtree_mask: u32,
-
-This should be SubtreeSet.
-
-> +}
-> +
-> +impl Tree {
-> +    /// Creates a `Tree` sized for `chipset`.
-> +    pub(super) fn new(chipset: Chipset) -> Self {
-> +        let num_leaves =3D match chipset.arch() {
-> +            Architecture::Turing | Architecture::Ampere | Architecture::=
-Ada =3D> 8,
-> +            Architecture::Hopper | Architecture::BlackwellGB10x | Archit=
-ecture::BlackwellGB20x =3D> {
-> +                16
-> +            }
-> +        };
-> +
-> +        Self {
-> +            num_leaves,
-> +            // Each subtree covers two leaves, so one bit per pair of le=
-aves.
-> +            subtree_mask: (1u32 << (num_leaves / 2)) - 1,
-> +        }
-> +    }
-> +
-> +    /// Returns a [`Top`] handle for this tree.
-> +    pub(super) fn top(&self) -> Top {
-> +        Top {
-> +            subtree_mask: self.subtree_mask,
-> +        }
-> +    }
-> +
-> +    /// Returns a [`Leaf`] handle in the [`Idle`] state for `index`.
-> +    pub(super) fn leaf(&self, index: LeafIndex) -> Leaf<Idle> {
-> +        Leaf::from_index(index)
-> +    }
-> +
-> +    /// Injects a software interrupt for `vector` via the trigger regist=
-er.
-> +    ///
-> +    /// # Errors
-> +    ///
-> +    /// `EINVAL` if `vector` lies outside this tree (`vector >=3D num_le=
-aves * 32`). `EOVERFLOW` if
-> +    /// `vector` does not fit in the trigger register's vector field.
-> +    pub(super) fn trigger(&self, bar: Bar0<'_>, vector: u32) -> Result {
-
-Most methods take a Bar0 argument. I think it would be cleaner if the Tree
-constructor would just take a Bar0 and store it within the tree.
-
-In case this gets into the way of some tests, we can also have a TreeInner =
-type.
-
-> +        if crate::num::u32_as_usize(vector) >=3D self.num_leaves * 32 {
-
-This check could be replaced by:
-
-	impl GinVector {
-	    const fn validate(self, leaves: LeafCount) -> Result {
-	        if self.as_raw() >=3D leaves.vector_count() { return Err(EINVAL) }
-	        Ok(())
-	    }
-	}
-
-so this becomes
-
-	vector.validate(self.leaf_count)?;
-
-> +/// View of a single interrupt leaf.
-> +pub(super) struct Leaf<S: State =3D Idle> {
-> +    index: LeafIndex,
-> +    state: S,
-> +}
-> +
-> +// The `try_at(...)` calls below cannot fail: `LeafIndex` is `Bounded<us=
-ize, 4>`, so its value is
-> +// in 0..16, and every leaf register array has 16 elements.
-> +impl Leaf<Idle> {
-> +    /// Creates a [`Leaf`] handle for `index`.
-> +    pub(super) fn from_index(index: LeafIndex) -> Self {
-> +        Leaf { index, state: Idle }
-> +    }
-> +
-> +    /// Enables the vectors set in `vectors` for this leaf (`LEAF_EN_SET=
-`).
-> +    ///
-> +    /// This is the per-vector counterpart of [`Top::enable`], which ena=
-bles a whole subtree.
-> +    pub(super) fn enable(&self, bar: Bar0<'_>, vectors: u32) {
-> +        if let Some(loc) =3D CPU_INTR_LEAF_EN_SET::try_at(self.index.get=
-()) {
-> +            bar.write(loc, vectors.into());
-> +        }
-> +    }
-> +
-> +    /// Disables the vectors set in `vectors` for this leaf (`LEAF_EN_CL=
-EAR`).
-> +    pub(super) fn disable(&self, bar: Bar0<'_>, vectors: u32) {
-> +        if let Some(loc) =3D CPU_INTR_LEAF_EN_CLEAR::try_at(self.index.g=
-et()) {
-> +            bar.write(loc, vectors.into());
-> +        }
-> +    }
-
-IIUC, the type state exists only to guard clear_pending() from being called
-before read_pending() has been called?
-
-In this case, enable() and disable() are orthogonal and do not participate =
-in
-the state machine.
-
-If that holds, I'd probably move enable(), disable() and enable_guarded() t=
-o
-Tree or just remove the type state and make Leaf<Pending> a new type. (One =
-can
-obtain a new  Leaf<Idle> while still having a Leaf<Pending> anyways.)
-
-Also, does the type state really properly fulfill its purpose? Once I calle=
-d
-read_pending() once I can hold on to Leaf<Pending> for as long as I want an=
-d
-call clear_pending() for as often as I want, right?
-
-I think the idea is that the read_pending() then clear_pending() sequence m=
-ust
-run within the interrupt handler?
-
-So, I assume that we rather want read_pending() to take a token that only l=
-ives
-for irq::ThreadedHandler::handle() and have a LeafPending that borrows from
-this token?
-
-I wonder if the core IRQ code should provide such a token in handle() and
-handle_threaded().
-
-This way we can enforce that certain things can only be executed in an IRQ
-handler and that certain sequences like read and clear pending must complet=
-e
-within a single execution of an IRQ.
-
-> +
-> +    /// Reads this leaf's pending bits and transitions to [`Pending`].
-> +    pub(super) fn read_pending(self, bar: Bar0<'_>) -> Leaf<Pending> {
-> +        let pending_bits =3D CPU_INTR_LEAF::try_at(self.index.get())
-> +            .map(|loc| bar.read(loc).into_raw())
-> +            .unwrap_or(0);
-> +        Leaf {
-> +            index: self.index,
-> +            state: Pending { pending_bits },
-> +        }
-> +    }
-> +}
-> +
-> +impl Leaf<Pending> {
-> +    /// Returns the pending bits read from hardware.
-> +    pub(super) fn pending_bits(&self) -> u32 {
-> +        self.state.pending_bits
-> +    }
-> +
-> +    /// Clears every pending vector by writing its bits back (write-1-to=
--clear).
-> +    pub(super) fn clear_pending(&self, bar: Bar0<'_>) {
-> +        if self.state.pending_bits !=3D 0 {
-> +            if let Some(loc) =3D CPU_INTR_LEAF::try_at(self.index.get())=
- {
-> +                bar.write(loc, self.state.pending_bits.into());
-> +            }
-> +        }
-> +    }
-> +}
