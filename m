@@ -1,132 +1,278 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581143E073D
-	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 19:51:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786996302; cv=pass; b=HWzal7xAaAZMDUQ1kqhYJoTSba5yo3NP7VWdh8NlhUgV9dIfqD1rlxmIOuM/jKyysCFNHN53k5CoMoGAhyJ6O5Eu1ZtMf61V6w9DK1WsEK0gqdXpfZo/Sk1J2sBEav/EL6jr3HZv1nkrUDOhrhyK8kLljEHqCsA+IXC/HpWFiD8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786996302; c=relaxed/simple;
-	bh=2ABSJoD74NOKhQ+UOLggD7tv8RbunARXUT6aVeIs+z0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oeRCAguZBO18wBjYoxyXuWnhTeSCxG8rhNlCdaExaXt8me0qtOQIvbvJUfSc26oV/NhR4qUrVNWo2NjTsw39VGitw99gvTkAeUEAEZziMnT3kGYqb1KqmIHb+0v2Z+paorvGu/W7h19u4MM9K3CKk5ZnXI0FWzzln8niy36U8x0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o6IwT1EE; arc=pass smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280FE3E8C64;
+	Mon, 17 Aug 2026 20:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786997123; cv=none; b=Zl3hKrxvoT6XFYgegzHa16b0jlToKVDUFMdBft5Y38UKxN3KGeMUnW0Zi4iaVBkhynRB+wh2ccJHLNXhJHJ74bUXXqPu1KDUHmgn0isD81h6bVCKYOaGKDx/Ji88RYzqR58tV8/a73Pawz5P07guS8S5iO+4Ft9zkYioRGPP+PQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786997123; c=relaxed/simple;
+	bh=i1mPXR0qSjylTx+iZz4VjsALSsmL38b5KB99VC7pfE0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h4lV2OW4WTYs5dPnLPtwzvTXmI8AdwkVFH7S+vA3Od7Y9Iay86FuFIYG8aRrEaeNDWCZcrEdjVqB+q8Ia2QBxDW+CnbMOh0GXSxIczDC5jRXttNIPNVxKWZk0VNT6kRlOio6tQNT3xit/XZobi8c/QrPrHutz1ESnUnER0gs6iA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvyaA1+7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o6IwT1EE"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ced3386430so38185745ad.1
-        for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 12:51:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786996300; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n7qamtcIF4mqfgtHlQn4n9vfxhfmtmpmNYRliBDhGuKkX7yesb23vrqwba4smdHihG
-         7Ce4OskuQKZ16yR9qVAem4jPHZ8JG7fAYFUhyOYznbRVe2pB98QMRP+2IzADBWX2eQub
-         pKL6DK+kCtiry84FypuYhtAAAZAFWlpx+UyxcaWw/etss0nFf5yIBIBI4dDI75lyrOgW
-         mWECKsUWwDAA6VdfbC5pM+5VSfuzQ/uTdt0+FArz5YahpqpxCgub92ZALRrUjnqJ0i/o
-         zJLZK1l0XRgzFnIekb5TRZPxCKCKLbdXpraxQ6pxTI9wKHTVCsolSoW91pvIwHfR/7LA
-         dgCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2ABSJoD74NOKhQ+UOLggD7tv8RbunARXUT6aVeIs+z0=;
-        fh=PBTkWeVuH/BFaQBmuXteUSV/SKvLKAkVvsxod4tZV/c=;
-        b=f7DdkM/gtR/Unqs5RPbBdCEUcYa4aZ1C/BcQEigDfCsqxMHin5y8NH2USKvam7blOU
-         0ge1HPkaudsvzBufx5fYAmuP5TUiruCsQOY+8lNBAd4xZ8Sc3+oRbdF5fXx921TpD6pb
-         SxcknS25MpodhJeWBzG/51m5Fp16kFg8TnT9SBqukX2B+a1nfdezI8TkiPxDbwnt5cta
-         3HZG/p10ZY9Kj92y4Mdn0zBxfrmzOfjLRCXVPVr2u/5iQ46gCEdk2lRzRTBroJo8dIKt
-         V+bC2IMJm++7UMpC7aPwgsccXVI1Z22MB+sDeyM18srY1tT40Kx62BTkI3+T/n1F3HeJ
-         KbEQ==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786996300; x=1787601100; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2ABSJoD74NOKhQ+UOLggD7tv8RbunARXUT6aVeIs+z0=;
-        b=o6IwT1EEw7ykP7CyI3ngWTvlVbM4yIWsx2RkW0OErD0J2l+atPkUo2HlyovrTChwi5
-         A0FhSzgdM0EmK/uxcFD/OZkfPDOr9U5xI1+iW6oGZsDb7XXJvZlq8eAU9HosPaQWIK3K
-         asbsqZD+Q3H95EvS1ic7tJR5fY9bnneM/XMfmwSICvRT0B4u0qpP1+2j2vH6bXNUletw
-         1ia6VY455oX0J8f624m5QcgSMqDf9lAfM7HvQlmLmgrfZbVxQnyB1eIh5Sa2ee2D4y4k
-         7fN4fPckaVBxO4R+1UFXFCvMLVUdmeis/9DXWgWvWFlWs/AOukwyZLttadjopCDv5rpS
-         6Gtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786996300; x=1787601100;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2ABSJoD74NOKhQ+UOLggD7tv8RbunARXUT6aVeIs+z0=;
-        b=Z8PgCjHUgiLdQG9RsKwC39IT+KYn52xVcehTXNBa52Bf0IJ5PIWNzy4yPGbCaH9agI
-         OFYj+93yt8BSbos79N5L6xUiDLY4SxSoxhDi5ILAGxSHAx0wGleo4DsoAxu6miyFSr3p
-         ymmJglgI6v/8Juexvqg5tmjpP2H4IrrMjYp0p9oodIjeQOurkJktCV6EChwXbjdYkGlA
-         2lu9zPPql5Yz7Dd0zaqqqqc//D1eX1D4tWOCzuqE5jMkKYyKio5f/IZoIf6NyZz9oqhK
-         V1ifh4wTswwllHAjbsnzBEnFABuo9amwJxwTgrfTwj5wK2MrMaW1033yycheo9+qno11
-         hgAg==
-X-Forwarded-Encrypted: i=1; AHgh+RqmjzI66pcb+3p1QzBpmOX+dS6kz6nEIQLA2+/plkBHHweAwABDOBisX6jZdjcBf41+z8xVVZGrOQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxEcKwz+9+DNE2tMeRd/0EcsGgGoawDfpOf10qjULMq7GoN2SXf
-	jffNhuXr0BKeyodLmCJZ7OJv67MZDCUDzTpeqmdkjtSAtX6FLzEp+UtQyy11ZoZainm87ECZbd9
-	9+w1DM39eY8/jf1kqxQDxHv72ISWYLPM=
-X-Gm-Gg: AR+sD11uR2y70lGzm8W79IgjD6AkBSoWyACNnDuOAD6mUI7Pt2BTQzJNGr0onUDk0AR
-	T0hmfJ1rRi2eOJm0lrEHSMN+qMne50y1zoYJC4wmglcTS7K/e69uZTYfOkS+CXpmGSlbFBM1ZSd
-	JxEha13EHYv3mbAw86L2E4Eo9pKLufojhit8QOW48NjPabOgcaZ6204vLGbwv67iR1IkxuAPRbz
-	1C3Qnhno6Tq8HUmdtvpphN143XYaS5ZByUyBwnHZfkU+v5YY3tWWz7A2jl/WOYyUHWBBa80/Gx/
-	vvK0o063vnZuEPADo6O8MQ8Ikxxu4nMC5PQcOge2VxdlgOfGxevA7kJKSJKDbOCTffIUZ9t/f7S
-	W4cAMvFrXj5Lyqu+rdCUGUUyIi10eEUY=
-X-Received: by 2002:a17:903:3905:b0:2cc:aa36:c046 with SMTP id
- d9443c01a7336-2d3b0c5dad4mr315279655ad.14.1786996300433; Mon, 17 Aug 2026
- 12:51:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvyaA1+7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C3D47C2BCB3;
+	Mon, 17 Aug 2026 20:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786997122;
+	bh=i1mPXR0qSjylTx+iZz4VjsALSsmL38b5KB99VC7pfE0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=DvyaA1+7J7x3bj+fYjS+DzqYfSAnV0T0iAzvWjWDWmJs9Cm7ed1duQlgf+10/cCbJ
+	 rGLASRAxlj0sM3KszZDYOGdgWbjHAGYmK/rkyX/icsEWQc5NJrVM/EBdQQ0QqHDk5p
+	 TGA3cBxjv3T3Lk541YhJhYhUF/SgtvkB94N4v3KPvFE1Ooh5SINc4hvmHOzcj/4kHx
+	 bJXzugm+G4OF8ah467p3ce8DF29QNCCKNc2I6qkmqzBSIF4a//tQznrrenbmRE7z5J
+	 IU0Mn3aiFRaN7Aa8uJSaz+vVLcytJ2lHkKXyQ2JUq0mI5AlDHSoNw9A11egHe9572g
+	 CTzUfQS8sn2zw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0A63C5DF66;
+	Mon, 17 Aug 2026 20:05:22 +0000 (UTC)
+From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
+Date: Mon, 17 Aug 2026 22:04:47 +0200
+Subject: [PATCH] gpu: nova-core: Extract FUSE registers definitions
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com> <20260817-chid-v7-2-a5872e64d8f4@nvidia.com>
-In-Reply-To: <20260817-chid-v7-2-a5872e64d8f4@nvidia.com>
-From: Burak Emir <burak.emir@gmail.com>
-Date: Mon, 17 Aug 2026 21:51:28 +0200
-X-Gm-Features: AcwNN1V4RUrrEQgmScJR1GkvVYLA4gn02X6StFpnyno6RAn1uKgn5cwzljFUwlQ
-Message-ID: <CABwQupP-qu9S--ob82ZPDuiNH3LMwqZpjZ2LENg3hsGFGvr1Jw@mail.gmail.com>
-Subject: Re: [PATCH v7 02/10] rust: bitmap: restrict bitmap length to at most i32::MAX
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
-	Yury Norov <ynorov@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-b4-extract-fuse-registers-to-gpu-mod-v1-1-c4924070bbb0@nanonej.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NSwqDMBSF4a1Ixr2QhzTqVoqDmFxtCj56kxRB3
+ HvTWmgHHf5wON/GApLHwJpiY4QPH/w85RCngtmrmQYE73IzyeWZV0JDVwKukYyN0KeAQDj4EJE
+ CxBmGJcE4OxBOcSf62ijNWb5aCHu/vplLe3RI3Q1tfH1/FoT3lP14zL58Uxw4L3/xZbT/bV0rR
+ Ml1ZaRi7b4/AaB8s4vjAAAA
+X-Change-ID: 20260817-b4-extract-fuse-registers-to-gpu-mod-1d30d1f9a370
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6957; i=dev@nanonej.com;
+ h=from:subject:message-id;
+ bh=TEU3cGdfr+0GsbAb4FDIovW/u3AWeIqXEMHGfNEojoU=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqg2lf1ctcM1fOoXqnXns/xyOEyIi9J+nyLlPLR
+ Cn+mqLhPKOJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCaoNpXwAKCRBmh/EjChUV
+ /eE2D/0eLW6yf5bwty+dotJUzHYlwaA7/HPEFsBGLyEhw08Tn0WSAnaUAgGYirdItO25j5Ihowg
+ tOfe9zBnHXLNQMQERfBsO+PuSCFOyFoXO6N4TqOnmz9SV4wxH4OqiZpNwszQmdj0rhtB5Xo4vtc
+ oZi5B25PhDItCqlPPLbW98bcdAJzYTi5WIWhNF5N3zg9TJ6WkIMWPcROZvtUrdhwqiynU+T9N6U
+ PD1lVxiJ0QYAJMLxcpIN4X3rzFzBSzyrSPyt7GFJZGXOWjp+gxmk4kQfK1Hx40le/diaR8wHG53
+ PXBXKobDFp93UFecq5pGJ5//7mpUajPKS2s1lRG4AmL4p/yAw9m1EhkcqVibPzZ6jpaa4klrwH5
+ 5fFzpgZP7lodtnxDld3Bo2oBdegLK7OUIUmRE94tmRqEkKv0sPxHWv6Z22KOtD0Ntspt9GToveh
+ rvcsQIero237HsT5w5bctHf157QY+9MLY/dscCf3DWOuSPKtY1EYnqAPwddjqM7ROezg1PaaIvi
+ nnQtIc8YoVSx01FfMAJ1kLz5pDmO2qj1lw9HHohMBaONtXdnUcZAUwj/NkekBG/4RUT1ES98vHG
+ PvB9YwPKk/w/azFWnlgXYVA0+Z1K3q5h5M0Lv+845ljb4E0zaTx1fzYqXx4LtQxUnzGkGsy4WD/
+ kFqM+BXxR24ejPg==
+X-Developer-Key: i=dev@nanonej.com; a=openpgp;
+ fpr=83B64FB07C91212F5285227D6687F1230A1515FD
+X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
+ auth_id=825
+X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+Reply-To: dev@nanonej.com
 
-On Mon, Aug 17, 2026 at 9:04=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
-m> wrote:
->
-> It is currently possible to construct a non-`BitmapVec` backed
-> `Bitmap` using `Bitmap::from_raw` that is larger than `i32::MAX`, and
-> it is not part of the unsafe requirements. Restricting all bitmaps
-> (even non-`BitmapVec` backed ones) to a maximum size of `i32::MAX`
-> simplifies a few things and matches `BitmapVec::MAX_LEN`.
->
-> Add that requirement to the unsafe requirements on `Bitmap::from_raw`
-> and `Bitmap::from_raw_mut`, and to the invariants on `Bitmap`.
->
-> This also fixes u32 casts truncating in `copy_and_extend`, which could
-> otherwise lead to OOB writes.
->
-> Fixes: 11eca92a2cae ("rust: add bitmap API.")
-> Link: https://lore.kernel.org/DKG0U8RLO7LZ.2I1AIH0S38PAP@nvidia.com
-> Reviewed-by: Yury Norov <ynorov@nvidia.com>
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-Reviewed-by: Burak Emir <burak.emir@gmail.com>
+Move FUSE register definitions from the root regs.rs file into the
+gpu module that own them, in the existing gpu/regs.rs file.
 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
+This follows the same pattern established by previous commits for
+GSP, PDISP, PFB, PBUS and PMC registers: register definitions move to
+the module that owns them, visibility changes to pub(super), and
+cross-module access is provided via pub(crate) helper functions.
+
+Since gal102.rs (outside the gpu module) also reads fuse registers to
+infer fuse version, a pub(crate) helper function fuse_ucode_version()
+is added in gpu.rs to provide that information without exposing the
+register type directly.
+
+Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
+---
+I got several doubts regarding this patch:
+- I didn't touch the comment in falcon/hal/ga102.rs:71 cause I didn't
+  know if this information should stay there
+- I'm not sure if the re-export of NV_FUSE_OPT_FPF_SIZE in gpu.rs is the
+  right way to keep the read in gal102.rs or if I should also make an
+helper to get its value
+- Then, as I'm not quite sure to understand the exact purpose of the
+code I'm not sure of the `fuse_ucode_version` naming and the comment
+explaining what it do
+---
+ drivers/gpu/nova-core/falcon/hal/ga102.rs | 17 ++++-------------
+ drivers/gpu/nova-core/gpu.rs              | 31 ++++++++++++++++++++++++++++++-
+ drivers/gpu/nova-core/gpu/regs.rs         | 18 ++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs             | 18 ------------------
+ 4 files changed, 52 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/falcon/hal/ga102.rs b/drivers/gpu/nova-core/falcon/hal/ga102.rs
+index 7600ee07ca2e..590e30218527 100644
+--- a/drivers/gpu/nova-core/falcon/hal/ga102.rs
++++ b/drivers/gpu/nova-core/falcon/hal/ga102.rs
+@@ -7,7 +7,6 @@
+     io::{
+         poll::read_poll_timeout,
+         register::{
+-            Array,
+             WithBase, //
+         },
+         Io, //
+@@ -26,7 +25,8 @@
+         FalconModSelAlgo,
+         PeregrineCoreSelect, //
+     },
+-    regs,
++    gpu,
++    regs, //
+ };
+ 
+ use super::FalconHal;
+@@ -59,7 +59,7 @@ fn signature_reg_fuse_version_ga102(
+ ) -> Result<u32> {
+     // Each engine has 16 ucode version registers numbered from 1 to 16.
+     let ucode_idx = match usize::from(ucode_id) {
+-        ucode_id @ 1..=regs::NV_FUSE_OPT_FPF_SIZE => ucode_id - 1,
++        ucode_id @ 1..=gpu::NV_FUSE_OPT_FPF_SIZE => ucode_id - 1,
+         _ => {
+             dev_err!(dev, "invalid ucode id {:#x}\n", ucode_id);
+             return Err(EINVAL);
+@@ -68,16 +68,7 @@ fn signature_reg_fuse_version_ga102(
+ 
+     // `ucode_idx` is guaranteed to be in the range [0..15], making the `read` calls provable valid
+     // at build-time.
+-    let reg_fuse_version: u16 = if engine_id_mask & 0x0001 != 0 {
+-        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_idx))
+-            .data()
+-    } else if engine_id_mask & 0x0004 != 0 {
+-        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode_idx))
+-            .data()
+-    } else if engine_id_mask & 0x0400 != 0 {
+-        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_idx))
+-            .data()
+-    } else {
++    let Some(reg_fuse_version) = gpu::fuse_ucode_version(bar, engine_id_mask, ucode_idx) else {
+         dev_err!(dev, "unexpected engine_id_mask {:#x}\n", engine_id_mask);
+         return Err(EINVAL);
+     };
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 9e4232645a7e..746a7dec8906 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -6,7 +6,10 @@
+     device,
+     dma::Device,
+     fmt,
+-    io::Io,
++    io::{
++        register::Array,
++        Io, //
++    },
+     num::Bounded,
+     pci,
+     prelude::*,
+@@ -35,6 +38,8 @@
+ mod hal;
+ mod regs;
+ 
++pub(crate) use regs::NV_FUSE_OPT_FPF_SIZE;
++
+ macro_rules! define_chipset {
+     ({ $($variant:ident = $value:expr),* $(,)* }) =>
+     {
+@@ -419,3 +424,27 @@ pub(crate) fn new(
+ pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
+     bar.read(regs::NV_PMC_BOOT_0).into_raw()
+ }
++
++/// Returns the fuse version matching `engine_id_mask`,
++/// at the given `ucode_idx`.
++/// Returns `None` if no engine matches `engine_id_mask`.
++pub(crate) fn fuse_ucode_version(
++    bar: Bar0<'_>,
++    engine_id_mask: u16,
++    ucode_idx: usize,
++) -> Option<u16> {
++    let version = if engine_id_mask & 0x0001 != 0 {
++        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_idx))
++            .data()
++    } else if engine_id_mask & 0x0004 != 0 {
++        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode_idx))
++            .data()
++    } else if engine_id_mask & 0x0400 != 0 {
++        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_idx))
++            .data()
++    } else {
++        return None;
++    };
++
++    Some(version)
++}
+diff --git a/drivers/gpu/nova-core/gpu/regs.rs b/drivers/gpu/nova-core/gpu/regs.rs
+index 1c4db9625250..a6ce4ff44cd1 100644
+--- a/drivers/gpu/nova-core/gpu/regs.rs
++++ b/drivers/gpu/nova-core/gpu/regs.rs
+@@ -80,3 +80,21 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+         )
+     }
+ }
++
++// FUSE
++
++pub(crate) const NV_FUSE_OPT_FPF_SIZE: usize = 16;
++
++register! {
++    pub(super) NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824100 {
++        15:0    data => u16;
++    }
++
++    pub(super) NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824140 {
++        15:0    data => u16;
++    }
++
++    pub(super) NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x008241c0 {
++        15:0    data => u16;
++    }
++}
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 3422b49df7a7..562499ff6e08 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -94,24 +94,6 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+     }
+ }
+ 
+-// FUSE
+-
+-pub(crate) const NV_FUSE_OPT_FPF_SIZE: usize = 16;
+-
+-register! {
+-    pub(crate) NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824100 {
+-        15:0    data => u16;
+-    }
+-
+-    pub(crate) NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x00824140 {
+-        15:0    data => u16;
+-    }
+-
+-    pub(crate) NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION(u32)[NV_FUSE_OPT_FPF_SIZE] @ 0x008241c0 {
+-        15:0    data => u16;
+-    }
+-}
+-
+ // PFALCON
+ 
+ register! {
+
+---
+base-commit: 60b5976d1367cd50314e867bc1169e759ab309b9
+change-id: 20260817-b4-extract-fuse-registers-to-gpu-mod-1d30d1f9a370
+prerequisite-change-id: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
+
+Best regards,
+--  
+Antonin Malzieu Ridolfi <dev@nanonej.com>
+
+
