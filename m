@@ -1,149 +1,150 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D207B3BF692
-	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 20:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054A0353A90
+	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 21:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786999211; cv=pass; b=hlyYN9MXqk1goa8MpcORrKo8bHvf88GXSZWH/iTkgIvA9PJirX1goGPwB68hBZ48xPBnj1ckiW2+TddsqY+CM1f0+HllQdgq5XwGXDPCBOzofKrLCN/3k/QfJT8aeGJpuSzzUlzOPeddvoOEK2JkPg0yjjE6PGngypZ9cDG3aXU=
+	t=1787002585; cv=pass; b=Qi5Yl+WDRpo8rDiQ9K3BRpC1KPTOY3gmvVta/InSK8NOxsbHDDTL7RKRNIrOCLz5sj2dOGj5I62i1HAzCbOd6JYbIeIrP06t82GKUuZzw05AKlyigGPDQpTvIpecJLTRlW5oUCQjSg1m+qGf0e2ssoPxqNzSDpt/2jtAQ80DmXw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786999211; c=relaxed/simple;
-	bh=/4ST/+IAuY33E7u8BsBn6YuaintaQycWaXrvTZVwPKI=;
+	s=arc-20240116; t=1787002585; c=relaxed/simple;
+	bh=7Y68zBPMs4znH9swRVTxBCKPvlMjSod2fiik0Befd3E=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ttz0o4OCmsMMTdOsZOU2LmlM/5fi7/LZxpIkJBexcmzW8izoYOFICAZTzRBvtAIVdriSSadcA8sbW5L3oJtGfOFVSB80rhhGK5P1T73yGQ4HreSZWm4BqfDwQLIMYcUsDPA9Utz9jfuw6EJ5hyiXDF5Ar/5/GHBuqP8cZkG+8vQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XTQIXHiX; arc=pass smtp.client-ip=209.85.216.47
+	 To:Cc:Content-Type; b=C7U7LLf5rP8W8Gq0rpcrZtclGajfej8hMXnqwpAoXV9SQgbNFVdaMcoc5zsw5uB6kZg3tIuqyk/zyv9inehEaMzUQ2B+zdD8MRvPHLGZG6viqJ5mMufVfEdo+52qlQvGMfB8KgZx9BrqQhEiQApTscZ1wWhv3Ip5r9XTgdGzvWw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tCYLfROm; arc=pass smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XTQIXHiX"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3811f512167so5455492a91.3
-        for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 13:40:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786999207; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tCYLfROm"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2caed617615so52257275ad.3
+        for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 14:36:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787002583; cv=none;
         d=google.com; s=arc-20260327;
-        b=NDzMxsTPmERgq6jA05xDhecpYl/G4ZndkP37zvbh1yEUghsbj5VAPoJukLSRDkybBW
-         GAf8oLiDa4/NWhS6m3RiIVl0BD+WNaFE66MOUcZycgz9zpmHE1tx2gjQ487NvIsSqzsJ
-         r1DoKWAbsXHxMfQtsQfG1RhL0WRRhj+gO5/a5Snf5iZgkvPiuZwzOy36Ku++BAAslerz
-         aARf2wzIixDDxRin5HBQLdyaI4LkQOzwDaoPNt+3jYKFX+IVJCZodTFcY+vupgaIeOv6
-         WNlG/8fLXI+FXoF2fhXhk7LShtT/lwnSX/n2UdbvNDvkYsi/eTz3f1nrjj7nKk1Udkvk
-         ctxw==
+        b=bhV+h4+g1ywSGU+x3ZuUrp0gTgA+5c+uCVDGr81OA/ceN5XfNWIknQMjEH+aWkYkrL
+         HzwJ46ggEUSWKJ9UEUeVdH6Dg6ifmnydbhj5tXihhJKf6l0PbxrGSMtQIiJTPuQeKcKb
+         6Xr/jjM9aIj8dhGJO+2df++yT4pYZlM+hDxQlCzSn5Y2DT3BHFD66CpaVmkL2Z7DaeKY
+         l8IcVfUd4s2tGBTNtKBk9d1uMOOY9gt79fBz/vHqktlJX8Mi1vEr4lBM0ED/0eUQwmb8
+         UtHMM5ypl+kxVZfJHafdoDOOdtVCbdaMfqOHprPefbT7E4aReyknQOKEmIk+KYPVHGMO
+         9hRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=tJ3MqtcDmZdkhQroQUtoHRF7FRZVKalhzLPmlyTLoiA=;
-        fh=J4h8rHrmi5mLx+dWBX0dgljwM+SZR/XQ990TUDj2gWw=;
-        b=NdcyS1u4ARvqhcKMRRlTPFvQzfajIM+ITufogIY7pXa2O3ogcmUkZgORux+s8eU6QE
-         VE9U2UF+JMsQiTLsfnhcLC+dQIM0ZhIlu+s9Hd6SEVVnyvSJssNuvGuFdq0AV9gIZhAV
-         ts8LG3y2dc4woLbidWl2RSRLud2VeQp48bjlZXa/ScY9pV/NDHZGWjaSFf8Xitf+4EtD
-         X0RxMTcbx+XSgatGHgKX2l8wcRccMENVd2gLZPtvwX3bVUiJW6zRJJUP/BFX82zNSNCk
-         DockfRBt4MwjqPqefzt05Btxw9NjS5eYqxTumxKArchpVSeS/30s4cqZn5eNTy/Ru7pF
-         h4uw==;
+        bh=7Y68zBPMs4znH9swRVTxBCKPvlMjSod2fiik0Befd3E=;
+        fh=vANnwHfs9MaTWYu/VLgWShbCXZXhdK78XWHiQiJflaA=;
+        b=GMYgpSiWEfBV7/iR8E3xnYD6aEpRcEdsyIOVhD9Mhx0eZopbFi8dsI4H79sBQYPRHc
+         2QC6UoWkXXfX3djs4FiPTgkdwuqR6B340lWx23IqpnvJzgsmdHXN4X+4o+tO1d/NelJr
+         onBbBhtX4D5pq24PhRWA6sM5nFJCiLw7j5l+vK02eN+V9SDvC5r5bYp21xEeW4ZB0kZL
+         3kfnqshZz5HlQc8UhJUP/3YTekskFTySaokogSfkdBKyjb4Fty8nndY7s65CrrvT+xNd
+         datlO+XIqqR+DOWPnudfgHBB07Zs10XINbrX/haiNBZWFPbI9mya3KEauLxP7HalSvSU
+         l6pw==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786999207; x=1787604007; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1787002583; x=1787607383; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tJ3MqtcDmZdkhQroQUtoHRF7FRZVKalhzLPmlyTLoiA=;
-        b=XTQIXHiXVjq6kTIo9AY3tR/fBEKdDU9JXuOUbvT2zZKaQVnESqdGwBsmhfuuGdtOFG
-         s6GwHvIjJFLUVbsXRvN0PLCPJu6SCYmZmcjhNPfm3SO9J8aehrCOOS3yCZCOnwS7hn7/
-         duiEJFSq8BDZFzoM8UhT9cvoe4Sw1u8ZTFqynCZPM/j6rSjZRtauzUHlR+KtSdfDgr4c
-         YFaM4sHmEj7Bu81gydq9xs978j0GIRygzfQibDnnm87LMktNmDkKsBd3259aFZXwTguh
-         cJlAbpGXwqzf1P9LNkDe17B3vPhC+P6DQYYj6mNCNd3AR9w/HsjTCFJh+NSxBK0SjBwW
-         MolA==
+        bh=7Y68zBPMs4znH9swRVTxBCKPvlMjSod2fiik0Befd3E=;
+        b=tCYLfROmtPmbPvvDXOM4YFT0P150iOXYExxlAq6l2GKSKDCDhlDT5ui0FDmHnZ86LV
+         peK+dgGw0hcZUHNBGco1TIwo5EWYJ+1eLs0GEU8DJPjpv1v7W3MyN7dARJNZ91LtOz3+
+         y27ahxai/VYmQFGwwOy1O2xBFw9yz182izlPuqjPh5fo1p9UmJbQY39v3A/9Vn/ohxnQ
+         kssNpLI3Sb64ATH13L2jKrlLxR0jil9ssakD257/HBr/9SfnQ9Ly5DgyzU2RHv/JQ0YI
+         T0Ifx0vwsZ3unGIA1eu1gmiFQd0NKQGdzWJFoC6zUF6i1Hrsx9jh5Pqv9Hm4yjIxD4IU
+         Ka8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786999207; x=1787604007;
+        d=1e100.net; s=20251104; t=1787002583; x=1787607383;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tJ3MqtcDmZdkhQroQUtoHRF7FRZVKalhzLPmlyTLoiA=;
-        b=eQxCevsjAB+zx48uws3f/OFtwufBDsZ3cWpjv+7q34LcM5xa4YUKzDlWDqGY6P7Ofp
-         IsKiXeKefEZBKqci1kARncWKv2VLXa2rt0+Pl3CR9+JR6mT5QcPDOyMWmOldBd5/XDCz
-         X/sWuq2H4+qYeqSUwe1Q/UgMC5T3V0QH21KJJ8vd1oYYcZmtB222SujoGNB8RsYSS/w9
-         YkC3+o0ey6H/GNgO2DwNV9iwAVEOuCzjrRkHHFLAoKhGO7zCDYLl/lTG99Wqyzwa6pJT
-         o3Bd7Sya9k9DgXx0UC1gNrTEL1ZoWmIil7UC2Pvo7ndlUgyvpO/RQuSzFqM4NQx8pWR4
-         RL6w==
-X-Forwarded-Encrypted: i=1; AHgh+RroPRdyFBVTQxVAdfE6evI5eTAyNVHu/PvaM+10ePUxG+hgVzH/FJvmZkUAR8r6RehVF0U/MQu20A==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzxNVPMIqf0ugyWrYWfV5UyzjVnquqW8CrvR80thrhu1Sal2jfB
-	+GagRZYF8qtJGNwsadRDJ6ZH4wQRBt1jRUL93B1o/oOp72bWYxlTbGJaeBArNHdedlFSKfGm+Tf
-	gTBeb90mfqndR5Lwtk4VWF9/QhtCFQxQ=
-X-Gm-Gg: AR+sD11O9OFkuqDi80DVRDalXG2qBtt7Z8doKTo7QrGnM3bG1DCyInL8hIXBcriHYvx
-	qcwopocoUr72W26i071UqRY0MnfU6bN/C8/ZU3+9xaLJXavQnjNQ3+qnpZhN66MBJjPfUnsv8mu
-	OPBcP8zhicSqUFBWxNoJbTqq6yIgLdNnjwOok2OXELlYTQqXNsHGIiUkH0eGjfr0e/fTLlQhdev
-	v/MOe2zM/qjU3GlFkdgn+xgGuBYT7Q67hSixOrNZpdazoBLYR7m0e+Q8Pam1OjCduYQDoVdCmXn
-	yLFHsQWMjKF6U7uefyE+e4sCCj3xi8w/2yZYIXC2lxDCjGVRN8NbEaxmHrb6BV1TU3GIesh9Km0
-	nj2Azm4y2y1okFN/xup+MQGIxnTtYDg==
-X-Received: by 2002:a05:6a20:43a3:b0:3bf:9aa9:b2a4 with SMTP id
- adf61e73a8af0-3ccda966591mr3211458637.20.1786999206862; Mon, 17 Aug 2026
- 13:40:06 -0700 (PDT)
+        bh=7Y68zBPMs4znH9swRVTxBCKPvlMjSod2fiik0Befd3E=;
+        b=Yg+de51EFw4saRmxYh1ko3yTGfFKZ/ZdviBYH71i2OOaFc7ubcczp+IPgp2yhzEx6j
+         +LT6zg/bipMIN2tfTr7I+VteCnSBxYx+YiwlFCEWadUyPpnIGxWe9rmeYbOspPHCnBrv
+         onhwC6nrNmtbJKE+mg4c/Vqpm5pUIEsMrKb4HDea06bI5fRo/nxGTuRxCLpa8B60Sk9D
+         Rfl1rzy6g4M+LfGtdBYvDHuTvb/FAiueJwBxeqxqATWvRVLZLxZ5tuPx9Q4p0bfrkguV
+         NOIH/N+YkI276rWpF9bE6CJE3tWZaWNFCOF5deR8qrMFaKy4sATYhZ8DJpxipQwVjVq2
+         dKCw==
+X-Forwarded-Encrypted: i=1; AHgh+RoyvbdQ48qndoHUNL8T6lgVyyxzQbFjkYiFgoUECWOi8L4Qib1sOf3LlitKCeeksRrUxsDF1uzhuQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yy6mfoRkbhn+lJhHZ3deJI1rrlUuwcbwtXK1U1GnKwtRmsS8mpZ
+	ucMOGOUy0VqCAr+TQqjCVrekv9kRfTT4ekPPFZUJ4bZBuOxAmBFtS8yAtszoeKU8a+t7TNnvVr9
+	/NwwctTOZbQfNicmsgzNpghKdEV1vyfE=
+X-Gm-Gg: AR+sD13ThquzR9J6TfJy5WBPhObXgyG7ok6HJt5ojcX4gnqpYXtqrOBn8AgIpB4prkn
+	t6P31dO2nm9cR7Yez3zg/gx8Z0Il8GqcUgiLoqp9cCCwhFLjbXFuY+azH+GLydBdrVBhCub5vX5
+	FDC8NK8BvYkpxeQC+cdTEgr+fk9bwbQsCeqf2UiJOv9QlRpVDjinacXQaVwMcQrT5Y4KtCMZ0ab
+	qSdqA4FuhJBU5LiTCuRwUOTr6Cd1wtrCqb0I45hTaqFOtspv8dAM47V7H8myZumaPdHI/Hp7ft8
+	F4MY9mZyIk7dkYVbRxPY8P4Hfc/vd7mcX7sy0Jq2PKegyhMTUnkm8iNCBNpkBCB1Di1oo5VNb7Q
+	J70b2SiFNsblYp11QAyni/jBMRHM3/M4pF/eYWdnY
+X-Received: by 2002:a17:902:e54c:b0:2ca:329:3da1 with SMTP id
+ d9443c01a7336-2d3b0f3e8b7mr293499905ad.16.1787002583324; Mon, 17 Aug 2026
+ 14:36:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com> <20260817-chid-v7-8-a5872e64d8f4@nvidia.com>
-In-Reply-To: <20260817-chid-v7-8-a5872e64d8f4@nvidia.com>
+References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com> <20260812-chid-v5-5-6c767770b3f4@nvidia.com>
+ <anzxKO0X1OrNRD32@yury> <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com>
+ <an4NvQBt3389jP6E@yury> <DKO414SNC0B2.248FUBGJGSPLU@kernel.org>
+ <an4xDp29VX8Am0uR@yury> <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
+ <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
+ <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
+ <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net> <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
+ <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com> <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
+ <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net> <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
+In-Reply-To: <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
 From: Burak Emir <burak.emir@gmail.com>
-Date: Mon, 17 Aug 2026 22:39:54 +0200
-X-Gm-Features: AcwNN1V3e1yEbV4HQwbBf0qIGYbj3GVTsQ2fE2mh4DfZX2sLIE0e2kB1-JqFpmo
-Message-ID: <CABwQupOweosKS1hP188GdZZrik9E1Ab7r9DZBuwnO6X5zD4F-g@mail.gmail.com>
-Subject: Re: [PATCH v7 08/10] rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+Date: Mon, 17 Aug 2026 23:36:10 +0200
+X-Gm-Features: AcwNN1XmXhLOponMxlBCxSPGSKMVYcO46R_BeY41tQkqF8gOc9dMzRGpz2Bx5zg
+Message-ID: <CABwQupNA=NuctKz0FRaJsWowf+=24C_o7u8twFFeUZ+dq6u+Jw@mail.gmail.com>
+Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Gary Guo <gary@garyguo.net>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Yury Norov <ynorov@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
 	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
 	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
 	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
 	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
 	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	dri-devel <dri-devel-bounces@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 17, 2026 at 9:04=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
-m> wrote:
+On Mon, Aug 17, 2026 at 4:08=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
+wrote:
 >
-> Current code in IdPool::with_capacity rounds the capacity up to
-> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
-> smaller than this and still uses an inline representation. Remove this
-> behaviour.
+> On Mon Aug 17, 2026 at 3:02 PM CEST, Gary Guo wrote:
+> > Now, with `NonZero` or `Bounded`, we are doing none of that. The only t=
+hing here
+> > is that there is a range restriction. Other than the value restriction
+> > themselves, they carry no other semantic meanings. How you interpret th=
+ese types
+> > still fully depend on the API that accepts them. Therefore, it is very =
+common
+> > that you'd be using these with literals, and it becomes an ergnomic pai=
+n.
 >
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  rust/kernel/id_pool.rs | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
+> I agree that NonZero and Bounded are on the weaker end of the argument. B=
+ut
+> there's still the flexibility argument.
 >
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 382a5645767f..3e7c3d0c9dd9 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -115,14 +115,9 @@ pub fn new() -> Self {
->      }
+> The API itself, i.e. alloc_area(), does not need to bother with how the v=
+alue is
+> checked. I.e. is it a runtime check, compile or build time check, or is i=
+t even
+> unchecked (or panicking) because we can derive the invariant from another=
+ type.
 >
->      /// Constructs a new [`IdPool`] with space for a specific number of =
-bits.
-> -    ///
-> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_=
-LEN`].
-> -    ///
-> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->      #[inline]
->      pub fn with_capacity(num_ids: NonZero<usize>, flags: Flags) -> Resul=
-t<Self, AllocError> {
-> -        let num_ids =3D usize::max(num_ids.get(), BitmapVec::MAX_INLINE_=
-LEN);
-> -        let map =3D BitmapVec::new(num_ids, flags)?;
-> +        let map =3D BitmapVec::new(num_ids.get(), flags)?;
->          Ok(Self { map })
->      }
 
-Could you modify the rustdoctest unit tests of shrink_request and
-grow_request to cover a few cases where capacity is < MAX_INLINE_LEN?
+To add a minor point to this, if rustc could figure out that a
+suitable non-zero number literal can be treated as NonZero<usize>,
+we'd not need a macro and it would all be very ergonomic...
 
+cheers,
 - Burak
