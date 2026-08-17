@@ -1,353 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5289E3128A3;
-	Mon, 17 Aug 2026 16:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786985482; cv=none; b=F/tY4buSX7FIi3jJ5e1tJ3zEuJrZ61LQfeBB+XHi2pxsLc/+MwivQhCMNnxL53rMx3hhy8dGGd3vmR/E+tnZHHr7bzGGdUSStm5qYFW5EoFxWfTEu8v8o0kCVsKCvCPIl+FknnEa9GVwshvnJWF8uk0ECcYJZ9ZZjeixMFeoFps=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786985482; c=relaxed/simple;
-	bh=vBF53RkKWf59SV1ajSCbgB60MzipkHjcJte5TnIymNQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gyFVMH0HdRIwlhREs/ZJwgT5P/vCKDJkAHdg1IuZHxajP1miNYYzHQmJqHzgSbkHx5XAAcjQbp6qiYvUyYIaV3yc+r3u2Nqi7NPDuJUxjO5B/apWh2UKGJKYPXCPEWed3TX+67dcWHdehgSRghm9YMdvzs508g9ZJEuQVMx5rmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EpKwzPjO; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0834477E5
+	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 19:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786995759; cv=pass; b=G1YOBtA6Xf+LxsXhGECB4cfCLxSoFf9F+fBsOm8vbRT1tkOidZXfrYcAJsAZte7XXkybman8hq9GpjtZgWdp6z1g0N9zFXLlJiWdcNiT5FwN9/JV6D2I/hPI4PwIbeDD3OnAi8jxU0QSKOHzXomMKjTTiJv5KfuFEsOiq1Mx1dw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786995759; c=relaxed/simple;
+	bh=vixakSBqG8jvCwQICQq4eyAI0L2WXXSanuKhJ9r0hgg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nG424Vn89Rnpz3JfoTLljLe3mdic3rj6V4rwPIXr4eZIdekh5nGuUtxiR463OYnXrWziPpO8+HD6+rrd5cC7O7k59XVoPYkZNiAV1BBgTlgPhyWAOwuT7A7ZPxmt2LWV/q+JX8zNmxQk4jOoPOB5Wb5On0x04JXNw94Affr2wS8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KUlD2LQy; arc=pass smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EpKwzPjO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C4284C2BCB3;
-	Mon, 17 Aug 2026 16:51:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786985481;
-	bh=vBF53RkKWf59SV1ajSCbgB60MzipkHjcJte5TnIymNQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=EpKwzPjOPiJRRCYD5EqXjY6RQoEslttJjsPcVKB6AcB6W0iAIfWHz4gaLfkYYKlkK
-	 RnCV03+AaiE3DuNNF0f4PtcZ68j5Yyxm7itUi3qciSPbliCiBSf1zJcio0wtcWsVU6
-	 jM9Ul+USS9or03JwRU2s19emg4QTX9/saM0i8tljGftylJNwBDMRJSzEU2WyQUuIt2
-	 Vb1WuXNJ+TXnS2scBC6NP/7xo4rGk6mcNM4N/mpvhfUjaU0qxf+7CXKj2Wo1mX3qxG
-	 o5S2XsRY7NLswmp+H6W3NW0emIEQj1ay7BKa8t6PStGUx8ky1j2GGAlhdSe1lj6Mo+
-	 24OvhD7qBcs+w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD941C5DF70;
-	Mon, 17 Aug 2026 16:51:21 +0000 (UTC)
-From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Mon, 17 Aug 2026 18:51:08 +0200
-Subject: [PATCH v2] gpu: nova-core: Extract PMC registers definitions
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KUlD2LQy"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c9e7391839cso3735612a12.0
+        for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 12:42:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786995756; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hS1HU9Z6X3176ibYxlFjjfBI4RW3rjxInykHaiYiv01iMBi9wxx2nvn4IJLI7L3pUh
+         AIGh+LxP+5n1kuXNO02CaGWGkqu2VFwBBBD5PCs6Qj9ULy/zmx5/6W4AqlCH2luyWhPS
+         9DG1kZDgjBEy6BDgutOc0gNP31JCU5EtiUaGCpAUcPA1rRAEvc47TMQynj6670ssoxgy
+         8nPaGFP9EIdla5fSuuHLtEf29NTVtWE15IsIxb0/rThsyWKdq7FZjpY/8TM6jOd//dtj
+         9BvDt6mYFlzoXDqElOaQIORRnz8s0DBdQQDK3+gBs8Vd/hNDC9qgH326FNM/FP77tNJK
+         qPsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vixakSBqG8jvCwQICQq4eyAI0L2WXXSanuKhJ9r0hgg=;
+        fh=xj5TwgNwTH+CzchTHxBUNpItgDKxggo74ajgXy7hFNM=;
+        b=BvpVdXakGeAESHh+abdV0iNGY3NDVEbdPw2wjvc9xqlK7T+jI68H46ohKZwgdzFe94
+         vd6+qFS9Jn+OfIPPxLew4Vuuj8oPKXDQxNIi01z+OrvHds1RqV6uumwXDEltzrRU65qd
+         vjx8baiCKR8CLQnHq6MDJlH69sJSzwTMtnLo30APzNMGJkEn/gdZxq6kc79e1YHvtTlb
+         OCSzi0vANRzPPkEe+/QUf12XbHxFH6evheSDGgZzFEHQocCoLVuoJYW3USE4WXoSFJ+a
+         foJonF0Qu4cmqGBYcAuJHaGgBXralrbpoDDmpR2s8i7TRSAqmECJsCTflscQyHbjTXUP
+         ClkA==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786995756; x=1787600556; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vixakSBqG8jvCwQICQq4eyAI0L2WXXSanuKhJ9r0hgg=;
+        b=KUlD2LQyeew8bBmc51Z3c5mN+rET0jHkyW5IBI4iO8+9m/0tb1fVwKn2gq2IQ3gPAt
+         Q2h40NHpK8FLcJDt0YiafJaJ22+fEQVPdJt6j2lwKMCVqeMiaNDmPLPyrv3PmFN8NlWs
+         AQ9ByWQ5yaTxkuL7dVmVf+3Y1PvuEhJEXbC1pheLcW4JQN2HQG+V5pWSA8Per62Td1oW
+         MyEmvo1V0MfF7qGOnbMwl9QzUsP98z+AnZaxtDPZ7XIg4eFV4Jz51mY7K22ojrNVj6D8
+         YILlXdrNMbVkBiwPaRdjOi3luXbfruzL+aNw32+pZFPrfkmIHJH/JSDcWy8oHo9a2WOI
+         PsOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786995756; x=1787600556;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vixakSBqG8jvCwQICQq4eyAI0L2WXXSanuKhJ9r0hgg=;
+        b=GyD5aUEmfZmvCAKgfIrW6SxrbWqFssEPaIZxnWjGq/oW17B8yxyuVffYspAh2CkLqG
+         b/aovxIA60Pm5aqdUGuJgOzF+AdLoVZjOglsRtvV4pwKcaFY1bYluYgk54ELcGaY3DVM
+         DMQmrc8yg/c3ryQSUyXBAr3iuidHiCaTpQ3A3p9iQVWH1zgmAaNaG7c7z58tk3Q9T+39
+         IJ+N4fhLlS+SMy3jneWlcLKgbmRK48pUOJG7NgJPpJEH1jZkwiAw0Rd4vpFLTutP8COn
+         lVwPs2XmEEpxTzDZpNr8rkwSq0jyIhV47nuMGNYHcW4kQAqp4z7NqKvIN7j1pVNIF5Mk
+         Q7Dw==
+X-Forwarded-Encrypted: i=1; AHgh+RpxYqGSZGEvaPs/dbI0fyHOay1J2v+MoC+8AAK2qeuaoh7shNaOOHg30r/xvTpqGVoWPDGWQ/nBXw==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yz259i9gDSuSzgRD6DP3mWgA23Y294cWQ+aoRfMOPF6RsgDRA0E
+	fkaT7wWldW7WWxv5UpqUA/tIrowQDQEDR2CCUjb5/9czAgIR7PUG8E+0v02CGiaPIf8K9imTByz
+	mYtqeHufRfVmD5115B4hu0sgQFrmaZCY=
+X-Gm-Gg: AR+sD10AndIMpWbt5vkyFBpHPsu4XZmlSO9dQb5Q++keKFNXDCTH5vSqpVohXAlBuOm
+	0fxqPvX47JWooL7dkHFb7+5RKt0AwUWUzkyTzVP5ra4dh4f2/hd1BqBxCkfT7pQ+C9YCU6m5MWV
+	CmjGC+Ku6BK9kHh/+Y0juWyRDM54G3RfG9e/ehWfKtcseE0KcE4kZ9Q3Cw5uHMGE8hhLAnNqfoy
+	mxqNcqFrKi5c6ze/2ITGp/rXxJ7+KrcAwYxaFzndj5rQAkc5aqLEMHWyhC75OX2PUtCfrlsm/nY
+	G3csFFZSQ02cwXiPLKNhqw86p+WSm43dVLBnW9gKJd8SnkgnOUMThlhF8B8/otZyjik/OIL5UnS
+	MI10HqXY0ARW03ZGRKujRkANlPzwuBw==
+X-Received: by 2002:a05:6a20:258c:b0:3c3:8129:a492 with SMTP id
+ adf61e73a8af0-3cc71e0f012mr28014271637.38.1786995756083; Mon, 17 Aug 2026
+ 12:42:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-b4-extract-pmc-registers-to-gpu-mod-v2-1-9dd1d599deb4@nanonej.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQQqDMBBFryJZd0qMVqOr3qO4iHGqEUxkEsUi3
- r3RnqDLB5/3/s48kkHP6mRnhKvxxtkI4pYwPSjbI5guMhNcFFzyHNoccAukdIB50kDYGx+QPAQ
- H/bzA5DooqwxR8FIqkbFomgnfZrsqr+bHfmlH1OFUn4shShx9rhtreu7+K64ppCALzWX1aAtei
- qdV1lkc79pNrDmO4wsvNfip6gAAAA==
-X-Change-ID: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9357; i=dev@nanonej.com;
- h=from:subject:message-id;
- bh=98NidU/GWke4x9fxgV7rWcy4dd8JhZ32lej/Yml+1VA=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqgzwILpHS3vi1dKPyEv7Lg9SY4u5WOwohGrtME
- zfZA2H/IXOJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCaoM8CAAKCRBmh/EjChUV
- /f59EACThr7kbKuHCTQvbWnJWHJBfdiL9tj2afMMGA6nVjrQhPgdeP5W80/V7caj0xSNPtNE/Vv
- rSwF8RBTXFuWp6kSMmnF5ylHXZ+wbYousN/w81L99/nGGkLFOEN0xypTRL0AhIdq0aW+rRZjkoA
- /nM1nYe3uIUpiaF3vXhAC7PBoaGNsSXMgTSBNjOb4ldakLxn9+g84ctAUgLLM1a3BBGBeBhiGZT
- nMYaEojFfwnbSPlaj3O6M7Twit+1vbtOk9fIpeovKtJ6C7EvPOyViej7mcqZK3HarKPphf1BXi6
- ngt66YPV6HUKOgvgvVWBm0cIzvYHSX5CZ1/fdEMeB6CDTcuV+WZMWWB4PVCWCK2W6H0e3LCywVh
- +vfJ/HYxFeHvPFEnh+wO1dTryvaQ3kvYKsU5/oeoIcd4tdakFqxvpvDFmFeFfeqhdHFvnuxpZFq
- Za5MFbkIAlQLGrWqT0JNkIsmDBqIsn75LN5a+/rv7ok4Bfq3JF0Tk6BPA1OIjFPAJEA6vSO/UZr
- kSS21koKsjb/00xzb3HudFO/+li0uNRp7lCRGZtXLMIWkc1K2Ie1Rd7bPnktz0IFySIT4Cd4zNA
- 4bYnuKOWMEntIErtlvAnVUbJ5mZ6aI1e0hF2cB4LjVEgTTXu1T2utQIuG6SMJedCIx066mVLQkD
- 6GphSHE6L3QzirQ==
-X-Developer-Key: i=dev@nanonej.com; a=openpgp;
- fpr=83B64FB07C91212F5285227D6687F1230A1515FD
-X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
- auth_id=825
-X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
-Reply-To: dev@nanonej.com
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com> <20260817-chid-v7-1-a5872e64d8f4@nvidia.com>
+ <DKR5D0EQTMIG.15W9AGBY0I7YM@garyguo.net>
+In-Reply-To: <DKR5D0EQTMIG.15W9AGBY0I7YM@garyguo.net>
+From: Burak Emir <burak.emir@gmail.com>
+Date: Mon, 17 Aug 2026 21:42:22 +0200
+X-Gm-Features: AcwNN1VsQNOhBePpFFtV90j_U_qeRDlqUCWptv1GTTKIn2pB6mHEM8ZqqsTol8g
+Message-ID: <CABwQupPn7mEGu7oS7R_F84werNFMxN-uoxGb0An9e9D7tsYvdg@mail.gmail.com>
+Subject: Re: [PATCH v7 01/10] rust: bitmap: use function-level cfg on kunit test
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	Yury Norov <ynorov@nvidia.com>, Gary Guo <gary@garyguo.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+Thanks for cleaning this up!
 
-Move PMC register definitions (NV_PMC_BOOT_0, NV_PMC_BOOT_42) and
-their associated implementations from the root regs.rs file into the
-gpu module that own them, in the new gpu/regs.rs file.
-
-This follows the same pattern established by previous commits for
-GSP, PDISP, PFB, and PBUS registers: register definitions move to
-the module that owns them, visibility changes to pub(super), and
-cross-module access is provided via pub(crate) helper functions.
-
-Since falcon.rs (outside the gpu module) also reads NV_PMC_BOOT_0 for
-its raw value, a pub(crate) helper function boot_0_raw() is added in
-gpu.rs to provide that access without exposing the register type
-directly.
-
-Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
----
-Move PMC register definitions (NV_PMC_BOOT_0, NV_PMC_BOOT_42) and
-their associated implementations from the root regs.rs file into the
-gpu module that own them, in the new gpu/regs.rs file.
-
-This follows the same pattern established by previous commits for
-GSP, PDISP, PFB, and PBUS registers: register definitions move to
-the module that owns them, visibility changes to pub(super), and
-cross-module access is provided via pub(crate) helper functions.
-
-Since falcon.rs (outside the gpu module) also reads NV_PMC_BOOT_0 for
-its raw value, a pub(crate) helper function boot_0_raw() is added in
-gpu.rs to provide that access without exposing the register type
-directly.
----
-Changes in v2:
-- Fix unused import warning
-- Add forgotten `Suggested-by` tags to the commit
-- Link to v1: https://patch.msgid.link/20260804-b4-extract-pmc-registers-to-gpu-mod-v1-1-86c0895b6072@nanonej.com
----
- drivers/gpu/nova-core/falcon.rs   |  2 +-
- drivers/gpu/nova-core/gpu.rs      |  7 +++-
- drivers/gpu/nova-core/gpu/regs.rs | 82 +++++++++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/regs.rs     | 76 ------------------------------------
- 4 files changed, 89 insertions(+), 78 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 65cb12d26e2b..11c1008b7d1e 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -394,7 +394,7 @@ pub(crate) fn reset(&self) -> Result {
- 
-         self.bar.write(
-             WithBase::of::<E>(),
--            regs::NV_PFALCON_FALCON_RM::from(self.bar.read(regs::NV_PMC_BOOT_0).into_raw()),
-+            regs::NV_PFALCON_FALCON_RM::from(crate::gpu::boot_0_raw(self.bar)),
-         );
- 
-         Ok(())
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 42a4cd7971fa..9e4232645a7e 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -29,11 +29,11 @@
-         Gsp,
-         GspBootContext, //
-     },
--    regs,
-     vgpu::VgpuManager, //
- };
- 
- mod hal;
-+mod regs;
- 
- macro_rules! define_chipset {
-     ({ $($variant:ident = $value:expr),* $(,)* }) =>
-@@ -414,3 +414,8 @@ pub(crate) fn new(
-         })
-     }
- }
-+
-+/// Reads the boot0 register and returns its raw value.
-+pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
-+    bar.read(regs::NV_PMC_BOOT_0).into_raw()
-+}
-diff --git a/drivers/gpu/nova-core/gpu/regs.rs b/drivers/gpu/nova-core/gpu/regs.rs
-new file mode 100644
-index 000000000000..1c4db9625250
---- /dev/null
-+++ b/drivers/gpu/nova-core/gpu/regs.rs
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::{
-+    io::register,
-+    prelude::*, //
-+};
-+
-+use super::{
-+    Architecture,
-+    Chipset, //
-+};
-+
-+// PMC
-+
-+register! {
-+    /// Basic revision information about the GPU.
-+    pub(super) NV_PMC_BOOT_0(u32) @ 0x00000000 {
-+        /// Lower bits of the architecture.
-+        28:24   architecture_0;
-+        /// Implementation version of the architecture.
-+        23:20   implementation;
-+        /// MSB of the architecture.
-+        8:8     architecture_1;
-+        /// Major revision of the chip.
-+        7:4     major_revision;
-+        /// Minor revision of the chip.
-+        3:0     minor_revision;
-+    }
-+
-+    /// Extended architecture information.
-+    pub(super) NV_PMC_BOOT_42(u32) @ 0x00000a00 {
-+        /// Architecture value.
-+        29:24   architecture ?=> Architecture;
-+        /// Implementation version of the architecture.
-+        23:20   implementation;
-+        /// Major revision of the chip.
-+        19:16   major_revision;
-+        /// Minor revision of the chip.
-+        15:12   minor_revision;
-+    }
-+}
-+
-+impl NV_PMC_BOOT_0 {
-+    pub(super) fn is_older_than_fermi(self) -> bool {
-+        // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manuals :
-+        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 = 0xc;
-+
-+        // Older chips left arch1 zeroed out. That, combined with an arch0 value that is less than
-+        // GF100, means "older than Fermi".
-+        self.architecture_1() == 0 && self.architecture_0() < NV_PMC_BOOT_0_ARCHITECTURE_GF100
-+    }
-+}
-+
-+impl NV_PMC_BOOT_42 {
-+    /// Combines `architecture` and `implementation` to obtain a code unique to the chipset.
-+    pub(super) fn chipset(self) -> Result<Chipset> {
-+        self.architecture()
-+            .map(|arch| {
-+                ((arch as u32) << Self::IMPLEMENTATION_RANGE.len())
-+                    | u32::from(self.implementation())
-+            })
-+            .and_then(Chipset::try_from)
-+    }
-+
-+    /// Returns the raw architecture value from the register.
-+    fn architecture_raw(self) -> u8 {
-+        ((self.into_raw() >> Self::ARCHITECTURE_RANGE.start())
-+            & ((1 << Self::ARCHITECTURE_RANGE.len()) - 1)) as u8
-+    }
-+}
-+
-+impl kernel::fmt::Display for NV_PMC_BOOT_42 {
-+    fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
-+        write!(
-+            f,
-+            "boot42 = 0x{:08x} (architecture 0x{:x}, implementation 0x{:x})",
-+            self.inner,
-+            self.architecture_raw(),
-+            self.implementation()
-+        )
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index caeef4d85874..3422b49df7a7 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -7,7 +7,6 @@
-         register::WithBase,
-         Io, //
-     },
--    prelude::*,
-     sizes::SizeConstants,
-     time, //
- };
-@@ -28,83 +27,8 @@
-         PFalconBase,
-         PeregrineCoreSelect, //
-     },
--    gpu::{
--        Architecture,
--        Chipset, //
--    },
- };
- 
--// PMC
--
--register! {
--    /// Basic revision information about the GPU.
--    pub(crate) NV_PMC_BOOT_0(u32) @ 0x00000000 {
--        /// Lower bits of the architecture.
--        28:24   architecture_0;
--        /// Implementation version of the architecture.
--        23:20   implementation;
--        /// MSB of the architecture.
--        8:8     architecture_1;
--        /// Major revision of the chip.
--        7:4     major_revision;
--        /// Minor revision of the chip.
--        3:0     minor_revision;
--    }
--
--    /// Extended architecture information.
--    pub(crate) NV_PMC_BOOT_42(u32) @ 0x00000a00 {
--        /// Architecture value.
--        29:24   architecture ?=> Architecture;
--        /// Implementation version of the architecture.
--        23:20   implementation;
--        /// Major revision of the chip.
--        19:16   major_revision;
--        /// Minor revision of the chip.
--        15:12   minor_revision;
--    }
--}
--
--impl NV_PMC_BOOT_0 {
--    pub(crate) fn is_older_than_fermi(self) -> bool {
--        // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manuals :
--        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 = 0xc;
--
--        // Older chips left arch1 zeroed out. That, combined with an arch0 value that is less than
--        // GF100, means "older than Fermi".
--        self.architecture_1() == 0 && self.architecture_0() < NV_PMC_BOOT_0_ARCHITECTURE_GF100
--    }
--}
--
--impl NV_PMC_BOOT_42 {
--    /// Combines `architecture` and `implementation` to obtain a code unique to the chipset.
--    pub(crate) fn chipset(self) -> Result<Chipset> {
--        self.architecture()
--            .map(|arch| {
--                ((arch as u32) << Self::IMPLEMENTATION_RANGE.len())
--                    | u32::from(self.implementation())
--            })
--            .and_then(Chipset::try_from)
--    }
--
--    /// Returns the raw architecture value from the register.
--    fn architecture_raw(self) -> u8 {
--        ((self.into_raw() >> Self::ARCHITECTURE_RANGE.start())
--            & ((1 << Self::ARCHITECTURE_RANGE.len()) - 1)) as u8
--    }
--}
--
--impl kernel::fmt::Display for NV_PMC_BOOT_42 {
--    fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
--        write!(
--            f,
--            "boot42 = 0x{:08x} (architecture 0x{:x}, implementation 0x{:x})",
--            self.inner,
--            self.architecture_raw(),
--            self.implementation()
--        )
--    }
--}
--
- // PBUS
- 
- register! {
-
----
-base-commit: 4c9ba407018e8deb06dbc643112bac8f40404f95
-change-id: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
-
-Best regards,
---  
-Antonin Malzieu Ridolfi <dev@nanonej.com>
-
-
+On Mon, Aug 17, 2026 at 12:29=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> On Mon Aug 17, 2026 at 8:04 AM BST, Eliot Courtney wrote:
+> > Since commit c652dc44192d ("rust: kunit: allow `cfg` on `test`s"),
+> > we no longer need this workaround.
+> >
+> > Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> > Reviewed-by: Yury Norov <ynorov@nvidia.com>
+> > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+>
+Reviewed-by: Burak Emir <burak.emir@gmail.com>
