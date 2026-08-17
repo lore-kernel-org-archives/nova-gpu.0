@@ -1,86 +1,75 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022116.outbound.protection.outlook.com [52.101.96.116])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022121.outbound.protection.outlook.com [52.101.96.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ED8421244
-	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 13:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B1E3BB687
+	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 14:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.121
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786971768; cv=fail; b=ooiDgLg+xywqAzkH3vDpKQl8bNocPMjovBMiLoedr5q2j92lty2mQCKMb9zGve1FtkeH+GsEeodL+lZLEO+WUnxJS6hQANJi7/ctPGiTxxPR0ifu/E92dOQtclEl54yjK6in1BKUCefqWqwebWvrQmyJDFu8RY0OPrvMizxAeZU=
+	t=1786975386; cv=fail; b=uxrq5tRHdUUV8ck0h2M/NCg94/v1Y7Oq7pxh9bgbWbMCgCoZ+tyn2BJZDMqaqwj8hIO9PB6Zn9jBMeFDFS+9PNEsk7quyC1bLsOotStH4G1wh9uTCgbRGi+juPNvlXnL5Vi56jckrikHnlRwBUmiptuZ2heHR9c4iYU8GOYu80g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786971768; c=relaxed/simple;
-	bh=3IQqxB9QoU8Y/jNglQuDRaMLLWrzVC/sfqaSpXX70MA=;
+	s=arc-20240116; t=1786975386; c=relaxed/simple;
+	bh=mKrBUw2Ebfv/3Z2IiUXU4gn+UupY8nsq9Ofv916wQIk=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=g9781a+1V9U6NjMIfv3TYdcIWgwb9TXOSS/ZqIn/gxRCfVaVF07szQ6gPBKzxmqS12UAC56h3KMvsxlLLKhxAGPvM/x/Icf4+lxhh8WG0g9lMZ1sD92aBXD61C6sVWo2oK5ns7xQsRKLqpoDL0LVRJ4zDv7FLr23m0BrjdM0has=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=p3qbMrvU; arc=fail smtp.client-ip=52.101.96.116
+	 In-Reply-To:MIME-Version; b=fUbLf8p22ZSlMbgc0sAISTNruivHaPrgc1vYWgMRcdKWXlUYKYUdoBHazQn5gw8r/Tmpxqg9abdFLDqB7yvxJG+h6Mwbvls+MAW5zfpMX9SLLOKHPsQR2dbK1l+BqxZTyHXpznADAtSNAWRSL15MxPfOFuu37hYuqeVDsdlwY6Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=UG8Nku38; arc=fail smtp.client-ip=52.101.96.121
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="p3qbMrvU"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="UG8Nku38"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C4zBIshyNEYXIcIlKjq8pMGNvnKogpj/yreGI0ie2wObu6+RLFH8wu07k0Ro2rS14Bpk7RXLIh27uCUB0C0IFQtR15nCcJ2MSWx3VnCTCnPs6jxWwFmsXLVepkd8+YPsLCqlkyu4L3KnM9WAlM/m7bMnbH8lPND83q8BgKmArk7cazzPzNrm4jyf7tuEVu2dlRHvOTAhSj4oRX9iHpcsFu0pvuJjjfDxULaRK93qgIv1OCEqIZk7Lm7Mp8n8zSP/FdyKWPDSaOW/pytbf47Cm63t3v9wQ+2iojzORII8DouM/B4Zyy+pDwQ+EOg6lPxyqsR4Gws+dPDUDXgT8D5T0A==
+ b=qWapDe10+7AanJD7lkKTXQuP8WkZ7ELbl9gB/PfgZMgzFyXOrRT59/VK5oyQQDxsC5Qq6usie6aecqcNJ3zqWHseHWNLVJkc0Xn6xuxYfbcmFU2muuivt2Fk5KJ8Fn2oR1T9WvaPlgY9uTZGLT6pkp65dXuzM0XrzNp2fhPicLbGZY5GUrPYl8Z9t1420dbes8dqPoUC4sc7/S9Sou6hw5copmwh/ngQdgd62Vfm1G9BU/79FVmwg0sDVgp5+Z74I2btYZ59icoKjcTh1w1XTa16zH/OMHQi0NapxJ+gHBGr4Drgo+fbRhWTaCMK8RjhCKE2PrTb956aNwtLmSi3Gg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TjdwkS6XpLb1fGd28nH3/yuua9S8Osv48ncMTOhPMMw=;
- b=uBChOE6hVGwFaszKpwKH+6cH3ogdxzO9c/yPImQKDCmepp7e+lB8HOW/IOurFFLxKN9VeZgL6vKmA/IlFeJptwjuDmzSsvLNHmS2pbfZ7fSkeaNDDdgkvr33dWCLp4i+tny6dH2BGQZUzGM8JNOKCKDb1WNZMAc7S5tgqz9ghEwOuWdFjoTWggHKzcOuaHOXeit6c2Y09v9ah2U0CFEY7gCkpvs+Wz18ZfMqd94miBaDTYWs2sbP4zXIFi4tdOWT1Z5zxIdraL+aCAPr7EKlnHkhlH3ive+AvkjBiMIE9WHVHIlcGUDQ4agt93xVFCaRPW7o/fI7UfmRdMkt/cpxGg==
+ bh=FpU1DBrrT8YE74+GZGNptSyNpq7rRwE/VfNqu892kMM=;
+ b=H8ZtJQrDXsObONIWJzjQafd0UwwEbi+b6At2vWJlAXkhEsVfP8SPZ7k5K5DI0b3Qz2A2wP+I2+lJxMiWgduT1yzqQ3eW9En4qQt3K4kI2VZQYzJUsyikeFmgSt+vOPpjBV3rzaXbivgwYSC3HVO7GXB8Dnw8SsYpXtTsP57eIhufUjkd3HnJykLiij8uZkURWqy7Jb8/XZUOLRVYCAVB9XLPzJ3cmyRPphqXGc80plRXDfNIdCS1GzoCokc/7mB6FhJXRcGq/Gyv5Danv8dgPYEgUglpnh8jAQnmZHpKWV+fp2W8wBWuTFb7eOxwUPjeuXp/j6E403FeP+7zmAROeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TjdwkS6XpLb1fGd28nH3/yuua9S8Osv48ncMTOhPMMw=;
- b=p3qbMrvUgOGVzIcXCtaK4lBFZH3khiLnr7bT4h0MfMHkuVZq+u5EoF6QdhErdYRx5oHUzEjRlJhofanYEuuzpkN+q1SkyxnPPAGm33BprQbHs6L4tQKWTrKMerSYHHVFYsFw/XdmheK0cSHSNzXeDFGBbELl48G529NBFiO9dWQ=
+ bh=FpU1DBrrT8YE74+GZGNptSyNpq7rRwE/VfNqu892kMM=;
+ b=UG8Nku38uuX/RBy7JmKJRf5lI4HGDchxMUiCY0ODv729rvUz5tU1XWufP6WvFsn0U6u8y1zZ/ScVq/pI2k8kXP9rPD8Mstltm4qfWXTeZyS9CASoO85CU5l99Cg8cEa8KJP7xcrwhm/AueQhKt6itFgADV2kAoPtji0p6+S1Kzc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB6753.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e9::5) with
+ by LO4P265MB7063.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34f::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 13:02:39 +0000
+ 2026 14:02:59 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 13:02:39 +0000
+ 14:02:59 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 14:02:38 +0100
-Message-Id: <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
-Cc: "Gary Guo" <gary@garyguo.net>, "Yury Norov" <ynorov@nvidia.com>, "Alice
- Ryhl" <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury
- Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+Date: Mon, 17 Aug 2026 15:02:58 +0100
+Message-Id: <DKR9WJY3WI0F.1FV4PD1J17ZFD@garyguo.net>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 1/6] rust: alloc: add Vec::push_init
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
  <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
  =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
- <ecourtney@nvidia.com>
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
 X-Mailer: aerc 0.22.0
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com> <anzxKO0X1OrNRD32@yury>
- <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
- <DKO414SNC0B2.248FUBGJGSPLU@kernel.org> <an4xDp29VX8Am0uR@yury>
- <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
- <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
- <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
- <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
- <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
- <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
- <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
-In-Reply-To: <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
-X-ClientProxiedBy: LO4P265CA0076.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2bd::11) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
+ <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
+In-Reply-To: <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0557.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:33b::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -89,157 +78,183 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6753:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbab2404-5035-4d24-ab38-08defc5fd0e2
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB7063:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8eea4a25-b27f-4d65-e77a-08defc683eda
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|10070799003|366016|23010399003|6133799003|3023799007|10067099003|56012099006|4143699003|18002099003|22082099003;
+	BCL:0;ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|921020|6133799003|56012099006|10067099003|4143699003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	0PHoYO1i0GITt7Yswh9LK6Nz8nti7HT4L5q6a3RpHgLqNnZPzPqvZ4VSbT+LDsEKHndwRdxpeR0iXZ8cQOPa53LHFPmytgZnoa4FJEqXdbUnZTqlqqRnN34Jgyrh4gNJ2PiNBihHhfThtGzTUjirYdXekUKCBupbeB/gTveMCpcbR2YpAK4MIJv9UG4q48bQeFnRwyIYnXZq4IKfdiJa4hLGxqPmeSyNvnvaOM9Ft8Qy5e+H2z7OoGASkZmf9RbgkWQP+waoGvwcQHkA4I8HRw3GB4tox8CSx5BP00oMPeXNrt2BigJgdO0EeX8xC7wt+pkY2q4HAIyxkNhSzPgQsyjMlb1qDhAwara0wEZl14uaYNjaVMmCBq6RnaJKJ+ts4B7zHHUThZltumldHFNAEQdkE4vZXKhZ7VrTa1beG0+gIk2NWil5d1/hc3Od8kpX6rcz2D73zzHJrQ3V/0siLm8jbX+s2pG4bXjgURK6IjicXRhiBQJT+MQjj7fd9c3kd+TCHpb91s1Tn/iB6X7hePJUxc2+z/amoRaoLEHRe+dkBxshbkFa2hBzRudWo1VDL/gS50CKTx0VkxKmKfeuKFQhX60vR/YwkGo5KkD/j0iivMC8m9FwSRvolRxljBi6hwNffakc+mgcFUXZCnG1RpAcU7Z5Z0vIDgSmDpA+8k4=
+	RB1fVbIlqt4hiIl71z7qq/Z5xlc8wptq8tgtNeAdAens9TFqhhMDZGkG8dZMr/+LbpUDFk9ecsBaA1bxagvHaN/cxlE7/KakrjRnKlaKBq1VnBt8HSc3wNvyCqdHvstTLCOidISrntAtZm2g9mzVXAwYoXGbM+/dw7muOJF+l6c9thR73u7TidzOI+C/BqeLw6MyfQG7KLmmVzpr3GDxkz3BeqeqesTn2/RTiQaSG/4Jrf/X3srUXBdBXYNfMM4p5Y10j5KpXSGtCF6SVT93fbQhIp47F2SPixbauXrSmLxx0wmfKvQ3uiu65HDs1bYb18j5FCbvdaD1FsGuJJVAF1tUs3Mh9jnCe3CdNXPDQoTXbxUGmqK6TSGQj4V9+zogl9Ro6lYFbgRg4wkvKbP8DXhnYrRjjcQh7k0M6YernX97Ye31J4Cgh/9YpLF31/FI9tAhkIiYx4Lr207uKGKl5BWfpE8waXDoqpag7R95fdcA9iD7ybIqbJxzXQjEQKOyOFweOrDHzS0OMh2i5ksLUO6n5EwP2xSvfm2enEchGzrcWOdHAFQdvyEFEvm2OJwodVhQNV+MosYiKCLCuT/Skl8E4Q3uu53eiiRg0ATrYvYi6s+LET6oAMSKZYHEUkFnp+5OL2H5fSzJShdwaoCqGd8EyfGBKsYoYCFjX9KlL6mgPygQxC5O/B3+DcM3ezfHjjSgzj93+Ayb/G3qiG6slQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(366016)(23010399003)(6133799003)(3023799007)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(921020)(6133799003)(56012099006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eG9LdG0yMTdONSttMElLTlJNb2dURzc1SEhpYnk3UURHV1hmSFNjMm8xUmwr?=
- =?utf-8?B?R0QwM1JaOWlzQ1o5TGxxMmRrb0RaYy9mRmJGbjdweHhoaDBmYW94NUZkTXZa?=
- =?utf-8?B?ZU5VU2FMeUo3citZdVJ3NjBnd1pPZ2p5UTgrWlBGdHRNM0g2UFJiK3J5ZU5x?=
- =?utf-8?B?MXIzQStFV3prekJBS0oveXJJZVZBajYrL1JQZVhXMzFMTldGS2J3dFJVSjAv?=
- =?utf-8?B?ZEx4cWRiZW9HUXhKV2dyc1BGYXB0aXJYQVZiZ3J1NzZmRm5vQ2RkdzA5QWp4?=
- =?utf-8?B?NWt0VkRtVVAvQllHejRXUHIzTVR2ZGx2ZGVRMGEvZkdsd3M3S1V4Q3BwL2Nk?=
- =?utf-8?B?Ny9JZXBkYU9TV0FLWkFnMkVDUGh4aWlQRmxaQ2NKNzY2c0U2djBlaFdmeFZu?=
- =?utf-8?B?S2JxVjRzaGxnZnV1Z2dxRklxSkFqSDlpMkRuTEJJaGxma0xhbENVU0NYNWYx?=
- =?utf-8?B?R2dGbzZra29MdFJJWnVzTTFCTlVPdWJyb2V2bDJOOGlwcW42SmVwcDk1T1FY?=
- =?utf-8?B?SmlkbW9oRk9qaVpBZ3hVMzQvY2g3VWovYVNscUprK1psRXR4RmxCYUZLdHNk?=
- =?utf-8?B?clNFMFh5Ny92ZS9nZ0tLY1h0dTR4SGFMdXhQcTh3c2pJbmdjZ2V2Q0JMWjVT?=
- =?utf-8?B?UTNzNWVLVDZMVmhKMmZJQ2NzYmxXU0hWWFg3Nk1zL0JEN2VQc2wwdk1sSVp3?=
- =?utf-8?B?NzhqNEFxaDBTSTFhMzREUWpDRGtuMDZkenIveUJhYUpSSHpCTzVzREJLZU5k?=
- =?utf-8?B?S1ZtK3BjUFYyVFNtRHFUcnRVdEpERGExMkU5N0kxT0Vja25nOTVJTE5kbnlU?=
- =?utf-8?B?YVY0aHNXeWZ4TUNOTE1ydmdZUW9ucWxZMzQrVVBuSXlCR085OE5mK0ZET2hm?=
- =?utf-8?B?WmNBSmsrU2JYUmdhS3BXZVR6Z2F3OTdRODBxVS9KUTNTenNmcFNiY0xQVUJP?=
- =?utf-8?B?THNzRWFkbHpydmJhQk1Kb045aGovQjAwOGN1cG9YMGVwbHh5eHVxZ2tRL1Jj?=
- =?utf-8?B?L2EyaldJdXpqVzJqYStJQTVaZDBwT1EzcE1qaU04ZitJRzIvUTJpVTk2SGZj?=
- =?utf-8?B?Z2ZsMk8zUWFnYjl5VS85OWVZT2FNMXlNdmtpUi9ta09YRFVoVmRWSjk0bUYv?=
- =?utf-8?B?eDRwZ004ajJNWi92NHJFSUtUOVVWYXkyVmxsSVY5ZE50ZGdvWXhtNVpLNFFL?=
- =?utf-8?B?OW9uYzRyZEZzd200cCtNelZHWSs0ejAxMERaMisvNFd3NGNrd3hCRGJobDFQ?=
- =?utf-8?B?QUttSHFNNWY4d1NGeWxtMXB2Qjc3NE54OW15VDVTOVQ4ajVLc25mbWQxK3NC?=
- =?utf-8?B?ZG0rc2RET3ZrREgwdGt5S0hROCtsQkZDTUVGNW1IWTBNNGhqemI0N2FJanJl?=
- =?utf-8?B?QjdDTUxRbC9VQ0tUMmlSY1YxeXFhWWhudXZJUWJaWG90RisvRWI5NzN1WFF0?=
- =?utf-8?B?ZjBNZjMwejNRZkdBMkhCU2JhdFcvOXZsOVBsVWZtb0F4bVpZcllqZEJPNks2?=
- =?utf-8?B?YUdoNnlrdFMvM2xWRXY3eVNxTC85MnVRTXE3eUZkN1lWMDVnTVBEbk5Sc3o4?=
- =?utf-8?B?eUsrdzBLNy9NcmswdDlob0luRGtFRStJaEYzSjhCaEZJNk1oam5JeVBGakhM?=
- =?utf-8?B?TVR3bkljcmtyUmwvNVUxREFUVnlROUhOKy9ySUlVRk9UazRpVmVxUEpma2tR?=
- =?utf-8?B?L0hpYlVkUjBwVHVjbXhIM0tQUWlHOTltWXpiekRjdUJtTEtmZ25iMWh4bDNs?=
- =?utf-8?B?YlBnekpBeEk0L24xTkd0ZC9GdmhrZFFPZnp2aWpxaU1oY20wc0R4N1BqbHE0?=
- =?utf-8?B?YmJPelhBelp5TnR2OEhCTEFHaTM5dWhHMHJRendTeWFSM1J2WHJsQm5wZmhT?=
- =?utf-8?B?cFFyNCt5RjVoRXI1WWFnTU0wbXRpODg5L1pKRkI5eDM5djJsVnpXcTZ4M2lp?=
- =?utf-8?B?c0RCWFM3MlJoYm5VU3BZSjVOSW90ZUlVODh1UHZweU8wQWIxaTZXUlpnV0t6?=
- =?utf-8?B?YWUxQklVWnk3UmoyOE0vMVo0UzROd0RXTjRIdUZiYU5uWjg4S1NsSzNlZXRJ?=
- =?utf-8?B?UmJTMUgrdjM0cVBEb2lKTXN1SkRxSDZPQ2o0Q0RNYU1sWlNQR01CbVFOQ2po?=
- =?utf-8?B?dUp5TmJmYXdyOENKQ3FwM0hjb0I4c3BmalpNeHdRNmpKdUt4TnNVTXZQV1Rp?=
- =?utf-8?B?K3ZqWExaWnkwYTl3OTdMUWpTWEtyQmM2ZGR1MTljQi90MEF1N0RsY0kxdi8z?=
- =?utf-8?B?eUQwSWVXZWtPWFE3NnNGWEVTZ0ZxQmFnN3dPeVRTUWxibUwreE1RTitSRlhK?=
- =?utf-8?B?eVRDN0wxQlNWVnErc1lCeEsxaDNXaDFuNnp6dWowelFQbWVsV3FvZz09?=
+	=?utf-8?B?bGRiK2owS0FGL0lMVXo1VWU1WXVDV01aRmY3UVNwdFJrVXR1aDlNWG9rZGhE?=
+ =?utf-8?B?Zy8vSzUrS3NRcEVsRys0Q1NhUHdac1JhaFJIWkVHSVRtUXRCSm03Q0U3VVNx?=
+ =?utf-8?B?M3JKNzlnck4yMnpSNExyay92b201QUlsbC9XelFabmVCcy81UHlUaGRWT21R?=
+ =?utf-8?B?ZU0yMVNaRTlwcVpZLzhWK0x1Mjc5Qk9MVTBKeHJFK3lxaVBRN3JOYktJNmZD?=
+ =?utf-8?B?OEtPcUZOWUlXeXZ5dDZjMm5QczJaNUhjcG45Y2YzQjF3em5KTGdxeVppeTlh?=
+ =?utf-8?B?RlR6c3lpREVQSXg0OE0rLzdqSW9LK1BGajdHTUpwbUpIYmo2WUhHWmd0RXM3?=
+ =?utf-8?B?TmlaelhLNURyNEVSNnRrdU5mMFBEVFgyb1JXVEdsd09DK2xGcFJNcHp0LzJK?=
+ =?utf-8?B?UDhYMW0wZWtzeWtDNkNJU01BTHFFamt6dVl6YlB0T1lNTnFOcTd2OHlodnRI?=
+ =?utf-8?B?ZXhCakI0WTBWRWJqbGxuWDl1YTZJcklDQ3pqazBvTXl0Rit2QzgzcVdibDg1?=
+ =?utf-8?B?Q3pTa2RoRFhiRFh2TkJleGFPM0t3N2M3aTRYNGlHUWtCMVZydVNsV1hML2VY?=
+ =?utf-8?B?cThybDdTaXh0S0VRZEM4N3h3Z1JTanJodlZsODlmOHZIc0lwZnJDTU5VNDAz?=
+ =?utf-8?B?ZkdYYjFZaGZzbGp5RDRPdVJHVkpQTkRmZGJUYStoaWY4TzVDay9aVWFrbEM1?=
+ =?utf-8?B?b2VMNkpkNE80cC96UXY3OUpmOXJPOHU2QjdYQU9sZWpXdnUzdHNpSFpGUU9n?=
+ =?utf-8?B?SC8xRjdaME5rZTdacE5VL1IvOEJJK1VsU3liOTczd1greXdSdWpIQWFma29t?=
+ =?utf-8?B?eTM2SXN1ck5vWnZYVnkwZ1A5ZDVXcElKTWhkQzlhTnk4UTNpdm9nNk9IRjVD?=
+ =?utf-8?B?cys3bXRtZlo2WmFINFYyNS9nUGcvcVRRekJITXRwN0QyZituVzUwUHVidFRG?=
+ =?utf-8?B?RlNVcFNXRXQwVFlNRmhEVHJNekxKTHE3c2VxdDlnbVgxb1J0eHA5UXEwQnIz?=
+ =?utf-8?B?OFVXS1hZbkNibjM0VTUyUzg3dVhBZGEyR0xFb2RkWUxDbFFTVk02VXF0ZjVG?=
+ =?utf-8?B?SkRDM0NnckpQeGtXTEN0UFIwUFN3YkFiR05POHlMMm9YSkFHVW5DbzVjWDIr?=
+ =?utf-8?B?d2ZqWVJhU0FhRDIwWGZDMjVzajlWMUZreXhVbE0xTjRoRWFTR29PM1JCeWV6?=
+ =?utf-8?B?Y29pY05oVEhCV1k1c1dsdGwzS2txcTI4bjZ5SFV0clM4Z0ZLUGRNTVdXcXJ5?=
+ =?utf-8?B?T1ArSTFsVUdadisxMEFUZXhnWWkwNHFMSlJYZVdLYmFvV3lCK0Y1bHZhcE0v?=
+ =?utf-8?B?WEs3RzhmWlN0cFh2dDU5bXgrVUErT29EMUJMQm4xbTFRb3J6STRQT25SMk1Q?=
+ =?utf-8?B?ZUMwMXV3TW9pMVB3N3FiZFVqckFKbVBOT2ZtbXBRbWQzRElpMEFHVkJXMTdy?=
+ =?utf-8?B?NTdyN0VNQU1wWXBjQ0NtRW5MUUt5dGd6elJjZWZhS2VUMnRvUnhIVjJabXpZ?=
+ =?utf-8?B?cUpmOGd2WFJlRkRwVW9vSFNZeHhpK3g1V3VMWTMrSEdJS1FKUE1kalhtTW13?=
+ =?utf-8?B?YmVGdFJZWlBTaG9UVWs0UWdTQ1k0T1d6YUJtNlZNQmUzRE85N1ByclQwSWNQ?=
+ =?utf-8?B?anE3SU9aNE8rYjBraklXLzdsU05pVWFlZDF4eEpuS3hEVkFnaERDNTBoSkpz?=
+ =?utf-8?B?akNCSS9KSFlOUTladHpUZGVWSnhTdEREbVM1TzQ5Qjl6VjU0MktTUnhUK29M?=
+ =?utf-8?B?eDhvT2FzeGlud3lDcUp1cG5jVU1SVUNCcGxuT2M2RHJVaXBJT3FKYU9HS2V6?=
+ =?utf-8?B?cDJ6TVpIMEp1TlEza0p0QlJJZlZyZmlybFRDRjZKd1JTakliajM4a2ZzakVk?=
+ =?utf-8?B?OTJvaHJDazN0ZllTRXdZdVRjS3pQTUtoc05wa2t1NnVGdXZwMHdQYzdZK0J5?=
+ =?utf-8?B?anMvd0dFOFFUbElKT25Za3RSVDZ0MHFidG1lUXFLSmxhcm5sc1QweGl0TWNm?=
+ =?utf-8?B?bExwWE1HbjdlRkpuTFQ0alI0RHFjLzhIeUZ0Sk56ZEdhalViYkdSdkRWV0xM?=
+ =?utf-8?B?MlhvYjYydDBNZmdIYldqYVFNZUJRVUhxanVzblpzZ2ZNYmNwVitkSWY5V0lQ?=
+ =?utf-8?B?enJKOHBjVkVDdlJ4REJqUzFicmw3bWNaL0ExZEpUL0FmcWhvV2pyT1o2WU4z?=
+ =?utf-8?B?Sk9qQmZtWkVieDI2dXpNZnYrT3gvUXR0ZDYvWDdnMXEyai9iaUxuYkwzWmoy?=
+ =?utf-8?B?bXY1bzBRTVZhakpIVGY2emVaM2t5RlVnMzczbjJsRit5ZmlMbHZYN3BFTjVz?=
+ =?utf-8?B?TmJnWXJrZXZPMGtFbldwMmwvWHR5a09XdVZFdzJYZTZVd0RKU3k1Zz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbab2404-5035-4d24-ab38-08defc5fd0e2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8eea4a25-b27f-4d65-e77a-08defc683eda
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 13:02:39.0692
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 14:02:59.6672
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SExQVwTFoC05EY2QJk8AdPNE3vXqBD4Hg7fCByzUTd1xph91XiI1oDGDEfO1bQ9PAcDpVKxLoLr0QvzNvCu9xA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6753
+X-MS-Exchange-CrossTenant-UserPrincipalName: BaFKRcYKnsSWPJJvG0uA7bwKkfhJjMRjp7q4OqTGUtkCGzVWcX3N9nmcWZmz8AqFhUToC3uSco1xlyfAVBUgUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB7063
 
-On Mon Aug 17, 2026 at 1:16 PM BST, Danilo Krummrich wrote:
-> On Mon Aug 17, 2026 at 1:49 PM CEST, Eliot Courtney wrote:
->> On Mon Aug 17, 2026 at 8:18 PM JST, Danilo Krummrich wrote:
->>> On Mon Aug 17, 2026 at 12:54 PM CEST, Gary Guo wrote:
->>>> IMO we can just support zero-sized allocation by always succeeding, si=
-milar to
->>>> how ZST allocation is handled in memory allocation.
->>>
->>> Probably, but in contrast to ZST allocations it wouldn't be very useful=
-, so we'd
->>> silently succeed on something that never was a reasonable argument in t=
-he first
->>> palce.
->>
->> Yeah I agree that supporting a generalised zero sized alloc is in some
->> ways conceptually nicer, but I also can't see any good reason why you
->> would want to do it, it sounds like a bug. That's also why in the latest
->> version I made IdPool also not allow a zero capacity [1] (incidentally
->> required to not have to change the grow code to avoid trying to double a
->> zero capacity thing every time).
+On Mon Aug 17, 2026 at 1:56 PM BST, Eliot Courtney wrote:
+> Add `Vec::push_init` which initializes a new element in place. We can't
+> modify the existing `Vec::push` signature to take an `impl Init<T, E>`
+> without changing its Error type.
 >
-> (I assume this is more a reply to Gary?)
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  rust/kernel/alloc/kvec.rs | 42 +++++++++++++++++++++++++++++++++++++++++=
+-
+>  1 file changed, 41 insertions(+), 1 deletion(-)
 >
->> Tbh, I feel that NonZero (and Alignment) is hard to use currently
->> because of these ergonomics issues. But I reckon they're useful, so I
->> like the idea of trying to making them easier to use. Maybe you can make
->> an argument to not use NonZero here, but what about all the other times
->> we will want to use it?
->
-> Personally, I don't see the argument for not using NonZero (or Alignment)=
-; the
-> invariants required by the API are expressed very well by those types.
->
-> I also don't see a reason to step back from using those types for this AP=
-I. If
-> we'd do so it would question all the other new types we have over primiti=
-ves
-> carrying certain invariants to a certain extend as well.
+> diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+> index c7546b9da4fa..9f6f25d7e218 100644
+> --- a/rust/kernel/alloc/kvec.rs
+> +++ b/rust/kernel/alloc/kvec.rs
+> @@ -52,7 +52,10 @@
+>      }, //
+>  };
+> =20
+> -use pin_init::Zeroable;
+> +use pin_init::{
+> +    Init,
+> +    Zeroable, //
+> +};
+> =20
+>  mod errors;
+>  pub use self::errors::{InsertError, PushError, RemoveError};
+> @@ -359,6 +362,43 @@ pub fn push(&mut self, v: T, flags: Flags) -> Result=
+<(), AllocError> {
+>          Ok(())
+>      }
+> =20
+> +    /// Appends an element to the back of the [`Vec`] instance by initia=
+lizing it in place.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// struct Element {
+> +    ///     buf: KVec<u8>,
+> +    /// }
+> +    ///
+> +    /// impl Element {
+> +    ///     fn new() -> impl Init<Self, Error> {
+> +    ///         try_init!(Element {
+> +    ///             buf: KVec::with_capacity(16, GFP_KERNEL)?,
+> +    ///         }? Error)
+> +    ///     }
+> +    /// }
+> +    ///
+> +    /// let mut v: KVec<Element> =3D KVec::new();
+> +    /// v.push_init(Element::new(), GFP_KERNEL)?;
+> +    /// assert!(v[0].buf.is_empty());
+> +    /// # Ok::<(), Error>(())
+> +    /// ```
+> +    pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) =
+-> Result<(), E>
+> +    where
+> +        E: From<AllocError>,
+> +    {
+> +        self.reserve(1, flags)?;
+> +        // SAFETY: The call to `reserve` was successful, so there is at =
+least one spare slot; the
+> +        // pointer therefore refers to allocated, aligned memory valid f=
+or a write of one `T`.
+> +        unsafe { init.__init(self.spare_capacity_mut().as_mut_ptr().cast=
+::<T>())? };
+> +        // SAFETY: The call to `__init` returned `Ok`, so the first spar=
+e slot now holds an
+> +        // initialized `T`. The new length does not exceed the capacity =
+because `reserve` ensured
+> +        // the capacity is greater than the length by at least one.
+> +        unsafe { self.inc_len(1) };
+> +        Ok(())
+> +    }
 
-I think there is an distinction between semantic differences vs just range
-restrictions. Consider the other cases where we use new types:
+Thinking about this from a fresh design perspective, I wonder if we can cre=
+ate
+something more composable by splitting the allocation and insertion, like e=
+ntry
+APIs do.
 
-* flags: very natural as you don't even need to mention raw literals.
+So
 
-* units: for things that semantically carry a unit, writing things like
-  `Delta::new_jiffies(...)` is quite natural, just like writing "2 seconds"
+    impl<T, A: Allocator> Vec<T, A> {
+        pub fn reserve(&mut self, additional: usize, flags: Flags) -> Resul=
+t<Reservation<'_, T>, AllocError> {
+            ...
+        }
+    }
 
-* addresses: things like dma addresses naturally fit in new types because y=
-ou
-  don't need to write literals for them.
+    /// Type indicating vector with reserved capacity.
+    pub struct<'a> Reservation<'a, T> {
+    }
 
-Now, with `NonZero` or `Bounded`, we are doing none of that. The only thing=
- here
-is that there is a range restriction. Other than the value restriction
-themselves, they carry no other semantic meanings. How you interpret these =
-types
-still fully depend on the API that accepts them. Therefore, it is very comm=
-on
-that you'd be using these with literals, and it becomes an ergnomic pain.
+    impl<'a, T> Reservation<'a, T> {
+        pub fn init(&mut self, i: impl Init<T, E>) -> Result<(), E> {
+            ...
+        }
+    }
 
-If Rust pattern types become available in the future and you can write
-
-    fn alloc_area(&self, count: usize is 1..)
-
-then I'd fully support adding that annotation to functions. Personally I va=
-lue
-ergnomics higher than possibility of misuse if latter can be easily mitigat=
-ed
-otherwise (in this case, by WARN_ON or just support zero-sized alloc).
+You can imagine even pushing this further, e.g. have a type indicating just=
+ a
+single reserved slot. Or perhaps have a type that is `Vec` but with fixed
+capacity and cannot reallocate (something like `ArrayVec`) that the reserve
+method will return.
 
 Best,
 Gary
 
->
-> I understand the ergonomics concern, and I also see that for compile time
-> evaluation turbofish syntax is not that popular, but this can be improved=
-.
->
-> The fundamental value remains that it nicely separates the invariants cal=
-lers
-> need to uphold about certain arguments from the API itself. It makes the =
-code
-> more maintainable (e.g. we don't need 10 different variants of a function
-> depending on whether the value is a compile time, build time or run time =
-value)
-> and it makes the code more readable and robust (e.g. the semantic meaning=
- of
-> arguments is very obvious and confusing arguments becomes almost impossib=
-le).
+> +
+>      /// Appends an element to the back of the [`Vec`] instance without r=
+eallocating.
+>      ///
+>      /// Fails if the vector does not have capacity for the new element.
 
 
