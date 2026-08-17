@@ -1,122 +1,245 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010044.outbound.protection.outlook.com [52.101.61.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A716A30B529
-	for <nova-gpu@lists.linux.dev>; Sat, 15 Aug 2026 05:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786770516; cv=none; b=VkMhY8EF7b7IgM8wBHSEoJrzMNWLx5rLIaWpaxrLq85wqEERGFyWTqkbH3LQRn36RicHx7SL2WBg9CUIVBDhxmDkQz8r2LxvpkgSaOP4bPHh5vsPG5Xh0AIREN63Wf86cnBlt41m1MQz7abokv4GxngRxtuXtyO2ZG5BINOZcho=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786770516; c=relaxed/simple;
-	bh=RNy0Oc1b5YVJpZS5AO65ioCXwPG1K+v8mTvUlX+rTyw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XWyTlluZGw8oZgkI9XD2h89LMP+TA4gLOMGb1SOfWqDxIkcDl40ZuR1fhJy6EZGwlIrpYEibq5j0FEIpPZ1ddlxekHDoHRyTyBAuxS9h96plPe9oiRFk2z6V0ygbWV8Z7hCt3rYtA973yfcZK16cTwHotpqGZDZ5PrHQ9BVCNV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1KzXWSp; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D81C2EEE99
+	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 06:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786946450; cv=fail; b=PVa/Msa9VevGJ7Q6za5flez2ybjc69Ah3dituJLTwPG50Gxzwi8nLyJ7r/HrzoLQIdrWI7WRSv1t05Ykh+/ituG0rpNDXKUOI0u6lCEBuPuiBYIXQL3TTP767D7wfhjA3cJK6A0b82PEdKtJJCwljv77h3biBK4KjAzN0C+vzIU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786946450; c=relaxed/simple;
+	bh=5WpPSrdKsLcftvzLWcqLRmF+cWVqzBHfK4QecC4N1sQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=n9m2pNwUyOeJusDer8h59knMl5Bg9Z4n7Mgr2bDUCRwJUAAzUZVX2yOA9GSAD8PT/LWtAUeCeyj7W6oTTtlVq/PS+2WdJcDQ6JUmQck9+5gP5/eDrfC2tOd8Czeo+gJDVxewKSkV8CE0Ep4dQmxbSbQK4PX4WQdP72WWzRtUoYI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eTHWE4U7; arc=fail smtp.client-ip=52.101.61.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1KzXWSp"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so1920255e87.1
-        for <nova-gpu@lists.linux.dev>; Fri, 14 Aug 2026 22:08:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786770512; x=1787375312; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NgkFZajAQJmzi//1l9aIpRfIFvgCaKKT8i3Z0CDYaWs=;
-        b=q1KzXWSpCtY2ELl42l1RShdNPnUxysbprWBHb3wvRnGy7LcxWikYbO/H9dqmZvg/HP
-         MB2FIqLhP57K4pKwjCXAxbLs15MKPklvCtQHI1UxYKG4J1SyoENmaOeNsqv/pyr7dlxl
-         p9Byz9LXEcMPYSCG39LLEIMfiHXS8Rrq1pJY/H8t9/hUPQQTVQISL3B08iHCgGqP6pXz
-         o5g4ffOMleJjcW7iMtbxKwlDBiWBW9kbq9eVX8+XeEh5E6WAJpaj6uRQgKXYd7QYHRHV
-         y8o5bybbXmJUeDrZiypeWfwhRmjdxTFaA5fDMP0IA54TiN0WTPQv1OujTaTz3MqjQ1Lq
-         ydbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786770512; x=1787375312;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NgkFZajAQJmzi//1l9aIpRfIFvgCaKKT8i3Z0CDYaWs=;
-        b=RC6ezEAhL2EtZA5dYRKvOrYgrhmkgHEQupmxQvDRMuo0pLszixD0IuXo+bEqA5jmng
-         a6WUSf5fI9GNq6rWiTaEt6/rNh1ahu5mtp0htmeV+O2X1v+jrZFw7fFIaKhGJXAvZB5H
-         5NAQsHmAnSERTFyxT2YAhes4ro75W1ogLNLv0ok6OrlN51rBBfXRsVXje5Rubg2E0lQQ
-         SwrOmzifhjw7HX7Yq+5A0E7bOessEHfMU2fvJZ3GKkom1hDm6hu+1Wd7h04nZa3kJilW
-         mP5ikiBM/O2gRUTZxBgORcXs86CZm0Lm7LXcTr8TB/5C6BDDMmBaXG6fwB9CxB9GWq62
-         jioQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrtzLhwjuNuPXT6cEPc3ezFM32JaHxQWWikxCDqevLLxNFADT/0vqzGj3BFTZz+q/IjkEeEv0hr1Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxvZPJGpAPq8iodO+cgHq/W401zhjZ6xNgJQHQZAkqXrsQJ0NmW
-	Qg72JiIQ1Y6UqrS//OSJem+7rc3Xy679A9ql01fo5rvA9+j9Y3+3mGg0
-X-Gm-Gg: AR+sD10C2M7vv6cnr42x53qy1RWY3U0N/sxo/1QxuZJaALs06XRRq9is2+6KVmcxRV+
-	p2/S2NGZqL0z0lHCQTpi7egeuGZOKTZGOE2BtEguCJ72+JGRg9OiFVVdK0Ve+334oja4tfljh7l
-	kj5ahEoQh3m9qFEeAXwtqMen7YmffSNTPbIpELNCWBwkh9s50yabplaLwsfYuR31FN8t1JdUs17
-	BVNyEP18KiiTTPr2uqtK2n7twDx0TPFBO/2qIKLIhsbSTiDquW6ORg8cGOQM8kOwZD3QqQwXnir
-	q3c+x2/isi2FrDXj9es5xrxb62riytxqa6zQPBepez2NYw2JJ0MUY0jq8FfdYEMD62CMmTkDraz
-	wJvDb9V7IlRvWeU0EsZdGE1ibVpwOwPXLD46J15gQ3M1KnBTnP0CDT1JDsmSglEL+F1WdfQERy1
-	cgEuXUaUKYcBGFISWqoa56VB8i/vjRtgaNJpEpKqfzR+01sal5wTijMwXispbqbfPcQZQ=
-X-Received: by 2002:a05:6512:150e:20b0:5ad:68aa:8a78 with SMTP id 2adb3069b0e04-5b453b9adeemr2672003e87.5.1786770511539;
-        Fri, 14 Aug 2026 22:08:31 -0700 (PDT)
-Received: from localhost ([95.190.110.153])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b458b9a9a7sm932354e87.13.2026.08.14.22.08.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 22:08:31 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com,
-	aliceryhl@google.com,
-	ttabi@nvidia.com,
-	gary@garyguo.net,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH v2 2/2] Documentation: nova: remove completed GSP log buffer task
-Date: Sat, 15 Aug 2026 12:08:26 +0700
-Message-ID: <20260815050826.306717-3-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260815050826.306717-1-vladazaharova2018@gmail.com>
-References: <20260815050826.306717-1-vladazaharova2018@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eTHWE4U7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AyaMGfASFHu6DRvXTtH4arKndHD/IGR53RvwTLFmkXlG8invJ6BDIkTwmJeURzk4EpSz/6NTlREJconw0VzM2OQlMGpcCPC0l848EVLUnd6hsNt+G0AjD2kS9IRJt3JKsqO0gRzxLMff4K+4Kav2qlv3VZ0oSWZz3Vbq6IMkY77CzpzRrqyVd4vTOVNP4zbksGJjFn73zyRUTq/CSMCwFC/t2SkFe0MTlkBzL5JQfjihxfsjgZ3CP2CJMxbbDwNbOu7QBB6ypw5mGyMfmJzVu1kO+859BpNIZf19q3h8Gow3gvUpJTwoDSrL8tTEyd3iyeq+Wenocy9Yn4NQMP3NuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s+3X26aSBY/vkTPA8xeYChNqrkJa0dDJy5I9N9pJCII=;
+ b=XshkJFT3/y6uJlk16IRbZjFy9QmR/HLLD1i9X2/TJOjogxlNPRUDks0mtI1+RL099VLIe9tbOIPLHfJq/R5bHvEGP3s35vwRlLxECe1gKtMlnZyhJTSlIt/xmmcF7aywX/VyH3qsQxpmfP5yLLBe+Bh8JkeDmySLeq77r8GUuUkJmqN/UMH/bGs2YgVb6oeZb20o/w8tk898VAE6ZsIR0SuYrpHi/dQDj8iGl/6LYsy2nODFFyGMzS0CU7qthnkmSDymIwm/SLPv7jxV5iVjx+PjgdGyn3C/I00z1SGBOo+MnmKkZK5IRf5dmMkExk15nx5XHJF8IQuHOM9NNg0KoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s+3X26aSBY/vkTPA8xeYChNqrkJa0dDJy5I9N9pJCII=;
+ b=eTHWE4U7V5cvMaouKAzmHXE/mBWGfVVD5HQ9Zl4dA9qurRSyOwdR8Nbz1i7uSNrjWnvzqGjLxw7sy2t2Qwh1SXhHIhdejn6IE3w4Jxdia2INjuUDYwXLxr0mISrBgxUOZce/Pbz4TeDAeUT7oIV1mTP4ml78rqRTJQqKIQKUplJ0h+MipWRFXPmWWxPhTXtIpZqxzenURpKQ8up2l/mRNFVHFdgoyooNORfwvGLgpldpI1JhGMuXmls1H7ufLFqu1bG1fFz0K5oRZM7ZGaDwAS5gq+hQgHSJMu/oBHISl+sTZMP42+y2FCK1ZMbTr0wzbI383fEqQXKyCAQQYeJp5A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ IA1PR12MB6458.namprd12.prod.outlook.com (2603:10b6:208:3aa::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 06:00:43 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 06:00:43 +0000
+Date: Mon, 17 Aug 2026 16:00:37 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, 
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+	Joel Fernandes <joelagnelf@nvidia.com>
+Subject: Re: [PATCH v2 04/12] gpu: nova-core: mm: Add VramAddress type
+Message-ID: <aoKfPchpfmTVguQf@nvdebian.thelocal>
+References: <20260810-pramin-split-v2-0-65a00b3c7309@nvidia.com>
+ <20260810-pramin-split-v2-4-65a00b3c7309@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810-pramin-split-v2-4-65a00b3c7309@nvidia.com>
+X-ClientProxiedBy: SY6PR01CA0085.ausprd01.prod.outlook.com
+ (2603:10c6:10:110::18) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|IA1PR12MB6458:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a01f37e-df40-4de4-7062-08defc24df1d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|10067099003|3023799007|6133799003|18002099003|22082099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	0Tkk20boQhgNbqRPILXyyWaQ1ASR7FJa2Gbt7N9GZw2uZRBkwNQ+OdQ3yIAhriFwhINs/kfZFIjy5itmSAwlKtgJ7XE3zxK3jcjJH7V+bRzPzfRELSqWWZUgcsw6GIHO59tdZ0ZNCADLFfJ2A01fDqun2BvK+7BMRtPZYG18S04oSdMIsT4o7tQtkIeYQhNq+VoXRF+tJr4SBpXboo/A2mZzoGbzOO4ZBm/EUMmp6K1bKU9fWQtgSQGNMYxOUthFb6zcdWld9+V1IJFYt1afCWd4bHUNc8cdVQqR22lompooKNdPNKlmy1l+wbfIfG56eO47JhA+ysbGpgHuiFk3SOWWOZYFyemDl6te88YjHEQBqc5+Q0dDwwJNc+VZkHdb8dhr7nT3ZejiAnR0yXYNOpZyskRFBdi5Kab4hpp5zZg570XHnmHTg8LLhF2ijWqH0IahyL4PgwtCCgfGtA67M2Zu3Na7TnjvJqwnR+va5vt+CRwUqZ/jcWKSamw/B73zqZtzvg3ORex+enA4Mlagdy2Pv9WxOjJo0XS0EEhQJdoPxem9DFU5s3jAMZ5jmW+uNE/QwYv8f83JnmbNBD6T+FG2XZ/9KZ98tZnC047RlDxE21G9h7GEJIIW2QEgFXcvoUqG7UWW9hBpHyiBFyemc6yXgLS9xS2KyAwbQTupQo0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(10067099003)(3023799007)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VSZraR13LbVwm5XhR2ajbK/qXchEGj61+seYOvyZarjEAVX8QKsqWY8lT8KS?=
+ =?us-ascii?Q?gWEqn6lNZF6TnnMTGGygjXM/B0bvZdoNGwGLx/hTvcdz48UP+M/s4GD+V8jj?=
+ =?us-ascii?Q?EE0zDaUDThhCNQG+qazrBNKCjmElWiN7uLTUTvQcBvfE7QnwY7Zc0yxut/Wf?=
+ =?us-ascii?Q?WxSUZFduFi3TAUFi+fmpzb03YHAOAFZiQZ2J2NMd+SXclENw6l5Q6qwC6cen?=
+ =?us-ascii?Q?BIahcDc5gHFrUvRdBkGX8MdopAuTYs5uZsOnC+ghFktavPy+fVm9HAIOdE1s?=
+ =?us-ascii?Q?ts1Afr7RzWlNIuyPopnfOceYKt2IsubS7TpuRvQij6z9iVBv+Iomy30CIzfW?=
+ =?us-ascii?Q?j2en6+0iwj1MOdBiODDP17bJSKMFv32jfBXZW1EYTvT86QKmapgKY3BLv3SW?=
+ =?us-ascii?Q?WAXLUR7LT2bTtwv9uc+0seQn7KdakSCsWy7Brt560xyOoBGjD52dGKWsqHQ9?=
+ =?us-ascii?Q?hB6q0TaS46x+vr5aV9M+wJ06QNLJQsjni+tRJwJ91bJ+aNN2DRd4K97biayY?=
+ =?us-ascii?Q?fUsKO1ntmxdIR7c0Ul+003metsPk8ahvZr8p6gRhKaw2qd1cBvxtAnSwUA0/?=
+ =?us-ascii?Q?A4ChMe03DDWgq9sbtgvRMozpv/C8o9e2oN2zV07znTWpMUwQ7dxWL5UupHRd?=
+ =?us-ascii?Q?PWjo8ADp5H+tkifcYFQGonK1IoIzpwF5zU2fznAIU7c7Hpnm3F2AXTnPcQQg?=
+ =?us-ascii?Q?VXMnfCzmJ/gl5Ui3BRmND1A1uQIzyR0tKp2fJDsM0O5TOsSmJJQl2MVD5JjM?=
+ =?us-ascii?Q?fx2IcCKl+dPH0h42xg7Nxylp2ZvsUnHtb76lV9mS9kVNrQAFHIkq9WzU48DE?=
+ =?us-ascii?Q?CRoGrCv0HUcZijZu3f9PuKvA3eqcJDR2PbQIqHCTJgJuJw+d56WiG3ya5hS1?=
+ =?us-ascii?Q?E73dfgDcYdR+I/yxI0km0Zu43VfX5dPuC93OMhZeAeBxat8TO+t/+dBti5A4?=
+ =?us-ascii?Q?D5KqVpWiRsyQVl/5uLo822stAeYK4S1J9ZgJdpPIhV6ZnrQAxTPRS9M3Soun?=
+ =?us-ascii?Q?CCPWNFZApgajK/1Sam2sUHay/lzy8HjLrP6sK/n9umGKKagPnjSEPtD/AA3w?=
+ =?us-ascii?Q?r2fj6Ur7GTfhFbkMMDCkfznqKZ7AqgQpib35BNwww55kdQHLm5XJLvFt34Vw?=
+ =?us-ascii?Q?szYGXvzwT0ZejeSUXy5maulvF3hEge2quXN52gX0bPGvnZko+hcY8HMGbNzZ?=
+ =?us-ascii?Q?JUawgvJDNT1dOzhZUS9TfUt5AM8u/QXCp53yQoxNIpOrMqrnng6+45/3jW/7?=
+ =?us-ascii?Q?+y/ON+0Y0SMvi61mQ8Av8Iuvf632meXSVWecB3pTcTXEaN4UKcIIrCxGLFQW?=
+ =?us-ascii?Q?7GRL7+rB3D/eifJB4F33eP7wEq57QGUjFzqGQsvsKB6PAD57KS825lQ7w/W4?=
+ =?us-ascii?Q?2PAkZtOMKo+sr6XodrD1htudy0jIe2vIw86b2Uex/zUru8NR6oMxRB/42dCX?=
+ =?us-ascii?Q?3EmeUa9UTBUMqVQQ1Tetg+idjbTUYISif4TSDDyyZUNF1j+choxUSrOhfnoN?=
+ =?us-ascii?Q?aLzlwvlBqv6EjwD6Skix7ipAnGBb2+qNdVrFKlsVsPQLZon33dRhdzmt5rZE?=
+ =?us-ascii?Q?8hWaMDxzDrdp8wS8xiuOUwymu3A1/OFYEfxGbqOZdatMWm+oFzuuKSVHq4pC?=
+ =?us-ascii?Q?NWE6H8ePfpja9Olp5ca1LoR2L51clJ4yU0HlTZ13xQ7yQlOSU4zRR4nFT+m1?=
+ =?us-ascii?Q?CvsKkunZYKx5DzanKtlIuV5nZ3YRFxr3D5xbtq5Rqq1ESmAFOYtBuOAbChFr?=
+ =?us-ascii?Q?cNJwd3mBDA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a01f37e-df40-4de4-7062-08defc24df1d
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 06:00:42.9390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /7ey6w6Nk4OWxyTF1N6UccCXl3FlINX6M8Avh93rr/mZjw9Agp4+Q+Ob0ogxVHQ2ICSGFRDJBpy7NNpzJePZ6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6458
 
-Exposing the GSP-RM log buffers through debugfs is implemented, and with
-the gsp_keep_logs module parameter they now also survive a failed probe,
-which was the part of the task that was still missing.
+On 2026-08-10 at 23:55 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote...
+> From: Joel Fernandes <joelagnelf@nvidia.com>
+> 
+> Add the `VramAddress` type representing a physical address in VRAM. Also
+> add an arithmetic helper, comparison, and operator overloads which are
+> required in later patches for address arithmetic.
+> 
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> [ecourtney: create mm.rs here, squashing in the arithmetic patch]
+> [ecourtney: splice the two commit bodies]
+> [ecourtney: drop the Pfn fields, open-coding what bitfield! generated]
+> [ecourtney: drop align_down and the IntoVramOffset/IntoVramRange traits]
+> [ecourtney: make checked_add() const over a plain u64, derive the ordering]
+> [ecourtney: doc wording, header, import, and signature cleanups]
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/mm.rs        | 60 ++++++++++++++++++++++++++++++++++++++
+>  drivers/gpu/nova-core/nova_core.rs |  1 +
+>  2 files changed, 61 insertions(+)
+> 
+> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+> new file mode 100644
+> index 000000000000..dcd5e5e919bf
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/mm.rs
+> @@ -0,0 +1,60 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+> +
+> +//! Memory management subsystems.
+> +
+> +#![expect(dead_code)]
+> +
+> +use core::{
+> +    fmt::LowerHex,
+> +    ops, //
+> +};
+> +
+> +use kernel::fmt;
+> +
+> +/// Physical VRAM address in GPU video memory.
+> +#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+> +#[repr(transparent)]
+> +pub(crate) struct VramAddress(u64);
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
----
- Documentation/gpu/nova/core/todo.rst | 12 ------------
- 1 file changed, 12 deletions(-)
+Is this the best type here, or should this be bounded via runtime checking to
+ensure it refers to a valid address?
 
-diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-index d5130b2b08fb..cae0578d32f1 100644
---- a/Documentation/gpu/nova/core/todo.rst
-+++ b/Documentation/gpu/nova/core/todo.rst
-@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
- GPU System Processor (GSP)
- ==========================
- 
--Export GSP log buffers
------------------------
--
--Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
--(even after failure to probe the driver) through debugfs.
--
--This is also an interesting feature for nova-core, especially in the early days.
--
--| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
--| Reference: Debugfs abstractions
--| Complexity: Intermediate
--
- GSP firmware abstraction
- ------------------------
- 
--- 
-2.55.0
+I was going to ask if it should be bounded to reflect the physical addressing
+capabilities of the GPU in question, but that would actually need to be a
+different type as GPU physical addresses might not even refer to local vidmem.
 
+Although I think that's a concern for future series - AFAIK PRAMIN can only
+access local VRAM.
+
+> +
+> +impl VramAddress {
+> +    /// Creates an address from a raw value.
+> +    pub(crate) const fn from_raw(addr: u64) -> Self {
+> +        Self(addr)
+> +    }
+> +
+> +    /// Returns the address as a raw value.
+> +    pub(crate) const fn into_raw(self) -> u64 {
+> +        self.0
+> +    }
+> +
+> +    /// Adds `rhs` to this address, returning [`None`] on overflow.
+> +    pub(crate) const fn checked_add(self, rhs: u64) -> Option<Self> {
+> +        match self.into_raw().checked_add(rhs) {
+> +            Some(addr) => Some(Self::from_raw(addr)),
+> +            None => None,
+> +        }
+> +    }
+> +}
+> +
+> +impl LowerHex for VramAddress {
+> +    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+> +        LowerHex::fmt(&self.into_raw(), f)
+> +    }
+> +}
+> +
+> +impl ops::Add<u64> for VramAddress {
+> +    type Output = Self;
+> +
+> +    fn add(self, rhs: u64) -> Self::Output {
+> +        Self::from_raw(self.into_raw() + rhs)
+> +    }
+> +}
+> +
+> +impl ops::Sub for VramAddress {
+> +    type Output = u64;
+> +
+> +    fn sub(self, rhs: Self) -> Self::Output {
+> +        self.into_raw() - rhs.into_raw()
+> +    }
+> +}
+> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+> index 35a8b1214b0e..8f59cfa97017 100644
+> --- a/drivers/gpu/nova-core/nova_core.rs
+> +++ b/drivers/gpu/nova-core/nova_core.rs
+> @@ -18,6 +18,7 @@
+>  mod gpu;
+>  mod gsp;
+>  mod mctp;
+> +mod mm;
+>  #[macro_use]
+>  mod num;
+>  mod regs;
+> 
+> -- 
+> 2.55.0
+> 
