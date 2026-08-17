@@ -1,260 +1,106 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022121.outbound.protection.outlook.com [52.101.96.121])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B1E3BB687
-	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 14:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.121
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786975386; cv=fail; b=uxrq5tRHdUUV8ck0h2M/NCg94/v1Y7Oq7pxh9bgbWbMCgCoZ+tyn2BJZDMqaqwj8hIO9PB6Zn9jBMeFDFS+9PNEsk7quyC1bLsOotStH4G1wh9uTCgbRGi+juPNvlXnL5Vi56jckrikHnlRwBUmiptuZ2heHR9c4iYU8GOYu80g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786975386; c=relaxed/simple;
-	bh=mKrBUw2Ebfv/3Z2IiUXU4gn+UupY8nsq9Ofv916wQIk=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=fUbLf8p22ZSlMbgc0sAISTNruivHaPrgc1vYWgMRcdKWXlUYKYUdoBHazQn5gw8r/Tmpxqg9abdFLDqB7yvxJG+h6Mwbvls+MAW5zfpMX9SLLOKHPsQR2dbK1l+BqxZTyHXpznADAtSNAWRSL15MxPfOFuu37hYuqeVDsdlwY6Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=UG8Nku38; arc=fail smtp.client-ip=52.101.96.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4283DB636;
+	Mon, 17 Aug 2026 14:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786975697; cv=none; b=hO8qp58CU2n1FsWTSn1rXvoWPbu3NvhuJewn6Auf/g1BziP4ZF3Q19SAV5OpSOKjhCvlzL+MOXyMkX0dKK2Cbi0hraq9i4ZA2+O9lT21O6dIa4iamX5bPGxjCnY0o73DFgZxwyjXKqnFjh4peqRkzpJ83Y9p2ECLJ42lnl6/IhQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786975697; c=relaxed/simple;
+	bh=xxy0gHLKhdxtuUAFYQ8rWUWihf1KnUG6LllOzkRyE90=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=UsWz+SInVghPGvsk3cnB29lYn7uMxCiVpNNN+oLqn2JqKgPWWpQiH1rT9u7MoG1CEt80EAGSeufRTTAzsXm6hJ52K4STX92Rai+v38KmrNU27IG39NKsV8XCtexBMI6MCsca32bWQSMmc2EP8WZAYA9GEn9FNhtz25bV6MhqVCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jtv/Vobn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="UG8Nku38"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qWapDe10+7AanJD7lkKTXQuP8WkZ7ELbl9gB/PfgZMgzFyXOrRT59/VK5oyQQDxsC5Qq6usie6aecqcNJ3zqWHseHWNLVJkc0Xn6xuxYfbcmFU2muuivt2Fk5KJ8Fn2oR1T9WvaPlgY9uTZGLT6pkp65dXuzM0XrzNp2fhPicLbGZY5GUrPYl8Z9t1420dbes8dqPoUC4sc7/S9Sou6hw5copmwh/ngQdgd62Vfm1G9BU/79FVmwg0sDVgp5+Z74I2btYZ59icoKjcTh1w1XTa16zH/OMHQi0NapxJ+gHBGr4Drgo+fbRhWTaCMK8RjhCKE2PrTb956aNwtLmSi3Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FpU1DBrrT8YE74+GZGNptSyNpq7rRwE/VfNqu892kMM=;
- b=H8ZtJQrDXsObONIWJzjQafd0UwwEbi+b6At2vWJlAXkhEsVfP8SPZ7k5K5DI0b3Qz2A2wP+I2+lJxMiWgduT1yzqQ3eW9En4qQt3K4kI2VZQYzJUsyikeFmgSt+vOPpjBV3rzaXbivgwYSC3HVO7GXB8Dnw8SsYpXtTsP57eIhufUjkd3HnJykLiij8uZkURWqy7Jb8/XZUOLRVYCAVB9XLPzJ3cmyRPphqXGc80plRXDfNIdCS1GzoCokc/7mB6FhJXRcGq/Gyv5Danv8dgPYEgUglpnh8jAQnmZHpKWV+fp2W8wBWuTFb7eOxwUPjeuXp/j6E403FeP+7zmAROeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FpU1DBrrT8YE74+GZGNptSyNpq7rRwE/VfNqu892kMM=;
- b=UG8Nku38uuX/RBy7JmKJRf5lI4HGDchxMUiCY0ODv729rvUz5tU1XWufP6WvFsn0U6u8y1zZ/ScVq/pI2k8kXP9rPD8Mstltm4qfWXTeZyS9CASoO85CU5l99Cg8cEa8KJP7xcrwhm/AueQhKt6itFgADV2kAoPtji0p6+S1Kzc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO4P265MB7063.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 14:02:59 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 14:02:59 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 15:02:58 +0100
-Message-Id: <DKR9WJY3WI0F.1FV4PD1J17ZFD@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 1/6] rust: alloc: add Vec::push_init
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
- Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.22.0
-References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
- <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
-In-Reply-To: <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0557.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:33b::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jtv/Vobn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264B91F00A3D;
+	Mon, 17 Aug 2026 14:08:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786975696;
+	bh=xxy0gHLKhdxtuUAFYQ8rWUWihf1KnUG6LllOzkRyE90=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=Jtv/Vobnmlg6DM04eaz2kLJKTht4m5jYkvnTMmQB+vxstfx4e1GVnc0h6yNLA3BKa
+	 s4JGuQrDe8RlhzVvoNU5J7pqSwVDMrOowrZHRp5YCh+07v4QnMW+vczzROYAXLS9mQ
+	 5Eca6vSJ244zkNpfgGJKiUWRm1xC0mJmXDDmMoAhSBMcp/Yn0O24JSlMDY9NxVvCRY
+	 hW0Rn/iXpQKWJFrFWcmt/N6kDpcDYln5ZB03/t/OnSxaKMzbk3oorl1gA13vm5/qGm
+	 qoj4q5EX+ggSCBPU4PK/xrd1RE8vR2vAoWaO0yTe4q5xfNdt9/z+UyNyWK/SMk+0UD
+	 vaFH80nhpFfqA==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB7063:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8eea4a25-b27f-4d65-e77a-08defc683eda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|921020|6133799003|56012099006|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	RB1fVbIlqt4hiIl71z7qq/Z5xlc8wptq8tgtNeAdAens9TFqhhMDZGkG8dZMr/+LbpUDFk9ecsBaA1bxagvHaN/cxlE7/KakrjRnKlaKBq1VnBt8HSc3wNvyCqdHvstTLCOidISrntAtZm2g9mzVXAwYoXGbM+/dw7muOJF+l6c9thR73u7TidzOI+C/BqeLw6MyfQG7KLmmVzpr3GDxkz3BeqeqesTn2/RTiQaSG/4Jrf/X3srUXBdBXYNfMM4p5Y10j5KpXSGtCF6SVT93fbQhIp47F2SPixbauXrSmLxx0wmfKvQ3uiu65HDs1bYb18j5FCbvdaD1FsGuJJVAF1tUs3Mh9jnCe3CdNXPDQoTXbxUGmqK6TSGQj4V9+zogl9Ro6lYFbgRg4wkvKbP8DXhnYrRjjcQh7k0M6YernX97Ye31J4Cgh/9YpLF31/FI9tAhkIiYx4Lr207uKGKl5BWfpE8waXDoqpag7R95fdcA9iD7ybIqbJxzXQjEQKOyOFweOrDHzS0OMh2i5ksLUO6n5EwP2xSvfm2enEchGzrcWOdHAFQdvyEFEvm2OJwodVhQNV+MosYiKCLCuT/Skl8E4Q3uu53eiiRg0ATrYvYi6s+LET6oAMSKZYHEUkFnp+5OL2H5fSzJShdwaoCqGd8EyfGBKsYoYCFjX9KlL6mgPygQxC5O/B3+DcM3ezfHjjSgzj93+Ayb/G3qiG6slQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(921020)(6133799003)(56012099006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bGRiK2owS0FGL0lMVXo1VWU1WXVDV01aRmY3UVNwdFJrVXR1aDlNWG9rZGhE?=
- =?utf-8?B?Zy8vSzUrS3NRcEVsRys0Q1NhUHdac1JhaFJIWkVHSVRtUXRCSm03Q0U3VVNx?=
- =?utf-8?B?M3JKNzlnck4yMnpSNExyay92b201QUlsbC9XelFabmVCcy81UHlUaGRWT21R?=
- =?utf-8?B?ZU0yMVNaRTlwcVpZLzhWK0x1Mjc5Qk9MVTBKeHJFK3lxaVBRN3JOYktJNmZD?=
- =?utf-8?B?OEtPcUZOWUlXeXZ5dDZjMm5QczJaNUhjcG45Y2YzQjF3em5KTGdxeVppeTlh?=
- =?utf-8?B?RlR6c3lpREVQSXg0OE0rLzdqSW9LK1BGajdHTUpwbUpIYmo2WUhHWmd0RXM3?=
- =?utf-8?B?TmlaelhLNURyNEVSNnRrdU5mMFBEVFgyb1JXVEdsd09DK2xGcFJNcHp0LzJK?=
- =?utf-8?B?UDhYMW0wZWtzeWtDNkNJU01BTHFFamt6dVl6YlB0T1lNTnFOcTd2OHlodnRI?=
- =?utf-8?B?ZXhCakI0WTBWRWJqbGxuWDl1YTZJcklDQ3pqazBvTXl0Rit2QzgzcVdibDg1?=
- =?utf-8?B?Q3pTa2RoRFhiRFh2TkJleGFPM0t3N2M3aTRYNGlHUWtCMVZydVNsV1hML2VY?=
- =?utf-8?B?cThybDdTaXh0S0VRZEM4N3h3Z1JTanJodlZsODlmOHZIc0lwZnJDTU5VNDAz?=
- =?utf-8?B?ZkdYYjFZaGZzbGp5RDRPdVJHVkpQTkRmZGJUYStoaWY4TzVDay9aVWFrbEM1?=
- =?utf-8?B?b2VMNkpkNE80cC96UXY3OUpmOXJPOHU2QjdYQU9sZWpXdnUzdHNpSFpGUU9n?=
- =?utf-8?B?SC8xRjdaME5rZTdacE5VL1IvOEJJK1VsU3liOTczd1greXdSdWpIQWFma29t?=
- =?utf-8?B?eTM2SXN1ck5vWnZYVnkwZ1A5ZDVXcElKTWhkQzlhTnk4UTNpdm9nNk9IRjVD?=
- =?utf-8?B?cys3bXRtZlo2WmFINFYyNS9nUGcvcVRRekJITXRwN0QyZituVzUwUHVidFRG?=
- =?utf-8?B?RlNVcFNXRXQwVFlNRmhEVHJNekxKTHE3c2VxdDlnbVgxb1J0eHA5UXEwQnIz?=
- =?utf-8?B?OFVXS1hZbkNibjM0VTUyUzg3dVhBZGEyR0xFb2RkWUxDbFFTVk02VXF0ZjVG?=
- =?utf-8?B?SkRDM0NnckpQeGtXTEN0UFIwUFN3YkFiR05POHlMMm9YSkFHVW5DbzVjWDIr?=
- =?utf-8?B?d2ZqWVJhU0FhRDIwWGZDMjVzajlWMUZreXhVbE0xTjRoRWFTR29PM1JCeWV6?=
- =?utf-8?B?Y29pY05oVEhCV1k1c1dsdGwzS2txcTI4bjZ5SFV0clM4Z0ZLUGRNTVdXcXJ5?=
- =?utf-8?B?T1ArSTFsVUdadisxMEFUZXhnWWkwNHFMSlJYZVdLYmFvV3lCK0Y1bHZhcE0v?=
- =?utf-8?B?WEs3RzhmWlN0cFh2dDU5bXgrVUErT29EMUJMQm4xbTFRb3J6STRQT25SMk1Q?=
- =?utf-8?B?ZUMwMXV3TW9pMVB3N3FiZFVqckFKbVBOT2ZtbXBRbWQzRElpMEFHVkJXMTdy?=
- =?utf-8?B?NTdyN0VNQU1wWXBjQ0NtRW5MUUt5dGd6elJjZWZhS2VUMnRvUnhIVjJabXpZ?=
- =?utf-8?B?cUpmOGd2WFJlRkRwVW9vSFNZeHhpK3g1V3VMWTMrSEdJS1FKUE1kalhtTW13?=
- =?utf-8?B?YmVGdFJZWlBTaG9UVWs0UWdTQ1k0T1d6YUJtNlZNQmUzRE85N1ByclQwSWNQ?=
- =?utf-8?B?anE3SU9aNE8rYjBraklXLzdsU05pVWFlZDF4eEpuS3hEVkFnaERDNTBoSkpz?=
- =?utf-8?B?akNCSS9KSFlOUTladHpUZGVWSnhTdEREbVM1TzQ5Qjl6VjU0MktTUnhUK29M?=
- =?utf-8?B?eDhvT2FzeGlud3lDcUp1cG5jVU1SVUNCcGxuT2M2RHJVaXBJT3FKYU9HS2V6?=
- =?utf-8?B?cDJ6TVpIMEp1TlEza0p0QlJJZlZyZmlybFRDRjZKd1JTakliajM4a2ZzakVk?=
- =?utf-8?B?OTJvaHJDazN0ZllTRXdZdVRjS3pQTUtoc05wa2t1NnVGdXZwMHdQYzdZK0J5?=
- =?utf-8?B?anMvd0dFOFFUbElKT25Za3RSVDZ0MHFidG1lUXFLSmxhcm5sc1QweGl0TWNm?=
- =?utf-8?B?bExwWE1HbjdlRkpuTFQ0alI0RHFjLzhIeUZ0Sk56ZEdhalViYkdSdkRWV0xM?=
- =?utf-8?B?MlhvYjYydDBNZmdIYldqYVFNZUJRVUhxanVzblpzZ2ZNYmNwVitkSWY5V0lQ?=
- =?utf-8?B?enJKOHBjVkVDdlJ4REJqUzFicmw3bWNaL0ExZEpUL0FmcWhvV2pyT1o2WU4z?=
- =?utf-8?B?Sk9qQmZtWkVieDI2dXpNZnYrT3gvUXR0ZDYvWDdnMXEyai9iaUxuYkwzWmoy?=
- =?utf-8?B?bXY1bzBRTVZhakpIVGY2emVaM2t5RlVnMzczbjJsRit5ZmlMbHZYN3BFTjVz?=
- =?utf-8?B?TmJnWXJrZXZPMGtFbldwMmwvWHR5a09XdVZFdzJYZTZVd0RKU3k1Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8eea4a25-b27f-4d65-e77a-08defc683eda
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 14:02:59.6672
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BaFKRcYKnsSWPJJvG0uA7bwKkfhJjMRjp7q4OqTGUtkCGzVWcX3N9nmcWZmz8AqFhUToC3uSco1xlyfAVBUgUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB7063
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 17 Aug 2026 16:08:09 +0200
+Message-Id: <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Yury Norov"
+ <ynorov@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
+References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
+ <20260812-chid-v5-5-6c767770b3f4@nvidia.com> <anzxKO0X1OrNRD32@yury>
+ <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
+ <DKO414SNC0B2.248FUBGJGSPLU@kernel.org> <an4xDp29VX8Am0uR@yury>
+ <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
+ <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
+ <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
+ <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
+ <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
+ <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
+ <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
+ <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
+In-Reply-To: <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
 
-On Mon Aug 17, 2026 at 1:56 PM BST, Eliot Courtney wrote:
-> Add `Vec::push_init` which initializes a new element in place. We can't
-> modify the existing `Vec::push` signature to take an `impl Init<T, E>`
-> without changing its Error type.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  rust/kernel/alloc/kvec.rs | 42 +++++++++++++++++++++++++++++++++++++++++=
--
->  1 file changed, 41 insertions(+), 1 deletion(-)
->
-> diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
-> index c7546b9da4fa..9f6f25d7e218 100644
-> --- a/rust/kernel/alloc/kvec.rs
-> +++ b/rust/kernel/alloc/kvec.rs
-> @@ -52,7 +52,10 @@
->      }, //
->  };
-> =20
-> -use pin_init::Zeroable;
-> +use pin_init::{
-> +    Init,
-> +    Zeroable, //
-> +};
-> =20
->  mod errors;
->  pub use self::errors::{InsertError, PushError, RemoveError};
-> @@ -359,6 +362,43 @@ pub fn push(&mut self, v: T, flags: Flags) -> Result=
-<(), AllocError> {
->          Ok(())
->      }
-> =20
-> +    /// Appends an element to the back of the [`Vec`] instance by initia=
-lizing it in place.
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// struct Element {
-> +    ///     buf: KVec<u8>,
-> +    /// }
-> +    ///
-> +    /// impl Element {
-> +    ///     fn new() -> impl Init<Self, Error> {
-> +    ///         try_init!(Element {
-> +    ///             buf: KVec::with_capacity(16, GFP_KERNEL)?,
-> +    ///         }? Error)
-> +    ///     }
-> +    /// }
-> +    ///
-> +    /// let mut v: KVec<Element> =3D KVec::new();
-> +    /// v.push_init(Element::new(), GFP_KERNEL)?;
-> +    /// assert!(v[0].buf.is_empty());
-> +    /// # Ok::<(), Error>(())
-> +    /// ```
-> +    pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) =
--> Result<(), E>
-> +    where
-> +        E: From<AllocError>,
-> +    {
-> +        self.reserve(1, flags)?;
-> +        // SAFETY: The call to `reserve` was successful, so there is at =
-least one spare slot; the
-> +        // pointer therefore refers to allocated, aligned memory valid f=
-or a write of one `T`.
-> +        unsafe { init.__init(self.spare_capacity_mut().as_mut_ptr().cast=
-::<T>())? };
-> +        // SAFETY: The call to `__init` returned `Ok`, so the first spar=
-e slot now holds an
-> +        // initialized `T`. The new length does not exceed the capacity =
-because `reserve` ensured
-> +        // the capacity is greater than the length by at least one.
-> +        unsafe { self.inc_len(1) };
-> +        Ok(())
-> +    }
+On Mon Aug 17, 2026 at 3:02 PM CEST, Gary Guo wrote:
+> Now, with `NonZero` or `Bounded`, we are doing none of that. The only thi=
+ng here
+> is that there is a range restriction. Other than the value restriction
+> themselves, they carry no other semantic meanings. How you interpret thes=
+e types
+> still fully depend on the API that accepts them. Therefore, it is very co=
+mmon
+> that you'd be using these with literals, and it becomes an ergnomic pain.
 
-Thinking about this from a fresh design perspective, I wonder if we can cre=
-ate
-something more composable by splitting the allocation and insertion, like e=
-ntry
-APIs do.
+I agree that NonZero and Bounded are on the weaker end of the argument. But
+there's still the flexibility argument.
 
-So
+The API itself, i.e. alloc_area(), does not need to bother with how the val=
+ue is
+checked. I.e. is it a runtime check, compile or build time check, or is it =
+even
+unchecked (or panicking) because we can derive the invariant from another t=
+ype.
 
-    impl<T, A: Allocator> Vec<T, A> {
-        pub fn reserve(&mut self, additional: usize, flags: Flags) -> Resul=
-t<Reservation<'_, T>, AllocError> {
-            ...
-        }
-    }
+> Personally I value ergnomics higher than possibility of misuse if latter =
+can
+> be easily mitigated otherwise (in this case, by WARN_ON or just support
+> zero-sized alloc).
 
-    /// Type indicating vector with reserved capacity.
-    pub struct<'a> Reservation<'a, T> {
-    }
+Both is not a mitigation IMO.
 
-    impl<'a, T> Reservation<'a, T> {
-        pub fn init(&mut self, i: impl Init<T, E>) -> Result<(), E> {
-            ...
-        }
-    }
+WARN_ON() is does not prevent misuse of the API in the first place and in c=
+ase
+the value comes from userspace even introduces a vulnerability.
 
-You can imagine even pushing this further, e.g. have a type indicating just=
- a
-single reserved slot. Or perhaps have a type that is `Vec` but with fixed
-capacity and cannot reallocate (something like `ArrayVec`) that the reserve
-method will return.
-
-Best,
-Gary
-
-> +
->      /// Appends an element to the back of the [`Vec`] instance without r=
-eallocating.
->      ///
->      /// Fails if the vector does not have capacity for the new element.
-
-
+Making zero a valid argument simply ignores the problem or just moves it
+elsewhere, e.g. where the caller has to validate the returned type instead,=
+ i.e.
+the ChannelIdArea. IOW, we'd remove the invariant ChannelIdArea carries.
