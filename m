@@ -1,106 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4283DB636;
-	Mon, 17 Aug 2026 14:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D566442381;
+	Mon, 17 Aug 2026 15:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786975697; cv=none; b=hO8qp58CU2n1FsWTSn1rXvoWPbu3NvhuJewn6Auf/g1BziP4ZF3Q19SAV5OpSOKjhCvlzL+MOXyMkX0dKK2Cbi0hraq9i4ZA2+O9lT21O6dIa4iamX5bPGxjCnY0o73DFgZxwyjXKqnFjh4peqRkzpJ83Y9p2ECLJ42lnl6/IhQ=
+	t=1786979722; cv=none; b=L/vuRRa31pOhuDSTIbmRXmmepVsDFkstbFobG9SScsmRVrRmFeozFM24GC98429MgltMISROZ0MDNwRKJP/NrpwD7OCeL9pBi+QvAzNjGu0H+wa776eOU5cOHQAu+B0bz+dTbP4+DWLYEb8/wpXvGaNwZdSQA8l+pIy+oAAJ8M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786975697; c=relaxed/simple;
-	bh=xxy0gHLKhdxtuUAFYQ8rWUWihf1KnUG6LllOzkRyE90=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=UsWz+SInVghPGvsk3cnB29lYn7uMxCiVpNNN+oLqn2JqKgPWWpQiH1rT9u7MoG1CEt80EAGSeufRTTAzsXm6hJ52K4STX92Rai+v38KmrNU27IG39NKsV8XCtexBMI6MCsca32bWQSMmc2EP8WZAYA9GEn9FNhtz25bV6MhqVCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jtv/Vobn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786979722; c=relaxed/simple;
+	bh=lD75faxk6T2SqiPx9InsGxlmfBFxceKkBHBdqZZjC04=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LxtdzoApnM+GZMhi5lhgVMIMhCm8PSNc2sl+0UUzOWJaDPomaOlziqAuN1LSO8zvFCCLI+INDnQN2z0GCJb+biOFlY7tvYlYVDjcMoa0v9tHq2vQCESsW3URdgbDf7iFbx8Nh+VzIHzMNOzyOnoVdIJwH6pKIZSBEwYddEbb7vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YzPgnnH7; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jtv/Vobn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264B91F00A3D;
-	Mon, 17 Aug 2026 14:08:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786975696;
-	bh=xxy0gHLKhdxtuUAFYQ8rWUWihf1KnUG6LllOzkRyE90=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=Jtv/Vobnmlg6DM04eaz2kLJKTht4m5jYkvnTMmQB+vxstfx4e1GVnc0h6yNLA3BKa
-	 s4JGuQrDe8RlhzVvoNU5J7pqSwVDMrOowrZHRp5YCh+07v4QnMW+vczzROYAXLS9mQ
-	 5Eca6vSJ244zkNpfgGJKiUWRm1xC0mJmXDDmMoAhSBMcp/Yn0O24JSlMDY9NxVvCRY
-	 hW0Rn/iXpQKWJFrFWcmt/N6kDpcDYln5ZB03/t/OnSxaKMzbk3oorl1gA13vm5/qGm
-	 qoj4q5EX+ggSCBPU4PK/xrd1RE8vR2vAoWaO0yTe4q5xfNdt9/z+UyNyWK/SMk+0UD
-	 vaFH80nhpFfqA==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YzPgnnH7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786979721; x=1818515721;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lD75faxk6T2SqiPx9InsGxlmfBFxceKkBHBdqZZjC04=;
+  b=YzPgnnH7A60Aglx+zrEwUxT1vHgGLVfZsnVJDqFb1wjNKUwxw0WR5lJp
+   Pi59YN6MYzB7Yz+tPbI1fWbl20QmzHZG/NFGo1WVNtioYaIaafxuLOzxm
+   QuPXRckPEGmPFufolfP+mTPWCi62S5cxgzHEUUUFt+RLkQvd0z0GThIK9
+   DiQUW/MlSphr1HgKUWqQpsg4eaD9VhQ0nbum1ebr2+ja4WE9claIBMT9U
+   HDGmeOSZahxNAeZMbxE8rhCIHMl2D/VKDPQXoD2+xKMN84MqDSwJm2jGd
+   DkNm26QlzB/iQstTQ8tqjjx7uUDKLwf4I4pB83+dsp+wUWT+WyUGrLg1m
+   Q==;
+X-CSE-ConnectionGUID: R22EG1BaQr63rAGXPjQrZw==
+X-CSE-MsgGUID: vf4CvBQeTgKA5q2aLrpVSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="87667230"
+X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
+   d="scan'208";a="87667230"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 08:15:20 -0700
+X-CSE-ConnectionGUID: KGDBhN9ySt63IqSQBW8/2Q==
+X-CSE-MsgGUID: FI8sOt0ASByiXGenP4TNtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
+   d="scan'208";a="261198537"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 17 Aug 2026 08:15:17 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wvz3S-00000000dY6-2Zou;
+	Mon, 17 Aug 2026 15:15:14 +0000
+Date: Mon, 17 Aug 2026 23:15:04 +0800
+From: kernel test robot <lkp@intel.com>
+To: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	Antonin Malzieu Ridolfi <dev@nanonej.com>
+Subject: Re: [PATCH] gpu: nova-core: Extract PMC registers definitions
+Message-ID: <202608172357.txha23v7-lkp@intel.com>
+References: <20260804-b4-extract-pmc-registers-to-gpu-mod-v1-1-86c0895b6072@nanonej.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 16:08:09 +0200
-Message-Id: <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Yury Norov"
- <ynorov@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-References: <20260812-chid-v5-0-6c767770b3f4@nvidia.com>
- <20260812-chid-v5-5-6c767770b3f4@nvidia.com> <anzxKO0X1OrNRD32@yury>
- <DKNN2LHZXRIH.5LUX95CZ8EA7@nvidia.com> <an4NvQBt3389jP6E@yury>
- <DKO414SNC0B2.248FUBGJGSPLU@kernel.org> <an4xDp29VX8Am0uR@yury>
- <DKOAY7J1IFTP.DMKSXK625EW5@nvidia.com>
- <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
- <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
- <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
- <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
- <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
- <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
- <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
-In-Reply-To: <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804-b4-extract-pmc-registers-to-gpu-mod-v1-1-86c0895b6072@nanonej.com>
 
-On Mon Aug 17, 2026 at 3:02 PM CEST, Gary Guo wrote:
-> Now, with `NonZero` or `Bounded`, we are doing none of that. The only thi=
-ng here
-> is that there is a range restriction. Other than the value restriction
-> themselves, they carry no other semantic meanings. How you interpret thes=
-e types
-> still fully depend on the API that accepts them. Therefore, it is very co=
-mmon
-> that you'd be using these with literals, and it becomes an ergnomic pain.
+Hi Antonin,
 
-I agree that NonZero and Bounded are on the weaker end of the argument. But
-there's still the flexibility argument.
+kernel test robot noticed the following build warnings:
 
-The API itself, i.e. alloc_area(), does not need to bother with how the val=
-ue is
-checked. I.e. is it a runtime check, compile or build time check, or is it =
-even
-unchecked (or panicking) because we can derive the invariant from another t=
-ype.
+[auto build test WARNING on 44e7e7f7cffb10a93bb88e7cb59b7b8b3e2deb1c]
 
-> Personally I value ergnomics higher than possibility of misuse if latter =
-can
-> be easily mitigated otherwise (in this case, by WARN_ON or just support
-> zero-sized alloc).
+url:    https://github.com/intel-lab-lkp/linux/commits/Antonin-Malzieu-Ridolfi-via-B4-Relay/gpu-nova-core-Extract-PMC-registers-definitions/20260814-143445
+base:   44e7e7f7cffb10a93bb88e7cb59b7b8b3e2deb1c
+patch link:    https://lore.kernel.org/r/20260804-b4-extract-pmc-registers-to-gpu-mod-v1-1-86c0895b6072%40nanonej.com
+patch subject: [PATCH] gpu: nova-core: Extract PMC registers definitions
+config: arm64-randconfig-003-20260817 (https://download.01.org/0day-ci/archive/20260817/202608172357.txha23v7-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260817/202608172357.txha23v7-lkp@intel.com/reproduce)
 
-Both is not a mitigation IMO.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608172357.txha23v7-lkp@intel.com/
 
-WARN_ON() is does not prevent misuse of the API in the first place and in c=
-ase
-the value comes from userspace even introduces a vulnerability.
+All warnings (new ones prefixed by >>):
 
-Making zero a valid argument simply ignores the problem or just moves it
-elsewhere, e.g. where the caller has to validate the returned type instead,=
- i.e.
-the ChannelIdArea. IOW, we'd remove the invariant ChannelIdArea carries.
+>> warning: unused import: `prelude::*`
+   --> drivers/gpu/nova-core/regs.rs:10:5
+   |
+   10 |     prelude::*,
+   |     ^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
