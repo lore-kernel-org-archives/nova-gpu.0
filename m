@@ -1,233 +1,149 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012043.outbound.protection.outlook.com [52.101.48.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC863ED5BE
-	for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 22:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3412E11D2
+	for <nova-gpu@lists.linux.dev>; Tue, 18 Aug 2026 06:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787006424; cv=fail; b=uAejwcVic2ilMtYG78t3ABoLZ3Re3Y5G5rgt/uF9JfXeJ67L1S/Dejx//YAuvGrzhrPzmS3OOSIxWyZrjFq/RiDTYj7LR8GsydsGBGLjd2qVpiw8MkpUphDssJtS5V3WnkkovtnhNuV7udsu5dT0rJ5hv0bxzfOOJpCw7nv0moQ=
+	t=1787035286; cv=pass; b=OuXl1ATFqywrKOh+B4B2XJhDFTaIO0C7bUObOphQGaIbTni3HQpB/4PS4AYcx1kFt4iSK5gvj7RcTXLFpY57EdMCIrAZMmMWHjIH1jYwPHwcbFQ00K1tRfTK9MT8tQn5u51WkZXk/ozt2CQ39kQwLvBoHxSZAO80TdUjcPpKheU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787006424; c=relaxed/simple;
-	bh=9xvZZSuCqA8Tr0QANfwt0qo8WmjDQO+5Z21XGGN0Fxs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nss6LEyYLm0ZXS5VuyI13nAmL91ZsmrpD76N4TLE+/7RSPU+TUEW2nugJtpmL4C+i+YFTcixnoqb2d+i2HixK/Yt32o1njxxAC6XrTOK6z+tsmT7i7R2XwlLXs3GYFrjjHyBF1Ix89vJEeR8eTc9O1ENoTS92yw4zNdVIIMQSUg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eVVWQPd+; arc=fail smtp.client-ip=52.101.48.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1787035286; c=relaxed/simple;
+	bh=F66vDlwnqNRvpNa85V4+GIKOYUyq40PQaHNUdB5z/NM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A+uHuGhiAIG498x/9WkXJx4tkdpdAwyHktTHe1cda0EYcJpYodWnOIIlhwzNBxHzXMhjAPhldxg/h/XsbU9UWnc0md4votx6DqWRpgvtsh5WpLPBQEAw90TcLh4+JtD+E/s/2c6lElcgDGqqYAQEP1d8GN5pdynNGcPiuvuvQmA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=idYpiR6Y; arc=pass smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eVVWQPd+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BETrfo06bfX6DcKh8T67ufgTS6gCWUWFxd8umhmWKyLIO7OdqhHcQozwhYcxFuGywtS3Qvm9AE5SZ9Oxw16Kjw0PikJNcJ2VF70c9tfoaz3w7V2zmLM9i1CvRg5eXaIBv92kf6PTw6bvN3GmYoWMUY/hxRiB8jUvf5F1ifgp2hYaCOyDJ5Hp0h8pREyC3XcYWLdvt9PqTRShWTfRRWGPC8no8LD0FlymT5Xu8apxPNf/ZG7jrlTjk+kj+5Et4MUx+IIjybUZpZ+t/sYh8a+rbI58hiVso7kMdfQTCfwzKfxGeYhmBC5LDn/eveOqgc31OHSCelRHPAq4TtT5ZUuZZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bs2z4lyBgtGzHd7TdaAUKW1yR/k9hSDoajiNKj5vy1w=;
- b=p3Ro/iHMNvBnX2GwIqNNJaDCD0EMrpDwU/B4OxhWLdnxaxhXKH+s6Vbx7D9YyKlIeph4tFBI2lX6pjW8mGHmX/XpkNKJsZyHjwYlTmXnuhMbYJS8cQzorXW9tEN/Q6BUBYCRote31PV9RJiROmhWp0yyESlvI5RNZzYzacoDI4kxTfHr+tGXbLN1EOsJMleLWUof2KPIzM/A/2jVCQKVWWzJEbsNkriHYQMn4ijYFRQeAODFc+ANW+R1H9CNl35opL87kliQo5p3g01FecwTBc/gIV1SdaJsC4d9j2J1xjY6d4mFw1UGlYgIcnH5uyrYnmcXUKmMFGYcriqD89CnWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bs2z4lyBgtGzHd7TdaAUKW1yR/k9hSDoajiNKj5vy1w=;
- b=eVVWQPd+CJ33k52ficSIMIz5AtUbob1r9h9RDStoEkEqCb8whegNlxEovzQ0IlIWI/SS41G0DEOEdh8P6ZrZwOxFMW7821avcOgWvSJgmgC/lr+wer4aVBGL+4ww0s9KSqAyEtwB5CXJm3f0IZ8ey+bbfmcUw9gE+HYNPoIZY8WPhdLJvgABzOCE2+6pqupt0++iz/pZEGJV/Q/JBSPFQzO2/DohqTcHIQKj4UhIUSe3+OXMUr0WKAvhy8gDw8x4zRtpgWiNN+SdW4o8A7WC8FT10kcKwOEW0fXdDqw0NnoPDa0uYlGMCxpZbJQQ6Bh1oksMxiRe/4oSWME1Ub+FtA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by SJ2PR12MB8651.namprd12.prod.outlook.com (2603:10b6:a03:541::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 22:40:18 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 22:40:18 +0000
-Date: Mon, 17 Aug 2026 18:40:16 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Gary Guo <gary@garyguo.net>, Eliot Courtney <ecourtney@nvidia.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
-Message-ID: <aoON0FepAUw1b003@yury>
-References: <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com>
- <an7bG2bEd28AbNRr@yury>
- <an8r4VECQ8iFP8ze@yury>
- <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
- <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net>
- <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
- <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com>
- <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
- <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net>
- <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
-X-ClientProxiedBy: BN9PR03CA0351.namprd03.prod.outlook.com
- (2603:10b6:408:f6::26) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="idYpiR6Y"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d5862bc921so5030685ad.1
+        for <nova-gpu@lists.linux.dev>; Mon, 17 Aug 2026 23:41:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787035284; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g4q3gB/85xHfyFXI6+9V5se1iND7IBDs6uJFyVhL4CBGmQRkIBvd+Qx90TiK20YYM1
+         4X+ifnN+1GIZ31aINAVLtECa+f3CLJm+6YaZ1IsT1MQDvtWfpKqV345zelapB1J+KFMK
+         FQ0HkyrXeD5wmtWtJGYv/QKGWIreBEzpbpm6+grTPcsY9qOYTd0Vz1Xv5zSLNrz5+Fb6
+         KveIGh5tq3AODyI6aJWmOSOyDN7rbNzF16JNsabM4yYEh8t4xjnBYzG2sl58WHqPGJfw
+         g6Ut/ojcp075SERamRU+EKOdptM8FFHRkW3/O/RoF6hJLG6c0ET5hBI0GatElQpW7o2O
+         e/Tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=F66vDlwnqNRvpNa85V4+GIKOYUyq40PQaHNUdB5z/NM=;
+        fh=RiuGv0PHPkXsvqsG366q19RCeWQiejvJ7eKC+6+w8Rg=;
+        b=rTSnFnLOWG8k29Tg0wsvpzy+ZXUdlP2zh5ju207Tvo5pIRrlcoKkAWkLPQPaePTIut
+         UfK7CvBB1h8YNCumHA7gb+Muvn95DiFf7XK6XzXABDS8jW+5cv5a9T3ftDCSy1ZICFe5
+         U7m4JI46QoHgz/sIxhzTsIW3b4XXTVneRyWBDJKXmu5Dpw03oQHjSS3weL4RavHNJgZi
+         6V6Ll5lwpr5IKylXeZUtDqZlpNmCI90ovpupGD+I8sGVNddIgX/1GEY+kOonlYxJ6rl9
+         LZioEq1TFx/2MV2mzMzYjnW5s2ecNBKfCjuqeS/aqZKJL0YKx1w3fqttRKvVTMCcax/P
+         Krhg==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787035284; x=1787640084; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=F66vDlwnqNRvpNa85V4+GIKOYUyq40PQaHNUdB5z/NM=;
+        b=idYpiR6Yc8UloewOdH14SDyByt/JqdVcqBkpAB+mXCh/5BZiHSvXNIuEyQgDQFjl4v
+         b2ea8NZoQFz/dNdoHdRNnAOWMBHPjboWMKWU+1ZEkk8ynesgB5CwKBKeoFh7mtcxfij2
+         OLgpsbjsKhFzAv8OVpV5dOPEcuOh0g2j/n5WJSHVLm5QYq+x2ccDxVe4OW7eJmDIm2TX
+         pYQpk1NplX4O+jF0SIbsy6iuikOfBuARn+2poU762PFww8ZUG20N9qe3HqCj41GLIJfH
+         c8yb3NZROiFlLcDZRPndzZ0keKZUfKoN+/sNfzjb4evjQWnSmSykdiVNd09mAW8nFWJr
+         EIDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787035284; x=1787640084;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F66vDlwnqNRvpNa85V4+GIKOYUyq40PQaHNUdB5z/NM=;
+        b=pkTADZU09CM7XnXiyql3lC+LN8Oldkz/lzZVwE+4cmuyQ++EKdYv8uNc07mmKDqkW8
+         1ZCDg0k5wddPQh+dBnGhVrsg2Q6ljFj6ELjhlgmw+GEOIi0zcHqjhKXx2uidS+X4veHy
+         ajzBR7gIMWB6YBG3eILk7vYGKJKiEMXjDpk+Il48RE4B9YWzCBY27nc8+edmzg6AiAdx
+         K9oi2MvGRXiVfP2kJeghurqrXcVekgqVrfA6Zh5d8TbPlnaMWYfsSe3/GFQJ/4N/5k5H
+         Y9FYTD5SUi5/dvRXnb9erWgm4UlJKbDtn9gPmY6X/lM6pUedyAUhQZc6zjaSfkXKu+sK
+         pNDQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpBCsDJ2eeLPaTcD/gRt+hnuCbMC3kCa6hCgliWmQfU2xF7C7JUspTCQ78wvGS1YZmxf8vdGJEpKg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxdL8sBuEXF9KRBYDDroDjIiR2oCsrf0NgvU7NbmyUZvgUFhfKY
+	WNZxjNkqFCp6Op3qDfel6BiwL6+z9fMUoCb8kRHw9vRoD4qQHKcdxww5fKtxPkhmGd4tDAL4Esu
+	IJMmSVWDdTWkJxWPxEb7lQ0VDKqUPc2s=
+X-Gm-Gg: AR+sD10AsE6Jizq7FLPaUdXD9KEjMIWpmhL/9HtwsgTaAdI/cpHoPkTCqingDtiYkyk
+	Mvo3iToKz3rGbHiKRILg+Cb7OF7xdzwTYxcM21sZNMg9IPU8ZfBpSIdk+EejWdYdGNldzQc7Yl2
+	jXz1at6Cn1XtVThodZv8V2tlNxXhtIMeBGoqQDLZukAwjpR7Vw2iwdZM5ycVHtUSAXV7Yq9RPZU
+	6s5XDhNydA2PV4gNjXkWh2QIHOzSlw9Wb8n8GoALlOBYi0SUaVfSLJRWP+jN0W86XrE+gGP8elw
+	NPiDyB8ZizWl2c34DC8GDzhDNWr2kST605D+7ffyETl83gGsVwronkGsE9Cywm/0djhjMgqrhg3
+	40pis2rtRVAj5MnxPWcHe8EM1NVfM3P2/HZ6otEs+frjLw4NyBf9i15WYS/yTR+HG5IEVsBs=
+X-Received: by 2002:a17:902:e54c:b0:2c9:ed4a:c3a4 with SMTP id
+ d9443c01a7336-2d3b0503575mr218175045ad.0.1787035284410; Mon, 17 Aug 2026
+ 23:41:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|SJ2PR12MB8651:EE_
-X-MS-Office365-Filtering-Correlation-Id: 840f3170-2d46-462a-44f5-08defcb08342
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|6133799003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	8rECFL7N2ajfUrQdKh5uTdXZV0dao+VdMHFYqLd8hdyB0Rc5bdWGbGQG1YT8z53JoS/3/Xy5lOjD+Yaz0U3ENXzdkbOu/OcILxklzxHXsxWrrnOedR3feKjQNHiVHW+CoKn7AzE83JWyh2Kjkq7YLOg6YSVH94hlXCL0rFAF0t0U+RliggwGH9zwU6yN/RGyXVLqh8SPlPBgT5wFwSVvQul7hHJYvSkFR/MVP5Aiy5QuZzQGbNFY0FfmQWilC+2ObVvUwkzm8r4hsAdADh5Ue1AGGv4oEkpFbDMRIfE4ZQSWjoGMjl6ogiiy6ObT1Rz/vXFNhP+1IZxUWcACcMP8aKojQatzltnH5PAxmXC+jDpkSUwAC4gLlwxm64h62WJKzGv3v/VfZpRQe/UW+316OVFgvgpr5gzRM19CBSZ58ZfBs/ShFfWH6J2IjX6QXGd9f38W8YHDPLPDScScOrv3vqW1jNrQc9WftDlWnoDZeFm0FmxmGpLDlH2OKHNRC0P3D+VFVAn2Vo7Za0uq1rEOWgB2uyImoHNTHBnyvhkhSwxm0eGoCp/9/GnaQ2PwzUlZd9mMtW0nHphJpe0gNA5r+3BorgaWzakpH2rT0a3OWMuCA2FcpRKowakPwutinDMx3DHP5EbFTaKDcaVZfl0DsN3kJ//LhSU7/5nzOnSTDeA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wvw6mtZ2bwrQgsWDllWFF6+M3oinVl/MaxRf6jsMJnI8EwrjzuQK9gsz47MU?=
- =?us-ascii?Q?jo2ethscAqSR7hTpEFEL9zxez3cFG7g7uDWG5YD/Y+/GtJJMA8Ai6Eu1X+5q?=
- =?us-ascii?Q?9XhhwysOmZUBHrLGsF+GH3L5VPGFR9GvB7LFkLWJm0zKQ7E9fH8xfc9RvWEn?=
- =?us-ascii?Q?+P9cfo/G2SR+6ke8lqv4YUDvyF1OBZerayStmDCHDJlavOWgFmsXjjFY6Olj?=
- =?us-ascii?Q?hlOxYfXZL6SwngFZKDjHO+Vw6B+WvIvtQYEC6n8gNqzlrTBoCZI/MW0TkC1a?=
- =?us-ascii?Q?TyvH3fuMRUaYh1vNHIreodBfhu3myxKkV9WPnFBovb1wkBj7J2MZmSY3FdPV?=
- =?us-ascii?Q?/gu3zOIP8WtVWkIYWtjOirheKMkNd+mruL4dxWLWfKLDpEvSoXT2N02fnPV4?=
- =?us-ascii?Q?utWxVhJobZFQbDe8CBvllXqfCjUN4Dnj4bLVqQKTUfgtsl4F9WZTJ/jtp0a1?=
- =?us-ascii?Q?gzZ/GenRMRZjcdWL5tUSOPunmYdZaQJKH8hRVJjqAq4LuoLvZ+aJDnszHTF5?=
- =?us-ascii?Q?RgRgzss3WSq9rQe4dUbXXj6ePGmRPFe1YqkeQqEL3ZEWw5IlMoS/ig4rruYZ?=
- =?us-ascii?Q?sjQTPFPCvqi/kYUNcSOZqLmOAQTKz3kwT7e0ZZec18a2U6WVaO3a3Ok/d27i?=
- =?us-ascii?Q?2ccymlWdZrr81Ni0pS4rAYgdGCgBrLYEzU3K9YeShPfsnI8ZT6DpulMZSW0a?=
- =?us-ascii?Q?C4XVLS1z37iO6bHAouqX4sGyBGCTn9H/c/zrbAzb9j7Qz5Pyxr3ikETJhFun?=
- =?us-ascii?Q?lUgWNNRqlUjhQUCMqvRR/5zYtXLJZcyNQsyEaGWoV/03jDakkDDktRDU+BPb?=
- =?us-ascii?Q?w+5+PWL9S/WBn7BCaPdfPf/ek4SwVKCb8aT8q7xzflK3UC16ooxQ+bPBokl1?=
- =?us-ascii?Q?BXHgVNZcVa3A4wVg63nxMxLd9nsEFUshxkMo5KVH9o658LiNQw/9KZLqPFqb?=
- =?us-ascii?Q?Kt8L6z5i5htwMmJSnFgG9Kx7LZIU2q6Zgi7z61PFLU0zcTRUi0WJxnPtEt9y?=
- =?us-ascii?Q?oOWuCM6fnFRkVLm0PeF1O6i4QEUfVODWneAozIWQiwMQJomsOiBPPGBNgZny?=
- =?us-ascii?Q?z0oB2GdDflDN2yaetmwujxYcIpMSNM/YuRnQWJd1BenYSjQq0eY/Hf1vw6Xz?=
- =?us-ascii?Q?ony3P9S8JTFlT8Dk7U1yru4VmICunNdkw/35YtZ3n4ml6+VDc4GlrjrDrIkD?=
- =?us-ascii?Q?S4ioFRpIi/PVe7Lq9Zf91GzuBY3zlIVbkFZQumn6U11yUdffiyMVPn223Nm/?=
- =?us-ascii?Q?qU8fdZ5LE8s7r8+oNAdNn+OvYEtrCWKY9BR49mbjIbdCPQTsgjSMSJsz/DnU?=
- =?us-ascii?Q?9xCUEWjFOA6EtMqma2egtJzmdQdO5pUKZMnfgXC1SSBe7AWM0y3jtrMPh2Ut?=
- =?us-ascii?Q?soxkjvNbLH+bjO9/BpTWlSOAVQgnw4U3ZVH6CuUWxZxYKgDTAiC6pSepcxlc?=
- =?us-ascii?Q?Y4m0UtjfIWY9xofNKEQt3LT1yMXiOIVphVbQU0AIw5nUC9bPV8UAAUqy49MC?=
- =?us-ascii?Q?K/0IRqR+hLMzf1mGFB0aMCMgZDA4yD9qaJew6H5tLLYZ/3OXG4IxKxc/CL+t?=
- =?us-ascii?Q?VCfWDY5J/M1Rjr1o7Sq/00P7GJ4lrLXClg1WaP0D9n8ABMnzyKWfjIML9J4y?=
- =?us-ascii?Q?WUgfmPiOvXWPcyV4fB0pE0sAViv6qiSZuFfre+cVmUYS360MvBvZEIClbsDh?=
- =?us-ascii?Q?UKevRjej/X7dCVUk8nUCeRCbyKHYF7KITOzzFMMjSJ4q1ziG?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 840f3170-2d46-462a-44f5-08defcb08342
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 22:40:18.2245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +OyGP40ivko6uPw+Fyjga+aqsZ3wKGvBbAa2wclTP7/FOd3E1gO6ffLPadsEQbYbJmlrUBN6E3py2lYMxNysLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8651
+References: <DKOECWHEEAK1.3N3JXH9MH7Q58@nvidia.com> <an7bG2bEd28AbNRr@yury>
+ <an8r4VECQ8iFP8ze@yury> <DKR0ZNGYW9IT.37N7TEN97GG3N@nvidia.com>
+ <DKR5W5DGAWAJ.38LHLLNPO9R4W@garyguo.net> <DKR6EB8OWPXG.2QYAY81UG1RF3@kernel.org>
+ <DKR724N9V3Z8.1HJP6NJC5A4ZK@nvidia.com> <DKR7N2LLIQZH.25F7VF4CET6PO@kernel.org>
+ <DKR8MCRB76L2.1TV4D7261PVTH@garyguo.net> <DKRA0IU4WVW1.3AOKCY38VHTKZ@kernel.org>
+ <aoON0FepAUw1b003@yury>
+In-Reply-To: <aoON0FepAUw1b003@yury>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 18 Aug 2026 08:41:09 +0200
+X-Gm-Features: AcwNN1XoW3I66H8usbqd_WxG6tEFGRwBY_Sn9lhKHblIF3shDY3QyhmlBc9AX_0
+Message-ID: <CANiq72nFwdXcN+C8nJhd5Yq-cdUp1CDw_2u-D+zkgvW1-a5dLQ@mail.gmail.com>
+Subject: Re: [PATCH v5 5/5] gpu: nova-core: add ChannelIdPool
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 17, 2026 at 04:08:09PM +0200, Danilo Krummrich wrote:
-> On Mon Aug 17, 2026 at 3:02 PM CEST, Gary Guo wrote:
-> > Now, with `NonZero` or `Bounded`, we are doing none of that. The only thing here
-> > is that there is a range restriction. Other than the value restriction
-> > themselves, they carry no other semantic meanings. How you interpret these types
-> > still fully depend on the API that accepts them. Therefore, it is very common
-> > that you'd be using these with literals, and it becomes an ergnomic pain.
-> 
-> I agree that NonZero and Bounded are on the weaker end of the argument. But
-> there's still the flexibility argument.
-> 
-> The API itself, i.e. alloc_area(), does not need to bother with how the value is
-> checked. I.e. is it a runtime check, compile or build time check, or is it even
-> unchecked (or panicking) because we can derive the invariant from another type.
-> 
-> > Personally I value ergnomics higher than possibility of misuse if latter can
-> > be easily mitigated otherwise (in this case, by WARN_ON or just support
-> > zero-sized alloc).
-> 
-> Both is not a mitigation IMO.
-> 
-> WARN_ON() is does not prevent misuse of the API in the first place and in case
-> the value comes from userspace even introduces a vulnerability.
-> 
-> Making zero a valid argument simply ignores the problem or just moves it
-> elsewhere, e.g. where the caller has to validate the returned type instead, i.e.
-> the ChannelIdArea. IOW, we'd remove the invariant ChannelIdArea carries.
+On Tue, Aug 18, 2026 at 12:40=E2=80=AFAM Yury Norov <ynorov@nvidia.com> wro=
+te:
+>
+> Again, any kernel API trusts it's caller. It holds for assembler,
+> for C, and I don't see any reason why it shouldn't hold for Rust.
 
-Let's get back to roots, maybe?
+Because the more you trust callers, the more complexity you are adding
+to keep everything dancing in sync, and thus the more perfect you have
+to be on every subsequent patch that modifies any code.
 
-The kernel functions don't check parameters, with the very few
-exceptions, because the kernel trusts itself.
+So this is all about not having to trust callers as much as possible
+-- the point of using Rust in the kernel is to prevent mistakes using
+the stronger type system.
 
-What are those exceptions?
+And preventing mistakes is not just about memory safety. That is, even
+if `f(0)` is not UB, we still want to consider whether it is worth
+using the type system to prevent such an input.
 
-1. strnlen(char *s, unsigned count). Here the 'count' hard-stops
-traversing the array 's' in case it's not null-terminated. Why?
-Because c-string is the bad data structure, and it's a very common,
-very well known vulnerability of C strings to have them not
-null-terminated. It brings tons of troubles, that's why.
+In other words, yes, restricting inputs to functions as much as
+possible allows us to convert certain functions from unsafe to safe
+ones, but it doesn't mean we have to stop there: we use the type
+system to prevent other mistakes too.
 
-GENMASK(hi, lo) falls into the same category, for example. People
-always think of it as GENMASK(lo, hi). Bad design...
+We can even have types that do not restrict in any way the inputs
+value-wise, i.e. they may be pure wrappers of a primitive integer, to
+prevent mishandling such as passing the wrong kind of unit or mixing
+up two parameters.
 
-2. FIELD_PREP(mask, val) checks mask for being dense and wide enough to
-fit the val. It's a very basic operation, has 0 cost and implemented at
-compile time. In fact, FIELD_PREP() is a compile-time macro. The
-corresponding run-time field_prep() doesn't check for any consistency.
+Now, particular cases may or may not be worth it, but the general
+principle stands.
 
-3. int pin_user_pages_fast(...) 
-   {
-        if (!is_valid_gup_args(pages, NULL, &gup_flags, FOLL_PIN))
-                return -EINVAL;
-        return gup_fast_fallback(start, nr_pages, gup_flags, pages);
-   }
-
-It's not a validator per se, like nr_pages == 0. It's rather a
-consistency checker.
-
-I don't think that alloc(size, align) matches one of the above. The
-underlying bitmap is not as bad as C string, the alloc_area() is not
-a compile-time macro, and NonZero<0>() doesn't look like a complex
-cross-validation.
-
-From maintenance perspective, I don't think it's even possible to pass
-0 into the alloc_area(), so that it slips through the reviewers
-attention. NonZero<0>() is a pure complication for absolutely no
-reason.
-
-Again, any kernel API trusts it's caller. It holds for assembler,
-for C, and I don't see any reason why it shouldn't hold for Rust.
-
-Rust is more restrictive to undefined behavior. Having that in mind,
-we may want to prevent the known undef. But that should never become
-a part of the API. And undef isn't the case for alloc(0) - instead
-of making non-zero 'size' a part of API contract, we must make the
-function behavior well defined for this case. kmalloc(0), for example,
-returns ZERO_SIZE_PTR. The pool.alloc_area(0) may return None, and
-probably trigger some warning.
-
-The underlying bitmap_find_next_zero_area_of(0) doesn't behave well, so
-Rust wrapper should take care of it. pool.alloc_area() doesn't call
-the C function directly, it calls the wrapper. The problem must be
-already resolved at this level.
-
-Thanks,
-Yury
+Cheers,
+Miguel
