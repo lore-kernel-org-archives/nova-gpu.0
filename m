@@ -1,46 +1,47 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010003.outbound.protection.outlook.com [52.101.46.3])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010026.outbound.protection.outlook.com [52.101.56.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6B53C7692
-	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 03:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8253BBFAA
+	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 03:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787111592; cv=fail; b=q6a4bIFEpoNtoo5dqay1EcSlfCoqrMg7bBa9+a2CWSjoAu1AJwPH3XdCcGmSe55e54kweeFAgyNSPRUh/7U/G00jbvQxrFnblsStlvTh47U1PlPpXAmPzFn3JX+STFJyBpocaZ1zoSEswr35ycM6RHjJGB0nczLGkZaBTy1bT9I=
+	t=1787111596; cv=fail; b=pG0yWVbT0hkzSkjEMYpLdf5covesLSjAZPMlGOGFpqiQGkZmGNhuyWCPLyIGm0+4tb4xhPyWvUdmxNK5w98Qn24CD1cHMmEoFvEXaUxlPy++PQlUwbjhVD5jIWDQmncY/iBjg4nkf/HOkIWToLvc0r6/6eF5+FaEfHTidsTXFlM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787111592; c=relaxed/simple;
-	bh=agpEqgl6DPo0wE/tz2D+APuahbBxZCczkheQLwFq29I=;
+	s=arc-20240116; t=1787111596; c=relaxed/simple;
+	bh=1N6pOGV4eoxEZcFffPwaLzhH3JjQjAUu/pzSjQJOyW0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QYvhJwW0a8+tDKDc/2/upZoE89u9yWPvvvUqlfR/O7vfhHX66YgwNQVVZjfJJTMojVtq9V09JH6As8m6YUWtgQfdY7XGCDhE2z/pguSL+Q1Bzkrtb8tAX0xOGXE6H5IXFGZKm0NUJjdO3EmEOP/F36fAn2I06tCk/e+FlJhKaw0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sV3QeZyu; arc=fail smtp.client-ip=52.101.46.3
+	 Content-Type:MIME-Version; b=SA2hasjlGM0o3R0A4tIIbZf4Mi9e5k7wEkA2+2XK+e7B5tKgd4aU1d5Lk9vGjPXWA43E4sTC5ZjZXNTzC1nd4HH+nesyUDy4VbXVOUvZ1urmc1mAdKcd6v/nZB5SJe+RAJ4FAAStYsc+poBbnjRYayf/IL5mYtDgUViPHuap7+w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FMaF2qE/; arc=fail smtp.client-ip=52.101.56.26
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sV3QeZyu"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FMaF2qE/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=apx31LBCalaqsH6E97QnnIax51e8oU/JKLgTwAXAFgqwveiZz0SnH26IClNf9RDHhuDvLb5m4o86f71vc/sohRYZYQYjrRGz6KBr6hiS4m0AeAfn5JU0rcQZffC9CZWgWXoJMhcmAOUbg1fax8gghXg8IQQBVK7WitXpk79OQEgoAJfXRVpGnVyDiwlZOFgZBLqQ0eYlYjkgh3vP/kpBuoKbHU45cSw/yueVs93acn4xkXEzE/QpYvhGv1kAzmIsYvrBP5Sxhb8otzempp/cyAmIcWjpJ59dFFhbyUMYegOwU9rQfgbvtHhuFuaEWTPr9oQux+WgOKF6+eYVFh1qTQ==
+ b=qm7HImQblzwoQxusD+IJDfaOe1bSab1WooPuVQbnR1zznareeGJJQKVGImKLAt3Q9yA4FvSjoQrhDP3yml5NoxK2LfQMHD+NCqVHLhSUmNwCD0bmRECwch+NQwxzTZ+8ep3VzpAvQ2y5XFPLCPYxWJI/QTzdhR2zpunzkS77BAdRONohNBynqe/oRSya1HRor2Y3fPR6mG3hVer58RQp4paCeh50dmFaZZOZ/kPIdAeVYsIkEXtXke8tdnoruNuJuphCciZqv3moSe3UPdOlAGl5myvIKI6C8JR8baphp4ijhtzYPskQT571cxE/tr9BOcDWiL8glCbkKfiTEpnjdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qll5G/fhaRNI8RvM9UjjNbCW3EgEd8uFiyB/9xf7iMs=;
- b=HUXA8Jjn2J8/OiSqOJA1ctgdeHHVXWDu/6icmzojEYHQ0w4RWN8d+yyFu8xh7mhpz6jvqneR61IpaMVVdtod1a9bVaw6xNEeQhV5yrDeyfSqOHofoJdc7T4QWxrDoCWYI5tqZCBjehiX2GUeG6voXHp9dxnIjbOpxXxga7dNoZ+NqJbX4Oq1tbRgVoMOCubxCJNEH21092V/XfvXkSlgOPbY6R3WU0wz2TQfmX+LbTmCLNrrbHpI+ItSyt4EtA82PF0MU99N6TWaNAs/RHuLSJXbDFzwytoZpZRkpnVPUk9sqZbWkh+Vwy+SgilHsXB6j0/sh009LN+PDAnNkHPBpQ==
+ bh=GO5/cjo87ozkGaXhnq3SATXcjobIO6fPyGh7lAZFWN4=;
+ b=NSn/zunhpb+4tTLMUjkhLEppE30Avur08MU+dyKmXMZVg0sb9vuSqiTeJWVQM1hOS9zUOIenIAnuIIHPBaJT1/YNc9De08K+f8aY7a7EsP2rnllrLhfguvi5lJ6QHLCAXwm7M42+jnGZWlJJzdoIhbVGarEQBMvd4zY+Aw3AH0NNu1miyJ6q9+DTyhGoAXyfvwrddNiR0TVVHljBW4wIRg7XrYqrt5FPtd9ewc1abt3Sk+lHNLAu5PQ2RUbREORhzHzv/YjSUrzly4XDTE1UNYVLOyVN305jjgLvlKP32/O77H7MUpAB+LraXLv2Cvw8OezP2N7S7kExk9Ku1czQJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qll5G/fhaRNI8RvM9UjjNbCW3EgEd8uFiyB/9xf7iMs=;
- b=sV3QeZyul594MiAg90e7fJNhtFcexFOTqN1eWrdvPOIuy2EH/6Ca67gJ7qeVMBIdkBXQdFuepe3hDFtEDiR2HyyXdU55n/ONsjD+Q679xlQturUl4tgEWA5QA130DxxZsaa8Cgtw+4XaZbMMH+hW6+jc9T/c4dEaiFPR+zWRKVgavCE9RZ4CBmkfGJe+B4RKzxCID73iEmGy87746dTn53V5wKEGtom/Tf9sB2dv91yxuCrPLZJhHf93FUNYs+sS8jHETYvd8drUXZNquYzOLXhXtK5TGOhhBSjnEw5/JFfGQO6FbXM4Rdr+O2oV3jPXzsCQa8PDOq8lBhD8Gum6jQ==
+ bh=GO5/cjo87ozkGaXhnq3SATXcjobIO6fPyGh7lAZFWN4=;
+ b=FMaF2qE/5i9pxid8CiWPKZ3PHFkvUvqj+scAclMBToeQfBIfmBUSOuRSt+FbH6tUKJHHwuIpt8fWaiUX4QjetkIAMV3V/qTSytsqSyjb6L5iF8LGiIUyW8Q1FLaJtAONQyRZls1GXHCyXFlJ1sEOIDlzLJn9bxfJKDBcDUeLwis00mb8FyTql08DTP/WMzdopCHs39X5UqxyWkGYHUNUe3jcepk5gc6/fr7pynduYvB6nP85Eh+wtSQ40FwfMXFKGNWZdr1zbjIzKeDKBM52OJUSxe9W/x1+s1j49oUFcRa32EfuMoEsTCS3Za06lxExtcbmszXt48WMLGSu3ZUyAA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DS7PR12MB6287.namprd12.prod.outlook.com (2603:10b6:8:94::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.17; Wed, 19 Aug 2026 03:52:45 +0000
+ LV2PR12MB5990.namprd12.prod.outlook.com (2603:10b6:408:170::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Wed, 19 Aug
+ 2026 03:52:55 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 03:52:45 +0000
+ 03:52:54 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 19/27] gpu: nova-core: handle the r000 load-and-execute HS binary event
-Date: Tue, 18 Aug 2026 20:52:12 -0700
-Message-ID: <20260819035221.336390-20-jhubbard@nvidia.com>
+Subject: [PATCH 27/27] gpu: nova-core: firmware: delete the r570 bindings
+Date: Tue, 18 Aug 2026 20:52:20 -0700
+Message-ID: <20260819035221.336390-28-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260819035221.336390-1-jhubbard@nvidia.com>
 References: <20260819035221.336390-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BY3PR05CA0059.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::34) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0189.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::14) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -82,392 +83,1219 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS7PR12MB6287:EE_
-X-MS-Office365-Filtering-Correlation-Id: 524d4ecd-c6c5-4271-0a24-08defda553ca
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|LV2PR12MB5990:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf7e1061-c0b2-4519-9969-08defda5598d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|366016|6133799003|3023799007|56012099006|10067099003|11063799006|5023799004|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|3023799007|18002099003|22082099003|11063799006|56012099006|5023799004|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	pR1LjrpPOq4oxoNR+pMhK5m2cy7f6k1xk1qiz6CX+5aco6R0vdPXz2IYwxRk/+DCZ7JQ2TbdS/T6xeCHPRBq4j6mXByRXqW5dRrENCyC+CgsZhlhCrVIjUpDFS75AmTYF+Brhl9UhEFnSj4CdXQE6zJUH1Ig3HBFiJfPx9QIwxXIGlxFcp6xwHINm/EQUdfxbbE8idfEqBS/nzeHB3uEQyklwNutIGUuIGH1vdep0ggSHXA8r6Ws/fVPT1XCrsVLFxtMTwiYUlntLtDm/DTndoxqneZ1NH0vNtWXYFaSXsHIH9n/zhyYrhDlvkR7PPl3YTw3IHY6lKyuIdmofEQePCkUff88xi80a4+orSDc/1M0qVKYHRwRuuOW9Sm/3SZWtmp+lwZdw0/BY9NYjdzAgnkGPGeyArp5/O/7TBvSn6LgIrTk3il7PVjYQEsk9CjHSz5jn1vwKmAaN9m9k81tzmqyrVba7ebCh2ysw/LjHDpEOvYyUEL+P+N8s9l3KO9seXNzxcyrAuZ0OGse9mump09NelYzLRJ6HiDkUTe1xo5wGdtOBOOZvcxqeiC2FfdlvG4Y8tXqFbA/d5Ts2FYC3IhWi03/2g3KgvbWo3IA3cxO7lNXb1hnZJnuYUmP6KnXvtVPudMwOgHr3N5r4vTAWgg3y8HnNbKNIWiGaG2FTuk=
+	0KW8jed1+Mqj+8e5nBbC5PrQ6OY7GslmGwcHtOw9TtWd9rT2icFECMlbZ0GKwvrq2L95sQYvu5sXLPSpc9EwYYU9H2pmtIwl+RaW9v2sQ24PDuYUd9R4n7iuvosvLTiGfnt9/BWe9nbZHYbK57AvsGZSnap8f5ZGUN9ntyAtoFYmsI6CU6dLLM5RV24u3DenBqBia9BuizW/qwn7dZlNNwlyorwazchFA2GNiVHjB91JLioy6oomr+z04W1U7YPsaXUcJ5zR23DqzKZfuBKLm1rYWtsakjLwQOVAzdSe1UXRNQvFPEWRErG5NefRHkb1Jwcno6JJPO9L57GSc65jPQc9Ykw5F0iwM2vOv8W13kZR5cI5tIOi/mc1CIpPktc6o3QF6DMABCMdU7Z91JDmiUhEzFZJye/lmwXhmwTXSSTPnHruDdqKJoBmJ1ei1Fa9UpAnfSh6VDWwmrTpSxxArqnnVh4ZbJyDQ3j5t00qlGLr87zS7iiR5oKlSfwMp++k03m9YecMGwnGCz4hSBfBXPzHcCviby1mLXL6AxUqF3B3rMB/myWjlJcQihTeGTqLtlDFFTV0UoHhucWPb2F9gIKoHHwqbtOmCWhZousGBmwj+GohDLmfSqMpOAnc7NAGKJ/hKnWBKQPfdpP4VnAcaVYDj4zcdu2MYnsDPabAR1Y=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(6133799003)(3023799007)(56012099006)(10067099003)(11063799006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(3023799007)(18002099003)(22082099003)(11063799006)(56012099006)(5023799004)(10067099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9x4wQZ2FNqY5n4R0MILuOd0KEDINCj9Tq+g+ZEoK7ZIORgEG+68nFtMTzkr8?=
- =?us-ascii?Q?TpnVxLgixJkAyViOnIRgK86IG01C2dvZKldDqnJLuvKo5ikZ/SL8HHWps29C?=
- =?us-ascii?Q?i2Wc8Ug/gRZSCybMwtit1VhcwjatFu/lho0aVhcSKH6/DMP5PIgcfRTIaBH8?=
- =?us-ascii?Q?qgV/hwZ5Olh7gysMV20MJ/TAOXE7/YvC90riVUn1KBTF4k/lUA+ib8egHFOf?=
- =?us-ascii?Q?jo8tHr8W1jNTgSCOuXrxaocSHdwehk90ltIllQe1LimfRt90EkuTqtSI39fq?=
- =?us-ascii?Q?+6RxbUaIte/URzzNPa3nK6xKwo0fKGUpdgk/UzWjQI/UClPPih9qDrs9iyDQ?=
- =?us-ascii?Q?WDbyqL6+n8cbd+yyiZA3TWmCdBKv5xW2Yer93gPIIzyCx9G4Y8Iz9V1pGdoF?=
- =?us-ascii?Q?wV4qcwMcRyywyZOz7OwsRVlY8ize+huXWZN56KRP4QWSosapPuLxWiKebtCB?=
- =?us-ascii?Q?qiRB3NF0VDMGzPXtiZcUVge2gsPurVtAB7PCH696XppajpDl6mYNS9i6K9t3?=
- =?us-ascii?Q?saJzJPHwu5mXgVPTzflZKfyu+ZCXAo5KF5OjIldIzKXIug2FIvEVDkIq98mW?=
- =?us-ascii?Q?rcRHAfFB9X0ijzvjYEwD/u9itJa5K8ufl1NIdyCLEiEMimkJ4ghqj1B/v2ea?=
- =?us-ascii?Q?3pN+uYfSR3MMxZhLMJhmonV9ALoWFEzLvYCIhHsFZKckbaK2yOgS6dcR52ml?=
- =?us-ascii?Q?YACc0HFrHHU0+vYp6u3vqZ5dxBMwWl9Omp25Ztrm+AxCZXGYE3k0EJV5U+IS?=
- =?us-ascii?Q?PNKdjDrfzZJ1177X4d6bRiTaoSnN077vR3q4UovzzjUi6Vb6ebj+qAh25TOg?=
- =?us-ascii?Q?BGHwAUZStCrjwL+O/D7U4P0dzOUuWGbfyPesgMBogtFv5gt3Job9oMpu89GH?=
- =?us-ascii?Q?EmVqPGbtXQIKiFKHCmsU64Taj4pams13V9E5qpkKEc+IfkHtwdKH1Iawb0nj?=
- =?us-ascii?Q?viDiViXw+vmPEX5Lje84352dkrPw62KNRzE1vdKryuLGGIPXygiDF1N9IOCg?=
- =?us-ascii?Q?T/bVaNsfWZ2sl/rLyNaoaEsS9XvofbSNvDFzTo8PhutBQtrp8ORc1w5zmkmC?=
- =?us-ascii?Q?n77o1QqIHxubwRCoUdNcbP0yN/o8hCOb+mBGJPqDHdr/D0gcWVyLUdn0v+sL?=
- =?us-ascii?Q?n0OEMiKmwZpDLKuxQO3wVTSfNPq6mNpGXPswvsbJu4cFLHCvJ2ybJGu5d2O5?=
- =?us-ascii?Q?2z5dZnzABsTUelc9/6gAvfHSF0UfnINHvHNJgWNFuV/mnMMl/U1sdtmDp2Z+?=
- =?us-ascii?Q?1TqJfYHlIq7AS3EwgoxeBIGEj/bwYBpp5vjyXjCK2w4MWgR2EZdVo35gw4/+?=
- =?us-ascii?Q?Cxr+hA0LVamnyZUgj+AjVTxZdc79cukHlvb04ES4575eKVNtLkQT4U/dDtC5?=
- =?us-ascii?Q?k2ThqpEki/SMVWfdRa2fiUPnJ7zT8dwNe32PkAgV0o63ztXWFtmHXY7UGkZV?=
- =?us-ascii?Q?rarM+Y2Rhp/ffx3OdLOIL2H+r/AfIm5E/QUCMgvVJS9UGVpRDrJwRc4R/Kf4?=
- =?us-ascii?Q?akpXL1GYyYHENQYGVc35jteCqW/g9YnmB8U2xhLL1UecjdMxlGgIidy/6z7b?=
- =?us-ascii?Q?8TajKyjkVtrjq2zX6e0nkeB4P3/gHQ5ORa1BOiHr/dGHT4GNpZhGCLJhGe+S?=
- =?us-ascii?Q?HGFwQ64AwvshFyuDhz0FE09NQs5Q2bfHISj+k6nbGeB8Y/hEe+nXAxPu1opv?=
- =?us-ascii?Q?89N9d1ulCiMETxT0aCTFpIDnxuODre8qoQlDqDqVeU0Ahv++4UcfnB9P527T?=
- =?us-ascii?Q?0KJCeFMI3Q=3D=3D?=
+	=?us-ascii?Q?t0SUpq5VJ+h1JTpscaPwxUeVfymbUj4UN/QHw0bKSrlIZwQ/ArfuouFMK7sa?=
+ =?us-ascii?Q?qgmKEtzeonVWfm2+sgT2eEqUvQDc6ELcfwB8hsAEK/2tsRpcfiTQve34076j?=
+ =?us-ascii?Q?t6J0qftTrmLGSBirgLp2eZ6mP5TMrenJ0C64pU4a2HLrliRDfyFFqwDIR+1G?=
+ =?us-ascii?Q?YmZHex9x9J6iCgZET77PWkr0iUnaeQMLNEupgZmI1aLR0IRUEWVAUNMluxI2?=
+ =?us-ascii?Q?vSPlhJuXLjpJgBBzbIR3VYzkMfEO9C3tCCmFOl3TjHDZo4iCrRAXybLD/jy/?=
+ =?us-ascii?Q?As621sxiKp9TZnlrr4rsp3Oky9RM2T33H5V0Af6LJ03I3kReveXWKETBe4ll?=
+ =?us-ascii?Q?xUYcOlpd02jpnYjui8t6QVx9VMFMhV/YuJLC7aGsBVcZvZCO9iGlMhGoKG8C?=
+ =?us-ascii?Q?Q/u9LY1rRmwIkSuPWqr/yHJt/4osMqejcCdGeaSDWTeULGu80UVl3XnG/hb6?=
+ =?us-ascii?Q?WjDdUfCOVUriOkSosx+dN01690gomFyPV93MKqoAS2oCQV0RZfMXzom9AzJX?=
+ =?us-ascii?Q?i6mZT1QtHoVqcceAkiVsDF//PjIifGg+1sot4g+0urtdhUvqdaq3Q3NaYZIQ?=
+ =?us-ascii?Q?XzDlzPpKEQWiVza5cX8DuKtBrInvC7k8NjcpJWIH8R9IZfZVmeEi/ixSx4u/?=
+ =?us-ascii?Q?wtGv8ywp7BFhN/1H8jmZ4BSihEIdc160zFWwl+N8eoTyFR4OLeEgUUoO39AC?=
+ =?us-ascii?Q?mvQNLMljNl/paqPFfuIulTkleHz0B2Sx+cBMPd+HPlE0PaTR5MQxt9ODKq67?=
+ =?us-ascii?Q?qC7jCkixRlzVxQyAXE8Gv1WY9/W+5rLwpWT/iqTU1S7lKXpNApdTzTSqpeZP?=
+ =?us-ascii?Q?aNbLfyjV0TzgaZTSGn73jDPW2KiUMgfkOfBHwfyUMF+r7PL45TcA+aItdXM5?=
+ =?us-ascii?Q?T2FBwj1zxm8V2Ws/W5Hc2mzJHkqm1YULxiKOZVicrvuYDhVILnQFwmoq0mXO?=
+ =?us-ascii?Q?7rboLp10Nf6xQ0+EfmymWc3cr9K4dWR66ZDVOnTs+WFmbDOWIgN8Cimjed0F?=
+ =?us-ascii?Q?ZBmxtutYUizqeawCbuTwj49w5x7KlUVzvDaNApTdOtaIszIkSK4gm/UN0Ljt?=
+ =?us-ascii?Q?yti3wHVu/xmwzt1SJ90aNF6S/mDu7I7y0RfzfavNApoP6pCq6gRyF0IDODyD?=
+ =?us-ascii?Q?VRJ6hJA+9NMeZjiSUehI+YX2xujCEb+MnXEfWUHC81ReRgIxBD+5Phyoo+p7?=
+ =?us-ascii?Q?eV0P7kY4v2ZHyR+kW1uLeACB4PUy562qM1H9l0o+E0afq5jmBGGNQZzI0m1+?=
+ =?us-ascii?Q?bS5D4U6h6n02E1F3YOw/J7DNp8ScPsU3XdYoaSsRtKye9TyeJRJ3UpXBj+aH?=
+ =?us-ascii?Q?RPuryWug4Htev1WdzthWOeclH6TqwvcKn737KVsrSjzoboCfOx6pwzDWVOwF?=
+ =?us-ascii?Q?Q22Ib5VtwQg1TpmOyKkhJrlJ+dUGvXC5iV/d1u0zBzTh0LA5ovwVmihjwP2D?=
+ =?us-ascii?Q?XJreRUfE1hcq1Vl3vFvKIIIHCG5CcP5N3pebV0tPunZjlvZMrmZdZs69ixzh?=
+ =?us-ascii?Q?Uxtc77TqJykSvzq5/i4KYHMwYfk+En/D03Q35Tb8sxP66tmdJGBZIwhAkOHL?=
+ =?us-ascii?Q?j3hkf4xwB6nOEkHhMmEEbJB4yJ6I2iPFY1k8Vi+XfoqaGwuBjRLXH7IT2AuN?=
+ =?us-ascii?Q?cYJsN+HYrDWnqMaRIjVqc4U9A5b0acRgYZYY0M6LuorlpETUlUQoOT1OYE6v?=
+ =?us-ascii?Q?Fm1I+F/iAhhvJuaAAc4xVPfzRDMd6DcZsLDiwKXLGun4kDMvBC17ONPRCDYu?=
+ =?us-ascii?Q?W3/Z+OCXDw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 524d4ecd-c6c5-4271-0a24-08defda553ca
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf7e1061-c0b2-4519-9969-08defda5598d
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 03:52:45.1602
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 03:52:54.8971
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DG6NGqwTVlxz7itItp7rUxsaIu5u3KwBGs+fCJXBuj4kIBZdujhV8lckY28hl+APGvMXtmIC1D/RAyHslwyskw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6287
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1JrRrG0YUeroubpMBoNtjMSYF/KUKlhzMjru1H+y9IvxcKTzQyDI6MF/Vqn/bL6TTVjzZCIwG2pUVNCaCF66KA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5990
 
-The r000 GSP boot protocol asks the driver to run a high-security binary
-on the GSP falcon, and sends the framebuffer addresses of its code and
-data in the event payload.
+Nothing referenced the r570 firmware bindings once the driver started
+compiling against the r000 headers, but the module stayed declared and
+its generated definitions kept being built.
 
-Nova-core has no handler for that event. It also has no way to restart
-GSP-RM afterwards, which every load-and-execute event needs.
-
-Add the handler. It DMAs the image into falcon memory, programs the BROM
-registers that make the falcon verify the PKC signature, runs the binary,
-and resumes GSP-RM. Write FLCN_ERR_BINARY_NOT_STARTED to MAILBOX0 before
-starting, which Open RM does so a binary that never runs is
-distinguishable from one that succeeded, and which also clears the
-suspend bit the next event polls.
+Delete the module and its bindings, along with the last two comments
+that named r570.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/falcon.rs   |   7 +-
- drivers/gpu/nova-core/gsp/boot.rs | 229 +++++++++++++++++++++++++++++-
- drivers/gpu/nova-core/regs.rs     |   1 +
- 3 files changed, 232 insertions(+), 5 deletions(-)
+ drivers/gpu/nova-core/fsp.rs                  |    3 +-
+ drivers/gpu/nova-core/gsp/fw.rs               |    4 +-
+ drivers/gpu/nova-core/gsp/fw/r570_144.rs      |   31 -
+ .../gpu/nova-core/gsp/fw/r570_144/bindings.rs | 1060 -----------------
+ 4 files changed, 3 insertions(+), 1095 deletions(-)
+ delete mode 100644 drivers/gpu/nova-core/gsp/fw/r570_144.rs
+ delete mode 100644 drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index b8013d2eb582..87cb6cf4f79d 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -140,7 +140,6 @@ pub(crate) enum FalconMem {
- }
+diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
+index ab685fb4168f..668d64e8c8db 100644
+--- a/drivers/gpu/nova-core/fsp.rs
++++ b/drivers/gpu/nova-core/fsp.rs
+@@ -256,7 +256,8 @@ fn frts_vidmem_offset(hal: &dyn hal::FspHal, fb_info: &FbSizes) -> Result<u64> {
+         // As per OpenRM's `kfspPrepareBootCommands_GH100`.
+         if fb_info.pmu_reserved_size != 0 {
+             offset = (offset + u64::from(fb_info.pmu_reserved_size))
+-                // The 2 MiB alignment is r570-specific.
++                // Open RM aligns this to WPR granularity, which is 128 KiB. 2 MiB is a
++                // multiple of that and reserves at least as much.
+                 .align_up(Alignment::new::<SZ_2M>())
+                 .ok_or(EINVAL)?;
+         }
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index c24808e41941..55e032db649b 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -3,7 +3,6 @@
  
- /// Source offset of a raw falcon DMA transfer, added to the DMA base address.
--#[expect(dead_code)]
- #[derive(Copy, Clone)]
- pub(crate) enum FalconDmaSrcOffset {
-     /// Byte offset from the DMA base address.
-@@ -636,7 +635,6 @@ fn dma_wr(
-     ///   256 bytes, or if a [`FalconDmaSrcOffset::DmemVa`] source offset is paired with an IMEM
-     ///   target.
-     /// - `ERANGE` if `src_addr` does not fit the `DMATRFBASE` register pair.
--    #[expect(dead_code)]
-     pub(crate) fn raw_dma_transfer(
-         &self,
-         ctx_dma: u8,
-@@ -782,7 +780,10 @@ pub(crate) fn wait_till_halted(&self) -> Result<()> {
-     ///
-     /// The RISC-V GSP signals suspension by setting bit 31 (`0x8000_0000`) in `MAILBOX0`, rather
-     /// than through `CPUCTL.halted`.
--    #[expect(dead_code)]
-+    ///
-+    /// Nothing else clears that bit, so the caller must write `MAILBOX0` before starting the
-+    /// falcon CPU. A caller that runs this twice without an intervening write sees the first
-+    /// suspension both times.
-     pub(crate) fn wait_for_processor_suspend(&self) -> Result<()> {
-         const INTERRUPT_PROCESSOR_SUSPENDED: u32 = 0x8000_0000;
+ pub(crate) mod commands;
+ mod r000_00;
+-mod r570_144;
  
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index a64313dca0a1..ae2aca5d935a 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -3,9 +3,15 @@
- 
- use kernel::{
-     bits,
--    io::poll::read_poll_timeout,
-+    device,
-+    io::{
-+        poll::read_poll_timeout,
-+        register::WithBase,
-+        Io, //
-+    },
-     prelude::*,
-     time::Delta,
-+    transmute::FromBytes,
-     types::ScopeGuard, //
- };
- 
-@@ -13,13 +19,20 @@
-     driver::Bar0,
-     falcon::{
-         gsp::Gsp,
--        Falcon, //
-+        sec2::Sec2,
-+        Falcon,
-+        FalconDmaSrcOffset,
-+        FalconFbifMemType,
-+        FalconFbifTarget,
-+        FalconMem,
-+        FalconModSelAlgo, //
-     },
-     firmware::gsp::GspFirmware,
-     gsp::{
-         cmdq::Cmdq,
-         commands, //
-     },
-+    regs, //
- };
- 
- impl super::Gsp {
-@@ -86,6 +99,182 @@ pub(crate) fn boot(
-         Ok(unload_guard.dismiss().1)
-     }
- 
-+    /// Restart GSP-RM once a load-and-execute image has run to completion.
-+    ///
-+    /// Resets the GSP falcon into RISC-V, hands it the libos boot arguments address through its
-+    /// mailboxes, and starts SEC2, which is what brings GSP-RM back up. Open RM calls this
-+    /// `kgspExecuteCoreResume`.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EIO` if SEC2 reports a failure, or if the GSP is not running RISC-V afterwards.
-+    /// - `ETIMEDOUT` if SEC2 does not complete the reload in time.
-+    fn core_resume(
-+        gsp_falcon: &Falcon<'_, Gsp>,
-+        sec2_falcon: &Falcon<'_, Sec2>,
-+        dev: &device::Device,
-+        bootloader_app_version: u32,
-+        libos_dma_handle: u64,
-+    ) -> Result {
-+        gsp_falcon.reset()?;
-+
-+        gsp_falcon.write_mailboxes(
-+            Some(libos_dma_handle as u32),
-+            Some((libos_dma_handle >> 32) as u32),
-+        );
-+
-+        sec2_falcon.start()?;
-+
-+        gsp_falcon
-+            .check_reload_completed(Delta::from_secs(2))
-+            .inspect_err(|_| {
-+                let mbox0 = sec2_falcon.read_mailbox0();
-+                dev_err!(
-+                    dev,
-+                    "Timeout waiting for SEC2 to resume GSP-RM (SEC2 mbox0={:#x})\n",
-+                    mbox0
-+                );
-+            })?;
-+
-+        let sec2_mbox0 = sec2_falcon.read_mailbox0();
-+        if sec2_mbox0 != 0 {
-+            dev_err!(
-+                dev,
-+                "SEC2 reported error during core resume: {:#x}\n",
-+                sec2_mbox0
-+            );
-+            return Err(EIO);
-+        }
-+
-+        gsp_falcon.write_os_version(bootloader_app_version);
-+
-+        if !gsp_falcon.is_riscv_active() {
-+            dev_err!(dev, "GSP RISC-V not active after core resume\n");
-+            return Err(EIO);
-+        }
-+
-+        Ok(())
-+    }
-+
-+    /// Handle a `GSP_LOAD_EXEC_HS_BINARY` event.
-+    ///
-+    /// The GSP asks the driver to run a high-security binary that it has already placed in the
-+    /// framebuffer. The driver DMAs the image into falcon memory, programs the BROM registers
-+    /// that make the falcon verify its PKC signature, runs it, and resumes GSP-RM.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EINVAL` if the payload is shorter than the parameter block, or the ucode id does not
-+    ///   fit the BROM register field.
-+    /// - `ETIMEDOUT` if the GSP does not suspend, or the binary does not halt, in time.
-+    #[expect(dead_code)]
-+    #[allow(clippy::too_many_arguments)]
-+    fn handle_load_exec_hs_binary(
-+        payload: &[u8],
-+        gsp_falcon: &Falcon<'_, Gsp>,
-+        sec2_falcon: &Falcon<'_, Sec2>,
-+        bar: Bar0<'_>,
-+        dev: &device::Device,
-+        bootloader_app_version: u32,
-+        libos_dma_handle: u64,
-+    ) -> Result {
-+        let params = HsBinaryParams::from_bytes_prefix(payload).ok_or(EINVAL)?.0;
-+
-+        gsp_falcon.wait_for_processor_suspend().inspect_err(|_| {
-+            dev_err!(
-+                dev,
-+                "Timeout waiting for GSP suspend (mbox0={:#x})\n",
-+                gsp_falcon.read_mailbox0()
-+            );
-+        })?;
-+
-+        gsp_falcon.reset()?;
-+
-+        gsp_falcon.dma_reset();
-+        bar.update(
-+            regs::NV_PFALCON_FBIF_TRANSCFG::of::<Gsp>().at(usize::from(HS_BINARY_CTX_DMA)),
-+            |v| {
-+                v.with_target(FalconFbifTarget::LocalFb)
-+                    .with_mem_type(FalconFbifMemType::Physical)
-+                    .with_engine_id_flag(true)
-+            },
-+        );
-+
-+        if params.ucode_imem_size > 0 {
-+            gsp_falcon.raw_dma_transfer(
-+                HS_BINARY_CTX_DMA,
-+                params.imem_phys_addr,
-+                FalconMem::ImemSecure,
-+                FalconDmaSrcOffset::Offset(params.ucode_imem_va),
-+                params.ucode_imem_pa,
-+                params.ucode_imem_size,
-+            )?;
-+        }
-+
-+        if params.ucode_dmem_size > 0 {
-+            // A valid DMEM virtual address makes the engine tag each loaded block with it, which
-+            // is how the binary reaches its data.
-+            let src = if params.ucode_dmem_va == FLCN_DMEM_VA_INVALID {
-+                FalconDmaSrcOffset::Offset(0)
-+            } else {
-+                FalconDmaSrcOffset::DmemVa(params.ucode_dmem_va)
-+            };
-+
-+            gsp_falcon.raw_dma_transfer(
-+                HS_BINARY_CTX_DMA,
-+                params.dmem_phys_addr,
-+                FalconMem::Dmem,
-+                src,
-+                params.ucode_dmem_pa,
-+                params.ucode_dmem_size,
-+            )?;
-+        }
-+
-+        bar.write(
-+            WithBase::of::<Gsp>().at(0),
-+            regs::NV_PFALCON2_FALCON_BROM_PARAADDR::zeroed().with_value(params.hs_sig_dmem_addr),
-+        );
-+        bar.write(
-+            WithBase::of::<Gsp>(),
-+            regs::NV_PFALCON2_FALCON_BROM_ENGIDMASK::zeroed().with_value(params.engine_id_mask),
-+        );
-+        bar.write(
-+            WithBase::of::<Gsp>(),
-+            regs::NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID::zeroed()
-+                .with_ucode_id(u8::try_from(params.ucode_id).map_err(|_| EINVAL)?),
-+        );
-+        bar.write(
-+            WithBase::of::<Gsp>(),
-+            regs::NV_PFALCON2_FALCON_MOD_SEL::zeroed().with_algo(FalconModSelAlgo::Rsa3k),
-+        );
-+
-+        // Also clears the suspend bit that `wait_for_processor_suspend` polls, so the next
-+        // load-and-execute event does not read this one's suspension.
-+        gsp_falcon.write_mailboxes(Some(FLCN_ERR_BINARY_NOT_STARTED), None);
-+
-+        bar.write(
-+            WithBase::of::<Gsp>(),
-+            regs::NV_PFALCON_FALCON_BOOTVEC::zeroed().with_value(params.ucode_imem_va),
-+        );
-+
-+        gsp_falcon.start()?;
-+        gsp_falcon.wait_till_halted().inspect_err(|_| {
-+            dev_err!(
-+                dev,
-+                "Timeout waiting for HS binary to halt (mbox0={:#x})\n",
-+                gsp_falcon.read_mailbox0()
-+            );
-+        })?;
-+
-+        Self::core_resume(
-+            gsp_falcon,
-+            sec2_falcon,
-+            dev,
-+            bootloader_app_version,
-+            libos_dma_handle,
-+        )
-+    }
-+
-     /// Shut down the GSP and wait until it is offline.
-     fn shutdown_gsp(
-         cmdq: &Cmdq,
-@@ -146,3 +335,39 @@ pub(crate) fn unload(
-         res.inspect(|()| dev_info!(dev, "GSP successfully unloaded\n"))
+ // Alias to avoid repeating the version number with every use.
+ use r000_00 as bindings;
+@@ -512,10 +511,9 @@ fn init(sequence: u32, cmd_size: usize, function: MsgFunction) -> impl Init<Self
      }
  }
-+
-+/// Value Open RM leaves in `MAILBOX0` before starting a falcon binary, so a binary that never
-+/// runs is distinguishable from one that ran and returned success.
-+const FLCN_ERR_BINARY_NOT_STARTED: u32 = 0xfe;
-+
-+/// `ucode_dmem_va` value meaning the binary has no DMEM virtual address.
-+const FLCN_DMEM_VA_INVALID: u32 = 0xffff_ffff;
-+
-+/// Context DMA slot the HS binary is loaded through. Open RM hardcodes slot 0 for this event and
-+/// points it at local framebuffer.
-+const HS_BINARY_CTX_DMA: u8 = 0;
-+
-+/// Parameters for loading and executing an HS (High-Security) binary.
-+///
-+/// Sent by GSP-RM as the payload of `GSP_LOAD_EXEC_HS_BINARY`. The firmware
-+/// code and data are located in framebuffer memory at the given physical addresses.
-+#[repr(C)]
-+#[derive(Debug, Copy, Clone)]
-+struct HsBinaryParams {
-+    imem_phys_addr: u64,
-+    dmem_phys_addr: u64,
-+    _reserved64: [u64; 2],
-+    ucode_imem_va: u32,
-+    ucode_imem_pa: u32,
-+    ucode_imem_size: u32,
-+    ucode_dmem_va: u32,
-+    ucode_dmem_pa: u32,
-+    ucode_dmem_size: u32,
-+    hs_sig_dmem_addr: u32,
-+    engine_id_mask: u32,
-+    ucode_id: u32,
-+    _reserved32: [u32; 3],
-+}
-+
-+// SAFETY: This struct only contains integer types for which all bit patterns are valid.
-+unsafe impl FromBytes for HsBinaryParams {}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 5501c36a56af..88bb60c8a259 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -353,6 +353,7 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-     }
  
-     pub(crate) NV_PFALCON_FBIF_TRANSCFG(u32)[8] @ PFalconBase + 0x00000600 {
-+        3:3     engine_id_flag => bool;
-         2:2     mem_type => FalconFbifMemType;
-         1:0     target ?=> FalconFbifTarget;
-     }
+-/// GSP Message Element (r000 MCTP/NVDM format).
++/// GSP Message Element, in the MCTP/NVDM format.
+ ///
+ /// This is the transport-layer header for messages exchanged with GSP-RM.
+-/// r000 firmware uses MCTP/NVDM framing instead of the r570 `GSP_MSG_QUEUE_ELEMENT`.
+ #[repr(C)]
+ pub(crate) struct GspMsgElement {
+     mctp_magic: u32,
+diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144.rs b/drivers/gpu/nova-core/gsp/fw/r570_144.rs
+deleted file mode 100644
+index 2e6f0d298756..000000000000
+--- a/drivers/gpu/nova-core/gsp/fw/r570_144.rs
++++ /dev/null
+@@ -1,31 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-
+-//! Firmware bindings.
+-//!
+-//! Imports the generated bindings by `bindgen`.
+-//!
+-//! This module may not be directly used. Please abstract or re-export the needed symbols in the
+-//! parent module instead.
+-
+-#![allow(
+-    dead_code,
+-    clippy::all,
+-    clippy::undocumented_unsafe_blocks,
+-    clippy::ptr_as_ptr,
+-    clippy::ref_as_ptr,
+-    missing_docs,
+-    non_camel_case_types,
+-    non_upper_case_globals,
+-    non_snake_case,
+-    improper_ctypes,
+-    unreachable_pub,
+-    unsafe_op_in_unsafe_fn
+-)]
+-use kernel::ffi;
+-use pin_init::MaybeZeroable;
+-
+-include!("r570_144/bindings.rs");
+-
+-// SAFETY: This type has a size of zero, so its inclusion into another type should not affect their
+-// ability to implement `Zeroable`.
+-unsafe impl<T> kernel::prelude::Zeroable for __IncompleteArrayField<T> {}
+diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+deleted file mode 100644
+index afe3e007f088..000000000000
+--- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
++++ /dev/null
+@@ -1,1060 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-
+-#[repr(C)]
+-#[derive(Default)]
+-pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>, [T; 0]);
+-impl<T> __IncompleteArrayField<T> {
+-    #[inline]
+-    pub const fn new() -> Self {
+-        __IncompleteArrayField(::core::marker::PhantomData, [])
+-    }
+-    #[inline]
+-    pub fn as_ptr(&self) -> *const T {
+-        self as *const _ as *const T
+-    }
+-    #[inline]
+-    pub fn as_mut_ptr(&mut self) -> *mut T {
+-        self as *mut _ as *mut T
+-    }
+-    #[inline]
+-    pub unsafe fn as_slice(&self, len: usize) -> &[T] {
+-        ::core::slice::from_raw_parts(self.as_ptr(), len)
+-    }
+-    #[inline]
+-    pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
+-        ::core::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
+-    }
+-}
+-impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
+-    fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+-        fmt.write_str("__IncompleteArrayField")
+-    }
+-}
+-pub const NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_0: u32 = 0;
+-pub const NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3: u32 = 3;
+-pub const NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_7: u32 = 7;
+-pub const NV_VGPU_MSG_SIGNATURE_VALID: u32 = 1129337430;
+-pub const GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS2: u32 = 0;
+-pub const GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS3_BAREMETAL: u32 = 23068672;
+-pub const GSP_FW_HEAP_PARAM_BASE_RM_SIZE_TU10X: u32 = 8388608;
+-pub const GSP_FW_HEAP_PARAM_BASE_RM_SIZE_GH100: u32 = 14680064;
+-pub const GSP_FW_HEAP_PARAM_SIZE_PER_GB_FB: u32 = 98304;
+-pub const GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE: u32 = 100663296;
+-pub const GSP_FW_HEAP_SIZE_VGPU_DEFAULT: u32 = 609222656;
+-pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB: u32 = 64;
+-pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB: u32 = 256;
+-pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB: u32 = 88;
+-pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MAX_MB: u32 = 280;
+-pub const GSP_FW_WPR_META_REVISION: u32 = 1;
+-pub const GSP_FW_WPR_META_MAGIC: i64 = -2577556379034558285;
+-pub const REGISTRY_TABLE_ENTRY_TYPE_DWORD: u32 = 1;
+-pub const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: u32 = 65536;
+-pub type __u8 = ffi::c_uchar;
+-pub type __u16 = ffi::c_ushort;
+-pub type __u32 = ffi::c_uint;
+-pub type __u64 = ffi::c_ulonglong;
+-pub type u8_ = __u8;
+-pub type u16_ = __u16;
+-pub type u32_ = __u32;
+-pub type u64_ = __u64;
+-pub const NV_VGPU_MSG_FUNCTION_NOP: _bindgen_ty_2 = 0;
+-pub const NV_VGPU_MSG_FUNCTION_SET_GUEST_SYSTEM_INFO: _bindgen_ty_2 = 1;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_ROOT: _bindgen_ty_2 = 2;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_DEVICE: _bindgen_ty_2 = 3;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_MEMORY: _bindgen_ty_2 = 4;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_CTX_DMA: _bindgen_ty_2 = 5;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_CHANNEL_DMA: _bindgen_ty_2 = 6;
+-pub const NV_VGPU_MSG_FUNCTION_MAP_MEMORY: _bindgen_ty_2 = 7;
+-pub const NV_VGPU_MSG_FUNCTION_BIND_CTX_DMA: _bindgen_ty_2 = 8;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_OBJECT: _bindgen_ty_2 = 9;
+-pub const NV_VGPU_MSG_FUNCTION_FREE: _bindgen_ty_2 = 10;
+-pub const NV_VGPU_MSG_FUNCTION_LOG: _bindgen_ty_2 = 11;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_VIDMEM: _bindgen_ty_2 = 12;
+-pub const NV_VGPU_MSG_FUNCTION_UNMAP_MEMORY: _bindgen_ty_2 = 13;
+-pub const NV_VGPU_MSG_FUNCTION_MAP_MEMORY_DMA: _bindgen_ty_2 = 14;
+-pub const NV_VGPU_MSG_FUNCTION_UNMAP_MEMORY_DMA: _bindgen_ty_2 = 15;
+-pub const NV_VGPU_MSG_FUNCTION_GET_EDID: _bindgen_ty_2 = 16;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_DISP_CHANNEL: _bindgen_ty_2 = 17;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_DISP_OBJECT: _bindgen_ty_2 = 18;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_SUBDEVICE: _bindgen_ty_2 = 19;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_DYNAMIC_MEMORY: _bindgen_ty_2 = 20;
+-pub const NV_VGPU_MSG_FUNCTION_DUP_OBJECT: _bindgen_ty_2 = 21;
+-pub const NV_VGPU_MSG_FUNCTION_IDLE_CHANNELS: _bindgen_ty_2 = 22;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_EVENT: _bindgen_ty_2 = 23;
+-pub const NV_VGPU_MSG_FUNCTION_SEND_EVENT: _bindgen_ty_2 = 24;
+-pub const NV_VGPU_MSG_FUNCTION_REMAPPER_CONTROL: _bindgen_ty_2 = 25;
+-pub const NV_VGPU_MSG_FUNCTION_DMA_CONTROL: _bindgen_ty_2 = 26;
+-pub const NV_VGPU_MSG_FUNCTION_DMA_FILL_PTE_MEM: _bindgen_ty_2 = 27;
+-pub const NV_VGPU_MSG_FUNCTION_MANAGE_HW_RESOURCE: _bindgen_ty_2 = 28;
+-pub const NV_VGPU_MSG_FUNCTION_BIND_ARBITRARY_CTX_DMA: _bindgen_ty_2 = 29;
+-pub const NV_VGPU_MSG_FUNCTION_CREATE_FB_SEGMENT: _bindgen_ty_2 = 30;
+-pub const NV_VGPU_MSG_FUNCTION_DESTROY_FB_SEGMENT: _bindgen_ty_2 = 31;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_SHARE_DEVICE: _bindgen_ty_2 = 32;
+-pub const NV_VGPU_MSG_FUNCTION_DEFERRED_API_CONTROL: _bindgen_ty_2 = 33;
+-pub const NV_VGPU_MSG_FUNCTION_REMOVE_DEFERRED_API: _bindgen_ty_2 = 34;
+-pub const NV_VGPU_MSG_FUNCTION_SIM_ESCAPE_READ: _bindgen_ty_2 = 35;
+-pub const NV_VGPU_MSG_FUNCTION_SIM_ESCAPE_WRITE: _bindgen_ty_2 = 36;
+-pub const NV_VGPU_MSG_FUNCTION_SIM_MANAGE_DISPLAY_CONTEXT_DMA: _bindgen_ty_2 = 37;
+-pub const NV_VGPU_MSG_FUNCTION_FREE_VIDMEM_VIRT: _bindgen_ty_2 = 38;
+-pub const NV_VGPU_MSG_FUNCTION_PERF_GET_PSTATE_INFO: _bindgen_ty_2 = 39;
+-pub const NV_VGPU_MSG_FUNCTION_PERF_GET_PERFMON_SAMPLE: _bindgen_ty_2 = 40;
+-pub const NV_VGPU_MSG_FUNCTION_PERF_GET_VIRTUAL_PSTATE_INFO: _bindgen_ty_2 = 41;
+-pub const NV_VGPU_MSG_FUNCTION_PERF_GET_LEVEL_INFO: _bindgen_ty_2 = 42;
+-pub const NV_VGPU_MSG_FUNCTION_MAP_SEMA_MEMORY: _bindgen_ty_2 = 43;
+-pub const NV_VGPU_MSG_FUNCTION_UNMAP_SEMA_MEMORY: _bindgen_ty_2 = 44;
+-pub const NV_VGPU_MSG_FUNCTION_SET_SURFACE_PROPERTIES: _bindgen_ty_2 = 45;
+-pub const NV_VGPU_MSG_FUNCTION_CLEANUP_SURFACE: _bindgen_ty_2 = 46;
+-pub const NV_VGPU_MSG_FUNCTION_UNLOADING_GUEST_DRIVER: _bindgen_ty_2 = 47;
+-pub const NV_VGPU_MSG_FUNCTION_TDR_SET_TIMEOUT_STATE: _bindgen_ty_2 = 48;
+-pub const NV_VGPU_MSG_FUNCTION_SWITCH_TO_VGA: _bindgen_ty_2 = 49;
+-pub const NV_VGPU_MSG_FUNCTION_GPU_EXEC_REG_OPS: _bindgen_ty_2 = 50;
+-pub const NV_VGPU_MSG_FUNCTION_GET_STATIC_INFO: _bindgen_ty_2 = 51;
+-pub const NV_VGPU_MSG_FUNCTION_ALLOC_VIRTMEM: _bindgen_ty_2 = 52;
+-pub const NV_VGPU_MSG_FUNCTION_UPDATE_PDE_2: _bindgen_ty_2 = 53;
+-pub const NV_VGPU_MSG_FUNCTION_SET_PAGE_DIRECTORY: _bindgen_ty_2 = 54;
+-pub const NV_VGPU_MSG_FUNCTION_GET_STATIC_PSTATE_INFO: _bindgen_ty_2 = 55;
+-pub const NV_VGPU_MSG_FUNCTION_TRANSLATE_GUEST_GPU_PTES: _bindgen_ty_2 = 56;
+-pub const NV_VGPU_MSG_FUNCTION_RESERVED_57: _bindgen_ty_2 = 57;
+-pub const NV_VGPU_MSG_FUNCTION_RESET_CURRENT_GR_CONTEXT: _bindgen_ty_2 = 58;
+-pub const NV_VGPU_MSG_FUNCTION_SET_SEMA_MEM_VALIDATION_STATE: _bindgen_ty_2 = 59;
+-pub const NV_VGPU_MSG_FUNCTION_GET_ENGINE_UTILIZATION: _bindgen_ty_2 = 60;
+-pub const NV_VGPU_MSG_FUNCTION_UPDATE_GPU_PDES: _bindgen_ty_2 = 61;
+-pub const NV_VGPU_MSG_FUNCTION_GET_ENCODER_CAPACITY: _bindgen_ty_2 = 62;
+-pub const NV_VGPU_MSG_FUNCTION_VGPU_PF_REG_READ32: _bindgen_ty_2 = 63;
+-pub const NV_VGPU_MSG_FUNCTION_SET_GUEST_SYSTEM_INFO_EXT: _bindgen_ty_2 = 64;
+-pub const NV_VGPU_MSG_FUNCTION_GET_GSP_STATIC_INFO: _bindgen_ty_2 = 65;
+-pub const NV_VGPU_MSG_FUNCTION_RMFS_INIT: _bindgen_ty_2 = 66;
+-pub const NV_VGPU_MSG_FUNCTION_RMFS_CLOSE_QUEUE: _bindgen_ty_2 = 67;
+-pub const NV_VGPU_MSG_FUNCTION_RMFS_CLEANUP: _bindgen_ty_2 = 68;
+-pub const NV_VGPU_MSG_FUNCTION_RMFS_TEST: _bindgen_ty_2 = 69;
+-pub const NV_VGPU_MSG_FUNCTION_UPDATE_BAR_PDE: _bindgen_ty_2 = 70;
+-pub const NV_VGPU_MSG_FUNCTION_CONTINUATION_RECORD: _bindgen_ty_2 = 71;
+-pub const NV_VGPU_MSG_FUNCTION_GSP_SET_SYSTEM_INFO: _bindgen_ty_2 = 72;
+-pub const NV_VGPU_MSG_FUNCTION_SET_REGISTRY: _bindgen_ty_2 = 73;
+-pub const NV_VGPU_MSG_FUNCTION_GSP_INIT_POST_OBJGPU: _bindgen_ty_2 = 74;
+-pub const NV_VGPU_MSG_FUNCTION_SUBDEV_EVENT_SET_NOTIFICATION: _bindgen_ty_2 = 75;
+-pub const NV_VGPU_MSG_FUNCTION_GSP_RM_CONTROL: _bindgen_ty_2 = 76;
+-pub const NV_VGPU_MSG_FUNCTION_GET_STATIC_INFO2: _bindgen_ty_2 = 77;
+-pub const NV_VGPU_MSG_FUNCTION_DUMP_PROTOBUF_COMPONENT: _bindgen_ty_2 = 78;
+-pub const NV_VGPU_MSG_FUNCTION_UNSET_PAGE_DIRECTORY: _bindgen_ty_2 = 79;
+-pub const NV_VGPU_MSG_FUNCTION_GET_CONSOLIDATED_STATIC_INFO: _bindgen_ty_2 = 80;
+-pub const NV_VGPU_MSG_FUNCTION_GMMU_REGISTER_FAULT_BUFFER: _bindgen_ty_2 = 81;
+-pub const NV_VGPU_MSG_FUNCTION_GMMU_UNREGISTER_FAULT_BUFFER: _bindgen_ty_2 = 82;
+-pub const NV_VGPU_MSG_FUNCTION_GMMU_REGISTER_CLIENT_SHADOW_FAULT_BUFFER: _bindgen_ty_2 = 83;
+-pub const NV_VGPU_MSG_FUNCTION_GMMU_UNREGISTER_CLIENT_SHADOW_FAULT_BUFFER: _bindgen_ty_2 = 84;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_VGPU_FB_USAGE: _bindgen_ty_2 = 85;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_NVFBC_SW_SESSION_UPDATE_INFO: _bindgen_ty_2 = 86;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_NVENC_SW_SESSION_UPDATE_INFO: _bindgen_ty_2 = 87;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RESET_CHANNEL: _bindgen_ty_2 = 88;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RESET_ISOLATED_CHANNEL: _bindgen_ty_2 = 89;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPU_HANDLE_VF_PRI_FAULT: _bindgen_ty_2 = 90;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CLK_GET_EXTENDED_INFO: _bindgen_ty_2 = 91;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PERF_BOOST: _bindgen_ty_2 = 92;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PERF_VPSTATES_GET_CONTROL: _bindgen_ty_2 = 93;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_ZBC_CLEAR_TABLE: _bindgen_ty_2 = 94;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_ZBC_COLOR_CLEAR: _bindgen_ty_2 = 95;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_ZBC_DEPTH_CLEAR: _bindgen_ty_2 = 96;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPFIFO_SCHEDULE: _bindgen_ty_2 = 97;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_TIMESLICE: _bindgen_ty_2 = 98;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PREEMPT: _bindgen_ty_2 = 99;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FIFO_DISABLE_CHANNELS: _bindgen_ty_2 = 100;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_TSG_INTERLEAVE_LEVEL: _bindgen_ty_2 = 101;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_CHANNEL_INTERLEAVE_LEVEL: _bindgen_ty_2 = 102;
+-pub const NV_VGPU_MSG_FUNCTION_GSP_RM_ALLOC: _bindgen_ty_2 = 103;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_P2P_CAPS_V2: _bindgen_ty_2 = 104;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CIPHER_AES_ENCRYPT: _bindgen_ty_2 = 105;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CIPHER_SESSION_KEY: _bindgen_ty_2 = 106;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CIPHER_SESSION_KEY_STATUS: _bindgen_ty_2 = 107;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_CLEAR_ALL_SM_ERROR_STATES: _bindgen_ty_2 = 108;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_READ_ALL_SM_ERROR_STATES: _bindgen_ty_2 = 109;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_SET_EXCEPTION_MASK: _bindgen_ty_2 = 110;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPU_PROMOTE_CTX: _bindgen_ty_2 = 111;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GR_CTXSW_PREEMPTION_BIND: _bindgen_ty_2 = 112;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GR_SET_CTXSW_PREEMPTION_MODE: _bindgen_ty_2 = 113;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GR_CTXSW_ZCULL_BIND: _bindgen_ty_2 = 114;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPU_INITIALIZE_CTX: _bindgen_ty_2 = 115;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_VASPACE_COPY_SERVER_RESERVED_PDES: _bindgen_ty_2 = 116;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FIFO_CLEAR_FAULTED_BIT: _bindgen_ty_2 = 117;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_LATEST_ECC_ADDRESSES: _bindgen_ty_2 = 118;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_MC_SERVICE_INTERRUPTS: _bindgen_ty_2 = 119;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DMA_SET_DEFAULT_VASPACE: _bindgen_ty_2 = 120;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_CE_PCE_MASK: _bindgen_ty_2 = 121;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_ZBC_CLEAR_TABLE_ENTRY: _bindgen_ty_2 = 122;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_NVLINK_PEER_ID_MASK: _bindgen_ty_2 = 123;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_NVLINK_STATUS: _bindgen_ty_2 = 124;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_P2P_CAPS: _bindgen_ty_2 = 125;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_P2P_CAPS_MATRIX: _bindgen_ty_2 = 126;
+-pub const NV_VGPU_MSG_FUNCTION_RESERVED_0: _bindgen_ty_2 = 127;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RESERVE_PM_AREA_SMPC: _bindgen_ty_2 = 128;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RESERVE_HWPM_LEGACY: _bindgen_ty_2 = 129;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_B0CC_EXEC_REG_OPS: _bindgen_ty_2 = 130;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_BIND_PM_RESOURCES: _bindgen_ty_2 = 131;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_SUSPEND_CONTEXT: _bindgen_ty_2 = 132;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_RESUME_CONTEXT: _bindgen_ty_2 = 133;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_EXEC_REG_OPS: _bindgen_ty_2 = 134;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_SET_MODE_MMU_DEBUG: _bindgen_ty_2 = 135;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_READ_SINGLE_SM_ERROR_STATE: _bindgen_ty_2 = 136;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_CLEAR_SINGLE_SM_ERROR_STATE: _bindgen_ty_2 = 137;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_SET_MODE_ERRBAR_DEBUG: _bindgen_ty_2 = 138;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_SET_NEXT_STOP_TRIGGER_TYPE: _bindgen_ty_2 = 139;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_ALLOC_PMA_STREAM: _bindgen_ty_2 = 140;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PMA_STREAM_UPDATE_GET_PUT: _bindgen_ty_2 = 141;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FB_GET_INFO_V2: _bindgen_ty_2 = 142;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FIFO_SET_CHANNEL_PROPERTIES: _bindgen_ty_2 = 143;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GR_GET_CTX_BUFFER_INFO: _bindgen_ty_2 = 144;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_KGR_GET_CTX_BUFFER_PTES: _bindgen_ty_2 = 145;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPU_EVICT_CTX: _bindgen_ty_2 = 146;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FB_GET_FS_INFO: _bindgen_ty_2 = 147;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GRMGR_GET_GR_FS_INFO: _bindgen_ty_2 = 148;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_STOP_CHANNEL: _bindgen_ty_2 = 149;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GR_PC_SAMPLING_MODE: _bindgen_ty_2 = 150;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PERF_RATED_TDP_GET_STATUS: _bindgen_ty_2 = 151;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PERF_RATED_TDP_SET_CONTROL: _bindgen_ty_2 = 152;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FREE_PMA_STREAM: _bindgen_ty_2 = 153;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_TIMER_SET_GR_TICK_FREQ: _bindgen_ty_2 = 154;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FIFO_SETUP_VF_ZOMBIE_SUBCTX_PDB: _bindgen_ty_2 = 155;
+-pub const NV_VGPU_MSG_FUNCTION_GET_CONSOLIDATED_GR_STATIC_INFO: _bindgen_ty_2 = 156;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_SET_SINGLE_SM_SINGLE_STEP: _bindgen_ty_2 = 157;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GR_GET_TPC_PARTITION_MODE: _bindgen_ty_2 = 158;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GR_SET_TPC_PARTITION_MODE: _bindgen_ty_2 = 159;
+-pub const NV_VGPU_MSG_FUNCTION_UVM_PAGING_CHANNEL_ALLOCATE: _bindgen_ty_2 = 160;
+-pub const NV_VGPU_MSG_FUNCTION_UVM_PAGING_CHANNEL_DESTROY: _bindgen_ty_2 = 161;
+-pub const NV_VGPU_MSG_FUNCTION_UVM_PAGING_CHANNEL_MAP: _bindgen_ty_2 = 162;
+-pub const NV_VGPU_MSG_FUNCTION_UVM_PAGING_CHANNEL_UNMAP: _bindgen_ty_2 = 163;
+-pub const NV_VGPU_MSG_FUNCTION_UVM_PAGING_CHANNEL_PUSH_STREAM: _bindgen_ty_2 = 164;
+-pub const NV_VGPU_MSG_FUNCTION_UVM_PAGING_CHANNEL_SET_HANDLES: _bindgen_ty_2 = 165;
+-pub const NV_VGPU_MSG_FUNCTION_UVM_METHOD_STREAM_GUEST_PAGES_OPERATION: _bindgen_ty_2 = 166;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_INTERNAL_QUIESCE_PMA_CHANNEL: _bindgen_ty_2 = 167;
+-pub const NV_VGPU_MSG_FUNCTION_DCE_RM_INIT: _bindgen_ty_2 = 168;
+-pub const NV_VGPU_MSG_FUNCTION_REGISTER_VIRTUAL_EVENT_BUFFER: _bindgen_ty_2 = 169;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_EVENT_BUFFER_UPDATE_GET: _bindgen_ty_2 = 170;
+-pub const NV_VGPU_MSG_FUNCTION_GET_PLCABLE_ADDRESS_KIND: _bindgen_ty_2 = 171;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PERF_LIMITS_SET_STATUS_V2: _bindgen_ty_2 = 172;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_INTERNAL_SRIOV_PROMOTE_PMA_STREAM: _bindgen_ty_2 = 173;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_MMU_DEBUG_MODE: _bindgen_ty_2 = 174;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_INTERNAL_PROMOTE_FAULT_METHOD_BUFFERS: _bindgen_ty_2 = 175;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FLCN_GET_CTX_BUFFER_SIZE: _bindgen_ty_2 = 176;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FLCN_GET_CTX_BUFFER_INFO: _bindgen_ty_2 = 177;
+-pub const NV_VGPU_MSG_FUNCTION_DISABLE_CHANNELS: _bindgen_ty_2 = 178;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FABRIC_MEMORY_DESCRIBE: _bindgen_ty_2 = 179;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FABRIC_MEM_STATS: _bindgen_ty_2 = 180;
+-pub const NV_VGPU_MSG_FUNCTION_SAVE_HIBERNATION_DATA: _bindgen_ty_2 = 181;
+-pub const NV_VGPU_MSG_FUNCTION_RESTORE_HIBERNATION_DATA: _bindgen_ty_2 = 182;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_INTERNAL_MEMSYS_SET_ZBC_REFERENCED: _bindgen_ty_2 = 183;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_EXEC_PARTITIONS_CREATE: _bindgen_ty_2 = 184;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_EXEC_PARTITIONS_DELETE: _bindgen_ty_2 = 185;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPFIFO_GET_WORK_SUBMIT_TOKEN: _bindgen_ty_2 = 186;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPFIFO_SET_WORK_SUBMIT_TOKEN_NOTIF_INDEX: _bindgen_ty_2 = 187;
+-pub const NV_VGPU_MSG_FUNCTION_PMA_SCRUBBER_SHARED_BUFFER_GUEST_PAGES_OPERATION: _bindgen_ty_2 =
+-    188;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_MASTER_GET_VIRTUAL_FUNCTION_ERROR_CONT_INTR_MASK:
+-    _bindgen_ty_2 = 189;
+-pub const NV_VGPU_MSG_FUNCTION_SET_SYSMEM_DIRTY_PAGE_TRACKING_BUFFER: _bindgen_ty_2 = 190;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SUBDEVICE_GET_P2P_CAPS: _bindgen_ty_2 = 191;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_BUS_SET_P2P_MAPPING: _bindgen_ty_2 = 192;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_BUS_UNSET_P2P_MAPPING: _bindgen_ty_2 = 193;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_FLA_SETUP_INSTANCE_MEM_BLOCK: _bindgen_ty_2 = 194;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPU_MIGRATABLE_OPS: _bindgen_ty_2 = 195;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_TOTAL_HS_CREDITS: _bindgen_ty_2 = 196;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GET_HS_CREDITS: _bindgen_ty_2 = 197;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_HS_CREDITS: _bindgen_ty_2 = 198;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_PM_AREA_PC_SAMPLER: _bindgen_ty_2 = 199;
+-pub const NV_VGPU_MSG_FUNCTION_INVALIDATE_TLB: _bindgen_ty_2 = 200;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPU_QUERY_ECC_STATUS: _bindgen_ty_2 = 201;
+-pub const NV_VGPU_MSG_FUNCTION_ECC_NOTIFIER_WRITE_ACK: _bindgen_ty_2 = 202;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_GET_MODE_MMU_DEBUG: _bindgen_ty_2 = 203;
+-pub const NV_VGPU_MSG_FUNCTION_RM_API_CONTROL: _bindgen_ty_2 = 204;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CMD_INTERNAL_GPU_START_FABRIC_PROBE: _bindgen_ty_2 = 205;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_NVLINK_GET_INBAND_RECEIVED_DATA: _bindgen_ty_2 = 206;
+-pub const NV_VGPU_MSG_FUNCTION_GET_STATIC_DATA: _bindgen_ty_2 = 207;
+-pub const NV_VGPU_MSG_FUNCTION_RESERVED_208: _bindgen_ty_2 = 208;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_GPU_GET_INFO_V2: _bindgen_ty_2 = 209;
+-pub const NV_VGPU_MSG_FUNCTION_GET_BRAND_CAPS: _bindgen_ty_2 = 210;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CMD_NVLINK_INBAND_SEND_DATA: _bindgen_ty_2 = 211;
+-pub const NV_VGPU_MSG_FUNCTION_UPDATE_GPM_GUEST_BUFFER_INFO: _bindgen_ty_2 = 212;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CMD_INTERNAL_CONTROL_GSP_TRACE: _bindgen_ty_2 = 213;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SET_ZBC_STENCIL_CLEAR: _bindgen_ty_2 = 214;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SUBDEVICE_GET_VGPU_HEAP_STATS: _bindgen_ty_2 = 215;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_SUBDEVICE_GET_LIBOS_HEAP_STATS: _bindgen_ty_2 = 216;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_SET_MODE_MMU_GCC_DEBUG: _bindgen_ty_2 = 217;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_DBG_GET_MODE_MMU_GCC_DEBUG: _bindgen_ty_2 = 218;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RESERVE_HES: _bindgen_ty_2 = 219;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RELEASE_HES: _bindgen_ty_2 = 220;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RESERVE_CCU_PROF: _bindgen_ty_2 = 221;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_RELEASE_CCU_PROF: _bindgen_ty_2 = 222;
+-pub const NV_VGPU_MSG_FUNCTION_RESERVED: _bindgen_ty_2 = 223;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CMD_GET_CHIPLET_HS_CREDIT_POOL: _bindgen_ty_2 = 224;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_CMD_GET_HS_CREDITS_MAPPING: _bindgen_ty_2 = 225;
+-pub const NV_VGPU_MSG_FUNCTION_CTRL_EXEC_PARTITIONS_EXPORT: _bindgen_ty_2 = 226;
+-pub const NV_VGPU_MSG_FUNCTION_NUM_FUNCTIONS: _bindgen_ty_2 = 227;
+-pub type _bindgen_ty_2 = ffi::c_uint;
+-pub const NV_VGPU_MSG_EVENT_FIRST_EVENT: _bindgen_ty_3 = 4096;
+-pub const NV_VGPU_MSG_EVENT_GSP_INIT_DONE: _bindgen_ty_3 = 4097;
+-pub const NV_VGPU_MSG_EVENT_GSP_RUN_CPU_SEQUENCER: _bindgen_ty_3 = 4098;
+-pub const NV_VGPU_MSG_EVENT_POST_EVENT: _bindgen_ty_3 = 4099;
+-pub const NV_VGPU_MSG_EVENT_RC_TRIGGERED: _bindgen_ty_3 = 4100;
+-pub const NV_VGPU_MSG_EVENT_MMU_FAULT_QUEUED: _bindgen_ty_3 = 4101;
+-pub const NV_VGPU_MSG_EVENT_OS_ERROR_LOG: _bindgen_ty_3 = 4102;
+-pub const NV_VGPU_MSG_EVENT_RG_LINE_INTR: _bindgen_ty_3 = 4103;
+-pub const NV_VGPU_MSG_EVENT_GPUACCT_PERFMON_UTIL_SAMPLES: _bindgen_ty_3 = 4104;
+-pub const NV_VGPU_MSG_EVENT_SIM_READ: _bindgen_ty_3 = 4105;
+-pub const NV_VGPU_MSG_EVENT_SIM_WRITE: _bindgen_ty_3 = 4106;
+-pub const NV_VGPU_MSG_EVENT_SEMAPHORE_SCHEDULE_CALLBACK: _bindgen_ty_3 = 4107;
+-pub const NV_VGPU_MSG_EVENT_UCODE_LIBOS_PRINT: _bindgen_ty_3 = 4108;
+-pub const NV_VGPU_MSG_EVENT_VGPU_GSP_PLUGIN_TRIGGERED: _bindgen_ty_3 = 4109;
+-pub const NV_VGPU_MSG_EVENT_PERF_GPU_BOOST_SYNC_LIMITS_CALLBACK: _bindgen_ty_3 = 4110;
+-pub const NV_VGPU_MSG_EVENT_PERF_BRIDGELESS_INFO_UPDATE: _bindgen_ty_3 = 4111;
+-pub const NV_VGPU_MSG_EVENT_VGPU_CONFIG: _bindgen_ty_3 = 4112;
+-pub const NV_VGPU_MSG_EVENT_DISPLAY_MODESET: _bindgen_ty_3 = 4113;
+-pub const NV_VGPU_MSG_EVENT_EXTDEV_INTR_SERVICE: _bindgen_ty_3 = 4114;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_INBAND_RECEIVED_DATA_256: _bindgen_ty_3 = 4115;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_INBAND_RECEIVED_DATA_512: _bindgen_ty_3 = 4116;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_INBAND_RECEIVED_DATA_1024: _bindgen_ty_3 = 4117;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_INBAND_RECEIVED_DATA_2048: _bindgen_ty_3 = 4118;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_INBAND_RECEIVED_DATA_4096: _bindgen_ty_3 = 4119;
+-pub const NV_VGPU_MSG_EVENT_TIMED_SEMAPHORE_RELEASE: _bindgen_ty_3 = 4120;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_IS_GPU_DEGRADED: _bindgen_ty_3 = 4121;
+-pub const NV_VGPU_MSG_EVENT_PFM_REQ_HNDLR_STATE_SYNC_CALLBACK: _bindgen_ty_3 = 4122;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_FAULT_UP: _bindgen_ty_3 = 4123;
+-pub const NV_VGPU_MSG_EVENT_GSP_LOCKDOWN_NOTICE: _bindgen_ty_3 = 4124;
+-pub const NV_VGPU_MSG_EVENT_MIG_CI_CONFIG_UPDATE: _bindgen_ty_3 = 4125;
+-pub const NV_VGPU_MSG_EVENT_UPDATE_GSP_TRACE: _bindgen_ty_3 = 4126;
+-pub const NV_VGPU_MSG_EVENT_NVLINK_FATAL_ERROR_RECOVERY: _bindgen_ty_3 = 4127;
+-pub const NV_VGPU_MSG_EVENT_GSP_POST_NOCAT_RECORD: _bindgen_ty_3 = 4128;
+-pub const NV_VGPU_MSG_EVENT_FECS_ERROR: _bindgen_ty_3 = 4129;
+-pub const NV_VGPU_MSG_EVENT_RECOVERY_ACTION: _bindgen_ty_3 = 4130;
+-pub const NV_VGPU_MSG_EVENT_NUM_EVENTS: _bindgen_ty_3 = 4131;
+-pub type _bindgen_ty_3 = ffi::c_uint;
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct NV0080_CTRL_GPU_GET_SRIOV_CAPS_PARAMS {
+-    pub totalVFs: u32_,
+-    pub firstVfOffset: u32_,
+-    pub vfFeatureMask: u32_,
+-    pub __bindgen_padding_0: [u8; 4usize],
+-    pub FirstVFBar0Address: u64_,
+-    pub FirstVFBar1Address: u64_,
+-    pub FirstVFBar2Address: u64_,
+-    pub bar0Size: u64_,
+-    pub bar1Size: u64_,
+-    pub bar2Size: u64_,
+-    pub b64bitBar0: u8_,
+-    pub b64bitBar1: u8_,
+-    pub b64bitBar2: u8_,
+-    pub bSriovEnabled: u8_,
+-    pub bSriovHeavyEnabled: u8_,
+-    pub bEmulateVFBar0TlbInvalidationRegister: u8_,
+-    pub bClientRmAllocatedCtxBuffer: u8_,
+-    pub bNonPowerOf2ChannelCountSupported: u8_,
+-    pub bVfResizableBAR1Supported: u8_,
+-    pub __bindgen_padding_1: [u8; 7usize],
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct NV2080_CTRL_BIOS_GET_SKU_INFO_PARAMS {
+-    pub BoardID: u32_,
+-    pub chipSKU: [ffi::c_char; 9usize],
+-    pub chipSKUMod: [ffi::c_char; 5usize],
+-    pub __bindgen_padding_0: [u8; 2usize],
+-    pub skuConfigVersion: u32_,
+-    pub project: [ffi::c_char; 5usize],
+-    pub projectSKU: [ffi::c_char; 5usize],
+-    pub CDP: [ffi::c_char; 6usize],
+-    pub projectSKUMod: [ffi::c_char; 2usize],
+-    pub __bindgen_padding_1: [u8; 2usize],
+-    pub businessCycle: u32_,
+-}
+-pub type NV2080_CTRL_CMD_FB_GET_FB_REGION_SURFACE_MEM_TYPE_FLAG = [u8_; 17usize];
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct NV2080_CTRL_CMD_FB_GET_FB_REGION_FB_REGION_INFO {
+-    pub base: u64_,
+-    pub limit: u64_,
+-    pub reserved: u64_,
+-    pub performance: u32_,
+-    pub supportCompressed: u8_,
+-    pub supportISO: u8_,
+-    pub bProtected: u8_,
+-    pub blackList: NV2080_CTRL_CMD_FB_GET_FB_REGION_SURFACE_MEM_TYPE_FLAG,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct NV2080_CTRL_CMD_FB_GET_FB_REGION_INFO_PARAMS {
+-    pub numFBRegions: u32_,
+-    pub __bindgen_padding_0: [u8; 4usize],
+-    pub fbRegion: [NV2080_CTRL_CMD_FB_GET_FB_REGION_FB_REGION_INFO; 16usize],
+-}
+-#[repr(C)]
+-#[derive(Debug, Copy, Clone, MaybeZeroable)]
+-pub struct NV2080_CTRL_GPU_GET_GID_INFO_PARAMS {
+-    pub index: u32_,
+-    pub flags: u32_,
+-    pub length: u32_,
+-    pub data: [u8_; 256usize],
+-}
+-impl Default for NV2080_CTRL_GPU_GET_GID_INFO_PARAMS {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct DOD_METHOD_DATA {
+-    pub status: u32_,
+-    pub acpiIdListLen: u32_,
+-    pub acpiIdList: [u32_; 16usize],
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct JT_METHOD_DATA {
+-    pub status: u32_,
+-    pub jtCaps: u32_,
+-    pub jtRevId: u16_,
+-    pub bSBIOSCaps: u8_,
+-    pub __bindgen_padding_0: u8,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct MUX_METHOD_DATA_ELEMENT {
+-    pub acpiId: u32_,
+-    pub mode: u32_,
+-    pub status: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct MUX_METHOD_DATA {
+-    pub tableLen: u32_,
+-    pub acpiIdMuxModeTable: [MUX_METHOD_DATA_ELEMENT; 16usize],
+-    pub acpiIdMuxPartTable: [MUX_METHOD_DATA_ELEMENT; 16usize],
+-    pub acpiIdMuxStateTable: [MUX_METHOD_DATA_ELEMENT; 16usize],
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct CAPS_METHOD_DATA {
+-    pub status: u32_,
+-    pub optimusCaps: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct ACPI_METHOD_DATA {
+-    pub bValid: u8_,
+-    pub __bindgen_padding_0: [u8; 3usize],
+-    pub dodMethodData: DOD_METHOD_DATA,
+-    pub jtMethodData: JT_METHOD_DATA,
+-    pub muxMethodData: MUX_METHOD_DATA,
+-    pub capsMethodData: CAPS_METHOD_DATA,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct VIRTUAL_DISPLAY_GET_MAX_RESOLUTION_PARAMS {
+-    pub headIndex: u32_,
+-    pub maxHResolution: u32_,
+-    pub maxVResolution: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct VIRTUAL_DISPLAY_GET_NUM_HEADS_PARAMS {
+-    pub numHeads: u32_,
+-    pub maxNumHeads: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct BUSINFO {
+-    pub deviceID: u16_,
+-    pub vendorID: u16_,
+-    pub subdeviceID: u16_,
+-    pub subvendorID: u16_,
+-    pub revisionID: u8_,
+-    pub __bindgen_padding_0: u8,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_VF_INFO {
+-    pub totalVFs: u32_,
+-    pub firstVFOffset: u32_,
+-    pub FirstVFBar0Address: u64_,
+-    pub FirstVFBar1Address: u64_,
+-    pub FirstVFBar2Address: u64_,
+-    pub b64bitBar0: u8_,
+-    pub b64bitBar1: u8_,
+-    pub b64bitBar2: u8_,
+-    pub __bindgen_padding_0: [u8; 5usize],
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_PCIE_CONFIG_REG {
+-    pub linkCap: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct EcidManufacturingInfo {
+-    pub ecidLow: u32_,
+-    pub ecidHigh: u32_,
+-    pub ecidExtended: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct FW_WPR_LAYOUT_OFFSET {
+-    pub nonWprHeapOffset: u64_,
+-    pub frtsOffset: u64_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Copy, Clone, MaybeZeroable)]
+-pub struct GspStaticConfigInfo_t {
+-    pub grCapsBits: [u8_; 23usize],
+-    pub __bindgen_padding_0: u8,
+-    pub gidInfo: NV2080_CTRL_GPU_GET_GID_INFO_PARAMS,
+-    pub SKUInfo: NV2080_CTRL_BIOS_GET_SKU_INFO_PARAMS,
+-    pub __bindgen_padding_1: [u8; 4usize],
+-    pub fbRegionInfoParams: NV2080_CTRL_CMD_FB_GET_FB_REGION_INFO_PARAMS,
+-    pub sriovCaps: NV0080_CTRL_GPU_GET_SRIOV_CAPS_PARAMS,
+-    pub sriovMaxGfid: u32_,
+-    pub engineCaps: [u32_; 3usize],
+-    pub poisonFuseEnabled: u8_,
+-    pub __bindgen_padding_2: [u8; 7usize],
+-    pub fb_length: u64_,
+-    pub fbio_mask: u64_,
+-    pub fb_bus_width: u32_,
+-    pub fb_ram_type: u32_,
+-    pub fbp_mask: u64_,
+-    pub l2_cache_size: u32_,
+-    pub gpuNameString: [u8_; 64usize],
+-    pub gpuShortNameString: [u8_; 64usize],
+-    pub gpuNameString_Unicode: [u16_; 64usize],
+-    pub bGpuInternalSku: u8_,
+-    pub bIsQuadroGeneric: u8_,
+-    pub bIsQuadroAd: u8_,
+-    pub bIsNvidiaNvs: u8_,
+-    pub bIsVgx: u8_,
+-    pub bGeforceSmb: u8_,
+-    pub bIsTitan: u8_,
+-    pub bIsTesla: u8_,
+-    pub bIsMobile: u8_,
+-    pub bIsGc6Rtd3Allowed: u8_,
+-    pub bIsGc8Rtd3Allowed: u8_,
+-    pub bIsGcOffRtd3Allowed: u8_,
+-    pub bIsGcoffLegacyAllowed: u8_,
+-    pub bIsMigSupported: u8_,
+-    pub RTD3GC6TotalBoardPower: u16_,
+-    pub RTD3GC6PerstDelay: u16_,
+-    pub __bindgen_padding_3: [u8; 2usize],
+-    pub bar1PdeBase: u64_,
+-    pub bar2PdeBase: u64_,
+-    pub bVbiosValid: u8_,
+-    pub __bindgen_padding_4: [u8; 3usize],
+-    pub vbiosSubVendor: u32_,
+-    pub vbiosSubDevice: u32_,
+-    pub bPageRetirementSupported: u8_,
+-    pub bSplitVasBetweenServerClientRm: u8_,
+-    pub bClRootportNeedsNosnoopWAR: u8_,
+-    pub __bindgen_padding_5: u8,
+-    pub displaylessMaxHeads: VIRTUAL_DISPLAY_GET_NUM_HEADS_PARAMS,
+-    pub displaylessMaxResolution: VIRTUAL_DISPLAY_GET_MAX_RESOLUTION_PARAMS,
+-    pub __bindgen_padding_6: [u8; 4usize],
+-    pub displaylessMaxPixels: u64_,
+-    pub hInternalClient: u32_,
+-    pub hInternalDevice: u32_,
+-    pub hInternalSubdevice: u32_,
+-    pub bSelfHostedMode: u8_,
+-    pub bAtsSupported: u8_,
+-    pub bIsGpuUefi: u8_,
+-    pub bIsEfiInit: u8_,
+-    pub ecidInfo: [EcidManufacturingInfo; 2usize],
+-    pub fwWprLayoutOffset: FW_WPR_LAYOUT_OFFSET,
+-}
+-impl Default for GspStaticConfigInfo_t {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GspSystemInfo {
+-    pub gpuPhysAddr: u64_,
+-    pub gpuPhysFbAddr: u64_,
+-    pub gpuPhysInstAddr: u64_,
+-    pub gpuPhysIoAddr: u64_,
+-    pub nvDomainBusDeviceFunc: u64_,
+-    pub simAccessBufPhysAddr: u64_,
+-    pub notifyOpSharedSurfacePhysAddr: u64_,
+-    pub pcieAtomicsOpMask: u64_,
+-    pub consoleMemSize: u64_,
+-    pub maxUserVa: u64_,
+-    pub pciConfigMirrorBase: u32_,
+-    pub pciConfigMirrorSize: u32_,
+-    pub PCIDeviceID: u32_,
+-    pub PCISubDeviceID: u32_,
+-    pub PCIRevisionID: u32_,
+-    pub pcieAtomicsCplDeviceCapMask: u32_,
+-    pub oorArch: u8_,
+-    pub __bindgen_padding_0: [u8; 7usize],
+-    pub clPdbProperties: u64_,
+-    pub Chipset: u32_,
+-    pub bGpuBehindBridge: u8_,
+-    pub bFlrSupported: u8_,
+-    pub b64bBar0Supported: u8_,
+-    pub bMnocAvailable: u8_,
+-    pub chipsetL1ssEnable: u32_,
+-    pub bUpstreamL0sUnsupported: u8_,
+-    pub bUpstreamL1Unsupported: u8_,
+-    pub bUpstreamL1PorSupported: u8_,
+-    pub bUpstreamL1PorMobileOnly: u8_,
+-    pub bSystemHasMux: u8_,
+-    pub upstreamAddressValid: u8_,
+-    pub FHBBusInfo: BUSINFO,
+-    pub chipsetIDInfo: BUSINFO,
+-    pub __bindgen_padding_1: [u8; 2usize],
+-    pub acpiMethodData: ACPI_METHOD_DATA,
+-    pub hypervisorType: u32_,
+-    pub bIsPassthru: u8_,
+-    pub __bindgen_padding_2: [u8; 7usize],
+-    pub sysTimerOffsetNs: u64_,
+-    pub gspVFInfo: GSP_VF_INFO,
+-    pub bIsPrimary: u8_,
+-    pub isGridBuild: u8_,
+-    pub __bindgen_padding_3: [u8; 2usize],
+-    pub pcieConfigReg: GSP_PCIE_CONFIG_REG,
+-    pub gridBuildCsp: u32_,
+-    pub bPreserveVideoMemoryAllocations: u8_,
+-    pub bTdrEventSupported: u8_,
+-    pub bFeatureStretchVblankCapable: u8_,
+-    pub bEnableDynamicGranularityPageArrays: u8_,
+-    pub bClockBoostSupported: u8_,
+-    pub bRouteDispIntrsToCPU: u8_,
+-    pub __bindgen_padding_4: [u8; 6usize],
+-    pub hostPageSize: u64_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct MESSAGE_QUEUE_INIT_ARGUMENTS {
+-    pub sharedMemPhysAddr: u64_,
+-    pub pageTableEntryCount: u32_,
+-    pub __bindgen_padding_0: [u8; 4usize],
+-    pub cmdQueueOffset: u64_,
+-    pub statQueueOffset: u64_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SR_INIT_ARGUMENTS {
+-    pub oldLevel: u32_,
+-    pub flags: u32_,
+-    pub bInPMTransition: u8_,
+-    pub __bindgen_padding_0: [u8; 3usize],
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_ARGUMENTS_CACHED {
+-    pub messageQueueInitArguments: MESSAGE_QUEUE_INIT_ARGUMENTS,
+-    pub srInitArguments: GSP_SR_INIT_ARGUMENTS,
+-    pub gpuInstance: u32_,
+-    pub bDmemStack: u8_,
+-    pub __bindgen_padding_0: [u8; 7usize],
+-    pub profilerArgs: GSP_ARGUMENTS_CACHED__bindgen_ty_1,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_ARGUMENTS_CACHED__bindgen_ty_1 {
+-    pub pa: u64_,
+-    pub size: u64_,
+-}
+-#[repr(C)]
+-#[derive(Copy, Clone, MaybeZeroable)]
+-pub union rpc_message_rpc_union_field_v03_00 {
+-    pub spare: u32_,
+-    pub cpuRmGfid: u32_,
+-}
+-impl Default for rpc_message_rpc_union_field_v03_00 {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-pub type rpc_message_rpc_union_field_v = rpc_message_rpc_union_field_v03_00;
+-#[repr(C)]
+-#[derive(MaybeZeroable)]
+-pub struct rpc_message_header_v03_00 {
+-    pub header_version: u32_,
+-    pub signature: u32_,
+-    pub length: u32_,
+-    pub function: u32_,
+-    pub rpc_result: u32_,
+-    pub rpc_result_private: u32_,
+-    pub sequence: u32_,
+-    pub u: rpc_message_rpc_union_field_v,
+-    pub rpc_message_data: __IncompleteArrayField<u8_>,
+-}
+-impl Default for rpc_message_header_v03_00 {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-pub type rpc_message_header_v = rpc_message_header_v03_00;
+-#[repr(C)]
+-#[derive(Copy, Clone, MaybeZeroable)]
+-pub struct GspFwWprMeta {
+-    pub magic: u64_,
+-    pub revision: u64_,
+-    pub sysmemAddrOfRadix3Elf: u64_,
+-    pub sizeOfRadix3Elf: u64_,
+-    pub sysmemAddrOfBootloader: u64_,
+-    pub sizeOfBootloader: u64_,
+-    pub bootloaderCodeOffset: u64_,
+-    pub bootloaderDataOffset: u64_,
+-    pub bootloaderManifestOffset: u64_,
+-    pub __bindgen_anon_1: GspFwWprMeta__bindgen_ty_1,
+-    pub gspFwRsvdStart: u64_,
+-    pub nonWprHeapOffset: u64_,
+-    pub nonWprHeapSize: u64_,
+-    pub gspFwWprStart: u64_,
+-    pub gspFwHeapOffset: u64_,
+-    pub gspFwHeapSize: u64_,
+-    pub gspFwOffset: u64_,
+-    pub bootBinOffset: u64_,
+-    pub frtsOffset: u64_,
+-    pub frtsSize: u64_,
+-    pub gspFwWprEnd: u64_,
+-    pub fbSize: u64_,
+-    pub vgaWorkspaceOffset: u64_,
+-    pub vgaWorkspaceSize: u64_,
+-    pub bootCount: u64_,
+-    pub __bindgen_anon_2: GspFwWprMeta__bindgen_ty_2,
+-    pub gspFwHeapVfPartitionCount: u8_,
+-    pub flags: u8_,
+-    pub padding: [u8_; 2usize],
+-    pub pmuReservedSize: u32_,
+-    pub verified: u64_,
+-}
+-#[repr(C)]
+-#[derive(Copy, Clone, MaybeZeroable)]
+-pub union GspFwWprMeta__bindgen_ty_1 {
+-    pub __bindgen_anon_1: GspFwWprMeta__bindgen_ty_1__bindgen_ty_1,
+-    pub __bindgen_anon_2: GspFwWprMeta__bindgen_ty_1__bindgen_ty_2,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GspFwWprMeta__bindgen_ty_1__bindgen_ty_1 {
+-    pub sysmemAddrOfSignature: u64_,
+-    pub sizeOfSignature: u64_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GspFwWprMeta__bindgen_ty_1__bindgen_ty_2 {
+-    pub gspFwHeapFreeListWprOffset: u32_,
+-    pub unused0: u32_,
+-    pub unused1: u64_,
+-}
+-impl Default for GspFwWprMeta__bindgen_ty_1 {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-#[repr(C)]
+-#[derive(Copy, Clone, MaybeZeroable)]
+-pub union GspFwWprMeta__bindgen_ty_2 {
+-    pub __bindgen_anon_1: GspFwWprMeta__bindgen_ty_2__bindgen_ty_1,
+-    pub __bindgen_anon_2: GspFwWprMeta__bindgen_ty_2__bindgen_ty_2,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GspFwWprMeta__bindgen_ty_2__bindgen_ty_1 {
+-    pub partitionRpcAddr: u64_,
+-    pub partitionRpcRequestOffset: u16_,
+-    pub partitionRpcReplyOffset: u16_,
+-    pub elfCodeOffset: u32_,
+-    pub elfDataOffset: u32_,
+-    pub elfCodeSize: u32_,
+-    pub elfDataSize: u32_,
+-    pub lsUcodeVersion: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GspFwWprMeta__bindgen_ty_2__bindgen_ty_2 {
+-    pub partitionRpcPadding: [u32_; 4usize],
+-    pub sysmemAddrOfCrashReportQueue: u64_,
+-    pub sizeOfCrashReportQueue: u32_,
+-    pub lsUcodeVersionPadding: [u32_; 1usize],
+-}
+-impl Default for GspFwWprMeta__bindgen_ty_2 {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-impl Default for GspFwWprMeta {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-pub type LibosAddress = u64_;
+-pub const LibosMemoryRegionKind_LIBOS_MEMORY_REGION_NONE: LibosMemoryRegionKind = 0;
+-pub const LibosMemoryRegionKind_LIBOS_MEMORY_REGION_CONTIGUOUS: LibosMemoryRegionKind = 1;
+-pub const LibosMemoryRegionKind_LIBOS_MEMORY_REGION_RADIX3: LibosMemoryRegionKind = 2;
+-pub type LibosMemoryRegionKind = ffi::c_uint;
+-pub const LibosMemoryRegionLoc_LIBOS_MEMORY_REGION_LOC_NONE: LibosMemoryRegionLoc = 0;
+-pub const LibosMemoryRegionLoc_LIBOS_MEMORY_REGION_LOC_SYSMEM: LibosMemoryRegionLoc = 1;
+-pub const LibosMemoryRegionLoc_LIBOS_MEMORY_REGION_LOC_FB: LibosMemoryRegionLoc = 2;
+-pub type LibosMemoryRegionLoc = ffi::c_uint;
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct LibosMemoryRegionInitArgument {
+-    pub id8: LibosAddress,
+-    pub pa: LibosAddress,
+-    pub size: LibosAddress,
+-    pub kind: u8_,
+-    pub loc: u8_,
+-    pub __bindgen_padding_0: [u8; 6usize],
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct PACKED_REGISTRY_ENTRY {
+-    pub nameOffset: u32_,
+-    pub type_: u8_,
+-    pub __bindgen_padding_0: [u8; 3usize],
+-    pub data: u32_,
+-    pub length: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, MaybeZeroable)]
+-pub struct PACKED_REGISTRY_TABLE {
+-    pub size: u32_,
+-    pub numEntries: u32_,
+-    pub entries: __IncompleteArrayField<PACKED_REGISTRY_ENTRY>,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct msgqTxHeader {
+-    pub version: u32_,
+-    pub size: u32_,
+-    pub msgSize: u32_,
+-    pub msgCount: u32_,
+-    pub writePtr: u32_,
+-    pub flags: u32_,
+-    pub rxHdrOff: u32_,
+-    pub entryOff: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct msgqRxHeader {
+-    pub readPtr: u32_,
+-}
+-#[repr(C)]
+-#[repr(align(8))]
+-#[derive(MaybeZeroable)]
+-pub struct GSP_MSG_QUEUE_ELEMENT {
+-    pub authTagBuffer: [u8_; 16usize],
+-    pub aadBuffer: [u8_; 16usize],
+-    pub checkSum: u32_,
+-    pub seqNum: u32_,
+-    pub elemCount: u32_,
+-    pub __bindgen_padding_0: [u8; 4usize],
+-    pub rpc: rpc_message_header_v,
+-}
+-impl Default for GSP_MSG_QUEUE_ELEMENT {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-pub const GSP_DMA_TARGET_GSP_DMA_TARGET_LOCAL_FB: GSP_DMA_TARGET = 0;
+-pub const GSP_DMA_TARGET_GSP_DMA_TARGET_COHERENT_SYSTEM: GSP_DMA_TARGET = 1;
+-pub const GSP_DMA_TARGET_GSP_DMA_TARGET_NONCOHERENT_SYSTEM: GSP_DMA_TARGET = 2;
+-pub const GSP_DMA_TARGET_GSP_DMA_TARGET_COUNT: GSP_DMA_TARGET = 3;
+-pub type GSP_DMA_TARGET = ffi::c_uint;
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_FMC_INIT_PARAMS {
+-    pub regkeys: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_ACR_BOOT_GSP_RM_PARAMS {
+-    pub target: GSP_DMA_TARGET,
+-    pub gspRmDescSize: u32_,
+-    pub gspRmDescOffset: u64_,
+-    pub wprCarveoutOffset: u64_,
+-    pub wprCarveoutSize: u32_,
+-    pub bIsGspRmBoot: u8_,
+-    pub __bindgen_padding_0: [u8; 3usize],
+-}
+-impl Default for GSP_ACR_BOOT_GSP_RM_PARAMS {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-#[repr(C)]
+-#[derive(Debug, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_RM_PARAMS {
+-    pub target: GSP_DMA_TARGET,
+-    pub __bindgen_padding_0: [u8; 4usize],
+-    pub bootArgsOffset: u64_,
+-}
+-impl Default for GSP_RM_PARAMS {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-#[repr(C)]
+-#[derive(Debug, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SPDM_PARAMS {
+-    pub target: GSP_DMA_TARGET,
+-    pub __bindgen_padding_0: [u8; 4usize],
+-    pub payloadBufferOffset: u64_,
+-    pub payloadBufferSize: u32_,
+-    pub __bindgen_padding_1: [u8; 4usize],
+-}
+-impl Default for GSP_SPDM_PARAMS {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-#[repr(C)]
+-#[derive(Debug, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_FMC_BOOT_PARAMS {
+-    pub initParams: GSP_FMC_INIT_PARAMS,
+-    pub __bindgen_padding_0: [u8; 4usize],
+-    pub bootGspRmParams: GSP_ACR_BOOT_GSP_RM_PARAMS,
+-    pub gspRmParams: GSP_RM_PARAMS,
+-    pub gspSpdmParams: GSP_SPDM_PARAMS,
+-}
+-impl Default for GSP_FMC_BOOT_PARAMS {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct rpc_unloading_guest_driver_v1F_07 {
+-    pub bInPMTransition: u8_,
+-    pub bGc6Entering: u8_,
+-    pub __bindgen_padding_0: [u8; 2usize],
+-    pub newLevel: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, MaybeZeroable)]
+-pub struct rpc_run_cpu_sequencer_v17_00 {
+-    pub bufferSizeDWord: u32_,
+-    pub cmdIndex: u32_,
+-    pub regSaveArea: [u32_; 8usize],
+-    pub commandBuffer: __IncompleteArrayField<u32_>,
+-}
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_REG_WRITE: GSP_SEQ_BUF_OPCODE = 0;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_REG_MODIFY: GSP_SEQ_BUF_OPCODE = 1;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_REG_POLL: GSP_SEQ_BUF_OPCODE = 2;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_DELAY_US: GSP_SEQ_BUF_OPCODE = 3;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_REG_STORE: GSP_SEQ_BUF_OPCODE = 4;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_CORE_RESET: GSP_SEQ_BUF_OPCODE = 5;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_CORE_START: GSP_SEQ_BUF_OPCODE = 6;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_CORE_WAIT_FOR_HALT: GSP_SEQ_BUF_OPCODE = 7;
+-pub const GSP_SEQ_BUF_OPCODE_GSP_SEQ_BUF_OPCODE_CORE_RESUME: GSP_SEQ_BUF_OPCODE = 8;
+-pub type GSP_SEQ_BUF_OPCODE = ffi::c_uint;
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SEQ_BUF_PAYLOAD_REG_WRITE {
+-    pub addr: u32_,
+-    pub val: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SEQ_BUF_PAYLOAD_REG_MODIFY {
+-    pub addr: u32_,
+-    pub mask: u32_,
+-    pub val: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SEQ_BUF_PAYLOAD_REG_POLL {
+-    pub addr: u32_,
+-    pub mask: u32_,
+-    pub val: u32_,
+-    pub timeout: u32_,
+-    pub error: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SEQ_BUF_PAYLOAD_DELAY_US {
+-    pub val: u32_,
+-}
+-#[repr(C)]
+-#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SEQ_BUF_PAYLOAD_REG_STORE {
+-    pub addr: u32_,
+-    pub index: u32_,
+-}
+-#[repr(C)]
+-#[derive(Copy, Clone, MaybeZeroable)]
+-pub struct GSP_SEQUENCER_BUFFER_CMD {
+-    pub opCode: GSP_SEQ_BUF_OPCODE,
+-    pub payload: GSP_SEQUENCER_BUFFER_CMD__bindgen_ty_1,
+-}
+-#[repr(C)]
+-#[derive(Copy, Clone, MaybeZeroable)]
+-pub union GSP_SEQUENCER_BUFFER_CMD__bindgen_ty_1 {
+-    pub regWrite: GSP_SEQ_BUF_PAYLOAD_REG_WRITE,
+-    pub regModify: GSP_SEQ_BUF_PAYLOAD_REG_MODIFY,
+-    pub regPoll: GSP_SEQ_BUF_PAYLOAD_REG_POLL,
+-    pub delayUs: GSP_SEQ_BUF_PAYLOAD_DELAY_US,
+-    pub regStore: GSP_SEQ_BUF_PAYLOAD_REG_STORE,
+-}
+-impl Default for GSP_SEQUENCER_BUFFER_CMD__bindgen_ty_1 {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
+-impl Default for GSP_SEQUENCER_BUFFER_CMD {
+-    fn default() -> Self {
+-        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
+-        unsafe {
+-            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+-            s.assume_init()
+-        }
+-    }
+-}
 -- 
 2.55.0
 
