@@ -1,47 +1,47 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010030.outbound.protection.outlook.com [52.101.193.30])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010026.outbound.protection.outlook.com [52.101.56.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291263C1F45
-	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 03:53:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8A83C3F7F
+	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 03:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787111588; cv=fail; b=VSJVcX9CgSyJi/ZUpybL3PmEKqxDoMDCqrtmS68gcOfsMIFv0ALJaC+3z7QEoXmIxGwl/+ZyJ01mO9/77vPfAA+wJOFLeXWubnbNbOzxv2/mN2V3SjRQEfSbZDKcDq5RVvkzuCE7Du4DsBmZdhnUUNndswmEle/j0JTs+TkcHgA=
+	t=1787111588; cv=fail; b=Q9zhGPWOS5m65fhDwBgk5pYul62IR0udxHEPBSJIyzKLoZt2XmpDh+qH4VHCzp995CrEESTzTOnLH00FySl6stkQEhWKMsSQH0CW5Ti2JVmhdcFiR8uriJrw44DSi0ZMqzWGQ1pF9yPhbL5Jy0yTuoVROPEqs77bFI0IumZUjBQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787111588; c=relaxed/simple;
-	bh=mkKt12sQX669dbg+i9lk6Ubs10aP5dzDzstDN0kwYEw=;
+	bh=2NGMAAm3oVwHLM+XeZH4xDCyGm+KmgU8CqRggeM3A2c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FWICdA55Qvwfm3B59fGSZ0TSB3f+cAs6d4uJlY5BtwudsFzQHY2XlN/q/sr5WzC8bkY2K7F6Oj5POtmM+FeJdctBSOfCs1oGAve6W+6Rxkl3LyyXPJohyG/d12lbTmJWIvcUscteEbrgxVIlvLgQOaM6Xd6t3EidKq/I/vEFOb4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OoAlrt7a; arc=fail smtp.client-ip=52.101.193.30
+	 Content-Type:MIME-Version; b=hZTs1HJf/RL9HQ2Ul2ssQHPn06oJaiILnQ5WB1NE+Hlf149aheVMz8aV/eiHYTWWKOF8nwxhiCrMOzvFWBTaLNCOUW1DkA/jkieagO1xZ/tnjX9Vg0tWnTVYe7vystqwQ5R5r6eh7RdsXQxI7xWa9RUxwc20wAhxG7AAOihxE0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GgKjiqc6; arc=fail smtp.client-ip=52.101.56.26
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OoAlrt7a"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GgKjiqc6"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hsL43w/9aArtRHzoqVPMPvKYkP9PsyDH3ae7RveGtZg3KGvUdWrY3mxdE4sCPm8zhYf22PnNj2brkeKE0x9wtj6S+iGVytPPiM4pxr6EiyQQPN4gHCHu9OZkTTQYlokmy895V0NNaHZEjVZbop27CsUuxQrTfWRo6sQytX1iXoKHTkccbCCIHhsTq+JwC1NFhs1nJtrd6wV4T5vdfI0WtfSSs8w9aBFPk6tfmvYg+T/lSqrDdkAr6Zu4r8AGvIqBzoG4d/RWwqaVbkwIWweIkvzbKO9NUYW88OoEcA/ue9nId7oJJuA7czY8bgv+D85lvGM6A/LNRC4miChLRWxzyw==
+ b=Rv5mt2y2rPUxHxN9OhWkQnnQWDuteMXK6P455fziO1wBqGJ/n0i4B1IGjM4kskh21u8ZbqCLcQwGSH6+IjjlA5l56CczrJtgmjvW6u3aZ6Ape7YvZ1HR75rixaCEQCdSy8+ybm/hSZhA+RwG9NZQ2LQdGCRIqGVJ+iqfySqQor3eAGm+gC7pXp1lc6gLUtrgs+/IdLREOnCyabOi/A8mVylMGZDJxUCLWgRkqg1jCIYIxfIkKeBIqD52eTgjm7dbhmzvkfQnh9jfdJ3mjIGgVShTbC7UVrHs+UJD7M9j8t2l3DYq1AwcQh8daOURvrhgoki0cMGtZ86Tn+y/FYNhNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E9nMU2PRY4KZoAlVHlWh9I+WBcyiQmPftMOxPxmc5WI=;
- b=Yir6nrw7jE+VogXWQrI98TPwd/zDoZAaTW+D2/udT1oPuIYVlEzD/piQO7DIUXDhv5On6RB8eU0ZaWLFXC8u3CH4/b5PCVnFxcE9ffXze0UNMLoKT6m/+zDQvsD21104pnnPhvF3kOZwAsSRDbZzBq/gzG/Mpj7J6IQKnRJTIhSdq1/ebDQFbMEFE8Mfak62SFUVpiZ94jmUktuO3JJ5jm9h/FWwtV4fxwXPK5wfJ60S7k/yZHXuyI5kTpGOh5iVLbLQLyWTLAt3gxKjLYe0yBCtvLwx5p25MU7U6TNQZfzBo9H8lo5jclW26LyVELNyn+lIaJU87tyEzTbO2soyAg==
+ bh=U62gGSM1nzq31O77d5dXuer7weF+r8FLoB4AmgXz39w=;
+ b=kYY1EzfQ8ENrZ/xlyIpIMSs9WmtbU13ZJqwvftSirK0eghvnNm/O5p0YlrRoqxcdzrmxh3bfZAyxUP/qKP1WWcxF+Bp0KJoEmZLVCw5NDjiwfYfxKmUUY2rW9ZmnK9kaESf4rwzAZv06GWmLt5Ak/Att4nmdLvcdBkUsJfz9qpaepVrE6z4Jqn9IYl39NMeEe36t0G6o8RCDLwViOqAALGgpyMQT0yjMCMnZCgeQGJGtRw7Mi3oDIMsCdpO9xckGkAr/KDKI+KQuo0EdUj/0cQsQl6IAtmOyV2s6V2p2eoPn7o1oAhwzFljl9IeJSCfRfTmHZ1v6f66sy97o23BWlQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E9nMU2PRY4KZoAlVHlWh9I+WBcyiQmPftMOxPxmc5WI=;
- b=OoAlrt7aXmT6bmNrm+VWlH/UneFoPS8LRw0p6PPFTh4xcF/I+QUSvMGWDdHM2xyM6ImLhiPvsnrr4hwDu7Yg74mzbM59xJnHsbWLPy73855wJfIHGb7NI+rObioxOJaXCGhc8QTzyXepnVbIT8itBo4ioP0KtygyLnqCiz4Lz6yeq3/AgKhKn5HWHzIVOIUa8ZB8j6L4wm14UwHf5cv/IkJC4lkblPCY9kwI1qRvnHMiOnikp2GMSqE+SQQK3EKgBp+HtcLUZHzIkJ80cLd/qGDJ7A81fTKH9q+HVl00ZQgM2odFBBrurU8Ztd2oCdmGjr/lQd/Z9KJ+olo3WW7f9Q==
+ bh=U62gGSM1nzq31O77d5dXuer7weF+r8FLoB4AmgXz39w=;
+ b=GgKjiqc6TGqRLhff6DXCv8mjmL/dD9IQqLgNIHXMQ110aMAvhqwb4EqcuCm7J/nBrPJJPczbUPcmDIOvLSY3rWAeJbYpx0i2P+Egr82KWgxsgF7aHL79yc8p4iJ7Lm15QUowP0+t5Dn57kPz95OAwRobBndkGWkcUZ8JqcANS59Jco2HdGWD1cgXM/g1vEwwY9Gn3nTRwW20qM1a9zoGzBgGN/skm5sl1SNdb5/aHe3OXEVFM5EYOQQA/2HKeKOKWkia/LxA3hyTy7h74LHfugYxH1+Y1DJSGVHjwbY8CIvroS6rZ96sINTktW1TpyRSH8Su7slXfmi0YZqSZXnnAg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  LV2PR12MB5990.namprd12.prod.outlook.com (2603:10b6:408:170::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Wed, 19 Aug
- 2026 03:52:47 +0000
+ 2026 03:52:51 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 03:52:47 +0000
+ 03:52:51 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -64,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 21/27] gpu: nova-core: gsp: add the GMC boot event dispatcher
-Date: Tue, 18 Aug 2026 20:52:14 -0700
-Message-ID: <20260819035221.336390-22-jhubbard@nvidia.com>
+Subject: [PATCH 24/27] gpu: nova-core: gsp: pass the remaining log buffers to GSP-RM
+Date: Tue, 18 Aug 2026 20:52:17 -0700
+Message-ID: <20260819035221.336390-25-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260819035221.336390-1-jhubbard@nvidia.com>
 References: <20260819035221.336390-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BYAPR21CA0012.namprd21.prod.outlook.com
- (2603:10b6:a03:114::22) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: BY3PR05CA0040.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::15) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -84,189 +84,101 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|LV2PR12MB5990:EE_
-X-MS-Office365-Filtering-Correlation-Id: 165c9e15-8fe5-43ad-ae3d-08defda5553e
+X-MS-Office365-Filtering-Correlation-Id: 930f6cdf-5a2a-4e96-5a13-08defda5578b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|3023799007|18002099003|22082099003|11063799006|56012099006|5023799004|10067099003|6133799003;
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	mtWacy1AZjn1DcB8XBEX9QQGuddunWzcu3T1VtHp82xLVJMZQYeOPyq1N/19nXDCowpT+lkGvaneKRz7aQ05K5TN8hCO38OdBLFSCnHi5O7bTsKdjNtu8Pzlz091oug2SN3Gs6rdArg6e8M+UhY+rGSDH++588TrQfQsKP0+ve4R2qko5FM9WcjWYZ5kk9nBzemuraVuyMYQs94EAwvlJBnwOINWkJjHiAowIgtshiHSACBn7cVwb7iTP7GjTmjTYYXOWbN2B3jrEOrtqQMvdUh9pjoGL4Xip4y7o6y9U/vh+uXf7xn9fB2L/ku69BBZ3+MKahKmSzj+rFrGV0CHs8TZXVddL/CErhlmj3Z8zzIqNGbRV4uWtvJ7CmB5mI3awK4W7dci4y636T5T6GNSBs2rvjs2ajf8HBE0VpIp7rbmzLrX7qS2zooXav1XJ92yQ9fxBFewwj4P1Re1qqIOFnQ2NihRgTHrW+FcusmSwfA1OrVbzAVVy+jYPlHmkvHsldo9Kd8u6c5h/HF++rzwvOov950SEmyhC5o7TFTG+yUgSmptXSRv5mGT1k8SGgflgJ40x20Kuvhpz4xYyoQgTnd0xxAj8WXmdCcUF7VACX6KDewYPbfNhdLBsK97sZ8kP5MZRzs6HBSr5dXWl/OjJkG3a16+Q6+G1Bhkg5SFleg=
+	aNo+HdXyrKgmpamE1DfoTp+Qb/V9KcU7cG9xX/lRQRIu3FsaD55DQtNyhB6H9Tytcg6JEQllSWWexlHpxE9SdH26uPoJaw9bdfpaHhyv8r1vk+5FN+k8U4Vgl9RmA5ZqAXlFbg+s6hbA7JSzzxvfIGpGXTSFFZ2c9WpnRJAhUBNDS85sEwdruVVTCK+zwf1cyA2Z0TxwOJDRzNxgiZ+9LxNwMQfMC9OeLzbYjgRwRO6Q9ojZyf1ykzy0J+CB1PSyCU0IJs2FtR9Mvvfsd8A1guesZZBt4kpMU9uMUqJYxf4pqKCt8ECCSFFPsf4p70bHInXlvKTYfPaZ6MyZTPXyWM4/GY+/7IIHNtYckqnuIyN6aHuoclc+a1eTCTKeXnkcnwmqbipUG0etMV8QFCDndh/W9hKpH6X7ipvmNq5uD8AJu9o0gCl4nmNtezu8M8T/XlKhJ2pxseCDKHToP9036CQVNbcW6fBkLWsZ6QSDv3cIj+IxxpenPWuGFNuC2+3rpM/eXGlqblesh6RsENIEPCUr7kJtl2XqFv98Ifxh0rH8DmRgnqOIYx6v3ga5O0W0BjG46p1HESOhzCGzx+AKgxmVwdbr8Xr0sRrjpD5Fzw5C1KzKcQMKhX2iMPoj2hdsAxD62fxu+em0Oj8f7+1Rm9jBdVugCqQVxtqUEnS89Sg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(3023799007)(18002099003)(22082099003)(11063799006)(56012099006)(5023799004)(10067099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?is3x1qm48FYh7GUoIABCkkhpTdquZ4hUM3kmSQ8OTJ1m7q0GHapVxtcS4//W?=
- =?us-ascii?Q?2lYibpapi/ZNKYxxqWc4COoRw1G+nhjVam8TOhEk3HqKO5l5jbyTEQXtSmVn?=
- =?us-ascii?Q?O5rU6yLgi79bTDl7445jcIcqMKb4mYrl53kCMUMtjNo44+iI72GE1BIc/hbN?=
- =?us-ascii?Q?g+tIf5Pu+M2D249b4W2gEc+0imOMeuj0ZEwHKFuw0tLqGnKKAs2vHoMGNrLa?=
- =?us-ascii?Q?ZwQ1vB2Dntyj9D9A2PnJh7m3J49YH5eHCBx/v/fNg77lHdQuzaeyIbzhmmxy?=
- =?us-ascii?Q?bVOQwPrRDW04ZvS2tuWg7xIJt92vWGEXub6KBuTPtNu88KQFBnoZj/7Rrd+M?=
- =?us-ascii?Q?j8OcOivtM/2DAhgQkSleD5mXLRzdU9sRrdk4kw1oiPOCUtAB68IBke2Z7/tx?=
- =?us-ascii?Q?+LnPDv95HKs1UYLMJgIv+RSUclPUUwLboE331Kc3BY7MlVfkre7ZexX/Ui8S?=
- =?us-ascii?Q?fq2QUY5t7BINpT/1ZTzlJT1j5BRxKfl78MXLCRvAUpKdwTqFusWOuyaWuQ/K?=
- =?us-ascii?Q?p8AxVlUPQEcYT2jpNZW2cYWR/YaOroVHWilIrXF+KfhIfD1rhfn6upNmWJPm?=
- =?us-ascii?Q?E/jt1hHkXgeRZDz584DO0XeiLkTWwqzWik/YTobcyaI3GSLbgQgFks6IEWxB?=
- =?us-ascii?Q?yOeNUE7IKd0zbSW1SP1QnFtfzcMNsF/dNB84ViKhPo1M6wI8TF2sH0q55kio?=
- =?us-ascii?Q?PnKhskUK/2N+KJnGCX2Vs6N1ltEpxyMLR2rE7PKEukIZFGJIbXO1JcVxFRN1?=
- =?us-ascii?Q?tOgcG4Ry91+BF6m0bV6ro19bu0ldB1ARdml5xmU/V5L5Gx3iiJTVCsLre3wl?=
- =?us-ascii?Q?aygCF51XJFgwenZlG2PvBOT3xbtGmFQCxdm6LtOahCbWTT6y+qwXYwTnNxSC?=
- =?us-ascii?Q?95ImGQyS3iKHWDPSNyBRhrzn8Fsz6hcMdsf6sKyNhnh1ECFAzj0ouN7jsnFe?=
- =?us-ascii?Q?8zm7rfBM3gpW4T5o0i144MX0wED21j2C1JTqMMVd6Mx9lhoESZwn/zyEQhGj?=
- =?us-ascii?Q?C4sR3edEFpgI8NcfRIlDJYcTWbVCHfaG1BzqlmDp/TObJrJn+oycPJ47ovoi?=
- =?us-ascii?Q?GHQEQ/Mhw/Hdq3ZrxG1gC0O/egvwplYYBJolWgyFSam10N9FrS8Hz0lbqAaS?=
- =?us-ascii?Q?77a+c8LXZ75PM65kTCdGqsPZJ225e0/Mrq2Awn807xD4BZpyzChrZanVz8/Q?=
- =?us-ascii?Q?CfBAe7BF7E1OZ3XLBcWPES/9ylcqDNnckKEXg+z5QOuPUhMmp0IfbRmmwlaK?=
- =?us-ascii?Q?800RBW1hPcf0Q5boWX/mUrCXdOrlttGcHfiWaE1D0nqxwxANfzwjWFL+G10x?=
- =?us-ascii?Q?KF7l3nTCJ/6Na+5nzgUyhQuLHx5dLoFv+wSQhwF09+sf2WN5TyesGS6MRGF5?=
- =?us-ascii?Q?dhX/W++IDir5GwTltH1JVNgvzEhCXqNA71t0G8KnFKUdH4JdqdhJuwjZp5ZZ?=
- =?us-ascii?Q?oE7cxDITzr+5SwxF3zlW0Y38XPPYs6maSxDqoZchn0rxmQcy9s48AAU181wi?=
- =?us-ascii?Q?xaEH2GMK9d5hHMyyVHf6IT/O5fAUlDUoWG15Krj/ou+zsS1Zl9fL7H5dC29Q?=
- =?us-ascii?Q?2Ars6554Af7ZGKGJC6uf9rNhbBXIUtzGoDDb1Q6SSqwEai0LlL4xRcYSxQIB?=
- =?us-ascii?Q?gvGhOmCTgJLypqC2dQDnetJC+9L62/pFRxjGIVQV8aeJjpSxpV+3QRcodsXE?=
- =?us-ascii?Q?eMQohMS6P3yeM05sLMyZMj6n6ydXQvr/n39Oac+Ikw2NBn+Deu90wBHCpnlr?=
- =?us-ascii?Q?XhjrybcHnQ=3D=3D?=
+	=?us-ascii?Q?Zxj8cDHjH11N9fk95u6nBAnNFZEeFpFaJ84NzAH3Fkw0hYXL0tNarvGMZoAE?=
+ =?us-ascii?Q?+tMHYAQpfkJtelyRC0W/V0vgwOKdKmK1zaWV6LEan8zk0Eq/I5KOExz5+/N5?=
+ =?us-ascii?Q?HuNjI9PT1ejVIrE4/gU47y6qPKwMLsXjLysnzSXkNDn63/AwV/a34dXG74gw?=
+ =?us-ascii?Q?w+HcjoDCeKE+gaT60XLnXQqwXzEnkiBoi94tE/gV9GAI/j+QpWndJXo3JEjW?=
+ =?us-ascii?Q?DgZNVMQ/RfB1ektQh0FqTQlloctyH4km2gnXuNiDCtfDIlrBZV4mwQfbK6Uy?=
+ =?us-ascii?Q?5V5tyNK/iugGJ/DB3iZaDnU3RoiF/K0N0PRZpNrtlbxT+DAmWDFhK8Kf3oJT?=
+ =?us-ascii?Q?d+1z9xL1jfkCfTbrNyc7PYRhjzwUjWIRWBMz6ImHHnYF8765efFvnchr+CvC?=
+ =?us-ascii?Q?54hxpiDc7tEkRSTuq9l2szpoXsZHV/8SJ9BFsZVwEHOV4bbvH3ykMcLB1CmV?=
+ =?us-ascii?Q?WQor+AkNstq/jjY7g5im2iIeKlUB4IJ/O3HOtRs5Iv5SkscGtZI7Nnzc4J7/?=
+ =?us-ascii?Q?qoxi0o54acrnFKYoE+H9tUsZ7TMHNPS8jz13xJGVnZPFzcGkpk8BJ1KHX4R8?=
+ =?us-ascii?Q?3+lrRuOR1lyHl5k4bMSLAjTbUHUKHGjGFOCWChbvKf6xn3VmARR9rJuQSBsl?=
+ =?us-ascii?Q?p5iAOQlqeLqI5ilO1mXyvwDAu3Roef4CjMbuSV2ksWWol/CDt5x35YahJLV1?=
+ =?us-ascii?Q?XHT8v25at8/Q77EiKtks8DHGmmSNHZkonkLCAndEScisKkCAbRJXhrLx9fom?=
+ =?us-ascii?Q?oKw5PNz4WZrgFNb3T1aQlqv1vZLsB4NmM5hwnItfuSqTMDPMUo19cK9Ttqp4?=
+ =?us-ascii?Q?wQyl6RV8y5LVKHAhqMLa5VeNtZWkVU7B2PAsL4dPSBYDndPEhtPYKAL/TXYw?=
+ =?us-ascii?Q?v9+IYPp4+P6AmlApCd9viR/CBZVWXH6TtdQG99RqWt1fLFRCxyphI5MTgAj4?=
+ =?us-ascii?Q?4zmcRu290SyhujiLG/cygMAy3fAQey99Oms7/Gfa7R8YHKce46II1i6VrWS5?=
+ =?us-ascii?Q?fTyYycu250pgqXGqCrUd/LPxbYfndl33++f5dfHZl2rQNArSoJwSpqA3Yq0/?=
+ =?us-ascii?Q?7XUYZQZojW9bkq0ZFJRW3cclgQoJ8ExEWfaCg+dMF0sh7JRxnsoMbMWoFicg?=
+ =?us-ascii?Q?mkIprW5RvStH/g1pQZIdSZ03JrSWlUyG98fQjTlYaoCrVD/iXvyQUSw+Cw2F?=
+ =?us-ascii?Q?XTj7e8zSuoQg+ZYa05RE7EROjymf+LR+idQizpsexkqYf0oHh8TF/uyL4TOP?=
+ =?us-ascii?Q?E11gjIvvaCLmgWBlkPKFbKm/Cl8kI0icLgauEizC9zEFxi6nscrnfkc/MAzG?=
+ =?us-ascii?Q?Lei+nQyoYkKR2AuNmZ/bNBWmXj55tPtEpziohz0OPgxb0bwEPW5F3A729Kkt?=
+ =?us-ascii?Q?2KSMRih61kf7FvcRx25vbgoU/YzqfEEg+V0MLPjj9qbzPqbXuR5dqHP74XO1?=
+ =?us-ascii?Q?5+U+29P+HzVxzuCUdmlY3547BTaQ9DQ7pgSkbJg9UQj1r7en+sCgZeF6ZO5Y?=
+ =?us-ascii?Q?fpHQqYokVcVblqPknGXSHU9wOuezoTNNXptldOvEFYPva0qniJrd5l4FDAdF?=
+ =?us-ascii?Q?WxGbnnS5ROFb6pTckcq6mU6R8gf52QVL2sJeNpkd6Bsu+udUbVPg56HQaKaw?=
+ =?us-ascii?Q?Kovb2GhAFl1UKNAnjCjTTdA2tP5SqiqoIKNLSQvVAB5n7DEFb/eHoUNAhJXm?=
+ =?us-ascii?Q?XFa99CzhAEGHga1/fFV6U3GxQJWbWvvpqhLp9pjIyBI7ZCjy2JtQflp/CUrC?=
+ =?us-ascii?Q?ANqOa+qrDQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 165c9e15-8fe5-43ad-ae3d-08defda5553e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 930f6cdf-5a2a-4e96-5a13-08defda5578b
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 03:52:47.6084
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 03:52:51.4903
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F5VYGc+sOux/Jq8mVVo7Hmx4ARAjYBS9xl1Kp9bCkPxl74DxZtIhuxb1C6Iq+n9Eyf5n69ahdkNi5kWFkVgg3g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: EqBizvdPvW2I+hBf/u1x2KHmKd3iiPy64+FCSHll42tymYSqDrr0n2IZnb7Lo8aioEhoDOij4mGmbrwe5mQBFA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5990
 
-The r000 GSP boot protocol sends its two load-and-execute events as GMC
-commands, each identified by a command id.
+The libos loader finds each log buffer by looking up its eight-byte name
+in the init argument array, so a buffer the array does not name is never
+written to.
 
-Nova-core has a handler for each of the two events, but nothing that
-reads a command id and selects between them.
+Nova-core allocates six log buffers and gives all six a debugfs file,
+but names only three, so the other three can never read back anything
+but zeros.
 
-Add the dispatcher, keyed on the two command ids from the r000 bindings.
+Name all six. RMARGS moves to the end of the array, which does not
+matter to a loader that searches by name.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/boot.rs | 62 +++++++++++++++++++++++++++++--
- drivers/gpu/nova-core/gsp/fw.rs   | 10 +++++
- 2 files changed, 69 insertions(+), 3 deletions(-)
+ drivers/gpu/nova-core/gsp.rs | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index d62a5c834ccf..15933ecc061b 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -36,7 +36,11 @@
-     },
-     gsp::{
-         cmdq::Cmdq,
--        commands, //
-+        commands,
-+        fw::{
-+            GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER,
-+            GMCAPI_CMD_EXEC_HS_BINARY, //
-+        }, //
-     },
-     regs, //
- };
-@@ -162,6 +166,60 @@ fn core_resume(
-         Ok(())
-     }
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 232905638169..f1bd66024b72 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -355,7 +355,19 @@ pub(crate) fn new(
+                         2,
+                         LibosMemoryRegionInitArgument::new("LOGRM", &logrm.buffer),
+                     )?;
+-                    libos.init_at(3, LibosMemoryRegionInitArgument::new("RMARGS", rmargs))?;
++                    libos.init_at(
++                        3,
++                        LibosMemoryRegionInitArgument::new("LOGMNOC", &logmnoc.buffer),
++                    )?;
++                    libos.init_at(
++                        4,
++                        LibosMemoryRegionInitArgument::new("LOGROOT", &logroot.buffer),
++                    )?;
++                    libos.init_at(
++                        5,
++                        LibosMemoryRegionInitArgument::new("LOGRMON", &logrmon.buffer),
++                    )?;
++                    libos.init_at(6, LibosMemoryRegionInitArgument::new("RMARGS", rmargs))?;
  
-+    /// Dispatch one GMC boot event to its load-and-execute handler.
-+    ///
-+    /// LIBOS2 chipsets send `GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER` and LIBOS3 chipsets send
-+    /// `GMCAPI_CMD_EXEC_HS_BINARY`, so a given GPU only ever reaches one of the two handlers.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EINVAL` if `command_id` is not a load-and-execute command.
-+    ///
-+    /// Errors from the handlers are propagated as-is.
-+    #[expect(dead_code)]
-+    #[allow(clippy::too_many_arguments)]
-+    fn dispatch_gmc_boot_event(
-+        command_id: u32,
-+        payload: &[u8],
-+        bootloader: &GenericBootloader,
-+        gsp_falcon: &Falcon<'_, Gsp>,
-+        sec2_falcon: &Falcon<'_, Sec2>,
-+        bar: Bar0<'_>,
-+        dev: &device::Device,
-+        bootloader_app_version: u32,
-+        libos_dma_handle: u64,
-+    ) -> Result {
-+        match command_id {
-+            GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER => Self::handle_load_exec_bootloader(
-+                payload,
-+                bootloader,
-+                gsp_falcon,
-+                sec2_falcon,
-+                bar,
-+                dev,
-+                bootloader_app_version,
-+                libos_dma_handle,
-+            ),
-+            GMCAPI_CMD_EXEC_HS_BINARY => Self::handle_load_exec_hs_binary(
-+                payload,
-+                gsp_falcon,
-+                sec2_falcon,
-+                bar,
-+                dev,
-+                bootloader_app_version,
-+                libos_dma_handle,
-+            ),
-+            _ => {
-+                dev_err!(
-+                    dev,
-+                    "Unexpected GMC boot event: command_id={:#010x}\n",
-+                    command_id
-+                );
-+                Err(EINVAL)
-+            }
-+        }
-+    }
-+
-     /// Handle a `GSP_LOAD_EXEC_GENERIC_BOOTLOADER` event.
-     ///
-     /// The driver does not copy the image the GSP asks for. It writes the descriptor the event
-@@ -175,7 +233,6 @@ fn core_resume(
-     ///   size this driver mirrors, or the event names a context DMA slot or an aperture that does
-     ///   not exist.
-     /// - `ETIMEDOUT` if the GSP does not suspend, or the image does not halt, in time.
--    #[expect(dead_code)]
-     #[allow(clippy::too_many_arguments)]
-     fn handle_load_exec_bootloader(
-         payload: &[u8],
-@@ -268,7 +325,6 @@ fn handle_load_exec_bootloader(
-     /// - `EINVAL` if the payload is shorter than the parameter block, or the ucode id does not
-     ///   fit the BROM register field.
-     /// - `ETIMEDOUT` if the GSP does not suspend, or the binary does not halt, in time.
--    #[expect(dead_code)]
-     #[allow(clippy::too_many_arguments)]
-     fn handle_load_exec_hs_binary(
-         payload: &[u8],
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 83f7d2042aa1..4772af362117 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -979,6 +979,16 @@ pub(crate) struct GmcApiHeader {
- /// `GMCAPI_HEADER_COMMAND_ID_MASK`. The remaining byte carries flags.
- const GMCAPI_COMMAND_ID_MASK: u32 = 0x00ff_ffff;
- 
-+/// GMC command asking the driver to run the generic falcon bootloader against a descriptor the
-+/// GSP supplies.
-+pub(crate) const GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER: u32 =
-+    r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER;
-+
-+/// GMC command asking the driver to run a high-security binary the GSP has placed in the
-+/// framebuffer.
-+pub(crate) const GMCAPI_CMD_EXEC_HS_BINARY: u32 =
-+    r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_HS_BINARY;
-+
- static_assert!(size_of::<GmcApiHeader>() == 40);
- 
- impl GmcApiHeader {
+                     libos.into()
+                 },
 -- 
 2.55.0
 
