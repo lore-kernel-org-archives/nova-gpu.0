@@ -1,382 +1,148 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C32B423E98
-	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 08:57:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C71371897;
+	Wed, 19 Aug 2026 10:49:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787129871; cv=none; b=lmZo2heeHSjA1PCuj7lAykXU5VFzjPUlrHrYg3u+xH2QLY5Gw879yHjjOAB1OisZ3luladHsgCo+sigZX/XrT8+Y2QxKmwsv3+Brzz5CqySPEv6CIa9xzRSbKypWD/DT9/rg3Cim5S2JSZ5p5r4Ei+Pps24nPI43vvEA8kg1Lew=
+	t=1787136560; cv=none; b=XGIlh07VKKO1T8DCHGHnbUfKE1bOyvPudoUytmqrEevvVQ18YkvFqtuN5NcKPGKzMXg+xmdRpmWeTUwb0b7WJ8VYmgok24z+yBdPJtBeNj4huAAVLeaiYx8aJE0zi9gyc4dacsQxBp8UvvXf39Zaxje2TGPvCG3nph3U/MLlhEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787129871; c=relaxed/simple;
-	bh=qILuqeYNIM4jRzaSeJvcfnKnYQKN6xJztLYlF5v1UgY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WhM7zqEZd06qMyrXdKfP0NKTWNlyWl1I2H8srr9R6uL08F5TFvJUGbK/Fd7FdtWok70IulJHlFoNo4HD5rXgKGwyMLAJAC0Htm+gxmlM1pFASxNa0cdOPknpUzej0ijhuFH/lJkRm1IjxLSbRMIVoYmdG3bE2BT410XbMdyAfWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id ACD6E1EA9A2; Wed, 19 Aug 2026 16:57:45 +0800 (AWST)
-X-Spam-Level: 
-Received: from [IPV6:2001:8003:8802:7000::9c4] (unknown [IPv6:2001:8003:8802:7000::9c4])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id 5CB7A1EA99C;
-	Wed, 19 Aug 2026 16:57:43 +0800 (AWST)
-Message-ID: <3e1be519-32cb-4772-bc15-648f2aa99233@davidgow.net>
-Date: Wed, 19 Aug 2026 16:57:41 +0800
+	s=arc-20240116; t=1787136560; c=relaxed/simple;
+	bh=UBl+DybGTRkEpIBN7KCtLf04Inn14jPlhQS7sy1Ts0M=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=vDph2WSpKzM/jsIc8ev31IwRTva36csPBqAyKvxCAGWU1W6Njs31CmzYCX2Mlq8Zgw2kpxHbD7+ACgD/L8RP0DU6RvZwwlXItwTs8R39shmsiHXbpBfNWhi+EkHY/ivnisIX++267NkqLuYLWFeJl34UB6Cl47yYsnz+8oOYwDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/rN8o/F; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/rN8o/F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE3D1F000E9;
+	Wed, 19 Aug 2026 10:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787136558;
+	bh=zQEfCl7xKtaCC78VIxZhzOSbdkzpLQaDYkBz+b+0oOI=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=m/rN8o/F9l7+jStt/C2McbVvIk/y0RPYIV/dxNC82qKtn7BUlie0m4HFlHeNJs7/x
+	 eHUoJ/yk4p3P08IhjMOZ9LhQLVitMytRBtXHrG0rmLPm4R8HblsKsEM7zLlv/JTxoy
+	 e0o5itCDVjt/xUSnKlDUsi6cLjYplRfZr7AZ6DqoE9L3O+k7cuLfWBwwbtRuXAo//N
+	 YsGbcrd4gz7WFtBwmw6G5+XWqkqBpne9kjsISHb47g6NKkRXzxWxsMhnSkuPx4k6Hd
+	 4aYF/NPA5Ay6HBSGmFIup9UAt8L7rxy3g+rgtCdOmdWNvoJDfK3sUKgVn6aEbf/okY
+	 fnYVzjtyKJpMQ==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] rust: kunit: move test configuration gating into
- macro
-To: Yury Norov <ynorov@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev
-Cc: Gary Guo <gary@garyguo.net>, John Hubbard <jhubbard@nvidia.com>,
- Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
- Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>,
- Yury Norov <yury.norov@gmail.com>, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260818152324.587932-1-ynorov@nvidia.com>
- <20260818152324.587932-3-ynorov@nvidia.com>
-From: David Gow <david@davidgow.net>
-Content-Language: fr
-In-Reply-To: <20260818152324.587932-3-ynorov@nvidia.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Wed, 19 Aug 2026 12:49:12 +0200
+Message-Id: <DKSV1A4SL7PX.2EM92OHEQHA9@kernel.org>
+Cc: "Gary Guo" <gary@garyguo.net>, "Lorenzo Stoakes" <ljs@kernel.org>,
+ "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 1/6] rust: alloc: add Vec::push_init
+References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
+ <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
+ <DKR9WJY3WI0F.1FV4PD1J17ZFD@garyguo.net>
+ <DKSR2WF91FL0.78WHY1E7WIX9@nvidia.com>
+In-Reply-To: <DKSR2WF91FL0.78WHY1E7WIX9@nvidia.com>
 
-Le 18/08/2026 à 11:23 PM, Yury Norov a écrit :
-> KUnit test modules currently need a separate cfg attribute in addition to
-> the kunit_tests attribute. This makes every test suite repeat the same
-> two-attribute pattern.
-> 
-> Declaring a KUnit test without a preceding `#[cfg]` attribute is also
-> possible, causing it to be built whenever KUnit and its containing code are
-> enabled.
-> 
-> Require the controlling Kconfig symbol as the second kunit_tests argument
-> and have the macro emit the cfg attribute itself. Update all existing users
-> to the new form.
-> 
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> ---
+On Wed Aug 19, 2026 at 9:43 AM CEST, Eliot Courtney wrote:
+> There's also some locations in other code that could use a VecView direct=
+ly
+> instead of taking a &mut Vec etc. Having a Vec-like thing that's guarante=
+ed not
+> to allocate also sounds potentially useful to me w.r.t. safety for contex=
+ts
+> where you can't allocate/sleep.
 
-Thanks.
+Allocation in atomic context is still possible as long as we avoid memory
+reclaim, e.g. with GFP_ATOMIC. However, this should generally be avoided, p=
+lus
+there are also cases in non-atomic context where we can't have memory recla=
+im,
+such as the DMA fence signaling critical section. So, I think this can a be=
+ a
+useful API.
 
-I agree that every test needs to be behind a Kconfig option, though I'm
-not totally convinced that this is the optimal solution, particularly
-for a problem which should only affect test builds.
+> If you think this approach is ok I can send it as a separate series. Code=
+gen
+> appears fine practically speaking AFAICT.
 
-Personally, I lean towards keeping the #[cfg()] attribute separate here,
-for mostly minor stylistic reasons. In particular, in C we already have
-a number of existing tests where multiple suites share a Kconfig symbol.
-While there's no reason we couldn't just pass the same symbol to several
-different kunit_suite() attributes, it would be nicer to group them all
-behind a single #[cfg()] where that makes sense (or even, going forward,
-to support having them live in their own separate module/crate).
+I think this is orthogonal from what you need in this series; also remember=
+ that
+we need a user with real need for an API before we can introduce it.
 
-And personally, I find it a bit clearer: people already understand
-#[cfg()], and having #[kunit_suite()] just accept the suite name better
-matches suite registration in C.
+It might have a use-case in DRM Jobqueue, where it could be used to handle
+pre-allocation for ring buffer slots of jobs before entering the DMA fence
+signaling critical section. However, I'm not convinced that Vec or a VecDeq=
+ue
+like type is the best solution for DRM Jobqueue in the first place.
 
-That being said: I don't think there's anything fundamentally impossible
-with implementing something like this (be it now, or later): worst-case
-we'd end up with some redundant Kconfig entries and uglier chains of
-attributes. So if this continues to be a problem (or enough people think
-I'm wrong here), we can always change it later.
+> pub type Zero =3D ();
+> pub type Succ<N> =3D (N,);
+> pub type One =3D Succ<Zero>;
+> pub type Two =3D Succ<One>;
 
-If we want to improve on the current situation, though, something like a
-checkpatch.pl check or a lint would be a good way of making it less
-likely for checks to slip through the cracks. And if we're particularly
-worried about test size (or runtime), there are things we could look at
-to improve things there. Moving tests to separate modules is probably a
-bit harder to do in Rust than in C, but we could possibly have a
-separate set of config options for large tests, and better support
-filtering slow tests in Rust (which is on my to-do list).
+That can produce annoying error messages, but without const generic expr it=
+ is
+what it is.
 
-(Finally, there are also a few minor issues with the patch below, which
-would need to be fixed if there's a v2.)
+> // Infallible (except for Init) push. `Zero` spare VecView has the fallib=
+le version.
+> impl<'a, T, N: Count> VecView<'a, T, Succ<N>> {
+>     pub fn push<E>(self, init: impl Init<T, E>) -> Result<VecView<'a, T, =
+N>, E> {
 
-Cheers,
--- David
+We still want push() taking impl Init<T> and try_push() taking impl Init<T,=
+ E>,
+so we get rid of the Result for impl Init<T, Infallible>.
 
->  Documentation/rust/testing.rst                | 11 ++++---
->  .../gpu/nova-core/gsp/cmdq/continuation.rs    |  3 +-
->  rust/kernel/alloc/allocator.rs                |  3 +-
->  rust/kernel/alloc/kvec.rs                     |  3 +-
->  rust/kernel/bitfield.rs                       |  3 +-
->  rust/kernel/bitmap.rs                         |  3 +-
->  rust/kernel/kunit.rs                          |  3 +-
->  rust/kernel/str.rs                            |  3 +-
->  rust/kernel/sync/atomic/predefine.rs          |  3 +-
->  rust/macros/kunit.rs                          | 30 +++++++++++++++++--
->  rust/macros/lib.rs                            |  6 ++--
->  11 files changed, 43 insertions(+), 28 deletions(-)
-> 
-> diff --git a/Documentation/rust/testing.rst b/Documentation/rust/testing.rst
-> index e3943aceceb9..767b111afd41 100644
-> --- a/Documentation/rust/testing.rst
-> +++ b/Documentation/rust/testing.rst
-> @@ -138,9 +138,10 @@ these are also fairly similar to what you would expect from userspace, and they
->  are also mapped to KUnit.
->  
->  These tests are introduced by the ``kunit_tests`` procedural macro, which takes
-> -the name of the test suite as an argument.
-> +the name of the test suite and its controlling Kconfig option as arguments. The
-> +Kconfig option is required, and the macro uses it to guard the test suite.
->  
-> -Each test suite should be guarded by a Kconfig option in
-> +Each test suite should have a Kconfig option, typically in
->  ``rust/kernel/Kconfig.test``.
->  
->  For instance, assume we want to test the function ``f`` from the documentation
-> @@ -148,8 +149,7 @@ tests section. We could write, in the same file where we have our function:
->  
->  .. code-block:: rust
->  
-> -	#[cfg(CONFIG_RUST_MYMOD_KUNIT_TEST)]
-> -	#[kunit_tests(rust_kernel_mymod)]
-> +	#[kunit_tests(rust_kernel_mymod, CONFIG_RUST_MYMOD_KUNIT_TEST)]
->  	mod tests {
->  	    use super::*;
->  
-> @@ -177,8 +177,7 @@ the unit type ``()``) or ``Result`` (i.e. any ``Result<T, E>``). For instance:
->  
->  .. code-block:: rust
->  
-> -	#[cfg(CONFIG_RUST_MYMOD_KUNIT_TEST)]
-> -	#[kunit_tests(rust_kernel_mymod)]
-> +	#[kunit_tests(rust_kernel_mymod, CONFIG_RUST_MYMOD_KUNIT_TEST)]
->  	mod tests {
->  	    use super::*;
->  
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs b/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-> index c0aa16c8fbf4..2e4b21f2002f 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-> @@ -167,8 +167,7 @@ fn init_variable_payload(
->      }
->  }
->  
-> -#[cfg(CONFIG_NOVA_CORE_KUNIT_TEST)]
-> -#[kunit_tests(nova_core_gsp_continuation)]
-> +#[kunit_tests(nova_core_gsp_continuation, CONFIG_NOVA_CORE_KUNIT_TEST)]
->  mod tests {
->      use super::*;
->  
-> diff --git a/rust/kernel/alloc/allocator.rs b/rust/kernel/alloc/allocator.rs
-> index cd4203f27aed..b2c235801a3f 100644
-> --- a/rust/kernel/alloc/allocator.rs
-> +++ b/rust/kernel/alloc/allocator.rs
-> @@ -265,8 +265,7 @@ unsafe fn realloc(
->      }
->  }
->  
-> -#[cfg(CONFIG_RUST_ALLOCATOR_KUNIT_TEST)]
-> -#[macros::kunit_tests(rust_allocator)]
-> +#[macros::kunit_tests(rust_allocator, CONFIG_RUST_ALLOCATOR_KUNIT_TEST)]
->  mod tests {
->      use super::*;
->      use core::mem::MaybeUninit;
-> diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
-> index f7af62835aa8..4b77425950d3 100644
-> --- a/rust/kernel/alloc/kvec.rs
-> +++ b/rust/kernel/alloc/kvec.rs
-> @@ -1508,8 +1508,7 @@ fn drop(&mut self) {
->      }
->  }
->  
-> -#[cfg(CONFIG_RUST_KVEC_KUNIT_TEST)]
-> -#[macros::kunit_tests(rust_kvec)]
-> +#[macros::kunit_tests(rust_kvec, CONFIG_RUST_KVEC_KUNIT_TEST)]
->  mod tests {
->      use super::*;
->      use crate::prelude::*;
-> diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
-> index 35ede53f2b8e..8b329b6e4f8d 100644
-> --- a/rust/kernel/bitfield.rs
-> +++ b/rust/kernel/bitfield.rs
-> @@ -548,8 +548,7 @@ fn fmt(&self, f: &mut ::kernel::fmt::Formatter<'_>) -> ::kernel::fmt::Result {
->      };
->  }
->  
-> -#[cfg(CONFIG_RUST_BITFIELD_KUNIT_TEST)]
-> -#[::kernel::macros::kunit_tests(rust_kernel_bitfield)]
-> +#[::kernel::macros::kunit_tests(rust_kernel_bitfield, CONFIG_RUST_BITFIELD_KUNIT_TEST)]
->  mod tests {
->      use core::convert::TryFrom;
->  
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index b27e0ec80d64..c4195e00d895 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-> @@ -499,8 +499,7 @@ pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
->      }
->  }
->  
-> -#[cfg(CONFIG_RUST_BITMAP_KUNIT_TEST)]
-> -#[macros::kunit_tests(rust_kernel_bitmap)]
-> +#[macros::kunit_tests(rust_kernel_bitmap, CONFIG_RUST_BITMAP_KUNIT_TEST)]
->  mod tests {
->      use super::*;
->      use kernel::alloc::flags::GFP_KERNEL;
-> diff --git a/rust/kernel/kunit.rs b/rust/kernel/kunit.rs
-> index 91eaff8c186a..52f2ccbfba49 100644
-> --- a/rust/kernel/kunit.rs
-> +++ b/rust/kernel/kunit.rs
-> @@ -330,8 +330,7 @@ pub fn in_kunit_test() -> bool {
->      !unsafe { bindings::kunit_get_current_test() }.is_null()
->  }
->  
-> -#[cfg(CONFIG_RUST_KUNIT_SELFTEST)]
-> -#[kunit_tests(rust_kernel_kunit)]
-> +#[kunit_tests(rust_kernel_kunit, CONFIG_RUST_KUNIT_SELFTEST)]
->  mod tests {
->      use super::*;
->  
-> diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
-> index b3caa9a1c898..404418504c13 100644
-> --- a/rust/kernel/str.rs
-> +++ b/rust/kernel/str.rs
-> @@ -428,8 +428,7 @@ macro_rules! c_str {
->      }};
->  }
->  
-> -#[cfg(CONFIG_RUST_STR_KUNIT_TEST)]
-> -#[kunit_tests(rust_kernel_str)]
-> +#[kunit_tests(rust_kernel_str, CONFIG_RUST_STR_KUNIT_TEST)]
->  mod tests {
->      use super::*;
->  
-> diff --git a/rust/kernel/sync/atomic/predefine.rs b/rust/kernel/sync/atomic/predefine.rs
-> index 3d63f40791fa..e92194b37de8 100644
-> --- a/rust/kernel/sync/atomic/predefine.rs
-> +++ b/rust/kernel/sync/atomic/predefine.rs
-> @@ -152,8 +152,7 @@ fn rhs_into_delta(rhs: usize) -> isize_atomic_repr {
->      }
->  }
->  
-> -#[cfg(CONFIG_RUST_ATOMICS_KUNIT_TEST)]
-> -#[macros::kunit_tests(rust_atomics)]
-> +#[macros::kunit_tests(rust_atomics, CONFIG_RUST_ATOMICS_KUNIT_TEST)]
->  mod tests {
->      use super::super::*;
->  
-> diff --git a/rust/macros/kunit.rs b/rust/macros/kunit.rs
-> index ae20ed6768f1..7c7ba30f58c0 100644
-> --- a/rust/macros/kunit.rs
-> +++ b/rust/macros/kunit.rs
-> @@ -13,6 +13,10 @@
->      ToTokens, //
->  };
->  use syn::{
-> +    parse::{
-> +        Parse,
-> +        ParseStream, //
-> +    },
->      parse_quote,
->      Error,
->      Ident,
-> @@ -20,9 +24,28 @@
->      ItemMod,
->      LitCStr,
->      Result, //
-> +    Token,
->  };
->  
-> -pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<TokenStream> {
-> +pub(crate) struct KunitTestArgs {
-> +    test_suite: Ident,
-> +    config: Ident,
+> // Fallible but not allocating ops (can run out of space).
+> impl<'a, T> VecView<'a, T> {
+>     pub fn push<I: Init<T, E>, E>(&mut self, init: I) -> Result<(), PushI=
+nitError<I, E>> {
+>         if *self.len =3D=3D self.cap {
+>             return Err(PushInitError::Full(init));
+>         }
+>
+>         unsafe { init.__init(self.buf.as_ptr().add(*self.len)) }.map_err(=
+PushInitError::Init)?;
+>         *self.len +=3D 1;
+>
+>         Ok(())
+>     }
+>
+>     // Bodies as in the current KVec implementations.
 
-#[cfg()] accepts more than just an Ident here: if we want to explicitly
-gate things on either multiple config options, or on config options
-being built-in/modules/etc, then we might want to allow something more
-complex.
+We'd still need forwarding functions on Vec, so we don't force users to go
+through view().
 
-> +}
-> +
-> +impl Parse for KunitTestArgs {
-> +    fn parse(input: ParseStream<'_>) -> Result<Self> {
-> +        let test_suite = input.parse()?;
-> +        input.parse::<Token![,]>()?;
-> +        let config = input.parse()?;
-> +
-> +        Ok(Self { test_suite, config })
-> +    }
-> +}
-> +
-> +pub(crate) fn kunit_tests(
-> +    KunitTestArgs { test_suite, config }: KunitTestArgs,
-> +    mut module: ItemMod,
-> +) -> Result<TokenStream> {
->      if test_suite.to_string().len() > 255 {
->          return Err(Error::new_spanned(
->              test_suite,
-> @@ -34,7 +57,7 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
->      let Some((module_brace, module_items)) = module.content.take() else {
->          Err(Error::new_spanned(
->              module,
-> -            "`#[kunit_tests(test_name)]` attribute should only be applied to inline modules",
-> +            "`#[kunit_tests(test_name, CONFIG_KUNIT_TEST)]` attribute should only be applied to inline modules",
-
-This is a much uglier message, and CONFIG_KUNIT_TEST is not an ideal
-example to have here. Could we just have a placeholder, e.g.
-#[kunit_tests(...)].
-
->          ))?
->      };
->  
-> @@ -42,6 +65,7 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
->      module
->          .attrs
->          .insert(0, parse_quote!(#[cfg(CONFIG_KUNIT="y")]));
-> +    module.attrs.insert(0, parse_quote!(#[cfg(#config)]));
->  
->      let mut processed_items = Vec::new();
->      let mut test_cases = Vec::new();
-> @@ -51,7 +75,7 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
->      // The code generated for the following test module:
->      //
->      // ```
-> -    // #[kunit_tests(kunit_test_suit_name)]
-> +    // #[kunit_tests(kunit_test_suite_name, CONFIG_KUNIT_TEST)]
-
-I really would rather these examples not state CONFIG_KUNIT_TEST here:
-it's the config option for tests for KUnit itself, and I'd rather not
-imply that people should add their tests to it.
-CONFIG_KUNIT_EXAMPLE_TEST would be better.
-
->      // mod tests {
->      //     #[test]
->      //     fn foo() {
-> diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-> index 4a48fabbc268..a660296d5dbd 100644
-> --- a/rust/macros/lib.rs
-> +++ b/rust/macros/lib.rs
-> @@ -464,14 +464,14 @@ pub fn paste(input: TokenStream) -> TokenStream {
->  
->  /// Registers a KUnit test suite and its test cases using a user-space like syntax.
->  ///
-> -/// This macro should be used on modules. If `CONFIG_KUNIT` (in `.config`) is `n`, the target module
-> -/// is ignored.
-> +/// This macro should be used on modules. The second argument is the Kconfig symbol that controls
-> +/// the test suite. If it or `CONFIG_KUNIT` (in `.config`) is `n`, the target module is ignored.
->  ///
->  /// # Examples
->  ///
->  /// ```ignore
->  /// # use kernel::prelude::*;
-> -/// #[kunit_tests(kunit_test_suit_name)]
-> +/// #[kunit_tests(kunit_test_suite_name, CONFIG_KUNIT_TEST)]
-
-As above, let's not use CONFIG_KUNIT_TEST in the documentation here.
-
->  /// mod tests {
->  ///     #[test]
->  ///     fn foo() {
-
+>     pub fn pop(&mut self) -> Option<T> { ... }
+>     pub fn insert(&mut self, index: usize, element: T) -> Result<(), Inse=
+rtError<T>> { ... }
+>     pub fn remove(&mut self, i: usize) -> Result<T, RemoveError> { ... }
+>     pub fn truncate(&mut self, len: usize) { ... }
+>     pub fn retain(&mut self, f: impl FnMut(&mut T) -> bool) { ... }
+>     pub fn drain_all(self) -> DrainAll<'a, T> { ... }
+>     pub fn len(&self) -> usize { ... }
+>     pub fn as_slice(&self) -> &[T] { ... }
+>     pub fn as_mut_slice(&mut self) -> &mut [T] { ... }
+>     pub fn spare_capacity(&self) -> usize { ... }
+>     pub fn spare_capacity_mut(&mut self) -> &mut [MaybeUninit<T>] { ... }
+>     pub unsafe fn commit(&mut self, additional: usize) { ... }
+> }
