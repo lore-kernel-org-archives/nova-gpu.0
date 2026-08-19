@@ -1,46 +1,47 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012060.outbound.protection.outlook.com [40.93.195.60])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010030.outbound.protection.outlook.com [52.101.193.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438A23C3F4C
-	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 03:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291263C1F45
+	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 03:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787111587; cv=fail; b=raTA0i3aIsK2WMoBAgwVqA61fOcczlXyuX8Ns+1kYO9eV2dI82oFLaT50aR09fYbVBAnd+77WIPK4TsH3vgwXQ5tYVYeE++X4hKTkFlstscuztFNpKVCneyk8XqfaKpCDcsw0+GI+8HufZj400PRk5ifj6VPLN87ntOqS7pPsfE=
+	t=1787111588; cv=fail; b=VSJVcX9CgSyJi/ZUpybL3PmEKqxDoMDCqrtmS68gcOfsMIFv0ALJaC+3z7QEoXmIxGwl/+ZyJ01mO9/77vPfAA+wJOFLeXWubnbNbOzxv2/mN2V3SjRQEfSbZDKcDq5RVvkzuCE7Du4DsBmZdhnUUNndswmEle/j0JTs+TkcHgA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787111587; c=relaxed/simple;
-	bh=u8LhELNVpntyE5HXDXHFn4+ht6A89BDJ+SDtpDJ77Fs=;
+	s=arc-20240116; t=1787111588; c=relaxed/simple;
+	bh=mkKt12sQX669dbg+i9lk6Ubs10aP5dzDzstDN0kwYEw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Fid8/PBT8NQEegPuk4KYCI0IZf2OXJUCiokCaxK/Zf8+Wi8EJSJSm9aKJh6+GXyQCcZWFxnWnUP1EE6kTe0SpSOILIiNBveZkUOPMQR0NvDmWkgqGTkcG8TYY1RhC8mUwVbJOvoDwOpp0HZ4wGZWSrBHU8jagFeVzQmMfDJR4qs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eHHyCMeI; arc=fail smtp.client-ip=40.93.195.60
+	 Content-Type:MIME-Version; b=FWICdA55Qvwfm3B59fGSZ0TSB3f+cAs6d4uJlY5BtwudsFzQHY2XlN/q/sr5WzC8bkY2K7F6Oj5POtmM+FeJdctBSOfCs1oGAve6W+6Rxkl3LyyXPJohyG/d12lbTmJWIvcUscteEbrgxVIlvLgQOaM6Xd6t3EidKq/I/vEFOb4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OoAlrt7a; arc=fail smtp.client-ip=52.101.193.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eHHyCMeI"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OoAlrt7a"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=izT895FO3/4/vOpBD4l0oNABUMXX6MzLMYxcr2PgyCboarolUO0hV459AXo8ZfEi3uc9c818ayrdJM9nyNZGB/ruO1dtpyakihJK5YWPQpw4CkySN5t1H46KQ56OHUfyGuGYdOKa4sylUiRlcSatwkxjAXfUQYMxC7swHnv6VYRCYGU1+JGPLCE+9R3XsQDOGzhpnWlibhBJ4iy0G8K43VBa0eQ8YGyX1pA/DeI7P+NopN4nLxabYIpsWkgPNT6m5gKMnqPdQHn+w0MT/eDFk8NyYOKUNGFC5wS+N84kGGiLix9IMIvEP0w/ckZu0ocTxzBT++N2sbBzrhLNmTsvsw==
+ b=hsL43w/9aArtRHzoqVPMPvKYkP9PsyDH3ae7RveGtZg3KGvUdWrY3mxdE4sCPm8zhYf22PnNj2brkeKE0x9wtj6S+iGVytPPiM4pxr6EiyQQPN4gHCHu9OZkTTQYlokmy895V0NNaHZEjVZbop27CsUuxQrTfWRo6sQytX1iXoKHTkccbCCIHhsTq+JwC1NFhs1nJtrd6wV4T5vdfI0WtfSSs8w9aBFPk6tfmvYg+T/lSqrDdkAr6Zu4r8AGvIqBzoG4d/RWwqaVbkwIWweIkvzbKO9NUYW88OoEcA/ue9nId7oJJuA7czY8bgv+D85lvGM6A/LNRC4miChLRWxzyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WI/wv8FIph0sbL4hviur/FkVklGWsyUgPJz0vXz3pck=;
- b=yKki1qbpx1m3upaAqmwOrVGLFeKbeaMl5nytoxaaPidtn5SPacEIBt8ybNB23CH+kTw6xkzgsSlAV3G1yFvx1C9c2dNzC2yAUIJuy25f2dlJkUta2/cL+2dRcEj6n1jY6lR+5sAg+0sJdns2lDJhK+InNqhUi5P6xRyyzwHmTPd7obrQnfJGvd8E3ddvxaVPJrCUZ/vB/n4t0Oge7845HjgsFEY20b7LwyUp2jMwr8i8lQVKjZZPZ8zXsPIJhGhxV3TyD+Nt3eB8mGpTdPl8k88Rf43l/Zbh7QQ+Au2Em4uvhd1yDhJUDz5vV0bap7gQOCIA9TdOa5GCwnrll4YDYw==
+ bh=E9nMU2PRY4KZoAlVHlWh9I+WBcyiQmPftMOxPxmc5WI=;
+ b=Yir6nrw7jE+VogXWQrI98TPwd/zDoZAaTW+D2/udT1oPuIYVlEzD/piQO7DIUXDhv5On6RB8eU0ZaWLFXC8u3CH4/b5PCVnFxcE9ffXze0UNMLoKT6m/+zDQvsD21104pnnPhvF3kOZwAsSRDbZzBq/gzG/Mpj7J6IQKnRJTIhSdq1/ebDQFbMEFE8Mfak62SFUVpiZ94jmUktuO3JJ5jm9h/FWwtV4fxwXPK5wfJ60S7k/yZHXuyI5kTpGOh5iVLbLQLyWTLAt3gxKjLYe0yBCtvLwx5p25MU7U6TNQZfzBo9H8lo5jclW26LyVELNyn+lIaJU87tyEzTbO2soyAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WI/wv8FIph0sbL4hviur/FkVklGWsyUgPJz0vXz3pck=;
- b=eHHyCMeIftXtQPeHpcUUXFl3zk+5uasEc4J2U5B5Xp652QPFC+l8wf2lh1SyPHNUTMGJZfjZLK7jemdcwvfy5MHLfcpJyR1w0y+GGcLxafMi9yETd/V05MjtvQONGzm0i0QPoGtZOX8+jUIW3MaLmHR6DTW5Lx4XSpKFetMt3HWZ/A6wAssiR+v935Ee07CgHBfWGRz41a5D9H9LilKnGtlh2zFOxEHG8AKFFvmL3N6iVJnVXmoYcjT/rF3kljmqwTEAxiAq14Th3gzrvq/iKaiUc47Ph+sGcrNqJ4kV+On/bKdN03r0qDldvdOAy425G0qXm4mYQ07YOLys2Zpm+Q==
+ bh=E9nMU2PRY4KZoAlVHlWh9I+WBcyiQmPftMOxPxmc5WI=;
+ b=OoAlrt7aXmT6bmNrm+VWlH/UneFoPS8LRw0p6PPFTh4xcF/I+QUSvMGWDdHM2xyM6ImLhiPvsnrr4hwDu7Yg74mzbM59xJnHsbWLPy73855wJfIHGb7NI+rObioxOJaXCGhc8QTzyXepnVbIT8itBo4ioP0KtygyLnqCiz4Lz6yeq3/AgKhKn5HWHzIVOIUa8ZB8j6L4wm14UwHf5cv/IkJC4lkblPCY9kwI1qRvnHMiOnikp2GMSqE+SQQK3EKgBp+HtcLUZHzIkJ80cLd/qGDJ7A81fTKH9q+HVl00ZQgM2odFBBrurU8Ztd2oCdmGjr/lQd/Z9KJ+olo3WW7f9Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DS7PR12MB6287.namprd12.prod.outlook.com (2603:10b6:8:94::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.17; Wed, 19 Aug 2026 03:52:41 +0000
+ LV2PR12MB5990.namprd12.prod.outlook.com (2603:10b6:408:170::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Wed, 19 Aug
+ 2026 03:52:47 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 03:52:41 +0000
+ 03:52:47 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 16/27] gpu: nova-core: add GMC transport receive path
-Date: Tue, 18 Aug 2026 20:52:09 -0700
-Message-ID: <20260819035221.336390-17-jhubbard@nvidia.com>
+Subject: [PATCH 21/27] gpu: nova-core: gsp: add the GMC boot event dispatcher
+Date: Tue, 18 Aug 2026 20:52:14 -0700
+Message-ID: <20260819035221.336390-22-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260819035221.336390-1-jhubbard@nvidia.com>
 References: <20260819035221.336390-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BYAPR21CA0023.namprd21.prod.outlook.com
- (2603:10b6:a03:114::33) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: BYAPR21CA0012.namprd21.prod.outlook.com
+ (2603:10b6:a03:114::22) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -82,209 +83,190 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS7PR12MB6287:EE_
-X-MS-Office365-Filtering-Correlation-Id: 815bb13d-9ebb-4039-4fdb-08defda5519a
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|LV2PR12MB5990:EE_
+X-MS-Office365-Filtering-Correlation-Id: 165c9e15-8fe5-43ad-ae3d-08defda5553e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|366016|3023799007|56012099006|10067099003|11063799006|5023799004|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|3023799007|18002099003|22082099003|11063799006|56012099006|5023799004|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	h3EXdmg056ge2tmebZ6eJJjEL69ej7e6tMG/i5sfgRCuLnBiawwfy2WgMZebqotN50+bxu54OlZMeZ+6sJDyEGuT2+2TCh2Q4VUFZ/siJcYIC1REnz9dWC9efX99un07RjcPKAxua/DKGjvFcFWBvQR5lxLuIAA6z3rPwjHBSB8ATo0mIuWDKS5Ge8rfUcTkou27XBvrpGMRDt5JT8HagphU9HnY88rw9OZd5JyvpNGfTB3rdvkII9XOygBtTrKXw97txoIcOInhi/hyhg0AdOD+PeO6PhekXvehx5AwbbeTiUZN+cjO2GCQD8b6B5JURABvJKU5MlGSOJlsM63Im4Wq0aDNeRw7ZXfe+6+6esYwn/ZtJoHiQda2ElMR+GzHgM7g0gmMK9LO+u/OiqToaclwskvEx6hyaq6NQ5HWv9wlhI7lcvIzNdo65t6hdi1wuE22YfgSwH8dINa11gicS5sWevb3o/2zUfN4YdKFxoFBquP/HJ7Lg3j8nzITgXoYe6dYQTQKwRGcn6/EJLyPlvIcowCOfiC+evgmZUsGYcOhMYFeTGIfHMUWJfJ/5kbLA1YgPO46Qh1PlpmRZdxytmwNlOPTE4ws86ZJdw/mBMlm+icJozWo19jEyFDaSuelEzw6M2AifD/x3xiLSycVXtsSy6sgAOxRoFmj+xf1qz0=
+	mtWacy1AZjn1DcB8XBEX9QQGuddunWzcu3T1VtHp82xLVJMZQYeOPyq1N/19nXDCowpT+lkGvaneKRz7aQ05K5TN8hCO38OdBLFSCnHi5O7bTsKdjNtu8Pzlz091oug2SN3Gs6rdArg6e8M+UhY+rGSDH++588TrQfQsKP0+ve4R2qko5FM9WcjWYZ5kk9nBzemuraVuyMYQs94EAwvlJBnwOINWkJjHiAowIgtshiHSACBn7cVwb7iTP7GjTmjTYYXOWbN2B3jrEOrtqQMvdUh9pjoGL4Xip4y7o6y9U/vh+uXf7xn9fB2L/ku69BBZ3+MKahKmSzj+rFrGV0CHs8TZXVddL/CErhlmj3Z8zzIqNGbRV4uWtvJ7CmB5mI3awK4W7dci4y636T5T6GNSBs2rvjs2ajf8HBE0VpIp7rbmzLrX7qS2zooXav1XJ92yQ9fxBFewwj4P1Re1qqIOFnQ2NihRgTHrW+FcusmSwfA1OrVbzAVVy+jYPlHmkvHsldo9Kd8u6c5h/HF++rzwvOov950SEmyhC5o7TFTG+yUgSmptXSRv5mGT1k8SGgflgJ40x20Kuvhpz4xYyoQgTnd0xxAj8WXmdCcUF7VACX6KDewYPbfNhdLBsK97sZ8kP5MZRzs6HBSr5dXWl/OjJkG3a16+Q6+G1Bhkg5SFleg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(3023799007)(56012099006)(10067099003)(11063799006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(3023799007)(18002099003)(22082099003)(11063799006)(56012099006)(5023799004)(10067099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CCxWauI5ZP0ZRm3z/p2Fv5C0FUJIna4f5ORQYG1N+aaCEXHnf+tRek+UEuHx?=
- =?us-ascii?Q?uiL2k0ykGGVCn0kAPVfp4ed23Cvdej96RX0lVsgIvv1oadnuvqOrHs/W+0yP?=
- =?us-ascii?Q?DAFkI3keVJgYW6DjOcALU1VNw+oK8PML3FlgZCcDoGAmjYaBsVpBLGNOcbiI?=
- =?us-ascii?Q?rv1r1ZL4G2ENJwFi9l5TlsTBgVGORn89f1u65aaCOXlDXP5ZvLKD3ceXwNck?=
- =?us-ascii?Q?27KaxB1bQLZrRCzxgAVdjndXh9a+zJqmTQmDknVFDImK4EWmhZit+0Bf2Vat?=
- =?us-ascii?Q?ZqI06Z5+E+bKuPI4LX4m1qYGmO1UkJSqLGpMN4rL65JhInRBALn0hT4xKDR5?=
- =?us-ascii?Q?7+TQGWYbTG5myKpm7XYzzq9ho3k/dbwylP2aoKP3rRrzLT3Txp0tJEc/wGqr?=
- =?us-ascii?Q?OsvPWsy2/J0rMy6mGqBfS6wsKk/ZWk9yvb6Jlm9CKYDtzoMEwO20cJNcYBbt?=
- =?us-ascii?Q?B+88XGPvx2DsuHi7ePRlCsejGAaOO5r0qmXxu3pXP5KwNG/rnoCG7jpW0ZWi?=
- =?us-ascii?Q?7FWsFnWIdXzc0PtFsuEzEEZMbtXXXw6Zy43syJLferv2j72WqPJs4LZLzodg?=
- =?us-ascii?Q?mntGEXwdHFC7Dff+WV40dkzR4LjBZsgu/Kg6ztVHDicQ6ukaGPh26J+LgnlK?=
- =?us-ascii?Q?WGgoJZEQerKfCcQu7ZF5ysvhfr2VL6/GZsHs/Zf73N5QZyBsXwHR0GK145Bn?=
- =?us-ascii?Q?/MqTDXn8J6aA1ToId/39O3l8ZWuvynXq9MadCVqb4wannw/91e8E2/HaOtRM?=
- =?us-ascii?Q?R0yocXxeQ99O95xpcxxiIp3VDJkcjxjw1e2GmeCSDShFZBo9LxmMKf05V9Hk?=
- =?us-ascii?Q?eXQxUmjia5IHuAQ0fB9V1jS4kHZbIf2nm0R3VlzUur5SGZPSq9RfT8NXe5GU?=
- =?us-ascii?Q?+j5dtBTj0Utiqj846cN2S9Sy0idqzs8UqObXCNQnAkxVYwP4jAWqw4iZpxsu?=
- =?us-ascii?Q?M7D8VJr99D/Y1dy3lAEefh5ukIlJ/TRf3GMyQ/QAekIH3C1oh7+F7lDgrvTG?=
- =?us-ascii?Q?KiDfTp9vzDRcmX3mGSoDL5+CvQ15Jgi3IpzZWo9yzGq33nORx8JVoJaNoTa6?=
- =?us-ascii?Q?pSM78+VW2ewPmmoXGQ99OfwGwidrqSOc4Bk8MYJYBTOIrRINZq2cXSA0LeED?=
- =?us-ascii?Q?Sv8v9zuoJ7MfOS5okDUeaWjEW6R7lO6jUl5TLOaEoIRevE3OdLLrL6ojFtu1?=
- =?us-ascii?Q?UZy3Il2EOHeCrc7jgY+BmF6JFwv4xlGBIJw0AqqB7rvN350QM/60bkb9ReNT?=
- =?us-ascii?Q?csot+x1BVy+WfJQdjvdqjzelmKkFzkAgPPSd7Pjv2qSrkCKm3Y/QO3d3MEaE?=
- =?us-ascii?Q?PVJYlZd/movrWs2mclXmylqR49PzFl3JSWVnsD2zYOWGETv8opiRWXRVW/w7?=
- =?us-ascii?Q?rox9mXuzfl3GW7ePZcCvEe+X4S+pSjWI2SYBXT5UYkt3dLnYkFBL22DD9Bfu?=
- =?us-ascii?Q?NwLuO2UHaFF5LkhWHDL4UF9pWEkNx0yKqedgNzKRc4+TOUkTx5XMWVfBeJkA?=
- =?us-ascii?Q?D9iJWtnmeSAO2qWiDJR4mp6PXEnrD1wjKNhkA3ep9GlvTwWmLCV/wmt94Yik?=
- =?us-ascii?Q?Po502KYgXDSsmz7Lp1icg9JPLUKWfxzVjEhKPbyfNu88bbB4INQ1VbqPit9v?=
- =?us-ascii?Q?9WDQ4qgsVjjquaynEq0OeBVNypelGx+q709cQr9VdpS2gzgg1YDF1iI5Qg2c?=
- =?us-ascii?Q?XFy6ncM18cWhgl0BoOOR9+Ny6IwYf6LSZu4oo87gP/fVk7rmvlf0HshXRGXq?=
- =?us-ascii?Q?F7IlSdBucg=3D=3D?=
+	=?us-ascii?Q?is3x1qm48FYh7GUoIABCkkhpTdquZ4hUM3kmSQ8OTJ1m7q0GHapVxtcS4//W?=
+ =?us-ascii?Q?2lYibpapi/ZNKYxxqWc4COoRw1G+nhjVam8TOhEk3HqKO5l5jbyTEQXtSmVn?=
+ =?us-ascii?Q?O5rU6yLgi79bTDl7445jcIcqMKb4mYrl53kCMUMtjNo44+iI72GE1BIc/hbN?=
+ =?us-ascii?Q?g+tIf5Pu+M2D249b4W2gEc+0imOMeuj0ZEwHKFuw0tLqGnKKAs2vHoMGNrLa?=
+ =?us-ascii?Q?ZwQ1vB2Dntyj9D9A2PnJh7m3J49YH5eHCBx/v/fNg77lHdQuzaeyIbzhmmxy?=
+ =?us-ascii?Q?bVOQwPrRDW04ZvS2tuWg7xIJt92vWGEXub6KBuTPtNu88KQFBnoZj/7Rrd+M?=
+ =?us-ascii?Q?j8OcOivtM/2DAhgQkSleD5mXLRzdU9sRrdk4kw1oiPOCUtAB68IBke2Z7/tx?=
+ =?us-ascii?Q?+LnPDv95HKs1UYLMJgIv+RSUclPUUwLboE331Kc3BY7MlVfkre7ZexX/Ui8S?=
+ =?us-ascii?Q?fq2QUY5t7BINpT/1ZTzlJT1j5BRxKfl78MXLCRvAUpKdwTqFusWOuyaWuQ/K?=
+ =?us-ascii?Q?p8AxVlUPQEcYT2jpNZW2cYWR/YaOroVHWilIrXF+KfhIfD1rhfn6upNmWJPm?=
+ =?us-ascii?Q?E/jt1hHkXgeRZDz584DO0XeiLkTWwqzWik/YTobcyaI3GSLbgQgFks6IEWxB?=
+ =?us-ascii?Q?yOeNUE7IKd0zbSW1SP1QnFtfzcMNsF/dNB84ViKhPo1M6wI8TF2sH0q55kio?=
+ =?us-ascii?Q?PnKhskUK/2N+KJnGCX2Vs6N1ltEpxyMLR2rE7PKEukIZFGJIbXO1JcVxFRN1?=
+ =?us-ascii?Q?tOgcG4Ry91+BF6m0bV6ro19bu0ldB1ARdml5xmU/V5L5Gx3iiJTVCsLre3wl?=
+ =?us-ascii?Q?aygCF51XJFgwenZlG2PvBOT3xbtGmFQCxdm6LtOahCbWTT6y+qwXYwTnNxSC?=
+ =?us-ascii?Q?95ImGQyS3iKHWDPSNyBRhrzn8Fsz6hcMdsf6sKyNhnh1ECFAzj0ouN7jsnFe?=
+ =?us-ascii?Q?8zm7rfBM3gpW4T5o0i144MX0wED21j2C1JTqMMVd6Mx9lhoESZwn/zyEQhGj?=
+ =?us-ascii?Q?C4sR3edEFpgI8NcfRIlDJYcTWbVCHfaG1BzqlmDp/TObJrJn+oycPJ47ovoi?=
+ =?us-ascii?Q?GHQEQ/Mhw/Hdq3ZrxG1gC0O/egvwplYYBJolWgyFSam10N9FrS8Hz0lbqAaS?=
+ =?us-ascii?Q?77a+c8LXZ75PM65kTCdGqsPZJ225e0/Mrq2Awn807xD4BZpyzChrZanVz8/Q?=
+ =?us-ascii?Q?CfBAe7BF7E1OZ3XLBcWPES/9ylcqDNnckKEXg+z5QOuPUhMmp0IfbRmmwlaK?=
+ =?us-ascii?Q?800RBW1hPcf0Q5boWX/mUrCXdOrlttGcHfiWaE1D0nqxwxANfzwjWFL+G10x?=
+ =?us-ascii?Q?KF7l3nTCJ/6Na+5nzgUyhQuLHx5dLoFv+wSQhwF09+sf2WN5TyesGS6MRGF5?=
+ =?us-ascii?Q?dhX/W++IDir5GwTltH1JVNgvzEhCXqNA71t0G8KnFKUdH4JdqdhJuwjZp5ZZ?=
+ =?us-ascii?Q?oE7cxDITzr+5SwxF3zlW0Y38XPPYs6maSxDqoZchn0rxmQcy9s48AAU181wi?=
+ =?us-ascii?Q?xaEH2GMK9d5hHMyyVHf6IT/O5fAUlDUoWG15Krj/ou+zsS1Zl9fL7H5dC29Q?=
+ =?us-ascii?Q?2Ars6554Af7ZGKGJC6uf9rNhbBXIUtzGoDDb1Q6SSqwEai0LlL4xRcYSxQIB?=
+ =?us-ascii?Q?gvGhOmCTgJLypqC2dQDnetJC+9L62/pFRxjGIVQV8aeJjpSxpV+3QRcodsXE?=
+ =?us-ascii?Q?eMQohMS6P3yeM05sLMyZMj6n6ydXQvr/n39Oac+Ikw2NBn+Deu90wBHCpnlr?=
+ =?us-ascii?Q?XhjrybcHnQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 815bb13d-9ebb-4039-4fdb-08defda5519a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 165c9e15-8fe5-43ad-ae3d-08defda5553e
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 03:52:41.5026
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 03:52:47.6084
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lPviqDt5esVurnE3DEyQUr4afwIaOXkiVcEhqppB4xQunBOtxRVWieIOZbNMhUjbNjx1s+1k7poGGpnAouSRTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6287
+X-MS-Exchange-CrossTenant-UserPrincipalName: F5VYGc+sOux/Jq8mVVo7Hmx4ARAjYBS9xl1Kp9bCkPxl74DxZtIhuxb1C6Iq+n9Eyf5n69ahdkNi5kWFkVgg3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5990
 
-GSP-RM posts GMC and RPC messages on the same message queue. Both use
-the same MCTP and NVDM transport headers, but RPC messages continue with
-rpc_message_header_v and GMC messages continue with GmcApiHeader.
-Existing RPC receive code cannot parse the GMC layout.
+The r000 GSP boot protocol sends its two load-and-execute events as GMC
+commands, each identified by a command id.
 
-Add a GMC receive path that validates the MCTP magic and rejects
-payloads whose advertised length exceeds the available queue contents.
-On a framing or length failure, poison the queue because the driver
-cannot safely advance the read pointer without a trusted length.
+Nova-core has a handler for each of the two events, but nothing that
+reads a command id and selects between them.
+
+Add the dispatcher, keyed on the two command ids from the r000 bindings.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 83 ++++++++++++++++++++++++++++++-
- drivers/gpu/nova-core/gsp/fw.rs   | 10 ++++
- 2 files changed, 92 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/gsp/boot.rs | 62 +++++++++++++++++++++++++++++--
+ drivers/gpu/nova-core/gsp/fw.rs   | 10 +++++
+ 2 files changed, 69 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 88b143c6a7b7..fba94153e744 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -629,7 +629,7 @@ struct GspCommand<'a, H = GspMsgElement> {
- 
- /// A message ready to be processed from the message queue.
- ///
--/// This is the type returned by [`Cmdq::wait_for_msg`].
-+/// This is the type returned by [`CmdqInner::wait_for_msg`].
- struct GspMessage<'a> {
-     // Reference to the header of the message.
-     header: &'a GspMsgElement,
-@@ -638,6 +638,18 @@ struct GspMessage<'a> {
-     contents: (&'a [u8], &'a [u8]),
- }
- 
-+/// A GMC message ready to be processed from the message queue.
-+///
-+/// This is the type returned by [`CmdqInner::wait_for_gmc_msg`].
-+#[expect(dead_code)]
-+struct GmcMessage<'a> {
-+    // Reference to the header of the message.
-+    header: &'a GspGmcMsgElement,
-+    // Slices of the payload following the `GmcApiHeader`. The second slice is empty unless the
-+    // payload wraps around the end of the message queue.
-+    contents: (&'a [u8], &'a [u8]),
-+}
-+
- /// GSP command queue.
- ///
- /// Provides the ability to send commands and receive messages from the GSP using a shared memory
-@@ -1285,4 +1297,73 @@ fn drain(&mut self) -> Result {
- 
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index d62a5c834ccf..15933ecc061b 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -36,7 +36,11 @@
+     },
+     gsp::{
+         cmdq::Cmdq,
+-        commands, //
++        commands,
++        fw::{
++            GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER,
++            GMCAPI_CMD_EXEC_HS_BINARY, //
++        }, //
+     },
+     regs, //
+ };
+@@ -162,6 +166,60 @@ fn core_resume(
          Ok(())
      }
-+
-+    /// Wait for a GMC message to become available on the message queue.
+ 
++    /// Dispatch one GMC boot event to its load-and-execute handler.
 +    ///
-+    /// This is the GMC counterpart to [`Self::wait_for_msg`] and reads the same queue. Like that
-+    /// method it works purely at the transport layer, validating the MCTP framing and the
-+    /// advertised length and nothing else.
-+    ///
-+    /// A [`GspGmcMsgElement`] and a [`GspMsgElement`] share every field through `nvdm_header`,
-+    /// so a caller that may see either must check the NVDM type before reading `gmc`. Both
-+    /// layouts put the element length in the same place, so the caller can advance the read
-+    /// pointer past a returned message either way.
++    /// LIBOS2 chipsets send `GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER` and LIBOS3 chipsets send
++    /// `GMCAPI_CMD_EXEC_HS_BINARY`, so a given GPU only ever reaches one of the two handlers.
 +    ///
 +    /// # Errors
 +    ///
-+    /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
-+    /// - `EIO` if the framing is invalid, or the queue was already poisoned by an earlier such
-+    ///   failure. Either failure poisons the queue, so recovery requires a reset.
++    /// - `EINVAL` if `command_id` is not a load-and-execute command.
++    ///
++    /// Errors from the handlers are propagated as-is.
 +    #[expect(dead_code)]
-+    fn wait_for_gmc_msg(&self, timeout: Delta) -> Result<GmcMessage<'_>> {
-+        if self.poisoned.get() {
-+            return Err(EIO);
++    #[allow(clippy::too_many_arguments)]
++    fn dispatch_gmc_boot_event(
++        command_id: u32,
++        payload: &[u8],
++        bootloader: &GenericBootloader,
++        gsp_falcon: &Falcon<'_, Gsp>,
++        sec2_falcon: &Falcon<'_, Sec2>,
++        bar: Bar0<'_>,
++        dev: &device::Device,
++        bootloader_app_version: u32,
++        libos_dma_handle: u64,
++    ) -> Result {
++        match command_id {
++            GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER => Self::handle_load_exec_bootloader(
++                payload,
++                bootloader,
++                gsp_falcon,
++                sec2_falcon,
++                bar,
++                dev,
++                bootloader_app_version,
++                libos_dma_handle,
++            ),
++            GMCAPI_CMD_EXEC_HS_BINARY => Self::handle_load_exec_hs_binary(
++                payload,
++                gsp_falcon,
++                sec2_falcon,
++                bar,
++                dev,
++                bootloader_app_version,
++                libos_dma_handle,
++            ),
++            _ => {
++                dev_err!(
++                    dev,
++                    "Unexpected GMC boot event: command_id={:#010x}\n",
++                    command_id
++                );
++                Err(EINVAL)
++            }
 +        }
-+
-+        let (slice_1, slice_2) = read_poll_timeout(
-+            || Ok(self.gsp_mem.driver_read_area()),
-+            |driver_area| !driver_area.0.is_empty(),
-+            Delta::from_millis(1),
-+            timeout,
-+        )
-+        .map(|(slice_1, slice_2)| (slice_1.as_flattened(), slice_2.as_flattened()))?;
-+
-+        let Some((header, slice_1)) = GspGmcMsgElement::from_bytes_prefix(slice_1) else {
-+            self.poisoned.set(true);
-+            return Err(EIO);
-+        };
-+
-+        // Checked before any length field is read, since a bad magic leaves them untrusted.
-+        if !header.has_valid_magic() {
-+            dev_err!(&self.dev, "GSP GMC: receive: bad MCTP magic\n");
-+            self.poisoned.set(true);
-+            return Err(EIO);
-+        }
-+
-+        let payload_length = header.payload_length();
-+
-+        // Check that the driver read area is large enough for the message.
-+        if slice_1.len() + slice_2.len() < payload_length {
-+            self.poisoned.set(true);
-+            return Err(EIO);
-+        }
-+
-+        // Cut the message slices down to the actual length of the message.
-+        let (slice_1, slice_2) = if slice_1.len() > payload_length {
-+            // PANIC: we checked above that `slice_1` is at least as long as `payload_length`.
-+            (slice_1.split_at(payload_length).0, &slice_2[0..0])
-+        } else {
-+            (
-+                slice_1,
-+                // PANIC: we checked above that `slice_1.len() + slice_2.len()` is at least as
-+                // large as `payload_length`.
-+                slice_2.split_at(payload_length - slice_1.len()).0,
-+            )
-+        };
-+
-+        Ok(GmcMessage {
-+            header,
-+            contents: (slice_1, slice_2),
-+        })
 +    }
- }
++
+     /// Handle a `GSP_LOAD_EXEC_GENERIC_BOOTLOADER` event.
+     ///
+     /// The driver does not copy the image the GSP asks for. It writes the descriptor the event
+@@ -175,7 +233,6 @@ fn core_resume(
+     ///   size this driver mirrors, or the event names a context DMA slot or an aperture that does
+     ///   not exist.
+     /// - `ETIMEDOUT` if the GSP does not suspend, or the image does not halt, in time.
+-    #[expect(dead_code)]
+     #[allow(clippy::too_many_arguments)]
+     fn handle_load_exec_bootloader(
+         payload: &[u8],
+@@ -268,7 +325,6 @@ fn handle_load_exec_bootloader(
+     /// - `EINVAL` if the payload is shorter than the parameter block, or the ucode id does not
+     ///   fit the BROM register field.
+     /// - `ETIMEDOUT` if the GSP does not suspend, or the binary does not halt, in time.
+-    #[expect(dead_code)]
+     #[allow(clippy::too_many_arguments)]
+     fn handle_load_exec_hs_binary(
+         payload: &[u8],
 diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 56f255a3d49c..9e6b5ec6aadb 100644
+index 83f7d2042aa1..4772af362117 100644
 --- a/drivers/gpu/nova-core/gsp/fw.rs
 +++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -1055,11 +1055,21 @@ pub(crate) fn init(
-         })
-     }
+@@ -979,6 +979,16 @@ pub(crate) struct GmcApiHeader {
+ /// `GMCAPI_HEADER_COMMAND_ID_MASK`. The remaining byte carries flags.
+ const GMCAPI_COMMAND_ID_MASK: u32 = 0x00ff_ffff;
  
-+    /// Returns the length of the response payload (data after the [`GmcApiHeader`]).
-+    pub(crate) fn payload_length(&self) -> usize {
-+        num::u32_as_usize(self.nvdm_payload_size).saturating_sub(size_of::<GmcApiHeader>())
-+    }
++/// GMC command asking the driver to run the generic falcon bootloader against a descriptor the
++/// GSP supplies.
++pub(crate) const GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER: u32 =
++    r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER;
 +
-     /// Returns the total length of the message, transport and GMC headers included.
-     pub(crate) fn length(&self) -> usize {
-         num::u32_as_usize(self.mctp_payload_size)
-     }
++/// GMC command asking the driver to run a high-security binary the GSP has placed in the
++/// framebuffer.
++pub(crate) const GMCAPI_CMD_EXEC_HS_BINARY: u32 =
++    r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_HS_BINARY;
++
+ static_assert!(size_of::<GmcApiHeader>() == 40);
  
-+    /// Returns `true` if the MCTP magic field contains the expected value.
-+    pub(crate) fn has_valid_magic(&self) -> bool {
-+        self.mctp_magic == MCTP_MAGIC
-+    }
-+
-     /// Returns the number of elements (i.e. memory pages) used by this message.
-     pub(crate) fn element_count(&self) -> u32 {
-         self.mctp_payload_size
+ impl GmcApiHeader {
 -- 
 2.55.0
 
