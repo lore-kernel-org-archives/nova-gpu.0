@@ -1,42 +1,55 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020088.outbound.protection.outlook.com [52.101.195.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513A745C713;
-	Wed, 19 Aug 2026 11:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787138636; cv=none; b=tZmbQlt0TujC0jvjxtdZY+hG5HmXvs9OclxFG2ahSpkamrJsAS+F7prgmGOM9wjaz7eHrV27tX0y6LWp/62/XWgKaHnWBgnTzY4Uj5TdW4K+iQh02whfPDcKlYSPggBKsPJZUJ1OxY8VlgYnbx3cOT20UsSZ1W/v2xFFMUPsPkI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787138636; c=relaxed/simple;
-	bh=aRdMLh7UP2MhicwcvC1u1hRVnrNju1HDVz0utZU5byU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=laKFwYNgrLMMr6jUnJdbRvznkAo6QjLoL2/kSsojGNqS68K7pJa8RvJ/rbN1DoXIkv1xuqNdk1PYEdp18HIDK03/LHd6/tT72P4CCUoFPWkyVBqXWEl7VYtMrQSuHVpFyEkwyKR4PZrTybBv4WSl6MkIutmwZ7XrSJGJ3dFTj0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcBjsKaH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8595235DA7B
+	for <nova-gpu@lists.linux.dev>; Wed, 19 Aug 2026 12:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.88
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787141338; cv=fail; b=jSdSFHBB7kW/o8/TO5eFdTqcXgQIaeIFXQBhVC2cz2NmioFTikY8nyxEkP1qOk4LmtpwGZdqW7ICYIWnwikfrhZXNmtxYRubKaZV4tnAWH9fv7lC07LiuNouaL6s8Tj3anw0vuBXhsbqOICcrBeIns4OYQMR5K5fqcUMn/58cos=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787141338; c=relaxed/simple;
+	bh=Dljy/m86xpo/1APK/VKO3jWj8yys8SDHK5kpqO4yNwY=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=SRe3jTuAiZUB2w9T1VfyK/tl9Lfpd3gY0D8skLciAbeA8qwylPaToX/kEzu3XQWfFF5kpfHQ6sfYeQLxtWYcqe5wKDeRpqY7a0SnIO2gJqdqWp3dlKz7gdKiHD3PZysGuLgCge9pI0oriU2g68nvz2Ap0/d4ds56qCglnGNVj+0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=FI7vWFNw; arc=fail smtp.client-ip=52.101.195.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcBjsKaH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91D2C1F000E9;
-	Wed, 19 Aug 2026 11:23:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787138635;
-	bh=QgvazMJHmYfZ8Q1rsg6DrrOav9bRml6UL8M0L4LzXNM=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=PcBjsKaHg0Gfg6eN15Zexqs8qukqL+KSCvY7Uk72YD7wocrIPqWQXPUEdel8lKduT
-	 tSbv5XZheBupNwIp+EPPL4BzLCaAMVlcdxiJ4Io3efcWjUyjXNeYiq+q5JTejqcosf
-	 D2hLfRmXzc0QPHiGXOedg4Nwb9lYxxhV6Xd5eHmVFKrZKRKQSPuGAonx6kAXfUNxs7
-	 AMEqlNvtFbzA6ULNzRabj+v5XvWqMxZpc8mrlyk0QMLSdAuDTFjI+qRDgc1pI4M32V
-	 pI2hBdDAvEGExS8v+hP2aiSVAnH9Qc9hlgfnYtLbhZAL2OGuupIBmUl+5Q4BNqnev/
-	 qKS6qhHIKM2kg==
-Precedence: bulk
-X-Mailing-List: nova-gpu@lists.linux.dev
-List-Id: <nova-gpu.lists.linux.dev>
-List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
-List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="FI7vWFNw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pF82LnlbDQbL4K2UYAX4QeAdIAqcFIn/UwSHqRxL5TsBCp+tL3ohDB6sD/JC/yYGlhEr9T4VDDQ4ObniQH/kP13yWLTGwwkklxk0dyrcGQ6DV9qHf8g7ellDK3QNUdy/i7DdLUJYlDKeNNJeo1OH4oAJ+ryX1YGbQ2J1LrEuu6/XQyJMrv3FYj8YSsJpgh3hGE8NKq829cGochjQi9uJSp3n5BBbU+oWxyDsHTeBXtrzp/F6+WYomz56LB45Sg70NWsoLuGRQeRAzcFev8mz9eKnVuHBom0mLrbphM0HfUjifQAf07U8ZzONjURPvsTLZK0oE8BQzOFJETUoR9LlMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P6tSsOn9o7S5dOZcptD3ZUbsWJkyws62X3PjOy8lmLg=;
+ b=TEWyAr5Cp6Gg0j7ksbQzN5yfLHRe5cGvVbQu63SXBcb19kzuzsrCJUuLoS9zgXDwJw3/FoWgcN8y5uH2ErKB9LrAySeFnXNOYJlrUGPjaVD6iqnn0wkz7DBtucXqLZvhVbiZN7HlqukJScZ4yChaNXw9FaIuxUPh+Lyx0caQfkaAnor8VbILazCZN0S1aJmQjLHb3m90bCx51By0s36QSD8aIuHnHqXjcyiR4+/iu8mkNBaUOiBC3NhmomeUGYHtNZWUptc9ijmZUT3xupH4CNUzrUEoCWkVbjNOHhnfpUWJYzkgsWOrYJeZ6LAQsQJJJDCNw/Ao1RhOozV/MJplIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P6tSsOn9o7S5dOZcptD3ZUbsWJkyws62X3PjOy8lmLg=;
+ b=FI7vWFNwCu5dv4X3vKuj5O3Ud3pP191piDtH3DpF9OLUV9uFQwpO3sqHMtAQ/hQu14S3gWoFB+UkvQLbrS4i5NSW8/CS++AjR4TS5EiqamxV6x53tCZRPQ6VHtNKjM2L0JPAlOsjkn9c82fOaCqtWiwywudouqImNiML1y5w75I=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LOYP265MB1886.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:ef::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 12:08:54 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
+ 12:08:54 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 19 Aug 2026 13:23:49 +0200
-Message-Id: <DKSVRS7UAL9U.3RUTW74RVSEHQ@kernel.org>
+Date: Wed, 19 Aug 2026 13:08:52 +0100
+Message-Id: <DKSWQA542X58.3N48L8WCDBJR0@garyguo.net>
 Subject: Re: [PATCH 1/6] rust: alloc: add Vec::push_init
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
 Cc: "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
  <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
  Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
@@ -52,65 +65,159 @@ Cc: "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
  <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
  <dri-devel@lists.freedesktop.org>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
+X-Mailer: aerc 0.22.0
 References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
  <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
-In-Reply-To: <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
+ <DKSVRS7UAL9U.3RUTW74RVSEHQ@kernel.org>
+In-Reply-To: <DKSVRS7UAL9U.3RUTW74RVSEHQ@kernel.org>
+X-ClientProxiedBy: LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+Precedence: bulk
+X-Mailing-List: nova-gpu@lists.linux.dev
+List-Id: <nova-gpu.lists.linux.dev>
+List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
+List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOYP265MB1886:EE_
+X-MS-Office365-Filtering-Correlation-Id: 564b5009-cb82-4ca7-ca36-08defdeaa36e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|7416014|376014|22082099003|18002099003|56012099006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	EHpsxpIPAP5rYCd3TZCo1YLQLC7vUOunckr9sC4gjcZ0sFxguNP8gg1/yM+VNaL0krbQJUq30Fj8LOJQgfTxQ/2N05P86uiOI8/Q5M0Sapgh9lvFqNb7golu08tYAuVOUO1j/+U+osoy7wL3bO0HDhY1FI7ykO0f2sSoIGhZCPkuWxJ73B0QqSEX099/EElnyCg+Mc82/RdOz3RYmH+56DJISb757jp026q9YCWwm4lZi60Q2so3yR/WK28ufseBFf8JVY+XKPKbQdV0Seq2+cm/Zs2I4IBUPs+4vWCLK1HIszMK9z+BaTAizdzHFtrFPM7JwYm1jLdiznb65EijC2eGTxSeriEv2plfXVOdZWyPunoLoD5UeULvfWAjp1/gk3a/N8OqnS/UFgifRSWFq4H0xYpQXmeS9d5xt/eNZaxEdn+YHmQR0cFQ73T4lQ1Xcfzso5SW+5cDYGn6BPYzEfte9gCzwzOOyAGodptTy6l29KkDbPZ2l11O2Cf7MeYEBErQBB1+fA6VCVPR1gBj6E3tllBD9lU8ds19nT+W71VvAAHoY6cH6I590Ya9gZVsbXzg/R9eyVii1bil3sPNjr9ArELdf/l4A091cKGbX8DkLiKqCUgXpRpKUYDSBrN4kpvsZaiWivq38mDg0tuz8o7Zgm49uOO3IxJ6LHOgyBQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejM2LzNIakJjeGY0QzJwZjY3NXFPbnZYMWZwWGpkQU0xek5LYno4N3FOTll5?=
+ =?utf-8?B?VWgwdUhQbmpDSURMa21XYkVpOVhGSjIrVVp4Q2R5QmRtalVVZVZzSmdxc0dT?=
+ =?utf-8?B?Uk0wR2N0ajNwVytndGVqQ2tZb0tzOU5SOFgxNndtTGhya1RXL29uTzNsOUZP?=
+ =?utf-8?B?dVBZa0ZDcEpiSG9sUnFhMlNSOStLNkp3RkJ6K1BMZ2JNQ3cyL0szU0gvWjc2?=
+ =?utf-8?B?VkQwYjlwWTN6RXBXdm01aUZDU3ZZR2phY0FLUVFUUGpWNlk3M1FpMjVnTkg5?=
+ =?utf-8?B?aDJPUzlKWDdQN1FnNDFqK3dnN0kvdVkvak5WUTVUVVJTcGVlRXk0S0p2MmE4?=
+ =?utf-8?B?MmtVL2V0a2hLUzlNOWQ0dmZPdW15VnpxdUsvSWxSUjVYRm9VOEFCSnpJeklh?=
+ =?utf-8?B?M3czcHl3dDg5dENGRlVVamphQlhsQmtQVWFIdGk1TERLZTcwaE1XNE9sMXk5?=
+ =?utf-8?B?VUNRSnZuWjlyRDhoZGM2aHZ0RUVVc2QvMi9rZDNyN1ZlWGZQRHlDNWd3TVpF?=
+ =?utf-8?B?bXRXKzczZGM2cU9RblEyME4yajhKYzB1Z2MzbU9kYTBhSVhaenVoTWRUWmJM?=
+ =?utf-8?B?MEQ2TlNKTTkvUFR5WXk1Zlk0eVc3TGNCbnBoaWVtRllVRHZRbEFESDVMWEUw?=
+ =?utf-8?B?MHhXeU9xV1JkRFlHNFAvRnR1c2g2aER1VXRuaTdmckovSk43REgvM29HL2ZT?=
+ =?utf-8?B?NzJsM0VXeXpucDVKWkFIQ3A1OVp4a2g5Z3phMmJua1lKRkJGcnlhTTdrRHJT?=
+ =?utf-8?B?SmRvc2lMd1A2cW5mQWlCNlZES1ZabEZ5YkgrdHRtSzdzaFhCWkgvRGNxNkFm?=
+ =?utf-8?B?eXl2d2RvNCtSeXV6SFNxRGdTRmkzOHVITUtKL3Q4MDhHL3RtQ0ZNQmxjTHpu?=
+ =?utf-8?B?K1ppTHlHQTU5MWlrTU9ZQVBWcDhTRlQ5U3pXdjN1czRtaVBJM1RaUVlUbTlu?=
+ =?utf-8?B?WkRQSWtxRlJyTy9Hb3gvaTFjbmFTU1hLd09yb2I0R0FmUzNnaTBOd1BvLzFu?=
+ =?utf-8?B?SjlyUkxUbFZHS0ZqUXhpS2JMTkpGRjU5cW5xdlhZTGc4NGhpVEVpWWQrTmpj?=
+ =?utf-8?B?SXo1K1A5K1JpdHdDR0Jqd0RTeHBVYnNPYjB4RldFRXlrY0pHN3J0cFBzQm9H?=
+ =?utf-8?B?UzZBdFdFYjRqMmwyOVduV2JXNk1PcDR2SFVXOHpQaGNLdUkxbHBzTVpxcXlq?=
+ =?utf-8?B?ejBwMnZsS2NaaStpSDF5MzZsdzNzTExDMHJLOVBGZ3phZlhKWHBiZjlKV04v?=
+ =?utf-8?B?K09wVkcvNDIrbS9tNEJ0OWl6VmNXNGRFYUM1OTV6S01IeXJ3RDdhcjdRbUVF?=
+ =?utf-8?B?MUxtMm82U0FzVWJTYWpqL3pQMEc3NlNGenpGbWN5akxDNWVGQ3g2Z0pRMDl3?=
+ =?utf-8?B?QTIyMjBWN0d3K3VBYldlcXBWVXNFU3hzREY3Y1huL0hRaDkyRFlHemNSaEh6?=
+ =?utf-8?B?V044WmlKYlNhc2IvWkNyaXNXRDhOYlZib042ZnJxL2RaUWVtZHAvL01Qdk9Q?=
+ =?utf-8?B?d2tVc0FZWktDMzQ2bEVubTRLVVNSSUhlS3FKamt0L0FMMEV5TVA5WDlZQ29i?=
+ =?utf-8?B?bThzOUgwUlQrUVVzdGs3cUVIZGFoRG9BNENCNHZQd3JOd2ovME5tUlFkZWVW?=
+ =?utf-8?B?QjJQaG9raE5WZk1iTzZnVnBWWkhFOExldWJsajVSR1YrdVc3T3NHZWMyTTU3?=
+ =?utf-8?B?d0Q3bjhxTEhEaXl6WGJjR2Z2YUtWZk5HWG5ZNjBsZFFWeTViaWRmZHF6MWta?=
+ =?utf-8?B?TDZtMTZQT3hmUjZlZWlBN3crTVJTc3dqK1E4YzdnWnhPWHZSclRZdmlLTWRV?=
+ =?utf-8?B?UUZrM3VVUEJiNXBzR25CQ3B6RCtlVitVTEcxOFRDSkNPTktQWW9zWHVML05p?=
+ =?utf-8?B?T2ZuZm5CTThCNW90Mi9icmExQlVGbUxRbVJaakt1ZTNrVTVnQUExL1M2M1Qx?=
+ =?utf-8?B?VXMvSGpheituM1lYTk9uUkgyWU9pRkpLT3g1bTFTYXdPY1JhRk9yYU12MmJW?=
+ =?utf-8?B?d3ZrMndOZDFHRmNZUGZPUTQwemFXN2U2NDBpbjN0cnF3YWVHVTlteHVoeE45?=
+ =?utf-8?B?WkY1WkdwZFpmdmt6MitIb0Fpelc0R1NPV3JHSXhLZk4rVGtLZ1Y2TmYyQ1Bo?=
+ =?utf-8?B?YnZBNjFwZk8xMFdGaWFjSE15MmNCT3dCQ3NsNGtkOGhWS1dkeCtTb2pnZDBm?=
+ =?utf-8?B?SVljdW8wdGNCVmFxcTlITnVydTQzeUEyeXYzbm4wZEZKMjVaYktKOFVPczVy?=
+ =?utf-8?B?ak83cEFVK21sUEYyM2RlSnV3YUFXaGJhbGVqZjJuL216Tm15aitlMk5hMlZC?=
+ =?utf-8?B?RlhyeGhTQ1lSR1dLZ3Q2TEg1SEVVUlZVRnZVckxIc0RyRG1DRTErdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 564b5009-cb82-4ca7-ca36-08defdeaa36e
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 12:08:54.0446
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mHxCl+f9yP32AG/LkwCIlagbb2xQRaP+n2soTP2UfSBy5x9sLGoVj+681q9uwjHzgNzR5Z20knNueNdfmDEjIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB1886
 
-On Mon Aug 17, 2026 at 2:56 PM CEST, Eliot Courtney wrote:
-> +    pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) =
+On Wed Aug 19, 2026 at 12:23 PM BST, Danilo Krummrich wrote:
+> On Mon Aug 17, 2026 at 2:56 PM CEST, Eliot Courtney wrote:
+>> +    pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags)=
+ -> Result<(), E>
+>> +    where
+>> +        E: From<AllocError>,
+>
+> This signature rejects impl Init<T, Infallible>, which is the reason why =
+we have
+> e.g. Box::init() and Box::try_init() with different fallible signatures.
+>
+> So, if we follow InPlaceInit, it'd be
+>
+> 	pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) -> R=
+esult<(), Error>
+> 	where
+> 	    Error: From<E>;
+>
+> and
+>
+> 	pub fn try_push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) =
 -> Result<(), E>
-> +    where
-> +        E: From<AllocError>,
+> 	where
+> 	    E: From<AllocError>;
+>
+> In theory we could also simplify it to
+>
+> 	pub fn push_init(&mut self, init: impl Init<T>, flags: Flags) -> Result<=
+(), AllocError>
+>
+> and
+>
+> 	pub fn try_push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) =
+-> Result<(), E>
+> 	where
+> 	    E: From<AllocError>,
+>
+> However, InPlaceInit actually achieves more with the init() and try_init(=
+)
+> distinction:
+>
+>   What init() accepts, but try_init() does not accept:
+>     - impl Init<T, Infallible>
+>     - impl Init<T, E> where Error: From<E> but NOT E: From<AllocError>
+>
+>   What try_init() accepts, but init() does not accept:
+>     - impl Init<T, E> where E: From<AllocError> but NOT Error: From<E>
+>
+> So, with the simplification we'd technically lose out on the
+>
+> 	impl Init<T, E> where Error: From<E> but NOT E: From<AllocError>
+>
+> case.
+>
+> In any case, init() and try_init() seem a bit mixed up on their purpose
+> regarding fallibility and error type strategy, but in order to really cov=
+er all
+> cases I think it is necessary.
 
-This signature rejects impl Init<T, Infallible>, which is the reason why we=
- have
-e.g. Box::init() and Box::try_init() with different fallible signatures.
+This is one of the reasons that I suggest the entry-like API. This way the
+reserve and the push are separate operation and with their own failure mode=
+.
+`reserve` can only fail with `AllocError` and push can only fail with whate=
+ver
+the error the initializer can fail.
 
-So, if we follow InPlaceInit, it'd be
+The most simple case of just reserving one element:
 
-	pub fn push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) -> Res=
-ult<(), Error>
-	where
-	    Error: From<E>;
+    vec.reserve_one()?.push(fallible_init)?;
 
-and
+the only requirement then becomes `E: From<AllocError>` and `E: From<InitEr=
+ror>`
+where `E` is the error type in function signature, bypassing this unificati=
+on
+issue.
 
-	pub fn try_push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) ->=
- Result<(), E>
-	where
-	    E: From<AllocError>;
-
-In theory we could also simplify it to
-
-	pub fn push_init(&mut self, init: impl Init<T>, flags: Flags) -> Result<()=
-, AllocError>
-
-and
-
-	pub fn try_push_init<E>(&mut self, init: impl Init<T, E>, flags: Flags) ->=
- Result<(), E>
-	where
-	    E: From<AllocError>,
-
-However, InPlaceInit actually achieves more with the init() and try_init()
-distinction:
-
-  What init() accepts, but try_init() does not accept:
-    - impl Init<T, Infallible>
-    - impl Init<T, E> where Error: From<E> but NOT E: From<AllocError>
-
-  What try_init() accepts, but init() does not accept:
-    - impl Init<T, E> where E: From<AllocError> but NOT Error: From<E>
-
-So, with the simplification we'd technically lose out on the
-
-	impl Init<T, E> where Error: From<E> but NOT E: From<AllocError>
-
-case.
-
-In any case, init() and try_init() seem a bit mixed up on their purpose
-regarding fallibility and error type strategy, but in order to really cover=
- all
-cases I think it is necessary.
+Best,
+Gary
