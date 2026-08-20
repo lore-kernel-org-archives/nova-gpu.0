@@ -1,70 +1,70 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012020.outbound.protection.outlook.com [52.101.53.20])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E142A41A55B
-	for <nova-gpu@lists.linux.dev>; Thu, 20 Aug 2026 12:01:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABEE43CE54
+	for <nova-gpu@lists.linux.dev>; Thu, 20 Aug 2026 12:30:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787227288; cv=fail; b=itmMXC4n0NbvG1kNAlF1PMUxuadW1wgAIXO+fdHZkUXCpH5dZ/qonAiqOfySLQF9vJKGs1oYdP85+hNGq9ZbbcfclgXtgkRHLCmPXplGSJmIAny0x2DI8FtM1pHj1mBC+qgQYpOJoDDGELB9VvxbMWbgjC9iuFhVmYhFMfpbMSM=
+	t=1787229043; cv=fail; b=erEXqMIl3xeL4ZQmEywsTVNP9/FX0YBBWtjFzn7Vqe8Gha4/cVHI/1TRnw2if7+S+vK/aHTPHAJrrmzimWvwspLxZW/oCEZ2SCKxrdYSSDkA3EYbQyztGHEIYvtPb+/SWj53A3V26Z08gC75s5vgxLFZb6aB27TzOsiGUaP5c+M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787227288; c=relaxed/simple;
-	bh=19Qgh716iBARFHJZKi0xa7udhTvak7pnwD0/7hIMR24=;
+	s=arc-20240116; t=1787229043; c=relaxed/simple;
+	bh=pZrRWdz5o4FiPop1CA/kBN9y5gPBMBw8sQ5vcNye6Mg=;
 	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j5UnIrWXuQaZ8vPr8m7pAAA9uY7oozT6/gFTob30sF+X7l3xcmY5vdMmXjQ6fh/8QlbSXfOG58pErHmQuLI0AL7WS19MYhG2XR5CmJjKdn9zhzvtp5TVLO5VBrdD+n6PDAtOf0zSxmMmDC4t4Q192yQEyZsxkyAZ824XiSUQ78M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ExMsTnEO; arc=fail smtp.client-ip=52.101.53.20
+	 MIME-Version:Content-Type; b=DYzax8TDNd83/8A3+OBivPVxMOPDE1LGOf0Gwt6V0aNMStdhfObW/ctKWpQmKGgCV1sqmq1ZTh6nhb+PQ/0Qq1ftqkZ0Pp4q48bw/N2oM0j+c0xihBK3IeRDFyQ6gwoqcdL+0X+oludZzQE5YVTtsIzhQbQvfMq83W1Ysk0eXgQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZaB36Lp2; arc=fail smtp.client-ip=40.107.208.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ExMsTnEO"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZaB36Lp2"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zJ1o5FYkaluccwRGZ8KHQGL7W/HegcTpxaeWOn3aRfT06+n8vQY/BOHhtLT5ZvQw1S+Y5JGVdD540noqYsQuihuTZlYw1a7JSFRhp4FZCsKbqTiEz26htgFw0BODlrX1zOnk5Kb7qRr6XlFsBVUX5lgYu6sJWQSwCytAKKj4ReX3VD+qPffYCqQJ9e0fPLioS2k1oP7Hg3GSenF6CCN1rJ4flOHwiv0Beya45ox3rCwZIEbXBnAqEuGPsCGB5LcoqqYciPtpqCh5fL7HNfjzSiO5HCkTmY2rdkaxjvmON3dW543GWvCRiBuzkx463F+eHwCZSP67RW1Hsfidhxq+9A==
+ b=FuAJypkSkEgcR8a8Z2qJIQ+PHlDamwvDqNS1HOioZXrMYPNh03iAUGEaZUHjp5y1W7wwNW7m4RdBbDXqCllK8L6TK5oqTckmjb+fT64QYo3nHWxFVGzqn8nSikBoASBo8Xx2IONxnOKuoXv/8JzzvBuXojP6pdAIt757jChZtni1e6UuiyaJ9QPi0fh+fRIzM6wK9126bnTJe0OWmn2pKVZcayEuwBp2pZI/elu6b8yXCp2eCpxvPi/0x4M8yVPiwiN87lJ2ES63tWu+cx+60OsmjHdGn6/yFOLXSKseKK5+NcTMPzrq37XU6ZUeB9iwpra+3D86J9YmEpbLjhOOYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ypebUBmPOHfSjXHgrQQ+DN/Agy+7raJKjtqB7dioPCg=;
- b=BGVorxDEY+SObjfrQZJnG2/JY2zTpmwKweAC7RycK3OfZsfk85luFRPHpbBVMZNA3jY0d+m1azhUhAgW5709BhJrMBX9tiZU+PdhCj9R+cL2qnQsG5O8etHS7yDjyTnk66LPQz/g6dykrkri+XnXulx6vfGPRpBX0KDOBpnXAJc963+XzgDPHOWPdzreXQXUgcMDn2FO+HkKSS65ctnbvJwwADBP4rVeSkB7HOO1PuktvRT7LEOlwuYnsSoRbvwOBxdnbBMaorkNI7pX6QG8E1sSq+n36+hIq7/ps6tSoFdqbdnYP23Crnq90pAy4f7Ay4t70jPls33djNtUXFK7NQ==
+ bh=DjodA5LasNjarWN/0mk0b0n4pzD/VK8+vjeaWggwtRY=;
+ b=gCDyx6mbowNs6wziOvWjdGER2eb/7RYhHsOd57z/5w3dI1cJOKABtjZC4Nimn6i4VU6zxRcULTFgb6zDrtv/EHfYzn11vDL3kWy6l+9lzqRBzutM5LkLldOKSc5pNctr4UXcA/5f5c/oHgS9BHj0a5GB7oV3gFB63VeYgVRae9PLCrVGKlFbN0tHpr/gw9WYXGJMM1jlu1Kb21dGINnRvAi4UiGSYoGwSStPwbqkFKGfE26Q84kTMTYblnJo5PDvcvqJ1xNsZ0FfXp8X6PTD2dSuDlD+YQq+HPnNpHUWS4rTqVurzQJm/ZQKJW3JPmtcb4LeiZfV4Vrjyd+qHFWwTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=umich.edu smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=umich.edu smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ypebUBmPOHfSjXHgrQQ+DN/Agy+7raJKjtqB7dioPCg=;
- b=ExMsTnEOutELXhd0sdgb0byZOhepuxJjRiJzCNGDXbmBOTa71DQyYj8Q7j/xelcUL4V0OELJFJ0Sjm+bho8UBZYxRkoAAFOePJ6JUpfBFOTzseXu5M+NH3TQphaRXPXeq0VE1Cx0/8oPDqcd6Lp2Gz/lcxuIpWgMn6rXRnZ+3MsqWYcpIpUodCRkvpc/hXcx/BNYrtK7OSqBJ0jT9nXPKZFzEJIvLtXzW4X9AzWjhiTjA3KE4FV3o2u2KoI5jWGVFvtV1U7Fw11qhwsVn5r1mjZnv1WdZz3GoXHSRXeZ0zemKcQpwz/yp9f7ZgTiT1vawJ3BWiQPhdnHXlbCs6THwQ==
-Received: from IA1P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:461::6)
- by PH7PR12MB7137.namprd12.prod.outlook.com (2603:10b6:510:1ed::12) with
+ bh=DjodA5LasNjarWN/0mk0b0n4pzD/VK8+vjeaWggwtRY=;
+ b=ZaB36Lp2O2u+/NXKwGLj6S7R2+bFQt5AEO/RPxZJEpYKK/wYNULl7hC+xOc0VYKMC92dadH/MM9R6Q+RYdXQ3Z5XtdhJIlCB9yjGj1i4M1IbYp30oyTW6q/6WsLoi/3aVqzfqDF7fO3zoQyQWKqNRM6z8mz0WGbtazP0/DpYrlki/5laGxAaRr+VUoJnAw9g2cH6uYsAsAqFCPsptAeeke28sVz06D9M6uhBfVLm2yqba77G3dtoJ6+rz9QaVd+0sQ8UuMXnhdBC02Uj0TN4s1FsjX982hqMkiC+kiqBKgt6g6JzrqqogJTfErh/Sx7oBozcU5fwf+i6Xf049+yVbA==
+Received: from SJ0PR03CA0223.namprd03.prod.outlook.com (2603:10b6:a03:39f::18)
+ by SA0PR12MB4429.namprd12.prod.outlook.com (2603:10b6:806:73::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
- 2026 12:01:17 +0000
-Received: from BL6PEPF00020E5F.namprd04.prod.outlook.com
- (2603:10b6:208:461:cafe::57) by IA1P220CA0009.outlook.office365.com
- (2603:10b6:208:461::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Thu,
- 20 Aug 2026 12:01:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Thu, 20 Aug
+ 2026 12:30:36 +0000
+Received: from SJ1PEPF000023D9.namprd21.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::8f) by SJ0PR03CA0223.outlook.office365.com
+ (2603:10b6:a03:39f::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.9 via Frontend Transport; Thu, 20
+ Aug 2026 12:30:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL6PEPF00020E5F.mail.protection.outlook.com (10.167.249.20) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SJ1PEPF000023D9.mail.protection.outlook.com (10.167.244.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 12:01:16 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.0 via Frontend Transport; Thu, 20 Aug 2026 12:30:35 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 20 Aug
- 2026 05:00:57 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 20 Aug
- 2026 05:00:56 -0700
+ 2026 05:30:14 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 20 Aug
+ 2026 05:30:13 -0700
 Received: from inno-dell (10.127.8.12) by mail.nvidia.com (10.129.68.7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Thu, 20 Aug 2026 05:00:51 -0700
-Date: Thu, 20 Aug 2026 15:00:49 +0300
+ Transport; Thu, 20 Aug 2026 05:30:08 -0700
+Date: Thu, 20 Aug 2026 15:30:06 +0300
 From: Zhi Wang <zhiw@nvidia.com>
 To: John Hubbard <jhubbard@nvidia.com>
 CC: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot
@@ -78,11 +78,11 @@ CC: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot
  Hindborg" <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Trevor
  Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, LKML
 	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 16/27] gpu: nova-core: add GMC transport receive path
-Message-ID: <20260820150049.5aabb1a5@inno-dell>
-In-Reply-To: <20260819035221.336390-17-jhubbard@nvidia.com>
+Subject: Re: [PATCH 17/27] gpu: nova-core: gsp: add GMC dispatch on receive
+Message-ID: <20260820153006.5ae7e7e4@inno-dell>
+In-Reply-To: <20260819035221.336390-18-jhubbard@nvidia.com>
 References: <20260819035221.336390-1-jhubbard@nvidia.com>
-	<20260819035221.336390-17-jhubbard@nvidia.com>
+	<20260819035221.336390-18-jhubbard@nvidia.com>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -95,139 +95,122 @@ Content-Transfer-Encoding: 7bit
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E5F:EE_|PH7PR12MB7137:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3af0248-a3f0-4a12-c0db-08defeb2bd33
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D9:EE_|SA0PR12MB4429:EE_
+X-MS-Office365-Filtering-Correlation-Id: 380f2242-ba1f-4c6d-9329-08defeb6d59a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|7416014|82310400026|376014|56012099006|10067099003|3023799007|18002099003|22082099003|11063799006|4143699003;
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|82310400026|6133799003|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	Z6X3H4lF2V5B+pmMmhz79Uc0Qriok0YghLstuRtB0IHOZVJN3WA2YPQ0gaQCbVfS5lo41er1BT6TzYa+54ZK8Mk9Agpca3QwqjO97TJPs9el7T6jyn7HjVeo0qjftV9DnKc1j/2hcyBFe+2vgNPqa2m44o5czG3xGgZMlcNnd1pRnon40sLRhf8bo4szBqTJgpdqyNMy9KDdSRCEx/hRMCK7zMxhpyLt6b+HUdJgNxGd9VUoM8dKvfc/PP3zh7Ws4URDUiGIyQk0s3/IXum3G/vwWtz2oV9EXE6nFdcZzrboNCJyrOw5IcMe5qXDi7f/rRajJ6meSDdDlDhzZEG7VYzKURmTYLkGLyl99b8yDEgRJ/hIV7I212tcvKwS9xClf6SqkwXfkfB/GWScDOcDofgvxGu8aAEh47lG7ddUus224TMKwqrdlVLfbugIeVi5O0sQQ68eEYRhj+mHwizgilCvaBwf4w1k67UhisK8SfbbPhDDhGS974OrIep7FbGDKuqbeZ74x2ZD7WMSKs1j5LZ+G4+RHfJFD85GjlY/1kJ5eJoYW5jdXlwGrU+CqnZvqXN6M0w4aYFKFK9h5oMPWuOucLORCM1fjHsknjH6rVXnUpqpSaXdOLZYee+Q0z5kE1Ex/sYjfj/Q34MP2Z9qPuwlvBZk71UL4huhSmElLkR8R41GOFUYFKpVFZjl6/pSNTBkm9LtNOuVU3nSbun1zA==
+	SiJL5ShPxJIg/ra+nM70cpaNp8Exlqa0V0R7aq0snrlJhDtoAGnGIQb72bi6Pr+Db+pBJmVSwfiZN+Y/D3hbOoc6RaZd/EyCiHn0ZUa9wVjalEZvQkEc1/HdaHa43h/Xn/1Ii1EYtMvn9RgR/EIojhLLl+cuKvTAxpBVjMa7MM4EoStl8FTDH8qGpRPBuTR9aB5qB6oLRIOFH1dJ1wX2Tq/X7GZjbaUQySM81bNO4M+D1VoyVKJx+84fFEHLxUMlKgRR5oSEUWYdMpf0g/o58jmPKiFYiAM9+xBE7L2atjP/HRP/8GHHSY00/o4S6Jn47cqudWuT4D2+WnhJ1D1Ooy4HAJ8FgGuBOyWn6B2kC0G0FU1YlqLOWq/kmRr5zwXEa2wRUQn09iJafPIGuDOLlVdt+bD+ItefjeyjDlMK8oai9435PAVqt8mB9NxQ/ehzHOosNZhhAoa8dIGnWy9E/x0sS31u2l/EUVPvqUzMYs2BpZDPkB/o4TnHtuZAbtsL1s8hu/XhmQDTEF9AGWiT3XACWRwOuUmjjZAoiSh3ekRqQDLcx2GwhciW/p5r3oRplTzzMmMXHLNt0WVAe5eDuaZJAamZWNVSaL0sS8C+xUcJEZAWLrTC+tjQjiJ2NJxfoAn4vv5ZO2a7XJggHnaHVuisSycOq+IsKsEvVeFinmhUj9OyOb9LZTJt18mQUfD5hC9atEZ1u4McbudRdo7/BA==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(7416014)(82310400026)(376014)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(82310400026)(6133799003)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	cTNzI6fDVQQXERbZA7fsUKjMkdsCmbLQEcxXsyt7RevlNKMTwZR0ByW3eZmu4o5hyRTPpLoEbxcPHdYDyQknifVWoBrYa9LNpSEobVWTTrpk9cf1jAPw9AuFbptW8nAFff9ftn4Q/hVsSgRMLXPyu5Y/y+YxH57RIwNVmaQwJ1E2IwdHVM1gTYKEUGgA2vKXAsrgAQcacqfCy2J2iDrlqa3/AHSmJ+cCw05pOkqyrjWGtbmrvIp45RJVpxFeaCzQcAaDx0eDSdaE9Mlak76Wl53MIWUHaYtBMQ2IUPLhuYS7KVWJLLMA9H6GRZ/+lyC4zZ1eRZWRCX7A0NlvOZjBLUQ3l6Zs7ptfSS+LQiLkX5nL0+wEamaPe9dOviEpNpv83OvXM1FDtqKkr/Kag+fGnL4rZQSCuxW4dSnaBYpLFQK5k8hik19SHWfeCfcM6MYL
+	IlrtaBgrHYnPpwtBR/AB6uxulKjUKhSP5PGW12myN+xuX5U5/t5km0uKlCvUOeKJ/0ZfGRBfkoZEFTZRG60zeGk70N7nS2l/69qnv0aEyRIqwWBKfg2yi7VeaDWltRU47Zua0rQBwUNOr/E8qaDvLSaAF+OmQpbb3GaSnZhCNnNU8fSJ5RYugBxR8SO/uElAmTKIUE+7Ma1Prpv6XspsVXbjBl8bbyOcAk0cgcFqUBAesqsILLa/kDtNRi0C4lbtfq7gqXGB1K9ZIH8SjiIYdDMbRIWAqxy9UhxQkP8R0Ll6+FBCzjvEQ2Db1pcTElaAjLylaFDjU1led+ZKhY9LCA8AI2VWy/Yqdvf6gm80652NfXdmoVSX10BrOFHIKAYT/l/pO6IMhQnzZWpotRbiht3SIYYqD0sx5Pvt3Cob8/fNYBVrSOZNBLwvTaRvk5js
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 12:01:16.3148
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 12:30:35.4106
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3af0248-a3f0-4a12-c0db-08defeb2bd33
+X-MS-Exchange-CrossTenant-Network-Message-Id: 380f2242-ba1f-4c6d-9329-08defeb6d59a
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E5F.namprd04.prod.outlook.com
+	SJ1PEPF000023D9.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7137
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4429
 
-On Tue, 18 Aug 2026 20:52:09 -0700
+On Tue, 18 Aug 2026 20:52:10 -0700
 John Hubbard <jhubbard@nvidia.com> wrote:
 
-> GSP-RM posts GMC and RPC messages on the same message queue. Both use
-> the same MCTP and NVDM transport headers, but RPC messages continue
-> with rpc_message_header_v and GMC messages continue with GmcApiHeader.
-> Existing RPC receive code cannot parse the GMC layout.
-> 
-
+> The r000 boot path delivers the load-and-execute steps as GMC events
+> keyed by command id, where the RPC path keys on a function code, so
+> the boot loop needs its own dispatch.
 snip
 
-
-> +    fn wait_for_gmc_msg(&self, timeout: Delta) ->
-> Result<GmcMessage<'_>> {
-> +        if self.poisoned.get() {
-> +            return Err(EIO);
-> +        }
+> +    fn receive_gmc_and_dispatch<R>(
+> +        &mut self,
+> +        timeout: Delta,
+> +        handler: impl FnOnce(u32, &[u8], &[u8]) -> Option<R>,
+> +    ) -> Result<Option<R>> {
+> +        let message = self.wait_for_gmc_msg(timeout)?;
+> +        let header = message.header;
+> +        let length = header.length();
 > +
-> +        let (slice_1, slice_2) = read_poll_timeout(
-> +            || Ok(self.gsp_mem.driver_read_area()),
-> +            |driver_area| !driver_area.0.is_empty(),
-> +            Delta::from_millis(1),
-> +            timeout,
-> +        )
-> +        .map(|(slice_1, slice_2)| (slice_1.as_flattened(),
-> slice_2.as_flattened()))?; +
-> +        let Some((header, slice_1)) =
-> GspGmcMsgElement::from_bytes_prefix(slice_1) else {
-> +            self.poisoned.set(true);
-> +            return Err(EIO);
-> +        };
-> +
-> +        // Checked before any length field is read, since a bad
-> magic leaves them untrusted.
-> +        if !header.has_valid_magic() {
-> +            dev_err!(&self.dev, "GSP GMC: receive: bad MCTP
-> magic\n");
-> +            self.poisoned.set(true);
-> +            return Err(EIO);
-> +        }
+> +        // The RPC and GMC elements share every field through
+> `nvdm_header`, so `gmc` holds an
+> +        // RPC header rather than a GMC one unless the NVDM type
+> says otherwise.
+> +        let result = if header.is_gmc_api() {
+> +            let command_id = header.gmc.command_id();
 > +
 
-IMO, should we also check the MCTP version here?
+IMO, should we check header.gmc.size == payload_length()? as now we
+know it is a GMC message now. Not sure if gmc.size < payload_length()
+is a valid use case.
 
-> +        let payload_length = header.payload_length();
+> +            dev_dbg!(
+> +                &self.dev,
+> +                "GSP GMC: event: seq# {}, command_id=0x{:x},
+> length=0x{:x}\n",
+> +                header.gmc.sequence,
+> +                command_id,
+> +                length,
+> +            );
 > +
-> +        // Check that the driver read area is large enough for the
-> message.
-> +        if slice_1.len() + slice_2.len() < payload_length {
-> +            self.poisoned.set(true);
-> +            return Err(EIO);
-> +        }
-> +
-
-Do we need more checks here? Here we only checked the nvdm payload
-size, while in PATCH 17, the queue cursor is advanced by mctp payload
-size. It would be better we can confirm the frame correctness here in
-PATCH 16, e.g. check the mctp payload size with various constraints.
-(size > min size, size < QUEUE MAX SIZE, size < available space,
-etc...r000 firmware does check these) 
-
-
-> +        // Cut the message slices down to the actual length of the
-> message.
-> +        let (slice_1, slice_2) = if slice_1.len() > payload_length {
-> +            // PANIC: we checked above that `slice_1` is at least as
-> long as `payload_length`.
-> +            (slice_1.split_at(payload_length).0, &slice_2[0..0])
+> +            handler(command_id, message.contents.0,
+> message.contents.1)
 > +        } else {
-> +            (
-> +                slice_1,
-> +                // PANIC: we checked above that `slice_1.len() +
-> slice_2.len()` is at least as
-> +                // large as `payload_length`.
-> +                slice_2.split_at(payload_length - slice_1.len()).0,
-> +            )
+> +            dev_warn!(&self.dev, "GSP GMC: dropping non-GMC queue
+> element\n");
+> +            None
 > +        };
 > +
-> +        Ok(GmcMessage {
-> +            header,
-> +            contents: (slice_1, slice_2),
-> +        })
+> +        self.gsp_mem
+> +
+> .advance_cpu_read_ptr(u32::try_from(length.div_ceil(GSP_PAGE_SIZE))?);
+> +
+> +        Ok(result)
 > +    }
 >  }
 > diff --git a/drivers/gpu/nova-core/gsp/fw.rs
-> b/drivers/gpu/nova-core/gsp/fw.rs index 56f255a3d49c..9e6b5ec6aadb
+> b/drivers/gpu/nova-core/gsp/fw.rs index 9e6b5ec6aadb..83f7d2042aa1
 > 100644 --- a/drivers/gpu/nova-core/gsp/fw.rs
 > +++ b/drivers/gpu/nova-core/gsp/fw.rs
-> @@ -1055,11 +1055,21 @@ pub(crate) fn init(
->          })
->      }
+> @@ -975,8 +975,19 @@ pub(crate) struct GmcApiHeader {
+>      reserved: [u32; 5],
+>  }
 >  
-> +    /// Returns the length of the response payload (data after the
-> [`GmcApiHeader`]).
-> +    pub(crate) fn payload_length(&self) -> usize {
+> +/// Command identifier bits of [`GmcApiHeader::command`], matching
+> Open RM's +/// `GMCAPI_HEADER_COMMAND_ID_MASK`. The remaining byte
+> carries flags. +const GMCAPI_COMMAND_ID_MASK: u32 = 0x00ff_ffff;
 > +
-> num::u32_as_usize(self.nvdm_payload_size).saturating_sub(size_of::<GmcApiHeader>())
+>  static_assert!(size_of::<GmcApiHeader>() == 40);
+>  
+> +impl GmcApiHeader {
+> +    /// Returns the command identifier, without the flag byte.
+> +    pub(crate) fn command_id(&self) -> u32 {
+> +        self.command & GMCAPI_COMMAND_ID_MASK
 > +    }
+> +}
 > +
->      /// Returns the total length of the message, transport and GMC
-> headers included. pub(crate) fn length(&self) -> usize {
->          num::u32_as_usize(self.mctp_payload_size)
+>  // SAFETY: All fields are integer types with no uninitialized
+> padding bytes. unsafe impl AsBytes for GmcApiHeader {}
+>  
+> @@ -1070,6 +1081,15 @@ pub(crate) fn has_valid_magic(&self) -> bool {
+>          self.mctp_magic == MCTP_MAGIC
 >      }
 >  
-> +    /// Returns `true` if the MCTP magic field contains the expected
-> value.
-> +    pub(crate) fn has_valid_magic(&self) -> bool {
-> +        self.mctp_magic == MCTP_MAGIC
+> +    /// Returns `true` if the NVDM header routes this element to the
+> GSP's GMC dispatch.
+> +    ///
+> +    /// A [`GspMsgElement`] and a [`GspGmcMsgElement`] share every
+> field through `nvdm_header`,
+> +    /// so the NVDM type is what distinguishes the two on the queue,
+> and `gmc` holds an RPC
+> +    /// header rather than a GMC one when this returns `false`.
+> +    pub(crate) fn is_gmc_api(&self) -> bool {
+> +        self.nvdm_header.validate(NvdmType::GmcApi)
 > +    }
 > +
 >      /// Returns the number of elements (i.e. memory pages) used by
