@@ -1,70 +1,70 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010039.outbound.protection.outlook.com [52.101.61.39])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012039.outbound.protection.outlook.com [52.101.48.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7545B477E58
-	for <nova-gpu@lists.linux.dev>; Thu, 20 Aug 2026 16:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C2C48035C
+	for <nova-gpu@lists.linux.dev>; Thu, 20 Aug 2026 17:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.39
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787243105; cv=fail; b=JfqgOqMUq+o3qKCSeCUiPiSlfonAPFhPO40WounbhpTcGqr6137bdb7N1avEma+L7eHrAFHyFTHw6cL/9ndPpckttNYNEI/mVAwOJLPaVJe+eEyq0FDp781ryeE6AucPvio00G/9vAEyyfW/gN5h8F0Xd3c/aBEkQxQR0R+UQeQ=
+	t=1787246945; cv=fail; b=MEI+y8ZZcF1hSk5UAE8az0wbgILew1hXaYcclJ3suvY8xyxCtFSGz1LEOb1B4B33VYZ4Gz27tIdmewSzE0xdMZbLCxB2nGS1PLqZnRJTKa4aTWVcOoigrZm9Gbe4F5eWjDnZMNmfbxFKWlopa8O06MaZvrC7/MdTjfzUoLAvg5g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787243105; c=relaxed/simple;
-	bh=efs0pMmzWbeP0oRGDlO5fhMBSWwojyju7C0vUI4e+/0=;
+	s=arc-20240116; t=1787246945; c=relaxed/simple;
+	bh=o6+y6gB1tFSutrQ42TZ6lkD5XkQE0oDf/0T2wHjZkaQ=;
 	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dPO7o1HLjEd9aMlAhyH3JkWfUhOdX80taOai1tgG4TNyZGUVqdcrCfZNIr8Z1blJzDGcM9lkJZnLUqOdYTXSHhBhu/KsqEz9Pl00/iAMeeZp6hIAH0mLR9pGu3GxA7Yb+UTT6aH3LnQEPRn1hcD3FRAYJVNkSNQsLp8LdFFK9Lc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Q6tGB0vU; arc=fail smtp.client-ip=52.101.61.39
+	 MIME-Version:Content-Type; b=E/lPSBWSx9On5Hcn5Rpq3pxC70jAfd7FC1A5bvCe/GJ61ap5Lnwa/XqAR2gL55C4Bb3eEYxbCaTZ0c42aZ8+bg8krPobWIKwTCbtbXD6L8Uo/emtj0cnxLOrjHyRgt7NV8AvSuMfigx/G3k5Tv194ZR3t9L2f5NCvo3qeIxoouI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tvw7xHIY; arc=fail smtp.client-ip=52.101.48.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Q6tGB0vU"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tvw7xHIY"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lfVcvU61EXELoY6oq7jmynmlbY43KSQTVQvzCvITIjubQwyPj+9xIiGsauQyBb1ZMqHpA1C7BuQfGtNcr/LyTwE56Rk/gwWEEZU58KYZzQgL+KUnLEZrDl0luGx/W0YzdNcukmeHSvQuWuhNZfzGS+HiYSo7KPobJohleV+bjZmyBY5eYdHnm2LTrG18z6wbYIzbgCwJv2s5IOirwvt6j0sL+fQjjvA/AwTlLROuXOad3VOpoEX5/jiBCB33/QeyQjDTiy/oVI9qWBoZWhLSzWXJJ+CQdAkIR7WrZ3/VTE1qVxd+32sfnW5dir7LaUCu4Uh68pF6FShXk9Y1Z5ctMA==
+ b=FMtxXCi+iCOgT/yO0OcA0wBzXljo71T9zbxEfa+RIiaEJI1cVw4zUM/6oUAaJs9dIePOITfz2gtW8wqNIxVuzwTso+xL2WIoJXb7eju5/+qxWdmha0C2HEDi7qeB5wpWzVS5YF3gfV16BPMyKUjazQWnPCRKF/+E922NDLmWgPn6V7/ekbyTJSxpXEBW8AAtfI9wFWyBBp3dUHCDn0VXcjJOS6PofRkm/fuM764ICWcOqjyD/cHqFkfK5ja5ktp+ssc6VtC4CPRJVbGPKMBWQB/Gh1xQh37oVeHo86IEl60IJ4REBJLnWrmrY/BcMtiA3PLg5jgFAPzXV+EpC+Wpyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KdjMhjX3dhmcIUNSkpqAD2jo3YQVU9fQ4682TU7jMrs=;
- b=cBnp4c+Jseua2nG/pTb5oNCprRJ5ub8Fqp/+4dYzpKa21T2Oznko8XqEXTwQFVzOUX8ml5NRlUW4y1jUYRSNF8ZKvqStF4+q3zmtitdgCm+s9uww/lylCMCKh9Y9tV8Th1Z6Kt0XDUK6gFsayuEGTSZTP+Eno1InrKMtmot4U3UbUJtPc9gpRgD6wINGX4FMxF+lCJ7AbeH0uB31DfJqjvhbFoPhbvNIVS0tBsGZGprEqgHBHfNN8OHaMNtL5Si1QjciwGzpxpFFLLg3icdAtIZmQJkQ+L/BbUuLs7sOTTwjRU1hFYaYIytyjYfoN9UX+iE8e+A8diHxFRqbE4HvoA==
+ bh=GJ2gciQhXyz66IWZGXSe5BmOdTrfc6smkXqYFsSL0V4=;
+ b=eMIj1c5vtJU3R1+EG9q9opoGUyJeaHxoNwI/vmdq9I9XHFNO1ciQhPDN48WJm2o61kYkv458fM3g6YvDmW8xDqUyaFpHmp5dOfwoVDLXOaOngTnd5gLKo1UqqV1YImo9baT/lgdJXDMeWox8z0+YqbykKGB0tBzEvwA3+jdHb9FeupWlUugvgFXDi9xzOCMeLCMVBPCG4m8isfoBo5bg96CXnHt813OFsupTWk7j++vFw4S/b5ifTS4x+d8PSLR3jYqumx5lv5OonOVrQZHF4Mzs4ZAaNCx5HxAsuW0IEfNDey4YEZGMK5ys/KYk82WilUnEDYuvZQZib7EUbOvZhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=umich.edu smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=umich.edu smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KdjMhjX3dhmcIUNSkpqAD2jo3YQVU9fQ4682TU7jMrs=;
- b=Q6tGB0vUGHwL9r4Wg8tlhRc/M1JuVNbD69c5Q6LpMtRgxKNcjIGjEC/LDIqhympoCTPtqwBgOHhR3EeRJx//Jp2JevRkO+8B2ca6bNFnkUmJTOgKbce53uBBrynBxOPMFgltkImtlwC5wwNTvBYmYrXBEmycgccYWsn/iYrefAo9rSjIgKAcKmRwvQBIc3NO1yg/eloBFPUJnGheQBb4dp3VtaqD2wExOVyRE+XiOB6IQqdyyUq4bLdASazvOfkZFVoOKCyOOLe/CktUJPVcAHhzoSSSeegWf03YBptqxeAP5u6ak6+vG1CkSdH7fudSb1tWSswmd55i02aYmvbqcw==
-Received: from SJ0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:a03:33a::24)
- by MW6PR12MB8707.namprd12.prod.outlook.com (2603:10b6:303:241::5) with
+ bh=GJ2gciQhXyz66IWZGXSe5BmOdTrfc6smkXqYFsSL0V4=;
+ b=tvw7xHIYUKnh7U38fMtELeYpCNbL17eN9zyqCijaAyGD3xushm1nMsj2hZuQL5jUnnvi6nlVrGzbNF0H0KqqvQ2dU6yD2FkXYu7ySzTX4Yt5BmuYhIL3K9XbQA7wIpug9IzkH9ldI5N5kSz1kBpMCdtBkfSq4NCGiSEONUX00xQJemLbkQYLWw4yOcvdWUKIKBCI/nYbHMihxcfaKP+LKxqepScMUa+rq/S1pyI+7mjiW8Rq/EtBzlxrednDHuJGbPJR2qwMbpvKYvf0/1wmPqJweLpTe4fHijXNdTjOkNnT1qjg0qGamnIbo0uX3X6rrwHF93beMKNjfNV8HwtTJA==
+Received: from BN0PR04CA0158.namprd04.prod.outlook.com (2603:10b6:408:eb::13)
+ by IA0PPF73BED5E32.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bd2) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Thu, 20 Aug
- 2026 16:24:51 +0000
-Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:a03:33a:cafe::42) by SJ0PR03CA0019.outlook.office365.com
- (2603:10b6:a03:33a::24) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 17:28:59 +0000
+Received: from BN1PEPF00005FFC.namprd05.prod.outlook.com
+ (2603:10b6:408:eb:cafe::63) by BN0PR04CA0158.outlook.office365.com
+ (2603:10b6:408:eb::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Thu,
- 20 Aug 2026 16:24:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ 20 Aug 2026 17:28:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN1PEPF00005FFC.mail.protection.outlook.com (10.167.243.228) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 16:24:49 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.3 via Frontend Transport; Thu, 20 Aug 2026 17:28:59 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 20 Aug
- 2026 09:24:24 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 10:28:27 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 20 Aug
- 2026 09:24:24 -0700
+ 2026 10:28:26 -0700
 Received: from inno-dell (10.127.8.12) by mail.nvidia.com (10.129.68.7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Thu, 20 Aug 2026 09:24:17 -0700
-Date: Thu, 20 Aug 2026 19:24:15 +0300
+ Transport; Thu, 20 Aug 2026 10:28:21 -0700
+Date: Thu, 20 Aug 2026 20:28:19 +0300
 From: Zhi Wang <zhiw@nvidia.com>
 To: John Hubbard <jhubbard@nvidia.com>
 CC: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot
@@ -78,12 +78,12 @@ CC: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot
  Hindborg" <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Trevor
  Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, LKML
 	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 20/27] gpu: nova-core: handle the r000 load-and-execute
- bootloader event
-Message-ID: <20260820192415.4c9b9097@inno-dell>
-In-Reply-To: <20260819035221.336390-21-jhubbard@nvidia.com>
+Subject: Re: [PATCH 21/27] gpu: nova-core: gsp: add the GMC boot event
+ dispatcher
+Message-ID: <20260820202819.3a3f2792@inno-dell>
+In-Reply-To: <20260819035221.336390-22-jhubbard@nvidia.com>
 References: <20260819035221.336390-1-jhubbard@nvidia.com>
-	<20260819035221.336390-21-jhubbard@nvidia.com>
+	<20260819035221.336390-22-jhubbard@nvidia.com>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -96,59 +96,96 @@ Content-Transfer-Encoding: 7bit
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|MW6PR12MB8707:EE_
-X-MS-Office365-Filtering-Correlation-Id: d98fe865-c3eb-40eb-3264-08defed78e78
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFC:EE_|IA0PPF73BED5E32:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7dba5657-73d7-4855-8822-08defee08529
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|1800799024|23010399003|82310400026|56012099006|4143699003|11063799006|10067099003|3023799007|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|82310400026|376014|7416014|23010399003|36860700016|1800799024|6133799003|3023799007|5023799004|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	RVGIUknpMqFMMAfeSG5xU/hTygZNRoq2Oar5SfFHhNW99XQuafxKW2jJ3vVdozpNmCQNActG7sXjC8SxjeNYtP0zGLgd/D+962SKkX/sWo9838EbRRwKe0lkG22SUqXeCjFeMRNklrsw0lDYVk0p70xhsK9lGc+feOF0CHULPVY6CCS0IUvfvOxgf8md4EhqeofW/DP2Onmf2Iyk/PwT8gWRKQQQWy5fyXKG0I3uCqe1AVEZuvKNDyvGCY+GyVQ/QqhKqO4y/4lZwxdT8T0UMkYu9b0PuGrl0EWoTCu/KSGXQG4KC96leZYL4f2cJ0Ioy6PsvioO57uWXXK6jd5N3jse6Lci/l5REv8kplAGkxYqsf0hiUFBjQEJg6B+UqzM04deSQ0gxWLq5xy3tFDU5k83Ah80I0Y0ml5dNGrmVKZGNCH6ug0Ibg5BFGFd+uNdhkLih1d6fItOppCHdHwN1C4LipPpyJet53plQ/zthuxwef4nfIswLB7swd2ti/kzHeqPwD3krbs2SS0RU+yGgTxskyDTOKyGbt53EEzZj8DIjDGjDa1VJ+PxNR6W/PJkAhpoIS5DYowiQo/tT5obnowTgkPjHGddh8zh84WXK8PfAlQRivDaIn3NgKJpAwmcCyy5JaKqIMETV6So8aEpM64KuhImpU1PyNB8vBxBGqE9CUxgkByGV++WgYv1khphAhGYHqKISTdPZOxU/NBqig==
+	ntKk/p7WkiRqx+xL4v9PLqEGlrO0RghJW2schBM96XOLG1kxQ/z/HIYTFNSvZmOZrLdwPgJQ6QBndUgRsUQoojLcHXGhCt+U+0A4d+gyvwOGmUiQtarL9onQ2V/gfNPSrj0eJX1gdiOW/1aUiu8LF0VTAqU7W/wQH8HtdrflKGmDvT77dVluxdQe2GhT6kJwOdsyqcatM2BQnTrAGH0eWgLUolx278H6W/cM2hzBMpG+3Msfm0akLucSd7JMR2sBFN0mGs+VQgiFdfacXvePe94alVXq1rSlIm5gy83lSV9KeXeOO80coiXAJHf+xmz5Byii6Hsm8gSnf4a5OANWvcze2lZTe8T6nSmAXq7uM9m/07ayA2XuTcDIIUWuPzqec6HSUqDPAYfWVzB+FS+cLm9brnqJBG15rOqaHdKqGwgseDqNbcODP9U06mZQizILisguR82niYd+3ZV7Ls1D6JadH84AjC8RnhwNls5xm//Y0ki3/6GAFCiJQnHwD1dkX4/X9DmnlVX4ZYW2Enqm6VflNkeEDD9W15VbuHOSYQ+Ri4J+zJBDNKbZgTpCq4/3lK2/owWnCAkUZgdW7yKX5t10O+twkZCNTNeZGk0MjvDo/p7qWalta4ojhUnRcB75j1CirIPkFEvfLVxdyRhjy6qpZ8AmC6m2QEPRXuMtxTUQ6dEqceF4bIH4R4Nl4xbBYp5WnTeh64crHiGX2k4+uA==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(56012099006)(4143699003)(11063799006)(10067099003)(3023799007)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(23010399003)(36860700016)(1800799024)(6133799003)(3023799007)(5023799004)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	lDWDcMeXL16qFWia6xEIFqTY0D2uhlEvBoxrwUxe4LFSlcI3ygtddl4b3lkqu1Ccdt/7nWQaAK0rsrlFODT0CppUdORQ43S+SYXJ1afTaHYeWm0bmB67C+tq+jLE079+yjeVRyByedYHoupRYd+WyFXa20sWgoe+4UMqzl3+bQsBeaCI5cOSJwXRpQPPNhU7qdaar117omFZJmaexXaqLgaEQU5Udr4gSr/UsYP7eLuPdOiFq91WHJP9/fd8o5ij/ESNsBeaZOxsrSBYIVxmAeFFjMm/p93D7crT5pat2llwY7TZkaEkL/A2/IzsSlr9Ci7ZgC2wdjhbId4slUIFd6msnHJe4yYOjlw4S0fSsBjIdP4wbFulmL01hKSqjurNo21xfmjHBckySgGxWwqRM3wUyayksJ/qOSWmsncDPkcwjBSYHwC+c3Qerjl/n554
+	gQv0EE1qmLZubrcXDElW/0b4dWy2h++DSBPJdcuUZt7H1QYGwNlvboWDiWAS2VkxzapuTXWt8RNyyrUagFXwbOrS8XF6xAJc/S8M0KPzZ2/blE0b31qkRlcVo7RBrgvbipIIOKxQgFL0/Z9blwPZ/CpJgzmWtoyT1cIWG8+9Wjln3mW34zJ+zbR//CcHD5l5E+3rPUQVEEymhbfooGGVA7wp/vygTGkj1i3pXeu/2trzJI2hd5kWeCpAma5g0pyYklJ7iYxNW95kiQta639sQQsjzoi9wbkOZvV6NUNGgiQ59xDqePaPVOEHr325WTtPhF8V9YkHC/w6tepAk+41ZnCJxcUsB4Pj6hrS63oWXy2b0c7PEEQNdHiP+y7YU5+wJ5OoMdNldbaHDwvok9nOOWb6ffdbxbwMM3BRbqlE2P4KItGklLiDDL9TZZA279CO
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 16:24:49.3451
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 17:28:59.1560
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d98fe865-c3eb-40eb-3264-08defed78e78
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dba5657-73d7-4855-8822-08defee08529
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000A672F.namprd04.prod.outlook.com
+	BN1PEPF00005FFC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8707
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF73BED5E32
 
-On Tue, 18 Aug 2026 20:52:13 -0700
+On Tue, 18 Aug 2026 20:52:14 -0700
 John Hubbard <jhubbard@nvidia.com> wrote:
 
-snip
+Looks good to me besides a nit below.
 
-> +    /// Handle a `GSP_LOAD_EXEC_GENERIC_BOOTLOADER` event.
+Reviewed-by: Zhi Wang <zhiw@nvidia.com>
+
+> The r000 GSP boot protocol sends its two load-and-execute events as
+> GMC commands, each identified by a command id.
+> 
+> Nova-core has a handler for each of the two events, but nothing that
+> reads a command id and selects between them.
+> 
+> Add the dispatcher, keyed on the two command ids from the r000
+> bindings.
+> 
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/boot.rs | 62
+> +++++++++++++++++++++++++++++-- drivers/gpu/nova-core/gsp/fw.rs   |
+> 10 +++++ 2 files changed, 69 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/nova-core/gsp/boot.rs
+> b/drivers/gpu/nova-core/gsp/boot.rs index d62a5c834ccf..15933ecc061b
+> 100644 --- a/drivers/gpu/nova-core/gsp/boot.rs
+> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+> @@ -36,7 +36,11 @@
+>      },
+>      gsp::{
+>          cmdq::Cmdq,
+> -        commands, //
+> +        commands,
+> +        fw::{
+> +            GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER,
+> +            GMCAPI_CMD_EXEC_HS_BINARY, //
+> +        }, //
+>      },
+>      regs, //
+>  };
+> @@ -162,6 +166,60 @@ fn core_resume(
+>          Ok(())
+>      }
+>  
+> +    /// Dispatch one GMC boot event to its load-and-execute handler.
 > +    ///
-> +    /// The driver does not copy the image the GSP asks for. It
-> writes the descriptor the event
-> +    /// carries to DMEM offset 0, places the generic bootloader in
-> IMEM, points the requested FBIF
-> +    /// aperture at wherever the image lives, and runs the
-> bootloader, which does the copy from
-> +    /// the descriptor and jumps to the image. The aperture is
-> restored afterwards.
+> +    /// LIBOS2 chipsets send `GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER`
+> and LIBOS3 chipsets send
+> +    /// `GMCAPI_CMD_EXEC_HS_BINARY`, so a given GPU only ever
+> reaches one of the two handlers.
 > +    ///
 > +    /// # Errors
 > +    ///
-> +    /// - `EINVAL` if the payload is shorter than the parameter
-> block, the descriptor is not the
-> +    ///   size this driver mirrors, or the event names a context DMA
-> slot or an aperture that does
-> +    ///   not exist.
-> +    /// - `ETIMEDOUT` if the GSP does not suspend, or the image does
-> not halt, in time.
+> +    /// - `EINVAL` if `command_id` is not a load-and-execute command.
+> +    ///
+> +    /// Errors from the handlers are propagated as-is.
 > +    #[expect(dead_code)]
 > +    #[allow(clippy::too_many_arguments)]
-> +    fn handle_load_exec_bootloader(
+
+Should this be expect? So that if we refactored this arugment list in
+future and it gets shorter then CLIPPY will tell us to remove the tag
+above.
+
+> +    fn dispatch_gmc_boot_event(
+> +        command_id: u32,
 > +        payload: &[u8],
 > +        bootloader: &GenericBootloader,
 > +        gsp_falcon: &Falcon<'_, Gsp>,
@@ -158,167 +195,80 @@ snip
 > +        bootloader_app_version: u32,
 > +        libos_dma_handle: u64,
 > +    ) -> Result {
-> +        let params =
-> LoadExecGenericBootloaderParams::from_bytes_prefix(payload)
-> +            .ok_or(EINVAL)?
-> +            .0;
-> +
-> +        let desc_size =
-> +
-> u32::try_from(core::mem::size_of::<BootloaderDmemDescV2>()).map_err(|_|
-> EOVERFLOW)?;
-> +        if params.dmem_desc_size != desc_size {
-> +            dev_err!(
+> +        match command_id {
+> +            GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER =>
+> Self::handle_load_exec_bootloader(
+> +                payload,
+> +                bootloader,
+> +                gsp_falcon,
+> +                sec2_falcon,
+> +                bar,
 > +                dev,
-> +                "Load-exec descriptor is {} bytes, expected {}\n",
-> +                params.dmem_desc_size,
-> +                desc_size
-> +            );
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let ctx_dma = params.ctx_dma()?;
-> +        let fbif_target = params.fbif_target()?;
-> +        let transcfg = || {
-> +            regs::NV_PFALCON_FBIF_TRANSCFG::of::<Gsp>()
-> +                .try_at(usize::from(ctx_dma))
-> +                .ok_or(EINVAL)
-> +        };
-> +
-> +        gsp_falcon.wait_for_processor_suspend().inspect_err(|_| {
-> +            dev_err!(
+> +                bootloader_app_version,
+> +                libos_dma_handle,
+> +            ),
+> +            GMCAPI_CMD_EXEC_HS_BINARY =>
+> Self::handle_load_exec_hs_binary(
+> +                payload,
+> +                gsp_falcon,
+> +                sec2_falcon,
+> +                bar,
 > +                dev,
-> +                "Timeout waiting for GSP suspend (mbox0={:#x})\n",
-> +                gsp_falcon.read_mailbox0()
-> +            );
-> +        })?;
-> +
-> +        gsp_falcon.reset()?;
-> +        gsp_falcon.dma_reset();
-> +
-> +        let saved_transcfg = bar.read(transcfg()?);
-> +        bar.update(transcfg()?, |v| {
-> +            v.with_target(fbif_target)
-> +                .with_mem_type(FalconFbifMemType::Physical)
-> +        });
-> +
-> +        let run = (|| -> Result {
-> +
-> gsp_falcon.pio_load(&bootloader.with_descriptor(&params.dmem_desc))?;
-> +
-> +            // Also clears the suspend bit that
-> `wait_for_processor_suspend` polls, so the next
-> +            // load-and-execute event does not read this one's
-> suspension.
-> +
-> gsp_falcon.write_mailboxes(Some(FLCN_ERR_BINARY_NOT_STARTED), None); +
-> +            gsp_falcon.start()?;
-> +            gsp_falcon.wait_till_halted().inspect_err(|_| {
+> +                bootloader_app_version,
+> +                libos_dma_handle,
+> +            ),
+> +            _ => {
 > +                dev_err!(
 > +                    dev,
-> +                    "Timeout waiting for the loaded image to halt
-> (mbox0={:#x})\n",
-> +                    gsp_falcon.read_mailbox0()
+> +                    "Unexpected GMC boot event:
+> command_id={:#010x}\n",
+> +                    command_id
 > +                );
-> +            })
-> +        })();
-> +
-> +        bar.update(transcfg()?, |_| saved_transcfg);
-> +        run?;
-
-TRANSCFG was restored only when the transfer is successful in OpenRM [1]
-(also r000 firmware), I think that is reasonable since if the HALT is
-not received, the controller is in stale and might still be active on
-memory read/write until it got reset.
-
-I guess we should follow OpenRM's scheme, e.g.
-
-run?;
-bar.update(xxxx);
-
-[1]
-https://github.com/NVIDIA/open-gpu-kernel-modules/blob/main/src/nvidia/src/kernel/gpu/gsp/arch/turing/kernel_gsp_falcon_tu102.c#L556
-
-> +
-> +        Self::core_resume(
-> +            gsp_falcon,
-> +            sec2_falcon,
-> +            dev,
-> +            bootloader_app_version,
-> +            libos_dma_handle,
-> +        )
-> +    }
-> +
->      /// Handle a `GSP_LOAD_EXEC_HS_BINARY` event.
->      ///
->      /// The GSP asks the driver to run a high-security binary that
-> it has already placed in the @@ -347,6 +448,64 @@ pub(crate) fn
-> unload( /// points it at local framebuffer.
->  const HS_BINARY_CTX_DMA: u8 = 0;
->  
-> +/// Number of FBIF context DMA slots a falcon has.
-> +const NUM_CTX_DMA: usize = 8;
-> +
-> +/// Parameters for loading and executing the generic bootloader.
-> +///
-> +/// Sent by GSP-RM as the payload of
-> `GSP_LOAD_EXEC_GENERIC_BOOTLOADER`. The descriptor carries +/// the
-> code and data addresses, while `addr_space` and `cpu_cache_attrib`
-> say which FBIF aperture +/// reaches them. +#[repr(C)]
-> +struct LoadExecGenericBootloaderParams {
-> +    dmem_desc: BootloaderDmemDescV2,
-> +    dmem_desc_size: u32,
-> +    addr_space: u32,
-> +    cpu_cache_attrib: u32,
-> +    _reserved: [u32; 4],
-> +}
-> +
-> +impl LoadExecGenericBootloaderParams {
-> +    const ADDR_SYSMEM: u32 = 1;
-> +    const ADDR_FBMEM: u32 = 2;
-> +    const NV_MEMORY_CACHED: u32 = 0;
-> +    const NV_MEMORY_UNCACHED: u32 = 1;
-> +
-> +    /// Returns the context DMA slot the bootloader is to fetch the
-> image through.
-> +    ///
-> +    /// # Errors
-> +    ///
-> +    /// - `EINVAL` if the slot is outside the FBIF `TRANSCFG` array.
-> +    fn ctx_dma(&self) -> Result<u8> {
-> +        let ctx_dma = self.dmem_desc.ctx_dma;
-> +
-> +        u8::try_from(ctx_dma)
-> +            .ok()
-> +            .filter(|slot| usize::from(*slot) < NUM_CTX_DMA)
-> +            .ok_or(EINVAL)
-> +    }
-> +
-> +    /// Returns the FBIF aperture that reaches the image.
-> +    ///
-> +    /// # Errors
-> +    ///
-> +    /// - `EINVAL` if the address space and cache attribute pair is
-> not one this driver maps.
-> +    fn fbif_target(&self) -> Result<FalconFbifTarget> {
-> +        match (self.addr_space, self.cpu_cache_attrib) {
-> +            (Self::ADDR_FBMEM, _) => Ok(FalconFbifTarget::LocalFb),
-> +            (Self::ADDR_SYSMEM, Self::NV_MEMORY_CACHED) =>
-> Ok(FalconFbifTarget::CoherentSysmem),
-> +            (Self::ADDR_SYSMEM, Self::NV_MEMORY_UNCACHED) => {
-> +                Ok(FalconFbifTarget::NoncoherentSysmem)
+> +                Err(EINVAL)
 > +            }
-> +            _ => Err(EINVAL),
 > +        }
 > +    }
-> +}
 > +
-> +// SAFETY: The nested descriptor is `FromBytes`, and every other
-> field is an integer type for +// which all bit patterns are valid.
-> +unsafe impl FromBytes for LoadExecGenericBootloaderParams {}
+>      /// Handle a `GSP_LOAD_EXEC_GENERIC_BOOTLOADER` event.
+>      ///
+>      /// The driver does not copy the image the GSP asks for. It
+> writes the descriptor the event @@ -175,7 +233,6 @@ fn core_resume(
+>      ///   size this driver mirrors, or the event names a context DMA
+> slot or an aperture that does ///   not exist.
+>      /// - `ETIMEDOUT` if the GSP does not suspend, or the image does
+> not halt, in time.
+> -    #[expect(dead_code)]
+>      #[allow(clippy::too_many_arguments)]
+>      fn handle_load_exec_bootloader(
+>          payload: &[u8],
+> @@ -268,7 +325,6 @@ fn handle_load_exec_bootloader(
+>      /// - `EINVAL` if the payload is shorter than the parameter
+> block, or the ucode id does not ///   fit the BROM register field.
+>      /// - `ETIMEDOUT` if the GSP does not suspend, or the binary
+> does not halt, in time.
+> -    #[expect(dead_code)]
+>      #[allow(clippy::too_many_arguments)]
+>      fn handle_load_exec_hs_binary(
+>          payload: &[u8],
+> diff --git a/drivers/gpu/nova-core/gsp/fw.rs
+> b/drivers/gpu/nova-core/gsp/fw.rs index 83f7d2042aa1..4772af362117
+> 100644 --- a/drivers/gpu/nova-core/gsp/fw.rs
+> +++ b/drivers/gpu/nova-core/gsp/fw.rs
+> @@ -979,6 +979,16 @@ pub(crate) struct GmcApiHeader {
+>  /// `GMCAPI_HEADER_COMMAND_ID_MASK`. The remaining byte carries
+> flags. const GMCAPI_COMMAND_ID_MASK: u32 = 0x00ff_ffff;
+>  
+> +/// GMC command asking the driver to run the generic falcon
+> bootloader against a descriptor the +/// GSP supplies.
+> +pub(crate) const GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER: u32 =
+> +    r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER;
 > +
->  /// Parameters for loading and executing an HS (High-Security)
-> binary. ///
->  /// Sent by GSP-RM as the payload of `GSP_LOAD_EXEC_HS_BINARY`. The
-> firmware
+> +/// GMC command asking the driver to run a high-security binary the
+> GSP has placed in the +/// framebuffer.
+> +pub(crate) const GMCAPI_CMD_EXEC_HS_BINARY: u32 =
+> +    r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_HS_BINARY;
+> +
+>  static_assert!(size_of::<GmcApiHeader>() == 40);
+>  
+>  impl GmcApiHeader {
 
