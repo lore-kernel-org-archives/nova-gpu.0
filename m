@@ -1,221 +1,210 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011004.outbound.protection.outlook.com [40.107.208.4])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012019.outbound.protection.outlook.com [52.101.43.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1AF3B4E83
-	for <nova-gpu@lists.linux.dev>; Fri, 21 Aug 2026 05:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E3F38B7DC
+	for <nova-gpu@lists.linux.dev>; Fri, 21 Aug 2026 05:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787288542; cv=fail; b=Ggj559S73k7azzi5nacmrMb0qxudj1akpTR5uc/zb6V9OYpDixD4v+M5JjHoDB+eaicXd2633REhmYW+vKzSOYcHtG/OxqNvkGZVWNGXMZirwcD3esJk9lveW6OEz3lQPAI7McsuyM1eUIKgy5x/w/f0dUrVOv8pu9bbeDL+0tY=
+	t=1787289014; cv=fail; b=E5TrYq6sFSLxybPXlCpJ66yaI5zkcomQeLuBATtYZaLZYF6pSYDoczGJQLAwQz9eULJ+X/sFw9ZMZ3KzAR1SlEYypB8Wa0dzO++OhZyTROkOdRsvqfJpzXrwMmg0dPSdbPEALbI4Kr7lx2uWSLRWy8c4sVrL3R1laH4eGJ1nmQQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787288542; c=relaxed/simple;
-	bh=L7gcQLBHo9GIq+N7X16Gp4wOCFsSJsjhuRP8faJYgF8=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QNzBFGM7qYtkt6ISEBZ3spmuit2PJ7GnkrOBvqCojp/mD1szCf32EvYtmZKUuTUrENyySOvs9LXahHO4FfIs4MMqenqB/OHzYkDIQJPe5eYUU/1FTWYeWdVGajXGcE+2ZlKthN+qFjxw8fJmTbMJbkwE1XewrBFQTP9bPfT8Wxg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KXGHIyw+; arc=fail smtp.client-ip=40.107.208.4
+	s=arc-20240116; t=1787289014; c=relaxed/simple;
+	bh=N5Sfvl5REG6azTJaEd6H7bR/FjulWxGlU/A+BF4gpTQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=eWctbZwZwSvfBFa2ZL8Y2sSxTvajWlTR126JYptxAD31dFPT0TX0Zm3jBAprJuc7IU9uzWV8E7CTw+8Zamn4HMrM0gqS44KWj/s7dWAYcW1q7MP4ZVXzpP6oOCoLy2EzyAAyCnFa8xxUiIeFCc37Bu1jMqS2ccTM1zqq+H81TSQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XKf/LBMg; arc=fail smtp.client-ip=52.101.43.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KXGHIyw+"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XKf/LBMg"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iRhnpGTBpswI+dnVv1Hsr+O1oz9SbSCxA1Y1LkXDNGRQp2X5X/NQgS5IYR6A6V6fvYXYDE9OjAp1NidQUSw+apE1yjwwqvsJORIYl6acYONXKn+6w+OAO553GDgWmtbEYkeWjCUTvoRgVgH/tNwg/4jnK0c1IuFqPef0CKDRyWWVpa9CYewxncTfc4a1z8z8y/kubsbvCAn60l7P/BtlIy9woE6ZrfG1OnxcH1Y5/8s5HIc2SHs2zwMuT1Srfa+j3wMvMKzlFdGfXKV8jVYOpBO3lbk5KE2dHw9zRSMbPiNbraVaERn0f25OPlNTLUFT5ZzkeMh3TDXLAQ47tmAUTA==
+ b=AlMoQ6qLnTKjopQc/0tm3A5DBTRSLZXMI4oe3bxuyZ6bCYbYVjlW+OA/epua7eDWLqFyxCbuXSzf+T9aLPK5odNGy1vt+Ngb5UhmboJaEHcBUY1n9YIWa1zQGxUIhgv/sIuQZwq5cOmh+hz3YcuwOMMIyWqnKmy1N62QDyg2mEwdgWR2ZNiXX8XNnG9kbhCL2WqVWeqehwv8TIOFdYOUthGH2cHWZoS83rs01qxrWzlp2Hja29EyNPjwob9mNdZ5h4VlxdXsXoIUfyuSaCZQI6QMbIXSJtzaSZGg243T/s0dkHOFgISUbzdPxGI5qTvOKMdsqNc8zEKOZQTmG6LKdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qbQjqhQSBfvdPLYUYz9xvstqIZZIJUjViChhrJXDgv8=;
- b=BIwfabu6JyPSS9gTtSKbRSzOgNIESd5FJz+UvA1y+WjXjYg4cZFFNIAKDtW8jpJUU+JqJTFBXtH2pD0ssF9qW29Uv9HXKHto+Uj8BD3M8EoFPpoBTs/hO4OOYf6+aaABQ0uysyrqpyXbLxKd/7NBo6X+Nhg2RPbpjEI/udOCqaZMWMwvW4zIEJpkCbp4378H9bQtHj4zVmMeAa0KflesKFA+oAXPplrFstCVcy5udKWsxGOtA3Aji6JdryZ2NtkcnNsdzQcCyAvOe5bG6CWQAdVHxDviz65QoMvlar3UOSqnWy6M5Jqgqw5umuuEOgk6OOoBhq7uqK7gGD0ABoU4XA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=umich.edu smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
+ bh=dmF+0Ljibdx6S/svzEImHEcvIiv8knej2s5A/krR7w0=;
+ b=fU/4As6fNHNsz2eeUV3hsdxHocWulsSIBjavj7rwpGUgcpmMTFBcyR0gm0uVsLRPT7Q9N0HZmBNz/x5ClJ/BpTGt9Hvn8KMZRAZWA1JaOXNNeTiD4BTPm6OLyUPeORWXqKUjbju7FplTLHfovmNAF54Qvqrikn7qa3PWx64F/OKRu6mcU2pUU9qs2iVUAyfrlvMSD7q2Puei2zzrJNsl8LsUEF1lOJa2QDCEn9ARE73Zt341/gteIDm26is5mLBOPP5GwZ+lGMNGmAMdtPDRcDEEV8XLFuLCpji+EwIhbddDcatTye1ASPZorj+jLKP0hDbHjg0O5yX0fndlKdnUJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qbQjqhQSBfvdPLYUYz9xvstqIZZIJUjViChhrJXDgv8=;
- b=KXGHIyw+bp5rrVYXyQcxXDy+yJr1cV6pIqwOXFRRwmpz4msyFLtQqf5LhRFgrdgZkVkiOCM8zSdfhwNsmmLATLUmjd0+CScjcVJSeG9sTMuCpMDzyEreCr8WRHGlIxLCXuOf1teh6+Vw/MbL4fWotX0LJJ8j4s4hgp/GlJ1dXwbWipvwRwvK6uFUo1wcIhxespFMhip+jETpxjXbRgodT516r2bY2YX0uaIHz2V/Wgi6aEQ1PuB9GDXaNCwWDulLkOOk+EuYnDFu06kOOvQoAGv0m8oj3w23qXOswaFT5oKCTdGNU4qKhDd6wQvhUJAUR+zqOT3wm6pFxt3mx+f3+Q==
-Received: from BN0PR08CA0030.namprd08.prod.outlook.com (2603:10b6:408:142::9)
- by DS7PR12MB8202.namprd12.prod.outlook.com (2603:10b6:8:e1::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 05:02:15 +0000
-Received: from BN5PEPF0004698D.namprd02.prod.outlook.com
- (2603:10b6:408:142:cafe::11) by BN0PR08CA0030.outlook.office365.com
- (2603:10b6:408:142::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Fri,
- 21 Aug 2026 05:02:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BN5PEPF0004698D.mail.protection.outlook.com (10.167.245.42) with Microsoft
+ bh=dmF+0Ljibdx6S/svzEImHEcvIiv8knej2s5A/krR7w0=;
+ b=XKf/LBMgnNYSuDTDE1sUuY2v2CIYgAYshaExT42wK0UM9ImPQERsNwM/EJfHHIUq56nfSTVfMUj3V/cnAKkP6QXQb0SVnz/fY6xwypBeDFj9QuRdY2kv6UIrqNl0sJ0qZ62mAtCk+tInrv4bNa83+Wv/jaPuJQNNtxbM1Ls9wm1pQoMp5pTR1WmsVu3M0uh2V3bofT5zqB+u2wLneUcwOsXy9qO+SLmMJXdSonWJHvXgGPUX9PGfxTCxbl45xgvyuifYsPqh0A0/n9f3abwohUa8j1JBSpC+WBmF0+7M0vjCSNYQxBKoQCubK9E4cgUXN/Upvm8bGdxNljf+VNiOpQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ IA1PR12MB6580.namprd12.prod.outlook.com (2603:10b6:208:3a0::9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 05:02:15 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 20 Aug
- 2026 22:02:00 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 20 Aug 2026 22:02:00 -0700
-Received: from inno-dell (10.127.8.12) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Thu, 20 Aug 2026 22:01:55 -0700
-Date: Fri, 21 Aug 2026 08:01:53 +0300
-From: Zhi Wang <zhiw@nvidia.com>
-To: John Hubbard <jhubbard@nvidia.com>
-CC: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot
-	<acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Alistair Popple
-	<apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas
-	<bhelgaas@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor
-	<alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo
-	<gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
-	<bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, LKML
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 03/27] gpu: nova-core: set MCTP transport header version
- to 1
-Message-ID: <20260821080153.469c0655@inno-dell>
-In-Reply-To: <256ff759-ac15-4058-a2ed-d54b8e8c098f@nvidia.com>
-References: <20260819035221.336390-1-jhubbard@nvidia.com>
-	<20260819035221.336390-4-jhubbard@nvidia.com>
-	<20260820123819.20bc6289@inno-dell>
-	<256ff759-ac15-4058-a2ed-d54b8e8c098f@nvidia.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
+ 15.21.339.10; Fri, 21 Aug 2026 05:10:07 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0339.008; Fri, 21 Aug 2026
+ 05:10:07 +0000
+Date: Fri, 21 Aug 2026 15:10:01 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v4 4/7] drm: nova: Add a GPU info ioctl
+Message-ID: <aofWfMSZtV-bNYrr@nvdebian.thelocal>
+References: <20260811050657.646799-1-apopple@nvidia.com>
+ <20260811050657.646799-5-apopple@nvidia.com>
+ <DKRHW6G6P4K5.15H1A4DGR6672@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKRHW6G6P4K5.15H1A4DGR6672@kernel.org>
+X-ClientProxiedBy: SY5P282CA0180.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:249::29) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PEPF0004698D:EE_|DS7PR12MB8202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38269f42-3e17-4e85-3ea2-08deff415e3f
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|IA1PR12MB6580:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebbdabb1-d6a3-4f37-e673-08deff427763
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|22082099003|18002099003|4143699003|56012099006|10067099003|11063799006;
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|4143699003|56012099006|10067099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	hU5sC8+4Lzn/XSYHwBGrrza0iGgmtnAaw2BaQOjp4umN3fxCcgeqXjnv34tCNtBUEJOsTg6XJrofdvYzc/6/QgIRUs6ro9nNR+W+BUdamQ5zUd6YZ/SLUUh/cmIrlQvTTQQrln6Q+QDIvysJfRrlW/q8H+MRJ1F7XTMczmIYfYDFlHwipW0zjLfsIT0qZ7EGYQQJHshAJNRhJSa2vPL0V2XAqzsK9ziEbBDAEF/G+Kz+kPy1RmKqDpNp5xE39SN/iDxHIbNbHrNafNtZrI7x75NSi/IQKcj2WjtcRokECGLb5FR3IJ5IeWEFei4LEZcz10mdGBpnJbH+fO2s4GReDUcsnmFuIamvNAura48TEb1ZF0Te4uHFQ6tnJ5Ne722JW5qeIZPDwG+sbOBMaS3Co2YHgOZg89LXOjJYyxr+atBCH5FHS/VhpCXqHgffuoAlPrIUSW6D1Jp4po2lBZP11JUmTxoudUiqp18q/nZjOF660cR0/ypnEU2Tda4v1nbKCSJZaj302f4xMysulCGVHD/4Q6nv0vlskjfBWgz/7pbx24ai7fU3uP6E/tWRUYyuseTuh4h9N6B7f1M435ofy38xHVfM7zvjkVvDax53hRhGEX//EzRnJIrxbZyuaYBZtx58W/N60OMJZgcKAjaPyvjwSdlPTt3VZXYPOKkINm1NdfXxPVJXYUlzWOfPSoto8vQyhaTVhw+/XWoPeN4rsw==
+	/nmQH13YTI1D6mwnhbbvb2Yc8usw5B94sNgvCSKZdYFPLyqD8cbm0kzEhFAp9eZddrVPSStjQcaxnOZiUIFxnalELS0QmtsMHMWZo8rPExQP9wdn5rvZRZ8KgLowedafrw6Qbl+mmIldLC56ql51DJC0ZpNoPsaq2c3evW5yYdrroCFFEVdstf0SjsuuNbeJjgikdies/6AJBt0kUIWP6tZ9kNstUK0ienUbfHedIZP1CO8YWxf80WMSxMTwzzlRGgIJkV/bUskIP+lCVqpK5SLgM+wBnQ5kVuavg/mpzOHWwSFXFZOfCkrMh/RbCFmDqv2k/Noz7O8izq+KGUTLymmtFekWYRzFS8dHVDnnJGiI1HPbbd6p3FlpOF3ZGqs42kUqDz5CT7Urh9sntoBg+SEbAGGlNEQ53FUD6DhVqmgGPShRQr1uPhBZGpN5fS9L7jdV7U2Qi2zPlzC7hVMKjVdMxIcB5D+uRhYlIO7/dcjrUo6O6fm1he3uw7qGVEt6wOm3xzG5GafdY1F7l8gpwBA8nb+jQ8VlPSiTnXlXDyGqB/5Qhy5Kn70vSfOGMs91aA21TzHMR5r8dvFV5WLYTuifeHzz4JtrTXGonf2HLQKW5pr0LU9yo5VAsOhHgNTpGjJ4g/SBWpOf4t97e92BuQjcnrJN9AC7hVYNTRCLdPU=
 X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(22082099003)(18002099003)(4143699003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7726.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(4143699003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	0Xz89TpANjJ7cemkSuqBi8Llny3CF2rsh75TP7/bLDoJ8B5ls3MawwiVu2YFwgAkP35H/Bp51w1OjWPnN4vutC2Zuz0ZPuLMBxAevVQjM8SvVHY008hCWW9NfvrvYrKFIhWyLIQbznAUpvQM8Xx1YgAIUvC5L3wfz3/qNPbQAYPIVvDpRmAePLhyKrv0wOHx7ADYMlCxzPhoc5ZKlhmd11/cDD5cW0PK2Nduut0MNaho7s3Nw2liptoSZZp53efQf8e6ebcHpsanV43/KspyYUCZfumSiNxXl7NNTAzyG5qZDGo7+H8aUtPQo5fdwRlQ9o0Iq2b3WB4nDV56AIVWvgdWxmwSQL2l7WCXS+G/Ym1u/XCBRnpCOiEoSq3V20LUVJp5drgeXLJAAw1g2fIC+aBWMQr4iuQongQEvLG4OQQLKAnNlL3VQYDob+IcJlCO
+	=?us-ascii?Q?VW3wKKF2gWbTK97Q4CX66kjh8qIrlw5uHdhsY2Ks1CrPLhyccyaoN3SekZ4S?=
+ =?us-ascii?Q?FjsJqbMqDet++ttBOT2mAIC3sj2oGpPucPscbc99oFs2b93ZhFMOJ0oP1Q/l?=
+ =?us-ascii?Q?blw73a3sihe5muQt1+JWh+wjUZYXQSQU+e5YEpfUUlzQWWs2aYoGUUx8uCTM?=
+ =?us-ascii?Q?7j2ogVaABsSwXpnpc1r4vAKT8BuzV52IAhW+ydjCJ8WzkwO08U9h9OyikbCu?=
+ =?us-ascii?Q?eCoj9F13zaHOd74l66xQhbpNzfvAcT7qFZeDUncZF0WKIJJTb2M8hhCN5SRp?=
+ =?us-ascii?Q?JTTIEOBJcthCNya/HkUIFhEqJ5t+crngdSW9q336WvoaM+KDSnQZuNP36b10?=
+ =?us-ascii?Q?rKZGu6f4fxC4fkhBy6qwN8YBwc0rQQHgaBnYwY1Q2Pd3vJAN9fHjYKzOewZW?=
+ =?us-ascii?Q?WMZD1/9IpjuGuM7dwdHFrmhg6T7F1GTrA1oLAl9jghd2u+bs35+ONTswOWyA?=
+ =?us-ascii?Q?CFWEwq3Qp8ukEfT3x4p/fzoN5mmWYDzXDltjZ7QdOaj0djN4OeXnFrqCe/2x?=
+ =?us-ascii?Q?S4GA8yTzQym2INe/vS73Fw98YkxZmD7D/HjNiirOAmLY6342hCJIJUjhSwwY?=
+ =?us-ascii?Q?4pM2tJa+KODoGCz9RmS91A7Aq5t1Fr0hohZq5g5rlb+f/f5NV+0IQp5IjEOR?=
+ =?us-ascii?Q?Cmpwy30Pp/Gi4V2EJLN50WIoMuvzfL39GgnqA7MQgDjoqfWFU8S+b6PL7kDX?=
+ =?us-ascii?Q?lgIlSAIpI2Pwvj3yIIwLvCyB2q3wCPz34QI9/BpfF+WM8RbFCmv/B6Ch+cAf?=
+ =?us-ascii?Q?PuyGelFhf+rIV/GuWsqGdfIaEsqN7gar/Zp+w1M5xrHy523+X7MTTQ1FHYDv?=
+ =?us-ascii?Q?XSLAujiJDAh2nRXoTy/Wco9uIL3xq/wkZguqTaYRO06sWS1YvxhZ7vmEFP5A?=
+ =?us-ascii?Q?g4tfxhvsW0ZpjiDQrKFVH2tGFyt4UCfwjvU91cAjrgJcfpkVgbesWsdKmeNn?=
+ =?us-ascii?Q?H/KcUCEbh3l2BAJ4xHFrZo/Az6UO+JY3jW0uN/zyuFVHUopv821yr4WGi74S?=
+ =?us-ascii?Q?ehh3UXZt/M1gVfrEB+2b8VkLmfdukyMnFrucpfsZouaJYsNEFj6j+s1PKBH6?=
+ =?us-ascii?Q?vFMRhdEfi08Gzr44ValdGr/5TSx/wCdN1dhj/4XcgV+uDzKywd32sAbD+S1n?=
+ =?us-ascii?Q?gxjIrGVrjNLuesXaCoW889uUBpjeufP1HDuN15XY0Bi8EOgXEVBehWjzJ+19?=
+ =?us-ascii?Q?F1krW1vV0MxStmZld3YoIHNJ/etXzg31HHG+5l34P142EnZ3qKdCBT5T2WC2?=
+ =?us-ascii?Q?wYESf4nIx16xQLQr6hccR9h0F0EUxxVtNZrbc0tkJkiDGa6mv8TR00ZZ6Ean?=
+ =?us-ascii?Q?miOgTmkAHR0ij0YoMcU+LiVPZlfpI+2KnwmIBNGbRc8AX+zayWpBy8xi75yD?=
+ =?us-ascii?Q?s1+8lVe5O0bU9B9vuyWc3W9bFjvMtc7zclO6a3b0OoKwzI9NWAl8/4E8VIF1?=
+ =?us-ascii?Q?nk3vlqozzDRh/aOUOoYcn8vhIVTUgUunG5B73+WjeIjMCiKx8KlqcHFDg5fH?=
+ =?us-ascii?Q?8ZJUfJ8d5iQk+mEF3hh6iwAfI2uoRc6KNLFgaB/8a57R5Ihq/x+0U/4uIeVT?=
+ =?us-ascii?Q?bAOF9OGGh1aHSbuidcTPPlIKME9Q9XIfBn+wKGa36on56RAQuQnV/l+fh2e7?=
+ =?us-ascii?Q?Ctw+Ru+avvUPlxkfmlv+73JGorszt9dwNJ5rgu5IVD+i22HdyQ4dgcxz59mI?=
+ =?us-ascii?Q?/HZaMU4JtPe+EWfjcpjl1UhZZ1aD/3kctNd7a7cyG+fLVElek9yPohBewIUd?=
+ =?us-ascii?Q?kdZn/NJ6IQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 05:02:15.0407
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebbdabb1-d6a3-4f37-e673-08deff427763
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 05:10:07.1733
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38269f42-3e17-4e85-3ea2-08deff415e3f
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN5PEPF0004698D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8202
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R+kQ7ohI4mAuYIVAohPI7F3ZxLeDjiljz44tzI/Qs+Ov5XKwQ6sVMeZd8vTpbBbLhfZ0frywzcJkNXVsOp4JHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6580
 
-On Thu, 20 Aug 2026 19:31:33 -0700
-John Hubbard <jhubbard@nvidia.com> wrote:
-
-No need to reply to each comment. :) Feel free to use whichever
-feedback you find helpful. I am just glad I could help a bit.
-
-Z.
-
-> On 8/20/26 2:38 AM, Zhi Wang wrote:
-> > On Tue, 18 Aug 2026 20:51:56 -0700
-> > John Hubbard <jhubbard@nvidia.com> wrote:
-> > 
-> > One nit: might be better to update the doc as well.
-> 
-> Yes. Agreed. I'll send individual replies to the patch feedback
-> as usual, but let me first mention that I've applied all of your 
-> and Timur's feedback, 100%, to a -v2 branch already.
-> 
-> It's passing tests cleanly, so as soon as I make a few more passes
-> through it I'll post that. Likely tomorrow.
-> 
-> thanks,
-> John Hubbard
-> 
-> > 
-> > Reviewed-by: Zhi Wang <zhiw@nvidia.com>
-> > 
-> > diff --git a/Documentation/gpu/nova/core/fsp.rst
-> > b/Documentation/gpu/nova/core/fsp.rst index
-> > 52d618d22bb8..60c647181da0 100644 ---
-> > a/Documentation/gpu/nova/core/fsp.rst +++
-> > b/Documentation/gpu/nova/core/fsp.rst @@ -106,6 +106,8 @@ All FSP
-> > messages share a common header format consisting of two 32-bit
-> > words:
-> >  - Bit 30: EOM (End of Message)
-> >  - Bits 29:28: Packet sequence number
-> >  - Bits 23:16: Source Endpoint ID
-> > +- Bits 15:8: Destination Endpoint ID
-> > +- Bits 3:0: MCTP header version (1)
+On 2026-08-18 at 06:18 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Tue Aug 11, 2026 at 7:06 AM CEST, Alistair Popple wrote:
+> > diff --git a/include/uapi/drm/nova_drm.h b/include/uapi/drm/nova_drm.h
+> > index ea7665383644..2604e4d2698b 100644
+> > --- a/include/uapi/drm/nova_drm.h
+> > +++ b/include/uapi/drm/nova_drm.h
+> > @@ -118,9 +118,34 @@ struct drm_nova_gem_info {
+> >  	__u64 size;
+> >  };
 > >  
-> >  **NVDM header** (NVIDIA Vendor Defined Message):
-> >  
-> > 
-> > 
-> >> FSP requires MCTP transport header version 1. Nova-core leaves
-> >> version bits 3:0 at zero, so every CoT and PRC request carries an
-> >> invalid transport header.
-> >>
-> >> Define the version and destination endpoint ID fields. Set the
-> >> version to 1 for single-packet requests, and leave the unused
-> >> destination endpoint ID at zero.
-> >>
-> >> Assisted-by: Cursor:claude-opus-5
-> >> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> >> ---
-> >>  drivers/gpu/nova-core/mctp.rs | 14 ++++++++++++--
-> >>  1 file changed, 12 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/nova-core/mctp.rs
-> >> b/drivers/gpu/nova-core/mctp.rs index 90c642c91a72..03546213da28
-> >> 100644 --- a/drivers/gpu/nova-core/mctp.rs
-> >> +++ b/drivers/gpu/nova-core/mctp.rs
-> >> @@ -42,13 +42,23 @@ pub(crate) struct MctpHeader(u32) {
-> >>          29:28 seq;
-> >>          /// Source endpoint ID.
-> >>          23:16 seid;
-> >> +        /// Destination endpoint ID.
-> >> +        15:8 deid;
-> >> +        /// MCTP header version.
-> >> +        3:0 version;
-> >>      }
-> >>  }
-> >>  
-> >>  impl MctpHeader {
-> >> -    /// Builds a single-packet MCTP header (`SOM=1`, `EOM=1`,
-> >> `SEQ=0`, `SEID=0`).
-> >> +    /// MCTP specification version 1.0.
-> >> +    const VERSION: u32 = 1;
-> >> +
-> >> +    /// Builds a single-packet MCTP header (`SOM=1`, `EOM=1`,
-> >> `SEQ=0`, `SEID=0`, `VERSION=1`). pub(crate) fn single_packet() ->
-> >> Self {
-> >> -        Self::zeroed().with_som(true).with_eom(true)
-> >> +        Self::zeroed()
-> >> +            .with_const_version::<{ Self::VERSION }>()
-> >> +            .with_som(true)
-> >> +            .with_eom(true)
-> >>      }
-> >>  
-> >>      /// Returns whether this is a complete single-packet message
-> >> (`SOM=1` and `EOM=1`).
-> > 
+> > +/**
+> > + * struct drm_nova_gpu_info - query DRM GPU info.
+> > + */
+> > +struct drm_nova_gpu_info {
+> > +	/**
+> > +	 * @size: The amount of space allocated by userspace for this structure.
+> > +	 * The kernel will return the amount of data it did/could actually write.
+> > +	 * User space can use this to determine how much of the struct is valid
+> > +	 * when running against an older kernel.
+> > +	 */
+> > +	__u64 size;
+> > +
+> > +	/**
+> > +	 * @chipid: GPU chip identifier. See &enum drm_nova_chipid for currently
+> > +	 * known chip identifiers.
+> > +	 */
+> > +	__u32 chipid;
+> > +
+> > +	/**
+> > +	 * @pad: 32 bit padding, must be 0.
+> > +	 */
+> > +	__u32 pad;
+> > +};
 > 
+> I think we should add the indirection we discussed in [1], i.e. have an
+> indirection via
 > 
+> 	struct drm_nova_info {
+> 		__u32 id;
+> 		__u32 size;
+> 		__u64 info;
+> 		/* Revserved fields, just in case? */
+> 	};
 > 
+> so we can easily add new info structures, or extend an existing one with a v2
+> without having to create new ioctls for this purpose.
 
+Sorry, I should have called this difference out more explicitly.
+
+Basically I ended up doing it this way because it didn't make much sense to me
+putting an ioctl interface within an ioctl interface when DRM ioctl handling
+can already deal with matching numbers and truncating/extending the struct as
+required. It just leads to more code comparing ID's, etc and I'm not really sure
+what the advantage is. Are we concerned about running out of ioctls if we have
+to add other types of info struct?
+
+Doing this as top-level ioctl makes the strace decoders simpler and means we can
+just rely on the existing DRM ioctl handling to get everything right rather than
+duplicating that in nova-drm. Or is there some other advantage to [1] that I've
+missed that isn't solved here?
+
+Thanks for looking.
+
+ - Alistair
+
+> 
+> [1] https://lore.kernel.org/nova-gpu/DKC6T1DQX2L3.HTHPB2L167TC@kernel.org/
+> 
+> >  #define DRM_NOVA_GETPARAM		0x00
+> >  #define DRM_NOVA_GEM_CREATE		0x01
+> >  #define DRM_NOVA_GEM_INFO		0x02
+> > +#define DRM_NOVA_GPU_INFO		0x03
+> >  
+> >  /* Note: this is an enum so that it can be resolved by Rust bindgen. */
+> >  enum {
+> > @@ -130,6 +155,8 @@ enum {
+> >  						   struct drm_nova_gem_create),
+> >  	DRM_IOCTL_NOVA_GEM_INFO		= DRM_IOWR(DRM_COMMAND_BASE + DRM_NOVA_GEM_INFO,
+> >  						   struct drm_nova_gem_info),
+> > +	DRM_IOCTL_NOVA_GPU_INFO		= DRM_IOWR(DRM_COMMAND_BASE + DRM_NOVA_GPU_INFO,
+> > +						   struct drm_nova_gpu_info),
+> >  };
+> >  
+> >  #if defined(__cplusplus)
+> > -- 
+> > 2.54.0
+> 
