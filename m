@@ -1,47 +1,47 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013022.outbound.protection.outlook.com [40.93.196.22])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011055.outbound.protection.outlook.com [52.101.57.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD6A31ED83
-	for <nova-gpu@lists.linux.dev>; Sat, 22 Aug 2026 01:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E871130D41B
+	for <nova-gpu@lists.linux.dev>; Sat, 22 Aug 2026 01:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787363759; cv=fail; b=cRg9VAjI0ikFPZoUnI78Q8hrhCHA3V81uSZAYIe37x8s0/bKUJyvxsWyEd7OBZtcGVMLLTzK48u2XgXVu1CgPexGLeNDLXWsfZjs/UN9TFTj3S3Ory/e60TS+24XzqARbeu7EkRJgUK3jNcIv5TDdcZ+LbYcUQufSj039bVRYGg=
+	t=1787363766; cv=fail; b=lCt2yMcI7BWm7EEgo7W8r+frifcUutNiB3wfFFFWSEmHQmIRj6De8DfmloMh7tveh7Xyk8IHTQ/zNYPzdhOSbWzpV77rB2c5EjquXsz7gTJSOKdXVOFi3Rd3W9W7D3QLbNlD51uTA/5coZs7y2U9aDX4vaBXTfzKXAkrc3r2W7s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787363759; c=relaxed/simple;
-	bh=8I+crh5tLVl1kBsntvii1/0RbfbrgO/rpZd0LygD20Q=;
+	s=arc-20240116; t=1787363766; c=relaxed/simple;
+	bh=L0bEb2JWbT+rgrydYvZwYp3MIij8f21n8s5zo83V9nQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BJbsOVawbHiYUgH7CawAMo4m9UiRkJKeM3x27o/7NENtpk/xQ9SXQnnIC0EEoD6IaF54E5zbe5U8/zkDAMDj7KfzTLMXi6ybmVcaJpOGgbViHOWtEuyc8yT6Gg9b8cjrd05y4eQ5pmfCgTBYZ4sccv1BqMoSpp0Ok6CyiHRvRNs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eZCDzdDF; arc=fail smtp.client-ip=40.93.196.22
+	 Content-Type:MIME-Version; b=QkYohQtoriCoZnAHhLgXI9LeG8xwJl0b94rDR+Ckk4CGCe9QPV/q5FjXc33wboTw/Ayei6ycOhGpKukvcuRuD9KcQPfjlF15zclmZm1uCk29Ib4Hh9OZ84SVqCAZ3E3dvMjmto5nfWEiDf1cA9886cktdMZk5cEBQOnFuYMhFKQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ORpDpLHv; arc=fail smtp.client-ip=52.101.57.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eZCDzdDF"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ORpDpLHv"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gu6fLJq2+7gleU+8M4rWCmvP4dx+jXF6WerKgW1M15Y0Rs82L16CHCvdaa0g6hemPbNHkH6CnUDZfkhZuSFP7kU0CJ0+9l5nRs2XdVS0NxCaLWiP5V4Dm7ebDwiV6MaztyGQ8JS9Rhnh0SH3ZM/IsWfr5fOJUHzZ4rvvtGQHSQKS/3Mv6fC0frrNwEZZ/28uOAYdi+R/YriMluDHZ5hJD/Jgc2+Pfzw7Xfk6cBESDJgZQadfdGN4z5OLHG7/fUjphTKzH1ND1Mv07LBuDfmVknVsLs5lLzOf4Vx1d+b7NQeM/MEdV+Vv9rY6cE5bZygXXf155MdxBolViVIbLGTf0Q==
+ b=Ok5wnA8qWVzZx1xbDJ1pAjdowYx9FXaRaNXh+vn13dHe7r/DQREEITUMeghN6TCiRPP42VtuxB6/wnBVMjoz86mjp1j+/Q/Oa5TIZueo0JP0N/up+FPF9trlLQ6mg5TQGQwr0HUb+NVzmgd+MxGTYvnu0AdRUsRijYLcW/rdFGBfvJac4U72PmcaSRWWQzCANw15wXTPMIkuqhk7taYbm785OBW8i3EQMjSJUTktAScwsZNk7jBKz52s6IPTyLwgHrlJJGlHXns6vYKKjB+O1JjYNJFaInMe5MDXOBUKHOp+ptBw2LYUPQVdNbPufbWpksf6qOM1IYpex63CWJACuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NOQ7XDYslJoWLEj/z0LDoBre8kPxjlwCYtHys9ZQ++w=;
- b=FTvjmLyrDdxB7Q1npzFOI3BCGoET+Ar09sPlFhHhuLiNWKVfv5l/pN2W9mgKVg7VB5kLPS+sHwMS99aWbyzAvR4+L7TJjO1e2+lyDoY7NQyhHvNbsRCgRcWwAqrnMZWaqx+GWZXOHoNCBaNEKb8BPhfcRD0BTTpaxQv60I5bVSN8P7HogmPGjYGRiSquVX3nem7fKpEy5OexDUKYXOF9jXDTpBsPgKFQttzqQBx8dPF0Nh5/L5MJx8/7D20L8aQmKOyVRtkFlP3BN3W9pc2EsiMml5B1bLP7TX1ZGZgpSKVtmX/hUlMkJRF7iH0TGBf2UglcCYN/pJnDgunXOthdqA==
+ bh=trRhfNuJCcjd0p8J1yFdIaomO0VuVqho+smvqFIJvrU=;
+ b=Df8NDRTBTrwQpTYYGCMjjXDbRmJYqhuES0ZShnouM0JZLCPX9iG9HYstiPciCJ1CIndEKHpO8Hk/iHiZegeKxrA+yES+WFFEHYmKGo/L+GlLapf7A9KzdFoWT4B0XhH4BtGMNty4RzSIRD4r4YzDBBzyCFFFDSDgKDNVg0iGaYa97HkZyTjjWyHycop9RsPUkZCfUAht/U6LTLypcOoL0oRxVVlXO/Mm+DK7G23RCVJ0Yp4NasEDhB7hHjc4nSTodahzHNDhdt4jMSP+oEiV76gmCwGndNhD4Ehm2uYZ5RAqCxOT52i/8dZpzlIbD+0ZaQg9cWd2MwiwmgxwrzFQqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NOQ7XDYslJoWLEj/z0LDoBre8kPxjlwCYtHys9ZQ++w=;
- b=eZCDzdDFxHzSlJb2TfHN3mvM8vyfZKKg0Pl0BQnKymBVc6aYJxFljh7SzxtyaD7NXzNz0MTSj8zWEmoVAG+xH0X0Gs4FYaADA0TI0GdAZukqe+F42ii2PeDnljTYs+nxPxQiLCgr0i2wpWHGUDsmhI14eoYq/sqcC/iE3JMT8SlWo9/L6NDrDX/9LgS4RG5Zee3fBexEgT3tbPj3/vvaalIJw6OXz2r4u2Q+MJNhfDQ3uNxa9w0fc52/rcIZ5REFKAQKp5Ngiczod/qiV7WOKAFFa5r2yiL3XFpS7I+r+XIuGItThSdyZiUmdlNae9qitG91cowDI5XuKelrR+saeQ==
+ bh=trRhfNuJCcjd0p8J1yFdIaomO0VuVqho+smvqFIJvrU=;
+ b=ORpDpLHv/K1cJHYbssXL+FpZaUD1NIp7L/iG8m9bS+fzICazGd8Db8ul9ApRZKH7eGyTo1gBkJV5pZiZTVxpow/HFpw8N+xYSlMdxogcaDtbwlw49YwXSOudF6DRmi1oBal1COMOSBCotdnmgyPBZRaJX0k4wgaSgAnsFRNbVzY+WmgF95YHnsXQVqs7zh1zfV6sX9fbu0xhNgOBQzVQAkDJYQQWbeITtt2rY+Xjh/ySjvqYuKKABq3mugV+eHl6M0L+Qsrga2qz66Oc/4VFNFIs8yXTqMLO8l8KSZKX310UxEwh1fNCwO2KrjaRQgyQxvW2wJv51ClqICcxyXN21g==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  IA1PR12MB6603.namprd12.prod.outlook.com (2603:10b6:208:3a1::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Sat, 22 Aug
- 2026 01:55:53 +0000
+ 2026 01:55:55 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0339.010; Sat, 22 Aug 2026
- 01:55:53 +0000
+ 01:55:55 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -64,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v2 18/31] gpu: nova-core: gsp: add GMC dispatch on receive
-Date: Fri, 21 Aug 2026 18:54:35 -0700
-Message-ID: <20260822015448.238214-19-jhubbard@nvidia.com>
+Subject: [PATCH v2 19/31] gpu: nova-core: separate the generic falcon bootloader from FWSEC
+Date: Fri, 21 Aug 2026 18:54:36 -0700
+Message-ID: <20260822015448.238214-20-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260822015448.238214-1-jhubbard@nvidia.com>
 References: <20260822015448.238214-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0138.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::23) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: BY3PR10CA0006.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::11) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -84,234 +84,402 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA1PR12MB6603:EE_
-X-MS-Office365-Filtering-Correlation-Id: 934ad35d-e00a-4cc2-a712-08defff07fa6
+X-MS-Office365-Filtering-Correlation-Id: d4b69ef2-fbeb-4626-0d97-08defff0809a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|366016|376014|1800799024|6133799003|10067099003|56012099006|11063799006|5023799004|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|23010399003|366016|376014|1800799024|6133799003|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	dZy5JmazAti3jRG6C0lV5tRXo+Z4IDAERWqm+sWcxuSfh0oktsnaI5CB0Zu1tVqBuhpjTpo1Nqvde+EtEDu8ROnEIJdJ3TeBhsE4d0GhK36w1eNFd4N58Axdmlux9FjAIGXjXWyOvCWjpBn/cNhkk6R2YrcuLV6c+++V8gIGMp5NurQ7Eui7k8gJYLF+mOaIj8+J7yo8d5fyx4gTXy9tPiBo72lQ9+ENRVSdfxZdyVXx7hE7SfWBwAYE+zY22g8Vum3K0/oiwyi9t2Un0XX4LBkp2GmABpdcUJHrKdG6NZadgLG8YUIPzPVCfmmaTZYScHlhAqjv08/pvttMM8MfcLz2g2O+/iRp7xxKyU2pM2dBasSEDapDVDPPeQQkkgMAgoWl/BsOBYKTx2+BR6KJ2TNqa5IWMZvMRHjxJSZ4uZNsQm95QKcVHCNeqw2e2ZnAc07kgwCR5vXr+l+pIIGSJPh3Fm+Di4HiiC5+APABjDjd/fkHgb4Siw2jpF2FeJxn/i031GEVKpyhjLWS0rKNlrnI/ByWRRcSRJZhMv3KU/PkjihlCo8zgte7qWogBiB8CshJro1v1QrMTPj8ff94iyUkKMuGgJEXbP0ax3tQsMHjIX4hQFufn7yz1BrOB+Htj7UbTGpKccqTHaS/EOSvwu/gbW15HScsLqO8ZAbKY80=
+	3T/ZXoIQ8dU+JkrjPYw8DThjhXrPLntF1O7r0DdEATcRlWlpBJLra6+hhSV7uZJUPblyQBh0AwRRWD+6eAD/rmOiM2iyHbN50C+b7vZQOKjmMuMLY9pLWPVyLoDJIWcdaU+bn72d9mgs9zzyWVlQl1gJC4wHP1cnE7rpYnrHFwaP0k132OgtzaZmEmTY9+M2dPeot3sf5Pe1mS7G+s2FhUpNC7OVrYkV//qSqenD+Pzk90p1Up4q9UEVX4u81v9HJwZLLCwmvZ+t02FfLdWczOSEsGHweZNSVBKSSRJ548tyMw7NMPJy7JeQSKRQAcKUGziEJS0L8R8fzKScJWF4bB5YvbPEOENq2xDBNE0BhewexJ4oUqpLDiOdq7+Po8019/uhau7REYrQrp4ZionNPLgHUitbj25ARHPjM3NbPWYZ1ChX3Psb8pn9ldHpNxswlrbxAsCF+bDwXpgRmbzUHF9SoFhJRT9wWxXH5JJo0hsBpT3MpR6LVXRfEyfcV265U7XzWfpIkolfxNVKXcAXCLzr2+lKNWP/pG4Rf56IEQdVJ6f7EiBWZOnpGb+Gk8uc8H5hYI4EL+o7DNSeuzCYFi94cFsRKTxLGe76Dp4dl1CkCphTE4GJ5JTXN9ZlNi5aqN3/EY/xXa7r08gYIE+BmlibRYuPfnFfjRR4W0eR6M0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(366016)(376014)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(366016)(376014)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vfWavZUUvjPZuKvlwU/Ry5B2yTuawJY6PIaBpzxG2Lffmw2CUS7EEY76kEQk?=
- =?us-ascii?Q?3baiPXU3OBeHLDOZ8qqxhAspzBFOD5hutQh0CIYHrXWhS5QAUj3N8P3jGkQz?=
- =?us-ascii?Q?8eO+dVWiCjuasP+OzPHnMimCDhXJDxmj3Xd98VC8zEfFg/ftzzcF9qYCf/nq?=
- =?us-ascii?Q?V6aqN7cH0SxPy65Pji/nHjgeB5trM9agLLq8tlsPwtetqnpJ1GhiPKkdOvn8?=
- =?us-ascii?Q?QnI13l/N8kS8uumG3UP67KMyQj1L//9YNQ0rpr/S+8L7Q2IGKKbH7/INSTnW?=
- =?us-ascii?Q?33dy+KdTq6e+UMJniJefS+HqGlSCXj3jcu7A3nARtWok7LCyqyR1wrHJj95Q?=
- =?us-ascii?Q?uIt4zWpdAI4MLvCkV8N4z7miAIJBw7yE4setixUPnUw3DHXcf/tWPoz8DmQu?=
- =?us-ascii?Q?KRO6moF6FTTivcjkyXgqcVE75788KEyaITNpXc/N4VG356RuN0iZ93RohWVW?=
- =?us-ascii?Q?6h5Utu5gUxr8cs2hUnux/ituQcUSWi9IHExtjyZlat5f/Fhg4EIzKSmo/vOK?=
- =?us-ascii?Q?l850W7JzKDFdPIW3PtKRftYifIziHGuqSl5n2/glE7xP6qZ8bbw7TxtcLekl?=
- =?us-ascii?Q?JaF1C+YYf5jibT93ymPhQGb9kYsWN6LUs1cTGbdm37Hmue63LhqYoRPU2Alf?=
- =?us-ascii?Q?8o+EKHS9Nh+jUZwK81bJ26nCkG7SRZTApyKleGPjunn3uULUVNcTeW4acFsf?=
- =?us-ascii?Q?zDBcp/t7R3GRGng5ju3wPtVWqq0l0FGgnRiw6nbxsfDitwy6rjHjpaLPSvyv?=
- =?us-ascii?Q?kBR8NX7mMVihDteDVg4UYslNQsGGM5HekMlp05L8vdXuWkqwJHDAjI33hUKS?=
- =?us-ascii?Q?vdwbBZ5BzDb3b2LwJ/xJyaEM9M8NqGyjhaQi/KvVNoKric2eXMjA+surLidJ?=
- =?us-ascii?Q?m2YbYW3LokZSX9SJwMu9Xgnd1C7snXhwhspXIAX+iffnKwPlPnrYZmlYMwOs?=
- =?us-ascii?Q?kawgZF+Ed4gLJA98/O8zanLYvEPcVOm0v1/9VLEvYuIdfZQ8tthohdhTBveR?=
- =?us-ascii?Q?fBJyqFw96hGOkTSDdtjMxXGSPhwJyddvdsjIuero/r2KN3hRIzkM+8Nb/sHS?=
- =?us-ascii?Q?5R80Q4y1bNb1dSlozIc8FKgtkfAVx1EjUYG+3r+kAfIegJG4smraAXBVpa7p?=
- =?us-ascii?Q?as19L8q61CSFEoGrnTPAexvrIaNKC++0cNwmxYEvRrP/N6L69mahmQxLb88P?=
- =?us-ascii?Q?YFZvha2kvxwd5hwIbhfgx+ezHPh1bmf+OSC7vxqiMBxZROrPTmVNyWVRnJ6M?=
- =?us-ascii?Q?ggfhLYD0W7DuaTYRFb7gYjAD5yMQBbv5R6c1kfgHeIc3tTb23kaUoZyXhv3r?=
- =?us-ascii?Q?fuf6b7tVs3qKvJ8JEzMo1A+Q+Jtma/MywTAYfpv149RVndYhRMEglMgohKPa?=
- =?us-ascii?Q?6YJRpS0AjSYVPD0OwfZ+DciVFcuDupLGXcO60BDiSBiiFbG8DLs/xj1lW/Uh?=
- =?us-ascii?Q?QvWTcS6DWBWOHu16dAz8Jbe5g1UPae4rlUoCci8m15QfskCx891zd5CnHiSr?=
- =?us-ascii?Q?KkGsfjFguUKVMrSP6g7ebtl43n9cP/2PyJZLfrp4M60JQ+SnAzbjGuwmBoO0?=
- =?us-ascii?Q?X9GWNBS7wW0wdg5Z/Wl56XsqY31bCeH3toLiILI3sGBfalWu+vw/2HesWZVn?=
- =?us-ascii?Q?XIBulDrYYz0i1hiGhRw938isAL/SLZvC4+gnvjYSxaqpux72dj6gU+AI1QEK?=
- =?us-ascii?Q?fEYh9rm19PiBf1LLM3xjABID+lPa7XmjrCudeg2eJ7iRSvM3HoOyLnoIijmQ?=
- =?us-ascii?Q?1TJkCyeXIQ=3D=3D?=
+	=?us-ascii?Q?LLBRwgngPYG8AeU8e25AoTRegxK53bLKjrcpw3aRXGJuNmQ8rhdQikkeuRQq?=
+ =?us-ascii?Q?rlYXv9XH2wtIfv2honDx5sTEHxo4hHTSGGI1+HHG9wOcL3WaGvNCKL7h7hYn?=
+ =?us-ascii?Q?SK3WTBJ+g5Pxi2lF7V2dK/d5C+7xScp1Bkz1k73R4ASgUlymgnd2DbDlE0jz?=
+ =?us-ascii?Q?k1pPpBYJGkEPiqHD6fqWla7jpIKCwgpzvltck99a5YyE86Cp0GmNv3jhQH32?=
+ =?us-ascii?Q?3iBn8MzCzi7rfCMHvc4YKZ0/bHOfGLKY/FhzwUsDj1SLggA8ZZPixy4vy5nq?=
+ =?us-ascii?Q?BqG/4zQtbERsP6OSEFbbIzn9QP3F13bVAcQTWw0D0XGbaAR1BrHhrwjHwpnc?=
+ =?us-ascii?Q?AORVYZsXgKSXTuXRQpJvumRtvCqHjkKr/oeLMgMnWBTzYoCJaQZ5cqyca4xm?=
+ =?us-ascii?Q?jhW7UM5ZS7UGYrc/PIhzsfkY0Y8ssxhCtmJcbiuESVqJA7PqIpx5nDxAcSG1?=
+ =?us-ascii?Q?ODcxr4S4rPNyX8mGf/MGZag4DLQibAS88HAZ4nknPZTOkaW4ajrhd7RKnsGE?=
+ =?us-ascii?Q?Hu8FlXo0KselF4l087xJfvTPVLNJQt624ThfwZ0S5C9cbyh058p0kusdd4GS?=
+ =?us-ascii?Q?sZeHpzDcW3JeN9blTNttC5o8Lh+h7IabM9XpUNr3eMbQwH9fOdHDjmQt4e3E?=
+ =?us-ascii?Q?3YwcdQyX1fYMekZ7tgsTZs0e+KJjnJKWICuyEGimTpbUrQXvTiSRSCvk5jJO?=
+ =?us-ascii?Q?ReDNRxe8cuxAR8xU9moiSJcdgt53sepBCU/7kCjbO5vUoXxD6W8Ab58Y64zx?=
+ =?us-ascii?Q?0/3fhB2q8tmzknBsADhNPIU04uV7dFOnAgD8deXRr2b0raRYHl28wwqpVTGv?=
+ =?us-ascii?Q?5scgK/CClrDHHL1htK09Gulj3LGsFatxBa2D0GLoR287vCEs+GS0OXdFFyae?=
+ =?us-ascii?Q?hQ6ra8lz6n68PLl0x8ozAYzuZKiM031gFsu0E0Q+DdJ807iPCrKdTVjxJ1YD?=
+ =?us-ascii?Q?k28bPOYxB0xi317sPpxxyVK+Nh9ZkVvkTxgqTbwIQZ4htVIIImvdeQEzh8wd?=
+ =?us-ascii?Q?8EH4o1kAXAQDn9/sIQaV4DeaJ9X+crspcq6bnr/51s5e+Zabz54CxDNpY20m?=
+ =?us-ascii?Q?Q9SaE1Q2+LJv2vCQd8jD7s2YH2OkM+uLZunboqev0Bu3V7lteXHv161wvNP1?=
+ =?us-ascii?Q?eCCNdRdKum2dujHKuULue2kwIGxbiSBDELJzodHW8PShaa3PG7XSITKpQHks?=
+ =?us-ascii?Q?Ha6MlKs6HdJsiaNUIJ3U1RtxeD9FcrkuQJvzobj+uO9QMHt5KbiEtUvm64hA?=
+ =?us-ascii?Q?UyKt1UM5w8ELzTObx/nPPr1+mVDqx0IAKMGTgcE4fkk/blkhl65AUne5rZdr?=
+ =?us-ascii?Q?u5L4Z1L4x0vEayEP1OsjYwpkI0cbcB7YGqp6pusEEdpUz8tzd4+JnjK+iT/m?=
+ =?us-ascii?Q?esmdb/Op+a7Z3nQPaUqdHXw2GaSICikSNDKyyb6EsYuvhd5L8XcF0Y1ft/Kz?=
+ =?us-ascii?Q?GJ8G/Z03c5hTM4xwueWEj/IUrn/Y+FLiO0HH2MlqEXkCBdjrNbITZejKh2BK?=
+ =?us-ascii?Q?Q6Meg8Zfk1nsx0NO90aey2A8bzmuqjD0efKGkB2dfLpE4EP0tY/qA5n7Kt2b?=
+ =?us-ascii?Q?uFwC4cHSCUhbibSXohIx2fnD74dEC2KmSwNvcmHsGAWyUOmNR9/Vvuj6ovaY?=
+ =?us-ascii?Q?zBZoW5pA+eLv8RRvg5t/J/syZ6/5Gk2FjyOCfDKw27+Msb4h8n51ZoHyo43V?=
+ =?us-ascii?Q?52tq4b/L8nnXLKtNAoRMP+kDY219CjEHgf5qw4PodxDaNi5i5II8OJe6qRFl?=
+ =?us-ascii?Q?ey8apxJ7Tw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 934ad35d-e00a-4cc2-a712-08defff07fa6
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4b69ef2-fbeb-4626-0d97-08defff0809a
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2026 01:55:53.6206
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2026 01:55:54.9245
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hCJQ8wCEQtqSXi63vrOG2+4BR7xYQ/j3u0ILeaGrzNJkPoR84IsxqQnX2acM0k6TieBaU4LW3rL7IGiquhda/Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: HVCFMTqNgBkttuNyrKyPwxYRX8oXnZGPDxCzu0RuG0nO1LOraWGFnAmNqonvTPZow8LUCPvJdAmqb6cvrih09g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6603
 
-The r000 boot path delivers the load-and-execute steps as GMC events
-keyed by command id, where the RPC path keys on a function code, so the
-boot loop needs its own dispatch.
+The r000 GSP boot protocol sends a load-and-execute event for the
+generic falcon bootloader.
 
-Add a GMC receive that dispatches on the command id. A GMC element and
-an RPC element share every field through the NVDM header, so this checks
-the NVDM type before reading the GMC header and drops an element of the
-other kind rather than handing the handler a command id decoded from an
-RPC header. It also drops an element whose GMC payload size disagrees
-with the length the transport header declares, since GSP-RM sends the
-two as one length and nothing says which to believe. An element nobody
-claims yields Ok(None), and the read pointer advances on every path.
+Nova-core stored the image and its load parameters in the FWSEC firmware
+wrapper, which kept the r000 boot path from loading it independently.
+
+Separate the bootloader image and load parameters from the FWSEC
+wrapper. Place the bootloader at the end of the target falcon's
+HWCFG-reported IMEM rather than below a fixed 64 KiB ceiling, so its
+placement remains within bounds on falcons with less IMEM.
 
 Assisted-by: Cursor:claude-opus-5
 Reviewed-by: Timur Tabi <ttabi@nvidia.com>
+Reviewed-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 79 ++++++++++++++++++++++++++++++-
- drivers/gpu/nova-core/gsp/fw.rs   | 20 ++++++++
- 2 files changed, 97 insertions(+), 2 deletions(-)
+ drivers/gpu/nova-core/falcon.rs               |  15 +++
+ drivers/gpu/nova-core/firmware.rs             |   1 +
+ .../nova-core/firmware/fwsec/bootloader.rs    |  64 ++---------
+ .../gpu/nova-core/firmware/gen_bootloader.rs  | 102 ++++++++++++++++++
+ drivers/gpu/nova-core/gsp/hal/tu102.rs        |   6 +-
+ drivers/gpu/nova-core/regs.rs                 |   5 +
+ 6 files changed, 135 insertions(+), 58 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/firmware/gen_bootloader.rs
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 96128c418dc9..98d749674df1 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -641,7 +641,6 @@ struct GspMessage<'a> {
- /// A GMC message ready to be processed from the message queue.
- ///
- /// This is the type returned by [`CmdqInner::wait_for_gmc_msg`].
--#[expect(dead_code)]
- struct GmcMessage<'a> {
-     // Reference to the header of the message.
-     header: &'a GspGmcMsgElement,
-@@ -791,6 +790,22 @@ fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
-         self.inner.lock().receive_msg(timeout, None)
-     }
- 
-+    /// Receives one GMC event from the GSP and passes its command id and raw payload slices to
-+    /// `handler`.
-+    ///
-+    /// This method may sleep while waiting. The [`CmdqInner`] mutex stays locked across the wait
-+    /// and across the `handler` call, so `handler` must not call back into this [`Cmdq`].
-+    ///
-+    /// See [`CmdqInner::receive_gmc_and_dispatch`] for return values, queue state, and errors.
-+    #[expect(dead_code)]
-+    pub(crate) fn receive_gmc_and_dispatch<R>(
-+        &self,
-+        timeout: Delta,
-+        handler: impl FnOnce(u32, &[u8], &[u8]) -> Option<R>,
-+    ) -> Result<Option<R>> {
-+        self.inner.lock().receive_gmc_and_dispatch(timeout, handler)
-+    }
-+
-     /// Waits for an unsolicited GSP event of type `M`, dispatching any other event that arrives
-     /// first.
-     ///
-@@ -1314,7 +1329,6 @@ fn drain(&mut self) -> Result {
-     /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
-     /// - `EIO` if the framing is invalid, or the queue was already poisoned by an earlier such
-     ///   failure. Either failure poisons the queue, so recovery requires a reset.
--    #[expect(dead_code)]
-     fn wait_for_gmc_msg(&self, timeout: Delta) -> Result<GmcMessage<'_>> {
-         if self.poisoned.get() {
-             return Err(EIO);
-@@ -1370,4 +1384,65 @@ fn wait_for_gmc_msg(&self, timeout: Delta) -> Result<GmcMessage<'_>> {
-             contents: (slice_1, slice_2),
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index 249d440c14c5..644703c14924 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -387,6 +387,21 @@ pub(crate) fn new(
          })
      }
+ 
++    /// Returns the size of this falcon's IMEM, in bytes.
++    ///
++    /// `NV_PFALCON_FALCON_IMEMC` addresses IMEM with a 16-bit byte offset, so the result never
++    /// exceeds 64KiB.
++    pub(crate) fn imem_size(&self) -> usize {
++        let blocks = usize::from_safe_cast(
++            *self
++                .bar
++                .read(regs::NV_PFALCON_FALCON_HWCFG::of::<E>())
++                .imem_size(),
++        );
 +
-+    /// Receive the next GMC event from the GSP and dispatch it through a handler.
-+    ///
-+    /// The handler receives the GMC command id and the raw payload slices that follow the
-+    /// [`super::fw::GmcApiHeader`] (two slices because the circular buffer may wrap). It returns
-+    /// `None` for an event it does not handle.
-+    ///
-+    /// Where [`Self::receive_msg`] keys on [`MsgFunction`], this keys on the GMC command id,
-+    /// which is the form the r000 firmware uses for boot events.
-+    ///
-+    /// Returns `Ok(None)` when nothing claimed the element, either because it is not a GMC
-+    /// element or because the handler declined it. The read pointer is advanced on every path.
++        blocks * MEM_BLOCK_ALIGNMENT
++    }
++
+     /// Resets DMA-related registers.
+     pub(crate) fn dma_reset(&self) {
+         self.bar.update(regs::NV_PFALCON_FBIF_CTL::of::<E>(), |v| {
+diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
+index e0befe84aa3e..9ff764930bcd 100644
+--- a/drivers/gpu/nova-core/firmware.rs
++++ b/drivers/gpu/nova-core/firmware.rs
+@@ -26,6 +26,7 @@
+ pub(crate) mod booter;
+ pub(crate) mod fsp;
+ pub(crate) mod fwsec;
++pub(crate) mod gen_bootloader;
+ pub(crate) mod gsp;
+ pub(crate) mod radix3;
+ pub(crate) mod riscv;
+diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+index ec4d92317a93..6670d17b4eeb 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+@@ -14,18 +14,12 @@
+     dma::Coherent,
+     io::{register::WithBase, Io},
+     prelude::*,
+-    ptr::{
+-        Alignable,
+-        Alignment, //
+-    },
+-    sizes,
+     transmute::AsBytes,
+ };
+ 
+ use crate::{
+     driver::Bar0,
+     falcon::{
+-        self,
+         gsp::Gsp,
+         Falcon,
+         FalconBromParams,
+@@ -39,10 +33,7 @@
+     },
+     firmware::{
+         fwsec::FwsecFirmware,
+-        tlv::{
+-            request_tlv, //
+-            Tlv,
+-        },
++        gen_bootloader::GenericBootloader, //
+     },
+     gpu::Chipset,
+     num::FromSafeCast, //
+@@ -101,16 +92,12 @@ unsafe impl AsBytes for BootloaderDmemDescV2 {}
+ pub(crate) struct FwsecFirmwareWithBl {
+     /// DMA object the bootloader will copy the firmware from.
+     _firmware_dma: Coherent<[u8]>,
+-    /// Code of the bootloader to be loaded into non-secure IMEM.
+-    ucode: KVec<u8>,
++    /// Bootloader that performs the load.
++    bootloader: GenericBootloader,
+     /// Descriptor to be loaded into DMEM for the bootloader to read.
+     dmem_desc: BootloaderDmemDescV2,
+-    /// Range-validated start offset of the firmware code in IMEM.
+-    imem_dst_start: u16,
+     /// BROM parameters of the loaded firmware.
+     brom_params: FalconBromParams,
+-    /// Range-validated `desc.start_tag`.
+-    start_tag: u16,
+ }
+ 
+ impl FwsecFirmwareWithBl {
+@@ -120,29 +107,9 @@ pub(crate) fn new(
+         firmware: FwsecFirmware,
+         dev: &Device<device::Bound>,
+         chipset: Chipset,
++        falcon: &Falcon<'_, Gsp>,
+     ) -> Result<Self> {
+-        let fw = request_tlv(dev, chipset, "gen_bootloader")?;
+-        let tlv = Tlv::new(fw.data())?;
+-        dev_dbg!(
+-            dev,
+-            "loaded generic bootloader firmware v{}\n",
+-            tlv.get_string(b"VERS")?
+-        );
+-
+-        let ucode = {
+-            let blob = tlv.get_bytes(b"BLOB")?;
+-            let code_size = usize::from_safe_cast(tlv.get_u32(b"CDSZ")?);
+-            let code = blob.get(..code_size).ok_or(EINVAL)?;
+-            let aligned_code_size = code_size
+-                .align_up(Alignment::new::<{ falcon::MEM_BLOCK_ALIGNMENT }>())
+-                .ok_or(EINVAL)?;
+-
+-            let mut ucode = KVec::with_capacity(aligned_code_size, GFP_KERNEL)?;
+-            ucode.extend_from_slice(code, GFP_KERNEL)?;
+-            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
+-
+-            ucode
+-        };
++        let bootloader = GenericBootloader::new(dev, chipset, falcon)?;
+ 
+         // `BootloaderDmemDescV2` expects the source to be a mirror image of the destination and
+         // uses the same offset parameter for both.
+@@ -213,21 +180,11 @@ pub(crate) fn new(
+             }
+         };
+ 
+-        // The bootloader's code must be loaded in the area right below the first 64K of IMEM.
+-        const BOOTLOADER_LOAD_CEILING: usize = sizes::SZ_64K;
+-        let imem_dst_start = BOOTLOADER_LOAD_CEILING
+-            .checked_sub(ucode.len())
+-            .ok_or(EOVERFLOW)?;
+-
+-        let start_tag = u16::try_from(tlv.get_u32(b"STRT")?)?;
+-
+         Ok(Self {
+             _firmware_dma: firmware_dma,
+-            ucode,
++            bootloader,
+             dmem_desc,
+             brom_params: firmware.brom_params(),
+-            imem_dst_start: u16::try_from(imem_dst_start)?,
+-            start_tag,
+         })
+     }
+ 
+@@ -282,7 +239,7 @@ fn brom_params(&self) -> FalconBromParams {
+     fn boot_addr(&self) -> u32 {
+         // On V2 platforms, the boot address is extracted from the generic bootloader, because the
+         // gbl is what actually copies FWSEC into memory, so that is what needs to be booted.
+-        u32::from(self.start_tag) << 8
++        self.bootloader.boot_addr()
+     }
+ }
+ 
+@@ -292,12 +249,7 @@ fn imem_sec_load_params(&self) -> Option<FalconPioImemLoadTarget<'_>> {
+     }
+ 
+     fn imem_ns_load_params(&self) -> Option<FalconPioImemLoadTarget<'_>> {
+-        Some(FalconPioImemLoadTarget {
+-            data: self.ucode.as_ref(),
+-            dst_start: self.imem_dst_start,
+-            secure: false,
+-            start_tag: self.start_tag,
+-        })
++        Some(self.bootloader.imem_load_params())
+     }
+ 
+     fn dmem_load_params(&self) -> FalconPioDmemLoadTarget<'_> {
+diff --git a/drivers/gpu/nova-core/firmware/gen_bootloader.rs b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
+new file mode 100644
+index 000000000000..f949223af2d0
+--- /dev/null
++++ b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! The generic falcon bootloader.
++//!
++//! A small program loaded into falcon IMEM using PIO, which then DMAs a larger image into IMEM and
++//! DMEM from a descriptor the driver leaves in DMEM at offset 0. Open RM's
++//! `ksec2GetGenericBlUcode` supplies the same image for both SEC2 and GSP.
++
++use kernel::{
++    device,
++    prelude::*,
++    ptr::{
++        Alignable,
++        Alignment, //
++    },
++};
++
++use crate::{
++    falcon::{
++        self,
++        Falcon,
++        FalconEngine,
++        FalconPioImemLoadTarget, //
++    },
++    firmware::tlv::{
++        request_tlv, //
++        Tlv,
++    },
++    gpu::Chipset,
++    num::FromSafeCast, //
++};
++
++/// The generic falcon bootloader image and the IMEM placement it was loaded for.
++pub(crate) struct GenericBootloader {
++    /// Bootloader code, zero-padded to a whole number of falcon memory blocks.
++    ucode: KVec<u8>,
++    /// Byte offset in IMEM the code is loaded at.
++    imem_dst_start: u16,
++    /// Tag the first code block is loaded under.
++    start_tag: u16,
++}
++
++impl GenericBootloader {
++    /// Loads the generic bootloader image for `chipset`, placed in the last blocks of `falcon`'s
++    /// IMEM so the image it goes on to load has the rest to itself.
 +    ///
 +    /// # Errors
 +    ///
-+    /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
-+    /// - `EIO` if the queue is poisoned or the element fails framing validation (see
-+    ///   [`Self::wait_for_gmc_msg`]).
-+    fn receive_gmc_and_dispatch<R>(
-+        &mut self,
-+        timeout: Delta,
-+        handler: impl FnOnce(u32, &[u8], &[u8]) -> Option<R>,
-+    ) -> Result<Option<R>> {
-+        let message = self.wait_for_gmc_msg(timeout)?;
-+        let header = message.header;
-+        let length = header.length();
++    /// - `EINVAL` if a required TLV field is absent or the image does not fit in IMEM.
++    /// - `ENOMEM` if the padded copy of the code cannot be allocated.
++    pub(crate) fn new<E: FalconEngine + 'static>(
++        dev: &device::Device<device::Bound>,
++        chipset: Chipset,
++        falcon: &Falcon<'_, E>,
++    ) -> Result<Self> {
++        let fw = request_tlv(dev, chipset, "gen_bootloader")?;
++        let tlv = Tlv::new(fw.data())?;
++        dev_dbg!(
++            dev,
++            "loaded generic bootloader firmware v{}\n",
++            tlv.get_string(b"VERS")?
++        );
 +
-+        // The RPC and GMC elements share every field through `nvdm_header`, so `gmc` holds an
-+        // RPC header rather than a GMC one unless the NVDM type says otherwise.
-+        let result = if !header.is_gmc_api() {
-+            dev_warn!(&self.dev, "GSP GMC: dropping non-GMC queue element\n");
-+            None
-+        } else if num::u32_as_usize(header.gmc.size) != header.payload_length() {
-+            // GSP-RM sends the element as the GMC header plus `size` bytes, so the two lengths
-+            // describe the same payload and a handler cannot tell which one to believe.
-+            dev_err!(
-+                &self.dev,
-+                "GSP GMC: payload is {} bytes, transport declares {}\n",
-+                header.gmc.size,
-+                header.payload_length(),
-+            );
-+            None
-+        } else {
-+            let command_id = header.gmc.command_id();
++        let ucode = {
++            let blob = tlv.get_bytes(b"BLOB")?;
++            let code_size = usize::from_safe_cast(tlv.get_u32(b"CDSZ")?);
++            let code = blob.get(..code_size).ok_or(EINVAL)?;
++            let aligned_code_size = code_size
++                .align_up(Alignment::new::<{ falcon::MEM_BLOCK_ALIGNMENT }>())
++                .ok_or(EINVAL)?;
 +
-+            dev_dbg!(
-+                &self.dev,
-+                "GSP GMC: event: seq# {}, command_id=0x{:x}, length=0x{:x}\n",
-+                header.gmc.sequence,
-+                command_id,
-+                length,
-+            );
++            let mut ucode = KVec::with_capacity(aligned_code_size, GFP_KERNEL)?;
++            ucode.extend_from_slice(code, GFP_KERNEL)?;
++            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
 +
-+            handler(command_id, message.contents.0, message.contents.1)
++            ucode
 +        };
 +
-+        self.gsp_mem
-+            .advance_cpu_read_ptr(u32::try_from(length.div_ceil(GSP_PAGE_SIZE))?);
++        let imem_dst_start = falcon.imem_size().checked_sub(ucode.len()).ok_or(EINVAL)?;
 +
-+        Ok(result)
++        Ok(Self {
++            ucode,
++            imem_dst_start: u16::try_from(imem_dst_start)?,
++            start_tag: u16::try_from(tlv.get_u32(b"STRT")?)?,
++        })
 +    }
- }
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index bbcc2e2b8401..31c0e6351fdc 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -1008,6 +1008,10 @@ pub(crate) struct GmcApiHeader {
-     reserved: [u32; 5],
- }
- 
-+/// Command identifier bits of [`GmcApiHeader::command`], matching Open RM's
-+/// `GMCAPI_HEADER_COMMAND_ID_MASK`. The remaining byte carries flags.
-+const GMCAPI_COMMAND_ID_MASK: u32 = 0x00ff_ffff;
 +
- static_assert!(size_of::<GmcApiHeader>() == size_of::<r000_00::GMCAPI_HEADER>());
- static_assert!(
-     core::mem::offset_of!(GmcApiHeader, command)
-@@ -1030,6 +1034,13 @@ pub(crate) struct GmcApiHeader {
-         == core::mem::offset_of!(r000_00::GMCAPI_HEADER, reserved)
- );
- 
-+impl GmcApiHeader {
-+    /// Returns the command identifier, without the flag byte.
-+    pub(crate) fn command_id(&self) -> u32 {
-+        self.command & GMCAPI_COMMAND_ID_MASK
++    /// Returns the address the falcon must boot from to run this bootloader.
++    pub(crate) fn boot_addr(&self) -> u32 {
++        u32::from(self.start_tag) << 8
++    }
++
++    /// Returns the PIO parameters that place this bootloader in non-secure IMEM.
++    pub(crate) fn imem_load_params(&self) -> FalconPioImemLoadTarget<'_> {
++        FalconPioImemLoadTarget {
++            data: self.ucode.as_ref(),
++            dst_start: self.imem_dst_start,
++            secure: false,
++            start_tag: self.start_tag,
++        }
 +    }
 +}
-+
- // SAFETY: All fields are integer types with no uninitialized padding bytes.
- unsafe impl AsBytes for GmcApiHeader {}
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index a5c0ca355493..68a48c882c0f 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -166,7 +166,7 @@ fn run_fwsec_frts(
+         )?;
  
-@@ -1134,6 +1145,15 @@ pub(crate) fn validate_framing(&self) -> Result {
-         )
+         if self.needs_fwsec_bootloader {
+-            let fwsec_frts_bl = FwsecFirmwareWithBl::new(fwsec_frts, dev, chipset)?;
++            let fwsec_frts_bl = FwsecFirmwareWithBl::new(fwsec_frts, dev, chipset, falcon)?;
+             // Load and run the bootloader, which will load FWSEC-FRTS and run it.
+             fwsec_frts_bl.run(dev, falcon, bar)?;
+         } else {
+@@ -224,7 +224,9 @@ fn build_unload_bundle(
+         // Load the FWSEC SB firmware, as well as its bootloader if required.
+         let fwsec_sb = FwsecFirmware::new(dev, gsp_falcon, bios, FwsecCommand::Sb)?;
+         let fwsec_sb = if self.needs_fwsec_bootloader {
+-            FwsecUnloadFirmware::WithBl(FwsecFirmwareWithBl::new(fwsec_sb, dev, chipset)?)
++            FwsecUnloadFirmware::WithBl(FwsecFirmwareWithBl::new(
++                fwsec_sb, dev, chipset, gsp_falcon,
++            )?)
+         } else {
+             FwsecUnloadFirmware::WithoutBl(fwsec_sb)
+         };
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 5d265b5788e3..5501c36a56af 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -247,6 +247,11 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+         31:0    value => u32;
      }
  
-+    /// Returns `true` if the NVDM header routes this element to the GSP's GMC dispatch.
-+    ///
-+    /// A [`GspMsgElement`] and a [`GspGmcMsgElement`] share every field through `nvdm_header`,
-+    /// so the NVDM type is what distinguishes the two on the queue, and `gmc` holds an RPC
-+    /// header rather than a GMC one when this returns `false`.
-+    pub(crate) fn is_gmc_api(&self) -> bool {
-+        self.nvdm_header.validate(NvdmType::GmcApi)
++    pub(crate) NV_PFALCON_FALCON_HWCFG(u32) @ PFalconBase + 0x00000108 {
++        /// Size of this falcon's IMEM, in blocks of [`crate::falcon::MEM_BLOCK_ALIGNMENT`] bytes.
++        8:0     imem_size;
 +    }
 +
-     /// Returns the number of elements (i.e. memory pages) used by this message.
-     pub(crate) fn element_count(&self) -> u32 {
-         self.mctp_payload_size
+     pub(crate) NV_PFALCON_FALCON_DMACTL(u32) @ PFalconBase + 0x0000010c {
+         7:7     secure_stat => bool;
+         6:3     dmaq_num;
 -- 
 2.55.0
 
