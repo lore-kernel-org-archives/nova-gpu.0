@@ -1,121 +1,237 @@
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010000.outbound.protection.outlook.com [52.101.85.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDDA2DAFA9
-	for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 14:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5201423A85
+	for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 15:27:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.0
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787583005; cv=pass; b=D/07FsDHpFOTCOP38Hco98gY6s0OUH3pXnLjC0AYIsVcwKPj1gWIfdoc8PTzAkdJ65k2S0chWTGXU0HkuewK/CMt9nHpmYQX3SeIZLKvp2LizCG+qkun/Vb639/Qz6cC4hXlCegscImRDo73FBXY4POAZJpQT14q/MSLGY4rj5A=
+	t=1787585225; cv=fail; b=s2zsW11jTw82TwFSNzs113OLSmLgzPLfdL7erCxQoeXFRmZbmmBO3jevr9cp0vX+qjnnymP1EQtAdk1RKxw3Fwj/AkwSOYbocwOzxuInO/bFmmVDFQ3mQLBoaSn79r36ur7apOB+PGuWslVCKXXjzu6XvgAsc7ikdVcG/2U/Ux0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787583005; c=relaxed/simple;
-	bh=1/jnw52bMP72F/qQ2A6RMospuBEdSfYjaMYSZmBMCGU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ug/iKLtG+1Z1YWUG87CD8BfcOeMm7+q8ES4RgulU/ka5CzMjiCrBAqyebmhkjem8yVF6aF60JwFC4ehKiJxjZHbZRNx2pzfO3SRO58pOlxZ/FKjQLnTFNsYHp6PmJQPlk2kdua/y44VGlG4/SqYBnocuMIgRQrXrh7p0Fi7dPwk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=darkrefraction.com; spf=none smtp.mailfrom=darkrefraction.com; dkim=pass (2048-bit key) header.d=darkrefraction-com.20251104.gappssmtp.com header.i=@darkrefraction-com.20251104.gappssmtp.com header.b=lng62yTM; arc=pass smtp.client-ip=209.85.221.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=darkrefraction.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=darkrefraction.com
+	s=arc-20240116; t=1787585225; c=relaxed/simple;
+	bh=2ZU67y78Kb5l8zbD/GTbA3SF+WdnbmQGWyavPf83j+g=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=CO3UVRYYqIKFcFfvAs794Me3xY2UoyTkwOKKpqoONLScmvqu4Qo+HCHCYrvuVnwpCyt5ywN6n0/YpHxYM4Gmo9PL8+ydidQddTZaSPbRAdVPZiwthvEikkJGG31xilPyVXxsgAOZjraV7DYNGmT3VM3hDvr6vWVDmyG4Nwaq7Q0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PZMjVGFj; arc=fail smtp.client-ip=52.101.85.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=darkrefraction-com.20251104.gappssmtp.com header.i=@darkrefraction-com.20251104.gappssmtp.com header.b="lng62yTM"
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5bfc5b77c02so3082410e0c.0
-        for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 07:50:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787583002; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KS5EF1fDGEQt5Fo6c+EI9D3W4kYXC3WeED7RdwA5Z00YPs8OM1i8kHGKemCzYwjhs1
-         WumvxxGvGwQZHDJ/2dODbmSWWJqgQRilobzYHN7T76PjP1HBUUzjHq0l8qnuPZ/5oQLw
-         MQv5lX2ywEhrJ09q92yARLLxDFsQhikWhs08C6rCZIT7NCdPgCMmH3O1YlFrJrqtbKup
-         anx1iXD5MJl60Hr7NLAqyCrK0fCmF1FtU1rWkGrkXcwKh7ZVyuUPNBTJE6LxXznGfp4Y
-         K5fJ2wMyjRWMUtFmljB5SmOi2ntYYZIW65JEd1IP4boDz26/M0NRaZVthx5lq6Ex/lZd
-         88QA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1/jnw52bMP72F/qQ2A6RMospuBEdSfYjaMYSZmBMCGU=;
-        fh=1IsS2AL4cp+fPlnyZYtVKmKrNjamofxd38UTLjDXbXw=;
-        b=eHwE7dTeebdOkJgxphkrzzzvzGCyB8ktAZ9CA0T1sfLHujL28aE5NWl2jU1fFT0vo5
-         PrYqPfP347mIEXBleocWzDhTBZuojDdh5OB7ZdIXJfQSpo2XG8JLrNRzPUcbWYsi5zBU
-         nIEmTgJhn8RNXiTjZQZRpfkA2OWIQFxmpCGp4XiaF5piNZVIMxqsAZz/vo4dkdxsDMyT
-         FZ+iDIsKEM+9c2DaERJIsdKdaRxua5K5tTZJlYciPHO9Tk0E4vesZrVHSoXO6z59WqYt
-         Ue9xKuDv3hkU8JIsiVPLjJKgjWpAI6ueP+S6RcjwgOYbJ7VzJtUyfnnQH3lMxNPJILZT
-         NGsQ==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=darkrefraction-com.20251104.gappssmtp.com; s=20251104; t=1787583002; x=1788187802; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1/jnw52bMP72F/qQ2A6RMospuBEdSfYjaMYSZmBMCGU=;
-        b=lng62yTM9e4GpUPcunQU810nb21wgaao+ZRDV4fbBMKhN4jej49oRqMc8Vni8D5/wd
-         2FCFTZdHoA/Oii83evH8wn4ytxB/00MJPMhJJbIRY/oZi/3JjRwHksEGEwL9VpxtoUfO
-         320Qfh+71Y9T+0P4bj6rCJs0fy4Uj4RuqK3/e6uCT9FWI7ZBQYg3vOtOafNNS/5jHouI
-         Tt087CVol+saswJmD4Uy7zcccCjN24AVjTwM8kdGoUd2hobRmjOi/tUWG6XxdjQ1UBf8
-         AgmLAZSezo+e+SVxHHmBjajvg9SJOfQt8iVFkRi4AAXRLoWJ6cwb7BZuUYiFr5NxrcEn
-         6N1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787583002; x=1788187802;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1/jnw52bMP72F/qQ2A6RMospuBEdSfYjaMYSZmBMCGU=;
-        b=igF+9p6gX9m2W3rG2GER4VCioeUAAsULMtikIWFnKZdeZLnsyNPlkVYXeh2IS8TcOK
-         Pl5qrvHV7A3lFkHr3QFOa172nuSXgvrRAR2m5fbVGapZPhjcu34xaynnuzG4YBTOqpOB
-         2t+2/ETJAn5ID0Nl3iRkdPDs8uxJt+kK75Tj/T0ho4ILSukUhOdAl8J2wOqlv+rGhu39
-         jsvp08Of8ifUD4plTOiRjlicG1NTUA1Vh5WH/b9nLqYjOAiGvuYyl4pmtZc4CzW/2Neg
-         hWPbLvEyi6WoOZcVCMgfT414xC1ysYDFaJdAEMOXdckXSLjhAfuDxL/sRwG8r6C9ww+S
-         za6A==
-X-Gm-Message-State: AFuF++mUDWp4b+Y8ggz4H1cnkfM1VnwduNeX2x2Jz1QKzNg9X2qHllak
-	Ka756xaOl2tvs96JGC8NwAkxFAVyuS7K/Wr8UbjJ2Q4XdauBgAm1VzTRwoAHYp9TSNW+CFQE1Er
-	YCvjh/EbZP1QNP3sRgvCjuQeXluwjvpsNAgNs4CqrkQ==
-X-Gm-Gg: AR+sD11+FTS7hvI2U7vPCivg8aADCP0eL7rNzNpHRmKmfP9cMwqB6Nz3so0aOP2EMzy
-	G32AUWeQp4mDRu9NAa4YZKrw6uqPD3RX7SFXB6iw7Zqn5r/rYXLSi9RbDb7gIdvz8qp217iLXHE
-	JATinBGvZ0SSmJxqbbt+0xSrFo+rMiDLpZEL/64tnzOwhBZilKR6BSEzJqLOXtbiTs1y7V1tC9m
-	59JktjdxA6Ks6mlxQwyW1fh+3JVDwgb9dAt/ixSGzLXhkzK6wEOfxIr3IMOl7Phipn4g/dwBkZT
-	qyS3Lqa3WWNsPaqIsTKb3jfF4dgO37/UlgWayessfTvT/g==
-X-Received: by 2002:a05:6122:62e8:b0:5c5:a34e:46ec with SMTP id
- 71dfb90a1353d-5c60de7fa8dmr8437650e0c.6.1787583002393; Mon, 24 Aug 2026
- 07:50:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PZMjVGFj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yfGWq7lewnX4nrDhXhwEKqtXvjzwkVAiFPZnS0JWm/FJz/6tt2evFRlE8oLMpsBFDmvSVPM0MTvkhWRIKxlh119hEwfev94j88XQugDZfiI6x0bB6VyELEV4zHKuGg/LoWgYmvQU6ekYnAROTEaPn1el0M0odfk9KpN6UuRci2jmZCs1gN7Ts+CZRW1FUxjGKNW3DEVaEqlielwi4L09bg14roOmYWGoABdYSvI32n8xI26nqEDetZQCaB10yarmljmukvR4AEC813byZw8+pjgH5m1EThlLzViFR3QcAo0W6f6Gi9OYd2wG4Nr1bK4jEaNfWzl9M2OdBUx1n8GmGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qlnKj2UlGGHtzRsWjq+HAaFjBDDvAI+Q2Gs03sf+HN0=;
+ b=V1sl/y/Baw/0XL9CDtEKRywPYAxvLmhyxXcOfgnLJBEXDX7PKxGvF8NuGrWgsy12Df+r/GVJJ6FrGXqTgYtyR+4xjbW+DvJJOV0C7Y+FDjP8ha2gs61eU0bcB2PJM3BzoYJQ8hcFqlbOOg0l4YWw5lhWluJOK8uJohh/2rPHyFiHnX3a9TH81+yN7t2FGRooi1qNT6zFxWZY9dOeV9oxIQXHZjTC22+RVB3sp81m9R45hYa+g2LfwL8Wy6386pWR0wm+MtK2xd5c6X0toYlayXQhnnbeOszX4iOM2uJrDw3K7JN2A2axAbj9UIE2J0KmscZIP0nqbVU14uh9UzgMgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qlnKj2UlGGHtzRsWjq+HAaFjBDDvAI+Q2Gs03sf+HN0=;
+ b=PZMjVGFj0952+8A59LX3l8OVkcNRAD+XkioYw0zd44d9425YqOBNWgypV36OpeY2GM/y+/SgoxCsCfcUssZUMdhpn1dOyEmY4zc6S+Bjm6j9ADu7g1gfp2ux6YChE5eWmcBvLyUxLh9QDFMRU/N+yGv5/THbeF1ACBmXfdXuc5d/b4f4OxXhdhwDE9EANmRrwzgMOFNHRiDVWY+uk2EWC1Sxwurf/US9lAPltbdtQSRPcNxX5Gp0vfRaRZTWCFwW8pI/oJsD6j/ELArIjsKdaPBHozW4cnMapc8YePwo2aPHtHZGnLUUwwcscyOtVaap6OCL7AnxkRf5uoxcBb8JaQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SJ5PPFB332093D3.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99f) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 15:26:59 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Mon, 24 Aug 2026
+ 15:26:59 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 25 Aug 2026 00:26:56 +0900
+Message-Id: <DKXA2NLQB1K8.1XDE2JYIJTQ25@nvidia.com>
+Cc: "Antonin Malzieu Ridolfi via B4 Relay"
+ <devnull+dev.nanonej.com@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: Extract FUSE registers definitions
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Nanonej Dev" <dev@nanonej.com>
+References: <20260817-b4-extract-fuse-registers-to-gpu-mod-v1-1-c4924070bbb0@nanonej.com> <DKWTK2FWW5PT.13WXH8LCISUT7@nvidia.com> <1COg2hERAjDijZlXX0uknmkpjlWBxyXWaxdvBX2tGZgcaYyhUhe25d5WGeosMVh_Tri5YELYViaNEl0PHR_Z01L6IdvfuZdjRZtc2TQj_Kw=@nanonej.com>
+In-Reply-To: <1COg2hERAjDijZlXX0uknmkpjlWBxyXWaxdvBX2tGZgcaYyhUhe25d5WGeosMVh_Tri5YELYViaNEl0PHR_Z01L6IdvfuZdjRZtc2TQj_Kw=@nanonej.com>
+X-ClientProxiedBy: TY6P286CA0005.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b8::13) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260811050657.646799-1-apopple@nvidia.com> <20260811050657.646799-4-apopple@nvidia.com>
-In-Reply-To: <20260811050657.646799-4-apopple@nvidia.com>
-From: M Henning <mhenning@darkrefraction.com>
-Date: Mon, 24 Aug 2026 10:49:36 -0400
-X-Gm-Features: AcwNN1VXMSHFTOJVp4EEFY1y9qIYBk2kbt8_wfsDcMgOmSc3agHjk6H3Vsvh59c
-Message-ID: <CAAgWFh0VvY4D=-Se+bVO1YonRNFEa28nc7+ZbxEbv6en7oPaDw@mail.gmail.com>
-Subject: Re: [PATCH v4 3/7] drm: nova: Add chipid enum to nova-drm UAPI
-To: Alistair Popple <apopple@nvidia.com>
-Cc: nova-gpu <nova-gpu@lists.linux.dev>, Danilo Krummrich <dakr@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ5PPFB332093D3:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7adbfc77-bf8d-47cf-02f4-08df01f423be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|376014|23010399003|1800799024|6133799003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	0wKyP2Wh1wPkuPR0A3ZkqijhKoKU9UJKZCv4zFSi+8JcEgstm5DjBXq8yQQunn0mPcPejF1KHPp4VjrTbri67AxHkUcrZ7Bic7vlcv95MNzHMi4AtAx42XxuN2zf5h5KpkqsPghyWoz1+3hZdWL2aDVPZ+94w2ZzZiWOTzh3K2amzA/iKcK4/qrelehCQRrtQPnC1CNE8jTh/Odo8ClZPJWuyt1f0kOt/ft8yRMhhaetTkoY904i/lU/7oBEPtQ4hBY/waUiL3XcpKCnf6TdWuiq6gx1bBgG7YAxP8LrJ0N8+/sMZgLA5wnQiqfFO3Mf2GakeC5Bw58AHW9bktz3jW5JXOcEn1AL54ByzoE4qvXmFwpJPI0gd1w4qahuI/UHsxIuRDtP8NgkGrCgfPtb57baATWjl5EJ7Ocd4OrqnkfeVaTkpj6fTpJ5TRwkfYyacxWPN2Aiq1YewAf41/2oXnbOXG2EpTlD5DbaGQjm0sNLCkjUtvKeqyJUWpAq/98yVbyYQ/FxAXfj20V/wtGbp10yiXFUNt2PkzihV8QYOD+3VcAiABXL+WWP+Xb7RYQClIl9wVChcZMNr1UuiOG7Q9n2ni0c1RNWZwTfGv/WtvbX5YMFMELh63Dqq/+MaO2EBC4WCvT7Uui6XvKPnPgt5FGdm4zBtyXrVx96AFFBSzU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TDlJRGI0TTA2Vk5wb2s4dG1RSnhzWUUvQmh6RGRsNTVNZ3luL3hsUTF0U3pl?=
+ =?utf-8?B?bmo3YkVSeVFDajZ6ZE9pYm1EK1h6cnd2Mlh2WmRSNDBWdFdQNUJGd1RCNExp?=
+ =?utf-8?B?bE9FU2F1RnZQQzEwakZoRDYzeXl4eWE4S3daVXU1V3ZmSzIwalQ3RzRFRmpt?=
+ =?utf-8?B?OGVQNFNzeWxBd2lOVndiNDNIbTdjZnpkL2dVUUFLMVFNTFRTM0tua1VpTWc4?=
+ =?utf-8?B?aTV5emRPUTZpNjc1d3dNc2gwRXpYTHUvYWNjcHdBenhVekhaNGk2dlZxM2ZB?=
+ =?utf-8?B?ZzBRdUxLaDhMVnN4S2x1VkhwUEhMUHkxYlo4ZzhML2E1QW4yeTBrNnFEWHMy?=
+ =?utf-8?B?RGh3TnBNRWdGcDg3NFI4MjkzMFBYR0dxS2Z2Qi9VZ2VnbUhqbVNEc1pNdkMv?=
+ =?utf-8?B?eEhydlBRU2Q4a25TV1o2TTJBOXVRVTdyMlFrNThFbVFUL0N4ZVFQYUlZSHJp?=
+ =?utf-8?B?NGtTeDZTQTM5bG9wOUpZMVlPWlo4Z1N5NEtDU0k4SWx3ejRqOHJVNjFhYTBV?=
+ =?utf-8?B?QWdXekpuZXJlemlFVTlhdlFwWDk4dWRNeFFNQWxFeGF5bll4YzNPSHVNTytq?=
+ =?utf-8?B?ai9Xa0tCRGp1eGJ0NlI2MjBHK1FqUnJZOVY0T0ZqQUdBb1FVWjlSV2NUNnFG?=
+ =?utf-8?B?YjdNaFpNbWFZRlIyWmVSNXVvVzd0eWFrNFdDZkJiWHNTWjdhcGlQQTF4TVhD?=
+ =?utf-8?B?V01Bak9DRmVwSExrYmtYeGoyalB5WTNabDBYMkVhUFBlM1Mwb0FGMHJ4aWpV?=
+ =?utf-8?B?S2hJYWwyNEJQcnNPRFJtK0RjWVlKbXNwcVhWTHFMSEQ3cTNVWnlNQWhxeEhD?=
+ =?utf-8?B?MERBbS96SnVaRUFtb1NQbEgxM3pnS0kzd2kzOStWWWpNTkJpU0d5RWZ5NU9X?=
+ =?utf-8?B?dkVTcmVCelZXTWZvWWtSanBoWW9YT3Jxd2VVUU9XSkNzTngwdk5QbUZTVXlo?=
+ =?utf-8?B?MitXSXpMQ2VPWGR5WklIc0daRkhCOUJHcXBVc3N6dUgzdFlRdndOSEVycHFk?=
+ =?utf-8?B?Mjl6SlhudFVLa1UrNVQ1MzBXaFYwNE1UVU0zdDAzblBGcTh3MjQwMUhMUUo1?=
+ =?utf-8?B?L00zWWpOR1BpR1gvc2ZrRTZobzQycmVBTzZjYm9mU1BSOW1qQVc3SGpYNndv?=
+ =?utf-8?B?bDV0WWhEMTFFcHdBcGtqMUlhNi9qSVFKWnJiQjdBaFExZUtSd3dpR1FwRXpm?=
+ =?utf-8?B?WnlLdjNraW43eXR3N3pSY1JheTlRT1ByVHU1N1Bod0kzdzhpaThibklleHlK?=
+ =?utf-8?B?ZTFja1A0VzlxV3BVNUU2amxlNUtIMzVxeFlEc1RqMnJPNDRDVTMvb3hzM0VZ?=
+ =?utf-8?B?VndwNXptOHh0QjBrUkhuNjZSSWpaWXE2RjhibDA1SVluVnJlQWxxUlNqSXIz?=
+ =?utf-8?B?TEpKTXZ2WGhQSFRScXd6M0NJa3ZhOWZUU3gwcjYvbVczMFJSTzF6UnkvdDJU?=
+ =?utf-8?B?WFluODJPY3ExRjF1bmw5amdQZFhyTGpIT204VjFtTFB6NHJpYThsY2FkYnFP?=
+ =?utf-8?B?bXpDNk9VNUhLVmlNcGYwZURyakVQR010MkZRN0daZUd4YXJBeW9lVDlzc3VM?=
+ =?utf-8?B?ckE1YzFqZkRUajlCb1J1WjdZMjlMRVUzeGhlVDdPZGVvR2ptN0ZVYkZOYVlq?=
+ =?utf-8?B?MGh6UFYyWFp5dDd2R0s3KzFLNzNEcElqZ2QreWhaLzJXYVVVOWcwQ2w3TmZh?=
+ =?utf-8?B?VTZxbGpBcFdGMlV2Yi9aeTNnMHk0bGxUSnJtNUVNRnNMeU1DV1pzczE2citV?=
+ =?utf-8?B?SlZYYkJXL1YzUjR5QVU1dlgxc2ZOVlNVZmpnK2ozOXNGdElPY0g3bTZiQjJ1?=
+ =?utf-8?B?WUtUNnlWcjRJMWxQRjJPd1JOeUxjaVNnQjJSWTIwenUreFlDWVEwWHNVR1dB?=
+ =?utf-8?B?L3pod1ZpQXpDNkUrb1lEa0dNTnA3MjhnNEZ2cnE2QnJ2UExVK0lPV1ZSMnJo?=
+ =?utf-8?B?UHZTZk9wMWZjN3BGV2VrWGVLVDh3L2pZMDR6cWRxZ2dHZCsyM29hZ0FuQVRa?=
+ =?utf-8?B?VDVZRjNyT25tV01WQ2szSDJxVHhBeGY3UkNyT2RKbkFwOU1Ya0U3VjZhYnZ4?=
+ =?utf-8?B?cEM5cDZSMmdsZjdCME56YXhiL3cxOFdVWDNDK2RkNHArQkQ4YXUwS3dLbFBZ?=
+ =?utf-8?B?aUpkMTRiajZTekxuQmVNMnN0M1loUFVhQ09VeHlDNm9Ja0xiQUVZei82bWJB?=
+ =?utf-8?B?b0VvSnNNeG15TnRWM0E3VjJ6WDRzejluZGZFd0pFMFF5emFBYldHVEFrTWJS?=
+ =?utf-8?B?M1dqaDhMaHY0YTNxV2h2R0tEeCtBL1REeXo2dWhMWjlWcVRGOWc2eHY0WTJm?=
+ =?utf-8?B?cTRPTm5lUFJ3aGlYaVAxSXcxNGw3WkFaN0x6WmpQQ2JJbXYrNm1vNmZYZ1Fy?=
+ =?utf-8?Q?/4CbyypAm1JK51s8AUf/ys9MqBVWUGZ6PDKcyhjGts71o?=
+X-MS-Exchange-AntiSpam-MessageData-1: WvfTP3fnPhSaNw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7adbfc77-bf8d-47cf-02f4-08df01f423be
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 15:26:59.4614
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +S3DDPxaZ2+tWObC7/naNpOrZO/V+qfLXETxJx6KZNDLlypRltQQaYFfFwAtOrAU+KEuybFFqoJvt9KNs2mimA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFB332093D3
 
-On Tue, Aug 11, 2026 at 1:12=E2=80=AFAM Alistair Popple <apopple@nvidia.com=
-> wrote:
-> +/*
-> + * Opaque chipids. These may be used to determine what chip a particular=
- GPU is
-> + * based on the identifier but the values themselves should not be assum=
-ed to
-> + * carry any particular meaning.
-> + */
+On Mon Aug 24, 2026 at 6:23 PM JST, Nanonej Dev wrote:
+> On Monday, August 24th, 2026 at 04:30, Alexandre Courbot <acourbot@nvidia=
+.com> wrote:
+>> I am also a bit hesitant to apply this patch as-is. As defined, it only
+>> adds an indirection through the `gpu` module for FUSE registers that are
+>> only accessed by `falcon` (actually, the `ga102` HAL of `falcon`).
+>>=20
+>
+>> `fuse_ucode_version` does some falcon-specific processing (notably with
+>> the engine ID mask), so it looks out-of-place in `gpu.rs`.
+>>=20
+>
+>> Also, the patch doesn't move all the FUSE registers -
+>> NV_FUSE_STATUS_OPT_DISPLAY is still in the root's `regs.rs`. That's
+>> probably because the destination chosen by this patch is not a good fit
+>> to contain them all.
+>>=20
+>
+>> Now I am not quite sure there is a single, good destination for all
+>> these registers. We could move these to `falcon` (and
+>> NV_FUSE_STATUS_OPT_DISPLAY to `fb`), but this just happens to match what
+>> we are doing right now and if another module needs to use them we carry
+>> the risk that it will redefine them locally. Or we could have a
+>> dedicated `fuse` module only to carry these registers, and some
+>> functions to provide the services needed by other modules, including a
+>> HAL to read the correct NV_FUSE_STATUS_OPT_DISPLAY register depending on
+>> architecture. But that looks a bit overkill so I'd suggest wait-and-see
+>> for now. :)
+>
+> Ok I see, I actually spent the last few days trying to understand better =
+what the different parts of the project code was doing and what part of the=
+ NVIDIA GPUs it was interacting with.a
+> And indeed FUSE, as I understand, doesn't seems to belong tightly to FALC=
+ON neither with the future micro-architectures relying more on GSP.
+>
+> No problem, I learned things and it forced me to finally try to deep-dive=
+ more on the driver.
 
-You say this is opaque, but the userspace MR you posted already treats
-the values as non-opaque in eg. sm_for_chipset.
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43352/diffs?commi=
-t_id=3D945a8e7c51939577526974b342c8dc6bafc3372f
-So, I guess my question is, is is opaque or not?
+Now to be fair, this is a difficult problem: GPU registers were not
+exactly designed to be confined to driver sub-modules, we are trying to
+do it because it makes the driver cleaner but the case of FUSE is a bit
+specific as these are used all over the place. So the answer might also
+very well be that there is not good solution for this particular family
+of registers.
 
-I don't see much of a reason to make it opaque since the chipset has
-had the same structure on the hardware level for 30 years, so I don't
-expect it to change too often. Truly treating this as opaque would
-likely require a small refactor on the userspace side without much
-value. (I realize this has already been discussed a bit on the
-previous version.)
+>
+>> There is also a more insidious issue below.
+>>=20
+>
+>> <...>
+>> > @@ -419,3 +424,27 @@ pub(crate) fn new(
+>> >  pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
+>> >      bar.read(regs::NV_PMC_BOOT_0).into_raw()
+>> >  }
+>> > +
+>> > +/// Returns the fuse version matching `engine_id_mask`,
+>> > +/// at the given `ucode_idx`.
+>> > +/// Returns `None` if no engine matches `engine_id_mask`.
+>> > +pub(crate) fn fuse_ucode_version(
+>> > +    bar: Bar0<'_>,
+>> > +    engine_id_mask: u16,
+>> > +    ucode_idx: usize,
+>> > +) -> Option<u16> {
+>> > +    let version =3D if engine_id_mask & 0x0001 !=3D 0 {
+>> > +        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_=
+idx))
+>> > +            .data()
+>> > +    } else if engine_id_mask & 0x0004 !=3D 0 {
+>> > +        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode=
+_idx))
+>> > +            .data()
+>> > +    } else if engine_id_mask & 0x0400 !=3D 0 {
+>> > +        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_i=
+dx))
+>> > +            .data()
+>> > +    } else {
+>> > +        return None;
+>> > +    };
+>> > +
+>> > +    Some(version)
+>> > +}
+>>=20
+>
+>> This is moot due to the comments above, but this function should be
+>> `#[inline(always)]`. The reason is that it uses `at`, which performs a
+>> `build_assert!` using `ucode_idx`. If this function is not inlined into
+>> its caller, then the range properties asserted by
+>> `signature_reg_fuse_version_ga102` won't be visible to the compiler and
+>> the `build_assert!` will fail.
+>
+> Ok! I didn't realize that and it make perfect sense now that you point it=
+ out!
+> But I'm surprised: How come it's compiling on my side then?! :O
+
+It compiles on mine as well, but we had issues with `build_assert!`
+failing with `CONFIG_CC_OPTIMIZE_FOR_SIZE` (see for instance [1]). So
+while I cannot prove that there is an actual issue, it remains a
+theoretical landmine (like anything that uses `build_assert`) that tends
+to trigger on the weirdest possible configs and ends up with you
+installing an obscure cross-compiler late at night to try and reproduce
+the issue. :P
+
+[1] https://lore.kernel.org/all/20251122-bounded_ints_fix-v1-1-1e07589d4955=
+@nvidia.com/
