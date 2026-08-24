@@ -1,70 +1,71 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012059.outbound.protection.outlook.com [40.93.195.59])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022110.outbound.protection.outlook.com [52.101.96.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3968641F346
-	for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 13:03:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B25321457
+	for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 13:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.110
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787576616; cv=fail; b=s8ahITAUnLfzFv7o0EZPFguBccFJdy/KAHFEYzezk34Yg2+RXKozG9XvBJD/oRsvRAIekhuHbk4WKA06TL04LXUvJ0yd1viUVBUgSUOFW5cQXTGRa43Na/V4nOUcaEA/mXRoXry5MVjRbKiI+Nt++uZfyE5aa5B5+5pJKBJh1HY=
+	t=1787576866; cv=fail; b=aRoJAuLnFd8INNM5R5BV/gU0PkPmBTIqI8P2boOjaG9iihp6HO1fq39cvnSUkzP9k1m4HsLQ/Ct/CB8faqI8E7ArPCRA2nK//ob5C4q9pbgWy6mKMgIGTS45NA5ArrrkOOrmGg28xyqieXa78OO1ZZeG11NnlskNYFrVlLBlNIE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787576616; c=relaxed/simple;
-	bh=3V/D/IFqIjb06fG4K+VtRJpUVKRL8So1D0LgL2O0pMA=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=HC2Ars/VsTkmKuhJzh5x68q7xsh22DbM1wLsxdqqLXX2EgLOPt7whXERJ6Noni3wOhk6zKwIe87DGlPbMVzqkVTKqOsCEga+Obg8FDKA94ELuiZ//17AX7XXit1oyvwSR1Fz8qUWAxm4vB4XAZIHy271nk3tTtURqMZkk2/b2Mc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DQ4EvF9w; arc=fail smtp.client-ip=40.93.195.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1787576866; c=relaxed/simple;
+	bh=ynZQEHCaKhTXy3j6QyKCN3g1PpWmoasjYSSb6UfyXK4=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=uTa75NEn//qvVMgq4r/rMI6wEInVd+V1mgQ9cV1C5IcCDIex16dW/AWOURq0G1pqRR+xgy+NJTURUDnIiRcebPWdicGglyy8ZM8W4uLoOZZ8vF59utPCLRIUQR8MD+49qBBTzigHroK/MH4yqKKt53FG6GAYGEjyE6JjDRWgl0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=d7GXb/PL; arc=fail smtp.client-ip=52.101.96.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DQ4EvF9w"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="d7GXb/PL"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wN8yI4DJA3P4c96oMBgnJJdGu+HKkUgugwE0fT4s37UvqTTbk8g1KpxXhIa3M9VXKFTb+ez8Q0rIcCh6sc8aW/ARm0L7ACayvTbqGx88Iwfl2DD6hjKheR9O4kNktAGYWHtK+DFhKtG7DFD3unAhgpdY9tUbV7AZwPZ2vRj4FNS+WUJtFXXXLgHd5QZTgbBbX8u68Yg1hMFSCIHPS9iqNKYr77RNRd2Olp6jUJODtQ223XUwgCS2/lzVhmm1jnHcUPlHuBYe6KApeTwgZ5IcWJ7Ncbu+0rDmnFfC0ctkiTx1pWhn+Ur5j/H7BZ4cClo//DSTxJIxxj1VilDNp3BKAg==
+ b=XX/6x2UIgCpjMWbpZ/9e8EYDuYds/EF3P374a9CDRl0TwoZ7dwwTNCWSLQAPvbKqJSw92PmRNYs4kX3mxhCUf/r+NffG814zsQ7tFG1mgDulS15Rent27sPQLp4PUZ2tuslGmmq5Hg6fUqxmE64ykho35SscToUtaCSMlC89HwUOn4a52g5WrLFUEQqxv21XocXT4UrydE5+JwJ8CUj8ogKMiNcvHwbgU4jkQcQyMKYgECUaynp6zO25U7TCBEY8/HoUcpk7EcgM2KC/d7tlOUJd2q966ELYk26N+pMFecAPGYlnMOoiErZmRixg9RDVPpxRiXjhEN2KsXRtGHwqqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5rhQNhzp/86DHXCBVyY3sbNHjNlS7UgyZIomFbk84OA=;
- b=EwTqPC3rlImoa2P0Z29RJOwRBA3wMLylYiTSbObGrxfC3VJ9I+ser3upLNfUgIu36Zmu3GyBun96t3hiGjfHgrMdYzvOclZlQ4wZ517obbil2fXC1uW689J32oZ/gpLJeUUmfOC3ZhYVfrr0PSU8f/Wfy7CAfSUz2jZx4CXM+h8zLdLVm1moM6N2uKFw/HlBWrMKgaewJHwvkUDnwn6b4FcukudOPL2eD95zWoPGcqC0EH3bZiEgz0jDIUbN/q/daeW0dFUnYrFWM0ZFf1SrTvqfdenxcsgY1VT2kQL3U4RpBVNvTA4rhTstVQc1HaENIXyqWXZlT+L9QCxKRY2MkQ==
+ bh=8Bhs4EAK1mLPXkgmUiemYAYuW2GzN2mH6//Slo890eg=;
+ b=Apq7n9KGiCfF+V9m0CCJmyyjLcw/cWG0C2xkz3PV3PZsVUn/Edyi//Tiyc3tFbWJHouEUYtItXRZjY6M1mmhrF264K60y/gn5TFo2PF4+zoahc0+yZGiDIk5OqA9iYlheZvV8lv31zYwqNEG3RgH6xaeWttUI33QvQiNGkja4OdhzV0cYjGITTr4Rqy4+V+7bYqv1M0mtBOlMSPT/aOyt7RsCX6xwbQmCKfMvV06qrIZDO5IbeO4lMLeWLmSyARfvX0dLI4oZOEWNvpw0HqeA+TiO3ah13vJpIt1aLR3FqLNialW1RcHNHu1Td580EiTAK6ovfM8NUCKxU1ApTb6hw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5rhQNhzp/86DHXCBVyY3sbNHjNlS7UgyZIomFbk84OA=;
- b=DQ4EvF9wCc+SYlaerHjkBxbA6OY7gRmWcL1phaKON2M6QKoHSrhU5Bej8LFYiYGehg2KfA2yMy7TTckZ544DGePOl14wNHTyWhfWn+m+cNPln662KydXlsumiaVJLR1YMm1Nesb+qr8rkx7bfTV2oVR6o3zNb2SiVAZu2aP4ZDRNZoPuOJ8KhZfWKLahcHAN4lp9u4rhHZZ4GQNZ0bJXCWnbXPdH5T30WFKIfvjoVZxUfvWdVmKd82ERhx4Eu138dZt7mVIOtl6XJYqOUCRsLYuwTXnnwVyAMC24jDRA2ajHMtJIdQ7MNOgLTsLYj+unnTke1wqyEsRjjHOULGAB/g==
+ bh=8Bhs4EAK1mLPXkgmUiemYAYuW2GzN2mH6//Slo890eg=;
+ b=d7GXb/PLjfGjBlM19HpZNvhTiTV6PbvI9+ebW0MIu5Xafej0ik08W2QtB4HYyGvMkkpav/gjU5W2NwaVvtFuwuAS8LdTanK2dWeKruEjgkIbRK+Ifx24bNV7cE/c1P+dl69Y59T26Gw+CGKMP5xzJvQYgi4vgG1UfEDFMLqUIj4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- SJ0PR12MB6758.namprd12.prod.outlook.com (2603:10b6:a03:44a::18) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWLP265MB6500.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e6::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Mon, 24 Aug
- 2026 13:03:28 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%6]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
- 13:03:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 13:07:39 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 13:07:39 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 24 Aug 2026 22:03:24 +0900
-Message-Id: <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
+Date: Mon, 24 Aug 2026 14:07:38 +0100
+Message-Id: <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
 Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
  messaging path
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
  "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
  "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
  <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0
 References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
  <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
  <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
  <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
-In-Reply-To: <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
-X-ClientProxiedBy: TY4PR01CA0038.jpnprd01.prod.outlook.com
- (2603:1096:405:2bd::11) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+In-Reply-To: <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0538.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -72,183 +73,179 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SJ0PR12MB6758:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8342155e-95f2-4a4e-7362-08df01e016dc
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6500:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4cc539d1-5b73-47cc-8023-08df01e0aca3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|366016|1800799024|23010399003|18002099003|22082099003|4143699003|11063799006|56012099006|6133799003|10067099003;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|10070799003|23010399003|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	GF2nJG38UksNWMPOqWan4XV5T+qsVcdK3xAlY0XN2PihxvskngSL/4xEaJjBmDFKrUPJksdYhj0Wr9ZAf/ZXMFlY1aAZdrRN8nFb7FyDk+IPK3ZPTifA9gcvUYudSMMnLsxeg5yt+oq7JvYd9VDHHMSEhDayKdNfF7SjMMODc5P8VK7ZNIrwnIlm7u9g2ZfCqw07HE1Pe4/FUrEywYJYsbjgkR5HpSXvsYvZiIqP/JLj/fsZFwWOGgDpO2X43F3VFpj1NCcTxiMXZ9Cy4FNYsXDJV3pXQGZ28s0NCIItL57TZgGGPVY7lYzvTXEp1H1S70AhvEjTBMq+m4FH4KY9WwLLBwptPioChmxVQnNY+H2spf1yxFU7/EHONV0bDHPdYNO2+CGSWY/kw+2zI23nkOX78Arwjbe6+//G1Tb7wiJZL8SwTliSxszGN+k+il7EkpcsKplld2DtwfiAtw+WMDI+GYBj4PK4IaMlOuDx3vV8F5SpzCrQP1m9aX1hmJHEbtPOYSIKTDt0QckMxgFYLcMtaBsln70yNyDggOF63rw2/GAcMj/BHMphIHIHNb1/7r+RoCW55oysdHpZ9K2UpW6mMeGCbllg5+l5Erq6vhLl2hhR2x5Z0fF8DmL5cXpC+7zhK9H6xkNgAgOZ/+uD3IODuNDtYjJAiwLcNZssv+o=
+	4/cgixoL0EE+WsmlGvKST50EZFlsjFba6ymMk8OL4cJVahkzDpI4AxObZuRWGXKm0L63+sVrcw0sDjgbDffjFv7kw6VBX/Pgbmy86i6QHLcftSxHcTzWp7ftNE9abIEYlXJ7Deo5AwE3YJxgx+yylbHd9XEAXNS0JE7ALBoSMp8aXg8ZYMQhp80qeRA7BhCKJdo9K+UDGctKqZfipAbNnlroG4i+KvyYcqWBjjCKtb6xpkq3Of8xv/qYEtEU75Z0R+vM6HG4wy4DWRKUsaE0B+sRljTAccUdiZ8ddP/z01UCTc9vuZY58nl84SaHS608GQrSgui8DPIRTILEr83br4Kev9QfF5cMgHFiAlzJRUxagoriLJAigVLL34gGTkTLgX2nH1bnoc1WScI4cUMJ/YLV3QRSxZM0aL33ehsWbepRV/7sdTdGp74WMChaIxHqFPEnkLkO1xiiN6FLhM5LFkAuuiVksmz82lx435+1xie4Y/bFCrC95VL7aOqzCgRcQ6uVny/qctMBkWHJhFW7BTFeS701yNFyPNMIuQ3xP/6H5y+nc5JPHFYW14oLc1un52zeSUsOcTGfGHI+o/gIMp7diVNuNNB5jVjImYcXWeh6oKPrANCLcnB0rJ99zHP/ZGb//x0zxULM00aIidxUx5jfbai0CMcgw9aEDdsOSgk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(23010399003)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OEpvL1JvVkI3MkVFc0VOUlFPZFMrWmF2WHBpb3l1TVRlVHNGMVpDcUxYajRZ?=
- =?utf-8?B?MGdBTTBtSHAraWRRNDFtV09QOSs5RDU1aS9MaDRENG9pcTB5aHZjSXZVRVJF?=
- =?utf-8?B?bXZUK2FPSjRLUVZQT1FWT09NSW9BdHBqdC9GWWlLeUE2ZERiUzhkaThFL3Nr?=
- =?utf-8?B?KytpUzV1NW8vcVdhVkxVR0MrQjNNWHltR0Z4RkU2WEFJM2FTVXgvNXZkZVFx?=
- =?utf-8?B?R3o3N1RtWENaa2xYVFFPTjMvTUhxTFlyRElGRDlVdzdiNUZtWXJnRk56eE9F?=
- =?utf-8?B?TTFKMktORGNEYXN0bkhmRG81djVyUHN3bmxxOVNwdkUwU0pZc3A2d1liUnlx?=
- =?utf-8?B?Y1hzVWpDYXNXeXFabFY0YS9Hd0ZXdlBSNHZ3Wm43MFltQnlPL0drSHoycVhE?=
- =?utf-8?B?alJqVlo0dTkyb3drNm50R3dSQTlXU0FPNGs5Q2ZLWlF3UGZxUXo5RlV0Zm1P?=
- =?utf-8?B?Q3B2NS83bkdoc1EvOXc5eXpPczI4aU9OQnkrd0l6MVBaUVJHOTJLOEtpdmtl?=
- =?utf-8?B?QUJ3cW5PbGJnRTFnL1R4RnVkdFo5NGdrYy9IR1BaNmhUajV1akdsemI4c1B5?=
- =?utf-8?B?OU5FNXVNUnBPc05DQ2d3SHdYcndweEdnSkZ6MFZORnNkN3MwNDlqaUNyU0xY?=
- =?utf-8?B?R00vaUdTdGdzRnNzYThrTmhRVjZNM3dmZGU5eFg0YU9HeTJqUjV4QnlITW1y?=
- =?utf-8?B?b0VnbUo5VGNjcVN2MTV1a2FkdEFFOERYSGkvQ29FVFFra0NHN1VGNkRJSms4?=
- =?utf-8?B?bW5iRUNnQmhXMldZNktKV1IvdVVwNGxEd2lHUWhocys1MmhKQStTd0VKcmYv?=
- =?utf-8?B?ZG94eFNYa2hkMjZNQlF2SUN5ck9nSDR1NCtmcnhhc3NoVG5JeVpWajR5dk1v?=
- =?utf-8?B?MkR2VlBWTFRZKzh0cllPVkwxcjhrbFlxZlRYbG0zbnJxT3dWVUNsUnB3QjZI?=
- =?utf-8?B?YzRvMmd2alRyUjRHMU1VcmQyVmVWTTNyalBLVHJJUWRhQXFtMVQzZ1hpNnFw?=
- =?utf-8?B?cXNWVFRVSHFkTVRDQlQ0Tmh5TWlhSFgxM3V1R25QQW5oM1dkMTJLZXJUclh3?=
- =?utf-8?B?SG1zZkUxNVh0Yi9NVG9zeDVnbWUyV3phdlJOdlYwbDRsaVNONG92TFFNMisw?=
- =?utf-8?B?T1dTa2d2VnBDMFgzOU11RUtXclZFNmlWUjMxZFcwRnQ5Wjc0Rkp1cXZjbXNL?=
- =?utf-8?B?RTBxSjdId2JDSTAyNGZKSHd6b005ZlpIbXFiam9EUU1ja3Vwa0RwaVZMRTJh?=
- =?utf-8?B?UVlMUWEyS2tEOUNvY0lBd3RoMHNVTkZLK0srdHltMTdYTUdFUFgwNnZKUVE0?=
- =?utf-8?B?K0JlYzJCOCtNbk10Ty91dHBmS1hmMjQ2Z2kyZGIzWFpxNWxDQWVCWW1XQjZQ?=
- =?utf-8?B?cUhvMjBRT0NodVhUc2tGb1VIMjV3bFRXZVU5djdLSmVuME9KRkZUVklmT0lG?=
- =?utf-8?B?WWtYU2lMZEZvQnF2cG5GZ0R0Y2w2RDVuVG5UWWVnTUp2VGpjSFgxMTEwbmhn?=
- =?utf-8?B?T1NqTzBWSURNejZtNUtjVGlha1NHY0pESzgwSG90MGk5WTVXdU03Nytmc3dl?=
- =?utf-8?B?dHdCTEQ5ZldvWG1USzdaVkRIZTE3eE9LUVZSa1dkRDV6cDJ6MzZSd2ZSQW54?=
- =?utf-8?B?MmlrMXFlVFhDc3lGZnBsTEdlQ09ONW95SFZUTUpRMzlmQXdYLzlubDNkYlJs?=
- =?utf-8?B?TFp2WVBRQ2RKa3g0cEtyTk5jVFh2Z3J1ZFpKaG1ERUpqK0dod1l0K1Flcldw?=
- =?utf-8?B?YSs2dVFKK3EwdENXVDVGeEFZUGR6SXIzWlRNVnJKTXM0UlVPWWhkejRqeURW?=
- =?utf-8?B?ZHNRNkVpTG9WeGsvOW1iR0xpRW42ejB4VnU1d2E4QTFBZVB4QVU0dXpDS0E5?=
- =?utf-8?B?OWNzTFRoZldXZTFESDJSRHAzU1BkTFFjaEtWaHUzdjdUbkJCMHBSWmNUOUFj?=
- =?utf-8?B?OGRxcERRT1JrZzVzb3JGbXFlZVFWMUlZMjhJNUhmeVVuSDlCM05ITnhkeThn?=
- =?utf-8?B?QkFqNXFtRGpDTHRXLy9YSHVrdlBueDU3REExMk1PK3JKbGtxR3N1bXFiODlU?=
- =?utf-8?B?L2xjN1FuVkdVTC91ZU5id1ZKcFZNZjdPWE5lZGtINjlnMCtMSHJHZzFmNVk4?=
- =?utf-8?B?L2h4U2FDdk1MbVU1bE9Jc3pLeE1tYWJJSFRoczZoTTJITDZSeHE0MjlseG9Q?=
- =?utf-8?B?L2tHZlZ3d2VsQzJ3VTcvZ2ZKOFRqdnpQQ2JONjY4a0wvSkZNV09aa0tOTkJm?=
- =?utf-8?B?Y0pNYW1KSjlCSVZIdEJ1amVvTmhlNUFKQTRZYW5zaHhXYzFCR1Uvc0x3RzFK?=
- =?utf-8?B?cHpJK2RnNVFVZXkyaEYwQkNQTFU3VWtIbEpYM2JhM2VuRFRnVVEwRUlPYTVL?=
- =?utf-8?Q?17FRrsNsiOXmqAJE9j+CU9UHmFbVejIXi+XmYqrirglYj?=
-X-MS-Exchange-AntiSpam-MessageData-1: mYZ1gVrHyH0+Vw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8342155e-95f2-4a4e-7362-08df01e016dc
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+	=?utf-8?B?emFuQWJHOEVmNkpETVBraUtGanZIWERVOFBrM21INXBhSE5IM2lDN2NPM0RL?=
+ =?utf-8?B?R3p6aUo1M2lBT203cUo0bFh3b1RiZkpuMGQ0aU1ib3VtSm91TUtpT0ZpeU1y?=
+ =?utf-8?B?Vy9DN2ZGSE10bkNIVHA0aXkvYzVBQ1BJQ243VFdmbTkvZHRUa1cwb1ZUSUNo?=
+ =?utf-8?B?VXE0Zk1vS2l4a1lKUmgydElMWXh1UWhmYjhNZXlOZzdDSUNEUU02bTZsRmRu?=
+ =?utf-8?B?MmlnNzM0SHJSV0pkbGJGMDIxMERndElGaFlVeE1ST05Tc1lhTGJuM3FjRUdi?=
+ =?utf-8?B?UWZLbDdLYnpLZGp5NHhtU3lyY29iTVE5UlF4Ulp6WWNxejlzK2cyb0VGN3R1?=
+ =?utf-8?B?VU1wUFk3S2NCSUhRblhKRG05dFRVcXlKaTZXZlpjRFJPNk5jVUZQL0FmN1o5?=
+ =?utf-8?B?Nm0rQjhTOS9yM1ZMQnFHd1B0b1FneE9YL0lJZjF4MWhzak1nUjFkY2NyRS9i?=
+ =?utf-8?B?ekRUbXpqWitTeFdFSmdhSVRQazZLenh5cDFCWU5SVHVWVVJhTSt5cjJNSDBR?=
+ =?utf-8?B?NXVuZkx5V3dQUkFsY2xWWkI2TDE4VXIyTjRoSmdwYlpFRGFPSk93Y1g5bHlS?=
+ =?utf-8?B?YlpLNjhHamJjWXluZDVxNzdPWWNlNmszejY3b1N4N2hnNXlTRTdtdHNYZU4z?=
+ =?utf-8?B?ZndQRkY5VytZTjVBMysxREk3WENkWWNJNkpSajFLVUswZEFZbnFxb3k4L2l1?=
+ =?utf-8?B?Q0swb3hiLzFPUGJnWXU0TGJJK3diNkVxSDM4UlE2Z2VsRW5MOHU0bm5jZ0x2?=
+ =?utf-8?B?UythZjJrNkNvRWxVMWhDTkMvM2k4SkptZW93VTRNQUNRQ21zVkRud0F2SzdR?=
+ =?utf-8?B?SjIwK0hlVFBXd0E2R1ZDS3ZMTk5keG82YTR6eVVtbzV2SW5QUklmS2F1OWQz?=
+ =?utf-8?B?VjdUQy84V0tSN3lSV1N2MzZSdEZhaTlZWDJWMVdaZmJvRCsxZ3NHUzFwV1RF?=
+ =?utf-8?B?aHUyQjNtYzhaWG5OQU15TUNYQjZ3QTB5VzhjdUNveGp0MDN1MXZGalpRemNm?=
+ =?utf-8?B?ZFhJQ0N5MTR0dWpFUDJxRHkwV3hLMk9BRzdRRVVHcHZUVWxtVnlmNDBIVUZi?=
+ =?utf-8?B?NHNMY2UwaEFjako0dDAyd2MzREhBODJWeVRKWFI4RDJjeWJ1QmI3ZmZPV2NW?=
+ =?utf-8?B?M3J4YkNad3NrVXJ5RG4rdUJhVnYyaW1nUTgvTURoWjdOVC92UEZ2ZVNBZk5Y?=
+ =?utf-8?B?LzVzdDVTZWY1NWIyRmtkbjhjYWhHMTVYWFdyakVlSk50dGtTUTRwaGFNQjdH?=
+ =?utf-8?B?azZ1SHFKc0poWVc3SEZPOTV3M3lEd1pvaVo2T1hHTDIwU0d6czdkNktQMDlq?=
+ =?utf-8?B?cFR1NnFHemZmbm9halhmS2lQbzVmV05iTG1ITVNUS0ZIM0xkK3JtRWw0MWFh?=
+ =?utf-8?B?WG53d1BiUWZETDdqenhEbGIzY3RuT3BGNWtObndLUWIxS0tjTDhmendQSFVo?=
+ =?utf-8?B?QS9qUndUc01FYlhaNUZqdy9Ha0ZpT3A2VEZ2YVlrdzZKaW1OQ2JEaDB4YkJo?=
+ =?utf-8?B?bm0rT0pXQTFMODk0MHdkU1dpWkM5Z0Zxclp0RkNPKzdNa0VoV3U1ZDhiUE5l?=
+ =?utf-8?B?S3VwbkZPVDczL2JRbzNHS1pHTXpEWUlCTlE0dmRrektyZ3BnVjJmNTlEOExH?=
+ =?utf-8?B?SHFsSjJPeExaQWNPZ1NhQ1JiU1M2ajNYaVhoaTlRNEpVTG1sNmFyY25PRjB2?=
+ =?utf-8?B?ZmJ6NDY3VEdvYysvWG1LVmhBVmZyLzRXU2JWOXB2NlZ5bVR6WUVONERNYUNq?=
+ =?utf-8?B?SmNoZ2drZDZLcFRFb2Z5VkIxSTZBVWdrWDF4N3ZYRFJOZ1RvVkx6eFNsMTdC?=
+ =?utf-8?B?YStZVTNkbzdONElMdVREUUFLcHNDRW9EZGxjd2ZoNmpLdU5Ta2Y5Zm9yMDl2?=
+ =?utf-8?B?dGdSMkJsQ2s2dUlZbElWRkgzU0tkQjkrV281cllFYWtLdEdTVzgxcFdmMDlB?=
+ =?utf-8?B?SXQ5NS9YcmJ2bzFObDlPd0JLODVraFFtUU82bVIva3lzT2xsSkxmdGtxYk9X?=
+ =?utf-8?B?U1R6ZEVlbjVjVUNZUnVvS1hYYUoxanZDcFZ1eDVrMHprRFZCeGhHQW5HWkVz?=
+ =?utf-8?B?R3Y4Q2NtM1JlUTNYK2EvM3d3b0hEUDM1VDNZTzBxVmF2UHpkbWFMWXB3Tjhx?=
+ =?utf-8?B?R1p6TWFlTXpnWWcyQ3RPbkZhcG1ENm9jQVh0S2lsSlB6YW5RdDRQSjExSE1R?=
+ =?utf-8?B?U2lVYXBvd3hDZHZUY2Q1MWhCdTNLMDhUNmRUcU56bGhSK0RLdnZFaS81eDQ5?=
+ =?utf-8?B?UlY4dERFc1N2K2tyK2l1ZktOaUFtRHRhSFlUZHF4MUZaMFRYNkpld2pmNm1l?=
+ =?utf-8?B?bVdQOTA0VTU5LzJ3Mm9jOE04dEJKZHIycUU2YlY4eUFEdXdwczhjUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4cc539d1-5b73-47cc-8023-08df01e0aca3
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 13:03:27.9479
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 13:07:39.3163
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4iEBzX1mRE5jGSDBQaWAFikrCll5xO+MP/zyvs4cSTl4RhSu3sJ3R8r4eUTDZqWyFYVHmZ1A2cazmMjAEZFyqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6758
+X-MS-Exchange-CrossTenant-UserPrincipalName: 192DIb3PkG+DDplREUQ7ySnzR5z09thAYdju017OpPue9LMvsok8mT1YQD3OEepP9odOiQV9jq6a1d4B3Ehbnw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6500
 
-On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
-> On Mon Aug 24, 2026 at 1:50 PM BST, Eliot Courtney wrote:
->> On Thu Aug 20, 2026 at 2:28 AM JST, Gary Guo wrote:
->>> In the CPU->GSP messaging path, the code reads the read pointer from GS=
-P,
->>> writes the command, advances the write pointer, and then notifies the G=
-SP.
->>>
->>> A LOAD->STORE ordering is needed after reading the read pointer from GS=
-P
->>> and writing the command. Control dependency exists here which provide t=
+On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
+> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
+>> On Mon Aug 24, 2026 at 1:50 PM BST, Eliot Courtney wrote:
+>>> On Thu Aug 20, 2026 at 2:28 AM JST, Gary Guo wrote:
+>>>> In the CPU->GSP messaging path, the code reads the read pointer from G=
+SP,
+>>>> writes the command, advances the write pointer, and then notifies the =
+GSP.
+>>>>
+>>>> A LOAD->STORE ordering is needed after reading the read pointer from G=
+SP
+>>>> and writing the command. Control dependency exists here which provide =
+the
+>>>> needed ordering, but it's best to avoid depending on it.
+>>>>
+>>>> A STORE->STORE ordering is needed after the command write and before t=
 he
->>> needed ordering, but it's best to avoid depending on it.
+>>>> write pointer advance. This is currently incorrectly done after the wr=
+ite
+>>>> pointer advance (and before GSP notification), but this can cause issu=
+e if
+>>>> GSP is still processing ring buffer, as it may observe the write point=
+er
+>>>> advance before command write. Thus move this barrier to be before the =
+write
+>>>> pointer advance. Note that barriers are not needed between write point=
+er
+>>>> advance and GSP notification, as MMIO accessors already carries the
+>>>> required barrier.
+>>>>
+>>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>>> ---
+>>>>  drivers/gpu/nova-core/gsp/cmdq.rs | 15 ++++++++++++---
+>>>>  1 file changed, 12 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core=
+/gsp/cmdq.rs
+>>>> index 6da728201281..70674d2d0f77 100644
+>>>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>>>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>>>> @@ -27,6 +27,11 @@
+>>>>      ptr,
+>>>>      sync::{
+>>>>          aref::ARef,
+>>>> +        barrier::{
+>>>> +            dma_mb,
+>>>> +            Full,
+>>>> +            Write, //
+>>>> +        },
+>>>>          Mutex, //
+>>>>      },
+>>>>      time::Delta,
+>>>> @@ -272,6 +277,10 @@ fn new(dev: &device::Device<device::Bound>) -> Re=
+sult<Self> {
+>>>>              (rx - 1, 0)
+>>>>          };
+>>>> =20
+>>>> +        // ORDERING: LOAD->STORE ordering needed to order `gsp_read_p=
+tr` read before data write.
+>>>> +        // Control dependency can serve the same purpose here, but we=
+ don't want to rely on it.
+>>>> +        dma_mb(Full);
+>>>> +
+>>>>          // SAFETY:
+>>>>          // - `data` was created from a valid pointer, and `rx` and `t=
+x` are in the
+>>>>          //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_wri=
+te_ptr` and `gsp_read_ptr`,
+>>>> @@ -450,9 +459,6 @@ fn advance_cpu_write_ptr(&mut self, elem_count: u3=
+2) {
+>>>>          let tx =3D io_project!(self.0, .cpuq.tx);
+>>>>          let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_co=
+unt) % MSGQ_NUM_PAGES;
+>>>>          MsgqTxHeader::set_write_ptr(tx, wptr);
+>>>> -
+>>>> -        // Ensure all command data is visible before triggering the G=
+SP read.
+>>>> -        fence(Ordering::SeqCst);
+>>>>      }
+>>>>  }
+>>>> =20
+>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<'_>=
+, command: M) -> Result
+>>>>              dst.header.length(),
+>>>>          );
+>>>> =20
+>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_write=
+_ptr` write after data write.
+>>>> +        dma_mb(Write);
+>>>> +
 >>>
->>> A STORE->STORE ordering is needed after the command write and before th=
-e
->>> write pointer advance. This is currently incorrectly done after the wri=
-te
->>> pointer advance (and before GSP notification), but this can cause issue=
- if
->>> GSP is still processing ring buffer, as it may observe the write pointe=
-r
->>> advance before command write. Thus move this barrier to be before the w=
-rite
->>> pointer advance. Note that barriers are not needed between write pointe=
-r
->>> advance and GSP notification, as MMIO accessors already carries the
->>> required barrier.
->>>
->>> Signed-off-by: Gary Guo <gary@garyguo.net>
->>> ---
->>>  drivers/gpu/nova-core/gsp/cmdq.rs | 15 ++++++++++++---
->>>  1 file changed, 12 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/=
-gsp/cmdq.rs
->>> index 6da728201281..70674d2d0f77 100644
->>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->>> @@ -27,6 +27,11 @@
->>>      ptr,
->>>      sync::{
->>>          aref::ARef,
->>> +        barrier::{
->>> +            dma_mb,
->>> +            Full,
->>> +            Write, //
->>> +        },
->>>          Mutex, //
->>>      },
->>>      time::Delta,
->>> @@ -272,6 +277,10 @@ fn new(dev: &device::Device<device::Bound>) -> Res=
-ult<Self> {
->>>              (rx - 1, 0)
->>>          };
->>> =20
->>> +        // ORDERING: LOAD->STORE ordering needed to order `gsp_read_pt=
-r` read before data write.
->>> +        // Control dependency can serve the same purpose here, but we =
-don't want to rely on it.
->>> +        dma_mb(Full);
->>> +
->>>          // SAFETY:
->>>          // - `data` was created from a valid pointer, and `rx` and `tx=
-` are in the
->>>          //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_writ=
-e_ptr` and `gsp_read_ptr`,
->>> @@ -450,9 +459,6 @@ fn advance_cpu_write_ptr(&mut self, elem_count: u32=
-) {
->>>          let tx =3D io_project!(self.0, .cpuq.tx);
->>>          let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_cou=
-nt) % MSGQ_NUM_PAGES;
->>>          MsgqTxHeader::set_write_ptr(tx, wptr);
->>> -
->>> -        // Ensure all command data is visible before triggering the GS=
-P read.
->>> -        fence(Ordering::SeqCst);
->>>      }
->>>  }
->>> =20
->>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<'_>,=
- command: M) -> Result
->>>              dst.header.length(),
->>>          );
->>> =20
->>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_write_=
-ptr` write after data write.
->>> +        dma_mb(Write);
->>> +
+>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
 >>
->> Is there a reason this can't go into `advance_cpu_write_ptr`?
+>> I think it's more clear to consider `advance_cpu_write_ptr` to just be t=
+he
+>> pointer increment, and the ordering should be visible in code that perfo=
+rms both
+>> memory ops.
 >
-> I think it's more clear to consider `advance_cpu_write_ptr` to just be th=
-e
-> pointer increment, and the ordering should be visible in code that perfor=
-ms both
-> memory ops.
+> In the second patch, it looks like you're adding the memory barrier
+> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly in
+> the code advancing the pointer and one not, which seems asymmetric. I
+> think it's less error prone to put the barrier in the function so it
+> can't be misused (and we already have evidence the barriers are easy to
+> get wrong, since this code was already broken).
 
-In the second patch, it looks like you're adding the memory barrier
-directly in `advance_cpu_read_ptr`. So we'd have one barrier directly in
-the code advancing the pointer and one not, which seems asymmetric. I
-think it's less error prone to put the barrier in the function so it
-can't be misused (and we already have evidence the barriers are easy to
-get wrong, since this code was already broken).
+In the second one `message.header.length()` is read, so if I move the barri=
+er to
+before the advance it'll be incorrect.
 
->
-> Best,
-> Gary
->
->>
->>>          // All set - update the write pointer and inform the GSP of th=
-e new command.
->>>          let elem_count =3D dst.header.element_count();
->>>          self.seq +=3D 1;
+Best,
+Gary
 
