@@ -1,75 +1,64 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011063.outbound.protection.outlook.com [52.101.62.63])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013018.outbound.protection.outlook.com [40.93.201.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C711A383338
-	for <nova-gpu@lists.linux.dev>; Sun, 23 Aug 2026 19:51:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5487936E468
+	for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 02:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.18
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787514707; cv=fail; b=JueqmQluqimQVasevKVbrxK3lr6xmKdn0EwNTojx0qFYgJiLrfRBoNNYWnhAI4lAeiBL594ovtGM4hq/dygBLbjBVddoljMmiRMfnTRIhMTivRT6n9X3Y/grqAPDh84LjGdXehfnCz4BW3YTbVrn61LlE7fb3k0JuyiN8Ze0GxI=
+	t=1787538631; cv=fail; b=p2NgCu+oN+hkvkvLMoIvbutBlwV7oUzRPwF63hU2cNlkTs5RWDVWWf/ehV5owRZYMCflhZ8QjiwfdyFe8URc447V/9E8iPujyBs4V5q5SIcAfOoPjO3tVESd1SeafNkx7QQufpdUI+JUrsyTFNm4APazER0tOGChaClMhXRmiQo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787514707; c=relaxed/simple;
-	bh=/wy8EAQAoo2rtqCG8agFCSTQdVxOtC0Zux511tZF5Dw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=fvvRp3jONwW2Bp7Rt4f0QXSd/MuhQtQynJHvE5ZaMYczUxX35Ba8samYwPZly8ZmP7NQbOFC0pMzHORKmZ9I3xN+ZXKznhl2k3sWz42oBBNqzQkaYYXZ2WaVNIw8dGFibh63SRNXb0xNyjYp8IvhfIF6UMFshR38c5JBHtmH3v4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Palq+Wtc; arc=fail smtp.client-ip=52.101.62.63
+	s=arc-20240116; t=1787538631; c=relaxed/simple;
+	bh=GkjPg/id/PIJuIZcK5wKX0wKb+4sozCH03GeqfjYaf0=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=Mz3bI8nDIoUNk/8qLl/yDWav1IMLoTc3ifkLqMlXBVbtxfqQo8L4aINdfgAAKRcT3trZT6vKXqKEWJFoD4jc6ezWig5/meB3MSyvCPZNqc6X4yZnxVEfWGWRVFXkSSVB87qP/c8JS9A3PhFLx1VjGR0+eITkQjrwBkuZAUPdHWI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MJUdz4z1; arc=fail smtp.client-ip=40.93.201.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Palq+Wtc"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MJUdz4z1"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PqELdnPsv1eGddou+fbqRAP5Es13iufnIZveZptEV3ZYdabHbokxp7cQ8RvO3oHTyhQpGDd5ARpG6zYMRCVkDeUEG7yjszEdpRrFDlR2bkaG4KKsZx/kFjoRlR7pv+kntTE2qLXJM5w9iG9DM0e+Fms0ZOozUCWWyo2MeWnLae0Djvcgi2LXyj2W4ZSKuWp/XKBpFsQdLiUQEaKwehe4xOAajWpYABsMg+6WF5xG/KQGbzMHdUkv3dEyF66Ge+mkmmMzL6bPBqFznJLRKKk0TG6RzP8EqHbESvl26+Zw+/3sXzYXBUcHYa4eiv0mIYyR/GS1Dh6EL8NHqOOOQx0VgA==
+ b=rNiqtaT0DmH6+xB39Af3hqUsaEJ9Pb89KQfdPdjKExbA15SGyvYQvvP6os4wYdU+1J/LLNgUkGXHhblxzMh3/cXJN3dj1eeC/INH12+zUFZR+CEQRfTE8yJ+gUUmMJKJW4ywGzGmG3+sQ/hxojSf8kkTF5ovUH/lrtFrKu8aPaowR6eL29ntGSujbexZk8mTM1oGqLQyip9fg/xQAQZcwzVkZvFjvcfttl6+4QLb7QyXE/znq0b3E8s3E/qclID6Jy6Q5rVWt+6R1+HwkENEcKT6LoYpvFJ6qQPDTRvmD1zFTDrdXHdGmu8TFXOBkuNHjqIAjkIqAkHQ2Vudi3sJRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cgA88fgEoZWKlAkbmJ1Xpt0+5aGN4sQIJnzYsLIlNgo=;
- b=vaF1KuNfPfH6edUGWtsznkkGVpDjT0rvV/1L93SXQOrppsCwEkPGMFxUcZHIDQWxYY//nReCvIilAh+uNh8BDYiSfhKTn+mcIp2fafrMjxuS4oMO+Jd6+htGIQ4KOMf2CDLZ51XB7tCDJTyBGvEcQSBn3ld7vS4kDxrcSPlUGaXcoU6USZTjAzStKMp4GWBkDom3Syzr6fX3hOIAsE3XKc4h6Z7wVOzILIXYMc9kByqP3a1aXd2CeDvs2gGRGs65WaIJxY28i855aMNEhEkbsDndKUFd7IK7hUfkd4UIgezSWRLd9pJZZEVyMeINZUKdyZly1E7MuDOYMVCjOI9QKA==
+ bh=P+0k1GC99zwMVFvPoTyn0+hqwDv/ZpAMz74XArkXQlk=;
+ b=vLM1RzjEKzU5pcnnrN1yQZGw0i+Fn8v0AWtwtpR3pke1HulolFIJ0rOpJMIv9yiHbTB6rWtrael9CwrKNVVWWRtSBUkEZpcjnccBQVFWw+SWh32PwMxBOZl/RYQyUIFrcIe+0hs5H0n5ezlnO9yE1ELCGoUoT+kbSEIyvuAF2JAD6aD3ahvyfplEQhkRwFQib1NPD+xUorPA5maKqIUzNBdQ7mEWFABCJkjkte5BvejvO160XSfkrCXc4zMyt0IuhZj5zasVWU5PhroElnXMIWniEbfgeh1Q1muMbXpVQt9dMyIEp8peCUBCIJPFRtojp8MdR94ceYQ74ltJzGRAow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cgA88fgEoZWKlAkbmJ1Xpt0+5aGN4sQIJnzYsLIlNgo=;
- b=Palq+WtcAzmFWyaLkVxz6hIVda2YcH6z4ms4bir4z2dF7t/if63HUc8+MwKPm4itpkzvDVd1vkPvFB8PSn6+eEdyOWdMgSQLbXgquYzu3zEmY4N6Okbw+zTO1B9VHUp0c3yptWgJMSCxLKXFsW3Dio8H+4lfdXTBTOCqCSWIrqg+o/SjLgR3u7lOhP4zYYeKBSAetaEB6kZmPdE8+lNA9CGLCXDD7eq90ZC3h3RoCt+UxGol7gWp4nSvh4mYgqjU4sKMYBtjuNLhaafODB9ceWQ09WPNAfFGDvDBu09YRBLtUrI4obI10bfHbW9D7ZXNFHAAC9kkp6+HXttENOdwow==
+ bh=P+0k1GC99zwMVFvPoTyn0+hqwDv/ZpAMz74XArkXQlk=;
+ b=MJUdz4z1oMHwEozRBFcMYS45SKg8mpx1yjZMoPffw0YM9ygBqLYGC7SShkOHk8BpTXDQW9UPdr9Ncc2thB8uehCCHFPQesJJqYdoJ2PrOn1I9MwIieytqkR4Us8IVVHJf5hy9gu67gQUVyynHSy2/fECYgyPsl4qhK8GBR5OQfn6+/XghU7lazY/0yhYBqqoNWcSX5LdaUYADAnz4Jr5QwGqOwgfBu8/oIYGbqbkLrRH36k3jzufG11mFdXdHgeRXQQzEUAsNcRadcyCt6K8zOEaeUnVU3035DOf0t2QpVTp8/yW4lNOYlmEdpDLB6467rTxT5DVxyw4RXiqi9p3RA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- SA5PPFE3F7EF2AE.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e6) with
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SJ0PR12MB6805.namprd12.prod.outlook.com (2603:10b6:a03:44f::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Sun, 23 Aug
- 2026 19:51:40 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0339.012; Sun, 23 Aug 2026
- 19:51:40 +0000
-Message-ID: <94a7eb3d-d1bc-4e50-bf75-d14896a51302@nvidia.com>
-Date: Sun, 23 Aug 2026 12:51:37 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/31] gpu: nova-core: add optional ucodes firmware
- loading
-To: M Henning <mhenning@darkrefraction.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- nova-gpu@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
-References: <20260822015448.238214-1-jhubbard@nvidia.com>
- <20260822015448.238214-9-jhubbard@nvidia.com>
- <CAAgWFh1vEGzyFHDWUpH19VYZVa98siwV3sm2Yf5x5jW2uP+d9g@mail.gmail.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <CAAgWFh1vEGzyFHDWUpH19VYZVa98siwV3sm2Yf5x5jW2uP+d9g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR05CA0028.namprd05.prod.outlook.com
- (2603:10b6:a03:33b::33) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 24 Aug
+ 2026 02:30:25 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Mon, 24 Aug 2026
+ 02:30:25 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 24 Aug 2026 11:30:22 +0900
+Message-Id: <DKWTK2FWW5PT.13WXH8LCISUT7@nvidia.com>
+Cc: <dev@nanonej.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: Extract FUSE registers definitions
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Antonin Malzieu Ridolfi via B4 Relay"
+ <devnull+dev.nanonej.com@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260817-b4-extract-fuse-registers-to-gpu-mod-v1-1-c4924070bbb0@nanonej.com>
+In-Reply-To: <20260817-b4-extract-fuse-registers-to-gpu-mod-v1-1-c4924070bbb0@nanonej.com>
+X-ClientProxiedBy: OS0P286CA0121.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:169::19) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -77,129 +66,163 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SA5PPFE3F7EF2AE:EE_
-X-MS-Office365-Filtering-Correlation-Id: efac7fc9-61af-404a-8c48-08df014ff2e2
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ0PR12MB6805:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c8b9f1d-2b35-4fd7-ab14-08df0187a756
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|7416014|376014|23010399003|18002099003|22082099003|11063799006|5023799004|56012099006|6133799003|4143699003|10067099003;
+	BCL:0;ARA:13230040|10070799003|366016|23010399003|1800799024|376014|18002099003|22082099003|56012099006|10067099003|11063799006|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	t0St1u44IbkB4qmqMB1przpM2acZKjUGtPbszF3FA5+vqlJRiAxSqZplr8IGWxfTlcy/+nFf3JXIr2I6RSiWDhjstLdDJyuRW9ofkeDFOl8rD0RK3P9PzGj4jcM9akLQL1a1u8oZP6l2oK8wUrktnc8Cb5enwfImwx7JrO8xoTfbC/XHYAuntnG04SQEOZ6qiwAFKh/JK4hf2izrvkLEchE/6KxtzLHR8KKQ1RGzRt0vsiEawG35stOOkmLV/mltlnB1LSN6B4C9wNiJN11WoQfro6g0E9VXIlBPuCAw/UQtk5Gra4FQtLYAhdlJtvFb3OjUuYTmCXqUn2AV+xp+SSbfNk3PrOEhd4C1TchF5nq3JfeOVcHGMxsdWTEkvDl1HymKv/pvOpVC/+umjRKlZyeeI5s91IuCAukFxaTDe2i+5QXO5s8eAG/17f0h2W1m1L/kL8+yDvx82WSAnzXc6FrCAbXSBeja2iMFVJyGsYoqVUHkKvpn4PcBB1m/SEcMuydNCxosJSKUu0Iw2qcaSRuEEPCg0iydR0ZUc4m7fHa3NDKU5+0z0Jhj3V5jTURgfR7M/QIYeUEERWxk4/TjllSPc1/31cU7kUqVf3Elg9D5TH6TpT/dnnPAcP8dirpTt6iE4tHgPFlfSGpAUbCFqIdH6E5xdLFR1oX6QhZukr8=
+	XDAa8Dl3ZLjrbxifum9UJCaOwkz0li6Nohem0Y+Mc0DqWZi/77hWoIASAyQv9wqitZXE4pou7RewG0j4W/tQ+qQ+al8sAhX16PMZF7JqJM38UXMORJPC121z8zsFs7TZAC73eS4BUjNNfYjBwEFU2mJpaTswAHR7e+ZAPmhFJAqWsxlVkpbJfDTyspIEG4tfXGtkdCyUriPM756CR6TRwE5qRxYfFTrt8KGZ3p2MbdVsQDtVigrJOXNRbg91iz2pRinuidtBWO0xNfL0HSBNng05708lu20m5I1Lix53k1NdcCqw8sQOm8G79YUW+So/CD2y9KzZA5NPX+quISY/LDyaEmVmqxZ2ISYF+cLcEUyJsVuFG9VlwvIkinhGdxjF0eaHEAjQnd8KYO0AZqMu4OOlu0c6QsL1Xzjqe8asG3K2CEs6OVtt0LOm/JfSOz/TA0UqTSG49wdDfVlGxHs2qcnB84QgWXZpzxnHPhhVJx2GuNrkXETyK72/tR4wl4ppLg/6QY+mQ6DZhVr1eTwGUeHK5uzJUECIDkWf8kkb1L4oyFU4RHMB905gPh+oqm1lSvkgxXJZx8QklXWQ7Mb3ZP+K0B26YhFa0KPi89habokijEywSazEjHdSNmQxjbwj+KvewLCGlBOcQM/5jmcgtKz70CrmFlgoOmk+FMdiHwA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(5023799004)(56012099006)(6133799003)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VDh4b0lRNUoxY05jdHY0aStJdHUxdHFlT0lxU0ZrQUc3UnU1UHYranZRYXg2?=
- =?utf-8?B?QVJpOE9vRnhJanEvZlFOUy9HSEIyUmVUZmVkSkp3VE9uQk5GaDcrdDVwUlZI?=
- =?utf-8?B?WWVGZFVtWnp1SDd1aEhwUzZCQlBrYnB6ZVpaL0lHY3ZuNDhZTUV6S1FLakJD?=
- =?utf-8?B?ZXFDRmdCSkNveDU3OC83NnIxc0VRTzFJMEZ0REdBZnNpeEQ3TlRpTmJ6VHAx?=
- =?utf-8?B?WE9YY2hkbUhJUUtmMzBzc2RINWxXOHNWaDZHSVM4YmZ1YS85cjhvMFVnd3d4?=
- =?utf-8?B?MnJ1MXBSMVlzRnZYQ1IzakpTWHZiYkRZZCtCZnR4dmRTcE5NN0twZ0FHNGhO?=
- =?utf-8?B?THgybzB0Q2ZWcHdwRDc2Q3k1ZmFOUms0SkRrUFpMbG5wRitpZnNNN0pCUG1Q?=
- =?utf-8?B?c1crVnRMWHRia3dWTHFsVUQza3FxejVPUTkxZVp5WjBKOFhQaVQzRHcrUUl2?=
- =?utf-8?B?TXMrY0ZnTmZiRHU3SlM5anlqT1Y3WHFTR2xRcUwzcTM0TzFHZmEwS1hUOFZr?=
- =?utf-8?B?a096b2xJNHJ5Q2xqR28zNDFwMGFaRWFVTEVoYlkyeXVpa053UWZ5QnhseHBa?=
- =?utf-8?B?OVltemJBK1kvTC9oNVBZTFVDY1RYeGRwaVRya3ZrNGVZVFA2R3B5UzhuY3dy?=
- =?utf-8?B?djlsakpxeGpDdFlET25YUnYyeFFZNnAwZDdXU1IrN09HbVVLYlNDczJVMzI4?=
- =?utf-8?B?TmY5NDN5TnBOVFozY1p4VGZqOE1nY1FRalVtVHlZN0RpM0UxVHl1dDQveXRN?=
- =?utf-8?B?aUVqZThtaW5ObEU2Mmg4MFA5bVRTVno1cnlwdkg1b3h5aDgrVDdEdDR0ekxw?=
- =?utf-8?B?cHVJWjBJMVVFN3FCNmZMN2RFQUMzK0VvL2YvSk8vNUkwNVZmbCtVV0tPeVk3?=
- =?utf-8?B?bE9saVdPR3lDUkdTM0p2b1dXSExJYXg2NWJCUnQrOURwSFRYbWxUTldyNldT?=
- =?utf-8?B?UDJiMzR5V056bkxLR2dwSno1Yk9WOXpYVHRsdThwY2RCRm5jdyt3MXJNdFFy?=
- =?utf-8?B?NHo1K2NsYXNYeEVnUEt3ZWlrc0p3VGFZZ1VWUEFhK1ZvcjdSTUhHdU82L0R4?=
- =?utf-8?B?UW43QzdBd2dEaVp1L0NQVlQrZGhpNmxyOU5OVko1YUhLQlk0M2VqQWE1TEJ4?=
- =?utf-8?B?eHMydzZTc3ZyMnFFNW1EMzNEckJEQWxJSmZSMENZczZHV0pwR0l1cU0ybGZN?=
- =?utf-8?B?Y2hkSE1LN2FSTWxBL1B6ekJIcHRabDZnL092YlMwd1M4c2JwdEt5bnY2dmtD?=
- =?utf-8?B?MXZIckthVms4TW1Lb3FScVgwRTE2dDZxVWVmYlN5NDVvSUgwR2ZsSzlrbjF4?=
- =?utf-8?B?ZVhqeFF1Uk8zcVZsVXhBd0pheWNFYlMzTzFmSTVLa1FtTFUzQ21TLzA5cXpM?=
- =?utf-8?B?N3RURzJBTEV3K1NRdGc0M2ZDTnIyaGFBZzVtazdPU29xeFA5RzBWd3dDSEJj?=
- =?utf-8?B?Q0g3RmU1bUNCWGpjOU5jUEFpcUFrWEl6c20zVzJDYUw1djhVcnJpdDNSTWlw?=
- =?utf-8?B?L1BmRUgyZk56aERhdVNNOEkwc2crdnQxajQ1NmNyUS96VzRQbEFIT2Q5MlhT?=
- =?utf-8?B?TjRuREd1Zy9JNndiZUlES3MyRHkxNlZvQitVbk9NbW1GVWM5dG9vNkNoeEQy?=
- =?utf-8?B?ZkZUMnB2NXg2OG91b1Z2UFdBY2MwVDZGT3F3SG5tTXBoUnpuMWxTRzdoT0xD?=
- =?utf-8?B?QWsvZ0Jyd1V6eU1GcmJhZ3dzMFJybjFydzREb0M2UXIzMC9VVTZOQ3dyb1hx?=
- =?utf-8?B?MS9ZTW82WXY1bS8xWnZkZjY1eEZ4NFc0NXROemd6ZW1iL01zZTA3VXNqSTlT?=
- =?utf-8?B?TlNob0xGaU92TndWQVNMRHAzSE4yQVdrbnNlOFRrMzV2RVI3UXNvSXdqRGhW?=
- =?utf-8?B?SU1UUURPbHg1RGZSaGYxeW45ZStGS3ptY24weTczR1BGNW5hemJld084SnB1?=
- =?utf-8?B?SFM5cmtUeTJyc1RtVjFVUkZKRFZmalZYcHp4Z2VRMXl2R3BsNHB1bDlGaEJH?=
- =?utf-8?B?d1djTTFXdCsxUVNENVVEYytNa1plbjZCcUxKTXQ3OHA4Umd3a2FsK3hXTWZM?=
- =?utf-8?B?VjRXYVdTZlFVMVhLc3lBNEh0VU52MGQzQVpZeFYzVXRxQUNJWXlIVWd4N0dr?=
- =?utf-8?B?L010MUloQUR5d1E3V1pMVGZ5bmh4ZEhtTms5bjVyKzNvTGNCS2hUTk5PWnd5?=
- =?utf-8?B?MjlkOTFuUEhTYjhmQXM1bHUrbE1UK3lGU0NyMm5MYndzK3hlYXhzWFMwYlVX?=
- =?utf-8?B?Q3hDNGJxK2VjSXNqdXBCeG5iL29hTEIxV0laZktyeUNxTjFwSVJpZnVRUlJ3?=
- =?utf-8?B?d09tSmlJQU5RQ2V4b0p0WitZWkpPZEFma3FraE82aUczVURCNnFsWDE0VWhI?=
- =?utf-8?Q?JbEkYjzbqwBIKU6w=3D?=
+	=?utf-8?B?UUt6aWl2TkFwMFY4YlZBMW13aVhMclpaKzg1SXNwOUxYeWkzREVSQmJEWUtY?=
+ =?utf-8?B?cXEwUXArUlNUTGJjcFNjcGQzRmFNcEJOMHdraFVER1hsM25uWWlTVTBKVkZa?=
+ =?utf-8?B?Sk1hK05CaU1JbDVMM1NiOWRSbVZ4RU4zaXhrMUZWa1ZzL3krdTVFYis2NkdI?=
+ =?utf-8?B?bmJabHBuZWlVc09wcml2MzhONnQwMUZnWVhJMXdqcXIwd0IwVmF0eVF1bGtt?=
+ =?utf-8?B?bmtIWFl5dGM2OTVZbDN6eEs2aXRYc3BSaXJPbUs5bVVJNCtEc0o4UUdlVm9R?=
+ =?utf-8?B?WVRrKzkxRHF1cDZEank3U0FRbjcyb0xNOGwyTzNVZWZqOFl0RGxSZytBMEdj?=
+ =?utf-8?B?ZTVTL00yUGdVMDF0RnlFUS9oU1FBYzZ3L0ZpWW5oMkZVdUQ0K3pNSHgwaUlQ?=
+ =?utf-8?B?Nm1hRzJLeThIR2hBeHNpdGdxQmo4bUV3TEpmSjBaTTZtOFFwdHV1SFRNeFZX?=
+ =?utf-8?B?RWVKejYvWkw3WWhOS20rbmpESU9NSHpVT0pkcEpyVG11SzY1b1pQOE1oZm1m?=
+ =?utf-8?B?Vk90ZlF3ZXRNSVhsc2Q2NHhHQUd6UTA2SlRsMXp1eXF2RTdoSjRPOEhKTlNL?=
+ =?utf-8?B?NzFpVTR4a0Q5S204UUcyREwzSHVKOVNpQVJoeGxVNG5LdXI2aCtlZnFDL0M4?=
+ =?utf-8?B?UGZnMFVvQzJWZ3p3MzhrWHB1MlV4SlpwMDl2RDVWR3BKekJMTjF4VVU4WUZm?=
+ =?utf-8?B?RFY5b1dHYnlXckhIYlBIaVJYZkNacDBMNkx2NS93T3BEbnNnd2FwSTlzYnNx?=
+ =?utf-8?B?U0pZUHRQM0xUUnN1TGppanBZRGpVblRFU3dZVjRiTFJQYW50WXpjN0EyQUNQ?=
+ =?utf-8?B?VTdPa0RhTHR4Zit1UGwzSzZoNStWOFFGRFJGNmoxOFVDKzVpa2NBV2kxa0Jq?=
+ =?utf-8?B?N2JrMXI5Mk5VWWF3QUdNbG9laWEzUnVrWjFVN2NtbEhNNmxCZGF2RjFJVUlu?=
+ =?utf-8?B?anRtZjd1bUcwUWh2dTFaWVN3VGdsVXNTZDVIZDNYeWtKenZyK3hpclY2V0JQ?=
+ =?utf-8?B?NUlpc1VxK0o0S2FXb1VXbGVUM2tyWTBBVG9hUUdXUzlUdit6Q0Q3b3p4Qm1T?=
+ =?utf-8?B?UklTVm5tYnNqUThuN1dCL1pLS0pKZTRwZEluWXBIVmZkWDduc0dhV2V1MWZZ?=
+ =?utf-8?B?b2NNc2xKaS90WnJ3bm9RTithcXZ2dXRCNmtxM3JzQXdhbk9MWi9TM2ZZTHdk?=
+ =?utf-8?B?VndOYllQcnJleHJQMXFXR20zbDcxZUx2aGt4SmRHL3MrZ0tIUFU2TWFOYldE?=
+ =?utf-8?B?bS84UTRRSFZXMmk4Y2J2NFNJM2NTc1lpcXRWRWVYVFd5cXg3d2lWSDUrZmdZ?=
+ =?utf-8?B?ZHNRWFpmZDVFUlN2U0I4aEd4L3RRRkxZcnVZNGFFQW5Pd3BVTFNTb2IrN25m?=
+ =?utf-8?B?VkNoUzBoNkZFdVZQV3VoVDZIc2JBL0YyNXdyODdqNzhEUEhxRmMxaisxYXVM?=
+ =?utf-8?B?clJnNmJRcWJnaFB2R2p4clh4dHR3KzcrSUovREd0bktEQy96Y0hBUW5JT3la?=
+ =?utf-8?B?ck51bGYvT1RjRmdXZ1RTNW9KLytxaERTMFZDZVZOMWVITFR6RktRSjhralFX?=
+ =?utf-8?B?eFZMODFDeXhnR1NWdVlOMjk1aTdxWUhIUk5lckZNdFdFYmRHVGlBSzVlblMr?=
+ =?utf-8?B?QzBYeDNYU0kxKytHSkVxTjlZak0vczBPQzBRcWRTSDZlY0tRS09xMldtRGEx?=
+ =?utf-8?B?YjF4UDR0d2Q3VDJoV1RIWnZlUjYwQS93YXFGUnExMCtDZytJVTFWTlc4TVZF?=
+ =?utf-8?B?UGw3SmFmdGVxamRiSkJuNktyV29Od1RqTUdLRC9EcU5qd29aRktnRU1BUjcy?=
+ =?utf-8?B?VDROTDRSR2phRG45c201YkZlZkxWYUE1c1FVTkc5a2hLaWN0VXNwMGpHS0tS?=
+ =?utf-8?B?V29UK2pxdE4rSTFDRTdTZENQelFaSEZ3ci9tNzRQWlpQUDB3djRMdjRkKytw?=
+ =?utf-8?B?Y2lTMjhKa2dZblQ1ZjZxN3I2bmtLRTlKOHpoK0pBQ3dmK2Z6YUVKOFVCUjJR?=
+ =?utf-8?B?bzVVdXdLalJ6Y3lRUGJmTEpQQ0k4QlFkOXArdkFvWE8xYXFONDBpd2hoN3J4?=
+ =?utf-8?B?Y2VmOHorL1BhS1F5ZTdWcEpDTHlkMXZBWjd5Q2Q3L01XTkpQYTlwdXBYMkFJ?=
+ =?utf-8?B?VS8zYzJDbEhTbEpTMGdjeFB3ckVkTHJ2czZEMnJGUkVGUEFZZTZyQmVqT0Rj?=
+ =?utf-8?B?ZW5ZTG4zbWNvUlorWnNxVkQyM3dwNHdiOGxQTUVWZ2xrVXM3dzdZSGwwdkhR?=
+ =?utf-8?B?QXA3b2Vid1NkRUNLWHg4NFBzWWRqRmNBMmVaR2xWMmhwcFhHcHBLVmhUOHRn?=
+ =?utf-8?B?aXVmV0VzMVRUSjIzWXdPNWZ2aXBQcW1NZnhQbmJoVGRxbGQwTCtFRlZDcE1v?=
+ =?utf-8?Q?Xkd/tD6K8X7efFLDv7PHBJJo/3B/QLiuLKzczGryYlAZq?=
+X-MS-Exchange-AntiSpam-MessageData-1: A4hjTBLSi5+C+w==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: efac7fc9-61af-404a-8c48-08df014ff2e2
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c8b9f1d-2b35-4fd7-ab14-08df0187a756
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2026 19:51:40.0534
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 02:30:25.1625
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ox+8rwA7+rViakIiBo4U8WironPaLzuRfTrgJbeUh+VuFq+rYyRg5WQ4szWjfsLukqnWGx8YjrTVLmRXsP6krg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFE3F7EF2AE
+X-MS-Exchange-CrossTenant-UserPrincipalName: zPz7/I94iS40fpT9bIFicxeXsCaemLoTHdJHTFhdK69Gi4uON3hPe5/2yWH+aX0DhBl/X768d+I0KWXcMRqOYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6805
 
-On 8/23/26 9:26 AM, M Henning wrote:
-> On Fri, Aug 21, 2026 at 9:58 PM John Hubbard <jhubbard@nvidia.com> wrote:
->> +        // FILE is a basename relative to the TLV's directory, not an arbitrary firmware path.
->> +        if file.is_empty() || matches!(file, "." | "..") || file.contains('/') {
->> +            return Err(EINVAL);
->> +        }
-> 
-> This isn't a sane way to check if a path includes a directory
-> component or not. You really want to use path-handling apis, rather
-> than open-coding this in a way that rejects a few special cases.
+On Tue Aug 18, 2026 at 5:04 AM JST, Antonin Malzieu Ridolfi via B4 Relay wr=
+ote:
+> From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+>
+> Move FUSE register definitions from the root regs.rs file into the
+> gpu module that own them, in the existing gpu/regs.rs file.
+>
+> This follows the same pattern established by previous commits for
+> GSP, PDISP, PFB, PBUS and PMC registers: register definitions move to
+> the module that owns them, visibility changes to pub(super), and
+> cross-module access is provided via pub(crate) helper functions.
+>
+> Since gal102.rs (outside the gpu module) also reads fuse registers to
+> infer fuse version, a pub(crate) helper function fuse_ucode_version()
+> is added in gpu.rs to provide that information without exposing the
+> register type directly.
+>
+> Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
+> ---
+> I got several doubts regarding this patch:
+> - I didn't touch the comment in falcon/hal/ga102.rs:71 cause I didn't
+>   know if this information should stay there
+> - I'm not sure if the re-export of NV_FUSE_OPT_FPF_SIZE in gpu.rs is the
+>   right way to keep the read in gal102.rs or if I should also make an
+> helper to get its value
+> - Then, as I'm not quite sure to understand the exact purpose of the
+> code I'm not sure of the `fuse_ucode_version` naming and the comment
+> explaining what it do
 
-I'll drop these checks entirely for v3. Timur wondered whether they
-were needed during the v1 review, for the same reason, and I think
-you're both right that the check that matters already happens lower
-down.
+I am also a bit hesitant to apply this patch as-is. As defined, it only
+adds an indirection through the `gpu` module for FUSE registers that are
+only accessed by `falcon` (actually, the `ga102` HAL of `falcon`).
 
-Although, load_file()'s doccomments do claim that an embedded '/'
-is rejected, so I'll need to either delete that, or add in a check
-for it.
+`fuse_ucode_version` does some falcon-specific processing (notably with
+the engine ID mask), so it looks out-of-place in `gpu.rs`.
 
-Here's the calling stack:
+Also, the patch doesn't move all the FUSE registers -
+NV_FUSE_STATUS_OPT_DISPLAY is still in the root's `regs.rs`. That's
+probably because the destination chosen by this patch is not a good fit
+to contain them all.
 
-     Tlv::load_file()
-       firmware::request_into_buf()
-         request_firmware_into_buf()
-           _request_firmware()
+Now I am not quite sure there is a single, good destination for all
+these registers. We could move these to `falcon` (and
+NV_FUSE_STATUS_OPT_DISPLAY to `fb`), but this just happens to match what
+we are doing right now and if another module needs to use them we carry
+the risk that it will redefine them locally. Or we could have a
+dedicated `fuse` module only to carry these registers, and some
+functions to provide the services needed by other modules, including a
+HAL to read the correct NV_FUSE_STATUS_OPT_DISPLAY register depending on
+architecture. But that looks a bit overkill so I'd suggest wait-and-see
+for now. :)
 
-and _request_firmware() already does this:
+There is also a more insidious issue below.
 
-	if (!name || name[0] == '\0') {
-		ret = -EINVAL;
-		goto out;
-	}
-	/*
-	 * Reject firmware file names with ".." path components.
-	 * There are drivers that construct firmware file names from
-	 * device-supplied strings, and we don't want some device to be
-	 * able to tell us "I would like to be sent my firmware from
-	 * ../../../etc/shadow, please".
-	 *
-	 * This intentionally only looks at the firmware name, not at
-	 * the firmware base directory or at symlink contents.
-	 */
-	if (name_contains_dotdot(name)) {
-		dev_warn(device,
-			 "Firmware load for '%s' refused, path contains '..' component\n",
-			 name);
-		ret = -EINVAL;
-		goto out;
-	}
+<...>
+> @@ -419,3 +424,27 @@ pub(crate) fn new(
+>  pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
+>      bar.read(regs::NV_PMC_BOOT_0).into_raw()
+>  }
+> +
+> +/// Returns the fuse version matching `engine_id_mask`,
+> +/// at the given `ucode_idx`.
+> +/// Returns `None` if no engine matches `engine_id_mask`.
+> +pub(crate) fn fuse_ucode_version(
+> +    bar: Bar0<'_>,
+> +    engine_id_mask: u16,
+> +    ucode_idx: usize,
+> +) -> Option<u16> {
+> +    let version =3D if engine_id_mask & 0x0001 !=3D 0 {
+> +        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_idx=
+))
+> +            .data()
+> +    } else if engine_id_mask & 0x0004 !=3D 0 {
+> +        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode_id=
+x))
+> +            .data()
+> +    } else if engine_id_mask & 0x0400 !=3D 0 {
+> +        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_idx)=
+)
+> +            .data()
+> +    } else {
+> +        return None;
+> +    };
+> +
+> +    Some(version)
+> +}
 
-On the path-handling API: there isn't one to reach for in Rust for
-Linux:
-
-rust/kernel is #![no_std], so no Path or PathBuf, and the C side has
-kbasename() and the VFS lookup helpers, but nothing that validates an
-unresolved name string beyond the name_contains_dotdot() above.
-
-thanks,
--- 
-John Hubbard
-
+This is moot due to the comments above, but this function should be
+`#[inline(always)]`. The reason is that it uses `at`, which performs a
+`build_assert!` using `ucode_idx`. If this function is not inlined into
+its caller, then the range properties asserted by
+`signature_reg_fuse_version_ga102` won't be visible to the compiler and
+the `build_assert!` will fail.
