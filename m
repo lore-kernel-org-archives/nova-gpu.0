@@ -1,166 +1,191 @@
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011006.outbound.protection.outlook.com [40.93.194.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BE83876BB
-	for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 09:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787563411; cv=none; b=h/lijd9TLQ9BiTTjrgm1PrlAol0flgosPMDWYDZIrS5PPEoh6NKye5y+KqRXQJ6IsyFAdDjXjPNSwmJDDjbD+43MLyAZlZ6sPCHTPNUEIIzq0w6HKDXJf53FfGcfzr+TvA6UkdwQfPKU2vR86aqeYWIhjN9teVcYH5fIh2iuHok=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787563411; c=relaxed/simple;
-	bh=aIxOhyasMyJllL3AG6v/HkWpftKfp78A51bnxLcD4ow=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SB6QGYt2Gx2iuYd/DG6N4jYiPN/FVtu0Xa3wR+ygtu6clkMt0rlYqUbSwFYMKU8E8IlTXRzoQcgwStLsSvwfJ6BUD741gS7eFfnw8+XvkMcoYCzRHjAKCGpOI3R8vEUXgsGUTnUgg+Uej05+4i35Cm+3p/UPtaLikn+Rg81WAI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com; spf=pass smtp.mailfrom=nanonej.com; dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b=jZyJIX0k; arc=none smtp.client-ip=109.224.244.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nanonej.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nanonej.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD0B3ED3CA
+	for <nova-gpu@lists.linux.dev>; Mon, 24 Aug 2026 12:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787573056; cv=fail; b=gaIVmmC/hRbF/Z1ip7hHRsi1NUnRfhPEJaVpK0K3v/A94CK/YZSaVJNS9ML5P3v/jZu0ljn38kkTXU54qL6T3qlzgPSo52ihFf8w1cGMwHmzubM0U6IWv1THLhHvqVY9rAXz7X6uxVOj53r8UILbWQOi6K09a3zEY5RhQbyfRqA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787573056; c=relaxed/simple;
+	bh=dRsMfC6jx3fxZlaSX+qOA2wp1lk0oYmIJNQ/KlAAdwA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=TYVLPhP5QEUPDcCTVvSZrX1t1ftfllqEjsblVUEdCnO91tgpTg7m9t8F+auWf99gEWnZH35lF7XTbg44NGx9QFlSDQ/MPB6PX+1y2mqtYh7bGFYYqXYl65znlcA6WLRZB4+GsJHkPN/gehreVPKlaK7+0gJ8kEedTH8tNCuiPJ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lB6kT9re; arc=fail smtp.client-ip=40.93.194.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nanonej.com header.i=@nanonej.com header.b="jZyJIX0k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
-	s=protonmail2; t=1787563395; x=1787822595;
-	bh=ms0jtqoPS0qWJLbFtv256SN8hGHM1pUEZO74N6luSSU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jZyJIX0kywQd/58F/OsweLbxsBBFCDOZ0v0p4kw+mAFsjJWMIgqn3bXdzRvMvnO4X
-	 xRonx+4SVwFcRYIzvqV6zPsn0TlVpXujxad3sRNJAVOLGZbUFzGXDH46yKVqrjRPMQ
-	 v2m/JrIjm6P6EDw97yHa+qSVI4G7I9FaytmaBsRdAIZ6Z4cQsdOrrNV+oOx7jo23t0
-	 eQatXC+yoBjf8gGQSrByt4YieZzhb/Lprh/hfJRporIyGFeiAtTkAZBOtBbW+nTKPK
-	 FvvnDyGyv562FVIc3COBg6DagGtqqQuw2v+IvbEtJ7y65iksVxmr6bAWZFL/6ts93x
-	 CIY67KDamlSdA==
-Date: Mon, 24 Aug 2026 09:23:12 +0000
-To: Alexandre Courbot <acourbot@nvidia.com>
-From: Nanonej Dev <dev@nanonej.com>
-Cc: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpu: nova-core: Extract FUSE registers definitions
-Message-ID: <1COg2hERAjDijZlXX0uknmkpjlWBxyXWaxdvBX2tGZgcaYyhUhe25d5WGeosMVh_Tri5YELYViaNEl0PHR_Z01L6IdvfuZdjRZtc2TQj_Kw=@nanonej.com>
-In-Reply-To: <DKWTK2FWW5PT.13WXH8LCISUT7@nvidia.com>
-References: <20260817-b4-extract-fuse-registers-to-gpu-mod-v1-1-c4924070bbb0@nanonej.com> <DKWTK2FWW5PT.13WXH8LCISUT7@nvidia.com>
-Feedback-ID: 32181229:user:proton
-X-Pm-Message-ID: 6aa8216fe8d7682b1106a6f3af132c077db2435d
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lB6kT9re"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mpReKtuX7nCNE/4Lj+ZmNNtIX9byedzDg0FcgWSwGXNpIc3YgEfZGSRaRdacANYgefaLyBRWrq3hQgDdX25b/3VChh/pFq63DP7yjyXXXhWx5bMDkLQr9zrrbREbVVE8Y/SUKtPRSiQBSiJHSMdtYaVvpFmCZOaj1AVfPVdSOxwuFI9dU6xyoVw21ZIO8r5T/i4wB2a7gf0T0zWk+n0Aa+t49WS6DefkNhqpPPiCvr9YmMWlg2wgX1lqdU0f2LHzk9+Ebot9QuT9vEaj/tqOpoiSAEXZg6RKOPgJRgZprd307rYNMVomEvguoOZPBiyuyYHEh3m28wv3Hzyy48Phvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RAdeqHJAIbnMJ3Z/wXLIZq7W8hhF3w3U83FHCXVUdnA=;
+ b=uve060pAgbXOPNdYV4gVh0Hfj9twX/aUUqoN6vFOEyg+D0PSy5wK1C9zPWkqzBav3lIToqn4BMxOlKvG/NEouj7eoApkBzQJyVS+rXZtTAvAwH3A0h4nWkSctI3ND48eL/KwSHSz6SnGTbON0+YAYMsoODTZMzlsy/l7bpHV7+QVfkkoNMnLuqOxiLQ6xN6P7QIagOdiIAjx1T/4u6/Uc+uAiIl/WdjXv3jzPFAkKLZIIxsQAcTT2D955Hl69PDYC0s4MWRCpC422vbstfM0Szo7uHg/CegyP/idfV4M80dKLFBGn2rZV/LmjkWXvc6M+qr2a7eCUaBxq25SjzcW4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RAdeqHJAIbnMJ3Z/wXLIZq7W8hhF3w3U83FHCXVUdnA=;
+ b=lB6kT9re4tzcVBmRLH41cLdmp3M7yGmzavysekabrnzcbcabJ6ZYj6PpFWVgwAz0lcdhlUK6JOTWg51y5sssSisrTftzHczk5fYVf623azXVg2pXiwckpaE/750D5LoZJmF7PtnpY8PriI1amfOhA19ZX7sLTitqw+0xxGDdT0zS7cH5zE9dKFZPVcs3uSPle8xShSe3XbvL8KUtisaMs7HR9KUH+POfkfj9xszQPpA5eyNXBV5hJ+MGiBPfW6rBo5mBQjYRrSuhBKq5sGquWKJXdcBbVPEPcpJinBPMUjEF+n8XvLVRMj0U5gu+vSSZn1FuADVIrXC8qjrKpQX2+A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ PH7PR12MB8122.namprd12.prod.outlook.com (2603:10b6:510:2b7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Mon, 24 Aug
+ 2026 12:04:07 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%6]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 12:04:06 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 24 Aug 2026 21:04:03 +0900
+Message-Id: <DKX5RB6C3BDV.RSOKNUP9FR4K@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "Yury Norov"
+ <ynorov@nvidia.com>, "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v7 02/10] rust: bitmap: restrict bitmap length to at
+ most i32::MAX
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
+ <20260817-chid-v7-2-a5872e64d8f4@nvidia.com>
+ <DKUG7JW3I90C.3F2JEQLEIV54O@nvidia.com>
+In-Reply-To: <DKUG7JW3I90C.3F2JEQLEIV54O@nvidia.com>
+X-ClientProxiedBy: TY4PR01CA0026.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bf::12) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02"; charset=utf-8
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB8122:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f00238f-77c3-4768-8dc2-08df01d7cbfa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10070799003|6133799003|3023799007|10067099003|11063799006|5023799004|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PwMEW+FfSs/Iwpo5GgZGmLjwefoF5HrnIRbRSoHyyJSEpnupYAseHL7uJ3+XVH+i0tCaWH9uKegMAQAt9A3pnsqXUH3K7NNZ2EPEXBi39PbTOB8NfMJghpUAtNeyj2afHOtASNH6gTAqFdzF4qCO07Pu55H8BThhEfOOOxkVc1BRcUefcwu3PRdu+cnQykJUgSh9dgLwyApQvcy05cTG/5GmNp8Jn2VzaAOWoutzpnJUhsGXYuT0TUErH7veLRa2lIvCc8ofHIrbazqky7V9eymuSXit2ldaq6p2k3SvXSCSju4aYOpTIPVQ8X5aVoXZ3L/Z7zNeBvnzt7D6/rUtSqzHtjNonUEvUsRIqQrn/nbjZyYdpiTNpPfkKJs7ce/u6YM7do2jADHnrdqTE/d3CX6Gn0GOsvV1WRB5F7oFw09tuHfPJJM1GtqE2Onee2h0C0GdK9atjMgXIn1W+eAmkJZt9ZND++Uvj3rFpIse66haeM4NIgktH5RI588bfk6itf22qsWzdNulc1Wewg8uoBlw5kwOXCqwdkTtQf04iC6aeVfjPGLS0l6goeUy2PIABZ6NWl89UAd6UXXUYaz7YQewBgw/m853Sk/WHCmYiz+k2413/qBjPrl+fW3ghGdcAV768bppA1WYZRO2SOU7L+Y7gW8i2VEkxY8XTQ0PTrI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10070799003)(6133799003)(3023799007)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cXQ5RDlOTXJndXV3cStTT21SaFRKbXJEcU9qVVhUTENMbTlDMlo5N3hFSEhH?=
+ =?utf-8?B?Qmxoa1Q4djh1UXFnNmVvOWhaRUZwaHZlVnh3MTVvRXNVVVBBazVJVFhMNGwv?=
+ =?utf-8?B?aTJ1UHpUeEFiSlZFWEp6TTB6RU4yTU1DSHF6UjBrT3NCTEdMMUtMRXVFaHU4?=
+ =?utf-8?B?NzZjcUdacFBHeVVCYU1QejltOG9QZ3FKdU5rNnVTV0NqM2NzaEgycFZHT1FB?=
+ =?utf-8?B?eElPYTVvOWNNNi83TmdtNStiY2lRd3pnL0pEcWxtVncwSzRPQW1mOFI2ekJp?=
+ =?utf-8?B?S3Joc3BkVkdlUHZHaHhoUk0zMWdNVVFCcnkxRkRWOXdyVTVQUUxuWkgwYU5V?=
+ =?utf-8?B?aEw3c1VoR3poM1F2SmJjVm1VbDhUVzg4NWxvdHdFb3phVkIrdDlXVHdjZEJy?=
+ =?utf-8?B?eEZCTlFJTnUyUThxSzZqN3I5M1BIN25DK1BYUE5uWXVjNldMMkJhS3VKUzRt?=
+ =?utf-8?B?ZzRnT1dXYlZRVXVNUGdBdjNxYVRPQURxS0J1YzJzTVIrNzg3eG0xUXVPQWZI?=
+ =?utf-8?B?OUtzU0FWbHRWd1R5WjdENHFCUmhyNGRtNUUrdVpkWTBlenJyK3JudGJNbm1W?=
+ =?utf-8?B?ZGNHWHpVODBYMERqN2c0NDdFK21Jd3VrbUlselJJZzQvYS9hbTFqaEwvN0dE?=
+ =?utf-8?B?N2l2Uk5CSlVoK1YyTzA2dm1aSnhoaXI5VWExYjRjU3dxcXZ3c0E2Zy9NMjZ3?=
+ =?utf-8?B?MXpadys0RHdjdzRkNTVWenVGSjU2dHVnLzhIWUd4Y2dQTzJpUzNXNUhRMk8x?=
+ =?utf-8?B?MGVaVmlOMC8wUk1FdHV2UnJveFkvb1N2Ti9MWTBwaVdtVUtadGRrVGxoT1di?=
+ =?utf-8?B?NHhreFFRcWhxTlJGRlc2RlBldHFwcFpzdnBBS1ljL0k5ZGkwa1ZQWVBROHk5?=
+ =?utf-8?B?L0tSQXVEK1ZzSW1jbndWdGdaVnYxWTNxMEg1YWMySFFYVG01WXVJL01kZytR?=
+ =?utf-8?B?RWhnUjFqKzAzdjNVczVFVkMzc3orUUdjN2pvMGlVZE0xdGJvak1NY0dEWXU3?=
+ =?utf-8?B?Y1V2NEJaS3pFNSt4Vm1VYjRkajZJSzMvY2gvNDk1QXUzNmNtRTNuVytWQW9w?=
+ =?utf-8?B?U3Q5cmpWWmorMi8wTVpSWUc5WldiNmYvUkVmY3lsUVhPR2RYR0JIclA5dUQ5?=
+ =?utf-8?B?VDNCaEpoVDBZdFJRUVJKN2huOGNzNm95UlEwL0lQUHNqZTN4Wm9ZQlZtbkcy?=
+ =?utf-8?B?MW8yUk1lRXJMclQ4KzhiUzg1cmVHa3JWR1JjanJHZnVnVm5hNWdaNlh2MDRm?=
+ =?utf-8?B?Z1FDdHlzYmZLU2djZkpHMUowTlNwWE1PK3dwakE1QnlvejlPa2pnY01yQ1lZ?=
+ =?utf-8?B?UFphbndiZWRoUFN6RmpYbUdpb1BKanM1bmJKU2hDVjNMYmNnMlBzMUJnVDJY?=
+ =?utf-8?B?MVRjMTRwcTBQZU5JdVVOb1UxdFphQWp1ZW5kN1FKRnV2bFhvaTdENGg5eHQv?=
+ =?utf-8?B?Ulk2OERweVRqLzJlY2VLQW4zOGRCblR5UkdYS25sS1hSUHBHVDdGOGMwTDN3?=
+ =?utf-8?B?QkFyZTJhTVM3dnlpRzY5VUtrVEFBbndxcHMxeUVFeTZsNThPZHZscUJOY3ZQ?=
+ =?utf-8?B?SDBOV0RzMUZvNk51Ni9vd2RHYnVyMkxZWEY3SjcrUEdxVkIrRWxOWGhSeVRa?=
+ =?utf-8?B?QkNNamM5cmNJTkMvS2EybzFkRnJCdGZLcXFMNDViMFV0bVFhTFBRRVJiQmRj?=
+ =?utf-8?B?VmRNYlluanZ1SEJIZnRGWndiQW5jZXNZT2wrOEVDL2NILzh6V01Ea05TWnJy?=
+ =?utf-8?B?NXRHdmh2S0FDdm42WUxSZjhMSHV0WGMyNDJVNytHT1RzVmp0U2Qyd0NCeHJU?=
+ =?utf-8?B?Zmx0dURjckRxNE9GZEZ3M1RyUndpTlYxU05rN1Jib1c4SW0wOTgzUjhKVjhL?=
+ =?utf-8?B?U28xMnp6TVRkRTkwM1lpcWljSzVhVGFyeW8yeFhFeHZmWldJYXF4Z2ZKclZs?=
+ =?utf-8?B?UU5NcjlQSi9McFI3eFhCMDMrQU1XdktMWXBYUWpZSUVVWVpQTkRpY0p2Qm1I?=
+ =?utf-8?B?N3Y3MEFQSDFUOVlXVFhoaWhHcERyUk8vR294WkpVT1hsd2cyQzB1M3NwSEtH?=
+ =?utf-8?B?bmhDZTUvbGNPTlcxcG1pV1JCVnl0RFIwVk5mZlQ3dEJqMmNGSXJndGJDV2hJ?=
+ =?utf-8?B?V0U2NXpVYlFuT3JHb2pRQUwzTW5UL0FYQW9jYUR6em1Gb2h0OXdoL3VIU3Fl?=
+ =?utf-8?B?dnV4RUNZSE94M2NuaWsybEVYQVpwS3JkTS9xSXZhdUIzWEROaWJCNlg3SzNt?=
+ =?utf-8?B?QVdsYXF0OCtrcjl3ckcxNlZqbUR6VmFuSWZmUks1SFV2d2psVFUzRzFGTERH?=
+ =?utf-8?B?aU9XY0Uxb2g4dkkveEVoSis0SmVQN29HdEx6anFYQkRXVGw0N04wbjk5SFY3?=
+ =?utf-8?Q?9oBINPeg67NBoEZWPCxDewRxKG9fdSdvdDCkyBX+TPo+X?=
+X-MS-Exchange-AntiSpam-MessageData-1: hRO5PtF2G7LbTw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f00238f-77c3-4768-8dc2-08df01d7cbfa
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 12:04:06.3841
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +CurJh5FcYbyCIeYHU7MnX5Q1Xzl5AmWrca7onkTDz1ZQ/B8TrxyAErqN14rsXSRDPmir69WlOluHI7hDtyR/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8122
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02
-Content-Type: multipart/mixed;boundary=---------------------9ee4043ec7588ec9708601c8425f6c1b
+On Fri Aug 21, 2026 at 4:37 PM JST, Alexandre Courbot wrote:
+> On Mon Aug 17, 2026 at 4:04 PM JST, Eliot Courtney wrote:
+>> It is currently possible to construct a non-`BitmapVec` backed
+>> `Bitmap` using `Bitmap::from_raw` that is larger than `i32::MAX`, and
+>> it is not part of the unsafe requirements. Restricting all bitmaps
+>> (even non-`BitmapVec` backed ones) to a maximum size of `i32::MAX`
+>> simplifies a few things and matches `BitmapVec::MAX_LEN`.
+>
+> Can we be more explicit (if possible in the doccomments as well) about
+> what "a few things" is? IIUC we are doing this because some of the C
+> APIs take an `int`, so we can just state that much.
 
------------------------9ee4043ec7588ec9708601c8425f6c1b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+Yeah, it somewhat depends on which version of the underlying C function
+is being called. The exact details vary between drm-rust-next's version
+and bitmap-for-next's version. Here is a (non-exhaustive?) list:
 
-On Monday, August 24th, 2026 at 04:30, Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
-> I am also a bit hesitant to apply this patch as-is. As defined, it only
-> adds an indirection through the `gpu` module for FUSE registers that are
-> only accessed by `falcon` (actually, the `ga102` HAL of `falcon`).
-> =
+- `copy_and_extend` truncates `len` to u32, which is wrong for >
+  u32::MAX size
+- `__bitmap_set` and `__bitmap_clear` need i32 for size and u32 for
+  start - so you couldn't run these on a `Bitmap` with a > i32::MAX
+  size.
+- `next_zero_area_off` on bitmap-for-next can overflow without this
+  restriction (we still have some overflow cases even with this
+  restriction on 32-bit, or through `align_offset` in general)
 
+I'll add a note to the commit message and doccomment about the reasoning
+which IMO should more be about keeping the set of invariants between
+BitmapVec and Bitmap the same.
 
-> `fuse_ucode_version` does some falcon-specific processing (notably with
-> the engine ID mask), so it looks out-of-place in `gpu.rs`.
-> =
+>
+> Note also (as a point to consider, not a review ask) that we could
+> enforce this requirement in the type system if we made `nbits` a
+> `Bounded<usize, 31>`. Currently `from_raw` and `from_raw_mut` are
+> unsafe, so this becomes one more invariant for the caller to uphold, but
+> would we have made them unsafe just for this if they weren't already?
 
+I heard from Yury [1] that there is some work to eventually unify on
+unsigned longs. So I expect that the i32::MAX restriction may not be
+around forever. That's why I didn't do a change like Bounded here cos
+it's quite intrusive.
 
-> Also, the patch doesn't move all the FUSE registers -
-> NV_FUSE_STATUS_OPT_DISPLAY is still in the root's `regs.rs`. That's
-> probably because the destination chosen by this patch is not a good fit
-> to contain them all.
-> =
-
-
-> Now I am not quite sure there is a single, good destination for all
-> these registers. We could move these to `falcon` (and
-> NV_FUSE_STATUS_OPT_DISPLAY to `fb`), but this just happens to match what
-> we are doing right now and if another module needs to use them we carry
-> the risk that it will redefine them locally. Or we could have a
-> dedicated `fuse` module only to carry these registers, and some
-> functions to provide the services needed by other modules, including a
-> HAL to read the correct NV_FUSE_STATUS_OPT_DISPLAY register depending on
-> architecture. But that looks a bit overkill so I'd suggest wait-and-see
-> for now. :)
-
-Ok I see, I actually spent the last few days trying to understand better w=
-hat the different parts of the project code was doing and what part of the=
- NVIDIA GPUs it was interacting with.a
-And indeed FUSE, as I understand, doesn't seems to belong tightly to FALCO=
-N neither with the future micro-architectures relying more on GSP.
-
-No problem, I learned things and it forced me to finally try to deep-dive =
-more on the driver.
-
-> There is also a more insidious issue below.
-> =
-
-
-> <...>
-> > @@ -419,3 +424,27 @@ pub(crate) fn new(
-> >  pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
-> >      bar.read(regs::NV_PMC_BOOT_0).into_raw()
-> >  }
-> > +
-> > +/// Returns the fuse version matching `engine_id_mask`,
-> > +/// at the given `ucode_idx`.
-> > +/// Returns `None` if no engine matches `engine_id_mask`.
-> > +pub(crate) fn fuse_ucode_version(
-> > +    bar: Bar0<'_>,
-> > +    engine_id_mask: u16,
-> > +    ucode_idx: usize,
-> > +) -> Option<u16> {
-> > +    let version =3D if engine_id_mask & 0x0001 !=3D 0 {
-> > +        bar.read(regs::NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION::at(ucode_=
-idx))
-> > +            .data()
-> > +    } else if engine_id_mask & 0x0004 !=3D 0 {
-> > +        bar.read(regs::NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION::at(ucode=
-_idx))
-> > +            .data()
-> > +    } else if engine_id_mask & 0x0400 !=3D 0 {
-> > +        bar.read(regs::NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION::at(ucode_i=
-dx))
-> > +            .data()
-> > +    } else {
-> > +        return None;
-> > +    };
-> > +
-> > +    Some(version)
-> > +}
-> =
-
-
-> This is moot due to the comments above, but this function should be
-> `#[inline(always)]`. The reason is that it uses `at`, which performs a
-> `build_assert!` using `ucode_idx`. If this function is not inlined into
-> its caller, then the range properties asserted by
-> `signature_reg_fuse_version_ga102` won't be visible to the compiler and
-> the `build_assert!` will fail.
-
-Ok! I didn't realize that and it make perfect sense now that you point it =
-out!
-But I'm surprised: How come it's compiling on my side then?! :O
------------------------9ee4043ec7588ec9708601c8425f6c1b--
-
---------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmqMDWgJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmdXQDZZA9iDn2Yr0h5iJV5ahk5KrzdbBwGGWUYx
-gvgNZhYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAADgPQEA7PBA+WabNtXtQTSa
-9BtqZKaAqcVmu0H6xdqsGSFgi/IBANm+ch2CB8s728PGsaujO4gPZUrqzx0F
-HW/qOzDA4WYA
-=d9o1
------END PGP SIGNATURE-----
-
-
---------74c6c43c0c6d611282eb93c4dfadbeeb478350efd09117ead1ddc4c0b3aa0d02--
-
+[1]: https://lore.kernel.org/all/anELwosZSI5MZR4d@yury/
