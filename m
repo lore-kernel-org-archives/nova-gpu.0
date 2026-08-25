@@ -1,68 +1,78 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011002.outbound.protection.outlook.com [52.101.57.2])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012008.outbound.protection.outlook.com [40.93.195.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850603E3164
-	for <nova-gpu@lists.linux.dev>; Tue, 25 Aug 2026 08:31:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F4B3E3D98
+	for <nova-gpu@lists.linux.dev>; Tue, 25 Aug 2026 08:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.8
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787646698; cv=fail; b=VPspyMuy4RJiLzJNC5XxwaTYFVm+Usrh+NMsDrGsXnOiZhlQwqHVqA1QGYDWgUtQj2Nll3gjPlC6t7LpH9rHPjjSfML3Iti3vPp5nY/PFJtc1Z+K2bTBKtum1b0a+7gnTI4IeivalgXo/3NEyviPoCYcX/gSasI+mAGnmxE8keA=
+	t=1787646831; cv=fail; b=vD02+1GAsm8+cuJD7/oueB3xAYJGiaMV5pAymLUMVRl9DXI7EKcwqUHIkZazptqXUlw0eGw2mn5/9tJxQkqPHfEqljAyBEmdHNe/vPbIaL4q8cT4VVzgzOrzQG4RMeCq2QHH4m6ggkJA5rKkjQCqqFNh8uywk6XqBHazcZ5cDYM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787646698; c=relaxed/simple;
-	bh=wgmu7mRbgherU0Tp/H621N9eKz9DRI5a/03G5VXVHiU=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=bdHcIEVW5wBwdNurAaPJSLmZ1nHJ/IZ3ZL2CFeZ93yVp5NYkI88KHD4tCAV6KuaHbYbWCYVyjQOrEc6/UT8CyNR0Ypw0UKDbpiEd8lnAhpnla0maQCXMfnp128XW/Wod61xqomxh1fP4H+90LqtnvfpSAKx3jfK6N+rgqmIcmIg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AQcJv9on; arc=fail smtp.client-ip=52.101.57.2
+	s=arc-20240116; t=1787646831; c=relaxed/simple;
+	bh=hVtBR/DBjbF7JJAnaSuYX5Rd5j9ZSYgM+0B5dCSHNio=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=iXkGBSEOKCInEgRFsmG7gPu7LiZscakezKdN0uTSaNJzfzFsigbgfVYYwAIJitzy6S84HzTlWW3sOVqsPGJmQzYoiesZ/fw/G7yQvhmIhdJxo0K00mqAqLSZSe0GJzv+hm6oBzWaqCTCMo2TDgFDaWZoCmW5L0IpyYqTsCxwgno=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=c2VzKgTm; arc=fail smtp.client-ip=40.93.195.8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AQcJv9on"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="c2VzKgTm"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xN0aesfRI+eD3urxHgjwnW5HC02BmJdJA4y4kgvyMk3jkTdG7A7wi7yf4h3V8EMTQCAQ/TBfAjUDVkyZamzO9jPKfEIxRQ4+EeZa1UEaWLOcsXMHGhJfFcrNZs3/FJRRc71GwYw/pOqyRJJGsVyVUXAI1DS3DUftJUMHZWdMnOedgbpKRcyMv/hrHA7s4z0LS2GO+NdCRdUAJChIqBVxKApEi4Vd18mKgaU47xqgKEB4lT/vkEk+IwwTb1r48j64hvP954Tt40GSylelFigtLJK8i4cawbYr4ya0ylGJOxD51BewHhSJ3UiyRKzxFC6eSnMFXVEJUbKg1HIjsi+TFw==
+ b=bWEB4oq0YybT4gVReig+o+U2OZ9xxvWH6wjjQ9sivHWtLm6GkgSX2M/U2j7Ov+jrPOP+4ty/MqzVyz6bMGHeWosXvt1eHpbdbb+yl4yhrpOtCa+iGkjx5AM6EYaxFAQNTtp1s5IYXSNuEp1k5CHW9UYiBsdjNFNx49/h7JpYK/vuMOm6/N+X6SNBjsVNo97Z2ExVwTE6zmRP2igYoeeuyo7oGhG16xDTLsMJIuGkizJ3vqCTGOmJWRHa0xtRQ+50yAdS58sbLOV8jx0ooTOuDHgkcIkA4Im7nWCCGyoNM4FVLkJKW/b4fbqIpvLbe1GCTbHDIkxJ+6yABgMYcjt0Gg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1xudmM+jCbqI1mUy3ER2wCa7Pg592HDwdTucH41x+uk=;
- b=GrIGXb748iKNKAIrhneBkm4C2KeCYOPoPmjQcQbOQlhgV6s8aGTdhok8Xc+JW8OX6zw9KL6WJTPhGo+qilFDIMS3w5vxOot4PjFu04XQdGL/dPIsPc6cfbT5X1QTJ4xhWVm/bTT9+rYwgtEUycOXTQzlK2x8X53iedZDMnPG8BepjAKp4t6kTg/aOpe4yifxpT5VEt585/XGzrx4pjhFLlGEok5gv5x1SnYQ/pmBf7e/naLb4dHF6gji5EkpPZy4iSIBQhQE/cWaGQm1rMLwuf58Mw4DhcK7N6jRjqTTJ41JuUKJj5Pc7WUnxTY566RVJiPQ0u3psjgUagHnBi/k5A==
+ bh=EkSm9O+7waSsZ7Hy+PjQLWUJLZmFbRzZY61UasaSNNM=;
+ b=w0fkir+5Yq7pYxpCk7JqKk/S6G0wvASiKhGloWUBUeV5EHS5y89tez2VWEXgDHs2PDTOvgV3YlOEYmdagHfwkcOkeIx0rBnxJ7XHExYMFIdVKMLUNtqSUqt8ssasFIWQhmno5y0fU8ApGJ559fJN5AFHkJydVN44EjoQsbvlRHv06pUKOXvR52wA6hAIhRjepCuBOf+SiSZpbbJN3VeGVlYH0ycdMXSNaAck4J5DbYjw14ZMAO6U7bnX+SPwJ1SxrFRiETZmbw5yWiNt6ttEcD4Rou7QBseilwLxO90CgwV0W8BkmXTc95sh0vR7zeKiIcr6TeRU+Uneiz1rY03zzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1xudmM+jCbqI1mUy3ER2wCa7Pg592HDwdTucH41x+uk=;
- b=AQcJv9onlSpV0pGNTY5bXplJA5Ui5ACY58W/O3eP5CbcSNtwk6kclw56jwE5QPuvvOk5DOP2ii5rM/r9Pa+Azm6F5D6Ws4KUkJUOr396Afmjdt0d64csYWQA28+Zy4oE8CcDtPmxRDeraUquht63S9ss95Xb81D7yjVe6n6KqerkegjTnhyvXCIRNQXuDDR/bYLT7RK2ymzPORrDTqVeBz/CAekQtFeJFE06ehBRWZGhIXObUQgeWqLFe/eqPwfxGkNj9rztaaJ8ZoAg3UZiSWZ8RvDSq3dlZUswL+gkmX2qiAaNb2J/y/gelrialbF0Kqfko2c9YAJIQQgRpJoS1Q==
+ bh=EkSm9O+7waSsZ7Hy+PjQLWUJLZmFbRzZY61UasaSNNM=;
+ b=c2VzKgTmQTHGGvTvxro/UNBZOidNTUmZIp0Vx1xfd4EJptRpeXyYEJmMqJiH4kX5H9+f/8sG5WxGELaOZYbcqmKHrDULdopr+JtaJcmmmXwuhDBUv+HU7i84iLdy6Pjr+MREqDOw9G62q978jfKE9aVuMUqHTIU52PiNpNhMZlTwtlmoaVhP0pM2m0zc2Tf+bMzVZZ1CqJy0Xqvrswvkbk+Ooo+ESi05cPodmAqLJzVBrmufgMG092+rgJ8vGJ6ADH7bzdykgpYzktGDWh05xQNO9W37LdWrH9k9hsVXCa/fISrwCehpokRL2nd58e5QOjFEfdab+3cFT2BmgtKN5Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS7PR12MB6021.namprd12.prod.outlook.com (2603:10b6:8:87::5) with Microsoft
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA1PR12MB8858.namprd12.prod.outlook.com (2603:10b6:806:385::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.11; Tue, 25 Aug 2026 08:31:28 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Tue, 25 Aug 2026
- 08:31:28 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 25 Aug 2026 17:31:17 +0900
-Subject: [PATCH] gpu: nova-core: fix incorrect naming/framing of GSP-FMC
- firmware
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-gsp-fmc-rename-v1-1-f82526f01d7d@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrB1I4k9pryIuYpzYKZhKRkUI3
- t3YLr/FewmEIpPAq0gQaWfhb8jQZQHubcNEyGM2GGVa9TAVTrKgnx1GCnYmHK2yjdJPX9cacrR
- E8nz8hl3/t2zDh9x6X+A8LyPVxOpyAAAA
-X-Change-ID: 20260723-gsp-fmc-rename-da0a5019f441
-To: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Alice Ryhl <aliceryhl@google.com>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: OS0P286CA0033.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:9d::20) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ 15.21.339.12; Tue, 25 Aug 2026 08:33:45 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%6]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
+ 08:33:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 25 Aug 2026 17:33:41 +0900
+Message-Id: <DKXVWSQ8Q627.31HTY1KERFBR8@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v7 05/10] rust: bitmap: add contiguous area operations
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
+ <20260817-chid-v7-5-a5872e64d8f4@nvidia.com>
+ <DKUGXCFA0Q77.36Q64A1AN6FX5@nvidia.com>
+In-Reply-To: <DKUGXCFA0Q77.36Q64A1AN6FX5@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0122.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37e::10) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -70,358 +80,251 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS7PR12MB6021:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbd164aa-af55-480b-efed-08df0283424b
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA1PR12MB8858:EE_
+X-MS-Office365-Filtering-Correlation-Id: e56c6e60-aecc-428a-9567-08df02839379
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|3023799007|18002099003;
+	BCL:0;ARA:13230040|10070799003|7416014|376014|23010399003|1800799024|366016|6133799003|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	lpHaDqI9dAVa7AOslNdGF/r+ut/ZO8bBiwEPtEM9R+gFsBxZoEcnEpMiM6QaRAqnMqaUC6KPNlKBLM6B98Nwj3w5zf9SQbpT790LY95d4IHoB1xHv97P9Sk4Dd0rVE+gunPScxR7c+vKhv8ja0KZrfqcrLemr9Apf7bv2tO9vV3aCMXIkAYiulHXANxc5iDRkYNx01ngyZLWRBaNDVXFnOW+WTWR4QsNi50nsSvPtIQuryYWoKYGTrl7DQu6u8u/QVr5iWVoc3eOF9IJb52LkOnCPfdUzAfQNhZlDI1TcjMtFYmgufU4oUx36puKxwvx/eYUe533XulelSdtiCPHj2uZWkGSWbjOQH/woziqESKe6OSeB0FxuY1GSNpBJXd5tkewtyjFW94nxKzPuEYkR9+NQCYI2nTybSMkk7f9HNwS55K3RzwhTXz/H9ozWcZrsXkdm8an5jbHBYhQZgbaJ6xY196iMlMtsoiDXVtm8u/hFo1vKt3HY0b0E+v4lNkQn0s8RZjctVFxLRkr+28A3JNgrdJS9BBO0X7DzHbZpF6G/FjIp7XCq0IXHrApodwtgF1/dfyhTNolJQ9hL1qMuva9EHIbmn1L4hRYbneG6h4g0hR+0wJrdu8Ne/y92BCnaiZ9H0F4XAAfoiyQocxCcaHPWH6aD361JGqg7kh24Mc=
+	fe/14BXmQYcJQgGdlvjmpFgWvII9o3VOj0KKF2BHT7NvUpB8XqxFNt8n/sxrRSTvGYsiusYGBUAtFyizqujTW86dcwaDv0Ax0kDzwDRJbPXyMtfYzY6dtTGsKH9o0sJE19UEKzNsZM4vq30WWkGHPlD4uLGsKcAVc/+kXva3Cy1/orCPBX4Fm1XL0WrJVxvdynBuIga1g/1cWboeJNjHaLwyr+gGagNX3YyOfVO3RPS+5cxvpbg8XG1ddC1ETOIyKGctJqBd+KeXibk46N6rVUWS4rAY9K4DJU9NU8lDND9VPvJEga75J82mQHD+2XnQmJCPQLiTjQ6judAm0sAHdcDju2xDEdNBtxeaJGQCTWFmyKkKhWFzHhmKfgf02etwdzKnaMdVhkvOKIsFDWl8xjqFa3ia8SzXP5h2CVZqLtVZlhr27o6yt0hG8+t5uLTMb/CpHoVVl9l3CIVEqhcFs636tFXx0SELF/0MCH04q55mHfrt+UjTjK57scqQSPQIYPhrqmfg4c4kaygWZt7LdQkE7y02BgtPxJX/0zdm3XUBOVuJ8UFzPF7Mv2QVjJlzNHFhLEqcaRVR+vvLDMNrq4HA2CEDKmgLzw12KHqWDhz+D33zR2zaEY1+GcYBiWAS9xSD0oPi4+ZaA+1hXH4EZ/NQMxVLgkGf7H98OQylGU0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(23010399003)(1800799024)(366016)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SW5sNjQycktQSjhsbGtNYU5UdUxoT0FQU2ZMNTFNa3BjTnlrTXU4WGVIOFgw?=
- =?utf-8?B?eEFtY3VWMDdLQ3V3QVd2MWNXVWtzeXJPQWNLR0o5WHNVayt4WDZyaTlGc2Zp?=
- =?utf-8?B?emZmckNjczQrLzZaWTQrUkNrVjNpczdKdjhXbTZqZmo0VUl3WG1veWNSNjN0?=
- =?utf-8?B?dC9KeThnRVpvc0JSS2c1Y01scEs1SHRHaHpFUG1FcG9xbCtETFAxL3FOcVJw?=
- =?utf-8?B?TytDT2lkNDZkS0lIU2Z6MzdyWks4bmZVdExlQUZDUWw2dWVid1NXTXRFanNV?=
- =?utf-8?B?M2hsWHpkOFFwbWNFMVFOV0toeThaYzVOOEN1Q0ZIb2hRc2lIM2I0MG9RQnVQ?=
- =?utf-8?B?YUZnYWFwaWV1bWw4bXB0SFUvaFBLcHJTaFlDalB5a291c3lRaHhoRnZMbUZO?=
- =?utf-8?B?VDU3NGRPcGIyUVZXb25vT3pXcFVFeWFORTJoaXNIeEhWTS9MaUZObHBDRFFT?=
- =?utf-8?B?dlBWNTloY29ycmEyVDJPTE01UEViZ3ZianJteTJDWnIrNTdSM0dKN0xYYmVP?=
- =?utf-8?B?MC9iRTVoZlBFdTF3Q2h3blRDY0N4aURKTmJWQ3VUSkdVb0lIeXZkRXlveDB5?=
- =?utf-8?B?bE5UV2ZMdmN5RWZ4dW8zc0JVS2Vmc0FWSllHVVk5WFZuR0wxTG5XNEJFeWpC?=
- =?utf-8?B?dkNiN3FHWUJvM2RjamtvUXNaVUdXMjZVTmhiZVBaZGc1UFVkenIvYTl1blRj?=
- =?utf-8?B?SThscDdwK2VidVpMRTZlbjNIWXFvWkdaQmt0c3BySXNVSzVOVmlUM3E3UGVN?=
- =?utf-8?B?OElsNlgzVzB3S1p0YmJSZFltQ3p5RE1yTktlZDhJUDdoNHhvdXl2blQ5YnZC?=
- =?utf-8?B?enV6MDFza0lxMW81VUdZUExSWWw4TklKZ1VpTmRkTWV2TTRLWXluRW1RRXk5?=
- =?utf-8?B?WkJRVlNhREZhUitnMi94enZwam5UOWZ1RmkzR2N6b1ZXa3VTMEJ2NTQvOVFZ?=
- =?utf-8?B?akpYUTh1WStlVUpIM3Fud2hJN2l3aUZoVG5sM0NMVUpucndZbFQ3YnVZNFUv?=
- =?utf-8?B?L25IcTJpZEkxa1ZyRXoyTmIvWGVVQkRiRkxxREdOOTFFek1YRTc1REJlbFhB?=
- =?utf-8?B?OEVkVTFHa29Bb2RDM2Q4Mlg4MEpaN1lCWGR4M1BjMkJ1a1creEtKTUFJZytj?=
- =?utf-8?B?cjJ1QUJNaGpiSEcxS2llQjdFMkR6c21URHBtODh0Mm1ROUROd3RHcWowMWhE?=
- =?utf-8?B?akJyakJPa3BFaVZuNG5aMlBrUk1ydHl0WVU1TUJUQW9ScEkyeGd6RStyd3lY?=
- =?utf-8?B?SU03VDlZdW9iWGErU3J1NHZSclMzWGdyNVBXVHVGaTlmV1IxeTZKV1FZbStu?=
- =?utf-8?B?czMraTU5WHV0citMcTFzUGgwZE9oSDlyVjhSb1NjWjJpVERWZ2tYRkZqNVlm?=
- =?utf-8?B?WjBLazhiRk1xS0srbkNjQk1YZWdrWWRNVnBsTUdJcno3bGlPd1RrSW56aXlM?=
- =?utf-8?B?RmQvZ3NsWUxNMkRSdUpvTlRwclRuMkhPVmluWjBPRGRkdmtJeUhoMzdFZDNj?=
- =?utf-8?B?RitaTG5sNVI2OUdRUy80a3NKa0ZJKzJqeXFqMzc4c3QwRXlCRENRRVRBdzhT?=
- =?utf-8?B?eFJGdjBRa0hXNXlROXFtMG5vS1ltVzFLSkYxRUNFN3NQTW5HL2I0SXE3RTBO?=
- =?utf-8?B?bFhkNktITEUrSEViYUdFeWxaRkovYWVLSjJBNFY4MG5Lc0NQZGRIeGZXeTI0?=
- =?utf-8?B?RENyV1BIeCtKRUJCaHpPbGVkRFpWaGFUTmVGWlRYZHo5Q0FZaC9ScWJtKzZh?=
- =?utf-8?B?YmwyNkI2RG1OOTdiN1JBMTJjQU1zRXlkOEozcDkvMy9yUWhnWGVmNm40R1la?=
- =?utf-8?B?QjJ1WXRvbHQ5QnNMSXd6U1AwSlRCN3BzcXNXUmNQVjVMNEZsbzBMR2JZRnV6?=
- =?utf-8?B?elpXdmtqNERiaUZvUXhCZjRqU2wrVmE1U0JXTlVsL1hRLzBDTzVrZGdNWWVN?=
- =?utf-8?B?aDlLY0lVWlZma1crUFlGaGFYRTRTdmhZSWxzZm41b2k1M3kxT20zdDFFODU3?=
- =?utf-8?B?SmxNYkR3SVFNU2hwTzlka29ia2pNaVBvbFMyRkNzM3NaV3grcUxIdmc2TVZ3?=
- =?utf-8?B?RXBRbCtGWVJLVis5MjEwMmpLeUpNVDhWMEtaTnN3Q1VoUlJQSTFFQ1cwZHIz?=
- =?utf-8?B?Z2NGVTg3djFlZW9WLzJqblYzVTFXOGYxcVM2NXNFaTg1NnVkWTk1S1E3U1Bz?=
- =?utf-8?B?TUdCWjZ1Z2NONU1sejBQdDE2a0YzN0xHWjRaZ1VlaGVsWVppZ1BjNGFnNW5U?=
- =?utf-8?B?TDkrUnVmSVNSMklnUEZsZ3JrZzN2bnpZLzgvMFVlYUo5TCtmTnZqYmJPQU41?=
- =?utf-8?B?VlYyN01yVElIdXYvcW5ESVViMXJFVFc2cjBpeU1qWmtocWtTQ2YyWlpaSm12?=
- =?utf-8?Q?cFte6oO47K2qB3Z7W2nvDHIJqoOIUCPf6yz55+zzkJpqc?=
-X-MS-Exchange-AntiSpam-MessageData-1: A5LyenEDPQNX6Q==
+	=?utf-8?B?SkZJUis0QkJKTWZtK2JWbmlLRURTUFJXQ0RvYjJYNWNSVkMrVVlVQXlVKzJm?=
+ =?utf-8?B?VksvYkFzOU44TUFzeXRwb25GaG5EMnl1M2VaNm1sM0tRN2NBL0VUVU9xSXZo?=
+ =?utf-8?B?MitjdExCdTRuWC81WHMybDgxQ0Q2ZkZTUm9ZMEgvUkRFVnV2YS9uY04vTXNz?=
+ =?utf-8?B?aldHc2dDRUV6MFl4cmVLMmxtVkkrb1BOZTdEUjNWeTU4eXgxa2FwYVBiSFIv?=
+ =?utf-8?B?VklQLzdTQkxYLzAwdU1vK0s4ZlhUdERxaGhRVHRnSXUwU2cybjgxUnB0VXA4?=
+ =?utf-8?B?cExnRmplYWFML2R1NVRoeng5ZUZWYm96dTByVy9uMERaR1VuV29TYVA5aGxw?=
+ =?utf-8?B?a1l3UVdMNGVaTHJQSkF4MjZGRTl0TkxsTGJ0dXhDc1RMYTFsWkxrRFlSV2dJ?=
+ =?utf-8?B?Qk1ZdEtJWi9lOVkxd2swdHVzeE5SamkvY3E5blVjbVovek92ZkdvQzhSM05Q?=
+ =?utf-8?B?ek9Zb3R6RUp6WDV5eG4zSksxRG1MdC94UDBlQ3Vxc0VmQmZvWlE5aExzM09G?=
+ =?utf-8?B?VDUrbS9VR2V6d0IvYndoTEVrTldzNDRwRmpsdVc3S1J1S3BGdTUyMCtsMGdr?=
+ =?utf-8?B?U05HZG9sQm4xRk4vMGU1ZGt3M2gvdWVJSzkwTndzZ042NG03RlJySkR5NWdh?=
+ =?utf-8?B?RVVXNHFGTEZRQngrbWNjRjkrYlZnN0FjVHVDQlB1MnluUzJYb1RaT05IS3BN?=
+ =?utf-8?B?YVBKejh4b3htVktJV0NsZXdRekFiU1pJMEFqSURpVlg0ZUFJdlZXVkFaNjFK?=
+ =?utf-8?B?V2JLUE52VU1helVNczlhQitIeTRCeWZNSzAzMWFhbEJOT0pPcTdRMlI3b2RK?=
+ =?utf-8?B?WTFWTzhRVjV0bnArekVBTmFuSm1MWUhCMW5SOHlRV1R4QkRCZHFkTUFTbCtx?=
+ =?utf-8?B?cGh6dFhkUU1WWHMrMitlQUMwT1hpbHE5VnBocU14Q1hVZHNGM1lDNG1XNEhJ?=
+ =?utf-8?B?M0MzSkxGMEtNK0NUcVV0UXNiUlJZTVRleHdGQjk0bCtHYVdnSVA0R3RSOXFB?=
+ =?utf-8?B?Z1Y2YmdQcnJQamlNazVZSFQzTW84OG14d3RUemoxN2NRQ3F5NDZtSk5tWW1v?=
+ =?utf-8?B?QjI4YjN0OFo4ZzZLQWNHTlVtSSsrcUNvN3pWR205Ny9zbWJmL08xSlBvY1Zi?=
+ =?utf-8?B?dmNzRVlEMHA5NTEyK0trdVZzaVV5NXlRU2VEa3p5UWg4Tnovelc3bWdYSzVB?=
+ =?utf-8?B?UU9EZWt0YzBMQkd6dmtwNm1HM3Q2R1VpWDE0cHpmbTVXc0JLYzZleTVqSzM1?=
+ =?utf-8?B?TCtpR21PcVRnVzFEaFhMcFl4Qll0SUpOVHFUT0h5cnB6bU9JK1pTMTdrSVZx?=
+ =?utf-8?B?YzNqdktwNDREdzhnU2M1UGZqdGZ0Sk1TeVhXSmk5allERUVaSTZhU3pMc2ZJ?=
+ =?utf-8?B?aGhvNDdsTVgvR0M5ME02clBBSDN5eFVhcjNrUE5nZ1VQdzNyR0hja1dQQm82?=
+ =?utf-8?B?SlUrZXBaNFArSEVxVndhQmVqVWt1aHZuZkpic1E2ZjcvcDRlbjYzVDBFVnh0?=
+ =?utf-8?B?Y1licVZTV01XdUdFUDJ5YWFvSlRPYkdQajg2M2FhZ20xQUI3aCtqYmxOSUR2?=
+ =?utf-8?B?eEp2cFo3RjFjbW5GZm9RNEQ5ZGdJWVJKYUlGOGVORUJSQ0drVFpPNjV5OUtB?=
+ =?utf-8?B?WjhSWVZzOTQ2eFdTTURkdXJoMlZiZXN3WkpkN2tFeHgzK2Q2b2Q4Q1JNZWRu?=
+ =?utf-8?B?Tk9mTnhWdHkvbk8xd0xBUlkrNGxLR1VRdWwxTS9NY3R0NUZUTzgzbFJKSzFU?=
+ =?utf-8?B?bmpSWWxrZ0xRaGxLbER4REE4VFJOeUIwV2phZlQ2YityL3RSeWVNN3FHaHFn?=
+ =?utf-8?B?YzBGOGtlRkF1V256QUt3WE9KVkt0aEJvT2xjT1FhQWY1MUVqSjg1UVdsN1Bq?=
+ =?utf-8?B?Z01hNjYvZWJaYVZtQWpmRFpoMG5zRjV0MUVEZVlFbGpubUpJUmhQc0VvZ0ly?=
+ =?utf-8?B?WTJoa2I3OG9sTi9QMnJKZ0lIME1jQ0lrOUVVMFIyYWV1RFRrVGYyRVpCbExy?=
+ =?utf-8?B?QjN4UkVKbm5FOGtmS0hJaTVvaXVsWG5BTFRvcjVTdlBQYkx6SlVKWDYvQjJL?=
+ =?utf-8?B?ellUWW1QREsvN0NKYnZkb0VKMncxRU5ldnBSSjh0NUVPejZCdGhpdjlvaVhP?=
+ =?utf-8?B?ZWhGeExiTnNjZitlN1ZVMzV2ejcxZmt2TnRQckpUVzVQU2J0clA3NlJYYXh6?=
+ =?utf-8?B?VGdhTWc3NHAzdnBYODQ0MmVSRXhHK0FpdzhvWjZQRVFpbGVGTFlqVk14MEJV?=
+ =?utf-8?B?aFlLRmUwekZzNjhsMlBoQmFJMzJuSCt0di94MGJ5Si9Ja0FCdUs0UU1VbjdY?=
+ =?utf-8?B?bm5PQnNWbkpicjdBMVE5cXljRWV1eEZNNXQzMHppY0Q0RFdBR0I4MVpxQVZM?=
+ =?utf-8?Q?+IGdKiOgbEkfKgo2XYAZwpuYQ6LtccYLBwRl2smyq3kuB?=
+X-MS-Exchange-AntiSpam-MessageData-1: kHljYAbhrmgDpg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbd164aa-af55-480b-efed-08df0283424b
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e56c6e60-aecc-428a-9567-08df02839379
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 08:31:28.7484
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 08:33:44.9360
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l7TbpR2gQrN+CZzk2QVWrQca7+2PGue8bEwPyJkETeeq1/Ogrbvug4+USZSCspeqBnEBLpA+xNKaYjT8j6FAyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6021
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5eOCSQkcv/ApNXtV5orphQVSNratiZSP0IbitXx4laSzpUdAYESfj3NjhFaDFAstJ6x3noVlkjvFFBAwlH/Q9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8858
 
-The GSP-FMC firmware code lived in `firmware/fsp.rs` and described
-itself as running on the FSP. This is incorrect: GSP-FMC is loaded by
-the FSP, but runs on the GSP as the loader and verifier of GSP-RM. FSP
-secure-boots on its own before the driver even starts.
+On Fri Aug 21, 2026 at 5:11 PM JST, Alexandre Courbot wrote:
+> On Mon Aug 17, 2026 at 4:04 PM JST, Eliot Courtney wrote:
+>> Add bindings for area operations on bitmaps. Each one is
+>> made safe by adding some extra checks compared to the underlying C code
+>> (for example, checking bounds) and with additional checks to catch
+>> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
+>>
+>> Add tests demonstrating the edge cases.
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  rust/kernel/bitmap.rs | 242 +++++++++++++++++++++++++++++++++++++++++++=
+++++++-
+>>  1 file changed, 240 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+>> index fdcfc0409773..a4997022ff0f 100644
+>> --- a/rust/kernel/bitmap.rs
+>> +++ b/rust/kernel/bitmap.rs
+>> @@ -10,7 +10,11 @@
+>>  use crate::bindings;
+>>  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+>>  use crate::pr_err;
+>> -use core::ptr::NonNull;
+>> +use crate::ptr::Alignment;
+>> +use core::{
+>> +    num::NonZero,
+>> +    ptr::NonNull, //
+>> +};
+>> =20
+>>  /// Represents a C bitmap. Wraps underlying C bitmap API.
+>>  ///
+>> @@ -523,13 +527,160 @@ pub fn next_zero_bit(&self, start: usize) -> Opti=
+on<usize> {
+>>              Some(index)
+>>          }
+>>      }
+>> +
+>> +    /// Finds a contiguous area of `nbits` zero bits at or after `start=
+`, where the area plus
+>> +    /// `align_offset` is aligned to `align`.
+>> +    ///
+>> +    /// Returns the bit index of the start of the area, or [`None`] if =
+no such area fitting in
+>> +    /// the bitmap exists.
+>> +    ///
+>> +    /// The returned index plus `align_offset` is a multiple of `align`=
+.
+>> +    ///
+>> +    /// # Panics
+>> +    ///
+>> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is=
+ out of bounds.
+>> +    #[inline]
+>> +    pub fn next_zero_area_off(
+>> +        &self,
+>> +        start: usize,
+>> +        nbits: NonZero<usize>,
+>> +        align: Alignment,
+>> +        align_offset: usize,
+>> +    ) -> Option<usize> {
+>> +        bitmap_assert!(
+>> +            start < self.len(),
+>> +            "`start` must be < {}, was {}",
+>> +            self.len(),
+>> +            start
+>> +        );
+>
+> Do we need to potentially panic here if `start >=3D self.len()`? The
+> question "is there an area of `nbits` bits after my bounds" can be
+> answered by "there is `None`" without semantically sounding weird; and
+> this test doesn't cover `start + nbits >=3D self.len()`, which should
+> logically also be considered to be consistent. It seems like the C API
+> also tolerates this, so as this is not a safety issue I guess the Rust
+> one should do the same?
+>
+> If anything I'd say we should remove these tests from
+> `next_bit`/`next_zero_bit` as well.
+>
+> Mutating methods should definitely keep that check, but for querying
+> this looks like a legitimate way to use the API.
 
-Correct the naming and files used to contain the GSP-FMC code, by:
+Yeah, I am following the convention of this file - e.g. `next_zero_bit`
+has this same check as you have noted, presumably because these bindings
+want to consider calling with start >=3D self.len() to be not intended
+behaviour that's worth warning on? I personally don't mind, but I think
+we should either have it on all of them or on none of them. For now, I
+have kept them in to match the file convention but we could remove them
+or convert to debug_assert! in a follow-up?
 
-- Renaming `firmware/fsp.rs` to `firmware/gsp_fmc.rs` (as GSP-FMC is not
-  the FSP firmware),
-- Changing the prefix of some declarations in that file to `FMC` or
-  `GspFmc` (interestingly some were already correct),
-- Fixing a mismatch (FMC means "First Mutable Code") in `fsp.rst`.
+>
+>> +
+>> +        let nr =3D u32::try_from(nbits.get()).ok()?;
+>> +        let align_mask =3D align.as_usize() - 1;
+>> +
+>> +        // The C alignment and end arithmetic must not overflow, or it =
+can read out of bounds.
+>> +        // Overflow is only possible on 32-bit.
+>> +        #[cfg(not(CONFIG_64BIT))]
+>> +        align_mask
+>> +            .checked_add(self.len())?
+>> +            .checked_add(nbits.get())?;
+>
+> Is it ok to not consider `align_offset` here? The C code adds it, and
+> the result could overflow on large values, even on 64-bit.
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
----
- Documentation/gpu/nova/core/fsp.rst                |  2 +-
- drivers/gpu/nova-core/firmware.rs                  |  2 +-
- .../gpu/nova-core/firmware/{fsp.rs => gsp_fmc.rs}  | 55 ++++++++++++----------
- drivers/gpu/nova-core/fsp.rs                       | 29 +++++++-----
- 4 files changed, 48 insertions(+), 40 deletions(-)
+It is ok not to consider it but the reason is very subtle. The tldr is
+that align_offset only affects the important value by at most
+`align_mask`.
 
-diff --git a/Documentation/gpu/nova/core/fsp.rst b/Documentation/gpu/nova/core/fsp.rst
-index 52d618d22bb8..cc2e3bbb9b53 100644
---- a/Documentation/gpu/nova/core/fsp.rst
-+++ b/Documentation/gpu/nova/core/fsp.rst
-@@ -42,7 +42,7 @@ On **Hopper/Blackwell** GPUs, FSP replaces this multi-stage process with a
- single message-driven interface::
- 
-      FSP (hardware root of trust, boots from ROM)
--          -> FMC (Falcon Microcontroller, verified by FSP)
-+          -> FMC (First Mutable Code, verified by FSP)
-                -> GSP-RM (verified and loaded by FMC)
- 
- The driver only needs to:
-diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
-index b49613a90bf0..c16fee6e2b2a 100644
---- a/drivers/gpu/nova-core/firmware.rs
-+++ b/drivers/gpu/nova-core/firmware.rs
-@@ -23,9 +23,9 @@
- };
- 
- pub(crate) mod booter;
--pub(crate) mod fsp;
- pub(crate) mod fwsec;
- pub(crate) mod gsp;
-+pub(crate) mod gsp_fmc;
- pub(crate) mod riscv;
- pub(crate) mod tlv;
- 
-diff --git a/drivers/gpu/nova-core/firmware/fsp.rs b/drivers/gpu/nova-core/firmware/gsp_fmc.rs
-similarity index 71%
-rename from drivers/gpu/nova-core/firmware/fsp.rs
-rename to drivers/gpu/nova-core/firmware/gsp_fmc.rs
-index 5462e318410a..fbb0af133f24 100644
---- a/drivers/gpu/nova-core/firmware/fsp.rs
-+++ b/drivers/gpu/nova-core/firmware/gsp_fmc.rs
-@@ -1,7 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- // SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
--//! FSP is a hardware unit that runs FMC firmware.
-+//! GSP-FMC (First Mutable Code) is loaded by FSP into GSP to serve as the loader and verifier of
-+//! GSP-RM.
- 
- use kernel::{
-     device,
-@@ -17,16 +18,16 @@
-     gpu::Chipset, //
- };
- 
--/// Size of the FSP SHA-384 hash, in bytes.
--const FSP_HASH_SIZE: usize = 48;
--/// Maximum size of the FSP public key (RSA-3072), in bytes.
-+/// Size of the GSP-FMC SHA-384 hash, in bytes.
-+const FMC_HASH_SIZE: usize = 48;
-+/// Maximum size of the GSP-FMC public key (RSA-3072), in bytes.
- ///
--/// The FMC `PKEY` tag may be shorter, so the remaining bytes are zero-padded.
--const FSP_PKEY_SIZE: usize = 384;
--/// Maximum size of the FSP signature (RSA-3072), in bytes.
-+/// The `PKEY` tag may be shorter, so the remaining bytes are zero-padded.
-+const FMC_PKEY_SIZE: usize = 384;
-+/// Maximum size of the GSP-FMC signature (RSA-3072), in bytes.
- ///
--/// The FMC `SIGN` tag may be shorter, so the remaining bytes are zero-padded.
--const FSP_SIG_SIZE: usize = 384;
-+/// The `SIGN` tag may be shorter, so the remaining bytes are zero-padded.
-+const FMC_SIG_SIZE: usize = 384;
- 
- /// Structure to hold FMC signatures.
- ///
-@@ -34,23 +35,27 @@
- #[derive(Debug, Clone, Copy, Zeroable)]
- #[repr(C)]
- pub(crate) struct FmcSignatures {
--    pub(crate) hash384: [u8; FSP_HASH_SIZE],
--    pub(crate) public_key: [u8; FSP_PKEY_SIZE],
--    pub(crate) signature: [u8; FSP_SIG_SIZE],
-+    pub(crate) hash384: [u8; FMC_HASH_SIZE],
-+    pub(crate) public_key: [u8; FMC_PKEY_SIZE],
-+    pub(crate) signature: [u8; FMC_SIG_SIZE],
- }
- 
--pub(crate) struct FspFirmware {
-+pub(crate) struct GspFmcFirmware {
-     /// FMC firmware image data
-     pub(crate) fmc_image: Coherent<[u8]>,
-     /// FMC firmware signatures.
-     pub(crate) fmc_sigs: KBox<FmcSignatures>,
- }
- 
--impl FspFirmware {
-+impl GspFmcFirmware {
-     pub(crate) fn new(dev: &device::Device<device::Bound>, chipset: Chipset) -> Result<Self> {
-         let fw = request_tlv(dev, chipset, "fmc")?;
-         let tlv = Tlv::new(fw.data())?;
--        dev_dbg!(dev, "loaded fsp firmware v{}\n", tlv.get_string(b"VERS")?);
-+        dev_dbg!(
-+            dev,
-+            "loaded GSP-FMC firmware v{}\n",
-+            tlv.get_string(b"VERS")?
-+        );
- 
-         let fmc_image_data = tlv.get_bytes(b"BLOB")?;
-         let fmc_image = Coherent::from_slice(dev, fmc_image_data, GFP_KERNEL)?;
-@@ -70,34 +75,34 @@ fn extract_fmc_signatures(tlv: &Tlv<'_>, dev: &device::Device) -> Result<KBox<Fm
-         let pkey_section = tlv.get_bytes(b"PKEY")?;
-         let sig_section = tlv.get_bytes(b"SIGN")?;
- 
--        // The hash section is a SHA-384 output: it must be exactly FSP_HASH_SIZE bytes.
--        if hash_section.len() != FSP_HASH_SIZE {
-+        // The hash section is a SHA-384 output: it must be exactly `FMC_HASH_SIZE` bytes.
-+        if hash_section.len() != FMC_HASH_SIZE {
-             dev_err!(
-                 dev,
-                 "FMC hash section size {} != expected {}\n",
-                 hash_section.len(),
--                FSP_HASH_SIZE
-+                FMC_HASH_SIZE
-             );
-             return Err(EINVAL);
-         }
- 
-         // The key and signature sections are zero-padded to a fixed maximum, so they may be
-         // shorter, but must not exceed the destination buffers.
--        if pkey_section.len() > FSP_PKEY_SIZE {
-+        if pkey_section.len() > FMC_PKEY_SIZE {
-             dev_err!(
-                 dev,
-                 "FMC public key section size {} > maximum {}\n",
-                 pkey_section.len(),
--                FSP_PKEY_SIZE
-+                FMC_PKEY_SIZE
-             );
-             return Err(EINVAL);
-         }
--        if sig_section.len() > FSP_SIG_SIZE {
-+        if sig_section.len() > FMC_SIG_SIZE {
-             dev_err!(
-                 dev,
-                 "FMC signature section size {} > maximum {}\n",
-                 sig_section.len(),
--                FSP_SIG_SIZE
-+                FMC_SIG_SIZE
-             );
-             return Err(EINVAL);
-         }
-@@ -106,11 +111,11 @@ fn extract_fmc_signatures(tlv: &Tlv<'_>, dev: &device::Device) -> Result<KBox<Fm
-         // stack, then fill each section from the firmware.
-         let signatures = KBox::init(
-             pin_init::init_zeroed::<FmcSignatures>().chain(|sigs| {
--                // PANIC: src and dst lengths are both FSP_HASH_SIZE (verified above).
-+                // PANIC: src and dst lengths are both `FMC_HASH_SIZE` (verified above).
-                 sigs.hash384.copy_from_slice(hash_section);
--                // PANIC: dst is sliced to src.len(); src.len() <= FSP_PKEY_SIZE (verified above).
-+                // PANIC: dst is sliced to src.len(); src.len() <= `FMC_PKEY_SIZE` (verified above).
-                 sigs.public_key[..pkey_section.len()].copy_from_slice(pkey_section);
--                // PANIC: dst is sliced to src.len(); src.len() <= FSP_SIG_SIZE (verified above).
-+                // PANIC: dst is sliced to src.len(); src.len() <= `FMC_SIG_SIZE` (verified above).
-                 sigs.signature[..sig_section.len()].copy_from_slice(sig_section);
-                 Ok(())
-             }),
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index ab685fb4168f..d2be19b8bff9 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -3,9 +3,12 @@
- 
- //! FSP (Foundation Security Processor) interface for Hopper/Blackwell GPUs.
- //!
--//! Hopper/Blackwell use a simplified firmware boot sequence: FMC, then FSP, then GSP.
-+//! Hopper/Blackwell use a simplified firmware boot sequence: FSP secure-boots independently before
-+//! the driver starts. The driver then sends FSP a Chain-of-Trust request containing the GSP-FMC
-+//! image. FSP authenticates the image and launches GSP-FMC on the GSP RISC-V core; GSP-FMC
-+//! subsequently authenticates and boots GSP-RM.
-+//!
- //! Unlike Turing/Ampere/Ada, there is no SEC2 (Security Engine 2) usage.
--//! FSP handles secure boot directly using FMC firmware and Chain of Trust.
- 
- use kernel::{
-     device,
-@@ -32,9 +35,9 @@
-         Falcon, //
-     },
-     fb::FbSizes,
--    firmware::fsp::{
-+    firmware::gsp_fmc::{
-         FmcSignatures,
--        FspFirmware, //
-+        GspFmcFirmware, //
-     },
-     gpu::Chipset,
-     gsp::{
-@@ -267,7 +270,7 @@ fn frts_vidmem_offset(hal: &dyn hal::FspHal, fb_info: &FbSizes) -> Result<u64> {
-     /// Returns an in-place initializer for [`FspCotMessage`].
-     fn new<'a>(
-         fb_info: &FbSizes,
--        fsp_fw: &'a FspFirmware,
-+        fmc_fw: &'a GspFmcFirmware,
-         args: &'a FmcBootArgs<'_>,
-     ) -> Result<impl Init<Self> + 'a> {
-         let hal = hal::fsp_hal(args.chipset).ok_or(ENOTSUPP)?;
-@@ -296,13 +299,13 @@ fn new<'a>(
-         .chain(move |msg| {
-             msg.cot.version = version;
-             msg.cot.size = size;
--            msg.cot.gsp_fmc_sysmem_offset = fsp_fw.fmc_image.dma_address();
-+            msg.cot.gsp_fmc_sysmem_offset = fmc_fw.fmc_image.dma_address();
-             msg.cot.frts_vidmem_offset = frts_vidmem_offset;
-             msg.cot.frts_vidmem_size = frts_size;
-             // frts_sysmem_* are left at zero because this path places FRTS in vidmem. The sysmem
-             // fields point to an FRTS buffer in sysmem instead, for systems without VRAM.
-             msg.cot.gsp_boot_args_sysmem_offset = args.fmc_boot_params.dma_address();
--            msg.cot.sigs = *fsp_fw.fmc_sigs;
-+            msg.cot.sigs = *fmc_fw.fmc_sigs;
- 
-             Ok(())
-         }))
-@@ -381,12 +384,12 @@ pub(crate) fn boot_params(&self) -> &Coherent<GspFmcBootParams> {
- 
- /// FSP interface for Hopper/Blackwell GPUs.
- ///
--/// An `Fsp` is produced by [`Fsp::wait_secure_boot`], which only returns once FSP secure boot
--/// has completed. It owns the FSP falcon and the FMC firmware, which are used for the subsequent
-+/// An `Fsp` is produced by [`Fsp::wait_secure_boot`], which only returns once FSP secure boot has
-+/// completed. It owns the FSP falcon and the GSP-FMC firmware, which are used for the subsequent
- /// Chain of Trust boot.
- pub(crate) struct Fsp<'a> {
-     falcon: Falcon<'a, FspEngine>,
--    fsp_fw: FspFirmware,
-+    fmc_fw: GspFmcFirmware,
- }
- 
- impl<'a> Fsp<'a> {
-@@ -422,7 +425,7 @@ fn wait_secure_boot(
-         const FSP_SECURE_BOOT_TIMEOUT_MS: i64 = 5000;
- 
-         let falcon = Falcon::<FspEngine>::new(dev, chipset, bar)?;
--        let fsp_fw = FspFirmware::new(dev, chipset)?;
-+        let fmc_fw = GspFmcFirmware::new(dev, chipset)?;
- 
-         read_poll_timeout(
-             || Ok(hal.fsp_boot_status(bar)),
-@@ -434,7 +437,7 @@ fn wait_secure_boot(
-             dev_err!(dev, "FSP secure boot completion error: {:?}\n", e);
-         })?;
- 
--        Ok(Fsp { falcon, fsp_fw })
-+        Ok(Fsp { falcon, fmc_fw })
-     }
- 
-     /// Sends a message to FSP and waits for the response.
-@@ -540,7 +543,7 @@ pub(crate) fn boot_fmc(
-     ) -> Result {
-         dev_dbg!(dev, "Starting FSP boot sequence for {}\n", args.chipset);
- 
--        let msg = KBox::init(FspCotMessage::new(fb_info, &self.fsp_fw, args)?, GFP_KERNEL)?;
-+        let msg = KBox::init(FspCotMessage::new(fb_info, &self.fmc_fw, args)?, GFP_KERNEL)?;
- 
-         let _response_buf = self.send_sync_fsp(dev, &*msg)?;
- 
+Here is the latest `bitmap_find_next_zero_area_off` code on
+bitmap-for-next:
+```
+unsigned long bitmap_find_next_zero_area_off(unsigned long *map,
+					     unsigned long size,
+					     unsigned long start,
+					     unsigned int nr,
+					     unsigned long align_mask,
+					     unsigned long align_offset)
+{
+	unsigned long end, i, off;
 
----
-base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
-change-id: 20260723-gsp-fmc-rename-da0a5019f441
+	for_each_clear_bit_from(start, map, size) {
+		start =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
+		end =3D start + nr;
+		if (end > size)
+			break;
 
-Best regards,
---  
-Alexandre Courbot <acourbot@nvidia.com>
+		off =3D round_down(start, BITS_PER_LONG);
+		i =3D find_last_bit(map + start / BITS_PER_LONG, end - off) + off;
+		if (i >=3D end || i < start)
+			return start;
+
+		start =3D i;
+	}
+
+	return size;
+}
+```
+
+It has
+```
+start =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
+```
+
+__ALIGN_MASK does this:
+```
+(((x) + (mask)) & ~(mask))
+```
+
+So it's
+
+```
+((start + align_offset + align_mask) & ~align_mask) - align_offset
+```
+
+A & ~B where B is (2**k - 1) =3D=3D A - A % 2**k, so we have
+
+```
+start + align_offset + align_mask - (start + align_offset + align_mask)%2**=
+k - align_offset
+```
+
+So you can cancel the two align_offsets and get
+
+```
+start + align_mask - (start + align_offset + align_mask)%2**k
+```
+
+Since (start + align_offset + align_mask)%2**k <=3D align_mask, the only
+way you can overflow your expression is through align_mask, not
+align_offset. The upper bound of the expression is start' <=3D `start +
+align_mask`.
+
+We get the overflow/OOB read path if end overflows so `if (end > size)`
+becomes wrong. `for_each_clear_bit_from` guarantees that start < size in
+the body of the loop. So when we compute `end =3D start' + nr`, the upper
+bound is `start + align_mask + nr` - that's the check here. We know
+start < i32::MAX (thanks to the invariants we added) and align_mask <=3D
+isize::MAX, and nr <=3D u32::MAX. So the total upper bound is `i32::MAX +
+isize::MAX + u32::MAX`. This fits into `unsigned long` on 64 bit but not
+on 32 bit, hence the cfg to only 32-bit.
 
