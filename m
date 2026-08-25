@@ -1,95 +1,130 @@
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB3B42E41A
-	for <nova-gpu@lists.linux.dev>; Tue, 25 Aug 2026 12:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EBB4343F2
+	for <nova-gpu@lists.linux.dev>; Tue, 25 Aug 2026 13:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787661182; cv=none; b=MTV4Xgl5TFndI1WUqCN3wF2ijpi1xwnAkpNAy/+ndC9tRmCferh57QeITq5tI+g6oXNx28hkTAvL3eJtup323/uibw6qp4SQnj/wWUCNSJ0HcnbH9LQNoIEJyT6za4v4Uyj10jA+fp76gg8EGPA8x2pJhV4kpnJioKa7G0u/OBo=
+	t=1787663583; cv=none; b=oUkGG1xSlLLn+JAZ1w3KKsw44cpzCJSTAYvdYuDVYOefPk49HOepnrjBX8MDhFw6F6qMOMmlL/QVWn396rC+z5SgEd4/fPRlOOozUYJECOyAkfiz2z5U7fHyEYcEmmdHAeY1ULdFObWs3vHA+eHeWDSOzymdv8FTZBgckS/BEhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787661182; c=relaxed/simple;
-	bh=vJt6tZj/OG/c4NLOEbG5p6WQuIEd4cW7vphgWLCDr5Y=;
+	s=arc-20240116; t=1787663583; c=relaxed/simple;
+	bh=dVXl6lxM0U5IiUrE7TAMJxdP/3mIIyn0R/8BpMKopKU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=VyJD/3rUFiT4jQdsY0IF4TimwPXHAFl/2QQkGKUfcppFGzkzjTqILylB2L3VtHYgvA++3tY0OWPrZQRTXo+G7GQDA38q01YpuS/XHRpM5FJj225emL6J0nqpOVxr1pT4M+cI0hi1xkRBAYlTzrGOl84m6Ndkr6rS6wIBTLLZ42U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i42GiNAa; arc=none smtp.client-ip=209.85.221.70
+	 To:Cc:Content-Type; b=iM0fRMYEgh9Ya8cTA7mJH4a1Rukree+VWYN3/V9ukHudnWk6ijTc8OIWeXzplpMeoTF+YpmhgDnBlnakfQf6qszAOa4P38ELgPX+WRxbSKdBpK5rbRKK346d/eHDqH4IuXoTlMwWA1L0XMb3TQZDlDqUK747tmGRGkDE1HEM6tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QUPm5uyH; arc=none smtp.client-ip=209.85.128.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i42GiNAa"
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f81362fb1so2807212f8f.1
-        for <nova-gpu@lists.linux.dev>; Tue, 25 Aug 2026 05:33:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QUPm5uyH"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4954dcd6131so42083995e9.3
+        for <nova-gpu@lists.linux.dev>; Tue, 25 Aug 2026 06:12:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787661179; x=1788265979; darn=lists.linux.dev;
+        d=google.com; s=20251104; t=1787663576; x=1788268376; darn=lists.linux.dev;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Xlb7XfoBk1nmP2689qZHRSaAXYmnb0joWXGBYKuH+kY=;
-        b=i42GiNAapQd7xirjgiCCzjR3ShNe0WvTE3oGMLqAdfKCO8/t/qOpa3ltw53YQvk/+9
-         T8Xet+gWD+HILTcKy4brLEb8/t5zwlJIMg6BVgSS3hwPv5bgbTvdPNNVPZM4S6j/T4pX
-         TrDaPiWd+JGbExNM/iaynjIlvJ6To8evq+hx3mVhqs6HTHCXvuh8aj91d2c2mKabac6j
-         mkrvXe4quCfxEIbI82EtR5lbzE17JsH4k5u+ICT9Xn4F+ACe1eNYetuT4UumoFNuR8nG
-         2qP7m7XLYl8R+JhZoT2hSP8XluX+Zvji+P8eMskDfjJRz9I3BaI27Zz4bfJ6RQjZtuUx
-         7hew==
+        bh=rXohTk4GdfSVv1B1Vj6jhy4ehfsGqcW+TXrVTAjc0Ko=;
+        b=QUPm5uyHMrrWNY/aolgIyM4vrsLiqgfv+3BNUbs53LFbEI5Ej7vhKAncbSyCON651+
+         aQuw3k2DA/sAChbgzJOBWDDDkRfy+G2XwY/PsTttoWIBFPlISA9ApYVcojr4WtGAKR7h
+         6NRGlNWbZa6r4hkIGREq62mC7B0SPSvn+ODXqFVtYIgc8VDgtZHPOD3AMa4QcP8AvIfR
+         5B+slep5NE7VS/varn9HrwHq7TyCQhkzpEXiY3r7sL2NaXtnxQqYuYHW21ZLbC8OWX5G
+         HLrDCkQwK+8iHJ9ekZjZnXu1jg4TkwMjfgWwS5i5XHJTkYK4v78XGS5CGjMgA3B3m0w5
+         mogg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787661179; x=1788265979;
+        d=1e100.net; s=20251104; t=1787663576; x=1788268376;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Xlb7XfoBk1nmP2689qZHRSaAXYmnb0joWXGBYKuH+kY=;
-        b=hsXHLtKnfz/YQv/ozcy712dyiKkwXrqRgH3HRq5V4uN9/CSblalbKO+CLkyC7l0yDP
-         k2vAA5an6KoJbRrADHW/WxAKQ4O609jFJcQb5+K/bjP1pD70CQMjeh7JcbN0LnSiaUlz
-         DikXtLU4fAi9Hl78AKQqQ/8IKlmJBiFxMfquxcmV3l09HN9GF8w0VRPWssAnjQ3N93Rc
-         B7EZo+oKNVUwZ0oDHaYiU92zHSYY/hj7pzB9VyZiGlG5rgvnlFogbJSPRZRk8scY+KCo
-         I4LqlGAM7wZylr5Lo/6vRAM5YRI4tHATN5o3NCORich3iL63t0Dly3jRgsdcrP9b+YT7
-         YBxw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6ihB+5TbtAlHjzILF2H+PWW3AaILFE5TKtDHEMKQPddDV+1BNVQ1d/6GgxMEX7EGszTScjWAp2g==@lists.linux.dev
-X-Gm-Message-State: AFuF++kmdIBTr4HvxTH7fyXv8v+3mjeiLgdxqPthkKZcPEpvNuwJ4dNg
-	Eij/1Tta+LQpPc5AjZ731sVbBCovfPoO3cvyQyS2BmFt4U7mtWPU9D+8ckxq9C4ZalfsKq/TCBi
-	bvLjCzeMvrET8CBpqsg==
-X-Received: from wroy3.prod.google.com ([2002:adf:f143:0:b0:47f:51bf:11c1])
+        bh=rXohTk4GdfSVv1B1Vj6jhy4ehfsGqcW+TXrVTAjc0Ko=;
+        b=tWpfy04ZvWEL3ebNsL47UuYcRQHpJwTc/CdPweY/3UAIPeZ6ockAgLmpqjgphxksY3
+         EK73DbY7GwnLVdWZMis8FQ+Nh3UqqWWLR0CF6WKlDxehoYWXA0WuL0h2lX6m5jqc4CbY
+         goDyvSdoSlckQMNqyZDsJNwbYOyfOvDKANr3FFhIU5Ij97cm7NPaulhCGGj0bM01BV8X
+         NF91/yDNttWF0uJwoGg8P4M1yFb8UVb6b/ZOjyRxPyi+OLyhi5u8oLyBudbOm++p7Z+J
+         Hvnw640RP9VLAC9yOqeec4h7ZAv7bw3o9SV8u8dudeLrDFcYAAzsbot+Wi3x2E44/cHN
+         TqcQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpfA58XlCA88g8nw8k577LgITZ7b0Nccy+jJ3Dz6jhwnbqznUW3esTR55bYY8QZCnOOgA6yOc4Xiw==@lists.linux.dev
+X-Gm-Message-State: AFuF++mtye67FNhB+fyak3CfKojWpcg/OWtYvxg0evXuRrXWx3BiL0gV
+	ieR43yPvKI/DZnOVlbLmDuEvlfxHgLqd37PRGsaGbUqwLA7U4CjSsr87NnEjNpsMsfhje7Lmvc0
+	PPZFs/zVo5oqGhLfEjA==
+X-Received: from wmoo2.prod.google.com ([2002:a05:600d:102:b0:499:58e2:b51f])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:5846:0:b0:481:5dea:3f0d with SMTP id ffacd0b85a97d-482c0b8eaabmr42274248f8f.11.1787661178297;
- Tue, 25 Aug 2026 05:32:58 -0700 (PDT)
-Date: Tue, 25 Aug 2026 12:32:57 +0000
-In-Reply-To: <20260812-b4-rust-pci-edu-driver-v3-3-5d0b5594e52b@mailbox.org>
+ 2002:a05:600c:3b9f:b0:499:8ae1:b900 with SMTP id 5b1f17b1804b1-499d652362amr77858225e9.12.1787663575869;
+ Tue, 25 Aug 2026 06:12:55 -0700 (PDT)
+Date: Tue, 25 Aug 2026 13:12:54 +0000
+In-Reply-To: <DKXZ7VHUCLWL.C6IPHWPTEJW4@nvidia.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
-References: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org> <20260812-b4-rust-pci-edu-driver-v3-3-5d0b5594e52b@mailbox.org>
-Message-ID: <ao2Lef62ZvkP9eWI@google.com>
-Subject: Re: [PATCH v3 3/5] rust: pci: make Vendor::from_raw() public
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com> <20260817-chid-v7-6-a5872e64d8f4@nvidia.com>
+ <DKUHJF1YTTY6.1XXC1L2SYXEMF@nvidia.com> <DKXZ7VHUCLWL.C6IPHWPTEJW4@nvidia.com>
+Message-ID: <ao2U1jNaT7waibJW@google.com>
+Subject: Re: [PATCH v7 06/10] rust: id_pool: take a NonZero capacity in with_capacity
 From: Alice Ryhl <aliceryhl@google.com>
-To: Maurice Hieronymus <mhi@mailbox.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	"Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=" <kwilczynski@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Burak Emir <burak.emir@gmail.com>, 
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
 	Gary Guo <gary@garyguo.net>, 
 	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
 	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, Lyude Paul <lyude@redhat.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-pci@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, 
+	dri-devel <dri-devel-bounces@lists.freedesktop.org>
 Content-Type: text/plain; charset="utf-8"
 
-On Wed, Aug 12, 2026 at 09:52:37PM +0200, Maurice Hieronymus wrote:
-> `Vendor::from_raw()` is currently `pub(super)`, so a Vendor can only be
-> obtained through the named constants generated from the
-> `PCI_VENDOR_ID_*` defines in `<linux/pci_ids.h>`. A driver therefore
-> cannot match a device whose vendor ID has no symbolic name.
+On Tue, Aug 25, 2026 at 08:09:13PM +0900, Eliot Courtney wrote:
+> On Fri Aug 21, 2026 at 5:39 PM JST, Alexandre Courbot wrote:
+> > On Mon Aug 17, 2026 at 4:04 PM JST, Eliot Courtney wrote:
+> >> There is no good reason to allocate an IdPool with zero capacity.
+> >> Reflect this in IdPool::with_capacity.
+> >>
+> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> >
+> > I am not sure this one is justifiable; `KVec::with_capacity(0)` is
+> > doable, so why not here? As long as it doesn't introduce soundness
+> > issues I'd say this is the caller's business; a driver with a legitimate
+> > empty IdPool use-case would now need to special-case it.
+> >
+> > Now we do have an actual soundness issue with zero-sized IdPools, which
+> > is that `find_unused_id` would panic with `CONFIG_RUST_BITMAP_HARDENED`,
+> > but as I said on patch 5 I don't think it should anyway. Another
+> > potential issue is that `grow_request` would not grow anything; but that
+> > should be fixed there by handling the `capacity == 0` case. Actually
+> > that would give justification for empty IdPools to exist: just like a
+> > vector can start empty and grow, so can an IdPool.
 > 
-> Such devices exist. QEMU's "edu" educational device and the legacy
-> qemu/Bochs stdvga both use vendor ID 0x1234, which is not registered in
-> `pci_ids.h`. Per the policy stated at the top of that header, IDs are
-> only added there when shared between multiple drivers; a single-driver
-> ID is expected to be open-coded in the driver instead. C drivers already
-> do this -- see `drivers/gpu/drm/tiny/bochs.c`, which matches with a bare
-> ".vendor = 0x1234".
+> I don't have a very strong opinion here but I can't really think of a
+> use case for a zero capacity IdPool. Unlike an empty vector, since
+> IdPool doesn't automatically grow (there is a notion of a fixed ID
+> space), the only thing you can do with a zero capacity IdPool is grow it
+> to non-zero. All the other operations don't do anything useful.
 
-IMO we should just add Qemu to the list. No reason to hard-code it per
-driver for this case.
+It may not grow automatically, but that's only because Binder (which
+will grow its IdPool) holds it in a spinlock and needs to use the
+PoolResizer and so on to grow it without allocating under said spinlock.
+
+> If such a use case exists, maybe it'd have to be something like you are
+> using the capacity to identify your ID space size (and the ID space size
+> is important otherwise you would just use IdPool::new() with the
+> MAX_INLINE_LEN capacity) but then the only way you can grow it is via
+> grow_request() which doesn't grow the ID space in caller controllable
+> way.
+> 
+> Anyway, let me know if you feel strongly about this one. FWIW, previous
+> to this patch series you couldn't construct a 0 capacity IdPool either.
+
+I feel strongly.
+
+Using NonZero to prevent passing zero is a very strong mitigation due to
+its big ergonomic cost. There's nothing really wrong about a
+zero-capacity IdPool, so let's not pay the ergonomics cost when we don't
+need to.
 
 Alice
