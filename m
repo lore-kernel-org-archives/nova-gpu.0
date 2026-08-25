@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07263C9EDD;
-	Tue, 25 Aug 2026 19:41:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93333C2BA2;
+	Tue, 25 Aug 2026 20:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787686864; cv=none; b=MfpFFG1cidnJwzasgGjZZutCVRvJkIJCU3X9toXI9q9KfvWhSjCfHqZSaIPk2WJPxUtuLXOTbd7QLU9pMXSQfn6AzJ8sXQeMx5wtGJJ6JHqe5RWphvahqt8rkFHNH4mVfcVOiQs+V3o8F7blNoB57Yt7qVpl/cU7PLF2U7Oa2z0=
+	t=1787691227; cv=none; b=NufaluP+B0LvkUUpapcYJJHX2NiAINHH78mlc2HQYSphXm14vWS/hCP1Bd4AIVz/Dp0ouNWzGPlu0eNNd/3nimzExpgB/YUnSeeJquum+bDFSEH3JQuG0K3WTDKFVEufbMYH8kJidTsSYUW0BJNB685Bd1IPPS5V7Wm8sLnjee0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787686864; c=relaxed/simple;
-	bh=iIC94157v0mk+zcK4oZsYsWRO5nPBW/l3f/3bjxWVeU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=VEeeB6l0v+yF5u1bMj21NjtOHfM/HCPGkyo4OV1i8YYQalhv8nx2t2NPeKK4gyd4jizmVP3KK9jkokqmab4VmLJ2XdmNMafXpPsYjc6FBm2Ckf4SFLpZKbkqs21wKKAe/8Vofb1H/HI3crEwwxSeR+MdsmgPX/vQJYPHtvcA8yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkxj9LuU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787691227; c=relaxed/simple;
+	bh=aRUFBypKvRub3FzBctIBL4ktL7Lh8LotGRWs4+9I9lY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=khK/TVJoaf3y/gTmueaG7XfD96wuNeqwbDRtbPVxfxP8MUVMeUFN0dUgQTyrKRFoJCGAzPOSImo26RX2KondZtAdeMq5V6XMi2SYLch9Y4sSruQRWS3RrvPISaCH2qA+bZoX94Hr00nh+lefvLzOKkWgYeReaTDFQgce55LGE4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/CNsTzJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkxj9LuU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E171F000E9;
-	Tue, 25 Aug 2026 19:40:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/CNsTzJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C761F000E9;
+	Tue, 25 Aug 2026 20:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787686862;
-	bh=T+dlqjm0IAAgRcBNGorDzWu9/5/k2UBbyzCQOio8bMY=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=kkxj9LuUL2n+8Rk0mHhpWZHGmUKuGCycQe7q6I1mcJ6XPc+9QG+BUtNQi/R1lNqLI
-	 UE5N6jxvWipJfDfS7frWO/m5HyE4fszQnXE8bwXI8eBM3LaBzHL5RAjdUrFznaYJnO
-	 d3LaF9KUNKt4LCQ9LrwhvRSM9ChzxfQazbaXoUNrAJvk5opY58q2HKFoyzuqIBg9FF
-	 IZgy9OuHA+hhCqdPabeJ/rkFylYCgXrKmFVo3xAdwIHyK08j8jpSbO8FYOq3R8tLPw
-	 VdAM//Viw2ct1JIE5p+0G2jvZqVobDISSDJJN++H57oRpfy/C2XBz6f8LzEP8ge9DQ
-	 B5U64NxVQ8MjA==
+	s=k20260515; t=1787691226;
+	bh=Px83rT8Kti/M0gKeu2hRIclgFO0h7OSpSA2HNIO3oB8=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=I/CNsTzJMIDlPbngb0R6oIqJIJ4tFU87EXWW2slp54p+l2LhPyaSESsUerHBtva5F
+	 qN1+mKP8iE/47xcyVOb5LqwBtAR4cZvcMBml6O0v/9jQUQFJoVqNMWxIVnDZRi+Bvc
+	 FizX0pz/2XWTey01n3goV/dhV6SddOnuaN68rxKObhv751EwYlcVXuXWNT6f/FVJhU
+	 Yejoxjt/O/c5KiUXH5melYCsiczpF95jTdujDALriwc5q+iT32Wxxo6T/694QgF//Z
+	 SYkKmHbP3Da8siOpVUBX/Lg+2els1rHFxul67grtKPdgSA9eP0pQ5ZSOM35DWB+CQl
+	 kumaw2bzkacMw==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -34,85 +34,60 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 25 Aug 2026 21:40:58 +0200
-Message-Id: <DKYA3P4E2CRC.3NVNCJ42J2FRN@kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: fix incorrect naming/framing of GSP-FMC
- firmware
-Cc: "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Alice Ryhl" <aliceryhl@google.com>, "Benno Lossin" <lossin@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+Date: Tue, 25 Aug 2026 22:53:42 +0200
+Message-Id: <DKYBNDXB14FY.3JX6GHMFIERO8@kernel.org>
+Cc: "M Henning" <mhenning@darkrefraction.com>, "nova-gpu"
+ <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <rust-for-linux@vger.kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Alistair Popple" <apopple@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260825-gsp-fmc-rename-v1-1-f82526f01d7d@nvidia.com>
-In-Reply-To: <20260825-gsp-fmc-rename-v1-1-f82526f01d7d@nvidia.com>
+Subject: Re: [PATCH v4 3/7] drm: nova: Add chipid enum to nova-drm UAPI
+References: <20260811050657.646799-1-apopple@nvidia.com>
+ <20260811050657.646799-4-apopple@nvidia.com>
+ <CAAgWFh0VvY4D=-Se+bVO1YonRNFEa28nc7+ZbxEbv6en7oPaDw@mail.gmail.com>
+ <DKXF49DF656E.XB24SXGL3RLE@kernel.org> <ao062w9fdaQEEYHy@nvdebian.thelocal>
+ <ao1_ngqj2a2XB3h9@nvdebian.thelocal>
+In-Reply-To: <ao1_ngqj2a2XB3h9@nvdebian.thelocal>
 
-On Tue Aug 25, 2026 at 10:31 AM CEST, Alexandre Courbot wrote:
-> The GSP-FMC firmware code lived in `firmware/fsp.rs` and described
-> itself as running on the FSP. This is incorrect: GSP-FMC is loaded by
-> the FSP, but runs on the GSP as the loader and verifier of GSP-RM. FSP
-> secure-boots on its own before the driver even starts.
->
-> Correct the naming and files used to contain the GSP-FMC code, by:
->
-> - Renaming `firmware/fsp.rs` to `firmware/gsp_fmc.rs` (as GSP-FMC is not
->   the FSP firmware),
-> - Changing the prefix of some declarations in that file to `FMC` or
->   `GspFmc` (interestingly some were already correct),
-> - Fixing a mismatch (FMC means "First Mutable Code") in `fsp.rst`.
+On Tue Aug 25, 2026 at 2:03 PM CEST, Alistair Popple wrote:
+> On the other hand we don't need to ignore the lessons of Nouveau either a=
+nd try
+> and refactor everything - I agree there are plenty of UAPI choices that s=
+hould
+> and will be different and we shouldn't limit ourselves - but if an interf=
+ace has
+> been working well for 30 years and hasn't been causing anyone any issues =
+then
+> perhaps we should just stick with it for Nova as well?
 
-Good catch,
+IMO this answers the wrong question; I think the questions should be:
 
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+  - Why should we expose an encoded register value to userspace now that we=
+ have
+    the chance to not do so and hide that implementation detail?
 
->       FSP (hardware root of trust, boots from ROM)
-> -          -> FMC (Falcon Microcontroller, verified by FSP)
-> +          -> FMC (First Mutable Code, verified by FSP)
+  - What happens if it ever breaks?
 
-That reminds me that I'd like to have a table in Documentation/gpu/nova/ li=
-sting
-and explaining all abbreviations.
+As for the first one, I don't really see how it is a benefit to let userspa=
+ce
+decode it independently. It's better to have a single source of truth.
 
-In nouveau it's a huge mess and all the abbreviations became rather confusi=
-ng.
+Besides that, we may also need to expose the chip major/minor revision at s=
+ome
+point, which can't be decoded from the chipid value. For this we'd need to
+expose the full BOOT_42 register. Which is where we already have a preceden=
+t
+where things changed from BOOT_0 in the past.
 
-I think we already have a couple unexplained ones in nova-core, such as ACR
-(Authenticated Code RAM), if that is even correct. :)
+More in general, passing encoded values from registers to userspace isn't t=
+he
+best practice.
 
-Besides that I think it would also be nice to have a basic graphs of the
-different boot sequences in the documentation as well, including the differ=
-ent
-firmware images and the purpose they serve, including sub-components.
-
-For instance, I think we never mention where ACR lives (SEC2 before Hopper,
-GSP-FMC since Hopper), if I got that correct.
-
-We already have something is fsp.rst, but I think it is misleading and need=
-s to
-be fixed as well.
-
-	nova-core                          FSP
-	   |                                |
-	   |  1. Poll scratch register      |
-	   |  (wait for FSP boot complete)  |
-	   |                                |
-	   |  2. COT message  ------------> |
-	   |     (FMC addr, signatures,     |
-	   |      boot params)              |
-	   |                                |
-	   |                                |--- Verify FMC signature
-	   |                                |--- Boot FMC
-	   |                                |--- FMC loads GSP-RM
-	   |                                |
-	   |  3. COT response <------------ |
-	   |     (success/error)            |
-	   |                                |
-
-This reads as if FMC runs on FSP and FMC (running on the FSP) subsequently =
-loads
-GSP-RM. Maybe it should be fixed by this patch, as it is the exact same mis=
-take
-this patch addresses.
+Of course, userspace has to know about how the hardware works - I mean, tha=
+t's
+why we expose chipid, arch, etc. in the first place - but it doesn't (and
+shouldn't) need to know how the parts work the kernel is responsible for.
