@@ -1,388 +1,145 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010044.outbound.protection.outlook.com [52.101.193.44])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012026.outbound.protection.outlook.com [40.107.200.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E7937A85C
-	for <nova-gpu@lists.linux.dev>; Thu, 27 Aug 2026 07:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF3237BE6C
+	for <nova-gpu@lists.linux.dev>; Thu, 27 Aug 2026 07:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815874; cv=fail; b=kjyR2DYvLsT6nT+09fs32FYMs+ex17tg8ue/vGy2vcYmuyEEcCH3lix0scg8ueVHYYd9evyczAowW3zV07jGYKv74SNc9RSz1vjv8zwBlMc/OXDbRrAe8ERIarxBAqyGBqSdNJhxag8jE2U+MCc4XJbaz9/81gsEm8SosHUbUKU=
+	t=1787816796; cv=fail; b=YZMwpsGsGDPhsEEpKO5VKXyQn/3XMbE5bw4DPgIsgWPV+g5mzybpmwHFLaDwLLbDqXNxy60TXnB+5ftP+vXTCgHjAiIZaDdq1ckdDq/CJuIoNkY1qu/YlxUraEHzdjeoAOjbczxPu7V39S2SaAFIYdc2CxK/lR0l3vpj7v3Nfng=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815874; c=relaxed/simple;
-	bh=Bp5mwHDnn+WV6nQRHsp4K1fCYmAedud2MnDmHMjZ1SQ=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=uFi3KF2kAW525kF6YD83JZDFeqXOaBU5oSoWf1OfnM3J2RIDaFDvUdhDxHyz7pmknQ9f4pFaTWt9GnVZY5tKedFLT56q7AB1PDVBhkG0niEwgPIQZoj32ZZ27YOKXyYNQTlwuJemQnPgkGUAODk5ABHzvrVPI+QTwTFVVnF4Iso=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=N7E69igB; arc=fail smtp.client-ip=52.101.193.44
+	s=arc-20240116; t=1787816796; c=relaxed/simple;
+	bh=/wawv/A8kYEtfa/QUOHBXJMa/gcYg9ZKXxrdQwzaM10=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oGT93nb/uHlawkRRY6YGz/k+t0uPxC2ky50xD0L52wsEhMGsrs0QSUROqxXCvj/V52AsoAimQqD1XOy8CKLJuBTM+9KFBa4xhJ+L7zi91hIkg+CfeLtoZl0vB9JXmvBpVucqKL7wKC2TI9Mra4P5D8VUoWnL2tZMrYGP0YsMYIY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Vs4F+Gr/; arc=fail smtp.client-ip=40.107.200.26
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="N7E69igB"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Vs4F+Gr/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tQg9FsxuehNkC3uWKAUYgnFl+7DbPQ0lTgv6KVSc/qC7ftaTDLSWcA8XcCsCpQC8mIbEClYh91MX5cjAbOOk2URBD8alPbnK/97mkWabjdUbqd3DzepVbD3/7/aPBcTmFaRXWCx43ZAaiEZuwwLFpQO4vzlqyqGUMPYoVt1pYbO1MjMO1ZHHpHN+5H8OPiH9ZjxFIx08pE71+6uzzK8WGtdkdGAHQ2VQo66xm8rhSgZT88WEbphqY0287oi6sFerxr8aWG1iPUfTDwL3fzF0U2AOaK5Dzz6FelFe8sdhShWOLSjaEu/0bZ9F301OK37gXxu46U5su3C77R3cdw0jdQ==
+ b=BGo7QD1VArym+5RVB0FWXnLpzUmy3rTcT4LRRVsXO6ko5VytSZGIdZCR9wFZs/o9TaAuzm4LHWyrS0omACoJc+3bp29rbNOedmoMHl+x+666rIN+egMc0r6Sst/FveD1km47kFMrkSU9oxOxbKHE2p3UOHuxRa1E9RwUDlIKPOXkTSjUjTx393HdwxyMWUbgBBYObbbnkV5Arf/jvA7OKZ+mpTob3QJLa72Ftqv6kWiwcDY0N/CewOWQX9CqsItrFTrAsKA0Itw3Ge/ll7HSLMbfI6xky74xmyC19iVnrKofHhL3VYQbjA6S4vLoXh6dBMQRsI/n7R3s+3dAqe7KCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mOL9E1SWgCT5IO15duXo33pD+7Q1p3nml0jkmG8nymM=;
- b=KL1jwgoN0Awm0k9WK2jRiwDWsCGP2X2bNTzx/Ec2HqMOfhQTN/W7bS+AD/xbDNLStbz2HbhkRfWsxHPjPg8+5XcBNLWTCiE1XIOsPDDYStqAzpVDWlfE55KmtLICO4A4ODqyxLiwjgbujwnea4bHuE/xwa3LIpoRMGc2S9Gh3dV4CkZmlu0JyPIbyOjbrQeJ5aYyh11bEiS/cEANoeve3Arp4g46R18cr4ATDa7QgGTHCk8KNNeaS7t24n4NQ5cHozM0UazYGbqUkLsdLtlXQ30LA001niAlVUmKj+y8dbX44XARpP7kncj62dJamYYHSNM6QeinxHOKE7aS8d9Pig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
+ bh=f9tAutsnEn423bCdfKstqWrUM7D5oQ/b04tR3l35SPw=;
+ b=Wdld0K9YqZoPSyqjTRKlAuOE6IevJ+kuUHBn9yG+m1temwKQT9xumfG1Gk2wiVgzJu1M/1FK+/rrEbsHmM0gcuUMpJ4J4g5/2AHFb5KX7ivZ/MAy6JZEQVL9PwHbzFK+PUFsUkI1gnslolXFd5/fJOUiR9t5EZ6xHTe8+C+Se/b5qjHDwd+01Zys3v0WlL3kpBl9exPUGwEGFT+Je3FESnBH5GLHK4n6p4T/r7KaBhrDHGuMLACIuSDYXTJM0Fm1dKuFvW/3SYV9XGtoKIfxycKWkW9L+MlLuSfemkqZkCpgrX0g/y0hjYWsSQ7nORMK6lswxeeApCMhZ39g+YvwkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mOL9E1SWgCT5IO15duXo33pD+7Q1p3nml0jkmG8nymM=;
- b=N7E69igBd6E9hnv9aT6d6aTgSQJeADPz35yAiw23XoK6Fsy0y9TMcY0g+MpA46RNdJleevxMDW7nzuSBAL10gok4D+Q9tZiTXgqNNt/2ZYg/DANeMb+EicI7qBeh4IQlF0awPdrflEpXUHVY7q9sFd6mhkD0SFRkw/akcRryQdQN61NwH6VYt7U/548aYyrhW0LRpyjUr4ye0HCK5rPPxDEAA7OItClTW8TeDE0vRX09VW1cnA8gKed8xGXr+3ah0ma604woOwUWsj4FKGwm5HFHaeIIvOPHgaq1prbrvKHKvYKewPvrd8vucODy21xe196YNs+GBN2EhEth799Pdg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CH3PR12MB9342.namprd12.prod.outlook.com (2603:10b6:610:1cb::10) with
+ bh=f9tAutsnEn423bCdfKstqWrUM7D5oQ/b04tR3l35SPw=;
+ b=Vs4F+Gr/JL34xzhOFbMFIdVrYhZjx8x8JBo9dKdbudwh91z7DlLF/NnqzS9kQ8XcSvpwTffxx2B9UZDPh85xW/xOpimcwyhwRlk0eztXUDYjOeXrfeV6guzMuCN2E+Cb3FTJBz2vEfWdcZ7qKSncl/68NH47uuhpo7+vmku64UcNUqxmkYGUUIX83Lw+d1e14No9n6cdMyCkMriYqVswVaytUbFcn5v1wAGLlYpumR2QUWPGf6Zs95xZk8nniGpqAWmz3VO89pNCyUFhZIfqsPL8q41DXdQHwWHmMy1D6CqS6GMdNNjy/OVdmQfLHCY+U+wUNW3alP6iByMMoMLyuA==
+Received: from BN9P221CA0030.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::29)
+ by PH8PR12MB7424.namprd12.prod.outlook.com (2603:10b6:510:228::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Thu, 27 Aug
- 2026 07:31:05 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 07:31:05 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Thu, 27 Aug 2026 16:28:40 +0900
-Subject: [PATCH v8 12/12] gpu: nova-core: add ChannelIdPool
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-chid-v8-12-bc74c77d0214@nvidia.com>
-References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
-In-Reply-To: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
-To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0357.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:7c::15) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 07:46:29 +0000
+Received: from BN3PEPF00022BBC.namprd04.prod.outlook.com
+ (2603:10b6:408:10a:cafe::28) by BN9P221CA0030.outlook.office365.com
+ (2603:10b6:408:10a::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Thu,
+ 27 Aug 2026 07:46:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN3PEPF00022BBC.mail.protection.outlook.com (10.167.248.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 07:46:28 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 27 Aug
+ 2026 00:46:09 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 27 Aug
+ 2026 00:46:09 -0700
+Received: from inno-dell.home (10.127.8.12) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Thu, 27
+ Aug 2026 00:46:02 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+	<alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+	<bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+	<aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
+	<ecourtney@nvidia.com>, <apopple@nvidia.com>, <cjia@nvidia.com>,
+	<smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+	<ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+	<targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+	<zhiw@nvidia.com>
+Subject: [PATCH v2 0/1] gpu: nova-core: correct FSP documentation
+Date: Thu, 27 Aug 2026 10:45:59 +0300
+Message-ID: <cover.1787816400.git.zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB9342:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a99f2a5-ea69-433d-208a-08df040d2735
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBC:EE_|PH8PR12MB7424:EE_
+X-MS-Office365-Filtering-Correlation-Id: df8e148f-6af8-4d3f-f71d-08df040f4e14
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|10070799003|23010399003|921020|56012099006|10067099003|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|7416014|10067099003|18002099003|11063799006|56012099006|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	iz2g8aEgNzT+AAU0xH4wKybug45UosGlz0XeO/0Kg0HKroX1FuDJ2WVSCvYc4lzBDhpdMtXIYbsUb4CS+dEoWSy5DSrwp2GwY297zpWTNkbIIeu5dCuVdkIToj5W9vD+lyVvS8eMHKl6cz6US1P7Wjp1Lr9dhMSfvFMjX4nkRSdXKXDpZZH2nGma+fTOD1LUfZWNSUqDz149rjW3om1GKV3oGYTAlvpD5BU+5vKvSfOlCRkDQRaCI0OopeMVJPEaX7p7M4G6u1DB92S+JttDnuESZ9quSI2I0nSD11/hXPkFWJUsJylrB1hRYzk3kyhveCb+owPeynsmOXZWHtxFVCtCRTkncTyryDJS+h8NYLSvQaUt5dpg762BeLKAZ9OaExoXXxkeFvg88sdqykIXgc7E2/yA3GP93dBZLCtOrRjOsllUYCs9kYKW+BciDX4yhunwwC1DtKMM0PwfX7posusjmZ9kHwjki5hZFOZN5GrX4EqukvL26B8WcSbYXwSW1K+SCoBXvhpJ9vBODon0LCjDdhVObDDhyuUiTsiVcMto19klYM05XR48hOl9SoGjLuT76mtxLkknIWh/n7ycyOuTlAb3TapbnMHvBw4K1LaupVIvhpKQbF0Ftc70VWyNYIE0Ot57Me/G+dnphzrGLCnJ0fT7uIb5kUM2YdRhZL3ZkG3mh6B1Wa9IY6V8rQhU69H+34yCXkREJgyVX3sNsg==
+	bjwTWUN8HwFhEcaI70kzHzE6LqBB59JAFV4aMC33lrcUsl8231x5nL4IGJljvY8Ckx3d35wpAOBXS4HEVpEE83hjJi8wU52Uj9FMB+pZjbq0nlCgfYMzPMN035HKN/xkl6JbTNTb6FiLdE8/jyUX0Bhmsj5YF6hwS7ni2TBdeS8IwsZ9XizzHxS3LoAXCdcwsIlChMlDMnw3TuBjxlDN1D+8wH4aTB2fSO2KIt2I72R7HHgQzVWDfQikMSqFLhQs+C+oc4u4yMjscTMtqxrpbXvwuMratcCDCYo5gNKioI8ZQ+yOqeA5c6bBgQwmsbsag2vvIeICq2z8rigU0WK/pcEv8UkSZwnF3nYsZqhkuH4WecM0sUe3d9Wr0s/n3AgHJ4Rwwt9gcya4AIoaxyQd7XZRWLPfbUHsL4SXoiHGeRCfcjqjQsxK+jAnm9NVecTIjUlBT/cDrfUugw0OlPnh+iL1y6XYXqL3HNnDlsIK//V2qWRIGeo5WNKGhM6LQ2tvyWVnGhYMISxIqWfqQjSVBbWU5anEVpgDJV1eME537LqzPS5I+B/qBUSBrodWnL7L6G3OnBHfWZWCS/vGn493HcsrrzogLAXX1oDaX+lpAsX1z3eIA/l1n6tmnXW1dxNVB9Eek2ma0Rws5igRdzucraK5yK3XhafS6sx7ijKbvdCxfUvSRaHAWpQhnEckMFCkbKvzBNFCG90pUPpypnVKBA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(23010399003)(921020)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(7416014)(10067099003)(18002099003)(11063799006)(56012099006)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SnBGK1hsY1ZNd0JaTi9HSy9xV0NnNXVmT1FCbWkra2p6UVR6MjZ2a2tzWEVC?=
- =?utf-8?B?eURPenhlcS9TMGQwVFlsNWgzRTByMmFqckg2LzZtY1dwMVZoeisxa0VlM2xt?=
- =?utf-8?B?eXNNOU1vT0NMTE53YWhSRitWeTZ0d2N2MUN1SXJ0WVZzcDBXOURyd0VBdjRX?=
- =?utf-8?B?TUVMTkNadWMwZEVON3pwcEI2SDJ3SkJWTDZkQWhIMEpiYW9qV1BOSllEZWN1?=
- =?utf-8?B?UCt6Y3h5VGNxN1FkTGxLN1RybEFjWWwvOVJRTnJKQzB3U29vOXczWDJuSUNW?=
- =?utf-8?B?bWtnTVU5VzF2NlNmWkllM0dPZnRtQndtaUIycjE2VkZZNWhJYjBhL0E2dFVX?=
- =?utf-8?B?VE5LeXduOXl2SFRQcXBHeHZSRVNtU1dpTy81eldWVzIyNmxmTUJWbURoOGJZ?=
- =?utf-8?B?TXgzem1tN29aenhmeVRYOXFCOWVaLy82VDdvZmpqZmJjYU1hOUFLOG1Vc1dQ?=
- =?utf-8?B?OTluNENtKzY3cHBSZGJuekJWTE5XdFkzbjM1RGt1UWZadG1VYjRLYXNnYjY2?=
- =?utf-8?B?Z2RJRnhkQXlmRFNneXh5N0VXSmwvTFdQSXVVMWd4b1NTNTZzZW1OMlEvZmdD?=
- =?utf-8?B?dWxaL091NTF1UHZvN0FmM2l2bmVHcFQ4UUxIYm1TSVlUTWdMTk04MkRoOWh4?=
- =?utf-8?B?V1QxUVRHN2Y3MmNLOCt5bW13UE9rM3N4dkIyME0xNkNTY2xCZWxxRUVnbURP?=
- =?utf-8?B?WWpGaVl5U01lNy95Mi9SV3k5Zi9ETG5LZXN5RGFNZDlSdnB0b0JPaEwyd1Nu?=
- =?utf-8?B?d3RRSHJrbnhtVDl1eXB3T3RoOC9sQWVyalBMaDRCWHZiSFIxMit2a0JLM1hm?=
- =?utf-8?B?LzJ2c1ljVnlKMFppYm1mamNobkxXU1VYRjRwbWJEYVNLanE5RkhpV3oyUVZB?=
- =?utf-8?B?aVIxUWU3NWhYYldkZ2NKaGpnU2NPU2FxREJ2eThZbGYwVWwyazhPOXB0TEFW?=
- =?utf-8?B?Nkd3TDdJdHdERitzc2dYUTFVdEdUeThpWnRpeVQ2WU92K3FkR3ExRittSldv?=
- =?utf-8?B?S2hkWXo4eHFkelFuVEluZS82VVRoZmptdW9YNzQ1MUlDb3A2NG1hbFBETklt?=
- =?utf-8?B?a2hBeFpXQXpOeUZlaC8zc2ZaWmFyYjlrQlBEMktnbjVCbkg1RmhGNVNMQ1NB?=
- =?utf-8?B?T3ljdWs5MWkxcmR3Ty80L0hUalc0djQrMHJkeEpDQU5iUWJaeXVJODJEczVM?=
- =?utf-8?B?TWRXL0VlaGk5aWVERGxhZ05vWEZvRVd5d09VVXE5a3pISTY5MjZuZEs4S3E1?=
- =?utf-8?B?blZ4Z1pIR2NlN1JUd285Q0gvYTFuSEpCRE4yUitUT1o4NDNQRXBGanlrMzJI?=
- =?utf-8?B?OTZza0puZDJNclhxYUZWM2k2WTcrdDlqMG9LTnJoNXUvT0g3YmlyV0oxdGdC?=
- =?utf-8?B?Z2FwQ2VQSWEzbjdBRkZLajR4RnBiM0N6Z1lDQnV4Wm5rYWhZY051Q0NWcnRG?=
- =?utf-8?B?dWt6bG4yY0lHdHM2bGpRWitnS0ZydFEvSzlrVUROQStHVVpKYmtmTkVRdmRQ?=
- =?utf-8?B?bHR3VU4yS3RTWmFHb1B3VHh5bHI1dXZudUd1eGpZaWd6d0VrM1JPWmFOckZv?=
- =?utf-8?B?ZnRpMjZKa2QxZDJLT3JvUFUxM1NYQ1RYVTBQTDU2MjNqeWFTM3IwK3l3VjE3?=
- =?utf-8?B?NE5rMTBpQ0w3dTlJTHVGbGM3TlY4Q3AveEl1VDcwdDl3Z3VybTlrV2V6dTVh?=
- =?utf-8?B?aW1lUVRocmI0YVZTODlPWUw3eXJETzdIV3duVzdFR05NdEluU0NXRmM2RGVL?=
- =?utf-8?B?MzREL2w5d21sTmI3V2wxTVVLR3hhTTZyVnpHQzJySE80ZHByMkdGemNWcnJG?=
- =?utf-8?B?SEJ3dG9DeHYrTThUSDBnT3FuYXhNMWhJVmlqN0ROeWMyWWFsWitDN0hVS1lU?=
- =?utf-8?B?MktGUm9RYlkwY2JwSEM5dCsvS1BNVkNaSUw0Y3NudFRaeE1BK1kvdU1UNXR5?=
- =?utf-8?B?UHA4SHFiYUdnOWcvRHRubjZSdDF1TWRaSWRxZTdvVlZLc1JKWnlKVFRZNHp2?=
- =?utf-8?B?OVNmYXl2L2RPaWJvTGJwcVNRZTM5MkNydlBjclF2a1RLRDVuZTM2V3hXblln?=
- =?utf-8?B?SW5ZQUlYYXo0ZkhNV1p0RFRxVjVrSENSZHoreGtHTGdLdEZpY2cyRkpRR0tx?=
- =?utf-8?B?dUt4VTVITEQ3UzRnWHRxSjBhZTh1bzl4STRPNU1vR1Noa2RMSUlRazBUNDdK?=
- =?utf-8?B?dXprc0VsS05HM015Z1J1NW9XVjlOd1c1RnFwOVloaUkyQzdaMTB1eW1CalY2?=
- =?utf-8?B?QkFmKzN2dE9WSEZqc3JKdTFFS2U5aUtGeVpXUU10L0pnWTJXRTE1WU9mZ3RL?=
- =?utf-8?B?NUdUakRNVXo4dEg0Uzd2cGdWRTA2T0RrODZ2REx5ZWpBMUdNWWNOWGpwbnJG?=
- =?utf-8?Q?bJisJ/MaNMYrQYSPrME4ZHNS/j5vCwU1eeg6uXxzwq0rs?=
-X-MS-Exchange-AntiSpam-MessageData-1: PAMNC3piAteBwg==
+	JLvYYvdYZLlk6tv/tLyJLd6jHn5/oGADwmNTR8h4L96MKwxpi1Xbs3yjo/f4EExE9ZjkM5sJOQRPf6VSgNzV/pEfwxVsn1JBJBqDH+tN11fPzlP7AtuAEwfQdcUZjblIUlbP+B3oTeX7yqX4V8GnqjypqSWYKTL23q6qFJ/vyKc8qu1RPR7eXW19Mg6LznOLERMHpT7w7/jjMskjN+0omiic2C2IUQ0gO25g5jH9E/De6vLcJ2Ptxe51rHWc/CdHBmt+VcuZg77sYumN63thaSHqqO3rc2GDNUT7lqjshdv/+Z660Sa/4YVkFwnXKnrHZE8A9yg+wgSMAxBVPtRjDCS53fCXxt3p3ez8hFXAOit8+75dG1s81Kov1s0Fv/xBaRx6hU9EeaFQIvplttLyYEC6oqkuJJi8Rbvoo5eshKoW5+vFzVZsOhoXtN+LI8JC
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a99f2a5-ea69-433d-208a-08df040d2735
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:31:05.0245
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:46:28.8890
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: df8e148f-6af8-4d3f-f71d-08df040f4e14
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i54WwGmfm+bW8hk7Re046983AnCQHIjtGPldHlQ57tN+yOqP/MtFVvxCuu8BupULblK9BH23R4KPdaVF1SlZ/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9342
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7424
 
-Add `ChannelIdPool` which adds automatic tracking and releasing of
-channel IDs on top of `IdPool`. This is necessary for apportioning
-ranges of channel IDs to be used in e.g. vGPU.
+This patch applies on top of Alexandre Courbot's GSP-FMC
+naming/framing fix [1].
 
-Channel IDs are allocated as a contiguous sequence with a specific
-length and sometimes a specific alignment [1] for vGPU. The ID space is
-small (limited to 2048) and allocation is not on a hot path, so a
-bitmap-backed `IdPool` is a better fit than IDA/xarray (which allocate a
-single ID within a range, not a contiguous sequence) or a maple tree
-(where aligned allocation needs an alloc_range()+erase() retry loop that
-essentially reimplements bitmap_find_next_zero_area()) [2]. It is
-also faster than maple tree [3].
+Alexandre's patch corrects the code naming. This follow-up folds the
+FMC expansion fix into the related documentation changes:
 
-Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/ # [1]
-Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/ # [2]
-Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/ # [3]
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- drivers/gpu/nova-core/gpu.rs         |   2 +
- drivers/gpu/nova-core/gpu/channel.rs | 198 +++++++++++++++++++++++++++++++++++
- 2 files changed, 200 insertions(+)
+- Distinguish the roles of FSP, GSP BootROM, and GSP-FMC;
+- Correct the FMC, NVDM, FRTS, and TLV terminology;
+- Clarify the scope of the documented dGPU boot path and the meaning of
+the COT response.
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 42a4cd7971fa..66ea697a89f8 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -33,6 +33,8 @@
-     vgpu::VgpuManager, //
- };
- 
-+#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
-+mod channel;
- mod hal;
- 
- macro_rules! define_chipset {
-diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
-new file mode 100644
-index 000000000000..485efaba059d
---- /dev/null
-+++ b/drivers/gpu/nova-core/gpu/channel.rs
-@@ -0,0 +1,198 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Channel ID allocation.
-+
-+use core::{
-+    num::NonZero,
-+    ops::{
-+        Deref,
-+        Range, //
-+    }, //
-+};
-+
-+use kernel::{
-+    id_pool::IdPool,
-+    prelude::*,
-+    ptr::Alignment,
-+    sync::{
-+        new_mutex,
-+        Mutex, //
-+    }, //
-+};
-+
-+/// Pool for tracking reservations of channel IDs.
-+#[pin_data]
-+pub(crate) struct ChannelIdPool {
-+    #[pin]
-+    inner: Mutex<IdPool>,
-+}
-+
-+impl ChannelIdPool {
-+    /// Creates a pool managing `num_chids` channel IDs.
-+    pub(crate) fn new(num_chids: NonZero<usize>) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            inner <- new_mutex!(IdPool::with_capacity(num_chids.get(), GFP_KERNEL)?),
-+        })
-+    }
-+
-+    /// Reserves a contiguous area of `count` channel IDs starting at a multiple of `align`,
-+    /// returning a guard that releases the area on drop.
-+    pub(crate) fn reserve_ids(
-+        &self,
-+        count: NonZero<usize>,
-+        align: Alignment,
-+    ) -> Result<ChannelIdReservation<'_>> {
-+        let mut ids = self.inner.lock();
-+        let range = ids.reserve_ids(0, count, align).ok_or(ENOSPC)?;
-+        Ok(ChannelIdReservation { pool: self, range })
-+    }
-+}
-+
-+/// A reserved contiguous area of channel IDs.
-+///
-+/// Releases the whole area back to its [`ChannelIdPool`] when dropped. Releasing locks a
-+/// sleeping [`Mutex`], so the area must be dropped in a context that is allowed to sleep.
-+#[must_use = "the channel ID reservation is released immediately when unused"]
-+pub(crate) struct ChannelIdReservation<'a> {
-+    pool: &'a ChannelIdPool,
-+    range: Range<usize>,
-+}
-+
-+impl Drop for ChannelIdReservation<'_> {
-+    fn drop(&mut self) {
-+        self.pool.inner.lock().release_ids(&self.range);
-+    }
-+}
-+
-+impl Deref for ChannelIdReservation<'_> {
-+    type Target = Range<usize>;
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.range
-+    }
-+}
-+
-+#[kunit_tests(nova_core_channel)]
-+mod tests {
-+    use super::*;
-+    use kernel::sizes::SizeConstants;
-+
-+    #[test]
-+    fn chid_reservation() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(2048)), GFP_KERNEL)?;
-+
-+        let first = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
-+        assert_eq!(0, first.start);
-+        assert_eq!(48, first.len());
-+        assert_eq!(48, first.end);
-+
-+        let second = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
-+        assert!(first.end <= second.start || second.end <= first.start);
-+
-+        let first_start = first.start;
-+        drop(first);
-+        assert_eq!(
-+            first_start,
-+            pool.reserve_ids(cv!(48), Alignment::SZ_1)?.start
-+        );
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_reservation_drop() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(8)), GFP_KERNEL)?;
-+
-+        let a = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        let c = pool.reserve_ids(cv!(2), Alignment::SZ_1)?;
-+        assert_eq!(0, a.start);
-+        assert_eq!(3, b.start);
-+        assert_eq!(6, c.start);
-+
-+        drop(b);
-+
-+        // Only have space for 3 IDs right now.
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(4), Alignment::SZ_1).map(|_| ())
-+        );
-+        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        assert_eq!(3, b.start);
-+
-+        drop(a);
-+        drop(c);
-+        drop(b);
-+
-+        // Everything was dropped so the pool should be empty.
-+        assert_eq!(0, pool.reserve_ids(cv!(8), Alignment::SZ_1)?.start);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_bounded_by_num_chids() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(4)), GFP_KERNEL)?;
-+
-+        {
-+            let a = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            let c = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            let d = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            assert_eq!(0, a.start);
-+            assert_eq!(1, b.start);
-+            assert_eq!(2, c.start);
-+            assert_eq!(3, d.start);
-+            assert_eq!(
-+                Err(ENOSPC),
-+                pool.reserve_ids(cv!(1), Alignment::SZ_1).map(|_| ())
-+            );
-+        }
-+
-+        assert_eq!(0, pool.reserve_ids(cv!(4), Alignment::SZ_1)?.start);
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(5), Alignment::SZ_1).map(|_| ())
-+        );
-+
-+        let head = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        assert_eq!(0, head.start);
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(2), Alignment::SZ_1).map(|_| ())
-+        );
-+        assert_eq!(3, pool.reserve_ids(cv!(1), Alignment::SZ_1)?.start);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_reservation_aligned() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(16)), GFP_KERNEL)?;
-+
-+        // Alloc 0 so the first fit for the next area is unaligned.
-+        let pad = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+        assert_eq!(0, pad.start);
-+
-+        let a = pool.reserve_ids(cv!(4), Alignment::SZ_4)?;
-+        assert_eq!(4, a.start);
-+
-+        // The area skipped over by the aligned allocation should still be available.
-+        let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+        assert_eq!(1, b.start);
-+
-+        let c = pool.reserve_ids(cv!(8), Alignment::SZ_8)?;
-+        assert_eq!(8, c.start);
-+
-+        // Only 2 IDs left.
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(4), Alignment::SZ_4).map(|_| ())
-+        );
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(1), Alignment::SZ_32).map(|_| ())
-+        );
-+
-+        assert_eq!(2, pool.reserve_ids(cv!(2), Alignment::SZ_1)?.start);
-+        Ok(())
-+    }
-+}
+Changes in v2:
+- Fold the FMC expansion fix into this documentation patch. (Alex)
 
+v1: https://lore.kernel.org/cover.1787754628.git.zhiw@nvidia.com/
+
+[1] https://patch.msgid.link/20260825-gsp-fmc-rename-v1-1-f82526f01d7d@nvidia.com
+
+Zhi Wang (1):
+  gpu: nova-core: correct FSP secure boot documentation
+
+ Documentation/gpu/nova/core/fsp.rst | 88 ++++++++++++++++-------------
+ 1 file changed, 50 insertions(+), 38 deletions(-)
+
+
+base-commit: d53bc149eea6213e9c4a4604df5521db7b7296ca
+prerequisite-patch-id: 4bed4cad6ef80bb3ec7dedd5e32969eb50482c57
 -- 
-2.55.0
-
+2.53.0
