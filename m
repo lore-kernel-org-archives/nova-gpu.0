@@ -1,80 +1,74 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022120.outbound.protection.outlook.com [52.101.96.120])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021083.outbound.protection.outlook.com [52.101.100.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9046A440A08
-	for <nova-gpu@lists.linux.dev>; Thu, 27 Aug 2026 13:59:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87904252C9;
+	Thu, 27 Aug 2026 14:21:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.83
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787839185; cv=fail; b=ZAWzmHJPk8rSlYL+xjXtSh0NYhFSIiigU09hVac0k9+sJQUXO9v/zWAuCgwdk3BMBoi8X/xq+ZUpXPpDZFAVkgs8cbSwwA+VZfml+AYTWtBnevJFQS489f0R8tPWu6Or+zrqn98jioEbWeO/1SKNXw1X8lbGLBmbslwy3dUOPwo=
+	t=1787840497; cv=fail; b=SyawKzld/wwGNxh5WKGXglACF8VkA2YVVjyHcv2obkPJDIKDq9BXecUB+4DB6oouwZ9FbpCpL+Ka9BwmSb4xnnf9XsEAXVoEMpwoxyyoGgKJv0743QRsAwHTd2CLPHfoqjKsODiNweB9rm+U5sHIdiW0xTug/IjCvEf/vMgfDEk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787839185; c=relaxed/simple;
-	bh=6bwqXH+JvcIXeC14tQOV4XoD8WYLh009iCt14vzDKGE=;
+	s=arc-20240116; t=1787840497; c=relaxed/simple;
+	bh=VoUEeDuA1+Q7zM9zwGw7MS78LZkHQeO0ouzrGa0eLa4=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=qC9mwf9gnabraaNyM5u+6eokMWXf+E2dUf/ws14ucQOcrqBsSQF26qmvYD2VELogzT/UdLR9ElOg6CErlWM5TRoz74fHGM0o3vm69xjV6HZEY8gm9b4XrpA22YWbRD8LUMP6sG85ZTX3PE5WJ+5D1Vn2gAl++Qy/FyIcCeIZODU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=YaHFpyP1; arc=fail smtp.client-ip=52.101.96.120
+	 In-Reply-To:MIME-Version; b=WczMwa5eh8GxcXwvuv/ZuETnjTdRhy9t1w57nfVv9WHLG8pNTim9xq29O5ZKbVfOWpGOTgGlg6/l90d1nD4aynFcL7B1DckhhMnIhoScsK6ZJensUCjUzXhXeFaul+0XS+PVQOfNZ9MbnbG6dEqqUgAFiVuBV39ExoeuTSTPAPg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=aJj2hc2a; arc=fail smtp.client-ip=52.101.100.83
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="YaHFpyP1"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="aJj2hc2a"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W248hF9dwwz2/n64Ggdb553VXSre6Saytp4WMMxKMAeBpcBr3b8J2KUpZB/hFlJChGwzgfUcsc62pAqX/P4390zVwrT4Rs78dzPa1eT7gFgp1alGBYWT0WgvBhG/pihEtE6qDQ6EkJadneU9LNKr5cQK4jrr/kRFsv3wlEGzjnAtKEGUdKudlIYh8q4NceyrRH7r/IuNBcguSj0CZKmYpHruNj++QoqPwx4j0h7RF3UBkcCLe0HiPKFvSVd5roIr/OaB9NnWercLDKlNYZ5v8gTMjpxqZxcZPEw4+wltnVDRSAOVG6KQMTBbrQT4OY5dIGtwfpkWYxRzzybNFJhM3Q==
+ b=ADoX3vEXD2CYd9xK7Jt03sybK0RBnYW6v5hrDDmGCBHS/B5zHx7O5/wrLJ5YbpQPHCEuz8aX88ql71uUS2uS6h6CO+iHKw6iExHbH+Lr27Ev3+0KQnyLb49GqWyoZmJxTfFUYrwAtb0uUj4RcwOlTQkLmC2z6ZqCfL6keZWJZMNtbLXkIk6eY9j6BGeZZIOiohqoiqFk/WlvlmHXgiFpg0OrVwtJbqJMNLkt+nxTm/44uDeCDvK84/xx/DMy6qEi42Rkh+ETuHTaQne4gZ7l/UyamfeF9U+awLCB6cNgz+ydnvBwLo5FTHy7d4ZTCO6HtsqhiQDAk6eWFwjn8Jyvxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fg6v7L4n57XP3L4C62biOpoWe9Evdhv+mXXVRpL9j0w=;
- b=X5HG+feRmvDD2RG+SIzc7VujYoCjbky0p2jQTqo5nBQJ7d2+qfoCoGfYPI4t5aLUtfn6pmc74Pj3UaRl98+CC5mI26IQLUwQxHbFs65tbqOcMoPd5rmxYCU+Nu702QQYkaWBmjBocdX3BMIUsu+dz91RAN7g5txXyN4P1l8VWXwrNVfCanIJIIS1sNWaswFFkDIxk1SGx4MxfnVoLuYCkXx6awiavd/YmeoHIYTMfnCdWtD2RNrhDZMtW+iBFnywjrO+bdulIUtlIMqsjR+rG05yMeTnr6CmwW+u+fkJ88wj1BQZl01ZpsVoBXBG3WJkH9Lg5bP2dCEBHy1WVg4z0Q==
+ bh=dm+owOf4EdKQ3kT8WDRN6+mJXeIWODeB0oo8MvRo854=;
+ b=W1ZXYXh/cfy+AZOyHKQJswEXOBIsKQ5k/HqeSgipmJqcyYmrjr7ig016xxBV34Z744d3QJMg3JIbmFqwaPj5bYd9n+stVbbSX8MGsSnw4aAP+gk8/hzTveaovmIreOqaALRq2ihcBQ/G63Hl4YRnydwcaL1zSOGBZXEbsjDZxL6xEeqZMSvfIRIJtLED/MozLph7dijKn8X0nbaxF9ON6yh6Ekrn1Umc1pBxM2cVbMYb+ab0fVB7ITUS7rLEcAoVj1cx39Ju16gNzbu0866CoeLDT3fCfkonSwMOQvb47R5R1gggnfq16vLDmjz2tlU0KS+hdW4SlarowhylxSTaZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fg6v7L4n57XP3L4C62biOpoWe9Evdhv+mXXVRpL9j0w=;
- b=YaHFpyP1fZ0t5WJ/KIHzdwaXghvYm1NuabthbOOSVgkVvpqW7Qu+9c1Euh6ZHilOfCR2ieyCQApIkG90QYwiy6N1JorFZwejzP0Vf4Gq6b7V7EPALjaYyemxwQ1IGYRGy9km7CxrViyzeekZhyIeGTaAfBQokP7Njv3N9quLOrg=
+ bh=dm+owOf4EdKQ3kT8WDRN6+mJXeIWODeB0oo8MvRo854=;
+ b=aJj2hc2a+bq47x4kjTnuuK/ZrjZeMDQ70kpXUpvXK+9Cl/vJDTG+03OzR6vOI9RZqMXFRsc1Ob8Ho0mlfNrSteRxXau6lR07IbY2C19FRJkBo0vJVNktTF2LzypmBytm/o3DMyBiv2RsmFTgs+SPLpCY7cPz8Ua10sTRE6d2hqw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO7P265MB7984.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:464::18) with
+ by LO0P265MB5359.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:244::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 13:59:38 +0000
+ 2026 14:21:30 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 13:59:36 +0000
+ 14:21:30 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 14:59:34 +0100
-Message-Id: <DKZS3E7Y2G2O.WYBCRQJR63AE@garyguo.net>
-Cc: "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+Date: Thu, 27 Aug 2026 15:21:29 +0100
+Message-Id: <DKZSK6DW84GM.2EARLBR7IPHQ5@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
  <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
  <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
- constant expressions
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v3 04/16] rust: io: perform conversions using `AsRepr`
 From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
 X-Mailer: aerc 0.22.0
-References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
- <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
- <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
- <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
-In-Reply-To: <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0615.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:314::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
+ <DKZJ14NCZ37X.31YOYFWBKZ478@nvidia.com>
+In-Reply-To: <DKZJ14NCZ37X.31YOYFWBKZ478@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0633.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:294::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -83,207 +77,133 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO7P265MB7984:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba64d1b4-76f3-45ab-f8b9-08df04436d91
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB5359:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe3b666f-8ab1-4591-3dfb-08df04467d04
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|10070799003|23010399003|56012099006|10067099003|5023799004|4143699003|22082099003|18002099003;
+	BCL:0;ARA:13230040|10070799003|366016|23010399003|7416014|1800799024|376014|10067099003|18002099003|22082099003|4143699003|5023799004|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	haEGKySxzN9Lf9nBHlf0t4DVbEaENuVzCl7hBw8XtVMh1RrySgwenBim88I5cpEYEbRge/vbZ43Oujmh/Kc1GIfz7TmGQiGoUS9xtWWJawqeeuPYmPx7zw5sgYYRQwqxzx8hCD8ujkwxvRMZ9cpY4eSb1AcqKsmoH8PXN9hf0KdnPiEpilv/78gqnGkJSTs6KQwqOgiQF2WmMxx8EmHcQz4b6khlSLFE1zGhnBYp7tXZk0nuex0q1CWSbBwkRFx0w8Bc3g5V+5GsY9hg0z0IzJmLflxm3TNS3e4KH3ru7lTjSPpyhSMXk+S1DT9rRbmwhlB9VEvqRIpTzOSTgwTjqQF2iO+4TKHzcMQI5nrKQ5WyhNgfPoAfEIeK/W/uEALZPBMGIVgAlr/3t11sj2T2fzodk273Xd+NLT6ep+5skOlpBWDIZ9kPlIaguWkQBNtVSZy4uo5YqNrydEGROsKd37fe8dlthe2z1PC/Smh1tNqh5/XrUhqIH+S0kTZZ7OQTNbTeIuGnppDIEI9ak2BqUeOAG6ob5AghYcfTe39+QsgsI6ZnRAWeOnIAAcE24nBtyeC7jqomoC8lYMGjkg+VqYjDmeJvJ9EuS0zTP2zKSXE+nQGi2judZv5cfm5X6OYmHiYSvJh8gC+c0WFMTC9hQw2/RKMbLGlmtMjkeIsxE3o=
+	aeR7BjO5Trezd8EcwQomPCcSPF91er+dnivG+6fiA2YWQYNNR8jDST4d0xFyA8H4p09he2askVwiblnBdX3CbIZF/zkMzqVljHTdY02nz857UfZW6Gu3TNdJH2KA047Z0iT+W7W7SO50Fe0HiMKCrvEDYnxBxe+j31z3wAvXPye4LKFJbaVdj/50MOxAxvcegRGr/8EJWM196A8tKwkQMtT/exXIyr2kmAXW7EQipBgdxLy9CUKQ0ORM+mr4kru7JxoWumL/xYYxJHzetH+iBWniXDHLju6gWN/8J7+DteJ24j5VGDf/jnK1SYak1AhuxoQXOT8Is0rAR7LmZXIXG0r/UWy5l7c7bpMEhnaKlTSl9DG4thSQzYQB7vNcEGZpLYkAmkJr8ofJ1bRJd6XicYJcDgfKDpw2xsqkAlFOPUYfaSQ1VwJ2rmrLKjmeW8qA2Yqo5HKS/HyvH7QHsAnknSP42cCcn1OSZVOVX5lnxlGnDV559FGUT0daewxxTNatDaDqLNoIPm2spwUw5AKnrUc01b8BYjINzGRO7i6w0s6t81HlhC2kseX5JOKSR2DbtTNOscRi/YT0K1kgKox+o5LCi/EOUzns7htwhEqiwPcVsiNv1shi04gMVimjgYCNcqR4cISV9+jtkXYYTka4Sl86yxmA9aMhYd37bNfKxyY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(10070799003)(23010399003)(56012099006)(10067099003)(5023799004)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(7416014)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(4143699003)(5023799004)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZUxkbEtXRTFMWnlsZ0t5amJ6ZWd6bGZiSUFnUDJGVnl3THBYZEhTSWZENHhp?=
- =?utf-8?B?djZXVFRZWFZVUEJjRlh4QzE4ODdEclhtNmY2Wlk5djlaWFkyUUI0VzQrclBO?=
- =?utf-8?B?eVlUbFRSNUFGSEcyMjgxWnNoQmx6NXlEZGhIOE9EM3dKMWF6VEhmTkZUTDM4?=
- =?utf-8?B?WXJMOVdqVmltT240VTdoQXF3Q3NkaEhuZFpLckRmRVhTSDFLNUhyZitmUzdE?=
- =?utf-8?B?VGVpckd3Z2RJbzVDeHBuWG9oUlllZkhzQzc3WGZTdTZpMk5YM2g3M1JERVhm?=
- =?utf-8?B?MjAvRk04dS83NG5LeHNPTXJZMEJMcE1LR0pheU1Kek85eTBmY2dUOHpaZC9w?=
- =?utf-8?B?SGVBSVYrVktrZjJVaUx0cFZRQWdKTURxazVBN2RPUFpmTEEyaUo2dFNJeW84?=
- =?utf-8?B?bUJmaDhseGxoODhlWGRIdUlLQ0djSTJsNEY5VURkOGZGL1lCOFZYcHhsKzVL?=
- =?utf-8?B?MEZaWkE3OXFYVHJ0Z2Z5V0MwbmE5T1Fnc1BBQ0VDYUxrSnNSK1JaekpzRFFP?=
- =?utf-8?B?OG1LN1BIV3dDVlp5NzM1TzdydWk4bXptcGxPTGQvVjBUZ05BcENrRzdXWXk2?=
- =?utf-8?B?cnFQT0FVczdOZjg2d1hPYUp1a0p6TExBRXZlUlNuKzlETURJTWVSNDVDdklU?=
- =?utf-8?B?UUE5NlZyNEJnL1pZSEkrUDk2OGRla3ZUb29hWnoxbmNkRDhXZk9iSTZudVV4?=
- =?utf-8?B?SmNFbWovYlBlcFJtbCtiUUNNaGhpcUhUM2NWZmRFSzd5L3A1R1FML1hTL3Ix?=
- =?utf-8?B?UFBGM0hNMml6TnFlSGlEbFFiQ2Q5cm9ZUzJreWd3c3VqbUQxRVNodXdjbGh3?=
- =?utf-8?B?Z1UwYVF5V2JqaWJlZkJndWt2QkxGYkpTYTFqS0VPQkFvbUFXTGpHNGpyTGh4?=
- =?utf-8?B?alh0dEFtTTlCRVI5KytINGtwamhKbkJFNG8rYlZvazkrekVaMnlVVmN3blV0?=
- =?utf-8?B?Y1hubXJld2NBcDVUdmxOTzNCVllQYWxSTDBZTUM2UkNlUWZCZ1JrWWVtUU1G?=
- =?utf-8?B?ZGlQRlVBaGtoTUtFSHJxUzR0SEZJTzQvWHJ0WGZBS29ydHBHaXlBeVRTK08w?=
- =?utf-8?B?SHVaY0VHQlh5L01lQkRIb3k5Y0k5REFOZDVBLzdRRDNsTEtDVjdsYVczd0xQ?=
- =?utf-8?B?cUR4bFhrTDdRNDlLV3VmSTFtM0pzUXpNUmlJYWgwZmtVTWVXcnJxUW53TSto?=
- =?utf-8?B?Y1NneitqTEpaZjlKMVFrditYVWhhbzdqMlU4VzU0eDZDRldEb1U5emZOem95?=
- =?utf-8?B?TzdzZmM4UElpbDFuWmVadCtxbzU4bGVRN2hoK3FNaHhoaHVBY1labVVWL1pu?=
- =?utf-8?B?TnpEOHRhQzR3aFBCWlkxSWdhQWcwbmpRZStZTDlOOHZZeWd5RzdLMXl0cVZt?=
- =?utf-8?B?ZkMvY3FsLzFPbjNnakRnYnRuYUxGRDNhTVlrbEllVnBGZEhpZHhpQWg0ZjVx?=
- =?utf-8?B?WkxhZTJnSlY2Qkwxem1CRXlyd3hTZDhjWUNIMmNzTjBGM0dEY1Fmak56cyt2?=
- =?utf-8?B?cVYwN2FXeldaTUVXSmRFWEZMUzhmbUt6UENxeElYMDN2OE51RjZReUFyNGE0?=
- =?utf-8?B?LzJQcWdOQmxuR2szc1c3TktNVlN6WFJhWkwrb0ZqN3BYd3lLUkdwdGluY0lU?=
- =?utf-8?B?RDdhV2FSM1ltalBjSWxWeDZDT2dLOTJPUk1CMUhwQmVaN1p4UmQ2Q1dXaDRa?=
- =?utf-8?B?RFBmVytYZWYzaHIyRmtsdXI4aG94TDM2TVRKeXNYYzlOdG1rTk5uWXBQOXZ3?=
- =?utf-8?B?WllBRmdNV1NpS2gweWhKMVQvanFjYm84Z1g2ZVBoVGIvSnNyQWxLa2l1OHl6?=
- =?utf-8?B?VmFpSk9sM3Exdk1QekNGVGFRZHY5MTJFQ3dWZmpna202NmJmUnJxOGk1NWdo?=
- =?utf-8?B?RkxINkw2eS9BZi9yZkhFcmRmKzZYY2VqZ0RmaWI2UjJSZzl4akRRWmtJM2hU?=
- =?utf-8?B?U1UxaWE3NmhCQi9IYk9kRlpxT2FFWTJiOGNWQmJKdEVDaUFvYlBDekRieGJl?=
- =?utf-8?B?eGEwTFBBQkZvOFliY0lPS1hseS9Tb0k5MVZQeXBZT3RIcVdPMUluMVRqamNO?=
- =?utf-8?B?c3E1MmI4VXo4V0FQMkFVaDRhbzhtNkNoTDYzaTlVOFNhbGFxLzdZUWl0dUNX?=
- =?utf-8?B?U3RkY0VpdlRKUEJJU010ZlhhYmMzWnNTMEk5VlU1bzhSQmhXbkRwTGFoRUho?=
- =?utf-8?B?eHQwMnZXaVFpT0Q1ejlpTkdyNVRFRW0rRVZjRThjL2VuRWdZSnlZMVBrRVJk?=
- =?utf-8?B?TFlneG01R1dQQnZZc1Faamlya3MvTXc1VUw4OVNRaDJERUdRRmZVNExFSGNr?=
- =?utf-8?B?UDBGL1RyN2F5RG9IeTRwci82NzlzeTZtTHdjc1ljV2ZBb1Q4eEZkdz09?=
+	=?utf-8?B?ZkFrbTFFQ280NG5WRE9ibUluUWZqZ3FLRTQ3WjgyTFVadVpIWlZQMGZWdEcz?=
+ =?utf-8?B?TExwZzIwWlNGMzZTZCtKUXRaWmZ6TmN3MkN6cEJobmI0Ykw3RmRLbkRzUHJV?=
+ =?utf-8?B?a3V2bUF4bTlUd1RkRGxvSkh5ZDhTZ2tkRDE1TkNLOE1STEpNNVFlYkRyR0lj?=
+ =?utf-8?B?akJtazlheGQ3SmJ1c2RZcXR6dzBJdG1GelNzY1RNUGoxWTJFVFBKMUVqbUI2?=
+ =?utf-8?B?b2NuTjJac2ZRYk92VkFodVNSK0FDcnZMamhqWTVJVUlSNzl0T2tveEVRZHN5?=
+ =?utf-8?B?ZlZEelJNbmFqVElIa3EybXB0SytUWlQxUmpselRZVTNoc2dCNUV6U2tvcHdH?=
+ =?utf-8?B?UFB2bUI1dGdxWWY1UXZvTEdqbkxVNGorVmprUC9MMmhHaURST216SGF5N1Ry?=
+ =?utf-8?B?T1FQZjBxUjVmc0hZSjNpMys3bFpISUx1SjNNQlBlUFkxYURTaWRuVllZRjdF?=
+ =?utf-8?B?MDhNZ0g4RFNJbkZQYlpESXk3elhmUHJxVmF0bk9ZRDVYaVNOaE5tam80V3Fn?=
+ =?utf-8?B?eWpwL1NJR2szcXpjby91aXRMUlVEbk16V1prUTRvS3h0L3JIQlJFYkpqeCsy?=
+ =?utf-8?B?Skp4N0EyYjRqZ1d1SEdxQm1GQnZjMHNOaWFPcWtEZnZOV0I2bmpSU0RZVWxv?=
+ =?utf-8?B?bTgvQ1ZlZTZjNFRmT0M5VXRFb3kyQWphL0xzVmhlcUNLT0V6d0lWTGo1OWhr?=
+ =?utf-8?B?VXJQWjhNU1N1V0RtSXNpYTVrZWJuaElzdXJvQW5HUDE3R0M4bkdCeitqK09z?=
+ =?utf-8?B?RWdDaE9raUlpOFZnNm1lZXVSMk5La25KdXN2YXZ4K0I4ZXl1c1FmMndmUXhq?=
+ =?utf-8?B?Wm04Q2NnRy9qREljbCtwZzJyVHhCaUV5ZUpUT2FsNDhKckZGRnVoYzJ0SHgz?=
+ =?utf-8?B?cEdiWEg2Yi9PZjBOa2NkNXJ6azNQemI2ZCs2M253dENkeWMzcFVsdzkxYUJx?=
+ =?utf-8?B?OXJ5cHc4Z0haTXVBckdyZWxMK3ZrYUh2clZVendwb3BIWVVqdWZ6VTF2QWdC?=
+ =?utf-8?B?N21XMGhnMDhDeGNrS05pbVNwdWJQV0k4bFV2NjF3eHR5eC9EWmN3cWxKZURI?=
+ =?utf-8?B?cTJycGdpbXNzSVZ5SER4aVlsS28rQjZyTzJRTFZnSXpKSlRXOUVwazJ0bGJV?=
+ =?utf-8?B?N3VpY0xIOTA1WVZIOVFNQmxHZHN1aGRrY0ZiNm9YelkzRWhDRENBYW8wNnJk?=
+ =?utf-8?B?SmpiQmRucUtNRXdwcmNvb0Z0Q0lzVE4zQ3g4RGZRNndqZW81aTBFQnRia1BV?=
+ =?utf-8?B?dGdwY3lRdDB0YVBLcGo3YUhvMFhodTY5ek0zWTJhcTRFd0tFYURVdWlWZ1dU?=
+ =?utf-8?B?TEU5ZnIyWm9FckpOTURYV2FJSERvSzVJM2V5aXJ2VThpMStEK3o5Zkw2dGUv?=
+ =?utf-8?B?RHlicnFVTUI5QzRQUEpCOHJuWVVHTHpKazdsamJpcXJ4MUhqeU5MZC9XOG9T?=
+ =?utf-8?B?aEdvYitKM3FldXp5WEE1ZjZMbW93MUhPbE5RNFZPTnl0L3M1Snk3Z216eWJE?=
+ =?utf-8?B?MHJiZHQwUGY0Uno1ZmZJR3pkV1JQbGpwTFRHTmY0UG5LNDdONm1yZW1kT1ZE?=
+ =?utf-8?B?KzE3L1gvOGIzQWZveDIzUHdMT2VyR2JXMVp2amt3Rk9KbUM0MmtyUHJDRERk?=
+ =?utf-8?B?bzIvdkpPNDNpWnJhTmZ0dEJtNGIrVmJqZVEvZUJtT0RQNXpzVU1zRHh5am5i?=
+ =?utf-8?B?WlE3OXNMRkMyaklZQm5LTWh1b1FxTVpKanY5OTN5TEJCaFhlRkN2cWVGRzVs?=
+ =?utf-8?B?Umh6KzFLb1dxTVoxR2pwbGl0cURMbXdGUnRSYnpxTnJWMDVDN0tBbmxiaUxj?=
+ =?utf-8?B?ZGRXR0FBQVNBT1BRcmp5ME1pdkVHYVJFSEc0Y21GbTNIZk5JckJkWTE4Y3NM?=
+ =?utf-8?B?Mktya1NoK2hMNXN5Z1d1SHc5dk5PVDkzclhKWVQvRWhES0FOMERRa3ZnU1dE?=
+ =?utf-8?B?MFBBK296aXprSXYrc0dCRUIvYmZwWVk4NE9nS0NxWlhHZHhiMGlvRlAvQ0o5?=
+ =?utf-8?B?dGFoMTd6RDV0TWJPNWcxc2lmM2lUSW9hYXYxOVhycmw2aTRsQXZPaWxYODRL?=
+ =?utf-8?B?eDNmdmIwdEp4eHlITzBlYTVOaXFGdXB5YmU3OE5zTGxJWG4yenByN3h3b0s5?=
+ =?utf-8?B?NFBYdVBRcG8zYnAzUkVob0ZCU0MyUnIwOXRKZ1dlNW40eDVMb0lzbEp5SFhG?=
+ =?utf-8?B?Q3g0RUhTNWNHZ29vMk1PZzdJSVJMWHcwOU9KTXYwQXQ5VkxFZGxEQ2JHUkF5?=
+ =?utf-8?B?S3pqZ3BDbkQ4WXhqQXpHTUtjaWF1VGRmTEk4WGxrbDNYOVZJK25JN0xZYnBo?=
+ =?utf-8?B?YnhsbE1LSmZKSExqUEw1enBza29DVG9CRXVYd1AwV012SDhqK1REUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba64d1b4-76f3-45ab-f8b9-08df04436d91
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe3b666f-8ab1-4591-3dfb-08df04467d04
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 13:59:36.0722
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:21:30.2479
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b5/+cJRb1NV3Rf7tqt9T9NN6rQs5bQoGQ/hVRUpOWRSbvD2DMxH1czK1cEg8zlBO0IWmZkAChXgktbJlS8evOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7984
+X-MS-Exchange-CrossTenant-UserPrincipalName: y1R5YqzHg0PU0Fhsi6MI7S8NNvOum+72SRv9qtC9j7FAlgIWgG599wz59u/FfSwK3OIffYmraUP8N1M+y0ZMfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5359
 
-On Thu Aug 27, 2026 at 2:48 PM BST, Eliot Courtney wrote:
-> On Thu Aug 27, 2026 at 8:12 PM JST, Alexandre Courbot wrote:
->> On Thu Aug 27, 2026 at 7:42 PM JST, Alexandre Courbot wrote:
->>> On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
->>>> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
->>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
->>>>> unfortunate because it disincentivizes using it in interface boundari=
-es.
->>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for const=
-ant
->>>>> value) takes a const integer expression and widens it to i128 (at bui=
-ld
->>>>> time only) before passing it as a const generic value to a new trait
->>>>> function `FromConst::from_const`. The trait is implemented by NonZero=
-,
->>>>> Bounded, and Alignment and lets values of each be constructed from
->>>>> constants without a verbose turbofish syntax. For example,
->>>>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
->>>>>=20
->>>>> Suggested-by: Gary Guo <gary@garyguo.net>
->>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->>>>
->>>> This doesn't work in const context, so I don't think this is a great
->>>> strategy.
->>>>
->>>> I would want to use it for cases like this:
->>>>
->>>> drivers/android/binder/netlink.rs
->>>>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_REPOR=
-T as u8;
->>>>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER_A_=
-REPORT_ERROR as c_int;
->>>>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BINDER_=
-A_REPORT_CONTEXT as c_int;
->>>>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BINDER=
-_A_REPORT_FROM_PID as c_int;
->>>>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BINDER=
-_A_REPORT_FROM_TID as c_int;
->>>>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDER_A=
-_REPORT_TO_PID as c_int;
->>>>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDER_A=
-_REPORT_TO_TID as c_int;
->>>>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BINDER=
-_A_REPORT_IS_REPLY as c_int;
->>>>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER_A_=
-REPORT_FLAGS as c_int;
->>>>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_A_R=
-EPORT_CODE as c_int;
->>>>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BINDE=
-R_A_REPORT_DATA_SIZE as c_int;
->>>
->>> `const_as!` [1] should do the trick for this, provided you don't need t=
-o
->>> create a const `NonZero`.
->>>
->>> [1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@nvi=
-dia.com/
+On Thu Aug 27, 2026 at 7:53 AM BST, Alexandre Courbot wrote:
+> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
+>> For types that are layout-compatible with an I/O capable type, we would
+>> want the ability to use them directly for I/O operations. E.g.
 >>
->> ... but I agree it would be nice to be able to use this in const
->> context. And there is an overlap with `const_as!` that becomes more
->> obvious the more I look at it.
+>>     bitfield! {
+>>         pub struct Foo(u32) {
+>>             ...
+>>         }
+>>     }
 >>
->> In for a penny, in for a pound of macro code as they say. Since we
->> agreed on using macros, how about unifying both under the same `cv!`
->> macro, with as many branches as we have types we want to initialize from
->> a constant value? For instance:
+>>     #[repr(C)]
+>>     struct Bar {
+>>         foo: Foo,
+>>     }
 >>
->>     // Does what `const_as!` currently does under the hood.
->>     const BINDER_CMD_REPORT: u8 =3D cv!(u8::from(kernel::uapi::BINDER_CM=
-D_REPORT));
->>     // Calls `NonZero::new().unwrap()` under the hood.
->>     const SOME_NONZERO: NonZero<u8> =3D cv!(NonZero::new(kernel::uapi::N=
-ONZERO_VALUE));
->>     // Calls `Bounded::new::<{ ...}>()` under the hood.
->>     const SOME_BOUNDED: Bounded<u32, 2> =3D cv!(Bounded::new(kernel::uap=
-i::SMALL_VALUE));
+>>     let mmio: Mmio<'_, Bar> =3D ...;
+>>     io_read!(mmio, .foo)
 >>
->> I.e. we would have one extra matching arm in `cv!` per type it handles
->> instead of implementing a trait. The syntax of the macro would look more
->> natural (bye bye `const_as`'s awkward `=3D>`), albeit it would have the
->> limitations of such a semantic dispatch.
+>> Currently this feature is available from `register!()` macro but not
+>> otherwise available with `io_read!`, `io_write!`. Support this by
+>> performing conversions to I/O primitives via the `AsRepr`/`AsReprMut`
+>> trait.
 >>
->> Even the name `const_as!` wasn't really accurate to begin with: what it
->> really emulates is a const `try_from`, and we even discussed
->> implementing it in these terms in the future.
->>
->> I'm sure the idea needs more polishing but I think there's something to
->> explore here.
+>> This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
+>> remove them; also convert register methods to use the `read_val` and
+>> `write_val` instead.
 >
-> Yeah I agree that const_as! is similar and if we had const traits we
-> could fully merge them and have it always work in a const context for
-> both duties (which are really a const tryfrom as you said).
+> Nice, the redundancy was bothering me a bit so this is clearly a better
+> design.
 >
-> I am not sure about the suggested syntax (e.g.
-> cv!(Bounded::new(kernel::uapi::SMALL_VALUE))), since it seems very
-> verbose.
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 >
-> Alternatively, what about just directly merging them so you use
-> cv!(5) (the non const context FromConst::from_const dispatcher in this
-> series) or cv!(value =3D> u8) (exactly const_as!), with the =3D>
-> distinguishing between the two?
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>>  rust/kernel/bitfield.rs    |  10 ++++
+>>  rust/kernel/io.rs          | 135 +++++++++++++++++++++++++-------------=
+-------
+>>  rust/kernel/io/register.rs |  15 -----
+>>  rust/macros/io/register.rs |   2 -
+>>  4 files changed, 86 insertions(+), 76 deletions(-)
+>>
+>> diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
+>> index a0d089423f21..619c5e2189d1 100644
+>> --- a/rust/kernel/bitfield.rs
+>> +++ b/rust/kernel/bitfield.rs
+>> @@ -308,6 +308,7 @@ macro_rules! bitfield {
+>>          $(#[$attr])*
+>>          #[repr(transparent)]
+>>          #[derive(Clone, Copy, PartialEq, Eq)]
+>> +        #[derive($crate::prelude::FromBytes, $crate::prelude::IntoBytes=
+)]
 >
-> So this is what would work for Alice's example (const_as! but pushed
-> inside cv!):
-> ```
-> const BINDER_CMD_REPORT: u8 =3D cv!(kernel::uapi::BINDER_CMD_REPORT =3D> =
-u8);
-> ```
->
-> When we have const traits then we could remove the =3D> syntax I think.
+> Do we need `FromBytes`/`IntoBytes` for every single bitfield type? I
+> mean that probably doesn't hurt, but if we need them for registers then
+> we can derive them from the register macro.
 
-It'd still be useful to allow explicit specification if user prefers. I thi=
-nk it
-makes sense to (ultimately) translate
-
-    cv!(val)
-
-to
-
-    const { FromConst::from_const(val as i128) }
-
-and
-
-    cv!(val =3D> ty)
-
-to
-
-    const { ty::from_const(val as i128) }
-
-I think there might be some tricks possible to get it working without const
-trait, e.g. for `Bounded` and `Alignment` we could simply add an inherent m=
-ethod
-
-    #[doc(hidden)]
-    #[inline]
-    const fn __from_const(val: i128) -> Self { ... }
-
-but I'll need to think about how to make it work with core types.
+These are not needed now (as `AsRepr` provides sufficient guarantee so
+read_val/write_val use unsafe with them instead); but I kept them as I thin=
+k
+it's useful derive regardless. I suppose these are not needed for `register=
+!` so
+direct user of `bitfield` can derive them manually instead.
 
 Best,
 Gary
