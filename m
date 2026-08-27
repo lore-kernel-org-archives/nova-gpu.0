@@ -1,53 +1,53 @@
 Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012046.outbound.protection.outlook.com [52.101.48.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8253FE650
-	for <nova-gpu@lists.linux.dev>; Thu, 27 Aug 2026 08:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA0D409285
+	for <nova-gpu@lists.linux.dev>; Thu, 27 Aug 2026 08:52:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820752; cv=fail; b=i8prKnCd5gK3ylCu252ezThwciVUq8lfK/WLH84MvPCm7yWAz7P4SWkjVRoKK49PwEymHOzhA0DU+8zB13vZm9kGJXxVREh6dmAqNB0EksDomjy2v5gggV/rEKObRz7QjBbgcYa+wisqEP9N3xyEIATvZMv6u8yfvh3230Ekt9Y=
+	t=1787820754; cv=fail; b=fAkpN4pSHyAtNeTVdIU2zLXJmTH4FLhWJxyoUgMYy9M7SIV8qv8mg5LDW1nzNSYk1YAAHe3pPGbnZlzpEckNtYn6tmLk9f0BSQJ2YXHDxIxx+D5uZdPKRZ+bgONcDAr8bLGJXrgW4+ZVSMTP4Uk2ssBMZxUoeyerk0uOaahCJ/I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820752; c=relaxed/simple;
-	bh=O+5BKyShuOHGZSxb+RhHTzppO/9MNpVfMsD6dneaNuw=;
+	s=arc-20240116; t=1787820754; c=relaxed/simple;
+	bh=jpRtHeA8kNLSQCpQsw/yfBFsg0gKZQGVJhbQavM7770=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=F8ghrOIuii52xkCsp5mHlJ2TwRnd5peSN1tsnDlPnfya7+Wsu1L+/EWqc3PR3YirUOfmo2EtCxRz3tkWUrwYs0W1g5+SjK55tkIJLbjCx17yCzY1z0WcGXIfeQx5A4h0codgKyLWjEJH4N1LtEtemaPxscnF67iW23CDndIGArY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MdM83CEf; arc=fail smtp.client-ip=52.101.48.46
+	 To:Cc:MIME-Version; b=aX0aIB1aSk8TsIkOnducFpr4fDKWXwYdYD04hAEGYEo1dv5pGlD8GcTnbTYW7KDlr+u4R0Z9TDzyBCWiF1cXdfFOdyQlUmjQMkltufeP12VIhKDXdjvxxZdKsXAPFw2dCGafjx+w56/HoKO0KULwt7UMFydXrBiueh/w83iJ1LY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cee4hXD0; arc=fail smtp.client-ip=52.101.48.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MdM83CEf"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cee4hXD0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CIlRe2rHem+0rozjgjsWdhy7sBjwei+8vsujfyPEYU9cScv7D1fjaCpUyGSVcVSmt+/nE9oEzYqnGkUR/4syNOHWBhxbSsVxT5/bTSUxdQFMjxZC+KdNpO4jPkIQWQZKlfX977sBsXabh6eaQtYmY+l02X7HiwG4JmurkSZjpSs4nBdEUmgS0rmNrPR4WJa0rxKxA83U3aTnKP2XLPI8L3DebU7GMWLk2nZKSIk+58/fwHceukuxubhq4COZP+Z491gLygqIxF5iT/xHcD6dtQ4ty9LslrBZ0UQTPClLDzwcxXhNQ9bO1/ELFW9QFnpBcm4X5JiFpvHgxyf3zRvRPA==
+ b=apdz7yyP68RsCB9FEPDOxyP1k7/6V24AQ7FIvyry9eOsdIfPQlNo6H0BLMDRWOubLwbtSaFiz5WRijZFEzyejGDb9b9RCa4sImwYVpMEDGr1NQg3H1GTJ0cpmgcBKQO0l1mW+be2XjJMjV6AUbbGmfqHFIA9pMhIPI+Pq1UgmV8xMx/ZiJ8yIhezubivKFODJWQQ1maU1YxTSZ3ZpCI70qCUb3ndsDcVAOkwxu1xzNYurKr5t1gkNRwXBX+Nz8XujiIvBM7KvB9/hkqZ/Nsuly4Sz1czCXvK4TIMrl0+eIPs/qLEK47ljCNUn03SZBZTMzi/fQOjQ0tj80NeNFxlmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GqfgYyU/GpaAmC3423pZOAtihrlCVfpnwE+RCGpNNVA=;
- b=xyIvJxZQQTE6+ftOukZgoTRtZpicPWxUeUZ/DD1Nk0yx6vZOA9lZV2UqCKyAE/wm5KTteGYVQRugrjzRggU/ZNlBKZj6D00NzCul18Mw4go0h0f5IbinQ4R2V28ZOKP+zsJ2Gu/+b0w3NQCGnc7A2cZdBKRYSO3fayIoHdwLagr1HHpXnEnOdLSP2db9jnEg5vuvmyAhQg/sT/q27FfoT6TrrLPnzutBYxFCBvx75XZ0+dHXStnR9CzlL3n4g4OICEackdlSxH7hhTl+DzARxtLhtwiJ1juLN5/UTX/AP6WRz+IzncEIFLPm3s8XBJRg8lqM37uEACb1jy0KQ4jHxA==
+ bh=IYAUQ4Ly3AZGT9BmkfCu5w1yYBWLwzZ1p0beHwt85hY=;
+ b=rxENwbeeePlF5z2V7inRAYktt0Ynvd3p9pnmUnUldK+XBuV2eybZZ4lms9ZQdX3GrfgiK0sdMe2pXP2lUTIuJV/821g1PDeOB6mwW1O0lQdbYQPBenjbOe2NMTYHiPlDlfOsGWc5E+YKaN5HsS+lz+aHWMKNuUxzETlrAXiKiu2rvZ3FztaY1U2zVMzkXPmasamoMNkwkKSq0QhL5na8FZ8GGVtuGpIHrIU3y8je/wkWX0r2VT0qIbIakDhQMIKdb487vAPGYKXEOfypMoIii1XwN1HlUyzRGgJEX7nbx0mMwGKPZENfEq7VNFUFDS4/BJdwuMK/rdK0tegmq+4sVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GqfgYyU/GpaAmC3423pZOAtihrlCVfpnwE+RCGpNNVA=;
- b=MdM83CEfZogrKwygDcHwxsAqCw3td6TmUjdyBO7TlZ6WUuqHii9V0yrHBg8xuJgt1MYUrMttHFQXWVSEhRmD0SAhWX+TYhwwbJ1O6kjILYoXNDiqKPUpShF8gQtDeZFkCsvsvEU4wCjtbgp3X0ubFS5TcbbyCFM5KPdm1hTbwY1L87pUipFuoIfW85IZXgCbvm56wnfJWdKgb1h/cLxwXKFyZ8TBR66Us4+tnAO5CD6G3Ve2qoky28xn8rxXWLXfanFcs2w3g8Jv36k6mt0IE0OAfCCi3bIFyUVv26xR3VRuDQcWF0iJeTXIBOsxPy2rvt/kXAyFQghloou+Bor1wg==
+ bh=IYAUQ4Ly3AZGT9BmkfCu5w1yYBWLwzZ1p0beHwt85hY=;
+ b=cee4hXD0pLFxOz+Pt8ZStKbhI4rsr0IvMjaimzBC/eKK1mp5vXx3saur3AVRq9ZYmSt79tI3r+E25xScl1aLv4Cr/rGuxyckZzSzLrJz+Let/PKSd8mCxEJ0khk4div8L2WJkdlwWp12LCInamuCIEGjskkgYDGfJ+gEGjvhcg0p9k9vf+B6WpGocBr9CY6Po1A9ZJqa8k0H/HI4IUnGDy+3zzjrVx5SI7VF3Zi/WthGTW6wzxRjykVtjOPM+JVlqTUrq0n+8sD1DX0btQ4vB+zGbtGkMYMzG6KQGr9kLHLfm6YinsJNfyJE2QxjSIcNrjDNOCsHjsf7PKYBlJpBpg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
  BL1PR12MB5729.namprd12.prod.outlook.com (2603:10b6:208:384::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Thu, 27 Aug
- 2026 08:52:20 +0000
+ 2026 08:52:24 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 08:52:20 +0000
+ 08:52:24 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Thu, 27 Aug 2026 17:51:45 +0900
-Subject: [PATCH v3 04/10] gpu: nova-core: mm: Add the memory management HAL
+Date: Thu, 27 Aug 2026 17:51:46 +0900
+Subject: [PATCH v3 05/10] rust: io: add static `cast()` method for views
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-pramin-split-v3-4-24b24d7afc52@nvidia.com>
+Message-Id: <20260827-pramin-split-v3-5-24b24d7afc52@nvidia.com>
 References: <20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com>
 In-Reply-To: <20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com>
 To: Alexandre Courbot <acourbot@nvidia.com>, 
@@ -70,8 +70,8 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY6P286CA0020.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:3b9::11) To DS0PR12MB6413.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P301CA0067.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36a::11) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -81,287 +81,133 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL1PR12MB5729:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2a6d0ff-b1bb-4500-120b-08df04188138
+X-MS-Office365-Filtering-Correlation-Id: 5482039b-954c-4431-f17b-08df0418834e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|7416014|376014|23010399003|1800799024|366016|921020|10067099003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|10070799003|7416014|376014|23010399003|1800799024|366016|921020|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	F/X9znbX27h4Q/7SPUfHeZLSDES8/K0MNtMz+/Yxu51iOcDoct+brsLOUVdxV4Wezw0vu3BhLAej0ISksQ7Z0xaf1t8dPAgWazL1PnbnSoJ/+nETv3VvKxbvSOoOGOn2L6MhVOOe+sYDPgL3elXOP8lDXwWpp2PAX6usVZEQeDn4ht5KepysWg0BfzL18y7YE6VxzhuyvG+S7KVZKz0+dfjYAD2J7LnJCt/KqfOcAm9VLxwX+Voe7oxe8yaddh9rflViW4ziJFpBMP+HfmYG9tc1/i0MfMgb1B3kNPKBOE0K0wqtvdGPNl5FTgYYaCnVC9KwdZgixfZSDQoD+QYi/HrtLiqrcxD/Y7+ckuWda0dpj4i/Zj0q0hFsfxOOJvR89NIrawtIrxokP6StYRp6oZfaD2qt2QBam0/HKaspaGNxAl2LIic9z1M3mTRJoDwocRuU9QoJjFZTpQ6LxL/Fht0/H3j1+OJIFw6qxKV9crCoLVK1NJfA6bGxqFg/6BZL01JdxgxtFAY0sCgGhBI7oKDwH0adrsEo1E2GArEns7wge5voSMth7JSDypkKPDaFlzoqlUk4Vm1/XNv8yNmKUI2Gv4XXgVJEuNYJm94xGHm9RddWuinFrlB/3azdFCEaEZCoRnC+95his47u1jS1tsz5HiROyEXHDJLfnLAOhdIJUWeac7Pg+mexwHIAOCVbw7xAAinAyIzFTcwHBCP2rw==
+	icuIvAS6nXzRr56700G14dBBfoR4zIXTYTJLCb42G3VL9dY7gWEZhbIEFwfLjU8/ihJCy2V6dn5zcLUT72Cbd1f5Pd9oc7/HsBeWN/Pz/Yz0egmhUMQBaq20roDAakB37edRxxPlfyf0+B9FAOV1GgcoVu94E8G2HigPvLCmOyHUOMFmX9szmkbyzbxlB9UJFtPjuK+b+VyWLz5dhvVZz2qSdJOti1RswIpjWAHJhL51pK/tNN2CNrSiIEwgjUf4xqauLEhRlSi62FhlAZDuQe+dMpMPbVZ6VZwyajIXV1maPTNxXfhEKfllAHzS4ucssA5QnS6Ei17L0Dd1i/ZNShzWMh5aVm1+Z06mt09Ro1j6yPtB7Gz9PzoRlfwPBPrbBc2J7bJU4I7Wi6EbR9uLSDf6gtroSkyHRCY3wF9bBl3sAZbI3cimZvatVA33j8ewKjB0ouP2IzmXJMQLhanVxz6GGN2hst39LsjL4X+Nxe+dPDqVtoPYIxW6gK6jXePaSc03X6vftaPZayfgr8tre8cHwFAwW6XoYlBTkIK+ODjCM3KknHiSsFZ5dIjdgeeG+Q0afsd6mlJjgcFEwS62ktWxs9GN9PvpHPr952Oi+Ap4zW7gUl0av5+R6T66HVWLY4s2R2JTB56xpASfO+ze3yj8UQNc9Xs55LW1ADpvxD4LNmgybPeWTRI9EkelopEAmJTYcXnq/TzIMwIlqP0e5w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(23010399003)(1800799024)(366016)(921020)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(23010399003)(1800799024)(366016)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ulc0WW9oRVV5a1Z0Zlo0RUI1U20rY0plTVpTaklkTm5jVnJlNEthNnZJTmtv?=
- =?utf-8?B?Z2pVMW1jcHlyUE5vRGtmcmFaOExXRUFydnpDSzBtT2REOWpkY2k1QndPVnFR?=
- =?utf-8?B?SUpKZFJBQXFLU3VRTGluUjIxNnpiajUxUTFTaWs5WEZkRmpqQWM2M1QxRE11?=
- =?utf-8?B?cHYxN2Z0RDRKcElwQS9rOXlIQUg4VENMYXp0dHVqN2ZWUG80MHhmd0I4T0ZJ?=
- =?utf-8?B?N0c5eEdUUGtTdmUzd0VTajNwdmoreXU1b3NnbnpVOTZtZy91NUpsRWlmWm8z?=
- =?utf-8?B?cDZjNzIvU1FBSzlRL2RaYURhQjJPSzkwOG5ZdWlLRzBmQ0hEMHMySCtsK3NY?=
- =?utf-8?B?ZUhXbC9NTERJNjRVcXp2U3Z3bUtMOUhnSHc5WHdqbXNCdHpIZExlUEJNNExN?=
- =?utf-8?B?YVk2NWhBUmJCVnp6NkZ0TXg4RWtTMnN2NkRkSkhRNXY5d3VMcnQ4QkVsMWNw?=
- =?utf-8?B?dEx0NFVza0l0Uk5MdU4vYjVDdVNadnNmT001bmRwSmEwbzRCRlkzQVZSL3Rr?=
- =?utf-8?B?Rkx5czdhdnZZVXkvcjRycnUzRTMxaEtIamsvSklMSTg5a3loODB2UHJ6RkYz?=
- =?utf-8?B?Ym1aOUJoZStyalFqRzk2aFFzcTVZeERhQ2FpY1NzYVd2MGFFSnNnM2xEcVBl?=
- =?utf-8?B?YzlCVVJuMHR6cWFoRmozek9uazNINlU0UmdOTCsyOTIvVDc0NHg1TUQzZXJM?=
- =?utf-8?B?RzY0RDNreWNlb3RWMDhIUEJucVkvdnI5SWdmNzk3QmtUY3JNRDczb2R1djM2?=
- =?utf-8?B?SGJBU2JCR2RVN0Z4Ymk5d2VHRG5PTkdBNDFpUmR6R1pHWFUxOEorV1QrdEZY?=
- =?utf-8?B?U1JvR0RVelZVZEpCbGxpL3J4bXlWaFErTGEvQUE1VzZrN1U4QkJZK1NsV3Bo?=
- =?utf-8?B?QVJjUU8xYlJ6UC9rSnBhZmZHQ0RNWDcrT0RiRFh2cnJpTHpKdGNDd29oeWNa?=
- =?utf-8?B?VzBKdEVpZWR5ZHJMd0l2cjRxQXcwTXE2blY3K2s2YlB4TmM2VGRBSzU4a29u?=
- =?utf-8?B?OUw2MC9UNzVrUElwSFY0WWFuM0tsaHkvdTRqY2daa3FvSU1iWDIwWktodmMx?=
- =?utf-8?B?QjhhL2dod3Q1Ly91Mno0T1AyWEhqRHRlTHVrOW9xMkpCcEYxVnpSU2dKR1My?=
- =?utf-8?B?TUl5OUR4c0d0OG1tRVlYbXJsb1NJcElaTEN5MmFpYzRZMFRsd284elRvYjkx?=
- =?utf-8?B?YUo4RFVMdTh5ZmJmbHVqOTVxK2FrMzhKSEpoWEhlc1c1V2gvWGZQeTFBZjBp?=
- =?utf-8?B?eHZBd0VLMlRDSFNhOUozZDdjS1hKdGVxZjBycDgxbHpDNzh2VGRobmtPZDVw?=
- =?utf-8?B?dW40SnZYZXJ3blpwS1MrSlVmMDZmVU9HdlJsNVFyV1BKSXlaV3BWM2YvZzdK?=
- =?utf-8?B?NWNLdGVyK3NvdXVBNlZ2Q2xhS1dGRmF1NG10akNiQllBWm9mb0NwbmRmazE4?=
- =?utf-8?B?OGdhU2tjM09YTG10ZGFlMHVvTDRvYzBkRXVIQmdxRVg1QXA2YzFCYW9MUnJy?=
- =?utf-8?B?aGlyTWo0V2ZEeEtNYjBWdjVIazdOVG95WlY3aEZZbTBkQkk0eE5oZjZkSjMv?=
- =?utf-8?B?MHVCdHp6UWxpMU5VKzBjLzQ2VmZWRjg3VER0enliR2Zza3NlT2JBMXlkNk5t?=
- =?utf-8?B?REJHcFAxQko5R0tyZEE5eFBWZWg1ejRNUHJTNXp6TTdTRmJvVWRrL0YwZTFY?=
- =?utf-8?B?RzNZOTVoUGFEZUQrTy9LcXVkYXo2bC9zdURJYkhQZkJacG1TNHVWTlQ0eTJ1?=
- =?utf-8?B?YW5HNzYzZVdsN0NZR1NpdUtEcEtkZWRLZkx3OWo4M0lrN3h6MzJYaXJGNG5O?=
- =?utf-8?B?SjljaFptRFJJUElEVGM1cHVqd2hKQ0cwR0o1QmZySWh2SVJkNk5oNU11Q2xI?=
- =?utf-8?B?c3M5dmcvbm1MK2ZjTmdISmdPNVd6OUhkVnI3NjAzQkF4bkdyU21wclQxNVk2?=
- =?utf-8?B?NUdNeStTUW9wSURIcExFR2lQWFBlVW8xMFVMenllR3cvSDdNbWlrK1dNY1kr?=
- =?utf-8?B?VlBMQ2w3ZGxONnBjT3Q3bUlDaFgyaDFTOVIrZ1ArV3VRU2V0NnNzUEQ3S3ht?=
- =?utf-8?B?N0ZOYWZFcjVVQUl5WEhVdG1CRGpma2g0VHdyRy9HalFIZDhzMG5UYURaQ3hY?=
- =?utf-8?B?dXYwODdLOTBwdDlhYm9xNWo2dTN3SHhUbXZ0QzhqZzhyNGU1ejBrNnlaMmZ0?=
- =?utf-8?B?R0RMR010bkNtQittYy9kVlhaOXlTcjM3aWt1RzMxcmpUWXJ2cFhvbVRFU3RZ?=
- =?utf-8?B?WnlCOE1tWGFMRGxNQUFmK2IzSHd1VGtLV0ZoSnViQWkrbmNlZ0NVRlp4WmNX?=
- =?utf-8?B?WEdBUklZR0dJMnlFRDJBTjdKUmEyWWR1TGtWNk85UG1jaW5TR0t1cFRkbkFw?=
- =?utf-8?Q?UpN3BXht2+6UMjjNhTNVPdFKMr668SfZ1AVCvCd0ArXQ5?=
-X-MS-Exchange-AntiSpam-MessageData-1: wef4Ua1yDCHWog==
+	=?utf-8?B?elYvNFJKV014T3IrWHhuSzBLMTViREFrVTZUSmlyYkx6cjZFUFNGaEp6QWVV?=
+ =?utf-8?B?cXN0eXdMR2s3TnNJZENsUzVFWUFjcVZJaVB4TGE4eDA4OWkyUHJ3dm5yWUls?=
+ =?utf-8?B?a0pCQ1IzWUVnbkxzWjZSTWFBVHh2UEY1Z3l2OG4zVHhPTzhrZTlHczBhNFVE?=
+ =?utf-8?B?M3I3RjN6Vk5mN2d2T1k0TzZocnZlMzRBajJjV01zVGphR0lRVjlBRGNiSjFB?=
+ =?utf-8?B?OGJJRkFmSmo5RXZpL240WTJwQllDSUlnU0pWU081Y3dWSDJoNllPYXVBOW96?=
+ =?utf-8?B?TmttdElkcTBXeGNXYUN3dEp4UG5NVUxmWDRXS0loZG5lYllHcitGRGI1U0hy?=
+ =?utf-8?B?QnhQR1pWcUFienRGU2h5a0plWUFPcUllWUlGa1dXZUgwZC8wbVBvNGNJVjRS?=
+ =?utf-8?B?elQ5cTJQNmFBSzhYcUtPQTJ0WXBpN3lXSHVEZTNuOHpsaWZ6NWlCZjBrNzFE?=
+ =?utf-8?B?dXBEK0tYc2ZQbE9DblRkc0ROS2o3cXg3MS9xRUYxTGtCREJYTXdhNGdkamZN?=
+ =?utf-8?B?dE5NNHJZSnZlSC9ncmlXbmdWZU5iWXhleGNFVWp3TVpEV0dWOFp3UUhESmJa?=
+ =?utf-8?B?aEY0djAzWjhUd1FJelUySzltT0pwbm9lV3dvUUNJckpGRmpLTFVNMHg2N2JM?=
+ =?utf-8?B?RHN3WHkvNmVLVXh3WDFLbU53bUwvaEVZdEFSZ3pma0F1L2U5aDFrdU0rQXNN?=
+ =?utf-8?B?TTNkZkFOVzNqQ3htY1hPTVdGcFM4OXlsTHFrc091dDZiM3lQb3EvdmNTN3dX?=
+ =?utf-8?B?YmJjUWJoL0hlTHF2QWNGOUN4aFc5MEE5NkVHKzkzL0cwZHhmYXFVcXJlU2gy?=
+ =?utf-8?B?eGhBT3hzZk16ZDN5eitLV29vZU5DNXF6Z2tleXRZMDEyRUhaUldyWUlOQ3ZK?=
+ =?utf-8?B?ck1PYmFhcEVsM212L3ZNdUtGWWxuekJJaTMrSTAvR1FpS3ErOTlsMExndUgv?=
+ =?utf-8?B?R3ovU01LQTNaanhudWY5M3Nud3FOdFZIcmJTWEpEaCt6bUgrc3VaMGRXN3Rm?=
+ =?utf-8?B?R2Q0V0xpK0tlVS9NZm56dHJIb3FxalpBbTJJOHJxQWhSWk94V05xZXBOMnd0?=
+ =?utf-8?B?MTg2aEROQ1RHTEc2ZWo1aFR4OGlOVkwySmRaRVBjVTE5ekFYWWNrYitrWVcy?=
+ =?utf-8?B?bGVzOTNER3lWY0xSY2g5cFBHQjYweGpaTktGMTRhUnlHdkFnc2o0ek96czQ4?=
+ =?utf-8?B?Q1JoTXJnNVRDcVcyVS93bFZlVTdnTHk4RFdWalFXN25zSU54VStlQzhpTDh4?=
+ =?utf-8?B?Vm1pb2Z5VndQN3FRQ3pJU3NPOXY1NC9KWHhUS2QwRzlOUG5udHc3WmlDRFAx?=
+ =?utf-8?B?R0RlZHBaVmRVMmF1QUVkUlZVQ2Y3WWJLbXh0cmFoUTYvZGtoT0dUS3Y1WGc4?=
+ =?utf-8?B?eHJMUFJaZko5c3hNU3g5WHNDT0dvaS8vbUFuZlhnVzlRREhOQW1Ldlprc0c3?=
+ =?utf-8?B?TkJlanVsNFBWd25yUVBuK283Wlo1U1FqL1FkSFpSOFJJM1BnalBGTkFpaUR4?=
+ =?utf-8?B?d0ZaNy9YWTcxSFhtTVhPVGVBM0EvSGdKR0lsWUEyN1pPVnlqb3psMlNhb1Nx?=
+ =?utf-8?B?VHV1S2FKaDNONndFbGtXQitGRXVNd1c5Y1RTNUNYK2RmOUpwbWtoUjdOT0tY?=
+ =?utf-8?B?VndNdmdDM0UvMnM5eFdiOTNNNmIxK2JxdEY0K0toK1lwcmlvbTVCdGZFVStX?=
+ =?utf-8?B?MUNHUmZCWlpUV0NMWTNSNGlQZjJxemN3bnF4eHBrQ1p3djdCSjg1Yng1aHJF?=
+ =?utf-8?B?eHZlMDFDV2lkRlhLK28rd1RRb01nek9BQkovZlJFSVJHY1hHcEpiUjRaNUNs?=
+ =?utf-8?B?WGtSZFBLSFFtMy9lakJSdjFmOStPVDJJWkxhcjlBUzFzWEltdnJTRlltTTlx?=
+ =?utf-8?B?b1ZTaVFoZjBwQXc4VStrbmFITklYTlpLc2FNRGVBWDE4RGY1R05sZm5pdWhK?=
+ =?utf-8?B?M0NxZDBkbnNydmd3eXBOY0JQR2gvajBBQU96SmZCQkhQY1VmamZtL2VaZWFX?=
+ =?utf-8?B?cGlMb0lTbjVZeFcyY0hML1NabzEzODhHUUlzbTBuU1JHUDZxbm5vbXlkdU93?=
+ =?utf-8?B?YndDNFZ0ZVVWejFBeXFpbjdjYWw1V2htTTlkUGpLZ3FJbmpYd3Q1SGdVcm82?=
+ =?utf-8?B?RC9qN3hOb0ErUS8vOVpzblVFNWJvRGlxVjdwdmUvMDRBVVJHLzkzM2gwZkI0?=
+ =?utf-8?B?Smw1b2lkSDhmNnlWbTNUVjVCQngyRENnZnhBQy9JV3pEc0oyWUJ5WUpWc0w0?=
+ =?utf-8?B?elZwTUo4MjhUNHZSVm40ditsWlo1NGttbDFoKzBRWkEwUjg1cEd4RytXN3cy?=
+ =?utf-8?B?VjdieTR2S1BHU1NRR0hXSUdUZVgvREhjWjZpWENoMEpLdjl5Y0NYOEFOcWl2?=
+ =?utf-8?Q?w9tpCoFDr8C3421xeRwGAPE3vMyNl9ImRY/c3rM0ACtID?=
+X-MS-Exchange-AntiSpam-MessageData-1: xT7SqnwE6U/Fow==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2a6d0ff-b1bb-4500-120b-08df04188138
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5482039b-954c-4431-f17b-08df0418834e
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 08:52:20.4503
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 08:52:23.9995
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3HSO9mvdVZLGNqnDEvh/L0fbTrIRWlHzXnnxD2xBOLSSw1wL/ZusRd0Es6gcJ5iRCKKMZ2tP4PuAUpfSS3lPXg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: SgvASbgQ9n6VNJ4MZjQCHDZNBLuvBSoodgHJ+eASbvXSE4Iy8oHYQbZlrYpOD+d+aBn3KD2HXmTLUFajXNvIQA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5729
 
-Positioning the PRAMIN window requires writing an architecture-specific
-register: `NV_PBUS_BAR0_WINDOW` on Turing, Ampere and Ada, and
-`NV_XAL_EP_BAR0_WINDOW` with a different field width on Hopper and on
-Blackwell.
+From: Gary Guo <gary@garyguo.net>
 
-A `MmHal` trait with one implementation per hardware family hides the
-register choice from the rest of the mm code, matching the layout of
-the driver's other HALs.
+Add a compile-time checked variant of `try_cast()` using the minimum size
+and alignment information.
 
+Signed-off-by: Gary Guo <gary@garyguo.net>
+Link: https://patch.msgid.link/20260805-typed_register-v2-1-c3ca142220a0@garyguo.net
+[ecourtney: fix the doc example type and doc grammar per v2 review]
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/mm.rs           |  1 +
- drivers/gpu/nova-core/mm/hal.rs       | 56 +++++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/mm/hal/gb100.rs | 35 ++++++++++++++++++++++
- drivers/gpu/nova-core/mm/hal/gh100.rs | 35 ++++++++++++++++++++++
- drivers/gpu/nova-core/mm/hal/tu102.rs | 37 +++++++++++++++++++++++
- 5 files changed, 164 insertions(+)
+ rust/kernel/io.rs | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index 7d24ad790310..07dce4ce2473 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -19,6 +19,7 @@
-     },
- };
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index 4542187d6b91..5f1be3b31acd 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -436,6 +436,45 @@ fn is_empty<T>(self) -> bool
+         self.len() == 0
+     }
  
-+mod hal;
- mod regs;
- 
- /// Physical VRAM address in GPU video memory.
-diff --git a/drivers/gpu/nova-core/mm/hal.rs b/drivers/gpu/nova-core/mm/hal.rs
-new file mode 100644
-index 000000000000..e7fd1e38bd38
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/hal.rs
-@@ -0,0 +1,56 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Memory management HAL.
-+
-+use kernel::{
-+    num::Bounded,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    gpu::{
-+        Architecture,
-+        Chipset, //
-+    },
-+    mm::VramAddress, //
-+};
-+
-+mod gb100;
-+mod gh100;
-+mod tu102;
-+
-+/// Trait implemented by per-architecture MM HALs.
-+///
-+/// `Sync` is required so that the `&'static dyn MmHal` references can be stored in `Send`
-+/// structures.
-+pub(super) trait MmHal: Sync {
-+    /// Positions the PRAMIN window at `base`.
++    /// Convert into a different typed I/O view.
 +    ///
-+    /// This fails if `base` is not aligned to the 64 KiB window alignment or is too large for
-+    /// the receiving register.
-+    fn write_pramin_window_base(&self, bar: Bar0<'_>, base: VramAddress) -> Result;
-+}
++    /// The target type must be known (statically) to be of the same or smaller size to current
++    /// type, and the current view must be properly aligned for the target type.
++    ///
++    /// # Examples
++    ///
++    /// ```no_run
++    /// use kernel::io::{
++    ///     io_project,
++    ///     Mmio,
++    ///     Io,
++    ///     Region,
++    /// };
++    /// #[derive(FromBytes, IntoBytes)]
++    /// #[repr(C)]
++    /// struct MyStruct { field: u32, }
++    ///
++    /// # fn test(mmio: &Mmio<'_, Region<0x1000>>) {
++    /// // let mmio: Mmio<'_, Region<0x1000>>;
++    /// let whole: Mmio<'_, MyStruct> = mmio.cast();
++    /// # }
++    /// ```
++    #[inline]
++    fn cast<U>(self) -> <Self::Backend as IoBackend>::View<'a, U>
++    where
++        Self::Target: FromBytes + IntoBytes,
++        U: FromBytes + IntoBytes,
++    {
++        let view = self.as_view();
++        let ptr = Self::Backend::as_ptr(view);
 +
-+/// Returns the HAL corresponding to `chipset`.
-+pub(super) fn mm_hal(chipset: Chipset) -> &'static dyn MmHal {
-+    match chipset.arch() {
-+        Architecture::Turing | Architecture::Ampere | Architecture::Ada => tu102::TU102_HAL,
-+        Architecture::Hopper => gh100::GH100_HAL,
-+        Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => gb100::GB100_HAL,
++        const_assert!(size_of::<U>() <= Self::Target::MIN_SIZE);
++        const_assert!(align_of::<U>() <= Self::Target::MIN_ALIGN.as_usize());
++
++        // SAFETY: We have checked bounds and alignment, so this is a valid projection.
++        unsafe { Self::Backend::project_view(view, ptr.cast()) }
 +    }
-+}
 +
-+/// Converts `base` into the value of the window-base register field.
-+///
-+/// Fails with [`EINVAL`] if `base` is not aligned to the window alignment required by the register
-+/// field's shift, or if the shifted value does not fit within `RES` bits.
-+fn window_base<const RES: u32>(base: VramAddress) -> Result<Bounded<u64, RES>> {
-+    const WINDOW_BASE_SHIFT: u32 = 16;
-+
-+    Bounded::<u64, 64>::from(base.into_raw())
-+        .shr_exact::<WINDOW_BASE_SHIFT, { 64 - WINDOW_BASE_SHIFT }>()
-+        .and_then(Bounded::try_shrink)
-+        .ok_or(EINVAL)
-+}
-diff --git a/drivers/gpu/nova-core/mm/hal/gb100.rs b/drivers/gpu/nova-core/mm/hal/gb100.rs
-new file mode 100644
-index 000000000000..3781e143dea7
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/hal/gb100.rs
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Blackwell GB10x/GB20x memory management HAL.
-+
-+use kernel::{
-+    io::Io,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    mm::{
-+        hal::{
-+            window_base,
-+            MmHal, //
-+        },
-+        regs,
-+        VramAddress, //
-+    },
-+};
-+
-+struct Gb100;
-+
-+impl MmHal for Gb100 {
-+    fn write_pramin_window_base(&self, bar: Bar0<'_>, base: VramAddress) -> Result {
-+        bar.write_reg(
-+            regs::gb100::NV_XAL_EP_BAR0_WINDOW::zeroed().with_base(window_base(base)?.cast()),
-+        );
-+        Ok(())
-+    }
-+}
-+
-+const GB100: Gb100 = Gb100;
-+pub(super) const GB100_HAL: &dyn MmHal = &GB100;
-diff --git a/drivers/gpu/nova-core/mm/hal/gh100.rs b/drivers/gpu/nova-core/mm/hal/gh100.rs
-new file mode 100644
-index 000000000000..8af384db2921
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/hal/gh100.rs
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Hopper memory management HAL.
-+
-+use kernel::{
-+    io::Io,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    mm::{
-+        hal::{
-+            window_base,
-+            MmHal, //
-+        },
-+        regs,
-+        VramAddress, //
-+    },
-+};
-+
-+struct Gh100;
-+
-+impl MmHal for Gh100 {
-+    fn write_pramin_window_base(&self, bar: Bar0<'_>, base: VramAddress) -> Result {
-+        bar.write_reg(
-+            regs::gh100::NV_XAL_EP_BAR0_WINDOW::zeroed().with_base(window_base(base)?.cast()),
-+        );
-+        Ok(())
-+    }
-+}
-+
-+const GH100: Gh100 = Gh100;
-+pub(super) const GH100_HAL: &dyn MmHal = &GH100;
-diff --git a/drivers/gpu/nova-core/mm/hal/tu102.rs b/drivers/gpu/nova-core/mm/hal/tu102.rs
-new file mode 100644
-index 000000000000..e4fe7561223c
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/hal/tu102.rs
-@@ -0,0 +1,37 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Turing, Ampere and Ada memory management HAL.
-+
-+use kernel::{
-+    io::Io,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    mm::{
-+        hal::{
-+            window_base,
-+            MmHal, //
-+        },
-+        regs,
-+        VramAddress, //
-+    },
-+};
-+
-+struct Tu102;
-+
-+impl MmHal for Tu102 {
-+    fn write_pramin_window_base(&self, bar: Bar0<'_>, base: VramAddress) -> Result {
-+        bar.write_reg(
-+            regs::NV_PBUS_BAR0_WINDOW::zeroed()
-+                .with_target(regs::Bar0WindowTarget::VidMem)
-+                .with_base(window_base(base)?.cast()),
-+        );
-+        Ok(())
-+    }
-+}
-+
-+const TU102: Tu102 = Tu102;
-+pub(super) const TU102_HAL: &dyn MmHal = &TU102;
+     /// Try to convert into a different typed I/O view.
+     ///
+     /// A runtime check is performed to ensure that the target type is of same or smaller size to
 
 -- 
 2.55.0
