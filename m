@@ -1,74 +1,81 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010052.outbound.protection.outlook.com [52.101.46.52])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012047.outbound.protection.outlook.com [40.93.195.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F953783C3;
-	Thu, 27 Aug 2026 13:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB36943BDBC
+	for <nova-gpu@lists.linux.dev>; Thu, 27 Aug 2026 13:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838132; cv=fail; b=PQJESjzBtsi1E8+CYGTtbb5tKuu4jEvq2u902Oy8MPrWkoRhpHaShbgMY/u5aLMWPQyfhq1mCe8IuJfSDykHGfVZaJ9ltWeWWdvqGswWY4niZvSj8vPZO1WozSCfYXfszOhQpGdlz0bj5XVpwQ9AKYIq/IknUcFWN2xviGNB5Po=
+	t=1787838499; cv=fail; b=Hk5rMQRTykg2KIjv3bfm/6rx8arEsQpqYW3KGUSTdWz972D2R1UYCAWCRmpd2wkneSSr+MhcV2DPgaL1VaYkZvJfmXS4Jqld/mFxHc73NSVeqvxT+i345+YQ928v+pjMm6uQ9V32d2GlE8ps2w27KrzXuSGnJBQgwAPhBZZ8OE0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838132; c=relaxed/simple;
-	bh=V5gFoybJADCZ/oVBN3rKpXwtq8n151XeCMfF+/6hWAI=;
+	s=arc-20240116; t=1787838499; c=relaxed/simple;
+	bh=wFAlN4wbArW1/1HOYATh4pJHt6sUgNRcXRiK5O01k3M=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=BL3G5C8sX4+6lesBrb0R5XpGsOVqodxaDairDgxfirrenM8Zq93dT1f8C+VhaiLDZJGQtjllRHT28LboDnJJCbJ/Oh0+2Y1VMs1eceSFIMMDq5i39h6jugp7G4A5rhlP006E0Tft8ipbsi6B2HEbI7D1gfeTiERPuzfecuMY2Pc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=c00y4Mob; arc=fail smtp.client-ip=52.101.46.52
+	 In-Reply-To:MIME-Version; b=kvvll90+aRI+Fvk0UNOjfslNp2kShYKLNLhF8JunfX5lRl6zrvn4YfiPiXbqxoEp4dOVk07byNPpCPvHPcMHnJ6QGjTEM9V/PyIajwz7cG2UUIsavwEnEs02sz3E7osl7pgHPF9sGyw6+sI0XE1ILggr3RqDaliGLJP4YCJqSpM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QAU+oE2z; arc=fail smtp.client-ip=40.93.195.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="c00y4Mob"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QAU+oE2z"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AUTsNeCgVSVjVzFaN4f1sUvaGqSzDDWAa0uQoYd5YdKtgVOvaICU37rAkj4AtdrIuNqE2x9T+NaLUS0PhKsKYbENJbj8IcUlNkk20WrkMqKolDbuNq9T/SXeH4T7Lx6i7b8uK2oECHZcmRqkbu4Z3NAjfIDwu2ZapeT0CL61LMlx3XXeT232BeuIe1Cjwd+lWHaQGoKsJHEUrGoAn6b6wAxf3wBFIXEnTRVBG7wkrssREL17j+UCn4Z4tM6+A7fFtNsmI9733OL2UzgXrepjT+IuQn5kok5O276D3LRoxVoKpNjii0/cXW8rFiXXsMUb0Y/AUtE7qpidvZGpI2GPpg==
+ b=U81qH69sTr3QpKAUkY6M8O+LyqtAYmlfKECloEv7s+qR23RasqkCtTqFQ987HrPiKo+d6juS0JV28CZbRjzG7LkIKMdP+Pd6uWzBENqX1R63GFgAwuKGZlvYuu1hXtwMKTCDuUeyOxJ7yC30yo+jcjVF176dmYIbIiQeGOXhlBdvjVdvBGcBMlvtUoZw0cdqkrjZt9PaAQB3QddeseursI0vWyKfPq+dHhCJGQliJ1l0MiIL68R9cXwEkV//PLZ4Bi8q3YhZEMGA7GqZahpHZV/3k3u/Qa13GeouUc5cKia0HLJvA7OMWSdLN0mJfK1jdr5iGvUwRYivkarOvVZqOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6hztRY1U21gTGeMq37zt7iKEbhV5TK5Te0BAXE/es+4=;
- b=qmKKYJh/uuwgwX1gcc4/cuGnLBr12c4aPcsbVS1qrK3pAVlxdw15CZgMw77u3FP8UDbWm4Vv5bHgTk77W3Xak0hugTO+dAX0sX62mTJIJj80rjm8/NlxUGvrJYmLlCqTdgWEU80jN24GJM5VfUG9TMK+Sz3glMH/rnZqi4l2HGb2T98RcI8iksJASD7EsJCbUOfvPy79QNP/XZvy4ULhkAL0z3nKqr1p8t+boq/tBXtaqTXpfkV9Hzp2m0KifoOBuB3BXC+smtiPegrZL0s4fvHUCI1cdsvICXBu1R8dx4w8mimr/HdU/lv7zTJw37K20SX34kTf7tdECATk7ZMZPg==
+ bh=cNbQXb2Xa0t/eGKHGx2Xe+Mt5lKdc9ACLcfGz35AHZ8=;
+ b=T/yv3pXU0+eXMCr0e3YNlPmAawlCeRE9wzS0oR5HAwx6dHiVrV9WPiTsoYpMmVjML58/vkvZL4j4Ck67k+uCa4QtuuDGqY69FPVrY6oT/1sbemNMYQV91FvdVwGooJVIQ8CdxESr5gEktM8Ti/1wuH1IOZLckZGSFXMwN8y/2NYmyNjvHIDUQgrpnyZYLWcanE7lsNs0t/GbeAp0ZPvnhNxnOKw+YHN9QtiUNaRnT2d89g16vDmjMxG8hIkPnngNVbpTAySc46Bj2FfAEfWNUyg/IjX4/06qYi7DEc86Iphy9YYA2mf7Ls5sZw14VO2m0Gry0QgB59MRImQpUrnFYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6hztRY1U21gTGeMq37zt7iKEbhV5TK5Te0BAXE/es+4=;
- b=c00y4Mob7EyNMp92YYshlJJFHqQTs1ALjQva4KBqkZuwKyTB0SqWvI5Xh+tjBnIO7y85xJMpW5nN9vaI5YsjpAUvzreBH8TLu7lJnBU1urPc1o0nKRBqwat+/wz0MumfubHhMoXvOkFrCI6zNAmdi8aHBLgqckslyHiYwhInf4PY/g+NZBjVI5nAPkJiecselqHmA13/IIk6b11lLeCzWg+ZjeFnZwNC8R0Mi+eFTxWkaSYLodxSOSq2ucFgn+wN/RxnNFxAT+JVjHcfjkvfn9lQ0I+fApaven+u5bHq74her07uHAVwGCZfJBuhHEnTE4p8bFnOhM6HDcOa7+cUdg==
+ bh=cNbQXb2Xa0t/eGKHGx2Xe+Mt5lKdc9ACLcfGz35AHZ8=;
+ b=QAU+oE2zi7cQAtiTIDRYBFDk2esccl7bDn8tZ9anYJJ9f0e9syKrwduQVPmYE5hQFdvKmhShRA8zr/A+ZXCdWNp8Y50GwhCb2S48GegNmIY7N5K/KJIY6oHMj7VjxAx4x0c/1kTtWeFyVG8lMBLrIBF8gAhRmSJabrHJ3vLT5n/23IkJegBC5dTpZrby9eoIYzZKpkiHCjdbQGzOJYULOezXEsp6AQR9HskBJ0l6DjsxkbWfgKDeDcbJcaPPgIY8PZEdsPySXHcp7bEt9TM0vgqeiCxQjTour9ufvCa5Dp6m2SHPtnvSKD1e+FOQZKg+7QgtxSsszPGYTGziaDVSHg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MN0PR12MB5764.namprd12.prod.outlook.com (2603:10b6:208:377::8) with
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA1PR12MB6996.namprd12.prod.outlook.com (2603:10b6:806:24f::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Thu, 27 Aug
- 2026 13:42:05 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
- 13:42:04 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 22:42:01 +0900
-Message-Id: <DKZRPYOFOIY5.3RAONSST6MTL4@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 10/16] rust: io: register: make register have a typed
- base
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 27 Aug
+ 2026 13:48:13 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 13:48:13 +0000
 Content-Transfer-Encoding: quoted-printable
-References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-10-3699a75fadf1@garyguo.net>
-In-Reply-To: <20260819-typed_register-v3-10-3699a75fadf1@garyguo.net>
-X-ClientProxiedBy: TY4P301CA0027.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2b1::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 22:48:10 +0900
+Message-Id: <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
+ <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
+ <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
+In-Reply-To: <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0111.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37b::10) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -76,199 +83,175 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MN0PR12MB5764:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21f72a2e-8342-445c-7379-08df0440fae4
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA1PR12MB6996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43a4dc51-e6d1-49e8-e406-08df0441d6b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|10070799003|1800799024|376014|366016|6133799003|10067099003|4143699003|56012099006|5023799004|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|10070799003|18002099003|22082099003|11063799006|4143699003|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	yCD5QqJyGPj3QpFWxEfh0hMKj745v2qRQXo07IQNWkQPtoVYD7ZWqRLKc4Hhz5yRUGJyrZEsfihNFA0kWhmT6lhAax4TACjL9isuCzoN6STEf3nfIxCNKRKN9Vv9tG8tbF7mQl/bDayWMHxTToDcCQKlHAXSoASo7sOkd2z0PIgZK1mSHvND1XvLzqQ769ZE9Mi9fN+J9qr3fr5ndIScY4gIc2M/3EssyrxFKxpgAjRdvaOuBbpm4sPKuiIWnPhhlLD900DPvFIQXJ2+cUBNqQO1m9ZSrNQYzYN80xKdeB07BziONGjnfePApEBKHOP7LI+BrYsZe3wJU2dJVR+LFCTQmB+bmcqcdqFjJOPB3CieFfbAIkl9b5aDxT0Fh+ShZ0lXmvYAa4d9CgHi8dcUYiRZv1s5Sx1H+59OpGZ/vwa/cHd8aB9WMTvUymh+aZulVx2ZF8Sl8s6+V7SAJnoD0b24ZAmTlEpvai/fJlWNvlYJfpUmMO9S61JHpBNwVB4vL3IvDUsyte4lQ6I4IjaW8OrLElqzO59/opL5BeT6/Y6ehKgOvkbH4Modx4RW0rwdFdOz+tvLGKhANr8962/TeHIisQNudEDrF9pLcsPBx17ulPHpPJf5xAOph0SUOu3DpzijA79knHz5UuO+n0DAxh77nWSZOCu9y4hiwy7yIpA=
+	OeiEvA7usoBnNWQnEOparzFgg3Il5T0UdWnH+uedj9H/bGsvclsCfuDZpBo1hJ8rTLlidTU2bHHWitjxdIyEq4WBvRfa2Z/0bfmBtt0ridz4r3n43+zTCIslPRjC1E3PW6ykZR6DDuibj+DkjR//WGOGbMiQPgHAgvrRZwXoxTKdfkl+bN0UndGDOXkKmAzfXxLKyIFdlvCmd+bNmHbY+FL/QKfHX3jcng4eauokil4ePjFVLkWC2Z38TZbMM8JDUT4wahWYu76ON4QWynfGgpXi+Ayrohn59YacXQF/dmhljLaKrTthlqVi34ItiAsjoug5f45IOkdo2MbHd5VSQWlV+xotwSom/F7e+2ukbQH9OiAohHbwHlI/HuFL/X/bpBmNld8YH17dvTAdsU9xt3ljKcxqJ0dmNPFjoYFGf8jKDuTRF/yZEyrQaXT36YbFp4Ja0lHdTFoS0PMRnivz7byiORxZDoYb5MebZH1G1IhDS+A4NePZ3gnEK6+V7HHLONc5FGAhkVlYxgUw1b2IYKYl98YjxT5VXT2maXC/9nd01kLG/Df1w9NT5PDtCqbffmbBmeFQk2mI0JGDKs8Ma/yf2/VCrrNxuM5z5mQyYLrFnWfYsHalnRmnEzyKdrqCnBX7Q10M6lUeLMrExB0+qxgN3FP/pHBTxVaRBB/LS4k=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(10070799003)(1800799024)(376014)(366016)(6133799003)(10067099003)(4143699003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10070799003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WWpHZkpRQjFpN2dlUUdPZWsrNlJFYWpuaml2N2RkaEdOanE2Y2hDM25JUmhk?=
- =?utf-8?B?ZEVXQUUranlvWmNtVFBNRzgxV29wWkpUcFJ6alE4NndybHQ2TVErWHlZZjlr?=
- =?utf-8?B?Uk1OWHJEeEJoZkoxVEw0MzI1VmVONkMvMUpXYzlQdldDWUlSNHRZVDllQkcv?=
- =?utf-8?B?eGlKVFU4Z1FhRkRmbVE4SnNiaUNzV3phQzR2Vjl5d0FiN2dsMmRhem1xUXhN?=
- =?utf-8?B?cEdObHBvcmtRTVVUcEx1cDJmNFB1c0w2M1hBd1hLSDBzMHVoM1c0VmJmZlBa?=
- =?utf-8?B?S1lzY3VRbFBCZHllNW50TmE5NXRoNDh5dVdFMElKUy9ZY2RGWGx2N3JiQWEw?=
- =?utf-8?B?MmhOSHQzbzA3V3RBZTc4eUhCT0JwVlNYT3RBS0VDUXhTeFlETkxEM1lUUGl6?=
- =?utf-8?B?bjRjVnVsM1VMMnp3U3hYdVA2bWhnZnhjcGtLN296QWQrckxMb21wclYxT1Uz?=
- =?utf-8?B?aHRJTFpCRHhMZUZKZ004YzdWell6YVhXbXc3ZkR3bXd2Mzl5SENzNFV0UGJT?=
- =?utf-8?B?S0tPQmtuZytsSy9UbFRRZVphUnJSK04wS1RteG9uVlpVUEtpM2FKbTVpa0VT?=
- =?utf-8?B?WUpYYjdmOE9rVGZKd25wN0plcDg1b1VMOHhmZnJBL3R1UGwyeWRQY2VTRHFP?=
- =?utf-8?B?dVErcGd5RS92eEVuNmNIYkFHbWNZY1VpZmtXeTVWRDIvdTlMVDU5Z2x5eVpC?=
- =?utf-8?B?U0tpTzN6S3pvZHB2VnkxUTFMaDU3YzQ2bFFMWG90UUMzWGljN2VMSitnbkFM?=
- =?utf-8?B?Vk03MXM4TUhWTXhWaEZtV1Z0L3VTZWFLbmlkWk9ocEloYUlsVDFSY1lQM2t0?=
- =?utf-8?B?NEkzc3J3b1NCbkN4WHdLbHYzWFhHSjJNZFFtcVdoRmJySUdITzh4Y0tpOHVM?=
- =?utf-8?B?Y3JTS2E1elN5TC8vZmVDcFkyd2d6ZE1Oc0ZxSHFaRTM0aWd4NWxKSEZSVzI4?=
- =?utf-8?B?b0Z2RWt3UC9sL0F3WUtxNGhOL3ltVWdaQTlxKys2Qm4wOUFUdnMyS2RJWnZ5?=
- =?utf-8?B?TDRjRzVUOU4vVDc5V0RjMi9MYnVxQmN5Ukt6amlvSHR0TEJ3bFlMZXk3citY?=
- =?utf-8?B?czQ1dGdZTm95eHArQlhoWG9QSkZsM2QrQ0hkMGNyWEl0SXJpZmhtTjF2WkZP?=
- =?utf-8?B?UjZyNENFYndKN05iMVk1M1QxYmNnMWRZQkRramExQVJ4SXpJQng1V2kvNUln?=
- =?utf-8?B?b1U1K2dkaFZFNk1wNm1qVWRQUm5kWWdFZ1F6UDFGaElLemZ3aDJ6cHZuVDk4?=
- =?utf-8?B?RnlRUWh3NkNGdUxuN2VicVFUak9VNkhXQVE4STZDdm52RU1yOGRpQjBvVlh6?=
- =?utf-8?B?RHNkWUlMb0JvVEI1SE9vcUhoR2VheDdDQlo3aDV2WE80NUxSOEl1d0toOUc3?=
- =?utf-8?B?UGxIdVdiRFFzZHJkeS9vQW9KWGlLcEQxSm82WEM3ZkdaY2YxNmxHWi84QzlP?=
- =?utf-8?B?dU4yQ3UvUlU0YkVBTkJZV1pBUzlzNDh6VUdJOHN1c3NoelZLcUtpN0Q3OHJv?=
- =?utf-8?B?YndqY1cwNVJGZWtvUGRPNWk2a040N2Nsa0FNNVdPSnlNTi9EWFFDWDNSY0NM?=
- =?utf-8?B?NzBMcUNvTW9JanVVYy9TSVZEL1R4MVVjdmFVa1pJZVk3dUNqWVlDQjRSUVJV?=
- =?utf-8?B?SmtHYkRBWndJSGxnTnMzTy9RVFBtOE9PZElUa0N6S2hDQ2lSSjZaRnZmZWN3?=
- =?utf-8?B?ZURsdG1NNlZ5b3JtTHZhbXhNWDJHb0FRSys2OTMvZko2R3hZend1dzRlcWlP?=
- =?utf-8?B?T2djeVVYRGF1N2NYaDRicWV5YWV5QjVaQ2NxQUxKbGRma0JSWCtvcVZkcU5U?=
- =?utf-8?B?YTRJOVRFaitCeVA2QW1GZHY0WkR1YWNPd2twNjNPS2M1OVQ4dWFBeVNJSWtJ?=
- =?utf-8?B?akJaRi9mM2NGdlB2cVVvQXlHVE9UNXhYWWZpaXJsenpweHdtanZmVHI2a2J6?=
- =?utf-8?B?NGdjYlgrUXg2YUtKQ1NrSlc0bFZ5eUxCUWc2a2JTZHlZUlp4SWRKVWpVdzBL?=
- =?utf-8?B?WUpDVGFHYU43YXAwcjFLUjlmZGdHbEpMSVBybklGN1dSSW5TT3Vub1BSOVY0?=
- =?utf-8?B?dkl6MktzNjdUYjM1SGNoaFV3RHZyVnJhdzZaNEtuaFM0TlQ1SFA0RVNHZVZR?=
- =?utf-8?B?MkNDNDZTdjNNcmlPTGZHOTNITU1yRnZOMVcxakNEN2FWdmFpN2pUUWlmSkV0?=
- =?utf-8?B?V2xtc1JIVzYyZHhFb2duOEJ6RkFFT1g0Y0NJaVFiMHRoUnBNYkhoaHAxMEky?=
- =?utf-8?B?dmx1V2ROQkxGb1ZDWHdnVkNEeWNtZEhDVXNOYkthay9rUmgzek5WQURMRnJQ?=
- =?utf-8?B?VXVCMjNFUlJ6QlRXb3dudDBubC8vcHJFc1dhbnFYMmVwN08wSDA0U09JUEo3?=
- =?utf-8?Q?D01sVeOYONw2Vi4Nrb7XJVNATPGCTqe26uiwk+0kOhlv6?=
-X-MS-Exchange-AntiSpam-MessageData-1: nKV2rTcnFyDIfw==
+	=?utf-8?B?UWxLVXZXeUN5WW1GRm91UnhIN2Y0N1haQmE1UHhJc3RlWUF3WjFDQ0NxcW5y?=
+ =?utf-8?B?UjBiY3BDdXp0ZjFwcDZoQ3dFMzgyOVk2ZGxhNGRzaDJYMGYzYW9RMXZadVA5?=
+ =?utf-8?B?V1Bpekd2NWpGTTlsdi9lazAxQW1tODdycUEzQURiNnBhTVp0OWZyak8xYUdX?=
+ =?utf-8?B?OVZ3WmJRcWtEbzNsc1owYXRqWnBYVlVXZE9rdGtGSkkra0tETjdkTlNlYnZl?=
+ =?utf-8?B?TnBiY3JWYlBMVXlKSXIra1ltVHVmc1AyQ0lpNU1jYzFzTkx4YXhubWV5eW8x?=
+ =?utf-8?B?NFZMRmppMGV4QWd6THo4K2NlTXp4R3REbXlPdEg2ZG5RdDZLRmhUTHN6Q2xW?=
+ =?utf-8?B?bnFzTFgyZG9XZGhyM09RNEdYbVNBbVR6bm14L1Bla3RVOUFaZnV6ZWY0MzV0?=
+ =?utf-8?B?R1hLZUVNOUo0NUFlWEJHbm1NL0x3NzNOUVp4SkhYUll3SVd6aGhaSXh0SVY0?=
+ =?utf-8?B?bHczdHJFS3ZoNUVKbm5WTDlBUUw2RFpsclE4ZlB5T2xqNHM3cTM4YlNhbkxm?=
+ =?utf-8?B?QkkxWXJNY29yZHZqSnpBcnorZHlmdXEzSDI0a29nL3dVM0hZL0hiU3FaYVUv?=
+ =?utf-8?B?VzZzcFZ6eHUvc1EvSFUwYWU1Vm10QWFqRVBvZGl2L0Y1bmp6VGFROCthMEtL?=
+ =?utf-8?B?ME02Y2ZhU1JiR1lHaUJDc0NZVUdvL0d4TGsvS0w5aWw5dWxvcEczS0VoMUgy?=
+ =?utf-8?B?QitjM3ZWM3Ywa2VaSFZ3OVk0bXJUc0xOQWppNjNQazF4SFhBYmxCVWxuUGxZ?=
+ =?utf-8?B?TWVyQ1FCYVp6YlhZdW03UXNyUUl6aHpBWGk4ZEdjTXdGd0t4NzkxQTd6WnhU?=
+ =?utf-8?B?ZDhyY2JrcGVRcWNsVzNJdVdZajJvUmlocXJ2R3JiR1hiTW9sVmNzNXBTaGdl?=
+ =?utf-8?B?T1kzRjRyTWpBcC96TUUyVGdHaDlUZ0I5aGdydHBhL2owd2d4UXRPT3JqZ2xR?=
+ =?utf-8?B?YU8xRVNGai9vQlRtUzJXQjgzNHdkVWEyWmthZnVGNzlhV1M3OFN1VGg2Z2h6?=
+ =?utf-8?B?a3U5NmtTTXpSL05heUpLMXBIT0FzT1NzM3pCbW1CQVlGb1NkeXJkc21sQWtm?=
+ =?utf-8?B?VHA5TTVadXIrVjBvU3NTV0dPUnpIM0NQRkMybXpXVzNyY013VmcwaHRGTUdp?=
+ =?utf-8?B?N2JRM041bjVLWXlXdFRhZnF6MFdIclV4YmdXeDgyb1pOWVRsN2V3V1RtMlJS?=
+ =?utf-8?B?dzV2dFY4TllSeDdnUlVHR29aZG5vOUhaYjg3UFB4RTN5TWJFcGlBSWNRdFhW?=
+ =?utf-8?B?TlJFTW1JU243SStxV3hkc1ZVZ2M2Tkdkb2JrVjRvdnY4N3NaQVAzaUI0OXB4?=
+ =?utf-8?B?VllwUkw4UHduQnMrTWtYeFJSby9yajI2Vk1ZNkF3VVh3Ui9SQnUyUkFOZ3Mr?=
+ =?utf-8?B?UGpIUk5LVDBlelpMMFR4NmFiZ2tIRmtGeFFSeGl1Tjk0UTU0dlpOTEhrYTRJ?=
+ =?utf-8?B?UDRucTJoWHlBajlUZ0YzLzRrVVZ5alNxR2VjVG5FTmZkd2tHaTVEc2NUdDBv?=
+ =?utf-8?B?UUNXNlg4NS95QUJ4QnpIQTRkQVh0VTlEeXJlRCs0NTQ4TitwRitWaGZjOXZ0?=
+ =?utf-8?B?RWlqSXE1MWtpOXdZWnM2amJMZGxGZjAzdU9rVk45R3VQMW1hbzJRR3haQUNT?=
+ =?utf-8?B?bzVjTEJrSTgzaG9OU2xaLzF5d3haRGhHWmtlNlpWNVBJL2ZrYkJCRmIycjVK?=
+ =?utf-8?B?eXNNZWZUa1V1cnlpeE1UeFE3NUJUT3lJc3c1K0twa1NHUkt4TXIyQlRjVWtl?=
+ =?utf-8?B?NWZIZno4aWt1c0pSRm44akVZMFJzUGNrclp0a0NaUHBoK3NUT0VNdHpmY2FH?=
+ =?utf-8?B?dkNIVTlObXBPdGZ6Sy9XQmpOditOd1U3MzZmcnlkRk9zdXNRSEF0cGVHVVdv?=
+ =?utf-8?B?eXpGaU9EeWtESjhVM0JmMklObTJYS0JuemFKcWVxT0t5bHlLWDNsWDdqaVZD?=
+ =?utf-8?B?ODVqS2JhanFLZ0ZOVm54Tzl3SnJOangzdzR4SUtXbDFOVEo4c3J0N0JzcUNY?=
+ =?utf-8?B?TzhpR0g1bTR4WHl6d21jaUhxMnJ0UnJwdVNaN2pTalpzWkJlTGpKNFY3NnN4?=
+ =?utf-8?B?ejRsbDRVQVREYlNtMTJxTG5EcGtlWEd5SUNOWlJuOW91Vk9FMEVhWEk0dm1Z?=
+ =?utf-8?B?bHgzZjV6UFZsaXZYTTZrOElScTRsMWFtZ2c3ZDdyVURPOHc0S0lNUm1UQyt1?=
+ =?utf-8?B?L3FpUkUvL204NmJTRUx0aEJuTlZGUkdXTTN6TlhnY0xNRW9FRzIzVnEvYXl1?=
+ =?utf-8?B?SFJiejZzc0FNQmlHNXU5STh0aU5CWkVSdzNkVmM4dWpVOXBaOXlhajhDWEZo?=
+ =?utf-8?B?OTBDbmNCL0Rrd0QvcHkrNHB6Y2twMXJ2eEViYUtTa1NtWllPVDJ0NWFVYjJF?=
+ =?utf-8?Q?ycwPcMIDX4foNqUykQqgn1guR6ypIuwf8FUnLsMxW0xpX?=
+X-MS-Exchange-AntiSpam-MessageData-1: niNpIjlbrQu2ZQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21f72a2e-8342-445c-7379-08df0440fae4
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43a4dc51-e6d1-49e8-e406-08df0441d6b4
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 13:42:04.6915
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 13:48:13.2866
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rtv0sNlY0oWt3bP0N/Sht2HsFDp4+5xQspUKnGHYnkLHM6NCkj/4nxHiVdZXgcSHnoOxowe5Vf8hhJEu6xL9Rg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5764
+X-MS-Exchange-CrossTenant-UserPrincipalName: FMIQEEkmJalfQv9krzWmuM2FAUl75dhIT2aquiJdxm7NhYkNRTM3iEMM7UoxmNslB8YKIFDB81m4c2If/BvJZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6996
 
-On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
-> Previously `register!` defined registers can be used on any untyped I/O
-> regions. With all users specifying their desired register type now,
-> propagate the specified type and restrict I/O access only when type
-> matches.
+On Thu Aug 27, 2026 at 8:12 PM JST, Alexandre Courbot wrote:
+> On Thu Aug 27, 2026 at 7:42 PM JST, Alexandre Courbot wrote:
+>> On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
+>>> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
+>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
+>>>> unfortunate because it disincentivizes using it in interface boundarie=
+s.
+>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for consta=
+nt
+>>>> value) takes a const integer expression and widens it to i128 (at buil=
+d
+>>>> time only) before passing it as a const generic value to a new trait
+>>>> function `FromConst::from_const`. The trait is implemented by NonZero,
+>>>> Bounded, and Alignment and lets values of each be constructed from
+>>>> constants without a verbose turbofish syntax. For example,
+>>>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
+>>>>=20
+>>>> Suggested-by: Gary Guo <gary@garyguo.net>
+>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>>
+>>> This doesn't work in const context, so I don't think this is a great
+>>> strategy.
+>>>
+>>> I would want to use it for cases like this:
+>>>
+>>> drivers/android/binder/netlink.rs
+>>>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_REPORT=
+ as u8;
+>>>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER_A_R=
+EPORT_ERROR as c_int;
+>>>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BINDER_A=
+_REPORT_CONTEXT as c_int;
+>>>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BINDER_=
+A_REPORT_FROM_PID as c_int;
+>>>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BINDER_=
+A_REPORT_FROM_TID as c_int;
+>>>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_TO_PID as c_int;
+>>>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_TO_TID as c_int;
+>>>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BINDER_=
+A_REPORT_IS_REPLY as c_int;
+>>>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER_A_R=
+EPORT_FLAGS as c_int;
+>>>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_A_RE=
+PORT_CODE as c_int;
+>>>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_DATA_SIZE as c_int;
+>>
+>> `const_as!` [1] should do the trick for this, provided you don't need to
+>> create a const `NonZero`.
+>>
+>> [1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@nvid=
+ia.com/
 >
-> Also, add an `io_project!` example which is enabled by this change.
+> ... but I agree it would be nice to be able to use this in const
+> context. And there is an overlap with `const_as!` that becomes more
+> obvious the more I look at it.
 >
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
->  rust/kernel/io.rs          | 13 +++++++++++
->  rust/kernel/io/register.rs | 55 ++++++++++++++++++++++++++++++++--------=
-------
->  rust/macros/io/register.rs | 34 ++++++++++++++--------------
->  3 files changed, 68 insertions(+), 34 deletions(-)
+> In for a penny, in for a pound of macro code as they say. Since we
+> agreed on using macros, how about unifying both under the same `cv!`
+> macro, with as many branches as we have types we want to initialize from
+> a constant value? For instance:
 >
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index 84dd876b3407..4542187d6b91 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -1692,21 +1692,34 @@ pub fn project_loc<U, L>(self, location: L) -> <T=
-::Backend as IoBackend>::View<'
->  /// The syntax is of form `io_project!(io, proj)` where `io` is an expre=
-ssion to a type that
->  /// implements [`Io`] and `proj` is a [projection specification](kernel:=
-:ptr::project!).
->  ///
-> +/// `io_project!` can also project to subview of registers defined with =
-[`register!`] macro.
+>     // Does what `const_as!` currently does under the hood.
+>     const BINDER_CMD_REPORT: u8 =3D cv!(u8::from(kernel::uapi::BINDER_CMD=
+_REPORT));
+>     // Calls `NonZero::new().unwrap()` under the hood.
+>     const SOME_NONZERO: NonZero<u8> =3D cv!(NonZero::new(kernel::uapi::NO=
+NZERO_VALUE));
+>     // Calls `Bounded::new::<{ ...}>()` under the hood.
+>     const SOME_BOUNDED: Bounded<u32, 2> =3D cv!(Bounded::new(kernel::uapi=
+::SMALL_VALUE));
+>
+> I.e. we would have one extra matching arm in `cv!` per type it handles
+> instead of implementing a trait. The syntax of the macro would look more
+> natural (bye bye `const_as`'s awkward `=3D>`), albeit it would have the
+> limitations of such a semantic dispatch.
+>
+> Even the name `const_as!` wasn't really accurate to begin with: what it
+> really emulates is a const `try_from`, and we even discussed
+> implementing it in these terms in the future.
+>
+> I'm sure the idea needs more polishing but I think there's something to
+> explore here.
 
-nit: "to a subview".
+Yeah I agree that const_as! is similar and if we had const traits we
+could fully merge them and have it always work in a const context for
+both duties (which are really a const tryfrom as you said).
 
-<...>
-> +/// Helper function for register alias implementation.
-> +///
-> +/// This is used to enforce base matching. Only called during const eval=
-.
-> +#[doc(hidden)]
-> +#[inline(always)]
-> +pub const fn alias_offset<Base: ?Sized, Alias: Register<Base =3D Base>>(=
-) -> usize {
-> +    Alias::OFFSET
-> +}
-> +
-> +/// Helper function for register element alias implementation.
-> +///
-> +/// This is used to enforce base matching and provide bounds checking. O=
-nly called during const
-> +/// eval.
-> +#[doc(hidden)]
-> +#[inline(always)]
-> +pub const fn element_alias_offset<Base: ?Sized, Alias: RegisterArray<Bas=
-e =3D Base>>(
-> +    idx: usize,
-> +) -> usize {
-> +    build_assert!(idx < Alias::SIZE);
-> +    Alias::OFFSET + idx * Alias::STRIDE
-> +}
+I am not sure about the suggested syntax (e.g.
+cv!(Bounded::new(kernel::uapi::SMALL_VALUE))), since it seems very
+verbose.
 
-You could convert the `build_assert!` (always good to eschew) into a
-`const_assert!` if you turn `idx` into a generic parameter:
+Alternatively, what about just directly merging them so you use
+cv!(5) (the non const context FromConst::from_const dispatcher in this
+series) or cv!(value =3D> u8) (exactly const_as!), with the =3D>
+distinguishing between the two?
 
-    pub const fn element_alias_offset<
-        Base: ?Sized,
-        Alias: RegisterArray<Base =3D Base>,
-        const IDX: usize,
-    >() -> usize {
-        crate::const_assert!(IDX < Alias::SIZE);
-        Alias::OFFSET + IDX * Alias::STRIDE
-    }
+So this is what would work for Alice's example (const_as! but pushed
+inside cv!):
+```
+const BINDER_CMD_REPORT: u8 =3D cv!(kernel::uapi::BINDER_CMD_REPORT =3D> u8=
+);
+```
 
-You get a better error message, the const parameter is used in a
-very controlled environment well within the expressive power of const
-generics, and that function is not public interface anyway.
-
-If you don't like it (recent discussions make me think you might not
-:)), then let's remove the `build_assert!` and keep the `static_assert`
-emitted by the macro until this patch; it's not as elegant as checking
-the condition into the same block of code that uses it, but again we are
-in a controlled environment and static_assert > const_assert >
-build_assert so this may actually be my preferred solution. You can
-document the invariant in `element_alias_offset`.
-
-> +
->  /// Defines a dedicated type for a register, including getter and setter=
- methods for its fields and
->  /// methods to read and write it from an [`Io`](kernel::io::Io) region.
->  ///
-> diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
-> index 2fb48e1be82d..cb02e850b23f 100644
-> --- a/rust/macros/io/register.rs
-> +++ b/rust/macros/io/register.rs
-> @@ -140,21 +140,23 @@ fn parse(input: syn::parse::ParseStream<'_>) -> Res=
-ult<Self> {
->  }
-> =20
->  pub(crate) struct RegDef {
-> -    base: Option<Type>,
-> +    base: Type,
->      regs: Vec<Reg>,
->  }
-> =20
->  impl Parse for RegDef {
->      fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
-> -        let base =3D if input.peek(kw::base) {
-> -            let _: kw::base =3D input.parse()?;
-> -            let _: Token![:] =3D input.parse()?;
-> -            let base =3D input.parse()?;
-> -            let _: Token![;] =3D input.parse()?;
-> -            Some(base)
-> -        } else {
-> -            None
-> -        };
-> +        if !input.peek(kw::base) {
-> +            Err(input.error(
-> +                "a base type needs to be specified for `register!` invoc=
-ation with `base: ty;`",
-> +            ))?;
-> +        }
-> +
-> +        let _: kw::base =3D input.parse()?;
-
-IIUC here you can avoid the peek/parse and just do
-
-    let _: kw::base =3D input.parse().map_err(|e| {
-        Error::new(
-            e.span(),
-            "a base type needs to be specified for `register!` invocation w=
-ith `base: ty;`",
-        )
-    })?;
+When we have const traits then we could remove the =3D> syntax I think.
