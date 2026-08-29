@@ -1,46 +1,47 @@
 Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010012.outbound.protection.outlook.com [52.101.56.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CC41FECCD
-	for <nova-gpu@lists.linux.dev>; Sat, 29 Aug 2026 01:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774AF39A807
+	for <nova-gpu@lists.linux.dev>; Sat, 29 Aug 2026 01:22:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787966575; cv=fail; b=jMWyh1WNFKS3C9QOfcXQluGJA1Hbf6Q4oYCr6V40Td2y5riP2mcvbHQS8ItCdYq5qKh6/6hYhSBX7sCG64c+bvNqk2Y7R39xP8+FG5EGukPqTs2DBQxXWyuVhHfCGWIZqzFH15ty5lVPv+OaPSJ0FjPmXSh5onkzoHoocs9Ttdg=
+	t=1787966577; cv=fail; b=NdMAfOPHtop/pYUu+udLOeQzqiZqxwhjzfeBrQv4+QVWdE2p1HajmW31qDqHrnSTCNhR9J2IjCBkblwq2Um6FeWkf42x8tyjJnoxVeqKujPmpj0CtpXL98O73WCZQy8rksB4dsm2YQ8+6VvZrb0uZnbRgNuHOBTrRXCn3hN8cPo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787966575; c=relaxed/simple;
-	bh=jsnbKZ9PuCwg6rV1iV2AhZEX6q0OtBvf2DMk6vRt1dk=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PCQ0myiPbiaXQK4pWirVMxPGD+4sLtjq33CHW/ZETXCxdbSuVG7TiI+rm3InGLJy6bdcWdYCfR87H6sk6EvY4YYzqTxyHu5F3r4YlZw3zGrItmhX2lsvrWOQuSJSw5KdBnOf8n5MtQ25OuG4Y7O+oG9t5SXVQpZpD5wjOV/dNWI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dRiX6SXc; arc=fail smtp.client-ip=52.101.56.12
+	s=arc-20240116; t=1787966577; c=relaxed/simple;
+	bh=WkY53zfBN72vENaBP3QCBQHjLgA8ZVx/UUIpI017P6U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZU6EIpJaGSfGJ7Hw6QQ7FrH+ihKJTxBsh64KI4+/IcOL3ogomCVMQuppRCdvVYGN2r28O7d65GdpZLPdXaMlhRWNmh2YJRVKGtOuAbVTUe0ckXdEbb6T6Qjr0SRYmKSL73dWQhuyxaQXdsml6FgxCbH6o6WRn9u8eIZofglm9+o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=frT9EQfc; arc=fail smtp.client-ip=52.101.56.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dRiX6SXc"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="frT9EQfc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rmvc5uP0oroqvClx84T7MyhsL3jneSRhKtYrMK9/erGu4Cv9b82zg/LPADLgbZo8mGY38cN+SNWI9SGiDjZsByF3Wxxa0taveSuFZeufm0I1XiJM+MJcofM+0eFJ8y5qIQTSH8zv5qb6eqoY3Zu9AnwIDWWWmHlue7EMcyoC+FTW8g154AVXciaQUL73QEzGnwRRnKOlEg2hhZ+SKM1nySVNlZlEyEErbZ643WNYd0WwOJmUrmttt0F0o/P0ENqU5g9VjGqVhVZI2b7DEnz0Qt3+ASWqENLbgmvVAkObZwFujUOKfRC1xNBS8Q/1bQfTiNmQS3uX/FYGxy2DDie33A==
+ b=CXYNMR+QlXnZ5Se1L7l1M5YtagqkSOej0VZI1KGeCrhV3UXtiyypIVToxwKxSLg5AOpkVU9Nv3/ZG96z+hK02uncTJ2tyrasmAq1LOPNgsS1idbKYnc93L9xvbHXoKscuCaMimXVxNdsFee1IVSRi+1vws99f4ME7zDd+ieQJStp3cGIcuIKSU1niS+w4jN6XAxdiOS9inbp9vEO+zzVk6RSmqVnuiPnd/REd4vahZMGRV85OtmlDDCunPwSG5tdoP3n3zuz/MWngVbrxSddT91c3wZxg2qNNxaLc/w5YnNtJ2cfOEkSh85HzppNDkhZd6Zyve5rmpK1LVA0uwHnqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZaSi/1X8Aj9v8MJ5iY8dIN196q5JwEAp6g5Ik6Hdl8c=;
- b=sgHJgexylMF2Oms8aVGvIbV/4nAOArcSO70/3DCKBMrRdsTQ/ywXnZ3zt6Y08SlcR2Di6fcaC0amW577nMjBVtkT/u04MuLLtCRr/UuyhFy7eC1SerZeuYxNn0IpxNIEG9Reef40YdHoGOmrI63/EZ8ObpowqK3h9UnupHQ3qth5kiAOTD4BUZpfc+sJVJmTmE7K3N1WUmSaMHpO9TWNPJlD5oIX9OIHF/5+xpIoKdjTY0ugb3yC9UwuhZjYTmq+LiYlqH1Wv7MVKPGeJSmq8oHAUu7PkFm2YUUPHTHNnwZVcgQ0dSG6djl99kCctZvpcWzagM9eRZZ5H3Ws7zFxhw==
+ bh=8GBQaYsl+PMy2uTAaFVICPzfYTzKtoK/yBqaPJKCyow=;
+ b=JxcrzhLzKOQ/euBYwuxP4pjDMBaLbqcgdrOrvE17bG6apk0wn2IWEEo+uMz0rf3DwJeME4JETPM+fx9+DdOcLUtu3FeRiFwMRi+xrGbXYI9om9/B9U5FeDUlMZJ7c0y6ZyDSlMIQzSScDniueizOvWhkcchWUU+A9O1nJDol7QuRlw9tMpP7DXFWCb+S5u2TQGC0EqLmfPDscqnF+3bHCaBlMv7ZqiNqBiOosK5178T+z+4gTHtpt0FLXDNohqb92q3/tAhtrQ8s5KN2wgAv6ez3bMpYUCsmz/nLgVwGZBLFRwSQtJ54p5GXUlbiw4siL1EyM+5UCNy4VNIfdRAptw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZaSi/1X8Aj9v8MJ5iY8dIN196q5JwEAp6g5Ik6Hdl8c=;
- b=dRiX6SXc+diV5jYmBGUvPCyJ1bZEXwnSqvh0eTbsf3ToFd6OPkuEzYb2HS2ty3F+h6Q7UBn02Qit7Azf+ByNh+LYy1biIjzEMDopd3HA3D1FplbL5V+l6KUVVA0exXD7QhqsZcXHdQXhkHMWSBxtPLGwfwTgbJjKuXDLuEuFPKW9X111tGxd+HCgSyLfZXUCooSQDxdtJij4zzCqbvJ15ckDllQyztzHPxLhqUF2Efd6T+rmcmjItN2VB1Aox8Rq/w/0zUbRXHctXXqdFOLtteXlIuKUBcBIMFdvowCa5OGDgDjlcHdubou1MdLCu7PEJpzTAoQS4QtdhB7z/d5qAA==
+ bh=8GBQaYsl+PMy2uTAaFVICPzfYTzKtoK/yBqaPJKCyow=;
+ b=frT9EQfcoXwWcadFl062vyFxA0vtnjLqeVHRtC5WTBlNl6+E5qjMLZF39nuEtrgJuSLVO8L806IUIuYNRcoc/oLueGqK5/VnqZPty2nxxgxu8tfcMnfMgKQVXbHdiwXIRp0IQMUF4jKDQlwyI0Qd69Cue7HdHSKbM/O4F8ygEtt+SEySXLJ1/5t0f4IwtwISewhVwqHtEV3FDG7cSCh7lY7A+Feb+MSr07M4OAO7rDsCyg6w0Li+CGB9E0fvaxhcVo909rFbq2WQiXb8b5h0paFetY7SdtsYuuLjZr4V4+LQayS6u19v0G9yQ5k9xVEykYVw1nxwNQdY6LxpBuql9w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Sat, 29 Aug
- 2026 01:22:48 +0000
+ 2026 01:22:49 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 01:22:48 +0000
+ 01:22:49 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,15 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v2 00/15] nova-core: GPU interrupt support and GSP event delivery
-Date: Fri, 28 Aug 2026 18:22:28 -0700
-Message-ID: <20260829012243.496697-1-jhubbard@nvidia.com>
+Subject: [PATCH v2 01/15] rust: pci: declare IrqType and IrqTypes with impl_flags
+Date: Fri, 28 Aug 2026 18:22:29 -0700
+Message-ID: <20260829012243.496697-2-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829012243.496697-1-jhubbard@nvidia.com>
+References: <20260829012243.496697-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ2PR07CA0018.namprd07.prod.outlook.com
- (2603:10b6:a03:505::22) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ2P220CA0009.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5da::8) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -81,194 +84,180 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6125:EE_
-X-MS-Office365-Filtering-Correlation-Id: 118baea9-8d31-47ff-249e-08df056c091c
+X-MS-Office365-Filtering-Correlation-Id: 0fdd7ac2-ab0c-4f89-8dcd-08df056c09e5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|6133799003|3023799007|10067099003|56012099006|11063799006|18002099003;
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|3023799007|10067099003|56012099006|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	cp9hJvoF1ZEQibA/uHvOQNfddvROJxYaXET2L/9G7kG22qp+81+qQ01oN/p2ak9ejp4ZK8wGBtKWkVJ2awTpe3jJztPFLA9BmnFZrDk5Ko/cW9PtVF18H7SIL2gTVaXIk/hEJIAYbdRcGnA86R6TE4b9QlfI5bYx2d1gG1l0D/L0ty6nes+qKlMBjD8ugluaazhlq1/9xooKbpYJ8Lf3RkPbd4jQysMlEajiQZNbzFHc95SvzzqISNDSkRmO6y39QN79UlhWRrBXQUfaVvE6qpcReBFooa4bejyVSMY4CCpGMHvjQpDJwNpz/Y8Zve/UKHQPI9Qd5UjUY1FJxfyCRVGHaTyDEdCQ8kOOUCO7tfY/ulatLBuqM5JzB9KnUeevbREW8G7n8i9DUNq3KnbIlSPlA7rK2Cwvcum7kuXFtuwjT6RNUn8HU4TXLYUo7gjY9q4SWJGkoVHnlFuruGfHAlZU99jN4a795EX9jsBEHPdmQ4AUGNvdP4kD4tqbmLiRrHhsuh1ZXbGgMLjp4AY+cz2qd68Rd7ONJUSqkOXwDRKrihirCJy1bmDp0UJxDkUaOG2HLW3d3reopxMiRvxC/1brwnsGHYIBLDIZp09T19tXlpGpbNAkwFdc+WMLQHhlEzggIS9Mj51GnguRs5+QD5gkIfsbcmuUN+Qw2weQR0E=
+	XlHLgdRzh2Ne0wm/X4jKYRxN+ctenmgHMnUENhxPiGcbck5BbJMz1/3NKEP8WbVOH4kPi60e8l2qr46Y/7enJ5VKti9LPEj12GnN0y3I0x6ZLK98BI0Ewl9zTyK/VFazLa74m6dxQVOZ5UtkYn6vnTBd+oIRJIppBIobiWZpPDcP8FpR56GNqtPxbSd5fkezNu42o3u/o+91u7Y1ITDIIjg05FBNUrbvziIXYkLw6F1RHZwb/kogf1l+hok04olXrOpCPzZDrY8vcQsqMi52N+cxueIo4In8waaR3IXxh5ZHWZFlva+ScmDVJvzwN1ZgU3ziw5tqJE6/fRSPVeMhlcm7/uJ8LmbJA1LxBu+tiKJVSvgCe/vSMmRdD83DHKrOxPNq8cFq/IIPbYaBXfjlvMukFVAp/w0YKfAZYlCD0iSUBetCDTXVi39J+VFB0X9s5FTuznkNMF5UH78xt34vFuO1phC0UvIl8u3Kzmhzd9jsTfmvMN3nCy3pwmbkkaXt269/R4w7VaoKP0nrnaOrhphQdbDZaU0MtVe9Q29Ho8MwVnVSoO1XhhA3CBS1qAvZVPep6dQvVue0XD4nzBqQurEutxbWu61HZhvZzbFHC+dUtC4lINBSZ0y9iQ9oKGgU0ALBmy64HPJh7inMv47bAO3/+0kkhYJrGKdTGHJTR5k=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nQtvEx1n3oq+RTVmJ9W6GtqFad1o9gxoiTMZ5GuN52C8CKlGXXFoIuYAM3Qq?=
- =?us-ascii?Q?c9GxsJEAr3PsWo3tcLgYyjqb3T7E/r4ODtj686qAQrnDb9PbbiwE9bfnMcAw?=
- =?us-ascii?Q?GNlg9bRvn3liC4L5d3jRPhgiEVb+hUT5VSzqdRFu41+DVMZ4lcxgdl4Vdslc?=
- =?us-ascii?Q?r7U+bbz42jCO0DQm/iiQERrgfdkgtN5lHlYpG5PzocUbA650713/usuFPFlj?=
- =?us-ascii?Q?g9nvRWqWuZ2LoDeC5oklOlrIS6A/WWT/c5HsDUD2ZbvIiRYDPVoZzhwAL8HK?=
- =?us-ascii?Q?Ov5VJN3cpKXHPDzsoSSGSJYSEELHTsXiWPxYsSvpgP6Sf8BdNQMjtl1G4fgC?=
- =?us-ascii?Q?ybbMpChCT4BqdK5u2y3cGPa0zwowYdWXqRFEwsmwJr0zDOayBJ7bh4hTDbby?=
- =?us-ascii?Q?E8q2JtLCU55aWnYca1U/y5XFhNGp27DKNkm1QMBM0CtaH8gSEdfA0Otv7R9A?=
- =?us-ascii?Q?jOAGxgrTX3Hr2CiRIG8QN/wOx4pQg/tXFCD9G2IEtVnKXn7ZLJ3uE7vtqMFO?=
- =?us-ascii?Q?bxaC55WHTWCYxVWVIm3iyD2rjMPMWece+gQZI8Eh5diXhfW99KwL3sjB32qf?=
- =?us-ascii?Q?lIh3XRhjKbFNm1egkD/jAh0E1upyg/yoYjhr69YWecIY38uDc+5IaUA3TA7u?=
- =?us-ascii?Q?E4ycqCWoHik32eB/fE1ojGG3L3M7WZwWfn7vb8ghQqziBxcoM7U97uid9aIQ?=
- =?us-ascii?Q?HL5HC4Xmolo/ErgWshZhlG/8KWKrSq7rv9rh1b+C0DqrEfe4/gT3frY3eFkU?=
- =?us-ascii?Q?IuhM9SxBTY0NRDl5ugPk4b84D3WJaOqgFC0bfJoaH0fvN1UpddUiCMsQPXaR?=
- =?us-ascii?Q?zhFF0mirsKquQRDN1I6JXpMD7uNKgBwstl/zL79maTeBhvZlULglvbxbZUaY?=
- =?us-ascii?Q?Kx1sE0Q4VBnXM6Uczp+k9GzDLb5EqlrVAQX1zdarCITgEjCNROfP3XWsBMY4?=
- =?us-ascii?Q?O7tUF0bjq81Mqv5qDXQ6v9s58FxCyvHMNWJYflhSvgk/LrM1+u8C63KA2vNu?=
- =?us-ascii?Q?kst5CRotlP7adUfjY2JcFTR4JNGthINUS7JgkbNufRp8ojGZhtdtWOsiU3kS?=
- =?us-ascii?Q?0k6+TG9qmn2I4IX1f1JXkg6qUIDVpQtgWkCsR7p6lZCLK74Nfbl0k69B15ik?=
- =?us-ascii?Q?dKbERgcZ8nAqHnik3gqoA1xYtvsxPbm05S2nVqbhEFOBdYZIJzl0sFlJsQV4?=
- =?us-ascii?Q?kU7ibLJVz/EzOQJOxUxGipHMbSrmq0hbzp9Z8nZJMKkXU7FdCO9wUmL92sai?=
- =?us-ascii?Q?cnTlM6LrjsJtJbWlpv6EdsKO//+x1MhVYsn/mwFWPwJK0geXrhUtRERVYEn1?=
- =?us-ascii?Q?8NzmgYR/r+wao954cN2F+hl9LfsGAqhTQ7brzjIN4iMqL8xnNDo2VnhBeLLL?=
- =?us-ascii?Q?niWEtwAbBBcNjenCW+/m8O4/b+mVwPcGPiCxZ4wL1Va0oTlIOv867uslrHzs?=
- =?us-ascii?Q?hkQft4PcLBn6xEJlVQAjhGzT3oRs2tuuTjIRaNeDXSE1EkfYVpmrRd6cqW4x?=
- =?us-ascii?Q?S7UIjvTg+cRZk98L9qSPYhb5DxnISgHSb0yN6GYLUlLCEI5IY/tkvoEaO5fX?=
- =?us-ascii?Q?FMR4qDcGuhyY3u0ouaX57jjd0YAhgH4qdN9EIJ1iHyYHPs1eGWWJPV+h2P1A?=
- =?us-ascii?Q?lY+X0WibIDdDH7L3IgMpeV17TGWqgwyiRz5TUmDPDcWBKO1DF1oipSusD0Fc?=
- =?us-ascii?Q?f36zPR++ChxZGx7WOgv2cQFd9OfjjXt+dnYG3lat2Qd58JkJD4kJle8QSOkH?=
- =?us-ascii?Q?lDIxUqhgMA=3D=3D?=
+	=?us-ascii?Q?9gWwUvvGzp1waGwkGrKH32LLjW6xIlaWZQ2Ihgsrt1ZdyN1VoWSxky9/Jc1z?=
+ =?us-ascii?Q?U8SnsWqxJVi1DLtjPyuQumT3GQB77fDAg2tQhJcyhzyNgB98oDZ2AEq4PMWq?=
+ =?us-ascii?Q?whq25v5i2z2bcQ8dsNa6M/3LE54EAi9wY7GpfwA4iMltwnzsr/CHz+uyPFyg?=
+ =?us-ascii?Q?+LkREZV5cgXuVE2i/ddj4b2TXe5iAmMdCDZCpOmsv3O4sJ/mx4dswbPwFPvE?=
+ =?us-ascii?Q?X4t8iIRzPe4Uu3jScrhWa4rSqC5GuiRfAiwC58LTKVkaSankuzGpedIwg2vr?=
+ =?us-ascii?Q?VdNoEtVn35SHPmAEAZjUGAzfLMekgir9wbLwgjEHUS0EY3DRhzVFMuhZm02H?=
+ =?us-ascii?Q?+KzR05xzT9a8snO0tO3av05jhNokxN9Cr3QkVIXpacI8Zg6TXwuObgnjsxx+?=
+ =?us-ascii?Q?BWIWRbsNaRF8WfIuVxcgUwxyw+tIOI83A4YSmImqYYR3McdCBwNiV/YcR8bo?=
+ =?us-ascii?Q?dw++BTBbb3WjPAu8aEVYUkUDEcjDjzBwuXktOa4sfdXUIhmGChAUPOGPGNSo?=
+ =?us-ascii?Q?BVq8/HozS/q/9dKJYfm0LlxykSvhPyoRUIa0pIKjvmJNYVBbxq5G+Un/sNpm?=
+ =?us-ascii?Q?6g/V7o8NbQ/5ZTU9Nl/S2isLZPQOGo2M+3pVZ4rCMZH3pHFdsP5zV8rXAKN0?=
+ =?us-ascii?Q?SisrZj9t0tF8aNvkx96RtED/8cuP/skqoNSIaBIDG5PjHqXVzcUMmEr9OOWl?=
+ =?us-ascii?Q?Pv2KgTI7RFhz66Lf91YG9ij7Z66R4Dw8sMm9I1FKf1lMKF1SrcATKRhm1KmY?=
+ =?us-ascii?Q?/E305CbGJsimMvPxjWaWtzg7J3AayxNyTi66ML98+vh8euhU5UFXG2R1Y5bW?=
+ =?us-ascii?Q?F8ji6seJLhPWkURHv7eEKa7H9B9MlVLZGyzbmfTnP2G/ewRwZZKmbxg7ION/?=
+ =?us-ascii?Q?X4Jsoi36RJEu3331dsoyYKLp1ybSc31f/nRBh2QdGltANqQkxC8jNotEh470?=
+ =?us-ascii?Q?oDxP+MLb6DC8zhQJAicA95mvTeqgjIKI0tUo+QM/OzyS505Y38KueK6R8Pd4?=
+ =?us-ascii?Q?THRjnm7B8eVOKDOZCgzGZL/rVIDjs7BcebiTlACNhH0X1XixUhjUV3Yx41qG?=
+ =?us-ascii?Q?QGolMASpfkGJDvKQOK1ZXXfR0cIS6EsANTq5GTZR51Dw2DktQUekhiZ71YGe?=
+ =?us-ascii?Q?b2iZGQxD76W5OmojLoq++Z2rBj40PSUuqIAg5XxqPE8cTYkZNg5hlNtAbjTH?=
+ =?us-ascii?Q?1uHLIEV0kQd3my4wrXyCiBORcIExta+4ZdoemKe9jmsPwh05hpOG19XGPBzk?=
+ =?us-ascii?Q?siXAoi+nXzC/9zHN+AUjvbLGEgujOXAXF7l8DCfNN89usdqRGBk3rpTk2QB+?=
+ =?us-ascii?Q?/k+i4+/5Ajk2bAJwfiSqscwlbtosja67jvTRtjit5yrTQOtPe/6+YoqgSkyh?=
+ =?us-ascii?Q?160w4RvQUnOpbpY0doi4S10tnTME8HDKYVS3mQAOWUzqXUMVCuYJf6wSoWAy?=
+ =?us-ascii?Q?8pX/A5rUxWSv/YodNCXEkuuf/CX/7jZ3NLSdGxWObSLtj1uT6zhySNY/xEY8?=
+ =?us-ascii?Q?10PQxp1xj1dr6L0/aN3s9ucpK3a42Lg76hunMKLl+iw1U3ANbZrDdGDhjBRZ?=
+ =?us-ascii?Q?tFsRDoAs+U8Hxi9pTrosFVbLsKC+iFebAq1cduENWo7FDa6O8k6es8kqTmeW?=
+ =?us-ascii?Q?G0Q39YooGgQZombnvSNUMnTZ8LzseLtYJtH7SEjqrzTok8//RsCAag5I3L3r?=
+ =?us-ascii?Q?IRyzMIuWBkfaONWlcRPOfx3BnmgkVHheF2Ou9ldD6UE2AQ5+/UABv2S7FTRp?=
+ =?us-ascii?Q?GL3mIx7TYg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 118baea9-8d31-47ff-249e-08df056c091c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fdd7ac2-ab0c-4f89-8dcd-08df056c09e5
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 01:22:47.9338
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 01:22:49.2122
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lR6RyKXm4i0YXvZciZypfPBwIm1uuZsjhAOB8Do6N2dCGWCMrH15JsRgYXtNXbpS1OdHhyLgxEJuoHflvRa7QA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7+Ohs9Ib9j3FJJXDre4jcVr/Z6OjucCs7i4Ue6o8Co+wFRgObxB7sTWyNCjtoBSK7o0mapn6ck1vppRGWy6IbA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
 
-I'm posting a v2 because there have been some significant changes, as a
-result of the v1 review, plus Danilo's new IRQ commits that I've rebased
-onto.
+The kernel provides impl_flags! for declaring a bitmask type alongside
+the enum of its individual flags, generating the bit operators and the
+containment queries.
 
-This series adds support for GIN, the GPU Interrupt and Notification
-unit, which is the GPU's interrupt controller, so that GSP events reach
-the driver as interrupts instead of only when the driver polls.
+IrqTypes open-coded that pattern with a with() builder, so a caller
+naming two interrupt types chained two calls onto IrqTypes::default().
 
-The design uses a threaded IRQ handler. The top half touches only
-GPU registers, while the threaded bottom half drains the message queue.
+Declare both types through impl_flags!, so the same set reads as
+IrqType::Msi | IrqType::MsiX.
 
-Fine-grained locking is left for a follow-up patchset, I'm working on
-that next. For now, there is just a big ugly lock around anything that
-even gets close to the GSP message queue. :)
+Suggested-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+---
+ rust/kernel/pci/irq.rs | 68 +++++++++++++-----------------------------
+ 1 file changed, 21 insertions(+), 47 deletions(-)
 
-This is based on drm-rust-next, plus the six commits of Danilo
-Krummrich's PCI interrupt-vector series [1], which I've cherry-picked
-from mainline for now.
-
-There is a git branch with the patches as applied to drm-rust-next:
-
-    https://github.com/johnhubbard/linux/tree/nova-core-gin-interrupt-tree-v2/
-
-Changes in v2:
-
-* Rebased onto current drm-rust-next. The PCI interrupt-vector rework
-  that v1 patches 2 and 3 proposed is in mainline now as Danilo's series
-  [1], so both are dropped. This series carries those six commits as
-  prerequisites until drm-rust-next picks them up.
-
-* nova-core uses the merged API: the driver's device data owns the
-  vector allocation under an explicit lifetime rather than through
-  devres, and each handler takes an IrqRequest for its own subtree's
-  vector.
-
-* Dropped "allocate PCI MSI vector during probe" (v1 patch 4). What it
-  added is replaced by patch 6, and its commit message justified MSI
-  with a VFIO claim that does not hold. nova-core still allocates MSI-X
-  or MSI, and no longer falls back to INTx. (Danilo)
-
-* Dropped the type-invariant documentation and the SAFETY rewrites from
-  the wait_for_completion_timeout() patch, leaving only the new method
-  itself. (Alexandre)
-
-* New: declare pci::IrqType and IrqTypes with impl_flags, so a call site
-  reads IrqType::MsiX | IrqType::Msi. (Gary)
-
-* New: the GIN vector and subtree newtypes. A vector, a leaf index, a
-  set of vectors within one leaf, one subtree, a set of subtrees, and a
-  leaf count are separate types now, so a leaf mask cannot be passed
-  where a TOP bit belongs. The HAL returns a LeafCount rather than a
-  usize. GSP_LEAF and GSP_BIT are gone, along with the
-  LeafIndex::new::<GSP_LEAF>() calls. (Danilo)
-
-* Merged the tree API patch into the vector allocation patch, and moved
-  both after the HAL. Tree owns the BAR mapping, so no tree method takes
-  a bar argument. The Leaf<Idle>/Leaf<Pending> type state gives way to a
-  LeafPending newtype that only Tree::read_pending hands out, and enable
-  and disable are Tree methods. (Danilo)
-
-* Added LeafEnableGuard and TopEnableGuard. The self-test's teardown
-  guard and GspIrq's open-coded destructor are both gone, and probe no
-  longer needs a separate interrupt-enable step. (Danilo)
-
-* Moved the GIN and MSI EOI register definitions to irq/regs.rs.
-  (Danilo)
-
-* 13 KUnit tests rather than 14. The tree tests now cover the newtypes,
-  and testing those needs no BAR mapping. One test went away because a
-  leaf count derives its subtree set by construction.
-
-Tested on Turing, Ampere, Blackwell GPUs.
-
-One known gap: driver_read_area still reads the GSP producer pointer
-with no acquire barrier. Gary Guo's barrier series puts dma_mb(Read) at
-exactly that point [2], so let's just wait for his fix to land.
-
-[1] https://lore.kernel.org/all/20260813165234.620555-1-dakr@kernel.org/
-[2] https://lore.kernel.org/all/20260609-rust-barrier-v2-4-30fcc48e1cd0@garyguo.net/
-
-
-Joel Fernandes (2):
-  rust: sync: completion: add wait_for_completion_timeout()
-  gpu: nova-core: add the GIN interrupt tree and allocate its vectors
-
-John Hubbard (13):
-  rust: pci: declare IrqType and IrqTypes with impl_flags
-  gpu: nova-core: add the GIN CPU interrupt tree and MSI EOI registers
-  gpu: nova-core: add the GIN vector and subtree newtypes
-  gpu: nova-core: add the per-architecture GIN CPU interrupt HAL
-  gpu: nova-core: add an interrupt delivery self-test
-  gpu: nova-core: dispatch GSP events instead of discarding them
-  gpu: nova-core: match GSP RPC replies by sequence, not just function
-  gpu: nova-core: recover the GSP receive path from corrupt framing
-  gpu: nova-core: bound a GSP wait by a single deadline
-  gpu: nova-core: drive GSP events with the SWGEN0 interrupt
-  gpu: nova-core: retrigger the GSP falcon and clear every latched cause
-  gpu: nova-core: add KUnit tests for the interrupt tree and HALs
-  gpu: nova-core: document the GIN interrupt controller and GSP events
-
- Documentation/gpu/nova/core/interrupts.rst  | 686 ++++++++++++++++++++
- Documentation/gpu/nova/index.rst            |   1 +
- drivers/gpu/nova-core/Kconfig               |  15 +
- drivers/gpu/nova-core/driver.rs             |  55 +-
- drivers/gpu/nova-core/falcon/gsp.rs         |  71 +-
- drivers/gpu/nova-core/falcon/hal.rs         |  32 +
- drivers/gpu/nova-core/gpu.rs                |  28 +-
- drivers/gpu/nova-core/gsp.rs                |  17 +-
- drivers/gpu/nova-core/gsp/cmdq.rs           | 286 ++++++--
- drivers/gpu/nova-core/gsp/commands.rs       |   8 +-
- drivers/gpu/nova-core/gsp/fw.rs             |  13 +-
- drivers/gpu/nova-core/gsp/sequencer.rs      |   8 +-
- drivers/gpu/nova-core/irq.rs                | 105 +++
- drivers/gpu/nova-core/irq/doorbell_test.rs  | 298 +++++++++
- drivers/gpu/nova-core/irq/gsp.rs            | 232 +++++++
- drivers/gpu/nova-core/irq/hal.rs            | 192 ++++++
- drivers/gpu/nova-core/irq/hal/gh100.rs      |  31 +
- drivers/gpu/nova-core/irq/hal/tu102.rs      |  30 +
- drivers/gpu/nova-core/irq/interrupt_tree.rs | 615 ++++++++++++++++++
- drivers/gpu/nova-core/irq/regs.rs           |  71 ++
- drivers/gpu/nova-core/nova_core.rs          |   1 +
- drivers/gpu/nova-core/regs.rs               |  24 +
- rust/kernel/pci/irq.rs                      |  68 +-
- rust/kernel/sync/completion.rs              |  23 +-
- 24 files changed, 2767 insertions(+), 143 deletions(-)
- create mode 100644 Documentation/gpu/nova/core/interrupts.rst
- create mode 100644 drivers/gpu/nova-core/irq.rs
- create mode 100644 drivers/gpu/nova-core/irq/doorbell_test.rs
- create mode 100644 drivers/gpu/nova-core/irq/gsp.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
- create mode 100644 drivers/gpu/nova-core/irq/interrupt_tree.rs
- create mode 100644 drivers/gpu/nova-core/irq/regs.rs
-
+diff --git a/rust/kernel/pci/irq.rs b/rust/kernel/pci/irq.rs
+index 6741046ec1c0..f074aad7f1d8 100644
+--- a/rust/kernel/pci/irq.rs
++++ b/rust/kernel/pci/irq.rs
+@@ -13,27 +13,26 @@
+ };
+ use core::num::NonZero;
+ 
+-/// IRQ type flags for PCI interrupt allocation.
+-#[derive(Debug, Clone, Copy)]
+-pub enum IrqType {
+-    /// INTx interrupts.
+-    Intx,
+-    /// Message Signaled Interrupts (MSI).
+-    Msi,
+-    /// Extended Message Signaled Interrupts (MSI-X).
+-    MsiX,
+-}
+-
+-impl IrqType {
+-    /// Convert to the corresponding kernel flags.
+-    const fn as_raw(self) -> u32 {
+-        match self {
+-            IrqType::Intx => bindings::PCI_IRQ_INTX,
+-            IrqType::Msi => bindings::PCI_IRQ_MSI,
+-            IrqType::MsiX => bindings::PCI_IRQ_MSIX,
+-        }
++crate::impl_flags!(
++    /// Set of IRQ types that can be used for PCI interrupt allocation.
++    #[derive(Debug, Clone, Copy, Default)]
++    pub struct IrqTypes(u32);
++
++    /// IRQ type flags for PCI interrupt allocation.
++    #[derive(Debug, Clone, Copy)]
++    pub enum IrqType {
++        /// INTx interrupts.
++        Intx = bindings::PCI_IRQ_INTX,
++
++        /// Message Signaled Interrupts (MSI).
++        Msi = bindings::PCI_IRQ_MSI,
++
++        /// Extended Message Signaled Interrupts (MSI-X).
++        MsiX = bindings::PCI_IRQ_MSIX,
+     }
++);
+ 
++impl IrqType {
+     /// Construct from raw value.
+     #[inline]
+     const fn from_raw(raw: u32) -> Self {
+@@ -45,33 +44,10 @@ const fn from_raw(raw: u32) -> Self {
+     }
+ }
+ 
+-/// Set of IRQ types that can be used for PCI interrupt allocation.
+-#[derive(Debug, Clone, Copy, Default)]
+-pub struct IrqTypes(u32);
+-
+ impl IrqTypes {
+     /// Create a set containing all IRQ types (MSI-X, MSI, and INTx).
+     pub const fn all() -> Self {
+-        Self(bindings::PCI_IRQ_ALL_TYPES)
+-    }
+-
+-    /// Build a set of IRQ types.
+-    ///
+-    /// # Examples
+-    ///
+-    /// ```ignore
+-    /// // Create a set with only MSI and MSI-X (no INTx interrupts).
+-    /// let msi_only = IrqTypes::default()
+-    ///     .with(IrqType::Msi)
+-    ///     .with(IrqType::MsiX);
+-    /// ```
+-    pub const fn with(self, irq_type: IrqType) -> Self {
+-        Self(self.0 | irq_type.as_raw())
+-    }
+-
+-    /// Get the raw flags value.
+-    const fn as_raw(self) -> u32 {
+-        self.0
++        Self(Self::all_bits())
+     }
+ }
+ 
+@@ -203,9 +179,7 @@ impl Device<device::Bound> {
+     /// let vectors = dev.alloc_irq_vectors(1, 32, pci::IrqTypes::all())?;
+     ///
+     /// // Allocate MSI or MSI-X only (no INTx interrupts).
+-    /// let msi_only = pci::IrqTypes::default()
+-    ///     .with(pci::IrqType::Msi)
+-    ///     .with(pci::IrqType::MsiX);
++    /// let msi_only = pci::IrqType::Msi | pci::IrqType::MsiX;
+     /// let vectors = dev.alloc_irq_vectors(4, 16, msi_only)?;
+     /// # Ok(())
+     /// # }
+@@ -222,7 +196,7 @@ pub fn alloc_irq_vectors(
+         // - `pci_alloc_irq_vectors` internally validates all other parameters
+         //   and returns error codes.
+         let ret = unsafe {
+-            bindings::pci_alloc_irq_vectors(self.as_raw(), min_vecs, max_vecs, irq_types.as_raw())
++            bindings::pci_alloc_irq_vectors(self.as_raw(), min_vecs, max_vecs, u32::from(irq_types))
+         };
+         to_result(ret)?;
+ 
 -- 
 2.55.0
 
