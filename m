@@ -1,138 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B513ACEE9;
-	Sat, 29 Aug 2026 19:14:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AC61429D;
+	Sun, 30 Aug 2026 19:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788030880; cv=none; b=MUIjtrGf/u62CqNi+FiZGcoDRrl3lCpGlXCy4LndJHhTqote8F7lPgbonl9lVtD1AZmeTelGU52grIbYHJDAg+6cNTRpqGTe4FO4mh2xgDQSbNuUWkdi8gcSPYA1x7jA89M82e9jzUfsetgFK8JzVbbtMwZVjDfRynRowb/G9iY=
+	t=1788118751; cv=none; b=gzCn12Toc5vM4eM4A3njZxL8hEjDj/tSziO8MR8CW7w/6qMRTOxt7vKb4p+h9LykSGWYLsSWOEyWQR5sjbxfTOgq3kHC+oS9ejmnlaLCQpuQIc31Ga444TH4tUDn2XqxocKKxpYfrmslzQOsJiL6/tgT84Hf5RqIZBpMJMH3ShA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788030880; c=relaxed/simple;
-	bh=rm6Zra25rFQi1Uy2T+X5ylmOKh5Y+pThpZean8unTrE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=EUAnORy4phJQ0kWrFd0ipuCnuitMpN8GWC87V2KARb/ijN/I1yVtA5FJ+gwfgxgWGM5EzLNm1CdCPj5JUu9uZ/c9nbOmJ0L8hg/COreW7MU7CcHw2Rje/sHDyw3QYnnj3HYJZQMxVOrIzi3LMH0/xdr2grLxVlGT4kbOkq8/EWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SbQWb2JE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788118751; c=relaxed/simple;
+	bh=aKCL1L/l4Hob6dllE1zyMCEDUs+iEKCi98QzuCRPWZs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VHq7BktADbFN2MFv6nq6igeuip9A3raYlvt8XPZwHpybmMCQcITKq4YPRVSYDT6nF6vD6kELvESAlTRi8YK7xo4OpGPhNy5EI3OKzTGXBFWgMYNdva403M/N0flBRUyEa1insSSrV0bJf7FB2seC7L4iniNQuno7DLaJrRRLSf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LIAcc3TV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SbQWb2JE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8B351F000E9;
-	Sat, 29 Aug 2026 19:14:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LIAcc3TV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E011F000E9;
+	Sun, 30 Aug 2026 19:39:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788030877;
-	bh=uFSAQBNlSCr6Z8wJaIeKFDqKOuLHcGqGVoKW4G1mPFw=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=SbQWb2JESZH/tzjTxWL774/1DKvZZXGetGKyDmxevJZglvxS4g+ild9AXHt1vHdaG
-	 KUYitJYwdwqBUzhHWiPpt0pnkWIdikUjMkPjHnsZHUXqwm3M236MEhmKNxNqZjS455
-	 k842ghknIyIKBqB5rSWaHPXkXquykkgtq+6xiHpKNoZTM1I22NcPGnQCjQsGJUYt0i
-	 MUAi2a+f5/WSfi1bmKK/5AP1ugbGnPTTR/nPU/bpJ7efQNzmhe4As0zPZvoi/ltws0
-	 95uznd6dVM0DqZinWDlA/rl2Qg5G0lhrNwLt3R2tv+p6WGt/zp5bNDMK/zVAL9rKAh
-	 WUJ2+tKZSD72w==
+	s=k20260515; t=1788118748;
+	bh=fLNwrpkdSyF5CJbc3fw4p3nVMnS/vZaro/92PCXSWU4=;
+	h=From:To:Cc:Subject:Date;
+	b=LIAcc3TVFroExdYUUvX+jRTjeKMNzyPvmNR3+0H7p+5ENDGGJAqfdKkJgId1MadCo
+	 f8wf8dZFDiM5A6nFSkr0LyRiDQi3QJp3KCzV9rjZyzRbI+WyWxYvSsot6+9urDmXHI
+	 rGA+PiIAYIfsTfiZ9h2yd17IGYXG0/Tvpc8RB2pFi82zUxkjhk80dQl+JgFTCleIj2
+	 PYTBvUsEYaUnThCBsSJ4eCiImsopS7RCT4yM5Wg/EysJa1zGNEcWnxpGS9Bz7IMhjt
+	 6fBFlgANTpY5KRlI6D0Aq+uesJ7VEw4ahmVPbjz6dgbSohAz+uh4aOkC/GQC005/kX
+	 3YewMWB0voZEg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	abdiel.janulgue@gmail.com,
+	daniel.almeida@collabora.com,
+	robin.murphy@arm.com,
+	a.hindborg@kernel.org,
+	gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	aliceryhl@google.com,
+	acourbot@nvidia.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	tmgross@umich.edu,
+	tamird@kernel.org,
+	work@onurozkan.dev,
+	mmaurer@google.com
+Cc: driver-core@lists.linux.dev,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 0/4] rust: dma: tie DMA allocations to the device's bound lifetime
+Date: Sun, 30 Aug 2026 21:37:12 +0200
+Message-ID: <20260830193824.471089-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 29 Aug 2026 21:14:33 +0200
-Message-Id: <DL1O1NFXUX6N.1LFASWF425I4Y@kernel.org>
-Cc: <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 1/2] gpu: nova-core: use kernel lossless integer
- conversion module
-References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
- <20260828-nova_num-v1-1-e21f17ba4127@nvidia.com>
- <DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org>
- <DL142442KXHA.3VFWP2DHD7H2E@nvidia.com>
-In-Reply-To: <DL142442KXHA.3VFWP2DHD7H2E@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat Aug 29, 2026 at 5:34 AM CEST, Alexandre Courbot wrote:
-> On Fri Aug 28, 2026 at 9:09 PM JST, Danilo Krummrich wrote:
->> (Cc: Miguel)
->>
->> On Fri Aug 28, 2026 at 7:33 AM CEST, Alexandre Courbot wrote:
->>> The `kernel` crate now features a replacement for our lossless integer
->>> conversion routines. Switch to the kernel version and remove our own.
->>>
->>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->>> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
->>> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
->>> ---
->>>  drivers/gpu/nova-core/falcon.rs                    |  12 +-
->>>  drivers/gpu/nova-core/falcon/fsp.rs                |   4 +-
->>>  drivers/gpu/nova-core/fb.rs                        |   2 +-
->>>  drivers/gpu/nova-core/fb/hal/gb100.rs              |   6 +-
->>>  drivers/gpu/nova-core/firmware.rs                  |   4 +-
->>>  drivers/gpu/nova-core/firmware/booter.rs           |   4 +-
->>>  drivers/gpu/nova-core/firmware/fwsec.rs            |   2 +-
->>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |   4 +-
->>>  drivers/gpu/nova-core/firmware/gsp.rs              |   9 +-
->>>  drivers/gpu/nova-core/firmware/tlv.rs              |  11 +-
->>>  drivers/gpu/nova-core/fsp.rs                       |   8 +-
->>>  drivers/gpu/nova-core/gsp.rs                       |   4 +-
->>>  drivers/gpu/nova-core/gsp/cmdq.rs                  |  22 +--
->>>  drivers/gpu/nova-core/gsp/fw.rs                    |  42 ++--
->>>  drivers/gpu/nova-core/gsp/fw/commands.rs           |   4 +-
->>>  drivers/gpu/nova-core/gsp/sequencer.rs             |   2 +-
->>>  drivers/gpu/nova-core/mctp.rs                      |   8 +-
->>>  drivers/gpu/nova-core/num.rs                       | 211 -------------=
---------
->>>  drivers/gpu/nova-core/vbios.rs                     |   2 +-
->>>  19 files changed, 78 insertions(+), 283 deletions(-)
->>
->> Please see the discussion in [1].
->>
->> If we make this change, then the subsequent conversion to const_as!() wo=
-uld need
->> to go through the Rust tree next cycle, which could be a bit of a mess, =
-as I'd
->> expect a bunch of conflicts.
->>
->> Alternatively, we could the the full three cycle dance, or have a signed=
- tag for
->> const_as!() and use it right away.
->>
->> But honestly, the former would just be unnecessary noise. If we don't do=
- the
->> latter, let's just keep the nova-core num module until the dust has been
->> settled.
->>
->> [1] https://lore.kernel.org/all/CANiq72k+-fNWZCwGuQ=3DFTchxgm-X-f6WR=3Dt=
-G=3DErcn19ic1edQg@mail.gmail.com/
->
-> Maybe I am missing something, but wouldn't the following work?
->
-> - rc1 gets tagged, `drm-rust-next` gets the `num::casts` module,
-> - This series gets applied to `drm-rust-next`, then `cv!` (without the
->   nova-core conversion patch) in `rust-next`,
-> - We wait one cycle for `cv!` to trickle down to `drm-rust-next` before
->   converting nova-core to use `cv!`.
->
-> Would that work? This series doesn't overlap with the const conversions
-> that `cv!` covers on purpose, and it would have the benefit of getting
-> rid of the local `num` module in nova-core quickly.
+DMA allocations carry device resources (e.g. IOMMU mappings) that must not
+outlive the device's bound lifetime. Add lifetime parameters to the DMA
+allocation types (Coherent, CoherentBox, CoherentHandle) to enforce at compile
+time that they are freed before the device is unbound.
 
-Take casts::usize_into_u32() for instance, drm-rust-next replaces the usage=
- of
-it next cycle, but rust-next wants to remove the API from
-rust/kernel/num/casts.rs.
+Since DMA types with lifetime parameters are exposed through debugfs in the
+nova-core driver, first drop the unnecessary T: 'static bound from the debugfs
+ScopedDir file creation methods by formalizing a type invariant on FileOps.
 
-In this case rust-next would need to get rid of the users (including nova-c=
-ore),
-but drm-rust-next will likely do different changes, so we'd get unnecessary
-merge conflicts.
+Danilo Krummrich (4):
+  rust: debugfs: drop 'static bound from ScopedDir file creation methods
+  rust: dma: tie CoherentHandle to the device's bound lifetime
+  samples: rust_dma: separate driver type from driver data
+  rust: dma: tie Coherent and CoherentBox to the device's bound lifetime
 
-You can resolve this either by keeping casts::usize_into_u32 and friends ar=
-ound
-for one additional cycle, so that all users we introduce now are gone. Or, =
-since
-there's no rush anyways, we just wait one cycle and use the real thing righ=
-t
-away.
+ drivers/gpu/nova-core/falcon.rs               |   2 +-
+ drivers/gpu/nova-core/fb.rs                   |   4 +-
+ drivers/gpu/nova-core/firmware/booter.rs      |   2 +-
+ drivers/gpu/nova-core/firmware/fsp.rs         |   8 +-
+ .../nova-core/firmware/fwsec/bootloader.rs    |  12 +-
+ drivers/gpu/nova-core/firmware/gsp.rs         |  14 +-
+ drivers/gpu/nova-core/firmware/riscv.rs       |   8 +-
+ drivers/gpu/nova-core/fsp.rs                  |  20 +--
+ drivers/gpu/nova-core/gpu.rs                  |   4 +-
+ drivers/gpu/nova-core/gsp.rs                  |  30 ++--
+ drivers/gpu/nova-core/gsp/boot.rs             |  10 +-
+ drivers/gpu/nova-core/gsp/cmdq.rs             |  35 +++--
+ drivers/gpu/nova-core/gsp/commands.rs         |   2 +-
+ drivers/gpu/nova-core/gsp/fw.rs               |  12 +-
+ drivers/gpu/nova-core/gsp/hal.rs              |  14 +-
+ drivers/gpu/nova-core/gsp/hal/gh100.rs        |  16 +-
+ drivers/gpu/nova-core/gsp/hal/tu102.rs        |  34 ++---
+ drivers/gpu/nova-core/gsp/sequencer.rs        |   6 +-
+ rust/kernel/debugfs.rs                        |  26 +---
+ rust/kernel/debugfs/entry.rs                  |   4 +-
+ rust/kernel/debugfs/file_ops.rs               |  52 ++++---
+ rust/kernel/dma.rs                            | 141 +++++++++---------
+ rust/kernel/uaccess.rs                        |   4 +-
+ samples/rust/rust_dma.rs                      |  30 ++--
+ 24 files changed, 241 insertions(+), 249 deletions(-)
+
+
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+-- 
+2.55.0
+
