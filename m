@@ -1,76 +1,74 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010052.outbound.protection.outlook.com [52.101.56.52])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012060.outbound.protection.outlook.com [40.93.195.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A4F357CF3
-	for <nova-gpu@lists.linux.dev>; Mon, 31 Aug 2026 02:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C2B3AA1A8
+	for <nova-gpu@lists.linux.dev>; Mon, 31 Aug 2026 04:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.60
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788142326; cv=fail; b=u65sPo7cPFyb4lG8Z6dU4DxVRmq2au5FSpdwX+gXr8PbI1uZSCyuCEjDY/1Fa2XiwFlSHQFzMqsl8Kf1KZOHKToTF6OA4+cBRedHfscFoianN1PYQDrrG5iQGQfjZJAsz4tqxXrOdRBXElEp2WoGm6npj1cH+8yWY2vX4MUQoLY=
+	t=1788150803; cv=fail; b=NgICjUvoRr+ewHLX1Ar1RadMnmLMbUCD4ozWL8ssrcU5VIcD+lUrQwmxOHB/zm6nLvEd6Dwcf5gkOj45CH6hVPeXF5wbx8NLI98UwZdV+UYGurw/8P38gCCKTlm2reKZ5AptjCSjJib4Wvab5Zj4kFOl/YI7ZP6xT1QdYwhD1DQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788142326; c=relaxed/simple;
-	bh=0bzn0PuboPLHB8b6fDo+GlTvq89QFSppJDGB/NXrmD4=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=rJXFzyslCROHCxo00mvkKkyEgG8+spMPae3ADJQUDMOOeg+YuzVnPXDweCgVSwk4tAJtrIBOECZC7U0FIegmDpbQONOTeL+oJLWNFnv1xwy988riicS4JrQOi5m1uSCTwzkHis3hifl50PchwmW4E0uPPEAp2+IQfG9Nc1mlB1E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DLjQqy1c; arc=fail smtp.client-ip=52.101.56.52
+	s=arc-20240116; t=1788150803; c=relaxed/simple;
+	bh=rVMo9ztlglIQyh8NL0tWYEjgi8Xh5OvDKEZPdBDU9b8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mAINbJCFrBc3cHB/UTTGBPnz+72hJwZgJN2fWnxYKYgcr/BdpToWAjh60Bd/wQjZVL0zOh7gWkzwUF0/8iW+davZi37j9t8XQ9Rg1Kimj9yDHCB7svJHbpcNqKoYPu2Z1fD7EAMqc15s+YemArwxT6KZOFUquek1afJONtlj+Ag=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KniO4TIw; arc=fail smtp.client-ip=40.93.195.60
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DLjQqy1c"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KniO4TIw"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wln+TsT+Qjx1rnhHTp1NIaCfrF5gsK0sU9bT1qC9f1X+USdHdjQHcs2QORA2RD35SuA/81gHEP7JdHIP1z2gmhkhyMSonEjBXedndetC4UVL0LFfLNLVL2Subc4K/qmgd3RHWfWZvhDRGfPaGe5DDiB/XJbOYN9sFs5gVZXF7Wcn8GWcRZ7fhRTcwv4cgAhG1Nbr8/h6/4nB5s9TE4Dcs/5NzbYRKFt/5YaljGXR+QyrfzMgHHdD/ylNdhrRYpZkgCLOpfnGq8iWsVU7gxE4I9hkC/cMs9+VU8I0lmMsJNWO64Si+K6YpDo95YS0V4F4HuP3ldxo4Wa+462EA1f90g==
+ b=kCih8pnu5Ti/A6Vbb3WHsF2MpGzGH/8Ymqnc9UUJt0rzn+bPpUn5QbDlrjGUZphI8tDd+5OO8sn3L/ORCaDuHx7hyYaWoHK7s3G1iBWlN46ub2DsUmS5wY0aj+o1ipozV/YVNXfHaggBeXXJvXcrDCm6bRKzHpNaFWoOgchkQp+RjTxspsdb5EmLX8788T8Q63ri32upuwC7pohNtTRrb91h4+oveA8GLTxbkufZ/gX1XBMkglSaQFsWq6ZI2/Lj8CPodImiCUSczt43CJjKF2Is1QbBnfYv/m7lhj/E+MrWaT47ZgOCdB3fsetMLR/K2N2VmEzCz7KhgxKPBIuvKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BUMxgiYKV+tWWC5RC4QUVuhnyLqK4JUAmu1clQFXwDs=;
- b=SzXE+sjd/waPlhIThbkK0Ais0/uBuW8jHePXf/Miqbl6VssSJ3iwRVip70x+E3TYwtGmDmNkRn2WY/U8x6QsxXlWmj6SMKRJutpnn5tR/ey6fbwnpPflAHYnx87dupTIcHccG5NY3XRMzAJ4E3hKokLusgghyaE8swnanaL6EdYGa4bdwaIXWAnpckuf/IVLnNi65UjE92TKIF6LxdO92hw4fHr+QVvIZBQMg2YP69l74IP7oiLWN1tj2gtf0AlJkX4mj4xGpnpWU1kzffzQqi4Ss//SYZxUSl+kxV5zEUHnK4UXEqMX8xJkgJSwmDkZUqT2DzjmCEAHsuhAfWE6fA==
+ bh=SMK0h0qZIkwn1KlhkC98mHsPBKjVn/Zhk2xMPju9qS0=;
+ b=fNqirS48V7mTi/1SKSDz5FOc+aNhfh3h49Mf5FaBFIk8PCJX64ZP2nIrlFto0oLvZv50nRZs+H+kF0AW4GR/0iBJ2zmMg0IL89QHdOQ0lq8R9uQDWEQAJ6hbOP0j1gNKQCce3rk0qRzvzPL9BqpTYGguUZK1KAy1JAvVOScvslyHfkimB+xctKoZTlzjiJDYI4ifVHwH3lRbmxmkipCdnlZx0kqyAHPk1T5r1AXQElc284ID4jfsgWupk2dCet9/IQ/lTJ3yuj6az+nngcTOEAxnqQnK5jl/E7RjT13B/Eo5xGGWhKDQMctWov1VJathskcR903gmwEs1ixUAMOclg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BUMxgiYKV+tWWC5RC4QUVuhnyLqK4JUAmu1clQFXwDs=;
- b=DLjQqy1cECJk0B3ZtQs/AMuJ/AmaEUou/8bzo105qp8hj4LxkgvxogwMpADgPxojIxt3S04fZBp3z05kDg9kjkkTGQWv7DTugz5BE6ojgyO/3mE0MwQbpuLq7yI8XvmYZ1WFBheyILaKYCecYk7+r1HkjGTVaECR5DQHpBLkSyoPGrXpU5ARQhEY67j3R4wkrHgfx3oSyGMq8nZeoXWEyn67sULa6Hgj1Vk+qhp9sNtXKdpDqgM5+I5Q/iwkhqr4X4Ya5C6SHZBQBut7mbU4CGnRI1eYmgcDn+1Avh8cwny7l7IEGwkGVcJ1HvUXSSbKwq3zk2NOH+/1bc5QBsX7Cw==
+ bh=SMK0h0qZIkwn1KlhkC98mHsPBKjVn/Zhk2xMPju9qS0=;
+ b=KniO4TIwS0LN/D54kYBI/URsAfQdZQ/4Jd5QzC7MMJz1XE8+11Xpj4rA9V+4Z+Mnle5k7KIXq1IB3B3fheMazycqOOZBhG5TfbMSk1tC2fjRJMXbSz6pscJkp/qcNEtzPwfzGe2VC2QXdzMI+VMPDw9AK4sZikCm14Ym54Bs7pGOBGIpHuSuYqqxd50K2br6FHCUrPvYWeiaoTk9PArxLF+l7Vc5aRsoU8GDVxNWEUHgYtAryyUaobhS06f6PZxhnAMjmycQnOmW0Cx2KXTiIkgEeRWsWZJGpSVDpJthFvMKWFwG7iGLmasYhoknWr88q/BCYW5KSyM3haSWPxoVdg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH0PR12MB8100.namprd12.prod.outlook.com (2603:10b6:510:29b::7) with
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ SA1PR12MB6945.namprd12.prod.outlook.com (2603:10b6:806:24c::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Mon, 31 Aug
- 2026 02:11:59 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 02:11:59 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 11:11:55 +0900
-Message-Id: <DL2RJRG4Y0SE.39RJW9A9IS5NV@nvidia.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v8 11/12] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Yury Norov" <ynorov@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-11-bc74c77d0214@nvidia.com> <apMY3lO6LlEHP1Zr@yury>
-In-Reply-To: <apMY3lO6LlEHP1Zr@yury>
-X-ClientProxiedBy: OS0PR01CA0020.jpnprd01.prod.outlook.com
- (2603:1096:604:25::7) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ 2026 04:33:14 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 04:33:14 +0000
+Message-ID: <d6d3bcba-56d9-4775-9687-ca8e2a0c80ec@nvidia.com>
+Date: Sun, 30 Aug 2026 21:33:12 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/15] gpu: nova-core: match GSP RPC replies by
+ sequence, not just function
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ nova-gpu@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
+References: <20260829012243.496697-1-jhubbard@nvidia.com>
+ <20260829013324.499542-14-jhubbard@nvidia.com>
+ <DL2Q86NR6TJU.3ULD0NQAQ9HF@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DL2Q86NR6TJU.3ULD0NQAQ9HF@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0185.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::10) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -78,209 +76,97 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH0PR12MB8100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09c9998d-b23f-4979-69b6-08df07053ce9
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SA1PR12MB6945:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5bdadef9-d638-4cd7-84aa-08df0718f8dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|22082099003|18002099003|11063799006|56012099006|5023799004|6133799003|10067099003|4143699003;
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|10070799003|11063799006|4143699003|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	py2CK9EddKEP2jRSk9XP/BXHOwgboIyMxTsbP/K5GwlZTiK8aTYMa77j3U+8/peaW2PAVfdB/M8qewk1/nK5Yy7E+hm1ldQan3B8r3LiNfhp/OyJZE+zRQHEZdQt3SPL3EDnLi4jrjYwuSdZO/yTCqncsTw3XMaY1VYxYbz9gKl9ztQBaX105UX+3NI3jiQMnxAtpnktgTGEOmIC4xSg6Ieypc8weM6+4WePwkqicxzi5Vv46HofMjA/AJvAz1bioI5VLQ+f30/CnH8GnJJSsawvNFrfEOLyvNUJxJgGKsX+3TldjqLedoKxyhpWPQuUxy0rRSj6aT9N1vAzlZrhCifiku2BcIjLQOn3PIrV5qdpYErKrMlt4A1j0vtuIaKmNhfanfeMyz1NEXT6DMK0ARHmbuCPbTXRat8qk5SOVlnjpS81rAE0kovy6V3PiMvDF7GBzAg1+1KGpEpK4F0P1N9ib/rIEuS9DfBKee04y5P6Kl75h8kDDTSUZxUt2JeGNmDJkvLkIA971s24qdLIiKTBa6yXVMiU/7W3HeLgiZ0VjXvvi7Og398Y+dmOPw8EUOGuZgCKKAsdqc6N6yukkJMY63EFo7hqjNmZ/XOT97XLWjcb4XmkD7LDBmqgk+Ixh0QqmAbWldhqUQ/4qLZYz2ojIS8rPVlZEmTtAkDrqgQ=
+	9DVXwTHvwvfoeukFz9SL9jP+II228y0nuq8li97C+o6lgk5fetUZGczq3rIOapbt9LD+XOXe9hXCwo5Ho5GVeIntvV/C8EHCHPtxH06GgzPKf/oTigFAHFDP9YmCTAiNxJ5ZRoNr039nQQ+TLc5lIbvTvgHBCof+bU1pdPoD9TcpHEnV/bjFpfViwgNA7To85hAQ5YmGWe8oqGuqwkpEKu1Um8n+EsYwZI1UirdXZ4t4Z9t2mRtrr20IItZLTxFmzBuWC46qKfqyZIkEdTjYz6fupg9xUBWZ4XjiDN4EzyoG9axnStPqDH6Wldb+E3Nywew/j8YYcOTvV2ez2E9rtPQj4c+LO35qIzl/KERP+HAAWANmAsZQ3DHAlChyXHZbmGWT5oQb0g0v/ZoLRzlv6SJ8AwD/386dqsGxcfV7cph32S+zG0aMspYEo1qfCv6nA1enr/wsk9pacE+1Ddk3hFh1pIc2eetyPTIIrYeQxE5r2OMtIVkz93WLfa/z9nIhfWUF5XB1jkAePLVYo1oGk1h62nVV3q2Mu5JpvonNZnqP0+TiMpBNelE+3nk4VuMO8AY1lkBsDgCWB0GBmTfSoIbggXdlUwfeoYycqUhjPLr1xwCHYqMd2w0nDN9JCeoUEJLQe/f8iicDVeu1ceke2RnZi+kJgftWl08JojfJ3ZQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(22082099003)(18002099003)(11063799006)(56012099006)(5023799004)(6133799003)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(10070799003)(11063799006)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TnJ5K0FEcFQxNUp2R0R3anVZdTlsNWlaeGxQNzYvTW5sNmZ2WUxKTWNxbGhY?=
- =?utf-8?B?eWpKR0ZCYVRINHVBa3NDL0JYOHoxQXRsOVRDUE80SGhYZ3Z4YXlyd09YQ29a?=
- =?utf-8?B?VDUxcFVYOFpkTkp4ZGFIa1czajVUdEo2Y0NlWloydThTZklvbnZENHA4T3BQ?=
- =?utf-8?B?WnQydFhuUjhzSy9aWktJbUlSckg0djhpRi9kVHcrbXZIM0ZBTWQrYzdyT0lN?=
- =?utf-8?B?K2JmWi9IaXB6MnUwNkEzamx6WFdmQlFRdGdEZVp4RFRidnlxeEdiM2FWOFhG?=
- =?utf-8?B?K1hNNGVjOWNxb1J1YW82M09FaEE3bmYxUmtWbTFTS0xPMEROcVI0cEE3Z3ps?=
- =?utf-8?B?TXFQT25rN3JISkg0WWNJd0lZV2JhZDZaRGhveFM0emdwc3BOU3NpQ0htbUJD?=
- =?utf-8?B?cU9XeWRqbGFDd2hveVFhNlpGRFBwN3VyYlFqT3MwQWR0NW9IRWVKYTFPeXpS?=
- =?utf-8?B?WDEzUDhBQzU4WTFFNkU2ZmdGT2RBNm5sK1BlaVpXNEtjeXhxNmsyMDl6YXJK?=
- =?utf-8?B?ZTFWNUo4bjJUb1FHYlEydklrVHNxblpxM0VwcStwUFBYdkIvOWFXUWpKc0Z2?=
- =?utf-8?B?YUhhMjNZWEgwcUc5UVRENkpzR1I5eUdRTTJyUmI2UGw3UlJ6aUlpRC9BY250?=
- =?utf-8?B?ckdKWEExL3pkajVxRzVnN2VId0x5NDQyZGliVVlzUGUwcnpxeHpERzA2T0Zx?=
- =?utf-8?B?dDFuQjlTc3NpeFpjb1FUVDNPVmlqSUJZNXI0MEFBNWRaMTV0a2hoSGR4WmVI?=
- =?utf-8?B?aFY2enp3STRHcm8xbENDcW5sL1hwL2lzaFJqaHA4WHY2SURYSWdLSGJRUDVJ?=
- =?utf-8?B?dmJ2R21aNWxNZXp0RWlYd2RZSVFlbGZCNGpIRXp0cmRGejNYTmV5RVVQV2d3?=
- =?utf-8?B?dyt1RlVhdFc4S0FqMU1OUll5dmdtRlIvMlV5U3VkNjFyRXptRUVIV0ZjRHJr?=
- =?utf-8?B?cmlGYWZwRHhoR2p6eW51b2Jxbm55MVJpb2pPTmdQWUYrbVFwTzEyTC9ZVnV6?=
- =?utf-8?B?RE5oZld1U2dHMThuWXRSUjRrdFhMVFBoSHZsVVFIUXoyd1lWU2pTTWFFUTlw?=
- =?utf-8?B?MG12UHp0UllNMnJjanZKQ3ovUklRckY0TDQ5S2JwV3RpVGF4NDB6cWhMT2FT?=
- =?utf-8?B?aWV1UGVYNlh6K3B6L2lkSTZkbGtXZFlWVkNoYTluRkxtd3VwdlcxNGpsUzgv?=
- =?utf-8?B?RHhUQk1BTU1VWVJHejVlWEUyWXg5ZWd0MitkajRCSEorQVNvSHZvOWhDY09G?=
- =?utf-8?B?WTV6NXlIaE5iTHJWZzd4dkIxV0NmUnl1ZWNqZThZWmlUQy9lMWllM0MyNUhT?=
- =?utf-8?B?enkvUTJPTnMxRFlsYXVUSm0wM011UUE1dTlEU0pMcDFTSVljVlRnekEzQ3N3?=
- =?utf-8?B?cExuemliZzByRVZHYzRwQzgzZ01QcnJiR2c3d0lqcU9mUzNGclpBTi95SCtR?=
- =?utf-8?B?ZGdCK3drQTlDVFdxYlVYaE5md1RxckZLamdOSk15THlCcWpGUHZ1SE0zZDJU?=
- =?utf-8?B?S2U5Nm1PdnhURXlEbEdvTlZlUnZub3p1K0xsT2o4Nnd0bUVvQ0EySTVGQ0M1?=
- =?utf-8?B?dWhwUGd6aG4rNGdhZjBoNFlKWlUvSEVqcVVjM0UzcjE4V0xlb3IrUCtIZjhk?=
- =?utf-8?B?bHNuWGhtSVM4TnluQWFNMW1qekgwdjY1UisrUXl3RVpNdnJnUGVuMWJwQ0RK?=
- =?utf-8?B?dTlvc2E5YnVKV0tZVTk4bEpsQ21ycmNPSmNwczY3c2dCbExaald0SUpwdEoy?=
- =?utf-8?B?WDJiS3VGTUlPdkk4TlhjTE9pUllHZTczQUtGNXRBaStNNlZ0aEFOeEp5WUR5?=
- =?utf-8?B?WTJROTN2aHQ0ZkJMeGNSZVRqRDE1VHJMSXZPbVgybmlkTGtnZGhFM1dnZElx?=
- =?utf-8?B?RElOYmF6MWRMVjQyVkNYc1dVR0FHMDNzREhBYW4rSS9VTlhyZ0NtU0UvMzFm?=
- =?utf-8?B?elhYMlJsWDVBOXUyWGc3QWsvZFNkaXdRYmtKK0FibXltR1pDRzZ5ZENVN3Qw?=
- =?utf-8?B?VVZQd1FNWHMvcTI0enExUUsxK2FCVnpBaFhYdlVKSkl0WUJGQjl3d3d3RUV5?=
- =?utf-8?B?dEhIenNUUklwU2dzaGExZWxvdWQxaUdGd1lJbzdzYVVYZUsxV3JkbzFUcnNW?=
- =?utf-8?B?M0N5bGZYbG5ybFZtTEI1T0lRWU5ib0xqOUlZWVUxdDlab3JTOXUrQWRBYm1o?=
- =?utf-8?B?SzVzS2xtUG84ZVJ2NTBkdktBUVg0bXBYTkJMY0JhQlVzQXczN0tXRTNWVmVY?=
- =?utf-8?B?UUFXNklJcy9XdHg2SCtpTVp1czZjMjFWQjM5SEdhcyt3eTVQdE4rTmczRUcx?=
- =?utf-8?B?Q0w2OEh6MEdDbGRjU0xoNCtDdy82aUVrbU51UWFxUWdNNW93YWszRXZnN0c1?=
- =?utf-8?Q?VJMUJ1l7gJTzyXpMVoBndlrfZWmF9u1JrUTW8y5wdaAsQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: r93F5F9POTY6iQ==
+	=?utf-8?B?UG9UMzNDUGlQWEszaEw2TnlTNzl1YWdFYUlneUpYU3MxQVpSMEdKbm5aKzZX?=
+ =?utf-8?B?ZGRJVngzeExSNXU2My8wTERWTFhxdTQ2Mys0QmlzOVNiVjMxZkx5UWNqN0lF?=
+ =?utf-8?B?SnBwK2hxV3hMQzNIeTRYbjJRVlFKRUxmMlBUeGgvMTBoL01idXU0WVFWaXRP?=
+ =?utf-8?B?SDUrWE1ndzZsNDFrQVp0UXgxZnRsNTZZeXFQbGhhUDdjTE52OXlDZU9KbkRC?=
+ =?utf-8?B?YWU1ZmJNMFNBR1prZTMxTlZ6SGYrcTJadTZpSk5QdTlCVDZObWRSNWgwbG1E?=
+ =?utf-8?B?ekdnZ0pKd1p4dzN4YnJUNFRWbTZRYVZ2Y2RGR0luVTRudGxLNS8zR21IWlFs?=
+ =?utf-8?B?b2JVeVgzeUREYVVneHQ2V2dETU5STVo0ZnVkM0V3RkpzZEZjOTEzWjFodXcv?=
+ =?utf-8?B?ZmJRSjBETTZDRmYwRmM5OUlVK0ZGTW9SUDQwbDRLbEJVenZYMWlESHRaWFlo?=
+ =?utf-8?B?REc4b1ZzVVBtcmxmdVVpdTlLdlBqL1YzVXpHOWcvUXB5cjN1ZGw5L0Fxdm5j?=
+ =?utf-8?B?N2tzTlNJcjRhUnNTMXkyOHpKZVd6UGRnMnV1UGFKcy94dHR4ZGtGdWJmcVc2?=
+ =?utf-8?B?dWU4bDdLRkdFbWNoVEVKTHJPZ0NmZnBURFJPbVFEUE0vRkRPUElSam9SdVI5?=
+ =?utf-8?B?S3BrMngxUlpPS3BrN1ozcVp3WnNvV1NwbGVHeUhBNjA2K01ubFZHcC9JVDlE?=
+ =?utf-8?B?cEc1ZGxVc3dITVR4WmJKYnF2bVY1RExES1dxU1VsMkZyOFNmZkQwNmhGeUV4?=
+ =?utf-8?B?YVRtd3NuR3hpM3NkaUdVbThCdUJPVmxGQXE2bWhzcnEvazMvR05aSnFydmtQ?=
+ =?utf-8?B?ZGw1dEZDSTJYbytvUkk2ekR4MjN1aXlMZUFqdWp4Z1ExR3lkbXpPc0dWOTdx?=
+ =?utf-8?B?Mml4bUR2QXF2VjQ2ZDFHUlJNbm5jaG9jMmhrOHdhU1g3SkhjNzFqUmFsQjdD?=
+ =?utf-8?B?NHp5alN5WUlUQTJrQmlERWlJSVNVKy9vS0Y0dS8zQjVKZHgvdkpudUdjQWlI?=
+ =?utf-8?B?REJRM0JRV01lejBiRkZielVVb2kwVURiQlozYTBTZUxQbnR5NGFhUjMxeUMx?=
+ =?utf-8?B?NDd6SXFrdWh3QVVYaDVoZlFwM04yMmt2Lzk5akJLMTR0YzdUcFM2Nk1oNGly?=
+ =?utf-8?B?dTdTMzg1SXE1a2VtVFFFZm1XRnpxRm5IelJBaTN0Y0RtZFJuQ09TZ3NDTklZ?=
+ =?utf-8?B?c2lCQmxkN3dkdjBJZEFvaUlEWHY4VnlUV3Ztd3d3SzJZSjhQWW1mV2Z4RUY2?=
+ =?utf-8?B?dW52QW1GVVFTbjgzVlNSNWxXQzQ3TXNtRVJlV1c5dkdGanR4K2lxSUVGay8z?=
+ =?utf-8?B?Z05LaUtJWnVqVmdJSGlKaFM3NTZXV1lSbmkyWmdiMXFXUE1mamlCM0tFczJQ?=
+ =?utf-8?B?cThrUWdsNysxSEpRQkh2RVVCN1RGa3BWSExyYTlhR0JYd3NPRWlUSUx4RDMz?=
+ =?utf-8?B?YVYrV1Y4UnFBQllzelpsbDdVK1AybWY0VDFyakJmNlM5VXhzMEtxNG84ZFU3?=
+ =?utf-8?B?Q3hSUHhVK05lZ0EwS1kxcmJDdDVLOWlmVzhRWEtPSEYvNXRMZWk1Q2k5MFdr?=
+ =?utf-8?B?aHZoQlp4Wm8yczFDL2Y0TFc3WHNHaWdWZjNWUFE2eFNjWGhFQ0ZpQkV3azBo?=
+ =?utf-8?B?aXR1eEhIZEVWMzNHL1h3czhyOUFtSlZSZWFVdVlLZTMyeWRYL2JvdXlIU3Fs?=
+ =?utf-8?B?ai9BUTV0bHRacXRHMmozdHZUdUZxQllpRnRCTE9ESGlZYVBVbmVNWEdob3Nw?=
+ =?utf-8?B?cXFVL0NyUmIyL3IrWHRFYWloeXRKSWF1NVc4OVQwY0d0a2lyby9aQnZGQ3F4?=
+ =?utf-8?B?ZDFqRms2ekpGOG5jVk1hM2ZmZGoyNERmVTlSTTZyZitISWRjU28zd1Q5NTgx?=
+ =?utf-8?B?V2w2ajl0VGZ5MWRkVjM3WDlJTjJGb1lqRWRVdnVvYklUeXUva3h1V2xaMlda?=
+ =?utf-8?B?emNIZUdQZm1MUUxLNDRwanBpYjd0UURTR2tESSs2bk1CWVBNcHI3MWlMQVBR?=
+ =?utf-8?B?RC96bnlYRWN6b0VYcTYzOHRacjExdUkvUGJsd1JlYWFqTnY3RDRzbis1YmI0?=
+ =?utf-8?B?Yk5rMmNhZWlId1I4bmxvbU9FbG5xSHB1NFF2eENXTThLOU9HaERlOHhUMnMr?=
+ =?utf-8?B?RDJjV2ZiM3c0WlkySWJnQ1Q0SW9meHVHWlgxWW8vRG5DSkwxTWRtS1JidktI?=
+ =?utf-8?B?dC9PRDhCRmVqbWlxQTAyMkZxa2IrcWlQU2licHUyampBOFhBUGdkWk9NUE9E?=
+ =?utf-8?B?a1c5NldYSm0veHNZSEtuRTJZejZDOTZlMUQ0MHdTNXdPYk8yS3VMV0QzaDRL?=
+ =?utf-8?B?aDRVMHNnOFRyaEgrazhrakg4Zm1ISy9xY3VSSTN4NmJZN0lZeFJWSFh2cytl?=
+ =?utf-8?Q?2dd8biMs3a4XGqDM=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09c9998d-b23f-4979-69b6-08df07053ce9
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bdadef9-d638-4cd7-84aa-08df0718f8dc
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 02:11:59.0176
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 04:33:14.7313
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DYB6R9g0wimostAGbXRcN8XS/Ip59+6cD5VQDFT/7iA3kNJTnJm40WfONt5m0dfeoV6fZjNR//xo+GXDs8+MPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8100
+X-MS-Exchange-CrossTenant-UserPrincipalName: X5unqkLm9y0i+9Xac+gX9xfI+0zjO7YFZnAbbwthUeoaf7xR/1rZG29fpul3tYgb1sJ/olOCLTYjOzAnh+2HPw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6945
 
-On Sun Aug 30, 2026 at 2:37 AM JST, Yury Norov wrote:
-> On Thu, Aug 27, 2026 at 04:28:39PM +0900, Eliot Courtney wrote:
->> Current code in IdPool::with_capacity rounds the capacity up to
->> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
->> smaller than this and still uses an inline representation. Remove this
->> behaviour.
->>=20
->> This allows specifying a real capacity of 0, which was not previously
->> possible. This breaks `grow_request` in this case, so change it to grow
->> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
->> `shrink_request`.
->
-> It wasn't possible previously for a reason: allocating 0-bit bitmap is
-> something questionable.
+On 8/30/26 6:09 PM, Alexandre Courbot wrote:
+> On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
+...
+> So I am particularly looking at patches 8-11 at first, because it looks
+> like they can be merged ahead of the rest and are useful on their own,
+> but I am hitting an error with this one when unloading the driver:
+> 
+> modprobe -r nova-core
+> [ 3333.123171] nova-core 0000:08:00.0: GSP RPC: send: seq# 3, function=UnloadingGuestDriver, length=0x58
+> [ 3333.148123] nova-core 0000:08:00.0: GSP RPC: receive: seq# 0, function=Ok(GspPostNoCat), length=0x50c
+> [ 3333.169449] nova-core 0000:08:00.0: GSP RPC: receive: seq# 0, function=Ok(UcodeLibOsPrint), length=0x78
+> [ 3333.323550] nova-core 0000:08:00.0: GSP RPC: receive: seq# 0, function=Ok(UnloadingGuestDriver), length=0x50
+> [ 3333.323551] nova-core 0000:08:00.0: GSP RPC: dropping stale UnloadingGuestDriver reply (seq 0, awaiting Some(3))
+> [ 3338.124152] nova-core 0000:08:00.0: GSP shutdown failed: ETIMEDOUT
+> [ 3338.161317] nova-core 0000:08:00.0: failed to unload GSP: ETIMEDOUT
+> 
+> It looks like the GSP sends the UnloadingGuestDriver response with a
+> sequence of 0... From what I can gather from OpenRM, 570.144 doesn't
+> match the sequence number, only the function. Maybe this needs to be
+> part of the r000 series instead, if that behavior is only expected
+> there?
 
-We had this discussion on the previous revision [1] [2] and the
-conclusion was that it should be supported. Let me elaborate a bit on
-why.
+That sounds likely correct. In order to test this, I thought I was
+being smart by using the r000 as a base, but of course that seems
+to have led to this test hole. Let me go fix it up.
 
-We tend to use `NonZero`, `Bounded` and other limiting types in order to
-guarantee that invalid values that would otherwise require runtime error
-checking cannot be expressed. The main benefit being that it removes
-error paths and simplifies the code by removing footguns.
+thanks,
+-- 
+John Hubbard
 
-Here disallowing 0-bit bitmaps doesn't give us that benefit, it just
-adds some burden on the user in that they need to build a `NonZero`. But
-a 0-bit bitmap is not intrinsically invalid - it's actually a reasonable
-starting point for a user that eventually wants to grow it dynamically
-now that `grow_request` can support it.
-
-That being said, you are correct when you say below that
-CONFIG_RUST_BITMAP_HARDENED will make any query panic, but the problem
-is that the documentation of the panicking methods does not mention that
-behavior (although [3] addresses that). It is also not specific to a
-length of `0`: if the bitmap had a length of, say, `4` and the user
-called `bitmap.next_zero_bit(4)`, then it will panic just the same.
-There is nothing special about a size of `0` in that regard.
-
-[1] https://lore.kernel.org/rust-for-linux/DKUHJF1YTTY6.1XXC1L2SYXEMF@nvidi=
-a.com/
-[2] https://lore.kernel.org/rust-for-linux/ao2U1jNaT7waibJW@google.com/
-[3] https://lore.kernel.org/all/20260828133543.2259029-1-georgeandrout13@gm=
-ail.com/
-
-> =20
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> ---
->>  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
->>  1 file changed, 32 insertions(+), 6 deletions(-)
->>=20
->> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
->> index 06a4c71c4c6c..4f329249df9d 100644
->> --- a/rust/kernel/id_pool.rs
->> +++ b/rust/kernel/id_pool.rs
->> @@ -112,13 +112,8 @@ pub fn new() -> Self {
->>      }
->> =20
->>      /// Constructs a new [`IdPool`] with space for a specific number of=
- bits.
->> -    ///
->> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE=
-_LEN`].
->> -    ///
->> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->>      #[inline]
->>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, =
-AllocError> {
->> -        let num_ids =3D usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
->>          let map =3D BitmapVec::new(num_ids, flags)?;
->>          Ok(Self { map })
->>      }
->> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
->>      /// let resizer =3D alloc_request.realloc(GFP_KERNEL)?;
->>      /// pool.shrink(resizer);
->>      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
->> +    ///
->> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
->> +    /// assert!(pool.shrink_request().is_none());
->> +    ///
->> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
->> +    /// let small =3D IdPool::with_capacity(8, GFP_KERNEL)?;
->> +    /// assert!(small.shrink_request().is_none());
->>      /// # Ok::<(), AllocError>(())
->>      /// ```
->>      #[inline]
->> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer)=
- {
->> =20
->>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if po=
-ssible.
->>      ///
->> +    /// Grows to at least [`MAX_INLINE_LEN`].
->>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`]=
-.
->>      ///
->> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
->> +    ///
->> +    /// # Examples
->> +    ///
->> +    /// ```
->> +    /// use kernel::{
->> +    ///     alloc::AllocError,
->> +    ///     bitmap::BitmapVec,
->> +    ///     id_pool::IdPool, //
->> +    /// };
->> +    ///
->> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
->> +    /// let mut pool =3D IdPool::with_capacity(0, GFP_KERNEL)?;
->
-> Please don't add explicit examples for creating ID pools with 0
-> capacity. It's a factual error, and should not be explicitly expressed
-> in documentation.
-
-I tend to agree that starting with a small capacity > 0 is probably a
-better illustration of how to use the API.
-
->
-> Also, it looks like your 0-bit bitmamp would trigger bitmap assertion:
->
->  IdPool::find_unused_id(0)
->    -> Bitmap::next_zero_bit()
->      -> assert!(start < self.len())
->        -> assert!(0 < 0)
->          -> panic if CONFIG_RUST_BITMAP_HARDENED=3Dy
->
-> I like your version because it allows to create an arbitrary capacity
-> for ID pool, i.e. 4 bits. Right now one can explicitly create ID pool
-> for 4 IDs, and allocate up to MAX_INLINE_LEN from it.
->
-> But 0-bit ID pools must be prohibited.
-
-I really think [4] we should consider removing
-CONFIG_RUST_BITMAP_HARDENED, make the conditions for panicking clear in
-the methods documentation (set/clear bit do panic, other methods don't),
-and add checked variants to allow users to write more idiomatic code.
-Bitmaps are really just arrays of bits, we should make them work as
-close as possible to regular Rust arrays.
-
-[4] https://lore.kernel.org/rust-for-linux/DKUKM1RPFDA7.1MBU5EY40OJ4J@nvidi=
-a.com/
