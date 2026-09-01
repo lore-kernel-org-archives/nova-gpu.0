@@ -1,129 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011029.outbound.protection.outlook.com [52.101.57.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DDF353A95;
-	Tue,  1 Sep 2026 07:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247779; cv=none; b=cBkSCvkxflG6oii3Eu/BzN2f+UEMXfOlhO0tAqqMnxE1A5WUjRJ9JRAezn1THMfbVxf93QXxKFbCRx5eOBVa96ROiX+mAO/ZD6hmzBq21PMgBsaMfNvmd7ejkFcfwlnRAB74uLriRYld0j6v43Yj7qrF1HpeNALUZV4W+vDBF8w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247779; c=relaxed/simple;
-	bh=0BeQ1jcJ81wB0BbZws3P6OK2faSL42i3Ig/Swxc9Jm4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=Fx88qHqvI/4eZZL1mPdpZHbqJQ0n466MsQSzwmKpBSOwsPM7xj5snnfpXeybJ7xxcdpVTe6e9IHweEerDE17bQTKzLHKPKdwBfCgmjGoRre7D8pGoktjKbNidStzsCS75qVumEnd3M/LxYj5HpPO6IavNX8yYYo6qlVzGPt8E94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WcCzE8dO; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3324477298
+	for <nova-gpu@lists.linux.dev>; Tue,  1 Sep 2026 09:13:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788254038; cv=fail; b=av3xquDy1bvcWelMy6qkJwpw4lCIY+QoqhBpSCLGE8pEWtjqyxrmmmaFdczV53qcqmocz/fggsYU8wCmxz0A85zd6y2hSBVp7IdQY+Gw0rZ70+UZyYl7C5GXfcpEQycZ6uICprNFjG9/RUl5yyTm44C89aDp403LZRIV0m+El8I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788254038; c=relaxed/simple;
+	bh=wxI+Dbj2UbV5xkIEL63t/Ex6YqAWELWdDyjFiYs+0PU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=aisailUXUH3lqc5e14exJLq3+bRHBKHxHw5BbF2qdO+mGsS0g8HbOsYJIhfugmDnMOfL2r7xvn6m+w0wkJr8leMrQ+PIC8WyXpvF9TMAOoq6nlKwi4rAdplsqGsUw8JXH0E76o7QFdDKT5K1MMfzup+TwTdOGkTVL1EnLeuWHvQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mDySedQ3; arc=fail smtp.client-ip=52.101.57.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcCzE8dO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5E01F000E9;
-	Tue,  1 Sep 2026 07:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788247778;
-	bh=0BeQ1jcJ81wB0BbZws3P6OK2faSL42i3Ig/Swxc9Jm4=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=WcCzE8dOHxQjet/A/NFJPQ8P79lzQdE+R+ucBc6+IiJIwvLuLIDVtTHTBnlxgPYc/
-	 eJnRdejwW7z8WrDghv9P9cfPucBg6pMwi4tU8Cz4uiGSQLSTeIZlLSh/+8hDcol2qi
-	 Skqbspvadr1t6eaKrbhuIpW7n36fI2JpWQW9DNhway2zQtqgrrsmYElKzXX4Eng0lq
-	 4Wnevx2Ohu9YhDmXfb+UJrA79TH1RnZOphm2S+2AnKMWNo/idMC2Waxl+9D/yCHQhC
-	 kE1Ubmwupspe2/padQPSBTDMNzLIMI5nH0VNrpONO7cf584L1Cp0X9Q76Jw1z6kIh8
-	 F47UpstDf23kA==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mDySedQ3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cv2ewHX6AvGeBN31tAA8HgwQMPZ2PmJK7x1An/XGjAG+siKnVRIxm/TiZoCBX4f4YQkAIk8Xy9NpYwWRuu84U01uvVKeDyebKMEwgsn4Ahuf7GhQ8bRCAnUF4CX3zWeD2GwlvjhQLZLo4dsbvBJZituCzQh0e3chGxD7W7iu5nOYdRuE6ATagGkrCGXF9Nmk2gvXHRU+srspDo5XCse/x/uuPIQpdxWoiB8X+3/6XjxkDJZL4CcEnzP+HElktIbw279/w4ibzIXupcKwJjGbUAvAilQn9C6gKDFEllsKi27eU09SqxBPlX7fMB1TbY5261JxpKMDpNZw6WoViAPihg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N0aOHJ51RKjTh7W7o/Bxl2rIzMr48WHRX6P9sTo27+M=;
+ b=c6XgdHO+MXNp6YEXUjeqCaPgsocmqSA7tGvB753FlyO75DZTvpxRbxRMV1Uwq7j7jlNKDAFFxh6MUvPwR1fAKlN8q32C9MdkHpe9kx+VENopCk9WnFUz5234LrYa231Q8ov2YtbWXAZ4YAJqJWIore8GmCzvB6yUGtIg7htz3kGdBJY2tTdYTUVsJn5tIftw8EhqSBy4Otx/DXEx6P+7UVL/54Q7VgPt+kGohW3PWQbukA74Rlrpm075/zo2VcWNOFrkeyK5KCZEvyWg9zZ1kv25z7uvz7PzAZ9GzXKfuNi8Gz+lClOfhv3PpuGrWhl6S2Iwv01zRNrIJ123PlUOSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N0aOHJ51RKjTh7W7o/Bxl2rIzMr48WHRX6P9sTo27+M=;
+ b=mDySedQ3F1udsqjQRc+IgixgXz5u7QeuJ/kkZF2gAVZ29oR0IUllUbHL+6txW5CYVQPcarRAcHH7XiHqRD2qpZk6h4/qgCoOmw3cguJMXBTpQV+duMQKXyK1Pbjt3FfKH7BVlrdmpBv5KRF0L9d1JkYVp/lxgYQb/HcH2roGPZ4z51cBDy2gamr+o40ud55oz9XJoeBH8rj+CvYumpM5Ujrbu9w30ToIVmE5T9xkWWIOoLFCMyJtMhCNyxu0kzYWL77IewcJlDXUO5X6Htnuf2uvmTmfQ0h0tAT13c/T2xlWPHqr24x/FsjtBvTbAxlscuMQKOM6JF1X5OOYMjWXfQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by SA5PPF7D510B798.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d0) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 09:13:52 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 09:13:52 +0000
+Date: Tue, 1 Sep 2026 19:13:46 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Gary Guo <gary@garyguo.net>, nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>, 
+	John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
+ nova-core
+Message-ID: <apaVyXAV7GvE6_ld@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-2-apopple@nvidia.com>
+ <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
+ <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
+ <apZ3_o8hxlMr6SoP@nvdebian.thelocal>
+ <DL3SM4UA1QC5.3KA2M1DE6F0F7@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL3SM4UA1QC5.3KA2M1DE6F0F7@kernel.org>
+X-ClientProxiedBy: SY6PR01CA0075.ausprd01.prod.outlook.com
+ (2603:10c6:10:110::8) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 09:29:34 +0200
-Message-Id: <DL3SXIIA4FID.2V3K5YC91RM3V@kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>, "Dave Airlie"
- <airlied@gmail.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
- <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
- <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org>
- <apZCTUYiN5FHCkCm@nvdebian.thelocal>
- <CAPM=9twQxnx5DDkjwXWi-vXM4kqUQQdPaL+=1ASS0tpf2GmnYw@mail.gmail.com>
- <apZbKc5xMQ1yTBTu@nvdebian.thelocal>
-In-Reply-To: <apZbKc5xMQ1yTBTu@nvdebian.thelocal>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SA5PPF7D510B798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01654bf6-afaa-474a-2668-08df08095748
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|56012099006|10067099003|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1bnjq0diAOszePBV8JuSz7AojBGhO0NsoyML4Zr69ZX8NVNoyLV2cupopw5VJTq6eCbWUHkrczNUctColdm/npo5zfieljTDgltCuff/OtjA2RJPNcyZDIi0xGtpAci6Gd3O0N7iUF+X1MX8KyhOV6KvEQN12aqsp666g8nsv20wa4K//karNFwylNWG1Y91wtWrnYwvIE0zxnoyHjNDHgtP6yE0XkNnX8CwxZXtDYe8y7b/u+m5pQ4aV05usmueIvDDV0zDYyj6KyDEeP3w4aOi66LTMcDPFD3x8RNcRDmnyZV2B3H5XS4PX5PK3sSNsXi51Gp3dP3WmhKg/Hsf9kKDCuUmTyKVMsHjONqgTNoPb4WpqagPTFUDvf0MnB9G8WE7NVoF2W7PZ7FAzsbgGEueoxjWHfq2cCAVAm/qvOfCDjzogOYlzh6N+NA8ia+ANDsJnMdMzpkutty2gJdZGQy4KADrQ0OI98PSsMkwHzbLbKEMicITjI0Ablqhhblp2EFW1ZC5SsCtWinZgt7A/L/+fbp09+Rx/GoJVoNSNpseTYGXk6faEpDb11pdK4RiVYS1orWQHELBo9iDVG2wZSMEorxJ1L/wYMe6QP+6J9OxP+/0eJX5G4T1PdT6xL6lDedwlMxd3n4sbIrW7h6i1NKGXKkJgsVK6Sc3A6PR/9g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(56012099006)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ov4I35blzRyqHMiFI4eAPZQWG9kcGmLlp3Q5fEQvTm6qZHaMt04NChXMzeNL?=
+ =?us-ascii?Q?1Al9XreufrIFnrjWCMWVKFD+2ScQAyyfdqA14EK6QNSpddfLhQ+25AfUfOlZ?=
+ =?us-ascii?Q?EzVD3ZD6GGRQ99HULkYXiDK7qKCBSGF075xYEcEXhUWYJnw88V9aaKpkrmRF?=
+ =?us-ascii?Q?vD2u6bQCTBSWRhscAweUE0j3871248VkrIqpLLnBrJk97n2aCU3z4Z3IQUlO?=
+ =?us-ascii?Q?lw57qF+FgO5/BQ9sNTKuBLmKkxVLQo4s9PlQAkGJ3HTjTMJf/oYERnHc/rza?=
+ =?us-ascii?Q?ct1K2BbDBgo6MhWVb7Ds5r1R6yiJvcQ4f7Be3uJAxs5lq9FzaYmW1msuLsBV?=
+ =?us-ascii?Q?MrdlJpA76eqea1OUz6Ijwroem70gMKX8CKtJRPxoVNSvJt83KPGOvXNEm2dA?=
+ =?us-ascii?Q?fJM0DbXquyNPsR8jvwsgqnJcw5aYUZDKobuk6JYkNhttDn73gDOqCNRbOw1C?=
+ =?us-ascii?Q?/jo5ZaNcYX46+vrIHDJzxXKn9N/I+HzPYVrVxfSopap9Fb5z8woPJ+z5ELFr?=
+ =?us-ascii?Q?IIDNRN8CPumCJ7UraSRRT8IL/sa3GjRK2dCsYSFuOPQKEgVxrctDBHLDnZE1?=
+ =?us-ascii?Q?yHEcBOaOPxAp680xq0VnCpyxZuqYsV+LQjhei7IJv+gSJPJRZkXHzVaAsa4P?=
+ =?us-ascii?Q?QtUJE9HR7mOOEnq2u8t7J8UZ7KV9PcLd87tcKGFxO8z/qpZZEghaq6+n7i6u?=
+ =?us-ascii?Q?bIVmcA4pKOYL1MpyjoHsyta42laLOqiBeCEYc/wlVCyJ36t4jyazgnfp7RQE?=
+ =?us-ascii?Q?cNozH2sOP34O0nby2rJCO1sgsW5ispnaE8z3hOyAuPVjkvBWuWVjrKzFvEfd?=
+ =?us-ascii?Q?xOOhm3pg7/xn2ki6t+anj+q2/fJuSRsaCepwpEqzs5i6biXbFuXh4OmZOYz/?=
+ =?us-ascii?Q?ToCXHeRrVPvnHkQnfXsO+KwR1PMrnBhDzfyIXOs9LxxB/CCiQ8kneq/KPcot?=
+ =?us-ascii?Q?hcBXlEP6yOJxPfAVQbYUsaouSNwEgn0Z4EKtcqWQRqHZgGtTB1dkHt0wbFsf?=
+ =?us-ascii?Q?r1xNlZC+sxcGmKpudS25+kudDXVj8Q1HUZFGEklXE7/40obLhnEpwP6NYODW?=
+ =?us-ascii?Q?cicPiaEJTH9zwLMVjQWK5vRtcTimUO0TuZ0l4imqGhfzMVwTOKFl8lNGgF9V?=
+ =?us-ascii?Q?CXjE5nc9yhu/Em/Oavaa5nSdZh2s2CXCzDWu98Ze/5EIXE2YojY4MqZ7QEH0?=
+ =?us-ascii?Q?EJrrjdr16Tu8jWqwz3xATFIYI71nakc99GPJ0z67tw9jGyIY8tXglB4E0Mln?=
+ =?us-ascii?Q?ZkB1Nm3rDHNhJ1VxoRGyGzEdPlZgHOunbq3EhqnJlMAYwu2d8d/bXc3z/R0v?=
+ =?us-ascii?Q?yRlYyI+Sxwj2LL9/oIpe80Nr6SG66m6hTcL4wE5IRwf8hKSG7NUiMxuURgO+?=
+ =?us-ascii?Q?Xmrij1olqY45KyydL0o/BG7t6z+lufdpzvjn3SZ/HOrA4teOXUxBuipF6Ytc?=
+ =?us-ascii?Q?44oZkzEwdd88J2ahjaKbt7STb3hHs/MQHPJS0/dyk/3lCXTASFU/B/0olvpQ?=
+ =?us-ascii?Q?UgR0ne+EmUkskyJCzAcae1YAKFRVCPvfE1Iex2L3Gmp7QK42lMYQzYLLxowH?=
+ =?us-ascii?Q?tfgeXGs51CWgkJ3kP58MJBd1+4VP01EuQPOtFYN57R0j0sRcSVYUi2bzq5tB?=
+ =?us-ascii?Q?7tyKjeqh3FijXW85lC9SlqSNXciTm+9H6Cv+iYnBHholD8gkeRm9cmZDvyba?=
+ =?us-ascii?Q?0UeKpQ0xDN1MdNNKYlG+4ydmKwQYidlwRT4g1Rqp7oIf5+RLszPRQbiwEk6w?=
+ =?us-ascii?Q?u1UCvqpwyw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01654bf6-afaa-474a-2668-08df08095748
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 09:13:52.3814
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SB+zAZeSZiyXwt1q8HeXFXzRd07PitrOO3CZg/+aan2L2UmN4+o1LBNTH3wXp0PDd+PtKXOSdMD0Azfbkzn1FA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF7D510B798
 
-On Tue Sep 1, 2026 at 7:09 AM CEST, Alistair Popple wrote:
-> On 2026-09-01 at 14:50 +1000, Dave Airlie <airlied@gmail.com> wrote...
->> > >
->> > > We should make the NovaCoreApi just provide an accessor for &Spec an=
-d make every
->> > > subsequent method we need public. Otherwise we end up with endless f=
-orwarding
->> > > methods. We can also add as_raw() methods to the specific types as n=
-eeded.
->> >
->> > Ok. This is where I don't have a good instinct for what we think shoul=
-d be an
->> > accessor/forwarding method vs. where we should just expose the underly=
-ing data
->> > structure and required methods to API users.
->> >
->> > In the past it seems there's been some resistance to exposing nova-cor=
-e or gsp
->> > data structures like this which is why I added the forwarding methods.=
- In future
->> > we're going to have other data-structures that NovaCoreApi will need t=
-o access
->> > so it would be good to understand what we should do here so we can kee=
-p things
->> > somewhat consistent.
->>=20
->> We can expose structure defined in nova-core, we cannot expose
->> structures defined in gsp bindings or firmware.
+On 2026-09-01 at 17:14 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Tue Sep 1, 2026 at 9:07 AM CEST, Alistair Popple wrote:
+> > On 2026-09-01 at 06:42 +1000, Gary Guo <gary@garyguo.net> wrote...
+> >> On Mon Aug 31, 2026 at 9:08 PM BST, Danilo Krummrich wrote:
+> >> > On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+> >> >> +/// API handle for the auxiliary bus child drivers to interact with nova-core.
+> >> >> +pub struct NovaCoreApi<'bound> {
+> >> >> +    #[expect(unused)]
+> >> >> +    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
+> >> >> +}
+> >> >> +
+> >> >> +impl NovaCoreApi<'_> {
+> >> >> +    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
+> >> >> +    /// by nova-core.
+> >> >> +    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
+> >> >> +        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
+> >> >> +    }
+> >> >> +}
+> >> >
+> >> > CovariantForLt does not hold anymore on latest drm-rust-next, as Cmdq has a
+> >> > Mutex. So, this needs ForLt now and therefore the approach that I shared in [1]
+> >> > a while ago. I applied the changes in [2] to fix it up.
+> >
+> > I can see why the mutex means covariance no longer holds, but I would kind
+> > of also expect it to not compile given it surely can't be safe here to treat
+> > an invariant type as covariant. Is this just a limitation of the current
+> > CovariantForLt implementation not being able to prove covariance or am I missing
+> > something else? Thanks.
+> 
+> Well, it did not compile (as expected) on my end, which is how I caught it.
+> What's your base revision?
 
-Yes, those structures are not even exposed to the nova-core layers we are
-dealing with here.
+I'm on drm-rust-next which I believe is:
 
-There are the structures abstracting firmware interfaces, but despite expos=
-ing
-trivial cached values, they should not exposed to nova-drm either.
+commit b705c185105762676aa6ec16cf976101df87cc35 (drm-rust/for-linux-next, drm-rust/drm-rust-next)
+Author: Alexandre Courbot <acourbot@nvidia.com>
+Date:   Thu Jul 23 22:54:37 2026 +0900
 
-Instead nova-drm should call into nova-core and ask it to do things on its
-behalf.
+    gpu: nova-core: fix incorrect naming/framing of GSP-FMC firmware
 
-More in general, the same is true for any other device resources. For insta=
-nce,
-we also should not expose the pci::Device or the pci::Bar to nova-drm, but =
-again
-provide a higher level API.
+Reason it compiles is because the the Gsp has no lifetime parameter in the chain
+to the mutex:
 
-> All the fields of self.gpu are structures defined as rust native structur=
-es in
-> nova-core. Their values may be decoded or derived from GSP responses, but=
- by
-> design none of the raw structures from gsp bindings live in self.gpu AFAI=
-K.
+Gpu<'a> -> GspResources<'a> -> Gsp -> Cmdq -> Mutex<CmdqInner>
 
-We could indeed expose all values from struct Gpu directly and control
-everything through visibility, but ...
+Which I think means using ConvariantForLt is fine in this context, unless there
+is some other change coming which requires the lifetime. John's IRQ series hides
+the Cmdq behind an Arc<> but that still works as there's no lifetime parameter
+there either.
 
->> In theory we can internally between core/drm but I'd really really
->> like to keep that boundary as the limits of GSP for auditability
->> purposes.
+Not sure why you're seeing failures, what base revision are you using? (and
+apologies, next time I will tell git to add the base sha1 to the series).
 
-... exposing struct Gpu and controlling everything through visibility still
-means that we could easily miss some device resource being exposed directly=
- to
-nova-drm, which also includes GSP abstractions.
-
-So, I think we should provide accessors for the major structures that we
-intentionally want to expose (so we have an obvious boundary), but not for =
-every
-single fields inside them.
-
-This is also why I said that we can expose an accessor for struct Spec, whi=
-ch I
-think serves as a good example.
+ - Alistair
