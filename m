@@ -1,81 +1,80 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D079C30D3E8
-	for <nova-gpu@lists.linux.dev>; Tue,  1 Sep 2026 04:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E269D379ED4
+	for <nova-gpu@lists.linux.dev>; Tue,  1 Sep 2026 04:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788238245; cv=pass; b=J7kdUz6E+hphk/cgj8U1NP4CN+42AHs85FWMrfKwsYZpOx0is0tcTh24TDe5G0tSCt89racWOvpHOq3mKOTITwgNB7pcKhl7uSbcyYevFwegGwflFqVB93dF7GVPMMBzlMbFAQh2+P9Pl80cJPdnnDPFSMvK5BWgszrk4ge8l3c=
+	t=1788238448; cv=pass; b=DUiDUbNGLM+mcxW0BkahTPrw1U8C6pzrztXY2CMToXmxCKlnx36ES7jHqXagceDtNCrDUAP/mRaclTHVt92HIbtPliJP3sMfYjIjd5uSZ3aJa2z6RRvuW2lIa3ramFGJI3UJN1iccqF8Qh5IHHv+NWwg4ZgW4QifITMynNKuh/k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788238245; c=relaxed/simple;
-	bh=xQOAFB2GujcBxNli5xeMXaMaXjpMEs7ZhLyYYxFWIos=;
+	s=arc-20240116; t=1788238448; c=relaxed/simple;
+	bh=8SuycrJ6e1WFHR/TNYgsJOBfzYu56DYt41F/4NfeqAU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jbgWgNqjQe2SyQgZPFr34wwr2iJEYRXY6yivo4/kCW/xWq3UpZOLqB8NB9gNd5Gev+i4So+iN4ewY1JPRIUf0626YYA8RGBcjZGjff42p9CxuqCUCnb8/1zwzDcsOaQYcQgQs+SAA7yv5aW7nzd/CqPwt0dKIWoEL3FPJsG9Yyc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EtXXx92w; arc=pass smtp.client-ip=209.85.219.46
+	 To:Cc:Content-Type; b=lSuMSh+83GdCNI9MIsiqfCVoWW/TU+ZfZQLKA6xc0eXajaVn9LSPbNEp36Qx6vD1kh6a+8jx0MjYJKAJrMmmp4jvUvVHwJlayNJCJCv91qZsQGnlttTDiZc6p0NS+PCDWrYlPWTBnIlc7jmNvRNdF2JvIRHUx+l866MyIB2207E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y4KCfyX1; arc=pass smtp.client-ip=209.85.219.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EtXXx92w"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90d7fa95a58so24562076d6.1
-        for <nova-gpu@lists.linux.dev>; Mon, 31 Aug 2026 21:50:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788238243; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y4KCfyX1"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90cd4631090so7496306d6.1
+        for <nova-gpu@lists.linux.dev>; Mon, 31 Aug 2026 21:54:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788238446; cv=none;
         d=google.com; s=arc-20260327;
-        b=I72gtDcZS2g1B6MBAddXu5GtW5dMrxYaw/vnRBmvXRmPEDfQnssi++i7rFr4ms+ChW
-         jpK2H6P0x1iseYQaCMpRhqkRXp+ZCEWIKcRuSfzMYWNTpIBA0wMyL/B0253k6c7UO2j3
-         Mkvu67TsrIOTl/+JPwDryqLcre8dfPl7XY9KqqU62DUMAnoJ1Nz/xAu8yBjC1jPwD7k4
-         11dxCbSY2W+Spw4tYttcbJtlqS1OlKNPe6qWEdvLD6WjRV+PcDK7HxZnXsDXhjneULfb
-         yHt2r7JeIVUfptAaZs/hntmOnRVBKWqaV2JNZPeByIJr6+va9Ivs+9PJZ20oZgdrkjMP
-         cE2A==
+        b=GBQvqP+sNBSjkuYvg24nX4Zchfwn9IWkP9rGNX9piplYK40u+tbre+6D01Igpdeg/w
+         al/K60AhIveeR7T5BAKiN+23J7nh1ensqxxJy4yP6QIhtCpDwbAijq+OUQmU56/ACZB7
+         VJW2lItcHtpJIuoKmgrcT+DA+D0r7MGVfLuqzNBMCktJzUVAjFwMjFkpswEUpK2hmRbd
+         O9aruD5SOhTTnAhpcBazLHWFXZFmh0HKvJlb0z9Bp9EXwOlq3h6x4JQZTlVob3ld9vLV
+         +5NtmVT5u3iltf4rdExT2s6vANcu21J4bnPNueH0TJK0eU5tomXv8kS8lgZ/8VCwIFx9
+         MiiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=xQOAFB2GujcBxNli5xeMXaMaXjpMEs7ZhLyYYxFWIos=;
-        fh=3bs3Rt0o341Rq5QbRIwzupCvZpnQXniXt/hJ/N8gKx0=;
-        b=RwvjTldytohF4YjnXHTLW72QMjEyGynOjtodxebDSH9aPEWkPAIT45gTaDLWima1RU
-         m4UewIh3rGYIYjhqQGpeaU8ztgwkkMhcOScZOv46hXi2vBPdiSkOm9/qB9zCRi6IVeoi
-         142GnL8Il8/QR25OwFwaD5uIw8oYq9E7Ff3wc7D/9MHOYHRQBpep6PEqhSPdrsqqmbdv
-         ATmz27ns+X8jJL3xzJpn8pSrj8CUsBsqZK6IqSlyCpEJg5Qe1CUoZYKUo0YCrEK8OChx
-         nGHwo8SvskcbbYkinjZwOx1OuvHONfU08I1Eg1yO9AMohykAPYUxzMUe2T0hojslKOGK
-         ncjw==;
+        bh=8SuycrJ6e1WFHR/TNYgsJOBfzYu56DYt41F/4NfeqAU=;
+        fh=RpoQ9q3ZsrE+aanRJf80pYw4m6D2tSTY2wWoqRhZpFs=;
+        b=VU5pIHH1NpSkCVoSQSrT74f/JY5Etl9t/GOl6/L7mbbUB5ADSsL5YmRf7yZwJ2ErLv
+         edjk58J0iqDPlGvJzIOsclRG9rrFjHD7MK54LpOCdWusZZwtNLRhaC7statmOj+9cGmp
+         YrBgaE1agY7Q6qtr8metrfo2v71KVaNprh+WOsfmvDKlLNdnKTu5XAJtAf3b2ek6SYJW
+         pfErm7mTwp22Z7d74jgJ3hpMa6Eq/OEdwfLq+dFe94rK1ivEK0GropjFlUi637SohLvz
+         UBXTOTRLOG63AuiUur8EQAwmHeIeqdTXugFokSayLxZrsaGIQPUJSlW9YdGHqTlBTlcq
+         rY+A==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788238243; x=1788843043; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1788238446; x=1788843246; darn=lists.linux.dev;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xQOAFB2GujcBxNli5xeMXaMaXjpMEs7ZhLyYYxFWIos=;
-        b=EtXXx92wXwga0KrkGpBmnUBLO6dj9oodCrrcQJ0AAa5sDui0kWJHMBcS2zz1kgIx9V
-         B1xcFGhmSUyXW9V7UFNr6lxcXinmlhf4D0GGJdshH/JTgeXJKCpkMnWw4GDZFuzdaOL7
-         FWiowSPKFFFFwxpOm1oslgU/I+GSuedICi96v7jd4KHUXTiOExLZNOHvsNFTZwoyreXB
-         2EADkgv91Jm/xm24Pg/pqAUxbadMCGrGpDeJL6XwDAFX8fODM/ACsjVfxg9qNoLQp8aN
-         mzQslCePByW3Uhspuo5zGRpt/mPkvfZYsw3Ke/D3MUQef2leDzUSLi4xx6BxYmvoggjf
-         7Hmg==
+        bh=8SuycrJ6e1WFHR/TNYgsJOBfzYu56DYt41F/4NfeqAU=;
+        b=Y4KCfyX1ruEqJjxlKvO3sj7Mq+2YXV19JPcpglry1NPIq2jPbzDktRNI+TLxWE53a5
+         1gYh+qkKqSddZAHItCEWMEk+KOC53EmUjj+k+xCRSYHLyC1B+PMvVI9dTrKW2PIxCD5j
+         TESO69mac2ddBjN3S3JTExOYGoJykXp9+vMGkXfg/MX+a7RQC4QdT1VmTJlEOa9TKkHN
+         DEyVYvfKpoaZmQFCnL8FBmJaDplIzxB7NXWbBtq0oI76tGvn5CaA21gNrnK/BT8yGg9w
+         453ZJ065HZMyfjzqnqRpr0R4ov5C5cAjATU6OPj1fYj1Cjopsd0U40GyPJ50ofPcr0re
+         1kDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788238243; x=1788843043;
+        d=1e100.net; s=20251104; t=1788238446; x=1788843246;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=xQOAFB2GujcBxNli5xeMXaMaXjpMEs7ZhLyYYxFWIos=;
-        b=bjfexOxZOamyO6ajq0o5vmN8uiJiOPnQ0B/R1P7XM24p5Ab3RtAFFmzbAFZp0WUl1O
-         D2IqOpTb8WIpifPCaKb99gORCXDOYhq11TyqZzy0PVUeKrZCsfCGilewosMUSn3Y8e2N
-         CobbTgyOBxfYov6L3UMoUCS3Q+iCb/F6/RvbIZS50MTQbTOQAdrmWSEgUKU22ne+LODz
-         yGfd9Sbfry6nu1WqG+xbyoz23P0C0NHv8bz/buyX271Anug7s7eMdE+NitpJyJNYOjZK
-         N6s5QrzwkvzLmiOydxhs/FHKemvdZ0oZdnBGU4NE4gmCrqwCZFSHQSx9+OUKDbtP3/zK
-         NPlA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmX9zY4G8k+0NenJK4ndnLJsqNkz3OEMwKV3ei3qqV7mHzvgUNj7oB75w1SQpVk4qlMkmqgRni2Q==@lists.linux.dev
-X-Gm-Message-State: AFuF++k9sG0JCl1XsjTCLIBiGwTan7gpdRjHhANoaxfJylVDhAFNB7mZ
-	c0jAA6rnkfh885eeTc4UOFFiZhsfCDWjDUaGhr0XqFYRwl0bGps5WOAhoR0dJGbnwLAXwcDrvVz
-	JBhcLmqUzkl7gZfwvbIKtGzOSlaWXYQs=
-X-Gm-Gg: AYBFou0BKwptGlSUzpaV7iiWX7Dh16aiGcGaoXudC4zt/Oi3TtBDbn9TPXaODgfvzv2
-	tR5Dl/Mi6d5w94je7q+6qEFBTu7cbEVm59RXothXhE1751lxt+Yj6qy4TG3v+fV6BHvvdFnoUwu
-	Hx2NjcAv4jexzUdi+NZrtKEY1rCn583z2w9Oce1LCtLigDcI22Qlmm81G7OnP7qDIHapAuVSiVW
-	1YHTfBZcfTockKmWIizPy1/Ze+UB8rJXL803ueP5EKMHmcuNhZZDMISJd+rRnqc7idKv2ZAGX67
-	C/Kglk0uPh63sXcjn2nM5qlBEEn+qmyGOHBjTotVx0ZNr3jHGYX6TF2aYIboVRVh4AdeptQrNX6
-	kRolmRRfaKf/hsLHYcxwnQrIGQVAeTA==
-X-Received: by 2002:ad4:596e:0:b0:90c:c53c:a032 with SMTP id
- 6a1803df08f44-90e9299d230mr66652406d6.25.1788238242750; Mon, 31 Aug 2026
- 21:50:42 -0700 (PDT)
+        bh=8SuycrJ6e1WFHR/TNYgsJOBfzYu56DYt41F/4NfeqAU=;
+        b=P5n1+9oKq6VXFtEULy5lwKGiJpRs12cU+w3fonRQ0V36LOc9jG1hjFevpYwZBNoh1S
+         CLWsSN8TNaVDHIX6BT+QUOuILJK0RCF74HU4kO4oA3AZ4qOfuDtMhyBJkvSPoWd2Mfi9
+         R5IUCxuhjtPreQI0HJZNlOM0GnKLgfMvqHj+EXywy3x1hERzdCsXwm7TGueoSPyjfM8h
+         RYn79HASIPITqMEbfDAYy+KmQ6vtkdQhPqmn7Fc+faX92oLFFh2EQHwqk0dZDPZ4DpxR
+         z9YZT6giBz0DuZ21Q1hkg8QouuGtnaUBlLxA2UCZ1DpJE9FUe5G8yhevLTJP1379B9bp
+         sJgQ==
+X-Gm-Message-State: AFuF++m5UwMmHj+0H3KuL+htcdVfFs9k2Y4saXkkt9pjS5F94lG8DA2W
+	VWxz0EOmBnwFZWjptQTKtFTIFb4gxXbDvBFXAKgQwN4HtSFHcKRPcnbi9gING0IMUOo6FUkvbuy
+	etg2fvLR9nbSuWltbXuy6aERSeWmjReb/tFIS8Dk=
+X-Gm-Gg: AYBFou1dT0Bm4s0mXCEfyPkQGR346Lbsv1li9tPfFjTqdcm0HMmBRJVRWXYsFKeTlI/
+	x0f9vQturHi3jOoNFtLsfE7xfVaDwurgh+cU8C//IuyzWZtcHO7Q68pC4IYJQnXp7cbVzIpPKMW
+	g1sR/CV8Xr9PSYECybZwfhaVqzUVsuDlTFV7sl5ANS4yGa8fnvjIEfq3RPPdaSag1UyYOrndCSs
+	rYN7PvAbMBnHZ4F+8lhHM2Pfg0DzkL2etnbXULaskrlMuo/0MIlJZuuzLd6tRHGVBPSGsEP/zgv
+	BT7Dr3JkfZ72tOYhifOD7QB1PU9NdkTYsJ5j/XSdkfqVDBPhTSdNSg8/k3b2NYPCh600X2DpOEO
+	SKE99i/Radt5ol2u7ItYwTl7H9JbXgH33S0t45Yko
+X-Received: by 2002:a05:6214:5d87:b0:90a:7f98:15f3 with SMTP id
+ 6a1803df08f44-90e956e7aefmr37476106d6.2.1788238445773; Mon, 31 Aug 2026
+ 21:54:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -83,41 +82,49 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 References: <20260828033531.1117754-1-apopple@nvidia.com> <20260828033531.1117754-6-apopple@nvidia.com>
- <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org> <apZCTUYiN5FHCkCm@nvdebian.thelocal>
-In-Reply-To: <apZCTUYiN5FHCkCm@nvdebian.thelocal>
+In-Reply-To: <20260828033531.1117754-6-apopple@nvidia.com>
 From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 1 Sep 2026 14:50:30 +1000
-X-Gm-Features: AcwNN1XIuYNBe-g3Y3LazWrOuydw4Epc379VZwO4H3KcbFvHD9yFkSuEhDJtL5I
-Message-ID: <CAPM=9twQxnx5DDkjwXWi-vXM4kqUQQdPaL+=1ASS0tpf2GmnYw@mail.gmail.com>
+Date: Tue, 1 Sep 2026 14:53:53 +1000
+X-Gm-Features: AcwNN1Ud4VFQrRun_tYvFTt-qwucbEEO3S9gIfzjiQyf2D1HVIdudvpKJIZc7pw
+Message-ID: <CAPM=9tw6nv7UbMvKOGSsZKKwoZwCG2hvwGk=JjmsxQcH=wGfqw@mail.gmail.com>
 Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
 To: Alistair Popple <apopple@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, nova-gpu <nova-gpu@lists.linux.dev>, 
-	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, M Henning <mhenning@darkrefraction.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
 	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
 	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
 	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-> >
-> > We should make the NovaCoreApi just provide an accessor for &Spec and make every
-> > subsequent method we need public. Otherwise we end up with endless forwarding
-> > methods. We can also add as_raw() methods to the specific types as needed.
+On Fri, 28 Aug 2026 at 13:36, Alistair Popple <apopple@nvidia.com> wrote:
 >
-> Ok. This is where I don't have a good instinct for what we think should be an
-> accessor/forwarding method vs. where we should just expose the underlying data
-> structure and required methods to API users.
+> Add an extensible info ioctl and use it to report basic GPU information.
+> One of the first things userspace needs to know about a GPU is its
+> architecture and implementation, so add that as the first field in the
+> GPU info result.
 >
-> In the past it seems there's been some resistance to exposing nova-core or gsp
-> data structures like this which is why I added the forwarding methods. In future
-> we're going to have other data-structures that NovaCoreApi will need to access
-> so it would be good to understand what we should do here so we can keep things
-> somewhat consistent.
+> The ioctl selects an information type by ID and writes the result through
+> a sized userspace buffer. The kernel truncates results to the supplied
+> size, allowing information structures to grow and new logical information
+> groups to be added without introducing new ioctls.
+>
+>
 
-We can expose structure defined in nova-core, we cannot expose
-structures defined in gsp bindings or firmware.
+This is a higher level for the future, I think we have two paths for
+getparam type ioctl.
 
-In theory we can internally between core/drm but I'd really really
-like to keep that boundary as the limits of GSP for auditability
-purposes.
+Either we expose a big struct full of values with a add to the end
+mentality or we keep a long list of value pairs, and userspace passes
+in a list of value keys, and we return a list of the values.
+
+I'm trying to think ahead towards native virtio context support, and I
+think having the sequence,
+
+open
+get_all_infos
+create vm/channel
+
+might have the most optimal ioctl count but also let power management
+avoid booting the GPU on every open if we never create a vm/channel.
 
 Dave.
