@@ -1,54 +1,50 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012071.outbound.protection.outlook.com [40.93.195.71])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012059.outbound.protection.outlook.com [52.101.48.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790164A8414
-	for <nova-gpu@lists.linux.dev>; Wed,  2 Sep 2026 15:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE7B480DED
+	for <nova-gpu@lists.linux.dev>; Wed,  2 Sep 2026 15:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.59
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361239; cv=fail; b=cXhx8mn46jGuvY8siJBDnQwcbH/A55YdeVAiq/OM4lrF9qtFjiaR9kIWoBcAl289D6LLAj1pNb37OEQwMSUTnj+v9IjF4BzcJDzzu6ZNsugDOP4zSA3SRPnJ/bsw5BijYFma3zVh9DSc14zpxR5a9H/UWl4euCp7Qi13uRyke+U=
+	t=1788361640; cv=fail; b=vFrKWBIXFbdansE1SNksyqtqy5JYIAgui+dUoCiSXVI6343g5qEqBwBReKEiukmuN07LVWYV/cUFgs7y+n6CQshCJg5eEVYPmFoitMDF9u8Q5uHOpuslj1mWEydaALliASS4SMIDonRW2IvqlWen2FA5z4iRWEhWEC4iIPZjTYY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361239; c=relaxed/simple;
-	bh=EUT/yKcWHCyRNeOA8vWm1ySVjclSlNwni8IeGnwjtNA=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=pKoVQYTGte22XEVIqTi+WODMGBAyoycuV/plw8vUeDzB5o/+bIcvQ2b/VzRy1RCWkqL1HMHK1/c5yG23YoLljQ6OYw59SJVE6ubRY6wsdqH+Yxn0vzfoL/7d5FrmZlnCGlK3YuLnuSFzVzLwBMol2f9GJYXuOKilqafzU0705HE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oVi8Sctk; arc=fail smtp.client-ip=40.93.195.71
+	s=arc-20240116; t=1788361640; c=relaxed/simple;
+	bh=8g/xxuzlCjV0ilqOxtE2d67M1N4xONlhwAiPchSvyQk=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=isS1+RIPQUcEalw8P7dBqvAlFKa1oRV6uOSxLwxc4bYv4Q2sDmyzmn0bfEueOaXPxXZcSVvDANuPZjTGSBE6cWh1blPO7U4P7z0NZyk0ryrF3zUW5X2fQEEvMNazSGwnYYzj7kfF2hzRatUFWt2Cvtuux3VSUpTU3jqaP9VuOzI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=giGXj2Tw; arc=fail smtp.client-ip=52.101.48.59
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oVi8Sctk"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="giGXj2Tw"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eoJBZsAC9m8/I0spy+PYk7X28fkBUhamHCrNpAXCSgTFyZUraWA36tq/HbMRBvc3DYKmTXM/7ErcztZzN4tZ04BIDrNVWw4aFzWvi+hfQu5t9cybkG4+2PYaPledcn/IUr9DcJag9Yv2JyYSf2QnifbSeer2XwdCYxf0nSnLw2npClls1EK+Rilmahx4LDRH63aD1GSiy6q1AQ6LP8HgXofYHLJYD/pM4XisXdRQpmYpATV1Ex4a5sx4bzhcdpTO0O02LI63igsccQpJ85A5rlVfYeKhDmzfyCTOnVzB4ty2iw1f9bSIjJSZo//hshEiaUklGcazm5bv4rWDX1fJHQ==
+ b=HuEK0jYBOl2h0I0DGnRUk1yUkSK8ULQeCZsJTT0aW6VNQtQrqnj2VyPE//VLummooKEJIN9cxna9+A/Sj5ZkNAe8YzIs7VLEe7VpQ7FvLNL6qsGtBVbDMCFiDwX5KtdVLBfUZPDarW62CBhTrVdogvtkLlqGMO4PboKs02Qzu+FNNZCiryUBYag3FBt3etmfOUXSpK+iGY/KNAnwDrGXrwTFvPt2kLXg3BRyvNqqMTVUpDBYip3Yu9yKW4m3j9xtlpWP0Idh57g5GaITPXCbq9Vyotno/qn1YZF4ZJYyegFTFA62EbLWPqYMNdAnmNlAtZjbDuYllbZjNKt0cg+ztQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WtIlwH+ezV4BOZyWMP8NziyEOVHfOTm3IOh7/aMM2Ik=;
- b=D8oGsAt6lLtykLipVZCYmjmhQNUOxMYvDwSJLY8xDdC8TZDIrJH5V/mv243EjTfRiUjvQE0Lwzd54UgjrD+Z8fCDQAegyWAjlRVRe4Q3Ale82jgrodZXelgPnNneU1NrNyvTWOIzLMU4NcssNJ+sJwMmt+mDZInHEphZ7+5LDXWXdsppedUcvWV55H2x07R9npeQ/VjuFQgHIBmlicWoyunzI60eO1HNjvU/q5oAnJxwVc1jIa5MC89IuPSSRvdQVlqGod7g8nVR9SWZ2/4R/RXxmvxE1kTJ45vnn6a3zx7MLWELmKL6ZmqO47U1mZn0uSVDf0G0g66HjI1OhaBt+Q==
+ bh=rMBKO/5Y0CY9yo210uIu1rRNuQeuo51eejJTAVytjfA=;
+ b=bTM6fWo6G03bJPq0ATdMGCLPXhLtS8WFgSSDxpRei0GUP4yziE/vrwSKXoRS3MkG1sxNn2YF6mrusnUeiy+pqdJiqtsJ3rrV7SwqbVGuZQpYXxoSOqfHVz+fH/SeA3VoJKjmc5mYyGvlKjI0ieMfOX/zcILq26GDmjbuilJEwJ6YIysyGvfAEqRuee+oD5iHH2ClpvIywdnMt/1Hc0lsfvKeEQGKhJveQZyr9fI4r9hDv1nmejCLG13VHjVitqOl87NXAqbrgbV78R8bfAdPeaB/eKXqapJzir/M/KwrTvRU319zi1oLJIUyAVEpVPI5uvzMMUTH3gxNI7R7GkLBkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WtIlwH+ezV4BOZyWMP8NziyEOVHfOTm3IOh7/aMM2Ik=;
- b=oVi8Sctk4JSUnLTRRyYlagPqGbjzGk0PUMwo3kj1zV15QN0SJjrAAecnHIksYTa2QwYuig60KWLJRNG8ezU39x6hTBizA1cnNQBj97KKRNRU2JSIqML1NDNrc2O4/djCK6NA5bBa5sQHYYUyYvl+u1vJ5JlMJA7e2c4wQc7RM5nzX+EOPZbDGuvXsk5Q7trmp0EVCpBML/TbC7XsIuvnqXpe0JEufLF1UYiyAPyJjJcQ+877upd+kPGCInC7teykn8JMzc1gO0xH36JTLW8HCRpFT5y7ZJQzEvTkpQZsPKIvUzfJ2y35PWZj8ZI7Rd213EHWgQKkefqvmeUW7E3NBw==
+ bh=rMBKO/5Y0CY9yo210uIu1rRNuQeuo51eejJTAVytjfA=;
+ b=giGXj2TwU3FjTbCID+dWuRV9ubhr7+G5h6pyDz2sWhzZNxtokCcx/Jr6FAGgiqx6FYZQO6FHpfGLmITg5SQYjcWjJq46cAlBk4gZ4BUuF6NQpqXy5mIaK9UIyQAfGWsKLwbI0IBoxXOhiXDD0ovjjP3cFdJi8+pxfO/elXw5JyCotTAKj6qSosIN4zgW1GWCRQ/kd19XXNSNNF/t8mnAI3du0o19CZz+DdfXUgWdr7T56UZvkMk71q0ZJpofbXwySef2opSkavQcValuMFtx+O1NkL8ol2oHZvMPFPU2dI6PIhWzlr1Y/o1GKDeQGNj9YhGVHcXWc3RSMNr2FlYJJw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CYYPR12MB9016.namprd12.prod.outlook.com (2603:10b6:930:c4::17) with
+ by SN7PR12MB7884.namprd12.prod.outlook.com (2603:10b6:806:343::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 15:00:32 +0000
+ 2026 15:07:09 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Wed, 2 Sep 2026
- 15:00:32 +0000
+ 15:07:09 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 00:00:29 +0900
-Message-Id: <DL4X5B86OROD.22YISVN1ADX1E@nvidia.com>
-Subject: Re: [PATCH v2 13/15] gpu: nova-core: retrigger the GSP falcon and
- clear every latched cause
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
+Date: Thu, 03 Sep 2026 00:07:06 +0900
+Message-Id: <DL4XADLEOLAO.25L9GDMGB48PW@nvidia.com>
 Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
  "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
  <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
@@ -60,12 +56,16 @@ Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
  Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
  "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
  <linux-kernel@vger.kernel.org>, "Will Pierce" <wpierce@nvidia.com>
+Subject: Re: [PATCH v2 15/15] gpu: nova-core: document the GIN interrupt
+ controller and GSP events
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
 Content-Transfer-Encoding: quoted-printable
 References: <20260829012243.496697-1-jhubbard@nvidia.com>
- <20260829013324.499542-18-jhubbard@nvidia.com>
-In-Reply-To: <20260829013324.499542-18-jhubbard@nvidia.com>
-X-ClientProxiedBy: TYCPR01CA0137.jpnprd01.prod.outlook.com
- (2603:1096:400:2b7::13) To MW4PR12MB6873.namprd12.prod.outlook.com
+ <20260829013324.499542-20-jhubbard@nvidia.com>
+In-Reply-To: <20260829013324.499542-20-jhubbard@nvidia.com>
+X-ClientProxiedBy: TYCPR01CA0180.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b2::20) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -74,220 +74,137 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CYYPR12MB9016:EE_
-X-MS-Office365-Filtering-Correlation-Id: c374c32d-f218-4e73-365c-08df0902ef65
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SN7PR12MB7884:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e60a190-f943-4ae5-653d-08df0903dc3a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|10070799003|366016|6133799003|4143699003|10067099003|11063799006|5023799004|18002099003|22082099003|56012099006;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|10070799003|366016|6133799003|10067099003|56012099006|4143699003|11063799006|5023799004|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	Kou5SqMdAhvAp/Qo20WKEBo3EXeLLdInvbWbhg3n8Ej3qZlwMUDdggt5bNayBmYnYGPVNCA1JhFL8Gfz49XuQRDax9C7j5k/9SoLDZ0fE7lZILWugyjE6NwppFXzRQ/g1J8anXTnLoRaECKdo0BuMbmfs7H8zQPNy6dG9genyXOa6Sq5A+q66W5O2qXQn7fMqTIEm+Rik7DUiB7phj1CO6bOFDMNXwGzz/J5iMSaH7nC0TQ2HMdpmbdlFDKArTXdImhZYu8LZTzFZoAHnLEMHVtP4ePIayGUNLuNgjzgv+lLuNiUm3Z0kLhYH8phk4kBPi1k4+JnVwyaEGi5t8Ob8mgmO7gcJiO+psbcDd3PblQp4A0pPp9PAYt4opHRT9sIOTl8K8llkjcBchuCBnwzoKQDcB4YgeOtCzfJ+zq/oXKNjDVgHZVQt14EWuZ+KatkPBEdK/T0sJPVl7U/al/GvnLLS51k7Z691GHHU/NwjitWi3jq5Wf5T01ldy6mmXQSOUSGM7MpZQ3RtOKgKwRhA1lzGuycM/L0qbGMt/+xzVfumZF+J2bWiPArbPgwibEdMh0hqym2acD8Bo9vGfv6IxNyQ6DO0LkQg3X6wmc4qwXOhcbCBRyog+VdFsBKf//Iwe2jNEI5id7VcTJIfMK4O1LSzuseKUT3Z2PI3wPEcBI=
+	TrtULs23cJ/4a6Uoq0txqHHu9JKzvCzNzsDS1jtY/hEv7hkqb6LxuZOtxOwgcfs8/WrNBxQsaR48/5G8i9M9YFQjAIUKE9PLwTAb7a38IlmHK6U8bNwXgxU4TscdED8sysiFSOb5dpREhRgYeQxESYO8+aYWiwgIOQGuysuAFWKNbw08EJIkJTKUFU77TqP3S5tdS8J4v1YSeAfUXr2pm2DbSWaapz5r7irdVtSSxSCqrk3a9t+4TS51p8ZhdrpvMWr5Jw2qYDEYt9sB6n7v5kkSXyKFf8Y7+89jpA23rnm5JcsMg0Q/THWbHtfWX/Cl5tG66Wg8lLDDDuo1xX+7aw8faqdQvsP1PmdNNGu6EgluScQNUFRh3Lg7oJSJRawhZL7LLtHWtTalmy6clZC117cG/EuLs7vA6lgMWE0KEKwY+OjZzituAB2+4l+jf+JEP8cS02gfpQg0sR/V7CmP0fZxo9UMz/XAlDfJIhnfQUiZ/EAO/7DxhiV6lxbt6+H+dn3vykBlRSXUoiu2LDMD7Cw2YQcKShk9nGiHIM8ZytB4aZvkb7MNGk1RDAUB0EJsneyOmR9FX+mzLvw9b0GViMC6dJRIl79C/GCiWVC77uQ6Ltp15mH9Pt0gy3aQrHvx9xvBUkk6SG9nd1OcZR5LtwGMhpF3C72xaYzrTtP2DKw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(10070799003)(366016)(6133799003)(4143699003)(10067099003)(11063799006)(5023799004)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(10070799003)(366016)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y3NBdUtvakp4NWJZVkJOc3VCOVdUUWpLSlNFSFhPSTV5ZGpzbmpPbXJneSti?=
- =?utf-8?B?Z0k4UFJaMWFUTm1kSFhzS3V4Qkd6SG5jcDhFUU9ackJMNE9KcjBaNEFqNm9W?=
- =?utf-8?B?WW1zUndsejlaelRDS3M4Y0tzdEJ6NDV6NUIwZ1hDWFhIRlQ3Y3RDbXR2ckVk?=
- =?utf-8?B?Q0VZa2Rxd0xnRytJYjM5QUh3MGpocUgyMkhwQktFMVFXT0IxNWorMndiTVVU?=
- =?utf-8?B?djNpWTBYL0JMdTFjMk5ScUlaMHFWS2F6YlpoRDM5UlNlUVVCVENXUkllRFhP?=
- =?utf-8?B?ZzAwWGh2ZXl5VFR4anFqTEt5WEg1MUpiTG5WVHVvYTlSdzRrWi9LQ1Z2KzA5?=
- =?utf-8?B?QmZLRlJmcXYrWG5ZbW1aTGhIbDFjb25IczFTdU1sT2ptU3JGN3Q4M2dpcGI2?=
- =?utf-8?B?V0VLRldnZitpSFJlSXNMZ2c4bXUvVytEQ1VRdVl3WGhzM1dSSXR2S1RleGRz?=
- =?utf-8?B?SWZZeFI2c1JFRWNSZHpadGdkK2tXT3lhOXY2cGt4QTZQU0RlZE45M1Z4NXZh?=
- =?utf-8?B?ZVNMaG9zY3VFWDA3UDh4ZC9MNkVwaVQ5UHdQUVhxVnZyMkpESGNmUUdSWkZr?=
- =?utf-8?B?WDc0Nk5IYkpaSmFrN3ltak12Nk9SK3lBMUVKOGRIdWhiSlFFSi9iUGJZWk5D?=
- =?utf-8?B?TWtjVy83cXUvWnpsdHR4RFp6MjA3K3ZEc2ZqaitiUmFWajhkZ1NVYXg0YW90?=
- =?utf-8?B?QWtzZFE2di9mL3hSdkxLL1FEVzBkSWF2a0VqN29xOHZyWHdzODlnOE1ySmpj?=
- =?utf-8?B?elBuR3Z0WUlBbzFYZWxGc1UvY1FRWjF0Q2ZnZXpraWd6THg1RktWclJVRHUv?=
- =?utf-8?B?T3ZlZDA5ZUFTc29sRzZuUjFxcWJhSXlYNDBvSytaSTBac2tjc3ZVSmoxQzNo?=
- =?utf-8?B?NU9WNWRrTk1IZjdQTGY4ZWt6NVlMcTNLVE9ieFcwVGp5TmVFRmFDbExzRmlT?=
- =?utf-8?B?dURjS2JxNWxtS3ZTSnNJNmxEQVY3Yk9pS2VLYWRuYXZ3bm43NE1UVnFCVnBi?=
- =?utf-8?B?a1hHWEpoVzZldWJ6dTlBSU9xYVBmSnI3eW1wbm5Wa21YdDlzaWpMSEJhSXV5?=
- =?utf-8?B?REYzR0gxT3J1Nmk5UlJ0M3ZrVXFFb0tDT21LQmE1VWNDcEF4d2FVNkd3RkY3?=
- =?utf-8?B?Wm5OcGJ2SlFYMVdiZG1UVExyL2trL29OWE92UHZZUW1jdEl3YUk5bWlPM1Q5?=
- =?utf-8?B?UE4yZXZXdGFEZk5BRlN4MmtTZUNYMGxJdXNQUWZnOVFXc2QrcUtNZkU0NE84?=
- =?utf-8?B?QUU2dVBHVzc3TTJCOUw2RGZxeS9FRDdzMjMvY3NoeGdtQnVHNzhzTHhKOVRq?=
- =?utf-8?B?QXF1VE1IeWp2cWw2VFk5a2Y4T0VwS1Vwd0dRb3JTM0lKY3hNTEluWWlvRjln?=
- =?utf-8?B?M2FNaFN6eDlBczViOGt6QTY3cWprYS95dHZ3RG9Ca2FuRGpsZkNvTHFiYTN6?=
- =?utf-8?B?SUJDQW5neExaU2tTbzNSakZPd3p6UVdqMVd4NjhhRkRjcnBKRUZ5emczS2tY?=
- =?utf-8?B?S244SmQrMW5wYUpuLzFndzRFS0dXQjRVUzlHK0dpSmNva3hlS2ZYaVI4L2Vu?=
- =?utf-8?B?UDQvNWNoZXdHWGlhM1BUN2NRUG9nYVZhbnBIazVaZ1ZHTW8wTk1vaVROaGRJ?=
- =?utf-8?B?eEt6LzdQVTVvY2FLdXFQQUtJZTZkdDZEbWlObWhrZlQ3VmowUVFqZ3VaVklv?=
- =?utf-8?B?TGVqTGFwRXFtQUNCRjlzY1IxV1podXVKNFZJdWNkdmxkU0JoSFJyMWNqd3B4?=
- =?utf-8?B?d2kwcHNrMEhXM1FRQ3Y3N0xyWnkwUmM4WDBYOFRObVlVb3pwRDF6VWZ3a2I3?=
- =?utf-8?B?d1h6U0N5cUMyU2ZnYlZoZFQrVWZRam9ZTTVYVXY5OHFldTR6SXpmL3BFUzNi?=
- =?utf-8?B?MkFHejNkS0tlNEdwQ1ZiVU51VUNLakozV3k5c0U2NUY0TzJ6eFNYd1JiN2g4?=
- =?utf-8?B?R1EzbElhVSsrUlpDV1U3dFJCT21Ec3ltUVAwc0FKQnBsZDFHVEdjdWdnaHBQ?=
- =?utf-8?B?N00yM1RHTVVqMnp4NG9CMXZZV3NtTWlvejhaOGtFeURkSzV0dlVEWFBoWmlE?=
- =?utf-8?B?blNUNVVYOTAyeGM3MGtnQ2laaHVOMlQrcWNBejhDSm43YjNnanU4Ri9kcktL?=
- =?utf-8?B?WnZ0NXIwd2o2M3dyQmt3S2FYTTFqNkhYLzdzaXg5WmJDSWxtcnhyWTRsYmFw?=
- =?utf-8?B?bHVhQStOa0ZQZlFNTmZGOHpHdkNNUWVFRFV4bCs0OXpjbThKZXE1NW1jcjFB?=
- =?utf-8?B?c0F1ZWZtSmxvVjBOUlRPWmdxSEF2YU1nVlpHN0ZKTG1YRVhqeGd5WTU5bjQv?=
- =?utf-8?B?c1oyZi9SZExMcG9rOUJKQTVPVko2V2QzVk9xYzdWWWhpV3JuSGdqQUVBaXZo?=
- =?utf-8?Q?sQvLwgt3LW6fH5ZwjhuVLUVDZjXiM3C4HWJ8hdDnCltVK?=
-X-MS-Exchange-AntiSpam-MessageData-1: EBAq5zgih31o5g==
+	=?utf-8?B?OHBjM0hJNGRyZExVY0J2WUJrdUo5bWV6T0s3OSt4aDVJMGk3TGY1U3J5ZnFp?=
+ =?utf-8?B?UEd2VVZjVGFEMHc4d05xRWFMUWJDV1F3N0hWNm5xQUdkYnBGMTNRZ1g0K0sz?=
+ =?utf-8?B?b0s2U0s2ckQ1clFLbXVuU3Q1L0NueS9MTkUyYlEycDZRdTg3N01ZUHRlZzNL?=
+ =?utf-8?B?aUZQOGpmOUlHTTcycFNDWitjMTJNenlPMm1kMkRyOENiTVBIcXJSV0lvb0Ro?=
+ =?utf-8?B?QmtWQVRlQ0NwVkpsa1B5VVpiYmlGbDN0dERDRThOSTdxSG85enRCME1uTkNM?=
+ =?utf-8?B?TXdLQ3czK0ZQVTJDZWxCeHB2RnNFSGtyS0hteFRndHdEZUNXQ3dLeXRGK0la?=
+ =?utf-8?B?akhVR2tWWnFtZWtxNGZseTZkY2NneFFncUFiRlMvS0E3bTNqaCs5K0E3dGtm?=
+ =?utf-8?B?RU13MEJlbTErbkdxK3VVcDkwYWJyM29YN3QxNkwrK05vMlREOENZNmNIUkZz?=
+ =?utf-8?B?b08xNFE0T1B1amhINEdNWjRQaGNoUVRMV2RzRlFPdnZYQUdMZXR4aGtVS05D?=
+ =?utf-8?B?SzNSZkdKbjNXbkxxMzUyYzFOQU1VajM3a1NGVGZKZ3JJVllBS01BUUtnVHpk?=
+ =?utf-8?B?U1h1TGxaNTQ1VGt4dnBRbDdQNTlpTVJOQlVFWHNKalZlK1RPMzM4ZllnQ0JE?=
+ =?utf-8?B?Q0pXOTJpNW5Wakk2U2N5TE1Uem9zUmNxWnlEOGFoc2xPUTZaUHJNdTVTOFZ5?=
+ =?utf-8?B?aGlScGZFL3JKTkY2N1Bkc0piNEE4TmF5ekkxV2tDWmhOY1J5NmNWTGthOW5E?=
+ =?utf-8?B?azBZRHFnQldoMnFPMWJwSTJtdkw5R0VsQjZRaFFvcU9FRyt6cGdwaExKT09Y?=
+ =?utf-8?B?bHZLT01XYlByb2htM2VmeTRzTklSYU9aQm1IdUVUd2dqVXAvVk16azF5YjFO?=
+ =?utf-8?B?cjBsalFQQ1BvcS9KRjJTcjJGL0tBOEZyZDlTeGNWZGNXbTZaanNSWXFTUHlL?=
+ =?utf-8?B?OGd3YUpyREN3UG5LamNWempDaG1yRk9mZVdYQXoySDVYMmJwYlBkVTBqblZT?=
+ =?utf-8?B?Mm9pa1dBb1VZaWorNlFLeTR5SzJaWGlRd3k2UVoyT0hqOHE3UmNSWEVnL0lJ?=
+ =?utf-8?B?ZlZKUlRBa2pQd0hxR25HNW8rdlVidzF2bndUMUIxRDEwUnovRFhWQkgyd01V?=
+ =?utf-8?B?dHVOVHRYbmlma09ackN1N09USHA5UkpnTkZrYVhpTmNpWlVZYUZCa21aUGhG?=
+ =?utf-8?B?aEozYXBJNk9oNm1PUkxORXJKUC9xOFFuMURweGIyZ1JvZmZOR2dBL1NhaXcy?=
+ =?utf-8?B?cUE2dkRmeTZhRVIxcHkydDZ5VkdNSnlzREMwcDJSVGxqektuZm5BV3ZGMnky?=
+ =?utf-8?B?MnJFenBzcGdoMUlreHJOaitJbW1VSDUxYzBQblE3SzF6NFQ4ajVSQ1g4cU5C?=
+ =?utf-8?B?RjBnV1B6WlBhN1lKR2oyaXZDM2NRUHNlejIxMTlUNXhqSU1IOVgzVDRhWExm?=
+ =?utf-8?B?cmsyTkp0Tm1rTVpLVjEwL2QzQ2dvTlZVeHArUDVQRWtLb1JQSHN2c3VJNmNz?=
+ =?utf-8?B?b1lUcTlORVI4S3NEN3c1QVQxNTI2aC84MEJOajZ4MGw4UlJvYmRoNzREV2po?=
+ =?utf-8?B?Y3FCcEMwbXBNUkIxLzllejdaTnhJVmxQYkVYdHd5TE5QRHBIT0RNQzg0c1V1?=
+ =?utf-8?B?WERhWVhVdXdPOE4vZnB0bzd3dVhIZXVicGpqT0hEbGxxUFNESllVaXRwZ01l?=
+ =?utf-8?B?c1h5UFh5bXBiSDZlOG9qSjJmS3diaFE5RWtyWkxEQ1QxQmxiRXpwV3ovSzd1?=
+ =?utf-8?B?TmE3dlpxMlUzTUt6dllPMUx5UVd2M2t4OE9SOUloeU13b2YxOGRUYVJtSDhs?=
+ =?utf-8?B?L2JUdFFyeExUMDQ2T3phcXlYZG9QVjh1UzN4ZDBNYzUxWmM3cGY4dHNBaVJj?=
+ =?utf-8?B?MUtQZUNDOEVtdGF3VmR5UkRSVDFqM25NWVRUaUh6WXFHVE5seCtvMmJQYWNM?=
+ =?utf-8?B?ZmNUUVY1ZVl6SGVhS3hhRkNsNXZpNUdsSXJudmwrRGVWaDZBak9qVlFaTEUw?=
+ =?utf-8?B?a1NSK3BYcWtVczdWd3pIV2dHUmxLbTRKc0dQTTNMTURwVTdaandacEJYQVRq?=
+ =?utf-8?B?SDM3d2xRT0M3QWtzaS9BMUZMVXVORld4S0J6eUNFcWRuNXhEUkdMRTZ6STJi?=
+ =?utf-8?B?bTUyUTVhMHNQclFFbnNDeDd4ZHdRY2xCcFM3dTBjalFlY0sraW9QTzhkOUZU?=
+ =?utf-8?B?YnRoYWd1dFY3Ty9YcjE5K0NKNnZvd1l6bmRuRHFOZXhCV0E1cHBBSm1lM28w?=
+ =?utf-8?B?Sm4vK2NzSnZRQkh0MU1tQWswV2xROXgvcTVjTlhockR4Z3cvMTdiOVBOTlo4?=
+ =?utf-8?B?TU5rVjh6cVlxQjViUlM4V2QvQjV6WkxPVTNUZU15aGJ1VjhIL0lYRW9IZTJu?=
+ =?utf-8?Q?pB/1D8NlrfkzaJAKh15w6VWKRMcKoCuhMEy+v7zVG85LX?=
+X-MS-Exchange-AntiSpam-MessageData-1: itqwARuUJSp98Q==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c374c32d-f218-4e73-365c-08df0902ef65
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e60a190-f943-4ae5-653d-08df0903dc3a
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:00:32.2031
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:07:09.6026
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kKHjWe1Eka9+OezbIxqbydObEY8Tg+NnkbPRl8/2lBjJ8t5LMYc/WnWcdz7hMsN8qODYpDVXu/TE3LlLk6cU8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB9016
+X-MS-Exchange-CrossTenant-UserPrincipalName: OhOaVE4y41n2GJ0dWWDwScpat7ystsy2uTiitSmuI9HdMPhpaSZ/i42ri5jFMEB3nmMWOxX6+bkDYYHP04AqBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7884
 
 On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
 <...>
-> diff --git a/drivers/gpu/nova-core/irq/gsp.rs b/drivers/gpu/nova-core/irq=
-/gsp.rs
-> index 6366380eef98..a1030d66cc70 100644
-> --- a/drivers/gpu/nova-core/irq/gsp.rs
-> +++ b/drivers/gpu/nova-core/irq/gsp.rs
-> @@ -50,18 +50,17 @@
-> =20
->  /// Clears the interrupt state that GSP boot left behind.
->  ///
-> -/// Disables every vector in every implemented leaf, clears the falcon's=
- SWGEN0 latch, clears the
-> -/// tree's pending bits, and rearms PCI interrupt delivery. On return no=
- vector is enabled, so the
-> -/// tree delivers nothing.
-> +/// Disables every vector in every implemented leaf, clears the tree's p=
-ending bits, clears the
-> +/// falcon's SWGEN0 latch, and rearms PCI interrupt delivery. On return =
-no vector is enabled, so
-> +/// the tree delivers nothing.
->  pub(crate) fn quiesce(bar: Bar0<'_>, chipset: Chipset, irq_type: pci::Ir=
-qType) {
->      let tree =3D Tree::new(bar, chipset, irq_type, GSP_SUBTREE.into());
->      tree.disable_all_leaves();
-> -    // GSP boot consumes its notifications by polling the queue, which l=
-eaves SWGEN0 latched.
-> -    // Clear it before the tree drain below, so the drain clears the tre=
-e state the clear sets.
-> -    // Messages already posted raise no interrupt of their own, and the =
-caller's queue drain
-> -    // covers them.
-> -    GspFalcon::clear_swgen0_intr(bar);
->      tree.drain();
-> +    // GSP boot consumes its notifications by polling the queue, which l=
-eaves SWGEN0 latched, and
-> +    // the GSP drives no new signal while it is set. Clear it after the =
-tree drain, which erases
-> +    // every leaf bit and would erase the one a message posted since the=
- clear had set.
-> +    GspFalcon::clear_swgen0_intr(bar);
-
-This code was introduced in the previous patch and is now immediately
-moved around, and the comments for the two versions contradict each
-other. This patch's order seems to be the correct one, so let's use it
-from the get-go.
-
-I guess this stems from the general ordering problem with this patch: if
-its new falcon registers were introduced before patch 12, then patch 12
-could be written in its final form instead of having its code amended
-right away. It would be nice if you could reorder things this way for
-v3.
-
->      // The `TOP_EN` cycle in `drain` is the rearm for the two enable-cyc=
-le methods, but pre-Hopper
->      // MSI rearms through a configuration-space write instead. An interr=
-upt delivered before probe
->      // leaves delivery un-armed on that path, with no handler to have re=
-armed it.
-> @@ -80,6 +79,8 @@ pub(crate) struct GspInterrupt<'a> {
->      cmdq: Arc<Cmdq>,
->      /// The GIN interrupt tree for this chipset.
->      tree: Tree<'a>,
-> +    /// Chipset, for the falcon retrigger, which Turing does not impleme=
-nt.
-> +    chipset: Chipset,
->      /// Device, for logging from interrupt context without taking the co=
-mmand-queue lock.
->      dev: ARef<device::Device>,
->  }
-> @@ -98,15 +99,18 @@ pub(crate) fn new(
->              bar,
->              cmdq,
->              tree: Tree::new(bar, chipset, irq_type, GSP_SUBTREE.into()),
-> +            chipset,
->              dev,
->          }? Error)
->      }
->  }
-> =20
->  impl irq::ThreadedHandler for GspInterrupt<'_> {
-> -    /// Top half: clears the GIN leaf, takes the falcon SWGEN0 latch, an=
-d rearms PCI interrupt
-> -    /// delivery.
-> +    /// Top half: clears the GIN leaf, takes every cause the falcon repo=
-rts, and rearms PCI
-> +    /// interrupt delivery.
->      fn handle(&self) -> irq::ThreadedIrqReturn {
-> +        let bar =3D self.bar;
+> +Terminology
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 > +
->          // Only service our own vector: require the GSP bit in the leaf =
-and clear just that bit, so
->          // a co-pending vector in the same leaf stays pending for whoeve=
-r services it. The subtree
->          // stays enabled, so there is no whole-tree disable and enable.
-> @@ -119,27 +123,40 @@ fn handle(&self) -> irq::ThreadedIrqReturn {
->          }
->          leaf.clear_vectors(GSP_INTR_0_VECTOR.leaf_mask());
-> =20
-> -        // SWGEN0 is the message-queue notification, so wake the IRQ thr=
-ead to drain it.
-> -        let status =3D GspFalcon::take_swgen0_intr(self.bar);
-> -        let ret =3D if status.swgen0() {
-> -            irq::ThreadedIrqReturn::WakeThread
-> -        } else {
-> -            // The tree routes every falcon cause to this vector, so som=
-ething other than a posted
-> -            // message fired it, for example a HALT from a GSP crash. Th=
-ere is no recovery path for
-> -            // those causes, so report the status rather than discarding=
- it.
-> +        let status =3D GspFalcon::take_swgen0_intr(bar);
+> +Three different numbers are all called a "vector" in the surrounding mat=
+erial.
+> +This document gives each one its own name and never uses "vector" on its=
+ own.
 > +
-> +        // Every cause the falcon reports leaves the falcon's enabled se=
-t on this invocation. A
-> +        // cause left latched holds that set non-empty, and the falcon s=
-ignals the tree only on a
-> +        // transition of the set, so no later SWGEN0 would signal at all=
-.
-> +        let unserviceable =3D status.with_swgen0(false);
-> +        if unserviceable.into_raw() !=3D 0 {
-> +            // The tree routes every falcon cause to this vector, so a c=
-ause other than a posted
-> +            // message also arrives here, for example a HALT from a GSP =
-crash. nova-core has no
-> +            // recovery path for those, so report the status rather than=
- discarding it, then mask
-> +            // the cause.
->              dev_err!(
->                  &self.dev,
-> -                "GSP interrupt with no SWGEN0, falcon IRQSTAT {:#x}\n",
-> +                "unserviceable GSP falcon interrupt, IRQSTAT {:#x}\n",
->                  status.into_raw()
->              );
-> -            irq::ThreadedIrqReturn::Handled
-> -        };
-> +            GspFalcon::mask_and_clear_intr(bar, unserviceable);
+> +GIN vector
+> +    The GPU-internal interrupt source number, 0 through 511 on Hopper. I=
+t is a
+> +    bit address within the tree: leaf ``vector / 32``, bit ``vector % 32=
+``. The
+> +    CPU doorbell is GIN vector 129 and the GSP event is GIN vector 155.
+> +
+> +MSI-X entry
+> +    An index into the device's MSI-X table, 0 through 7 on Hopper. Linux=
+'s
+> +    ``struct msix_entry`` names its Linux IRQ number ``.vector``, which =
+is a
+> +    third meaning.
+> +
+> +Linux IRQ number
+> +    What ``request_irq()`` takes, obtained from ``pci_irq_vector()``.
+> +
+> +The remaining terms, each named for the register or the specification th=
+at owns
+> +it:
 
-Is this correct? My Clanker told me (and looking closer it seems to be
-correct) that `IRQSTAT` also reports causes that are masked, or routed
-to the RISC-V core itself rather than to the host (i.e. GSP-RM's own
-interrupts), and that OpenRM filters these out: `kgspService_TU102()`
-gets its status from `kflcnGetPendingHostInterrupts()`, which for a
-RISC-V falcon is `FALCON_IRQSTAT & PRISCV_RISCV_IRQMASK &
-PRISCV_RISCV_IRQDEST`. Without that filter, any GSP-internal cause that
-happens to be latched when SWGEN0 fires gets reported here, then cleared
-and masked out from under the firmware.
+Coming to this patch series without any preliminary knowledge of
+interrupts handling on NVIDIA GPUs, I would have found it useful if
+leaf, subtree, and tree were also defined here.
 
-Also in RISC-V mode the mask gating host routing appears to be
-`PRISCV_RISCV_IRQMASK`, not `FALCON_IRQMASK` - OpenRM never writes the
-latter for the GSP. So the comment about the tree routing every falcon
-cause here also seems inaccurate.
+> +
+> +enable / disable a GIN vector
+> +    ``LEAF_EN_SET`` and ``LEAF_EN_CLEAR``.
+> +
+> +enable / disable a subtree
+> +    ``TOP_EN_SET`` and ``TOP_EN_CLEAR``.
+> +
+> +serviced subtree
+> +    A subtree nova-core enables and has a handler for.
+> +
+> +rearm
+> +    Restoring PCI interrupt delivery after servicing an interrupt. It is=
+ a
+> +    ``TOP_EN`` disable-then-enable cycle everywhere except under pre-Hop=
+per
+> +    MSI, where it is a write to the end-of-interrupt (EOI) register in t=
+he BAR0
+> +    configuration-space mirror (see "Rearming PCI interrupt delivery").
+> +
+> +mask
+> +    Reserved for the two places hardware and the PCI specification use t=
+he
+> +    word: the MSI-X per-entry Vector Control mask bit, which Linux owns,=
+ and
+> +    the falcon cause masks. It never names a GIN enable.
+> +
+> +latched, pending
+> +    A ``LEAF`` bit records its source whether or not the GIN vector is e=
+nabled.
+> +    A disabled vector's pending bit never appears in ``TOP``.
+
+IIUC a disabled vector's pending bits doesn't contribute to its
+subtree's `TOP` bit. Something like "A disabled vector's pending bit
+doesn't signal its leaf in ``TOP``" sounds more accurate to me.
