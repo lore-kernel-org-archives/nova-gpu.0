@@ -1,248 +1,129 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021074.outbound.protection.outlook.com [52.101.100.74])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2296B4E378B;
-	Thu,  3 Sep 2026 15:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.74
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450130; cv=fail; b=EcJ6qEAN/JJ6JKrgNljvXvUOOlUM/IbGXNfvIieOPAIbDZm0jDm846bQ+mrGUdcLjc0c3zmltogXjXCVbbYQ7YYkSQMJBBTyCKImsG27TOXuIgHyzMBTwe1mWgVwwO+oI9FEwJXSCb+Xsg46O+mYc6CQcTC8tQ2t2SZNJxPBpmM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450130; c=relaxed/simple;
-	bh=whXGYL2IBo3jN/a06A5I7JffwcPLjUo/X+S/x3YJ6/U=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=mUykyZ+PYnvtHyy3cPHTqw3BODIWGCmF/iHbgirh9u9RgvejzRPZm4nmB2wZZx3ZDp+NAKzVhxT7jc9taA+RWiM6erxvSOMXSrUDdEvnxpQ7KNouq3du0FKxG8Q++66ZNm2IA5d71v1Mc8IWs3BySU/sfjjrWpeIdAnD6x8GrFk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=gsnJWsyi; arc=fail smtp.client-ip=52.101.100.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECCB4FECC1;
+	Thu,  3 Sep 2026 19:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788463400; cv=none; b=t9H/IPxtVM6EHjmccA/zEuTS48W2Se3IxJ/vNbLjfHTJ0DfW9rbgoZYTsd7Z1HFXhpv8JkPvSmYrXnymF5Zfa2xl9mQDKAeYf12dtOZnXNCzRSYSXWG9aq8lj0pLuHYyhUsYuHTygCb8z8LHtvxVMDSFJrs+RhwyIIvu8/JqLT8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788463400; c=relaxed/simple;
+	bh=SC12UwwV5la5+z9xpG2T1lhISLeO3GCXp9Z+NUbIUV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=davlOM/B4kVAGy/AFumyin4n68cmulqCbVU4cB3jvkeZSJ4FTjW8U2cN/QL8kIaSs14OPt8Q0SRELYK9Db66iZNTxUXwd3JZotBBQ3/xaNbwzXtftLo1QJ3hHj+xXs3Y9Y1hpdDEQrX2CeuMHtIm03+NIDBRMGInlLj5eEK8+Cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUVHrE1N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="gsnJWsyi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pZDdVISVO/bOjEIS+RJMx1skbnevi5UcvatIVC78pcQklZroBJk14s4zh1Dr2HgHGUIuA7IiTWzDWAKMYHc5VXO2ZpAlqmV3+lG/AtxC1xy7h05K5b31cvXjbgEMOWBfn9HuEHIKSiUzj3IFBUfpWQDE/QXR+BZ75b2zTW90xx3iJOC12L5loXi7Vdac8i1iuIw2uDA6V1l1ov0GVg2bTIKZ0HeSS9kM7D75H9SF5MKHE6Ju+6K6w9MsiBgx7usjIsmH4HY6LzREltx7ysw/JMPRPOTN0q5koIChtO+maYaR5WRC+TUi0VmP8+VhAwJ6SEVTZ+W2CL9oL1bvpur1ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1DqoLJ9M/9Ciea7D9Y7BTBDatoxUr3knQkh8dJhV/yw=;
- b=BYe9T++xqAIaFuuJsGiwA2H/YhpVQe5uQl0btE8/uQn394oIUrYNRYeAz9V6kBV6wzqqgHJmpW9iWDWPEK+QCscU/FGpU/F65DkHQ/B6MfwK4lsAXOYfW7N+RjKAL9URhtUykKyTOwdY29ibAR7y+nRElcuzEY4dIXwQU6BVGu28gvwObv8nmXVbiK2qwh9z4BMCqbO/b97YEyO0OaL8/0DQwWGHQiFAu7w0GXIxOB/SGQCpIE2FwwYEH/pDWV+aQJ3Z7a7aKp/9zOrdqTLypa1wVXmWMQrYkjl0Z9OUoVbw8dfuE9tberry3sT+ThBECz/98LLoI6Bl2njV//a4Ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1DqoLJ9M/9Ciea7D9Y7BTBDatoxUr3knQkh8dJhV/yw=;
- b=gsnJWsyiqrvkn4FzqsVCnzyPAKaFlH9kWzLL47lDwAzbskE1gRw4M7KJhJRHDDbOLASjZJiA0AVQJNoCi8VlQeKW6eb6cnd3JR3Q8ZmR8083L/duy/VqEzAhCILQdHVyFpoC2b9aFrZDL7KJluM/thJj8DATwsnVgz47TElUShI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO9P265MB7430.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a0::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 15:42:04 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 15:42:04 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 16:42:03 +0100
-Message-Id: <DL5SNOAXWIPE.1WPMZGTWV7DZT@garyguo.net>
-Subject: Re: [PATCH 4/4] rust: dma: tie Coherent and CoherentBox to the
- device's bound lifetime
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
- <gregkh@linuxfoundation.org>, <rafael@kernel.org>, <aliceryhl@google.com>,
- <acourbot@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <tmgross@umich.edu>,
- <tamird@kernel.org>, <work@onurozkan.dev>, <mmaurer@google.com>,
- <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260830193824.471089-1-dakr@kernel.org>
- <20260830193824.471089-5-dakr@kernel.org>
- <DL5PMZZO1S7X.3BMZVKVUMYVM0@garyguo.net>
- <DL5S8GFKETAW.1UD50XK77ZPA6@kernel.org>
-In-Reply-To: <DL5S8GFKETAW.1UD50XK77ZPA6@kernel.org>
-X-ClientProxiedBy: LO4P265CA0186.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:311::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUVHrE1N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81151F000E9;
+	Thu,  3 Sep 2026 19:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788463390;
+	bh=M//v4OlN6lA74lYfatdtwp/pjR6qLsg6V+uG4pDwqbs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IUVHrE1Nu8l8phRUdBa7pS6Vop9cvMyvheupOvgqzSdmM7Q6iK42Y9rjOvwNZnxum
+	 YbrkOhKwCTh8iIsQm9KBckb13pEN2GUQAHuffDsopuP6KUu3Qk/zbPJQF/YIsHBwO3
+	 +eNnAGS+xPWHudkGGDjK835IluKjBMbP+qW3e4niEqeVkLRTXzq4/dxVZHfXwnsJwq
+	 7ZBp2NqODTvwKYmLHa3GiyuL1fdUEvD+CdM3j75ptc04mLKQSfD26rWh9XfacoGOvz
+	 gRkJzUlcZ2GKhTM7WwN+FKlX6hRhOViqDwQrL+RBl6MXcbMXSc4yFDABiwyDSaU3SB
+	 VGu3zxKId5rBQ==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	driver-core@lists.linux.dev,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 00/16] rust: io: support register projections and remove relative registers
+Date: Thu,  3 Sep 2026 21:22:48 +0200
+Message-ID: <20260903192248.2248560-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO9P265MB7430:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d661d51-2280-49e8-b57f-08df09d1e721
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|10070799003|366016|1800799024|376014|23010399003|22082099003|18002099003|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	x+UYLVYVb8XH04Trui3EsraKpwmkPfOjkJZhsskKKJn2sDaRrMJkUDP7sxWE9VCnYRTQvJniHc+rS0RoDEAQDKRXgc+WEXR2n7oo1Gw9lvOBALH7VXnOxd5jdqXl5AXi08bVC1vSSQeK+lDvvlwlFKw58I893ql+1X8X9T8g+CABm6RlX8DSxgyvYr8U+vZOTwtwtCW+m1VP3Q6CN2qc3OWpyhPjuBIGR+xa+O8mOeiWoJ9SJFPsjNnpf5RD0OLc1vhW5D3cF4zVxMwB3FyJ+7GBW3tRsoLkzfXCF3WEpHe/jQJuXF0Yt3xc8vmxDoErkf4vLSxFkisB/LGruILryimdxnYhd0bbBdbbOx9vVdo8V7uBQDDCyVpE40kwqFkHKLTpEufnCzCu6JcJ4GXuf3mUDfoMV4BKjW3B1gQAvQ/D2NK9CXt9iDKSaz1uqSKD0VAa2DvyTsYyCnnxh1Ud/MylDhWRDUtHbDQ6cwWlYx9F5+Zn8tUZfoyqrmMNdamTvAe7g84slJmm4/CHYrPk0OhLm4OkviysdannSC+nb18Ic1mdmhJs78rroBIXlfa0okAqSbocgQdcINUIhL7+fxv/oeW3MbnvkG8lZY28YaJF3XOE4TsNttmCv3J/7EfgvC714QLvpjRWA85TqCFbAEuzHACooUmFMQPJBTLW3Rs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(10070799003)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QkVTK1J1RGw5UVQyMWRoMjlNK3JOdFpoTTJlcnQzQmorNWdKajNjRmVpZWpw?=
- =?utf-8?B?TlRGMEN0ditBVEdXU3FPM1luMy85bjBQVitnVlpYVFFCUHRZcHMrZm85N0tI?=
- =?utf-8?B?dXQ1UzJaZjBaZzFudnJWTTVPRWxLNFdnbCtOVWxlYkJpUUlXWUc3Szlsa3M4?=
- =?utf-8?B?bUpqK1lWSWVhUEsyYUhiWUZqRFpTUUtSdmNxblRueFk2WWtpTHZQRHVjd21P?=
- =?utf-8?B?SHRacTNuZ3JxUlpoWllDcG8vZ1BzQVpsZVVqRHdyL2NtL0RXaXZlODlybVNu?=
- =?utf-8?B?QlZKY3p6MGplREVmRXZacTZYL2RIc2p1K01EdEFGZTZzV0I4OUVUcUVRbG1m?=
- =?utf-8?B?ckMyVStFcERzNENHajBmWjBJbXVMK2RUSHBJY3FOMXhXdHF5TkJscHRBZFZu?=
- =?utf-8?B?Ynh4czFIcENONFNuMXZLZEhYKzF4Sk5RdjBjOFZRT0VVcko2aG8zZC8zdDFS?=
- =?utf-8?B?a2ZQVEJ5SHZFNnVZYThtTmczSy9QSGZrMjczWG14ZFRYYWJrU1dEbWFoZ0pq?=
- =?utf-8?B?UEpNYzByNGl2dUxweGxGWWhwa1hMeXY5b2VZazMzL0UrejFsdGNONlgybk5w?=
- =?utf-8?B?bEN3bjFZeGZYbjhRcHhTdGtEem1WNElVZ29JMGxRVWVwWXVSeUd2dDNhc004?=
- =?utf-8?B?c3dQUUVMUWMzUWJ0R0RWRGNBckM3U05Mam9LeVpEN1lKYUxCL0c1TTU0emxp?=
- =?utf-8?B?THpaZmxDQWxYWnZ3eXNtZ2l0SGY4SGIxTHFlZlIraXFMeS9Na0pzRUcwd2pj?=
- =?utf-8?B?SlF0Y0E0dk5td0hOZFIwYVc1Y2t2cC9WOGFSSWxDSFJvNzk3S0NDajBoVUpK?=
- =?utf-8?B?ajEyb1I3SzdqdytiSnMyc05ycm0vazRkVmZwRXAxcmdhaElYUGpxZlNQekJr?=
- =?utf-8?B?Q3JsblFzb29KYUVRVW1sWCtkb1hoa2JvamhGZUNlaDVEeE51TVh6OFJCS1Bp?=
- =?utf-8?B?Y2VQdEhGdzJPWVhsaUVPeWh3QkNBTlp1ZUVjN2VEMUo2RUJkWHg4K1pRelMr?=
- =?utf-8?B?VUhXK0tNRVF5VzA5T1loaXRmelNNZG1aR2lNL0Y0Q1V4ZjR5bEpiWGlXS2pu?=
- =?utf-8?B?OHlmMkF2ZmU5UFJFQXJIOTJZcmwvSkZRZjcwUko1Z0NkVzV1S3lDSXpwMXdi?=
- =?utf-8?B?ZXVuZGdEMlphSmlyZFZFMFVkUUk5Y3RaT25WUXNMMmlzR2NNN1RTRXZ2RlFN?=
- =?utf-8?B?MFc5aW5qakg2VE1LSzRtcExpZ3NRZm15Wm4zQytWcWJ3RGV1SmJ1bGkxL1Ju?=
- =?utf-8?B?WjFBMHB1UTlaUHE1bDBmcXgyeUlYaXE1TFZPU1QvMVNiQktVU05DZExRVStR?=
- =?utf-8?B?cUNVTnlMK3FNWmM0U2VBd3RPVkZOajc4WkQ5VDh2OGlycmpwTGZ1SlJJWFAx?=
- =?utf-8?B?NjVlOXBIZFpwdkczakhrQUVpRjBVQWlQdzNhVmpMaG01SmpJd0gzVW0vYnpE?=
- =?utf-8?B?TURrY0N1ak9LUktmdzZGekFRS0xsMXU0M3VJb3V2OUxmZm9Db0lucVpBMkJj?=
- =?utf-8?B?b1duRUNWY1E0Snh1SHFYOVlKcHFFd0ZqQm1TMFZST2lwWXNzREsrQmw0Zi9Q?=
- =?utf-8?B?bDkrWEVVbTBaNmRIRTNwbWFTblhjc3B2aUhzampaTTFHR2I5ZTlQSmlxa1px?=
- =?utf-8?B?cVZOb1BDazY1VXNUb0VrUEppdUtPZHloVGFXclVqR2d6S1VES3g4U1JGNGhT?=
- =?utf-8?B?VDZmSHllaXY0VUhla0xKMWJTcXR1WnY2OFlvYzRWQStpTmFLWWRyZGNMS3Rz?=
- =?utf-8?B?Y294QlJmZ0lOb1Q1L2c5THdiTk5KaWowbThvUjlGVXUvTzI2QXR5dlJJMjFU?=
- =?utf-8?B?TlZKdWx6ZExlK0NOYXVwNDU1VmQyUFY0K0F1eWMvL1JSYU8rc0gvSWk0YytZ?=
- =?utf-8?B?WEltLzZVUnR6ZUl2dW5qbDlzR0ZHLytGQWt5S3ZCWnE5djR0VHBEQU5pQXNp?=
- =?utf-8?B?N2lTQUFCQXplUFZFZ25TQkhFYmxWWUNmQlJVejUwcVlxSlZPa1pWd0xaV2RL?=
- =?utf-8?B?a3JYYk5ITFNvY1AwYjNOMytObmEwb21KUHd1b1NiWVltVzY2UDlZUUJVc2E1?=
- =?utf-8?B?ZjQ0N2pzdzhMM0ZCMnJydm9hZTc2QXk2aU02cVNCQzc4THlrR1R1RVA2UjRk?=
- =?utf-8?B?M29DVTBwUUViUDR1YjliMlh4ZXUxSStaSERYdnplVXZMaCtZTXpnWTNMMHAy?=
- =?utf-8?B?a0NKUEI4TEVCL0FnTFBPSCtXZHRZUzdacW9nVWIwU05KakhaOUFMeHBPSHdV?=
- =?utf-8?B?NThtc0JPRUI3aEx1TVI4SXJ6L2QwcEQ5dGpmVHEzUlBJVlI3SHR0eGcvUGNN?=
- =?utf-8?B?bzVKTzdkS2ZKdUpqamlrZDcvNzhORldCcGQ3R05iVlhiL0Z0eTdDdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d661d51-2280-49e8-b57f-08df09d1e721
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:42:04.1765
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l9LOcFqf13sK5jrUD3yWh4/6dO2z2sTZURQzw6J0jhWi12MKG6f8XVhg++LooBATQcWyHg7aJfbVTI8OOpciGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7430
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 3, 2026 at 4:22 PM BST, Danilo Krummrich wrote:
-> On Thu Sep 3, 2026 at 3:20 PM CEST, Gary Guo wrote:
->> The rust/kernel code looks good to me. Haven't checked nova part in deta=
-il, but
->> it looks like a mechanical conversion, so would be fine if it builds.
->>
->> Reviewed-by: Gary Guo <gary@garyguo.net>
->>
->> Sashiko points out that the `Coherent` could be leaked -- what's the imp=
-lication
->> when that happens? I think it's not going to be as problematic like
->> registrations because coherent allocation carries no callbacks, so we pr=
-obably
->> don't need this to be unsafe, but I do wonder how'd DMA subsystem handle=
- this.
->
-> The implication if leaked is the same as if it is kept alive past driver =
-unbind,
-> which is why I changed the TODO comment accordingly in the hunk below.
->
-> If you look for a specific example, there's [1] for instance. So, it is
-> problematic, which is why I added the TODO comment back then.
+On Tue, 01 Sep 2026 17:50:24 +0100, Gary Guo wrote:
+> [PATCH v4 00/16] rust: io: support register projections and remove relative registers
 
-Right, so despite that `Coherent` itself not having callbacks, IOMMU side c=
-an
-have callback that associated with `Coherent` instance and thus require dev=
-ice
-to be bound.
+Applied, thanks!
 
->
-> But, we did accept this soundness hole from the get-go for both, keeping =
-a
-> coherent allocation alive beyond driver unbind and for leaking it.
->
-> With this patch it is now impossible to keep it alive beyond driver unbin=
-d, so
-> switching to unsafe now would be a bit odd. :)
+  Branch: topic/rust-io
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
 
-No, I don't want this to be unsafe.
+[1/16] rust: io: register: reimplement as proc macro
+      commit: 63b2578517df
 
-I just wonder if it could be made not unsound at all. I think in this case =
-at
-least it is possible with a revocation mechanism -- the `Coherent` itself i=
-s
-just a piece of memory and does not reference other resoruces, so the
-destructing it late does not matter (unlike registration). So at least it i=
-s
-*possible* to close the hole.
+      [ Fix typo in module-level doc comment and fix ArrayDef syntax
+        description to match the actual macro syntax. - Danilo ]
 
-> (The fact that we did accept this for coherent allocations is also one re=
-ason
-> why I was recently arguing that we can also make the forget() issue an ac=
-cepted
-> soundness hole for registrations.)
->
+[2/16] rust: mem: add `transmute` with deferred size check
+      commit: 82591c20bcb3
 
-For registration because it references other resources so I think we cannot
-close the hole with changes internal to each subsystem.
+      [ Fix doc heading to use plural "Examples" and add missing closing code
+        block delimiter. - Danilo ]
 
-Best,
-Gary
+[3/16] rust: mem: add `AsRepr` and `AsReprMut`
+      commit: 968f30ade612
 
+      [ Fix grammar in from_repr_unchecked() documentation and rephrase
+        confusing safety comment. - Danilo ]
 
-> [1] https://lore.kernel.org/all/6a7910da.9c11d2ce.289b96.00da.GAE@google.=
-com/
->
-> @@ -588,26 +587,20 @@ fn from(value: CoherentBox<T>) -> Self {
->  ///   to an allocated region of coherent memory and `dma_addr` is the DM=
-A address base of the
->  ///   region.
->  /// - The size in bytes of the allocation is equal to size information v=
-ia pointer.
-> -// TODO
->  //
-> -// DMA allocations potentially carry device resources (e.g.IOMMU mapping=
-s), hence for soundness
-> -// reasons DMA allocation would need to be embedded in a `Devres` contai=
-ner, in order to ensure
-> -// that device resources can never survive device unbind.
-> -//
-> -// However, it is neither desirable nor necessary to protect the allocat=
-ed memory of the DMA
-> -// allocation from surviving device unbind; it would require RCU read si=
-de critical sections to
-> -// access the memory, which may require subsequent unnecessary copies.
-> -//
-> -// Hence, find a way to revoke the device resources of a `Coherent`, but=
- not the
-> -// entire `Coherent` including the allocated memory itself.
-> -pub struct Coherent<T: KnownSize + ?Sized> {
-> -    dev: ARef<device::Device>,
-> +// The lifetime parameter ties DMA allocations to the device's bound sco=
-pe, ensuring they are freed
-> +// before the device is unbound under normal circumstances. However, if =
-a `Coherent` is leaked (e.g.
-> +// via `mem::forget`), device resources such as IOMMU mappings will not =
-be released.  Making all
-> +// constructors `unsafe` to prevent this is considered too restrictive f=
-or the common case; this
-> +// soundness hole is accepted for now.
-> +pub struct Coherent<'a, T: KnownSize + ?Sized> {
-> +    dev: &'a device::Device<Bound>,
->      dma_addr: DmaAddress,
->      cpu_addr: NonNull<T>,
->      dma_attrs: Attrs,
->  }
+[4/16] rust: io: perform conversions using `AsRepr`
+      commit: 1e707b76716a
+[5/16] rust: io: support register projections
+      commit: 34b6dc471749
+[6/16] rust: io: register: allow explicit base type specification
+      commit: 70a122d5a342
 
+      [ Remove unnecessary #[allow(unused)] from the 'base' field. - Danilo ]
 
+[7/16] gpu: nova-core: specify base type for registers
+      commit: a07fa2c979c1
+[8/16] drm/tyr: specify base type for registers
+      commit: 573228e75c33
+[9/16] samples: rust: pci: specify base type for registers
+      commit: 54b04b9fc0ea
+[10/16] rust: io: register: make register have a typed base
+      commit: 35c21468c294
+[11/16] rust: io: register: support fixed offset register without bitfield
+      commit: ddeaaa3a0fbb
+[12/16] gpu: nova-core: use projection for PFALCON and PFALCON2 registers
+      commit: 6d5f14077811
+[13/16] gpu: nova-core: convert hshub0 from relative register to projection
+      commit: 4a7a27bd1947
+
+      [ Split nested import into kernel vertical style. - Danilo ]
+
+[14/16] rust: io: register: remove relative registers
+      commit: b6af037d9499
+[15/16] rust: io: register: remove `Register` trait and cleanup macro
+      commit: dfec6f41d053
+[16/16] rust: io: register: unify handling of register with/without bitfields
+      commit: 35423e8fd718
+
+The patches are in the topic/rust-io topic branch and will be merged into the
+corresponding target branch soon.
