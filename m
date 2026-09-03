@@ -1,53 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF8733D6FC;
-	Thu,  3 Sep 2026 03:28:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54AE363090;
+	Thu,  3 Sep 2026 03:29:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406098; cv=none; b=peiyQbmdziKjc3qbePpHR6wPaX7IVZO9XRkxtzuaQHM6qgljwCllx7UZ5Q5PHPJXaFXQEM8IR5C8Mv3pHYNFS4V2uuX2loTvixvJPCqDYM3r3UOySOtT2cnro8ZRMvi9hGsXozBHJZqtPzNyG43TJLNa7xoZHqgFBLtzQPJSY20=
+	t=1788406185; cv=none; b=tElZ0J4X4Gj8sgyY6i0sPjVYvzU+3YQ9Ggm/w128s8TNPN3mCC50IFr5DZUdWpLvheUVKDWkYzVdbfb1Qr7/M9qxBYBNRBekT085pTbgqijgY+Nei0wyt6d+vGaHRMa+exoRdFCCz8OmOn8k7D0DKU85GIstrp+Q0BflDdqbE2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406098; c=relaxed/simple;
-	bh=LLIeUWKOCk5otAaWlv4yCkq14xinl8AatPzj3OUkPK8=;
+	s=arc-20240116; t=1788406185; c=relaxed/simple;
+	bh=WtQED53sr+PQqXAcbFjxIuqVh8jO7xe4FRlTH3xXhWw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HdHheiN/fGmbBoHrLz53bKn/F2mJqGT97iWBAkDSs3fLLRbm3bUrpzbtwTNqNifMdjgo7yVOxQ0kwLm0/tt4Hjq3KfcLZ60nYr33fs2m5Es+HF3I7iXHQgtnNUkyv5MmY3T4QTtDgwZocjbFSj/APgT2psejRuRO/4HsP4PAWpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3UAkRNY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TcEn6znHDjjSB2msrhCi+COM3BZFQEgJ92KzfcDCRVVS+TTLEGrX7m68HoI7cw6+JICZK02iKyteX4kRSs5daHi/MYRFL3W1crMUMy8sCV4nwnwdltmt7q/i5s0GySl2XdWGLWfdgNQyv4rfHWXYx0nkS22lIj3UZgkI6k5ZD+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kd0L77x8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3UAkRNY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BDA71F000E9;
-	Thu,  3 Sep 2026 03:28:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kd0L77x8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA621F000E9;
+	Thu,  3 Sep 2026 03:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788406096;
-	bh=jeUEOADsAwcYEqSMXSL1VYbix6SGg0JvaJgp2m5GgQk=;
+	s=k20260515; t=1788406183;
+	bh=xONfOGAmd1pVhxSdrwbZxTD9yz+LelsOgMqighMVnCc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K3UAkRNY19vffCfk13Gmn95QIv40+/+ujaxfNY8RR6kavCsD7e3tBwOyg0xhKdjOG
-	 zwUZU9+lhn+3nM+HYD+mKozDYQk6WWR8beWJh0Xj0t7f2zbuEGHkx7nAXtkbiiHwXz
-	 Ux132+yDqZ1U9Cy4YkfKET3LFSgHqwnCqnElNOymS+5FPGzdhN1cFrIswsiPyLcnO1
-	 PMSnFaPu8kzRlev8DOOK7vDY6ICmXxmpgQjIUnrOTQ5giNMB6ncuC55f5BBTfywjE9
-	 IWCBVlW6o+jAZKX7lu9KCUM94qL0QSzg28KGCQfvtHodFzUc7f6INSLKAVqRhYfA1P
-	 W6fX6wO1ITgTw==
+	b=Kd0L77x8a2OGmTVCEXAfCwNxzlw8HFzRnyGvEQjO7k4hLeJ6/u3VN9V/kP0CGMvXy
+	 6ZLwCk9al6hOM05OUJmyFdr2E2IuaOFZk2R5rbfkEVTk7BzcJ2oVD7nHLRNXEh0l2p
+	 4h/reKMvPJJLCoFEohkwq+GhaZTZWurnaGYO7zPkJG1eNzFI3gIdEi6/t/+ynteM71
+	 7gJoxrln6pxELUoFWnnQU6K1QiDw744Q0/9WDM5d5/3CXGsR9zLniIu0ryGIIiHbs6
+	 Zcm/WZ5h0Kzk9Upw69CcwTON04eqsyBnGeVVp9EMttmKnrKwx6z6C+xYhfO5O57DcP
+	 Em9A2WHdaSz+A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/14] gpu: nova-core: drive GSP events with the
- SWGEN0 interrupt
+Subject: Re: [PATCH v3 07/14] gpu: nova-core: add an interrupt delivery
+ self-test
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Bjorn Helgaas" <bhelgaas@google.com>, "Alex
- Gaynor" <alex.gaynor@gmail.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Benno
- Lossin" <lossin@kernel.org>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Alexandre
- Courbot" <acourbot@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Will
- Pierce" <wpierce@nvidia.com>, =?utf-8?b?QmrDtnJuIFJveSBCYXJvbg==?= <bjorn3_gh@protonmail.com>, "Boqun
- Feng" <boqun.feng@gmail.com>, "Trevor Gross" <tmgross@umich.edu>, "Gary Guo" <gary@garyguo.net>, nova-gpu@lists.linux.dev, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Simona Vetter" <simona@ffwll.ch>, "Alice
- Ryhl" <aliceryhl@google.com>, LKML <linux-kernel@vger.kernel.org>, "Danilo
- Krummrich" <dakr@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>
-In-Reply-To: <20260903031514.1515905-13-jhubbard@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>, "John
+ Hubbard" <jhubbard@nvidia.com>
+Cc: "Will Pierce" <wpierce@nvidia.com>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Zhi
+ Wang" <zhiw@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
+ Gross" <tmgross@umich.edu>, "David Airlie" <airlied@gmail.com>, LKML <linux-kernel@vger.kernel.org>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Alistair Popple" <apopple@nvidia.com>, nova-gpu@lists.linux.dev,
+ =?utf-8?b?QmrDtnJuIFJveSBCYXJvbg==?= <bjorn3_gh@protonmail.com>, "Benno
+ Lossin" <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>
+In-Reply-To: <20260903031514.1515905-8-jhubbard@nvidia.com>
 References: <20260903031514.1515905-1-jhubbard@nvidia.com>
- <20260903031514.1515905-13-jhubbard@nvidia.com>
+ <20260903031514.1515905-8-jhubbard@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 03:28:14 +0000
-Message-Id: <20260903032815.6BDA71F000E9@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 03:29:41 +0000
+Message-Id: <20260903032942.2DA621F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -56,103 +57,69 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unserviceable GSP falcon interrupts cause an infinite interrupt st=
-orm and CPU soft lockup.
+- [High] The `vectors_ref` field introduces a self-referential struct using=
+ a reference derived from a short-lived macro-local `&mut` binding. `try_pi=
+n_init!` provides access to previously initialized fields via local variabl=
+e bindings, which expire at the end of the initialization closure. Taking a=
+ reference from this local variable and artificially extending its lifetime=
+ to `'gpu` via `unsafe { &*... }` violates strict aliasing rules (Stacked B=
+orrows / Tree Borrows). When the closure returns, the local variable goes o=
+ut of scope, its provenance tag is popped, and `vectors_ref` becomes a dang=
+ling pointer under the Rust memory model. Furthermore, the `pin-init` crate=
+ explicitly documents: "IMPORTANT: You are not allowed to create references=
+ to fields of the struct inside of the initializer."
 --
 
-commit e6648318ceeb9312972b220805b21b9370c7409e
+commit 9bb2c0e6b8faa56d9fead3fb4f99c60340b45be0
 Author: John Hubbard <jhubbard@nvidia.com>
 
-gpu: nova-core: drive GSP events with the SWGEN0 interrupt
-   =20
-This commit implements threaded IRQ handling for the GSP SWGEN0 event in
-nova-core. It replaces polling with an interrupt handler that drains the
-GSP-to-CPU message queue and clears the GIN leaf in hardirq context.
+gpu: nova-core: add an interrupt delivery self-test
 
-> diff --git a/drivers/gpu/nova-core/irq/gsp.rs b/drivers/gpu/nova-core/irq=
-/gsp.rs
-> new file mode 100644
-> index 0000000000000..174488565f790
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/irq/gsp.rs
+Add an optional probe-time self-test that injects the CPU doorbell
+through the GIN software trigger. It confirms the interrupt reaches
+the driver's handler to validate the PCI interrupt path without GSP firmwar=
+e.
+
+> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+> index e1ac8ee9ba4db..8a9bc4baf9ac0 100644
+> --- a/drivers/gpu/nova-core/gpu.rs
+> +++ b/drivers/gpu/nova-core/gpu.rs
 
 [ ... ]
 
-> +impl irq::ThreadedHandler for GspInterrupt<'_> {
-> +    /// Top half: clears the GIN leaf, takes every falcon cause pending =
-for the host, and rearms
-> +    /// PCI interrupt delivery.
-> +    fn handle(&self) -> irq::ThreadedIrqReturn {
-> +        let bar =3D self.bar;
+> @@ -330,6 +337,12 @@ pub(crate) fn new<'a>(
+>          let dev =3D pdev.as_ref();
+> =20
+>          try_pin_init!(Self {
+> +            vectors: crate::irq::alloc_vectors(pdev, crate::irq::SERVICE=
+D_SUBTREE.into())?,
 > +
-> +        // Only service our own vector: require the GSP bit in the leaf =
-and clear just that bit, so
-> +        // a co-pending vector in the same leaf stays pending for whoeve=
-r services it. The subtree
-> +        // stays enabled, so there is no whole-tree disable and enable.
-> +        let leaf =3D self.tree.read_pending(GSP_INTR_0_VECTOR.leaf_index=
-());
-> +        if !leaf.vectors().contains(GSP_INTR_0_VECTOR.leaf_mask()) {
-> +            // Nothing to service, but nova-core is the only consumer of=
- this PCI interrupt, so
-> +            // skipping the rearm here would silence every later interru=
-pt as well.
-> +            self.tree.rearm_pci_irq(GSP_SUBTREE);
-> +            return irq::ThreadedIrqReturn::None;
-> +        }
-> +        leaf.clear_vectors(GSP_INTR_0_VECTOR.leaf_mask());
-> +
-> +        let status =3D GspFalcon::take_host_intr(bar, self.chipset);
-> +
-> +        // A cause left latched holds the falcon's host-routed set non-e=
-mpty, and the falcon
-> +        // signals the tree only on a transition of that set, so no late=
-r SWGEN0 would signal.
-> +        let unserviceable =3D status.with_swgen0(false);
-> +        if unserviceable.into_raw() !=3D 0 {
-> +            // nova-core has no recovery path for a cause other than a p=
-osted message, for example
-> +            // a HALT from a GSP crash, so report it rather than discard=
-ing it.
-> +            dev_err!(
-> +                &self.dev,
-> +                "unserviceable GSP falcon interrupt, IRQSTAT {:#x}\n",
-> +                status.into_raw()
-> +            );
-> +            GspFalcon::clear_intr(bar, unserviceable);
-> +        }
-> +
-> +        // The leaf clear above consumed the tree's record of this inter=
-rupt, and the falcon signals
-> +        // the tree only on a transition of its host-routed causes, so a=
- cause that arrived while
-> +        // this handler ran would never reach the CPU. Re-emit to supply=
- that transition.
-> +        GspFalcon::retrigger_intr(bar, self.chipset);
-> +
-> +        // Delivery resumes only after this, so it must happen on every =
-path that services the
-> +        // vector, including the fault path above.
-> +        self.tree.rearm_pci_irq(GSP_SUBTREE);
+> +            // SAFETY: `vectors` is initialized above, lives at a pinned=
+ stable address, and is
+> +            // dropped after every field that uses `vectors_ref` (struct=
+ field drop order).
+> +            vectors_ref: unsafe { &*core::ptr::from_ref(vectors.as_ref()=
+.get_ref()) },
 
 [Severity: High]
-Does this lead to an interrupt storm if the GSP remains in a fault state li=
-ke a
-HALT or WDT timeout?
+Does this create a dangling pointer under the Rust memory model?
 
-If there is no recovery path to reset the GSP, wouldn't the unserviceable
-interrupt immediately re-latch after GspFalcon::clear_intr() is called?
+`try_pin_init!` provides access to previously initialized fields via local
+variable bindings, which expire at the end of the initialization closure.
+Taking a reference from this local variable and artificially extending its
+lifetime to `'gpu` via `unsafe { &*... }` violates strict aliasing rules
+(Stacked Borrows / Tree Borrows).
 
-The subsequent calls to GspFalcon::retrigger_intr() and self.tree.rearm_pci=
-_irq()
-would then force a new edge to the GIN tree and re-enable PCI delivery,
-potentially trapping the CPU in an endless loop servicing the same unservic=
-eable
-interrupt.
+When the closure returns, the local variable goes out of scope, its
+provenance tag is popped, and `vectors_ref` becomes a dangling pointer.
+The `pin-init` crate also explicitly documents that creating references to
+fields of the struct inside the initializer is not allowed.
 
-Could the GIN leaf source be disabled here instead when encountering an
-unrecoverable fault?
+> +
+>              spec: Spec::new(dev, bar).inspect(|spec| {
+>                  dev_info!(dev,"NVIDIA ({})\n", spec);
+>              })?,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903031514.1515=
-905-1-jhubbard@nvidia.com?part=3D12
+905-1-jhubbard@nvidia.com?part=3D7
