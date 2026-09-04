@@ -1,74 +1,74 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020092.outbound.protection.outlook.com [52.101.196.92])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021120.outbound.protection.outlook.com [52.101.95.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DCF45198B
-	for <nova-gpu@lists.linux.dev>; Fri,  4 Sep 2026 11:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193033B2D1D
+	for <nova-gpu@lists.linux.dev>; Fri,  4 Sep 2026 11:17:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.120
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520445; cv=fail; b=NEHf3adRaHyp3JgxH5dXiQ+bIEqO3eY57jVZexouik8c1sA2RTPYo4q9Z+601/dZqsrw2bqfk/6LwfoBcw88TbF1DAefpmyrF2IYdKwR288tDYjDSboDUclh/7gsIFpLWhgy76VC0yS9Mq0M8gdISO4TM8o6NLhAonTSAvTtjhA=
+	t=1788520650; cv=fail; b=iAw4xFW9yIzN0tWjIbr/1UIWxJnV1e2BYnfCAFe1tOntvMMVMT0Hs+thc9uMODmOIPxrBABjDfR83C0SFGGlov9X0HktdkzjsGIWJIzLnWDyXNrA+mFAWU3YmkUJ2+HLi4pK6BRo6fLauZFazIa0g5j4RnlExWjs7C8JtgxfGlo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520445; c=relaxed/simple;
-	bh=bqNWNl62RbxY/NDmVEweuJtb0an88CZdLXlKjqUmAf8=;
+	s=arc-20240116; t=1788520650; c=relaxed/simple;
+	bh=sgIclST75VQ7j3ON0ZhLuFP6dRDGJk7NiyO9lzNBWY8=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=ZfMt3WQzsLeFgFkKUfGxh9Iwdlks96OTUT/laDsOde3S5oabXBJtKFHMbQG0IJQjgqDvtPynzLPpOvGQHay5dysg1twmo6NQngM0Djf6HIWLoeHKv9g4S/unk9IXzNbX2p8pBb1BvpCpacz/cJE+j65r259yqykqnIk9kCzfXFY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=n8YBBjFt; arc=fail smtp.client-ip=52.101.196.92
+	 In-Reply-To:MIME-Version; b=heGbfqEK1EKKlj2zu1x1cVHX3/7GL0Rp51ib6N0cKf4gqjr2GPIi/wEDGchUK5tVSXiTAWQjywz+rAIWC1PMeorJrgiqlJkidqX38XXQuU4dd7vfek6tkJ7DQc39TtSgpUPstjZNaGi8MDJBCf2RS907Eu76pAlTqPIGi0a3I6o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=zb2sujqr; arc=fail smtp.client-ip=52.101.95.120
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="n8YBBjFt"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="zb2sujqr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W1QLi0ydEVGvUa08AeVqkWhss9eX3Xu6+HaeTGrigQiz9HsOhdZx28q0jlAxtD7WJj6scFeccoTyKXfDJZz4u55OVLm+GaXAHwkVU/Em8dgC4bAqpJXF+FrvwYrCUP9fC9FPcZOxK8Tr4k4RdjYG70IfnwXftA2iYiQa5YfO4FsUtdVfRRrCx9x36GUyM2+OKMV5461CwQC0B01yrwp39VWHhIm97hzMRdUi8kQqh0Zae8XVaUs/hx/EjyvKpcU05XfTvuIu3LAOmgPsKTP1LlrT/M44urYkzE9KI8BjMBWI5ODmXlu6PgB+XC7ShakKuuyMNHf3Bq4smI6ZcOKidQ==
+ b=qIb6A1dJarirLuGDQgUHvONe1wtEWUu4xOkPrkZVymRWG27f8Yl2EJWRYHlYh1SRuCPXVjSH5M6la/TNc1BI8LC9Vp3woJ7rKaokC/GiklWIgvbLh9iwAxk8nX23cpN8ljpngSaEc8TUgZ18rvOWDU7TXJYaU3pzUNwJAqvNtk88gwWcLY14UsLS7j83V9VstC5grEfd0eqTUesQHl5EMQ9j2Qg0Zju1VtM6/MywLxBmuHYDSydTcD98Xe+9qt0LirC8rKhYwFDjT4uTqj9WPhWIZrRUP9eDOwM0OmIkac4PG4Ay8SCf5Yqw27yHO5ZegLjRfJtVFxo6QaArTt6YGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eZCYVPdjMlmHz3zVmHR1qRwFzk2IfgQwat24X/cHyZ4=;
- b=tcZDrfIh6TfiYDFLOZmotrV4xMOuA7eJfqdOuc4bhpbhGxjVLdTemVj557Mp9OQbvkAGaIchZZfeHoJkwjwgcOzGtdihjFFXiWdPpXrmQN39cqx3x84Al0KB/nTPsvWaMK+h8n0LN3o6IpZJuHgJxQU473V2AOG3eZQ3LkOIkhPKbyfsgesvSI24S9JTmoDq1nrID9IpLO+1IlMho2G1XIzlcsbX8OG83lP143oZaGa8y4d+fFCuFPML/i1MejwSe184nbdYmSPm0ZRRAv0YXPlmahTdKTRrW7hw3fXT5TbFh5o4FuAb9/uTjNqAvB8Pv4anaUAiDxgBhd5uRZTNnQ==
+ bh=EJ4q/Qx+U41fcqa0NWQRZoohfoYh6mAPzhrDO45LaPY=;
+ b=WP01ebi66jEnF5X2etsnlDkz8WEe5d5a1ITSc2iPbA/oIDy+wUQPQZsZFLlpi5QCqEGEc7lKmeaVC3If0sIPrpZa2J4xZ6vknPOW4961uk3uFF/hsDxOAqfYC5PFBr6CUIvN/cO0tjgzlMZ9u8ebiRBW6gHe471WFRlKuJHmsTB1vMV006XZov+JKUCa/J9hwHPk5cI4DPNULScxw+bKAA3X6lnW5g9cbEKj4sMwUbDfyfTLkQsGEZoJRmO5w6+Dqbnzqxsn/DNJbiTOJNGKLJF4NvD7CHYkjty2tJLLV88kxXuNpzZaYkXhhInfZuvOvZ2bVSZCrLWhmgFJ2Rjljg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eZCYVPdjMlmHz3zVmHR1qRwFzk2IfgQwat24X/cHyZ4=;
- b=n8YBBjFtouuCcNvWGXVeaAtsu6i1mNNiW+OLn2/lThD0R7uBk6bN9iSZaCVdK6vpmG4fCtl2PmZ+qN2D3RJmjmoO40ThvKsdo0Il2MUyDG3V6EWQ3exyBfPb7s/YOItHUoLVA8MkzZpew4NZTey98MVSUZCYjTZp0+vkkwZPg0Y=
+ bh=EJ4q/Qx+U41fcqa0NWQRZoohfoYh6mAPzhrDO45LaPY=;
+ b=zb2sujqr3zP6XzLWTnNQnZYNQU5JVJ+Ys3yEe7BeqBiJKdJlrb4fD/cDdvoUQuKCUrmbtdUVXiZOSOokHrRo0y+ocBEcRtxvj1AevKLtrZz9h3FfD8l91/lWri/hfj5q6MWvYCT2pb2aHa0P0CIDvRLWqsGccv4m+nhbaFinM34=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB9383.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:29d::13) with
+ by LO2P265MB2542.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:125::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 11:13:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 4 Sep
+ 2026 11:17:22 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 11:13:59 +0000
+ 11:17:20 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 12:13:58 +0100
-Message-Id: <DL6HKYRXHNFK.1D9HYNEPH4GCR@garyguo.net>
-Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
- <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Date: Fri, 04 Sep 2026 12:17:19 +0100
+Message-Id: <DL6HNIUL8F4C.2BK4H023OWBVK@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 09/14] gpu: nova-core: recover the GSP receive path
+ from corrupt framing
 From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alistair Popple"
- <apopple@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>
 X-Mailer: aerc 0.22.0
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
- <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
- <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
- <apdvTgAp5eGezO5t@nvdebian.thelocal>
- <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
- <apioGUDamrCur_oR@nvdebian.thelocal>
- <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-In-Reply-To: <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-X-ClientProxiedBy: LO6P265CA0024.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ff::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+References: <20260903031514.1515905-1-jhubbard@nvidia.com>
+ <20260903031514.1515905-10-jhubbard@nvidia.com>
+ <DL6H5DZZH2LO.2G3VISAA35F0T@nvidia.com>
+In-Reply-To: <DL6H5DZZH2LO.2G3VISAA35F0T@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0179.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18a::22) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -77,144 +77,139 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB9383:EE_
-X-MS-Office365-Filtering-Correlation-Id: a88e6c11-4006-4e06-245c-08df0a759e45
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB2542:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3fd4e1cd-5d3d-45c5-a9b9-08df0a7615d1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|10070799003|3023799007|4143699003|22082099003|18002099003|56012099006|10067099003;
+	BCL:0;ARA:13230040|7416014|23010399003|1800799024|10070799003|366016|376014|18002099003|22082099003|56012099006|4143699003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	6wtNu0tYtZ0cXriZ8WLPDvTBoWJ5ijxHP2pmyke3J35SA7VnXU7XpLbI6XbZpHcrj5wVTJJP+oehlWOxMOGmqU9oqCipuxpEE5eiY/AUcsXYwXIfdopRQhB++zId4SHcYKsyu1iZnlAyVmvlp0YSapGzE+L593FskePF2aQg48JmopUvbQxcX8XqEau+X5FG5mN2Q10o/6pwDl7b9JYG+DEBNfWL676WFmz6LsV0o2bC4fq2E/KG3l1vjJKj7kKakU8eh+9LlBqD9SawhCAeW+rungS3jr/L80MxlQgK2awbgtOhad6sFMFRqQPG/6xpNOL24BJC2ZPPZVOq9EfK8yuWwzfezrvqv3O6KFQT4HiYx+/0LcP+2UCWU2T+fuIkabvFbnH4zS0SWMuithumf1jTIM2jaTPRmYmORMaQKcIGm136dgVhTBUrChHnBYF0aJUuZJV3XLFK1Q38RY1Q91cTQSNpXOSvjGJZTSC3tP0oFOxwKhaH7XILGRx94CB5J/k/sVVL0oEIVkGZ5Cb+ddMcNrBi/DlydDSrjaJYcGIuo6xye9P3WL/vi3f5NGaF++flSO7iouhf7/vAQItt7WO3YBMf9STNgqSSU/7SxQdk2XUlBxPzsF1YXNm6+AuaP8CXI/BXrtxCnRgLxRg2eJF0Nh9v+yBPPZ/R3q0FNWs=
+	IjNTvkuXjRW7VS5IWk4wjpmkoLklDfO87zWJ7tJdR+h/jbyu+FHu1DAxghKOORRJUtRyCL0cyj59A0Z63JrF1SJivrp0+TEptIPaW5f3Xf6QMg++XcPzhHC0DamhHDloWxK6dgs7o+GnoFvakDNlw4jE3AoMa1WfyH4wKRHYfhrV/HcaQ7E2NRxp9Gt2bWU1biOzn6itFHtRC1vmATDIafsCkRajxRCQrlJPWDbpBbyHV1idEM4gXvHmO57edFiePet1KtSLkPd4Ek/DKyZvlhYbVdL6fXWvnLtkv9wwM5RtxrLePnfRYGJRlNVz+sVEiuvYYIbczNVzCLGUAA1+Z0lvXuCWclYXp+q97glJYwMdMMuPQqV3wDIqcrHQQRzxsu7BQnrnGJYupGNbuiJPwRyzA0xxJthzMpQs/rAoeDFdGtPgfkh75hsHKU8FEGHe7AyIAM/Ua7TJSGAtOq7IBLRHTY12IM7029fnVKyi0zAn68/sgLiN/6qmRKmdQU/ro+DJ89WqN8wI9lWK844GnT7jJnakrEvCDd1+eki7ZQpQ/nLmHMKsfpTwahR2FQMVnJDluotAx2ojQxKiXIlfvYzo1wV+s590J0lacx/TTK04nysfFsPwQivEW2Q/wZZXkrXySE3ukXuO6MZWGNQYA/KBSMM4pFXKE++rctztdBU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(10070799003)(3023799007)(4143699003)(22082099003)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(10070799003)(366016)(376014)(18002099003)(22082099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z2RmOFR6SGhGSmJjMnQ5Q094aWd6bmJ2MWZ6MjRGdVdMenY4WDdvNlczODVU?=
- =?utf-8?B?Mmk1dndSTUVBOC90YmRNQjI5U1pMTUNqUHhONnAyZkE0ZE5yUnNxeW1aOHBW?=
- =?utf-8?B?S2t1cjIyZGtXTjByRVU2T0NPTWZVRGNPT3UzalNIalRYMi8zbEVBSXBRczhS?=
- =?utf-8?B?QlJOOC9sZjFXWTNzejVFWWZFL1hhZWw4YlNEb1JrSUFCejBHaW92VWpsdFRI?=
- =?utf-8?B?cUs0V3lUYzk3OHAzT2xyNmN1MWlmRDZML2ZFa2hYamZ5Und6NXVBZ0xUb3dz?=
- =?utf-8?B?Q1pXSlJhVWI0ZFowT2RiWU9LcnpMUFExYmxCY0tTZ1A4MG9zRVhwenoyY1My?=
- =?utf-8?B?N0dxaU9hdlZhdFk4Zm41amdTcXkrbSsvNnJ4dFBJWUhxKzNpYm56U2lsaThF?=
- =?utf-8?B?TkpscDBDZmVQSi9jWU4zR1Y2SExHRHBNc0VRcFI0Q09ucFdVMFNvQlAyZXli?=
- =?utf-8?B?QWdsWTREUDZMdVZ2bVFnMjhQaE9Xa1hyUUM4ekpwWTZnM0hla0pJU3d4QTFj?=
- =?utf-8?B?TGh5bnVaTlNvQVFRZS9POEM4a0xPeWE1QXdLNlZCR01mTERWcWE3QlFxTmFM?=
- =?utf-8?B?Zkc5dWlKem1kenJoRld4b0Q3R2JKUzJjVEtMSUpuaFpHU2VkaHBJTG1QUk45?=
- =?utf-8?B?d3FnSUFtMDRNazlBUHB1VHc3T2tpc21KRkVoWWtyZzlFNklvbDRQOEF5bzVo?=
- =?utf-8?B?MVlBQmExelpwK3pMcms1YWFFRWloNXdBZEljU3VHSGh0ZEhTR2o1b1hRbWdD?=
- =?utf-8?B?MlBoeXIxYVBtZURKK2QwbXAwZWhwejgyWnBDMmxrTndkRlRGTFVkVnJ2Z05m?=
- =?utf-8?B?TTJwYTVVQ1ZYV0QrM0g2Y2MvWExwcGhZaEVPOHdWV3ZER0ZqOEdFeENFNmNZ?=
- =?utf-8?B?cTJ2SlRuSlNmRmxxaUJIQVB2dzBKTnZTaFFtM1JaM3Y4eXRYU3ZwL25EbURB?=
- =?utf-8?B?VHN0WVN2NjI2TThxOEVlWFV2YTNIUHFMUWh2ME0rUmRhK2ZKTTZRVnUrR3I0?=
- =?utf-8?B?Ny9GeHAzemlpMGQ4RElMZ2VENXFjc05PQXZnM3l3SWllT1UxRUNJRzlGTWpE?=
- =?utf-8?B?NStOWityZUFwc3lMSWtwOTFkVDVuc2JPMWRkWExXbW4ydkEwTWpzNWtNYlpu?=
- =?utf-8?B?Y05nTHVmZyszRUl5bDhXVDdFRVF2SEY5bDF3c2hvdUhvdjVRaGZZUm0zWlho?=
- =?utf-8?B?OHNQYWx5ZmtUdEZ6cXkzMXpBdzJpaGRGUjM5aWxldS9CSU9IRjRTcUVibW14?=
- =?utf-8?B?RGtWRVlwdWt3c0V1YWIwZVFEQnlEeWtzODJkU0x6bFlxNkE0OVBraEh1bGd2?=
- =?utf-8?B?SFNoWk5palJwbTBvbW9jUkRvdGFUUmtKY1hBRVBxeGsvNkhtdWNhNVI5Szcr?=
- =?utf-8?B?dHVKSzVXZjBQaDNFcW1RL0xTZnlFdElJV0oyTytlNlNsaVNQQmVBRjVNUFRw?=
- =?utf-8?B?TmJvR1I5ZjNXbFQwMGtZNTBDOGpZeEttTWl4WmJxcmYwTlBJZnE5Wk43MUhX?=
- =?utf-8?B?a3htRUo5QnRja2JWNVdNL2hXRGdrV2E2dUtRVjA4ekl5MnlwT3hndWp2NzBa?=
- =?utf-8?B?d0hWUENoM3Irc2VUTzRzeVZ5Qk0zbVR2M28ydXEwcWlPMUZwM0Y0eGcvM2V0?=
- =?utf-8?B?d1pkMXFUYi9LL0I3aFVQZ0JXUEhkS0VoZ2l0bUQ4L2hrNHJ2N0h2T0NxN3N0?=
- =?utf-8?B?OWRscHVnSm9OTXNDZlJxNmxqU3F3ZjJQRFh1YU02dWE3aXpLWDN1UUFRT3k5?=
- =?utf-8?B?bU1FN3kyRDIvUlVTT1FqMGhha2VXWSttOWEycVdmSGZ4aTNLY2htZ1NiK1Vz?=
- =?utf-8?B?OXh1c1ZKdnR0bDRXSElwSGtYUEZJb21rYytvb0YxQlZvT2VXbmlVRDdydlZn?=
- =?utf-8?B?eGNqSG5JSktDa1d0U1NhMmE5SU9sRGlWWWw3NkhtcDNvWXNzaVZxb0tPQ2hB?=
- =?utf-8?B?bU5SbjdTb0Qvb0dTbjRVMmMyZWoveGxYajVMZ2hncEdEbG81ekQyWDk4TU5z?=
- =?utf-8?B?Q2hwZlFnWWs5c3RBcUN4ZEZsS21OZFNFaExmb011M000RWQ3U05UZDJCdlVi?=
- =?utf-8?B?bHdDKy8xdW1qV2F6N3JTeDdkQnltSjd6a1k5RFR3Y0dDVFFtZFZNNmxqMlZv?=
- =?utf-8?B?NG5KUVFSK0hkWE5ETXhncXVxeHdmRDFwbUhpbS9IdkVQVk83VkpyS3lOcGU3?=
- =?utf-8?B?djR4bi80T3Y2dHYyYUx3cnhSdzdMSzREcFNtenJlZmNDaWJEL0x1VzA2YTBS?=
- =?utf-8?B?enBkb0JkQ0Fvb0tsYklEMGQ1RlFHenh6Nm5CWnFBMXZoaTYwbUlIejBPakVR?=
- =?utf-8?B?STk3ZURPblpDK0UrRmJMZmUwaUk2THZuUG4zMHNBTi90WGQrUnJ6Zz09?=
+	=?utf-8?B?eW5EV21TM0V0dmRoSDBSc3FxenYyVnRxZlc3YUExSFgwTm5HNm1PeGRUak5U?=
+ =?utf-8?B?aEovVkx6eGlHUzdQVDBpNmRuRUU3YmhDUSs5QXZvMDN2NHpFbVhqcisvRXhh?=
+ =?utf-8?B?Z3ozOFlVdmM3NmVqQ3BYUnZQcW1ETnk4aEFsRVlXWUZ0RWIrVGl6ZjFVQ1NQ?=
+ =?utf-8?B?K3VVWW1FZUcycFJXUXg1N2Z5NEZhQXBpcFA1K0RpajZKTTBpbStnMk5lb3g4?=
+ =?utf-8?B?bk8rSHpSOFZEbURRMkh3anEzTG4yVnV0UElqQTlnNnZQdjJCQ09MbFVQeWZH?=
+ =?utf-8?B?REplYThGN0RLQU9jU285aU8wYWFlb1ZvRUpobzJic09CUjdTVlI2eU1zYWF4?=
+ =?utf-8?B?eGlmWVBLQWR2NWZ0eTJxQ1UyUkpmenFTTXBIZDFaRytqbU5iZXVXaDIzZjM1?=
+ =?utf-8?B?TG84R09QdTR6d0JieTJjTnNVckxVZE9QL0VGL3NpUXJudll4WURDSnVHL1cx?=
+ =?utf-8?B?a1BOMlZOYXg0RXVNRmpHekFnYW55RnlPSmdsSGR0V2E3ckx5cEJrdjQ0ZlM4?=
+ =?utf-8?B?V2VaeGIxM0gwNGY4TGc1VERicHNqRklXS3JSWTlTTTlINEpQbHY2b3RUYXB6?=
+ =?utf-8?B?MXVPREpkME1xYWZqVXMyR3QyZytJUDZjNjZrYWNNN2U4R004aFo5QXpXc0RM?=
+ =?utf-8?B?Znp5TGxRcjhaWGxCNER4UlZsbDN3N1NzT3JvUytkVzhLdzJQZXlhcjdIZzVu?=
+ =?utf-8?B?ekF1NFhmK3A5TVV6QWt1Q1NWYXVpSHJzeG1YOFV2cDJDd2x2QjF6MDJsYUha?=
+ =?utf-8?B?TmF6U0lzOFArRnRnR2Y2cStqUnByZ1VjYW5uK052cmRzVks4NkMzWXpNc3hx?=
+ =?utf-8?B?RUovZjJKdms2ckJJUm9aSlY1aEYrSHFsTDA1RGRQSGt4RWp6enZhZFlra0Nt?=
+ =?utf-8?B?SXJ5bmZoQkN2VzJmdWxXSXZqZXJYZWo3d2FNMTExYy9YcERoWWpXUENXOVJm?=
+ =?utf-8?B?TjljcDVhb3BidXVvb2JaNFd1ckNpNXNUYzg2WHpsR1gvbFNnTG01T0l6c3F2?=
+ =?utf-8?B?a3p3ZEJzRGNjenNtTCt5U2pGT3lrd2ZQL3dGbUxRQzhQbHlrNnAvUXNIQWEr?=
+ =?utf-8?B?VitPaVlDdWViWnNMcE5xRFRZNjRibzhoN1h6UXl6NERCWlZWMlQ5L01EMlVj?=
+ =?utf-8?B?ck00b1dvRUIxUThtdXdBOXBJbDc1KzNlTFZmcXBaaGFhRDVzWnEyUW4wMUZH?=
+ =?utf-8?B?blZBSVI4czZoMkw0ZzVBVzZEbktVdURwRldCcnFHMjVwUnI3Z1NlN3U0d0lQ?=
+ =?utf-8?B?bjFCSms5V0xCbEExN0RtNndtcTM2a0JEdGNuRWMyOVI1b1FJMWV4dWg2UDNi?=
+ =?utf-8?B?TWRxbndVS285Qk5PNTJvTFZvQ2swVzNtQ2Q3RFJRTVhuaWtHRDB4UVpHUHdP?=
+ =?utf-8?B?bUNIZE5zc3Voem1uVXgrVzNLOW5vVXpkMzNSVUZoZ3prRDBwMWVPTHVCempt?=
+ =?utf-8?B?RGQxMjNhVUVFSVUrdGx5QzVqRk5Idk0wTXlqbG1Sd1FkRVFPcWZRblVmd1g4?=
+ =?utf-8?B?andqbkFEUjhKamZDOEhKSktxZk4yajhPQnlsN3R3elJyRURsYktmODU1Rmxy?=
+ =?utf-8?B?VGRDYXlTb3JBdnVubE9rcnphVjdkMDhuUStTTXd2TjE1L3VFcDU3M3MvS1Ur?=
+ =?utf-8?B?VEswTXN5REloMUVvcHhwZk9IT3BiWWw4L0JqRjM3Szgzb0ZlQUNsS1FMZnZM?=
+ =?utf-8?B?TXppTlFDRHhUSU9jRkc1MFBDenBjRVdzN2dpNXRxdDBQOEFCblRTL1E0Vnd2?=
+ =?utf-8?B?ek1HSnhvT1dXUThjS3RwSWxBbEJBbG9yZ1FCSnZ4eDd6cHVySG5WTHdDNWNl?=
+ =?utf-8?B?bzloTmRITWEzUDBiZzN5aEg1WlpsVkRUeEI5TXdOdi9JTUdhUFFocXpqL1lC?=
+ =?utf-8?B?WGxWWmNYODQ5ZmRXVmw5aVVnZEVhM0p6bEJBYWtzYXJZWjk2WDV0V253NHB5?=
+ =?utf-8?B?UEc3KzlwdDN5OC8wSGxPeHdNQjBxRnhoaGFOMnlZUlpHWXdGclNVd2p5Ympt?=
+ =?utf-8?B?SUdwd2labmNQTUlYcTNEaXFtWUpMT25Zdm9NUWVmMDhtRU1HMzZxdlFTQlo3?=
+ =?utf-8?B?QmxDcnMxcmY4Z25wVGF4MWR6ZmJaMlFTNHRmb1JLVzJmR2JhUmJzQmdnODAw?=
+ =?utf-8?B?Ly9iQkZhR0FWYkhTcHMxZld5cjBCTWJ5cTVqZlhvSURDTk5nV3ZVTjhhSk1q?=
+ =?utf-8?B?WUhBaVplV3c0ZTRrczJwaTBOQ0VaVlJud3BGOWxkb1pLRGhLZnpjZWlnQWNy?=
+ =?utf-8?B?WjZZbVg1OUhEOVpJY1JBNXlRcE1za3lLVG9WUzM5NVlTYUVPZ0xSL2EvbmhP?=
+ =?utf-8?B?ejFidUlybTF0cGp5Q0tkcmNjTWFhL2NGbTBqbjJ5TWpoMmFIRlpodz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a88e6c11-4006-4e06-245c-08df0a759e45
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fd4e1cd-5d3d-45c5-a9b9-08df0a7615d1
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 11:13:59.3787
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 11:17:19.9785
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JR0aztBHR3LOUqmYUibtSIYv2JZunkkcKlnhpagJL88ilmohHoBFCmfChBhHHAJmxWgj5w4n6Hxf9b7F/0vgkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9383
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4+rlXgDLkDtV4GcTat6Cye3grQpzgQfYHPwlM8A5CqjLIxdOoLP08iuddfhrGOADm0Dez26uxdXgn7KcT6D1wA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2542
 
-On Thu Sep 3, 2026 at 11:42 AM BST, Danilo Krummrich wrote:
-> On Thu Sep 3, 2026 at 3:12 AM CEST, Alistair Popple wrote:
->> Originally I thought the point of providing the decoded arch rather than
->> chip-id
+On Fri Sep 4, 2026 at 11:53 AM BST, Alexandre Courbot wrote:
+> On Thu Sep 3, 2026 at 12:15 PM JST, John Hubbard wrote:
+> <...>
+>> @@ -838,23 +871,26 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeo=
+ut: Delta) -> Result<M>
+>>          let function =3D message.header.function();
+>>          let seq =3D message.header.sequence();
+>> =20
+>> -        // Bind the result rather than returning early. The read pointe=
+r must advance past this
+>> -        // message on every path.
+>> +        // Every path must advance the read pointer past this message, =
+including a failed decode.
+>>          let result =3D if matches!(function, Ok(f) if f =3D=3D M::FUNCT=
+ION) {
+>> -            let (cmd, contents_1) =3D M::Message::from_bytes_prefix(mes=
+sage.contents.0).ok_or(EIO)?;
+>> -            let mut sbuffer =3D SBufferIter::new_reader([contents_1, me=
+ssage.contents.1]);
+>> -
+>> -            M::read(cmd, &mut sbuffer)
+>> -                .map_err(|e| e.into())
+>> -                .inspect(|_| {
+>> -                    if !sbuffer.is_empty() {
+>> -                        dev_warn!(
+>> -                            &self.dev,
+>> -                            "GSP message {:?} has unprocessed data\n",
+>> -                            M::FUNCTION
+>> -                        );
+>> -                    }
+>> -                })
+>> +            match M::Message::from_bytes_prefix(message.contents.0) {
+>> +                Some((cmd, contents_1)) =3D> {
+>> +                    let mut sbuffer =3D SBufferIter::new_reader([conten=
+ts_1, message.contents.1]);
+>> +
+>> +                    M::read(cmd, &mut sbuffer)
+>> +                        .map_err(|e| e.into())
+>> +                        .inspect(|_| {
+>> +                            if !sbuffer.is_empty() {
+>> +                                dev_warn!(
+>> +                                    &self.dev,
+>> +                                    "GSP message {:?} has unprocessed d=
+ata\n",
+>> +                                    M::FUNCTION
+>> +                                );
+>> +                            }
+>> +                        })
+>> +                }
+>> +                None =3D> Err(EIO),
 >
-> I think there never was a "rather than". The point was that if userspace =
-has
-> conditionals based on the architecture it shouldn't have to figure it out=
- based
-> on the chipid, as this has been done by the kernel already.
+> This error path is the only one without a warning. How about:
 >
->> because as you rightfully point out the kernel doesn't (currently at lea=
-st)
->> care much about the implementation
->
-> I still don't see how that value will ever be meaningful, there is no suc=
-h thing
-> as "all GPUs of a certain implementation regardless of architecture" have
-> something in common, is it?
+>     None =3D> Err(EIO)
+>         .inspect_err(|_| dev_warn!(&self.dev, "GSP message {:?} too short=
+\n", M::FUNCTION)),
 
-I don't think it's an issue that implementation field is only meaningful wh=
-en
-you get the architecture. That's pretty common for other IDs, e.g. PCI prod=
-uct
-ID is meaningless without having the vendor ID.
+I don't see why we want to use `inspect_err` here (just to make it an oneli=
+ner?)
 
-You mentioned in an earlier email about the typing, but we could still have
-meaningful impl IDs fully typed like this:
+Please do
 
-    pub enum Arch {
-        Turing(impl_id),
-        Ampere(impl_id),
-        ...
+    None =3D> {
+        dev_warn!(&self.dev, "GSP message {:?} too short\n", M::FUNCTION);
+        Err(EIO)
     }
 
-and some langauges can do better, e.g. TypeScript allow you to write
+Instead.
 
-    enumn ArchId {
-        Turing,
-        Ampere,
-        ...
-    }
-
-    enum TuringImplId { ... }
-    enum AmpereImplId { ... }
-
-    type Id =3D
-        { arch: ArchId.Turing, impl: TuringImplId } |
-        { arch: ArchId.Ampere, impl: AmpereImplId };
-
-So I think it's a reasonable design to have it.
-
->
-> But since you say "currently at least", are there any plans to give this =
-value
-> some meaning beyond being a unique counter for chips within a certain
-> architecture?
->
-> If so, I think that'd be a horrible way to encode some chip commonality.
-
-True, but I think the chip ID is as bad as impl ID. Feature detections shou=
-ld
-use dedicated featuire detection mechanism, not looking up IDs directly. I.=
-e. we
-should have userspace not having to use either chip ID or impl ID as much a=
-s we
-can.
-
-That said, I do think looking up tables are unavoidable, for getting names =
-or
-applying some quirk fixes. And I agree with Alistair that if we include it,
-including impl ID is better than the chip ID, as we should rather not havin=
-g
-user space relying on an arbitrary encoded chip ID.
-
-Best,
+Thanks,
 Gary
+
 
