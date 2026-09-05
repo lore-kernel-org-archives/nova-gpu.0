@@ -1,28 +1,28 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010039.outbound.protection.outlook.com [52.101.193.39])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51F3448B83
-	for <nova-gpu@lists.linux.dev>; Sat,  5 Sep 2026 08:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335E038F250
+	for <nova-gpu@lists.linux.dev>; Sat,  5 Sep 2026 08:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788595985; cv=fail; b=cjjyKXT1ctRH4+ozU0OfrK9gKc42pZy5C76yWhAVmjAXRz7BFPe1vR4PNZNSdNfG8rT7yPnrBbKYhHlGlRoP92uOmBxXtcjhGX597asjJxDwC32nhULrskONkC2Cb+xbdbTydFt/xIu7ZwZANCG4qgPbnIQ6dLvjHGmscPBkakg=
+	t=1788595994; cv=fail; b=Jx3IOSQeYo4qIJV+cV/ot/58My9P+ae9VghHatHtu+DjT9lGVPjUJj4dDjxB8YD0wSD3cwrgvCBOAfQ0/dXS38BQv6lIDj52d/z9RipPfSvCUAL26mK8YN9cTSzHkpy2+Rph0U4Cggsq+kTRyBJ1Eu1XVYaCFks1ZmcmvvxaVQs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788595985; c=relaxed/simple;
-	bh=Ui/SDB8vm2213PM62i1l9SBUSXCsGx4eBVPWStgcg7w=;
+	s=arc-20240116; t=1788595994; c=relaxed/simple;
+	bh=7/nB6HM/oqoPH7OIik8Pcn+qW/0KLQAzYtBneRK1+hM=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EkBYAm5lIlXwRE/NS3aaWR9bQVT/5/af4F/17088yWr17JFuvGCWIWDS2dan/2+IH28EJuDoBE1UfUu6VYU9++TssncMMrp7rB9MTeDoi9tVbw9h1ZkKg0LbwKRZMBdLaQVZenyLSHZ65Ob4DjS0XkLNhem8hB+EUrnN4NTdTv8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Z5IIyqvS; arc=fail smtp.client-ip=52.101.193.39
+	 MIME-Version:Content-Type; b=s9UM+LTAVb299cFwNUcpTcymSErCKSxJqLZaHC68g6mGR8Wg5v6bLpfmp4I3gXIpzeLlv1TmD+Tn3CYdD2yf4BAQbFsgcB2MXioDpeiP1QTcgKO1+N+MqbVIysL2QWTyrgttbPZLal82uCbu5oWA5fnZLbIq1Xjt9OPC9cwQukg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Yz7WIdtT; arc=fail smtp.client-ip=52.101.201.57
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z5IIyqvS"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Yz7WIdtT"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=COu2plDyYB9FakhsYCndFVtySt/fwrOttyAP55vsIwD64u8aGDv9xTPQcfP9e80+ynvKwHJxaLvhCnAYhXh3sivRgUwbkKpxbpl4y77t6nmA5jAjRJytTAzLxXsvfFKCP2JenDYj7hDJOPWLJiqSbUq5NxvxZ/CReeUaOEEcTTjN3b3tq3ngDR9LpHGj9xxRVsv9CREeTvnUKQFauQUl9fTaZswWQre9aMRIvJ/d+Lme1M5n6h7i2WHU7prUb2yqTE/cbJoo3gwkm0H9odnqL/d7ULbGuH9Tnl2uv26YoF0UQGCWpubQNrrwLogPzfxlEpFvlKEMNmAt+x8sHiBVog==
+ b=nOAuAIXFaUeiSnxeJT7PbWE4JPGFFc8kiKah5yvGpBrjBW8BIc5CiP5TEI11nlT4aZVo/ZUQ+tZ5dBCmKoRhisFi11/Nfd5M7pvhEXl6qTNhO0i+I8GIwHykYzT974fAxDCCZ1sB+u/S4EfdJeesEwGswMhWCYVrS+pElGKNNDgP/guFegF9IrSOxHVuu/QhFlXDhooI88gjO99FDBApPF4mOGERKG1I19ieQq0VhTrUQzoKyjvzJ3xFYSfen2BSF2BkNUgEbemT/mS4CXhI3+7CgoyFv4w4LeuEBBcWurdOaCU6ktL34ZSJrAFcqVeFh7l8LgqQkHfjerbuenr1Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ingBitExWoe4T8PPakYonJ/ti/6wrhvbHlllleknNyU=;
- b=P2U11+0L5inIEELGo4UxRBoR9Smj4Q1jTLKkIlL0icY/DwCXIgv4g44EXzv3cXIaqxoanuXbMAn/v1Jr6HUaZV1L3oadj0mnoRlvtFIFgVBS7cc80IxdvXQiF3muDNwLsWVSIXHf+3FeULqhuaAJgi/zwxO/KPDuO9jQVuQJnLZAqxiVBfY8qiPwJEoW2gOxV0fEm8F9IbdHPjHMmSsukVsojI9cBSBiTqDuK2HYVLOcNUglIjlgT1+a3i+CxPKej/7nu0FL2yk2VqPsk8blc29sOHcNocrdqWUsGSLiY2XuW6OornNnrogDQrRtwPJg/aNsdgCsNqsSuiG2FOjIcg==
+ bh=IfHeJrkdzk+fQ/IBiqSIcYx0wBMdgr1ZDAjybSL+qYc=;
+ b=G5+w0PQoquDgyQErzSe186Df4gtgg2XYLjxVZJgQqHSoW5nH0VJ5nN7WNrOaYuRlHF97aTl0yPJRipYb4pVzvdxT2T3/hBvjGiSKIs0lQIvqjsro38g8hlUOT73/Hn7ydiuPvFU0iZDm3b3QCzLJq4Q043cw0ax7jbWpWda+8V+ieiTa4HOGAwIdnSnIM3Bt1T6aWXlk1y8414Utt24wISGinnzCo1zvXNYex6fdU7efxAVTWiYuRorBNBuIg8bQAdNknRM6xglkxrdy5r/TL1G0fpkoM9zKijkkJJF4KJ5ff/rWxXBNPh8x4RcUGTTEBcpMU2TVAgmgCseYa9UYiw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ingBitExWoe4T8PPakYonJ/ti/6wrhvbHlllleknNyU=;
- b=Z5IIyqvSqQ7euWjqK8awk0b4+jFeh8ZG1qIL6IcyWqu9HL9voiU/Zz68o5AtLl2nda/v8qGLWwjHL3gomvyepxe6bofZ3BgvXaCIEb5dGMVJ+WQsrzFI9gvBp41UvYccQ43tNoOdXV0/UmPERNlJE+Zt5q2Bzl2gUL8FnePafWO+lziN/HL5Z7Ra6WhsdgGjPq6x4OUC+H9+5Gygx7uSF6rTf09kl2iKDNJyTSrTCmBuyWKDV4FP0+i/ALAGkhI3kMZ5RB1WIjm8bcG9etj/R8sd5hCIMFk8gHNImgRj8IryTGIpOB/yHFAWS3WDjkwNI4Pe0XvqgJpoq93xiL9d1Q==
-Received: from BN9P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::14)
- by CY5PR12MB6382.namprd12.prod.outlook.com (2603:10b6:930:3e::10) with
+ bh=IfHeJrkdzk+fQ/IBiqSIcYx0wBMdgr1ZDAjybSL+qYc=;
+ b=Yz7WIdtTjU58Ngxb87Ilp2l2Va/7vE05bymOcPWJnM1Atw9lv3tGNxncPsDRBLCMRZISt3ST8STqsKlGPrcFb2x2Y40sdzagLidx5Ms1mUroGcUKo/4y/kcR3jlhg6uJLsYCooeKj/hCTBT9C570PK129PvMcti+DXpYBQPvEIdcjGzStCOmIDFMuez+XI0ov/wDi+P86mWEXum/qt/xCtaMbSC9GDdJnuJrc/hBC6Ln8+MADhrCeEi+5gWbTdviqynkgawCIaYeR0/9S1Og2H/0KGMt6rxM04I8QE5fQoqbiiTmj+YCCroB59yckZ+6/dcGXdDZ23evpoOPv3Qlow==
+Received: from BN1PR12CA0026.namprd12.prod.outlook.com (2603:10b6:408:e1::31)
+ by PH7PR12MB6658.namprd12.prod.outlook.com (2603:10b6:510:211::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
- 2026 08:12:41 +0000
-Received: from BN6PEPF00000075.namprd03.prod.outlook.com
- (2603:10b6:408:13e:cafe::4a) by BN9P220CA0009.outlook.office365.com
- (2603:10b6:408:13e::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Sat, 5
- Sep 2026 08:12:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
+ 2026 08:12:51 +0000
+Received: from BN6PEPF00000070.namprd03.prod.outlook.com
+ (2603:10b6:408:e1:cafe::25) by BN1PR12CA0026.outlook.office365.com
+ (2603:10b6:408:e1::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.14 via Frontend Transport; Sat, 5
+ Sep 2026 08:12:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.161 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.161) by
- BN6PEPF00000075.mail.protection.outlook.com (10.167.248.202) with Microsoft
+ BN6PEPF00000070.mail.protection.outlook.com (10.167.248.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Sat, 5 Sep 2026 08:12:41 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ 15.21.406.5 via Frontend Transport; Sat, 5 Sep 2026 08:12:50 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 5 Sep
- 2026 01:12:28 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 01:12:37 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 5 Sep
- 2026 01:12:28 -0700
+ 2026 01:12:36 -0700
 Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.7)
  with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Sat, 5 Sep
- 2026 01:12:20 -0700
+ 2026 01:12:28 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
@@ -76,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH 07/13] gpu: nova-core: vgpu: add vGPU bootload
-Date: Sat, 5 Sep 2026 11:11:10 +0300
-Message-ID: <20260905081116.106613-8-zhiw@nvidia.com>
+Subject: [PATCH 08/13] gpu: nova-core: vgpu: implement PluginRpc channel and config params
+Date: Sat, 5 Sep 2026 11:11:11 +0300
+Message-ID: <20260905081116.106613-9-zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260905081116.106613-1-zhiw@nvidia.com>
 References: <20260905081116.106613-1-zhiw@nvidia.com>
@@ -93,168 +93,131 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000075:EE_|CY5PR12MB6382:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11cf1baf-e2a0-4e0e-91d9-08df0b2574dc
+X-MS-TrafficTypeDiagnostic: BN6PEPF00000070:EE_|PH7PR12MB6658:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8acf7ab-57dc-499d-e4a1-08df0b257aa0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|7416014|82310400026|11063799006|56012099006|10067099003|22082099003|18002099003|3023799007;
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|7416014|376014|23010399003|10067099003|56012099006|22082099003|6133799003|11063799006|3023799007|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	RrcJ/BLg7l5mdk8oR8AG/oNpQN4R6CyvEtE89t79X/p6DjYU/9KjVgNGAYX/CQE54ZbtYmDeLnsaLI61L3qtCM0vUjgKqiv0yHwf9Mo9wGcmshiXhQX9o+8E8HzZJoUPX9hSoW1y3o1DfmmmjfS5fKS0V/XO/iWD/41JbmE7jey0sKDFwRkL2HXIT9XPfWDddg7rUYiCUJOEgrX4Y1Sv9dzxYlaUN/dsoHR5+Oqvcg8HwD+TbH3sMSkF3Uqj9qbPO43SPuuy8Dv8QUL3z1udTyvpyvIWvBh+NxKfUxZGQpuWxmNkH/8rUruQyJaWYdtMNb5GNBIogOsq/zlVJbWsYlOc3mq7FmmD4QKOBfgiShVjAOfx+VmcFKjeDegBYLBx5pIiME/0fQJPA3EY2h7r2trDmlG3ZbPuZgtKawhvkMP8oyjddkS8s4iMxP9tI0VT/H6sFMwbjau23MMq+uQXOcs/69AAxusR5ANmZGas02CSYxBKJ/EMmBkhmmLKm8/8GYWSknwdP8tYs+fm27Vcw1uqUtVNUZlfVkZSpU4T+VB+WWZBlQbc27FIWQcFNeV3o5Jd7YDmQg4mptjuznhMIVjZcbaH9XlA/anee+e1GURJBqJmINaBoxR8yBagZpIhl+Jp1euMmEQgcw48B9Auafl+9rpTKL0Y/8HQKPUd266aTd74aCOw2z5dZwwKbf1sFV1vbJ9hZUvR3tB9xb+VbA==
+	F1DJeoLUh+U6ifSo1UzxehUfSFd79SmKMp4HCGDFQ+NGbFv9+Osih0nEN1vNuaUT4sJxyKWdRymRGB/0HmK/UKzWoHvgO56HIrdoGR3tizVb0JTqY82MYjOBhgFV6s2UScXJoPLIynsexhlnWCBBJHAgjFpxWXbQane7Rei7pA2HpkjDpy6M+Eo1XH79CPjsP2L0neorLvtxlvid/VF34XJl6KjnQNihmA83zgK62rTm/RlhZphw7Fpw7siHUNnhgYLLFcpshBi7OFYOkkal52cJuNaT5Qe91W5yKSBkRT7bMuKH2cnmfLzQtNsvD8KXe9WmuCsyGPoP/A4qkD5CzELzTnnOCo6MTZZaNlFwCmNt6dxKqEMerbp02ABAVnCiuhB+LqWglCAPGsn3l8jieZHglKVk/MxAtdZWbsriMO1VWCPwXxEqTAmhy5N1qiOgOS2a6SY2wa6FTOF18MSCev2KmNIzMuTR1/txg1ia5pmjcu7zdWKk32y0eky8A+8V6OCFkpxTmXQcXeMZ3bJsLVgzMu2mTz0jthkMvkF3j22dI9MVft2TZZyrCu696adkPmG5fSnBE6dfoPFPlNnDcumiYz75Dy8H5vqHqAJmmYv96z1KdgcWiomOt4RHppuEp+PAwF89zEfK8g1dmCEZlED5+43voHYUm7vd6ej3BJ6GUq0t7534/ih1tHpEtJ4BpROLKi+JMzsTjNjCnU2fEA==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(7416014)(82310400026)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(7416014)(376014)(23010399003)(10067099003)(56012099006)(22082099003)(6133799003)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	I6JgC3mNmloZFCrFMzqZOkEkkNqXudh2LcAhP9Nm+MdU1SDCdsruQ75xN8EZbc9YGcY0Zx4IlOUqDKKrHZFe8hdEikWAWGqlURrBxR6D+qviId0vVA6GMYibPMfcAVKohEcAd+ksryOdxMBpwAXcb+f8vD7mu7e/+o0upobv/stQ5bEc6PAM1E4EFwcKiEBhbmw/kaS7j2h/LTHVLaR0FWSxG/LAJi+TtLjcdgzZ4fm/81d0/ZU6n9Ii3JXJVCNDEnINpjRiMHH2LuinYA39l0O68EZYVbBGPUq5evsXXc/H6xhzi6lXoHq6N1MEvULTqxIDlyjXkqjgAWEeCHJfUwNAPdsUWxSoO1N6PnrNp0vk2EPI3VBL6cplLYKOV30uKwI2Kl82yt4msLl64OD872evQMbSHyiQubOf8tfc0BzTte6L2fJANIygj9kdrq1P
+	ZpO1s61rBxvrRgxfoQ8jIhfKYTvaEvol57H6srDdiA2gqGZam+RVDVnogRIrhb0GU+l2QFg1GXklKpPep966lCRGUdV6/t/Tzl23XD8KOlmj4g8RrUhiVpYEPi+BsAsFDAbC+RJtSB/fG6IIt5PNa87YD6O+cbekZhW5XpQsM/ZLA583Sq//cHuxymFfauDV6WEvXnI3xtjgrNhw6E24Dprb0zaPctOd2ohQqdAL7Nij0+dFhFQAdHUuuOXWpkAdoS8jf8uODZiUXDCPk59VVFQxDzf1L6LwMvy1cEoaB0D9/HIXHE0BkoBgxXgsXx2p2FxddTmlFIyPRm4pHrn8LGuNeo9YSRhN2NwUTgGxFN8rTcn2LlWK9Cyjo3r+sq8LcDXbcwzh/9BAKMDI2tDwU5UlIJQbn6U69z3Fe8XqRTTgzI3b1ALzqG2IpefMYJ5k
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 08:12:41.0337
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 08:12:50.7153
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11cf1baf-e2a0-4e0e-91d9-08df0b2574dc
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8acf7ab-57dc-499d-e4a1-08df0b257aa0
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000075.namprd03.prod.outlook.com
+	BN6PEPF00000070.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6382
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6658
 
-Implement the GMCAPI VGPU_BOOTLOAD command that boots the GSP plugin
-for a vGPU instance, together with the VGPU_SHUTDOWN and VGPU_CLEANUP
-teardown sequence.
+Extend PluginRpc from a boot-ready poller into the BAR1-backed RPC
+channel used by the vGPU plugin.
 
-Encode the typed channel map, framebuffer, management heap and log
-locations, then poll the PluginRpc BAR1 marker for boot completion.
+Initialize the control and response regions, publish NVKV-encoded
+messages through the message region, ring the VF doorbell, and match
+responses by sequence number. Negotiate the protocol, send the VM
+configuration, and enable bus mastering after the plugin starts.
 
-Co-developed-by: Alok Kumar <alkumar@nvidia.com>
-Signed-off-by: Alok Kumar <alkumar@nvidia.com>
+Keep raw firmware message IDs in fw/commands.rs and retain ownership of
+the communication mapping in PluginRpc so teardown can release it after
+firmware cleanup.
+
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/commands.rs    |   2 +
- drivers/gpu/nova-core/gsp/fw.rs          |  18 ++-
- drivers/gpu/nova-core/gsp/fw/commands.rs |  60 +++++++
- drivers/gpu/nova-core/mm/vram.rs         |   3 -
- drivers/gpu/nova-core/vgpu/bootload.rs   | 162 +++++++++++++++++++
- drivers/gpu/nova-core/vgpu/consts.rs     |   8 +
- drivers/gpu/nova-core/vgpu/fw.rs         | 193 +++++++++++++++++++++++
- drivers/gpu/nova-core/vgpu/instance.rs   | 100 ++++++++++--
- drivers/gpu/nova-core/vgpu/mod.rs        |   2 +
- drivers/gpu/nova-core/vgpu/plugin_rpc.rs |  65 ++++++++
- drivers/gpu/nova-core/vgpu/vram.rs       |   2 -
- 11 files changed, 598 insertions(+), 17 deletions(-)
- create mode 100644 drivers/gpu/nova-core/vgpu/bootload.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/plugin_rpc.rs
+ drivers/gpu/nova-core/gsp/commands.rs     |   2 +
+ drivers/gpu/nova-core/gsp/fw.rs           |   6 +
+ drivers/gpu/nova-core/gsp/fw/commands.rs  |  45 +++++
+ drivers/gpu/nova-core/mm/bar_user.rs      |  11 ++
+ drivers/gpu/nova-core/vgpu/consts.rs      |   7 +
+ drivers/gpu/nova-core/vgpu/fw.rs          | 192 +++++++++++++++++++-
+ drivers/gpu/nova-core/vgpu/fw/commands.rs |  29 +++
+ drivers/gpu/nova-core/vgpu/instance.rs    |  30 +++-
+ drivers/gpu/nova-core/vgpu/plugin_rpc.rs  | 209 +++++++++++++++++++++-
+ 9 files changed, 519 insertions(+), 12 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/vgpu/fw/commands.rs
 
 diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index bdb358a19738..481ec8e221ce 100644
+index 481ec8e221ce..fbbff257300f 100644
 --- a/drivers/gpu/nova-core/gsp/commands.rs
 +++ b/drivers/gpu/nova-core/gsp/commands.rs
 @@ -54,6 +54,8 @@
  };
  
  pub(crate) use fw::commands::{
-+    encode_vgpu_bootload,
-+    ChannelMapEntry,
++    encode_plugin_config_params,
++    encode_plugin_set_bme,
+     encode_vgpu_bootload,
+     ChannelMapEntry,
      Dbdf,
-     VgpuProperties, //
- };
 diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index f8c6fc5ea8a7..d68b790533af 100644
+index d68b790533af..686120224d0f 100644
 --- a/drivers/gpu/nova-core/gsp/fw.rs
 +++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -7,8 +7,24 @@
- /// Raw firmware declarations used by vGPU management.
- pub(crate) mod vgpu_bindings {
-     pub(crate) use super::r000_00::{
-+        GMCAPI_COMMANDS_GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK,
-+        GMCAPI_COMMANDS_GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES,
-         GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE,
--        GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES, //
-+        GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES,
-+        GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK,
-+        GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE,
-+        GSP_PLUGIN_BOOTLOADED,
-+        VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE,
-+        VGPU_CPU_GSP_CTRL_BUFF_REGION,
-+        VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
-+        VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE, //
+@@ -14,15 +14,21 @@ pub(crate) mod vgpu_bindings {
+         GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK,
+         GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE,
+         GSP_PLUGIN_BOOTLOADED,
++        MESSAGE_NV_VGPU_CPU_RPC_MSG_RESET,
++        MESSAGE_NV_VGPU_CPU_RPC_MSG_SETUP_CONFIG_PARAMS_AND_INIT,
++        MESSAGE_NV_VGPU_CPU_RPC_MSG_UPDATE_BME_STATE,
++        MESSAGE_NV_VGPU_CPU_RPC_MSG_VERSION_NEGOTIATION,
+         VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE,
+         VGPU_CPU_GSP_CTRL_BUFF_REGION,
+         VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE,
++        VGPU_CPU_GSP_CTRL_BUFF_VERSION,
+         VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
+         VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
+         VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE,
+         VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
+         VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
+         VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
++        VGPU_CPU_GSP_RESPONSE_BUFF_REGION,
+         VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
+         VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE, //
      };
- }
- 
 diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 0603fbde172f..fe4a7af88ec7 100644
+index fe4a7af88ec7..d7d52fa33d29 100644
 --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
 +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -537,6 +537,13 @@ pub(crate) struct ChannelMapEntry(u64) {
- 
- impl ChannelMapEntry {
-     const KEY: KeyId = 0x1001;
-+
-+    pub(crate) fn new(engine_type: usize, index: u32, chid_offset: u32) -> Result<Self> {
-+        Self::zeroed()
-+            .try_with_engine_type(u64::try_from(engine_type).map_err(|_| EOVERFLOW)?)
-+            .and_then(|entry| entry.try_with_index(u64::from(index)))
-+            .and_then(|entry| entry.try_with_chid_offset(u64::from(chid_offset)))
-+    }
+@@ -784,6 +784,40 @@ impl PluginConfigParamsRequest {
+     const FEATURE_FLAGS_KEY: KeyId = 0x0030;
  }
  
- impl Encodeable for KVVec<ChannelMapEntry> {
-@@ -611,6 +618,59 @@ impl VgpuBootloadRequest {
-     const MIG_RM_HEAP_LENGTH_KEY: KeyId = 0x100E;
- }
- 
-+/// Encodes a `VGPU_BOOTLOAD` request using the typed NVKV schema.
-+#[expect(clippy::too_many_arguments)]
-+pub(crate) fn encode_vgpu_bootload(
++/// Encodes plugin configuration parameters using the typed NVKV schema.
++pub(crate) fn encode_plugin_config_params(
++    uuid: [u8; 16],
 +    dbdf: Dbdf,
-+    gfid: u32,
 +    vgpu_type: u32,
 +    vm_pid: u32,
 +    num_channels: u32,
 +    num_plugin_channels: u32,
-+    channel_mapping: KVVec<ChannelMapEntry>,
-+    guest_fb_address: u64,
-+    guest_fb_length: u64,
-+    plugin_heap_address: u64,
-+    plugin_heap_length: u64,
-+    ctrl_buffer_offset: u64,
-+    init_log_address: u64,
-+    init_log_size: u64,
-+    vgpu_log_address: u64,
-+    vgpu_log_size: u64,
-+    kernel_log_address: u64,
-+    kernel_log_size: u64,
 +) -> Result<KVVec<u64>> {
-+    let request = VgpuBootloadRequest {
++    let request = PluginConfigParamsRequest {
++        uuid: uuid.into(),
 +        dbdf: dbdf.into(),
-+        gfid: gfid.into(),
++        dev_inst: 0.into(),
 +        vgpu_type: vgpu_type.into(),
 +        vm_pid: vm_pid.into(),
 +        swizz_id: SwizzId::WHOLE_GPU.into(),
 +        num_channels: num_channels.into(),
 +        num_plugin_channels: num_plugin_channels.into(),
-+        guest_fb_segment_count: 1.into(),
-+        options: VgpuBootloadOptions::zeroed().into(),
-+        channel_mapping,
-+        guest_fb_segment_phys_addr: Array::new(&[guest_fb_address])?,
-+        guest_fb_segment_length: Array::new(&[guest_fb_length])?,
-+        plugin_heap_phys_addr: plugin_heap_address.into(),
-+        plugin_heap_length: plugin_heap_length.into(),
-+        ctrl_buff_offset: ctrl_buffer_offset.into(),
-+        init_task_log_offset: init_log_address.into(),
-+        init_task_log_size: init_log_size.into(),
-+        vgpu_task_log_offset: vgpu_log_address.into(),
-+        vgpu_task_log_size: vgpu_log_size.into(),
-+        kernel_log_offset: kernel_log_address.into(),
-+        kernel_log_size: kernel_log_size.into(),
-+        mig_rm_heap_phys_addr: 0.into(),
-+        mig_rm_heap_length: 0.into(),
++        vmm_cap: 0.into(),
++        migration_feature: MigrationFeature::KVM.into(),
++        hypervisor_type: HypervisorType::Unknown.into(),
++        cpu_arch: CpuArch::X86_64.into(),
++        page_size: 4096.into(),
++        feature_flags: FeatureFlags::zeroed()
++            .with_enable_uvm(true)
++            .with_vmm_migration(true)
++            .into(),
 +    };
 +
 +    let mut encoder = Encoder::new();
@@ -262,693 +225,692 @@ index 0603fbde172f..fe4a7af88ec7 100644
 +    Ok(encoder.finish())
 +}
 +
- // VGPU_MGMT_QUERY_PROPERTIES
+ // UPDATE_BME_STATE
  
- nvkv_decode! {
-diff --git a/drivers/gpu/nova-core/mm/vram.rs b/drivers/gpu/nova-core/mm/vram.rs
-index 87b7ce7f2c93..4a4bd42c9f18 100644
---- a/drivers/gpu/nova-core/mm/vram.rs
-+++ b/drivers/gpu/nova-core/mm/vram.rs
-@@ -86,19 +86,16 @@ fn new(backing: Arc<VramBlock>, range: Range<u64>) -> Result<Self> {
+ nvkv_encode! {
+@@ -798,6 +832,17 @@ impl PluginSetBmeRequest {
+     const BME_ENABLE_KEY: KeyId = 0x0100;
+ }
+ 
++/// Encodes a plugin BME state update using the typed NVKV schema.
++pub(crate) fn encode_plugin_set_bme(enable: bool) -> Result<KVVec<u64>> {
++    let request = PluginSetBmeRequest {
++        bme_enable: enable.into(),
++    };
++
++    let mut encoder = Encoder::new();
++    request.encode(&mut encoder)?;
++    Ok(encoder.finish())
++}
++
+ #[kunit_tests(nova_core_fw_commands)]
+ mod tests {
+     use crate::gsp::nvkv::{
+diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
+index adc23ac6d467..158160fbf352 100644
+--- a/drivers/gpu/nova-core/mm/bar_user.rs
++++ b/drivers/gpu/nova-core/mm/bar_user.rs
+@@ -141,6 +141,12 @@ pub(crate) fn try_read32(&self, offset: usize) -> Result<u32> {
+         self.bar_user.bar1.try_read32(off)
      }
  
-     /// Return the physical address of the first byte in this region.
--    #[expect(dead_code)]
-     pub(crate) const fn address(&self) -> u64 {
-         self.address
++    /// Write an 8-bit value at the given offset.
++    pub(crate) fn try_write8(&self, value: u8, offset: usize) -> Result {
++        let off = self.bar_offset(offset)?;
++        self.bar_user.bar1.try_write8(value, off)
++    }
++
+     /// Write a 32-bit value at the given offset.
+     pub(crate) fn try_write32(&self, value: u32, offset: usize) -> Result {
+         let off = self.bar_offset(offset)?;
+@@ -270,6 +276,11 @@ pub(crate) fn try_read32(&self, offset: usize) -> Result<u32> {
+             .try_read32(self.bar_offset(offset, size_of::<u32>())?)
      }
  
-     /// Return the region size in bytes.
--    #[expect(dead_code)]
-     pub(crate) const fn size(&self) -> u64 {
-         self.size
++    pub(crate) fn try_write8(&self, value: u8, offset: usize) -> Result {
++        self.bar1
++            .try_write8(value, self.bar_offset(offset, size_of::<u8>())?)
++    }
++
+     pub(crate) fn try_write32(&self, value: u32, offset: usize) -> Result {
+         self.bar1
+             .try_write32(value, self.bar_offset(offset, size_of::<u32>())?)
+diff --git a/drivers/gpu/nova-core/vgpu/consts.rs b/drivers/gpu/nova-core/vgpu/consts.rs
+index 2ebbf2a0daa3..13aabefa4ecf 100644
+--- a/drivers/gpu/nova-core/vgpu/consts.rs
++++ b/drivers/gpu/nova-core/vgpu/consts.rs
+@@ -18,3 +18,10 @@ pub(crate) mod gmc {
+     pub(crate) const CLEANUP: u32 =
+         bindings::GMCAPI_COMMANDS_GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES;
+ }
++
++/// vGPU plugin RPC values not provided by the firmware bindings.
++pub(crate) mod plugin_rpc {
++    pub(crate) const DOORBELL_STRIDE: u32 = 32;
++    pub(crate) const DOORBELL_VECTOR: u32 = 17;
++    pub(crate) const NV_VIRTUAL_FUNCTION_PRIV_DOORBELL: usize = 0xb8_0000 + 0x2200;
++}
+diff --git a/drivers/gpu/nova-core/vgpu/fw.rs b/drivers/gpu/nova-core/vgpu/fw.rs
+index 3cd77f0cd62e..db6f535998a9 100644
+--- a/drivers/gpu/nova-core/vgpu/fw.rs
++++ b/drivers/gpu/nova-core/vgpu/fw.rs
+@@ -1,6 +1,13 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
++mod commands;
++
++pub(crate) use commands::{
++    RpcMessage,
++    RpcResponse, //
++};
++
+ use kernel::prelude::*;
+ 
+ use crate::{
+@@ -16,6 +23,7 @@
+ };
+ 
+ type RawControlRegion = bindings::VGPU_CPU_GSP_CTRL_BUFF_REGION;
++type RawResponseRegion = bindings::VGPU_CPU_GSP_RESPONSE_BUFF_REGION;
+ 
+ /// Physical VRAM regions containing the vGPU plugin logs.
+ pub(crate) struct PluginLogRegions {
+@@ -64,9 +72,14 @@ fn take_region(region: &VramRegion, cursor: &mut u64, size: u32) -> Result<VramR
+ pub(crate) struct CommBufferRegion<'gpu> {
+     map: Bar1Map<'gpu>,
+     control: VramRegion,
++    response: VramRegion,
++    message: VramRegion,
++    migration: VramRegion,
++    error: VramRegion,
+     init_log: VramRegion,
+     vgpu_log: VramRegion,
+     kernel_log: VramRegion,
++    guest_trace: VramRegion,
+ }
+ 
+ impl<'gpu> CommBufferRegion<'gpu> {
+@@ -85,22 +98,22 @@ pub(crate) fn new(
+             &mut cursor,
+             bindings::VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE,
+         )?;
+-        take_region(
++        let response = take_region(
+             &region,
+             &mut cursor,
+             bindings::VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
+         )?;
+-        take_region(
++        let message = take_region(
+             &region,
+             &mut cursor,
+             bindings::VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
+         )?;
+-        take_region(
++        let migration = take_region(
+             &region,
+             &mut cursor,
+             bindings::VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
+         )?;
+-        take_region(
++        let error = take_region(
+             &region,
+             &mut cursor,
+             bindings::VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
+@@ -120,13 +133,16 @@ pub(crate) fn new(
+             &mut cursor,
+             bindings::VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
+         )?;
+-        take_region(
++        let guest_trace = take_region(
+             &region,
+             &mut cursor,
+             bindings::VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
+         )?;
+ 
+-        if cursor != total_size || control.size() != u64::try_from(size_of::<RawControlRegion>())? {
++        if cursor != total_size
++            || control.size() != u64::try_from(size_of::<RawControlRegion>())?
++            || response.size() != u64::try_from(size_of::<RawResponseRegion>())?
++        {
+             return Err(EINVAL);
+         }
+ 
+@@ -135,9 +151,14 @@ pub(crate) fn new(
+         Ok(Self {
+             map,
+             control,
++            response,
++            message,
++            migration,
++            error,
+             init_log,
+             vgpu_log,
+             kernel_log,
++            guest_trace,
+         })
      }
  
-     /// Return a checked subregion relative to this region.
--    #[expect(dead_code)]
-     pub(crate) fn subregion(&self, range: Range<u64>) -> Result<Self> {
-         let size = range
-             .end
-diff --git a/drivers/gpu/nova-core/vgpu/bootload.rs b/drivers/gpu/nova-core/vgpu/bootload.rs
+@@ -169,6 +190,21 @@ fn read_u32(&self, region: &VramRegion, field: usize) -> Result<u32> {
+             .try_read32(self.io_offset(region, field, size_of::<u32>())?)
+     }
+ 
++    fn write_u8(&self, region: &VramRegion, field: usize, value: u8) -> Result {
++        self.map
++            .try_write8(value, self.io_offset(region, field, size_of::<u8>())?)
++    }
++
++    fn write_u32(&self, region: &VramRegion, field: usize, value: u32) -> Result {
++        self.map
++            .try_write32(value, self.io_offset(region, field, size_of::<u32>())?)
++    }
++
++    fn write_u64(&self, region: &VramRegion, field: usize, value: u64) -> Result {
++        self.map
++            .try_write64(value, self.io_offset(region, field, size_of::<u64>())?)
++    }
++
+     /// Return the physical regions occupied by the three plugin logs.
+     pub(crate) fn plugin_logs(&self) -> Result<PluginLogRegions> {
+         Ok(PluginLogRegions {
+@@ -188,6 +224,150 @@ pub(crate) fn is_plugin_ready(&self) -> Result<bool> {
+         Ok(value == bindings::GSP_PLUGIN_BOOTLOADED)
+     }
+ 
++    /// Initialize the shared control and response buffers for plugin RPC.
++    pub(crate) fn initialize(&self) -> Result {
++        self.write_u64(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.response_buff_offset),
++            u64::try_from(self.region_offset(&self.response)?)?,
++        )?;
++        self.write_u64(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_buff_offset),
++            u64::try_from(self.region_offset(&self.message)?)?,
++        )?;
++        self.write_u64(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.migration_buff_offset),
++            u64::try_from(self.region_offset(&self.migration)?)?,
++        )?;
++        self.write_u64(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.error_buff_offset),
++            u64::try_from(self.region_offset(&self.error)?)?,
++        )?;
++        self.write_u64(
++            &self.control,
++            core::mem::offset_of!(
++                RawControlRegion,
++                __bindgen_anon_1.guest_rpc_trace_buff_offset
++            ),
++            u64::try_from(self.region_offset(&self.guest_trace)?)?,
++        )?;
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(
++                RawControlRegion,
++                __bindgen_anon_1.migration_buf_cpu_access_offset
++            ),
++            0,
++        )?;
++        self.write_u8(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.is_migration_in_progress),
++            0,
++        )?;
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.error_buff_cpu_get_idx),
++            0,
++        )?;
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(
++                RawControlRegion,
++                __bindgen_anon_1.guest_rpc_trace_buff_cpu_get_idx
++            ),
++            0,
++        )?;
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.attached_vgpu_count),
++            1,
++        )?;
++        self.write_u8(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.is_gr_init_done),
++            0,
++        )?;
++
++        // The heap is not guaranteed to have been zeroed. Clear both sides'
++        // sequence state before publishing the control-buffer version.
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_type),
++            0,
++        )?;
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_seq_num),
++            0,
++        )?;
++        self.write_u32(
++            &self.response,
++            core::mem::offset_of!(
++                RawResponseRegion,
++                __bindgen_anon_1.message_seq_num_processed
++            ),
++            0,
++        )?;
++        self.write_u32(
++            &self.response,
++            core::mem::offset_of!(RawResponseRegion, __bindgen_anon_1.result_code),
++            0,
++        )?;
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.version),
++            bindings::VGPU_CPU_GSP_CTRL_BUFF_VERSION,
++        )
++    }
++
++    /// Copy and publish one RPC request to firmware.
++    pub(crate) fn submit(&self, message: RpcMessage, sequence: u32, data: &[u8]) -> Result {
++        if u64::try_from(data.len()).map_err(|_| EOVERFLOW)? > self.message.size() {
++            return Err(E2BIG);
++        }
++
++        for (index, chunk) in data.chunks(size_of::<u32>()).enumerate() {
++            let mut bytes = [0u8; size_of::<u32>()];
++            bytes[..chunk.len()].copy_from_slice(chunk);
++            let field = index.checked_mul(size_of::<u32>()).ok_or(EOVERFLOW)?;
++            self.write_u32(&self.message, field, u32::from_le_bytes(bytes))?;
++        }
++
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_type),
++            message as u32,
++        )?;
++        self.write_u32(
++            &self.control,
++            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_seq_num),
++            sequence,
++        )
++    }
++
++    /// Read firmware's response for an expected RPC sequence.
++    pub(crate) fn response(&self, expected_sequence: u32) -> Result<RpcResponse> {
++        let sequence = self.read_u32(
++            &self.response,
++            core::mem::offset_of!(
++                RawResponseRegion,
++                __bindgen_anon_1.message_seq_num_processed
++            ),
++        )?;
++        if sequence != expected_sequence {
++            return Ok(RpcResponse::Pending { sequence });
++        }
++
++        let status = self.read_u32(
++            &self.response,
++            core::mem::offset_of!(RawResponseRegion, __bindgen_anon_1.result_code),
++        )?;
++        Ok(RpcResponse::Complete { status })
++    }
++
+     /// Invalidate the PTEs and release the communication mapping.
+     pub(crate) fn destroy(self, bar_user: &BarUser<'gpu>, mm: &mut GpuMm<'_>) -> Result {
+         self.map.destroy(bar_user, mm)
+diff --git a/drivers/gpu/nova-core/vgpu/fw/commands.rs b/drivers/gpu/nova-core/vgpu/fw/commands.rs
 new file mode 100644
-index 000000000000..0d382af46158
+index 000000000000..8527e2c430bf
 --- /dev/null
-+++ b/drivers/gpu/nova-core/vgpu/bootload.rs
-@@ -0,0 +1,162 @@
++++ b/drivers/gpu/nova-core/vgpu/fw/commands.rs
+@@ -0,0 +1,29 @@
 +// SPDX-License-Identifier: GPL-2.0
 +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+use kernel::{
-+    device,
-+    prelude::*,
-+    time::Delta,
-+    transmute::AsBytes, //
-+};
++use crate::gsp::vgpu_bindings as bindings;
 +
-+use crate::{
-+    driver::Bar0,
-+    gsp::{
-+        cmdq::Cmdq,
-+        commands::{
-+            encode_vgpu_bootload,
-+            ChannelMapEntry,
-+            FifoEngineList, //
-+        },
++/// State observed in the response buffer for an expected RPC sequence.
++pub(crate) enum RpcResponse {
++    /// Firmware has not completed the expected sequence.
++    Pending {
++        /// Last sequence completed by firmware.
++        sequence: u32,
 +    },
-+    vgpu::consts::gmc, //
-+};
-+
-+use super::instance::{
-+    Gfid,
-+    VgpuInstance, //
-+};
-+
-+/// Build the typed channel mapping from the GSP FIFO engine list.
-+fn channel_mapping(
-+    fifo_engine_list: &FifoEngineList,
-+    chid_offset: u32,
-+) -> Result<KVVec<ChannelMapEntry>> {
-+    let mut mapping = KVVec::new();
-+    for &gmc_id in &fifo_engine_list.gmc_ids[..fifo_engine_list.count] {
-+        let engine_type = (gmc_id & 0xffff) as usize;
-+        let index = gmc_id >> 16;
-+        mapping.push(
-+            ChannelMapEntry::new(engine_type, index, chid_offset)?,
-+            GFP_KERNEL,
-+        )?;
-+    }
-+    Ok(mapping)
-+}
-+
-+/// Bootload the GSP vGPU plugin and wait for its BAR1 ready indication.
-+pub(crate) fn bootload(
-+    dev: &device::Device<device::Bound>,
-+    cmdq: &Cmdq,
-+    bar: Bar0<'_>,
-+    instance: &VgpuInstance<'_>,
-+    fifo_engine_list: &FifoEngineList,
-+) -> Result {
-+    let fb = &instance.vram_slot.fbmem;
-+    let mgmt = &instance.vram_slot.mgmt_heap;
-+    let logs = instance.plugin_rpc.plugin_logs()?;
-+
-+    let payload = encode_vgpu_bootload(
-+        instance.dbdf,
-+        instance.gfid.0,
-+        instance.vgpu_type.vgpu_type_id(),
-+        instance.vm_pid,
-+        u32::try_from(instance.chids.len()).map_err(|_| EOVERFLOW)?,
-+        instance.num_plugin_channels,
-+        channel_mapping(
-+            fifo_engine_list,
-+            u32::try_from(instance.chids.start).map_err(|_| EOVERFLOW)?,
-+        )?,
-+        fb.address(),
-+        fb.size(),
-+        mgmt.address(),
-+        mgmt.size(),
-+        0,
-+        logs.init().address(),
-+        logs.init().size(),
-+        logs.vgpu().address(),
-+        logs.vgpu().size(),
-+        logs.kernel().address(),
-+        logs.kernel().size(),
-+    )?;
-+
-+    dev_dbg!(
-+        dev,
-+        "bootload: gfid={} sending {} typed NVKV bytes\n",
-+        instance.gfid.0,
-+        payload.len() * size_of::<u64>(),
-+    );
-+
-+    // BOOTLOAD completes synchronously. The receive path dispatches any RM RPC
-+    // frames that arrive before matching the response by command and sequence.
-+    let response = cmdq.send_gmc_and_receive_timeout(
-+        bar,
-+        gmc::BOOTLOAD,
-+        AsBytes::as_bytes(payload.as_slice()),
-+        0,
-+        Delta::from_secs(10),
-+    )?;
-+    if response.status != 0 {
-+        return Err(EIO);
-+    }
-+
-+    instance.plugin_rpc.wait_plugin_ready(dev)?;
-+
-+    dev_dbg!(dev, "bootload: gfid={} plugin ready\n", instance.gfid.0);
-+    Ok(())
-+}
-+
-+/// Shut down a vGPU plugin task and wait for its completion event.
-+pub(crate) fn shutdown(
-+    dev: &device::Device<device::Bound>,
-+    cmdq: &Cmdq,
-+    bar: Bar0<'_>,
-+    gfid: Gfid,
-+) -> Result {
-+    let payload = gfid.0.to_le_bytes();
-+
-+    cmdq.send_gmc_and_wait_event(
-+        bar,
-+        gmc::SHUTDOWN,
-+        &payload,
-+        Delta::from_secs(10),
-+        |command_id, status, _sequence, payload_0, payload_1| {
-+            if command_id != gmc::SHUTDOWN_COMPLETE
-+                || !payload
-+                    .iter()
-+                    .copied()
-+                    .eq(Iterator::chain(payload_0.iter(), payload_1.iter())
-+                        .take(payload.len())
-+                        .copied())
-+            {
-+                return Ok(false);
-+            }
-+            if status != 0 {
-+                return Err(EIO);
-+            }
-+            Ok(true)
-+        },
-+        |command_id, status, _sequence, _payload_0, _payload_1| {
-+            dev_dbg!(
-+                dev,
-+                "shutdown: ignoring unrelated event command={:#x} status={:#x}\n",
-+                command_id,
-+                status,
-+            );
-+            Ok(())
-+        },
-+    )?;
-+    dev_dbg!(dev, "shutdown: gfid={} stopped\n", gfid.0);
-+    Ok(())
-+}
-+
-+/// Release firmware resources after a plugin task has stopped.
-+pub(crate) fn cleanup(
-+    dev: &device::Device<device::Bound>,
-+    cmdq: &Cmdq,
-+    bar: Bar0<'_>,
-+    gfid: Gfid,
-+) -> Result {
-+    cmdq.send_gmc_and_check_status(bar, gmc::CLEANUP, &gfid.0.to_le_bytes())?;
-+    dev_dbg!(dev, "cleanup: gfid={} done\n", gfid.0);
-+    Ok(())
-+}
-diff --git a/drivers/gpu/nova-core/vgpu/consts.rs b/drivers/gpu/nova-core/vgpu/consts.rs
-index 7ec577ec12f2..2ebbf2a0daa3 100644
---- a/drivers/gpu/nova-core/vgpu/consts.rs
-+++ b/drivers/gpu/nova-core/vgpu/consts.rs
-@@ -9,4 +9,12 @@ pub(crate) mod gmc {
-         bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES;
-     pub(crate) const VGPU_MGMT_QUERY_ASSIGNED_VF: u32 =
-         bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE;
-+    pub(crate) const BOOTLOAD: u32 =
-+        bindings::GMCAPI_COMMANDS_GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK;
-+    pub(crate) const SHUTDOWN: u32 =
-+        bindings::GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK;
-+    pub(crate) const SHUTDOWN_COMPLETE: u32 =
-+        bindings::GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE;
-+    pub(crate) const CLEANUP: u32 =
-+        bindings::GMCAPI_COMMANDS_GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES;
- }
-diff --git a/drivers/gpu/nova-core/vgpu/fw.rs b/drivers/gpu/nova-core/vgpu/fw.rs
-index edfb0f984b6d..3cd77f0cd62e 100644
---- a/drivers/gpu/nova-core/vgpu/fw.rs
-+++ b/drivers/gpu/nova-core/vgpu/fw.rs
-@@ -1,2 +1,195 @@
- // SPDX-License-Identifier: GPL-2.0
- // SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+use kernel::prelude::*;
-+
-+use crate::{
-+    gsp::vgpu_bindings as bindings,
-+    mm::{
-+        bar_user::{
-+            Bar1Map,
-+            BarUser, //
-+        },
-+        vram::VramRegion,
-+        GpuMm, //
++    /// Firmware has completed the expected sequence.
++    Complete {
++        /// Firmware result code.
++        status: u32,
 +    },
-+};
-+
-+type RawControlRegion = bindings::VGPU_CPU_GSP_CTRL_BUFF_REGION;
-+
-+/// Physical VRAM regions containing the vGPU plugin logs.
-+pub(crate) struct PluginLogRegions {
-+    init: VramRegion,
-+    vgpu: VramRegion,
-+    kernel: VramRegion,
 +}
 +
-+impl PluginLogRegions {
-+    /// Return the init-task log region.
-+    pub(crate) const fn init(&self) -> &VramRegion {
-+        &self.init
-+    }
-+
-+    /// Return the vGPU-task log region.
-+    pub(crate) const fn vgpu(&self) -> &VramRegion {
-+        &self.vgpu
-+    }
-+
-+    /// Return the kernel-task log region.
-+    pub(crate) const fn kernel(&self) -> &VramRegion {
-+        &self.kernel
-+    }
-+}
-+
-+/// Take the next firmware-defined subregion from a communication buffer.
-+fn take_region(region: &VramRegion, cursor: &mut u64, size: u32) -> Result<VramRegion> {
-+    let end = cursor.checked_add(u64::from(size)).ok_or(EOVERFLOW)?;
-+    let subregion = region.subregion(*cursor..end)?;
-+    *cursor = end;
-+    Ok(subregion)
-+}
-+
-+/// BAR1 mapping and semantic regions of a vGPU CPU-GSP communication buffer.
-+///
-+/// The host and GSP plugin exchange control, response, message, migration,
-+/// error, and diagnostic data through firmware-defined subregions of the
-+/// management heap. Firmware accesses that VRAM directly; the host accesses
-+/// the same storage through the owned BAR1 mapping.
-+///
-+/// The firmware bindings define each subregion's size and order, but are used
-+/// only to describe the layout. Field accesses must use the BAR1 I/O accessors
-+/// because bindgen does not preserve C `volatile` semantics. Keep this object
-+/// alive while the plugin or a host reader can use the buffer, then consume it
-+/// with [`Self::destroy`] after those users have stopped.
-+pub(crate) struct CommBufferRegion<'gpu> {
-+    map: Bar1Map<'gpu>,
-+    control: VramRegion,
-+    init_log: VramRegion,
-+    vgpu_log: VramRegion,
-+    kernel_log: VramRegion,
-+}
-+
-+impl<'gpu> CommBufferRegion<'gpu> {
-+    /// Map the communication portion of a plugin management heap.
-+    pub(crate) fn new(
-+        bar_user: &BarUser<'gpu>,
-+        mm: &mut GpuMm<'_>,
-+        management_heap: &VramRegion,
-+    ) -> Result<Self> {
-+        let total_size = u64::from(bindings::VGPU_CPU_GSP_COMMUNICATION_BUFF_TOTAL_SIZE);
-+        let region = management_heap.subregion(0..total_size)?;
-+        let mut cursor = 0;
-+
-+        let control = take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_CTRL_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_RESPONSE_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_MESSAGE_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_MIGRATION_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_ERROR_BUFF_REGION_SIZE,
-+        )?;
-+        let init_log = take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_INIT_TASK_LOG_BUFF_REGION_SIZE,
-+        )?;
-+        let vgpu_log = take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_VGPU_TASK_LOG_BUFF_REGION_SIZE,
-+        )?;
-+        let kernel_log = take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_KERNEL_TASK_LOG_BUFF_REGION_SIZE,
-+        )?;
-+        take_region(
-+            &region,
-+            &mut cursor,
-+            bindings::VGPU_CPU_GSP_GUEST_RPC_TRACE_BUFF_REGION_SIZE,
-+        )?;
-+
-+        if cursor != total_size || control.size() != u64::try_from(size_of::<RawControlRegion>())? {
-+            return Err(EINVAL);
-+        }
-+
-+        let map = Bar1Map::new(bar_user, mm, region, true)?;
-+
-+        Ok(Self {
-+            map,
-+            control,
-+            init_log,
-+            vgpu_log,
-+            kernel_log,
-+        })
-+    }
-+
-+    fn region_offset(&self, region: &VramRegion) -> Result<usize> {
-+        let offset = region
-+            .address()
-+            .checked_sub(self.map.region().address())
-+            .ok_or(EINVAL)?;
-+        if offset.checked_add(region.size()).ok_or(EOVERFLOW)? > self.map.region().size() {
-+            return Err(EINVAL);
-+        }
-+
-+        usize::try_from(offset).map_err(|_| EOVERFLOW)
-+    }
-+
-+    fn io_offset(&self, region: &VramRegion, field: usize, width: usize) -> Result<usize> {
-+        let field_end = field.checked_add(width).ok_or(EOVERFLOW)?;
-+        if u64::try_from(field_end).map_err(|_| EOVERFLOW)? > region.size() {
-+            return Err(EINVAL);
-+        }
-+
-+        self.region_offset(region)?
-+            .checked_add(field)
-+            .ok_or(EOVERFLOW)
-+    }
-+
-+    fn read_u32(&self, region: &VramRegion, field: usize) -> Result<u32> {
-+        self.map
-+            .try_read32(self.io_offset(region, field, size_of::<u32>())?)
-+    }
-+
-+    /// Return the physical regions occupied by the three plugin logs.
-+    pub(crate) fn plugin_logs(&self) -> Result<PluginLogRegions> {
-+        Ok(PluginLogRegions {
-+            init: self.init_log.clone(),
-+            vgpu: self.vgpu_log.clone(),
-+            kernel: self.kernel_log.clone(),
-+        })
-+    }
-+
-+    /// Return whether firmware has published the plugin boot marker.
-+    pub(crate) fn is_plugin_ready(&self) -> Result<bool> {
-+        let value = self.read_u32(
-+            &self.control,
-+            core::mem::offset_of!(RawControlRegion, __bindgen_anon_1.message_seq_num),
-+        )?;
-+
-+        Ok(value == bindings::GSP_PLUGIN_BOOTLOADED)
-+    }
-+
-+    /// Invalidate the PTEs and release the communication mapping.
-+    pub(crate) fn destroy(self, bar_user: &BarUser<'gpu>, mm: &mut GpuMm<'_>) -> Result {
-+        self.map.destroy(bar_user, mm)
-+    }
++/// Message types supported by the nova-core plugin RPC channel.
++#[derive(Clone, Copy)]
++#[repr(u32)]
++pub(crate) enum RpcMessage {
++    VersionNegotiation = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_VERSION_NEGOTIATION,
++    SetupConfigParamsAndInit = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_SETUP_CONFIG_PARAMS_AND_INIT,
++    #[expect(dead_code)]
++    Reset = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_RESET,
++    UpdateBmeState = bindings::MESSAGE_NV_VGPU_CPU_RPC_MSG_UPDATE_BME_STATE,
 +}
 diff --git a/drivers/gpu/nova-core/vgpu/instance.rs b/drivers/gpu/nova-core/vgpu/instance.rs
-index ed304945330a..834b647e254a 100644
+index 834b647e254a..161b49d93de5 100644
 --- a/drivers/gpu/nova-core/vgpu/instance.rs
 +++ b/drivers/gpu/nova-core/vgpu/instance.rs
-@@ -4,6 +4,7 @@
- use core::num::NonZeroUsize;
- 
- use kernel::{
-+    device,
-     prelude::*,
-     ptr::Alignment,
-     sizes::SizeConstants, //
-@@ -17,12 +18,23 @@
-         commands::{
-             decode_vgpu_properties,
-             Dbdf,
-+            FifoEngineList,
-             VgpuProperties, //
+@@ -34,7 +34,10 @@
          },
-     },
--    mm::GpuMm,
-+    mm::{
-+        bar_user::BarUser,
-+        GpuMm, //
-+    },
-     vgpu::{
-+        bootload::{
-+            bootload,
-+            cleanup,
-+            shutdown, //
-+        },
          consts::gmc,
-+        fw::CommBufferRegion,
-+        plugin_rpc::PluginRpc,
+         fw::CommBufferRegion,
+-        plugin_rpc::PluginRpc,
++        plugin_rpc::{
++            PluginConfigParams,
++            PluginRpc, //
++        },
          vram::{
              VgpuVramLayout,
              VgpuVramSlot,
-@@ -59,6 +71,10 @@ pub(crate) struct VgpuType {
+@@ -353,7 +356,11 @@ pub(crate) fn query_vgpu_type(cmdq: &Cmdq, bar: Bar0<'_>, type_id: u32) -> Resul
+     Ok(VgpuType::from_properties(&properties))
  }
  
- impl VgpuType {
-+    pub(crate) const fn vgpu_type_id(&self) -> u32 {
-+        self.vgpu_type_id
-+    }
+-/// Bootload the GSP plugin for an allocated instance.
++/// Start the vGPU plugin and establish its RPC channel.
++///
++/// Ask GSP to create the plugin task, wait for its BAR1 ready marker,
++/// initialize the shared RPC buffers, negotiate the protocol, send the
++/// instance configuration, and enable bus mastering.
+ #[expect(dead_code)]
+ pub(crate) fn activate_instance(
+     dev: &device::Device<device::Bound>,
+@@ -362,5 +369,22 @@ pub(crate) fn activate_instance(
+     instance: &mut VgpuInstance<'_>,
+     fifo_engine_list: &FifoEngineList,
+ ) -> Result {
+-    bootload(dev, cmdq, bar, instance, fifo_engine_list)
++    bootload(dev, cmdq, bar, instance, fifo_engine_list)?;
 +
-     fn from_properties(properties: &VgpuProperties) -> Self {
-         let mut name = [0; 64];
-         let name_len = properties.name.len().min(name.len());
-@@ -99,6 +115,24 @@ pub(crate) struct VgpuInstance<'gpu> {
-     pub(crate) chids: ChannelIdReservation<'gpu>,
-     pub(crate) num_plugin_channels: u32,
-     pub(crate) vram_slot: VgpuVramSlot,
-+    pub(crate) plugin_rpc: PluginRpc<'gpu>,
++    let params = PluginConfigParams::new(
++        [0; 16],
++        instance.dbdf,
++        instance.vgpu_type.vgpu_type_id,
++        instance.vm_pid,
++        u32::try_from(instance.chids.len()).map_err(|_| EOVERFLOW)?,
++        instance.num_plugin_channels,
++    );
++    let gfid = instance.gfid;
++    let rpc = &mut instance.plugin_rpc;
++    rpc.init_rpc()?;
++    rpc.negotiate_rpc_version(dev, bar, gfid)?;
++    rpc.send_config_params(dev, bar, gfid, &params)?;
++    rpc.set_bme(dev, bar, gfid, true)?;
++
++    Ok(())
+ }
+diff --git a/drivers/gpu/nova-core/vgpu/plugin_rpc.rs b/drivers/gpu/nova-core/vgpu/plugin_rpc.rs
+index d6077a468672..f1fa6fe238fb 100644
+--- a/drivers/gpu/nova-core/vgpu/plugin_rpc.rs
++++ b/drivers/gpu/nova-core/vgpu/plugin_rpc.rs
+@@ -3,6 +3,7 @@
+ 
+ use kernel::{
+     device,
++    io::Io,
+     prelude::*,
+     time::{
+         delay::fsleep,
+@@ -10,31 +11,80 @@
+         Instant,
+         Monotonic, //
+     },
++    transmute::AsBytes, //
+ };
+ 
+ use crate::{
++    driver::Bar0,
++    gsp::commands::{
++        encode_plugin_config_params,
++        encode_plugin_set_bme,
++        Dbdf, //
++    },
+     mm::{
+         bar_user::BarUser,
+         GpuMm, //
+     },
+     vgpu::fw::{
+         CommBufferRegion,
+-        PluginLogRegions, //
++        PluginLogRegions,
++        RpcMessage,
++        RpcResponse, //
+     },
+ };
+ 
++use super::{
++    consts::plugin_rpc as consts,
++    instance::Gfid, //
++};
++
+ /// Host-side ready limit from `vmiopd_negotiate_cpu_gsp_version()` in
+ /// `vmiop-vgpu.c`, which polls the same boot marker for 10 seconds.
+ const PLUGIN_READY_TIMEOUT: Delta = Delta::from_secs(10);
+ 
+-/// BAR1-backed channel used to communicate with the vGPU plugin.
++/// Values sent in the plugin's setup-configuration RPC.
++pub(crate) struct PluginConfigParams {
++    uuid: [u8; 16],
++    dbdf: Dbdf,
++    vgpu_type: u32,
++    vm_pid: u32,
++    num_channels: u32,
++    num_plugin_channels: u32,
 +}
 +
-+impl<'gpu> VgpuInstance<'gpu> {
-+    /// Unmap the plugin communication buffer and return the slot release token.
-+    fn unmap_and_take_slot(
-+        self,
-+        bar_user: &BarUser<'gpu>,
-+        mm: &mut GpuMm<'_>,
-+    ) -> Result<VgpuVramSlot> {
-+        let Self {
-+            plugin_rpc,
-+            vram_slot,
-+            ..
-+        } = self;
-+        plugin_rpc.destroy(bar_user, mm)?;
-+        Ok(vram_slot)
++impl PluginConfigParams {
++    pub(crate) const fn new(
++        uuid: [u8; 16],
++        dbdf: Dbdf,
++        vgpu_type: u32,
++        vm_pid: u32,
++        num_channels: u32,
++        num_plugin_channels: u32,
++    ) -> Self {
++        Self {
++            uuid,
++            dbdf,
++            vgpu_type,
++            vm_pid,
++            num_channels,
++            num_plugin_channels,
++        }
 +    }
++}
++
++/// BAR1-backed channel used to communicate with one vGPU plugin.
+ pub(crate) struct PluginRpc<'gpu> {
+     comm: CommBufferRegion<'gpu>,
++    message_sequence: u32,
  }
  
- /// Identity and firmware profile used to allocate an instance.
-@@ -166,10 +200,13 @@ fn release_vram_slot(&mut self, slot: VgpuVramSlot) {
-         allocator.release(slot);
+ impl<'gpu> PluginRpc<'gpu> {
++    /// Create a channel over the mapped communication buffer.
+     pub(crate) fn new(comm: CommBufferRegion<'gpu>) -> Self {
+-        Self { comm }
++        Self {
++            comm,
++            message_sequence: 0,
++        }
      }
  
--    /// Allocate resources and register a new inactive vGPU instance.
-+    /// Allocate resources, map the management communication region, and
-+    /// register a new inactive vGPU instance.
-     pub(crate) fn allocate_instance(
-         &mut self,
--        mm: &GpuMm<'_>,
-+        dev: &device::Device<device::Bound>,
-+        bar_user: &BarUser<'gpu>,
-+        mm: &mut GpuMm<'_>,
-         vgpu: &VgpuManager<'gpu>,
-         info: InstanceInfo,
-     ) -> Result<Gfid> {
-@@ -220,6 +257,21 @@ pub(crate) fn allocate_instance(
-             fb_align: vgpu.vmmu_segment_size().ok_or(ENODEV)?,
-         };
-         let vram_slot = self.alloc_vram_slot(mm, layout)?;
-+        let comm = match CommBufferRegion::new(bar_user, mm, &vram_slot.mgmt_heap) {
-+            Ok(comm) => comm,
-+            Err(error) => {
-+                // A failed page-table update may have installed a partial mapping without
-+                // returning a handle that can unmap it. Keep the slot reserved so its backing
-+                // VRAM cannot be reused while stale BAR1 PTEs may still reference it.
-+                dev_err!(
-+                    dev,
-+                    "allocate_instance: retaining slot {} after BAR1 map error {:?}\n",
-+                    vram_slot.index(),
-+                    error,
-+                );
-+                return Err(error);
-+            }
-+        };
- 
-         let instance = VgpuInstance {
-             gfid,
-@@ -229,26 +281,40 @@ pub(crate) fn allocate_instance(
-             chids,
-             num_plugin_channels: 3,
-             vram_slot,
-+            plugin_rpc: PluginRpc::new(comm),
-         };
-         match self.instances.push_within_capacity(instance) {
-             Ok(()) => Ok(gfid),
--            Err(error) => {
--                let VgpuInstance { vram_slot, .. } = error.0;
--                self.release_vram_slot(vram_slot);
--                Err(EIO)
--            }
-+            Err(error) => match error.0.unmap_and_take_slot(bar_user, mm) {
-+                Ok(vram_slot) => {
-+                    self.release_vram_slot(vram_slot);
-+                    Err(EIO)
-+                }
-+                Err(error) => Err(error),
-+            },
+     /// Return the physical regions occupied by the plugin logs.
+@@ -58,8 +108,161 @@ pub(crate) fn wait_plugin_ready(&self, dev: &device::Device<device::Bound>) -> R
          }
      }
  
--    /// Remove an instance and release its channel and VRAM reservations.
--    pub(crate) fn destroy_instance(&mut self, gfid: Gfid) -> Result {
-+    /// Shut down and remove an instance, then release its reservations.
-+    pub(crate) fn destroy_instance(
++    /// Initialize the control and response buffers for the first RPC.
++    pub(crate) fn init_rpc(&mut self) -> Result {
++        self.comm.initialize()?;
++        self.message_sequence = 0;
++        Ok(())
++    }
++
++    fn next_sequence(&self) -> u32 {
++        let sequence = self.message_sequence.wrapping_add(1);
++        if sequence == 0 {
++            1
++        } else {
++            sequence
++        }
++    }
++
++    /// Write one RPC message, ring the VF doorbell, and wait for its response.
++    pub(crate) fn rpc_call(
 +        &mut self,
 +        dev: &device::Device<device::Bound>,
-+        cmdq: &Cmdq,
-+        bar: Bar0<'_>,
-+        bar_user: &BarUser<'gpu>,
-+        mm: &mut GpuMm<'_>,
++        bar0: Bar0<'_>,
 +        gfid: Gfid,
++        message_type: RpcMessage,
++        data: &[u8],
 +    ) -> Result {
-         let index = self
-             .instances
-             .iter()
-             .position(|instance| instance.gfid == gfid)
-             .ok_or(ENOENT)?;
++        let sequence = self.next_sequence();
++        self.comm.submit(message_type, sequence, data)?;
++        self.message_sequence = sequence;
 +
-+        shutdown(dev, cmdq, bar, gfid)?;
-+        cleanup(dev, cmdq, bar, gfid)?;
-         let instance = self.instances.remove(index).map_err(|_| EIO)?;
--        let VgpuInstance { vram_slot, .. } = instance;
-+        let vram_slot = instance.unmap_and_take_slot(bar_user, mm)?;
-         self.release_vram_slot(vram_slot);
-         Ok(())
-     }
-@@ -286,3 +352,15 @@ pub(crate) fn query_vgpu_type(cmdq: &Cmdq, bar: Bar0<'_>, type_id: u32) -> Resul
-     }
-     Ok(VgpuType::from_properties(&properties))
- }
++        dev_dbg!(
++            dev,
++            "vGPU RPC: gfid={} type={} bytes={} sequence={}\n",
++            gfid.0,
++            message_type as u32,
++            data.len(),
++            sequence,
++        );
 +
-+/// Bootload the GSP plugin for an allocated instance.
-+#[expect(dead_code)]
-+pub(crate) fn activate_instance(
-+    dev: &device::Device<device::Bound>,
-+    cmdq: &Cmdq,
-+    bar: Bar0<'_>,
-+    instance: &mut VgpuInstance<'_>,
-+    fifo_engine_list: &FifoEngineList,
-+) -> Result {
-+    bootload(dev, cmdq, bar, instance, fifo_engine_list)
-+}
-diff --git a/drivers/gpu/nova-core/vgpu/mod.rs b/drivers/gpu/nova-core/vgpu/mod.rs
-index 320230ddd1dd..1c67d7afbe56 100644
---- a/drivers/gpu/nova-core/vgpu/mod.rs
-+++ b/drivers/gpu/nova-core/vgpu/mod.rs
-@@ -3,8 +3,10 @@
- 
- use core::num::NonZero;
- 
-+pub(crate) mod bootload;
- pub(crate) mod consts;
- pub(crate) mod instance;
-+pub(crate) mod plugin_rpc;
- 
- pub(crate) use self::instance::VgpuInstances;
- 
-diff --git a/drivers/gpu/nova-core/vgpu/plugin_rpc.rs b/drivers/gpu/nova-core/vgpu/plugin_rpc.rs
-new file mode 100644
-index 000000000000..d6077a468672
---- /dev/null
-+++ b/drivers/gpu/nova-core/vgpu/plugin_rpc.rs
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+use kernel::{
-+    device,
-+    prelude::*,
-+    time::{
-+        delay::fsleep,
-+        Delta,
-+        Instant,
-+        Monotonic, //
-+    },
-+};
-+
-+use crate::{
-+    mm::{
-+        bar_user::BarUser,
-+        GpuMm, //
-+    },
-+    vgpu::fw::{
-+        CommBufferRegion,
-+        PluginLogRegions, //
-+    },
-+};
-+
-+/// Host-side ready limit from `vmiopd_negotiate_cpu_gsp_version()` in
-+/// `vmiop-vgpu.c`, which polls the same boot marker for 10 seconds.
-+const PLUGIN_READY_TIMEOUT: Delta = Delta::from_secs(10);
-+
-+/// BAR1-backed channel used to communicate with the vGPU plugin.
-+pub(crate) struct PluginRpc<'gpu> {
-+    comm: CommBufferRegion<'gpu>,
-+}
-+
-+impl<'gpu> PluginRpc<'gpu> {
-+    pub(crate) fn new(comm: CommBufferRegion<'gpu>) -> Self {
-+        Self { comm }
++        ring_doorbell(bar0, gfid)?;
++        self.wait_response(dev, sequence)
 +    }
 +
-+    /// Return the physical regions occupied by the plugin logs.
-+    pub(crate) fn plugin_logs(&self) -> Result<PluginLogRegions> {
-+        self.comm.plugin_logs()
-+    }
-+
-+    /// Poll the control buffer until the plugin publishes its boot marker.
-+    pub(crate) fn wait_plugin_ready(&self, dev: &device::Device<device::Bound>) -> Result {
++    fn wait_response(&self, dev: &device::Device<device::Bound>, expected_sequence: u32) -> Result {
 +        let start = Instant::<Monotonic>::now();
++        let timeout = Delta::from_secs(120);
 +
 +        loop {
-+            if self.comm.is_plugin_ready()? {
-+                dev_dbg!(dev, "vGPU plugin ready after {:?}\n", start.elapsed());
-+                return Ok(());
-+            }
-+            if start.elapsed() >= PLUGIN_READY_TIMEOUT {
-+                return Err(ETIMEDOUT);
++            match self.comm.response(expected_sequence)? {
++                RpcResponse::Complete { status } => {
++                    if status != 0 {
++                        dev_dbg!(
++                            dev,
++                            "vGPU RPC: sequence {} failed with status {}\n",
++                            expected_sequence,
++                            status,
++                        );
++                        return Err(EIO);
++                    }
++
++                    dev_dbg!(
++                        dev,
++                        "vGPU RPC: sequence {} completed after {:?}\n",
++                        expected_sequence,
++                        start.elapsed(),
++                    );
++                    return Ok(());
++                }
++                RpcResponse::Pending { sequence } => {
++                    if start.elapsed() >= timeout {
++                        dev_dbg!(
++                            dev,
++                            "vGPU RPC: sequence {} timed out; last response was {}\n",
++                            expected_sequence,
++                            sequence,
++                        );
++                        return Err(ETIMEDOUT);
++                    }
++                }
 +            }
 +            fsleep(Delta::from_millis(1));
 +        }
 +    }
 +
-+    /// Release the BAR1 mapping.
-+    pub(crate) fn destroy(self, bar_user: &BarUser<'gpu>, mm: &mut GpuMm<'_>) -> Result {
-+        self.comm.destroy(bar_user, mm)
++    /// Negotiate the plugin RPC protocol version.
++    pub(crate) fn negotiate_rpc_version(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        bar0: Bar0<'_>,
++        gfid: Gfid,
++    ) -> Result {
++        self.rpc_call(dev, bar0, gfid, RpcMessage::VersionNegotiation, &[])
 +    }
++
++    /// Send the NVKV-encoded v2 configuration message.
++    pub(crate) fn send_config_params(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        bar0: Bar0<'_>,
++        gfid: Gfid,
++        params: &PluginConfigParams,
++    ) -> Result {
++        let encoded = encode_plugin_config_params(
++            params.uuid,
++            params.dbdf,
++            params.vgpu_type,
++            params.vm_pid,
++            params.num_channels,
++            params.num_plugin_channels,
++        )?;
++        let payload = nvkv_rpc_payload(&encoded)?;
++
++        self.rpc_call(
++            dev,
++            bar0,
++            gfid,
++            RpcMessage::SetupConfigParamsAndInit,
++            &payload,
++        )
++    }
++
++    /// Send a Bus Master Enable state update.
++    pub(crate) fn set_bme(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        bar0: Bar0<'_>,
++        gfid: Gfid,
++        enable: bool,
++    ) -> Result {
++        let encoded = encode_plugin_set_bme(enable)?;
++        let payload = nvkv_rpc_payload(&encoded)?;
++
++        self.rpc_call(dev, bar0, gfid, RpcMessage::UpdateBmeState, &payload)
++    }
++
+     /// Release the BAR1 mapping.
+     pub(crate) fn destroy(self, bar_user: &BarUser<'gpu>, mm: &mut GpuMm<'_>) -> Result {
+         self.comm.destroy(bar_user, mm)
+     }
+ }
++
++fn nvkv_rpc_payload(encoded: &[u64]) -> Result<KVec<u8>> {
++    let word_count = u64::try_from(encoded.len()).map_err(|_| EOVERFLOW)?;
++    let mut payload = KVec::new();
++    payload.extend_from_slice(&word_count.to_le_bytes(), GFP_KERNEL)?;
++    payload.extend_from_slice(AsBytes::as_bytes(encoded), GFP_KERNEL)?;
++    Ok(payload)
 +}
-diff --git a/drivers/gpu/nova-core/vgpu/vram.rs b/drivers/gpu/nova-core/vgpu/vram.rs
-index c646511b6fd6..bc7283abba29 100644
---- a/drivers/gpu/nova-core/vgpu/vram.rs
-+++ b/drivers/gpu/nova-core/vgpu/vram.rs
-@@ -3,8 +3,6 @@
- 
- //! VRAM slot allocation for vGPU instances.
- 
--#![expect(dead_code)]
--
- use kernel::{
-     bitmap::BitmapVec,
-     prelude::*,
++
++fn ring_doorbell(bar0: Bar0<'_>, gfid: Gfid) -> Result {
++    let value = gfid
++        .0
++        .checked_mul(consts::DOORBELL_STRIDE)
++        .and_then(|value| value.checked_add(consts::DOORBELL_VECTOR))
++        .ok_or(EOVERFLOW)?;
++    bar0.try_write32(value, consts::NV_VIRTUAL_FUNCTION_PRIV_DOORBELL)?;
++    bar0.try_read32(consts::NV_VIRTUAL_FUNCTION_PRIV_DOORBELL)?;
++    Ok(())
++}
 -- 
 2.53.0
 
