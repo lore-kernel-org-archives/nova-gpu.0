@@ -1,95 +1,95 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4060C25A2DD
-	for <nova-gpu@lists.linux.dev>; Sat,  5 Sep 2026 19:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38D03644D4
+	for <nova-gpu@lists.linux.dev>; Sat,  5 Sep 2026 19:22:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788635932; cv=pass; b=fUgdxuaYv0xn06J5uJhS/JB9vDwBNek8JD1mA2DsnGNcnc/qAmTDNZ1Q5vDcYGcPAJWeDuLqSVZ9G/ktGnj16j6xiDtumhP8R6hFR336at8A0DKpQeVDCP13KV0XVFnKuavDilhCEf7ogtjnb3cWeiX/o8vi4J8cAx+Sgzl3V+0=
+	t=1788636166; cv=pass; b=nl/+Ia6aCrE//Uj/n3n0XdJzWBIiX48lZAhb0zGKJLzwyEx9jZ0l1NM5bQl48GsYW5C02DvIBrg4daZ7aSUTPupM40EHOpbkz6hJKc8st8v5c5gehWlSM7xAwiyrjwoKtCYWFgBbYvdFIuWFLUPzACmtAlBg0EsevX1R3ytSkeA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788635932; c=relaxed/simple;
-	bh=1A9tdM4UxvEUDadWxG3NZidYXbKcok5wvUqTQR6GVlk=;
+	s=arc-20240116; t=1788636166; c=relaxed/simple;
+	bh=yF37/Nza90qpovsTyPIotV3GHJX8YLw3YQa4ToPG68s=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RvKO0+GTxpd8S8gcUhAQcrVLJTg2wtSkf+qruVJKnSuGUwm6Hq9QKHUqiXWxFvyMCZeCOkwF6kgCc/W+86/e2jV4Pu5aGPpkJWC0+mA72qcnc7SZwnMqBlfbKL6VJ4SKo1Ji8IZh8izv/c5cxPazgVXqMTf+yY5gkRtyOWxNgd8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V9Pei3Qo; arc=pass smtp.client-ip=74.125.227.140
+	 To:Cc:Content-Type; b=BUAUQ7VBf45wNBrIVnvT7hSxkBDYGjChVGGFDTX6G1mH7e+c1cblV8fa7wyAF7ZCM77ls0INb3CN2KRgkRMOiHHqfVrwkZ22j+qMexbjaPsjDs+Cni9w1KAYBcO0CzKHmfmNFNnLuiWNPPFok2ZFNp75zzndjGNpJnQIeQirOoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rAQUYjhb; arc=pass smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V9Pei3Qo"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396673bd283so244241a91.0
-        for <nova-gpu@lists.linux.dev>; Sat, 05 Sep 2026 12:18:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788635931; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rAQUYjhb"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff2f2c4dso1433875ad.0
+        for <nova-gpu@lists.linux.dev>; Sat, 05 Sep 2026 12:22:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788636163; cv=none;
         d=google.com; s=arc-20260327;
-        b=LPSVgdnZ1ESi8f+z/Zynf3hxz7dX2f82TmrzL42vbUoQOohSy1wBQ/8PuPLrf/zN2E
-         tOX1DGqPmmhHdI+cpQFQ8eIjkNsOScy7lWSfQN78negyMTdBl9qOqO9D2ZlsMDoxAF6B
-         WveKzceundsdEQIDLnkVnSlfp+ilyRhKSkElxEAsZ3tgF52F4f4lFTPWFVFquJ3oTt3Y
-         86Efj8FuN3g/q557dE8U0sOj6+lbhuLgclvvat+NOXsC6aPGtRp7jF6tAmk+/OKdauPO
-         1bY9Z4hoPxv6iamLUZ1jyjU2plID30jdIQdWarBQKJITxc1EoJ+bP7LfVjxcRxNWMQW/
-         EkOQ==
+        b=MsknlyvwyxD/mFXcQtNRSEul5JR6XA9nMsXu5aZMbW65BmnxhY9ciwMCNmX9IHyg6A
+         l8/Pib7l4zci6jhtzgC6xtF2vbiRvnzQvcOXKUjpAlAugX42UwdJHfMnIu9fUyJA0mbd
+         8ujQ2NLWeCKdHkPz8aDIWzHFVBoH25GKbJHiCmrz5vGY1ex+hY5zsP6k/k+DkJbvVnyY
+         nKTW997h/GBykiYGFbK1Tcd8RLumJlxWLVjJmjS29wzVAsm1+/LNGtIMItqs7XD/yn1p
+         nDaA1GP0hxgw+mrg4EMWuvMBQfEKHOWosE2HVwwAaDtrd1yJDXeoUBUOjm3bOnN20mHc
+         pWZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
-        fh=SfWM5fIsyUsxfsfD6a785LyGMwgflYM1/tPIR7AQpZU=;
-        b=RCoCYwV7D2YF9Xpob3hQFtfWScTO83IUhvLj8KNaCSGTgRGXPYn+NR0FIc/8SVfeeA
-         LKBIdeH4MQy53nohRu6S6KbYYlQDDW+m4oaguanqhUn9nz+MTZzdf+AKgtylyJBLpKgR
-         g9uoIFBnon7MQJH5b6Ps7ESi4+jkucQ+Wp197mTl05PAxRtMADIoChAfM033uLerYxhP
-         pv8u+DKKKeHhds77FKHsu3y4eRDmm/cRiq0kyBOyHKYXZy0XqYTS+QjFyNmse8Kc+rFB
-         vCCebec1Yt4vuGVCdK5gEVGnK2StaFCdYlwouSSWOXCQXgTBxQF2JWrgGZRC+j145XzF
-         SvHw==;
+        bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
+        fh=efqkf7wn9IupB9IylZAmAZ3hTq9jjRsjH9IMYBYaJVo=;
+        b=ZJ48AU8ZM6OYUEhhF52V42ErGampxv4ok1arzUThXPG/WaG/IqLODK9YafppSC0UZW
+         TE5Kyw1+KcjZ49vsaq9aDsjYye94Wjki75q0FJnWdFKsL3amnBgIdesPXz/CpBwas0jk
+         +w5o1KrB2b5o2CEdbjpKMl3aNHNCezdhXXI9RGDZ5acteDXww2cM2BJKfT3OV77dniGO
+         RBIZVtGsydMiIyqVzKRcqNdHW0J8L+MCU+IVFqvp3exavq5bsuD/wkT7oZuONsyVgFJ3
+         nvzZ4/EIx90TA1Yb6RmNPtXT4uRXujEizl7lVMZVYnVrx1GU9MYcXy3/FfwlgwX/LM/i
+         sgeA==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788635931; x=1789240731; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1788636163; x=1789240963; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
-        b=V9Pei3QoiFmHeUCk3mwRXF9/718n8xpxO5dDGDt83k4Vl6XxNvO9FalqExCz8izFZS
-         ogDeLb9a6fCp9Qgbw53kt39rXqh8uHGXpQ2J+Y8W80uRIxbbC1zOxhNggxGEq15suhpz
-         7af8eerdWMxY4iPUgTS/lSrhLftK64NXCD0J4B/dFPPMU+FwiJWa05ZqQnk8dDRYhZUZ
-         3RHFmkKweqivyOTScK0oV1mS9fIa/zL12C8sJyBtGo0psEhDyNnf4Eff/UUl8cZlvCRk
-         561XwrZ9lqzW8eIHR9urzTUINryfyNvcavCerNV5jPLi6+0b/pzCICeaUBy8FbUeR61g
-         s/ZQ==
+        bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
+        b=rAQUYjhbyfzNpF5LPki1fkEAyufgIGeHcEB8+IXqh7/eRI99JascqJebopU9IxdTi0
+         B4h7R/u659M4LVs4Bsjd3v6PnO21F8+cEV05riMu429O3x9J6vrsaLqRNpKiKJMY9b9L
+         VsqC0MVvOcVKEhwm1S3T+0EIq1oH1MfTLxtMZNWWk5rbTa1FrqIMVvPu1v9g9UizCj+0
+         lJB+raBK3VUZlMzKZHxlBl9xOmF4oHKjUxi/aNeHHcCg/XhEIy8LnzDgK8kg/mOgTvW0
+         ajCnKikaxGb7R9m004+6zuQBz4DZmlEl6eW3B9o4dE6jVMtlQklG89mV+OfhOBiEALRX
+         IXng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788635931; x=1789240731;
+        d=1e100.net; s=20251104; t=1788636163; x=1789240963;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
-        b=qYxxnVdVWrhirImLl0Kx12QpeAn0QCMv+HL3F5yed/AXZYLEja1uRujrMfyTokNVVW
-         3tKMqvnvFPv6KySClINyBbjFDPJi1sV+cK1jheXA2nDLihgW+tjGY0Y9WFcWEchmVci9
-         BDhH5pyVz+6a1bWRMEhcibd6fa1DvMPGUMPfToD7R3Rz7ppDY86FTTybJdjia5LafvTB
-         UBgqCLNP4lznaboCZ84fT2ZOMEDDZ66ikDRksFmU2mGVfI52bQYmxgX3I3YZQKIrMPTK
-         azhQ2mA+fUILLgYJ68nVD5vNTzy+OpEfG6Dqek3OTYn5vFuMCi7HG+ynu/bYMhG3ubDJ
-         yEhA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDOmSVE1td3dtYPK0948QvUpiez3WWAA+TBfXTS61ZI1X7/WobD+zT5Ua3qjoYeRtlGtqBU1Abcg==@lists.linux.dev
-X-Gm-Message-State: AFuF++nxgcwEcjD42egdL5EcOflHGRZZXc19tOJP1VjRYm7RPvzU82iB
-	wsE0cLLejwuvW66WzLQt2BqeXK9Mv+KRHvdePfEotDTDcyi3h6PCnnA7bB0UlxGfByse4Cw8u2F
-	kb/kJL7uYBKyl3Ve1njmVOZr+cMygl+0=
-X-Gm-Gg: AYBFou3BXsaBE9RE4gMROuStJoPf1GUTKvhN7uWG3CLU7WANc/8ZvH0TGQu1kNTiyoR
-	U/Lr2fceotGx9XkJ5ZVlAsjpXLrW64lyup5OofPEa2o4ysOcX2hGIS2mZ5YwMGRNCQF+1J3MY7l
-	gbcIFHeeDJhNVNM5USa0gJfIg4bz5typSrxXczYwlDuxn1STH91qFoppq46t/M8gfoiwvLGiTqs
-	a1aBOX9VoCnbrxKSvBE/r4PYuywZG0hnf0X2wvw5QAtn/cp8xY49hKhzupCUa+YtjDBdjzuVZwu
-	UEiB043nUcsHK+TFgmBa3RiT6XkMq/1macPz5sNr37D5SPpSs//Fg1N7ctTbW2AWh3yHMfm61BK
-	qxAGCQrRd6+PBiqbOaRmVQrOkdOWBv5lkAJIoo7p6+dbiKck9c9jWinzHlTAx
-X-Received: by 2002:a17:90b:3843:b0:390:3936:8760 with SMTP id
- 98e67ed59e1d1-39b3d3db82emr6481594a91.0.1788635930630; Sat, 05 Sep 2026
- 12:18:50 -0700 (PDT)
+        bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
+        b=sk3sNddPcu/pIdKlYEqht+M03XMa/bdMmE+1b8OhJDqJSoepWF0/qDeD+Bu+7nLYbW
+         sq1gpZndDRKNhHLbKF4Zp12JWMfIVeUf2N8AaisZz8InuWVhTvXfzIwn0XcdYCqAAz84
+         JqEGPhwdqmVBllO2QFBoAgDIwotajyPVRNlMbwLIWAhdXdP6SscFXeC36tEBIZA1WLKW
+         9wtH7JXtnaI3qpta6NOzhuQcK8qurIFhThe7bMr9JBzwNpMvJqiHwwbLGm2/MUW9Qxq7
+         PQJJMgW1ah7r9Ljm+tj7clNWMQj6FUqZ5c039yhdAYS2VkYzdy2ej1KQaWyFFD8BHeAm
+         b9eA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhOU8LWvPw/ASou3KhnVZu6CQA5i6j6UGvZtBintpqTmRzlJbhhUtIJZ+TWZmn9zL2bQ+mQC8FJw==@lists.linux.dev
+X-Gm-Message-State: AFuF++kBkDbDPLNssNsNkufFjra7c40jOw3qy+PYYNqIVAU7IxxjgYZd
+	zJo19qDX1eAcVocsOiZ7xTxDV2J/uqHQ1l1TQhIJGqMbFcscpXmmob4zOkkJqyA1m4cayT+G6i4
+	jENbKcL128Vntq3T2LIeEzTWCa0w2rKA=
+X-Gm-Gg: AYBFou34/T7Xe2vILfnKFTTwM16C8oymKBDPgCMWJe8vsSHlnWt7D1sQIvHiLw/0Xiz
+	ucMay6giIXaVLdvROn2GoauwXl66Na9bYW7SaXl7jE1kJKlmDHbTcOd1JxfQ5bsdsToNJpLnAdX
+	8vxLdiMopaba3pZ1BCpUS1cqbFIsT/n7OmlxTKTcqAB/EtqiCvCseJEuS/x35XTEOsoKe+EKzVZ
+	VOt8vyMzgejtfCknj7lkXCEH58SYQNS2eG1r/kb75h0ais7rwT5ci/Ega/z98gt8AwuDmuE8Sdd
+	nZKe4f3YDJK1l9cV6flS93RyHfYqf+kQ+wyRe5TjkxQVkzCF9IBtEBp1TJNILJDNMGkStcqXatA
+	akl1ZYkCKSVE1l5TT1VW5TGzwnThZ5QR6NB6/C2zy52h2o49ILgvI85wXeS8d
+X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id
+ 98e67ed59e1d1-39b3d8377camr7470429a91.6.1788636163260; Sat, 05 Sep 2026
+ 12:22:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net> <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
-In-Reply-To: <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net> <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 5 Sep 2026 21:18:37 +0200
-X-Gm-Features: AcwNN1W_ZpD7BnW-6N9vI0Wb1kb0jyPzchOyBf701rQL7ntZoTH7GyzL5sIHsSA
-Message-ID: <CANiq72k4NQ6yJByyb73Sy+iwqVc=i5CuZy2b5uRVksA+gkr9qA@mail.gmail.com>
-Subject: Re: [PATCH v4 02/16] rust: mem: add `transmute` with deferred size check
+Date: Sat, 5 Sep 2026 21:22:30 +0200
+X-Gm-Features: AcwNN1XYNGZeZdAbyqW_MpHHmRnUCoTfhvfgQ1L93n760L7NneO9Fvtxk2YGC7Q
+Message-ID: <CANiq72nxtehkGdb9RZpd=MsjWzp9euoLw=MmCzvcqOgxxEwymg@mail.gmail.com>
+Subject: Re: [PATCH v4 03/16] rust: mem: add `AsRepr` and `AsReprMut`
 To: Gary Guo <gary@garyguo.net>
 Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
 	Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>, 
@@ -107,31 +107,25 @@ Content-Transfer-Encoding: quoted-printable
 
 On Tue, Sep 1, 2026 at 6:50=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
 >
-> +/// This can be used when types are known to have the same size, but onl=
-y at runtime.
-> +/// ```no_run
+> +    /// Convert from `Self` to [`Self::Repr`].
 
-Newline between them.
+I think [`Self`] etc. work too.
 
-> +///     // SAFETY: We've checked that `T` is u32!
+> +/// - [`Self`] must be [transmutable] from [`Self::Repr`].
 
-`u32`
+We say "can" in the `AsRepr` one -- we should be consistent.
 
-> +/// This is typically used in generic code where it's known that type wi=
-ll have the same size, but
-> +/// the compiler cannot prove it generically.
-> +/// ```no_run
+> +// SAFETY: `bool` has the same size and alignment as `u8`, and Rust guar=
+antees that `bool` has
+> +// only two valid bit patterns: 0 (false) and 1 (true). Thus `bool` can =
+be transmuted to `u8`.
 
-Same.
+`false`, `true`
 
-> +    // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bounds=
-.
+> +        // SAFETY: $unsigned has the same size and alignment with itself=
+, and is transmutable to
 
-`transmute`
-
-I think we could also link to the intrinsic and the `_neo` one,
-perhaps with a permalink to avoid drift if they go away, but not a big
-deal of course.
+`$unsigned` (a few below).
 
 Cheers,
 Miguel
