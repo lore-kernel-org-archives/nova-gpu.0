@@ -1,28 +1,28 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013009.outbound.protection.outlook.com [40.93.196.9])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013014.outbound.protection.outlook.com [40.107.201.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8114B43E4BF
-	for <nova-gpu@lists.linux.dev>; Sat,  5 Sep 2026 08:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762D0443E54
+	for <nova-gpu@lists.linux.dev>; Sat,  5 Sep 2026 08:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788595965; cv=fail; b=FN3DXjLFM9YfQiBXl+yw/4GCRgXbrKIj0GL6D5vQUvnAMR+U3OzA6MbxrigyMZr0nJza81zf9CoAqMDmZKv+bltIN3FMYDotETbWsES/9tOnaNxR490i9UvjeCkOlqIAl87BUw9wQhxFS+PJV1m7kxLZ1TkK/OUI+3pCgW5Ehv8=
+	t=1788595972; cv=fail; b=gvF6lAq54TfdeNTEAASfDov1Ba9Qq2Ld6j1/XORtDRNWjhxbMIxAWt+eA+/xdb209vHMPZJaCHajJ14e2MvIza5hGHthKcXfjN7Vwm2ur96g9uQ/8U3IJ17F9zbOkpYsqeDqREwz9rIDWCvivLWg7EoiRmz1UlAsCq6jQCNFKuY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788595965; c=relaxed/simple;
-	bh=4jTL3etnevye+v7Q5z1i63YfnocpKgUQp3T9B2KxqUg=;
+	s=arc-20240116; t=1788595972; c=relaxed/simple;
+	bh=rmUgnf7uaNybBsS6sV87chUURAKHQSxn8xidFWy/jRU=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gZN8b8fNem3d1givO+RPc6ZCpaV1LNRyO1bpnNQivH2hSwOAt9xr2x2HBlnM1onUmzH53kFYfTdwBIocWMjZEYD5aGBur5FQE7MSMp7CbHZufa+c1+5nJHl6pEkPqoE3hpzKXIiqfN+JKuygKH+ztDxz/6Ssr3xucAnr8uHNdzI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aa0/zNR1; arc=fail smtp.client-ip=40.93.196.9
+	 MIME-Version:Content-Type; b=k2sKYWHSVFzX09t7yPTqQ0kUeDSdq0dY9BZvAM5pPZSOb/H783mXLVLJ1YwexQRLt8vqhfZIHGtftbFDkXSL9EoX8X0r51UXlECdWfZkWReFS5vZsa91lo48lQoK+y9kjQo4dERGO+iVULheNZJvyFvt2yssXSUxt90Ty0P0pHQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RJZQ2/S/; arc=fail smtp.client-ip=40.107.201.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aa0/zNR1"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RJZQ2/S/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ET6eCnwysY8b1ubMRygDTokK2DlcQdAgjo3eNhkchth+JDf2xZwclDR+WsNqXlMeyrmdVoDFspO4D3hLzCjWKE+zPQo+VS6SBTp1iEwmu/W/2oIZIuoN7ucDnbGuFt/9/ahuExJx6CpmfTtTbIFQg3kG7obB1UCysZbgHK6EGYi58w9vTobudIXj+vECqIwYgATcU02Cjf0n9Bh1frqWMt3vennWrLkVNOm4uHCY0S2Bol+kstPciO0R3A54zmWiNiTNw2sgZnM/oh50idHi9DHwBiNEu9Emi2UEsQDhr+y9V/LeH5al5u8XNc0xaSTmG2h73/ONJV4Abc3JaLSJLw==
+ b=C9SyZvHDRjeBUtFJ/INWf1hlm3xNXuGWAYHwuLQVijD1QEMzI17+iadnGEUZt5SDyb1Ium9jjFwcH2XLI4GTc58eH1B23lr5vfqKPGRQK3Y7z+dhM4LMTK9/lYsdFVoZsXDvPWkU24vJDRpGlyvAUhW/Ul7sNAQ1uUqzoH0sXZDt4U86YwlKYSsv08xNd6D2KLK9MTxAPLxtwXI9O2oubCZNxIMsXY1WVu019mgOO6VTHrL0Q+Xu4yPj0Bon9NXffzz//wwUyqEyqHHyqyg9utFP8TKRehGMkvtCsxDF+B5VohFZ5CixldJVylIulYX9zz+X4zNYxBhl9Ye8uip4lw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zoHGQ0BYbdB/AuwOxXemjLUJGvqsi9sLB8EU7EFFy/w=;
- b=bb40VBWdXUCM7TCf2MjTY7FAWkYFTUJGG7tBb7p3XKlkDVrTWdzIP/JPqyDUmRUbgaittONHj5t5i1aAzKRoR2+xB3A9mym0QoOUlUO8G8L6UfLGHzJwVpepHbUH4VDg4VMzWfVAcG7T7mGa4EeIUMNV6JYN1lB+eYTP8oDHys2dVgh6Q3uHWTOE9rn0UO/TAlT+UaLPUMFaBXyFwmzuEEl3eFQ1UklJ1G9VzF3RbYeT7z7Gj5Rmxj2zcAHtmc3CHaLR/oy7ojj6EvdhvyG6kYBkLVsJ20nVTlx03i5b4NrMWHyANJKbBxEf7WfNPCwTCfTrLU+SlT+qGp/+eyhmBg==
+ bh=LLjCfmbbDUKa8FfliU2fu1lYmTZwrwMZwr2dc63Sm/o=;
+ b=HDnm5cxVn0CCQR1XwVagaB97M7ssqelVgE1myor+hOuGhBH8IZc0a2NHJ8vFBSQCB0IOSnuYwLjbjl2A+XAJoY6vHC9dwmynFlEazAk+eP2V42v2gEFKZgVBbzdLwo4jkUL5Lus2+7O+23qlLjHZ49MifX5mdLRPRMvY7DPm8uUBY11yIpLPkTMIh0M+n60jAF8o6Yo3uuB0w+2JHj9eov5XfAHnRnhv4mbwN0RyiWRBXj2dxANHT2evP4++ZZH/fggJ6HE89eDiKiLCMLyH6ny2Pa6C7gBEJPEhTpsyhqfaRVZfshu1dFdd+4RL5RoOiSblBBBiuAWLertUTvGx1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zoHGQ0BYbdB/AuwOxXemjLUJGvqsi9sLB8EU7EFFy/w=;
- b=aa0/zNR172+cFV9wyc1pSJzdHPrfd9niIuDI6gmvc4Htch5YvrDeEn7hB2x0UgZ+yrPXlke8V8aasB0xrFV46jkXj/egaJboDTirxKwBmmbexlMNTPXVy0KdfkeMTdIKmwBuWkAtBIEcXtcz02E8wgstoQLQiW1quNv7v1NjhKub8hNm/XpIpA8DIz02pNV8LQNjOTZK8hkog5vlc9g/WXxkTW+egksye7zuYTvAKW0GhfPoLKa10P3YXukXS/F8A2hJzmNWeDnD9MIge4ZJ+OYzq+cRkqS64geQxRXvwW12wWyUGhra6Cq9v6Ky7H1lykgJlD4u9a4FESsfLTbNKQ==
-Received: from BN9PR03CA0122.namprd03.prod.outlook.com (2603:10b6:408:fe::7)
- by BY5PR12MB4162.namprd12.prod.outlook.com (2603:10b6:a03:201::11) with
+ bh=LLjCfmbbDUKa8FfliU2fu1lYmTZwrwMZwr2dc63Sm/o=;
+ b=RJZQ2/S/pxrYNH6oU2byBpOBUFBwylyyd163UGdsUZ6BXIzeM8RxnBeJDAh150g20eugANHsVvdiqNEiQkaZ5nHXCHYEdHXNGJ6nFow8qMHwJM/j9mH5xwj/rXcsaZEIG3HumpW44WrHhxNxuiwuGth/uk5Z7hUVDxrASWMlMIEwrRh0De+XshsvYzdYZHMI1dZpbUEc6l7u4U4WN8sD0UzL4KDiuo7YUicNoxli6okkvrDPbgJbUS4uU9YTRGAKVW490akbRSwfvERJbNaSXqBsBiz4nee+g4OeWkj73nj2nsZhooh7UMA/WGW+GEMOQf1phna6fmJ30ikgAF/4uA==
+Received: from BN9PR03CA0123.namprd03.prod.outlook.com (2603:10b6:408:fe::8)
+ by DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
- 2026 08:12:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Sat, 5 Sep
+ 2026 08:12:32 +0000
 Received: from BN6PEPF00000072.namprd03.prod.outlook.com
- (2603:10b6:408:fe:cafe::7f) by BN9PR03CA0122.outlook.office365.com
- (2603:10b6:408:fe::7) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:fe:cafe::5c) by BN9PR03CA0123.outlook.office365.com
+ (2603:10b6:408:fe::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Sat, 5
- Sep 2026 08:12:25 +0000
+ Sep 2026 08:12:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -51,18 +51,18 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
 Received: from mail.nvidia.com (216.228.117.161) by
  BN6PEPF00000072.mail.protection.outlook.com (10.167.248.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Sat, 5 Sep 2026 08:12:24 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ 15.21.406.5 via Frontend Transport; Sat, 5 Sep 2026 08:12:32 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 5 Sep
- 2026 01:12:11 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 01:12:20 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sat, 5 Sep
- 2026 01:12:10 -0700
+ 2026 01:12:19 -0700
 Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.7)
  with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Sat, 5 Sep
- 2026 01:12:02 -0700
+ 2026 01:12:11 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
@@ -76,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH 05/13] gpu: nova-core: vgpu: add instance create/destroy
-Date: Sat, 5 Sep 2026 11:11:08 +0300
-Message-ID: <20260905081116.106613-6-zhiw@nvidia.com>
+Subject: [PATCH 06/13] gpu: nova-core: gsp: add GMC transaction helpers
+Date: Sat, 5 Sep 2026 11:11:09 +0300
+Message-ID: <20260905081116.106613-7-zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260905081116.106613-1-zhiw@nvidia.com>
 References: <20260905081116.106613-1-zhiw@nvidia.com>
@@ -93,284 +93,272 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000072:EE_|BY5PR12MB4162:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74b4fe56-b842-4f9c-0004-08df0b256b3e
+X-MS-TrafficTypeDiagnostic: BN6PEPF00000072:EE_|DS0PR12MB8245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46afd7f7-b2fc-4443-497c-08df0b256f7e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|36860700016|376014|1800799024|23010399003|82310400026|22082099003|6133799003|3023799007|10067099003|5023799004|56012099006|11063799006|18002099003;
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|30052699003|82310400026|7416014|1800799024|18002099003|10067099003|6133799003|11063799006|5023799004|22082099003|56012099006|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	tFIUjq+a+KJs/badD6WH/BP6ypd7MSi6Ce2qxGVNYbkjWJ7OFwO32Yp16KufdQbxAwS2ZXVf/cHOoQIrsARlCtP+K9dWDUZJkp2ZqNt/ZRkZAqY2Agn2RTcD8NxRw9I0cIfBpyN6RFgwVlbf3XrcAHWlLy+KJd5ZL36EjYGMwWVoA02XjRHUHsFe+p0lLh8zl0MjEZuP4RpgjK/pA/mf20h2ii3xBFmB24QQuYT36kRWL9g6fTZ2od8MVRg6DflECvEuIR+uhxI2IJQ0m0/v5uWvV6PAHBAEdnN42RO4VL+Wzaqhoh6fC07H2iGJLRlDqTYSNJ3Pn0V/vyxhuol6wNxw40NdnUxNWCvl6hYwqLCUcZnBgioSZJkxXX0OeAURMgiHZ+zM1l8ihGTjK7RFb8yS0eywm2PRpdIb3h2Jd6D4Kb4SNnDATSMKx110cOzGSIlbUV5I+AiO6JIfVU+5SbnAsZeDR7pOduC3U2rIkKg79uJJHGQth5SJVuRUrsHUnPfG4YEI3FBXJT40nAFeWjH5MyqlYq7SkryhcxxA91dXjKgXjukM3CshKStYktLyWK5h0pi2fhMxBpIA2H3f4BRj4JbzKunSNrBwDQA38JXVVVQTid/qZ2X8Ek+0LtJ5jEsfvqY7qE1syuHPH8z9npmEQjw1I4ffQgfg5ODwzfQ+fpZ6TnUR5d5n3J0dXtPLked49bIEipViHCtPMadeYQ==
+	pfud8QCho7vR4htD/NPJcjZC1tY+XdCNS/pc+Oirg6gJwr3toq/tSyJHPMYBeexo75sPhVgf6W8b3+r4lkps2z+aLAsjGK6Kxm8SmUuvUyU4ltaylyuz95qQJr2jRcU+ocre0QOm9kDhpBO0FUSo9jhSf4tHjeTzixzDJsFX4FxxcTfY3IMxaegGYRhgubFSdORydiAbDsRsLgJUhcxRsij5nEWGAa+SF+kwOn7skpk+cK3X+P4qFtEQzSmY3oCyrzkb+b8gDx1qckeubZ6QAxTc/meGfdurO8ZUZUOyCHSBx7WWY/6o/odBNEV7I7uGG5ts7zwCXw2cv0rYkXQTbGCD+8ZMwfkfGMDEw+EipWoDJdsSY3etnEAYuRMfYhe7tkZe4JCru1OzD8g0+YKnG3/DkX5RwjAFd/e0nzDqZIcGhBRv3+EdMKiosVcSiMcPew0z3a5Bvk8tng3WnSL5w7FQptstFcI3/fTKmA25F1jQXIOaoHYm84CLp3J90hOlDOWelyhYic8y0JkImm+NB5TP7f5h72Tg/tUrk+e+Q1YKz7p643Q60Lpp4RmCRVX9CfCdsb1dLY3BN5aejScoV5CN1aEq8rOJXmlfvj9CZUUGCCECvYR02bLpPJ7jWGmviiJuzBazbwSDdPzuzMdyK3h5Ji+bGFfd93RJZT5yrUrVOwXUiX6VH0Nmrdi7ad03baajjP92yB8MF62EJrkojQ==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(22082099003)(6133799003)(3023799007)(10067099003)(5023799004)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(30052699003)(82310400026)(7416014)(1800799024)(18002099003)(10067099003)(6133799003)(11063799006)(5023799004)(22082099003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	5Wnb1+ZUs1ioUhtxFrD4nJs6IujZ9JgobEblkxN9xbECma3yfNZUVkWh2V+eFU8XvRrq8CfUBMUI/kWDd+Re9E0oySjnemFHNIiOUnhty/00WAWCj2jyRgdXdExPKVnc4Ffl4FmSaB26jQoahwzrZ4j248T/7eLTAvQH54twKYgrKR9A1wHWgyaSVNzE9Es1q90zad/OoFZVkq+vNLoP4VIpXCd7N4jlI/hsx732gkIYOJ4Wdd04XGPU1j1VZQGCz++tDRPv6dujHgnABZAYbd/G4eBCVofoCnoMvlvKJZFhwWRcyFweKIgCNYRqpLxBQbGKd95y2nYX6+edTQE2He7ZqWk8MRYR3FD6In/+4SSziyn795++Fxu+AqhzALaRDkEcdbQsvE+4sghHNuWHwb9LRObDq/N/trS9CcgLEvZ2rPvQwC+RIUY0krv6o7pO
+	xj8oO3kLFoee3AxjLzNfQslx6asPDgoPAkqxL+cQfPG6yWtyfkxhWq+pYtJbyV/ajprEjGbRjQd2xkeo19n55UqyoJmw7zJQovArVwch0TL3R+K5Dq6CkOyD1Lkj7MVYB/4NfjmPwuNM5GhwUwPpXppPtBUJ8jbNuNRJm497CB1u6cXi8wiMM7DO+lpq9V31wg2WUcw2xG40VzEhWLpY7sHM5+NYb+5IXQU1MQFyroDbVMO0XoH5ehEdwoxA0uUsJgBQZ2VyUTB83CrkQEikPUsO1wQzH59F0rGesSGc/Itnp7RWil8nY27CcnieCKPzGFyTo+BDQuF9T9QGC3dHoBJ/Dpw8c8REpUElRWHEOiIUXwrQ451NHNamPhCSsaU9mOmQLSGunzW5UC1Jdohz0tDMnH/YB/ROiTNOAxhs1OGHUHhCXOxSRg3uN2u4vHHN
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 08:12:24.9041
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 08:12:32.0405
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74b4fe56-b842-4f9c-0004-08df0b256b3e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46afd7f7-b2fc-4443-497c-08df0b256f7e
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN6PEPF00000072.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4162
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8245
 
-Add the instance registry and the resources needed for an individual
-vGPU. Allocate paired framebuffer and management-heap regions from a
-profile-wide VRAM slot pool, and reserve channel IDs through
-ChannelIdPool.
+Match GMC replies to requests by both the masked command identifier and
+sequence number instead of accepting the next GMC message as the reply.
+Use one deadline while stale responses and interleaved messages are
+consumed.
 
-Keep mandatory allocations as non-optional fields, enforce
-profile-specific instance limits, and group the firmware identity into
-an InstanceInfo. Add typed NVKV GMCAPI helpers for querying the VF
-assignment and vGPU properties.
+Pass the GMC sequence through event dispatch, and add helpers for
+status-only replies and commands completed by asynchronous events.
 
-Make VgpuManager own the instance registry. Each registry entry keeps
-the instance's channel reservation and VRAM regions allocated until the
-entry is removed.
+A GMC transaction holds the shared command queue lock while waiting.
+Consume and dispatch a valid interleaved RM RPC frame instead of treating
+it as malformed GMC framing, then continue waiting for the GMC message.
 
+The GSP-to-CPU queue carries both RM RPC and GMC messages. The threaded
+drain predates GMC support and parses every pending entry as RM RPC.
+Consequently, an asynchronous GMC message fails RPC framing validation,
+poisons the queue, and leaves the CPU read pointer stuck on that entry.
+
+Use the common classifier for both wire formats. It consumes and
+dispatches valid RM RPC messages while returning GMC messages to the
+caller. Advance the read pointer for returned GMC messages so the drain
+can continue.
+
+The drain holds the command queue lock, so no synchronous GMC transaction
+can be waiting for a returned message at the same time. Such a message is
+therefore unsolicited or stale and can be consumed without dispatch.
+
+Co-developed-by: Alok Kumar <alkumar@nvidia.com>
+Signed-off-by: Alok Kumar <alkumar@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- drivers/gpu/nova-core/gpu.rs             |  72 +++---
- drivers/gpu/nova-core/gsp.rs             |   1 +
- drivers/gpu/nova-core/gsp/boot.rs        |   4 +-
- drivers/gpu/nova-core/gsp/cmdq.rs        |  63 +++++
- drivers/gpu/nova-core/gsp/commands.rs    |  11 +
- drivers/gpu/nova-core/gsp/fw.rs          |   8 +
- drivers/gpu/nova-core/gsp/fw/commands.rs |  44 ++--
- drivers/gpu/nova-core/mm/vram.rs         |   3 +
- drivers/gpu/nova-core/vgpu/consts.rs     |  12 +
- drivers/gpu/nova-core/vgpu/instance.rs   | 288 +++++++++++++++++++++++
- drivers/gpu/nova-core/vgpu/mod.rs        |  48 ++--
- 11 files changed, 486 insertions(+), 68 deletions(-)
- create mode 100644 drivers/gpu/nova-core/vgpu/consts.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/instance.rs
+ drivers/gpu/nova-core/gsp/cmdq.rs     | 311 ++++++++++++++++++--------
+ drivers/gpu/nova-core/gsp/commands.rs |  30 ++-
+ drivers/gpu/nova-core/gsp/fw.rs       |  22 ++
+ 3 files changed, 265 insertions(+), 98 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 430d0cc12546..5c12847c19bc 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -49,12 +49,12 @@
-     vgpu::VgpuManager, //
- };
- 
--#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
- mod channel;
- mod hal;
- 
- pub(crate) use self::channel::{
-     ChannelIdPool,
-+    ChannelIdReservation,
-     TOTAL_CHANNELS, //
- };
- 
-@@ -310,6 +310,7 @@ pub(crate) struct Gpu<'gpu> {
-     /// vGPU state and firmware parameters.
-     ///
-     /// Declared before MM and BAR1 so live instances are torn down before their resources.
-+    #[pin]
-     vgpu: VgpuManager<'gpu>,
-     /// GPU memory manager owning memory management resources.
-     ///
-@@ -421,50 +422,55 @@ pub(crate) fn new(
-             // SAFETY: `chid_pool` is initialized before this expression and lives at a pinned
-             // stable address. Field order drops `vgpu` before `chid_pool`, including unwind of
-             // an incomplete initializer.
--            vgpu: VgpuManager::new(
-+            vgpu <- VgpuManager::new(
-                 // SAFETY: The lifetime and drop-order rationale above covers this borrow.
-                 unsafe { &*core::ptr::from_ref(chid_pool.as_ref().get_ref()) },
-             ),
- 
--            gsp_resources <- try_pin_init!(GspResources {
--                device: pdev,
-+            gsp_resources <- {
-+                let mut vgpu = vgpu;
-+                try_pin_init!(GspResources {
-+                    device: pdev,
- 
--                spec: *spec,
-+                    spec: *spec,
- 
--                bar,
-+                    bar,
- 
--                gsp_falcon: Falcon::new(
--                    dev,
--                    spec.chipset,
--                    bar
--                )
--                .inspect(|falcon| falcon.clear_swgen0_intr())?,
-+                    gsp_falcon: Falcon::new(
-+                        dev,
-+                        spec.chipset,
-+                        bar
-+                    )
-+                    .inspect(|falcon| falcon.clear_swgen0_intr())?,
- 
--                sec2_falcon: Falcon::new(dev, spec.chipset, bar)?,
-+                    sec2_falcon: Falcon::new(dev, spec.chipset, bar)?,
- 
--                fsp: Fsp::try_new(dev, bar, spec.chipset)?,
-+                    fsp: Fsp::try_new(dev, bar, spec.chipset)?,
- 
--                _: {
--                    vgpu.detect_state(pdev, spec.chipset, fsp.as_mut());
--                },
-+                    _: {
-+                        vgpu.as_mut().detect_state(pdev, spec.chipset, fsp.as_mut());
-+                    },
- 
--                gsp <- Gsp::new(pdev, spec.chipset, vgpu.state()),
--
--                // This member must be initialized last, so the unload bundle can never be dropped
--                // from outside of the constructed `GspResources`, ensuring that the unload sequence
--                // is properly run in case of failure.
--                boot_result: gsp.boot(
--                    GspBootContext {
--                        pdev,
--                        bar,
--                        chipset: spec.chipset,
--                        gsp_falcon,
--                        sec2_falcon,
--                        fsp: fsp.as_mut(),
-+                    gsp <- Gsp::new(pdev, spec.chipset, vgpu.as_ref().state()),
-+
-+                    // This member must be initialized last, so the unload bundle can never be
-+                    // dropped from outside of the constructed `GspResources`, ensuring that the
-+                    // unload sequence is properly run in case of failure.
-+                    boot_result: {
-+                        gsp.boot(
-+                            GspBootContext {
-+                                pdev,
-+                                bar,
-+                                chipset: spec.chipset,
-+                                gsp_falcon,
-+                                sec2_falcon,
-+                                fsp: fsp.as_mut(),
-+                            },
-+                            vgpu.as_mut(),
-+                        )?
-                     },
--                    vgpu,
--                )?,
--            }),
-+                })
-+            },
- 
-             _: {
-                 // The `GSP_INIT` reply already carried this.
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index deaae033a88f..2521d7331996 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -32,6 +32,7 @@
- mod regs;
- 
- pub(crate) use fw::{
-+    vgpu_bindings,
-     GspFmcBootParams,
-     GspFwWprMeta,
-     LibosMemoryRegionInitArgument,
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index 2d027d2a9a35..659f3783ed13 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -74,7 +74,7 @@ impl super::Gsp {
-     pub(crate) fn boot(
-         self: Pin<&mut Self>,
-         mut ctx: super::GspBootContext<'_, '_>,
--        vgpu: &mut VgpuManager<'_>,
-+        mut vgpu: Pin<&mut VgpuManager<'_>>,
-     ) -> Result<super::BootResult> {
-         let pdev = ctx.pdev;
-         let bar = ctx.bar;
-@@ -158,7 +158,7 @@ pub(crate) fn boot(
-                 )
-             })?;
- 
--        vgpu.init(
-+        vgpu.as_mut().init(
-             &static_info.fifo_engine_list,
-             static_info.vmmu_segment_size,
-             TOTAL_CHANNELS,
 diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index e6931f65b167..e472ec94691d 100644
+index e472ec94691d..8f204f71a36a 100644
 --- a/drivers/gpu/nova-core/gsp/cmdq.rs
 +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -517,6 +517,14 @@ pub(crate) enum QueuePointers {
-     Reset,
- }
- 
-+/// Response from a GMC API command.
-+pub(crate) struct GmcResponse {
-+    /// Response status (`NV_STATUS` code). Zero means success.
-+    pub(crate) status: u32,
-+    /// Response payload copied out of the message queue.
-+    pub(crate) payload: KVec<u8>,
-+}
-+
- /// GSP command queue.
- ///
- /// Provides the ability to send commands and receive messages from the GSP using a shared memory
-@@ -680,6 +688,61 @@ pub(crate) fn send_gmc_no_wait(
-             .send_gmc(bar, command_id, payload, max_response_size)
+@@ -52,6 +52,7 @@
+     driver::Bar0,
+     gsp::{
+         fw::{
++            GmcApiHeader,
+             GmcCommand,
+             GspGmcMsgElement,
+             GspMsgElement,
+@@ -648,8 +649,8 @@ fn receive_msg<M: MessageFromGsp>(&self, bar: Bar0<'_>, timeout: Delta) -> Resul
+         self.inner.lock().receive_msg(bar, timeout, None)
      }
  
-+    /// Sends a GMC API command and waits for its response.
-+    ///
-+    /// The queue stays locked for the complete transaction. A single deadline bounds all queue
-+    /// elements observed while waiting.
-+    pub(crate) fn send_gmc_and_receive(
+-    /// Receives one GMC element from the GSP and passes its command id, the `max_resp_or_status`
+-    /// field, and the raw payload slices to `handler`.
++    /// Receives one GMC element from the GSP and passes its header and raw payload slices to
++    /// `handler`.
+     ///
+     /// This method may sleep while waiting. The [`CmdqInner`] mutex stays locked across the wait
+     /// and across the `handler` call, so `handler` must not call back into this [`Cmdq`].
+@@ -659,7 +660,7 @@ pub(crate) fn receive_gmc_and_dispatch<R>(
+         &self,
+         bar: Bar0<'_>,
+         timeout: Delta,
+-        handler: impl FnOnce(u32, u32, &[u8], &[u8]) -> (Option<R>, QueuePointers),
++        handler: impl FnOnce(&GmcApiHeader, &[u8], &[u8]) -> (Option<R>, QueuePointers),
+     ) -> Result<Option<R>> {
+         self.inner
+             .lock()
+@@ -686,9 +687,10 @@ pub(crate) fn send_gmc_no_wait(
+         self.inner
+             .lock()
+             .send_gmc(bar, command_id, payload, max_response_size)
++            .map(|_| ())
+     }
+ 
+-    /// Sends a GMC API command and waits for its response.
++    /// Sends a GMC API command and waits for its matching response.
+     ///
+     /// The queue stays locked for the complete transaction. A single deadline bounds all queue
+     /// elements observed while waiting.
+@@ -698,26 +700,59 @@ pub(crate) fn send_gmc_and_receive(
+         command_id: u32,
+         payload: &[u8],
+         max_response_size: u32,
++    ) -> Result<GmcResponse> {
++        self.send_gmc_and_receive_timeout(
++            bar,
++            command_id,
++            payload,
++            max_response_size,
++            Self::RECEIVE_TIMEOUT,
++        )
++    }
++
++    /// Sends a GMC API command and waits up to `timeout` for its matching response.
++    pub(crate) fn send_gmc_and_receive_timeout(
 +        &self,
 +        bar: Bar0<'_>,
 +        command_id: u32,
 +        payload: &[u8],
 +        max_response_size: u32,
-+    ) -> Result<GmcResponse> {
-+        let mut inner = self.inner.lock();
-+        inner.send_gmc(bar, command_id, payload, max_response_size)?;
++        timeout: Delta,
+     ) -> Result<GmcResponse> {
+         let mut inner = self.inner.lock();
+-        inner.send_gmc(bar, command_id, payload, max_response_size)?;
++        let expected_sequence = inner.send_gmc(bar, command_id, payload, max_response_size)?;
++        let dev = inner.dev.clone();
+ 
+-        let deadline = Instant::<Monotonic>::now() + Self::RECEIVE_TIMEOUT;
++        let deadline = Instant::<Monotonic>::now() + timeout;
+         loop {
+             let remaining = deadline - Instant::<Monotonic>::now();
+             if remaining.is_negative() {
+                 return Err(ETIMEDOUT);
+             }
+ 
+-            let response = inner.receive_gmc_and_dispatch(
++            let response = match inner.receive_gmc_and_dispatch(
+                 bar,
+                 remaining,
+-                |received_command, status, payload_0, payload_1| {
+-                    if received_command != command_id {
++                |header, payload_0, payload_1| {
++                    if !header.is_response_to(command_id, expected_sequence) {
++                        let kind = if header.is_response() {
++                            "response"
++                        } else {
++                            "event"
++                        };
++                        dev_dbg!(
++                            &dev,
++                            "GSP GMC: skip {} seq {} cmd {:#x}; want response seq {} cmd {:#x}\n",
++                            kind,
++                            header.sequence_number(),
++                            header.command_id(),
++                            expected_sequence,
++                            command_id,
++                        );
+                         return (None, QueuePointers::Unchanged);
+                     }
+ 
+-                    let response = (|| {
++                    let response: Result<GmcResponse> = (|| {
+                         let mut payload = KVec::with_capacity(
+                             payload_0
+                                 .len()
+@@ -728,14 +763,18 @@ pub(crate) fn send_gmc_and_receive(
+                         payload.extend_from_slice(payload_0, GFP_KERNEL)?;
+                         payload.extend_from_slice(payload_1, GFP_KERNEL)?;
+                         Ok(GmcResponse {
+-                            status,
++                            status: header.max_resp_or_status,
+                             payload,
+                         })
+                     })();
+ 
+                     (Some(response), QueuePointers::Unchanged)
+                 },
+-            )?;
++            ) {
++                Ok(response) => response,
++                Err(ERANGE) => continue,
++                Err(error) => return Err(error),
++            };
+ 
+             if let Some(response) = response {
+                 return response;
+@@ -743,6 +782,81 @@ pub(crate) fn send_gmc_and_receive(
+         }
+     }
+ 
++    /// Sends a synchronous GMC command and checks its status-only reply.
++    pub(crate) fn send_gmc_and_check_status(
++        &self,
++        bar: Bar0<'_>,
++        command_id: u32,
++        payload: &[u8],
++    ) -> Result {
++        let response = self.send_gmc_and_receive(bar, command_id, payload, 0)?;
++        if response.status == 0 {
++            Ok(())
++        } else {
++            Err(EIO)
++        }
++    }
 +
-+        let deadline = Instant::<Monotonic>::now() + Self::RECEIVE_TIMEOUT;
++    /// Sends an asynchronous GMC command and waits atomically for its event.
++    ///
++    /// The command queue remains locked from the send through the matching
++    /// event, preventing another transaction from consuming its completion.
++    /// Interleaved GMC events are passed to `handler`; responses are consumed
++    /// while waiting. The timeout is shared by the complete operation.
++    pub(crate) fn send_gmc_and_wait_event(
++        &self,
++        bar: Bar0<'_>,
++        command_id: u32,
++        payload: &[u8],
++        timeout: Delta,
++        mut predicate: impl FnMut(u32, u32, u64, &[u8], &[u8]) -> Result<bool>,
++        mut handler: impl FnMut(u32, u32, u64, &[u8], &[u8]) -> Result,
++    ) -> Result {
++        let mut inner = self.inner.lock();
++        inner.send_gmc(bar, command_id, payload, 0)?;
++        let deadline = Instant::<Monotonic>::now() + timeout;
++
 +        loop {
 +            let remaining = deadline - Instant::<Monotonic>::now();
 +            if remaining.is_negative() {
 +                return Err(ETIMEDOUT);
 +            }
 +
-+            let response = inner.receive_gmc_and_dispatch(
++            let matched = match inner.receive_gmc_and_dispatch(
 +                bar,
 +                remaining,
-+                |received_command, status, payload_0, payload_1| {
-+                    if received_command != command_id {
-+                        return (None, QueuePointers::Unchanged);
-+                    }
++                |header, payload_0, payload_1| {
++                    let result: Result<bool> = (|| {
++                        if header.is_response() {
++                            return Ok(false);
++                        }
 +
-+                    let response = (|| {
-+                        let mut payload = KVec::with_capacity(
-+                            payload_0
-+                                .len()
-+                                .checked_add(payload_1.len())
-+                                .ok_or(EOVERFLOW)?,
-+                            GFP_KERNEL,
-+                        )?;
-+                        payload.extend_from_slice(payload_0, GFP_KERNEL)?;
-+                        payload.extend_from_slice(payload_1, GFP_KERNEL)?;
-+                        Ok(GmcResponse {
-+                            status,
-+                            payload,
-+                        })
++                        let command = header.command_id();
++                        let status = header.max_resp_or_status;
++                        let sequence = header.sequence_number();
++                        if predicate(command, status, sequence, payload_0, payload_1)? {
++                            return Ok(true);
++                        }
++
++                        handler(command, status, sequence, payload_0, payload_1)?;
++                        Ok(false)
 +                    })();
-+
-+                    (Some(response), QueuePointers::Unchanged)
++                    (Some(result), QueuePointers::Unchanged)
 +                },
-+            )?;
++            ) {
++                Ok(matched) => matched,
++                Err(ERANGE) => continue,
++                Err(error) => return Err(error),
++            };
 +
-+            if let Some(response) = response {
-+                return response;
++            if let Some(matched) = matched {
++                if matched? {
++                    return Ok(());
++                }
 +            }
 +        }
 +    }
@@ -378,584 +366,397 @@ index e6931f65b167..e472ec94691d 100644
      /// Waits for an unsolicited GSP event of type `M`, dispatching any other event that arrives
      /// first.
      ///
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 89369ff23b85..417df31988c2 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -49,6 +49,11 @@
-     vgpu::VgpuState, //
- };
+@@ -772,8 +886,8 @@ pub(crate) fn await_msg<M: MessageFromGsp>(&self, bar: Bar0<'_>) -> Result<M>
  
-+pub(crate) use fw::commands::{
-+    Dbdf,
-+    VgpuProperties, //
-+};
-+
- /// Upper bound on entries in the hardware FIFO engine table.
- pub(crate) const MAX_FIFO_ENGINES: usize = 64;
+     /// Drains and dispatches every message currently pending in the GSP-to-CPU queue.
+     ///
+-    /// Routes each message the GSP has already posted through [`CmdqInner::dispatch_event`] and
+-    /// returns without waiting for more.
++    /// Dispatches pending RM RPC messages as events, consumes pending GMC messages, and returns
++    /// without waiting for more.
+     ///
+     /// # Errors
+     ///
+@@ -936,9 +1050,10 @@ fn send_gmc(
+         command_id: u32,
+         payload: &[u8],
+         max_response_size: u32,
+-    ) -> Result {
++    ) -> Result<u64> {
+         let rpc_seq = self.rpc_seq;
+         self.rpc_seq = self.rpc_seq.wrapping_add(1);
++        let sequence = u64::from(rpc_seq);
  
-@@ -281,6 +286,12 @@ fn nvkv_words(payload_0: &[u8], payload_1: &[u8]) -> Result<KVVec<u64>> {
-     Ok(out)
- }
+         let dst = self.gsp_mem.allocate_command::<GspGmcMsgElement>(
+             bar,
+@@ -946,12 +1061,8 @@ fn send_gmc(
+             Self::ALLOCATE_TIMEOUT,
+         )?;
  
-+/// Decodes a byte-oriented GMC vGPU-properties response with the typed NVKV schema.
-+pub(crate) fn decode_vgpu_properties(payload: &[u8]) -> Result<KBox<VgpuProperties>> {
-+    let words = nvkv_words(payload, &[])?;
-+    VgpuProperties::decode(&words)
-+}
-+
- /// Decodes the static GPU configuration from an NVKV stream.
- ///
- /// # Errors
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index c2869c7fdf2a..f8f7f85d2df0 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -4,6 +4,14 @@
- pub(crate) mod commands;
- mod r000_00;
+-        let msg_element = GspGmcMsgElement::init(
+-            command_id,
+-            u64::from(rpc_seq),
+-            payload.len(),
+-            max_response_size,
+-        );
++        let msg_element =
++            GspGmcMsgElement::init(command_id, sequence, payload.len(), max_response_size);
+         // SAFETY: `dst.header` points to a valid, writable `GspGmcMsgElement` region.
+         unsafe {
+             msg_element.__init(core::ptr::from_mut(dst.header))?;
+@@ -963,7 +1074,7 @@ fn send_gmc(
+         dev_dbg!(
+             &self.dev,
+             "GSP GMC: send: seq# {}, command={}, length=0x{:x}\n",
+-            rpc_seq,
++            sequence,
+             GmcCommand(command_id),
+             dst.header.length(),
+         );
+@@ -971,7 +1082,7 @@ fn send_gmc(
+         let elem_count = dst.header.element_count();
+         DmaGspMem::advance_cpu_write_ptr_v2(bar, elem_count);
  
-+/// Raw firmware declarations used by vGPU management.
-+pub(crate) mod vgpu_bindings {
-+    pub(crate) use super::r000_00::{
-+        GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE,
-+        GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES, //
-+    };
-+}
-+
- // Alias to avoid repeating the version number with every use.
- use r000_00 as bindings;
- 
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 1610b005199f..0603fbde172f 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -22,6 +22,7 @@
-     Accumulated,
-     Array,
-     ArrayVec,
-+    Decoder,
-     DecoderValue,
-     Encodeable,
-     Encoder,
-@@ -29,7 +30,8 @@
-     Indexed,
-     Key,
-     KeyId,
--    Required, //
-+    Required,
-+    UnknownKeyPolicy, //
- };
- 
- use super::bindings;
-@@ -653,27 +655,33 @@ impl VgpuPropertiesSchema {
-     const FB_RESERVATION_KEY: KeyId = 0x310F;
- }
- 
--struct VgpuProperties {
--    name: ArrayVec<u8, { Self::STRING_LEN }>,
--    class: ArrayVec<u8, { Self::STRING_LEN }>,
--    type_id: u32,
--    bar1_length: u64,
--    max_instance: u32,
--    ecc: u32,
--    profile_size: u64,
--    max_fps: u32,
--    num_heads: u32,
--    max_res_x: u32,
--    max_res_y: u32,
--    dev_id: u32,
--    subsystem_id: u32,
--    fb_length: u64,
--    gsp_heap_size: u64,
--    fb_reservation: u64,
-+pub(crate) struct VgpuProperties {
-+    pub(crate) name: ArrayVec<u8, { Self::STRING_LEN }>,
-+    pub(crate) class: ArrayVec<u8, { Self::STRING_LEN }>,
-+    pub(crate) type_id: u32,
-+    pub(crate) bar1_length: u64,
-+    pub(crate) max_instance: u32,
-+    pub(crate) ecc: u32,
-+    pub(crate) profile_size: u64,
-+    pub(crate) max_fps: u32,
-+    pub(crate) num_heads: u32,
-+    pub(crate) max_res_x: u32,
-+    pub(crate) max_res_y: u32,
-+    pub(crate) dev_id: u32,
-+    pub(crate) subsystem_id: u32,
-+    pub(crate) fb_length: u64,
-+    pub(crate) gsp_heap_size: u64,
-+    pub(crate) fb_reservation: u64,
- }
- 
- impl VgpuProperties {
-     const STRING_LEN: usize = 64;
-+
-+    /// Decodes an NVKV response using the typed schema.
-+    pub(crate) fn decode(words: &[u64]) -> Result<KBox<Self>> {
-+        let decoder = Decoder::new(words, UnknownKeyPolicy::Ignore);
-+        KBox::try_init(decoder.decode(VgpuPropertiesSchema::default())?, GFP_KERNEL)
-+    }
- }
- 
- // SETUP_CONFIG_PARAMS_AND_INIT
-diff --git a/drivers/gpu/nova-core/mm/vram.rs b/drivers/gpu/nova-core/mm/vram.rs
-index 4a4bd42c9f18..87b7ce7f2c93 100644
---- a/drivers/gpu/nova-core/mm/vram.rs
-+++ b/drivers/gpu/nova-core/mm/vram.rs
-@@ -86,16 +86,19 @@ fn new(backing: Arc<VramBlock>, range: Range<u64>) -> Result<Self> {
+-        Ok(())
++        Ok(sequence)
      }
  
-     /// Return the physical address of the first byte in this region.
-+    #[expect(dead_code)]
-     pub(crate) const fn address(&self) -> u64 {
-         self.address
-     }
+     /// Wait for a message to become available on the message queue.
+@@ -1022,6 +1133,12 @@ fn wait_for_msg(&self, bar: Bar0<'_>, timeout: Delta) -> Result<GspMessage<'_>>
+             return Err(e);
+         }
  
-     /// Return the region size in bytes.
-+    #[expect(dead_code)]
-     pub(crate) const fn size(&self) -> u64 {
-         self.size
-     }
- 
-     /// Return a checked subregion relative to this region.
-+    #[expect(dead_code)]
-     pub(crate) fn subregion(&self, range: Range<u64>) -> Result<Self> {
-         let size = range
-             .end
-diff --git a/drivers/gpu/nova-core/vgpu/consts.rs b/drivers/gpu/nova-core/vgpu/consts.rs
-new file mode 100644
-index 000000000000..7ec577ec12f2
---- /dev/null
-+++ b/drivers/gpu/nova-core/vgpu/consts.rs
-@@ -0,0 +1,12 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+/// Development OpenRM GMC command identifiers used by vGPU management.
-+pub(crate) mod gmc {
-+    use crate::gsp::vgpu_bindings as bindings;
-+
-+    pub(crate) const VGPU_MGMT_QUERY_PROPERTIES: u32 =
-+        bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES;
-+    pub(crate) const VGPU_MGMT_QUERY_ASSIGNED_VF: u32 =
-+        bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE;
-+}
-diff --git a/drivers/gpu/nova-core/vgpu/instance.rs b/drivers/gpu/nova-core/vgpu/instance.rs
-new file mode 100644
-index 000000000000..ed304945330a
---- /dev/null
-+++ b/drivers/gpu/nova-core/vgpu/instance.rs
-@@ -0,0 +1,288 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+use core::num::NonZeroUsize;
-+
-+use kernel::{
-+    prelude::*,
-+    ptr::Alignment,
-+    sizes::SizeConstants, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    gpu::ChannelIdReservation,
-+    gsp::{
-+        cmdq::Cmdq,
-+        commands::{
-+            decode_vgpu_properties,
-+            Dbdf,
-+            VgpuProperties, //
-+        },
-+    },
-+    mm::GpuMm,
-+    vgpu::{
-+        consts::gmc,
-+        vram::{
-+            VgpuVramLayout,
-+            VgpuVramSlot,
-+            VgpuVramSlotAllocator, //
-+        },
-+        VgpuManager, //
-+    },
-+};
-+
-+/// Guest Function ID. GFID 0 is reserved for the PF; VFs start at 1.
-+#[repr(transparent)]
-+#[derive(Clone, Copy, PartialEq, Eq)]
-+pub(crate) struct Gfid(pub(crate) u32);
-+
-+/// vGPU type descriptor populated from a typed NVKV properties response.
-+#[expect(dead_code)]
-+pub(crate) struct VgpuType {
-+    name: [u8; 64],
-+    class: [u8; 64],
-+    vgpu_type_id: u32,
-+    bar1_length: u64,
-+    max_instance: u32,
-+    ecc_supported: u32,
-+    profile_size: u64,
-+    max_fps: u32,
-+    num_heads: u32,
-+    max_res_x: u32,
-+    max_res_y: u32,
-+    pci_dev_id: u32,
-+    pci_subsys_id: u32,
-+    fb_length: u64,
-+    gsp_heap_size: u64,
-+    fb_reservation: u64,
-+}
-+
-+impl VgpuType {
-+    fn from_properties(properties: &VgpuProperties) -> Self {
-+        let mut name = [0; 64];
-+        let name_len = properties.name.len().min(name.len());
-+        name[..name_len].copy_from_slice(&properties.name[..name_len]);
-+
-+        let mut class = [0; 64];
-+        let class_len = properties.class.len().min(class.len());
-+        class[..class_len].copy_from_slice(&properties.class[..class_len]);
-+
-+        Self {
-+            name,
-+            class,
-+            vgpu_type_id: properties.type_id,
-+            bar1_length: properties.bar1_length,
-+            max_instance: properties.max_instance,
-+            ecc_supported: properties.ecc,
-+            profile_size: properties.profile_size,
-+            max_fps: properties.max_fps,
-+            num_heads: properties.num_heads,
-+            max_res_x: properties.max_res_x,
-+            max_res_y: properties.max_res_y,
-+            pci_dev_id: properties.dev_id,
-+            pci_subsys_id: properties.subsystem_id,
-+            fb_length: properties.fb_length,
-+            gsp_heap_size: properties.gsp_heap_size,
-+            fb_reservation: properties.fb_reservation,
-+        }
-+    }
-+}
-+
-+/// A vGPU instance and the resources reserved for it.
-+#[expect(dead_code)]
-+pub(crate) struct VgpuInstance<'gpu> {
-+    pub(crate) gfid: Gfid,
-+    pub(crate) dbdf: Dbdf,
-+    pub(crate) vgpu_type: VgpuType,
-+    pub(crate) vm_pid: u32,
-+    pub(crate) chids: ChannelIdReservation<'gpu>,
-+    pub(crate) num_plugin_channels: u32,
-+    pub(crate) vram_slot: VgpuVramSlot,
-+}
-+
-+/// Identity and firmware profile used to allocate an instance.
-+pub(crate) struct InstanceInfo {
-+    pub(crate) gfid: Gfid,
-+    pub(crate) dbdf: Dbdf,
-+    pub(crate) vgpu_type: VgpuType,
-+    pub(crate) vm_pid: u32,
-+}
-+
-+#[expect(dead_code)]
-+impl InstanceInfo {
-+    pub(crate) const fn new(gfid: Gfid, dbdf: Dbdf, vgpu_type: VgpuType, vm_pid: u32) -> Self {
-+        Self {
-+            gfid,
-+            dbdf,
-+            vgpu_type,
-+            vm_pid,
-+        }
-+    }
-+}
-+
-+/// Registry of live vGPU instances.
-+pub(crate) struct VgpuInstances<'gpu> {
-+    /// Declared before `vram_slots` so instance regions are dropped before their backing pool.
-+    instances: KVec<VgpuInstance<'gpu>>,
-+    vram_slots: Option<VgpuVramSlotAllocator>,
-+}
-+
-+#[expect(dead_code)]
-+impl<'gpu> VgpuInstances<'gpu> {
-+    pub(crate) const fn new() -> Self {
-+        Self {
-+            instances: KVec::new(),
-+            vram_slots: None,
-+        }
-+    }
-+
-+    fn alloc_vram_slot(&mut self, mm: &GpuMm<'_>, layout: VgpuVramLayout) -> Result<VgpuVramSlot> {
-+        let replace_empty_pool = match self.vram_slots.as_ref() {
-+            Some(allocator) if allocator.is_empty() => !allocator.matches_layout(layout)?,
-+            _ => false,
-+        };
-+        if replace_empty_pool {
-+            self.vram_slots = None;
++        if !header.is_rm_rpc() {
++            dev_err!(&self.dev, "GSP RPC: receive: invalid NVDM type\n");
++            self.poisoned.set(true);
++            return Err(EIO);
 +        }
 +
-+        if let Some(allocator) = self.vram_slots.as_mut() {
-+            return allocator.alloc(layout);
-+        }
-+
-+        let mut allocator = VgpuVramSlotAllocator::new(mm, layout)?;
-+        let slot = allocator.alloc(layout)?;
-+        self.vram_slots = Some(allocator);
-+        Ok(slot)
-+    }
-+
-+    fn release_vram_slot(&mut self, slot: VgpuVramSlot) {
-+        let Some(allocator) = self.vram_slots.as_mut() else {
-+            // A live slot proves that its pool exists. If that invariant is ever broken,
-+            // leaking the slot is safer than allowing its backing VRAM to be reused.
-+            core::mem::forget(slot);
-+            return;
-+        };
-+        allocator.release(slot);
-+    }
-+
-+    /// Allocate resources and register a new inactive vGPU instance.
-+    pub(crate) fn allocate_instance(
-+        &mut self,
-+        mm: &GpuMm<'_>,
-+        vgpu: &VgpuManager<'gpu>,
-+        info: InstanceInfo,
-+    ) -> Result<Gfid> {
-+        let InstanceInfo {
-+            gfid,
-+            dbdf,
-+            vgpu_type,
-+            vm_pid,
-+        } = info;
-+
-+        if self
-+            .instances
-+            .iter()
-+            .any(|instance| instance.gfid == gfid || instance.dbdf == dbdf)
-+        {
-+            return Err(EEXIST);
-+        }
-+        let profile_instances = self
-+            .instances
-+            .iter()
-+            .filter(|instance| instance.vgpu_type.vgpu_type_id == vgpu_type.vgpu_type_id)
-+            .count();
-+        if vgpu_type.max_instance == 0
-+            || profile_instances
-+                >= usize::try_from(vgpu_type.max_instance).map_err(|_| EOVERFLOW)?
-+        {
-+            return Err(ENOSPC);
-+        }
-+        // Reserve registry capacity before acquiring resources so publishing
-+        // the completed instance cannot fail due to memory pressure.
-+        self.instances.reserve(1, GFP_KERNEL)?;
-+
-+        let num_chid = vgpu
-+            .total_channels()
-+            .ok_or(ENODEV)?
-+            .checked_div(vgpu_type.max_instance)
-+            .filter(|count| *count != 0)
-+            .ok_or(EINVAL)?;
-+        let chids = vgpu.chid_pool.reserve_ids(
-+            NonZeroUsize::new(usize::try_from(num_chid).map_err(|_| EOVERFLOW)?).ok_or(EINVAL)?,
-+            Alignment::SZ_1,
-+        )?;
-+        let layout = VgpuVramLayout {
-+            type_id: vgpu_type.vgpu_type_id,
-+            max_slots: vgpu_type.max_instance,
-+            fb_size: vgpu_type.fb_length,
-+            heap_size: vgpu_type.gsp_heap_size,
-+            fb_align: vgpu.vmmu_segment_size().ok_or(ENODEV)?,
-+        };
-+        let vram_slot = self.alloc_vram_slot(mm, layout)?;
-+
-+        let instance = VgpuInstance {
-+            gfid,
-+            dbdf,
-+            vgpu_type,
-+            vm_pid,
-+            chids,
-+            num_plugin_channels: 3,
-+            vram_slot,
-+        };
-+        match self.instances.push_within_capacity(instance) {
-+            Ok(()) => Ok(gfid),
-+            Err(error) => {
-+                let VgpuInstance { vram_slot, .. } = error.0;
-+                self.release_vram_slot(vram_slot);
-+                Err(EIO)
-+            }
-+        }
-+    }
-+
-+    /// Remove an instance and release its channel and VRAM reservations.
-+    pub(crate) fn destroy_instance(&mut self, gfid: Gfid) -> Result {
-+        let index = self
-+            .instances
-+            .iter()
-+            .position(|instance| instance.gfid == gfid)
-+            .ok_or(ENOENT)?;
-+        let instance = self.instances.remove(index).map_err(|_| EIO)?;
-+        let VgpuInstance { vram_slot, .. } = instance;
-+        self.release_vram_slot(vram_slot);
-+        Ok(())
-+    }
-+}
-+
-+/// Query the vGPU type assigned to a VF by its DBDF.
-+#[expect(dead_code)]
-+pub(crate) fn query_assigned_vf_type(cmdq: &Cmdq, bar: Bar0<'_>, dbdf: Dbdf) -> Result<u32> {
-+    let request = u64::from(dbdf.into_raw()).to_le_bytes();
-+    let response =
-+        cmdq.send_gmc_and_receive(bar, gmc::VGPU_MGMT_QUERY_ASSIGNED_VF, &request, 64)?;
-+    if response.status != 0 {
-+        return Err(EIO);
-+    }
-+    let bytes = response.payload.get(..4).ok_or(ENODEV)?;
-+    Ok(u32::from_le_bytes(bytes.try_into().map_err(|_| EINVAL)?))
-+}
-+
-+/// Query and decode one vGPU type using the typed NVKV schema.
-+#[expect(dead_code)]
-+pub(crate) fn query_vgpu_type(cmdq: &Cmdq, bar: Bar0<'_>, type_id: u32) -> Result<VgpuType> {
-+    let response = cmdq.send_gmc_and_receive(
-+        bar,
-+        gmc::VGPU_MGMT_QUERY_PROPERTIES,
-+        &type_id.to_le_bytes(),
-+        4096,
-+    )?;
-+    if response.status != 0 {
-+        return Err(EIO);
-+    }
-+
-+    let properties = decode_vgpu_properties(&response.payload)?;
-+    if properties.type_id != type_id || properties.max_instance == 0 {
-+        return Err(EINVAL);
-+    }
-+    Ok(VgpuType::from_properties(&properties))
-+}
-diff --git a/drivers/gpu/nova-core/vgpu/mod.rs b/drivers/gpu/nova-core/vgpu/mod.rs
-index a96d0018fa3d..320230ddd1dd 100644
---- a/drivers/gpu/nova-core/vgpu/mod.rs
-+++ b/drivers/gpu/nova-core/vgpu/mod.rs
-@@ -3,10 +3,17 @@
+         let payload_length = header.payload_length();
  
- use core::num::NonZero;
- 
-+pub(crate) mod consts;
-+pub(crate) mod instance;
-+
-+pub(crate) use self::instance::VgpuInstances;
-+
- use kernel::{
-     device,
-+    new_mutex,
-     pci,
--    prelude::*, //
-+    prelude::*,
-+    sync::Mutex, //
- };
- 
- use crate::{
-@@ -38,9 +45,12 @@ pub(crate) enum VgpuState {
- }
- 
- /// vGPU state manager.
-+#[pin_data]
- pub(crate) struct VgpuManager<'gpu> {
-+    /// Live vGPU instances owned by this manager.
-+    #[pin]
-+    instances: Mutex<VgpuInstances<'gpu>>,
-     /// Channel ID pool the per-VF areas are reserved from.
--    #[expect(dead_code)]
-     pub(crate) chid_pool: &'gpu ChannelIdPool,
-     state: VgpuState,
-     vmmu_segment_size: Option<u64>,
-@@ -50,19 +60,20 @@ pub(crate) struct VgpuManager<'gpu> {
- 
- impl<'gpu> VgpuManager<'gpu> {
-     /// Creates an empty vGPU manager for initialization during GPU construction.
--    pub(crate) const fn new(chid_pool: &'gpu ChannelIdPool) -> Self {
--        Self {
-+    pub(crate) fn new(chid_pool: &'gpu ChannelIdPool) -> impl PinInit<Self> + 'gpu {
-+        pin_init!(Self {
-+            instances <- new_mutex!(VgpuInstances::new(), "nova-core::vgpu-instances"),
-             chid_pool,
-             state: VgpuState::Disabled,
-             vmmu_segment_size: None,
-             total_channels: None,
-             fifo_engine_list: None,
--        }
-+        })
-     }
- 
-     /// Detects and stores vGPU state before GSP boot.
-     pub(crate) fn detect_state(
--        &mut self,
-+        self: Pin<&mut Self>,
-         pdev: &pci::Device<device::Core<'_>>,
-         chipset: Chipset,
-         fsp: Option<&mut Fsp<'_>>,
-@@ -91,7 +102,7 @@ pub(crate) fn detect_state(
-             }
-         })();
- 
--        self.state = state.unwrap_or_else(|e| {
-+        let state = state.unwrap_or_else(|e| {
-             dev_warn!(
-                 pdev,
-                 "vGPU state detection failed: {:?}; disabling vGPU\n",
-@@ -99,7 +110,9 @@ pub(crate) fn detect_state(
-             );
-             VgpuState::Disabled
-         });
--        dev_dbg!(pdev, "vGPU state: {:?}\n", self.state);
-+        let this = self.project();
-+        *this.state = state;
-+        dev_dbg!(pdev, "vGPU state: {:?}\n", state);
-     }
- 
-     /// Returns the detected vGPU state for this boot.
-@@ -109,26 +122,31 @@ pub(crate) fn state(&self) -> VgpuState {
- 
-     /// Initializes the runtime parameters returned by GSP_INIT.
-     pub(crate) fn init(
--        &mut self,
-+        self: Pin<&mut Self>,
-         fifo_engine_list: &FifoEngineList,
-         vmmu_segment_size: u64,
-         total_channels: u32,
-     ) {
--        if matches!(self.state, VgpuState::Enabled { .. }) {
--            self.vmmu_segment_size = Some(vmmu_segment_size);
--            self.total_channels = Some(total_channels);
--            self.fifo_engine_list = Some(*fifo_engine_list);
-+        let this = self.project();
-+        if matches!(*this.state, VgpuState::Enabled { .. }) {
-+            *this.vmmu_segment_size = Some(vmmu_segment_size);
-+            *this.total_channels = Some(total_channels);
-+            *this.fifo_engine_list = Some(*fifo_engine_list);
+         // Check that the driver read area is large enough for the message.
+@@ -1084,6 +1201,26 @@ fn advance_rx_event_seq(&mut self, function: Result<MsgFunction, u32>) {
          }
      }
  
--    /// Returns the firmware-reported VMMU segment size when vGPU is enabled.
-+    /// Returns the live-instance registry.
-     #[expect(dead_code)]
-+    pub(crate) fn instances(&self) -> &Mutex<VgpuInstances<'gpu>> {
-+        &self.instances
++    /// Consumes and dispatches the RM RPC element currently at the queue head.
++    fn consume_and_dispatch_rpc(&mut self, bar: Bar0<'_>) -> Result {
++        let (function, seq, length) = {
++            let message = self.wait_for_msg(bar, Delta::ZERO)?;
++
++            (
++                message.header.function(),
++                message.header.sequence(),
++                message.header.length(),
++            )
++        };
++
++        self.log_received(function, seq, length);
++        let pages = u32::try_from(length.div_ceil(GSP_PAGE_SIZE))?;
++        DmaGspMem::advance_cpu_read_ptr_v2(bar, pages);
++        self.advance_rx_event_seq(function);
++        self.dispatch_event(function, seq);
++        Ok(())
 +    }
 +
-+    /// Returns the firmware-reported VMMU segment size when vGPU is enabled.
-     pub(crate) const fn vmmu_segment_size(&self) -> Option<u64> {
-         self.vmmu_segment_size
+     /// Receive a message from the GSP.
+     ///
+     /// The expected message type is given by the `M` generic parameter. With `expected_seq` set,
+@@ -1203,32 +1340,22 @@ fn dispatch_event(&self, function: Result<MsgFunction, u32>, seq: u32) {
+ 
+     /// Drains and dispatches all messages currently pending in the GSP-to-CPU queue.
+     ///
+-    /// Processes whatever the GSP has already posted, dispatching each message as an event, and
+-    /// stops once the queue is empty. There is no awaited reply during a drain, so every message
+-    /// is routed to [`Self::dispatch_event`].
++    /// RM RPC messages are dispatched as events. GMC messages are unsolicited while the drain owns
++    /// the command queue lock, so they are consumed without dispatch.
+     ///
+     /// # Errors
+     ///
+     /// Returns the receive error that stopped the drain, in particular the `EIO` of a queue
+-    /// poisoned by corrupt framing (see [`Self::wait_for_msg`]).
++    /// poisoned by framing that is invalid for both GMC and RM RPC (see
++    /// [`Self::receive_gmc_and_dispatch`]).
+     fn drain(&mut self, bar: Bar0<'_>) -> Result {
+         while !self.gsp_mem.driver_read_area_v2(bar).0.is_empty() {
+-            // A message is available, so this returns without waiting.
+-            let msg = self.wait_for_msg(bar, Delta::ZERO)?;
+-            let function = msg.header.function();
+-            let seq = msg.header.sequence();
+-            let length = msg.header.length();
+-
+-            self.log_received(function, seq, length);
+-
+-            let pages = u32::try_from(length.div_ceil(GSP_PAGE_SIZE)).map_err(|_| {
+-                dev_err!(&self.dev, "GSP drain: message length overflow\n");
+-                EIO
+-            })?;
+-
+-            DmaGspMem::advance_cpu_read_ptr_v2(bar, pages);
+-            self.advance_rx_event_seq(function);
+-            self.dispatch_event(function, seq);
++            match self.receive_gmc_and_dispatch::<()>(bar, Delta::ZERO, |_, _, _| {
++                (None, QueuePointers::Unchanged)
++            }) {
++                Ok(_) | Err(ERANGE) => {}
++                Err(error) => return Err(error),
++            }
+         }
+ 
+         Ok(())
+@@ -1269,7 +1396,14 @@ fn wait_for_gmc_msg(&self, bar: Bar0<'_>, timeout: Delta) -> Result<GmcMessage<'
+         };
+ 
+         // Checked before any length field is read, since bad framing leaves them untrusted.
+-        if let Err(e) = header.validate_framing() {
++        let framing = header.validate_common_framing().and_then(|()| {
++            if header.is_gmc_api() {
++                header.validate_framing()
++            } else {
++                Ok(())
++            }
++        });
++        if let Err(e) = framing {
+             dev_err!(
+                 &self.dev,
+                 "GSP GMC: receive: bad MCTP framing, declared length {}\n",
+@@ -1306,12 +1440,11 @@ fn wait_for_gmc_msg(&self, bar: Bar0<'_>, timeout: Delta) -> Result<GmcMessage<'
+         })
      }
  
-     /// Returns the number of channel IDs available to vGPU instances.
--    #[expect(dead_code)]
-     pub(crate) const fn total_channels(&self) -> Option<u32> {
-         self.total_channels
+-    /// Receive the next GMC event from the GSP and dispatch it through a handler.
++    /// Receive the next GMC element from the GSP and dispatch it through a handler.
+     ///
+-    /// The handler receives the GMC command id, the header's `max_resp_or_status` field, and the
+-    /// raw payload slices that follow the [`super::fw::GmcApiHeader`] (two slices because the
+-    /// circular buffer may wrap). It returns `None` for an element it does not handle, paired
+-    /// with the [`QueuePointers`] state it left behind.
++    /// The handler receives the GMC header and the raw payload slices that follow it (two slices
++    /// because the circular buffer may wrap). It returns `None` for an element it does not handle,
++    /// paired with the [`QueuePointers`] state it left behind.
+     ///
+     /// `max_resp_or_status` is a union: GSP-RM writes an `NV_STATUS` there when the element is a
+     /// response, and the maximum response size when it is a request. Only a handler that knows
+@@ -1320,23 +1453,29 @@ fn wait_for_gmc_msg(&self, bar: Bar0<'_>, timeout: Delta) -> Result<GmcMessage<'
+     /// Where [`Self::receive_msg`] keys on [`MsgFunction`], this keys on the GMC command id,
+     /// which is the form the r000 firmware uses for boot events.
+     ///
+-    /// Returns `Ok(None)` when nothing claimed the element, either because it is not a GMC
+-    /// element or because the handler declined it. The read pointer is advanced past the element
+-    /// on every path except a handler reporting [`QueuePointers::Reset`], which has already
+-    /// returned both pointers to zero.
++    /// Returns `Ok(None)` when the handler declines a GMC element. A valid interleaved RM RPC
++    /// element is consumed and dispatched before this method returns `ERANGE`. The read pointer is
++    /// advanced past the element on every path except a handler reporting [`QueuePointers::Reset`],
++    /// which has already returned both pointers to zero.
+     ///
+     /// # Errors
+     ///
+     /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
+     /// - `EIO` if the queue is poisoned or the element fails framing validation (see
+     ///   [`Self::wait_for_gmc_msg`]).
++    /// - `ERANGE` if a valid interleaved RM RPC element was consumed and dispatched.
+     fn receive_gmc_and_dispatch<R>(
+         &mut self,
+         bar: Bar0<'_>,
+         timeout: Delta,
+-        handler: impl FnOnce(u32, u32, &[u8], &[u8]) -> (Option<R>, QueuePointers),
++        handler: impl FnOnce(&GmcApiHeader, &[u8], &[u8]) -> (Option<R>, QueuePointers),
+     ) -> Result<Option<R>> {
+         let message = self.wait_for_gmc_msg(bar, timeout)?;
++        if !message.header.is_gmc_api() {
++            self.consume_and_dispatch_rpc(bar)?;
++            return Err(ERANGE);
++        }
++
+         let header = message.header;
+         let length = header.length();
+ 
+@@ -1345,45 +1484,37 @@ fn receive_gmc_and_dispatch<R>(
+         let cpu_write_ptr = DmaGspMem::cpu_write_ptr_v2(bar);
+         let cpu_read_ptr = DmaGspMem::cpu_read_ptr_v2(bar);
+ 
+-        // The RPC and GMC elements share every field through `nvdm_header`, so `gmc` holds an
+-        // RPC header rather than a GMC one unless the NVDM type says otherwise.
+-        let (result, queue_pointers) = if !header.is_gmc_api() {
+-            dev_warn!(&self.dev, "GSP GMC: dropping non-GMC queue element\n");
+-            (None, QueuePointers::Unchanged)
+-        } else if num::u32_as_usize(header.gmc.size) != header.payload_length() {
+-            // GSP-RM sends the element as the GMC header plus `size` bytes, so the two lengths
+-            // describe the same payload and a handler cannot tell which one to believe.
+-            dev_err!(
+-                &self.dev,
+-                "GSP GMC: payload is {} bytes, transport declares {}\n",
+-                header.gmc.size,
+-                header.payload_length(),
+-            );
+-            (None, QueuePointers::Unchanged)
+-        } else {
+-            let command_id = header.gmc.command_id();
+-            let kind = if header.gmc.is_response() {
+-                "response"
++        let (result, queue_pointers) =
++            if num::u32_as_usize(header.gmc.size) != header.payload_length() {
++                // GSP-RM sends the element as the GMC header plus `size` bytes, so the two lengths
++                // describe the same payload and a handler cannot tell which one to believe.
++                dev_err!(
++                    &self.dev,
++                    "GSP GMC: payload is {} bytes, transport declares {}\n",
++                    header.gmc.size,
++                    header.payload_length(),
++                );
++                (None, QueuePointers::Unchanged)
+             } else {
+-                "event"
+-            };
++                let command_id = header.gmc.command_id();
++                let sequence = header.gmc.sequence_number();
++                let kind = if header.gmc.is_response() {
++                    "response"
++                } else {
++                    "event"
++                };
+ 
+-            dev_dbg!(
+-                &self.dev,
+-                "GSP GMC: {}: seq# {}, command={}, length=0x{:x}\n",
+-                kind,
+-                header.gmc.sequence_number(),
+-                GmcCommand(command_id),
+-                length,
+-            );
++                dev_dbg!(
++                    &self.dev,
++                    "GSP GMC: {}: seq# {}, command={}, length=0x{:x}\n",
++                    kind,
++                    sequence,
++                    GmcCommand(command_id),
++                    length,
++                );
+ 
+-            handler(
+-                command_id,
+-                header.gmc.max_resp_or_status,
+-                message.contents.0,
+-                message.contents.1,
+-            )
+-        };
++                handler(&header.gmc, message.contents.0, message.contents.1)
++            };
+ 
+         let pages = u32::try_from(length.div_ceil(GSP_PAGE_SIZE))?;
+ 
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index 417df31988c2..bdb358a19738 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -13,6 +13,10 @@
+     device,
+     pci,
+     prelude::*,
++    time::{
++        Instant,
++        Monotonic, //
++    },
+     transmute::AsBytes, //
+ };
+ 
+@@ -219,20 +223,27 @@ pub(crate) fn gsp_init(
+         GSP_INIT_MAX_RESPONSE_SIZE,
+     )?;
+ 
++    let deadline = Instant::<Monotonic>::now() + Cmdq::RECEIVE_TIMEOUT;
+     loop {
+-        let reply = cmdq.receive_gmc_and_dispatch(
+-            bar,
+-            Cmdq::RECEIVE_TIMEOUT,
+-            |command_id, max_resp_or_status, payload_0, payload_1| {
+-                if command_id == GMCAPI_CMD_GSP_INIT {
++        let remaining = deadline - Instant::<Monotonic>::now();
++        if remaining.is_negative() {
++            return Err(ETIMEDOUT);
++        }
++
++        let reply =
++            match cmdq.receive_gmc_and_dispatch(bar, remaining, |header, payload_0, payload_1| {
++                let command_id = header.command_id();
++                if header.is_response() && command_id == GMCAPI_CMD_GSP_INIT {
+                     (
+                         Some(decode_gsp_init_reply(
+-                            max_resp_or_status,
++                            header.max_resp_or_status,
+                             payload_0,
+                             payload_1,
+                         )),
+                         QueuePointers::Unchanged,
+                     )
++                } else if header.is_response() {
++                    (None, QueuePointers::Unchanged)
+                 } else {
+                     // A boot event. Keep waiting for the reply unless handling it failed.
+                     match on_boot_event(command_id, payload_0) {
+@@ -242,8 +253,11 @@ pub(crate) fn gsp_init(
+                         Err(e) => (Some(Err(e)), QueuePointers::Reset),
+                     }
+                 }
+-            },
+-        )?;
++            }) {
++                Ok(reply) => reply,
++                Err(ERANGE) => continue,
++                Err(error) => return Err(error),
++            };
+ 
+         if let Some(reply) = reply {
+             return reply;
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index f8f7f85d2df0..f8c6fc5ea8a7 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -596,6 +596,11 @@ pub(crate) fn validate_framing(&self) -> Result {
+         )
      }
+ 
++    /// Returns `true` if the NVDM header routes this element to the RM RPC dispatcher.
++    pub(crate) fn is_rm_rpc(&self) -> bool {
++        self.nvdm_header.validate(NvdmType::RmRpc)
++    }
++
+     // Returns the sequence number of the message.
+     pub(crate) fn sequence(&self) -> u32 {
+         self.rpc.sequence
+@@ -735,6 +740,13 @@ pub(crate) fn is_response(&self) -> bool {
+         self.command & GMCAPI_COMMAND_FLAGS_RESPONSE != 0
+     }
+ 
++    /// Returns `true` if this header is the response to `command_id` and `sequence`.
++    pub(crate) fn is_response_to(&self, command_id: u32, sequence: u64) -> bool {
++        self.is_response()
++            && self.command_id() == (command_id & GMCAPI_COMMAND_ID_MASK)
++            && self.sequence == sequence
++    }
++
+     /// Returns [`Self::sequence`] with the GSP-initiated-event bit cleared.
+     pub(crate) fn sequence_number(&self) -> u64 {
+         self.sequence & !GMC_EVENT_SEQUENCE_BASE
+@@ -911,6 +923,16 @@ pub(crate) fn validate_framing(&self) -> Result {
+         )
+     }
+ 
++    pub(crate) fn validate_common_framing(&self) -> Result {
++        validate_mctp_framing(
++            self.mctp_magic,
++            self.mctp_payload_size,
++            self.mctp_header,
++            self.nvdm_header,
++            core::mem::offset_of!(Self, gmc),
++        )
++    }
++
+     /// Returns `true` if the NVDM header routes this element to the GSP's GMC dispatch.
+     ///
+     /// A [`GspMsgElement`] and a [`GspGmcMsgElement`] share every field through `nvdm_header`,
 -- 
 2.53.0
 
