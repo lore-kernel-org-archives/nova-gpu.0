@@ -1,131 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011027.outbound.protection.outlook.com [52.101.57.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E246A1FD4;
-	Sun,  6 Sep 2026 13:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788700747; cv=none; b=utIfoIP9DBLZKnPinXGOvkk8FeNhumqUEES7a9ubDh0QF1ZNVdMkWDQwBxgEUBXeyl36x2LEC2IMBkoF4LGB65f4EQqN6j+HuQhydYOrFVnCpBPYsgbjCjqzRi4mXJxYc4trmXTIGOY4hS2Ob9DCyzUhYZ5sWSchr6TeTvzNSD4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788700747; c=relaxed/simple;
-	bh=if3VLss9cAnYFCu5pdVfMSN3YSv1tFcrsMFfsSRe6Lo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=oOK300e1Sh9mGktTFXfM345nmGZehWj3HLPzWBpYiXU7lCOCS0BVmiMBFrKPYImzKuH/6WE3+JOHzQLQb0xjPATQGyC1e4HlCj66esmkvVRkeozjfKB68mRSt6rc7qDb5RGZQSgmVETyBRZY/sq+Le+5DEOBuTE9woHsz0w8Wuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jlqrizIo; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC7B318ED2
+	for <nova-gpu@lists.linux.dev>; Sun,  6 Sep 2026 15:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788708449; cv=fail; b=OKJ+mrYOufw7JOrmh5npZhmKStn8gHegdQC9mw5wNrc+EU9vhBgG86dqMrRwtcUEwhy90jMns3NiJCG7sDQKjn+pOl0QVbTvV5FQiA4YWr7Yjkxq0jCX6tSPGhLL9UqLqj3DCxT3UCG1ooVUdZlRMOwADqRNnTgWxWB7lyo3Opc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788708449; c=relaxed/simple;
+	bh=paaEHxz4f6SbB5a0SreFR3ybDajllu/5hnudMgPBrGI=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=nsWmQMcB21ZpN7GyLE3GWmYKWCFLd4fIgqDDHFZyXtke3FAH5LBsLTCsA9F2QJ15WbXPqdyPIxX4uhG6e2nsQw5be9WwbyC5wIqkn0qoEavTCW12KoVMorWHCOl0GL/mlqWA9DaMrg/qoeYXY6ZDpCBMnvvBK8LKjCqd8JDZh8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZG1UkXB1; arc=fail smtp.client-ip=52.101.57.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jlqrizIo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA001F00A3A;
-	Sun,  6 Sep 2026 13:19:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788700745;
-	bh=u8O4noF59z7AVqt68jjhQ9ZPuiEADEf7VS3i0hVqNxQ=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=jlqrizIowN2Z2NMCLCQPF7TwlbaZuIPiPCOp2PezP3+MG38jZnNIA5MRlx25r6T1n
-	 LrnGo6BCReMN6wealrHO0R9aWD4sw8vo9ewJ+qE64l2obTaKGgjFJtXr46VR1uoxrl
-	 zCEuQ48tt1YCKJH01TDevId7TW7969UasCocYyML1ZBk5lWizrO3Fnaw1Q/CuiL2w4
-	 HmsLmAoSobjehDwrWIRnGfVnbkqfp7ASsiHq+0niTBNw5lU9wRWUZiNMA8gAvMzkMz
-	 i5w+JuVyNdbj++WhzhdjR7B7SI7t68wATHQl4P1fWAIW9qny9M8xoW0sEvvaNMF0th
-	 S1hcc7yCEVAWw==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZG1UkXB1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pg+l7VJiepHAjAO9tV0AywCBbpYt8O4YEvluX16ESoRxHv09LhJTU+em7J/W+sOzWU8eLxz12piz0C1O6czqdYpHqC2MKpa/7Y2uEqtngIUpRXNXPKd/Ai90B2Cd7jwOC5WKQ1lw2x2KfKaeGJeDT2Q2NO7+bgPMgR3rGBtNTFKBW7bBXG4U79RPFdKTJ0DTrIAaJuAP7lKA5TM+vAApwwtgy9zQeAixyfLKigmWTFk1XGDit+jgYKQaT/l6K/7DSjSj+g9MVs1tv/xkjQQrTewROWs30plx7Yp+Sd9NQ7rmuqLQMHboqi5RmnX3G5sx154UzJyPa7RGUQR7H2mJNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=paaEHxz4f6SbB5a0SreFR3ybDajllu/5hnudMgPBrGI=;
+ b=h/gKbhef13m4P109xWPJ7D0uEEHjhF0Ci27/Azud/JLzvHcELdDWShjVTQFhCDw9mjDM6nvtzzKfIQ2o8PnP2nrj02yGWKw2O6HMD3Gku0KGZHP3ZU8nWr7bAsZLroLBUFfDx7R2MPhH3E43mF4iy10LTAgxoO2t047CYJWr5bnpnQyzDF4Oo//5SOF88QuxnYirKdOQ7acP+CUiiWsg3EAVXJ8B4+iRTLZtOi6fyE9DCZlauJyXIArFaDo/c51Dw+XB4Wy8o4bjDiu42YOaXKRz1/UDxCwaKvtD29QDkeAbVH3f+x+Mfy180fxesqBk9TXjbFPMN1XzUM142rRdrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=paaEHxz4f6SbB5a0SreFR3ybDajllu/5hnudMgPBrGI=;
+ b=ZG1UkXB1rJTlX3k+ygorcsoSPQqszm/98Hcs+AK5aUxNYQCWUq92xFA1aLsEEkDxug+Qt/hQhtmZBENJtJvHna4k5Ii5mg5OQolfLdVfTvcd1VAI1kRFxDLeotnFYCmYR6/TLqXcLduhwJ7Rn8V5K85fByDZKSCZvcc1fir0Kf90avD+TFIPRrMnlLyOl23hQMRWeUw2mcrtEBn3oe0sH9xWazcz45yfHLpcOtAB7ph31XlJtyViRZ6g8ebxrBxdbA7hu6jmzHKCKjWhROeP62RC5mlNlwznGWOJF5+EAbsnq+btmRX14PejzqiFQdn0y464xtPyuPg350R0JfH01A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SN7PR12MB8771.namprd12.prod.outlook.com (2603:10b6:806:32a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Sun, 6 Sep
+ 2026 15:27:23 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Sun, 6 Sep 2026
+ 15:27:23 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 00:27:20 +0900
+Message-Id: <DL8C81PZ0XFE.3ASHPUUJJTH7G@nvidia.com>
+Subject: Re: [PATCH v3 05/10] rust: io: add static `cast()` method for views
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>
+Cc: "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-doc@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com>
+ <20260827-pramin-split-v3-5-24b24d7afc52@nvidia.com>
+In-Reply-To: <20260827-pramin-split-v3-5-24b24d7afc52@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0103.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37b::18) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 06 Sep 2026 15:19:00 +0200
-Message-Id: <DL89HS18UM45.1U3C3BPL9QM2Y@kernel.org>
-Subject: Re: [PATCH v4 00/16] rust: io: support register projections and
- remove relative registers
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260903192248.2248560-1-dakr@kernel.org>
-In-Reply-To: <20260903192248.2248560-1-dakr@kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SN7PR12MB8771:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcb9aa7e-8d6e-4f5c-10bb-08df0c2b5958
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|23010399003|7416014|1800799024|376014|10067099003|18002099003|22082099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	JdWLsw5d4uEKL4UBU84uriOu5y59JT7q6vlTzZEWotL0ULUP3EFdFxYRz094w4SkRHJhyCyHyoK1Xl7Ww7Fuev8JqHvPhQtYBjf7Mg5gThxuxk4iconpU0cqQmxEeU34HX2vaR977egY911nEFvmhygei45cMPnhE2oZJSB3DjVAVzXlKkbEy83aFSnapPAwFCrjJwT6pes1Kx2+8HbSGFCrjmWSD/RE8PmyKzGgVYSxGC6Ve3/2Bxh+GDwfKHco2Xs78aqGbhPo+Uh6pY8fregsBwuxKpVyVJYlMOlVD2oCqtT5mU/1oONioSt7oJF4zHfK0gyeMJdL2dFP+cwohQk/+mC0AWoPcRg53bIkWpGrcTri6wGqRqj10CuT3YH9zpI2jnDCmbpBX2vASbMOHULFdKAz6ImlKY3Q7ehitFaPPc3/SDKtIwysDGVkURANwJ2QPPVy4NoSmpg01kywYybMTbosoF0npNoYsXM+EYR6vCRGShRp0vLIVpd9u73ipmXMV4r0Mj5UCBmYjdWArG7y8By06YTj2NeTYC0U//wfAEzq8vSbpp25/MDxteEmG0P4EWQhig3A/xpYLayosNJJVpPiT3F6J+zCk7f84juks4HPcsaREZlk2CGAy5b1ONRFuku3FyZY6i7jk0gqV7SmEA9zQ5rQXfsPmxOt24c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(7416014)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RDY3dC81dEVMdjQ3NzdnSnZGR1czQzNTN3NNa2FXREl5TWVMSzk3YnFvdW5Q?=
+ =?utf-8?B?ZVdjWjVjOTJNdmFMSXc1NHFJWWlRVmE3OGpmLzZ4YTFvR0pxZnFTdXB5KzNT?=
+ =?utf-8?B?aDBkOUU5eFFCZ1lQcXVPUWMrT3NNYk85REFXN0pWb05xcWYxUFgzWVI1UlZk?=
+ =?utf-8?B?OHpIWnB6RW1pYlVnalZmOWttcDZSYWNTRFpueldiWEFnMEtlMkhsbnZuc3NC?=
+ =?utf-8?B?SlBRUENSWUhUc1FKSFJiZk5xdXBEUW4rdGhsZzF6TkJLNWZkK2dYY2xjVURE?=
+ =?utf-8?B?Y09lODBIKys0WjlIUk9jd1lyK1Z0WHpBY2R1eGpMZHFpVTZCUDMyVHR3V0dG?=
+ =?utf-8?B?dGdlb0ZVQ0lOSlM1b0t4cVJTSjBnVFBxbjZvWkxKT3JQdEFXL29JRkJmR3lm?=
+ =?utf-8?B?WEVScGdjSWYyZzBNODZob0ZiWlRFUndHRGlxSXE4T0RYdytad1BKSUwyWXlp?=
+ =?utf-8?B?R2M2S2phM1drbzFHcGU4OGRydElkR2RaNVlkQytxNGVYcWNCU24xNzRiNVRP?=
+ =?utf-8?B?KzdQZ3owQ1ZqeFdyeUdGbG9DZDZPcW43WHVPZGViTUVLY1o1Yy95aVh1THRE?=
+ =?utf-8?B?U0NrYm1sVFFadGdrOElmdXNnR1h6cXdoL09WQVdZb2UwSC9Ia3lUeUFXdjlh?=
+ =?utf-8?B?WTJzSFRXcFZrOFJSZ3k4dlZydytibmkzN1JwYkpnR1FHS29odDBMUUM4Nkgz?=
+ =?utf-8?B?aTlLN2JrN1BPRFNzNmxHN0Zxd2JtTzBVL3Myd1hYdzB2T05kK1VQU2EvQ1VV?=
+ =?utf-8?B?c1o1YWIvQjVtWm4rU1FHckVmOWxuU01kY0tIRCtHLzdLdUJUY3ByWGUvNVJl?=
+ =?utf-8?B?N0V3aWFTTW9OOXQvSEN1aytMQWt4NVQ4Y3RVUGRTUDIxUEVlOXA2enZXUUtj?=
+ =?utf-8?B?RklLSjBrbnpVbDlJR3MzY3ZIOTl4bmwyZDh5UW1VMXZURGpkMjY0SWtFM0x4?=
+ =?utf-8?B?MGZYMGRJSzdoMWpWeXZkUG4vVVRQYlp6dVFzcDNEUDJRQzRMdDVLdmRCK1Y4?=
+ =?utf-8?B?MXhGWGZSVk1lODk2N0NMQWV4dEsydjVKbXJHOHVBNUtwM2p6M3pReHZxcWhH?=
+ =?utf-8?B?UVUyNEdJVHNoZUtCTmZ2Q2xmaUNmcUluV0Q3TkRydVNpeC9CVThCb0ZQUHB6?=
+ =?utf-8?B?S05zSWtNZzM0TFMwSjIxMEozTU82alFKS0RkUkFwd1pvTE1nSTdiLy90N3dJ?=
+ =?utf-8?B?OU9Lc3UxYUMvOUxUUmh1K0dMYTE1UnF5ZkdoOGRqT1Zpa2lhbm8rTy9TR3h3?=
+ =?utf-8?B?djVtUklhWW5kWG5Fd3VleVdFT3Urdlk3d0JxRGQrZXhiZHE2dVdUVnVPdDFr?=
+ =?utf-8?B?SUpLNjdYc2s0aEc2eGRHLzVUMHIrMXl5UTYyNnFvS2l1MmFGaGoyakVEaHc5?=
+ =?utf-8?B?SU85NkJCeEt6UXpQR05nTGlPcFlOZ0FkTjlGWFQwQlhBRk5KY1hwWVdhM2NN?=
+ =?utf-8?B?NTZJUmJnN3F6VzdiTURqenc1RUZwRFI3aEFVQVVXZ2RoQTBVd0tsNmlwVyt4?=
+ =?utf-8?B?a00vTWs3ZSs1UWNoZG9ocC9Da0FXVEVDUGlHbmc3clhFamphVFVGTW9hVmRP?=
+ =?utf-8?B?RWkxVkc5TUUxT3lnRC9LQm9qcXpsb3ZWd21yRGJreXN0eHVXZ0Q0Tm1WaWc2?=
+ =?utf-8?B?UjBPT3Fha1lkcXFJWW5VSG9SQlh3eTQ4RktHVThlZHBuTUNZZ0lCNzZWZHNm?=
+ =?utf-8?B?UTMxQnhiZnN6UUdESVpsSXNoeWNHR1JzT3BnYm5wT3BRZVkvcWNjVzdCaXFS?=
+ =?utf-8?B?bVNPRlN3NXA2dTUzL3ZZcmk2ZGpZbXBoQkN4Z0llT3dzZXVQVzVid0o1Yld0?=
+ =?utf-8?B?ZE9WcDRxeWZ6US9tWC96UUU3eng4Z2xSSkZGSGhqaHlMREE3T3hkd1U0S3Ry?=
+ =?utf-8?B?clgxbTdiYTJ1OHVSdk5SdCt3V3NXSnk3bThGbzNudndndE1semxYN1lnR3Vo?=
+ =?utf-8?B?MDdoL0hpN2xOWkxsbk5Rc2FNTGljVUIyUDlaeDB5UzU1TE1tYlpqZEg4VzYy?=
+ =?utf-8?B?NUlOSzVXOWpYTXBxTU8rVjhlOVZVL0g1ajlwUXpHOXp4M2R2d3hMV1FXbk81?=
+ =?utf-8?B?NG1UK2N1WjQrNUtsblJCcjNOaXA4N0c1bUt4OUMzSFNTSFMrVU1FUjUrK2Nu?=
+ =?utf-8?B?eWtXRnUwY3dHUGY1UDNETkRIMEFqOEtQNmhMUFgzZFBleEtiOHpIRUE5YnJ0?=
+ =?utf-8?B?UVJ4aE9uTGE3MDdSS0hSK3JIRU1VRVdHWkFLT3hZcm1BUi9hNUxLeldmRFc3?=
+ =?utf-8?B?QlNHM2UxREhSQnVJWnNhMGxRRWpWOUUzclFmc3pqVm9HMVN5REd4TkVKUTE2?=
+ =?utf-8?B?eG0vYkhOdGNCWTZMQm5sUWVRVC8waFhxalhpbzhXNHZuNHRiUDFUeG9qWDd1?=
+ =?utf-8?Q?LDS7BW8KVOmmYMY2TGLjJOvrzqAGVBCWvY7WiSI1CCfDo?=
+X-MS-Exchange-AntiSpam-MessageData-1: rwwJhyX6Qb+/3w==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcb9aa7e-8d6e-4f5c-10bb-08df0c2b5958
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 15:27:23.4246
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nrNJPVJ+Il8Vt3s5cUoQIWJOfcXXWn7WcSkyXDC1nmRSiGFBDNfTOFwD247pQDKbTUzmGc/PVufBGj62ROZ2Gg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8771
 
-On Thu Sep 3, 2026 at 9:22 PM CEST, Danilo Krummrich wrote:
-> On Tue, 01 Sep 2026 17:50:24 +0100, Gary Guo wrote:
->> [PATCH v4 00/16] rust: io: support register projections and remove relat=
-ive registers
+On Thu Aug 27, 2026 at 5:51 PM JST, Eliot Courtney wrote:
+> From: Gary Guo <gary@garyguo.net>
 >
-> Applied, thanks!
+> Add a compile-time checked variant of `try_cast()` using the minimum size
+> and alignment information.
 >
->   Branch: topic/rust-io
->   Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/drive=
-r-core.git
->
-> [1/16] rust: io: register: reimplement as proc macro
->       commit: 63b2578517df
->
->       [ Fix typo in module-level doc comment and fix ArrayDef syntax
->         description to match the actual macro syntax. - Danilo ]
->
-> [2/16] rust: mem: add `transmute` with deferred size check
->       commit: 82591c20bcb3
->
->       [ Fix doc heading to use plural "Examples" and add missing closing =
-code
->         block delimiter. - Danilo ]
->
-> [3/16] rust: mem: add `AsRepr` and `AsReprMut`
->       commit: 968f30ade612
->
->       [ Fix grammar in from_repr_unchecked() documentation and rephrase
->         confusing safety comment. - Danilo ]
->
-> [4/16] rust: io: perform conversions using `AsRepr`
->       commit: 1e707b76716a
-> [5/16] rust: io: support register projections
->       commit: 34b6dc471749
-> [6/16] rust: io: register: allow explicit base type specification
->       commit: 70a122d5a342
->
->       [ Remove unnecessary #[allow(unused)] from the 'base' field. - Dani=
-lo ]
->
-> [7/16] gpu: nova-core: specify base type for registers
->       commit: a07fa2c979c1
-> [8/16] drm/tyr: specify base type for registers
->       commit: 573228e75c33
-> [9/16] samples: rust: pci: specify base type for registers
->       commit: 54b04b9fc0ea
-> [10/16] rust: io: register: make register have a typed base
->       commit: 35c21468c294
-> [11/16] rust: io: register: support fixed offset register without bitfiel=
-d
->       commit: ddeaaa3a0fbb
-> [12/16] gpu: nova-core: use projection for PFALCON and PFALCON2 registers
->       commit: 6d5f14077811
-> [13/16] gpu: nova-core: convert hshub0 from relative register to projecti=
-on
->       commit: 4a7a27bd1947
->
->       [ Split nested import into kernel vertical style. - Danilo ]
->
-> [14/16] rust: io: register: remove relative registers
->       commit: b6af037d9499
-> [15/16] rust: io: register: remove `Register` trait and cleanup macro
->       commit: dfec6f41d053
-> [16/16] rust: io: register: unify handling of register with/without bitfi=
-elds
->       commit: 35423e8fd718
->
-> The patches are in the topic/rust-io topic branch and will be merged into=
- the
-> corresponding target branch soon.
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> Link: https://patch.msgid.link/20260805-typed_register-v2-1-c3ca142220a0@=
+garyguo.net
+> [ecourtney: fix the doc example type and doc grammar per v2 review]
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Merged into driver-core-next and drm-rust-next, thanks!
+So I am basically ready to merge this series, but need an ack on this
+one patch; I/O maintainers, does this look good to you?
