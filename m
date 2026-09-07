@@ -1,75 +1,75 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012063.outbound.protection.outlook.com [52.101.53.63])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013010.outbound.protection.outlook.com [40.93.196.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D36501F38
-	for <nova-gpu@lists.linux.dev>; Mon,  7 Sep 2026 15:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D40C3AB262
+	for <nova-gpu@lists.linux.dev>; Mon,  7 Sep 2026 18:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793674; cv=fail; b=Biknt/kukgW7J7DF7mhl6jEaQcaPn6oUvNlasZ8Jt0eV4yen/lWI4jGTkkZgHwfmvdQ2xxifboPcywGa9DS7suBNyQhfezRAaZSwkp40GXNlQvas2CdoGhCukKzfFwOSLf840YR7YGYNHgrwXU6h/vvNKC4m5qX4kYokwZPHv70=
+	t=1788805065; cv=fail; b=Z1klUMyXfrZIzuokfG24h5JSLQxIlTMUHGo7rxikiW9XioGCvGD5Es/lfJ+J6xCPIpL/4ygaKHvIvhtKq4zaTni9cmGevIRpbqvv4bd+NyI09l/u67+AwoLGXJBvNJYHIT4kJ7yzI/HXJanfxwM3t9RhaRU2kjnGbOr/DeXQgoI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793674; c=relaxed/simple;
-	bh=tohPry0VHd0yALjSH39rCWpifVQaOCMt23uDweBJG+k=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=IEPQ/LCNFS1hCkWNA6efYU8smXsQ3b1hyB9sZKa1oi7GYgyIeE7g1MbWAzDVTf5q41xEtoB7uI1vd6sDqkhoS5zY+VPRyV0l27l3KF4Y6emtmwKgjWGSC8fhXWJeAXCl4f2ZBE9rJp497n9zNmZynGKT12KHYLvMmeev0VX+U7o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Lbd79j2+; arc=fail smtp.client-ip=52.101.53.63
+	s=arc-20240116; t=1788805065; c=relaxed/simple;
+	bh=3MJvXpDimfGyL9+cL1RDNw2HiEr2R5EbRf+x7JVeV84=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=b/ZKniCUdtM9FMgd0c4rpK6pgWWlcjfm3JeQ49hNqfU8vKxNJxOqYYyBCdba93EhcMh05PqotzmRUMzD4FlGMB3sN2n6zwLOGfDMXt1TFOZHeqQT6mfGQf1WGr65mqDBSOBiBLc6MjH4KwfBwPM9X692CfHeoSRCRoRmDjGFaQM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XvXSIOdK; arc=fail smtp.client-ip=40.93.196.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lbd79j2+"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XvXSIOdK"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mn1DFG68YjbC/P3XbelNDy5dV+uATiG0G45oQLKH8zb4zKzxneSK47cJxZixacXdYfsA7LqEuuRwPHxBXrp5dJDjUdD5/A4VRXvBfM6L8GqaZbj/xqzqXBo8AGxw89Ne/lOiBSTbKtSPssszIrUPVv6OaNruzppaJYqaJ6BgLmAat4ui0UOcOIf9v8QSM+wHhj4Ue2HOLZsJWUiLVN7SRx9t54JiFQ19+S3mhSVwut2/zxPlNsEUfNM+H4+TMnzMoD6RBqyjR0ncxZ/fxyWfV12qvCZ9YXmkSXsG/xJvnPYIUq5LzX+u0S+oAf0v6gLthSQa7rE0bT8hO/hRdCbpRw==
+ b=LpX1+VUnfoyx6LbewVL2jLmxYp7zLw8bfifH9WGpaKCMyLj9ux1z8S9hFBE6Pi6VhHqhV92YVKZW9ZV43apMKteN80zvocHtlExYX9/tNHm6a2O5qDRo8AYIA/7Hk3qlgb5BJ2IazCCG2XDIM+3R5HgVdyp2UZBc+lT/shl9OkYBs9MBHovKxG0Z2LdgzVYqXbOXFIpHdE0j19Vb1XrKy/xzTB26wwUxyIFiq0+x/f4hHD/Vms3jpFPwEgxP1ho4crE2IUD9r5r25/SOAHFQCuUdmSrJ0D7s0DnWaPgqDRf1CRIC/bwJiCN7nKrexaWFMTZdu/mpXwFvvt8qt+ir3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t7gq0AS+Lf42T/2ZZxI6mmOhjSjVaehvWudNBlOrEvU=;
- b=DCPIw7tuT2yqkvp79pIVvhm2buPSCD0MQu1Jm9/nRt/nwI6tQcnKfc92ava09pOTd91NsrpyGL2XedhsJQ/xknfd75HQljbsarNQ37+3hnN+AZQgK/PB8WHVyleohHgISP0n+2yg3w2EcoTiCIveDmlJYbjfdwWRYTiZTS1D2LF3hDgtifgq7KiFKJDaXziJ3gBZOKJFVZmBz/MC3hyAjDBUMsxn72+kD4WQJc2eOigs4oVYRYEhmze0v3gdaEVLY8yd5QmzKnhz3dAp3XJ5G7JT1t9tL94yCShoE6mp/AomrBbquYbED3lD6f+BzpFAsBOJ05Is867/dE3EWRmfNQ==
+ bh=L1TTnQ6O4yU8z7rrO6Xwa7gxD31H0ezHN0y+nDRUKUo=;
+ b=WoXA30EXCYUAxI7k9X/YnPubYHWBadx8ijyWBqwKqLHrQfUr+eRei9ZVw0MK4oaMay69h8UdLI3+hKvqaiK9lzGC/Ms/8PsH9+5p1J77NmaTRN+bhcI3boHNj7ICrUu7iSVDs6j6A19a9EtyylBHdaB/B9oyAYmdvdIe9nzuJJA7GMrK7eYkXLhQnEvZgOMQjwDgdI0CvGVorWD/4QMr2tLDE5rwZ45krtGrguXyUdZ4EtzUw3r7FDEVQYErm2heJzDifZQ/p1hZKI030i9SkAyUTu2zJ5d2VtdOfPMmB8Ei0YngPekklqN0uPOfVRwxdAW6x6TUpQ48/Az+34sWSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t7gq0AS+Lf42T/2ZZxI6mmOhjSjVaehvWudNBlOrEvU=;
- b=Lbd79j2+LzsbVxP1H2k/jR3RFi+miLVAy306rBsKVEVE8goJJR2CgqFKU1acaVlYsODYRxKnHmumbdrhvRx49JPlWezVGRWyztzcbyO7SPhtN7gg4xPS82a8YeMia3Ag5w4db0VNR+2e54BbzeMPki807dhlj/dHKxgIItAN9o+x/E648ajIOaZqp2Hyc2Hsasjy0j3N3+ymmKylkGmfQq7GGKmQE7cZR9IAW6E4MFZTVSQuNGV8ePQKeW0r7bWaXMuBevQwNkVCYP9XEfjMzxNJ5hvlJlEUh+AoFCNhTdOKuBY9ZdGu/ycyR/aVFhshXUobvS6LRe0N+rV3UIU6/g==
+ bh=L1TTnQ6O4yU8z7rrO6Xwa7gxD31H0ezHN0y+nDRUKUo=;
+ b=XvXSIOdKmfTyt4aJfV4qmirUHW2mUSPpVT2ceBENpFlHOk5gOEKWSFvQXpnNuX2xoLYF732DaaVSmZV/9Aw2HbX8Cn1pn5XQqcQmN9I3Vqqz9cQtEGE+pSMXORcuByvW1J4Jaiu3x9qHa0aXWDll8hVqq97Yy1jNuwx+Nav8VI3J5x4o71N/0u3E5sR8d0SKbLveEn6y287BxrTP3leqIuPI3MjQxFh1aerrR8Vq555tDE4tN1rM84DR+sWwkqtMr4Rx32Pdu7ZIJOuZlu+kld9V8Q1LHhgC82BwjOCYCQSw6Zr4efJqtUBP7k+2ekrd9YfMabk25JWyr42rkle8AQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CY8PR12MB7754.namprd12.prod.outlook.com (2603:10b6:930:86::14) with
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ PH7PR12MB8153.namprd12.prod.outlook.com (2603:10b6:510:2b0::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 15:07:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
- 15:07:48 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 08 Sep 2026 00:07:45 +0900
-Message-Id: <DL96FLHTRWOI.1FKOXD8RCXBUP@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2 4/8] gpu: nova-core: add NVKV encoder
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-4-0de9d5c8658c@nvidia.com>
-In-Reply-To: <20260827-b4-nvkv-v2-4-0de9d5c8658c@nvidia.com>
-X-ClientProxiedBy: TY6PR01CA0012.jpnprd01.prod.outlook.com
- (2603:1096:405:3bc::17) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ 2026 18:17:26 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0382.012; Mon, 7 Sep 2026
+ 18:17:26 +0000
+Message-ID: <eb0e388d-3f81-4c8a-bbe2-162783eb97ed@nvidia.com>
+Date: Mon, 7 Sep 2026 11:17:23 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/14] gpu: nova-core: drive GSP events with the SWGEN0
+ interrupt
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ nova-gpu@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>,
+ Will Pierce <wpierce@nvidia.com>
+References: <20260903031514.1515905-1-jhubbard@nvidia.com>
+ <20260903031514.1515905-13-jhubbard@nvidia.com>
+ <DL8W1O8BW36T.2HVKESOX2KAWX@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DL8W1O8BW36T.2HVKESOX2KAWX@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0132.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::17) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -77,219 +77,202 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY8PR12MB7754:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59d4b2db-a084-44f1-23c1-08df0cf1c76d
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH7PR12MB8153:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc60bb68-c7bc-4d0f-4801-08df0d0c4500
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|10070799003|366016|23010399003|1800799024|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003|3023799007;
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|10070799003|6133799003|3023799007|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	C/0KivCkH1V/1V3BhploUxDXwti686ZcaH1yhIsQD1Oou5W/1ZSgiyUi4KK6sga+njrB4Jr9J+pBaUorv6SZ1UxTo/nnBQxIwYEv7iGv2MSpO364PYFBIJEJ/DkfDtLdwqCqrqOZhe0yASX3nWLCvVtShUiOiVt7iHdxD8guE+y6z6Vtuc66sCC+/3yKmCIuQIfIW26Kt6TWeaqUF8x1Nq06X//dJC3OpIRqumem4IRm1+2zjJYQNQGxnyzDCIU+S/K0kxRzyOtx2f7JnJ2eVUe7C5yR/f3MCI9skXp560HDn0Z/r1L4d5ffbHMl3A4QsSwVwl5SXDc3BlxH8T1yJR1M/TFyOAmWNdhj4y9ybCNgJfZ7ZTpsCc5bi0hH+Exbj/1LPEZ2mJOCY6CKv9ngai6udATW7rQ+RywEY5rAgTosDaIXuoSgU+o2bIqgsBElajVFxHMrzali6VnDRLuIZayG3GqLCw6ZYjwWIyWydGz+4zOdaWmtqJi8rQKWLrIJalPDjxUotNUfyy4eRw6Zqhyqop+RPBh4iI/B4QZvszSSeCMNyIJv7Y9uZQsXDZFVlzSo4v6/ROfMplsxLoO+8ZHhLoLoo+kQx6ClEbbmmjiYWkGitY4ZtqWhP/tzo2rz03G0XumO3JuydP+Bjub322LdaTx/xq+W1dVPXpyMUp4=
+	DQvINnfvaZTolwfa5ztkdHfLXwf8ylsJBDTFxiGdPAhEkTCjYFLEG3bneDb7NZyWpB9/8h3ZsWTsv4BMlL9lQOQqpAmMCzzJIHjwYbfmt3HXjLIaMrt+vJkxmPEdMU9d+rBA+TuVPN2tuf885NP95u0fVJbLd468PtxdtTc9yankOg6f7Oo4oXidn725ptzoq/YS3qJ590zz1OSN48slruQPsnVpVV7PTg+PVo9l3HrYTY+zLOUeAYYBRdLqOxcR9iy7RWU1makD23m72SNmoZCB7XImo2IjvcLE4fORG3VbXGhIKVTGIkFUl3CfSOQZc6rze3q7NF8oFlRRfXj3DdmAVQshHcaAlBygkQJdyV+HZwLyea9weJiPMUswBmgNpv4Hvfpt62NT8YHzpI+fDQramqOqwvx/Epm+uGbkmbpOw+YrCGl772TB98+tvWQU/ZwW7C2i6ttxPawi1V/lBvvrYZ53WAh4T1cYw4EUneBP0ZJOqJLTECgWPuse22cvclsgKSDuAiylKVsWDgCXqrIjjQTlu3PQALLdrBhaTU2GjG4F+4+RK1crhuGBz7j+VY1Ys19kL+t2UH9LNVk89U+x4zJgSF/R1DQZ/OXSw9TV+KwnCLo5VYGmkRi0/FxvHLI4xx+Gevt9yJdXhgJTPcu9wGozcClcVLeb/cdTA4M=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(366016)(23010399003)(1800799024)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10070799003)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a3R5OUd5MkVGSXBSeVVHNkx0bmVqbkpKVWFmYi9TaEF5UVZkWWFrWWpoL3Nx?=
- =?utf-8?B?ZGNrMUIvNFllMktsOCt0blljTEliWngwcng3RkpNOTNHVVhJVXRSM1hmek1p?=
- =?utf-8?B?VFlKamdQdk1nYkxKVk11UXhJdHFDMjV5OGVYeFp4UVlHWGtiYkNmNWZQUnFh?=
- =?utf-8?B?VmpEdlY2ZlYwM1Nkbms4eCtVTVJ1ZFlaemhQd3Y2aDJ0TUNGVjArWVM5VldL?=
- =?utf-8?B?QVgvK3FBYTRnUlc0SURaU2dHeC9KSmRDRHJuU0lnMVlIeW5SMUgyZzdvMXJG?=
- =?utf-8?B?YWt4RXkxbkVRaVJheWpNVmZoRjZpb1N0djFwcUR4K3U1VVlKUGJ3YThteTRp?=
- =?utf-8?B?ZlYybjNmaVhIVkdyVDBWNHRENVRKVXJpZlU3TVpSd2FKbnkyMjkvK3ZuSFRt?=
- =?utf-8?B?akl4bEdUSVVkODU1Mkk0bkUwakdKSXlwR2toTm5kWGVKT2pQbW5sY2l1anVG?=
- =?utf-8?B?cVZ2cGpORlR5ZGtSSXdyV2grTUxUN0tmcGxsQ1BZbGgzWG51VWRPNUlObkhJ?=
- =?utf-8?B?Q3NzVTZwQ1c1T1kvbVdaQmR6UEh4RlVHdlk5TURDQmJUaFRPWkc0MVp0a2FZ?=
- =?utf-8?B?N3VCU0c1STNNcndHR2JlT082c1Z1M2JjRVFDRUJYaFZIcUlBYVlrak1nSmdY?=
- =?utf-8?B?bkdQK1haSGppbnlDTFdaNTloZFVUN1NJWUxlKzJVWFRPb1lOeDd0b0dFeGEr?=
- =?utf-8?B?TnVjTlBGYkJHZW9obUVYVWRpekRUVm9ZT2pxeVdHb3FDY2hEcVFQQmdkVXRW?=
- =?utf-8?B?UGh0elJDRHQyZHBzTGVabllyb0REZzFVbmpDWVJKZGsxYW15Z2VzQmFjSmFQ?=
- =?utf-8?B?aWVlRGJPNUQybTZESVkwZnQzMmxuMHcrUnNsamdzZ21kOXMxSGpWOWJaS3Z1?=
- =?utf-8?B?YWx3bWhhOEpBZmRWYmo1bGNxRWJNbUoyc20rSzRldHVFNTZaaTBscklrcDZN?=
- =?utf-8?B?eEE3Vko3MzdETU9QcTBqVC9idXc3MzUrdDhvSW03dVZoV0h2ZnpFSzk2Wm91?=
- =?utf-8?B?WXEyT3pPQ0MySTVWbTJhSHVxNmc1VXRYRDdQVWtnUWJhRC9Md1lGNVJYd0dJ?=
- =?utf-8?B?UVpZb00yKzRJM0lJWUlNanZJVUg0cmlaQmVuckF3R3hsdkYzVFE3VEZ4U05H?=
- =?utf-8?B?WWIvSjdBWDZQd0l6cDlnVmRxbjZ4ZURIZWZ5ZWRSOXJsa3Z0akoxRzVsT09G?=
- =?utf-8?B?enZGdGdxajcvK0xPQjBPV3hiS1ZZYnVqK2V1SnNWR3BCYTRzUTV3bSs4c3hN?=
- =?utf-8?B?bHl1dmRWTWJMZWt5WmpnaWNkL2ltYUFSVjhWNGFWYW9COEpsdittVlRPYUho?=
- =?utf-8?B?dVhBaTRucTBaK2tLU1p2YWRVNGdqV0lVWEtCMjREcFdlQzNnR3pyZFgzaUU0?=
- =?utf-8?B?RGc1Qy9zYTErSGNBQ0ZvNEwwbm9nU1RrSzVwanJVUXJ4dHllVTY0dVc0RXpG?=
- =?utf-8?B?RDB5dmNtZzBrd2xBNWhKcWVkcDQrTU8ya3FHSHV0UXVWZUN0bzA5a3NwNDgv?=
- =?utf-8?B?ZkpsQjR3U2RaQ2JkM0ZkRlNDWisrcnBDMWVtVUVkUEFzb1VOT0p2NFZPZkNP?=
- =?utf-8?B?SjJETlJ1YW10R2grNkcrNEM1K2ZGcVBHR1h4ZDBZL1ZGNHdib25oV0ZORDMx?=
- =?utf-8?B?OEd2MklRb0p1eVFkSU5OdFNTTHdnUGM4NWpUVjArL0ZpS2R2MzdYcEkxS2dP?=
- =?utf-8?B?UUViUVdKbkwveFVhZGpybFpuMnVKcUZOK3I1L3lTZll4b3ZHUWczNmxhOUpj?=
- =?utf-8?B?NURRTEtoSGppSEdhQTNWZ1NPTlRDcWJsNUdwOUoveXFXMjJaaDlXeGJ1TGg2?=
- =?utf-8?B?ZWpnQURGNjBKeGIrRS81RjlGd2Fzb0RaWXU5Zk5ZY004ODhldWdkeSs2S0NG?=
- =?utf-8?B?RGtaakRzWEFuZnpLdnlPU1ZLN0xSZFQ4Wm8yWFZ0UXpPM2lrNFZjdUVNdXlo?=
- =?utf-8?B?SHBpeHlISVhVN3BGUDhKYlVyYTBpMUk3V2VNREhnZ0xYdks3ZXVWUXgyY0s3?=
- =?utf-8?B?QU9YZWVrb0JMNllaSmRMZkJUaTgyRFBPUDg1US9MRjM4NFhrY25IUDVWL2l2?=
- =?utf-8?B?dW10YnFHL08xOVJuaWJFWmRJbmNYQytPcTRLTm5FdnBIdWNteVp5eXlpaGNp?=
- =?utf-8?B?c29GZWdPS1hWOXM0aGZkT0xQVWNueFVYQ0t1NHl1elh1S3VDOSt2ZE4zTFJI?=
- =?utf-8?B?djUya29aakI2S21oOW9JNXViWnNnanVYdnVwblZoSDZzREhDbFlhLzlCZVor?=
- =?utf-8?B?M3IzU0ZQeHdKOHdNeXErSTNPaGZ3VG1OYkw0VU5yd2xkWmJzaU0zRHpjdSty?=
- =?utf-8?B?Wm5tUDlhdHgySTdEWFlLeW9telBreTFpOHJIU0ZVdXRtTzlxQWZ0eThDU09R?=
- =?utf-8?Q?CMF1xsHHV94jxQrHSkT8DsRjim+eIGTrzjft78VwneLE3?=
-X-MS-Exchange-AntiSpam-MessageData-1: PvE3slR7rr+t9Q==
+	=?utf-8?B?TVIrL3VuaXVxcjhJTzYrZlBMWVlLb0Rqb0N2VTMvYkVZelg2K0NvWHZSNkhm?=
+ =?utf-8?B?eHV4TW9iUnhrNHhzdS9kYWRWODhTa0puRmJ0UkVrZUN0QndFRGh2a3dnSU4z?=
+ =?utf-8?B?ZlV0Q1lwTDJpbDFXWHcwM3RtcDQrUFQ5bzNqd0V1dlBTdjBTYlE0ditKdXdz?=
+ =?utf-8?B?MkxPNG5DSVk0a003dnZmZnV1QXRkalpZNEJRZHBQaU5hZEdweE94Y2pnUVg3?=
+ =?utf-8?B?Y2pIalE2YmtyOFo2bTgydDIyN1kwV0VrLzlNNC9hR2F0MHMzODZzR2pLcEFk?=
+ =?utf-8?B?OW52WjJlZDBhUDJxRllSc3BvQWh2K1pnc2o1YXpkSGcyM3YzODVUSWtFdXhX?=
+ =?utf-8?B?TU01TkxKczhSRGZUR1dWLzdSZzZ6U0RsMjVjWHVMRk1SMGNVK1FHaGVIcjNY?=
+ =?utf-8?B?WWRCcnY2bCtaQVdaRTg2SG1UZTJmNXE0TlkzWEs5OTJJaEtxNVNycURFSWQz?=
+ =?utf-8?B?aEd6TXFBRXBHN3JKRHFrbGNoY1RDVlk2cy82Ty8rN1lXbXd3dDZ3SlNXVlBo?=
+ =?utf-8?B?THJKSk95L2Z2NkdkRDlYNHBxdXpEOTgra3pBejBMd1dhSGMzRGtsN004d2s3?=
+ =?utf-8?B?SURFalZZMWJTb1V5VUxMUTJ6WnhMNlZOTC9wRlFjTHhDUXA1NUtiaHNtem5a?=
+ =?utf-8?B?WUVDQ1VBcVQyZlVRNEEvR2ppV0lsaVhnRHBUY2h2dTl4S0l4c2dFQXZESkp3?=
+ =?utf-8?B?T3BuV0NqK0hBaUU5UElUdVhHb2RlVUVKa09nbzNJOVNUaUhWM1F6QUZMOURO?=
+ =?utf-8?B?U2llSWNrNnpENTg0dlhuV3hDN0RETFRHN20xdEYxaEpuN1ZNWk41L3UzQXZs?=
+ =?utf-8?B?c0ZQSEhURWxOQ21vdG1jN0I0MmpCSzlRSjluME5JVGxTU3lkdjU3MTJpUzdt?=
+ =?utf-8?B?VXo1N2RnY3JlS2hjNGZLMUI1QmxOTW0rdDMwZW9FSkR1T3RvcXptVnEvOTYv?=
+ =?utf-8?B?bE1jdXFJQjAyNjRKdW15M3JOYkR6VDB6anFlaGxjWDdkTVI1Q0Jpc3ovZk83?=
+ =?utf-8?B?T05ubTFtT2xpdkFudTNIU0RSckE3bDQ0RmJuQU9DanZFZGpnSDYzSy9DaHh4?=
+ =?utf-8?B?WFNHU09CbjBtdzJOVVNkR3pxRHNuNGdrZ0ViSkZCUWZ5N3hIUVJ0S3lBcVps?=
+ =?utf-8?B?TjQwWXVTWjJqais4b1VFN3orZlR0cjZIUTlkQytGRXV4TTRVWkg5KzZsOW90?=
+ =?utf-8?B?R0pobm5UNDhTcitJVU0zMzNkQ3lGTzF5R0wzZkV3bHNWd0lmTWR6S2RScVhr?=
+ =?utf-8?B?SVpjWE8yWFY5SWlsR1RGdDBBTWN0WWgyYzBWQXc5SDF2UkxyUjdSbVBVQ01Z?=
+ =?utf-8?B?aEtqYlkzUFMvbHZ3dXFQRkszb1hQdi9LUWtFWDJJQVFWWGs5SkFwUEhwMm43?=
+ =?utf-8?B?WXR5ZXBXNFQ1dk01UUZPdlJuYmpZV1VIM203OTN0dVd1R01JQTI1a3VvOEJM?=
+ =?utf-8?B?Q2ROMGdXYVREeGw4djBBanh6Tks3NXIxYjRlR3pYTm51RkRkMmdHUWhqdDNt?=
+ =?utf-8?B?M1J5Z05wSjFRTThRd3AvMXppTjlGL3pTenl4WXlSaHVPbkdhSUx3UDJJaXN4?=
+ =?utf-8?B?VThtSXpYZEl4L2hMTi9YelVXUlQyWC85SVhsRStrdWVrVFZLVkxEZnBaZGhY?=
+ =?utf-8?B?REtyTG9yMmJBZ3NLU0MzMzAwakFJNk9kZGVMckQvSnVwSFhIQ09vSTN5S0d6?=
+ =?utf-8?B?NFB5RmpLMVA5dE56aWxMOTFOcmpkNGlZTVNRN3E4Nm5KZjlPdnFGWTE4OHQw?=
+ =?utf-8?B?WmR3SVdGU2wzdmcvdDZPM29LZGhWSkhIZjRqK0oxMkYrSi9DMTdaSjdJSC9o?=
+ =?utf-8?B?ZElYVDZoTDFmYlo0K082QkN0V1hxdTg1Z1VIdWFuTnY2L1ZZN0xvRFVyQnVt?=
+ =?utf-8?B?UzMvc0ZCN3kxNkViV0NHLytHZ2diRkw2cVJBYlpxWm5uekxSVWtvODRMd3dX?=
+ =?utf-8?B?NmYxZnFRTlBraEg5MXZWaHRQVWFSaHFUbmp0TmVRaTFrenlSaVR2YU5jcGtz?=
+ =?utf-8?B?V1dIM083dVprc08wNVB2SC9kM1U5UU9NVTAwVjVobUJLSk1wUHBXVFhkV0FI?=
+ =?utf-8?B?UXl6OXZTNGdpQXZIaXJ6RGV3M25kVnNORzBLSmdlb3ByRGEyVUZtanFkbkYz?=
+ =?utf-8?B?cmROeHREM1BmbGxsVWtPVHFVTFQ5T0thdyswb3Irc1FIVlZ6OFl1akovckRW?=
+ =?utf-8?B?M2pYSWZQbjRsVmZjbDFPV0NKZllYaTFjcGhrK3VnMGVualBwci9GNUE4bFNy?=
+ =?utf-8?B?VUxPSmVkcXR3ZEdsNjc5TS9HMWI3N2hMNkd1STR4TDNqNTF3amVCK3VIUVdy?=
+ =?utf-8?B?OGJwMDhwekovaElLNERqWG81V0xPQXBoM0VTdFJqVzdWbzhNZHdoV1V2eUJT?=
+ =?utf-8?Q?y49BrUcnR2tgzlFg=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59d4b2db-a084-44f1-23c1-08df0cf1c76d
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc60bb68-c7bc-4d0f-4801-08df0d0c4500
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 15:07:48.4907
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 18:17:25.9865
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hp+3h6ywkFfzypro7PkHwfKPgGH1JyvnZt05/95UQua9xUsr8H+cfb76wVZqpvWsHIC0wdmVczLzI4Z7iCF4HA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7754
+X-MS-Exchange-CrossTenant-UserPrincipalName: TXcvT77rnIAgP/163+fE5/E6QT7M4NsQkSRoZxw2z3Kk/PgAbDESLqDYqedAD0V3COxbBXaull6ScPc7DinYew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8153
 
-On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
-<...>
-> +/// An encoded NVKV byte stream.
-> +///
-> +/// # Invariants
-> +///
-> +/// The byte length is always a multiple of `size_of::<u64>()`.
-> +pub(crate) struct EncodedStream(Vec<u8, StreamAllocator>);
-> +
-> +impl EncodedStream {
-> +    /// Creates an empty stream.
-> +    fn new() -> Self {
-> +        // INVARIANT: An empty stream's byte length is 0, a multiple of =
-`size_of::<u64>()`.
-> +        Self(Vec::new())
-> +    }
-> +
-> +    /// Appends a single `u64` to the stream.
-> +    fn push_u64(&mut self, value: u64) -> Result {
-> +        // INVARIANT: Appending `size_of::<u64>()` bytes keeps the byte =
-length a multiple of
-> +        // `size_of::<u64>()`.
-> +        Ok(self.0.extend_from_slice(&value.to_ne_bytes(), GFP_KERNEL)?)
-> +    }
-> +
-> +    /// Appends `data` as bytes to the stream, zero-padded to a `u64` bo=
-undary.
-> +    fn extend_with_padding<T: IntoBytes + Immutable + ?Sized>(&mut self,=
- data: &T) -> Result {
-> +        let bytes =3D data.as_bytes();
-> +        let padded =3D bytes.len().next_multiple_of(size_of::<u64>());
-> +        // Reserve so that a failed allocation can't leave the invariant=
- violated.
-> +        self.0.reserve(padded, GFP_KERNEL)?;
-> +        self.0.extend_from_slice(bytes, GFP_KERNEL)?;
-> +        // INVARIANT: The padding ensures the total length remains a mul=
-tiple of
-> +        // `size_of::<u64>()`.
-> +        Ok(self.0.extend_with(padded - bytes.len(), 0u8, GFP_KERNEL)?)
-> +    }
-> +}
-> +
-> +// The Deref to &[u64] relies on this alignment guarantee.
+On 9/6/26 11:59 PM, Alexandre Courbot wrote:
+> On Thu Sep 3, 2026 at 12:15 PM JST, John Hubbard wrote:
+>> The GSP posts events, logs and error records to the GSP-to-CPU queue and
+>> raises the falcon SWGEN0 output. A falcon signals the interrupt tree
+>> only on a transition of the causes it routes to the host, and IRQSTAT
+>> also reports the causes the falcon keeps for its own RISC-V core. GSP
+>> boot polls for its own notifications, so it leaves the SWGEN0 latch set
+>> and leaves pending bits behind in the tree.
+>>
+>> nova-core drained the queue only while polling for a command reply, so
+>> an event sat unread until the next command was sent.
+>>
+>> Service the queue from a threaded handler on the GSP notification
+>> vector. The top half runs in hard interrupt context and touches only
+>> registers: it clears the GIN leaf, takes the causes pending for the
+>> host, writes INTR_RETRIGGER so that a cause arriving while the top half
+>> runs still signals the tree, and rearms PCI delivery. Draining the queue
+>> takes the command-queue mutex, which can sleep, so the top half wakes
+>> the IRQ thread to do it.
+>>
+>> Intersect IRQSTAT with the RISC-V routing registers the way Open RM
+>> does, so the firmware's own causes are left alone. Clear the latch of a
+>> host cause that is not a posted message, since nova-core has no recovery
+>> path for one and the retrigger would raise it again.
+>>
+>> Put the interrupt setup on the GPU rather than in the driver's probe.
+>> The handler is then torn down before the queue it drains is freed, and
+>> before the GSP is unloaded. Quiesce the tree and clear the latch before
+>> registering, so no boot state reaches the handler, and keep the subtree
+>> enabled at TOP for as long as the handler is registered. Quiescing
+>> disables the subtree, and under pre-Hopper MSI the rearm is a
+>> configuration-space write that never enables it again.
+> 
+> So this is a mishmash of many different things which makes it very
+> tedious to review. The falcon HAL stuff belongs in patch 11, the new
+> `SubtreeSet` method in patch 3, `irq.rs` changes where relevant, the
+> Cmdq::drain should be its own patch, and this patch should really just
+> add the handler and wire things together.
+> 
+>> Assisted-by: Cursor:claude-opus-5
+> 
+> On this revision the AI assistance showed mostly in the tedious comments
+> restating what the code does and the unneeded churn. These really take a
+> toll in terms of time and energy (and dare I say motivation). We need a
+> more thorough human pre-submit pass because otherwise the net effect is
+> a shift of labor onto reviewers, whose bandwidth is very limited.
 
-nit: `&[u64]`.
+Yes, sorry about that, I have been doing that for v4 actually and
+it should be much better there.
 
-<...>
-> +/// Describes the format of the following NVKV operation.
-> +#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-> +#[repr(u8)]
-> +enum Opcode {
-> +    /// A 32-bit value in the op word.
-> +    Imm32 =3D 0,
-> +    /// 32-bit values for consecutive keys, starting at the op word's ke=
-y.
-> +    Seq32 =3D 1,
-> +    /// 64-bit values for consecutive keys, starting at the op word's ke=
-y.
-> +    Seq64 =3D 2,
-> +    /// An array of bytes.
-> +    Array8 =3D 3,
-> +    /// An array of 32-bit elements.
-> +    Array32 =3D 4,
-> +    /// An array of 64-bit elements.
-> +    Array64 =3D 5,
-> +}
-> +
-> +// TODO[FPRI]: This is a temporary solution to be replaced with the corr=
-esponding derive macros once
-> +// they land.
+> 
+> <...>
+>> diff --git a/drivers/gpu/nova-core/falcon/hal.rs b/drivers/gpu/nova-core/falcon/hal.rs
+>> index 7e532889a1f4..5272b3b63ae4 100644
+>> --- a/drivers/gpu/nova-core/falcon/hal.rs
+>> +++ b/drivers/gpu/nova-core/falcon/hal.rs
+>> @@ -1,8 +1,15 @@
+>>   // SPDX-License-Identifier: GPL-2.0
+>>   
+>> -use kernel::prelude::*;
+>> +use kernel::{
+>> +    io::{
+>> +        register::WithBase,
+>> +        Io, //
+>> +    },
+>> +    prelude::*, //
+>> +};
+>>   
+>>   use crate::{
+>> +    driver::Bar0,
+>>       falcon::{
+>>           Falcon,
+>>           FalconBromParams,
+>> @@ -12,6 +19,7 @@
+>>           Architecture,
+>>           Chipset, //
+>>       },
+>> +    regs,
+>>   };
+>>   
+>>   mod ga102;
+>> @@ -72,6 +80,45 @@ fn signature_reg_fuse_version(
+>>       fn load_method(&self) -> LoadMethod;
+>>   }
+>>   
+>> +/// Returns whether `chipset`'s falcons implement `NV_PFALCON_FALCON_INTR_RETRIGGER`.
+>> +///
+>> +/// Turing falcons do not. Ampere and later do, including GA100, whose falcon otherwise uses the
+>> +/// Turing HAL, so this is keyed on the architecture rather than provided through [`FalconHal`].
+>> +pub(crate) fn has_intr_retrigger(chipset: Chipset) -> bool {
+>> +    !matches!(chipset.arch(), Architecture::Turing)
+>> +}
+>> +
+>> +/// Returns whether `chipset` carries the RISC-V interrupt routing registers at the Turing
+>> +/// offsets.
+>> +///
+>> +/// GA102 moved `NV_PRISCV_RISCV_IRQMASK` and `NV_PRISCV_RISCV_IRQDEST`, and GA100 kept the Turing
+>> +/// offsets, which is also why [`falcon_hal`] gives GA100 the Turing HAL.
+>> +fn has_turing_riscv_routing(chipset: Chipset) -> bool {
+>> +    matches!(chipset.arch(), Architecture::Turing) || chipset == Chipset::GA100
+>> +}
+>> +
+>> +/// Returns the interrupt causes a RISC-V falcon on `chipset` routes to the host, in the layout of
+>> +/// `NV_PFALCON_FALCON_IRQSTAT`.
+>> +///
+>> +/// A cause reaches the host only if the RISC-V core both enables it and directs it there, which
+>> +/// `NV_PRISCV_RISCV_IRQMASK` and `NV_PRISCV_RISCV_IRQDEST` say. Every other latched cause belongs
+>> +/// to the firmware running on the core.
+>> +pub(crate) fn host_intr_routing<E: FalconEngine>(bar: Bar0<'_>, chipset: Chipset) -> u32 {
+>> +    if has_turing_riscv_routing(chipset) {
+>> +        bar.read(regs::tu102::NV_PRISCV_RISCV_IRQMASK::of::<E>())
+>> +            .value()
+>> +            & bar
+>> +                .read(regs::tu102::NV_PRISCV_RISCV_IRQDEST::of::<E>())
+>> +                .value()
+>> +    } else {
+>> +        bar.read(regs::ga102::NV_PRISCV_RISCV_IRQMASK::of::<E>())
+>> +            .value()
+>> +            & bar
+>> +                .read(regs::ga102::NV_PRISCV_RISCV_IRQDEST::of::<E>())
+>> +                .value()
+>> +    }
+>> +}
+>> +
+> 
+> Why not use regular HAL methods here? This completely breaks the pattern
+> we introduced for HALs. If the current HALs don't fit the routing you
+> need, then we should introduce a new one.
 
-Actually, can't you use the nova-core local `bounded_enum!` macro to
-define `OpCode`? This would generate the implementations below automaticall=
-y.
+Yes, will do.
 
-> +impl TryFrom<Bounded<u64, 4>> for Opcode {
-> +    type Error =3D Error;
-> +
-> +    fn try_from(value: Bounded<u64, 4>) -> Result<Self> {
-> +        match value.get() {
-> +            0 =3D> Ok(Self::Imm32),
-> +            1 =3D> Ok(Self::Seq32),
-> +            2 =3D> Ok(Self::Seq64),
-> +            3 =3D> Ok(Self::Array8),
-> +            4 =3D> Ok(Self::Array32),
-> +            5 =3D> Ok(Self::Array64),
-> +            _ =3D> Err(EINVAL),
-> +        }
-> +    }
-> +}
-> +
-> +impl From<Opcode> for Bounded<u64, 4> {
-> +    fn from(value: Opcode) -> Self {
-> +        Bounded::from_expr(value as u64)
-> +    }
-> +}
+thanks,
+-- 
+John Hubbard
 
-Sashiko has a point that `from` requires `#[inline(always)]`. Ideally,
-we prefer to avoid using `from_expr` when we can, which in this case we
-can by doing an exhaustive enumeration. Which is exactly what the
-`bounded_enum` does, so leveraging it also solves this issue. :)
-
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-=
-core/gsp/nvkv/encode.rs
-> new file mode 100644
-> index 000000000000..6c1a9cbd90e8
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
-> @@ -0,0 +1,210 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFIL=
-IATES. All rights reserved.
-> +
-> +#![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
-> +
-> +use kernel::prelude::*;
-> +
-> +use super::{
-> +    EncodedStream,
-> +    Index,
-> +    KeyId,
-> +    Op,
-> +    Opcode, //
-> +};
-> +
-> +/// An encoder for an NVKV stream.
-> +pub(crate) struct Encoder {
-> +    stream: EncodedStream,
-> +}
-> +
-> +impl Encoder {
-> +    /// Creates an empty encoder.
-> +    pub(crate) fn new() -> Self {
-> +        Self {
-> +            stream: EncodedStream::new(),
-> +        }
-> +    }
-> +
-> +    /// Returns the encoded data.
-> +    #[must_use =3D "encoded stream must be consumed"]
-> +    pub(crate) fn finish(self) -> EncodedStream {
-> +        self.stream
-> +    }
-> +
-> +    #[inline(always)]
-
-Unless not inlining implies a build error (as is the case for
-`Bounded::from_expr`), I think the convention is to stick to `#[inline]`
-for these.
-
-Same applies for other methods.
