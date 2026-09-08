@@ -1,84 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011029.outbound.protection.outlook.com [52.101.57.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571D13EB108;
-	Mon,  7 Sep 2026 21:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788815207; cv=none; b=XCDBeY/IakHKwDN6JztQhn+20dwuBVClyJF/KsoUI2O7IACnW1APgj5VYacFeXAeVNswXNWw+8vvW/OSfbTu5ok6So81APBpEaxRGolskXo8n5+D0hov1nzbo9jqS9WlB/iacriDKEdUAaQ9dj4oQ5+9J0PMG4o5gbOjKlDGfB0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788815207; c=relaxed/simple;
-	bh=u0NXWeg/Httt9i9X81l4G9xFkgPmdQRSI5qAMBSyB1s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:
-	 References:In-Reply-To; b=H4VXjbjL+Zx7vcrz6Jz03iC6av4tkza6qtlF7i/9O3ZPBNwnpuEzYixfZPFC5FbXL50f74D0X3Yn4uNr+nLfjqPPcIf71GZ6Ek5ci2uvFra9/10SzZ8FAlGLb5fVIHKi8T61BbKMZdnR92I+X+0eHJcMvgjE/Lqc2bvMpUCp7dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CaoOipGM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4852E3815CF
+	for <nova-gpu@lists.linux.dev>; Tue,  8 Sep 2026 06:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788850052; cv=fail; b=JIQGcmZRcVupHnmWJrK0V+hlJsSK3bzX4X9WWWT2mWAjZXo4AumvKlUtsGK5KAw2ouGtxIQp2BGCreCcnrEFqFN2W+kRNTNz1YPjAJS5/Vi8GJb5MMMHsqOlb+rUcbJ+jacsySUBBbgE+Fb5ZtzsfvMJORwthg6XNbM46rXs7Gc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788850052; c=relaxed/simple;
+	bh=a6/1Hu4yrfMbaCJhSFXpkWmiGil/O8zFZ2FcC5ftUus=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=UICjNWV1w822jwI8IHJwJE1+GKVAa5TBtf5jUSzEpHhwpqt8aVPJLMlwrliTOjRqkmxUpSt3vK3GaohnEyPFverqNq7IEyZ42sgP1bJR8+gwma8NmDf0J+zQqmmvzUQJDL7cRq4AIVzIKC+dsuQi8GzsAaK7Fsmz15Blf2MGwL8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ip+RUanE; arc=fail smtp.client-ip=52.101.57.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CaoOipGM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9161F00A3A;
-	Mon,  7 Sep 2026 21:06:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788815206;
-	bh=90F9gpIn6ahg1Sh32fek9TE5xaVsZqJW6WdR2q7nJtE=;
-	h=Date:Subject:Cc:From:References:In-Reply-To;
-	b=CaoOipGMy+LRNytnbxmP9ZFmgaCGRcVpuOcDUxNDoNnDM+chAKVS3z/SXqC61FkUo
-	 hU5DbovmMj5tFB8LfDtshTKDvvGJdBPkrfS0YAj2pmLNy2AgCEyhsXk67NccTBz845
-	 oISqnvxdR/VOFI6UfhjeoO3O5Pu2gTZG8TzN2jYS0+MW58cq8ZUjLJL1vfChPKVAX4
-	 VvZkwdVgN7soN9BkH89HPHNFtn5ckczW6lmCuht7erv7PdPJ9CU9m6ObULR1/xi1wS
-	 RbNl564Rg+zj66OfqyUmjs2TD8gunPwNniUK0TyuOE32AKpROMJx9fLuku2w8wbovB
-	 rnv5+kbJs1aOw==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ip+RUanE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XiiqRJh0VJ/GpGcJgmq/wDb89n/AXuEVMlILgNoCxw2cFSBL+QBSkEOQLXvSlZa+IuIHrN9ICNipuLGbi+MC6K/ti8bmZSn21ZSSnCpoa5slFzI71Lt8NlpWXoe/eRAb9/jze85EaejW/rYZ2UZjxGW4o5ffTQSx8t3c7k77w6zlkgzasxZ2G8lGIfEB+S+zFpmIyzVRbr9tjUkkFeLD9uyylL0v4W2bfluWTkUAv6uDaxOQqwZPx+WC15wLxtcImQCSfA79TV6HJkm3Y9m7Lk8cp9PBDLQG9kis4oszqM5MoI11fANaMdF310ykzMAa6c1v29eyt6OOI8Se+CeKeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fIj59JgImeuf3nuMJLXSXYCL7eurkcuD7rDgJZrlUHM=;
+ b=TRtiitBazWXVJAfAbSA/KxF7k9CfKGbd3Kpq7MB7+OjByd7EqcvhLCU2apX1Q2TnqzvcKEhcdiOQqRB0sQJKPjhL7Eq4+3u129LO49zKNuuxXVWxReOiPX5JD3AnDKihqtd8UzC/yWY7NmL/pY03rPCb7VPLwd8jBPXXczRrZMYnRlxeG9OWkHNiOVqlnMyw4BzPdJbHLczqbTGRhiTb2fj+htanLg6nCFOiyj03CysLbR+wcYywJz7DsrYQjPDTz0vkinNPeh0dstqpy9+RBSMkn3N0LOFc80z/UMc4NhZHdlgDUIiEmKabnwJcQkEmaOHrHfQ+nIDHp0SOELEnpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fIj59JgImeuf3nuMJLXSXYCL7eurkcuD7rDgJZrlUHM=;
+ b=Ip+RUanER9tLyme/82VK/MRy21jUeeIUNOjRWTXPg56H4l2FecLDH9oov0jwhhc22rcUy+TAeTRqFnVPXyDBuqvEj1oP4GieozjKQq2x2jR7i/bi/fURnwnJ57e2mXEbD4WrLpJ6SfYeCPD+88kJCbwp/Q2jOCqWvRwXN+MQrwAb19XrdLTnt77pfetfX/U1H3NIOlGgmXpOs3efjWmtwkthEi2iLN987rBRBJRDWjg+ZsgRHI3n3BXjIvpPZwNCFiG34pcb88g9Jz89piTh+72m6QSUwLHrAFmy5l/HWdWc+6DT/uVn7kEreycKhLly6Pp19dnTThH6Bw17C6/6ng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by SA3PR12MB138305.namprd12.prod.outlook.com (2603:10b6:806:517::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 06:47:28 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 8 Sep 2026
+ 06:47:27 +0000
+Date: Tue, 8 Sep 2026 16:47:22 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, @nvdebian.thelocal
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Message-ID: <ap-mQnaspil49v-6@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
+ <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
+ <apdvTgAp5eGezO5t@nvdebian.thelocal>
+ <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
+ <apioGUDamrCur_oR@nvdebian.thelocal>
+ <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
+ <appc5-0MRW1XwsMh@nvdebian.thelocal>
+ <DL6FGP49MMWG.32RPN38WO2PXU@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL6FGP49MMWG.32RPN38WO2PXU@kernel.org>
+X-ClientProxiedBy: SY6PR01CA0009.ausprd01.prod.outlook.com
+ (2603:10c6:10:e8::14) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 23:06:40 +0200
-Message-Id: <DL9E2EFLN138.3DMBLYEZRFW1R@kernel.org>
-Subject: Re: [PATCH 0/4] rust: dma: tie DMA allocations to the device's
- bound lifetime
-Cc: <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <robin.murphy@arm.com>, <a.hindborg@kernel.org>,
- <gregkh@linuxfoundation.org>, <rafael@kernel.org>, <aliceryhl@google.com>,
- <acourbot@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
- <mmaurer@google.com>, <driver-core@lists.linux.dev>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260830193824.471089-1-dakr@kernel.org>
- <20260906153753.3207797-1-dakr@kernel.org>
-In-Reply-To: <20260906153753.3207797-1-dakr@kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SA3PR12MB138305:EE_
+X-MS-Office365-Filtering-Correlation-Id: caa097d5-f591-4ce3-7d97-08df0d750bf8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AGy4oEg9my8AMwiIc76xPFI2UFh3daoIfifjqPEPatHzn8sDx4wV+ONJpLwXj1io9O2w6ZmFHDCljcSpO0tmO5wKPPEY4tmlO5sA8qufgfKddKIPu2AZ3yWT4xJo0GljJEVxId7kTgqjZjoxHxjHBWXLz/jXxlLZfBsLNKJYP2uGM9rfQdw/5Wv0iIE6HAk9j/7PXAhM/dHPjUjDh0EupbYAUFi4sS6Whg3KsLKoO38DYsxZJpFYvXigJrr18P2TLBF6431nUngN6b2ssXfwUjKMqQRtvZjJhe/0imgdMxYVEb/m1Re+1lxtQWNc3l31WwzdOyjJxflga1eWL+gT9H+p05gr/lwvKrtDf7GVyRuV6OZE6DIVC0yERPqpKkI6qs5YRg91Ka1Essgctosg1bnY0BpsjP/MtyvM/mTmA41vD/xVfQqmu3r8yws/aWapoO4eb/eSzHVxmuqB3TWrfhke+Z+mxbJbzVrdVLDMcBQDGt+v8AxvrQfROmWNeXojsOr/MA4GJg/5mjTuqeyUXZF2anDk84hkwMO+Kus03+51JJ6H5b97ihlQL47Q/qRY2q/dtvTWF1ckfMQ3Bp5sGlwBJPxmqjvL7DQx4cR2e/uj0uTkOR31hRWaJDGJyMIJiD52WMnmBlSUY7PVyG7xVsGc/C/WBgvLLvX1pYM+8s4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/QTYygV0zUrSXN1l4NZBiln2kxTQXIEuNjwArfahHgM7q43PpvZMlcYUv4mc?=
+ =?us-ascii?Q?6+QxRLoksqURcSxFdjZLqHjSpOrqZbwKnDajdFOdioIxE2P3Xg2VcexScsa1?=
+ =?us-ascii?Q?pxGYuiTsIYp9CsDr2FSOCZ1MFStg2PgloCtSGIjZXPkrOhvkAt57KUcPwIui?=
+ =?us-ascii?Q?TZ/mYoG5HQcEtOTDU+1PQVWFZVMnqn+o9uWgUhlMo+tqG1XSZK9Bfk9HpBss?=
+ =?us-ascii?Q?8w0p6YmSdrDonTSeN4uxFMSRSo+239dTazwjJXp9wWf1kBR9FbCUSs49yWVH?=
+ =?us-ascii?Q?U8L+cQ13RqKlRhWS2/+FuUzKX8tm0AfjJ7c7K2uWc9BE7iBeTdUEMt5+fyel?=
+ =?us-ascii?Q?j8wK7RnuLEVFQ4KLPaGfZvQhLWzm6PH5uPJ/sW8P77mJzh7txMfAi9Rjs1q3?=
+ =?us-ascii?Q?rUWIEf+2X2IocCNA0WGE7OOLeOBQ5bZ4CcJnSDmVmJmUVxEV3FE8r7DuE1+H?=
+ =?us-ascii?Q?ILonAA68Psu99pzjFda6vHibyfPS/1h61MAN8rcWEQdCMnf1ClLbDSG/3pu3?=
+ =?us-ascii?Q?su1zsqnnRP/ugzdZg7jad5kzAdD2mbJlB1D6uz08ElcUSSyBMcT8PSdEx6t0?=
+ =?us-ascii?Q?u0aG1nvWjcb9KUfCWChqeKnKPl7yknbBi1oprFXkcDdfsQOX1OX6OXI6j44d?=
+ =?us-ascii?Q?AW+6E7EeKLpOoodhZ/civfr1BzzNppqx/cVmuTr3tEU81bUFZPe63i0XAUj1?=
+ =?us-ascii?Q?4Pvvp+f516deuBnri/7LE4J8S8zisTczEQhnh/kHsC/2FFFExBNztWbglk2W?=
+ =?us-ascii?Q?idOyANpywSuOrLqIz8OYamRcJ0f8Ij3wo8hHMiXu8MYoV+v+Wjy6ih1m4ETV?=
+ =?us-ascii?Q?5CFMVhUtLWQkt2lPE8ybja/97AhVSNVyCsEGje4TkPD4aDXnFE0rGuV66AQs?=
+ =?us-ascii?Q?KYMv8hRmHvtyDDGaVvw6Z5QTnTCfVhdMLvXUEKn9c8iKUG8+gIorS0rjXtQf?=
+ =?us-ascii?Q?GR74/HvgeHPFtDp/Ve96H/hl3O5HuMsbRmc2pCSE4GNvE23Zfal70PeJzwRh?=
+ =?us-ascii?Q?r80XYQsTTqn2fgWjZyXbagokJ5orYVjx+iTXuFi4mKgCSxKRRCyYjtXN6z6x?=
+ =?us-ascii?Q?/dcPXboe4Ny3dAZzgQFVDkzMITMWWpAT890WlgY1hPJ5mnF7hx7UC9cO5tcD?=
+ =?us-ascii?Q?Pq1EkxShh+CEYijORxxmUAsWAPYo5wD2V3jfcLNDGoJm+30YvGYel1JOyIWJ?=
+ =?us-ascii?Q?OGIzgYukwTuXllx6cwn9bXqlnf/rii1Mn79QsG9aKndkSovXvCbVajBdVrdU?=
+ =?us-ascii?Q?HME/bmAd0ADGXiKMIdymkUUfjpVRTGdDLzIbM5a9XwvzMqTnKNxrTgnKWItS?=
+ =?us-ascii?Q?vDrV7lL4AUFTPcbt0r0xKu5SRwm68OidI/jO4HpGHIRhyDQMpuK7O442YcFi?=
+ =?us-ascii?Q?51ItCugHqWZqt8C/CBT1OLRE6ZR1k3MsnuWHCF8mQTU4e+CeYqLmqvPE6mev?=
+ =?us-ascii?Q?F74Oek0tTeUt54UF7chudFmEJT48SzQ8Ht4SkhgZ5EI6zHCk23buW+ox3UU3?=
+ =?us-ascii?Q?5aDtpbqIXh2rQBcjqAw80sQ6WIn0YP6C6iFa5WsD84NgQwlz5g3/Dyj12Y3+?=
+ =?us-ascii?Q?PfypyW5QkigiE4q3bX2qYtyba5IlGmB5nSX8JAjuuhp8dMloO9StF72GFroi?=
+ =?us-ascii?Q?bwJGpqlWTobWdZGKMml3/FG5Y8N5YYhs9Oe90rJvETgX6TPjJCHCOvT8JrQW?=
+ =?us-ascii?Q?niAriqUxiBquw/ccKT0dYNXQ3UutJHN/4TH6fm9bPgz6RVg8lAKlB9LfdjLl?=
+ =?us-ascii?Q?I8r0g2C0Ow=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: caa097d5-f591-4ce3-7d97-08df0d750bf8
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 06:47:27.6556
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BfUI+1cjbAflSt3uUgMQYk3jWtJdLxAHYv+l7h2iGpDZm6cYsqSw4GsaCg+QGicrWUr6k4IWGCU7tUOyNG340A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB138305
 
-On Sun Sep 6, 2026 at 5:37 PM CEST, Danilo Krummrich wrote:
-> On Sun, 30 Aug 2026 21:37:12 +0200, Danilo Krummrich wrote:
->> [PATCH 0/4] rust: dma: tie DMA allocations to the device's bound lifetim=
-e
->
-> Applied, thanks!
->
->   Branch: topic/rust-dma
->   Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/drive=
-r-core.git
->
-> [1/4] rust: debugfs: drop 'static bound from ScopedDir file creation meth=
-ods
->       commit: 9dc6cedcd971
->
->       [ Remove unrelated change from Self to T. - Danilo ]
->
-> [2/4] rust: dma: tie CoherentHandle to the device's bound lifetime
->       commit: f6b56da8e1b8
-> [3/4] samples: rust_dma: separate driver type from driver data
->       commit: c3d4fd0e9d27
-> [4/4] rust: dma: tie Coherent and CoherentBox to the device's bound lifet=
-ime
->       commit: bed87375f90f
->
-> The patches are in the topic/rust-dma topic branch and will be merged int=
-o the
-> corresponding target branch soon.
+On 2026-09-04 at 19:34 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Fri Sep 4, 2026 at 9:49 AM CEST, Alistair Popple wrote:
+> > On 2026-09-03 at 20:42 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> >> I think there never was a "rather than". The point was that if userspace has
+> >> conditionals based on the architecture it shouldn't have to figure it out based
+> >> on the chipid, as this has been done by the kernel already.
+> >
+> > I see. Maybe that was a bad assumption on my behalf, because I assumed that if
+> > you make a precise hardware description available (chip-id) there'd be no point
+> > making an imprecise subset of that description (arch) available as it isn't
+> > particularly useful if you can't use it in isolation for any generic purpose.
+> 
+> Except that it is used in isolation for a generic purpose e.g. in NAK.
+> 
+> >> Then in NAK (src/nouveau/compiler/nak/ir.rs), there's this code.
+> >> 
+> >> 	fn is_turing(&self) -> bool {
+> >> 	    self.sm() >= 73 && self.sm() < 80
+> >> 	}
+> >> 	
+> >> 	fn is_ampere(&self) -> bool {
+> >> 	    self.sm() >= 80 && self.sm() < 89
+> >> 	}
+> >> 	
+> >> 	fn is_ada(&self) -> bool {
+> >> 	    self.sm() == 89
+> >> 	}
+> >> 	
+> >> 	#[allow(dead_code)]
+> >> 	fn is_hopper(&self) -> bool {
+> >> 	    self.sm() >= 90 && self.sm() < 100
+> >> 	}
+> >> 	
+> >> 	fn is_blackwell_a(&self) -> bool {
+> >> 	    self.sm() >= 100 && self.sm() < 110
+> >> 	}
+> >> 	
+> >> 	fn is_blackwell_b(&self) -> bool {
+> >> 	    self.sm() >= 120 && self.sm() < 130
+> >> 	}
+> >> 	
+> >> 	fn is_blackwell(&self) -> bool {
+> >> 	    self.is_blackwell_a() || self.is_blackwell_b()
+> >> 	}
+> >> 
+> >> That's two unnecessary indirections for something the kernel already has
+> >> available.
+> >
+> > Again though is what the kernel provides in the form of an arch actually useful
+> > to user-space? Obviously the code above makes it look nice and simple like that,
+> > but as I have been saying more complete implementations can't just rely on arch
+> > alone and so are still going to have lookup tables both for SM and for other
+> > info the kernel can't provide.
+> 
+> Are you saying that NAK oversimplifies things and hence gets away with per
+> architecture checks in src/nouveau/compiler/nak/sm70.rs? And that a "more
+> complete implementation" would be specialized to a point where it becomes
+> impossible to have any common code per architecture and in general?
 
-Merged into driver-core-next and drm-rust-next, thanks!
+That is my understanding yes, AFAICT we cannot reliably derive the SM ISA from
+the chip architecture alone as it's defined here.
+
+Obviously in practice not everything must change for every ISA or the NAK
+implementation above wouldn't work at all, so there must be some commonality,
+but HW makes no compatibility guarantees between ISA versions so we can't really
+make assumptions about the ISA based on the architecture alone.
+
+ - Alistair
