@@ -1,74 +1,71 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010066.outbound.protection.outlook.com [52.101.61.66])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013058.outbound.protection.outlook.com [40.93.201.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B8539E6FC
-	for <nova-gpu@lists.linux.dev>; Tue,  8 Sep 2026 07:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7169439FCCD
+	for <nova-gpu@lists.linux.dev>; Tue,  8 Sep 2026 07:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851488; cv=fail; b=XlsCNjtQM2LJVv1ruAfGqGJS84UGqJX/TeAuwQScQcCodHpkz71a59Ec3Upa0x3cawsPiKuAwLQsd9aw/OVjwfykAA7E6PgiiUB6InMmy50v5AxIAL4bilfuYpViRPJuywtzwhec38wmSITU+5ECmemfkesNNZBH++EeugVipNM=
+	t=1788853907; cv=fail; b=nGpmzMrNqGdpquNoGrBE2VPXq62dUQLDTrR/L+JNx9XFZkWukWDFjJIvhbA8khve6ajuWuy5ULNO6CGBT/ORxOPOF6Y1HzQ35RVeCv8jZlQ3RG/nK0Qs5LMhDh2meujpRwH2bs4X7C2uvqhAzJYrW6Yo3J3EDOy4oaEWv1lPKAY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851488; c=relaxed/simple;
-	bh=sBmT6TW3KhvH850JZBFfRSCmzuCvKURQoCiJg2XsjXg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=bOT/CjqKja6h8irUQUdODeI5nOQgjXJ03zITFlhSekwT4iiYTdMBFAKoTXj5rF7/AaYPbJCA8HeTiMilf3YT2yFZQjDSSVNl9IH3See0nRHI1wVqZg80B8unG9T373b8Qb0o1/TcagH2VoIsRob94lRJ3GDYJKDzlhIky/XUv1g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GAetne+S; arc=fail smtp.client-ip=52.101.61.66
+	s=arc-20240116; t=1788853907; c=relaxed/simple;
+	bh=QxWef9I0GjEU1FkEDbtDrlKF/nKH7lluzKEI1Dvyj2Q=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=h58jFnRVtO2gEka4YqaRfU0mzvpT6FJVdI1bZ2RDW/pXLqOUt3heSIDjXaL9C5IunrYUrK2iv12ly/GGYgsAfkEGufkKrPkRe/Q9f504of0/BCFGU2Me4dHvW9SSwT4GFJKLvXG00TCrcChF695ejQSAlH/a9xuY4mhf9RP+sl0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=b58/grHe; arc=fail smtp.client-ip=40.93.201.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GAetne+S"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="b58/grHe"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=agVBW8a9HRS/IpRtQfFhjUqnIUEgpFE+2TOrmlAf72xOpOFnA2qjFoNpnQMCaAxUaZh0yckqv4fRZBpIOwNxkM1K2hShh7SwOFrr6pkrtvdB0z4YgKLoWhmk/LjTGu9jUposyV6aF60+QMpX6j/AooiFgMloJNktBrfg0TSbzx9yU4Mygz/5F3KBY/I9PQbuKyYl2Vd1Sp+bUOm6lcqxxgIhK/pl0TSGMkH/zj6IErL2hYQpHU+GG8amCYJ4CVmytMGdg3b47ahPcF/1g+L/riYE+wcK7CVDRO8UOcqG1n4CsS9sBNEBNGYmmJL4hhAnXPMmfDgXc/gLzReoSsHgxg==
+ b=J+tZzFFyGQKRx1DCITgLON3hK5+rCydCWsxLGcOUZgKZJuOFTmzYD5SWCqbhAEIm00o7obmihvsrlAptPZBlyLxun/uWTYD9RGH39X2vPrGMsb8FfVee+cDewRgHEIoNLlhWyQRbDrkv0PLLxKnnl0RwnKC+xRI4dDY0pmOQA2I+gZKBdT/BJCLOci4Ss6+DQYzd0+HybVKxMl6swHgVaXbqeBzzlkfTXmTHxzXt8p8eZg/gi0euU7XmGN264vtYZEa1n9x4nYGNyTy5MRUSI6fXr6BO45eWn0rympjUj2E374Rn1m6gUx1MITWR5/bbX8Rpj7Mxk9aStvaMJ6KFdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uxLxaoXIOgUgw86m83Q6lGxI93/j7+wNLJWjvU3ooTk=;
- b=mGJbm1e8l6JguRFgH+SSowgFA3dHXgd0/hIv8NKC0IX/LkLOuN3lecpR4LLbSWsH7d8JcEolKq+Bs9MdJN16lC/pPGdIFlfcCVBn4mZn5aaZ1j8tYcbHZ9ts4DRqXXO0EyFBa5u3N3sqOsP3omBqCI1nrl9mxs0MlmmXKwGAzrXWJum2CwerqcQ7Wpod0LnJBgRh0ha3W71bsEp+6Rtcoc6ODIXJlghtI+HiewgGklfc7lCWZU0PxZFlhzO5oFtezYem25Ya57NNjsSV6uSqPgysVpjFF/kpO4YyAGjuT+OxqF4rke8WLoRQHqj/oeobL2ObdgfVteELqkNtwFJ5XQ==
+ bh=Kjausy80i2Bl8T1O+V1MZwnRbmX1OlaDmKWz+evPnBo=;
+ b=m9MQIH5gveaZWcsFZ89GUi0HTbYqSb1PUcSyriL94mK2t12bttqecowbhax/H3WrPwpYibU9KJcIGdMAMaTlpZ/GskwAZQ3SgMWlyuyFkWEj4wrhQmgQD1/lhI9XYTVOl1affLQlgGgIyumNS/LDEZ1QQGmXCftQo2/oFhCowK5q4CQcBc3QTMHRjyBK0nULN2p6u/dqknJUn4T6lj0uq++9x6sEczWVvh5DDnmS5mB4dQcJMYwoRjOfB88mu2PF3hMAIcL4PR8mv3TiOts1ma6motvMfwQhSJOaKbCj0gE3LY2Qv9jz3brWXJSxET6RHnN8pMg+gTC1BWfogXrX2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uxLxaoXIOgUgw86m83Q6lGxI93/j7+wNLJWjvU3ooTk=;
- b=GAetne+SQTdN8CNbRLh3sSzC6tBkOD30v1BEGXWp7nyt/hfFzfyXsz+biwjD5oIm40yrGCEy0uXGzFoPD9srqIXf9zH1317EeV9L8FvXrWszY1Kc8OgsDp6rXLlDfywsp2mD7RvwVgZpk2Kkyy7flZhsyD6gQP8y2n8WP2OirGtGXsx1EZ3E6Hl7t4dIF5JLr2ZrPFqDlh/gD6XHmwbjfID+BhwrzbfN4rJobVHTu6UYiEPtKN7sdIZDs79CaKFZtNaXpy7JazVzr5Gk4BnXnXCsFb7ZLHLe3IIZcZrrE7UkWwKV+lFvshDw3j/PSIhI4+Ci4lpKZN0J/9elBbkExA==
+ bh=Kjausy80i2Bl8T1O+V1MZwnRbmX1OlaDmKWz+evPnBo=;
+ b=b58/grHeft2jYDycStIPpdMQ6mdhf7WnMXe1h3YErDvf8G/Kknr4a/1cAowDLuqbynycfUh9rjWm3xwI9CcI+jFh06YOu/GU9sOuEtU8DPhcMjaqLNxkeVkqEV6rvGq32RMrW4TdL7uFUfcjYBsgl0dvSDB/4lvDOjQWNV7qUU+yJ4+SRroWgB3EHrI1P0eqSl9VfvvQ/zZScAxN8GTf3pznAUk/abpA/rEwD0X1ywQpk7cQVmXF18kLTwOTy3JRxmoTdbVCMa741fSD4XC8Q7ZKXB5HpGTEiO+5O6ysj3Q1msNOPb5qzk+giw6NsfxvY+lW+AWplZnt70hNunpyaQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by SN7PR12MB8103.namprd12.prod.outlook.com (2603:10b6:806:355::5) with
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ LV5PR12MB9754.namprd12.prod.outlook.com (2603:10b6:408:305::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Tue, 8 Sep
- 2026 07:11:20 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 8 Sep 2026
- 07:11:20 +0000
-Date: Tue, 8 Sep 2026 17:11:15 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Gary Guo <gary@garyguo.net>, nova-gpu <nova-gpu@lists.linux.dev>, 
-	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
-	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Benno Lossin <lossin@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>, 
-	John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-Message-ID: <ap-vnh7KFJGJLW1s@nvdebian.thelocal>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
- <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
- <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
- <apdvTgAp5eGezO5t@nvdebian.thelocal>
- <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
- <apioGUDamrCur_oR@nvdebian.thelocal>
- <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
- <DL6HKYRXHNFK.1D9HYNEPH4GCR@garyguo.net>
- <DL6IQKQDXY7P.1F6PSERSJ64PN@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DL6IQKQDXY7P.1F6PSERSJ64PN@kernel.org>
-X-ClientProxiedBy: SY5P282CA0086.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:201::7) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 07:51:41 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 07:51:41 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Tue, 08 Sep 2026 16:50:30 +0900
+Subject: [PATCH] rust: maple_tree: implement Send and Sync for MapleTree
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-maple-tree-send-sync-v1-1-43adcd4a16e8@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJW4kEr2JclPYXhmAlHTQSw
+ t2tuvwW722kyAKlc7VRxktUHqnAHioKg089WGIxOeNOpjUN3/08gZcMsCJF1jUF9rZu2mh9dzS
+ OSjpn3OT9216uf+uzGxGW74v2/QP7lWSjeAAAAA==
+X-Change-ID: 20260907-maple-tree-send-sync-a1479d1ab302
+To: "Liam R. Howlett" <liam@infradead.org>, 
+ Alice Ryhl <aliceryhl@google.com>, 
+ Andrew Ballance <andrewjballance@gmail.com>, 
+ Danilo Krummrich <dakr@kernel.org>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ maple-tree@lists.infradead.org, rust-for-linux@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Gary Guo <gary@garyguo.net>, 
+ Boqun Feng <boqun@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCP286CA0301.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38b::17) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -76,143 +73,209 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SN7PR12MB8103:EE_
-X-MS-Office365-Filtering-Correlation-Id: 778f1696-5693-4416-c437-08df0d78620c
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|LV5PR12MB9754:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ebe83d8-16e9-40a0-c652-08df0d7e04e8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|7416014|10067099003|11063799006|6133799003|18002099003|3023799007|56012099006|4143699003|22082099003;
+	BCL:0;ARA:13230040|23010399003|10070799003|366016|1800799024|7416014|376014|10067099003|6133799003|18002099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	Bc370Esse5dohH+ZyeYYQse7kMv6Mdr8vyh562x5tF4aVNOrkCCtZ9GwsMuY2DoJEotqSalg5TonW4yqfyigS2B49vntTmznfSaYzjzAnVSkjojjXsPqVIQqmSo+76HBUOciCi3JZ2HbhgUodB49SZNdtee2WZ+W++9gOCl7l3LjgJq+CYtnIaFwUfffWxTj4jwYEiqOAkku7apr68hIl6mBGqdpsJnlTErnHrKzIMQYhIW7+xL6XSGU5AGIIaR6liBjZiJ2RDMhdokEMJRTOH1zjtdurR9ONvQdzUCEJ+kZTCJNNLLaLX8VkKe2TIHDCbmreKVj7PdZnh+rXGxv2BoFhrgtLGStWzr7TbmJM6q6L6co/zgdBjxnN0vOfWq9x1EjbPLxcTmjWGpSAG4mlKx88VGBOKWxt9EJ15i77Dl+gWiMr3YE5QYwPnEiQ91i/1KZksyE0hgKT7yDgMHmxVqXXK2V4baLDMR5cBc82/cQLvtW3hRfNZLmxTZIIFvE0Tm2r40O3nVMGOyZfeUIjjn+MYc4fJITvsrbIuYOhv2ZGlratw/tJc83uDwkz2Y6gxr28mbfogL9InhjhtEL2nYHRIm3+VdL+8mYBgCwAYGSAL/PnpKnoC4fbVofxt6SvMPESPlZS84dB4SJTvBOmmFjUmnSkGLkaRtPytAoYXs=
+	3LalcnaPlrS2tb/Rv131m4UlaXKRW/75z8QNh2MIfW5iDn9C232MfKygh+fNhMOloWw/uTOOKkqzLIp+6sP5x5ArpvGjGSFbmDzUyVfEF2A5sEvsFPyldhC8dcegXEOf3TcRYaX5cCKPHv8VBw7Ge4iji8wmpxBXP6n0km4YuGo5i/KwnKx47G+Ms8agDNgI7IAYEZUWpimlb26SBH30RWbnVSxedLGdYjRoe6V7CfFfH1HoW8XJel/nE3eBazRSGwWngUBw/4NP1ByIAbY2rXRgxDYoBjsIfcaaqgsFBHdPgXW/FnaJMnKz3kIWdciHVaAFhTWrRydrQ8IUkXjO343+csETERc0U3eTGnw7Sb4tI+FoQ0yLLQnky3VXbvyVXtnQwSykcCE7lkeD5SCh6PVYQD0qE63X+K04YhYtHoi2LaUJH2yusPYCFSwWAltEZAUy3h3zNRxV1MCvmM3PYMnFL8BTyUD7n1h9rajmSOajR9XgyaRbMcXm5nJtVMCwdbJVZb/bkghSe2mbilBCOXoMg1Mf+dHOkF1UCe/E/qZZ15/PJCmoqDHwA029eRh9VRlKNb+RtJUioi5QQMGSPJNxpiFFq/2i7NVn6QBiz7uGbVF/FzccU+38AblPDS3bqZn6nDBNr7Fuqmnw1BUr17AsSYL5sdTCgygMXA/is68=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(7416014)(10067099003)(11063799006)(6133799003)(18002099003)(3023799007)(56012099006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(7416014)(376014)(10067099003)(6133799003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?e5Ueb5xp84+2LaMWswxGjYdNXOHS2RnfSxdrEKnxWISkZanDbQiBUY3ywwlc?=
- =?us-ascii?Q?Tl00X3Ke3b4Tu4LACqaXuBVZXHb5FHj9VLyv7mLdHlI7p9fgc9lKt7O4WpI7?=
- =?us-ascii?Q?U3XLOE5RYq7iD5NA4CCc/2hSucgKmm1S/1YZkt9BUAqdSpG59OfPGFgF6g91?=
- =?us-ascii?Q?NRkK9jQk0M7MhNuKg/ixEREUfPlAhKgyWC4wX+EcsOfIUoMeLQGUGUd4iTJA?=
- =?us-ascii?Q?jz53M4q4nHZLWBGzOiQah6uNgo8/ylnDWvJn2Ea5dyUoLeqUIlrcauBoUTvC?=
- =?us-ascii?Q?rflXQdQ5RN02XE9+FK4ydqcfBB6hdPJuAlKccyBkZPycV+ZjXM791TMCqIP7?=
- =?us-ascii?Q?6qdKEuhh5PPxuUAU/4EbfTSNZouESh4ueDl7r5sR/ih3FxvHSEOV6m/iC3gz?=
- =?us-ascii?Q?Dc8tldhnOlpo3UnRX4SgoyqUtegXMOLqh4FEXD8nU6H1jZ8dM7P8m71Fu16B?=
- =?us-ascii?Q?BN+LTJdrXJW9Cha82y6hc4tuzktY9aUrCI8ywNEvwSBI/5yFON2YHTGUXM7a?=
- =?us-ascii?Q?dkuwOr/hbH4UZuBv9PxwrYUfa7zyG+49WoV/DaZhwyH8YCCH/A924Y45VOjv?=
- =?us-ascii?Q?nJCCe2IAIugkIY6ufeJMuC/bE2D9xtUAXOLUZ6/TCQDQy512uIvioLB27e0M?=
- =?us-ascii?Q?fHIV/3AULFC/fYyPLJ8Fe8kEZezPFU+Gh3myy5vujq8LSl+39rKziPDAzSf2?=
- =?us-ascii?Q?v/MMZ9A3axjLcZjIXpgp10GCjEXeM/ubACC1/FjcLyd5BHph8ps7nSlkWsAb?=
- =?us-ascii?Q?sjL+phOmR9Y3mmxwp/TubWZzWUg8jjA4lpHK/oZwZ+nQguISSTtUuLWl9IJF?=
- =?us-ascii?Q?wXXcLPR7/xEO3vdMxRx6SgThz9JxM6Cs4Q+W5sPoYdiQZymA9CU1PIeGjNWN?=
- =?us-ascii?Q?AFJeGM78Bxz408fJzA7WD23WGYGvYWDvDCwCgQrjJ1mkdR9igfA/FOB4kSYx?=
- =?us-ascii?Q?XP5icKgRgRtxuYpQVA1gN2yGOM1CiuTcMpFdSwIaqHPNXu98PFkS8tO5Dbrs?=
- =?us-ascii?Q?RXYqf3skNseMqgU5LNp+WlwttheB+Cv7DnjrHRizE57YAsJoyGrTupjseaca?=
- =?us-ascii?Q?2f1ILPGn2Eo6zeYL7duuFmZsQD2FuWmbjBLngEiZ0Q3IEdAJ9QKsp9U3vBVr?=
- =?us-ascii?Q?f5dfqHJX0EU4OkuuXIthV/RB/hBQAMzfDPEXt0hSxO8+wpk3ussoXsQ9JsfE?=
- =?us-ascii?Q?F+znr9jbqcg+eUa+svzPMhEjLHrTAr8y6oNPDJ7BXaFiNQ+l7HoBIQPaoH+X?=
- =?us-ascii?Q?c68urrYZbc3NGzOp9kavJAkwFe8wvJGjnwXw82I7r/TIiCIBuYI2IOAwTlv0?=
- =?us-ascii?Q?VrhzztzpiR4gYaWTN/evjodNdJo1B5cxOsoLrouIC1uBj/aPL8xKiouCwyBs?=
- =?us-ascii?Q?K3/HDpGKGwNQX815zbUN9sjhs3NXRB5vRGTqvw+nAhGbICZkAteZSY+vpsBb?=
- =?us-ascii?Q?nHolbCuz/vAkoCRwyTrjht3bnQuYEdFyylmJLdVqQlJVGmaww7n2zyJvhFU1?=
- =?us-ascii?Q?g/jlT3zCUcze6eaic/ocG8Z5IdrxXzfZW95tPtbaPzPC3LeAPeHncuXqksGt?=
- =?us-ascii?Q?lLqGS0MYTT5c1RkG7qY/84WGEYhzYzUXq2UW6rlt04+kINvjN3DbzvV16WxF?=
- =?us-ascii?Q?a6matpK35X0lIAgscuqwmpm7YS54wTdSwe6a3jN3+roICNHrokjXqxxXNo1w?=
- =?us-ascii?Q?JduSCDqPHMIABt1ktSFZ9ROMo9xcsJfkLfH0XeS/N8hHIeYwhQKTecxPn4wD?=
- =?us-ascii?Q?gCj2Nk00Kw=3D=3D?=
+	=?utf-8?B?V3ZpTTAvQzFSamlkQWxVSXVRMUxZaGpzbzJyUzVCWEswNHBLZ1pWNkpncjNY?=
+ =?utf-8?B?NjBLditMUlBGU3k3VDZ3cjl2SDJFZmw2SEsycE1aMWllK1Z5bWpNKzNpYmRB?=
+ =?utf-8?B?KzZNU3pZWXJuajBDdlNHVWYxN1ZVRlNVM0s4TTJUcFlJUWdtbnhzYjVJR2ov?=
+ =?utf-8?B?cVV1Y2wwVnArU3RLODFoMlgyZE05U2NFR1dRYTNjeGdDMGtxbHMzVWNNU0FV?=
+ =?utf-8?B?dnV0SmtWU3VXNlA0alAwWXJEZnFZMmFVdFd0eStWRUtEc21QYUpLSmpCY0dB?=
+ =?utf-8?B?bnYzQjZhTTJlNEZUUFl6a3hDbURTTHFlakgwRU0zekg3UjdoOUdDcHJWZTRU?=
+ =?utf-8?B?Qjl4cnpTbG5tSzNYSUVsWW5Ra3M3VVcrVTBOcFhrR3JlRUttUWdCODNRY1Uy?=
+ =?utf-8?B?RVRaQktzOENkc3VUUmM1ZXk3K3VkRWhSdUdzTzBmYTdSczVFdjZadithaDdt?=
+ =?utf-8?B?WnJJaDg2ZXhtbHZVbi9Wbmh6dXJTR0U2VzlYMGhnT2ZmMGNsbzJBMHpnK0xr?=
+ =?utf-8?B?Q3ZuNGc4bEZCbHhoc1ZXL2R6OHY0SXBDQ01zN2Y0TzZ0L0MwM3pnMDFLVlBr?=
+ =?utf-8?B?cEp4OEY2WFhwQ0lPSllTOFFtdXJvdlBzNTk0cWJvdklaQ0d1U3J2cXpYaFBj?=
+ =?utf-8?B?WTNCNlVTM1NJR29Vd2x3VWlJZG9OMS9pdTBZT1ZHdDZSY1hrZk5FT2w3bHVa?=
+ =?utf-8?B?dEZhUjRsa01lVXAvVXI4b20zclRjWWZVcFV3MWIyOGNKVW9WeGtqUmxkNXQz?=
+ =?utf-8?B?djZrL1JCWjgxOWpqeVR5Zmc3bEdsL2dqVG9oc2d0THdxMWpoK012SlFMVnZM?=
+ =?utf-8?B?SFZiOGhnZ0dJSUFWcGhkV1ZiOVBVcTB5NWx0SitKUVlScWpTU0l4akJTdDNG?=
+ =?utf-8?B?ZEJyYmJMRVM4eDVzSEhWSHZZSGp4RWZOSFQ1Wk9DcmdMTHBJOGl5d21aTmR6?=
+ =?utf-8?B?MVY2SytaUC9KRzNQS3RRRFBpMmZQdndueG5KMi9jRjd2REF6ZGFMQjRrdUxq?=
+ =?utf-8?B?cVVtc3Y5QllBSnJSNUMya2VtbjJBcHVhYUc4K0w0S21VbUVIVUh6WG9TaUd4?=
+ =?utf-8?B?eTBTY3BHN1pyS0NFaGpzNkx0VGVCVCtnc0lrUlBWb0FvSWFtNTdQaFd5dWtq?=
+ =?utf-8?B?VmZkWlR5a1l4RnFXbVROWGNRMy9kSHZrSzNPc00vVXFPMy9vbWNUdTNZQlZn?=
+ =?utf-8?B?QlJZcDRzQnI4R1lWaVB2UGVPQklYMzVZS0RDdlZCQ3BGUGczRk0yNkxjTGE0?=
+ =?utf-8?B?cjNUN0NkS053SHU5ZTJhb3lIaEFuRnUrZVkxYzJFcWIwaHdlMzQxZXFnRDVR?=
+ =?utf-8?B?Lzg5c2JCcDdDNnFocURtYnhNbHAyV2Uxa0phdmRNS2NNNHpPTWhlVGZ1YTJC?=
+ =?utf-8?B?a3VFSU5hRXhiaGVPZ0hZb2ZDTVY5Y2tuZDBVbjZhbmtSSlNqd1lQTVZLYTBV?=
+ =?utf-8?B?c0FTdmMvdWZJd1RFZFcwWWlQSTloU0s1TWQzM0IwTVprR0Z0RGhzbDMyT0lx?=
+ =?utf-8?B?OFFYM1dCYUtsay9aaGJCZVB2RW40VDBYQmUybTAwd1NkUmFlakVmUlZ0NWRx?=
+ =?utf-8?B?WGduUlRBaEkrQk9naTNRVVljNXJ3dUtSTVg1K0JMZXJFOEtFY1B3NnBTOWM2?=
+ =?utf-8?B?RlQvWkZZWEVuUnVOcjNta1RkNWdyK21OQmhrTkxrRmdZUkdLa2RYdW9ydjdX?=
+ =?utf-8?B?ejNpM1F4SnU1ZGpTQXVtZVM4SlVpZzRzR1VLeU1sbFdKYkw5VkdSanlvZ0NP?=
+ =?utf-8?B?N1ZTY09OY2ZjZWNHS0pLRFU2TnV5cWgzVW5EY3BEM0dWSzVFc0xZZkFYa1NB?=
+ =?utf-8?B?eTNIQ1VFeEp4MUhrSlkwQ1RscHdBc2pVUFoxNS9mM0dBYStRVjZKWFJobk4v?=
+ =?utf-8?B?L3lQZGFJNmc0TTlFZjJ3UEhMcWphVjFQUGtNN3Nqd0FEaTllS0dpaU1PKzJG?=
+ =?utf-8?B?QUZlVmVNWXc2TE1sT0xGSWo3VVI3Mngyd3dUREpKSVFaS0E1RTBQR2U2V1B6?=
+ =?utf-8?B?aWV6cFEyZ0t1RnNnMEZIZS9pTkpyeFJ0ZklrUmhialAvYmk0Y08yd3dxTE9o?=
+ =?utf-8?B?eHgwRGpxNVNyT0ZkWEwwSVBRalNBQUVrSWdtd3BQTnJGR2VPWG9VeXM4cTNS?=
+ =?utf-8?B?aEpvUmNXYklmRmR3REd1dWhoRXZ6VkQ4SThTUFpMakZTeklOUU9MWUlQanFJ?=
+ =?utf-8?B?SFIxY0tKRjlXOEdJYkVSNDNjb2RFTy9jRkhtUTQ1NVI5TktrYWVpbXdKLzMz?=
+ =?utf-8?B?dytkckVSQ3M0YVpLSnhvdVMvdVJ1eEZlSTZpdlpLQlB1ZVA4dDNjNk8rek40?=
+ =?utf-8?B?WFRIRTlLYm0zek4vUGlXYklkS2s4Z2dZbUZrWnBMakpWL09kejVpMkRZblpP?=
+ =?utf-8?Q?7e1vPb8cpEDe4AWaqdbohyDIOPCKxweYxB0AzQRkG/dSw?=
+X-MS-Exchange-AntiSpam-MessageData-1: nSLGo6lx/5JwHg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 778f1696-5693-4416-c437-08df0d78620c
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ebe83d8-16e9-40a0-c652-08df0d7e04e8
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 07:11:20.5734
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 07:51:41.1295
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fc7882JXzOHCzIA0lp4j2oMGN0fElz+UjlZsU3CYi1Ig9oQCd+PVJKLzclSg7k0p3TY77DCrJS54RhXTDdyaaw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8103
+X-MS-Exchange-CrossTenant-UserPrincipalName: WMDNoNKQs+7MVU2pOxgzr18EEjDRQF8Cst4p9z2OhaKJbXGW6RRK64uvtYnenY3V+2XhTId1oJ2A7Ukob1y2OQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9754
 
-On 2026-09-04 at 22:08 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> On Fri Sep 4, 2026 at 1:13 PM CEST, Gary Guo wrote:
-> > You mentioned in an earlier email about the typing, but we could still have
-> > meaningful impl IDs fully typed like this:
-> >
-> >     pub enum Arch {
-> >         Turing(impl_id),
-> >         Ampere(impl_id),
-> >         ...
-> >     }
-> >
-> > and some langauges can do better, e.g. TypeScript allow you to write
-> >
-> >     enumn ArchId {
-> >         Turing,
-> >         Ampere,
-> >         ...
-> >     }
-> >
-> >     enum TuringImplId { ... }
-> >     enum AmpereImplId { ... }
-> >
-> >     type Id =
-> >         { arch: ArchId.Turing, impl: TuringImplId } |
-> >         { arch: ArchId.Ampere, impl: AmpereImplId };
-> >
-> > So I think it's a reasonable design to have it.
-> 
-> Of course we could encode this implementation detail, but I think there's no
-> reason to do so.
-> 
-> For instance currently we refer to GA100 as
-> 
-> 	Chipset::GA100
-> 
-> but with the above we'd refer to GA100 as
-> 
-> 	Arch::Ampere(AmpereImpl::GA100)
-> 
-> which is not buying us anything, is it?
-> 
-> It also would be confusing because both the architecture and the specific chip
-> would now be both represented by a type called Arch.
-> 
-> > True, but I think the chip ID is as bad as impl ID. Feature detections should
-> > use dedicated featuire detection mechanism, not looking up IDs directly. I.e. we
-> > should have userspace not having to use either chip ID or impl ID as much as we
-> > can.
+From: Joel Fernandes <joelagnelf@nvidia.com>
 
-Yes, I agree this would be quite lovely for a whole host of reasons. But both
-our HW and our FW are a long long way from being able to do that so I don't
-think it's really feasible as of now.
+The C maple_tree struct contains a *mut c_void, which prevents Rust from
+auto-deriving Send/Sync. Following is an example error message when using
+MapleTree in nova-core's Vmm.
 
-> This I agree with, which is also why I mentioned we should export SM if GSP
-> already provides it to us.
+This propagates up through MapleTreeAlloc to Vmm, BarUser, Gpu, and NovaCore,
+causing NovaCore to fail the Send bound required by pci::Driver:
 
-Yes, I did look into this. Unfortunately the SM version GSP currently reports is
-different from the SM userspace code generation tools need (I have no idea why,
-there appear to be way too many SM versions).
+  error[E0277]: `*mut c_void` cannot be sent between threads safely
+      --> drivers/gpu/nova-core/driver.rs:77:22
+       |
+  77   | impl pci::Driver for NovaCore {
+       |                      ^^^^^^^^ `*mut c_void` cannot be sent between threads safely
+       |
+       = help: within `MapleTreeAlloc<()>`, the trait `Send` is not implemented for `*mut c_void`
+  note: required because it appears within the type `kernel::bindings::maple_tree`
+  note: required because it appears within the type `Opaque<kernel::bindings::maple_tree>`
+  note: required because it appears within the type `MapleTree<()>`
+  note: required because it appears within the type `MapleTreeAlloc<()>`
+       = note: required for `Box<MapleTreeAlloc<()>, Kmalloc>` to implement `Send`
+  note: required because it appears within the type `core::pin::Pin<Box<MapleTreeAlloc<()>, Kmalloc>>`
+  note: required because it appears within the type `Vmm`
+  note: required because it appears within the type `BarUser`
+  note: required because it appears within the type `Gpu`
+  note: required because it appears within the type `NovaCore`
+  note: required by a bound in `kernel::pci::Driver`
+      --> rust/kernel/pci.rs:294:19
 
-> > That said, I do think looking up tables are unavoidable, for getting names or
-> > applying some quirk fixes. And I agree with Alistair that if we include it,
-> > including impl ID is better than the chip ID, as we should rather not having
-> > user space relying on an arbitrary encoded chip ID.
+Implement Send and Sync for MapleTree. The tree contains no thread-local
+state, and all shared access goes through the internal ma_lock spinlock.
 
-Yep. Sadly without better capability mechanisms I can't see how we're going to
-avoid lookup tables in user-space. If we had better capability mechanisms maybe
-we could, but we don't.
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+Reviewed-by: Boqun Feng <boqun@kernel.org>
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+This is a repost of Joel's v3 [1] with no code changes. The upcoming
+nova-core memory management changes depend on it.
 
-> No, the only thing userspace ever uses to distinguish between things is either
-> by architecture or by chip. If we instead provide architecture and some ID
-> userspace will just go
-> 
-> 	if (arch == Ampere && id == 0)
-> 		chip = GA100;
-> 	else if (arch == Ampere && id == 2)
-> 		chip = GA102;
-> 	[...]
-> 
-> and after that never care about the ID again. Whereas with giving userspace the
-> chip and architecture as separate fields userspace is done.
+Compared to v3, I've added Boqun's Reviewed-by from the v2 thread [2],
+which v3 didn't pick up.
 
-Right. That's because what user-space needs and wants is the chip-id so it
-can figure out the exact ISA, among other properties.
+This is based on drm-rust-next.
 
- - Alistair
+[1] https://lore.kernel.org/all/20260511143604.3848176-1-joelagnelf@nvidia.com/
+[2] https://lore.kernel.org/all/aftiZGt3HQe0Bf_x@tardis.local/
+---
+ rust/kernel/maple_tree.rs | 30 ++++++++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 6 deletions(-)
+
+diff --git a/rust/kernel/maple_tree.rs b/rust/kernel/maple_tree.rs
+index 265d6396a78a..74cfd5c0fb2a 100644
+--- a/rust/kernel/maple_tree.rs
++++ b/rust/kernel/maple_tree.rs
+@@ -16,7 +16,11 @@
+     alloc::Flags,
+     error::to_result,
+     prelude::*,
+-    types::{ForeignOwnable, Opaque},
++    types::{
++        ForeignOwnable,
++        NotThreadSafe,
++        Opaque, //
++    },
+ };
+ 
+ /// A maple tree optimized for storing non-overlapping ranges.
+@@ -240,7 +244,10 @@ pub fn lock(&self) -> MapleGuard<'_, T> {
+         unsafe { bindings::spin_lock(self.ma_lock()) };
+ 
+         // INVARIANT: We just took the spinlock.
+-        MapleGuard(self)
++        MapleGuard {
++            tree: self,
++            _not_send: NotThreadSafe,
++        }
+     }
+ 
+     #[inline]
+@@ -302,19 +309,30 @@ fn drop(mut self: Pin<&mut Self>) {
+     }
+ }
+ 
++// SAFETY: `MapleTree<T>` is `Send` if `T` is `Send` because `MapleTree` owns its elements.
++unsafe impl<T: ForeignOwnable + Send> Send for MapleTree<T> {}
++
++// SAFETY: `&MapleTree<T>` never hands out `&T`; all entry access is serialized
++// by `ma_lock` or `&mut Guard`, so `T: Send` suffices (`T: Sync` not required).
++unsafe impl<T: ForeignOwnable + Send> Sync for MapleTree<T> {}
++
+ /// A reference to a [`MapleTree`] that owns the inner lock.
+ ///
+ /// # Invariants
+ ///
+ /// This guard owns the inner spinlock.
+ #[must_use = "if unused, the lock will be immediately unlocked"]
+-pub struct MapleGuard<'tree, T: ForeignOwnable>(&'tree MapleTree<T>);
++pub struct MapleGuard<'tree, T: ForeignOwnable> {
++    tree: &'tree MapleTree<T>,
++    // A held spinlock must be released on the same CPU that acquired it.
++    _not_send: NotThreadSafe,
++}
+ 
+ impl<'tree, T: ForeignOwnable> Drop for MapleGuard<'tree, T> {
+     #[inline]
+     fn drop(&mut self) {
+         // SAFETY: By the type invariants, we hold this spinlock.
+-        unsafe { bindings::spin_unlock(self.0.ma_lock()) };
++        unsafe { bindings::spin_unlock(self.tree.ma_lock()) };
+     }
+ }
+ 
+@@ -323,7 +341,7 @@ impl<'tree, T: ForeignOwnable> MapleGuard<'tree, T> {
+     pub fn ma_state(&mut self, first: usize, end: usize) -> MaState<'_, T> {
+         // SAFETY: The `MaState` borrows this `MapleGuard`, so it can also borrow the `MapleGuard`s
+         // read/write permissions to the maple tree.
+-        unsafe { MaState::new_raw(self.0, first, end) }
++        unsafe { MaState::new_raw(self.tree, first, end) }
+     }
+ 
+     /// Load the value at the given index.
+@@ -375,7 +393,7 @@ pub fn ma_state(&mut self, first: usize, end: usize) -> MaState<'_, T> {
+     #[inline]
+     pub fn load(&mut self, index: usize) -> Option<T::BorrowedMut<'_>> {
+         // SAFETY: `self.tree` contains a valid maple tree.
+-        let ret = unsafe { bindings::mtree_load(self.0.tree.get(), index) };
++        let ret = unsafe { bindings::mtree_load(self.tree.tree.get(), index) };
+         if ret.is_null() {
+             return None;
+         }
+
+---
+base-commit: e6a2c988ed96a5a3af51ed97ecba980521bf2fc0
+change-id: 20260907-maple-tree-send-sync-a1479d1ab302
+
+Best regards,
+--  
+Eliot Courtney <ecourtney@nvidia.com>
+
