@@ -1,116 +1,118 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7033AAF6F
-	for <nova-gpu@lists.linux.dev>; Tue,  8 Sep 2026 08:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9507A4A8A30
+	for <nova-gpu@lists.linux.dev>; Tue,  8 Sep 2026 08:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854408; cv=pass; b=Ek5Wgf3LSF6PGuI2p494CfL4XSDW6vi6whYKJNAX0GSFkz2DD7ZBpEqyLpmG4TIYqK+sntT1/1zAHfEK7cDVTOhaSJLKfvSVCBNQyPgEjdGo59aXSQJ0QBMItI7KNJVsBoqIzu6GTIJ/9GNZrflLNRnIhX9laEDk8MchXNMbAf4=
+	t=1788857386; cv=pass; b=a45d7EzkxjpT9DcPwWcXoxJDwCaNznU1M14XjjVXwCbbIn9mNmebD1bP2K0MYLiVhqtuM4BbCqmUiLllA6me8pC9mMkCg+BNwC7DnjtPvWzOan+BdHclEpMv9RP0YVc6sEbI+FfZGvcPaT3VqPYvXw/3MK7hl1S5bJgxjZ00fDo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854408; c=relaxed/simple;
-	bh=guaq+VGBE5xuZsh8TwFyvRdWEV5RQewzlTdQ0HnyLyg=;
+	s=arc-20240116; t=1788857386; c=relaxed/simple;
+	bh=VlUILLLz6j/ItrW8OiGkI/9S62d/o220tqGa9E3WryY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V7VTc9X9bPnCd84dq8pwZhfU+XI8WZrQiRf0JiykesZwd070P7GVeIR7MyRxiRxoUE01ec7vUYMSoO2rDGFTG9AU3N0AGu6grucaP7pncIIJkMPrRKw150Lvoz1ZZT0XdMFc16o64a7bpAyHI8iY6Nt8wBapQhGyG8AT9HL25l4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GGTntDzx; arc=pass smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=qwhm1NTIyhtS0o7YPd4Q39aERMkZ3tKbj7S9J24gt/0jkm8+WKMvr7FFxcCLPaZkp8+OLmus0Nu7g3kRIms8abLxYENkNRZ22n+K0Vv89vkkU0wLcixnhxiKW7uYH26vbp7bhBhAIpIM67/Bnu3uB0qE24opkwXq1OcHnWXJlQs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EQcQq+R8; arc=pass smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GGTntDzx"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-9399daa3c8eso190214885a.1
-        for <nova-gpu@lists.linux.dev>; Tue, 08 Sep 2026 01:00:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788854406; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EQcQq+R8"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-485888b3c3dso4460196f8f.2
+        for <nova-gpu@lists.linux.dev>; Tue, 08 Sep 2026 01:49:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788857378; cv=none;
         d=google.com; s=arc-20260327;
-        b=aZGkmbftgq0UEVi4oi9hIQm+EB+YG6c4/7KuQPnNKChoiDuVTKQN6WJepmpJ7ooa95
-         aRPIOHqu4d9Bowwf/QO/vmwvy7Znq9gODikylB7aqu+tFhA8fXnCzhXhjrEyPW/w9v3w
-         Q4eK9CtDALMChQcSw4pjVk96R4lNO2ghtefObYWYXUAzmE8Q+C4AREfl8TuKjsy59tpT
-         /3zDdtOBrA3u7EIKJnx1uhku0ZnUPv2QuivBuIa7+L904jU72fRc1HBel+yHbpy5a1d/
-         hbu5SsgzYBOjP+fIl0fdxReZA/cSr9XwJ8LtUr/tQXQO9jHgIpYeLXveUMrVlYz15rvn
-         Wf0w==
+        b=ehUDiXnRsogzAGwy/OjRnHkpnmxulFfw/x73fTRSz6UPFcWWiYrowy68WWZS/ckDTg
+         A/OZblBFEZ+cO3TavN4EzuUA7xyIh65eCZdF0vciLKoZr+oS/ag0hLhKUCpNsarvhisC
+         JmL08CzoRjN32gQ4LNZwmonMp/wELP71tF+3i/114FgmRLw9wHv8odwoPKzk6aX4y2ic
+         xTbjQDjTve1QMuYyIzE1R1lYhBa0BgKft+/7+plQB6S/u53WAO0+mlC6ZkjCRf/rgRRO
+         i4UMACRng/chXBNVnmcvDVTN+YRaj+LyHU/6OLE9Jf/3bW5zmxMt32qRA0ZugGaoDr2j
+         Ss4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=guaq+VGBE5xuZsh8TwFyvRdWEV5RQewzlTdQ0HnyLyg=;
-        fh=QezALCPbt99+MtEbhZBywxVLp6PlR4rgnCkUNKl8lJ4=;
-        b=MxHSAQOvS7t3bUXMZEHntGK8GWM42Vsf3oyXwG7TFzMzI3+ReSuK7FXinjtVaRZsxD
-         PZX+XD2sOWOXZTqhYwuK/afhDNp3gu3w4G+QgcTcewLXplerZIZTAOOOWmJ6rtr+z1Fn
-         uArcmp1y20g8Eb/SM22/oteFAixamiu6Y9R4YBC3XL+G3Gd6RXLnra13YcYCw8PVHF4X
-         Dwyb8rvLPnp7RqkN2ZdD2bSaSN/H3iKPmWWtGLw9UVnf/re2WBSA8poPK6M4MUlXuhRV
-         wRWo2X5MDsI5boIr50Ug6udzFU6hG2p0Euq/qHEiNCj58WHmzMbVL2MqdcVGigQdfvzl
-         4Ohw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VlUILLLz6j/ItrW8OiGkI/9S62d/o220tqGa9E3WryY=;
+        fh=hcBTPnXpQCgaQ3l6Gv9F/4iGqN+zPv5jPK9WRPrf374=;
+        b=bZ5yQDVdzB4gg3M0dfQitjrZ1g/+HGwxtnslZWYcO2KmtNwRsfkx7/HZApyqdocbr8
+         SGl4+pXBu2A1kvRgXoluV6bPQG4ypMmHdMUzrCorQGanamtqhhaTm5+f0xUuWkIoeWv2
+         96+HGHhgH6IW2bQ7vC0IpN2GpPKmtoeVJ4y+fSjssf8CcXg1c6QT/rpiDagcieS4ITNt
+         0O/yPFYioCVmBQMPCVwcVWnWlS139KRLPWLypjZkR7t2dW90xjkalr5gnlquKbkfu9h9
+         QS4LpaUY3lWayH1uckTZmlgYwweC6YsM1a7wlSX5Xyf0HN7OP8CsYzUgniWuBY23sgJy
+         pYQg==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788854406; x=1789459206; darn=lists.linux.dev;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=guaq+VGBE5xuZsh8TwFyvRdWEV5RQewzlTdQ0HnyLyg=;
-        b=GGTntDzxAkoCKKXUidiZRKPv2K8qHmHG8p6ClGH9Rkudzeoir0zaKbHXayjBmmcTvn
-         L5MgXkyhM0f5dFtzPwagDUQ1qqRe3wdAfuUYoTfMZdS78MVBl5Oju43vy+BtALngLM1N
-         nTJS0hqODLoFvO/fL44wCv0495j4VII1x7gUAk2wzlHhQoVQILFGuTCCtX3/zOdmuim+
-         UerbYR0Qz1ke127NFO+ZJY+/9+mmfoJ80b1DpQww/Q+XEd6M1lbkS6EqUrGeT3AORu1B
-         6YtFZXtSQW4uIMfqr+fDLXV5byXquumXcTWMuLWIQWA61no/xHHA/rgnaxQkjUC07WSh
-         rKWQ==
+        d=google.com; s=20251104; t=1788857378; x=1789462178; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VlUILLLz6j/ItrW8OiGkI/9S62d/o220tqGa9E3WryY=;
+        b=EQcQq+R8toHm9oIMmBaDvQfJKO4LYTtHB3i8ffSEBiiBde2fIe8a4IaeAa0vIXR6N9
+         yJLLB3JBqq3UDecOSQOy6ihNXds6FRrrOT+ccM4DPg70VOhXKj2F0Z8vIDTOkPBzydtd
+         GTraMFltTGcth8DTLqauoYOBQLpbP1ridUMgJDmOHTBTBVssnvxduDhGxi9XBelp3xLW
+         S126uUcwGWBc2krwNp1HsU+j5Y22trvFjTrmydW/YVKTo+eZbMk/slhBL1TYmo59fOvc
+         9v8fPZ0iP5KyAn/QBinmln94WfFgkmSNw6nFhJqwSK1lYk7wxs5unKfxmKZ4ELLdnn1v
+         d2yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788854406; x=1789459206;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=guaq+VGBE5xuZsh8TwFyvRdWEV5RQewzlTdQ0HnyLyg=;
-        b=BPYn+UkLaiMAD3phAfgHGXg6FjjHyg27+HC4FiPGOG37WM0rrk9SfuoQWUyC4Lb8yU
-         Dy8Q0G2qWA0+W1QjQQVhFUoC1JltHa+//0BnN3RjcogEzIJQ63Ib61bbpLUjqkLd6cQI
-         v5Ejk0h/QxPY1fkoeFm/oUda/oCh1M2o9na2Qey9MUCHPzG+YC4SXJvqjLeUZlSjlZWQ
-         QLezXAvYcH0uA6JNGDSrXcZv1msNRruLjHh2MXYrdaISFlhMOhjsswEwdoteVpqIBdpJ
-         mslXCJO4hrfqSaP9gbbnoSgKca7snRWimrhpTYn/qOyvt6eBMXTYAzBK+TIG9Fi+ojnc
-         /OAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzm0t3zjv9VdSDlwN2+9CK1CxzFcQS+PHsoKkeiI7UmDWF5aD88YBgHwuVH+9kh1nHZ4YuPcpdBnw==@lists.linux.dev
-X-Gm-Message-State: AFuF++nGK3rbyDhIysJq/SR0aVjvtRBZTwvGmvREdrKx3K5ifcgJqB5P
-	/icSSiM5nNvyOrVI9hx0mtmEsINCzY75tQR0OJ89PeomYGVB5TJey+b8R6FaGgZLpWtfPILYgsr
-	g5CbeTfu7BG5V5oZxLldN2jbRV/vGDt0=
-X-Gm-Gg: AYBFou3P3cGVvvsDVvSmxZ+CsXgRfGnE/9HstlW++uSx4LPOVZgRGPdeb7lz9ZIReIb
-	y7gTMxoJTSZffVrsU69dtVgNpfUBfOFSxfaErDxun5tYwPYoZsAZepKFOtPyFDZSyuBdwwqhgIE
-	GbcQlHVA9bGHNhbeef+9RYGBCmm+wo7PwU/+qVROj7RBIY8O9JgZt/XsVkNU7DvySt5+donQigx
-	XySAeAU6pWMDgtzFMyr/KTOUHXNWXDK6Ip2hK4J9wjlIx/3VOz04SL2nEpYgxNg/uHoOJuFU5y7
-	unhRY08fDumZJXxUIybLA2jzZL0c67vft/oHapgYHDjwc2KG1KZ1b+Ezs8ZfeHuNwkwjnrCi9Ab
-	VTzv9dw8cWKUYncedjei3h+vPIJAYvPEG0PjLnabP
-X-Received: by 2002:a05:620a:8386:b0:939:6d22:6fd with SMTP id
- af79cd13be357-939803712c1mr2713471585a.18.1788854405591; Tue, 08 Sep 2026
- 01:00:05 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788857378; x=1789462178;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VlUILLLz6j/ItrW8OiGkI/9S62d/o220tqGa9E3WryY=;
+        b=lW1+TRJohNPQZpfn9mxzaNmqw6Fi3NcRQMwbk74pR/vP3Cg0uigOp+Q18anA8sqOyR
+         im4Xheh6q8NbYLNViHP6V0A1tLb2fj80SSYLEgZUEHKHYjqGc27FQwUt3jCYUZ9AgQIE
+         reVTn++bdUXM3boC7GLgTgfgL3PVJvsUNQoJTqkjJ5sftjZg5CBzdTCPJGjp3THpgsiF
+         1eDBovLopq2zx63EDmt1bk35Lc3E/Fq01/Mc3/qiF2TyQOnmxKazZ9p1l64PKeW7faOG
+         S1Gmp1Y/6bH+Wor+2iUgD+DPaSS80rSZYf4QpFkE4KBt9CENN0E1MSA/mcrvXUhMvRsJ
+         qCRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNRzes9BN5DEirp1KceQuXKssKLDmS7LTlKC4Uvmto0F3hJg6YIMc9aWWmXZceO8SwWIx8WGtQwg==@lists.linux.dev
+X-Gm-Message-State: AFuF++nQh/HGZKW6UU1BgluR4m76RlTSD6+CSS64BxonnCv6OWrcQ/VE
+	1sqBlMAajvPNEp2VBv6DZqiPNHZnfKe4T13IQXJ0KuuIq5ksJ4B2POc3BDjOfDPgVAoWvfu34iR
+	TFIEAT8swC/uocKkSmPSLFwIrbCyqMat/AVWPVv52
+X-Gm-Gg: AYBFou0jacXP0srZjGuu7J92Im3vCbLggh2G6XmmZ/w7bN/F5ge4Es3l1m4Rr2P3XT8
+	xvFV7AdVy3+nWzLMT1DmQUhu5mJlhteLzNzBOGdkJ2/7WY6XOqztnKeEInXUF5JGOFN8yy+VZry
+	/5gl86ruwiJmZlp1kMsAtrwloMzxYJbW45wUuPageP2b6IYv96LbxRVcNN7IUpLT3TgOXF2YPtH
+	llnuR9fo9Fm0s65q2jpIxooVOn+v3xkjOMKQ1qpLxcinodMW3q6MkyMddS5hlyXE5xwIzP+dOF1
+	O9lE5f/89GE4w6kOk/xdHStg2qhiExTWawGQZzp0eJ1EEC4d+G2hygt+HxgaBNCPP+K0ba9HvhW
+	nLpZWF8fayUMsSoVOHM6ZplpVsmARanQ3alY1SAfP
+X-Received: by 2002:a5d:6f1e:0:b0:485:8c16:5ef0 with SMTP id
+ ffacd0b85a97d-4858c166129mr26214143f8f.42.1788857377473; Tue, 08 Sep 2026
+ 01:49:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260828033531.1117754-1-apopple@nvidia.com> <20260828033531.1117754-6-apopple@nvidia.com>
- <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org> <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
- <apdvTgAp5eGezO5t@nvdebian.thelocal> <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
- <apioGUDamrCur_oR@nvdebian.thelocal> <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
- <DL6HKYRXHNFK.1D9HYNEPH4GCR@garyguo.net> <DL6IQKQDXY7P.1F6PSERSJ64PN@kernel.org>
- <ap-vnh7KFJGJLW1s@nvdebian.thelocal>
-In-Reply-To: <ap-vnh7KFJGJLW1s@nvdebian.thelocal>
-From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 8 Sep 2026 17:59:53 +1000
-X-Gm-Features: AcwNN1WfQW84CsExuRlle70Uv_VaeE2kPFpysKqrhKzJ84K5F_EcHs0pQw3o8S4
-Message-ID: <CAPM=9ty74336zKWvS0BPVDnsczCPOPg_Lc0VsZnUfe8Yc=F1Yw@mail.gmail.com>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-To: Alistair Popple <apopple@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	nova-gpu <nova-gpu@lists.linux.dev>, M Henning <mhenning@darkrefraction.com>, 
-	Alice Ryhl <aliceryhl@google.com>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Benno Lossin <lossin@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>, 
-	John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+References: <20260908-maple-tree-send-sync-v1-1-43adcd4a16e8@nvidia.com>
+In-Reply-To: <20260908-maple-tree-send-sync-v1-1-43adcd4a16e8@nvidia.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Tue, 8 Sep 2026 10:49:25 +0200
+X-Gm-Features: AcwNN1UnrR9dkVHvDMvsysJouh6r2YnSm2JySmMBpuB4OQ_lYYOQ4OyEmCZHEfw
+Message-ID: <CAH5fLgh_TQiqKxXsz_DVcQxkCaEw+q0JyTh4e4Tnp28V0JDmYg@mail.gmail.com>
+Subject: Re: [PATCH] rust: maple_tree: implement Send and Sync for MapleTree
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Andrew Ballance <andrewjballance@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, maple-tree@lists.infradead.org, 
+	rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>, 
+	Gary Guo <gary@garyguo.net>, Boqun Feng <boqun@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> > already provides it to us.
->
-> Yes, I did look into this. Unfortunately the SM version GSP currently reports is
-> different from the SM userspace code generation tools need (I have no idea why,
-> there appear to be way too many SM versions).
+On Tue, Sep 8, 2026 at 9:51=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.com=
+> wrote:
+> +// SAFETY: `&MapleTree<T>` never hands out `&T`; all entry access is ser=
+ialized
+> +// by `ma_lock` or `&mut Guard`, so `T: Send` suffices (`T: Sync` not re=
+quired).
+> +unsafe impl<T: ForeignOwnable + Send> Sync for MapleTree<T> {}
 
-Here's an example:
+This is true now, but will change if load_rcu() from
+https://lore.kernel.org/all/20260116-rcu-box-v1-2-38ebfbcd53f0@google.com/
+got merged.
 
-https://gitlab.freedesktop.org/airlied/mesa/-/commit/2f0724ef6b739c26ebd8b0828c93c51b137d7a9e
+It might be better to just pre-emptively require T: Sync now?
 
-Dave.
+Alice
