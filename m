@@ -1,188 +1,583 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013067.outbound.protection.outlook.com [40.93.201.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03792DEA6B
-	for <nova-gpu@lists.linux.dev>; Fri, 11 Sep 2026 15:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139736; cv=fail; b=rwYd3SIKIN/3IR0pLLwxnGcEdyouXsHtrFLvuoXbKE4RQ2LyDeImt8hWz10e0d+u+EJp54EClzuRdVxWu4LOUupvhr+AH9yjs/i+KhtNsl0N50Yz2PGdO4Ti7rx2pIG9Y6GCdW5IQZURyVBu08yAhjnQONVgCCrXkhv7k1RTGDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139736; c=relaxed/simple;
-	bh=ySd9p3DjaTPTK6FioviAZ6HV/r+uuXx0WUfvvzc0irM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 Content-Type:MIME-Version; b=s3X9649xIU6ATYkZyeK3voqnGYZWpKN0Jt273vBe3UCrHraE+7L7SM09SYQpb0QEfvR7FJPLHifUkYq/GTd3EkMvgy5rZhf1xfvIxgdMAIcPYrYAYU3rl9PzEG4zzYB+KjIO0kVCDHiX0o9f3MmdP1bO96c/LkpsZE1E9Y217Kk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=G9pAcBob; arc=fail smtp.client-ip=40.93.201.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B325D5A9865;
+	Fri, 11 Sep 2026 20:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789159177; cv=none; b=SZl5UwCqQPDwp000sfngzzIO4Pqllo66G4ZYMO2or74PlnJrxvX/ihFIRNkUFNoYTaU+HxyYo8LSI+wdzL2dd1uE/1iAXZLlVHUcR/1mxiPWx7k4gbXqShT3JM/cfOUthgY2O0+zP+NtRvv1jmgcl/Hurqco7b4iN/EzlVeJ3LQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789159177; c=relaxed/simple;
+	bh=9eQ70rrlm+UIzi69eXj0FMj8Lr8EIqnLrkhPp0RtJUo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=sHmSsuRIkpU/5pNKyCtkxJW8am1OeeTpFqLF1tQpt8fwvs3l/vrrsux27dmEXK22DW/68ZUH6wR/SVygCbk49MnQcMuAQSMyNlBGYHoe3YQklc1/59Tvwo7Q9b0DoE02JAHIF0qxUJfTD2ZDKaF1/1XKTtZNT+paplSzW/CZVkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4GxQ/iE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="G9pAcBob"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y0WCDtNE7cCAyuBMzy7zDA1BVfDy1kgujmELJIiBdLlGtzXYibLH1xQmo0UV3+Q6Vc/gftCAkn0kiM/6vTAby3GBswDk7vbEV0NdYLSfbdez0MfblIH90Lv6hpn57g6axKuXHdT6TAb63GErpClqs/phsATWdMicxwRaBdpq/2iEze3wqZlfpShV6Lp0btHwxCsptbHKanoDkvtcMuVDhIq6+4RxRRcDLjXZpEM/BbgOSnWUxM1hmm0z3xTbk8IBkMuKofa7eFD6RpVnZnEMBd0y9Q/HBgyY+GYbWZM0gKkxVzJNwNgRvaEFo9/p/9EokkJorTP8et+f8bty5TbfPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TVbV30+e28v447iFKZX4NFRBVk44MF8Nfclu6vYQGVs=;
- b=Cdr3JdIJdvGbgbWX0y6DDIqjKS+W/JF8Me1+fyS4YjaJnB9OUT7DFY/wzVWEcAs1iINChUex5grxCQ7fOe79gwkUL07WrI9qW6HwiA04kt0BfRIttjHf8qurAl1EHSdpufFB2YbtUxlK+wmviUKosq394qBgTK1hEbwLbuOSwmTXDoq2lB23eNiBjaN7UnQVWi/TG/wu+Qx7GK4r8gROiCHROowjARrHe37qtN7Og8ucd2GBds3qiEsAkJ7rhgFNEcwhvR5JsJF2JOltRM1RHwDYlnP/s/IE5+3hIkU5Ai+ExmKKmBWj0fZwzIJyEVbXNoMv8/lBhFGTr1Z35LsCww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TVbV30+e28v447iFKZX4NFRBVk44MF8Nfclu6vYQGVs=;
- b=G9pAcBobNofJhQfAIdw4GSWRBXvNaY5AnMkjPH4Mm88NI6xMbMGlwBg4YzxZykJAtbDSs10TSVsU6Gi6F7ATkr1sbn4W35w1y+7atCd/Y5d7Bnrf2dTA0O3R5txoZoyJ2dqUpkOer1dCmLLs3f+Blex7WAV/GN6/Z2AfOMnzGvnu2yVxSvx/h+Psow08s/sRGdDt4UAgNytB0reumbjajXO94kO13FTG4hIIjzHweIKeZMiBqIRWbhoEu0ycDN/iJeJyR1jkCnNafANsfyE63N3BmdGsqxaRxffJyHhAGgdGVWvdHUf9UTn5+AcGq5tjGR4NwDHXAny1QdSfwBLKbw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SA6PR12MB999200.namprd12.prod.outlook.com (2603:10b6:806:450::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Fri, 11 Sep
- 2026 15:15:31 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 15:15:31 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>, Zhi Wang <zhiw@nvidia.com>
-In-Reply-To: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
-References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
-Subject: Re: [PATCH 00/16] gpu: nova-core: GPU page table, vmm, and bar1 mapping
-Message-Id: <178913895393.546199.5198646441881705312.b4-ty@b4>
-Date: Sat, 12 Sep 2026 00:02:33 +0900
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TYCP301CA0040.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:380::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4GxQ/iE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846F21F00893;
+	Fri, 11 Sep 2026 20:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789159166;
+	bh=M0d7x+HLiZhpQbzGJPmfrAYEQmdiGiQus6Ye9vtWVw0=;
+	h=Date:From:Subject:Cc:To:References:In-Reply-To;
+	b=c4GxQ/iELZV2z0Q5qikbglgDYGDuhi5csYeLAy1KBpUv6k3wUYytRwsB1FbaHomWP
+	 3NNUEo4p2aqXehTYsMkL78nTc4GtOPMw6zbNgKWCzoaoStNipCeuUa5MUjAQbemvzr
+	 allPIaNdKDS1U8BrgPKBS9IKH/aRdhFQY1gOr581nxKp7vjtEfmht48gLdvk3+JzN5
+	 Y3fA9IbNirW9CqRy5nKG8T9P71V8ixf+DW5vOLdCKr9RHhfsMVqwZ+zKBim+dkZ7GT
+	 Rlgq5mmjyh7Tq57nSvoMRdfJ5+mVyyqxPj/thxd6DbiiZPvLlA5qT7e97X4nPbO0RW
+	 0AYHoZUU/W6ag==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA6PR12MB999200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d9fe14a-323d-4bf1-49f0-08df101784c3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|10070799003|23010399003|366016|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	JQrfhKVcO4tRi9PsLVq9e+J7WaEVLEyV/iULkaaS7kZNVRHTVmy/pSl83M3QvbQizeb7Rh1EQORFNHduOeE5+OhhPN9/Y7YBbgNXNyh7x2jsg1N8vXyNflm8c7PNyRr9uv87ZghoRQTJjZA9+sd8rceCCUCqmelWbiko0/inJwhzQUUfxiAcelBI9t+QlYeDPrMb4SUm3rSp/I+lGfyIuW8PTanMGLJQV4Ot0GaG7/UVFSe4c3/7QosjECtQBOq7dOgZOnqNZK2hhvY41ddlBZEaGfcfP0VsHZ0Yy9RJDTulqnpXKAuL7BOmYFF9e/ZSxsbvd0whJUZSYRJpLtYLxKaxSH+OKvBYVFvBa+sij6L5Y4ED+DqwHKro5QpmnoBIynJY3RUhKCeiy/FFZs7jwPTmVazREJPk6Cg5O5zpaX9rKiB6IkiKy2dPDMldgQPxuRQBt5DW8cgqCOm4R7FT6VpY7S3ZDbk6LfqTNCNU9Y8SM+mKiVtCrMJHOqhp6s5O1xrjjy6qQMjcW9bpKJdRqmmRtti8lAtIrmf2UoJg2dF0We09j1VWbvzbLKvRMuS6DiI1/US6ctfpixrEM6LUJ5Wcs8VWA4fsJ1K1/NJbSt1SZZj4Nac8qXk6n2LpOV6pZG4lvX4cQyZq+J55/3R1ncSfLzPwzkhTsMR/DzHLhcI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(10070799003)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3U1eFZrTVVkaWpsMnJBL3RPWVlkRmJ3SkQ4VFVwR2VqL3E3d1VIeTlnK2JI?=
- =?utf-8?B?aGRjeFNHakxRd24zb2IwODdEMEM5R3ROREdSZHcrZkpXSDZ5Z1hreEY5aVNW?=
- =?utf-8?B?TnVrZzJRNWNleXE0Ukk5ZkhpSUd0LzQ4Yktid0hDNDE4MmtsdGVqOWZ2OXBO?=
- =?utf-8?B?bGJUOVg1UUhlYkpNWlpIRGZXN3BVZ25YWmxoNTFkb2x2bFRwVzFzWlg4RWth?=
- =?utf-8?B?b294R0hJMDk5WE04T0lyd2xsS2ZFNUQ4bWpzaWNWcTc1Nld2d1BxUWo0UXZ0?=
- =?utf-8?B?V3k0SEhrOVY5a3FWMlBDbkkxamdyVzdvSE1CdDN3Y0xlSjg5QjdzOXVZNHQv?=
- =?utf-8?B?U0puMWlKOW92bTJabC8vUXFxUkdEUFVwOW1VODJlVmtlU0QraHVGdVBkR0c2?=
- =?utf-8?B?OXo0NVNKZlQ0YXpjenB4K2prby91UDZkcEp4a2lSM3JVMCtwcXoyeWRqYXdj?=
- =?utf-8?B?Y2NwemIvOHk5ejNBMmFsNmExdk9lSmR4bXhHUzBvQnozV2w2QVZoakFrSlk4?=
- =?utf-8?B?dE95MTBMdFJHUXRiN0R3NW9Xa2lpdEs4VSt3ZDE0RmpBZzA1WnFiNVRUUEVP?=
- =?utf-8?B?ZU5iaFVRanRyRVFoTWNOZ00zZmRQOFFLQzZ6MXhVTXkzM1lOYmdBVEhhUUFk?=
- =?utf-8?B?RWo3b0tsNzZHRWd3VFN1SXhTVlA3T1FwbWZkQ2xYMHBkc2NHRkE3b3VwRDhG?=
- =?utf-8?B?anlrekh2eDMxZDF2THkyRW55Z0dqZkhHVHVNVGI2amFPcXR0M096dCsvbzl4?=
- =?utf-8?B?ai9GYXQ1VnlnbjJUL2VsUGQrQmhOWmZXVDFJUWJwNW9PL25jMWNOUjJyYlZ4?=
- =?utf-8?B?QTlIVGo0Z1orcndNRWl4eTh6UHkyNEFxbkE4M2tONXVsbkRWM1RjTFlUQldF?=
- =?utf-8?B?bFBtVmRnS3Vlck12aGlkdlJQUC9NTjhJQVZ5c2RBWWl2MGtyd21EV095N1do?=
- =?utf-8?B?ZW85SnRzSUExMGlQWVh0VXJIM3pCQVQyeTZVSTF6SEVxQzdIMTlkRHFCZERx?=
- =?utf-8?B?amF6V0Z6NG51RWRyR3V6WHNMKy84RU5GcS9SUEJoR0dJZEVCRGJJWWdJb3ZL?=
- =?utf-8?B?NXp0T01raE5LMEFPUmtGa1Znam5NQ2k1bnFhNmJZb1BSSkw4LzB2czIxRUdK?=
- =?utf-8?B?UHRyUUhHNFgrVndyQmVXZE9ROUpZYkJ4VHhjM1ZuWjBDSEY2Q2Z2RGlMSy9q?=
- =?utf-8?B?THRSb1hLT0FJR1J4OHppUmNmamxBcHg2aC80MjVoN1RTZGtNaWZMRzNkVkJJ?=
- =?utf-8?B?aThqOStnMmliOUpPcjBMWE1sSTJTTGFvS3R3cjRDQVJNOWFUYTV2MXZUcndO?=
- =?utf-8?B?YUZ6T09ERXhxTHVzZEpBRjROdXJqcWptcHhTWmJrOUFLcnFJYUhMYW9zVkoz?=
- =?utf-8?B?ZzdzSEwvRmdaOTQ0czNkdmludUFzeXZ2a0dOQjVOWXRKYStYOVgwb3NRTm9h?=
- =?utf-8?B?Vk9XYnN4Uk9KYjE2N3dYNUZ2ZXpDc090MC9LRWtoQlByNC9LcHRwODIwRDVh?=
- =?utf-8?B?VzFSeDFYQlQwVDF1Z0o5YnUzRDQ2aTFXY2pQZVBlaWNOUTl3NGR5ODRJUlBX?=
- =?utf-8?B?MmlrQ0F6WCszQS9sOE5vL2RFK3JiUk5LNHN0M2VFaW1mN1ViZXVYY3RaTVRT?=
- =?utf-8?B?NG91dUZGNklCcDRNRTQ1T3lmR2FMWGJxUkV6WGVOWURDeWZFL1FuOXQweHl6?=
- =?utf-8?B?Q3lVcTE1UjFxaWtRSUZndGtiNFRQK25TcVlqMjZlMHUyRUVQUDVHUlhKS1FS?=
- =?utf-8?B?aUlyYjNaMDV3S3FxeDVnelNFd1A0WlhpU3hFV25nc240UnB6MC9sMTVkZ3Zx?=
- =?utf-8?B?MkJmN0JyQ0hHVnpKL1JtNGJxM3hNTTdZVUNycDNTcTk5Vm11WG92SWo4RjUr?=
- =?utf-8?B?bmp3NjdKak00RThOSFVsUCt2VkdyOThTeGQ2UEhvR1Zlc290eEMyK0R1a1RN?=
- =?utf-8?B?RzE5eU9BRDFhaFB6OU5EQlNwSllrbnpCUllQVmRhM2hiWmhKSDdzMW9nRUlH?=
- =?utf-8?B?bVh0eGY4SVBPdklFYVpjZVlmMFFzV3NXNDVJWENLYWwyTGFNSVFHSytVdzBt?=
- =?utf-8?B?VVE0OGRsV280RjUyZVRMYklSSUlNNHdoWGE0WmNRNkVLOHBTcnVVVnpVUG9T?=
- =?utf-8?B?bkJpbTI3dWxIUmJvWURoRTBmcWNPeHJRaU43UDZnamh4M2xXVEFmdTdJR3lW?=
- =?utf-8?B?S3BHdlBmK1VIa2dGMDVPMWVVTzFwd09FemV0WFdpR0dveFd3MmRVZW1WUXFk?=
- =?utf-8?B?MHgvYnQzSHJkblNHaDkzSWtYbW9RRTdEMVdMcFNESGZTZS9rUXJyNmtSRTRt?=
- =?utf-8?B?WGIyNmlNdlJVeExrWTBPUGVTWm9IcHlWU254dEtFVFJiV2lTcXNUZjR6R1J3?=
- =?utf-8?Q?yqJZFrR1zbppbQr6fheI4ds2Rn5VwNX1m+zVsrfu16Wd+?=
-X-MS-Exchange-AntiSpam-MessageData-1: FUJ+NDYwnEowBA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d9fe14a-323d-4bf1-49f0-08df101784c3
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:15:31.0191
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4nqww97Aqmlu2RAr6d42T/HbIBYqU/sbfxo9um23TOYwBTElJp6mvlIQOijZsW1QX3I7JN3+9DAyvhcw+3nh4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR12MB999200
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 22:39:16 +0200
+Message-Id: <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
+ variant driver
+Cc: <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <kvm@vger.kernel.org>
+To: "Alex Williamson" <alex@shazbot.org>, "Jason Gunthorpe"
+ <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>
+References: <20260905081116.106613-1-zhiw@nvidia.com>
+ <20260905081116.106613-13-zhiw@nvidia.com>
+In-Reply-To: <20260905081116.106613-13-zhiw@nvidia.com>
 
-On Wed, 09 Sep 2026 12:59:38 +0900, Eliot Courtney wrote:
-> I am reposting Joel Fernandes's original series [1]. The rebase adapts
-> the patches to recent changes in the rust infra, like HRT lifetimes. It
-> also adapts to the changes I posted in [2]. It keeps Joel's design and
-> patch split.
-> 
-> From Joel's original cover letter:
-> 
-> [...]
+Hi Alex, Jason, Zhi,
 
-Applied to drm-rust-next, thanks!
+On Sat Sep 5, 2026 at 10:11 AM CEST, Zhi Wang wrote:
+> NVIDIA vGPU VFs require their open, reset, and close lifecycle to be
+> coordinated with the PF-side nova-core driver.
 
-... a bit hesitantly like Danilo, but we are in a state where the issues are
-easier to address through follow-ups than by reworking this base. This is also
-not used yet outside of self-tests, so we have some runway to fix it before it
-goes live.
+[...]
 
-Thanks Eliot for driving this series all the way to merge.
+>  drivers/vfio/pci/nvidia-vgpu/main.c   | 253 ++++++++++++++++++++++++++
 
-[01/16] gpu: nova-core: mm: Add common types for virtual memory management
-[acourbot: drop repeated "memory" in commit message.]
-        commit: b8ca2d0b7fcf5b8ff0ec174b092f732a9d3d27a3
-[02/16] gpu: nova-core: mm: Add buddy allocator and TLB to GpuMm
-        commit: 33be8f687bd8204965c137a5600822a1959033b8
-[03/16] gpu: nova-core: mm: Add common types for all page table formats
-        commit: a5dfe5955c6beff8403ce966efde6822700a6634
-[04/16] gpu: nova-core: mm: pagetable: Add PteOps trait
-[acourbot: use vertical import style.]
-        commit: 239bb057a81dca1623857102cfd963e1305aadc1
-[05/16] gpu: nova-core: mm: pagetable: Add PdeOps trait
-        commit: 85a7542510cdff8bbeef9fb016e98a2f8bcd1171
-[06/16] gpu: nova-core: mm: pagetable: Add DualPdeOps trait
-        commit: 71e99998a6559d71e5d6eff85afcc0f7f99ece25
-[07/16] gpu: nova-core: mm: Add MMU v2 page table types
-[acourbot: use vertical import style.]
-        commit: 98b7273f5de149b2c6ff0d98bc2b3fa55b749b74
-[08/16] gpu: nova-core: mm: Add MMU v3 page table types
-[acourbot: use vertical import style.]
-        commit: 103fb3a4b2b85ebf30f11a433df17df708f85689
-[09/16] gpu: nova-core: mm: pagetable: Add MmuConfig trait
-        commit: a9eabe320b60e5af72ff10551be1b2d67ca614af
-[10/16] gpu: nova-core: mm: Add page table walker for MMU v2/v3
-        commit: 1123774f3610c45a7acf055b8c9841883ed4bf75
-[11/16] gpu: nova-core: mm: Add Virtual Memory Manager
-[acourbot: use vertical import style.]
-        commit: 3c7561e194d573a3926702d1e051a8c8fbc187ea
-[12/16] gpu: nova-core: mm: Add virtual address range tracking to VMM
-[acourbot: use vertical import style.]
-        commit: 16f573374fd6ff8ff4ab54abceb5d093869de9d2
-[13/16] gpu: nova-core: mm: Add multi-page mapping API to VMM
-[acourbot: use vertical import style.]
-        commit: 4e4182282d4e8d81bfe62ed8ff634526fdd5e238
-[14/16] gpu: nova-core: Add BAR1 aperture type and size constant
-        commit: 75ad43886a20e17aa5fad9ae71ebb413cadd8d64
-[15/16] gpu: nova-core: mm: Add BAR1 user interface
-        commit: 159427b213524a90853ef24d0a0c2ed1aec1dbf9
-[16/16] gpu: nova-core: mm: Add BAR1 memory management self-tests
-[acourbot: use vertical import style.]
-        commit: d669686f8170c234edf12212fac9180ea18b1448
+This is going to be a longer response; sorry about this in advance.
+
+Looking at the FFI boundary introduced in the previous patch, I'm concerned=
+ that
+it translates the driver model relationships we've expressed through Rust's
+ownership and lifetime model back into raw pointers and lifetime assumption=
+s
+that callers must uphold. It also introduces manual lifecycle management ac=
+ross
+the boundary, rather than preserving nova-core's RAII-based ownership model=
+.
+
+I think implementing the NVIDIA vGPU driver in Rust would let us preserve t=
+hose
+relationships across the interface, make lifecycle management less error-pr=
+one,
+and fit naturally alongside nova-core and nova-drm.
+
+I did sketch up the necessary code for this in [1], which contains the VFIO=
+/PCI
+Rust infrastructure [2], a Rust implementation of the NVIDIA vGPU driver [3=
+] and
+the required PCI SR-IOV infrastructure [4].
+
+This is PoC code; I focused on the general design, and I've tested the VFIO=
+ bits
+to a point that I can poke the character device from userspace. But it stil=
+l
+needs a bit of cleanup and probably a few additional new type abstractions =
+over
+primitive types, etc. As conferences are approaching and I have a bunch of =
+stuff
+to prepare I could only finish it up after LPC, but I hope that Zhi is also
+interested in picking it up. :)
+
+I'm aware that you may have some concerns about Rust code in VFIO and one o=
+f
+them might be maintainance. I already have a lot on my plate, but I'm happy=
+ to
+offer to take responsibility. It would also be great if Zhi were interested=
+ in
+helping maintain them.
+
+In this context, I'd like to walk through the design and a few code example=
+s
+below. We can also follow up at LPC, perhaps as part of the Nova workshop. =
+(Zhi,
+would you be interested in preparing a brief session on this with me?)
+
+In general, the VFIO/PCI Rust code is not much different from the FWCTL and=
+ DRM
+code that we have upstream already. In the end they are all the same design=
+ in
+terms of the Rust class device lifetime model.
+
+Below is a PCI driver skeleton that implements a VFIO/PCI class device (str=
+ipped
+down version of the NVIDIA vGPU driver), with a bunch of comments.
+
+	#[pin_data]
+	struct NvidiaVgpuData<'bound> {
+	    _reg: vfio::pci::Registration<'bound, NvidiaVgpuOps>,
+	}
+
+This is the driver's bus device private data. The driver core uses a RAII
+approach for this, it creates the driver's bus device private data from the
+initializer returned from probe() and calls the destructor of the driver's =
+bus
+device private data on remove(), which is the equivalent of a remove() call=
+back
+in C.
+
+In this case it just contains the vfio::pci::Registration, which essentiall=
+y is
+a RAII type for vfio_pci_core_register_device() and
+vfio_pci_core_unregister_device().
+
+(I'm aware that that vfio_pci_core_register_device() currently requires the
+driver's bus device private data to be set to a struct vfio_pci_core_device
+pointer as a trick to support PCI bus callbacks, such as with
+vfio_pci_core_aer_err_detected(). I fixed this up in [5].)
+
+	#[pin_data]
+	pub struct NvidiaVgpuRegData<'a> {
+	    pdev: &'a pci::Device<Bound>,
+	    api: NovaCoreVfApiHandle<'a>,
+	}
+
+This is the private data attached to the vfio::pci::Registration, which is
+accessible from the callbacks in struct vfio_device_ops.
+
+You may wonder why the private data is on the vfio::pci::Registration rathe=
+r
+than the vfio::pci::Device.
+
+The reason is that the callbacks in struct vfio_device_ops are lifetime wis=
+e
+associated with the vfio::pci::Registration and not the vfio::pci::Device, =
+so
+the destructor of this data should be called when the destructor of
+vfio::pci::Registration runs, i.e. directly after
+vfio_pci_core_unregister_device().
+
+Furthermore, it allows us to store device resources, such as a DMA coherent
+allocation, within this data in the first place, as the Rust compiler will
+ensure that a vfio::pci::Registration can't outlive driver unbind, since it=
+s
+lifetime is bound to the bus driver's bus device private data.
+
+(This is also why NvidiaVgpuRegData<'a> can store e.g. &'a pci::Device<Boun=
+d>;
+the lifetime 'a is guaranteed to be shorter lived than the 'bound lifetime =
+that
+describes the lifetime of the driver being bound to a device.)
+
+The vfio::pci::Device on the other hand is reference counted and has an
+unbounded lifetime.
+
+Note that in the end this is only a logical distinction for when the destru=
+ctor
+is called. The actual memory this data goes into does not matter too much; =
+it
+can be a new allocation, it can be the allocation of the struct
+vfio_pci_core_device (as it is in C), since the struct vfio_pci_core_device
+strictly outlives the vfio::pci::Registration, or it can also be the driver=
+'s
+bus device private data allocation itself.
+
+	kernel::pci_device_table!(
+	    PCI_TABLE,
+	    <NvidiaVgpuDriver as pci::Driver>::IdInfo,
+	    [
+	        (
+	            pci::DeviceId::from_class_and_vendor_vfio_override(
+	                Class::DISPLAY_VGA,
+	                ClassMask::ClassSubclass,
+	                Vendor::NVIDIA
+	            ),
+	            ()
+	        ),
+	        (
+	            pci::DeviceId::from_class_and_vendor_vfio_override(
+	                Class::DISPLAY_3D,
+	                ClassMask::ClassSubclass,
+	                Vendor::NVIDIA
+	            ),
+	            ()
+	        ),
+	    ]
+	);
+
+The device ID table. It has some nice compile time guarantees as well, but =
+it is
+otherwise not very interesting in this context.
+
+Let's look at the pci::Driver trait, which provides the callbacks (such as
+probe()) and associated constants and types instead.
+
+	impl pci::Driver for NvidiaVgpuDriver {
+	    type IdInfo =3D ();
+	    type Data<'bound> =3D NvidiaVgpuData<'bound>;
+	    const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
+	    const DRIVER_MANAGED_DMA: bool =3D true;
+=09
+	    fn probe<'bound>(
+	        pdev: &'bound pci::Device<Core<'_>>,
+	        _info: Option<&'bound Self::IdInfo>,
+	    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+
+Note the 'bound lifetime in the signature of probe(); it represents the lif=
+etime
+of the driver's bus device private data and hence the lifetime of the drive=
+r
+being bound to a device.
+
+	        let vdev =3D vfio::pci::Device::<NvidiaVgpuOps>::new(pdev)?;
+
+This represents a struct vfio_pci_core_device and is typed over an
+implementation of vfio::pci::Operations (i.e. a struct vfio_device_ops), bu=
+t is
+otherwise not very interesting.
+
+=09
+	        try_pin_init!(Self::Data {
+	            // SAFETY: The registration is dropped when the PCI driver is =
+unbound.
+	            _reg <- unsafe { vfio::pci::Registration::new(
+	                pdev,
+	                &vdev,
+	                try_pin_init!(NvidiaVgpuRegData {
+	                    pdev,
+	                    api: NovaCoreVfApi::handle(pdev)?,
+	                }),
+	            )},
+
+Here we create the vfio::pci::Registration (i.e. call
+vfio_pci_core_register_device()).
+
+It takes three arguments, a &vfio::pci::Device, the private data and a
+&'bound pci::Device<Bound>.
+
+The vfio::pci::Registration captures the lifetime ('bound) of the &'bound
+pci::Device<Bound>, such that it can't outlive driver unbind. In practice t=
+his
+is ensured as the compiler won't allow the vfio::pci::Registration to be st=
+ored
+anywhere else as in a place that is either the bus device private data itse=
+lf or
+something else that is strictly shorter lived.
+
+The call to
+
+	 NovaCoreVfApi::handle(pdev)?
+
+calls into nova-core, which will provide a handle to the nova-core API
+representation. This handle ties back to nova-core private data that by its=
+elf
+is shorter lived than nova-core's 'bound lifetime, but longer lived than vG=
+PU's
+'bound lifetime. IOW, the data is guaranteed to be valid for the full lifec=
+ycle
+of vfio::pci::Registration and hence can be stored within its private data.
+
+I will come back to how this guarantee is upheld below. For now, let's have=
+ a
+look at how vfio::pci::Operations (i.e. struct vfio_device_ops) is represen=
+ted.
+
+	        })
+	    }
+	}
+=09
+	#[pin_data]
+	struct NvidiaVgpuOpenData<'a> {
+	    instance: VgpuInstance<'a>,
+	}
+
+This type (yes, Rust loves new types :) represents data that lives from
+open_device() until close_device().
+
+Note that the implementation below does not have close_device() at all, as =
+the
+destructor of the OpenData already represents close_device() as a RAII type=
+.
+
+This is also what makes the API with nova-core much better, since...
+
+	impl vfio::pci::Operations for NvidiaVgpuOps {
+	    const NAME: &'static CStr =3D c"nvidia-vgpu-vfio-pci";
+	    type RegistrationData<'a> =3D NvidiaVgpuRegData<'a>;
+	    type OpenData<'a> =3D NvidiaVgpuOpenData<'a>;
+=09
+	    fn open_device<'a>(
+	        _dev: &'a vfio::pci::Device<Self>,
+	        rd: &'a Self::RegistrationData<'a>,
+	    ) -> impl PinInit<Self::OpenData<'a>, Error> + 'a {
+	        try_pin_init!(NvidiaVgpuOpenData {
+	            instance: rd.api.open(),
+	        })
+
+...here we can just call into nova-core via the API handle and obtain a
+VgpuInstance<'a> struct from nova-core. Where nova-core can just store all =
+the
+objects that should be destructed on close_device() in the VgpuInstance str=
+uct.
+
+This way we avoid an API contract where we have to translate a RAII based d=
+esign
+into procedural cleanup and vice versa.
+
+Also note how we can represent that OpenData is strictly shorter lived as
+RegistrationData and the driver's bus device private data, in a way that th=
+e
+Rust compiler can ensure this.
+
+	    }
+=09
+	    fn ioctl<'a>(
+	        dev: &vfio::pci::Device<Self, Ioctl>,
+	        _rd: &Self::RegistrationData<'a>,
+	        open_data: Pin<&Self::OpenData<'a>>,
+	        cmd: u32,
+	        arg: usize,
+	    ) -> Result<isize> {
+	        // Handle driver ioctl.
+=09
+	        dev.core_ioctl(cmd, arg)
+	    }
+=09
+	    fn read<'a>(
+	        dev: &vfio::pci::Device<Self, Read>,
+	        _rd: &Self::RegistrationData<'a>,
+	        open_data: Pin<&Self::OpenData<'a>>,
+	        buf: &mut vfio::UserBuf,
+	        ppos: &mut vfio::pci::Position<'_>,
+	    ) -> Result<isize> {
+	        Ok(0)
+	    }
+=09
+	    fn get_region_info<'a>(
+	        dev: &vfio::pci::Device<Self, GetRegionInfo>,
+	        rd: &Self::RegistrationData<'a>,
+	        open_data: Pin<&Self::OpenData<'a>>,
+	        info: &mut bindings::vfio_region_info,
+	        caps: &mut vfio::InfoCap<'_>,
+	    ) -> Result {
+	        Ok(())
+	    }
+	}
+
+The rest of the callbacks is not too interesting. The main thing to note is=
+ that
+the type state on the &vfio::pci::Device in e.g. ioctl() allows us to ensur=
+e
+that dev.core_ioctl() can only be called in ioctl() as it is only implement=
+ed
+for &vfio::pci::Device<_, Ioctl> and we only ever give out a
+&vfio::pci::Device<_, Ioctl> in ioctl().
+
+In the VFIO/PCI code I only implemented the callbacks the NVIDIA vGPU drive=
+r
+needs; all other callbacks can just remain the default trampolines for now.
+
+Now, I promised to come back to how the following call works.
+
+	NovaCoreVfApi::handle(vf_pdev)?
+
+As mentioned it provides a handle to the nova-core API representation, whic=
+h is
+shorter lived than nova-core's 'bound lifetime, but longer lived than vGPU'=
+s
+'bound lifetime (and therefore always valid).
+
+This is ensured by how I think we should implement the handling of the PF a=
+nd VF
+relationship on the PCI bus. Let's have a look at nova-core's probe() for t=
+his:
+
+	impl pci::Driver for NovaCoreDriver {
+	    type IdInfo =3D ();
+	    type Data<'bound> =3D NovaCore<'bound>;
+	    const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
+=09
+	    fn probe<'bound>(
+	        pdev: &'bound pci::Device<Core<'_>>,
+	        _info: Option<&'bound Self::IdInfo>,
+	    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+=09
+	        try_pin_init!(NovaCore {
+	            _enable: {
+	                let enable =3D pdev.enable_device()?;
+	                pdev.set_master();
+	                enable
+	            },
+=09
+	            gpu <- Gpu::new(pdev, pdev.iomap_region_sized::<BAR0_SIZE>(0, =
+c"nova-core/bar0")?),
+=09
+	            // SAFETY: `NovaCore` is dropped when the device is unbound.
+	            _reg: unsafe {
+	                auxiliary::Registration::new_with_lt(
+	                    pdev.as_ref(),
+	                    c"nova-drm",
+	                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
+	                    crate::MODULE_NAME,
+	                    NovaCoreApi { gpu: gpu.get_ref(), pdev },
+	                )?
+	            },
+=09
+	            // SAFETY: `NovaCore` is dropped when the device is unbound.
+	            _vf_reg <- unsafe {
+	                let total_vfs =3D pdev.sriov_get_totalvfs().map_or(0, |v| =
+v.get());
+	                pci::VfRegistration::new(
+	                    pdev,
+	                    total_vfs,
+	                    total_vfs > 0,
+	                    NovaCoreVfApi { _gpu: gpu.get_ref(), pdev },
+	                )
+	            },
+	        })
+	    }
+	}
+
+Similar to vfio::pci::Registration and auxiliary::Registration, we have a
+pci::VfRegistration, which can only be constructed once by a PF; for VFs it
+fails to construct.
+
+This pci::VfRegistration returns an initializer and lives within the driver=
+'s
+bus device private data allocation. The constructor of pci::VfRegistration =
+takes
+the private data type that should be shared with VFs.
+
+IOW, we do not share the whole driver's bus device private data with the VF=
+s,
+but just a defined container within the driver's bus device private data.
+
+This is also what we do for all other kinds of registrations, such as
+irq::Registration, which has the advantage that it fundamentally prevents
+ordering issues. For instance, when constructing an irq::Registration the I=
+RQ
+private data container is guaranteed to be fully initialized before the fir=
+st
+IRQ is received, whereas the rest of the driver's bus device private data m=
+ay
+not be initialized yet.
+
+For the pci::VfRegistration this isn't a concern, as it would be valid to e=
+xpose
+the entire driver's bus device private data, but it is still cleaner if a P=
+F
+does not need to expose its whole bus device private data to the VFs, but j=
+ust
+the intended API type.
+
+The required lifetime guarantee comes from the fact the pci::VfRegistration
+lives in the driver's bus device private data, and serves as a guard that c=
+alls
+pci_disable_sriov() in its destructor.
+
+This way we also do not need the patch in [6]. I still think it would be
+reasonable to have this, but the pci::VfRegistration approach is cleaner. I=
+n any
+case, it's not an either-or, we can have both.
+
+Coming back to nova-core's probe() above, we can see how this perfectly ali=
+gns
+with how the API between nova-core and nova-drm works via the auxiliary bus=
+.
+
+Implementation wise the API on the nova-core side looks like this:
+
+	pub struct NovaCoreVfApi<'a> {
+	    pub(crate) pdev: &'a pci::Device<device::Bound>,
+	    pub(crate) _gpu: &'a Gpu<'a>,
+	}
+=09
+	/// Closure-based handle to the nova-core VF API.
+	pub struct NovaCoreVfApiHandle<'a> {
+	    vf: &'a pci::Device<device::Bound>,
+	}
+
+	/// An active vGPU instance, closed on drop while the VF binding is still =
+valid.
+	pub struct VgpuInstance<'a> {
+	    api: &'a NovaCoreVfApiHandle<'a>,
+	}
+=09
+	impl NovaCoreVfApi<'_> {
+	    /// Obtain a [`NovaCoreVfApiHandle`] from a VF registered by nova-core=
+.
+	    pub fn handle(vf: &pci::Device<device::Bound>) -> Result<NovaCoreVfApi=
+Handle<'_>> {
+	        NovaCoreVfApiHandle::of(vf)
+	    }
+	}
+=09
+	impl<'a> NovaCoreVfApiHandle<'a> {
+	    fn of(vf: &'a pci::Device<device::Bound>) -> Result<Self> {
+	        vf.vf_registration_data_with::<ForLt!(NovaCoreVfApi<'_>), ()>(|_| =
+())?;
+	        Ok(Self { vf })
+	    }
+=09
+	    /// Activate a vGPU instance, which is closed on drop.
+	    pub fn open(&self) -> Result<VgpuInstance<'a>> {
+	        VgpuInstance::new(self)
+	    }
+=09
+	    /// Access the [`NovaCoreVfApi`] through a closure.
+	    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&NovaCoreVfApi<'b>>) =
+-> R) -> R {
+	        self.vf
+	            .vf_registration_data_with::<ForLt!(NovaCoreVfApi<'_>), R>(f)
+	            .expect("TypeId was validated in NovaCoreVfApiHandle::of()")
+	    }
+	}
+=09
+	impl<'a> VgpuInstance<'a> {
+	    fn new(api: NovaCoreVfApiHandle<'a>) -> Result<Self> {
+	        // TODO: Create the vGPU instance object via `api.gpu`.
+=09
+	        Ok(Self { api })
+	    }
+=09
+	    /// Reset this vGPU instance.
+	    pub fn reset(&self) -> Result {
+	        Ok(())
+	    }
+	}
+
+(Don't worry too much about the NovaCoreVfApiHandle::of() and
+NovaCoreVfApiHandle::with() stuff. Those are helpers we also have in the
+nova-drm API to deal with invariant or non-covariant types respectively.)
+
+If you've made it this far, thanks for reading through this long write-up. =
+I
+hope you find it useful. Please let me know if you have any questions or
+thoughts.
+
+Thanks,
+Danilo
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=
+=3Dpoc/vgpu
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?=
+id=3D484316d855e3d61873122c295feb9a7457eeca21
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?=
+id=3D6292c1de7f0758dd31496a454b4034507f38bd40
+[4] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?=
+id=3Defac2cec97eab36edd01a2fe79aea67a04bd8842
+[5] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?=
+id=3D76b3bfd6386a01f338780e1a37b5bad3f5a48d31
+[6] https://lore.kernel.org/lkml/20260303-rust-pci-sriov-v3-1-4443c35f0c88@=
+redhat.com/
