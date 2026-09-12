@@ -1,47 +1,47 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010040.outbound.protection.outlook.com [52.101.61.40])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011055.outbound.protection.outlook.com [40.93.194.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486DF37F729
-	for <nova-gpu@lists.linux.dev>; Sat, 12 Sep 2026 04:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3395D344052
+	for <nova-gpu@lists.linux.dev>; Sat, 12 Sep 2026 04:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789188272; cv=fail; b=to9R4QCidjFj9mHv72SkUv4trxLe42+hli+fuJ6Kzf9nfEZYzir+Z5SZqovZ49hVzKZoc0OTP40U5vbdD/TpoptgcqUkaRHBvuX7FS8+q3BLxdXrSqiDZdsagxmTKPv3Gq29+ahK+AwMSc8J7rGXKkrlGNv/PoJhElK9dEXOGVU=
+	t=1789188274; cv=fail; b=mdRAbaebd0SEpf9MhWzjUilpRdVEU1XY8/Rn1OsYHZB9am7PUzfJZQQEEYU4jps/isK5ovH02+JKksQh/6QOTPFn4nUCUJ2VSrPQet+7d3D3Kd4MypCriT6fWi0j9fHuFser1ocrf2Qzc5cM2dPZvT3e3EcECwsIQ0WI/Er/Afg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789188272; c=relaxed/simple;
-	bh=ncuORM5I/wFkLOtgfTahuV/b6wiNVmajwVj2Dxq4fDs=;
+	s=arc-20240116; t=1789188274; c=relaxed/simple;
+	bh=yAqZQB17NPTN9gw3mLDBwn8KPDgc3pDD3TfXlUQJSjc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IzHFZuIDBqixLgwkQmEM4n+b048N5EP8w4HEGfAnIX0RzOuSc1oRDsklwwn7waFHSrxEmM9PyijXPJklralW07yqcX4AAuRlj6hTQW5ezDe+i2uKKLsYld1b+IYeixzQW5mybVhrYX0AChMsMVIvswl81tGJ4zPIrEbX7pvGxe0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GhUQseT9; arc=fail smtp.client-ip=52.101.61.40
+	 Content-Type:MIME-Version; b=tI38sLILwqp3rl+nL+XRhI757L4rSCZm6qV3Y2KKaKVWWwSz+ZcK/h1rOf3Qg4YDhr3MmI/xQanpXgZp2J97JCcXICvTaLGICjLFx30nvvU0Q1nvFh+qfrl+OQ6yfhfib64KTihgW3EhQh/KI7aKpvsiO0wzlzYLklWEaM+FPW8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=I5D7aal6; arc=fail smtp.client-ip=40.93.194.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GhUQseT9"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="I5D7aal6"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AxDVf6q7JQ6iI8XJbKGwGk99RKQYkhUF352b+URLUxYwfPbFS9oMuHLiTQTK2oYxtR1BpDwt7F/Gjo6Ag5w2iVGpiiWzEfSjpUrTsK3wYm/ncv9tEsd0rYFWWvkLrRQT0vR1OATs6ei6cwrWPr6uaGMsWP8tlW2BH+njmiOb/5N4y+fTdeaMzJ1MTLg/QD5Uuxoctv3hkZmbsHF5AlB43ZRJGAivDRJn7MKXTwdTWG43dEJwhlg7iAWvol2e1zhSMsMdDUDdXTeBLjDzxzOXcpZDsC1JKS2N9iWFrYGJhcOf00Nhx089x9LXS6c3lYS0d5aBxAxTRcpIBdzplVq0aQ==
+ b=jf+Xtaq5/Xitd5HvwLUwJRAESOavxfsRhd8RrWJENQ9P2Dxhk+AljsAnkSQLPqiDQhVWrpvFW8CSBIStctuLZeTBBCf9+ixXZgi9QbeW0zWYI7+hfX8sSCfNM7Yxyt6Ja9gOs55JDNOJN4XpFo5/E2R6W5i4srg+HygvbJLzpsyzFw3Y7A06p5SLns1N4SNIY0Av/hHySo8DoKoqi3YjQTX1xca4oTpQwehI3Fu6OBdPpMQYWdQo+5lgZJGhvaV9jr/1IsShuOrAcYgkEpMzJPRo9DoGjjJVbV8ili6KI9qk/w139vFBWGrZdK476pPS6EN4tF7r4b0gJ/5sfFFVGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TXNSJIo648/BsZ8HBIDYNokMrPkgxRiMuNd3BXsEtBQ=;
- b=pieMwp2g7iLB+NtjiogEWWBfM0UKZ/bnMvc5vKVGwdiovYn/c40e/4PaMufVu0hcb8isFysKQgrsCGSdSOKu7MTvnTH5xvia8A5FkiPWG7ZUlKj9iX+HQn6mrP6rOK/HCmL2P57Y9xOW8fhiixQeoCByk9ofOX68797t2pDaYlZ9Rp72KCaDVYShxSfB80X2LA9jUKyvF9HfCAUf0JZU6YXWXxsfs/DlDCGV2xnKGW7/TUusCXxJ/6sAt8RGtKZ8BN1PoAsBznRYjzJblYvZZSQbaB/e+fdqvTjzr+f2q1VlBWm1ZdJvtvclW55O9KzwhViKi4Gdq12l5mOhh+LYnQ==
+ bh=o9057YJXIHyFmnegK6028OQiCvMEog1zkEo3h74dStk=;
+ b=dWmJa28GHSJOYKIrDCzUtEjAWYhgPMdUr2Ga10ysAcmD+Do8sKeBc0FzUf9hYUeGV3H8fhwNRVCuWOmslUi5la1izzyW+RbxggJmU66mjsl8zwKR9s882knC8H8jt05upjSqwXriegoFxyYZJCZt3nEpIR7HBooUW5bZunJQ6dtQCkONAptzBkm9eokG2eXJcavSILG7SadzxjmTwIdtZhRHLxV/r1qmVlX2qsoPDbC6XwwJOQPGUDtfpMZdd0+jAY4ichAYtpgTwToQSM4FVOtgriSR51aBAgn6J3WefosAY00meDxkdguIOsg2lJcv+QfQr785SP1yombS7Ck6Bg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TXNSJIo648/BsZ8HBIDYNokMrPkgxRiMuNd3BXsEtBQ=;
- b=GhUQseT9jq0itR1MW0p7IBVSfdtW+8IhCpfYHKNw/sLKATcvTr0MZlDbhQZaFbE/xzA/QYlfr5TMTpbUre+YjPr67YuBVUNqonCLFDp6kygF/k+P3ycjb34QwEAgAK9nPVoYRrfxfOOtYO6TzxQsNGjJLicFOl26nXhFPUbZmsmpGDG2QZbHe7uazP87RHKsrWEGNkj2xIXeM4dmUmJsnXV1ZJH450AS1CzCLC5hVPLa2QII61ORXToPdtJQZIBJTJrMQL4FHyNFQsAGvDDbYh5eO9ZHtTIdBbB5kXZ1xm9MoHr0t3NI7tUzRT//QOJ++w9toBrVSEzODZ2Lrc0l6g==
+ bh=o9057YJXIHyFmnegK6028OQiCvMEog1zkEo3h74dStk=;
+ b=I5D7aal6j00kEGgek5uZc9j9gzvJinobsy0MqoVZlrI4jChb69ZHmskG+wr5eUhTbPz4UqN6tzk8tPH/sSeIQ/vYn+07Jit7ju2nqFY04OWgcQlZSJH03uzE8vJxyCycaLpSbBtRNy+3ezIyUSJPCeWxAFH1ITR50xzkaCozUHb1MbbINWVzHd6WQlYmaZZwDFOM9DY9Yo8zM3JWgTl2yHPgXczCo4CPd+3ZSuuTAC78f2crGdZIkx0qgxsg+wjzDkoF+ripbI49ng5xXOua1B7SSjZz3irEwrEbXYd5NE2t30pWPI4y+XnY96BnW6IYP7EJQR5cil11mQzawHmiLA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  PH8PR12MB7229.namprd12.prod.outlook.com (2603:10b6:510:227::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
- 2026 04:44:18 +0000
+ 2026 04:44:20 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 04:44:18 +0000
+ 04:44:20 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,19 +63,18 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	Trevor Gross <tmgross@umich.edu>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Will Pierce <wpierce@nvidia.com>
-Subject: [PATCH v4 05/17] gpu: nova-core: add the per-architecture GIN CPU interrupt HAL
-Date: Fri, 11 Sep 2026 21:43:48 -0700
-Message-ID: <20260912044400.677097-6-jhubbard@nvidia.com>
+	John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH v4 07/17] gpu: nova-core: wait for GFW boot in probe, not in the Gpu constructor
+Date: Fri, 11 Sep 2026 21:43:50 -0700
+Message-ID: <20260912044400.677097-8-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260912044400.677097-1-jhubbard@nvidia.com>
 References: <20260912044400.677097-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BYAPR21CA0007.namprd21.prod.outlook.com
- (2603:10b6:a03:114::17) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: BYAPR21CA0010.namprd21.prod.outlook.com
+ (2603:10b6:a03:114::20) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -85,278 +84,170 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH8PR12MB7229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00a7e667-4dc8-4681-8a5a-08df1088815b
+X-MS-Office365-Filtering-Correlation-Id: 9937b1f9-615e-4f09-5016-08df108882cf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|6133799003|18002099003|5023799004|11063799006|56012099006|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	lh7b7KqV+on2D0Tc9arNiLpGCF+D7hw4skDhnSmbleY78ORFxvzQCdYU6vPt//BkbDux/Xf0otgqEBLPDxMQqitCCuJxXh4bz8ZgOeHBMmC6jJgQcxzctv9f/9qMF2P9QNRNN9lmp8YOOxrEp6Ct7OgFRHm9vpIhLoorH5rua/jKXxJlZkbHFX2R1JkvKKX/DQWIRzhmpYFpFeT0whjfCs0hh4ND2y2/TxlNJ5mJtNqBk30itry2WVnB5mKUYI/c6DYnuWzrwzNHfBbgbup+tD8x45N22eZCBviFw+leXsh8yHd9SvSg/gRC9FIfy9YrHgaNUIhawSxX9i9R1SlLs6nhzY+7dR6JM3ML3D2sTdzP4eKCBtBFnAYxSZ/4ZGJAnwN65r8vUKAlN/5VZHW0r8XgYSo82Re5qnqSIKEfWayigZJVIZWVOCtb4d8NpUawehDGWhBXYLdxXFcU3mA/5RpNrYrgg2jIWIX50we6B3bPo8SNXaJ0qqSnRocunt9syCLUqxKmmw3tPfcAGJjCFOjeJR6h8NHmS/RhlLIzoWZoqdfdkOSLcUHVKzzzEJg+b56VwbFPzSGxbAQiuC3cK/HqfqSyd7/DcFoyRIJkznH0t2f0xnDfaFiSZElkKyjG7C8POgtghDtJV+OeEKojFH9+POsAdMQUODUoMTiwYj8=
+	30kkApuRhFlg9nuyTP4ZCPW6vQrHsSpKWsoI+1J/sC6gvPV6LpE2qSyxoEYFfAYSquz+IfsTsQ9+xTqG858FviXJvB/Qo1B3Dt9O4LkWa55yue8BM1osp66v60Mh/nl27PEMevo0hvTe2PmAoHtirZTWg4V7U7d0iFxqIvUxweEL8XW+jrNKCfIX+nvxIJ03w4vwFDw9v7K0tbp9RWu6VgCOlWQr0SFpI3fexejTTybWHC79wS7QYC7HqY4AgxmQXeY2oZp3ijz3fSy3Q0ZZwOP7CJdD3+OIsLqfc1KEh1HfC83YxyA6cbMYROv4p862Na1zTgoqfT3N27bHRITIY3AMICRqMePi/D+Qai5LTErkyOB/zeT0o8xmzGkBDHDJxtNRdNl5yrUeVDTb3SRe2xcZO+pQ8XGNBIFxIOKMpXDKyySffESzA8Dc3CQL34UK63gI4E2bQthw5HUSDOc+Sc4Vrv6GSySnHuW9HK04fQLFzOu3OlOrBVJt3w2B6daqILo5mjvbMM7Gn3dFrhAShS0uSncoLXZ50RWexvxKzUL8Vk4sg3nNAE62c9wzdz4H2TkKB7NyEKhB0Ueu93pS4inHHq5EJ1bhoT2iP7BKJEt9C175i5C72lrdxdiGBwi+YUwg5Ci5ATEn7IPR4iZzO4SivjCPFdYd6BIYVanaxs4=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(6133799003)(18002099003)(5023799004)(11063799006)(56012099006)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1axgLAAQ9AFK3IGOq1LSvQ+ISky3oJCTxjbDt/BNr0TEgguwnjuhCxkgvdlB?=
- =?us-ascii?Q?oF6TZH10PIB2dpC9X7GUe5uvqRRXlDkt2PXX7uoiQQmGb9EEVxa0xpln2G31?=
- =?us-ascii?Q?ZyDOoVF8xpjDYRnzJCVBfPz01ZNyQ/hIuofs01RqtdjagZnns2G2ufXqYzfi?=
- =?us-ascii?Q?DQrWBvMHfQgbsP1ZAtj6gfzEqBkJ12/7OteS2kuHrnmSgCvCcPcxHjFadf4C?=
- =?us-ascii?Q?AygePB4b/lI2hNSZDuzXJTGLntcirIUh0MtFp1FYaPbQOU0c/xkDxeaeJqqt?=
- =?us-ascii?Q?Me4QJCFfJknIqrc+Kd4hu8YT+vqAemJxCMgco0YsKW/ERFtPk9ux4JqCuGQf?=
- =?us-ascii?Q?xKPCfD3hZ5w0sPdOEtZtgnUlRuq8UlK1Ci1DT/8qo1+1Scuw9+/rO5cmXQ7G?=
- =?us-ascii?Q?9vm8ipeCLEAdjnSrWwocxneIyPi9urqzZjwNo/h2uhbqp4Zx45GXVyZFOqff?=
- =?us-ascii?Q?lT/DwRJ2QMt3Ur2944iqugWkeyYVap89IjcMchr9d1v89SXGB0nyK0eXP0bJ?=
- =?us-ascii?Q?JJp/q2p3uQbok+hOUucFRzCKVWoH+71dpKYRY+Dbdn2XPAuU3RD/snkgTbWy?=
- =?us-ascii?Q?KeJIRIfLlDJoB6weNvoYsYGbAnHEhIiYC8eKIPeKhHO/iANkh4KIL+5ONwfi?=
- =?us-ascii?Q?vaWnewODi+r3LiiUIr8AG1ZBsd3Nqn66hZyxQmQu66NQK53W3fMxFpu3mquA?=
- =?us-ascii?Q?BXiPj+tDxtNYjsob/58NTdqaYfjw6ikgtddDbA8an0TS1IDulrwF068Bmg3a?=
- =?us-ascii?Q?/25YAn+29zcROIFzeXO8FaudBr0sgWjxfL/H2O15u3CM5DnyUYZLYD4I+0Ke?=
- =?us-ascii?Q?A4fu3hOu2sE0E4DTS+JgPbwC6uGEkAgCe9woYmEx8ew2gqmKKAT2jTLIFiFG?=
- =?us-ascii?Q?qd43wJFW1hKTiKp10yJEBlecMDtS/nY7VI0rC4h7d6lq6RkZYSz0ZXI3rNv+?=
- =?us-ascii?Q?S2hCMs4HMBn2M7AcMwGVmQIA8Kzd1xrrvfmKc+en0vZKOYZGP8NUmEuI+/xc?=
- =?us-ascii?Q?DQFTYrt8lc56RMWmLmIxSk5CobzMWw/DuhafkLMHMDwKGJ3sO5DRNH0YIimj?=
- =?us-ascii?Q?K/wGB48kOsJrbim/bDA6K67Msmyu1hI/g3gqnVyCz2nnSc+yQjE3ua+bvzun?=
- =?us-ascii?Q?CQ91L+ZAy7UxHY09SgBh2oitSzpw+lDuvCmV3B0AS7ITj3NrFGQuXut6mUzf?=
- =?us-ascii?Q?H+cUski8yKQT/UafRYU3WoBglqjF36OKOSRp1WhCs5lSbC4gM2vl6TA82PTZ?=
- =?us-ascii?Q?mUeLLAp+TjUMuQVEFgVY6CM9KDwWOuF4Zllbggu+BTmCH3r+KIWR/xvr7eEi?=
- =?us-ascii?Q?4FFGavxl3xH3tqTbNxpfO6kFQt+2kDs6iQXIz6nb+3dNLoBlJeM6E/2WdoXI?=
- =?us-ascii?Q?u88Hwm3WunvDFRC1PAS2IUjAQiqIwcbbFyFgyhiHrqfYrhxeMFaBWzLctBU4?=
- =?us-ascii?Q?RYgFBwHqo87T1nWhjA+Fb3LAORrp9zzAMKPhaMCuw8d6Qgs8bvl6yKrkVfkm?=
- =?us-ascii?Q?KnlVeXJYm+7+d5xjUR4PTXcZ6OQXJfgAKUoZReJcFDuZeXAIJfcCqyqHtRaz?=
- =?us-ascii?Q?1umqblOtkmsShtlZmuyeLcHTKscUyxfW1GiA8+kd2/nNxtuZbWhfzrAmHmX3?=
- =?us-ascii?Q?vUrpwb9TSsm+Ii+4Nx8F9KqW274MpaXAoWXT5S80n+SmchM4EqmdA5sWVcNZ?=
- =?us-ascii?Q?flcTy9dbBmzTx/sc8tNVZ5q0xtfyNmPguVQ8B4dX4jnybjOq1mtg4SJXajh+?=
- =?us-ascii?Q?KvNBC88avA=3D=3D?=
+	=?us-ascii?Q?vChn3mWvtCANb+SMgqGuf7ZjCL9K5WUT3ZuRkH1D6lKseeFsm8pqz8lCBiX9?=
+ =?us-ascii?Q?84IxlFsbfKN2vn28WfTfmuTS52mBAHWbgpWw3jjak1bc04AKJ70gXdqG0AMv?=
+ =?us-ascii?Q?TLsjx0uU3v4MbKpqNhyii6af1dN+VnPCXzYhsWQY7OYLoGrv8NzKe8sAqYCI?=
+ =?us-ascii?Q?4E1ZlR2e9twdIiTlYpTf0ny0jslob2ipNXvMATo9COBOhkLiF9RR/XWn4ZaG?=
+ =?us-ascii?Q?Dl78DOekYTdqoRNypJLJXKE0X9w8DUVeThlkDuQkqpEqULo/s6gTQ0Yrlhc1?=
+ =?us-ascii?Q?RDzVg6Gitj03tI9KkWz6XPrEbXyuvNIqj9K9prRn1paEf5kLAhyc4B1Qx4vP?=
+ =?us-ascii?Q?dM6js7x/z9sFzrvrdT76az44ScApjAkfXnnx62yTeXhRTGhwd8B3raW8lTv6?=
+ =?us-ascii?Q?qHNZOdEh2/FcWFbfOWeDZ1DLuMHUV3Pc+uuWmGzCriHFWD6s2epmizaiPhIL?=
+ =?us-ascii?Q?EgxMQ9+wX1PcFTyKpoybVeSFrmBoFBrx+/vduxvLf3kLK+wNSpXO3lzkK4rT?=
+ =?us-ascii?Q?Bxq3WasZzgQknuOhG0VS2lCj9c93hBaTKFIouYWwOXPMbAszFeLiZa4c/U7O?=
+ =?us-ascii?Q?hS1dkRqCpFLHdJDua5oUVi/2hfyp7LN3HQtzPGJ5F3no8p/zvPWvZ2Znfjzw?=
+ =?us-ascii?Q?IKl6rvMtJP2VMyFtz1lBGILDOiUZe6CAGg2CoZHJJojt1bEHFney6RiOP8z8?=
+ =?us-ascii?Q?x3Xt1QKYcXGDxcQa0bV067XC7pbuAh6K6HTJtqHJ2sxAt/qKdb57+y8dpfDL?=
+ =?us-ascii?Q?GepPbJ298BeTo+i2Ay9Q+U2BeUasznekJDT1qaO0n4PMtSFv69dIzopItzyA?=
+ =?us-ascii?Q?5B6oyV0kHDH4Zc43fiBzEhptn6mOt25v6Wq7Y+NHSTOdjuFPSGWZhxqR/gwW?=
+ =?us-ascii?Q?mWySQdnNI8ujz3BrD4FCxfH7PVzxA8eBP8AKrZRBT2CK2X8+WL9jrW+vjlQp?=
+ =?us-ascii?Q?KXmrlk0wrBgkOhHdOrOu52ZDv0FpPzxkjKK9OO1tXF6PfdLwOHTkno4SRvpM?=
+ =?us-ascii?Q?M1HeNE5E3TQSOI/xVHYWbZ6fPXm6K6eUvFyFKPFrgOVTZIBUfhLVYnsYlRFZ?=
+ =?us-ascii?Q?JhMuzaye2OzA53CblD9Em5eVk11R3ElOaXVDXmpi7zQ2IBhZ1gcp+P1k2MOM?=
+ =?us-ascii?Q?6ePPJrZt+OWCbfnDMhoPvml0MsY1Q4ehTbMWjCL+m7xO0Hj7E/oSWk87Pxer?=
+ =?us-ascii?Q?wrYr+R4UI/tMAlRsVdr4aiNItTePc76tiYEcsrw7tdUd3nhy5+tPxJRykNvy?=
+ =?us-ascii?Q?sejmPZUZZnM1GmRX4EAqc96WrV3/+p7YidrVc3DXpVZ0fH/x6iwCrRvS+soW?=
+ =?us-ascii?Q?p4QJbur2MYC06U6iddluLqF9L9UbFodd8R/ukXBcjc3fv31UJYnBWaEBtFzx?=
+ =?us-ascii?Q?0tenQ584dQY1urmsD75zJWVSZqxVW8nMHye5NEE37XYp9ZDZ+t0a7OiLzoji?=
+ =?us-ascii?Q?YEXoCM6Rl2+ufwO+3nM+iE4m4vQxtguuEZ1A49oX3g33dID0hXmnL1ZSYhhe?=
+ =?us-ascii?Q?TA7WlsyoHQp8yQOregT6thMDKEf6AInT+skk+xrUDXSnfm6WtQKRPbNhF9oc?=
+ =?us-ascii?Q?ZXKWURHNOUBSsTo057crNUCHKbTF3m4aWkByhz/UOnh4sfevDIJCnB74NaUn?=
+ =?us-ascii?Q?PRzhJPIoGBbnL71nouhGUekAMsxXkhICPjeL3iaZaiQEiY8Ym+iQBdVcad4g?=
+ =?us-ascii?Q?wXleBqEtKKPhQrvAgdlupUdnBnwNIm5X4YKfmaXYOhnqkHAtkmVfIy3LIMU2?=
+ =?us-ascii?Q?DkDXLZmA0w=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00a7e667-4dc8-4681-8a5a-08df1088815b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9937b1f9-615e-4f09-5016-08df108882cf
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 04:44:18.3141
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 04:44:20.7448
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k6lDPbIPBfpeDW23J9c/p8H+E5XjKDspsTQSKXIyDUGSOyvNuN5T8hXguuy+uhbwaekj6yYB+hf7fH5RU+TMWg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: e8F6XS8MXZna5M3X8oaofvqnPHKHS0EWXOkcc3NNUUOfv6I+07CgO3GNp5YZTFwYNUf8dXd7CKtne1E40ROmxA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7229
 
-The GIN CPU interrupt tree differs by GPU family in two ways:
+The GPU boots its own firmware, GFW, out of reset, and nothing may
+program the GPU until GFW reports completion.
 
-* The size of the tree. Turing through Ada implement 8 leaves, and
-  Hopper and later implement 16.
+nova-core waited for GFW inside the Gpu constructor, which also boots
+the GSP. Code that has to run after GFW and before GSP boot, such as a
+probe-time hardware self-test, had nowhere to go.
 
-* The write that rearms delivery. A message-signaled interrupt is
-  delivered once per edge, and the PCI side delivers nothing more until
-  the CPU rearms it. Before Hopper, MSI rearms by writing the
-  end-of-interrupt register in the BAR0 mirror of PCI configuration
-  space. On Hopper and later, MSI rearms by clearing and then setting
-  the TOP enables of every serviced subtree, which produces a new edge.
-  MSI-X rearms the same way on every family, but for the handler's own
-  subtree only, since each subtree has its own table entry.
-
-Add an interrupt HAL that provides the leaf count and the rearm method
-for each family. Name the interrupt type with two variants, MSI and
-MSI-X, since nova-core never allocates the level-triggered INTx that
-the PCI core's type also names.
+Move the wait into probe, ahead of the Gpu constructor, and read the
+chipset there from a Spec that probe builds itself. Leave the DMA mask
+in the constructor, since it programs the host rather than the GPU.
 
 Assisted-by: LLM
-Reviewed-by: Will Pierce <wpierce@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/irq.rs           | 13 ++++
- drivers/gpu/nova-core/irq/hal.rs       | 90 ++++++++++++++++++++++++++
- drivers/gpu/nova-core/irq/hal/gh100.rs | 28 ++++++++
- drivers/gpu/nova-core/irq/hal/tu102.rs | 28 ++++++++
- 4 files changed, 159 insertions(+)
- create mode 100644 drivers/gpu/nova-core/irq/hal.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
- create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
+ drivers/gpu/nova-core/driver.rs | 13 ++++++++++++-
+ drivers/gpu/nova-core/gpu.rs    | 28 ++++++++++++++++++++--------
+ 2 files changed, 32 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
-index 1ec0bb055d3b..62c242b71dc8 100644
---- a/drivers/gpu/nova-core/irq.rs
-+++ b/drivers/gpu/nova-core/irq.rs
-@@ -9,5 +9,18 @@
- //!
- //! See `Documentation/gpu/nova/core/interrupts.rst`.
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 0672a0707a71..15a44f9a6441 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -22,7 +22,13 @@
+     types::CovariantForLt,
+ };
  
-+mod hal;
- mod interrupt_tree;
- mod regs;
-+
-+/// The message-signaled interrupt type that Linux granted.
-+///
-+/// nova-core never requests INTx, so this has no variant for it, unlike [`kernel::pci::IrqType`].
-+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-+enum MsiType {
-+    /// A single message, which every subtree raises.
-+    Msi,
-+
-+    /// One table entry per subtree.
-+    MsiX,
-+}
-diff --git a/drivers/gpu/nova-core/irq/hal.rs b/drivers/gpu/nova-core/irq/hal.rs
-new file mode 100644
-index 000000000000..ede9a10ccda6
---- /dev/null
-+++ b/drivers/gpu/nova-core/irq/hal.rs
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Per-architecture properties of the GIN CPU interrupt tree.
-+//!
-+//! See "Per-architecture differences" in `Documentation/gpu/nova/core/interrupts.rst`.
-+
-+mod gh100;
-+mod tu102;
-+
-+use kernel::{
-+    io::Io,
-+    prelude::*, //
-+};
-+
+-use crate::gpu::Gpu;
 +use crate::{
-+    driver::Bar0,
++    gpu,
 +    gpu::{
-+        Architecture,
-+        Chipset, //
++        Gpu,
++        Spec, //
 +    }, //
 +};
+ 
+ /// Counter for generating unique auxiliary device IDs.
+ static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
+@@ -109,6 +115,11 @@ fn probe<'bound>(
+                     let bar1_idx = bar1_resource_index(pdev)?;
+                     pdev.iomap_region(bar1_idx, c"nova-core/bar1")?
+                 },
++                _: {
++                    let spec = Spec::new(pdev.as_ref(), bar)?;
 +
-+use super::{
-+    interrupt_tree::{
-+        LeafCount,
-+        Subtree,
-+        SubtreeSet, //
-+    },
-+    regs::*,
-+    MsiType, //
-+};
-+
-+/// The register write that rearms PCI interrupt delivery after an interrupt.
++                    gpu::wait_gfw_boot_completion(pdev.as_ref(), bar, spec.chipset)?;
++                },
+                 // TODO: Use self-referential pin-init syntax once available.
+                 gpu <- Gpu::new(
+                     pdev,
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index d763bc8d3827..3d796d6c7013 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -212,12 +212,12 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+ /// Structure holding a basic description of the GPU: `Chipset` and `Revision`.
+ #[derive(Clone, Copy)]
+ pub(crate) struct Spec {
+-    chipset: Chipset,
++    pub(crate) chipset: Chipset,
+     revision: Revision,
+ }
+ 
+ impl Spec {
+-    fn new(dev: &device::Device, bar: Bar0<'_>) -> Result<Spec> {
++    pub(crate) fn new(dev: &device::Device, bar: Bar0<'_>) -> Result<Spec> {
+         // Some brief notes about boot0 and boot42, in chronological order:
+         //
+         // NV04 through NV50:
+@@ -362,17 +362,12 @@ pub(crate) fn new<'a>(
+                 dev_info!(dev,"NVIDIA ({})\n", spec);
+             })?,
+ 
+-            // We must wait for GFW_BOOT completion before doing any significant setup on the GPU.
+             _: {
+-                let hal = hal::gpu_hal(spec.chipset);
+-                let dma_mask = hal.dma_mask();
++                let dma_mask = hal::gpu_hal(spec.chipset).dma_mask();
+ 
+                 // SAFETY: `Gpu` owns all DMA allocations for this device, and we are
+                 // still constructing it, so no concurrent DMA allocations can exist.
+                 unsafe { pdev.dma_set_mask_and_coherent(dma_mask)? };
+-
+-                hal.wait_gfw_boot_completion(bar)
+-                    .inspect_err(|_| dev_err!(dev, "GFW boot did not complete\n"))?;
+             },
+ 
+             // Initialize this early because `gsp_resources` depends on it.
+@@ -495,6 +490,23 @@ pub(crate) fn run_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bou
+     }
+ }
+ 
++/// Waits for GFW, the GPU's boot firmware, to report completion.
 +///
-+/// The GPU family and the interrupt type that Linux granted select the write. See "Rearming PCI
-+/// interrupt delivery" in `Documentation/gpu/nova/core/interrupts.rst`.
-+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-+pub(super) enum PciIrqRearmMethod {
-+    /// Writes the MSI end-of-interrupt register, `NV_XVE_CYA_2`. Pre-Hopper MSI.
-+    ConfigMirrorEoi,
-+
-+    /// Clears and then sets the `TOP` enables of every serviced subtree. Hopper-plus MSI.
-+    TopEnableCycleServiced,
-+
-+    /// Clears and then sets the `TOP` enable of the handler's own subtree. MSI-X.
-+    TopEnableCycleSubtree,
++/// Nothing may program the GPU before then.
++///
++/// # Errors
++///
++/// `ETIMEDOUT` if GFW does not report completion in time.
++pub(crate) fn wait_gfw_boot_completion(
++    dev: &device::Device<device::Bound>,
++    bar: Bar0<'_>,
++    chipset: Chipset,
++) -> Result {
++    hal::gpu_hal(chipset)
++        .wait_gfw_boot_completion(bar)
++        .inspect_err(|_| dev_err!(dev, "GFW boot did not complete\n"))
 +}
 +
-+impl PciIrqRearmMethod {
-+    /// Rearms PCI interrupt delivery after a handler serviced `subtree`.
-+    ///
-+    /// `serviced` is every subtree that nova-core services, for the method that cycles them all.
-+    pub(super) fn rearm(self, bar: Bar0<'_>, serviced: SubtreeSet, subtree: Subtree) {
-+        let subtrees = match self {
-+            Self::ConfigMirrorEoi => {
-+                bar.write(NV_XVE_CYA_2, 0u32.into());
-+                return;
-+            }
-+            Self::TopEnableCycleServiced => serviced,
-+            Self::TopEnableCycleSubtree => SubtreeSet::from(subtree),
-+        };
-+
-+        bar.write_reg(
-+            NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_CLEAR::zeroed().with_subtrees(subtrees),
-+        );
-+        bar.write_reg(
-+            NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_SET::zeroed().with_subtrees(subtrees),
-+        );
-+    }
-+}
-+
-+/// The properties of the GIN CPU tree that differ by GPU family.
-+pub(super) trait CpuInterruptHal {
-+    /// Returns the number of leaves the tree implements.
-+    fn leaf_count(&self) -> LeafCount;
-+
-+    /// Returns the rearm method for `msi_type`.
-+    fn pci_irq_rearm_method(&self, msi_type: MsiType) -> PciIrqRearmMethod;
-+}
-+
-+/// Returns the [`CpuInterruptHal`] for `chipset`'s architecture.
-+pub(super) fn cpu_interrupt_hal(chipset: Chipset) -> &'static dyn CpuInterruptHal {
-+    match chipset.arch() {
-+        Architecture::Turing | Architecture::Ampere | Architecture::Ada => tu102::TU102_HAL,
-+        Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => {
-+            gh100::GH100_HAL
-+        }
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/irq/hal/gh100.rs b/drivers/gpu/nova-core/irq/hal/gh100.rs
-new file mode 100644
-index 000000000000..dd3d0d12d779
---- /dev/null
-+++ b/drivers/gpu/nova-core/irq/hal/gh100.rs
-@@ -0,0 +1,28 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+use super::{
-+    CpuInterruptHal,
-+    LeafCount,
-+    MsiType,
-+    PciIrqRearmMethod, //
-+};
-+
-+/// The CPU interrupt tree properties of Hopper and Blackwell.
-+struct Gh100;
-+
-+impl CpuInterruptHal for Gh100 {
-+    fn leaf_count(&self) -> LeafCount {
-+        LeafCount::Sixteen
-+    }
-+
-+    fn pci_irq_rearm_method(&self, msi_type: MsiType) -> PciIrqRearmMethod {
-+        match msi_type {
-+            MsiType::Msi => PciIrqRearmMethod::TopEnableCycleServiced,
-+            MsiType::MsiX => PciIrqRearmMethod::TopEnableCycleSubtree,
-+        }
-+    }
-+}
-+
-+const GH100: Gh100 = Gh100;
-+pub(super) const GH100_HAL: &dyn CpuInterruptHal = &GH100;
-diff --git a/drivers/gpu/nova-core/irq/hal/tu102.rs b/drivers/gpu/nova-core/irq/hal/tu102.rs
-new file mode 100644
-index 000000000000..121f5779accf
---- /dev/null
-+++ b/drivers/gpu/nova-core/irq/hal/tu102.rs
-@@ -0,0 +1,28 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+use super::{
-+    CpuInterruptHal,
-+    LeafCount,
-+    MsiType,
-+    PciIrqRearmMethod, //
-+};
-+
-+/// The CPU interrupt tree properties of Turing, Ampere, and Ada.
-+struct Tu102;
-+
-+impl CpuInterruptHal for Tu102 {
-+    fn leaf_count(&self) -> LeafCount {
-+        LeafCount::Eight
-+    }
-+
-+    fn pci_irq_rearm_method(&self, msi_type: MsiType) -> PciIrqRearmMethod {
-+        match msi_type {
-+            MsiType::Msi => PciIrqRearmMethod::ConfigMirrorEoi,
-+            MsiType::MsiX => PciIrqRearmMethod::TopEnableCycleSubtree,
-+        }
-+    }
-+}
-+
-+const TU102: Tu102 = Tu102;
-+pub(super) const TU102_HAL: &dyn CpuInterruptHal = &TU102;
+ /// Reads the boot0 register and returns its raw value.
+ pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
+     bar.read(regs::NV_PMC_BOOT_0).into_raw()
 -- 
 2.55.0
 
