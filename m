@@ -1,205 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CF247AF5D;
-	Mon, 14 Sep 2026 13:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1837627FB25
+	for <nova-gpu@lists.linux.dev>; Mon, 14 Sep 2026 18:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394256; cv=none; b=st3AHx3GfNte40RHjuIZ04j7tuFK5fLcHgCejnw5xUfYwoyKHWMMK5r33t+yKcAYhqC2NFfX5nwaa0EVP3ou3PeBkWjfm4+vESNh1nqbm+hVpkL/6NdeSX889R7CUxO59wvIZjj0wCAFoSo88JYe3RiOkrZEcf52GXWsPEYDzyE=
+	t=1789409547; cv=none; b=TYWZZHwoMy8VNeipj2r8gBxz7lg0HNvmtsYbQUPJTphCxjsbN/CI2SbLTxD/LpdgMnNuUdUs0SzNqGLUfS9Xr2mLds57cXgCkVGjEWuNrCrG7eDLNjxlrJGHM9AJ34u2TaUmuGsz0NWWRsmNKq1Q0Rl04POJQoD3CQVrOVoNrCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394256; c=relaxed/simple;
-	bh=lbfR6UTbGje8kTS7uXKfuCIKbDAp15t0ygJfzZX74VQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=YPYTGEQlBWK6K4fNJ1CBdKOFZpdP9U/yVuQ3S4mjXKgMiJXYUv7ilN5zQttxXq4qJzdVxkPea3wDYopv5UrDlv0BVZZRnJbPBjd0k6iGGCe1Zh2THkoBC7YF/EjR9UTSwq3Z2nt/AnJpuDz6+hPy3kzLz/izbvILmO53mX4uqzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbijN69z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789409547; c=relaxed/simple;
+	bh=IeXpUMO76ygdrOAltxPvlm2Z7418oPYikyabhnuUduM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nss1fRsAXKnz/F2r8g3p8acdP/TzN15/fG/PP3tWcHVWnVEE+PfVK6STflQuKt7RJ6t9uqdis2bTpZLQB+SAl09UCPtKc8lPUUTY6j5xn7PsWu5gpypA+DGa6nCnmK+TIemkZCsEdnjNaM+YuelVgWBTjmd7K12UxLkvgaTagwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=ZYeeXvki; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NYhHjGWW; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbijN69z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881E01F000FF;
-	Mon, 14 Sep 2026 13:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789394253;
-	bh=hWQfMjTwrhS/wEak3lQlYZWJXa+nrsd9RSvMVNpNwAY=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=PbijN69zCRfEB+alm6uXogzEaz9s2BRnelOZWna8gydWoSEci7YrJjkbOhNJEWnZo
-	 MtmEE5UYbXR961euWsi0jvDmgHVf0rZdgb+vk/K0jB+DQ7NLjXK3ydMY512gxEtfHo
-	 coL8g+XJONkwIr5azr9son0ok5LpRHsn2J2hJTwse41koUTTxb+irWE4UO2SzX7UkE
-	 JFg3ZBcnVloIa4vLixpg9T3NzQn298tcSxWgHRZoPUZJuHzftzNchk6A7nBmOAcfRe
-	 Oscetkf+QV+1YJWZJDCqsqDYL4QwN1OwdeWOP2gHJwExNAxWJz/6xPchz1QquNpb58
-	 swUFTXsR2v+fQ==
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="ZYeeXvki";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NYhHjGWW"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id CDBA71D0010E;
+	Mon, 14 Sep 2026 14:12:21 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 14 Sep 2026 14:12:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789409541;
+	 x=1789495941; bh=uhgt2UjAMH82kPft487TQbOtNSFV2LQEnnMytprdY1A=; b=
+	ZYeeXvkicwFVMITURRnA49FSnVibbeLFPHJ46HHQqNGOIxcuZ78GwYrfTTX7HvO4
+	u6x7Z37Fwnc+EQzntgf0fIEh3yfCKkCsxRdWjr9Seoa8VBpwD3zDcSgq+HyiqtA5
+	SLLo+8so+GgFsxnsvRx9JVFncLmreu+7sfAwPeBD4Le0v10lYas49hAkXk5RmkU7
+	v6Sg/5DxA7Vh/hUb8x6ZV7nREG/TPilHgcilZSmnFsUDUfRb4e5/GV0UzPQfN85h
+	585JOc9UHQmxPtqTLtf7nX7BYVgw/fPqGmY9pOLGT0J2ZBtgICLXxJfT2vHqYhix
+	cUuwyaiTMMJ/wPzyWiWgZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789409541; x=
+	1789495941; bh=uhgt2UjAMH82kPft487TQbOtNSFV2LQEnnMytprdY1A=; b=N
+	YhHjGWWydaa2JAaM3UMHFmqWfc0O5I6UVCoARBktG2NTkq9UrRIhU5Hgz2bhbhak
+	kECEEg741zZJXTCI3XQOp/wyS4MpWDfWfI4Uc+V19yvNSP/4c3Tf6MbzzYSrKf8X
+	NoxpkzV0uhuyt6yvV7y0ZFHXJsVfBM6eGdUa7d1CfHRmmcojj2VaNF1rZCQ6a+EB
+	y0l58yKMHEble+gRF4g1s5MM/l909RzPOnd3v/26MVTTN39SshOiflZaHmknsoHr
+	zBjtlPjVelvy3KoIur++L/urQpW8LoA0U6FbcVXNZWGvz8/A86GIRjYJti8b5HLp
+	OVD7TsP3/DfhfCF4szDfg==
+X-ME-Sender: <xms:BTmoalZZ9eZ0IGGQaGBUirZJLjLG5fNWXLjPpk9NGNdnBlq0h0UI7Q>
+    <xme:BTmoavmq1dDE-As-K1Gg4VL2WDr4_dulKiD6U9pGFdZokMIVfSaClPkWxdCFI7Pm-
+    G2JGchhIT4_yvL6IKNUq4uSz8-wS6rfqlL7B7A5grJwnuUYflwc6w>
+X-ME-Received: <xmr:BTmoauyXTueIF8wekbV25ToGpeHHY7x8Y6BASM8_GnVBrd-lg2XCT8bRbKuv2A>
+X-ME-Proxy-Cause: dmFkZTF2uaYefa6Q6cBEHpcthDToSxPokXFkhkFwYdlt/0NLvJ9XjZ6IvfeAvtLc7dVOTy
+    sAHmM2qdAY2xkDTRwXe/+MUpe8DXgx0mdFN8/08msGRTpqW7Bo4+i0m4TxZHgt/h8vtSVw
+    C+ZQ6zbTx8uQV9gzDOEo4qBbRyscO3VixkxVExJzSR/TbhJAx8SIIpuocPP2GIATPG5wIi
+    2CKBzChTdqtxdGdeion4TvtdVWmIk+BndE8umHXcpPVf1iu8wi8EzLchC2jj30jqgNkmE9
+    nPdKwC0EO1nzELx56VTA/qWb6ScSHwOEJCTi0c80+yCmKhGuLESTci2da2CGUlle1+kldy
+    40UCaR5Dcqj0nN+u6QOmJ2cBUf7TGuxwUFwtFlNvn/1sKtIOMn5gJMUeazme9RyiQd7Evs
+    FKYVq2rKMVmtCvVcKDusfG5p6Rg2TRQ9oWBTp00+xF/H5PraiVhYIfVtEMboaP/Q4vNPQ8
+    inJymWt79SBWIolbgqMCEkp0omkgVSnLjuV71tG/8Si6/z+UkgdN0jGJUPM45QisJIiA/y
+    MNicVsrpESGws8tNZIbM6kC80dmkiU1JtgD84Oy8Lz1NIVAIuKt+D7KKfkmgXpwd+3GwON
+    zkir8DLR4zaUcfoh7apXN1x3/dgb1JJg4sxkYWODJXVmVDK8O3sKXkj3uDzg
+X-ME-Proxy: <xmx:BTmoaovUFWyO6umvgb4OOoOXnfvn1879nl0_SRvuLvwOwmwXIBNRuQ>
+    <xmx:BTmoai8RNEz_9d6l-ZJR5HAGzZ2vKDSSCC9JzoOYNr4QDN-njPsBSA>
+    <xmx:BTmoav2gZN28vgWjr-M8e-2G0gJtR8uc8TKqYdrCInekBVBNy-Cu-g>
+    <xmx:BTmoaofBKBotiaEMezZDo9l6KLi43kGTmKoxyDrx5Iaap1KbxWFY3w>
+    <xmx:BTmoasQ9spvY5LS3k3J20Ye9BIsXvyhf07KpdgYqtREDJHhGsevf2P8Q>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 14 Sep 2026 14:12:19 -0400 (EDT)
+Date: Mon, 14 Sep 2026 12:12:17 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>,
+ <kvm@vger.kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
+ variant driver
+Message-ID: <20260914121217.70fa0d93@shazbot.org>
+In-Reply-To: <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
+References: <20260905081116.106613-1-zhiw@nvidia.com>
+	<20260905081116.106613-13-zhiw@nvidia.com>
+	<DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 15:57:29 +0200
-Message-Id: <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-Cc: "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Matteo Kloiber" <kernel@matt3o12.de>,
- <aliceryhl@google.com>, <ojeda@kernel.org>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
- <daniel.almeida@collabora.com>, <a.hindborg@kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
- <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
- <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
- <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
- <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
-In-Reply-To: <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon Sep 14, 2026 at 3:17 PM CEST, Gary Guo wrote:
-> On Mon Sep 14, 2026 at 1:17 PM BST, Robin Murphy wrote:
->> On 14/09/2026 11:22 am, Gary Guo wrote:
->>> On Mon Sep 14, 2026 at 10:58 AM BST, Danilo Krummrich wrote:
->>>> On Mon Sep 14, 2026 at 2:45 AM CEST, Alexandre Courbot wrote:
->>>>> On Mon Sep 14, 2026 at 6:08 AM JST, Matteo Kloiber wrote:
->>>>>> On Mon Sep 7, 2026 at 11:43 AM JST, Alexandre Courbot wrote:
->>>>>>> It also means that without patch 1, nova-core would split the firmw=
-are
->>>>>>> into hundreds of 64KB SG entries, which is not breaking but still
->>>>>>> something we want to avoid. The correct fix is to make sure that
->>>>>>> `dma_set_max_seg_size` is called by the driver, and while we are at=
- it
->>>>>>> we also want every driver to call `dma_set_mask_and_coherent`. Idea=
-lly
->>>>>>> we would use the type system to make sure that both functions are c=
-alled
->>>>>>> before any DMA operation can take place (using a safe interface), b=
-ut
->>>>>>> I'm not quite sure yet how we can do this.
->>>>>>
->>>>>> This sounds sensible indeed. Should I open a thread regarding that o=
-n Zulip?
->>>>>
->>>>> Probably not necessary, the mailing-list has a larger audience and is
->>>>> the right place for this. I expect people will jump in here with thei=
-r
->>>>> thoughts.
->>>>
->>>> The problem with those is not that they must strictly be called before
->>>> allocating DMA memory, but they must not be called concurrently with o=
-ther DMA
->>>> operations, such as allocating DMA memory, as it would technically be =
-a data
->>>> race.
->>>=20
->>> Do they really have to be called *before* allocating DMA memory, not do=
- they
->>> just need not be called *concurrent* to DMA memory allocation?
->>
->> Similar to DMA masks, the segment parameters should be set appropriately=
-=20
->> before any dma_map_sg() operation. Plus since they likely influence=20
->> scatterlist geometry, that means typically they're also going to need to=
-=20
->> be set before building the scatterlist to be mapped in the first place.
->
-> Right, in that case I think we have the following options:
->
-> 1.  Have setters these being unsafe, with precondition that they must be =
-done
->     before creation of DMA mappings.
+Hi Danilo,
 
-As mentioned, I don't think the safety requirement has to be before using o=
-ther
-DMA APIs, but just requiring to not do it concurrently. Not doing it would =
-be a
-semantic bug, but it shouldn't have any safety implications.
+On Fri, 11 Sep 2026 22:39:16 +0200
+"Danilo Krummrich" <dakr@kernel.org> wrote:
 
-> 2.  Have a `dma_info()` method like Danilo mentioned. However, we cannot =
-expose
->     `&Device<Core<'_>>` inside such callbacks, because otherwise driver w=
-ould be
->     able create DMA mappings. This however is too restrictive to be the o=
-nly way
->     of setting DMA masks, because Nova needs to access the bar before set=
-ting the
->     DMA masks.
+> Hi Alex, Jason, Zhi,
+> 
+> On Sat Sep 5, 2026 at 10:11 AM CEST, Zhi Wang wrote:
+> > NVIDIA vGPU VFs require their open, reset, and close lifecycle to be
+> > coordinated with the PF-side nova-core driver.  
+> 
+> [...]
+> 
+> >  drivers/vfio/pci/nvidia-vgpu/main.c   | 253 ++++++++++++++++++++++++++  
+> 
+> This is going to be a longer response; sorry about this in advance.
+> 
+> Looking at the FFI boundary introduced in the previous patch, I'm concerned that
+> it translates the driver model relationships we've expressed through Rust's
+> ownership and lifetime model back into raw pointers and lifetime assumptions
+> that callers must uphold. It also introduces manual lifecycle management across
+> the boundary, rather than preserving nova-core's RAII-based ownership model.
+> 
+> I think implementing the NVIDIA vGPU driver in Rust would let us preserve those
+> relationships across the interface, make lifecycle management less error-prone,
+> and fit naturally alongside nova-core and nova-drm.
+[snip]
+> 
+> If you've made it this far, thanks for reading through this long write-up. I
+> hope you find it useful. Please let me know if you have any questions or
+> thoughts.
 
-Just to clarify, I mentioned this to be something we could do in addition t=
-o (1)
-for drivers where those values are statically known.
+I can't really say I made it this far with comprehension, but thanks
+for the effort ;)
 
-> 3.  Use wrapper type instead of generics for typestate. Then, we can expr=
-ess the
->     pattern of typestate transformation (generics cannot do this because =
-we
->     always place it behind a reference).
->
->     For example, we can have `Device` to mean `Device<Normal>`, and then =
-have
->     `Bound<Device>` to mean `Device<Bound>` (both of which are behind a s=
-hared
->     reference, like today, and `Bound<D>` can deref to `&D`).
->
->     Then, for `Core` typestate, we can instead have
->
->         struct Core<'a, D>(&'a Bound<Device>);
->
->     where it's passed by value. We can then define the DMA setters method=
-s to
->     operate on `Core` like we did today, but safely. Instead of providing=
- a
->     `Deref` impl that turns `&Core<'_, D>` to `&Bound<D>`, we only implem=
-ent
->     forwarding functions for APIs that can work without DMA configured (e=
-.g. PCI
->     bar).
->
->     Then, provide a `into_bound()` method which *consumes* `Core<'a, D>` =
-and
->     give out `&'a Bound<Device>` (this is why typestate generics cannot w=
-ork,
->     because `&'a Device<Core<'_>>` is Copy and we cannot represent the ow=
-nership
->     consumption).
+The one piece here that I can actually review is [5], where
+dev_get_drvdata() is replaced with a vfio-pci-core struct pointer
+embedded in the struct pci_dev, which is a non-starter as far as having
+a common PCI-core shared by various drivers.
 
-Yeah, we had this discussion in the past with similar ideas; it is the kind=
- of
-complication that we concluded not to be worth it and that I mentioned in m=
-y
-initial reply.
+Maybe Dave Airlie can share some experience here with a Rust driver
+growing up within a subsystem for a non-Rust-literate maintainer.
 
-The only safety relevant issue should really be the data race of the primit=
-ives
-values being set, which is more on the theoretical side of things.
+My concerns are of course who is going to review the Rust vfio-pci
+variant drivers from a vfio perspective, not just a drm driver
+viewpoint.  Who is going to be responsive when the interfaces break and
+monitor vfio proactively to prevent such breakages, and how do we avoid
+derailing feature development in the core code base.  Can a Rust
+vfio-pci variant driver be self-contained, or to what extent does it
+impose on the framework, such as the drvdata idiom.
 
->> I don't think there's any expectation that they would ever change=20
->> *between* different mappings - especially given the underlying hardware=
-=20
->> properties they represent - so while that might technically be possible=
-=20
->> in the C API if the caller can enforce sufficient ordering, it should be=
-=20
->> fine to rule it out in the Rust abstraction if that makes things easier=
-=20
->> to reason about.
->>
->>> If it's the former, we can require these to require mutable reference i=
-nstead,
->
-> Correction: this should say "latter".
->
->>> so the probe takes `Pin<&'bound mut Device<Core<'_>>>` which still dere=
-fs to
->>> `&'bound Device<Bound>`, but Rust will require the shared reference to =
-not
->>> co-exist with the mutable reference.
+FWIW, AI can only go so far to support reviews.  Having the code
+insight to ask the right questions is essential.  A human in the loop
+is a requirement.
 
-I think that doesn't work, there are drivers that need to perform MMIO befo=
-re
-knowing e.g. the DMA mask, i.e. we can't have Pin<&'bound mut Device<Core<'=
-_>>>
-at the same time as e.g. pci::Bar<'_>, which borrows a &Device<Bound>.
+Additionally, if we can't narrow the device matching to only the
+Nova-core supported VFs, then this variant driver must immediately
+provide feature parity of vfio-pci with pass-through to vfio-pci-core
+for matched devices.  Libvirt selects a best matching variant driver by
+modalias with our override scheme.
+
+I'd also like to hear from other core vfio contributors.  Thanks,
+
+Alex
+
+
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=poc/vgpu
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?id=484316d855e3d61873122c295feb9a7457eeca21
+> [3] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?id=6292c1de7f0758dd31496a454b4034507f38bd40
+> [4] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?id=efac2cec97eab36edd01a2fe79aea67a04bd8842
+> [5] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/commit/?id=76b3bfd6386a01f338780e1a37b5bad3f5a48d31
+> [6] https://lore.kernel.org/lkml/20260303-rust-pci-sriov-v3-1-4443c35f0c88@redhat.com/
+
