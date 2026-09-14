@@ -1,52 +1,50 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013019.outbound.protection.outlook.com [40.107.201.19])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012022.outbound.protection.outlook.com [52.101.48.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA83123BD03
-	for <nova-gpu@lists.linux.dev>; Mon, 14 Sep 2026 03:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F151430E0CC
+	for <nova-gpu@lists.linux.dev>; Mon, 14 Sep 2026 04:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.22
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789357582; cv=fail; b=IEZJGNjmQ+Hovu7eUlbFef4HJS8naBlif/T1oe2QoVAKVJmCJjNFU+Vw5vLJCEKKOCAzQHtpCI4NF05nDiN/+28/ElYzINTiLl66l5QuLGDSIGEFRJkl2DX63sz68xwUCkZAz3nbWONBo4nAmh0SMESntuy/bzCgFdenzl42zlk=
+	t=1789359108; cv=fail; b=ou6dmIUsycVfwQP1yDr6yXUs2H1yFS1EceeCZR739RLoxEN70o0ELsBLcu8jxWXPqsO2RE0XNpR4Vm28qDf6RmsY52sbA95KW9Z3DmQbegyUngXpHhzen0O8LxB1GcZf21QLLAzmkFlx1agNeFAC/MVm6xFF3OAfUe4X2UzEBkE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789357582; c=relaxed/simple;
-	bh=9y6Xfyxaj/NSMFRDb/iurGpiunvcM9pXg53/HkyyO0k=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=Z/Zln0v5vGGA9siqRZVjOqPgW3QUFDi//idqkHfvdp2028n98ND8JYCu5KshpjLRa2IDhTsMJJ9oi7p5pSR0U48CBA9hmbbqFp47j7ymdDGuc4rE9xyGymZdqpCqmkxRqM2MUCUNmyb74AXMH9peM+1xBoCbdMV3KnLvGZF3WQo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MBs90AUz; arc=fail smtp.client-ip=40.107.201.19
+	s=arc-20240116; t=1789359108; c=relaxed/simple;
+	bh=Kwvri70NaG1g98EeEO7vfPQnYeAuXhvCbM6vh/y4Gco=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=XXz8PyZ5LOP8JAafwaEZySInerNIwoqrKe6K0JdHZbLpvlmt6+dwWXyypetrX3DyGm3i63DxCIORzEQzrzqOMUsnyZn85TOZrJt58B2jPw+elBS/bI9ZLNEPURHRPnZz+8NxIqc2vrlvBOa2g/FnMtxVAhwr3ssoIsbbMYuW+Wk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Z3IY5xNW; arc=fail smtp.client-ip=52.101.48.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MBs90AUz"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z3IY5xNW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IjToSR0txn2kHOezI1cPKgz5+OXw7Tvyduw6neQDSLCiOhl9a7bDfRMNHqyPrJUgUu+wA5paVofvv0ZAy7DWwqQ2SBNTZ40MKBVgs1o2FjlTkkyBKSsZQnFXI0VVGsgkc3u3SLs9Y5rnj6ku6Xq8By0Pog1OTCkMFUVxsfxAQB4JoEDEJoqiKQ54UYrZj6qycDAbartShW6QcuzXyemZTm46OMiedThvLBPdO7D+NYA2pp5Id8xfyTCVtU5M92jE3dmXTm6WVKWJVYAUWY39NYJ1+EwOqOEFCGVoCGhlWWmfZ0+jmD8KZVv68Cs2WngC/SeU2atYLF2Q3zfIwlfLjA==
+ b=y/rn4HmqV2gz0T/N3cwSKlkWVI1IpCv/jNGZt25qUeU5Vc76un0BsLKWXA3Zr312k1nYz/e93c96Xa7jOrjgeIznMP9axJk7U/LjM4Xo/GLse/gs4kZ9oC9ztNM2mW0Rg1yWZco2TrSonbq5Ga7fA2RBTn7wzaCatS78XD8yQBtKe4Z0BGEYCna8LImFq7dy+8zEiIWrDrS8sIq+JiiMbpu8KfsyKL73JEBii63ktDMtttRlW7eigaL38vJTfN68QfeAnWVDSvzbginqpA2a2cy7YjxQRL3Scem2DAL3jS/YCBgqxkjB7H9j+UGmLFSfmPctO/ssel/vlD3jwU1uNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=//2A952bReqdZBwtVfVVMoVsSGN5YY05VcFq+grZqw4=;
- b=mWXVh8fUj4GSt9smWw5OtLw9LRo2TaT5Tk1eHFNeHsU7K6RLnF2K/Y3m3m3+FbRLHcPy+8g5aIWQid1l1Z+mrsG+mSyZnSkERvtfPdarNy6g+44U0+HjCXRvtcFR+p3lirHOv9wxbqJaQFQ71x+eZbYjkHLyDhgjRtchOc+GCrW+GdcVj3a7w7BWhL+zwd2GOLFk7qhaVsIlQX6VeWl0r07Wp1QGHspHW9xRUE/pXhCHHvHik5J8oq3JhVFNSLlbAh8kXsnRnos/v3KLVKP1Ytz7illjsDVElbybxmzE/ObZFGijaSfb7c9LUsIV+MJIh9OE75wHB0T5iqbUYYdAZg==
+ bh=m5f//rYsWGIptdSc4f7amIPRCAbbqnW3lN7Y2x4tu7o=;
+ b=vP8dOnc6ZQfTfz3aPrq/dVweaZw4bHbhqmlu8PN4TRFXLLZrHVCd/5XcGaH5uS83uFkrERuBrraveUNt9Y3Cct7XzRnKSPj+c//fU3sEVIKfL2/jK2LSoI1wP2tH6Z2X613AlTJ0o/CIUpKyrHq2E3/Lc1eR2SzGV64GvMmBcfuw5sMEYN8dhe5+s3xPycHUe0A67wNbkW+h9AINgJXthlBqmpv0JY9ZkFNa1qhTxZbBFzQZ96gsrBZCGTmhJW34SHVemHpLJg4GkU1rFWrE/h3J4hTNPwJ5DvOlDNmg1ej3RZlHdfRHqnzg/B7KfVBIZGvWM0UDsFoNXKlW/+NH3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=//2A952bReqdZBwtVfVVMoVsSGN5YY05VcFq+grZqw4=;
- b=MBs90AUzQGJqiV0SfXT//qcA1F5Y5dagRZ3pkaOOYg+sjuMqzDbw67+qXIN8Jo13grT7nrSqOM9n2wpH17fek+DrwE6ZKM3zciCM7yWOfGVmcFkmumb4p/YJ51a//Xb4phEwcxzWxZzMnGLpBPp5SLPZLVKt5o94LifBszu7fDM/0HNQrQJ2eAMtMg69Zxt6TuINX7TCAg7EKSXUHiAWfTxtMJe5FZcxMdWV7/Fk7YPXJnrMA8/A33LgqWViaRw+2FaHXI7zkVH+5Mb8WYt1r+q/DlRGCTq6PG0FRi92kN05TVeJU6soSG7dm6R4B0LKPxqNwFN/4Ym6Pi8TmQDXsA==
+ bh=m5f//rYsWGIptdSc4f7amIPRCAbbqnW3lN7Y2x4tu7o=;
+ b=Z3IY5xNWRWuaqViLKdW7zKUvL6PhByYaLdizv8mN5orTgIE9rXcuLW1oVY9SRpFOSVM31IY44vQDA3EQ3fcovpTJds0W8Sd+vQwdKiOytTXySnXoScu/i/DTouYTy2HX0I/zhXo6XJ64Xg0HroZ8S7jxKgbAkhI/gMD8kvkYEL0iVhnPJm98MEtdJDJsxMm4oBEjvCm8HRR8yCEjcJa7C74CajxWirDyB0U09Sq7PLSKeH5qau3YwCx7jVzxGMaaYQl5m780HpRQ6xvYp9mQSk0mh48IUVLI7Jqbeg9LZbDMGgEe3/rmW4lB62nbP3SdE2B33Prh+xPQSwQmTxO9JA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH3PR12MB9281.namprd12.prod.outlook.com (2603:10b6:610:1c8::5) with
+ by IA0PPF52B16157D.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bce) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 03:46:11 +0000
+ 2026 04:11:42 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 03:46:11 +0000
+ 04:11:42 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 12:46:08 +0900
-Message-Id: <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
+Date: Mon, 14 Sep 2026 13:11:39 +0900
+Message-Id: <DLEQV27IDBCH.16D7K7DXI5ZK8@nvidia.com>
 Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
  <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
  <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
@@ -62,13 +60,15 @@ Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
  <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
  <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
+Subject: Re: [PATCH v2 8/8] gpu: nova-core: add NVKV GSP_INIT schemas
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
 Content-Transfer-Encoding: quoted-printable
 References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
-In-Reply-To: <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
-X-ClientProxiedBy: OS7PR01CA0069.jpnprd01.prod.outlook.com
- (2603:1096:604:253::15) To MW4PR12MB6873.namprd12.prod.outlook.com
+ <20260827-b4-nvkv-v2-8-0de9d5c8658c@nvidia.com>
+In-Reply-To: <20260827-b4-nvkv-v2-8-0de9d5c8658c@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0179.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::7) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -77,618 +77,96 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH3PR12MB9281:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0358810-0bf7-4296-1dc2-08df1212b7c0
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PPF52B16157D:EE_
+X-MS-Office365-Filtering-Correlation-Id: f68d00d9-a11a-41de-2e98-08df1216485d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|7416014|376014|23010399003|1800799024|6133799003|3023799007|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|10070799003|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	sgHTY6Bx888QvOzRM2diGdgb3OD0ZTXUpcoWYXlWvcv+q9BfKtI2VUMkOKmONSCEwuCdbc2/1Pkinx19yukMuDRs2qJmqONh0rMCymE/TheikCZG1JGuEurDL20/aAaQgr7CFXD22sN0jvYuGpiWVvb5zwGvXndVv9KMurfHRTKd/AcJmYe2mfkEa0MYEM6wgpQMJFNIHg35s4wDgAKAmHZ/3hFshdVoimoccqiHJU9jrb0LbE4HkKSVOy6xWEMTIRo6zFWOxahGcwPFzAiFFh9JU18HoMjchK5jb/teEMsplWtJ4p9wKIBfXQm1Ao5Nc8pESUPCMOYzi5u+QgsnL1HeNPb2QRugmzFJFgkSnSLnCEAWG4K/K6/u5vJ0GLlXHmCdf+90rZUBFtDD95F82jD0W2zBQofm11qu1By/eX2/OLqzLr+kjLxf4H1VHVnEUuKPugyQCoAVr3NPtK9vCqQtHytbc8xneRhbhCM3OCCy42SoLQLavSeYIgFCUv1PPMhKa5XXzMca+45AlWifZ/qMxesrTT7T9au7O9TwXVue5VpfDOm2EA3HVjcl7u7LyrLU27w0t96QgRwL6YYbx+DXsD+NjNVZrqvoKz276KzN+X+4iv21HVwp5upXBFAP/jc8isSiea4aFvH5g85ASOd1NILibJyMZkRpS8xUADg=
+	58/bDem+xDGsPaFv5aWQYXzwstvwKjQVon5JHQVmKo+nJxxkIZc46+Vj0iEOr8C/Ly9reuZGw/bU0eF4wgIML2bodiLA3wL9/+vMUC8zg5Cd6Jl0bVfMrCSyFWxyQrPcyqF6Qh5HTE86nhmKNlM2zsqj/KjUGZcOmVGubN+23Zi31Vq11DKEW40G7KV0VhLsxub8/zV41iSw2o/A8T0tGJqW26Mh7gx6m2dBKf2JVU3Fzhqdi+YKWgGEtaOFrA4owbhK6t106YsodEKOhszXrXZrUO4qhR2o5ts4LpkKHsTJ3DY9LzpICJhi/1e+nBL5rr8aohh+3DDaKXyDMILlgrd0PBb8Vfn2Wtpon2O8GFPfaalAz6p0CrFr2LBLGKJaqiKpaoSRh2czsv5G2uy91wtNeZi3EzaUY/BB4UrdJ/ifiNM5I/OYwDsZgKG1e3YCr7c9eXMqEnvtOwp1QlnIjY91Azi01zJmxz8OGnEucIyhi7je23Z1HLVax1YAnyCkjDg0LBDVWWE4NhZB/e5A3hsc9i0l0oGfFWqpwMfFSYSZJF6MWErq8j3jxsm14Uhu0ZSErVlhIU3YoB0CwjISj2Q8Azdvnsv3+dtMEr4Pe86EYOg0Q5d1kMUnigLDfUwOztI1upx+zFuVLf2MnKVej/GX4gXUZcYoO9g/OesNi98=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(7416014)(376014)(23010399003)(1800799024)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(10070799003)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUpncTc4U1RRYzYreGlUanU4dE5xSUY4QThpKzhpMW4yLzhtYU00VldIRGs3?=
- =?utf-8?B?Yml6ZXF2bFdpNWU1ZEdIRWZxQ2ZSMFl4aFZTazgzOXduMEQ2Ykc0bS9tdE5h?=
- =?utf-8?B?ZVM4RkJQaHJoRXBWZUxjQlBNK3V5MUVLa2tBMmNFK25hdjRDRWZKa3hqc0pB?=
- =?utf-8?B?ZUtIM0Njd24xYXhDZ1I1aXZIYllCbjVXRTNoZFFMM2k1R0lSVldKSm9qZVJi?=
- =?utf-8?B?bXB3WDU2eHU2UUt1V1JBSlZ0YzJ0ZzVwN2pPTnB4dVM4UkJWMk0wUSthYll5?=
- =?utf-8?B?RzRLenp3cTJMejNmWDJqeG01c2o5bnZyemxWUmxNZTRINzIzT05VSlkwZHlq?=
- =?utf-8?B?ZGZSRGJEdm9IMjFKRno5dWlkbVVzQWNrQklrMEVHQ0EyQmpvbEFUTDczVzJ6?=
- =?utf-8?B?SXlLK1VicFE0Qk5YbExzaG1xRVUzdE13MnRTVFgzZVVONTZ4dE5OUVRTc0J4?=
- =?utf-8?B?cDdOeXlSRUJrQjNYaVJLbDVHOEFKdlhXQmlFZyszcEZHTVZ3ZnhIYkM5VlZC?=
- =?utf-8?B?aGZKT2xGT2NHNk1iWlBuZk1nVWRhVXowa3diM3BxNnN6MUxkc05vY2t0SGU2?=
- =?utf-8?B?TkNNNHgxZEZOQjZtSnNqQUlPZDloYzVhNHM0WEdka3JXOEZxWGpNTXJhZ05t?=
- =?utf-8?B?b1dUc2Zjc3BhUjhMSjFPRU55THRLeEU2bVRKaWNYOVcrQ0hMUDNtMTh5aEh2?=
- =?utf-8?B?K29CSE9RcmNPSVlGM0w1MFN4UDFiOWkyWjNRQ3NGQ0FiTDJpTTU2NDVpY1Jq?=
- =?utf-8?B?Z2lkbWxacHp6dEdJVXdiWDFNcjkwbFE0ZlNWVFRoY2NJc2hOdUhPbW5uNjlx?=
- =?utf-8?B?NVdteVJEWlZ0YkJUVDZJYkxqdlQrQ3QyYTRzdExYMUgwTmV4bm96RGZQcmFY?=
- =?utf-8?B?Z21laHNaMStIc08xYnUvZFRTYlhsenBKWWJrVnFHTUYrbnJtaEFTRXF2d28w?=
- =?utf-8?B?eUxLK21HOHVIc21GMkVjZnlNNG5ub0srUnFYZWh2NXkralQwalJjRVI1ZFNm?=
- =?utf-8?B?Mmk0a2NKZEpzd3pUaUJPZEh1Zzl4QTdSdmx6NkN1eXRjRkliTnFTRlRZbklo?=
- =?utf-8?B?UkljU0lkNUJVSW1ZTDQ2UHMzam1oUllTUEt6YnZhQjRHbG1DOHVUdmk0ZnV5?=
- =?utf-8?B?QTlnNk81dDVJZE5lVG93M0t0MU1IazZHTU9aanBXbFV1dTZaZVRIZzcrUHRP?=
- =?utf-8?B?RXhjWjRoQ3V1NmxWc2pIQldpR3UxK3BsZTU2Y05ZZFlWNzRPU2hMNFYzMmxk?=
- =?utf-8?B?ZWhsQUFnakJydm5JY2didVllY3pWaDg5QUpMWi9ZdDN2Qi8wRWpIekwyMnJt?=
- =?utf-8?B?UzNqdjQxQzd4VSsrRnJEY3ZJSU9NTmhFVVNiVlVleVUwaFVoWG9MM3NrWTZz?=
- =?utf-8?B?b2ZXcEhZNVcwaHhNL29LTytuRVBmcGcwYkM4KzFkM1BUSy9nbTdMWFl5cHVh?=
- =?utf-8?B?UEVDSjFKTThUWGg0MUZ5bnJXMTM4RDRhaEdaSlRQSW9mZGw0OThnR0JlUUxo?=
- =?utf-8?B?UFgyamM3WURvd0ZLamExSkpBNHh1Mlc3TXd4MWxwOTRRL1J1dk0vdW1kbFhG?=
- =?utf-8?B?NThpVFpGbFhwQTU2SGhzejltRTl6TEdTbENLY05iZ082ZUdpMkhRWTA5ckJv?=
- =?utf-8?B?dDQ4ZklnVVduU3NLZlg4anY3em1WQjkyVkl5OGxEaTJHZmZROHRrL2VDZEVO?=
- =?utf-8?B?dlljdnJBbVhCSy9qS0JiT2hEQkJxZ2xJRXJVUGJGTCtJQWZIcGpNeklPcm9O?=
- =?utf-8?B?Q3dXczJzUXlzR2FiZzlMZEhEMHJoZXJ0Z2lVcEF4N3hHY0JvMVNtM0pTRHFQ?=
- =?utf-8?B?d1lNT0RFck93bE5PMkdKS0VmdFBXWk94aFYyOTA3YzdSNDZ6aVJ1N1J0YXJy?=
- =?utf-8?B?eTNBaGFSNGhtNEo1disyWEF2Rlg3dGN2ZUZubGFHb05Nbm80eDNjVGZISE9Z?=
- =?utf-8?B?OWczMlI5U2Q1b3BXZWNmTCt0Q0JtMDlRQmU2cXdVbXJ4NUdsa25VWVliL0c4?=
- =?utf-8?B?RTl2d014MVMrQ2NhVGVXaDg0N3U4V1I4Z0luUnE0WEZBK29kRjNyVjJUVXNk?=
- =?utf-8?B?SFpjWm0wNmJBVnMvQjh3MUJITDJWMVNPcUtXQlY3RDhmTDc2enh6TXFTU1d3?=
- =?utf-8?B?NFV6UE82aXNMZEJWWFd1aG9SeUxEa0hWdjlBU2laM3FLQlh5YjR6U2hmdmlJ?=
- =?utf-8?B?SUJaTUQreVNpc1IxNXQ3MkNnQVBPcW05bzVxSFdldkxsSjBBVit6NUJIL1or?=
- =?utf-8?B?TDNobmp6L0Nmd0pwcTg4VnJlU3BuVmRMMGYxcW9PU2hQS3d0V3JHdUt6STNy?=
- =?utf-8?B?Z3ZFaDVyTEsybGxmUlRBa05JbEZTU2VqbjJMSGowMjY0MC9XM0dlTVg1RUN5?=
- =?utf-8?Q?1oHUhthuzxLwbWho/HS6FmMLOEpuOHHYdUWjCdmZHw7Y0?=
-X-MS-Exchange-AntiSpam-MessageData-1: MtG9a6qn8RP7dA==
+	=?utf-8?B?Z0lUem9NWFEyb0s5MHRXZXluQ1RCdTg0VElEQkY2UFpzL0dFTXpXODNTeHpn?=
+ =?utf-8?B?cHkrMXNLSzVuNyt3WVFPNllOVGRQQjhIMnNOZis1MHFSZDFkNkhoaEpHQUFj?=
+ =?utf-8?B?ZEExL1hFZm1uaXJxdXVubnRWYUozQXJPbmxJNUc1RThGZzBPQStpQTh3T0s4?=
+ =?utf-8?B?eTBLVkVZanJDRHdZT2JLcWsvaGdrZGJWMjVJK09WNkZ1VmxUWmhDNVgvZm9X?=
+ =?utf-8?B?MGRpbzZxLzY1UWtWN1BKd05qMUdiWUFsZndtN055VFZGTUw3OW44TzBPNlQ2?=
+ =?utf-8?B?M2lJR2ZNRTBFd3V2L0UxdWp6SGluTzhaY2VJT3cvdU9ZeS9RRHFQRC9CZzJr?=
+ =?utf-8?B?dGdEdElEeGdOT3Rjc3NLV2VTZlEwZmZsZm5DY3dCd09Vb3pMTVp2WW1HMzJO?=
+ =?utf-8?B?NWhBMElVem4razBack9BcDREVUNudVBqdG82QlEreGRMWllReDVFdzJOTDFZ?=
+ =?utf-8?B?OS8zVHRvUEVhbVlpYU1wTldEZHZNUy90aCtTM3plQzRMVkxFSjYrVWlnd3FK?=
+ =?utf-8?B?Zi8rbVV4aHJiYTduVEh6QWx5L096b2QwMkNpU2JhYTJOVWlUdFMzbXB1bURs?=
+ =?utf-8?B?MjJkNHhNcnR6RUxqempXY25LWUMwZTdZY2M2VCt0a3BWcXN4MXFNbmRGOThC?=
+ =?utf-8?B?OVhOdEVRcFpTeDZINUxCaEhrSVcyNFNoTzRDRVM4RXN1SDJWaHdFblFlTnoy?=
+ =?utf-8?B?dGpxQjh3bUJPVC9EczFrRGpCVmFhZTdPLzhDQ2FJSkJSS0t5dlBZT21xSEV3?=
+ =?utf-8?B?aW96Q0V0aVdPR2l1T2swZVVQeUhnWlRzYS9yQ05MK3VLV3RUMHNwWEo3R1I2?=
+ =?utf-8?B?NjdGNXhCUVd3RDA4a3JBTldPb3U0UG9rU0dPczcwUjBBclJVOEFZWTd3SVdM?=
+ =?utf-8?B?NXVUTG1BYUpvUGdxdTNVclh4VzhIWjNiQjBWcWMydlplS0gxdVhIZzVUbTRJ?=
+ =?utf-8?B?VEJSV0NCczViWVR2UVV2N2lTNlVzeXFtMVZlWEFLb0k4R1l2Tzh6clRtU3RC?=
+ =?utf-8?B?Tk1ueWE0Nk1OZkdDQk9GNnhtWERqb01zaG43TmVoTUdhTXphVlpLdTErSGcz?=
+ =?utf-8?B?aE5YNzFGMzd0Y0FIM0xhaThNTzRISEFETHlGUi9vWVpxTklkMkJnbXpMNTB0?=
+ =?utf-8?B?UWw5T3p6TG5HNVJPcFNKWU5NbllnbktYWHhwUkY4dDlTMEptbFc3UnNlc1M4?=
+ =?utf-8?B?QmliU3AzYi8rU1AwNE83aUpmWCtwSWc1Y0hySDVWd2lmMUVkVTUrdHNLRDlu?=
+ =?utf-8?B?b3dWVGw2c1YwWWlrV2lCdW4vUkxBbEpSMmxVdzJ4K0N3SW9xbUQ3d0xxTnFC?=
+ =?utf-8?B?b0ZWK2N2UU03Qk5yaDFSUHVMOWY4REs3eHU5M1MvSVNlTmw2UElnVU42RWtS?=
+ =?utf-8?B?NWtham85OEFXakh1NnQ5elprRHYxVVhoVC9Vd09KYjJubmJ1RWd5N2pRVU5G?=
+ =?utf-8?B?UTZ6QTN0YVdwcHVveituY25kTTZVblBUajhHWm9haGJOSmFURUtTbDI3aWM3?=
+ =?utf-8?B?b0ZKN3MrWlQ0SlkxVjdyYWdrbGZCTElZOFh3b3c2RmxhcXE3cU83YjJwZlAw?=
+ =?utf-8?B?dEJId1NFVnVRZENCeGJRWjJBblhKcjZLbzNadDJzWVZYRkgvaWEyUVdUQ2JR?=
+ =?utf-8?B?Zzl6QXJZNXhzVzZwZUdxQ2tZYm1IZHFEN2NHdVBRT1ZBWVN0WVpySkt4OEJV?=
+ =?utf-8?B?UlFYajlONkdOTTFYRVBSSVVyUzcxZHB5dldva2pNWFhiUTlZU0xqOEhBU25z?=
+ =?utf-8?B?TU1XNGtyT2lxNkY4aHlWNWltUytNMklScnNpNlpPZkExdE51TGJ1Q3g5cDBS?=
+ =?utf-8?B?VER1UW9iVWtxc1BYdWJVR2JITHNDZ2dlTjNKcm5ZeGNmbDZsbHovUlRXSkdW?=
+ =?utf-8?B?QjUrRVJrZ3FJRCtXZDVLVlVObllycThtVUdUSGpmZW9Ed1YyaFl5czJkdXFj?=
+ =?utf-8?B?cnZPOC9iYlRENHovdElYbUo3a2N5ODRRYWh5QzA2TGxWc04yT2FtTk1VaVFm?=
+ =?utf-8?B?cmo3NTlOcEJ1UWs2VHZ6TnJtbFNBMGhCNklwR085NjJROVJaSzh3eTAxNzcz?=
+ =?utf-8?B?QlZVOFRQMFhkam1lMDBxZEVRMUUxVGtBYndwVTBEQXFxUzhCK1B4Yk9pZnVy?=
+ =?utf-8?B?WC9xYnpJc3U3MGptejJOOWNYUmhidDBGZ3p3VkE5enAvYzdmRk9iRmJSMDZL?=
+ =?utf-8?B?SkN0NWVmSUJDT2ZCUmJ3dG44YWcvRit6VVFKSjlHWnh1OWJSME1ydzd2dEc2?=
+ =?utf-8?B?OVZKL3BOUFVaQTFEWkhuT3ZNTm1odDNtT1FocHlTUU9xek5oTUluOWZaUE5h?=
+ =?utf-8?B?eHVSL005WWhpN0RzaUZrbDN0Wm5WYVQwajRWcjV0Z0NXVjR4RHhad0VSSGhV?=
+ =?utf-8?Q?q8Og8oboT2+GSuWA8wx145BEiAVhIE9bGPueAAbhFwJqU?=
+X-MS-Exchange-AntiSpam-MessageData-1: zxkBOF2aoWWwVQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0358810-0bf7-4296-1dc2-08df1212b7c0
+X-MS-Exchange-CrossTenant-Network-Message-Id: f68d00d9-a11a-41de-2e98-08df1216485d
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 03:46:11.3530
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 04:11:42.4112
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8gNkK1xe/yKQ8U4gM7mCjyvn1p7YcL0cxgP7LuMz0UlETOnW964CZ3n9YWipCkky8ZIkevuKLSgm4XFiTBT5xw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9281
+X-MS-Exchange-CrossTenant-UserPrincipalName: 04SHBkLQJVvTzEEdySmzYi08D4sFI5JgCJAVgchtEjGmAyx0uUQio3CZ7m0mHkryxZRrHQ1omT1X5P2tuPY3Jw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF52B16157D
 
 On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
-> Similar to the typed encoding layer, add some decoding type machinery.
-> Add a simple macro `nvkv_decode!` which implements `Schema` for a struct
-> by composing visit calls to each member. Add some common `Schema` kinds,
-> such as `Array` which collects an array value into a fixed maximum size
-> array, and `Required` which fails a decode if the value is not sent.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/nvkv.rs        |  12 +-
->  drivers/gpu/nova-core/gsp/nvkv/decode.rs | 480 +++++++++++++++++++++++++=
-+++++-
->  2 files changed, 488 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gs=
-p/nvkv.rs
-> index 10dcbb9e602c..7d58ca91cbc3 100644
-> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
-> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
-> @@ -9,7 +9,7 @@
->  //! function calls will map to some struct - for example, f(GPU_NAME_STR=
-ING_KEY, 0, b"some gpu")
->  //! naturally maps to storing a &str with the GPU name.
-> =20
-> -#![expect(unused_imports)]
-> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_imports))]
-
-I am getting a build error on this patch:
-
-error: unused import: `nvkv_encode`
-  --> ../drivers/gpu/nova-core/gsp/nvkv/encode.rs:65:16
-   |
-65 | pub(crate) use nvkv_encode;
-   |                ^^^^^^^^^^^
-   |
-   =3D note: `-D unused-imports` implied by `-D warnings`
-   =3D help: to override `-D warnings` add `#[allow(unused_imports)]`
-
-error: unused import: `nvkv_decode`
-   --> ../drivers/gpu/nova-core/gsp/nvkv/decode.rs:104:16
-    |
-104 | pub(crate) use nvkv_decode;
-    |                ^^^^^^^^^^^
-
-error: aborting due to 2 previous errors
-
->  #![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
-> =20
->  use core::marker::PhantomData;
-> @@ -21,7 +21,8 @@
->  use kernel::{
->      alloc::{
->          allocator::KVmalloc,
-> -        Allocator, //
-> +        Allocator,
-> +        ArrayVec, //
->      },
->      bitfield,
->      num::Bounded,
-> @@ -139,6 +140,13 @@ fn default() -> Self {
->      }
->  }
-> =20
-> +/// A schema field for an array value under the NVKV key `KEY_ID`.
-> +#[derive(Default)]
-> +#[repr(transparent)]
-> +pub(crate) struct Array<T: Default + Copy, const N: usize, const KEY_ID:=
- KeyId> {
-> +    vec: ArrayVec<T, N>,
-> +}
-
-Why is this not defined under `decoder` if it is only used there?
-
-> +
->  bitfield! {
->      /// The op word that starts each NVKV operation.
->      struct Op(u64) {
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-=
-core/gsp/nvkv/decode.rs
-> index ceb97e73e100..7f5310857764 100644
-> --- a/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-> @@ -3,16 +3,356 @@
-> =20
->  #![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
-> =20
-> -use kernel::prelude::*;
-> +use core::convert::Infallible;
-> +use core::marker::PhantomData;
-> +
-> +use kernel::{
-> +    alloc::ArrayVec,
-> +    prelude::*, //
-> +};
-> +use pin_init::init_array_from_fn;
-> =20
->  use crate::gsp::nvkv::{
-> +    Array,
->      Index,
-> +    Key,
->      KeyId,
->      Op,
->      Opcode, //
->  };
->  use crate::num;
-> =20
-> +/// Defines a schema struct together with its [`Schema`] implementation =
-that decodes into `$target`.
-> +///
-> +/// Each member of the struct should implement `Schema`. For every (key,=
- index, value) triple
-> +/// decoded from the NVKV stream, the generated parent `Schema` implemen=
-tation will call each member
-> +/// in declaration order with that triple. If a member consumes that tri=
-ple, it will stop there.
-> +/// Otherwise it will keep going until all members are tried.
-> +///
-> +/// The schema struct holds the state required by the schema implementat=
-ion to do the decode. It's
-> +/// recommended to use one of the existing Schema kinds (`Required`, `Ac=
-cumulated`, `Key`, `Array`,
-> +/// `Indexed`) for each member.
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// nvkv_decode! {
-> +///     struct RequestSchema =3D> Request {
-> +///         id: Required<u32, 0x0001>,
-> +///         name: Array<u8, 64, 0x0002>,
-> +///     }
-> +/// }
-> +/// ```
-> +macro_rules! nvkv_decode {
-> +    (
-> +        $(#[$attr:meta])*
-> +        $vis:vis struct $name:ident =3D> $target:ident {
-> +            $(
-> +                $(#[$field_attr:meta])*
-> +                $field_vis:vis $field:ident : $ty:ty
-> +            ),* $(,)?
-> +        }
-> +    ) =3D> {
-> +        $(#[$attr])*
-> +        $vis struct $name {
-> +            $(
-> +                $(#[$field_attr])*
-> +                $field_vis $field: $ty,
-> +            )*
-> +        }
-> +
-> +        impl $crate::gsp::nvkv::Schema for $name {
-> +            type Target =3D $target;
-> +
-> +            fn init() -> impl ::kernel::prelude::Init<Self> {
-> +                ::pin_init::init!(Self {
-> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema>::ini=
-t(), )*
-> +                })
-> +            }
-> +
-> +            fn visit(
-> +                &mut self,
-> +                key: $crate::gsp::nvkv::KeyId,
-> +                index: $crate::gsp::nvkv::Index,
-> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
-> +            ) -> ::kernel::error::Result<bool> {
-> +                Ok(false
-> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut self.$fi=
-eld, key, index, value)? )*)
-
-Mmm looks like this is going to be `O(n)` with `n` being the number of
-fields?
-
-This is ok for a first implementation but eventually I hope we can
-switch to a more efficient dispatch.
-
-> +            }
-> +
-> +            #[inline(always)]
-
-In this patch as well these should probably be just `#[inline]`.
-
-> +            fn finish(
-> +                &mut self,
-> +            ) -> impl ::kernel::prelude::Init<Self::Target, ::kernel::er=
-ror::Error> + '_ {
-> +                let Self { $($field,)* } =3D self;
-> +                ::kernel::try_init!(Self::Target {
-> +                    $( $field <- $crate::gsp::nvkv::Schema::finish($fiel=
-d), )*
-> +                }? ::kernel::error::Error)
-> +            }
-> +        }
-> +
-> +        impl ::core::default::Default for $name {
-> +            fn default() -> Self {
-> +                $crate::gsp::nvkv::assert_schema_size_reasonable::<Self>=
-();
-> +                Self {
-> +                    $( $field: ::core::default::Default::default(), )*
-> +                }
-> +            }
-> +        }
-> +    };
-> +}
-> +pub(crate) use nvkv_decode;
-> +
-> +/// Asserts that a schema built by value is small enough.
-> +pub(crate) fn assert_schema_size_reasonable<S>() {
-> +    // Clippy triggers this even if the enclosing function is never call=
-ed, so skip if clippy is on.
-> +    const_assert!(
-> +        cfg!(clippy) || size_of::<S>() <=3D 1024,
-> +        "construct large schemas in place with `Schema::init` instead of=
- `Default`"
-> +    );
-> +}
-> +
-> +impl<T: for<'a> TryFrom<DecoderValue<'a>, Error =3D Error> + Default, co=
-nst KEY_ID: KeyId> Schema
-> +    for Key<T, KEY_ID>
-> +{
-> +    type Target =3D T;
-> +
-> +    #[inline(always)]
-> +    fn visit<'a>(&mut self, key: KeyId, index: Index, value: DecoderValu=
-e<'a>) -> Result<bool> {
-> +        if key !=3D KEY_ID {
-> +            Ok(false)
-> +        } else if index !=3D Index::new::<0>() {
-> +            // Single values being set must be at index 0.
-> +            Err(EINVAL)
-> +        } else {
-> +            // Overwrite and take the latest value here.
-> +            self.0 =3D value.try_into()?;
-> +            Ok(true)
-> +        }
-> +    }
-> +
-> +    #[inline(always)]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        Ok(core::mem::take(&mut self.0))
-> +    }
-> +}
-> +
-> +impl<T: for<'a> TryFrom<DecoderValue<'a>, Error =3D Error>, const KEY_ID=
-: KeyId> Schema
-> +    for Key<Option<T>, KEY_ID>
-> +{
-> +    type Target =3D Option<T>;
-> +
-> +    #[inline(always)]
-> +    fn visit<'a>(&mut self, key: KeyId, index: Index, value: DecoderValu=
-e<'a>) -> Result<bool> {
-> +        if key !=3D KEY_ID {
-> +            Ok(false)
-> +        } else if index !=3D Index::new::<0>() {
-> +            // Single values being set must be at index 0.
-> +            Err(EINVAL)
-> +        } else {
-> +            // Overwrite and take the latest value here.
-> +            self.0 =3D Some(value.try_into()?);
-> +            Ok(true)
-> +        }
-> +    }
-> +
-> +    #[inline(always)]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        Ok(self.0.take())
-> +    }
-> +}
-> +
-> +impl<T: Default + Copy, const N: usize, const KEY_ID: KeyId> Schema for =
-Array<T, N, KEY_ID>
-> +where
-> +    for<'a> &'a [T]: TryFrom<DecoderValue<'a>, Error =3D Error>,
-> +{
-> +    type Target =3D ArrayVec<T, N>;
-> +
-> +    fn init() -> impl Init<Self> {
-> +        init!(Self {
-> +            vec <- ArrayVec::init_with::<Infallible>(|_| Ok(())),
-> +        })
-> +    }
-> +
-> +    fn visit<'a>(&mut self, key: KeyId, index: Index, value: DecoderValu=
-e<'a>) -> Result<bool> {
-> +        if key !=3D KEY_ID {
-> +            return Ok(false);
-> +        }
-> +        // Require to be at index 0
-> +        if index !=3D Index::new::<0>() {
-> +            return Err(EINVAL);
-> +        }
-> +        // Reject oversized and take the latest value.
-> +        self.vec.clear();
-> +        self.vec.extend_from_slice(value.try_into()?)?;
-> +        Ok(true)
-> +    }
-> +
-> +    #[inline(always)]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        ArrayVec::init_with(move |dst| {
-> +            dst.extend_from_slice(&self.vec)?;
-> +            self.vec.clear();
-> +            Ok(())
-> +        })
-> +    }
-> +}
-> +
-> +/// A schema field for a key that must be present.
-> +///
-> +/// `finish` fails with `EINVAL` if no value arrived for the key.
-> +#[repr(transparent)]
-> +pub(crate) struct Required<T, const KEY_ID: KeyId>(Key<Option<T>, KEY_ID=
->);
-> +
-> +impl<T: for<'a> TryFrom<DecoderValue<'a>, Error =3D Error>, const KEY_ID=
-: KeyId> Schema
-> +    for Required<T, KEY_ID>
-> +{
-> +    type Target =3D T;
-> +
-> +    #[inline(always)]
-> +    fn visit<'a>(&mut self, key: KeyId, index: Index, value: DecoderValu=
-e<'a>) -> Result<bool> {
-> +        self.0.visit(key, index, value)
-> +    }
-> +
-> +    #[inline(always)]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        (self.0).0.take().ok_or(EINVAL)
-> +    }
-> +}
-> +
-> +impl<T, const KEY_ID: KeyId> Default for Required<T, KEY_ID> {
-> +    fn default() -> Self {
-> +        Self(None.into())
-> +    }
-> +}
-> +
-> +/// Expects objects specified sequentially with index starting from zero=
-.
-> +pub(crate) struct Accumulated<S: Schema> {
-> +    current_index: Index,
-> +    current: S,
-> +    current_started: bool,
-> +    next: S,
-> +    accumulated: KVVec<S::Target>,
-> +}
-> +
-> +impl<S: Schema + Default> Accumulated<S> {
-> +    /// Creates an empty accumulator.
-> +    pub(crate) fn new() -> Self {
-> +        Self {
-> +            current_index: Index::new::<0>(),
-> +            current: S::default(),
-> +            current_started: false,
-> +            next: S::default(),
-> +            accumulated: KVVec::new(),
-
-Do we want to call `assert_schema_size_reasonable` somewhere here as
-well? Also, should this be a `Default` implementation?
-
-> +        }
-> +    }
-> +
-> +    fn take_vec(&mut self) -> Result<KVVec<S::Target>> {
-> +        if self.current_started {
-> +            self.accumulated
-> +                .try_push_init(self.current.finish(), GFP_KERNEL)?;
-> +            self.current_started =3D false;
-> +        }
-> +        self.current_index =3D Index::new::<0>();
-> +        Ok(core::mem::take(&mut self.accumulated))
-> +    }
-
-This seems to be only called by `finish`, let's inline it there?
-
-> +}
-> +
-> +impl<S: Schema + Default> Schema for Accumulated<S> {
-
-If this ok that this doesn't provide an `init` implementation? Because
-the default one returns a value on the stack, which IIUC can grow rather
-consequently for an `Accumulated`?
-
-> +    type Target =3D KVVec<S::Target>;
-> +
-> +    fn visit<'a>(&mut self, key: KeyId, index: Index, value: DecoderValu=
-e<'a>) -> Result<bool> {
-> +        if index !=3D self.current_index {
-> +            if !self.next.visit(key, Index::new::<0>(), value)? {
-> +                // Unrelated key to us.
-> +                return Ok(false);
-> +            }
-> +
-> +            // Require that objects at index k have all their keys sent =
-before the k + 1 th object
-> +            // can be completed. Require that objects are sent contiguou=
-sly in order from index 0.
-> +            if !self.current_started || index !=3D self.current_index + =
-1 {
-> +                return Err(EINVAL);
-> +            }
-> +
-> +            // The current value must be finished. Push it and swap in `=
-next`.
-> +            self.accumulated
-> +                .try_push_init(self.current.finish(), GFP_KERNEL)?;
-> +            core::mem::swap(&mut self.current, &mut self.next);
-> +            self.current_started =3D true;
-> +            self.current_index =3D index;
-> +            Ok(true)
-
-I don't quite understand how this method works, notably how
-`current_index` evolves. This might require more documentation on
-`Accumulated` itself.
-
-> +        } else {
-> +            let consumed =3D self.current.visit(key, Index::new::<0>(), =
-value)?;
-> +            self.current_started |=3D consumed;
-> +            Ok(consumed)
-> +        }
-> +    }
-> +
-> +    #[inline(always)]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        self.take_vec()
-> +    }
-> +}
-> +
-> +impl<S: Schema + Default> Default for Accumulated<S> {
-> +    fn default() -> Self {
-> +        Self::new()
-> +    }
-> +}
-> +
-> +/// A schema field that scatters indexed values into an array of `N` slo=
-ts.
-> +#[repr(transparent)]
-> +pub(crate) struct Indexed<T, const N: usize, const KEY_ID: KeyId, As =3D=
- T>([T; N], PhantomData<As>);
-
-Can we elaborate a bit on what `As` is supposed to be? Not only on this
-site, but generally speaking. I have a hard time coming with a
-consistent definition, so a comment would help the reader forge their
-understanding.
-
-> +
-> +/// Copies `elems`, converted to `T`, into `slots` at `start`.
-> +///
-> +/// Fails with `EINVAL` if the window does not fit in `slots`.
-> +fn scatter_window<T: From<As>, As: Copy>(slots: &mut [T], start: usize, =
-elems: &[As]) -> Result {
-> +    let end =3D start.checked_add(elems.len()).ok_or(EINVAL)?;
-> +    // Reject indices outside of the declared array size.
-> +    let dst =3D slots.get_mut(start..end).ok_or(EINVAL)?;
-> +    for (d, &e) in dst.iter_mut().zip(elems) {
-> +        *d =3D T::from(e);
-> +    }
-> +    Ok(())
-> +}
-> +
-> +impl<T, const N: usize, const KEY_ID: KeyId, As> Schema for Indexed<T, N=
-, KEY_ID, As>
-
-Same question as `Accumulated` about the lack of an `init` method -
-maybe we can use `init_array_from_fn` to avoid a stack copy.
-
-Actually that makes me think that maybe the default `Schema::init`
-implementation is not such good an idea, because it makes us overlook
-types where we should override it.
-
-> +where
-> +    T: From<As> + Default,
-> +    As: Copy + for<'a> TryFrom<DecoderValue<'a>, Error =3D Error>,
-> +    for<'a> &'a [As]: TryFrom<DecoderValue<'a>, Error =3D Error>,
-> +{
-> +    type Target =3D [T; N];
-> +
-> +    fn visit<'a>(&mut self, key: KeyId, index: Index, value: DecoderValu=
-e<'a>) -> Result<bool> {
-> +        if key !=3D KEY_ID {
-> +            return Ok(false);
-> +        }
-> +        let start =3D index.cast::<usize>().get();
-> +        // Accept both scalar vs scattered array setting for flexibility=
-.
-> +        match <&[As]>::try_from(value) {
-> +            Ok(elems) =3D> scatter_window(&mut self.0, start, elems)?,
-> +            Err(_) =3D> scatter_window(&mut self.0, start, &[As::try_fro=
-m(value)?])?,
-> +        }
-> +        Ok(true)
-> +    }
-> +
-> +    #[inline(always)]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        init_array_from_fn(|i| Ok::<_, Error>(core::mem::take(&mut self.=
-0[i])))
-> +    }
-> +}
-> +
-> +impl<T: Default + Copy, const N: usize, const KEY_ID: KeyId, As> Default
-> +    for Indexed<T, N, KEY_ID, As>
-> +{
-> +    fn default() -> Self {
-> +        assert_schema_size_reasonable::<Self>();
-> +        Self([T::default(); N], PhantomData)
-> +    }
-
-Mmm that could be a pretty large object. Where are these `default`
-methods called? Do we want to leverage `init` instead?
-
 <...>
-> +    // Tests that a schema too large for the stack decodes on the heap.
-> +    #[test]
-> +    fn decode_large_schema_on_heap() -> Result {
-> +        const BLOB_KEY: KeyId =3D 0x1400;
-> +        const BLOB_VALUE: &[u8] =3D &[0xab; 100];
+> +impl RegKey {
+> +    // Define the Key IDs read/written by GSP.
+> +    const REGKEY_NAME_KEY: KeyId =3D 0x3070;
+> +    const REGKEY_VALUE_U32_KEY: KeyId =3D 0x3071;
+> +}
 > +
-> +        nvkv_decode! {
-> +            struct BigSchema =3D> BigDecodeable {
-> +                blob: Array<u8, 2048, { BLOB_KEY }>,
-> +            }
+> +impl Encodable for KVVec<RegKey> {
+> +    fn encode(&self, encoder: &mut Encoder) -> Result {
+> +        for regkey in self {
+> +            regkey.encode(encoder)?;
 > +        }
-> +
-> +        struct BigDecodeable {
-> +            blob: ArrayVec<u8, 2048>,
-> +        }
-> +
-> +        let mut encoder =3D Encoder::new();
-> +        encoder.encode_array8(BLOB_KEY, Index::new::<0>(), BLOB_VALUE)?;
-> +        let serialized =3D encoder.finish();
-> +
-> +        let mut schema =3D KBox::init(BigSchema::init(), GFP_KERNEL)?;
-> +        let decoder =3D Decoder::new(&serialized, UnknownKeyPolicy::Erro=
-r);
-> +        let decoded =3D KBox::try_init(decoder.decode(&mut *schema)?, GF=
-P_KERNEL)?;
-> +
-> +        assert_eq!(*decoded.blob, *BLOB_VALUE);
 > +        Ok(())
-> +    }
 
-Same as the encoder, it would be nice to exercise the error paths a bit
-more in the tests.
+Maybe this is just me misunderstanding, but how are the keys
+sequentially sent here? Because I don't see any mention of an index, and
+`Key::encode` hardcodes `Index::new::<0>()`, so how are these supposed
+to be decoded into an array? The `gsp_init_request` test below only adds
+one key to its `regkeys`, can we add at least another one to see what
+happens and verify that the received content decodes as expected on top
+of checking its length?
+
+Also drive-by design question: do we expect to have bidirectional types,
+i.e. types that need to go through `nvkv_encode` and `nvkv_decode`?
+Because I guess there would be some mechanical overlap in the
+definitions for that case. Although maybe we can mitigate that with
+another macro. :)
