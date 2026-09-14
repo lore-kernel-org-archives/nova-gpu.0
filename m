@@ -1,67 +1,68 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010012.outbound.protection.outlook.com [52.101.193.12])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013037.outbound.protection.outlook.com [40.93.201.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E080A3E49DE
-	for <nova-gpu@lists.linux.dev>; Mon, 14 Sep 2026 07:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D293905F4
+	for <nova-gpu@lists.linux.dev>; Mon, 14 Sep 2026 07:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.37
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372191; cv=fail; b=JSYcLAJcSmx088/lWqnHG+tJBXqqLMmPR6NSmv/QvdeafV+bCT2cenWzK+f070vJRG5bXpTQ7zB2oTImouZb6auoDul5f2xZ9YdtdF0jgLwAtczFxukr/rq/asWqkeaulj/Y6Iia7d6glMCuudBass/RZGq8op7OL9PU9Aa3f8M=
+	t=1789372198; cv=fail; b=CsEuoT09vvUStZRKTP2vSA/dwIMyjGA6Vw6OmHKKRSqw60LNft+aDovxkvwR6e+++Er9eQlYPyV4+XdESZGGSDeq08CzI/AsjWtzB/EghPY03PcUCCKvWU9dnrdOdihaPTXfYQVdmncEY8fxlxykjj/D874E3N+C46X3Xp136BQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372191; c=relaxed/simple;
-	bh=pRqL6UDnovOjSDq1dj+nvHZwm3Mzvl5hj0z6zQX5P4E=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=enpvJFtp+J6IQSNtWpv7pGEbeXcRGVCU4HP5fOZQ7nzfT5M4HdDIu46V/8nCV5EqxOUGDESG3W5LxYw3MtGqF/ghZAZruY/kWY9tvws17QsFT0X71sbWD9ivdPvEPD7R4meHdezrP/DDGyHVVRW2ed6l9cOkT4+AYE1s5t2SjRI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dzoo484+; arc=fail smtp.client-ip=52.101.193.12
+	s=arc-20240116; t=1789372198; c=relaxed/simple;
+	bh=qvWNNcZ70sQmvwi5pltV22bZXwYvRigRZ2cogFzCEm0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=haCE6aJH/aQUO+tX/ci5UhIW2FeZZ+8p2n+viJXIfhhzJvbMqC4M6E5jk6qW163fG9JAN8eSMXvZozaqUii67/FImkOuVC8wFiKtF0vXG+eYrUz01GXv1b3j4/2UclyOOlxaNbctj5wDcHu/b9NxuF78HSDtFZIvyl9cNQ0fYX8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HOgPlXU+; arc=fail smtp.client-ip=40.93.201.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dzoo484+"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HOgPlXU+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cK+I1rwfoKAo9FcbnjoSHOlY5oP/1ffszLjRzFiP8vG7GZiDFUPuXKQsN+2v6fr5JN55hlHo4UiozaKJy2yzuodm7CWUZKz46lLLxPtkupeLjWW3BVPjn2FOuMiWyA3qLlnawCJJO03lpQ0w3TYHBzGT3cUn14baZ0Tmp7aKIQ7UwRu8/Jz8Dj9iCDoEbFSNUqnGbK1YtW29m/SRI20yz3+9XravyVsFZLDCm/CPd4NYqkA44TrnM6QNl2X4eu2P6w2kIi5nYM2wh0kqza/ryGj9zRYMPaWBV5b47J9fqMPWMoYrkAR4BO8Q08VvelDyyexS2nv/txNs2iPsSV+OHg==
+ b=slNG3jVsOFGtg60PlHJOGRXOI6uuptaa1NQpLy8wI4n5AlT2nq/y2ZaZ8ZZAaB8K3/re5Xn2gXXIk6IOL2ZxjVb24uzzZtajfAw7V37Qd2KSiAQ/dgdnvyhPliGxvtBTIatSlVYD0RenvCVjG/Nv5Nw8ioPWV9TXs3Ai5tJVMjubZB5zwGDcOnkbWoyb3BLakON0yZmW7OzQcYqSJHfvdConKrPWn+FwWQ/HeNbozGaQGp/hL8kNkafKEgsGCqZkfoCGUx2ucvnWzQA8Df9GCPHkXfIT4vLU4Tuf4XWhEygWugE4YDWKUMxX57PqRIys/ICJhGnLNt3BfFAa/cu70Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nw1s8U009uocRFg7MdKHNu4nhJCQGf+zZbHDexdU26E=;
- b=GVduz1hs/qiJrr41k0Wc9VGPTwf/zEIBV+uslVBGoJ5v1gQBDzcEW0P3I7HZ1yxhC+ucCK2MuL1o57OAd9WFWH0ScuZ5fvwWlX2iVLIYGcW3T9b5oGIuQOXgf9EaOrk6kHbE6Opbro+/VierQoy7yvgOWVsUkjEhxxfzukuQGOFqvzKGstM9AjjLLjq8nAJ9xFuZ9x4qKzmIzCNzGh4z/R8e+rcryTWjy0n1vUf8Byab/v8F99P1kN2OO9gmX0+MYes82G/KSA1qUVZ8T1OvPVsxGZQx9WMq/uZTqzcckKbhPJ81jDvZm8pW9vMys8R+q3Uxu3qvhpWNLpGknm5TZg==
+ bh=Z3ZBzRfd3bVu7x6HteFzJvPiWQqOLJwEh7AgJNPdAaM=;
+ b=EWaBhTDpfdTobhyVOx9K2DeTl6Ien2M2ICXhT2s0JRTx5mfFpkXHopYmkUb54UXmLZrlaKJ67o1nt2AjDaqnDJhwRyAvzg/OrlJyoV3BjqBPdqxO8mDD0xHIuKG7lb5AeOOgGxy1zXf/g+dkR3nUmgcJu1Z1i5Y30Od7rP6PkfUgJbwUuHjShItSIwEYcohANzhUAahYbVunpSnMrj62IRF63AJRS6dAs7Z6F13cvJVHYjoFPHMZnvFsyivMD3us6+nYPeVdNTDj0ICnUpTTe00LF5mHZLqwbCADCEX5JHgEXbjv9P5XI2izc24uA4twB/DCcXwn8lTexnFbjaQXrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nw1s8U009uocRFg7MdKHNu4nhJCQGf+zZbHDexdU26E=;
- b=dzoo484+5XfCcpst39ckYU6Vw+bhnM5kk6y1SicCqD5zgzlz9ymmyExfjLG+HGQWdW8+9dxC9kMWkkoO2lp2Lpvj/5lqDTHz8fPTOs5H+1TJ6HOybUd/GZScV8qJkLmM8hoUX4OVEHsE3sRU+NY8/d/aOtlJtnNzLCZL71rB4F4kQqQnI4gmFep2Gt6JvO1VH3UKAY0CI66px1ft8WhdFFRzl1w/q0ifgDq5hpR1Xq2c8XEnSDKDXjmlGSYGEknZSPkBIaqS8TPSpLUWh6d2ZyxZNInfkC4Fn/UUWJ32SujcizDNCiLNkrBrjEmFd5TCsYCcEZ9VA4fM3txWCT2r+A==
-Received: from BN0PR03CA0050.namprd03.prod.outlook.com (2603:10b6:408:e7::25)
- by MN2PR12MB4078.namprd12.prod.outlook.com (2603:10b6:208:1de::18) with
+ bh=Z3ZBzRfd3bVu7x6HteFzJvPiWQqOLJwEh7AgJNPdAaM=;
+ b=HOgPlXU+7xA9yoh5uwaCHncQRRDH0rzR9AUsKC4tiG4H9R5lbSeYi1hQMNdo6JgW0kBaAJLCC/NyZejA5oKn63vhgQiE2uEz7Cqz16XXLdpn9VdSoVHIIhzYN9NJBTodajiq1+bCTlf+qKyYXCgiHdYJ09toHUeTn5BsptCmWJzsRLKipxz4I1ORwzffVu6QMG2xJExA7ZzlcqImQhyG3lwqpPqlGCT9omD/4Jbl3ROiLPOCmu9/zjK/w5JNNjvHbLXkodlaw12CUmrhjqLnuimsUNanqsx01oUw3SqsH4xtpNM/zQMPH/N7SoJKvlhmBbCKxHoKkzNtp+1wkJiaGw==
+Received: from BN9PR03CA0635.namprd03.prod.outlook.com (2603:10b6:408:13b::10)
+ by PH7PR12MB7306.namprd12.prod.outlook.com (2603:10b6:510:20a::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 07:49:38 +0000
-Received: from BN3PEPF00022BCD.namprd03.prod.outlook.com
- (2603:10b6:408:e7:cafe::24) by BN0PR03CA0050.outlook.office365.com
- (2603:10b6:408:e7::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Mon, 14 Sep
+ 2026 07:49:46 +0000
+Received: from BN2PEPF0000A891.namprd04.prod.outlook.com
+ (2603:10b6:408:13b:cafe::97) by BN9PR03CA0635.outlook.office365.com
+ (2603:10b6:408:13b::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 07:49:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ 14 Sep 2026 07:49:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN3PEPF00022BCD.mail.protection.outlook.com (10.167.248.169) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF0000A891.mail.protection.outlook.com (10.167.248.183) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 07:49:37 +0000
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 07:49:46 +0000
 Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
- 2026 00:49:20 -0700
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 14 Sep
+ 2026 00:49:29 -0700
 Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
  (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
- 2026 00:49:19 -0700
+ 2026 00:49:28 -0700
 Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
  with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Mon, 14
- Sep 2026 00:49:11 -0700
+ Sep 2026 00:49:20 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
@@ -75,10 +76,12 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH v2 00/32] Introduce NVIDIA vGPU manager
-Date: Mon, 14 Sep 2026 10:48:35 +0300
-Message-ID: <20260914074907.1399629-1-zhiw@nvidia.com>
+Subject: [PATCH v2 01/32] gpu: nova-core: gsp: pass boot context through setup helpers
+Date: Mon, 14 Sep 2026 10:48:36 +0300
+Message-ID: <20260914074907.1399629-2-zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914074907.1399629-1-zhiw@nvidia.com>
+References: <20260914074907.1399629-1-zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -90,217 +93,221 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCD:EE_|MN2PR12MB4078:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb75cd37-b56d-42c5-0f3a-08df1234b9b0
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A891:EE_|PH7PR12MB7306:EE_
+X-MS-Office365-Filtering-Correlation-Id: a86dcf38-89b5-434b-c34a-08df1234bf07
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|5023799004|11063799006|56012099006|10067099003|18002099003|6133799003|3023799007|13003099007;
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|36860700016|82310400026|3023799007|10067099003|6133799003|56012099006|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	FDbX0WwEY1V1/kdqwN609Kn1tbzw2H8a2yc/2qqkS08dejjaEL9PPGhGa7Rd3caJZF0giyNMOExnV+dU4Dc4DpBtSn4RugIRNSXknnwwdBmySCZ94oyiCogR6KpfmO895+ypCu9clyOqOsxOoL2uhYHiZa2mcVCt0W8AKpBEQGTztBq5kNZ6GVXqF0NX0Ydwk7zWXcAwgV1iBtfMUrJqC1P5090ErOFlt6g4EoyDxfF8ETxUyF7+sN1ttnmOknM4qIMbl4wp/gV22nkAFOoD1k+w52LVDKepFoIXxldESqPtG54Xw4kKlM4qk+C674WSJ/crcS2E2MM59ZcaN1vZQ15j7/VyQlqSC/Dlh4wYggebPdIsH9DynQERlG2+Bz0+m7c6N0duT3rO5Av7zSXCTE1B9qEQLiIBC13Ks0TGt+rHKJ2kjv443MI2xpv+Swv4elHk9GSvRFHwm6EVbm46MFlHxqZcum272D1fgpCztHgzYec7VhI9p3M/tTHw6j5nfo31fvyaq+lpO6p7v2sWuv6klz5P3ZEljpqhtUXi7UV+ZoGwFahz45rUEw3dbbFZrKkikEvo3HZcpDO5H8FT16o2wVsdb3SIJjPi+e70G9s652T667/pJ2Ye4SRy/AW18VHRPE92yucSdOM1LZ7IpZqKC1A/SwD+XBj4pOR0YwC0ECUR6iCeXp9lNsNTNlZtEbsyWBhjplcN4T6u/y7Tbw==
+	GjakcYiFF9TOXuWyEQWknvHLBSIVWzJrOMWqLwCdbKYXAyQxQDY+Mia0ckcSVUNrLsV1ydKnJHFRL3NwmMozzmLrdrVhxJbFMPpJ8obAC2Ae00HAHIITKKoUd9F3IwBwHc0PQB9AlpmcTrbt6O7fH8fLHVMW76zRRFXl3rdhttsH9NROJs87Vk+H30jA/OLXAWADBptJT2uByrlsFyDRhR7a0isEB07JHGlPJ8ZVSAoiHigyXcntQJDXCwUWv5j51zExRY7nlHirF3Xgf9x/bHRhjpmlZqIdau5AhzjirRoSNwesbKiSjnuYSwMYA2puTXZ+i6aEvRxgCZVp4/IdhOBPITVsw5QNB8vtXijMPu03LHYj3VPN4IRCND1mwty+VjjVPtuHwgjW4jxkowTcOue5OMz45ZDecemWJ9j6U6q8QG2cGrzmkwSAbrfuYJEjzzHE2XYAVPJfz0cS0aRHaZako4GN2WNeYnjshsRDoIOunj7RGDgf3w6uA/7/Ymi2QVrCk+gOTOVC9jXczW1+7lZo9k6hUBEwu6h2nwibONhd1fk7vt7jZPbQZ6DNb509seA8dOSq6TL6zCXc8PIW81TwZhUPj6xhoLksWb9Rf+nfFEs6PEyWQZL5cZX8VogrtZv956jJ+f/iUvM2CuqRJeKWNrD5k4CSgfw0KF7eEJZOUmmVf35dldm9Sj6/jbzxBUv92PUj5Jo6OM70criCHA==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(5023799004)(11063799006)(56012099006)(10067099003)(18002099003)(6133799003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(3023799007)(10067099003)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	nemMnR0GgmAvPBAArM7BKQSiSAItOlTYGEGbt8N7OlTuAGfN4FsXDqSbbSNY5+wEKPbWFVQq4I+knFQCwl8kgNKMETMwlCSt05QS5N1bchKZamwgEGrlnTPFBBx2WLRuWn2mfBsxCnAaC9RvR5HJnvujDa5oP3L/2mqtGeLtaZBreXb872/aOlAEz1IHRMqMiP3p1lAuQH5amkAUHAoKZVLpvCGIqCBRxz+5q4rcdQObPE+Spec6cUGHFlcIrK3ACxOeCdv7mBDCp3UD86nELElnOI9pIkHkg/whHu2le4Dusp1GTV9qnf5IwsSF1L/aRYApyG2AkWp5DAMA2SMLoQgwFN6gsmeHVX+1X9QFJDACHm73PHIKoKgDcJPKF2J8/JqTOlDFYZpAqJ+2U5qPAnp6RUfNx/5J30SlVgdWJ15BhM4ymqEl1vx7Ov07u8UQ
+	fYH3CMbT1GdjhvS6vDpaYOkV61gGHn08Ed+ooFiWWXokNnFEkIttDYaoZJ0fpYrpzldmZCzk+K+n6mRlJ1ovQEZgxhnEWb9v9+XvyXwpHpQT2NcZ9jmtMjXGEpqpMdam43NND8A1/EuM4L+Q33JozRevxrysKICDFvtIz4Y5lfVkqYmSF6tMB3X7m6RoFfyznaT3XQntO+NUQ0BluC3Ra5NDVZP2jePlVC6YiUXz+DHcPx8E8QYHZvASN3UnX/gRy92GDaw1dqVWEl1Ds8xwW7zxZ8PkNLQDZfmuOf6D1Y1euUTp6fNMZPE55nGnaj7qWgM1T5s1xE10doZ2A+30oiAknVmVdgM686IgC8SoOE6kiaUSwt1y3Su8NxjYHUw/TnqCreigAHWho5ncODjSY70W9UxI1xCMyxM3bOFp4kYXAWnqMzDsSAwfLtcRuiQx
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:49:37.0909
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:49:46.0695
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb75cd37-b56d-42c5-0f3a-08df1234b9b0
+X-MS-Exchange-CrossTenant-Network-Message-Id: a86dcf38-89b5-434b-c34a-08df1234bf07
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BCD.namprd03.prod.outlook.com
+	BN2PEPF0000A891.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4078
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7306
 
-Add the nova-core support needed to create and manage NVIDIA vGPU
-instances.
+GSP boot unpacks the device, chipset, BAR and vGPU state from its
+context only to pass them to framebuffer setup and GSP_INIT helpers.
+The callers duplicate which context fields each helper needs.
 
-The overall control path is shown below. This v2 posting contains the
-nova-core manager; the VFIO lifecycle interface and variant driver are
-split out for separate review.
+Pass GspBootContext through the framebuffer sizing and GSP_INIT payload
+helpers. Read the device and mode where they are used, including the
+VF topology and WPR2 heap helpers. Keep mode detection, ownership and
+firmware values unchanged.
 
- +-----------------------+         +-----------------------+
- | Linux guest           |         | Windows guest         |
- | NVIDIA guest driver   |         | NVIDIA guest driver   |
- +-----------+-----------+         +-----------+-----------+
-             |                                 |
- +-----------v-----------+         +-----------v-----------+
- | QEMU (VFIO user)      |         | QEMU (VFIO user)      |
- +-----------+-----------+         +-----------+-----------+
-             +----------------+----------------+
-                              |
-                      +-------v-------+
-                      |   VFIO core   |
-                      +-------+-------+
-                              |
-        +---------------------v---------------------+
-        | NVIDIA vGPU VFIO variant driver           |
-        +---------------------+---------------------+
-                              |
-              +---------------+----------------------+
-              | binds PCI VF                         | PF lifecycle API
-              |                                      | open / close / reset
-              v                                      v
-     +--------+--------+               +-------------+-------------+
-     |    PCI VF(s)    |               | nova-core (PF driver)     |
-     |  (virtual GPU)  |               |       vGPU Manager        |
-     +--------+--------+               |     VRAM / channels ...   |
-              |                        +-------------+-------------+
-              |                                      |
-+-------------v--------------------------------------v----------------+
-|                      NVIDIA physical GPU                            |
-|            VF resources                 PF / GSP / VRAM             |
-+---------------------------------------------------------------------+
+No functional change is intended.
 
-On the nova-core side, the PF driver owns the GPU firmware-facing part
-of vGPU management. It already detects vGPU mode before GSP boot and
-supplies the SR-IOV topology to the GPU System Processor firmware
-(GSP-RM). This series extends it to:
+Cc: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ drivers/gpu/nova-core/fb.rs            | 26 +++++++++++---------------
+ drivers/gpu/nova-core/gsp/boot.rs      |  2 +-
+ drivers/gpu/nova-core/gsp/commands.rs  | 25 +++++++++----------------
+ drivers/gpu/nova-core/gsp/hal/gh100.rs |  2 +-
+ drivers/gpu/nova-core/gsp/hal/tu102.rs |  2 +-
+ 5 files changed, 23 insertions(+), 34 deletions(-)
 
-  - Retain the firmware-reported VMMU segment size and FIFO engine
-    ordering after GSP_INIT, together with nova-core's channel capacity.
-  - Add VramBlock and VramRegion ownership plus BarMapping for bounded CPU
-    mappings of VRAM-backed control structures.
-  - Query GSP-RM through its command queue for the vGPU type already
-    assigned to a VF and its properties.
-  - Build a layout-validated pool of paired guest VRAM and management-heap
-    slots for the vGPU type, reserve contiguous channel ranges, and keep
-    live allocations in a per-PF instance registry.
-  - Use the typed r000 firmware bindings for control and response layouts,
-    message IDs, and firmware-defined region sizes.
-  - Handle GMC transactions over the GSP queues, match GMC replies by
-    command and sequence, dispatch interleaved RM RPCs from the shared
-    GSP-to-CPU message queue, and consume stale GMC messages.
-  - Implement the GMCAPI boot, shutdown, and cleanup operations with
-    typed channel and resource maps for each plugin instance.
-  - Establish the BAR1-backed PluginRpc channel, negotiate its protocol,
-    and send the VM configuration and plugin BME-state update.
-  - Use per-instance CeUtils channels to scrub guest VRAM on allocation
-    and shutdown. If ownership or completion is uncertain, keep the
-    affected VRAM and channels out of the allocators.
-  - Expose the three per-instance plugin log buffers through debugfs with
-    the header needed by nvlog_decoder.
-  - Keep resource locking, teardown, and rollback inside nova-core.
-  - Select the firmware-defined 48-VM WPR2 heap when a device advertises
-    more than 32 VFs.
-
-This is a ground-up rework of the earlier vGPU RFC [1]. In particular,
-the vGPU manager has been moved from the VFIO driver into the nova-core
-implementation, and the companion VFIO side no longer carries copies of
-RM firmware headers. The VFIO driver attaches to the VF and uses its
-PF's nova-core state for management, as discussed in that thread.
-
-The patches are organized as follows:
-
-  1-8   Initialize VgpuManager and select the larger WPR2 heap for 48-VF
-        devices.
-  9-12  Add the memory building blocks.
- 13-16  Implement GMC transactions.
- 17-21  Add firmware bindings and allocate instances.
- 22-29  Implement plugin boot and RPC.
- 30-32  Scrub guest VRAM and expose plugin diagnostics.
-
-Changes since v1 [2]:
-
-  - Split the nova-core work into smaller patches and separate the VFIO
-    lifecycle interface and variant driver from this series.
-  - Separate boot state from VgpuManager and use borrowed GPU resources.
-  - Split VramBlock, VramRegion, and BarMapping; separate firmware
-    encoding, command submission, and instance lifecycle operations.
-  - Include build ID/log-header support and introduce command schemas
-    with their consumers.
-
-The series is based on drm-rust-next plus the nova-core r000 GSP,
-NVKV v2, memory-management, SR-IOV, Rust bitmap/id-pool, and PCI
-abstraction work. The exact base commit is recorded below, and the
-complete prerequisite stack is available in [3].
-
-[1] https://lore.kernel.org/kvm/20250903221111.3866249-1-zhiw@nvidia.com/
-[3] https://lore.kernel.org/nova-gpu/20260905081116.106613-1-zhiw@nvidia.com/
-[2] https://github.com/zhiwang-nvidia/nova-core/tree/zhi/nova-vgpu-wip-nova-gsp-20260914
-
-Alok Kumar (2):
-  gpu: nova-core: gsp: decode the FIFO engine table
-  gpu: nova-core: vgpu: add VRAM slot allocator
-
-John Hubbard (1):
-  gpu: nova-core: add build ID headers to debugfs log buffer dumps
-
-Zhi Wang (29):
-  gpu: nova-core: gsp: pass boot context through setup helpers
-  gpu: nova-core: gsp: decouple boot context from VgpuManager
-  gpu: nova-core: vgpu: detect boot state independently
-  gpu: nova-core: gpu: add a channel ID pool for vGPU
-  gpu: nova-core: gsp: expose the VMMU segment size
-  gpu: nova-core: vgpu: initialize runtime parameters after GSP boot
-  gpu: nova-core: vgpu: reserve the 48-VM WPR2 heap
-  gpu: nova-core: mm: borrow BarUser for temporary BAR1 access
-  gpu: nova-core: mm: add VramBlock
-  gpu: nova-core: mm: add VramRegion
-  gpu: nova-core: mm: add BarMapping
-  gpu: nova-core: gsp: dispatch RM RPC messages during GMC receive
-  gpu: nova-core: gsp: add synchronous GMC transactions
-  gpu: nova-core: gsp: add status-only GMC transactions
-  gpu: nova-core: gsp: wait for GMC completion events
-  gpu: nova-core: vgpu: add r000 plugin bindings
-  gpu: nova-core: gsp: factor out NVKV payload conversion
-  gpu: nova-core: vgpu: query VF assignments and properties
-  gpu: nova-core: vgpu: add instance create/destroy
-  gpu: nova-core: vgpu: encode vGPU boot requests
-  gpu: nova-core: vgpu: add GSP plugin communication buffers
-  gpu: nova-core: vgpu: add instance boot and shutdown
-  gpu: nova-core: vgpu: initialize GSP plugin RPC buffers
-  gpu: nova-core: vgpu: add GSP plugin RPC transactions
-  gpu: nova-core: vgpu: negotiate the GSP plugin RPC version
-  gpu: nova-core: vgpu: send GSP plugin configuration parameters
-  gpu: nova-core: vgpu: update the GSP plugin BME state
-  gpu: nova-core: vgpu: scrub guest VRAM with CeUtils
-  gpu: nova-core: vgpu: export plugin log buffers via debugfs
-
- drivers/gpu/nova-core/fb.rs                   |  28 +-
- drivers/gpu/nova-core/firmware.rs             |  34 ++
- drivers/gpu/nova-core/firmware/gsp.rs         |  16 +-
- drivers/gpu/nova-core/gpu.rs                  |  68 ++-
- drivers/gpu/nova-core/gpu/channel.rs          |   4 +
- drivers/gpu/nova-core/gsp.rs                  | 206 ++++++-
- drivers/gpu/nova-core/gsp/boot.rs             |   4 +-
- drivers/gpu/nova-core/gsp/cmdq.rs             | 287 ++++++++--
- drivers/gpu/nova-core/gsp/commands.rs         | 105 ++--
- drivers/gpu/nova-core/gsp/fw.rs               |  26 +-
- drivers/gpu/nova-core/gsp/fw/commands.rs      |  39 +-
- .../gpu/nova-core/gsp/fw/r000_00/bindings.rs  | 175 ++++++
- drivers/gpu/nova-core/gsp/hal/gh100.rs        |   2 +-
- drivers/gpu/nova-core/gsp/hal/tu102.rs        |   2 +-
- drivers/gpu/nova-core/gsp/nvkv.rs             |  35 ++
- drivers/gpu/nova-core/gsp/nvkv/encode.rs      |  12 +
- drivers/gpu/nova-core/mm.rs                   |   6 +-
- drivers/gpu/nova-core/mm/bar_user.rs          | 145 ++++-
- drivers/gpu/nova-core/mm/vram.rs              | 140 +++++
- drivers/gpu/nova-core/regs.rs                 |  33 +-
- drivers/gpu/nova-core/vgpu.rs                 |  85 ++-
- drivers/gpu/nova-core/vgpu/commands.rs        | 333 +++++++++++
- drivers/gpu/nova-core/vgpu/fw.rs              |  70 +++
- drivers/gpu/nova-core/vgpu/fw/commands.rs     | 457 +++++++++++++++
- drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs | 495 ++++++++++++++++
- drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs  | 169 ++++++
- drivers/gpu/nova-core/vgpu/instance.rs        | 538 ++++++++++++++++++
- drivers/gpu/nova-core/vgpu/log.rs             | 171 ++++++
- drivers/gpu/nova-core/vgpu/scrubber.rs        | 162 ++++++
- drivers/gpu/nova-core/vgpu/vram.rs            | 146 +++++
- 30 files changed, 3783 insertions(+), 210 deletions(-)
- create mode 100644 drivers/gpu/nova-core/mm/vram.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/commands.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/fw.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/fw/commands.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/instance.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/log.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/scrubber.rs
- create mode 100644 drivers/gpu/nova-core/vgpu/vram.rs
-
-
-base-commit: 9ff5fd561368ebc3cf1b82a930823ace445564cc
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index 5ceb7760c78e..26e94d908b77 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -174,13 +174,9 @@ pub(crate) struct FbRanges {
+ 
+ impl FbRanges {
+     /// Computes concrete framebuffer ranges required on non-FSP booting architectures.
+-    pub(crate) fn new(
+-        chipset: Chipset,
+-        bar: Bar0<'_>,
+-        gsp_fw: &GspFirmware<'_>,
+-        vgpu_state: VgpuState,
+-    ) -> Result<Self> {
+-        let hal = hal::fb_hal(chipset);
++    pub(crate) fn new(ctx: &gsp::GspBootContext<'_, '_>, gsp_fw: &GspFirmware<'_>) -> Result<Self> {
++        let bar = ctx.bar;
++        let hal = hal::fb_hal(ctx.chipset);
+ 
+         let fb = {
+             let fb_size = hal.vidmem_size(bar);
+@@ -242,7 +238,7 @@ pub(crate) fn new(
+             FbRange(fw_image_addr..fw_image_addr + fw_image_size)
+         };
+ 
+-        let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(chipset, vgpu_state, fb.end)?;
++        let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(ctx, fb.end)?;
+ 
+         let wpr2_heap = {
+             const WPR2_HEAP_DOWN_ALIGN: Alignment = Alignment::SZ_1M;
+@@ -298,11 +294,11 @@ pub(crate) fn wpr2_range(bar: Bar0<'_>) -> Option<Range<u64>> {
+ }
+ 
+ /// Computes the number of VF partitions and the WPR2 heap size from the vGPU state.
+-fn wpr2_heap_params(chipset: Chipset, vgpu_state: VgpuState, fb_size: u64) -> Result<(u8, u64)> {
+-    Ok(match vgpu_state {
++fn wpr2_heap_params(ctx: &gsp::GspBootContext<'_, '_>, fb_size: u64) -> Result<(u8, u64)> {
++    Ok(match ctx.vgpu.state() {
+         VgpuState::Disabled => (
+             0,
+-            gsp::LibosParams::from_chipset(chipset).wpr_heap_size(chipset, fb_size)?,
++            gsp::LibosParams::from_chipset(ctx.chipset).wpr_heap_size(ctx.chipset, fb_size)?,
+         ),
+         VgpuState::Enabled { total_vfs } => (
+             u8::try_from(total_vfs.get()).map_err(|_| EINVAL)?,
+@@ -328,10 +324,10 @@ pub(crate) struct FbSizes {
+ 
+ impl FbSizes {
+     /// Computes the framebuffer region sizes for GSP-FMC boot.
+-    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, vgpu_state: VgpuState) -> Result<Self> {
+-        let hal = hal::fb_hal(chipset);
+-        let fb_size = hal.vidmem_size(bar);
+-        let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(chipset, vgpu_state, fb_size)?;
++    pub(crate) fn new(ctx: &gsp::GspBootContext<'_, '_>) -> Result<Self> {
++        let hal = hal::fb_hal(ctx.chipset);
++        let fb_size = hal.vidmem_size(ctx.bar);
++        let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(ctx, fb_size)?;
+ 
+         Ok(Self {
+             frts_size: hal.frts_size(),
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 38ab737ad798..fa879685bac5 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -123,7 +123,7 @@ pub(crate) fn boot(
+ 
+         // GSP-RM discards any RPC that reaches it before GSP_INIT, so the system information
+         // and the registry keys go inside that one request.
+-        let init_payload = commands::build_gsp_init_payload(pdev, chipset, ctx.vgpu.state())?;
++        let init_payload = commands::build_gsp_init_payload(ctx)?;
+         let bootloader = if super::hal::uses_generic_bootloader(chipset) {
+             Some(GenericBootloader::new(dev, chipset, gsp_falcon)?)
+         } else {
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index 6d250548c165..ce1761c2f398 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -8,14 +8,12 @@
+ };
+ 
+ use kernel::{
+-    device,
+     pci,
+     prelude::*,
+     transmute::AsBytes, //
+ };
+ 
+ use crate::{
+-    gpu::Chipset,
+     gsp::{
+         cmdq::{
+             Cmdq,
+@@ -40,6 +38,7 @@
+             Encoder,
+             UnknownKeyPolicy, //
+         },
++        GspBootContext,
+     },
+     sbuffer::SBufferIter,
+     vgpu::VgpuState, //
+@@ -103,37 +102,31 @@ pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
+ /// - `ENODEV` if vGPU mode is enabled but the SR-IOV capability is missing.
+ ///
+ /// Errors reading the PCI configuration or decoding the VF BAR layout are propagated as-is.
+-pub(crate) fn build_gsp_init_payload(
+-    pdev: &pci::Device<device::Bound>,
+-    chipset: Chipset,
+-    vgpu_state: VgpuState,
+-) -> Result<EncodedStream> {
++pub(super) fn build_gsp_init_payload(ctx: &GspBootContext<'_, '_>) -> Result<EncodedStream> {
+     let mut regkeys = KVVec::new();
+     for &(name, value) in REGISTRY_ENTRIES {
+         regkeys.push(RegKey::new(name, value), GFP_KERNEL)?;
+     }
+-    if matches!(vgpu_state, VgpuState::Enabled { .. }) {
++    if matches!(ctx.vgpu.state(), VgpuState::Enabled { .. }) {
+         regkeys.push(RegKey::new(b"RMSetSriovMode\0", 1), GFP_KERNEL)?;
+     }
+ 
+-    let vf_info = build_vf_info(pdev, vgpu_state)?;
++    let vf_info = build_vf_info(ctx)?;
+ 
+     let mut encoder = Encoder::new();
+-    GspInitRequest::new(pdev, chipset, regkeys, vf_info).encode(&mut encoder)?;
++    GspInitRequest::new(ctx.pdev, ctx.chipset, regkeys, vf_info).encode(&mut encoder)?;
+ 
+     Ok(encoder.finish())
+ }
+ 
+ /// Builds the optional VF topology portion of the `GSP_INIT` request.
+-fn build_vf_info(
+-    pdev: &pci::Device<device::Bound>,
+-    vgpu_state: VgpuState,
+-) -> Result<Option<VfInfo>> {
+-    let VgpuState::Enabled { total_vfs } = vgpu_state else {
++fn build_vf_info(ctx: &GspBootContext<'_, '_>) -> Result<Option<VfInfo>> {
++    let VgpuState::Enabled { total_vfs } = ctx.vgpu.state() else {
+         return Ok(None);
+     };
+ 
+-    let sriov = pdev
++    let sriov = ctx
++        .pdev
+         .config_space_extended()?
+         .find_ext_capability::<pci::ExtSriovRegs>()?
+         .ok_or(ENODEV)?;
+diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+index 91201b51030e..f91cdd061706 100644
+--- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
++++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+@@ -151,7 +151,7 @@ fn boot<'gpu>(
+         let chipset = ctx.chipset;
+         let gsp_falcon = ctx.gsp_falcon;
+ 
+-        let fb_sizes = FbSizes::new(chipset, ctx.bar, ctx.vgpu.state())?;
++        let fb_sizes = FbSizes::new(ctx)?;
+         dev_dbg!(dev, "{:#x?}\n", fb_sizes);
+ 
+         let wpr_meta =
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index bbdcf754ec13..c3a87e5c7e0b 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -259,7 +259,7 @@ fn boot<'gpu>(
+         let gsp_falcon = ctx.gsp_falcon;
+         let sec2_falcon = ctx.sec2_falcon;
+ 
+-        let fb_ranges = FbRanges::new(chipset, bar, gsp_fw, ctx.vgpu.state())?;
++        let fb_ranges = FbRanges::new(ctx, gsp_fw)?;
+         dev_dbg!(dev, "{:#x?}\n", fb_ranges);
+ 
+         // Declared before the unload guard so that if Booter fails while running, SEC2 is reset
