@@ -1,150 +1,305 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012043.outbound.protection.outlook.com [52.101.43.43])
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF517442386
-	for <nova-gpu@lists.linux.dev>; Tue, 15 Sep 2026 07:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458022; cv=fail; b=KiEISWXZAHVfpM7zjV9tdvwfqM/qNCvhT0ua3WykOlkIW/eMn1QkNww2YH6rOTxeK0Pin6fBf5spF/2E2mKLsTiDSoJdjmT8T+CA7MxFaPFJFQ0QzbEkUio/ccl6CYoiaThxq8up7f0UVoIfzPO4racVnaDlW2vs9CnZVmAT4ZE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458022; c=relaxed/simple;
-	bh=n3YEw6fw7TZ1bnVYrHG2KZTnTuIGR684yGfO9JdlAJQ=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=ekpRAHYb2nHcnFGPATmdPQgYuFymadhRXswuKtl2pnA3o8MhKmiUdLQ78Ef5IuXQM4DG0aC0mbmrhsQHDOwO9F77UNd0KRkAYmgKkG24xZFUYfPVXXQ453nYfYVX0g2o5BZ3pis4HMBVk/+KYZLtr2IBTYUN+7q76nWN8lGiT9c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=U3YjFnCG; arc=fail smtp.client-ip=52.101.43.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812E8353A63
+	for <nova-gpu@lists.linux.dev>; Tue, 15 Sep 2026 18:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789495320; cv=none; b=gpzk6rf/vVbvHxaiiE2z/4F1xyskZgRDdR1tt1kX2swPExlBSoTHtOXoiJqj4W+W9uNjX81EFAX5+octfGUhggaPli7TxYQKmPiEzhzhgmQcwdxSlP6vpRFSvDqsVZWifnn/r8x6ztGEKaqfyET+nThiYqQSgHo33MIH8QqQH0Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789495320; c=relaxed/simple;
+	bh=fKdtexK2tjqwgZC6UBPDUwOYcj+8rOgQ3rItFKL5jBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=El9GxQo/GRTQOgtZHiaYMcgpUS653ChUdViqvpTgF7Pyh5EmTrylcObzmfO8qAJx8BZ0X8pJ8uICDhq7sCl8XVvJl6yZvp7tHxJYx/PGE9bsbbTMeIK2rfePJSsKGYUiQ3b/I0QWtM7q6zJFpR/iVmmWb68AiOnyJajf4Dq3TqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=J7gCj3gQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GYEx2CvT; arc=none smtp.client-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="U3YjFnCG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kvflh2tcMVuF6ZxcCXPXKRXE5T0fBk+t+OsJ//7UdgfWFDHlpy3dUMdKuAJcat+HT0uCSLuPiyMbXk9oSAvQDmgyhWCpXsOF9mUytlbMOt8nw79egPVCuNcUlD6mI2ZIiQWD9H6YJ6v0+7VFWYiGt+83uGxV7hmgE3Ayw9ijosTrW7bCwwhiZL7axlkdgxbNXzJxRP7ZO1m2lM5TQ+4jfiKUydjDpe01e1WvGXoiwyUtv3SdYLnCyG5D6wJPF4IUC0B2cuDHCNFprpGVYeCMEi0MAn0mBbhEklUJMyu7MN8DND+tthESMliVJK9Qq8/cEaIkBPaoiHv9uIDDJrm5TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n3YEw6fw7TZ1bnVYrHG2KZTnTuIGR684yGfO9JdlAJQ=;
- b=KtixcT9GqNbt42YiPPS0Qud9gI//3EUnzzEw12kip4GYIHdeUuC8C7UcHmnOOV8L/8uOrvwjpig6Zh0wsyPGzf/VAHe31XYl0zQiY8qnlZdS0JbjzCdqis5I/j209hpWq3xFaVIZ3/gD4r1DrJERJ4kV+zZOcE2kfUH/kbcS5svlhLGcKGq4RZLUX/0SGfJWBrpRWXWis/wUfseC+uorRwk4YTdleLZWT6tCYy/MCqBIfhcLK4GmFKRxOZkKfAMwJiOQJEo+9trydce+bzEH+EKlE9U6+6Hfqsa+IlJreMX6TOaJgGkztfLqXcb8ZQG9pE5AqFrbUbKwhSqOxky+uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n3YEw6fw7TZ1bnVYrHG2KZTnTuIGR684yGfO9JdlAJQ=;
- b=U3YjFnCGHGj4PJediLtN9iQiZ2xqJflqKOGVze/q/sujos05o12+evOFX4cwl0dZvUuYhmY8B/y09XJQ0GduUmm3jZ0th8dr4s9JIP4qXlD6JAL2qaUNfMp1ZV7E3jgjnwhV8acDW5o7JzKD/ieexRuXeNzbANjEXTAw7+klQpkUww/d1b0voTaT7hPeC5mM9FUAhDmOJJXN69mpPEGBSgPp7Lu83kcYa6V1qTp6Cx7pTRBb/BlMITMgzxMzXDzcX2N96VUS4UtMtUbC1i6EHHI0EY2QvrtxAT2o0oTfBelDatgT1U6fSoosl6DCx5+H5hqXX/QbyJg99M2aURAQfg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DM3PR12MB9436.namprd12.prod.outlook.com (2603:10b6:8:1af::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 07:40:15 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 07:40:13 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 15 Sep 2026 16:40:10 +0900
-Message-Id: <DLFPX99IXAOX.39ZAHT24TBD3O@nvidia.com>
-Cc: "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] rust: prelude: add `num::cv`
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
- <20260902-cv-v3-2-0f90659e711d@nvidia.com>
-In-Reply-To: <20260902-cv-v3-2-0f90659e711d@nvidia.com>
-X-ClientProxiedBy: FR3P281CA0136.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="J7gCj3gQ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GYEx2CvT"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id D4EFB7A01E7;
+	Tue, 15 Sep 2026 14:01:55 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Tue, 15 Sep 2026 14:01:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789495315;
+	 x=1789581715; bh=897+qm17sL3v0FP/MXszEOUStPXgIyHus6lgEd1AaDM=; b=
+	J7gCj3gQ8T1YMxOrybpfM3eJeu+7dLzxdSPDUqlqdjUyj5dIiPAPu9txVyDp3UbN
+	X8I1/ZvbguBtP24VYZxRirAX1PMsPkOzXlGGZ2hVGFG7tFzSn8TP8wQS/Qv0DiHi
+	rkkAE9OpFNm1SlhiBv5OngbVZoiYCYba1z1VZ+3ocJdHc7yQDhr0l9zeVdWSpS1E
+	I3sx2AfobqgcWvXNegog6h2BinwKSzIjS8AiaB9q67el/wlqf4pECTRuM26+9ay6
+	NbMRtwbW9wsI069dmrWY079J1niPTavcNxqIbiSPv7Yqnv2iKvh/nDwsJjUrajHx
+	swsiMsg3xHm0BSgzf+D24A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789495315; x=
+	1789581715; bh=897+qm17sL3v0FP/MXszEOUStPXgIyHus6lgEd1AaDM=; b=G
+	YEx2CvTQP99/MV3tTWrdbpaG43TPFrUVmjGrmZ1l2TLfzxnJkApW2mSArxA71Xih
+	kVYcfXO1Jtl9yqOAqqtHQPmIQizeq5BBgClqJVJrwLfsR91ZzvvgvEY+HgQL7xVL
+	Mg7UGOmysCbop4Ucqx/i8xT8JTPESeMG572F0lky66g/0TcfZQFn6oYHnPhBP8ol
+	VaTsRGDdkTtiaMBtAoEfa+M/QedYgKznii4iIfUwe+qrx2njDBs25GGR8WP3RKU4
+	6POk6qRErfFTWuluNxD3LTzrvLrbPTTbZX7E7nbPIZ2nHOAMdi3WFQBhqrScizTC
+	4nSgRF4Q3jOvBpzdh2Exg==
+X-ME-Sender: <xms:E4ipaopPeXZAXgWmXKzlDRjn6yffNqooY7ikhbvy33BcNRKRxm9crQ>
+    <xme:E4ipag9-TgvcUMnXlWve1lI5bZ3KyqCTREQnUF6BJga1WpemDaof38xoRun1EXrvO
+    7DBjSDJ35eTA6ZxR3j9d0HQ1495NU_w31VSCFxSjK1MSvhGtBQ--w>
+X-ME-Received: <xmr:E4ipar6DVKq4ItyMYgMbHwO2cMgvFa7fbhc9O5M9jjv-rN5qci2lJ6-CbydAZg>
+X-ME-Proxy-Cause: dmFkZTFrwg/AmzJDC2h9TGXdHq7epJk+TWr6gcC4uNj3nLfncBMy7wyNCRNwIHDDhN2FMv
+    HVj36YZNRMssben7AyJ2T9X7Y3vS6FzNIEartcApiYw9lKZsCKHE9I2peGX9yCt0OqJF6i
+    ZYU8fjaMzSRXShG0SUxqzgcxzpeF6gRg5Ml2UeWGy8dlfZm1osMEVJr90fc5sqZuF3PE5A
+    KfDhUypFxWvM32W7sGAKH/E7L6SX7fKOi2xJftKxUNrjmDdowJ6SLs7oemlmVIJ8gcdudX
+    7YbGIqRnJE2550dwDamMuh/Li1OQbuet+YoML56aZV30RM2hx2MQ7j3kctY32rkBOOebjd
+    Dp3Sri6n5D3cJO204Gl9ugI7DWMQDrjIQSY2B6vbxBuXgYX1F/JLSrJ8lxTo6rLj6IfDWJ
+    vIJxXlsTEzgWwseolk6CCvnrRB9CvBD13/lkB5xHjYiVO7fj1Bwr5RdpuUhoNSWzuZM8zK
+    fisTt0hvonavAf3gNHeB2PxiRoxY11ublPU2pXVxZsLDJKK03/IESTVZQJqSUR5ox9yfcx
+    ptE3XlQ4R0oNA8U0jjAi7FvCshNtHd/muBXwgeSMtfpLwQPkppNUtq8pSHUrSMlcCXRJMp
+    MK2ndT6YpfIksn48Sp1HmBE4jEAt/vAw5BB8Cm9q/PTbMPUdjvHrvYU5X0qg
+X-ME-Proxy: <xmx:E4ipas3hrST8h-AwAsa-qI7ObI9eICSUQHV3MVNB_dgonZ9sB1YdaA>
+    <xmx:E4ipalhvdGOocJQwexgRHqc2XNrqz2hVFUR44WB9mKTkjulbi-uU1A>
+    <xmx:E4ipangojBnbKKm3-r-rAro-IDWMxq0tcLuyQXEpprsHtrwKyk3Q8g>
+    <xmx:E4ipahIhHjbDseO8xs06MVHiIqbhEDYyIzw6froE5hhiM_cPc1yHMQ>
+    <xmx:E4ipaoDcLUURKCOzO6J6ZHvyF9KmgQZFKhRAdUTpdZVlGzil6OQuuMM_>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 15 Sep 2026 14:01:52 -0400 (EDT)
+Date: Tue, 15 Sep 2026 12:01:48 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>,
+ <kvm@vger.kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
+ variant driver
+Message-ID: <20260915120148.7548a8ca@shazbot.org>
+In-Reply-To: <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
+References: <20260905081116.106613-1-zhiw@nvidia.com>
+	<20260905081116.106613-13-zhiw@nvidia.com>
+	<DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
+	<20260914121217.70fa0d93@shazbot.org>
+	<DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM3PR12MB9436:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7c48e60-89a7-4fcc-40b5-08df12fc940b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	VwplJvDX9xGBk5t+VTIXtpGC3DGilF7j/1to4ekElK69zg14h2Q+Z2jS+7lOu9w4Z6eJXyFgvkDvMhEFEnRMmb4F1IIkbHGlzQ87YqEwTMW+7LdacV4PHNjHIxd3w/AiqKaYkdKwuAvCU82WycuWyiW8HeLHViPwKK0vHm1WD7NJrxwNN5dxJj5lIcEpMm3ltEy1Ef9DcOs/osFx0C3po/H5Vvzp+3+c7Nl2f/Syx+9wzJ6aqIFA4zSOd/wi5ZgEHSqYi3kb5SExJhJXoOeQVUx97LSHrf2NW3pyo1Qtu+eUosgrmXcjjEmZT72xeZqVxsIleRW+a4fc/iCgDTns73padq3xaVg9vVQDIRkbF1ZAZDLYC8gCbyo1mrKe0xUb4PgjUkeid7hqE2xj+gTp02+QXqUUEf/EIwjIIuAgfNLBSn93rTu6BJvQ42l/evD4IpZ9bgfLuvYF2rPTuabPV3oxGCdjBuxgPPj8M1ZkPm8Yc9WCCkNHL1vsmG32OBKfKBvmif3BGD09jXMYzc+zYKoBytWdxQzUIMlxLJ/aQ1WZLsV/jmy7UaLpubusFNCfpSzMj9nEHyjhYRqt+DLZHFUCXjs1Duv5fgIXgVVvNHiJ4bHyXBDh/8NY5FojZfnN87D2Rl55kGFOT6qQGUdnKqwdBfesJ0jf4XxGc+aSUpw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3RialR2Q0ROd0x1aEJtUUROKzF3VEt0ZERXK2xCMS9CY0RxZXVWUzUvUkJ5?=
- =?utf-8?B?NGpyRytIUE1ncTNiTC9IbTlpN3BaZVNSYU9XWC8vSWRiYWR4bWhWZUlQQjNl?=
- =?utf-8?B?TUhPT0liRTdTQzFZb1k2ZUNvODdESDBDL3dYc29VY0lENk5Bcm1lcjdnL3gw?=
- =?utf-8?B?K3ZvMEVjQXByVDRIakdzZFNQWjhJcG02ZXE2Y2pJbjZDdmJmS2t3VnNyVFZM?=
- =?utf-8?B?enhjT3FKRUFXZVU1T0lRK1FWZlFWdk5KYWFVMjhoSEUwVzd4TWNhdXRNbDNW?=
- =?utf-8?B?STZKYjkzR0hJYVl5VUR5Z1p6TTM5MzdEaEppN09iWFpvdmxIRFhEMnVjd3Ru?=
- =?utf-8?B?OFoyRWhKNG41U0dOdmlpaTNVelVjekRDYkx6SXQwMWlNOW56TUxUdWZld09E?=
- =?utf-8?B?ZTdrZWlCd0prOXFzeUF3NFNDTVpWZ0E2ekhqOUp2NUVjWlpZMHNZZTl1SHhZ?=
- =?utf-8?B?SlJ3T2JEMnhIc0dFR3R2MTBQVnZGcjQxU0ZFeC9uK2JFV1VDMEtxT3VJM05W?=
- =?utf-8?B?RGVwS0pua1RpZHpDVlMxeDZXb0JVNjRQMktNZjJLTThuYkc1ejN6Z25Eb3VF?=
- =?utf-8?B?NTZDcFdZS1ZNWCtsRWliSlRnK2dBSW1aRWxlY1FBeGRVK0UrWHRNTlFia1FX?=
- =?utf-8?B?Rlhxd3VaYXlFMjI0cWY1RDJpSHo4TllFZDdEM3h0ZDdEUEpsbkVVUjQxOWpS?=
- =?utf-8?B?ejh5ZEFtM2ZBYjdqbmdwOUtXY0piNGtJazY1MG51c1pGVjJFc0JvNmp6di81?=
- =?utf-8?B?U3lwQWJBSWdMRnBCVUxvR3VMYXFOK216SlJrODZKaTI4K1lwZVFCclYvNVNu?=
- =?utf-8?B?d3Bac2RoK2FMeFZibDlna2szTmpBb1I2L1hLVDBCN0xOQStSYXJyM0NkdVpO?=
- =?utf-8?B?WWU3aTA0RlhUYlJPYkdITTdPT0dKUUNnbUNpM1BmNXgrNDhlWnV2bTkraTJn?=
- =?utf-8?B?cGRyTGlGT2ZLVElhY0JyTVRxTDRVTndUM24wWVNHWWRpZksvTUpoazExVTlv?=
- =?utf-8?B?OS9uT0hzR092MCtiRTlvcndVTGpwajQvaGR3T0g5d2dRK0s4YXdCQUdsNEd4?=
- =?utf-8?B?OC9xSTdVR2xmdTZ6Nm9pemxYMDdPemtJVnhaelVpMlhDdFBXU0M4Z3pyeUNU?=
- =?utf-8?B?dFpHR1dJQmVaRlRRb2ppazV0WU4rc2tOM3dxc3pyWnFzb0JUWHBTMlVSMmZD?=
- =?utf-8?B?NEtYa2xBWkpGcFNHcnUxcUZvODdHdjZIdzVCMFJkemkwVEszSG1hZWw5YXlt?=
- =?utf-8?B?eUhITHptSE1LOWlTYXhoRXozK05MaVlndGEwbXd6dG5FUm4zeG40Rk9xU285?=
- =?utf-8?B?NmRJWVY2VmNGUTZsSTRIMmFYVDduZUFGMzIrbjdxWVdZWEkrSnRiRnQ1cUIz?=
- =?utf-8?B?d1hpU0JTUFBxY0d5WGdWMXExaFVtaTZyamJZUUJsaHQ1Z0hONjg3eFNIaTJ5?=
- =?utf-8?B?MXR1QnRRNGt3UzBnSWhKbUxpUHVja1NTS3MzaERSOGxBQ3lxZVhrOXR6Wkto?=
- =?utf-8?B?b3BsWXpCYzhheitQWXIwVjIwRWo2QTYzOW5iWjEzYlZ1VUs1SEYrOVlMM3JV?=
- =?utf-8?B?MVZyTEZOUDlsQ0twOHlBS1lRL3VkTjdKOFlBMGp1d2ttZ2dzbUtlZnRYNEtQ?=
- =?utf-8?B?NmpDZElvcVY5NlMvcjVVQmxLd2xNeENDYWduaXY0djNUdjFDYkNZYmFEY2JF?=
- =?utf-8?B?ZU1YNFJvZW80dzkwYXhGc0dvN1I1c25XK2hBY1c4QnEwelFEZkJ3VGNxRzJv?=
- =?utf-8?B?NzlTVnVESFlmVEZ2cUNYYzNWVnNxZ2hrNUliMk1CMmZuQmsyZS9aWkJ3M25T?=
- =?utf-8?B?bnFQbDZCTVZmdGlialB5M1NOWEN6VXF1V0dwWW1qNktqalc5YW8vNTVNdHoy?=
- =?utf-8?B?Y0dKWndtUlJQWDdvM0J5WWNnbnY5QVNEVHh1bDJScVExQ2ppeWhyYThWYkRJ?=
- =?utf-8?B?UVorVVd4SnVPYmo0eXpoSExhbklBNFBWeVhFcC9sc01nSmpKMFFGcTNaTjkr?=
- =?utf-8?B?SUVlYzBPYm5kSnVyVmpUUVI1cG85QXFKcko0eWpPOFQzY2JycjhOV1Zhc3dB?=
- =?utf-8?B?dnpyS293eFNxNlBaYjJZZ2dhRTdKaUx4RnlNOU5ZWG1wM2JrN252c3J0WWJi?=
- =?utf-8?B?YmhZMUExNW0wK3N5N0Q5U2dlSy9KN1Z3M0FiUFNNbVBqbDI5ZjNiN0dwVUIx?=
- =?utf-8?B?dWhxTnoyRDNLMnU3aWpsRXBWcUJrblFnU1l2Z3czeDFmZHFxUWRGcG9uN0lB?=
- =?utf-8?B?bjlyZ05UYWV5VlF6LzY0cElCeEI1RjBUcC90UVVyeFRNWEZ5c3dTdjRRaito?=
- =?utf-8?B?RHM1a2xZQS9LYnhKNkxvcTladlhwYjN6VWxZTTlGdWI3bVYwY2t6UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7c48e60-89a7-4fcc-40b5-08df12fc940b
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 07:40:13.6125
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zW38K5PxePsEtH1yNI+X3UfjDl10yOpSewFxEeV/Wqn0vq5eMRbZusMjnlYP0V+9wi7WB3h2mXVFplOzlfWoZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9436
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed Sep 2, 2026 at 6:16 PM JST, Eliot Courtney wrote:
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
+On Mon, 14 Sep 2026 23:36:24 +0200
+"Danilo Krummrich" <dakr@kernel.org> wrote:
+
+> On Mon Sep 14, 2026 at 8:12 PM CEST, Alex Williamson wrote:
+> > Hi Danilo,
+> >
+> > On Fri, 11 Sep 2026 22:39:16 +0200
+> > "Danilo Krummrich" <dakr@kernel.org> wrote:
+> >  
+> >> Hi Alex, Jason, Zhi,
+> >> 
+> >> On Sat Sep 5, 2026 at 10:11 AM CEST, Zhi Wang wrote:  
+> >> > NVIDIA vGPU VFs require their open, reset, and close lifecycle to be
+> >> > coordinated with the PF-side nova-core driver.    
+> >> 
+> >> [...]
+> >>   
+> >> >  drivers/vfio/pci/nvidia-vgpu/main.c   | 253 ++++++++++++++++++++++++++    
+> >> 
+> >> This is going to be a longer response; sorry about this in advance.
+> >> 
+> >> Looking at the FFI boundary introduced in the previous patch, I'm concerned that
+> >> it translates the driver model relationships we've expressed through Rust's
+> >> ownership and lifetime model back into raw pointers and lifetime assumptions
+> >> that callers must uphold. It also introduces manual lifecycle management across
+> >> the boundary, rather than preserving nova-core's RAII-based ownership model.
+> >> 
+> >> I think implementing the NVIDIA vGPU driver in Rust would let us preserve those
+> >> relationships across the interface, make lifecycle management less error-prone,
+> >> and fit naturally alongside nova-core and nova-drm.  
+> > [snip]  
+> >> 
+> >> If you've made it this far, thanks for reading through this long write-up. I
+> >> hope you find it useful. Please let me know if you have any questions or
+> >> thoughts.  
+> >
+> > I can't really say I made it this far with comprehension, but thanks
+> > for the effort ;)
+> >
+> > The one piece here that I can actually review is [5], where
+> > dev_get_drvdata() is replaced with a vfio-pci-core struct pointer
+> > embedded in the struct pci_dev, which is a non-starter as far as having
+> > a common PCI-core shared by various drivers.  
+> 
+> Well, that was just a quick hack to get it out of the way. :)
+> 
+> I think there are a couple of options.
+> 
+>   (1) Make the PM helpers take a struct vfio_pci_core_device * in the first
+>       place and let the driver forward to the helpers in its own PM callbacks.
+> 
+>   (2) Provide an (optional?) driver callback that translates a struct pci_dev to
+>       struct vfio_pci_core_device.
+> 
+>   (3) Provide a macro for drivers to define PM ops, letting drivers provide the
+>       function that translates struct pci_dev to struct vfio_pci_core_device.
+> 
+>   (4) Give struct vfio_pci_core_device its own PM domain (which is probably a
+>       bit overkill :).
+> 
+> I understand that the idea is to hide the PM handling in the vfio-pci framwork,
+> but I think the existing implementation is a bit of a layering violation, since
+> class device implementations shouldn't impose requirements on the bus device
+> private data layout.
+> 
+> I also think that the approach to fully hide it in the framework is only really
+> worth if it doesn't otherwise impose subtle requirements on the driver (such as
+> the layout requirement of the bus device private data).
+> 
+> Thus, I'd personally just go with (1) as it is the most honest approach in terms
+> of driver layering. But I think (2) is a good alternative that is not more
+> invasive than asking drivers to set the bus device private data to
+> struct vfio_pci_core_device *.
+
+I'd position this more as a library convention than a class layering
+violation.  vfio-pci was originally one driver, vfio-pci-core was
+pulled out to enable device specific support, ex. migration, in a more
+manageable way.  struct vfio_pci_core_device is not strictly a class,
+it's the object used by the library that variant drivers opt to use
+rather than re-implementing vfio-pci from the ground up.
+
+The conventions of that library mean variant drivers get things like
+VGA routing and power management for free, in adherence with how these
+features are exported by the core, and can choose to opt-in to common
+error handling.
+
+The use of drvdata is part of that convention and audited by the core
+such that failed compliance is rejected on registration.  Clearly we
+could allow variant drivers to provide ops for their own callbacks and
+export core helpers they can use, but only a Rust driver requires this
+and we need to figure out how to do this without degrading the audit in
+the core.
+
+Turning vfio-pci-core into a proper class to be able to have a real
+layering violation claim seems like a much larger project.
+
+> > My concerns are of course who is going to review the Rust vfio-pci
+> > variant drivers from a vfio perspective, not just a drm driver
+> > viewpoint.  
+> 
+> I did put some considerations about this; I think Zhi would be a great candidate
+> for this. :) And as mentioned I can also take some of the responsibility, but I
+> also want to be honest about the fact that I have a lot on my plate already.
+
+And that's part of the problem, there are bandwidth issues all around
+and neither you nor Zhi are, as of yet, core vfio contributors.  Rust
+may well be the better approach relative to the interface to Nova-core,
+but it's not clear it's the right approach for a subsystem that can't
+maintain or evaluate it and only has a sketch of what it looks like.
+
+> > Who is going to be responsive when the interfaces break and
+> > monitor vfio proactively to prevent such breakages, and how do we avoid
+> > derailing feature development in the core code base.  
+> 
+> In practice we shouldn't see any breakages with the Rust code that wouldn't also
+> break the C VFIO drivers. If this would be the case it would mean that the Rust
+> code relies on guarantees that none of the C drivers rely on, which would likely
+> mean that is was never a guarantee that was actually promised by the VFIO core
+> code.
+
+s/practice/theory/
+
+> There may be cases where Rust code breaks, and C code won't, but those should be
+> mechanical things, such as a type mismatch where Rust is more careful, e.g. if
+> we'd change a CPP define to an enum, etc.
+
+This seems like a very optimistic outlook.  I don't have experience
+with Rust to claim otherwise, but I do have general software experience
+to be suspicious of anything sounding so clean.
+
+> > Can a Rust vfio-pci variant driver be self-contained, or to what extent does
+> > it impose on the framework, such as the drvdata idiom.  
+> 
+> As mentioned above, I think this one is more of a layering violation in the
+> vfio-pci-core; class devices shouldn't impose layout requirements on bus device
+> private data.
+> 
+> The reason C drivers can get away with it more easily is e.g. that C relies on
+> procedural cleanup and that all responsibility for managing lifetimes sits on
+> the drivers themselves, so it is easier for them to adjust. But in general, it
+> wouldn't work out if all class device registrations or other core primitives
+> would have the same expectation.
+> 
+> For Rust specifically it is that the driver core controls the lifetime of the
+> bus device private data, which is a fundamental requirement to e.g. represent
+> registrations as RAII types. E.g. the vfio::pci::Registration has to be stored
+> in the bus device private data, such that it is guaranteed to be correctly
+> destroyed on driver unbind.
+
+I see, so driver core has its own convention for how Rust drivers must
+use drvdata.
+
+> To get back to your question, a Rust vfio-pci variant driver should be
+> self-contained. The interface sits in the abstraction that translates the C
+> driver API to a Rust driver API. It sometimes can help quite significantly (e.g.
+> in terms of how complex the Rust code needs to get in order to actually be safe)
+> if the C code does a minor adjustment, but it shouldn't be necessary.
+
+It's not clear to me to what extent these abstractions hinder our
+ability to evolve and refactor the C code.  It may not "lock in" the
+core API for variant drivers, but it seems it raises the bar that any
+significant code refactor likely needs to refactor the abstraction
+layer, potentially the Rust variant driver itself, which imposes a
+burden on the vfio community that has so far not introduced Rust into
+the code base.
+
+> For instance, the only addition to the driver core we have is an additional
+> callback in struct device_driver, and in the future an additional pointer in
+> struct device_private; none of those couldn't be worked around in some way
+> though.
 >
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> On the other hand there are examples where the Rust introduction motivated
+> design improvements on the C side, or bug fixes for issues that were caught
+> while writing a safe abstraction. For instance, we recently had some fixes
+> around dyn IDs in the PCI and USB core, which both were motivated by Rust code.
 
-I believe this can be squashed into patch 1, there is no need for a
-state where `cv` exists but isn't in the prelude if we agree it should
-be there.
+I have no doubt that integration with a more structured language would
+lead to various improvements.  However, it doesn't seem there are
+resources to support it in the short term.
+
+> > FWIW, AI can only go so far to support reviews.  Having the code
+> > insight to ask the right questions is essential.  A human in the loop
+> > is a requirement.
+> >
+> > Additionally, if we can't narrow the device matching to only the
+> > Nova-core supported VFs,  
+> 
+> Agreed, and I think that should be possible. Is there a particular case you
+> think of where this wouldn't hold?
+
+The modalias scheme only matches on vendor/device ID, subsystem IDs,
+base/sub class, and interface.  Nothing in the PCI spec requires that
+the VF device ID is different from the PF device ID.  Variant drivers
+will often present a larger match surface to avoid the ongoing
+maintenance overhead of listing explicit device IDs.  Such an approach
+here would put us in the position I noted in the previous reply where
+the Rust variant driver needs to fully support these devices via
+vfio-pci-core on day one.  Binding GPU PFs to vfio-pci is a current,
+valid use case (VFs for some vendors as well).  Thanks,
+
+Alex
