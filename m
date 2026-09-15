@@ -1,305 +1,197 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812E8353A63
-	for <nova-gpu@lists.linux.dev>; Tue, 15 Sep 2026 18:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495320; cv=none; b=gpzk6rf/vVbvHxaiiE2z/4F1xyskZgRDdR1tt1kX2swPExlBSoTHtOXoiJqj4W+W9uNjX81EFAX5+octfGUhggaPli7TxYQKmPiEzhzhgmQcwdxSlP6vpRFSvDqsVZWifnn/r8x6ztGEKaqfyET+nThiYqQSgHo33MIH8QqQH0Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495320; c=relaxed/simple;
-	bh=fKdtexK2tjqwgZC6UBPDUwOYcj+8rOgQ3rItFKL5jBk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=El9GxQo/GRTQOgtZHiaYMcgpUS653ChUdViqvpTgF7Pyh5EmTrylcObzmfO8qAJx8BZ0X8pJ8uICDhq7sCl8XVvJl6yZvp7tHxJYx/PGE9bsbbTMeIK2rfePJSsKGYUiQ3b/I0QWtM7q6zJFpR/iVmmWb68AiOnyJajf4Dq3TqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=J7gCj3gQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GYEx2CvT; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386CC3A4508
+	for <nova-gpu@lists.linux.dev>; Tue, 15 Sep 2026 20:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789505865; cv=fail; b=FU30QZzevAz558KCIhzKX7h+SY/yAtbMt/MYryRwOv4y44XMqHGjNRk7SrIbmztx8mOtttCvawNOPtleHAU4HqCIkkcwuzh0KFckPNguOibv63b4BFt5EFtdCplrpUKx5K/v8QaDDDXUGiKPPpkLhfJHepWaTCrRnY8W69UUKZc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789505865; c=relaxed/simple;
+	bh=JMxTOmUI+KM6DfhS94K6tOVUJd+UGC6bP6dRvWFurG8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WhTmkMbhxzFMq3zTcDoX5uBcTvlD1s2xj7LVZul5DwQwNVzgLC5iMv20dd9l/ANQIwTFk/aZqzYF2dwuiY1WqLHSSqhyoW1YqY6oUJFWkCo4fP8eoZotV/Hesd+tp922Geb0/++fgi/9SCq3ZON/MlhUD5vHIGYCCnCX1/TrltM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sbHFovWn; arc=fail smtp.client-ip=52.101.57.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="J7gCj3gQ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GYEx2CvT"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id D4EFB7A01E7;
-	Tue, 15 Sep 2026 14:01:55 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Tue, 15 Sep 2026 14:01:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789495315;
-	 x=1789581715; bh=897+qm17sL3v0FP/MXszEOUStPXgIyHus6lgEd1AaDM=; b=
-	J7gCj3gQ8T1YMxOrybpfM3eJeu+7dLzxdSPDUqlqdjUyj5dIiPAPu9txVyDp3UbN
-	X8I1/ZvbguBtP24VYZxRirAX1PMsPkOzXlGGZ2hVGFG7tFzSn8TP8wQS/Qv0DiHi
-	rkkAE9OpFNm1SlhiBv5OngbVZoiYCYba1z1VZ+3ocJdHc7yQDhr0l9zeVdWSpS1E
-	I3sx2AfobqgcWvXNegog6h2BinwKSzIjS8AiaB9q67el/wlqf4pECTRuM26+9ay6
-	NbMRtwbW9wsI069dmrWY079J1niPTavcNxqIbiSPv7Yqnv2iKvh/nDwsJjUrajHx
-	swsiMsg3xHm0BSgzf+D24A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789495315; x=
-	1789581715; bh=897+qm17sL3v0FP/MXszEOUStPXgIyHus6lgEd1AaDM=; b=G
-	YEx2CvTQP99/MV3tTWrdbpaG43TPFrUVmjGrmZ1l2TLfzxnJkApW2mSArxA71Xih
-	kVYcfXO1Jtl9yqOAqqtHQPmIQizeq5BBgClqJVJrwLfsR91ZzvvgvEY+HgQL7xVL
-	Mg7UGOmysCbop4Ucqx/i8xT8JTPESeMG572F0lky66g/0TcfZQFn6oYHnPhBP8ol
-	VaTsRGDdkTtiaMBtAoEfa+M/QedYgKznii4iIfUwe+qrx2njDBs25GGR8WP3RKU4
-	6POk6qRErfFTWuluNxD3LTzrvLrbPTTbZX7E7nbPIZ2nHOAMdi3WFQBhqrScizTC
-	4nSgRF4Q3jOvBpzdh2Exg==
-X-ME-Sender: <xms:E4ipaopPeXZAXgWmXKzlDRjn6yffNqooY7ikhbvy33BcNRKRxm9crQ>
-    <xme:E4ipag9-TgvcUMnXlWve1lI5bZ3KyqCTREQnUF6BJga1WpemDaof38xoRun1EXrvO
-    7DBjSDJ35eTA6ZxR3j9d0HQ1495NU_w31VSCFxSjK1MSvhGtBQ--w>
-X-ME-Received: <xmr:E4ipar6DVKq4ItyMYgMbHwO2cMgvFa7fbhc9O5M9jjv-rN5qci2lJ6-CbydAZg>
-X-ME-Proxy-Cause: dmFkZTFrwg/AmzJDC2h9TGXdHq7epJk+TWr6gcC4uNj3nLfncBMy7wyNCRNwIHDDhN2FMv
-    HVj36YZNRMssben7AyJ2T9X7Y3vS6FzNIEartcApiYw9lKZsCKHE9I2peGX9yCt0OqJF6i
-    ZYU8fjaMzSRXShG0SUxqzgcxzpeF6gRg5Ml2UeWGy8dlfZm1osMEVJr90fc5sqZuF3PE5A
-    KfDhUypFxWvM32W7sGAKH/E7L6SX7fKOi2xJftKxUNrjmDdowJ6SLs7oemlmVIJ8gcdudX
-    7YbGIqRnJE2550dwDamMuh/Li1OQbuet+YoML56aZV30RM2hx2MQ7j3kctY32rkBOOebjd
-    Dp3Sri6n5D3cJO204Gl9ugI7DWMQDrjIQSY2B6vbxBuXgYX1F/JLSrJ8lxTo6rLj6IfDWJ
-    vIJxXlsTEzgWwseolk6CCvnrRB9CvBD13/lkB5xHjYiVO7fj1Bwr5RdpuUhoNSWzuZM8zK
-    fisTt0hvonavAf3gNHeB2PxiRoxY11ublPU2pXVxZsLDJKK03/IESTVZQJqSUR5ox9yfcx
-    ptE3XlQ4R0oNA8U0jjAi7FvCshNtHd/muBXwgeSMtfpLwQPkppNUtq8pSHUrSMlcCXRJMp
-    MK2ndT6YpfIksn48Sp1HmBE4jEAt/vAw5BB8Cm9q/PTbMPUdjvHrvYU5X0qg
-X-ME-Proxy: <xmx:E4ipas3hrST8h-AwAsa-qI7ObI9eICSUQHV3MVNB_dgonZ9sB1YdaA>
-    <xmx:E4ipalhvdGOocJQwexgRHqc2XNrqz2hVFUR44WB9mKTkjulbi-uU1A>
-    <xmx:E4ipangojBnbKKm3-r-rAro-IDWMxq0tcLuyQXEpprsHtrwKyk3Q8g>
-    <xmx:E4ipahIhHjbDseO8xs06MVHiIqbhEDYyIzw6froE5hhiM_cPc1yHMQ>
-    <xmx:E4ipaoDcLUURKCOzO6J6ZHvyF9KmgQZFKhRAdUTpdZVlGzil6OQuuMM_>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 14:01:52 -0400 (EDT)
-Date: Tue, 15 Sep 2026 12:01:48 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
- <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>,
- <kvm@vger.kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
- variant driver
-Message-ID: <20260915120148.7548a8ca@shazbot.org>
-In-Reply-To: <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
-References: <20260905081116.106613-1-zhiw@nvidia.com>
-	<20260905081116.106613-13-zhiw@nvidia.com>
-	<DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
-	<20260914121217.70fa0d93@shazbot.org>
-	<DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sbHFovWn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hd+jfhD/e2kOcRF1xvYrojQq6NWTXu+4Qeo6qVPd2Esti0Z6QO7U3MCt1NLVuEt2gD902izY1hi9WGUeiBTHK0QTTJdFjACae5DzQb6FbuJdOd9v/xOkC0pTXM1FSrqDF0k8ld18JT64eC3ZTV4zrpDeuqwBw6i92f/+5861jI+cL+YIHmRzaXBYKf2AY7PLKHpXgnNrj6bOtTBt+4M4+l3rRB3gNFdos+6FX+kllUoEsYBZxLvBuxqagaEnMqW0V/bHD2d+xIQk5t9sz+kk/LfccUNG9fhOyGlABeSUBIVuD4FtTfKEFWGYKwhj51fdCK8wb0b5eYfSUHFzbm24fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kF6I2bVwKx9QCaToOGE/IeThRJPW8s2vGrmB7NfWS9o=;
+ b=IpC0JpTI6+PkCjKND2oGA4IS5IlRxkTiUQNQx9eS05ybzOXaaTbslZK317341vl3N3ZtziwIWS0KRmCjDnU4XEgUDgLxusNa6z4YIfi8Pu/9bT+3hDC8+JrfaZbvgR5e/aaZmuOWuQ1zpZORDXw38pzRWT7coyeveAOnYSLIRSfqWaFNJLkFI24xU8IIEgBIpBVR3u1vqKzS46MjmrA4NagNFSHDlj6jwJiQGlY415xffTEnJlzX0LMzlg3X5qS1QumnaXBYUVZ5NyE+4jGIIETY8d47ssfb8FBvh1TGcvrjbNUDOjPIVmrg9KCSGiBt5pWTMlIqQ8lsVxGa5wI4LA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kF6I2bVwKx9QCaToOGE/IeThRJPW8s2vGrmB7NfWS9o=;
+ b=sbHFovWnkHiakTjDYbUAlNmmJdOiXtZkyNnfzB2/9gqHf7rbD8hKgyGOk6npfUAkqbaPXK4UUzYbjJFja/Yh7K8e1W4uqFXswIuYRk/4V+sGh4KbfzpMjrwiaflXCfaoMCr94mbj1jc2xXTGPMrnrewcjVVK/sHfuGUdTcHeDSnPSHRBnCGQVgu5hI4vUj5rPZ+1ATXw5J73D4n0mfUUqeUsSmmC4o1BQ0tIzgh2AbytnI3ivMCZLX6HXdLjhMc5DjJjxZmcYqMdRidpLvxirjX6RXBpw7ukL4V7iAC9PeoTWBDlC2rP9mUTbKrv5cVYpvSS69lEOeY9sdMyE3azAA==
+Received: from DS7P221CA0042.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25e::18) by
+ DS4PR12MB9684.namprd12.prod.outlook.com (2603:10b6:8:281::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Tue, 15 Sep 2026 20:57:26 +0000
+Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
+ (2603:10b6:8:25e:cafe::8f) by DS7P221CA0042.outlook.office365.com
+ (2603:10b6:8:25e::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
+ Sep 2026 20:57:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 20:57:26 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
+ 2026 13:57:09 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 15 Sep 2026 13:57:08 -0700
+Received: from inno-dell.home (10.127.8.9) by mail.nvidia.com (10.126.190.180)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Tue, 15
+ Sep 2026 13:57:01 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+	<zhiwang@kernel.org>, Zhi Wang <zhiw@nvidia.com>
+Subject: [PATCH 00/14] Add Rust PCI SR-IOV support
+Date: Tue, 15 Sep 2026 23:56:44 +0300
+Message-ID: <20260915205659.76841-1-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|DS4PR12MB9684:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce757b31-7a05-4918-e7c6-08df136bf2a2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|82310400026|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	CJu7j3SpA4rcXRAADRLf3qePcM7M6HxqW5El+qHamgZpHAON2uvY3+75SLFqfVwEHtixDlXW4+vA4BI6Xjna+oZ4NGMahUd9/+Qu3axNWHlc9w+R81cb0Jzsn81UQHqOI7y8wM89s+Zyn2vSC5EHtGlL7RHULvhOgfekxi9yI4a8nCJkiHQ0bR/aqldmhwkIeikGF6aYFBOZAFZ9DbANa3mc+HPLL0bO32ljJX+DKPUccAYy5Hst/rmmKeQ1EoUfdqfKX8Zd+xxPoTvcIU5DqPUs+ZwGOVADfH74rxtmv2ZXUenksZacIoGJI4CbLEq+dj4XJNqCR/PyA7pchjjT3lUSTBM3XKCjUSRFd4hRWN8HN//fPjpLJUBqXqq28i0W6zH+IYXUmH0qbZpd/T3MrKA4zPqUuPCP/4/ydSl7AZoKzS3FKLdTW7f70EssivS8ic+6613p2pzkBN00/NPUrYfNTSEZxUOABAvzRb4nXvSNOZT+kzhGKqFauPOk/hNqC7vFp17aDfrxHdDV/vrGxXVOwSUnrMef3xuWTmheQ/7xO8QW5+3An8LH3f7F54TAhBOvFBbQVjntmM6itG3U+Gtb17+zfFpcl2Pavw+yX+DT6TU23FGksJVSvo1K0PeIQbrjGcDukphSefUymAW0Vea1JQYUtmiD9lSBvN796DKEXPY56VU1Lj/JBJfVK9BIUD4tYs4NxITVIjHBudkEYg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(82310400026)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HrA+kuKvH7DbjsSHa6M6wTBcAH3SJeYM51tbxOHQFki9x4nT84qPKiMhRVt8uFPXxVrn+IiORojKRY+N5xkB2VrjqgTaFtFf/CqMCCy+Pzxd33tVK1erHVBFWST+SDie+FO40Cf3zp2dN2lDf+eEN5qMGPZeocKoa0iENydyuet2fBTZRbF/uA2Ttpv6qRGsr79tS4F4sKlVbn52+MmqdkN8eYaz5OEBFgOomZL3Ka9bOJ4cadWbOxJEoYCfRab+qZqbmR/X3iZmNh58500DWrur4JIVCe5T6mSB8L3qKwGLSP+pf86HjbwO7axM+BgBO8MDYj1PGFPLQ4MjAKF5Na/qbc3OMoaDJWcwBCJh/zbM1qSNI0/FGir6eP7ts+4sx6wHEgmQaxQYORLo4lDYnM+QzHkqr0mb+o02NP2NKwb0PNiFr+86spj+pYuGdh55
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 20:57:26.1732
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce757b31-7a05-4918-e7c6-08df136bf2a2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9684
 
-On Mon, 14 Sep 2026 23:36:24 +0200
-"Danilo Krummrich" <dakr@kernel.org> wrote:
+Rust PCI drivers need to enable and disable SR-IOV and share selected
+PF-owned functionality with their VF drivers. The shared data must remain
+valid while a VF driver is bound, including when the VF driver is in C.
 
-> On Mon Sep 14, 2026 at 8:12 PM CEST, Alex Williamson wrote:
-> > Hi Danilo,
-> >
-> > On Fri, 11 Sep 2026 22:39:16 +0200
-> > "Danilo Krummrich" <dakr@kernel.org> wrote:
-> >  
-> >> Hi Alex, Jason, Zhi,
-> >> 
-> >> On Sat Sep 5, 2026 at 10:11 AM CEST, Zhi Wang wrote:  
-> >> > NVIDIA vGPU VFs require their open, reset, and close lifecycle to be
-> >> > coordinated with the PF-side nova-core driver.    
-> >> 
-> >> [...]
-> >>   
-> >> >  drivers/vfio/pci/nvidia-vgpu/main.c   | 253 ++++++++++++++++++++++++++    
-> >> 
-> >> This is going to be a longer response; sorry about this in advance.
-> >> 
-> >> Looking at the FFI boundary introduced in the previous patch, I'm concerned that
-> >> it translates the driver model relationships we've expressed through Rust's
-> >> ownership and lifetime model back into raw pointers and lifetime assumptions
-> >> that callers must uphold. It also introduces manual lifecycle management across
-> >> the boundary, rather than preserving nova-core's RAII-based ownership model.
-> >> 
-> >> I think implementing the NVIDIA vGPU driver in Rust would let us preserve those
-> >> relationships across the interface, make lifecycle management less error-prone,
-> >> and fit naturally alongside nova-core and nova-drm.  
-> > [snip]  
-> >> 
-> >> If you've made it this far, thanks for reading through this long write-up. I
-> >> hope you find it useful. Please let me know if you have any questions or
-> >> thoughts.  
-> >
-> > I can't really say I made it this far with comprehension, but thanks
-> > for the effort ;)
-> >
-> > The one piece here that I can actually review is [5], where
-> > dev_get_drvdata() is replaced with a vfio-pci-core struct pointer
-> > embedded in the struct pci_dev, which is a non-starter as far as having
-> > a common PCI-core shared by various drivers.  
-> 
-> Well, that was just a quick hack to get it out of the way. :)
-> 
-> I think there are a couple of options.
-> 
->   (1) Make the PM helpers take a struct vfio_pci_core_device * in the first
->       place and let the driver forward to the helpers in its own PM callbacks.
-> 
->   (2) Provide an (optional?) driver callback that translates a struct pci_dev to
->       struct vfio_pci_core_device.
-> 
->   (3) Provide a macro for drivers to define PM ops, letting drivers provide the
->       function that translates struct pci_dev to struct vfio_pci_core_device.
-> 
->   (4) Give struct vfio_pci_core_device its own PM domain (which is probably a
->       bit overkill :).
-> 
-> I understand that the idea is to hide the PM handling in the vfio-pci framwork,
-> but I think the existing implementation is a bit of a layering violation, since
-> class device implementations shouldn't impose requirements on the bus device
-> private data layout.
-> 
-> I also think that the approach to fully hide it in the framework is only really
-> worth if it doesn't otherwise impose subtle requirements on the driver (such as
-> the layout requirement of the bus device private data).
-> 
-> Thus, I'd personally just go with (1) as it is the most honest approach in terms
-> of driver layering. But I think (2) is a good alternative that is not more
-> invasive than asking drivers to set the bus device private data to
-> struct vfio_pci_core_device *.
+This series builds on Peter Colberg's Rust PCI SR-IOV v3 series [1],
+extending it with typed PF registration data and C FFI support. The
+registration design follows Danilo Krummrich's Rust vGPU/VFIO PoC [2].
+As the discussion on Rust/VFIO support is still ongoing [3], this series
+supports both C and Rust sample VF drivers.
 
-I'd position this more as a library convention than a class layering
-violation.  vfio-pci was originally one driver, vfio-pci-core was
-pulled out to enable device specific support, ex. migration, in a more
-manageable way.  struct vfio_pci_core_device is not strictly a class,
-it's the object used by the library that variant drivers opt to use
-rather than re-implementing vfio-pci from the ground up.
+Add the PCI SR-IOV operations and callback, managed VF removal during PF
+unbind, and typed PF registration data. A pinned registration publishes
+the PF payload. Rust VFs borrow the typed data directly; C VFs use an
+ABI-checked descriptor and generated C-to-Rust trampolines.
 
-The conventions of that library mean variant drivers get things like
-VGA routing and power management for free, in adherence with how these
-features are exported by the core, and can choose to opt-in to common
-error handling.
+Include Rust and C VF samples and integrate the registration into
+nova-core. Nova implements sriov_configure() and publishes PF-readiness
+data before VFs are enabled. Document the sharing interface, its borrow
+lifetimes and teardown ordering.
 
-The use of drvdata is part of that convention and audited by the core
-such that failed compliance is rejected on registration.  Clearly we
-could allow variant drivers to provide ops for their own callbacks and
-export core helpers they can use, but only a Rust driver requires this
-and we need to figure out how to do this without degrading the audit in
-the core.
+[1] https://lore.kernel.org/rust-for-linux/20260303-rust-pci-sriov-v3-0-4443c35f0c88@redhat.com/
+[2] https://lore.kernel.org/nova-gpu/DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org/
+[3] https://lore.kernel.org/nova-gpu/20260914121217.70fa0d93@shazbot.org/
 
-Turning vfio-pci-core into a proper class to be able to have a real
-layering violation claim seems like a much larger project.
+John Hubbard (1):
+  rust: pci: add is_virtfn(), to check for VFs
 
-> > My concerns are of course who is going to review the Rust vfio-pci
-> > variant drivers from a vfio perspective, not just a drm driver
-> > viewpoint.  
-> 
-> I did put some considerations about this; I think Zhi would be a great candidate
-> for this. :) And as mentioned I can also take some of the responsibility, but I
-> also want to be honest about the fact that I have a lot on my plate already.
+Peter Colberg (7):
+  PCI: add driver flag to opt into disabling SR-IOV on remove()
+  rust: pci: add {enable,disable}_sriov(), to control SR-IOV capability
+  rust: pci: add vtable attribute to pci::Driver trait
+  rust: pci: add bus callback sriov_configure(), to control SR-IOV from
+    sysfs
+  rust: pci: add is_physfn(), to check for PFs
+  rust: pci: add num_vf(), to return number of VFs
+  samples: rust: add Rust SR-IOV VF driver sample
 
-And that's part of the problem, there are bandwidth issues all around
-and neither you nor Zhi are, as of yet, core vfio contributors.  Rust
-may well be the better approach relative to the interface to Nova-core,
-but it's not clear it's the right approach for a subsystem that can't
-maintain or evaluate it and only has a sketch of what it looks like.
+Zhi Wang (6):
+  rust: pci: add typed SR-IOV PF registration data
+  rust: add C-to-Rust FFI descriptors and trampolines
+  rust: pci: add C FFI support to typed SR-IOV PF registration data
+  samples: rust: add C SR-IOV VF driver that calls into a Rust PF driver
+  gpu: nova-core: publish typed SR-IOV PF data for VF drivers
+  Documentation: rust: explain SR-IOV PF data sharing with VFs
 
-> > Who is going to be responsive when the interfaces break and
-> > monitor vfio proactively to prevent such breakages, and how do we avoid
-> > derailing feature development in the core code base.  
-> 
-> In practice we shouldn't see any breakages with the Rust code that wouldn't also
-> break the C VFIO drivers. If this would be the case it would mean that the Rust
-> code relies on guarantees that none of the C drivers rely on, which would likely
-> mean that is was never a guarantee that was actually promised by the VFIO core
-> code.
+ Documentation/rust/index.rst             |   1 +
+ Documentation/rust/pci-sriov-pf-data.rst | 330 +++++++++++++++++++++
+ MAINTAINERS                              |   4 +
+ drivers/gpu/nova-core/driver.rs          |  34 ++-
+ drivers/pci/iov.c                        | 103 ++++++-
+ drivers/pci/pci-driver.c                 |   3 +-
+ drivers/pci/pci.h                        |   2 +
+ include/linux/pci.h                      |  44 +++
+ include/linux/rust_ffi.h                 |  88 ++++++
+ rust/bindings/bindings_helper.h          |   5 +
+ rust/kernel/interop.rs                   |   5 +-
+ rust/kernel/interop/ffi.rs               | 252 ++++++++++++++++
+ rust/kernel/pci.rs                       | 126 ++++++++
+ rust/kernel/pci/sriov.rs                 | 355 +++++++++++++++++++++++
+ rust/macros/ffi_vtable.rs                | 148 ++++++++++
+ rust/macros/lib.rs                       |  90 ++++++
+ samples/rust/Kconfig                     |  26 ++
+ samples/rust/Makefile                    |   2 +
+ samples/rust/rust_dma.rs                 |   1 +
+ samples/rust/rust_driver_auxiliary.rs    |   1 +
+ samples/rust/rust_driver_pci.rs          |   1 +
+ samples/rust/rust_driver_sriov.h         |  27 ++
+ samples/rust/rust_driver_sriov.rs        | 270 +++++++++++++++++
+ samples/rust/rust_driver_sriov_c_vf.c    |  61 ++++
+ 24 files changed, 1972 insertions(+), 7 deletions(-)
+ create mode 100644 Documentation/rust/pci-sriov-pf-data.rst
+ create mode 100644 include/linux/rust_ffi.h
+ create mode 100644 rust/kernel/interop/ffi.rs
+ create mode 100644 rust/kernel/pci/sriov.rs
+ create mode 100644 rust/macros/ffi_vtable.rs
+ create mode 100644 samples/rust/rust_driver_sriov.h
+ create mode 100644 samples/rust/rust_driver_sriov.rs
+ create mode 100644 samples/rust/rust_driver_sriov_c_vf.c
 
-s/practice/theory/
 
-> There may be cases where Rust code breaks, and C code won't, but those should be
-> mechanical things, such as a type mismatch where Rust is more careful, e.g. if
-> we'd change a CPP define to an enum, etc.
-
-This seems like a very optimistic outlook.  I don't have experience
-with Rust to claim otherwise, but I do have general software experience
-to be suspicious of anything sounding so clean.
-
-> > Can a Rust vfio-pci variant driver be self-contained, or to what extent does
-> > it impose on the framework, such as the drvdata idiom.  
-> 
-> As mentioned above, I think this one is more of a layering violation in the
-> vfio-pci-core; class devices shouldn't impose layout requirements on bus device
-> private data.
-> 
-> The reason C drivers can get away with it more easily is e.g. that C relies on
-> procedural cleanup and that all responsibility for managing lifetimes sits on
-> the drivers themselves, so it is easier for them to adjust. But in general, it
-> wouldn't work out if all class device registrations or other core primitives
-> would have the same expectation.
-> 
-> For Rust specifically it is that the driver core controls the lifetime of the
-> bus device private data, which is a fundamental requirement to e.g. represent
-> registrations as RAII types. E.g. the vfio::pci::Registration has to be stored
-> in the bus device private data, such that it is guaranteed to be correctly
-> destroyed on driver unbind.
-
-I see, so driver core has its own convention for how Rust drivers must
-use drvdata.
-
-> To get back to your question, a Rust vfio-pci variant driver should be
-> self-contained. The interface sits in the abstraction that translates the C
-> driver API to a Rust driver API. It sometimes can help quite significantly (e.g.
-> in terms of how complex the Rust code needs to get in order to actually be safe)
-> if the C code does a minor adjustment, but it shouldn't be necessary.
-
-It's not clear to me to what extent these abstractions hinder our
-ability to evolve and refactor the C code.  It may not "lock in" the
-core API for variant drivers, but it seems it raises the bar that any
-significant code refactor likely needs to refactor the abstraction
-layer, potentially the Rust variant driver itself, which imposes a
-burden on the vfio community that has so far not introduced Rust into
-the code base.
-
-> For instance, the only addition to the driver core we have is an additional
-> callback in struct device_driver, and in the future an additional pointer in
-> struct device_private; none of those couldn't be worked around in some way
-> though.
->
-> On the other hand there are examples where the Rust introduction motivated
-> design improvements on the C side, or bug fixes for issues that were caught
-> while writing a safe abstraction. For instance, we recently had some fixes
-> around dyn IDs in the PCI and USB core, which both were motivated by Rust code.
-
-I have no doubt that integration with a more structured language would
-lead to various improvements.  However, it doesn't seem there are
-resources to support it in the short term.
-
-> > FWIW, AI can only go so far to support reviews.  Having the code
-> > insight to ask the right questions is essential.  A human in the loop
-> > is a requirement.
-> >
-> > Additionally, if we can't narrow the device matching to only the
-> > Nova-core supported VFs,  
-> 
-> Agreed, and I think that should be possible. Is there a particular case you
-> think of where this wouldn't hold?
-
-The modalias scheme only matches on vendor/device ID, subsystem IDs,
-base/sub class, and interface.  Nothing in the PCI spec requires that
-the VF device ID is different from the PF device ID.  Variant drivers
-will often present a larger match surface to avoid the ongoing
-maintenance overhead of listing explicit device IDs.  Such an approach
-here would put us in the position I noted in the previous reply where
-the Rust variant driver needs to fully support these devices via
-vfio-pci-core on day one.  Binding GPU PFs to vfio-pci is a current,
-valid use case (VFs for some vendors as well).  Thanks,
-
-Alex
+base-commit: 34a8ecc902e907d7b0596a8d38b437e90eac0701
