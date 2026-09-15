@@ -1,462 +1,725 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011053.outbound.protection.outlook.com [52.101.62.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253624562A9;
-	Tue, 15 Sep 2026 21:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789507152; cv=none; b=Ts2HIaIIBerm3MpWF/BJDdhldXxePhD9Odo0ceLkaV/p94H7QOaTyNtPNc8jgQDsk6RqRYjq5BGeDpcyuQSqubniQ1aDvSPUZ6zDl8ueOFYfpEfKuweWb4O/ovDueUIs8hqt7S/UlCggX2Wl+yNlo9RxZaikOcPv8uZzP3bORgc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789507152; c=relaxed/simple;
-	bh=OKqZ9LeTYZpcBo/ZETo7mVIss6ggTXnaMF7+84oZoLc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=TI50FuYISFBeF1fEJCFgF2IscNhAYBRAMs2K3Y3vsvylJnOOkkDX5ss03FER5esWWMxIfMkjqiv4YZQiuLWYiKbxOV2jgL9NSRTsMnEuI22xDj6DqcXnVbwqOymmIbNWPIK2FYx+EaE93GLDRQnahK9ON0vELfRH/gIHCnuMd7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+CMwM6M; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E434A3D2C
+	for <nova-gpu@lists.linux.dev>; Tue, 15 Sep 2026 21:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789507162; cv=fail; b=GGpKX0Y2KNLTwB9pn3ohMOyq730puPA29uLoFJ6B71pQP1CTr1cttmMHjU1alVDUla3RyOfCa0FCfkOaA5U+pG+CaLpN/FTbuO+p6dmby2p8BwEw9RqZexWXw82XdXWdnjHwd8dz8to8I1jkylCckRfmcJ9DvD1bbfMUS8iqs18=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789507162; c=relaxed/simple;
+	bh=kFGm2v+bGm9i2GvMC0LyyGuPkBWSumeqNVx8T2z4ZNY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TWd5ceUxs/hqZcUq4Bq41qGjvGmFB5q+vNkCpnrdAzvdABSAvaNTbxueRiYo+7OlP6rlq1ROjm+ALcU+/d0pFO9hr6H+IAc4MHzoZa+mDfUqjnmTmUxlr526POQ2WFAQJ5fOqHWzaWiiiEn+nBgzNOnJnzqVn4RtFFOntSSpQGQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=J7SU/IQi; arc=fail smtp.client-ip=52.101.62.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+CMwM6M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D061F000FF;
-	Tue, 15 Sep 2026 21:19:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789507149;
-	bh=2U/QLuurvslretB9I/twinObx3n+Se5WhEV5TaIx2pU=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=E+CMwM6M2FWVL3KtBmXv8v7OCHE603hiibZCHDlNM2t+Ug9OgHI8jxT1V+2CSIEYF
-	 5gY2QQw47+MJhrOQeMum7rrGAsQy0zT32RNYutpNY03CZDJLWfVGREAnY+E+j8KSLV
-	 FqAjIoyNtajy/Ejjy1O06M3gNDfIuuKnen0XuFBXGpmbSv3blL+mDXsPJKTZOARVW3
-	 EBCrLVmcwuHCx+0v88rw+jxr19JyYAb4FlGc9qKpowpJP0udAirA9kb+pd0OG6IrQt
-	 TJQZrPRYRnCdQ8TJfHQ9EMxtF+KueWGKf2b4VpZJxvpPie0aLXhmzzAN/8I4NbJClV
-	 ZvpFW1in5nW8A==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="J7SU/IQi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gV9Otv4bjtYb+4TGWXEPV7+pTOExzft6JqiMqdG3tgsgoCkY0gGOmUCkqL9U2L/4JF29aigXFRdEMZ03KWNw+nWxuefa1feaE5kr/pQRcSJzSIL0XTFSHuROlREluhpViNQK6atO4dr/4cYhNIpnQBqiKQgb7kSvGxtkq05/dU0Li1POFcUfsv+MgY+ocjhhzYhAlInRuZKqUd6QckUJon65xeBKO4sMTZ46rS1p0jlUOY9I+FgeU77k2n/J/dtrW9YkcqWB02mxRULTA9cCvxcjJS3zjn8uyVFim3a/Jhp/Xfn/M7BGS9gq7lo5JyM9ZQ4T5uM3ys8jYOS9sHbkfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pItjb9yQrK1Xn9KMI7m/BfRYQvsm673YvQbU6bMLWSU=;
+ b=UlGHtAUoTou6JqKMpy+MCW3ABo5tJ7hc4ZbOQScygnZ+o9w/Lzn8y1kCXhGDzKDc7MqhUOnPvnhFdkGmir+l8EHa1z2vL6na8hfkeVt/BQ5rJKaMEn4yku+aAH1BN7ZBJ/wRSyEnOsuDUGDqBy232NKANEZlHegVtzslQ4hl2WcS9Vf1DcxlL8+aMqtuI75NuF2yG8y7JKm6QTa3GqpInefVmympe6wmlRcrNo/y8PggZGK+wSXOj18tuHXsA1lI9iTIC23idEpDONCCjlw6RBIilyRWaPhT+S8LSb5VxNnrYpTQGH1bqSX8XVzvX/68pkAXwuGGLwFhROmArl+Jrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pItjb9yQrK1Xn9KMI7m/BfRYQvsm673YvQbU6bMLWSU=;
+ b=J7SU/IQifAGHP5nzyg3EoiwkbIBTeCZFGPudJzAd5bpK9svpdqeJjdUJm3pffBsn0chH9gR6xv6O/Uw7V66fN4lR3nqkXTkrO+B+HA8ky5tzUMSo2FG49p+SUYoL7MLbTycakrlwy8FOsPZghYo2t36WOOI1M8iIkUYLYWNtYdviPEBYwVN29pzMNtdtd8bp6tFCIJi4Ow6DYwfm+feRUX03OIqftYi3v2Mws3920MbKP++/FZlWxPVgFIztLQMT8BidneYM1hjfCa7JIXHuNvwHFFOpN1XIHt34Gcz8WklMdazRuIhLrx0OJDQEsvsgPrsnRYI5m4mdFtB0CyrnGg==
+Received: from BN9PR03CA0057.namprd03.prod.outlook.com (2603:10b6:408:fb::32)
+ by CH3PR12MB7691.namprd12.prod.outlook.com (2603:10b6:610:151::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 21:18:59 +0000
+Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
+ (2603:10b6:408:fb:cafe::85) by BN9PR03CA0057.outlook.office365.com
+ (2603:10b6:408:fb::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Tue,
+ 15 Sep 2026 21:18:59 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.0 via Frontend Transport; Tue, 15 Sep 2026 21:18:59 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
+ 2026 14:18:35 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 15 Sep 2026 14:18:34 -0700
+Received: from inno-dell.home (10.127.8.9) by mail.nvidia.com (10.126.190.180)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Tue, 15
+ Sep 2026 14:18:27 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+	<zhiw@nvidia.com>
+Subject: [PATCH 2/2] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO variant driver
+Date: Wed, 16 Sep 2026 00:18:10 +0300
+Message-ID: <20260915211811.84790-3-zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915211811.84790-1-zhiw@nvidia.com>
+References: <20260915211811.84790-1-zhiw@nvidia.com>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 15 Sep 2026 23:19:01 +0200
-Message-Id: <DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
-To: "Alex Williamson" <alex@shazbot.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
- variant driver
-Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
- <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <kvm@vger.kernel.org>
-References: <20260905081116.106613-1-zhiw@nvidia.com>
- <20260905081116.106613-13-zhiw@nvidia.com>
- <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
- <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
- <20260915120148.7548a8ca@shazbot.org>
-In-Reply-To: <20260915120148.7548a8ca@shazbot.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|CH3PR12MB7691:EE_
+X-MS-Office365-Filtering-Correlation-Id: b25db569-4693-4159-31b7-08df136ef545
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|18002099003|3023799007|10067099003|22082099003|6133799003|11063799006|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	/8PI75oVI7ohrgK0KDXzAsGNM9NwHsnaGZRh4SEK6uTl+sWjkqnS/LSQ9JBiMkhOGswcAX6D1+X8K/bZSPS0jfZ/JLKdfI4nVdrvGkO605haqyMCiYSr4D5O9GOmuRGH85gM/L5bSwKU+xszRV/lPzFGO7xniqsITD6tNmSOzSZvonoKGD0ehCMVHjfIBpbpEoyN74y6R7s+PB3fg4nIRyNsf8z5Afj0RaqRjIEpXo/qeotZOtXQHqSAy5gJwKZE4yuLP20XJvlZ8+PIDlTQNFYO2TlRLcAGd3dc07zyF9cdL/7HuJJXOrHBmstukbYOd6mPS7Z++Wo0MTz44VeilzJsAbOO5GHeyFyVn31OSEQzyXNVlIDsatMvRlvdJXpdHpRg1VCb/CQAsT/6IbFTYMb58hv+BYA3uzrT+VvzHU+Qky/A1OdTTQyiXANUNE4SiiP+46f81hOD4EmZqY2bPtLVQXnLBCif7dIOG2JALEhF67LBTySs6e2Wn3eBiO/VF0zOY1QjrNYu0loGEuQ69TwrGHN/6ie87BQWWDgJSa2aeKqLckXtpnz+RRJJiYI0XNVxDQSzoTbiy2teutbz5ghx5GcRIcFNaoAdyomwcS0LjhLKQWwG47KKBfD1ppE89WBkHauU4WX6jJ0OsUvAMudzYIvjXDgHVaO0rMUzTDjHZxr6mZgvDGY0G2aA8jOIzIHv7NxdICQKvHh6HoPS+g==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(18002099003)(3023799007)(10067099003)(22082099003)(6133799003)(11063799006)(56012099006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	sFZcQvW91tRHuopNtTHThpKbRZkt4nE6HXWoWGvX0mxb4FgRoeTjRXUnt1tuAAoKYzkvRseZtuzXxVfPmuRKPsivpL3IBHuF8usCWFYmiccFu+zE+jrxBXwjetcMdvoMtmQSHRriXUvP+rWBkR+8iBLAH1+bAuDeVc7RKb3vNHDkVddUxxaFF9c0+HiClp43bSUYfDjEi7/QDlt3mGYanuh9qCc1wyyif3vYkM4SNt8DS5y298Wo+8upCsizESWUkDCCN6hMNhJIHNqa28gq7WtBcIOs83qvfH6iEW3ZX+e8qa2AhvOpsx+AN7CGa1isiwFCmMeUJlhtUzbWoomDoAOYt+8rSpxt5oAelEaEXpq0mY2tayud/PXcKe+eLQIRNQZLbWLWcvgg+j3wjxFzvvyrSaquYhclethdomQHjNjOV8gDKLJ0FuF7qD6O6G4Y
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 21:18:59.0349
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b25db569-4693-4159-31b7-08df136ef545
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B36D.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7691
 
-On Tue Sep 15, 2026 at 8:01 PM CEST, Alex Williamson wrote:
-> On Mon, 14 Sep 2026 23:36:24 +0200
-> "Danilo Krummrich" <dakr@kernel.org> wrote:
->
->> On Mon Sep 14, 2026 at 8:12 PM CEST, Alex Williamson wrote:
->> > Hi Danilo,
->> >
->> > On Fri, 11 Sep 2026 22:39:16 +0200
->> > "Danilo Krummrich" <dakr@kernel.org> wrote:
->> > =20
->> >> Hi Alex, Jason, Zhi,
->> >>=20
->> >> On Sat Sep 5, 2026 at 10:11 AM CEST, Zhi Wang wrote: =20
->> >> > NVIDIA vGPU VFs require their open, reset, and close lifecycle to b=
-e
->> >> > coordinated with the PF-side nova-core driver.   =20
->> >>=20
->> >> [...]
->> >>  =20
->> >> >  drivers/vfio/pci/nvidia-vgpu/main.c   | 253 ++++++++++++++++++++++=
-++++   =20
->> >>=20
->> >> This is going to be a longer response; sorry about this in advance.
->> >>=20
->> >> Looking at the FFI boundary introduced in the previous patch, I'm con=
-cerned that
->> >> it translates the driver model relationships we've expressed through =
-Rust's
->> >> ownership and lifetime model back into raw pointers and lifetime assu=
-mptions
->> >> that callers must uphold. It also introduces manual lifecycle managem=
-ent across
->> >> the boundary, rather than preserving nova-core's RAII-based ownership=
- model.
->> >>=20
->> >> I think implementing the NVIDIA vGPU driver in Rust would let us pres=
-erve those
->> >> relationships across the interface, make lifecycle management less er=
-ror-prone,
->> >> and fit naturally alongside nova-core and nova-drm. =20
->> > [snip] =20
->> >>=20
->> >> If you've made it this far, thanks for reading through this long writ=
-e-up. I
->> >> hope you find it useful. Please let me know if you have any questions=
- or
->> >> thoughts. =20
->> >
->> > I can't really say I made it this far with comprehension, but thanks
->> > for the effort ;)
->> >
->> > The one piece here that I can actually review is [5], where
->> > dev_get_drvdata() is replaced with a vfio-pci-core struct pointer
->> > embedded in the struct pci_dev, which is a non-starter as far as havin=
-g
->> > a common PCI-core shared by various drivers. =20
->>=20
->> Well, that was just a quick hack to get it out of the way. :)
->>=20
->> I think there are a couple of options.
->>=20
->>   (1) Make the PM helpers take a struct vfio_pci_core_device * in the fi=
-rst
->>       place and let the driver forward to the helpers in its own PM call=
-backs.
->>=20
->>   (2) Provide an (optional?) driver callback that translates a struct pc=
-i_dev to
->>       struct vfio_pci_core_device.
->>=20
->>   (3) Provide a macro for drivers to define PM ops, letting drivers prov=
-ide the
->>       function that translates struct pci_dev to struct vfio_pci_core_de=
-vice.
->>=20
->>   (4) Give struct vfio_pci_core_device its own PM domain (which is proba=
-bly a
->>       bit overkill :).
->>=20
->> I understand that the idea is to hide the PM handling in the vfio-pci fr=
-amwork,
->> but I think the existing implementation is a bit of a layering violation=
-, since
->> class device implementations shouldn't impose requirements on the bus de=
-vice
->> private data layout.
->>=20
->> I also think that the approach to fully hide it in the framework is only=
- really
->> worth if it doesn't otherwise impose subtle requirements on the driver (=
-such as
->> the layout requirement of the bus device private data).
->>=20
->> Thus, I'd personally just go with (1) as it is the most honest approach =
-in terms
->> of driver layering. But I think (2) is a good alternative that is not mo=
-re
->> invasive than asking drivers to set the bus device private data to
->> struct vfio_pci_core_device *.
->
-> I'd position this more as a library convention than a class layering
-> violation.  vfio-pci was originally one driver, vfio-pci-core was
-> pulled out to enable device specific support, ex. migration, in a more
-> manageable way.  struct vfio_pci_core_device is not strictly a class,
-> it's the object used by the library that variant drivers opt to use
-> rather than re-implementing vfio-pci from the ground up.
->
-> The conventions of that library mean variant drivers get things like
-> VGA routing and power management for free, in adherence with how these
-> features are exported by the core, and can choose to opt-in to common
-> error handling.
->
-> The use of drvdata is part of that convention and audited by the core
-> such that failed compliance is rejected on registration.  Clearly we
-> could allow variant drivers to provide ops for their own callbacks and
-> export core helpers they can use, but only a Rust driver requires this
-> and we need to figure out how to do this without degrading the audit in
-> the core.
+NVIDIA vGPU VFs require their open, reset, and close lifecycle to be
+coordinated with the PF-side nova-core driver.
 
-The driver_data pointer in struct device is defined to be a pointer where a
-driver can store *arbitrary* data for the duration the driver is bound to t=
-his
-device.
+Add a VFIO PCI variant with an override alias for NVIDIA 10de:2bb5
+devices with class/subclass 0302. Leave the programming-interface byte
+unmasked so the generated alias ends in i*, as required by libvirt
+VFIO variant matching. PFs share this ID with their VFs. Use ordinary
+PCI passthrough unless a VF can borrow a compatible, complete Nova
+lifecycle interface through the typed SR-IOV descriptor. Both paths use
+VFIO PCI core defaults and support PASID attachment; generic passthrough
+also retains the core DMA-BUF export operation. Provide a driver-local
+enable_sriov option for PFs bound to this driver.
 
-This is an API contract the driver core provides for the struct device stru=
-cture
-when used in a bus device (such as struct pci_dev), i.e. it is an API contr=
-act
-between the driver core and drivers in general.
+For vGPU instances, expose the firmware-selected device and subsystem
+IDs through configuration-space reads and constrain BAR1 region reporting,
+read, write, and mmap access to the assigned vGPU type's aperture.
+Coordinate firmware reset through PCI reset callbacks and serialize the
+entire reset window against instance open and close without retaining a
+mutex across a multi-device bus reset. Latch firmware reset failures
+until successful reopen, report them through the VFIO error IRQ and
+reset ioctls, and preserve core configuration-write return values.
 
-It is *not* the Rust driver core code breaking a convention here. The Rust
-driver core code just relies on its own subsystem's API contract.
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+---
+ drivers/vfio/pci/Kconfig              |   2 +
+ drivers/vfio/pci/Makefile             |   2 +
+ drivers/vfio/pci/nvidia-vgpu/Kconfig  |  21 ++
+ drivers/vfio/pci/nvidia-vgpu/Makefile |   2 +
+ drivers/vfio/pci/nvidia-vgpu/main.c   | 509 ++++++++++++++++++++++++++
+ 5 files changed, 536 insertions(+)
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/Kconfig
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/Makefile
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/main.c
 
-The fact that the vfio-pci-core forces vfio-pci drivers to only ever store =
-a
-struct vfio_pci_core_device pointer there re-defines the driver core's API
-contract and therefore is a layering violation.
-
-> Turning vfio-pci-core into a proper class to be able to have a real
-> layering violation claim seems like a much larger project.
-
-What you are describing rather sounds to me as if struct vfio_pci_core_devi=
-ce
-wants to be two things: a bus device layered on top of a PCI device and a c=
-lass
-device around struct vfio_device. But in this case it should implement a re=
-al
-bus on top of the PCI bus.
-
-Currently it really is a wrapper around struct vfio_device (and therefore a
-class device) which is bending the purpose of the driver's bus device priva=
-te
-data pointer to make a connection with the real bus device underneath.
-
->> > My concerns are of course who is going to review the Rust vfio-pci
->> > variant drivers from a vfio perspective, not just a drm driver
->> > viewpoint. =20
->>=20
->> I did put some considerations about this; I think Zhi would be a great c=
-andidate
->> for this. :) And as mentioned I can also take some of the responsibility=
-, but I
->> also want to be honest about the fact that I have a lot on my plate alre=
-ady.
->
-> And that's part of the problem, there are bandwidth issues all around and
-> neither you nor Zhi are, as of yet, core vfio contributors.
-
-That is true, but I suggest to also see it from the perspective that this e=
-ffort
-is a good chance to get more people to engage with the VFIO subsystem in th=
-e
-first place and eventually become experts that also contribute to the C cor=
-e.
-
-For the Rust abstraction, there are two competencies needed: knowledge abou=
-t
-writing a VFIO driver (which Zhi clearly covers) and knowledge about the dr=
-iver
-model and its Rust implementation specifics as well as the Rust ecosystem i=
-n
-general (which is why I offered myself to take responsibility).
-
-Remember the VFIO abstractions are translating the C VFIO driver APIs to Ru=
-st
-APIs for Rust drivers. They don't need to mess with VFIO internals.
-
->> > Who is going to be responsive when the interfaces break and
->> > monitor vfio proactively to prevent such breakages, and how do we avoi=
-d
->> > derailing feature development in the core code base. =20
->>=20
->> In practice we shouldn't see any breakages with the Rust code that would=
-n't also
->> break the C VFIO drivers. If this would be the case it would mean that t=
-he Rust
->> code relies on guarantees that none of the C drivers rely on, which woul=
-d likely
->> mean that is was never a guarantee that was actually promised by the VFI=
-O core
->> code.
->
-> s/practice/theory/
-
-As mentioned above, the abstractions are translating the C VFIO driver APIs=
- to
-Rust APIs for Rust drivers. I.e. they don't use other API than the C driver=
-s
-use. Thus, code breakages should be limited to what I mentioned below.
-
->> There may be cases where Rust code breaks, and C code won't, but those s=
-hould be
->> mechanical things, such as a type mismatch where Rust is more careful, e=
-.g. if
->> we'd change a CPP define to an enum, etc.
->
-> This seems like a very optimistic outlook.  I don't have experience
-> with Rust to claim otherwise, but I do have general software experience
-> to be suspicious of anything sounding so clean.
-
-I maintain some subsystems that have Rust code, and I also maintain Rust co=
-de of
-subsystems I otherwise do not maintain. I haven't seen anything break so fa=
-r
-other than for the reasons already mentioned.
-
-Of course, that doesn't mean that mistakes can't happen. For instance, we c=
-ould
-have the case that the Rust code makes assumptions that the subsystem never
-guaranteed in the first place. But that'd be something that could also happ=
-en
-for any other driver and it would be a bug in the Rust code that the mainta=
-iners
-of the Rust code have to take responsibility for.
-
->> > Can a Rust vfio-pci variant driver be self-contained, or to what exten=
-t does
->> > it impose on the framework, such as the drvdata idiom. =20
->>=20
->> As mentioned above, I think this one is more of a layering violation in =
-the
->> vfio-pci-core; class devices shouldn't impose layout requirements on bus=
- device
->> private data.
->>=20
->> The reason C drivers can get away with it more easily is e.g. that C rel=
-ies on
->> procedural cleanup and that all responsibility for managing lifetimes si=
-ts on
->> the drivers themselves, so it is easier for them to adjust. But in gener=
-al, it
->> wouldn't work out if all class device registrations or other core primit=
-ives
->> would have the same expectation.
->>=20
->> For Rust specifically it is that the driver core controls the lifetime o=
-f the
->> bus device private data, which is a fundamental requirement to e.g. repr=
-esent
->> registrations as RAII types. E.g. the vfio::pci::Registration has to be =
-stored
->> in the bus device private data, such that it is guaranteed to be correct=
-ly
->> destroyed on driver unbind.
->
-> I see, so driver core has its own convention for how Rust drivers must
-> use drvdata.
-
-As mentioned above, the driver_data pointer of struct device is specificall=
-y
-reserved for drivers to store arbitrary data while they are bound to the de=
-vice.
-
-The only difference is that in C it is a convention and drivers call
-dev_set_drvdata() themselves, whereas in Rust we do it in the driver core c=
-ode.
-
-Note that clearing this pointer is also done in the driver core in C in
-device_unbind_cleanup().
-
->> To get back to your question, a Rust vfio-pci variant driver should be
->> self-contained. The interface sits in the abstraction that translates th=
-e C
->> driver API to a Rust driver API. It sometimes can help quite significant=
-ly (e.g.
->> in terms of how complex the Rust code needs to get in order to actually =
-be safe)
->> if the C code does a minor adjustment, but it shouldn't be necessary.
->
-> It's not clear to me to what extent these abstractions hinder our
-> ability to evolve and refactor the C code.  It may not "lock in" the
-> core API for variant drivers, but it seems it raises the bar that any
-> significant code refactor likely needs to refactor the abstraction
-> layer, potentially the Rust variant driver itself, which imposes a
-> burden on the vfio community that has so far not introduced Rust into
-> the code base.
-
-In general, if the refactor does not affect C drivers, it shouldn't affect =
-the
-Rust API either.
-
-If the refactor affects C drivers, it will also affect Rust drivers and the
-change in the Rust abstraction could also be more complicated than the chan=
-ge
-required in the C drivers.
-
-The reason is that we design the Rust APIs at minmum in a way that any arbi=
-trary
-usage can not produce undefined behavior. Beyond that, we also always try t=
-o
-design them in a way that it also at least encourages correct semantical us=
-e.
-
-So in theory, it could happen that we need to figure out a new way to abstr=
-act
-the C API in way that can't produce undefined behavior.
-
-But if that happens it should be something minor, e.g. a new callback which
-requires a new type state, an argument that requires a new type carrying so=
-me
-invariants, etc.
-
-The biggest part of the abstraction is the integration in the driver lifecy=
-cle,
-which is a repeating pattern. For instance, if you look at the fwctl Rust c=
-ode
-it looks almsot the same.
-
-From my experience maintaining both C and Rust code I can also tell that go=
-od
-design is pretty straight forward to abstract in Rust to produce a safe API=
-; bad
-design isn't.
-
-Where good design means APIs with defined ownership, clear lifetime
-relationships, and a consistent API surface. Whereas APIs that have unclear
-ownership and lifetime relationships and inconsistent API surfaces are a hu=
-ge
-pain in the butt to abstract.
-
-The reason is that Rust needs to get those things straight somehow in order=
- to
-provide a safe API surface. I.e. an underlying bad API design (as defined a=
-bove)
-needs the Rust implementation to make quite some stretches.
-
->> For instance, the only addition to the driver core we have is an additio=
-nal
->> callback in struct device_driver, and in the future an additional pointe=
-r in
->> struct device_private; none of those couldn't be worked around in some w=
-ay
->> though.
->>
->> On the other hand there are examples where the Rust introduction motivat=
-ed
->> design improvements on the C side, or bug fixes for issues that were cau=
-ght
->> while writing a safe abstraction. For instance, we recently had some fix=
-es
->> around dyn IDs in the PCI and USB core, which both were motivated by Rus=
-t code.
->
-> I have no doubt that integration with a more structured language would
-> lead to various improvements.  However, it doesn't seem there are
-> resources to support it in the short term.
-
-As mentoined above, there are people volunteering now. Without starting it,=
- it
-can't scale further than that. :)
-
->> > FWIW, AI can only go so far to support reviews.  Having the code
->> > insight to ask the right questions is essential.  A human in the loop
->> > is a requirement.
->> >
->> > Additionally, if we can't narrow the device matching to only the
->> > Nova-core supported VFs, =20
->>=20
->> Agreed, and I think that should be possible. Is there a particular case =
-you
->> think of where this wouldn't hold?
->
-> The modalias scheme only matches on vendor/device ID, subsystem IDs,
-> base/sub class, and interface.  Nothing in the PCI spec requires that
-> the VF device ID is different from the PF device ID.  Variant drivers
-> will often present a larger match surface to avoid the ongoing
-> maintenance overhead of listing explicit device IDs.  Such an approach
-> here would put us in the position I noted in the previous reply where
-> the Rust variant driver needs to fully support these devices via
-> vfio-pci-core on day one.  Binding GPU PFs to vfio-pci is a current,
-> valid use case (VFs for some vendors as well).  Thanks,
-
-My understanding is that in order to support PFs being bound to the variant
-driver the only thing necessary would be to fall back to the vfio-pci-core
-callbacks. If that's the case, my PoC code can already do that.
-
-However, I don't really see the use-case; you can't load nvidia-vgpu withou=
-t
-nova-core in the first place, so it would require to unbind nova-core throu=
-gh
-sysfs force unbind, no?
+diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
+index 296bf01e185e..b48d8d1af42a 100644
+--- a/drivers/vfio/pci/Kconfig
++++ b/drivers/vfio/pci/Kconfig
+@@ -74,4 +74,6 @@ source "drivers/vfio/pci/qat/Kconfig"
+ 
+ source "drivers/vfio/pci/xe/Kconfig"
+ 
++source "drivers/vfio/pci/nvidia-vgpu/Kconfig"
++
+ endmenu
+diff --git a/drivers/vfio/pci/Makefile b/drivers/vfio/pci/Makefile
+index 6138f1bf241d..f3498e541555 100644
+--- a/drivers/vfio/pci/Makefile
++++ b/drivers/vfio/pci/Makefile
+@@ -24,3 +24,5 @@ obj-$(CONFIG_NVGRACE_GPU_VFIO_PCI) += nvgrace-gpu/
+ obj-$(CONFIG_QAT_VFIO_PCI) += qat/
+ 
+ obj-$(CONFIG_XE_VFIO_PCI) += xe/
++
++obj-$(CONFIG_NVIDIA_VGPU_VFIO_PCI) += nvidia-vgpu/
+diff --git a/drivers/vfio/pci/nvidia-vgpu/Kconfig b/drivers/vfio/pci/nvidia-vgpu/Kconfig
+new file mode 100644
+index 000000000000..e7791fa79984
+--- /dev/null
++++ b/drivers/vfio/pci/nvidia-vgpu/Kconfig
+@@ -0,0 +1,21 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config NVIDIA_VGPU_VFIO_PCI
++	tristate "VFIO support for the NVIDIA vGPU"
++	depends on NOVA_CORE && PCI_IOV
++	select VFIO_PCI_CORE
++	help
++	  This option enables VFIO (Virtual Function I/O) support for
++	  NVIDIA virtual GPUs (vGPU). It allows the assignment of a virtual
++	  GPU instance to userspace applications via VFIO, typically used
++	  with hypervisors such as KVM and device emulators like QEMU.
++
++	  Devices without an available Nova vGPU interface use ordinary PCI
++	  passthrough. Both paths use the VFIO PCI core defaults; vfio-pci
++	  module options do not apply. The enable_sriov parameter of this
++	  driver controls SR-IOV configuration for PFs bound to it.
++
++	  The NVIDIA vGPU allows a physical GPU to be partitioned into
++	  multiple virtual GPUs, each of which can be passed to a virtual
++	  machine as a PCI device using the standard VFIO infrastructure.
++
++	  If you don't know what to do here, say N.
+diff --git a/drivers/vfio/pci/nvidia-vgpu/Makefile b/drivers/vfio/pci/nvidia-vgpu/Makefile
+new file mode 100644
+index 000000000000..193cc801a081
+--- /dev/null
++++ b/drivers/vfio/pci/nvidia-vgpu/Makefile
+@@ -0,0 +1,2 @@
++obj-$(CONFIG_NVIDIA_VGPU_VFIO_PCI) += nvidia-vgpu-vfio-pci.o
++nvidia-vgpu-vfio-pci-y := main.o
+diff --git a/drivers/vfio/pci/nvidia-vgpu/main.c b/drivers/vfio/pci/nvidia-vgpu/main.c
+new file mode 100644
+index 000000000000..742979fb0ed5
+--- /dev/null
++++ b/drivers/vfio/pci/nvidia-vgpu/main.c
+@@ -0,0 +1,509 @@
++// SPDX-License-Identifier: GPL-2.0-only
++#include <linux/compiler.h>
++#include <linux/completion.h>
++#include <linux/minmax.h>
++#include <linux/mm.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/overflow.h>
++#include <linux/pci.h>
++#include <linux/pid.h>
++#include <linux/uaccess.h>
++#include <linux/unaligned.h>
++#include <linux/vfio_pci_core.h>
++#include <drm/nvidia_vgpu.h>
++
++#define NVIDIA_VGPU_DRIVER_NAME "nvidia-vgpu-vfio-pci"
++
++static bool enable_sriov;
++module_param(enable_sriov, bool, 0644);
++MODULE_PARM_DESC(enable_sriov, "Enable SR-IOV configuration for PFs bound to this driver");
++
++static int nvidia_vgpu_fb_bar_index(struct pci_dev *pdev)
++{
++	if (pci_resource_flags(pdev, 0) & IORESOURCE_MEM_64)
++		return 2;
++	return 1;
++}
++
++static const struct rust_ffi_token nvidia_vgpu_ffi_token = {
++	.high = NVIDIA_VGPU_FFI_TOKEN_HIGH,
++	.low = NVIDIA_VGPU_FFI_TOKEN_LOW,
++};
++
++struct nvidia_vgpu_pci_core_device {
++	struct vfio_pci_core_device core_device;
++	struct nvidia_vgpu_type_info type_info;
++	const struct nvidia_vgpu_ops *pf_ops;
++	const void *pf_context;
++	/* Protects lifecycle calls and the active/resetting state. */
++	struct mutex instance_lock;
++	struct completion reset_completion;
++	unsigned int gfid;
++	int reset_error;
++	bool instance_active;
++	bool resetting;
++};
++
++/* Encode the VF's PCI segment:bus:device.function as a 32-bit address. */
++static inline unsigned int nvidia_vgpu_vf_sbdf(struct pci_dev *vf)
++{
++	return ((u32)pci_domain_nr(vf->bus) << 16) | pci_dev_id(vf);
++}
++
++/* Keep open and close outside the complete prepare/PCI-reset/done window. */
++static void nvidia_vgpu_lock_instance(struct nvidia_vgpu_pci_core_device *nvdev)
++{
++	for (;;) {
++		mutex_lock(&nvdev->instance_lock);
++		if (!nvdev->resetting)
++			return;
++		mutex_unlock(&nvdev->instance_lock);
++		wait_for_completion(&nvdev->reset_completion);
++	}
++}
++
++static int nvidia_vgpu_open_device(struct vfio_device *core_vdev)
++{
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_vdev, struct nvidia_vgpu_pci_core_device,
++			     core_device.vdev);
++	struct pci_dev *vf = to_pci_dev(core_vdev->dev);
++	struct nvidia_vgpu_type_info type_info;
++	int ret;
++
++	ret = vfio_pci_core_enable(&nvdev->core_device);
++	if (ret)
++		return ret;
++
++	nvidia_vgpu_lock_instance(nvdev);
++	ret = nvdev->pf_ops->open(nvdev->pf_context, nvdev->gfid,
++				 nvidia_vgpu_vf_sbdf(vf), task_tgid_nr(current),
++				 &type_info);
++	if (!ret) {
++		nvdev->instance_active = true;
++		WRITE_ONCE(nvdev->reset_error, 0);
++	}
++	mutex_unlock(&nvdev->instance_lock);
++	if (ret) {
++		vfio_pci_core_disable(&nvdev->core_device);
++		return ret;
++	}
++
++	nvdev->type_info = type_info;
++	put_unaligned_le16(type_info.pci_dev_id,
++			   nvdev->core_device.vconfig + PCI_DEVICE_ID);
++	pci_dbg(vf, "vgpu open: dev_id=0x%x subsys_id=0x%x bar1_length=0x%llx\n",
++		type_info.pci_dev_id, type_info.pci_subsys_id,
++		type_info.bar1_length);
++	vfio_pci_core_finish_enable(&nvdev->core_device);
++	return 0;
++}
++
++static void nvidia_vgpu_close_device(struct vfio_device *core_vdev)
++{
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_vdev, struct nvidia_vgpu_pci_core_device,
++			     core_device.vdev);
++
++	nvidia_vgpu_lock_instance(nvdev);
++	nvdev->instance_active = false;
++	nvdev->pf_ops->close(nvdev->pf_context, nvdev->gfid);
++	mutex_unlock(&nvdev->instance_lock);
++	vfio_pci_core_close_device(core_vdev);
++}
++
++static int nvidia_vgpu_bar1_size(struct nvidia_vgpu_pci_core_device *nvdev,
++				 u64 *size)
++{
++	struct pci_dev *pdev = nvdev->core_device.pdev;
++	u64 physical_size = pci_resource_len(pdev, nvidia_vgpu_fb_bar_index(pdev));
++
++	/* The assigned vGPU type reports its VRAM aperture in MiB. */
++	if (check_shl_overflow(nvdev->type_info.bar1_length, 20, size))
++		return -EOVERFLOW;
++
++	/* An unspecified or larger vGPU type aperture uses the physical limit. */
++	if (!*size || *size > physical_size)
++		*size = physical_size;
++
++	return 0;
++}
++
++/* Enforce the same vGPU type aperture reported by GET_REGION_INFO. */
++static int nvidia_vgpu_bar1_access(struct vfio_device *core_vdev,
++				   loff_t pos, size_t *count)
++{
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_vdev, struct nvidia_vgpu_pci_core_device,
++			     core_device.vdev);
++	unsigned int index = VFIO_PCI_OFFSET_TO_INDEX(pos);
++	u64 size;
++	int ret;
++
++	if (!*count || index != nvidia_vgpu_fb_bar_index(nvdev->core_device.pdev))
++		return 0;
++
++	ret = nvidia_vgpu_bar1_size(nvdev, &size);
++	if (ret)
++		return ret;
++
++	pos &= VFIO_PCI_OFFSET_MASK;
++	if (pos >= size)
++		return -EINVAL;
++
++	*count = min_t(u64, *count, size - pos);
++	return 0;
++}
++
++static ssize_t nvidia_vgpu_read_config(struct vfio_device *core_vdev,
++				      char __user *buf, size_t count,
++				      loff_t *ppos)
++{
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_vdev, struct nvidia_vgpu_pci_core_device,
++			     core_device.vdev);
++	loff_t pos = *ppos & VFIO_PCI_OFFSET_MASK;
++	loff_t next = *ppos, copy_offset;
++	size_t copy_count, register_offset;
++	__le16 value;
++	ssize_t ret;
++
++	ret = vfio_pci_core_read(core_vdev, buf, count, &next);
++	if (ret <= 0)
++		return ret;
++
++	/* The core reads the subsystem ID from physical configuration space. */
++	if (vfio_pci_core_range_intersect_range(pos, ret, PCI_SUBSYSTEM_ID,
++					      sizeof(value), &copy_offset,
++					      &copy_count, &register_offset)) {
++		value = cpu_to_le16(nvdev->type_info.pci_subsys_id);
++		if (copy_to_user(buf + copy_offset,
++				(u8 *)&value + register_offset, copy_count))
++			return -EFAULT;
++	}
++
++	*ppos = next;
++	return ret;
++}
++
++static ssize_t nvidia_vgpu_pci_read(struct vfio_device *core_vdev,
++				    char __user *buf, size_t count,
++				    loff_t *ppos)
++{
++	int ret;
++
++	if (VFIO_PCI_OFFSET_TO_INDEX(*ppos) == VFIO_PCI_CONFIG_REGION_INDEX)
++		return nvidia_vgpu_read_config(core_vdev, buf, count, ppos);
++
++	ret = nvidia_vgpu_bar1_access(core_vdev, *ppos, &count);
++	if (ret)
++		return ret;
++
++	return vfio_pci_core_read(core_vdev, buf, count, ppos);
++}
++
++static ssize_t nvidia_vgpu_pci_write(struct vfio_device *core_vdev,
++				     const char __user *buf, size_t count,
++				     loff_t *ppos)
++{
++	int ret;
++
++	ret = nvidia_vgpu_bar1_access(core_vdev, *ppos, &count);
++	if (ret)
++		return ret;
++
++	/* Reset callbacks report a firmware FLR failure through the error IRQ. */
++	return vfio_pci_core_write(core_vdev, buf, count, ppos);
++}
++
++static int nvidia_vgpu_pci_mmap(struct vfio_device *core_vdev,
++				struct vm_area_struct *vma)
++{
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_vdev, struct nvidia_vgpu_pci_core_device,
++			     core_device.vdev);
++	unsigned int index = vma->vm_pgoff >> (VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT);
++	u64 size, req_start, req_len, end;
++	int ret;
++
++	if (index != nvidia_vgpu_fb_bar_index(nvdev->core_device.pdev))
++		return vfio_pci_core_mmap(core_vdev, vma);
++
++	ret = nvidia_vgpu_bar1_size(nvdev, &size);
++	if (ret)
++		return ret;
++
++	req_start = (vma->vm_pgoff & (VFIO_PCI_OFFSET_MASK >> PAGE_SHIFT)) << PAGE_SHIFT;
++	if (check_sub_overflow(vma->vm_end, vma->vm_start, &req_len) ||
++	    check_add_overflow(req_start, req_len, &end))
++		return -EOVERFLOW;
++	if (end > size)
++		return -EINVAL;
++
++	return vfio_pci_core_mmap(core_vdev, vma);
++}
++
++static int nvidia_vgpu_get_region_info(struct vfio_device *core_vdev,
++				       struct vfio_region_info *info,
++				       struct vfio_info_cap *caps)
++{
++	struct pci_dev *pdev = to_pci_dev(core_vdev->dev);
++	int ret;
++
++	ret = vfio_pci_ioctl_get_region_info(core_vdev, info, caps);
++	if (ret)
++		return ret;
++
++	if (info->index == nvidia_vgpu_fb_bar_index(pdev) && info->size) {
++		struct nvidia_vgpu_pci_core_device *nvdev =
++			container_of(core_vdev, struct nvidia_vgpu_pci_core_device,
++				     core_device.vdev);
++		u64 vgpu_bar1;
++
++		ret = nvidia_vgpu_bar1_size(nvdev, &vgpu_bar1);
++		if (ret)
++			return ret;
++
++		if (vgpu_bar1 && vgpu_bar1 < info->size)
++			info->size = vgpu_bar1;
++	}
++
++	return 0;
++}
++
++static long nvidia_vgpu_pci_ioctl(struct vfio_device *core_vdev,
++				  unsigned int cmd, unsigned long arg)
++{
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_vdev, struct nvidia_vgpu_pci_core_device,
++			     core_device.vdev);
++	bool reset = cmd == VFIO_DEVICE_RESET || cmd == VFIO_DEVICE_PCI_HOT_RESET;
++	long ret;
++
++	/* A failed firmware reset requires closing and reopening the instance. */
++	if (reset && READ_ONCE(nvdev->reset_error))
++		return READ_ONCE(nvdev->reset_error);
++
++	ret = vfio_pci_core_ioctl(core_vdev, cmd, arg);
++	if (ret)
++		return ret;
++
++	if (reset)
++		return READ_ONCE(nvdev->reset_error);
++
++	return 0;
++}
++
++static void nvidia_vgpu_reset_prepare(struct pci_dev *pdev)
++{
++	struct vfio_pci_core_device *core_device = dev_get_drvdata(&pdev->dev);
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_device, struct nvidia_vgpu_pci_core_device,
++			     core_device);
++	int ret = 0;
++
++	/*
++	 * PCI holds the VF device lock, and VFIO may hold its memory lock.
++	 * Open and close release instance_lock before entering vfio-pci-core;
++	 * PF operations take only GPU locks, never the PF or VF device lock.
++	 */
++	mutex_lock(&nvdev->instance_lock);
++	nvdev->resetting = true;
++	reinit_completion(&nvdev->reset_completion);
++	if (nvdev->instance_active)
++		ret = nvdev->pf_ops->reset(nvdev->pf_context, nvdev->gfid);
++	if (ret && !nvdev->reset_error)
++		WRITE_ONCE(nvdev->reset_error, ret);
++	mutex_unlock(&nvdev->instance_lock);
++}
++
++static void nvidia_vgpu_reset_done(struct pci_dev *pdev)
++{
++	struct vfio_pci_core_device *core_device = dev_get_drvdata(&pdev->dev);
++	struct nvidia_vgpu_pci_core_device *nvdev =
++		container_of(core_device, struct nvidia_vgpu_pci_core_device,
++			     core_device);
++	int ret;
++
++	mutex_lock(&nvdev->instance_lock);
++	ret = nvdev->reset_error;
++	/* PCI reset callbacks cannot return an error or abort the PCI reset. */
++	if (ret) {
++		pci_err(pdev, "vGPU instance has a failed firmware reset: %d\n", ret);
++		vfio_pci_core_aer_err_detected(pdev, pci_channel_io_normal);
++	}
++	nvdev->resetting = false;
++	complete_all(&nvdev->reset_completion);
++	mutex_unlock(&nvdev->instance_lock);
++}
++
++static const struct pci_error_handlers nvidia_vgpu_err_handlers = {
++	.error_detected = vfio_pci_core_aer_err_detected,
++	.reset_prepare = nvidia_vgpu_reset_prepare,
++	.reset_done = nvidia_vgpu_reset_done,
++};
++
++static const struct vfio_device_ops nvidia_vgpu_pci_ops = {
++	.name		= NVIDIA_VGPU_DRIVER_NAME,
++	.init		= vfio_pci_core_init_dev,
++	.release	= vfio_pci_core_release_dev,
++	.open_device	= nvidia_vgpu_open_device,
++	.close_device	= nvidia_vgpu_close_device,
++	.ioctl		= nvidia_vgpu_pci_ioctl,
++	.get_region_info_caps = nvidia_vgpu_get_region_info,
++	.device_feature	= vfio_pci_core_ioctl_feature,
++	.read		= nvidia_vgpu_pci_read,
++	.write		= nvidia_vgpu_pci_write,
++	.mmap		= nvidia_vgpu_pci_mmap,
++	.request	= vfio_pci_core_request,
++	.match		= vfio_pci_core_match,
++	.match_token_uuid = vfio_pci_core_match_token_uuid,
++	.bind_iommufd	= vfio_iommufd_physical_bind,
++	.unbind_iommufd	= vfio_iommufd_physical_unbind,
++	.attach_ioas	= vfio_iommufd_physical_attach_ioas,
++	.detach_ioas	= vfio_iommufd_physical_detach_ioas,
++	.pasid_attach_ioas = vfio_iommufd_physical_pasid_attach_ioas,
++	.pasid_detach_ioas = vfio_iommufd_physical_pasid_detach_ioas,
++};
++
++static int nvidia_vgpu_passthrough_open(struct vfio_device *core_vdev)
++{
++	struct vfio_pci_core_device *vdev =
++		container_of(core_vdev, struct vfio_pci_core_device, vdev);
++	int ret;
++
++	ret = vfio_pci_core_enable(vdev);
++	if (ret)
++		return ret;
++
++	vfio_pci_core_finish_enable(vdev);
++	return 0;
++}
++
++/* PFs and VFs without a compatible Nova interface retain generic VFIO behavior. */
++static const struct vfio_device_ops nvidia_vgpu_passthrough_ops = {
++	.name		= NVIDIA_VGPU_DRIVER_NAME,
++	.init		= vfio_pci_core_init_dev,
++	.release	= vfio_pci_core_release_dev,
++	.open_device	= nvidia_vgpu_passthrough_open,
++	.close_device	= vfio_pci_core_close_device,
++	.ioctl		= vfio_pci_core_ioctl,
++	.get_region_info_caps = vfio_pci_ioctl_get_region_info,
++	.device_feature	= vfio_pci_core_ioctl_feature,
++	.read		= vfio_pci_core_read,
++	.write		= vfio_pci_core_write,
++	.mmap		= vfio_pci_core_mmap,
++	.request	= vfio_pci_core_request,
++	.match		= vfio_pci_core_match,
++	.match_token_uuid = vfio_pci_core_match_token_uuid,
++	.bind_iommufd	= vfio_iommufd_physical_bind,
++	.unbind_iommufd	= vfio_iommufd_physical_unbind,
++	.attach_ioas	= vfio_iommufd_physical_attach_ioas,
++	.detach_ioas	= vfio_iommufd_physical_detach_ioas,
++	.pasid_attach_ioas = vfio_iommufd_physical_pasid_attach_ioas,
++	.pasid_detach_ioas = vfio_iommufd_physical_pasid_detach_ioas,
++};
++
++static const struct vfio_pci_device_ops nvidia_vgpu_passthrough_dev_ops = {
++	.get_dmabuf_phys = vfio_pci_core_get_dmabuf_phys,
++};
++
++static int nvidia_vgpu_pci_probe(struct pci_dev *pdev,
++				 const struct pci_device_id *id)
++{
++	const struct vfio_device_ops *device_ops = &nvidia_vgpu_passthrough_ops;
++	struct nvidia_vgpu_pci_core_device *nvdev;
++	const struct nvidia_vgpu_ops *pf_ops = NULL;
++	const void *pf_context = NULL;
++	int vf_id = -1;
++	int ret;
++
++	if (pdev->is_virtfn) {
++		const struct rust_ffi *ffi;
++
++		ffi = pci_iov_borrow_rust_pf_data(pdev, &nvidia_vgpu_ffi_token,
++						  NVIDIA_VGPU_FFI_ABI_MAJOR,
++						  NVIDIA_VGPU_FFI_ABI_MINOR,
++						  sizeof(*pf_ops));
++		if (!IS_ERR(ffi)) {
++			const struct nvidia_vgpu_ops *ops = ffi->ops;
++
++			if (ops->open && ops->close && ops->reset) {
++				pf_ops = ops;
++				pf_context = ffi->context;
++				device_ops = &nvidia_vgpu_pci_ops;
++			}
++		}
++	}
++
++	if (pf_ops) {
++		vf_id = pci_iov_vf_id(pdev);
++		if (vf_id < 0)
++			return vf_id;
++	}
++
++	nvdev = vfio_alloc_device(nvidia_vgpu_pci_core_device, core_device.vdev,
++				  &pdev->dev, device_ops);
++	if (IS_ERR(nvdev))
++		return PTR_ERR(nvdev);
++
++	mutex_init(&nvdev->instance_lock);
++	init_completion(&nvdev->reset_completion);
++	nvdev->pf_ops = pf_ops;
++	nvdev->pf_context = pf_context;
++	nvdev->gfid = vf_id + 1;
++	if (!pf_ops)
++		nvdev->core_device.pci_ops = &nvidia_vgpu_passthrough_dev_ops;
++	dev_set_drvdata(&pdev->dev, &nvdev->core_device);
++	ret = vfio_pci_core_register_device(&nvdev->core_device);
++	if (ret)
++		goto out_put_vdev;
++
++	return 0;
++
++out_put_vdev:
++	vfio_put_device(&nvdev->core_device.vdev);
++	return ret;
++}
++
++static void nvidia_vgpu_pci_remove(struct pci_dev *pdev)
++{
++	struct vfio_pci_core_device *core_device = dev_get_drvdata(&pdev->dev);
++
++	/* Drain all VFIO callbacks before the borrowed PF context expires. */
++	vfio_pci_core_unregister_device(core_device);
++	vfio_put_device(&core_device->vdev);
++}
++
++static const struct pci_device_id nvidia_vgpu_pci_table[] = {
++	/* RTX PRO 6000 Blackwell Server Edition PFs and VFs share this ID. */
++	{ PCI_DRIVER_OVERRIDE_DEVICE_VFIO(PCI_VENDOR_ID_NVIDIA, 0x2bb5),
++	  .class = PCI_CLASS_DISPLAY_3D << 8, .class_mask = 0xffff00 },
++	{}
++};
++MODULE_DEVICE_TABLE(pci, nvidia_vgpu_pci_table);
++
++static int nvidia_vgpu_sriov_configure(struct pci_dev *pdev, int nr_virtfn)
++{
++	struct vfio_pci_core_device *vdev = dev_get_drvdata(&pdev->dev);
++
++	if (!enable_sriov)
++		return -ENOENT;
++
++	return vfio_pci_core_sriov_configure(vdev, nr_virtfn);
++}
++
++static struct pci_driver nvidia_vgpu_pci_driver = {
++	.name		= NVIDIA_VGPU_DRIVER_NAME,
++	.id_table	= nvidia_vgpu_pci_table,
++	.probe		= nvidia_vgpu_pci_probe,
++	.remove		= nvidia_vgpu_pci_remove,
++	.sriov_configure = nvidia_vgpu_sriov_configure,
++	.err_handler	= &nvidia_vgpu_err_handlers,
++	.driver_managed_dma = true,
++};
++module_pci_driver(nvidia_vgpu_pci_driver);
++
++MODULE_DESCRIPTION("NVIDIA vGPU vfio-pci driver");
++MODULE_LICENSE("GPL");
