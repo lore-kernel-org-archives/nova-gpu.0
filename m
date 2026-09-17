@@ -1,77 +1,79 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021118.outbound.protection.outlook.com [52.101.100.118])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020139.outbound.protection.outlook.com [52.101.195.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419F43BB12C
-	for <nova-gpu@lists.linux.dev>; Thu, 17 Sep 2026 07:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1D8382299
+	for <nova-gpu@lists.linux.dev>; Thu, 17 Sep 2026 07:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.139
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629152; cv=fail; b=CtCj3os7iSGaS5MXdZXHqJJD3h/fzO5XEo2lv8f4w1wfnCFmlMR21SWVfZC9dGKCev7xR/HNESl9VnDFI+LzP0GIUbQ6vQ+V8JhS9Qoanb8AhpQTZlRaq0EJCiAG91G45wjk0J8N3LJ8iq+UZwwnksJxT8AJ8FZDaRiw6LBEUV8=
+	t=1789631648; cv=fail; b=L9USwF925xP5//ld7Kph90pfSiwRQt3yxg8Nkzc7pEfOUqJu8njqhCOS3IzzoWzhvbuFw33ycWxPIOCaEg4LY37V8pzJjWRpctRVyZPB9Qsb7i/p7Qall6ibsoj/BF4z1j3UST4VJ68i4h/ZV0T0AjICKKHnJ2hbfgVXsLIB4hY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629152; c=relaxed/simple;
-	bh=voWT8VeoRyeDB+0btPcuMZS4n6M5Ji7X9hbLEeS6aX8=;
+	s=arc-20240116; t=1789631648; c=relaxed/simple;
+	bh=XkkLSIxLf3CFEYWXv5PtChe98M9uxXTuvWjXAXbcQNw=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=XLRBPKXwhGvzhGiCBgzSzfhEg6kmb8PQjnWF+A2b9FThQbbtSjfGTUKOa/m2ZWa8b1O/xx9MSMbalLyYXYIGDXydDoEwGT1h+Kxdjd/ZoKrp8tYhp3U1NQlADaQ4WDGL0q8WKfVmGf9dL9pOve1gqTR8fs9aOcdXrRkU9UYVCWc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=oej7CMCa; arc=fail smtp.client-ip=52.101.100.118
+	 In-Reply-To:MIME-Version; b=f7k/kp7Ae3EfwSrYbY3hHdriIzyzoWTe8nRsMrtqFBd8a9TxcDUOM62E/g8yFO1XgDpc8vDtHh6AOYJVj+h3bQ6jUTQ2VpDip5/ocELVFQIOs6/hE9/FXcu0TiEcFHpQ8JBbahoYBMNR3zxqk20Lwo0Nv+NVfDaCburLIZmWfNI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=r8X6D9XS; arc=fail smtp.client-ip=52.101.195.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="oej7CMCa"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="r8X6D9XS"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=icLmA1pdD34iBpPqyawGnY56mXHkMB/Wft6MDSqPeT7J9oKMvz4rTFgIgnEUwi9n+8gj8PBpYqolRITCHoFR3LGY/bAwydI7hj93maR0Pi90/b5QQ6etKl/nDUOMVxDdbHDK41b8/jkaAaK6f2B5wlUtw8K5XfEio+D+hlJDsb6A9cI7nrjXohPyOqoQbC3r9B6geT0JMDNATnNe+iOUA3qS80wSsecMK1xY4KWEI5hDGLxqyXSfE2x6OuqaP/Rz9s5jbDymz6ZAzt5GN6Oy4DsmunJqlq3zck8IjaOh3C52jOya3MJSNgU17ThTRzTyvUMKo7hPVFdPqB5s58UTyw==
+ b=q213LX9uewB8JA3dOtKJJOQX6kwPxXKaGoNa6CXGlouCESYmK0dDrFJP8cSFC2j8fnSUPb7+8Mn39WPTR7UaXFLmn/67njM8vaQmoUZogFSCMJXaXGn/SjS3tuTpKVZXmUELaY4s1tb+R4HSlo2x+GR27MrR2KzRJIydfMRMoME/PqZbRq7wdVV0lNfwhVjFgxaZIUGJHp4vhm9VSjbr0HQ/vseXXKZhC8Fy6hWxcLqcLZVlCz1GHJh3weI/9rlWI479DkIChKyfDNfHo05ia+gUZ/YIYs0dSUTJiA5YNtDVsd8+N41AeIXq/w8RkG/SCu82IyecYdFt20RgVgmmZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ERVxJiEPwsq9um/Ms+5vrqYTPmNsYFUxk3xXvcXQl18=;
- b=UjrlIigl9dS3uYJ+Q2q17O8Rqg1PCxfbxQ8c/eSaLzuvEDn0/g7nAi4f3zzW3C7j9f1H0s5TY8ObEOzH+NFtPpu8AWwhJ6b/9eQE5tHhhjNmLL3W9+DI1SyNhUHe3Z8unStP7CVEQgzmW3rCptK99lDM0ajg8aiW3wjvn4WIMogN1BfThc3JNKDqRMM1dA/55c0CBZaC3A7rNKz54rNObFUjePQlyWrlQ3SSq/dHk8v0zlYrc6GgclvaJsYG7d3J7OSfqeEOp0/NhkFkRRK+pApm/brMcKa5/AuRPjakmnQuEdc6P5C2Ka71eNXtmqyotDdnl3OnO6/op4ELW6flgg==
+ bh=yUDUzkZgc1iTbO2RZOnIFG4NjtMDza/Fjz8YZOKeZNo=;
+ b=p/XtrxY/drfao8EpvXQatmIPC37qXp0uH63YJy3dzQg0f2ENbrea6KnMVYK6GntIuSXNUaSMlc5FFxfbLZwYT68Wmx3Zhr8dm1HtSu3MjUCQqzIAZ7LEPRQgkgMSiG5otZlLAs5mjeBEEmcaptxnFCnf6hfUW4HNrtz4cERkZSi3cqC5RcmW5hRrlUGPMqR0tL4SraMFlfKvVTuZoySGMMinKAJ/Z5Dq5p5CBqf22NJqLTO4wrJULjzkxzYpDorV+GjBZ0kIcVbHc12kK0SUkn+5d1AqvtDK2SiFFxx38b9XAHXUVr+qGvytVAyv2eVi950+hC7zz1YgiVp21IajGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ERVxJiEPwsq9um/Ms+5vrqYTPmNsYFUxk3xXvcXQl18=;
- b=oej7CMCaH8taxI1Tij7kWj7xHFOuE1XZnOpRUiiiMT+rclwle0ppz4FokKUbGv8jYjjTaMpBYK2rvYdo7MAyIa5rKjhChZbjYFoyX4QfND7GROIxV9cEld72aw7T/cie6Kyg7eUTv0iRA3+8wgEYV89hJeBp/l3/dDrTGwBOu/4=
+ bh=yUDUzkZgc1iTbO2RZOnIFG4NjtMDza/Fjz8YZOKeZNo=;
+ b=r8X6D9XS0jcmuADCpiy+4CJlQW/oyLLSXxixRMpp28Fkk9WrRcaoJn3NZ4DFy4y2weqHUR07EpAi6zZuGmaDqXAQzRVBPHb8SWHQlQbz6kSX2SQaf8j/ScarUOZn0GpeMbCWcikHYBQ7xX97VDJnwxGesZRtFe7Joz98aos18CY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
- by CW1P265MB8814.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:279::17) with
+ by CWXP265MB2822.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:c3::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 07:12:27 +0000
+ 2026 07:54:01 +0000
 Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 07:12:26 +0000
+ 07:54:01 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 08:12:21 +0100
-Message-Id: <DLHEL1SN5YD4.2UD5Y2ZFLLKLS@garyguo.net>
-Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
- <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <kvm@vger.kernel.org>
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
- variant driver
+Date: Thu, 17 Sep 2026 08:53:56 +0100
+Message-Id: <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
 From: "Gary Guo" <gary@garyguo.net>
-To: "Alex Williamson" <alex@shazbot.org>, "Danilo Krummrich"
- <dakr@kernel.org>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>
 X-Mailer: aerc 0.22.0
-References: <20260905081116.106613-1-zhiw@nvidia.com>
- <20260905081116.106613-13-zhiw@nvidia.com>
- <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
- <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
- <20260915120148.7548a8ca@shazbot.org>
-In-Reply-To: <20260915120148.7548a8ca@shazbot.org>
-X-ClientProxiedBy: LO4P123CA0493.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1ab::12) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
+ <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
+ <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+In-Reply-To: <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0221.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a6::10) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4b4::24)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -80,172 +82,191 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CW1P265MB8814:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5d18a59-f2cd-47d4-44c2-08df148b0768
+X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CWXP265MB2822:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56e3acca-623e-4595-3f2d-08df1490d636
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|7416014|10067099003|6133799003|22082099003|18002099003|56012099006|4143699003;
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|4143699003|56012099006|3023799007|10063799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	bVCjftMUX24Dte888bkeo3eaCXybqFIMWWEMXxc82d2A2pv2pjYSbua5icy8ECp0IMVqtwm29JcHzZ/jsnrFececiNnnBREVQor2lz2Knkk3yNaqyQTmF6AOSt3FJC+Z7Ybbz04+NTbB+IJ7O8uvc8naypRs86Zeq1KxilKsw6fXs2WFST/qpj/hUhDWVSbCuTWX3SSQCaxEKoWzME8pRSL1KWsfelMNmoLNkIzghHaKMGQ64IhTuLuCF8nMVZzZg4jI025a/v6vE+1y5bskwyKGytlj+ZFGntPoTyM1gYJung8OMjsv9FNGgbxDSuURG1E2hkTca9tSW+DhcuPMQ/H5D+FALkTnhGxQUNn4rm0mCbIoYMev2kURdmZX3UQHH3VdBkUZXbOSaPAemozZsCAyLK/JpZBmaijZSFuYSbkxVoqzfAZSoCDd3PhA4QIucHfIZLV5J5xXJanpB9hgxhunNplQIdcbsxI86RyJ65xFMxIK5NMkC+pmnyoUpTi0iR3hN2G/A41ARPIGALB1WEjaA02KA20wPwxGDxkTBoFolirhF5+ZBWtzVfnwN8FEEO0T/KIhEJh+OgdT81wYPPNu1vrgfJB9o9ZrOT7hnKzu3OAHiRrnNwtC5TfMyzZ2Tci/fYzRhdd6dPkygbtGlw==
+	Fn8eJyzD51Z0uJkJyLwzWsJ0SfKubrUlX+5ZffnM82yjrMdCYsgl5l9IOuHq1Jv1RdUJk9hCtUc3dx7hAF6XcXdvJFuMWj68dmAO+7Sjir27m0oSE9dqQf+t3pnxXWNkgKO1VjTacXanEmPNa2ven2cSFik2aOSB3yRlmIXQg1S0d/7a67n7i/AMocCODFLzsltgBqiSyGrnog0uaSsSm/Cdpv+ox3xiKQv8hbLXscDxa4eE8OkOULTrEP9gwEnXPRX415gbWEhEsyQ7uKA4B4YdwTy29h+js6jvwFyzZdhuNuvN7G5eoANao9xe32B7ZNei8qWcPBo1gtY77r9kdTWH1dEyZym8k6r0xVSIvpbKgLYVBy+OswFEO5IdDeYi6vNbGU2yh6nJHa3jnzCWoHthuZmovat4yryKBZM9ipoS/OgaqWfld+329HC7mbNUVsaSdwrFi1+W3N47iDv464czJZp4rsmMIZGVAQt/wS8qZPo/tAM/lL4IWIuOvmx1nSDw7NQnF8snoDdLjhZA/YbG6O0OnJB6V7ixhERNxfYWN9NOjl/6kwIUGshaXAATA836/5NO1qzfLAxU4iBC/ZH1ZHugFwHNG1S5843nAOmClAD20/GMRvEls7tRkMzdFOACD/fKHQ6H2wvDyi7o/V2tYzo8qfyKVxE0eJkeX68=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(7416014)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(4143699003)(56012099006)(3023799007)(10063799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?czkvaFRGTXZSbTA4NDdzdFc0a1A2OHpxT05idXVZVmtveVpJL2tCU2JCTFNH?=
- =?utf-8?B?Wjh3K3JYM25pdFRWRGxtMkR4aU5LUU5ZUDVSRHR6ckxPbEpwNHlIS2hPMFdR?=
- =?utf-8?B?M0FaREVxemthRDlBQml4VUhQSXc5Y0ljN2RhZ0FMcmZXejh2Y2FldzZydTBB?=
- =?utf-8?B?WnJIOXkxeUp6cktRZlJESjZKcFJ5bmxzU2JDK0tQRDFFSTYwZktDM0p5d1Bl?=
- =?utf-8?B?QUxLS1g2TkhCNkRzdWk2YkU1L0lPKzJabFBSdnRKTEJLazNUS3NxZ0xQdGF1?=
- =?utf-8?B?SndURnBuZ1BoaU9sdzc0WDZ1ZFpndWNJaFRuMXNXWVBpWGFsR0xVKytRSGxw?=
- =?utf-8?B?WUpKMTJac254d3d6bWZjYktzWU1lcXQ3ZG1kL3AyTUNMUFBVNUtNbU9TdDdV?=
- =?utf-8?B?RDZHRHprNTlVT2ZlVTU1b3MvUWJwZTJBeTF4VlJmRkY5RFBMYkYxL01zWmZ6?=
- =?utf-8?B?UUV4NDVPZHlybmI2S05EeG8yUGt0YVZ1ejRhY0xYWEdYNTNmSytOdEpXY2pw?=
- =?utf-8?B?cEVzWVpiTTJQVGhjNzU3aDdsVGlmUVlTZVRwa1VTSUcwQnQ2UXpVclRXZmZi?=
- =?utf-8?B?VUtTUmUwRWJVY2xzM1V5UWZsM0ZwdllCc2tSa0VKMnNmbmRvdlk5MkM3Vk9O?=
- =?utf-8?B?Vmg3Y2RSRWFhcmFyaCtVMmNpbnhJVUtlRzdiWjhCWE5lbkVKYUtWTG1ROVhU?=
- =?utf-8?B?OUNvRnpZZFhEc0U4RXFLK2NNNFBpRUpkckw4aG5VaC9hS244MHM2c0FSZGVk?=
- =?utf-8?B?OWlGYzNSMUJMU2xtdWhrYTkvU3Y2eExYMVQrNGR2c3ZWL1BxZDJud0NoR3or?=
- =?utf-8?B?TDVyTERnL0JESkdpbkIwWkJXSENNdGJJYVJiRFNzYnFrdmttRFVSSmlrdmtq?=
- =?utf-8?B?YTJUc0I1NDVFRjBmVDhZS2NVYm01TXNCWDNQZzE0L2hGRi93ZE5KU3dMR1Q4?=
- =?utf-8?B?STlvRU5GSlN1VFhsejUxd2hYNEJTNU9TYlhnS0VtM2U3SzZQbGM5SUNDWCtS?=
- =?utf-8?B?MFJVTWFlaXFiaUkzU29TSFk1UG1rWDIwQ1NXcUZZZ1JZcDhUcEF3Q2hiY0pN?=
- =?utf-8?B?Wld6WDB3MWM5c2dydnNPTTBmTXh6czhibmFyWVhvZ3BpUWFxWTNHSUtZTU5v?=
- =?utf-8?B?M2FJSWVWODltcllaNG5jTHNzbWtYVk1TTktiN292dldneGhmOWUvVkxRVmdG?=
- =?utf-8?B?TFkxdHVDWGpNN1dRenRrQ2djbnI5aEhzeThxeGxWMlgrOVZwZURkYk8xSXBv?=
- =?utf-8?B?ZmpWWXhpWmlBZDNhM1ZYblBZaDlmbTdpRkhNdkdqajZ6MElrbUJDU0J3cnlu?=
- =?utf-8?B?MTFuU0NKL005a0h6VmZrQXdyRUJYNjZJQUNzWHpVZVU0cVRaczJlZGl1cFBK?=
- =?utf-8?B?OU9wR1FRbW5SRW04b1huS3ROb3ZjMi9OME1KQUhiWndrb2NKQWtsUXZVRkRj?=
- =?utf-8?B?QWRsZzNlbVJiSjRGRlNscTNlak9yRzZPT0xxK0N1MittS21VTnI5SVdaakx1?=
- =?utf-8?B?cGZydkFEeitIMzZybWMyQTNTYWZ1MkRXNmN2VmlTQUwrUEtSUHBIR1htelkz?=
- =?utf-8?B?L3Z4R29ETFJ6MFRtcHF5aXFYYmZNeHFSV1JPTWhBOTczOHJyMG13N20yL0xI?=
- =?utf-8?B?TG1qejgwaFpJQjBHaFh0YUdZcjNYR2Z3NjBhdUh6QnYwS21WZjhtcW1JUVk2?=
- =?utf-8?B?YzFPWDFDY3dNK2U0K2pUdHFQRjlCdXR1OFFtK29VQ2VoZGJ2aS9sS0x3VEY4?=
- =?utf-8?B?aTZSZmlvNXYvNmVwdEthemJxYUsrSlZjL1lENFdRcmM3MTMwUzhFUUhoUFFk?=
- =?utf-8?B?c3BLVHFMZHViQVFrY0FuaU8wVVB1aG1LNHFDcFZHVytvdFVLSDZSbERGM1N0?=
- =?utf-8?B?NFVSd1BmdHlRMm5ZTzZCa0Z4RHM1VVA5UHBOMUxwTENuOStjTDIzanRxSDJQ?=
- =?utf-8?B?RnBTemg5Q2IvbHhVZnJpbmovc1p4Z1Nvc09vd01XUzdSU0FQZnI3NjFYRlNO?=
- =?utf-8?B?MGhqM0FUclVlSkwrNTV2T2hhVW4wR2FPVmcyZ3FTNVUyNmU5TXFvd1BDQkVu?=
- =?utf-8?B?SHpaQ2NJQmduVUlsZVBXbThoaVRIMklHc25ZTlp4UWo0SzJyTXJYM2JSZlZi?=
- =?utf-8?B?ZFJDOElwV3d1Zlk4UHhVamxNNCsxOUk0WGgwa0Nqc2pWWUp5c3FSelRaZE5v?=
- =?utf-8?B?MTF5QUpYenBHeHd2ZWIxRE1Udnpkc3kxejNRVEJMM0JGSmpuN1I1cWVJazFZ?=
- =?utf-8?B?S1Z5dGROTTRjM0FKazE3TTh4TzF0UXd0am5ENy90VmhldC9nTEVnZTVtMEts?=
- =?utf-8?Q?BZqtUCwbDzO+d4eAQk?=
+	=?utf-8?B?QThZQXdoWnRoZU1hL0RvNTRSN2tvSlVSNlhKdGlQazBjU0VOV1FURzhCQzJL?=
+ =?utf-8?B?a0U0TXdSN0xOcTFIK0lHUVRPcXdJR1pQTStNK2dKbEJMV3Q4MTBYSzRnUHVJ?=
+ =?utf-8?B?TTBBNENlZFpTdVJIOUUrTUxPcFJ2c0Z3c2g5TnFXRVBRZW4rb2hOR2YxRHJD?=
+ =?utf-8?B?OWpVRld0TGNSLzdQWGIrTjlkOFdqSlVGM2FsQS9DdHYxVFVpZTFZcCsyMFdt?=
+ =?utf-8?B?UnhvTG81SmpGQzBtN2oxVkxJU0k2TytzNElJZ1I3QS9GV3JDL1B4ajhYV00y?=
+ =?utf-8?B?ZVBibGwwWFZhQmhreTRqNWZLbldHR3NVeDJKUVJlZ29QNjNoeEdTZjhnYkpy?=
+ =?utf-8?B?alM4VmV1b1FrNmFtUGFOeFVhbkpsZ0I0dkQvMzQ5SHhVaC9yNzJmaTNmZENO?=
+ =?utf-8?B?VEZUV2psOUd5ZVFCN0s2eGtVaDdXcUxhMnc1eFY1dEtDQm5tTUVHY3BRelF3?=
+ =?utf-8?B?cEcwYWl5QkFMdXFtay9zQlV4RGhaWTFHaHNtakUwZkZsOEVZbzRtUExVSDBZ?=
+ =?utf-8?B?eGl2SC8vbVRSVEJiaHRXUHo3UFNMbFJ4SjgxalJhTk01cU82MkhaL1BCMk5H?=
+ =?utf-8?B?TVM4VjN1Y29qSk82K2RnNE9ySUQ4TzN5RjN4Y3lpWUZudTNrdS9pOHNHUVdY?=
+ =?utf-8?B?TTM3Z0xVWk9uenJlYThtQnlUVWR6WGNyWTlLTnRUMk45TFdWMmVFOUlMa3Fa?=
+ =?utf-8?B?L3JJeTZXTXh3emo1NFZrUkZNNjI5blBKOFV1SDB5RVN3OXhMSFA3MEpHOGFY?=
+ =?utf-8?B?OTNSaTNsL1JTZG0xODdHSTVFdDJHekk5RVFmbHErUkJEaHBmbUJKUEFVb0Zm?=
+ =?utf-8?B?L0ZKME9jeVlHVFF1OGVaNndHa2hrRDRRUGVHU005QmVxVWZESkpOUWs0Z1Rx?=
+ =?utf-8?B?RUdSMnpYUDIzbkxxU0h3N1FHZ2U4ZjZmUXdLMFBlUjZ5WlVYZk1ERjF4enA4?=
+ =?utf-8?B?NkkvT0NIRTNOaGg5RHBIVFc0ZTY1cGc5VlI1b3ZFRm9sYWtxb0pWMldaRExz?=
+ =?utf-8?B?YUQ0Y1hvOTcyemlLa0RTdWFXZEZjVXZqNnl1d3Z2RHRnY05XcFlFOXM2aEZL?=
+ =?utf-8?B?WWt3dFhXUU1WOGh5RkM0a3BEUlBaSGExZ0pDc21vcVd2cXpQMkFKTzJlUlBx?=
+ =?utf-8?B?UXVsVlUzemhzQjdSckxObmg3NWVqZ2xrMVY5RTlnOTVlaVlqam1vaXdNVUtq?=
+ =?utf-8?B?Qzdtc0NENFRMZzgxSHZ1bEoxS1hDeE1qSzZIZ2JGOVZCbGZPTXFmUGR0M2ZK?=
+ =?utf-8?B?dTFVQXVVaU5LckhHZTcwcWl6UEpuK01HeHEyc2lIVmIzYzQwWEZ0TVkvSGhZ?=
+ =?utf-8?B?Q1ZWUkxHUmRxVlFiVkRRK2orSG9ZQWRYNU4yZVQzSER4M3hpWWhuM1h6bDFv?=
+ =?utf-8?B?Z0NXQUhYcmNQMVlMd1V6Mzh1OVFHemQ3eDQveUpjaEg0TDNJaVpyazBCSHFT?=
+ =?utf-8?B?VTN1R3owUjQyL1hML2FkSDg4dis4c2JkS3YxWXZ0RWc5NG45elBTVWxEdUg2?=
+ =?utf-8?B?eW1GSnhFejFQYTRnOGh0OFpvY1ZjaTNUVWpYS3Bpb1cvUWRoUWZSUUkrajJ5?=
+ =?utf-8?B?QmxCMWlNRnBNSVBFK0YrZlFMcTExbi9tb2NFby90VW9GamhyemdseFMvM29k?=
+ =?utf-8?B?d3Jnd2JvOUVodU40bkNNdUVDbkJqRit0WjNzTnJQL3hYcmZwVURqOWI4Z01a?=
+ =?utf-8?B?Q2lEbG1pS2NSL0xwaFEwQy9xd3FNMzUyWlNsRjc2SjlBWkFGR1dodERYOE1i?=
+ =?utf-8?B?dzhJMG43UUUrUlQ1ZXZpTGZOZVdYV3ZvV2VhYk1zSm5ZVURwTmFMNHZ0R1Nv?=
+ =?utf-8?B?ZUEvUGpkWXNOVXVDVStUV1R1ZjVIVEEwL3VEYmF6Y25NdXNhYlBJZmpjbU1E?=
+ =?utf-8?B?Uk5Yb3diRmxSQ0I3YzlNS2YzRFdIU2ZwTE5MMXVUd3FGQ2ZuNWJHTmY0dnVm?=
+ =?utf-8?B?Q3E3M0dqYVVONDM5MEFXLzdhTFBEODB3Y1Nmd2pESGxSSzhad3lnNTRrdnFr?=
+ =?utf-8?B?b1dUWFRMRlNVM1hWMFhkOWM2b0xmakliK0lJTENNS08vdTExR1k1aVBkQWdO?=
+ =?utf-8?B?aXdIc2hBYnRaOGNNdmF2TjFuMGdvY3lQODAwNWV3TFVYM3IwWEsrdWFicmJD?=
+ =?utf-8?B?NU1DcWJ0dC9aZjZlM2Jzc2xHUzFxUDBHcFFJNGl5ZU45OVZiV0FHK2I1eCs4?=
+ =?utf-8?B?ajdTOHVrVlVZQ2xrNGJLem41SjFMOHdhekhPUXNJRERwMExuS096V2NpMXZP?=
+ =?utf-8?B?c1RzdVhUbWpNM2pkL3FGejYwOXBBeVgzNWE1aktET0pQeFZMa0x4N2hiK3g1?=
+ =?utf-8?Q?XN1QrnwDlPHPAFb4Md?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5d18a59-f2cd-47d4-44c2-08df148b0768
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56e3acca-623e-4595-3f2d-08df1490d636
 X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:12:26.8440
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:54:01.3975
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EBo+5dUmB5tzYsXzN7rQDOtAb/YK/FljfmABX1gxbbzE22/j5+tDBGx6p8F0AuaNI7yKe4V0QIFzn6Z1SdjPXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8814
+X-MS-Exchange-CrossTenant-UserPrincipalName: qYS9OIpKKrVwZb3qxTU5CfAWfUY6AoBKDSQeh06nxwv+J65RsKf4oM5xZ5y6b+I3ZJimftMKn9t728I0h7KrxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2822
 
-On Tue Sep 15, 2026 at 7:01 PM BST, Alex Williamson wrote:
-> On Mon, 14 Sep 2026 23:36:24 +0200
-> "Danilo Krummrich" <dakr@kernel.org> wrote:
->> On Mon Sep 14, 2026 at 8:12 PM CEST, Alex Williamson wrote:
->> > The one piece here that I can actually review is [5], where
->> > dev_get_drvdata() is replaced with a vfio-pci-core struct pointer
->> > embedded in the struct pci_dev, which is a non-starter as far as havin=
-g
->> > a common PCI-core shared by various drivers. =20
->>=20
->> Well, that was just a quick hack to get it out of the way. :)
->>=20
->> I think there are a couple of options.
->>=20
->>   (1) Make the PM helpers take a struct vfio_pci_core_device * in the fi=
-rst
->>       place and let the driver forward to the helpers in its own PM call=
-backs.
->>=20
->>   (2) Provide an (optional?) driver callback that translates a struct pc=
-i_dev to
->>       struct vfio_pci_core_device.
->>=20
->>   (3) Provide a macro for drivers to define PM ops, letting drivers prov=
-ide the
->>       function that translates struct pci_dev to struct vfio_pci_core_de=
-vice.
->>=20
->>   (4) Give struct vfio_pci_core_device its own PM domain (which is proba=
-bly a
->>       bit overkill :).
->>=20
->> I understand that the idea is to hide the PM handling in the vfio-pci fr=
-amwork,
->> but I think the existing implementation is a bit of a layering violation=
-, since
->> class device implementations shouldn't impose requirements on the bus de=
-vice
->> private data layout.
->>=20
->> I also think that the approach to fully hide it in the framework is only=
- really
->> worth if it doesn't otherwise impose subtle requirements on the driver (=
-such as
->> the layout requirement of the bus device private data).
->>=20
->> Thus, I'd personally just go with (1) as it is the most honest approach =
-in terms
->> of driver layering. But I think (2) is a good alternative that is not mo=
-re
->> invasive than asking drivers to set the bus device private data to
->> struct vfio_pci_core_device *.
+On Mon Sep 14, 2026 at 7:55 AM BST, Eliot Courtney wrote:
+> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
+>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+>>>  use crate::gsp::nvkv::{
+>>> +    Array,
+>>>      Index,
+>>> +    Key,
+>>>      KeyId,
+>>>      Op,
+>>>      Opcode, //
+>>>  };
+>>>  use crate::num;
+>>> =20
+>>> +/// Defines a schema struct together with its [`Schema`] implementatio=
+n that decodes into `$target`.
+>>> +///
+>>> +/// Each member of the struct should implement `Schema`. For every (ke=
+y, index, value) triple
+>>> +/// decoded from the NVKV stream, the generated parent `Schema` implem=
+entation will call each member
+>>> +/// in declaration order with that triple. If a member consumes that t=
+riple, it will stop there.
+>>> +/// Otherwise it will keep going until all members are tried.
+>>> +///
+>>> +/// The schema struct holds the state required by the schema implement=
+ation to do the decode. It's
+>>> +/// recommended to use one of the existing Schema kinds (`Required`, `=
+Accumulated`, `Key`, `Array`,
+>>> +/// `Indexed`) for each member.
+>>> +///
+>>> +/// # Examples
+>>> +///
+>>> +/// ```
+>>> +/// nvkv_decode! {
+>>> +///     struct RequestSchema =3D> Request {
+>>> +///         id: Required<u32, 0x0001>,
+>>> +///         name: Array<u8, 64, 0x0002>,
+>>> +///     }
+>>> +/// }
+>>> +/// ```
+>>> +macro_rules! nvkv_decode {
+>>> +    (
+>>> +        $(#[$attr:meta])*
+>>> +        $vis:vis struct $name:ident =3D> $target:ident {
+>>> +            $(
+>>> +                $(#[$field_attr:meta])*
+>>> +                $field_vis:vis $field:ident : $ty:ty
+>>> +            ),* $(,)?
+>>> +        }
+>>> +    ) =3D> {
+>>> +        $(#[$attr])*
+>>> +        $vis struct $name {
+>>> +            $(
+>>> +                $(#[$field_attr])*
+>>> +                $field_vis $field: $ty,
+>>> +            )*
+>>> +        }
+>>> +
+>>> +        impl $crate::gsp::nvkv::Schema for $name {
+>>> +            type Target =3D $target;
+>>> +
+>>> +            fn init() -> impl ::kernel::prelude::Init<Self> {
+>>> +                ::pin_init::init!(Self {
+>>> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema>::i=
+nit(), )*
+>>> +                })
+>>> +            }
+>>> +
+>>> +            fn visit(
+>>> +                &mut self,
+>>> +                key: $crate::gsp::nvkv::KeyId,
+>>> +                index: $crate::gsp::nvkv::Index,
+>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
+>>> +            ) -> ::kernel::error::Result<bool> {
+>>> +                Ok(false
+>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut self.$=
+field, key, index, value)? )*)
+>>
+>> Mmm looks like this is going to be `O(n)` with `n` being the number of
+>> fields?
+>>
+>> This is ok for a first implementation but eventually I hope we can
+>> switch to a more efficient dispatch.
 >
-> I'd position this more as a library convention than a class layering
-> violation.  vfio-pci was originally one driver, vfio-pci-core was
-> pulled out to enable device specific support, ex. migration, in a more
-> manageable way.  struct vfio_pci_core_device is not strictly a class,
-> it's the object used by the library that variant drivers opt to use
-> rather than re-implementing vfio-pci from the ground up.
+> I thought quite a bit about this while writing this code, since we need
+> the escape hatch to imperative decode (custom Schema impl basically). To
+> be able to get it down to a match on the key, we need to know ahead of
+> time which keys a Schema will consume. That duplicates the info from the
+> visit() implementation.
 >
-> The conventions of that library mean variant drivers get things like
-> VGA routing and power management for free, in adherence with how these
-> features are exported by the core, and can choose to opt-in to common
-> error handling.
+> I thought up a few methods but it's unclear to me which one is best, so
+> I just left it for now. Please LMK if you think this is urgent, I can
+> try in a follow up to improve this. Here are my ideas (when I say O(1)
+> lookup I mean modulo how the compiler decides to do it with the set of
+> key IDs it gets):
 >
-> The use of drvdata is part of that convention and audited by the core
-> such that failed compliance is rejected on registration.  Clearly we
-> could allow variant drivers to provide ops for their own callbacks and
-> export core helpers they can use, but only a Rust driver requires this
-> and we need to figure out how to do this without degrading the audit in
-> the core.
+> 1. current code - just visit()
+> pros: key source of truth not duplicates
+> cons: O(field) visit as you say
 >
-> Turning vfio-pci-core into a proper class to be able to have a real
-> layering violation claim seems like a much larger project.
+> 2. Associated const KEY_ID: Option<KeyId> - None if a Schema accepts mult=
+iple keys.
+> You can match on each associated const in the macro.
+> pros: O(1) if the current key goes to a field with KEY_ID =3D Some(...)
+> cons: O(#fields accepting multiple keys) if current key is one of them
 >
->> > My concerns are of course who is going to review the Rust vfio-pci
->> > variant drivers from a vfio perspective, not just a drm driver
->> > viewpoint. =20
+> 3. fn accepts() -> bool
+> You can match on `if F::accepts(key)` for each field. We could potentiall=
+y make
+> this const with Gary's const traits polyfill.
+> pros: O(1) if you write an inline-able+optimizable implementation.
+>
+> 4. Associated const KEYS table; use tricks to concat tables
+> pros: O(1) lookup=20
+> cons: actually MSRV can't get this to optimize down to O(1)=20
+>   if you use slice::contains(), but stable can.
 
-FWIW, if we want vfio-pci to be a middle layer (looks like there're some
-disagreements about this), we could quite simply achieve this by define
-
-    mod vfio_pci {
-
-        trait Driver {
-            /* callbacks here */
-        }
-
-        struct Adapter<D: Driver>(D);
-
-        impl pci::Driver for Adapter {
-            ...
-        }
-
-    }
-
-and then the way for people to be using this would to create the "Adapter" =
-which
-does the middle layering and register *that* as pci driver instead. Then
-all PCI callbacks will first land in vfio-pci abstration's code before it
-filters through things in the driver. This way, vfio-pci-core imlements the=
- pci
-driver then it controls its drvdata layout.=20
+Hmm, am I missing the obvious? Why not generate a `match` expression on IDs=
+ of
+fields? It looks like in the example all keys would have a known ID to the
+macro.
 
 Best,
 Gary
+
