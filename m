@@ -1,172 +1,247 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A6D36AB46
-	for <nova-gpu@lists.linux.dev>; Thu, 17 Sep 2026 01:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1D330DD05
+	for <nova-gpu@lists.linux.dev>; Thu, 17 Sep 2026 05:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789609784; cv=pass; b=X+7bKdz4Lwpc6gLPGihTRC5VZfwjTe5zHJr5F9Jton+XBESsNp3LvyLn1SkPFE/SxJUnUQOidbUeaq/yAN+xXRF6L8bR0Q0JO47N9VuYeoGYYdvoBIJTMz+w2lsBfJ/PAK6fYlm5Y5UUq1dTXlFS/bCAa671jtk8XA6MbavruQA=
+	t=1789621376; cv=fail; b=RuFPfymutyWkz825bBTm3XqgCkWwBwWndwbArWds6OObgQ6Br7UJiZOBNWiyzN72lp2dsBwwx4LUP3QvVHLSOT5hORT/Iw9A2htEKbstaSSpGN27FSoU1CBiBxUIZGZXhaAeRJAtmAdhAFyLk+7nFzl1p9is5VJOtVrBNo7Qnzc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789609784; c=relaxed/simple;
-	bh=4vvuCAg8LOYwCkFNxLubS5odZ0quKkv2reSoFIokHEM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rxhGW8RZJZhNxRNZzxONH5acBmKXpx4Ye3+wSNhZpJDd4qCHai5XR0lgs65xxgreKUeq51Fe76VUwT5vd0i8gaW93ShG5YSs5kiEdbqb6XrkqiYsNFO6h0T4vCVzNUnHVgsaj3glZhMlri8BFuGdpyy8XLEa6StxEqRkmHRQf/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G2IuMtGC; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789621376; c=relaxed/simple;
+	bh=SfOpcczjQparDljjCWZeekSseWy85CeRA1vt67u/biU=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=EHGwwbH9BIJ1kCKRxu26e84GJKsQ1EQkSPYN2k0zjYGf7mzjlXZPPyx61TePnFycUJMr2NvO0IH/hDJ9mn6QZLqhwdA+JpFKrARmMs43QWU5ej49cKAghq+BkK3CuccjkUHeOgf/iOStbuUWiDBjN7l9aNrheL0TRseCrou59f0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hl1cedLi; arc=fail smtp.client-ip=40.107.208.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G2IuMtGC"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76906adso3041061cf.0
-        for <nova-gpu@lists.linux.dev>; Wed, 16 Sep 2026 18:49:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789609781; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cd+TCdO+RzwgrGQ4X5PFFTrdyRJldLPm0a6PG9RUqPrTPbcKgkV0nJ3OavLcHhZ+jR
-         Izl2CeSxLUxFySPSSfn8bszQ1WYpTcad6i13GloReqQoLMVjSsZXH0+973Z3IIpBFyOs
-         IOWECHvCAu0suIPtTSncAjkVZzQDpvq5M03qHDaWQCxwwRT8pUQ7zT1PH6d4Sv0qGW/B
-         inoVGeLdke1ea3hPIE3bLa6zUQGG5vpzE2leEH0N7hk1iX6uYvnfbvloX2sUqEjZ7UY3
-         EWlxd8lpiRvez5OmBLFXw48rGnUaGosUq2EKN30KJhZS+NywLa4/+o8QoLLX4vPWSg0/
-         bYVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ijmEvQZ7YCTIw8TR2oOyYMWmdXBKTEydSXSQjwrQ2VM=;
-        fh=HsimXxMBpIZN8RHqdVey0X9PSIpH3sWgPWajMjKxHVs=;
-        b=SVQa5xhwFDqw1uZRcM6E07Xldu/OgDJbtx1dcS+syf5TXYLmjH+gFPAgkslnQArTlA
-         FijtUhQTAMKDxMEWNkbv8tMSENOjwmalGn7PajrQgR7qwQtEoOQezyVTIkKbAGtYItrP
-         vQDOSHz/WINK3uvy8Nj9Vm9bR8NqyZmPc5t9zpx49TacylgMI9ktXyAVMoqdDEC90+mG
-         s6VcVtcM3lTFhllpO7UpLsFo+cnn2a7Oc0xYxZXwDAcO8KsK5uCDEz780acLSo9dioMu
-         SHuIv95Jlek/M7gGnIyhtS2EKhHcwccuOth1CnSYp/9q/V2h+lIns3pE2QjKzp+f0B1j
-         AbnA==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789609781; x=1790214581; darn=lists.linux.dev;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ijmEvQZ7YCTIw8TR2oOyYMWmdXBKTEydSXSQjwrQ2VM=;
-        b=G2IuMtGCjsF73Fn2g66KTHmuD140Gq0kgXLH+BIea2mCFjs4nbpEoYTdW3eYkyHzeL
-         cO4OBrOxFbZQuWAqctB7cSXu/Ai90uiNhw3pqlVoviuuutHS52PuKsV/gcqfaEtWRZes
-         MnDm+DU0o6fisyuW78qG4quXpmDRM9S1/gltYn6eESxk2AkQyE/JeryL8maWmf25JY5A
-         dStU2uImf4EbOrSbBbV7I+HQsLE4PzTcBIpo2cpzrY457se6uUmrQfhPViKy9XZrsF2j
-         UP6r1co/LuqO7nYvZl162tG4lcLMRa2/wf+3d8lITKQaXvFVNLAJpsT4XWTiby++hTu/
-         lETA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789609781; x=1790214581;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ijmEvQZ7YCTIw8TR2oOyYMWmdXBKTEydSXSQjwrQ2VM=;
-        b=wKHHbU5jw8BNxgjd6JIntKx4jNErIEnJJ2HLImgY7F7HMKyuaQbV3LwWHKyzcjgozN
-         lgk7dL6JUdDdOkKQ4NXKqxIebYyZtOvrdB+WqFupp8qXfymZ5QTHTT8M82Zv+fZB4yjC
-         bPlrBvz8gWvErnKwtrBwxIb2fgwFaliW6fg0bYlB5k9WlE9zRRsIkUH2T+N2Y9mlLymk
-         wRsMXJHGVl7/QdFzXFoc3D3krlGONRIUiRl17aJGGsAOqVpxi85prEBZ15jG20z2Znwp
-         O2E6bH3FiYi0+NXFTIRpji438awVWn9tvQpAql6qxafEaHFEXpP4B9gqJNlqIkFPSkvH
-         MN6A==
-X-Forwarded-Encrypted: i=1; AKwUvBzMxcAQSx8z40pEzejinabEJUKOxjZATUVc4x8PCa+s7rJZYoEynPJygEU8sy1NAJNp3h6lUDJGzg==@lists.linux.dev
-X-Gm-Message-State: AFuF++meXmW/K7LdMxdvJzvd+a2MK8+A4iF2UxOD50u4Dbw9robEJUe5
-	ivpGbVgPOSsM8jFVBDsQj/SIwYsxPONssuyVfGfBSaaj5bvVMefgYCm6tbHZivpx+JM+5obsZ3G
-	MSHcMMAJygWc0kCVUFfRHWW3s82HWl0U=
-X-Gm-Gg: AYBFou2DQbaP5OJ+d+yhwrE9hJTJ8E3VEMdodYCIRdnXqp/QrKCTDBuVkIkqCMR+ACF
-	bcbcUMHpnu7lCYadPn2818/kv2s04mNgh6Mlq++u9+cGZ4sLjWsOP7997tQ+B6T+tEM/57XpfkA
-	W87/YncQj3jgiAXGreF3TAkT9mZAGL0JxN7+FqImxTNbgIATjIvU7Kfw/Hf6GjHaDh372MrMRf8
-	ggsX2QtvYKh+6MH6JThNBDbOi26252C5Tu6Litx+2yG4/NafQ7Ql56U/JimaL2Ra8KDmj96zEkn
-	NVxei8qH94zxCayGORmVtxWzumTR7EWy4nGpSX89xfz+6YFw0NhJajhgcJMauUX6EYVs+IInxsa
-	nuNglg5bcEQuu0NZ/fE+fBTOk9ssQf7oxi6lIkGQ6
-X-Received: by 2002:a05:620a:6292:b0:939:78ab:3c5f with SMTP id
- af79cd13be357-93bb76e2fe8mr878910085a.9.1789609781431; Wed, 16 Sep 2026
- 18:49:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hl1cedLi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aqGEebaoNzGJFHwJkfLsXxW+q2Qrog1WlaF1Hq1Bx98qSR7m2uaeg6FI3jHgqNI5oRWXeK+akXl2yl/XJEaiYlhW+47a63vbsgmqf4nvs4trnbt4JH5NN6PblxXREs/bovaDx6N0q+2x8/LkY3qs2DBTrvq3sOb72u+JmaVbwpjLRUY7EUYw/iTiRrRS4AHnHnB7CF+ZZ2Tt4YpmflGaqKN3uuA6CMGWWWOqEdwsE6EXbxbGDLgNHWh5UWz2ZMagZBnU22qq2h/sIoBIHy8anooHbIVvoUy1PSl11NZpJJFLiwxu2F53Lz7m0Sr3KZPq4GGqoTxkr/G7fqU067T/pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWN/N/UJGozXbiZ2OO9yZq+UHyPJWxI32Ooua6116vw=;
+ b=r1MaAh1aZGFirzNR4wLLpB/2NJJn11QRMuROsf0WGR/DzRfG0HHRPhlDOQey71PyrR0jwmmbQneVWlGTgEjAzvZVm/zC4Sfwe4G2GWJ2i4bncqbGxW9qKc/kDaklGcAuvm8HRuEzu0+IokpVLisezI749WT33Z6heSB1xOLSoPYrnRuJrV4v23KycOF+uQbH9ipYpaF9ycOOv/6ohfaxpFhGJVuAKz9ww0WIxs6tpE2tXZEWEm6aX8+HIO/iZ6GU1pYCWC/CKpLPym2D0+cZ3vUGCxM/QW6Wsua48nnfGZqohYbPXG+/v7K2n/gOT1rzldrZ0Ywu5W8uiuP1kETWrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWN/N/UJGozXbiZ2OO9yZq+UHyPJWxI32Ooua6116vw=;
+ b=hl1cedLiaFrL7E3HnfOYeeCU1Y7c0ihfzIPwFWnFgi8RkNTJIiJikiKpdBlGyc+pdfanWgCNlniG4fH3HT09qx+qOxFzdnG65gPDDK0l4nA2YSEGvZxQr3Ttc4AtjXeXDGa8vp6LRGuuUhZzHl0Kxc5bk7SsEYjDYGym9tImvF4FrzFWcBiSvfCZT2Cdfhxmy1sPpa8V+0wwal7GkJEiuZz7RHDu6IoiScZFoIT0VmhVuVx0jSQEcgkYVAXAiIsPPE8+Vosw+2jgKuCOafT8DED5WwIXz9B9EvJHg85BOZxKu4P4vJuEJg38+QZvk7+goInoGD5+zbvxcvJSlkKORA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA1PR12MB6411.namprd12.prod.outlook.com (2603:10b6:208:388::18)
+ by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 05:02:49 +0000
+Received: from IA1PR12MB6411.namprd12.prod.outlook.com
+ ([fe80::b29f:6f15:4ece:5b5e]) by IA1PR12MB6411.namprd12.prod.outlook.com
+ ([fe80::b29f:6f15:4ece:5b5e%4]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 05:02:48 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 14:02:45 +0900
+Message-Id: <DLHBTTDIILUY.36G30M01MWRMA@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
+ <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
+ <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+ <61f1f28f-d76d-4231-b99e-4dd4a18b4fbb@nvidia.com>
+ <DLEUSN5KTTFU.1OWYCOS7KC3NJ@nvidia.com>
+ <DLF0YP85CHDT.3244P899RJ1ME@nvidia.com>
+In-Reply-To: <DLF0YP85CHDT.3244P899RJ1ME@nvidia.com>
+X-ClientProxiedBy: TYCPR01CA0173.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b2::11) To IA1PR12MB6411.namprd12.prod.outlook.com
+ (2603:10b6:208:388::18)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260905081116.106613-1-zhiw@nvidia.com> <20260905081116.106613-13-zhiw@nvidia.com>
- <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org> <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org> <20260915120148.7548a8ca@shazbot.org>
- <DLG7C7MLGSTC.2GSTD84WI595N@kernel.org> <20260916141718.GU3968357@nvidia.com>
- <DLGUPX9KPFKF.12CU304YAST79@kernel.org> <20260916162817.GW3968357@nvidia.com>
-In-Reply-To: <20260916162817.GW3968357@nvidia.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Thu, 17 Sep 2026 11:49:29 +1000
-X-Gm-Features: AcwNN1VXCeIhnNkZrtRydjWaxN4Qnt0jH2kObUrck50VuTkYeDZzVilcahg7zlk
-Message-ID: <CAPM=9twda0Q9nj9E5AUCi4=en5tDA7ReBv8MV2Ftg-STwNbDLQ@mail.gmail.com>
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO variant driver
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alex Williamson <alex@shazbot.org>, Zhi Wang <zhiw@nvidia.com>, 
-	acourbot@nvidia.com, yishaih@nvidia.com, skolothumtho@nvidia.com, 
-	kevin.tian@intel.com, simona@ffwll.ch, ojeda@kernel.org, 
-	alex.gaynor@gmail.com, boqun.feng@gmail.com, gary@garyguo.net, 
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
-	aliceryhl@google.com, tmgross@umich.edu, jhubbard@nvidia.com, 
-	ecourtney@nvidia.com, cjia@nvidia.com, smitra@nvidia.com, kjaju@nvidia.com, 
-	alkumar@nvidia.com, ankita@nvidia.com, aniketa@nvidia.com, 
-	kwankhede@nvidia.com, targupta@nvidia.com, nova-gpu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, zhiwang@kernel.org, kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6411:EE_|DM6PR12MB4266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7bcb7b39-ccd2-434d-0fc0-08df1478eb2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|10070799003|7416014|1800799024|10063799003|11063799006|4143699003|56012099006|18002099003|10067099003|3023799007|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	nKuJwVtOnXn4m+qHe4S/Dap+syXylAmQFgd11bfnx1TsVgT8Rp6/8Yk2CKP6/s9NSRar8kHftlPNOXC+xbPSLwLLXzwSVBCI8JRuCg8j+wVlDi+CxnjY7SeTUokmfrCwI8dXi5OI7BYeUxaND/kQxJ2Xb9KsXll1ptSQnY8XjFGjW/D5k/KbgHsPyeZ/b/JAYkrwip/9w+U7bKeG4PWlidpwlgH78Am6nwStNpTw8GAebyB6iFjcbbsvcTsRiWwd70nI9hRlt/7AvB8IKXml6KjSI1xHLhcsgynnrgE/b7edL3nhueuFdTvVBJJ9o+/thR0FMdtF0tVc2C0mV/kKXC5DyM1+CTAM381gySBu6GFKYR9Wm1vBrPmYwFeL/pfL0AQ/i0GPn664O7mO4e/Tc9WJksBgKLmoKYq1Q5DebyA+E56l6MlTgOvFbJwmOZtS0HFVm2yIR98k5DZpd2QSBpjmEXP3xfx0fD4s8KtJx1VxKovCTwj6ojdTgtovRAFFCxQFO2dKfK5gOOqM9VNJ6+rQbaU9H8HCKCHQfZYYHu6Ye/LP/bD8xcnAhqogfG/FBbmbE8VbN8B+CQscAoSnVoBi0IhBMR3dgsngGByKGySU2MXMbNZy+NF/kGWDFz6oePnk+Pcoewead9c4tCZmKFaTodwOt6bZ0HIpK2wyP10=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB6411.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(10070799003)(7416014)(1800799024)(10063799003)(11063799006)(4143699003)(56012099006)(18002099003)(10067099003)(3023799007)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SFJXYXlBMkpFTVNQNFdpTnh5bWpKRS9GRmt6dnBxRDR6UXU5cnJpc0tjOW1B?=
+ =?utf-8?B?Zy9JVXlkbHJTdGFkTTVNQXk0Um9tOEN1WUhFSG1jVW0rYzdhVmg4ZlJoRk9z?=
+ =?utf-8?B?T2pjclBFeHl5UFpERVpnNWdNb1REWUtlTFlQSWc5SzVZcUlWWFZjSmp4ejdk?=
+ =?utf-8?B?WGxaeExpVHlXQnVRQ1ZPTlk1T0Q1RmpnRzU2SCtRdXFoUnJOaXFPOE1jMkdS?=
+ =?utf-8?B?ZnA0UFhIZ1dLc3JQamdSUW5Fem5kUDNZUk4vbC9lbVVucGdsMkl2UTNRWHpj?=
+ =?utf-8?B?blpNaEVSRTlNT2lRMkNsdTB3dkNJbEdzUXdkWXBsS1lIc2hyOS92b1RrZEth?=
+ =?utf-8?B?QmR0d0tvU1dmaTQvT21DS1k5b3hxZWIzNG1sZmVGMVA4Um1rMG1KaGQ4Uk1N?=
+ =?utf-8?B?aUs2cmNnMCs2TzFjRldtc2xsT3VKME9STGc4RUQzR3dYU3MwRG9vbWROSTZ4?=
+ =?utf-8?B?Z3ZLa2xoWk1QOFN0bER3ZWlLNFZWR21UQ1hFMzBWSm00MWJSV0E4QWIwOS9S?=
+ =?utf-8?B?b2RqZkNCYnRlZVErYldDUm5qMG4yVUhoL2E3YXBKUXE0WmdVYkh2VGpNWWNX?=
+ =?utf-8?B?Q1YyWjR1UDBWcmpNYnJNN1FpSFNOYTVVWTMwTU9XWkcxWk9wQTkyb1ppZUxR?=
+ =?utf-8?B?QitxS0lvdjlnMlJwTSs2eUNYS2NYcnZtTE1PL3RvcTMzby9MT2tDd2o5VkEw?=
+ =?utf-8?B?TTVjMGNmeDFmRjhwVzl1QnRWUk84RXBPWUFNdHFXaTA1enpDdk9xcEE0Y2w0?=
+ =?utf-8?B?UGI0RGRHUkdqQm9JR2Q3NG5WN1lPVXM5emRNVjJDejBxSERucG9uejJxOHoy?=
+ =?utf-8?B?dUxiVVFsSWU3MHpOd29MWVJPeTVDU0FlL3pPTUx3dG9OMFZTTDMxeU1pcFFs?=
+ =?utf-8?B?LzVBYS9XVHFGUVpZckt1WUh5eG5lbW8yOFZNa0M3WFFyL0lvK3N3RUcwbi9t?=
+ =?utf-8?B?eVV2Mkh6OGFHSDBocGZ1MjlsSWQxUjAxM1pHYWdBQzJuV2kwWlJkd1EwVW1N?=
+ =?utf-8?B?NXRsOUwxL1JOeWwzcEg4MWZtR25oMnkxT3lWd0hsK3hRTTltK203KzFFbkRF?=
+ =?utf-8?B?OUZ2T0lydFNuYTlIK0tGSEpZbFExNXRib2xVZGV1UmRmRFZ4bFV3MVZqYkpC?=
+ =?utf-8?B?M29YbmNWM0VsZ2t0RC9WeUtmU2F5YmNSMzR4MG53WDllTmhTcks5WUVjU3hl?=
+ =?utf-8?B?YVBnMjR1aFpjelFFSm9YeXFRWEYrYkkxUWJMVTRhZHRBa1R4VWNlb0djZ3Ex?=
+ =?utf-8?B?aENDOUl0VVVQdzJSWmpnZ2xCRUNaRGszR2JERGNBbFBrOXg1bk5YeXd2UG9C?=
+ =?utf-8?B?cTFEb1RMK0h0ODFwbi9aYms3eE1FVzJSMlBMWEhYL3BwdlZRanZEV0lMbTRK?=
+ =?utf-8?B?Z0RGLy9uVXhhelR2ZFUyOTByMWNReU9BUUVTLzdpd2JuR0NFMzJkQXcyaWRH?=
+ =?utf-8?B?SmJKbktUS1E1R2JXclFiYVZpYTNDaG14MkxmekZIK3RnQlRuOHRJSE8vUER2?=
+ =?utf-8?B?OTh1dFRYRGFoeFNvM3ZFaXBSSE9VNzU1YXE5aXppa0FiVTQ1a1JVL3dqMXU5?=
+ =?utf-8?B?eFNUa3Fyei9ZSkcxYjdsdGtXaFkyTVJOR0FpYmJpNmUwV3JmbzFuN2VXS3Jr?=
+ =?utf-8?B?VFF4bnJ3S3E1QWo0eFVEejNGbjJ5VWtiS0k2UU1SSVIwZ1cwOG52NVVMbkNw?=
+ =?utf-8?B?UW1DUEExZzQyNWtEc3dldzhrRStNd3ZITjBxbGUvbkg5UjJ3SGN2dUtYSlkw?=
+ =?utf-8?B?N3N4TzJyVi94dlpzc3VLLzdQT0ZwM25XWFJ1djlSc29XNXovZzlvR2tpSmxm?=
+ =?utf-8?B?eGxtdGo3Rm90dWt3d2MwZUNibWJWN1gvWGpKL3NjUEpBY2NOUE1SaS85UXhK?=
+ =?utf-8?B?cTI3NWF1cmlya25zTUJIM1ZGcEErcVVmT1dFMzNOYmtJMEwrWkJNenBZUGFD?=
+ =?utf-8?B?NTA5OStycy9qUm8rcjJJQjROS1Q2cDBsUGNMS1ZOSXZIcGJpNmVzTS84cVV2?=
+ =?utf-8?B?bkZuNHRDNUkyUkZ6bU8yeGU0TWJ0cGlYNzBnTDNVcjRZeEtDZm9Nckc4UnZL?=
+ =?utf-8?B?UVJGbDVMWktRR0V2aEgwSUk4aUtkWVp5Mnl3TU96aEZYNkNycTFFSElpZzZF?=
+ =?utf-8?B?cmVtamsxdEFtVGdWeENFa3FzaEYxS0ZKc2ZzSjJ1U3NESWVpTDhCRGhLbjlq?=
+ =?utf-8?B?R0JYK1QxK2JJYjZ2MDEyM3RTRTBNZHYrNjgyc3ROb3Y0Y1lzWnBrbXNDZ2hH?=
+ =?utf-8?B?YlZzMDRUNHJHUnU5QUp1WWR3L3pUTktPZHYxbFVZMWdqVjVkM21NZ0VMTkkr?=
+ =?utf-8?B?ZWQyeFJqZlNHY3Y2c0pmWjlNV0dTY1NJdkMvdTVVNnNReFlvUnNhcDArU2tJ?=
+ =?utf-8?Q?8mc1CBcfGWIFj6cI1Rgortw6XKc0iGmSX6v2kNI136AA8?=
+X-MS-Exchange-AntiSpam-MessageData-1: jIIbspPe9vqW2g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bcb7b39-ccd2-434d-0fc0-08df1478eb2b
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6411.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 05:02:48.6775
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a1zAylLRPrRMf9vf6tRJPb8SupygG+PDaQIS0635SS0CiD9WE4t+kzQL4934Q8TWPfoqgSMntwXeBm/cVmp4vw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
 
-On Thu, 17 Sept 2026 at 02:28, Jason Gunthorpe <jgg@nvidia.com> wrote:
+On Mon Sep 14, 2026 at 9:06 PM JST, Alexandre Courbot wrote:
+> On Mon Sep 14, 2026 at 4:16 PM JST, Eliot Courtney wrote:
+>> On Mon Sep 14, 2026 at 4:04 PM JST, John Hubbard wrote:
+>>> On 9/13/26 11:55 PM, Eliot Courtney wrote:
+>>>> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
+>>>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+>>> ...
+>>>>>> +            fn visit(
+>>>>>> +                &mut self,
+>>>>>> +                key: $crate::gsp::nvkv::KeyId,
+>>>>>> +                index: $crate::gsp::nvkv::Index,
+>>>>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
+>>>>>> +            ) -> ::kernel::error::Result<bool> {
+>>>>>> +                Ok(false
+>>>>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut sel=
+f.$field, key, index, value)? )*)
+>>>>>
+>>>>> Mmm looks like this is going to be `O(n)` with `n` being the number o=
+f
+>>>>> fields?
+>>>>>
+>>>>> This is ok for a first implementation but eventually I hope we can
+>>>>> switch to a more efficient dispatch.
+>>>>=20
+>>>> I thought quite a bit about this while writing this code, since we nee=
+d
+>>>> the escape hatch to imperative decode (custom Schema impl basically). =
+To
+>>>> be able to get it down to a match on the key, we need to know ahead of
+>>>> time which keys a Schema will consume. That duplicates the info from t=
+he
+>>>> visit() implementation.
+>>>>=20
+>>>> I thought up a few methods but it's unclear to me which one is best, s=
+o
+>>>> I just left it for now. Please LMK if you think this is urgent, I can
+>>>> try in a follow up to improve this. Here are my ideas (when I say O(1)
+>>>> lookup I mean modulo how the compiler decides to do it with the set of
+>>>> key IDs it gets):
+>>>>=20
+>>>> 1. current code - just visit()
+>>>> pros: key source of truth not duplicates
+>>>> cons: O(field) visit as you say
+>>>>=20
+>>>
+>>> Something about the visit pattern has always concerned me, and I think
+>>> it has to do with the fact that people have been told to use it in
+>>> all kinds of situations. But it's really only ideal for a few situation=
+s,
+>>> such as updated a bunch of objects on a display, for example.
+>>>
+>>> It's not a good fit here IMHO.
+>>>
+>>> Is it hard to do one of the other choices, up front? If it's easy,
+>>> it would be nice to skip this visit entirely. :)
+>>>
+>>> thanks,
+>>
+>> It's not too hard to do one of #2-4 now, it's just a bit of extra
+>> complication which is why I left it out. The performance gain is kinda
+>> minimal since this doesn't happen in a hot path.
+>>
+>> That said, all the options I mention here still use `visit`. #2-4 are
+>> all about adding extra info to help avoid having to call `visit` as much
+>> + let the compiler have more info so it can generate a jump table etc.
+>> That said, if you have an alternate approach, happy to hear it.
 >
-> On Wed, Sep 16, 2026 at 05:38:21PM +0200, Danilo Krummrich wrote:
-> > Usually, class device implementations can't make assumptions of the underlying
-> > bus, because they have to work for any bus. I.e. there's no other way than
-> > providing helpers and letting drivers do the glue code between the bus and the
-> > class device.
+> I think it's ok to go with the current approach for now and grant us
+> some more time to think about an optimization. As long as the shape of
+> the `nvkv_decode` macro doesn't change, the switch should be transparent
+> anyway (and even if it isn't, it's not a big deal).
 >
-> You should think of VFIO as a series of helper libraries. One of those
-> libraries is "here are all the PCI PM ops you need".
+> Sure, an O(n) complexity doesn't look great, but we won't be dealing
+> with an exponentially growing number of fields to handle, and the host
+> CPU can be assumed to be blazingly fast to the point where optimizing
+> this is more an exercice in good software engineering than a practical
+> necessity.
 >
-> Drivers rarely need to customize these ops, they just need to wire it
-> up to the support library to avoid a bunch of code duplication.
+> Still, I want a very visible `TODO` so we don't forget about it. :)
 
-It's currently a library being used as a midlayer. demidlayering it so
-drivers control drvdata removes that.
+Yeah, I think with the current shape, an optimization would be additive
+(e.g. the discussed `accepts` idea) and not affect callers at all, just
+implementers of Schemas.
 
-I sent the diffstat that covers all the current vfio pci drivers and
-that didn't seem excessive.
+I'll add the TODO. Note that all the optimization ideas I've suggested
+so far have negative points w.r.t. good software engineering practice
+because they introduce the footgun that your Schema must correctly
+declare the keys that it consumes and underdeclaring will cause wrong
+behaviour. Since (I hope) we will be mostly gluing together existing
+Schemas using the macros, it should be fairly hard to hit this footgun
+though. A non-visit based solution would need to handle the regkey case
+(nvkv is stateful, so it's hard to handle it in a purely declarative
+way). That's why what I suggest here is essentially an imperative core
+with declarative handling bolted on using macros.
 
->
-> Stated another way - the very point of vfio-pci is to remove
-> duplicated code from the drivers.
->
-> So if we wanted to push hard on removing drvdata, and don't want to
-> touch the struct device I would probably say to #define up a way for
-> the driver to build its unique trampolines. It wastes a bunch of .text
-> but at least it doesn't duplicate code.
-
-+static pci_ers_result_t hisi_acc_vfio_pci_aer_err_detected(
-+       struct pci_dev *pdev, pci_channel_state_t state)
-+{
-+       struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
-+
-+       return vfio_pci_core_aer_err_detected(&hisi_acc_vdev->core_device,
-state);
-+}
-+
-+static int hisi_acc_vfio_pci_runtime_suspend(struct device *dev)
-+{
-+       struct hisi_acc_vf_core_device *hisi_acc_vdev = dev_get_drvdata(dev);
-+
-+       return vfio_pci_core_runtime_suspend(&hisi_acc_vdev->core_device);
-+}
-+
-+static int hisi_acc_vfio_pci_runtime_resume(struct device *dev)
-+{
-+       struct hisi_acc_vf_core_device *hisi_acc_vdev = dev_get_drvdata(dev);
-+
-+       return vfio_pci_core_runtime_resume(&hisi_acc_vdev->core_device);
-+}
-+
-+static const struct dev_pm_ops hisi_acc_vfio_pci_pm_ops = {
-+       SET_RUNTIME_PM_OPS(hisi_acc_vfio_pci_runtime_suspend,
-+                          hisi_acc_vfio_pci_runtime_resume, NULL)
-+};
-
-is how much code it adds to current drivers, this doesn't seem
-excessive for 10 drivers,
-like you could obfuscate it a bit with some macros, but I really don't
-see a lot of value in hiding
-what is effectively just standard driver boilerplate.
-
-Dave.
+thanks all~
