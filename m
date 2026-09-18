@@ -1,46 +1,47 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010019.outbound.protection.outlook.com [52.101.193.19])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010005.outbound.protection.outlook.com [52.101.46.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8993947A4
-	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 01:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A539F39792C
+	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 01:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693697; cv=fail; b=p5meLEPhJMK5aPvoJRs3R49oZdlpqQPbmSomUXCqN5WE828I4lI1tD0hqFdARxxoc9OWPwdgkN9LNuy7OI8uN5FB8sq13dZD+CWyIkvkPdcQqzlGiE5XALNCumEthYa4RGvRaUmGCuounKHFKfN854zA6P5j41v1MuO4aHbq0N4=
+	t=1789693699; cv=fail; b=UXCrIzYPZmuy3J8Yq9xk3VivVI6C6HwyUP8GIjz0UQeP+ntfpUk1IeNC2tkp4Gve7857jzcMirts6lLpiNDt9k8StSZnEw0JwlINlUNzGrcWi8EYbyttNY3PbfQpvsZP10LCcymzGe+Ry8YntQH48LEsyo3sBSFVNlyIDVhCHQU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693697; c=relaxed/simple;
-	bh=KWv6O+4j27O8M77YkeX4PDZS40RNpgIu8y7Buhg7F34=;
+	s=arc-20240116; t=1789693699; c=relaxed/simple;
+	bh=9MiImp9GsATsK1F14NbXhsMwkr4iNJvW/PZdQPUtaqI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=O8uMi2febvoiUKAWEkRT9NCLpg5GG88N64WPaDptlmmFnJzD+xlI6BURk1+qlIFTkDcakmPQGhOV37XACgehIEsbzBSee+fQDZ0Np7JpbR3+ch+5KXEqqozr8S/JnJZacGggLV0H5yMSkTyD37fKX+txxN/1MvgGgdHI1H79cbc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Wih+4YvX; arc=fail smtp.client-ip=52.101.193.19
+	 Content-Type:MIME-Version; b=IanXrNFJHDALwa61nLRqiMq+ZGoV6h1FxjaZAKeoCOJbaZe6ywqWK46yL3R/hEVSG0KtAawTaqeOClSDHigtfaD2kiKBQVh4ng8MxrJQd7CwtkxN+aYHcmZQW+fzwa3V3Ch1ux5yILLZ1jITelBSzyt4lV8+3Bwx1ZMaKvJkiBI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mIoppwZp; arc=fail smtp.client-ip=52.101.46.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Wih+4YvX"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mIoppwZp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jiwjxidNRoH7py6bDTglSx3pjPmVF7fjiR7NJo76zMwB8iGwPsbIXHsTLpBUAydMQbONk3376pug6AgWJ7P7cfkAama3LPHjkeOcZh8V1ZVd2oot8ddtR5mJOpvZIbUFAFPm9llrZzaY1mC5FLmBP2QEW77cLICEaw3QAWnsL7JqDa+YqUpTUqrY6o5mH3Mq1xuQDc9PkD9P9wqg8FaekXmTIHMvoKforrT699aR14W/Bu5OewSDXzUX43xbx/ChomCVgpdSklEqRlaMh+B0UZMIL82mXx7r2PNsasoC4g2Q7jpPWc1mt13Yk5L0E+xahaJ56szKFC1MpNVUkKvIqQ==
+ b=l64vd6uQFpQceLGu88XCzoj0pprPW0Y6oBn4pQUOkL/XfCnW9flMwNdiu+zacnv3POlWOEfZJq/Nqro3n0HJBp9e9r8Xd0vz/9MyOojoOW5m3bk+aO6Sh8ZBLLxhJyLgDiULRxQasp6hHRZnZqr80xfoWSYLrPQO0ifPpzc1DMk2J7SQRcMinA5TwgI14tp+0pIMOZUxqOgELJQIsPjh/xcc/Kupuf+irC8dmNkqbYgEJZmAwYtDFG9tjlBnG21TkS6Yk1Qpe/29A6j+1keJwvQtwODDJOkjm4IeUvTmLRMB65pVEFALDjvh5JcyOpkVNKdqaCSUc5rJs0xFKvruvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BAh8DshN86gsARVBuO91wtn8T8nlDymymNUdEIqea5g=;
- b=YFK/qXOwx2Z5fNtF0dwhFMRoDGBm9+bDNrDhrMM8B8aIEQz5yWc3NPbA2W+SWhOw3o1sajW2/C4iGTnR0F7CavYHiRuM0bUVrlc1Yvwz9U0TlAXeKxZMCIarwRf2Lwntftxpg/yWaxPd4EoAPkGh7xY54OFau6L6bgVsb43Bbjq4N9aNM8KTZ7NW5ZQVnSiw/AhS1S7F50K8xOCvfVWbwelv/ny3CkG64zme0OH2O3VbBm/Efp2jwC39Iwb0Ts8duOlnLF4GNH/jwJJQpVIkjFDCZZFMyH2tJFyNzx+v093OQx4c5tMyJSRuNEONb+Oul2D2XZO84LiJ+1vsPrp83w==
+ bh=ZSoa8LPMjCI1keFj+PyNL5C/EAIvh3bmPLVUx71Ognc=;
+ b=TU3yUz/WqggEEC2zmz2jJkROlzQUtzEC1v7mN5SspYe+UeJjxYsrRuKNQnKd75li5uU52CXrGukxM5/Rv5xd3Q1Bgyt+T7juHsCLpWdi/tU8LpVfE41CMhERDsgWarIy6VziclOz54h5ACD8rIgpzCkuCIzy571VUSyz9TuYB9k2JJ/nwNJFCR5fkM6vArDuBO5I6HCgplET0kI2bXIoDecmx74dNBuInhsIGBWq3/M9/Y00ynzoHkBKWaypoFvepjHK7DlNz6PvTYsxIuX4kqnOrswD1Q9Rkl6SaJ3Lw6Z2Y9J4zJcYwMqXWTm65/EXJuF75kJO7MN30lEV2SWTqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BAh8DshN86gsARVBuO91wtn8T8nlDymymNUdEIqea5g=;
- b=Wih+4YvX2Ko3ZQjfTw2fURq1MvtZafwk2TGmclKXHN0oE+wAybjVAhDW+OE1J7tpXomgHABLWfxL+BrVjW3cgVCFqVnXMSPzutpB+GABuW5NHoC+yQehlkNG+zPl3UMKmY+NtDI+3R2csTzTR/t9wtLMWZh+6l0BcW04FZkNw5uGP1hwDWy9RThs5oQKdtXVLi/ZuubOd03AWoGrirGTs8V/7Ff0CvJ/l7PVJj/1B9s1TIA1qWQeXZHlRZorrCZbTu8n8SVFrUTAa6rCOy2fbUafuCDuV/Yzb+kD7dyOhcjbiLFe1+hnb1C8BlriTaJecjLDG+qM9qwhge+VVt7+nw==
+ bh=ZSoa8LPMjCI1keFj+PyNL5C/EAIvh3bmPLVUx71Ognc=;
+ b=mIoppwZpDZacq4DeSfnJERZk4ZPuFAbFz8A1GHWkpsMNleH6IUDKrBF4ZhxJbznN13QsxaUMynQ9+1ceXeWF6Ca/KWon5ccGWdwMiffM+tWRq0+vDwsSWgiohRdxtOEIQA6NPo0dmBVkyPd5whCZjUxbiiTCaFo5LILjiwYA/TsUn8+AL06I+hhC/2MVicI6wI8+cExmsWjVSPhm7g8PNJmKmhEOHGNa7qPgR4VpbfO0vfRBjOf2D8nthJOUCjb3BxehiXpf7hls5B7ePBj8HDN+qpjkc5d0n3lWEnZuHUlFFr0Mt9oXnqji7jMXgiKpMn7AWiHVK6znImfua0BcFw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DS7PR12MB5888.namprd12.prod.outlook.com (2603:10b6:8:7b::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.13; Fri, 18 Sep 2026 01:07:43 +0000
+ IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 01:07:49 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 01:07:43 +0000
+ 01:07:48 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v3 15/33] gpu: nova-core: add the r000 load-and-execute HS binary handler
-Date: Thu, 17 Sep 2026 18:07:01 -0700
-Message-ID: <20260918010719.1176945-16-jhubbard@nvidia.com>
+Subject: [PATCH v3 19/33] gpu: nova-core: gsp: rename the static configuration type
+Date: Thu, 17 Sep 2026 18:07:05 -0700
+Message-ID: <20260918010719.1176945-20-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918010719.1176945-1-jhubbard@nvidia.com>
 References: <20260918010719.1176945-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BY3PR10CA0023.namprd10.prod.outlook.com
- (2603:10b6:a03:255::28) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: BY3PR05CA0034.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::9) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -82,535 +83,171 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS7PR12MB5888:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59a9ca1a-5ada-42e7-2c81-08df15213e74
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB8349:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f5a422b-12e0-4039-a103-08df15214170
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|3023799007|56012099006|6133799003|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|56012099006|3023799007|11063799006|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	KaC0SE243WQpQHFOMsFA4A0hJTCUGLfkg15CT3c6NQbsBp/pdlkjZdWRSwpqB0Nd8nkhYSUOn/aHnL2X7kfmG3Epsj/henneFqPKygRE0s8UgWdN2b6LIC5q2YtTvn4c0SxQEBGCo+ugZPeFdJKrtpdctWqBwBPQ6BXpGVzGp6zpJakUzSNA19aoC/y+Z4ARLiWoc0beygvOfUJuNPsBn7ZerfZ1QN48CK6G/qGyvUtpX+ajY0ib3QRqJuiTwGLgrk+3av1ko93CIYEX9Vot+X+UxHxYCGeGd5tK6/BZzevtKMERJLr/oOEExCYzgYroUqxFkJB1yFSwvwgXIOE409AbvQnmxPXjVv1Jx8PiOx29BwDigLIE8qJ6tcmH0aBLSEaaBciXiRUO2Hbgv4+iFk4zOHMedzdu5m5If+jS2j2Ng7bqPsqJrsDOVWaClfZyZ0QmlbvgBPLCMMiFWYyzOJ5OpxnrsOakCjO/F98lI7muvr9lIZ4KwgvFEYcLnBIjAAm1ncbWG+yTHZyq60CywbpwhRnQOe0J4cweNeTXrindFR0ImIcaQrZduknj3kBtxN7lrP/AwdldJyUWeGrJwgRCzyNtjGvIXCddY/B16sQ1h+5K4YkkGkSoiitg18tOITeYS2NR9ia/yEwu2wiQMnVpa+gz4T2fM8wmSNoMDSA=
+	0tZqWbs92AazVOCUzjkDDDdW7ehwql9p7TIv5sr2JCdui3SWzfMj7oiqMzL5ec3DPK1SnY7FST0mSFNDY/LbRDuZoVkwJPxebqpbdr6wLZEWcGF10FNXAgMRObq037590RAzhwQKOnvfL0ZwZ8XluL8GwQzW4//YcII4fcGygjLrOFKVgkl9Sbl/kxUu9/+iyw7D4Sni5pg7/A3ulNGhmp2opCTWfSsmN1nq20/+jYRhti7fPkA4V8B722BS8kKrfID6rIgb89GXUgntxQYUEkUxeNoNg8CSV1PmxPe6eVVvoMs1VMd5CK4au4zNGW43JHBfinGVInStcudC5AlUJa2Yfoox27HipAIyds8Bp052CJzgzgFxfQgjiI8ogpyHHhXC1Lx64rZe13sxm6HEDCpi66FMxIube0d87FuqtzcseUTBuy0yTeATQLeinS+3U/cArYEr0w6JlO0ziwS0cB7SiBxkLtIespG4xXn59NZiSMO659jf99oMaUvrQ5gCpZrcnwuJZQqxGycOKCP9G+0JhKqHs0ce+7MkdSMI1/VcZy+kHhUJ/q05MtRhdon3Ipci02nkc+28iQmlyPnz9vqnFtbn1I4lKwma9xOMK8AyKfqf2Y2DHIGWOYUZ88LDZTlGLJcDHrXggMAIchz3r05Ge68ad0dExWBi6bqsZtU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(3023799007)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099006)(3023799007)(11063799006)(10067099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?t+5PWf5oSVfrTy4MOHF+EIhnbG9n+cgH+GOMTKLPVVnNoqgZmWQ3SRs1ipcM?=
- =?us-ascii?Q?JRczTbXwXmyP4pOpTyc3z0CQla4uakw4/uFuOX8o+jog2okzKaE/Pwgl7caL?=
- =?us-ascii?Q?vpRCtqJZeZPnahGhFQHBrzsmKHKhvQY9QuBKSXN9f/mcpzzQ+6z1P8fPns7q?=
- =?us-ascii?Q?cl3mZQfP+gIL79J0dzJwrI3YtMWYVLv+LwZRTKdXwQAcKfJj6DG5DhJliwbu?=
- =?us-ascii?Q?RT8wCbD/IOOuHgIjJkoX+WWYBJIHGfsGBQD9OU869N0YSkVjePL09JnvUsTo?=
- =?us-ascii?Q?cPal0sa7B6xPrkCdvTHwgW+8qHv+dVsigR0HphwalaD4VUHFpmG3fPtiHQ1q?=
- =?us-ascii?Q?MJpi/YmqIw7h6nD6E37LFqS4gYmhYMu+g1/zq4y2pJGa42+lXYR5MjUKKVuq?=
- =?us-ascii?Q?hi953ohyO3Ic1r06LZLm6tSGvxyuSzZUo8mhY3FO0zmWwX4AoTRW26y1mB5A?=
- =?us-ascii?Q?X6X6n4Btx4LAvutTubRxsN44oMyFo3DGq4k35fiWMMG9nq67rwRPh/Wqhnun?=
- =?us-ascii?Q?edR/fXAVxtoabT084kq3Eo4PV2YixiCwGrsmYvkiLm9C5N9c6nHhqs08p5tc?=
- =?us-ascii?Q?l6MWqBXHKghJKC9s1daVGFD/Y5VAOI/CDjmrDBiJ5kJ0O8GA1IRVqnG+NKYD?=
- =?us-ascii?Q?ldO+PNsCY9mRosyR/3k4sPhGEOTzKnsr3bdTzhZRGb/uXOUUbiWtAwmqqJhg?=
- =?us-ascii?Q?7KvrMEFnTEfAa0wkesnwhgyF1u2ER4PKMUwh7WX1amvjBzQwGS/mMeTT+Gpt?=
- =?us-ascii?Q?3ZBRoPEmBfQHd4G0mk9x7Q9HerTETipLTYfTvI2ZQkCS0dv7PgxQeLDcFoLs?=
- =?us-ascii?Q?/+VSuMttfpMH2PTyfYjvPMFSv5gh/OmUfk+wmgD9QgGTgKcUzu85JXVejUlf?=
- =?us-ascii?Q?LXuw2Lq9KJXvXgokMEUfPSHX9lfQNfdr70SRJoNol1lq1SVyg+SWeumajIJf?=
- =?us-ascii?Q?QxqaEeKk2l39cbDkQBuF/1Bskzh3GyDnTPbmq0vIMO7pVYaNiLP4cn/PVFFE?=
- =?us-ascii?Q?nXFqAzxh8Xw6vvUwW3DedLJGzTQIWHZg2wyple8wZKGzzKonIibIcHBJzY3Z?=
- =?us-ascii?Q?MVKosHJ1LWq+55OD0+g5v8GI0hbXIC5xgoVQeUYzrV+6uqlSwnO2UaOH6r7B?=
- =?us-ascii?Q?Qlbb8+RY7A8cYpzq1ox35yU3azCo0dP2pTB75+SL8s4WZaCSqz8HWxwqPSEw?=
- =?us-ascii?Q?ORnJE1sSEkAxZ4XzzXbCcrMMT0osYpsXrqClOHHu4mtsEb9m+goOAnP+QVwH?=
- =?us-ascii?Q?3LD81HmyBH4I8yw7LzFwp13aRp+5H2VVTzmYPSKLMZu6ZHBViHzWhevGBUwE?=
- =?us-ascii?Q?D4Q5Bg2bvavg/ACsTCT3f0zQrRAqw5uEoDM7RiQaxtCBirrioyCjDI8RFwue?=
- =?us-ascii?Q?kDhkmWWFz6SvIyvIgxveemKDVUgDbeG31q/FGwCtWV90zhNGj6DQOC+RLavr?=
- =?us-ascii?Q?iBhaPvFtfBtxscYPeN6G8nay+PUsSYMAuITRiENroRCs89NQ1NYmTYdJUDPh?=
- =?us-ascii?Q?EOvUyr+e3fiRI2zcqQPs6jU0UM1dGwvUmhvjXE5xXH8/kb2WJj05Zj47Vkae?=
- =?us-ascii?Q?YeYh3VmHx3o+YtJMAG30XseSg2XZgsdHXLY7uySV1EukBtfXYtYlLpDs1hs6?=
- =?us-ascii?Q?urZcUhhqvUBguTu1vAb6gFbdM/MFmQPgoAFL/wUBBbCrJ6EABunaLc2QEDFQ?=
- =?us-ascii?Q?IhmJlNXsrNcboYvEjAeaLUVgPIQEL3W9XXM2BQ8dc6d4iDoelCl23npk1QwB?=
- =?us-ascii?Q?yJMXZTFrEQ=3D=3D?=
+	=?us-ascii?Q?h/l5rhp6CsZJycAcG5FzQcDrQD8MONbz0sCxj+JsNj++/O7Sr5iE8DCfG7yL?=
+ =?us-ascii?Q?2eo1AsMA/lsEbTxmOMf7g/WOfsx62d3POpxDAwhIKHLH8C/OFVHiTwRa0ouq?=
+ =?us-ascii?Q?LFPLCgtj+dOLvxdpVvcS+thfWe68JWpmR4JqqtMZYkMHQiOxp9cFznF1i9LK?=
+ =?us-ascii?Q?uBARBkzjGQlJB1s12S9iR+5wo080bdTEfER7uU1Sg+SiJrYXPizbQgsLQVZU?=
+ =?us-ascii?Q?rNCBZhAuCQqgtC+MbvGLWoIvYyyGVUZg/pVAlQBXI7+zks3/lPsNVUCxksik?=
+ =?us-ascii?Q?LqMv7NtIdqB0+KXU87CCOf7lHCH4ivMLZc5oHYrHjAwr94SO7oAGYMACOq5B?=
+ =?us-ascii?Q?xc3iI4kJg3IH+C5aF4FCylHaS+LdBN7ZNFVwF3hoRRyk2eBNamCJlpdkpiUB?=
+ =?us-ascii?Q?XrHdRo3YM9DPScpQKRNX/K9xAUe55SmjMQh5dAHLr1bk/UPI5hvXtbOq/Vwb?=
+ =?us-ascii?Q?5mw3LDpIqtAShfdEzppiEbbNT22gSA0GoJW0fnxVsHbfMWaFHJ/B8bKYB91B?=
+ =?us-ascii?Q?GUhQjHvhiUirszVcae5Xca2DT4jyrmoczVap3dIkY61GxkHVCBRxSdFctsXf?=
+ =?us-ascii?Q?9qcyd5jp6gbQ1UOVz6VOgUN19I+mejNCSTjprbWgaJFOJ5Dg9lWWEasOyK7H?=
+ =?us-ascii?Q?WvDxUzY9hZw+Q3fBCj495NdDnaXsE98ErGbFvEttjFQ2Pb+H2oMJWf7AxOIg?=
+ =?us-ascii?Q?QU/bSOTREBM4aHyqWogl7zSx32kX5QIJ9/wX1hf/2LUTo4h7VyCG2kD48S8I?=
+ =?us-ascii?Q?6EUue2WY2xanu6obuYNQqmKeLuCJuualD9NUC9IwWbvoH2zR9HGhrD1PHdxx?=
+ =?us-ascii?Q?QzCnedaD4ovHd7CzM15D1NGzdRFeBG+7Ld0FLzWQcLFSEWbhXkyosae7skXE?=
+ =?us-ascii?Q?UOLcPMOd237kTSWiHMi0LGk1eJqurW88tuSJDKW1P8aK464/ilPZHnALS6oW?=
+ =?us-ascii?Q?vpYwt3xllPd6aOVkSyP3WUq93ZrUYHfjtBFajHNnOnOGiO4XFH0bG3sgvGUj?=
+ =?us-ascii?Q?z4uJ5ZG/9IUo7iszXO7SVrjR/GicaCMdM05uUlhyQ87DldY8am+pnV/QGjU1?=
+ =?us-ascii?Q?tUEQNybj5CMbCUQKNHxss+3eZleLQ7xJrTyQI5ume6c01bdbyvLAH+f0yPYf?=
+ =?us-ascii?Q?hxoRp2K7St/dQNVWYjGEPU7gVEztAqFNfeOa/zYTTK7CRbVYF+KMc24k0EUT?=
+ =?us-ascii?Q?bB/5fDogh7e7OzLmJlttUc26vdOZwXlxyvum3aBdNsbUUyO/2XsEZjk6ChQf?=
+ =?us-ascii?Q?BJWwVctPfFp95e7RFYv+i1j2Vx0f2tBjJxhbhxa3NlMiY4DcaVDDvtzg/dQt?=
+ =?us-ascii?Q?IpF5hK9OdmXO9nKqRlJ7tTBupjQPAEJOiSdsXA91B538K9P5YCE8i0gWO5be?=
+ =?us-ascii?Q?QrKPiuGqx3S7JxYsvhb0rHiQz67xubWZEbK5GAZoIheic6u6E0y7rd9t9fKT?=
+ =?us-ascii?Q?8EI/0wLLUaHhMxOgGmRKCX84+ZouygACLqCY4hP6sqpasfhDcQBf7qkIzEk7?=
+ =?us-ascii?Q?Nj4v2lPR3z6v8KY4J9ONNCFCutEZ4D3901Yz7Su0SGzkQplSP2TlZcGqJdpg?=
+ =?us-ascii?Q?1gBiIAJ5+yyDfnFkI7V9YscDnBFQ1upxpwhjeoG3ajD9GBrqZVExeoBupX+9?=
+ =?us-ascii?Q?GPZMxlw0jXHvy9gjq5PzKyvxdRPb6oa9MCqa+jdD+zThd6IuJ97hIAUz9PcF?=
+ =?us-ascii?Q?6u6JVgt4Pz/4H9EK4aTront/juAB9ty/vc3twQF80pVBBHJWEBF5deBo887u?=
+ =?us-ascii?Q?Uf/nbSTKcg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59a9ca1a-5ada-42e7-2c81-08df15213e74
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f5a422b-12e0-4039-a103-08df15214170
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:43.7792
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:48.7019
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pauBsduiwD+La3VVhmJfvMO2wObr2fV6gDXiKL2B38/WE/aGgqRfORho4unNmFxNLZn35ZvytAgHmJ+IJm7Wpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5888
+X-MS-Exchange-CrossTenant-UserPrincipalName: P3TueNLDDXmsQC4k7k8weMELXhExFDTVW4FlYA6sGl4fEDjds0bMUPtTii2zb1W+YJeT+/0kMSN71ERBYgvmAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
 
-On GA102 and later, GSP-RM sends the driver a load-and-execute event
-during boot that requests the driver to run a Heavy-Secured (HS) binary
-on the GSP falcon. GSP-RM has placed the binary in the framebuffer, and
-the event carries the binary's addresses. Once the binary has halted,
-SEC2 restarts GSP-RM, in what Open RM calls the core resume.
+The following patches fill the type that holds GSP-RM's static GPU
+configuration from the r000 GSP_INIT reply, where no command fetches
+the configuration.
 
-Add the handler and the core resume. The handler copies the binary into
-the falcon through an FBIF (framebuffer interface) aperture that it
-programs for the load, starts the binary and waits for it to halt.
+The type was named after the r570 command that fetched it.
 
-Put the falcons, the device and the boot parameters that the handler and
-the core resume share into one context struct.
+Name the type after its contents.
+
+No functional changes.
 
 Assisted-by: LLM
-Reviewed-by: Timur Tabi <ttabi@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/falcon.rs     |  51 +++++-
- drivers/gpu/nova-core/falcon/gsp.rs |  10 +-
- drivers/gpu/nova-core/gsp/boot.rs   | 257 +++++++++++++++++++++++++++-
- drivers/gpu/nova-core/regs.rs       |   2 +
- drivers/gpu/nova-core/sbuffer.rs    |   1 -
- 5 files changed, 311 insertions(+), 10 deletions(-)
+ drivers/gpu/nova-core/gpu.rs          |  4 ++--
+ drivers/gpu/nova-core/gsp.rs          |  2 +-
+ drivers/gpu/nova-core/gsp/commands.rs | 12 ++++++------
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 2a0fe86153aa..8ad28dce955e 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -44,6 +44,10 @@
- /// Alignment (in bytes) of falcon memory blocks.
- pub(crate) const MEM_BLOCK_ALIGNMENT: usize = 256;
- 
-+/// `MAILBOX0` value that means "the falcon binary has not started". A binary that runs replaces
-+/// it with its own status.
-+pub(crate) const FLCN_ERR_BINARY_NOT_STARTED: u32 = 0xfe;
-+
- /// DMEM virtual address value that means "no virtual address assigned".
- const FLCN_DMEM_VA_INVALID: u32 = 0xffff_ffff;
- 
-@@ -156,7 +160,6 @@ pub(crate) enum FalconDmaSrcOffset {
- impl FalconDmaSrcOffset {
-     /// Returns the source offset of a DMEM image at virtual address `dmem_va`, or the start of the
-     /// source when `dmem_va` is `FLCN_DMEM_VA_INVALID`.
--    #[expect(dead_code)]
-     pub(crate) fn from_dmem_va(dmem_va: u32) -> Self {
-         if dmem_va == FLCN_DMEM_VA_INVALID {
-             Self::Offset(0)
-@@ -192,6 +195,17 @@ pub(crate) enum FalconFbifMemType with From<Bounded<u32, 1>> {
-     }
- }
- 
-+bounded_enum! {
-+    /// Engine ID that the falcon's framebuffer interface (FBIF) tags a DMA transfer with.
-+    #[derive(Debug, Copy, Clone)]
-+    pub(crate) enum FalconFbifEngineIdFlag with From<Bounded<u32, 1>> {
-+        /// The BAR2 engine ID of PCI function 0.
-+        Bar2Fn0 = 0,
-+        /// The falcon's own engine ID.
-+        Own = 1,
-+    }
-+}
-+
- const PFALCON_REGION_SIZE: usize = SZ_4K;
- const PFALCON2_REGION_SIZE: usize = SZ_4K;
- 
-@@ -394,7 +408,7 @@ pub(crate) struct Falcon<'a, E: FalconEngine> {
-     bar: Bar0<'a>,
-     // TODO: make private
-     pub(crate) pfalcon: Mmio<'a, PFalconRegisters>,
--    pfalcon2: Mmio<'a, PFalcon2Registers>,
-+    pub(crate) pfalcon2: Mmio<'a, PFalcon2Registers>,
- }
- 
- impl<'a, E: FalconEngine + 'static> Falcon<'a, E> {
-@@ -628,6 +642,37 @@ fn dma_wr(
-         Ok(())
-     }
- 
-+    /// Programs FBIF context DMA slot `ctx_dma` with the value that `configure` returns, runs `f`,
-+    /// and restores the slot once `f` has returned `Ok`.
-+    ///
-+    /// The slot keeps the programmed value if `f` fails, since a falcon that `f` started and that
-+    /// has not halted may still be reading through the aperture.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EINVAL` if `ctx_dma` is not a context DMA slot that the falcon has.
-+    ///
-+    /// Errors from `f` are propagated as-is.
-+    pub(crate) fn with_fbif_transcfg<R>(
-+        &self,
-+        ctx_dma: u32,
-+        configure: impl FnOnce(regs::NV_PFALCON_FBIF_TRANSCFG) -> regs::NV_PFALCON_FBIF_TRANSCFG,
-+        f: impl FnOnce() -> Result<R>,
-+    ) -> Result<R> {
-+        // The location type is not `Copy`, so each register access builds its own.
-+        let transcfg =
-+            || regs::NV_PFALCON_FBIF_TRANSCFG::try_at(usize::from_safe_cast(ctx_dma)).ok_or(EINVAL);
-+
-+        let saved = self.pfalcon.read(transcfg()?);
-+        self.pfalcon.update(transcfg()?, configure);
-+
-+        let result = f()?;
-+
-+        self.pfalcon.update(transcfg()?, |_| saved);
-+
-+        Ok(result)
-+    }
-+
-     /// Transfers `len` bytes from `src_addr` into this falcon's `target_mem`.
-     ///
-     /// `src_addr` is a GPU physical address reached through the FBIF aperture, so the caller must
-@@ -639,7 +684,6 @@ fn dma_wr(
-     ///   not 256-byte aligned.
-     /// - `ERANGE` if `src_addr` does not fit the `DMATRFBASE` register pair.
-     /// - `EOVERFLOW` if a per-block source or destination offset exceeds `u32`.
--    #[expect(dead_code)]
-     pub(crate) fn raw_dma_transfer(
-         &self,
-         ctx_dma: u32,
-@@ -788,7 +832,6 @@ pub(crate) fn is_processor_suspended(&self) -> bool {
-     /// # Errors
-     ///
-     /// - `ETIMEDOUT` if the core has not suspended within two seconds.
--    #[expect(dead_code)]
-     pub(crate) fn wait_for_processor_suspend(&self) -> Result {
-         read_poll_timeout(
-             || Ok(self.is_processor_suspended()),
-diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core/falcon/gsp.rs
-index dfa08bc6867c..70f7d55f9b59 100644
---- a/drivers/gpu/nova-core/falcon/gsp.rs
-+++ b/drivers/gpu/nova-core/falcon/gsp.rs
-@@ -115,15 +115,19 @@ pub(crate) fn retrigger_intr(bar: Bar0<'_>, chipset: Chipset) {
- }
- 
- impl<'a> Falcon<'a, Gsp> {
--    /// Checks if GSP reload/resume has completed during the boot process.
--    pub(crate) fn check_reload_completed(&self, timeout: Delta) -> Result<bool> {
-+    /// Waits until the Boot Sequence Interface (BSI) reports that the GSP reload has completed.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if the reload has not completed within `timeout`.
-+    pub(crate) fn check_reload_completed(&self, timeout: Delta) -> Result {
-         read_poll_timeout(
-             || Ok(self.bar.read(regs::NV_PGC6_BSI_SECURE_SCRATCH_14)),
-             |val| val.boot_stage_3_handoff(),
-             Delta::ZERO,
-             timeout,
-         )
--        .map(|_| true)
-+        .map(|_| ())
-     }
- 
-     /// Returns whether the RISC-V branch privilege lockdown bit is set.
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index 8518248c9732..3cfb21964250 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -2,24 +2,230 @@
- // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
- use kernel::{
--    io::poll::read_poll_timeout,
-+    device,
-+    io::{
-+        poll::read_poll_timeout,
-+        register::Array,
-+        Io, //
-+    },
-     prelude::*,
-     time::Delta,
-+    transmute::{
-+        AsBytes,
-+        FromBytes, //
-+    },
-     types::ScopeGuard, //
- };
- 
- use crate::{
-     falcon::{
-         gsp::Gsp,
--        Falcon, //
-+        sec2::Sec2,
-+        Falcon,
-+        FalconDmaSrcOffset,
-+        FalconFbifEngineIdFlag,
-+        FalconFbifMemType,
-+        FalconFbifTarget,
-+        FalconMem,
-+        FalconModSelAlgo,
-+        FLCN_ERR_BINARY_NOT_STARTED, //
-     },
-     firmware::gsp::GspFirmware,
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 9e0570e97cfe..e7f1458330b4 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -34,7 +34,7 @@
+     fsp::Fsp,
      gsp::{
-         cmdq::Cmdq,
-         commands, //
+         self,
+-        commands::GetGspStaticInfoReply,
++        commands::GspStaticInfo,
+         Gsp,
+         GspBootContext, //
      },
-+    regs,
-+    sbuffer::SBufferIter, //
- };
- 
-+/// The falcons, device and boot parameters that the load-and-execute event handlers share.
-+struct LoadExecContext<'a, 'gpu> {
-+    gsp_falcon: &'a Falcon<'gpu, Gsp>,
-+    sec2_falcon: &'a Falcon<'gpu, Sec2>,
-+    dev: &'a device::Device,
-+    /// GSP bootloader application version.
-+    bootloader_app_version: u32,
-+    /// DMA address of the LIBOS init arguments.
-+    libos_dma_handle: u64,
-+}
-+
-+impl LoadExecContext<'_, '_> {
-+    /// Waits until GSP-RM has suspended the RISC-V core, then resets the GSP falcon and its DMA
-+    /// registers.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if the core has not suspended within two seconds.
-+    ///
-+    /// Errors from the falcon reset are propagated as-is.
-+    fn reset_gsp_falcon_after_suspend(&self) -> Result {
-+        let Self {
-+            gsp_falcon, dev, ..
-+        } = *self;
-+
-+        gsp_falcon.wait_for_processor_suspend().inspect_err(|_| {
-+            dev_err!(
-+                dev,
-+                "Timeout waiting for GSP suspend (mbox0={:#x})\n",
-+                gsp_falcon.read_mailbox0()
-+            );
-+        })?;
-+
-+        gsp_falcon.reset()?;
-+        gsp_falcon.dma_reset();
-+
-+        Ok(())
-+    }
-+
-+    /// Runs the core resume, in which SEC2 restarts GSP-RM after a load-and-execute binary has
-+    /// halted on the GSP falcon.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EIO` if SEC2 reports a failure, or if the GSP is not running RISC-V afterwards.
-+    /// - `ETIMEDOUT` if SEC2 does not complete the reload within two seconds.
-+    fn core_resume(&self) -> Result {
-+        let Self {
-+            gsp_falcon,
-+            sec2_falcon,
-+            dev,
-+            ..
-+        } = *self;
-+
-+        gsp_falcon.reset()?;
-+
-+        gsp_falcon.write_mailboxes(
-+            Some(self.libos_dma_handle as u32),
-+            Some((self.libos_dma_handle >> 32) as u32),
-+        );
-+
-+        sec2_falcon.start()?;
-+
-+        gsp_falcon
-+            .check_reload_completed(Delta::from_secs(2))
-+            .inspect_err(|_| {
-+                let mbox0 = sec2_falcon.read_mailbox0();
-+                dev_err!(
-+                    dev,
-+                    "Timeout waiting for SEC2 to resume GSP-RM (SEC2 mbox0={:#x})\n",
-+                    mbox0
-+                );
-+            })?;
-+
-+        let sec2_mbox0 = sec2_falcon.read_mailbox0();
-+        if sec2_mbox0 != 0 {
-+            dev_err!(
-+                dev,
-+                "SEC2 reported error during core resume: {:#x}\n",
-+                sec2_mbox0
-+            );
-+            return Err(EIO);
-+        }
-+
-+        gsp_falcon.write_os_version(self.bootloader_app_version);
-+
-+        if !gsp_falcon.is_riscv_active() {
-+            dev_err!(dev, "GSP RISC-V not active after core resume\n");
-+            return Err(EIO);
-+        }
-+
-+        Ok(())
-+    }
-+
-+    /// Runs a Heavy-Secured (HS) binary on the GSP falcon, as a `GMCAPI_CMD_EXEC_HS_BINARY` event
-+    /// requests, and then restarts GSP-RM.
-+    ///
-+    /// GSP-RM has placed the binary in the framebuffer, and the falcon's boot ROM (BROM) verifies
-+    /// the binary's signature before the binary runs.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EINVAL` if the payload is shorter than the parameter block, or the ucode id does not
-+    ///   fit the BROM register field.
-+    /// - `ETIMEDOUT` if the RISC-V core does not suspend within two seconds, or the GSP falcon does
-+    ///   not halt within two seconds of starting the binary.
-+    ///
-+    /// Errors from [`Self::core_resume`] are propagated as-is.
-+    #[expect(dead_code)]
-+    fn handle_load_exec_hs_binary(&self, payload_0: &[u8], payload_1: &[u8]) -> Result {
-+        let Self {
-+            gsp_falcon, dev, ..
-+        } = *self;
-+        let params = read_params::<HsBinaryParams>(payload_0, payload_1)?;
-+
-+        self.reset_gsp_falcon_after_suspend()?;
-+
-+        gsp_falcon.with_fbif_transcfg(
-+            HsBinaryParams::CTX_DMA,
-+            |v| {
-+                v.with_target(FalconFbifTarget::LocalFb)
-+                    .with_mem_type(FalconFbifMemType::Physical)
-+                    .with_engine_id_flag(FalconFbifEngineIdFlag::Bar2Fn0)
-+            },
-+            || {
-+                if params.ucode_imem_size > 0 {
-+                    gsp_falcon.raw_dma_transfer(
-+                        HsBinaryParams::CTX_DMA,
-+                        params.imem_phys_addr,
-+                        FalconMem::ImemSecure,
-+                        FalconDmaSrcOffset::Va(params.ucode_imem_va),
-+                        params.ucode_imem_pa,
-+                        params.ucode_imem_size,
-+                    )?;
-+                }
-+
-+                if params.ucode_dmem_size > 0 {
-+                    gsp_falcon.raw_dma_transfer(
-+                        HsBinaryParams::CTX_DMA,
-+                        params.dmem_phys_addr,
-+                        FalconMem::Dmem,
-+                        FalconDmaSrcOffset::from_dmem_va(params.ucode_dmem_va),
-+                        params.ucode_dmem_pa,
-+                        params.ucode_dmem_size,
-+                    )?;
-+                }
-+
-+                gsp_falcon.pfalcon2.write(
-+                    Array::at(0),
-+                    regs::NV_PFALCON2_FALCON_BROM_PARAADDR::zeroed()
-+                        .with_value(params.hs_sig_dmem_addr),
-+                );
-+                gsp_falcon.pfalcon2.write_reg(
-+                    regs::NV_PFALCON2_FALCON_BROM_ENGIDMASK::zeroed()
-+                        .with_value(params.engine_id_mask),
-+                );
-+                gsp_falcon.pfalcon2.write_reg(
-+                    regs::NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID::zeroed()
-+                        .with_ucode_id(u8::try_from(params.ucode_id).map_err(|_| EINVAL)?),
-+                );
-+                gsp_falcon.pfalcon2.write_reg(
-+                    regs::NV_PFALCON2_FALCON_MOD_SEL::zeroed().with_algo(FalconModSelAlgo::Rsa3k),
-+                );
-+
-+                gsp_falcon.pfalcon.write_reg(
-+                    regs::NV_PFALCON_FALCON_BOOTVEC::zeroed().with_value(params.ucode_imem_va),
-+                );
-+
-+                let (mbox0, _) = gsp_falcon
-+                    .boot(Some(FLCN_ERR_BINARY_NOT_STARTED), None)
-+                    .inspect_err(|_| {
-+                        dev_err!(
-+                            dev,
-+                            "Timeout waiting for HS binary to halt (mbox0={:#x})\n",
-+                            gsp_falcon.read_mailbox0()
-+                        );
-+                    })?;
-+                dev_dbg!(dev, "HS binary halted with mbox0={:#x}\n", mbox0);
-+
-+                Ok(())
-+            },
-+        )?;
-+
-+        self.core_resume()
-+    }
-+}
-+
- impl<'gsp> super::Gsp<'gsp> {
-     /// Attempt to boot the GSP.
+@@ -314,7 +314,7 @@ pub(crate) struct Gpu<'gpu> {
+     #[pin]
+     _gsp_irq: GspIrq<'gpu>,
+     /// Static GPU information as provided by the GSP.
+-    gsp_static_info: GetGspStaticInfoReply,
++    gsp_static_info: GspStaticInfo,
+     /// GPU memory manager owning memory management resources.
      ///
-@@ -140,3 +346,50 @@ pub(crate) fn unload(
-         res.inspect(|()| dev_info!(dev, "GSP successfully unloaded\n"))
+     /// Must be kept declared *before* `gsp_resources`, so that its components are dropped while
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index c9b7498639b7..6e7a057188c5 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -221,7 +221,7 @@ pub(crate) fn new(
+     }
+ 
+     /// Query the GSP for the static GPU information.
+-    pub(crate) fn get_static_info(&self) -> Result<commands::GetGspStaticInfoReply> {
++    pub(crate) fn get_static_info(&self) -> Result<commands::GspStaticInfo> {
+         self.cmdq.send_command(commands::GetGspStaticInfo)
      }
  }
-+
-+/// Reads the parameter block of type `T` from the start of an event payload, which the ring may
-+/// have split in two.
-+///
-+/// # Errors
-+///
-+/// - `EINVAL` if the payload is shorter than `T`.
-+fn read_params<T: FromBytes + AsBytes + Zeroable>(payload_0: &[u8], payload_1: &[u8]) -> Result<T> {
-+    let mut params = T::zeroed();
-+
-+    SBufferIter::new_reader([payload_0, payload_1]).read_exact(params.as_bytes_mut())?;
-+
-+    Ok(params)
-+}
-+
-+/// Payload of a `GMCAPI_CMD_EXEC_HS_BINARY` event.
-+///
-+/// GSP-RM has written the code to `imem_phys_addr` and the data to `dmem_phys_addr` in the
-+/// framebuffer before it sends the event.
-+#[repr(C)]
-+#[derive(Debug, Copy, Clone, Zeroable)]
-+struct HsBinaryParams {
-+    imem_phys_addr: u64,
-+    dmem_phys_addr: u64,
-+    _reserved64: [u64; 2],
-+    ucode_imem_va: u32,
-+    ucode_imem_pa: u32,
-+    ucode_imem_size: u32,
-+    ucode_dmem_va: u32,
-+    ucode_dmem_pa: u32,
-+    ucode_dmem_size: u32,
-+    hs_sig_dmem_addr: u32,
-+    engine_id_mask: u32,
-+    ucode_id: u32,
-+    _reserved32: [u32; 3],
-+}
-+
-+impl HsBinaryParams {
-+    /// Context DMA slot through which the binary is loaded.
-+    const CTX_DMA: u32 = 0;
-+}
-+
-+// SAFETY: This struct only contains integer types for which all bit patterns are valid.
-+unsafe impl FromBytes for HsBinaryParams {}
-+
-+// SAFETY: This struct only contains integer types, laid out without padding.
-+unsafe impl AsBytes for HsBinaryParams {}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index feb37de69be5..ec8e05dc3351 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -18,6 +18,7 @@
-         DmaTrfCmdSize,
-         FalconCoreRev,
-         FalconCoreRevSubversion,
-+        FalconFbifEngineIdFlag,
-         FalconFbifMemType,
-         FalconFbifTarget,
-         FalconMem,
-@@ -286,6 +287,7 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-     }
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index a01ab14299c6..b3b28e397ebd 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -197,7 +197,7 @@ pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
+ impl CommandToGsp for GetGspStaticInfo {
+     const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+     type Command = fw::commands::GspStaticConfigInfo;
+-    type Reply = GetGspStaticInfoReply;
++    type Reply = GspStaticInfo;
+     type InitError = Infallible;
  
-     pub(crate) NV_PFALCON_FBIF_TRANSCFG(u32)[8] @ 0x00000600 {
-+        16:16   engine_id_flag => FalconFbifEngineIdFlag;
-         2:2     mem_type => FalconFbifMemType;
-         1:0     target ?=> FalconFbifTarget;
-     }
-diff --git a/drivers/gpu/nova-core/sbuffer.rs b/drivers/gpu/nova-core/sbuffer.rs
-index 3a41d224c77a..b8c01104c255 100644
---- a/drivers/gpu/nova-core/sbuffer.rs
-+++ b/drivers/gpu/nova-core/sbuffer.rs
-@@ -146,7 +146,6 @@ fn get_slice(&mut self, len: usize) -> Option<&'a [u8]> {
+     fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+@@ -206,7 +206,7 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+ }
  
-     /// Ideally we would implement `Read`, but it is not available in `core`.
-     /// So mimic `std::io::Read::read_exact`.
--    #[expect(unused)]
-     pub(crate) fn read_exact(&mut self, mut dst: &mut [u8]) -> Result {
-         while !dst.is_empty() {
-             match self.get_slice(dst.len()) {
+ /// The reply from the GSP to the [`GetGspStaticInfo`] command.
+-pub(crate) struct GetGspStaticInfoReply {
++pub(crate) struct GspStaticInfo {
+     gpu_name: [u8; 64],
+     /// BAR1 Page Directory Entry base address.
+     pub(crate) bar1_pde_base: u64,
+@@ -216,7 +216,7 @@ pub(crate) struct GetGspStaticInfoReply {
+     pub(crate) total_fb_end: u64,
+ }
+ 
+-impl MessageFromGsp for GetGspStaticInfoReply {
++impl MessageFromGsp for GspStaticInfo {
+     const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+     type Message = fw::commands::GspStaticConfigInfo;
+     type InitError = Error;
+@@ -231,7 +231,7 @@ fn read(
+         }
+         let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
+ 
+-        Ok(GetGspStaticInfoReply {
++        Ok(GspStaticInfo {
+             gpu_name: msg.gpu_name_str(),
+             bar1_pde_base: msg.bar1_pde_base(),
+             usable_fb_regions,
+@@ -240,7 +240,7 @@ fn read(
+     }
+ }
+ 
+-/// Error type for [`GetGspStaticInfoReply::gpu_name`].
++/// Error type for [`GspStaticInfo::gpu_name`].
+ #[derive(Debug)]
+ pub(crate) enum GpuNameError {
+     /// The GPU name string does not contain a null terminator.
+@@ -251,7 +251,7 @@ pub(crate) enum GpuNameError {
+     InvalidUtf8(Utf8Error),
+ }
+ 
+-impl GetGspStaticInfoReply {
++impl GspStaticInfo {
+     /// Returns the name of the GPU as a string.
+     ///
+     /// Returns an error if the string given by the GSP does not contain a null terminator or
 -- 
 2.55.0
 
