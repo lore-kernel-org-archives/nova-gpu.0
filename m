@@ -1,46 +1,46 @@
 Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012018.outbound.protection.outlook.com [52.101.53.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB083BFE33
-	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 02:13:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6974B3BFE33
+	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 02:13:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.18
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697598; cv=fail; b=PYj1/Sl+yGLh0NZ8fd4c15LL6LPudvjt30WbvxofqUkhgWPDV0jvY8/cX4UTWbHp5y/2PbZPig8rKI4wcCZjG6dzzYFK4wp9v/lhvCCiUd2ztEHJWaE80fMhN4Cwr0R8hCUp50oXttQUlA5vLudmaaAAnlALXPKHIH3sUK5Ss/8=
+	t=1789697600; cv=fail; b=INQyiETpQQFXKEeDNGXHIyWD6OaKH6HlSC/KaVTkUTptqOUhZhuP44y2njEVidbSrPuAIOceDcqv7qDW+kqHW7OTxYkeppOfDqS+/gyoL9aUvONOnZErp4z7hBAEBepcKferJ1rohFW9cvSMn+LRfDTqR1JCp8wUTbgAGeY8a/A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697598; c=relaxed/simple;
-	bh=z2+U6NHjM8RFwda6rnRLJ/be1pvxhmjQYa3nF/xrdpw=;
+	s=arc-20240116; t=1789697600; c=relaxed/simple;
+	bh=+0eqoK5pcv3Y2HZFECWQxfFFs7N5g7fHCKccxnYetlM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e4l4BR8BQZ+vhGwW2lTqFU3/gkDHtgaURh3W0JIh2dyg8xRgGYolumeWS36CIR4OpRhJRqf2wvYEQH7upgbnoTdxo7r2K/uWKM0qCaCimA91/n9uneHe4SkRM02hsnDyhBE59PUBgmKyPisbAF3mM7n9RQse8izOc/o6MhsVKhQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pOfrIlaV; arc=fail smtp.client-ip=52.101.53.18
+	 Content-Type:MIME-Version; b=O3UdIRsy/IODQ89VFLz583ZqlpaPi8LPMlUiaAUUVMNt7fF+XImBXQHPrVkCFJx88/EUqUDmd+uhbF5P4lp2MPz0+/x4vuMZbVfNrm7GMOCurPEAOUgM0P/ksXzQd0vgplQNOjurlkLJYZo4d0MSrrxoCCiqOSq3WTjcD6KebuU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pWU0H220; arc=fail smtp.client-ip=52.101.53.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pOfrIlaV"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pWU0H220"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p4JXcMp+aT3Az22fFCEt0oWTyuKGD4+CR5zPd3QMXE1GSSWhNxEhws1aKSw35jBweQGg027K4bpefC/oIoX7bRHzVBHVCA2uXBMZZUFrQwiGI58L8HuE8zPfVQ2XahP7usoUR2ZwvT08OzmsOoFVc4LcOwE+/1R9jH+WWSAzrwZ4He6RR4FYUThJdeVoIcjdLWLKl0tf1n9x9XqcLdrOIxspZnJoZSNcvdNw8CQ+11JyCIu20PDr3VBKwpWXFU5h874pQWWCi5y9Qw5xeE3dl8aTe+Uz06vI4oGuemB7+miATYua3Hd2UxyySvpr1BQoqb9uaFLzvckwjCDpp0a8gA==
+ b=DNNueH5FpcgVHBRqhl1CEnBHwND8Zk9LldjsL+fCP/AOjhFBaonV0zPUWG0sJCmKHr8pfVpP0mwZMmMpSSKbJua3KE+Kc2OrChjNZXd57mbkC6mxszLdJFWsDRtLwGoThcidqXi29+zYEQ3lPebPZj2d3s8TZ/YMxu/uObqRIDE46sH6wK3hO6KEwQwxNKXCSdbh9tb5ZDSxzmR0IcZxA+74K1MRxHksd9KHnsrOGCPiNrKHSKg0ugc2q+nxPfo2wkUiY7oKq6l9x1ZemI6t/pouRZxB6Xi80YDxX9UyCcZO6cqC9B2vCXk8YgH1N8jc+4do5vzQjY0SpVzNSU7MkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kpt5mHgl1bVQ7vFeacxpEefUXfv8upwSiHghGsos1ro=;
- b=sphnvpHqi7uH619H8sGupZAUBQwqFPpQv/IFq+JiBQlhftMithcYZGg7PPfETO4/3K4LGAHpRMdmzRcwVs0WBNRXxi5erx3Br5XF3kGvdNYuWTrimMEtF8SbTodmod0iUlgU6g7GDwboAipu4UFGBLRUWpuI6FTYCTF8Tp8jXz78iQpjNH4kuTBp9I212hOHAOX3JDIhtnfhTCynLF4f3CRe/Ma7HYzEWSUfk9ErH+v+pQjkpYVa6VOUIPWynn+TpUbxm0M67m9wTNLW/zL8oFZamr8z3kucd8+8OUUBArEQbwG9j62fnHsyZ4UBKtEFd/Hqlujvegf738Gz/K+CUQ==
+ bh=srbYfeC+SwEpkOkOnyUszSb33ae41QO8+svUxO261Kg=;
+ b=HEBobs8RkS+wBMW4pB9qAh2xQk7CKZIRWkPL1bbvY+CCnaSyeSzUY0IAq7dkQsIT1WAbfduuHte14F0Zd5DM/9ZgYNcLja1aJSEN4bOEg0KjjZIMa9SQt/U+Lte/PNxLkxzbHezsduF02k3AydOeiW3wedFsOJmPPec+4+xwEOMzzf7ouJQK02lOm966n+5FNo0AfAEqS+SMCqAEvyc1S/z+zsQBbYXHGJagdhLN3vwDxhbcqIQhsjTpYNCukFIeon8HwVD+HbodVboopn8vhlI0DUGAspPBVE5aCQgGvTj56ot959L9pPYtd35VuJ90GHQ8uvq3aVwxbiEE68RJMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kpt5mHgl1bVQ7vFeacxpEefUXfv8upwSiHghGsos1ro=;
- b=pOfrIlaVOiDIEhHExIHhLDdL4DXmZd5IPWEo1tehOWj4f6rCs4T3ZqkDibZzK5a7rAVZ97p6EVuAnKNWsSbeKq9iQya4Nc5b1DoVjwGWYjwM/jlgooAPcIcooBAJMx+vL2zNCnCOXu0oYKIrOl+d2YvWr2iMpKD6GXhPPsoqsl1Ba5CUOuEaHdgsGKpRbKZzYU/dP/g/62F+G31FOJsdkDauhY90cqLF5EHd7ZspipGy8RhMD0aW3OMwwSm4uPcwO56/ymE6OFoVme5wqkmLLQ++EDQU2mCja5m23ZuhOL6seTqbjOOogPvb8nP2xura26eArGFdMVVStA8pBkx0iA==
+ bh=srbYfeC+SwEpkOkOnyUszSb33ae41QO8+svUxO261Kg=;
+ b=pWU0H220mODKiYSYnx+PMkxTBncCee9DWBm6if+wttbb560qSm7huVIEfey4xF9F25ZpIZF7PtoS9kjmk9QZFKMrp0MBdkCsSbzqbJQrITLOphrziZGMFS9zmb40HOop2+U5Jc7HSnsedF5KEMwe17sME5mk43QZaqFg7yjQTWNluyBsBShRh2kheOKvlYmgLsLfsGIgHe0/racVHTRwFq2MiYYUhv216OXsoTFYZtciAggf90YVeov5znq4m8o92oiGZ+4EKAViWTi+OFOd7k1lbqqw9lcs9ty/MVPkvf3z18Hb0KCMkdJ+Yn4K2/qgqlOsQ3lJABR1LLxeUodxBQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  PH7PR12MB8015.namprd12.prod.outlook.com (2603:10b6:510:26a::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.12; Fri, 18 Sep 2026 02:13:07 +0000
+ 15.21.428.12; Fri, 18 Sep 2026 02:13:05 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 02:13:07 +0000
+ 02:13:05 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,17 +63,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 3/4] gpu: nova-core: gsp: print GMC command names in debug logs
-Date: Thu, 17 Sep 2026 19:12:48 -0700
-Message-ID: <20260918021249.1187837-4-jhubbard@nvidia.com>
+Subject: [PATCH 2/4] gpu: nova-core: enable decoding of the GSP firmware logs
+Date: Thu, 17 Sep 2026 19:12:47 -0700
+Message-ID: <20260918021249.1187837-3-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918021249.1187837-1-jhubbard@nvidia.com>
 References: <20260918021249.1187837-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PH7P220CA0123.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:327::26) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: PH0PR07CA0113.namprd07.prod.outlook.com
+ (2603:10b6:510:4::28) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -83,252 +83,527 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH7PR12MB8015:EE_
-X-MS-Office365-Filtering-Correlation-Id: cede1ec1-8f6a-4dab-e327-08df152a60fb
+X-MS-Office365-Filtering-Correlation-Id: 71d7dab1-d844-4d4b-10ea-08df152a5fce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|7416014|23010399003|1800799024|366016|376014|10067099003|3023799007|11063799006|6133799003|18002099003|22082099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	Ozyh2d9pnIxmVUred2XZD+3j4q7ix+Xngk1+jVzPu+viXaqCQgxIUysxHAR0kgRaHI+rVvlSbd/A4H0IHpuOuSnBrTnAN+K6uVnHtbFnnZqduv0hFUiS3QfzaR5n62WY+rz4c6GPiPddTRbMkpr3u999eSycT87oViMay7JkctqG4yatk+Kf+Rp141ZCIH3DJK8rkjdFeSPobVKZylpCoi9CNtNnKUdIHdkAHa6u65kouyGmewhBD4OXf2FELKy4vOowY++4t4h9zCthHGyAc8WmL68PeJOcR1sTKBJRVHPI1srvb4kBuX3fyfvcZ3UJFoZGYnLCsNe50EzGqMjg+9GO2SXXzTV2ZJt0aKGFo7hfb1bnijAfAs63qScgCuXErAIsOy8S0K8SegzJz4alyBP2flx4R3UjHfjomOppXa5S/9OtrmkFE7dSZpGSU1QYp3H0oVagBsf5oFRL44latja/vEhXqMwNdqL0qTvGNQr17jdoGsZIcIRbjmNn2srE7PCpSLmtp7OVVKauXEMqV5ohMWUxhzTeJJidQSbTrrvOyfwkrRYdlrRUuuvQd5lJT0Rgkogpi+/GFBUAHrYoA5xAb7vckrnQPk12ePXUEuuiyTiJd8uJY1GJMpAWdcgmu0/n482sOUKqeyADRcLt/MlTwTMC3UuBcT3qhgu54Qo=
+	58gM2xwnp1nDGIA8WPuX8VeQ6si2McUHXvDHtNsAWIeJN2/D4v9v/SUSe02ZGfOTfbvW+nXp+eu/Igc0UWesS3OgI2kwrFDTbenHWC/vdBc5mGv3P//T8qZ/y8J+AFPplb3usp5kCr3/6rLW8j1HLzoyvNVrApwbsi4Gylf931w5am5U+i4elWZCnhXAXDbpOj4LyNhucrNWFP6WPttEpw7F6NvzwBCf7iiGGiyTIU2LUfZFH+jFeX1nG2wTLNVurXvFOAvL0vTetxHaj9a4iprLgRN71WKc9adY7ewbIRtNwVKAZTtNqTM4miu3e2BTDSCTO1QGx34+aHVXavJpvHhMWW9TGmOWhacFzD9l8+ExSnnxJMOsQ2GKzdLBvvjGkBcERRm4/ZxPcDZRHOC35FdKwiw9Q5hr5MiJT3hHg0VuNUgfSXsLEdIbHju4aurY+2qDHcdduGviUDjiZKTXvRa1Jn7NFh+iERu+EaejPac2uxKNg50Ka0nbP57RO4ao8KazJoZzDNKgD/cLjCi/WBXIsMGEtruLCMUyVMfULYDc+4wb9ktLYcFWjM7SnIuxhpKvwl6jabZ2J8QTU+sbwRWenVVxMsNlwls7z+uxQyLJ9wvI29yFs7mFpeI/iU3HWK9Pu0hBAxUXGw5Bb+nop6oxB1EV+HEwb4Dh2jtmtgE=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(366016)(376014)(10067099003)(3023799007)(11063799006)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0QpBoZEMaDsapcbXlayHEG532D9kd2oBicC2lH8nmHCgvK589d17goHB/M8Y?=
- =?us-ascii?Q?bbA/7UjvPTODRsrp+mYDZwW6WfuJPoZI1G+AzRcn1vKvzrXjJHudBkgyaHXM?=
- =?us-ascii?Q?C5DA0wRMcr3kZT7B8lzAh9jG3a2xh1VMH3KpAUiRu+G6ZTp9jv9bDqQDLzw/?=
- =?us-ascii?Q?vj8A5zQow5WQu5ITB+2aayk0B027x82lMsIuEc6vgxFiErXVVlIu+4Ggl+3F?=
- =?us-ascii?Q?JI7r0eURNejHDrkgYnRVvYt7NH1yKLC1Lq3iFnM1A0Jcpv5DisETaJfn0yl2?=
- =?us-ascii?Q?WpxLlhcQ1G1ihUsxmuMEfJFPJ5TireYBSvWmL21akIzbIH2mdXsS2OktT+W4?=
- =?us-ascii?Q?6nyyc2FjvE/FS49Uf7KGHbtGWPg0lH3B6PBL1Nb7l9HBgDP57g3bjOdLAUI2?=
- =?us-ascii?Q?dW6XTQmVn/8C6D6bG4Vy/N2Wev5Ks+EF7TlX8/DyBAtg7o7tvkXpHSNSf0KV?=
- =?us-ascii?Q?u6bAxqg9CDtU1+m/I0IvYam6HmjucbSjqICnumQ0HXxm95hrkuuo3qVGRMyN?=
- =?us-ascii?Q?rzya40f1L1apLKzGXx4lhzA+rcc/a08TFwE8etAhSG7UgoyRLF0AuX6Mv+XV?=
- =?us-ascii?Q?stzShxgADI1BDFbAoP3EDVH3GGUr1l/8ys1LUv7HSEMQwKGBSS7HzbP4/XvC?=
- =?us-ascii?Q?06xAiT1T8mtFwZpJqYaWNpR+CaB1//5QUsQwpoVRvLuWycq2dr0gonYBTFH9?=
- =?us-ascii?Q?+VbxOPkY+CKB4ZD22V0A+ovQOKaHf59ujtdKrUHqnX6s3qsd0HLRZp3pIpaZ?=
- =?us-ascii?Q?Cih4whQh6AfDahMeVglNYbFGSNAl5XvlPwTMLrweKr5EzB2VYNVDJiuPKhjv?=
- =?us-ascii?Q?8GGws7Ehu4pe9WE0WgehkHRAyaqI1Ipf0TH/8MmBVHC04kQbVZ7y58hG+1vN?=
- =?us-ascii?Q?iZweYp+/gmHEyQbKcOpIyt8X4gVz0U7tvTUMmO2udZJJDEtmXdH7rO5NfTgq?=
- =?us-ascii?Q?QzlLgWYKin1m3NiefwkuDqeW8qlCU4rlfu1nS/fNMgBZBVEAbNFocNI8vIfk?=
- =?us-ascii?Q?o9GFo4VHOvkxbRjbB7ymsfGx04ew+XpMzBb+WJI7SzqiV3Up3oh6Djy6WPGf?=
- =?us-ascii?Q?8xSGddlJ2uHmbqr6VMfs1Fh7iKMQENZCbpP2YwPQBqqrTdYPY3LnN1QA8dOY?=
- =?us-ascii?Q?RWpYqmJYzVQyngPzAQTQBowKTkzCIJ9cqKXKvxbKBqzP2/Qbtc3c/Z5rvijX?=
- =?us-ascii?Q?RBjWWizCUHipNxJmZfggnYuRSjx1VKOnQJA9ypSYoqmxAlTJpMbd//3e1MHy?=
- =?us-ascii?Q?lnfg0SAVFZZ7wGJSKXU5FomZ9A6jlSJlRHHc5ar1IIhgZFSEqRk8U97mG0R6?=
- =?us-ascii?Q?M+JQh7OmiDlu1FkOH4LH42Y6vL2SJdWAe8gTxaxyEXXagSRmNRU6QSyyZL2U?=
- =?us-ascii?Q?pA9Rp0FhilqpbK86hAo1v70GlmbJ0bOHq7rvQKaJrhAPT1f9A97THYKq66aI?=
- =?us-ascii?Q?uGM574xZrOlMgkMrZzNI6xRYbS2l3WieqSIR4BO8UYsgFetGryVucXzpCexK?=
- =?us-ascii?Q?HqtT1CWFX4I6/xiT16LrtLm6LVqDc3mzf2Zbm2mSKWP8g96+2kAJYpO2Kwe9?=
- =?us-ascii?Q?hwAwYek68vQzxCeq1EqfpQawrFmd0mTxF7ucr0VNuK6uFQpCHLXXM4SqvtNt?=
- =?us-ascii?Q?X2DFE4mRriYnolOB6Ge4LaQErp9TSBSih36PPIfuhs41n6FeGJFVOBOm3S+G?=
- =?us-ascii?Q?N0tbQ5MeWuwj6oZfWVg7ro0AelpP97oxIMZNB2LwkcnCn2lk2t5NKQ0GC4sz?=
- =?us-ascii?Q?0Bk+OkNz3Q=3D=3D?=
+	=?us-ascii?Q?qealAau2pjf9LWaLYe9jXdySrai0KDcusgvNa4TpDjjRdbrn7bBqYeu/5StL?=
+ =?us-ascii?Q?egPD6WGrgQ4Cjs0q5uOScFzwGXJogzKMDFBcyCTohqebfi9gJ/+4e8tv06KW?=
+ =?us-ascii?Q?z2/+MQKVST48r3Nu1Q2J116bzNfoqeUt/law+/bRHplbYnJvonDfxHcA78WC?=
+ =?us-ascii?Q?OhWRcoeIG87cE5VgPA3oYli1iB3ykh/kaLMrzPXNMUgY2VD4X+uxQWx75Ixd?=
+ =?us-ascii?Q?Uxr2OcYL22aCpnE6GSCbKTBsjgCRuYKvXFCdbS6tB90pYrxGstAkq4W3yY4t?=
+ =?us-ascii?Q?DKFrKoKXF8sB67NPSQxySr/8R1SLMwUDRBzjqUGO/NuJ250fzFHTYUPPwcpK?=
+ =?us-ascii?Q?AcCwFQ4DB83pT8ggZCI5KlpRMMmCqUDpv1l1/l0C/iED1pqB3ZLDeSt06ecc?=
+ =?us-ascii?Q?XzUbQNDRYFk0d+O7v3/Z7LVOF9hCFzX+vs45LrvCRR4+v36cnDFxk7EdP/nK?=
+ =?us-ascii?Q?lLQuSLQklJP75ju7rZWlqziP9htsSgySkIFc32VfpYNK0CtNGOJuwafPWpi9?=
+ =?us-ascii?Q?ffa6LazuMEcC7MdZrnU+UYw8sAuwtWceiz0sD2X9klOc+3aO6wAT0tLjfNgW?=
+ =?us-ascii?Q?W+4g+VCwpm2Ht6RQgI/vg7CR0gNiLD3ykde8MNwj+sUbTR7BmuIo5x46wuF1?=
+ =?us-ascii?Q?XJz3gLi5FUuAf1/Kr08Wg6gg4oEvwM4JWKYb4L+HdLcgkFymT01JJeRInC9x?=
+ =?us-ascii?Q?HfuggmRVj874KZz1Ck9Gzi+1Nf4ZRKWnBfodvRqfpPbjN1Rcz0E18K6fT7TU?=
+ =?us-ascii?Q?DIV4m1QRVmiNsNlzQOdwzOQjefatR8oGsror3ZXfJg5+Wy9vp5dFledzJjLV?=
+ =?us-ascii?Q?iddu8sbSszYYKr4HKovIGmOyMKYdEUyWSTNepFhjmugi/hCQCeaGofD0Z5Ij?=
+ =?us-ascii?Q?PaDeORZ1tQ215lV+EUxP+A7j3FgzYoasLEOSWmBxpWxqpaETJuNGGyftyNQA?=
+ =?us-ascii?Q?FcSKfHUnHgLjh0ydYDdaIphKeefTedGEuMX2MRGgjlRtF7v90+srjkuU58pN?=
+ =?us-ascii?Q?cwMOs9vrrEy4ZMXy15g3a/WtRdCpGBDERYvslrIViPLszkvKCx30B6wNjiEx?=
+ =?us-ascii?Q?tORJRtAn6Y7vDwYGS0MwUIx937EcL5bNKV6qgkBcu4wdH7MEYfUMWV/uXZBo?=
+ =?us-ascii?Q?dcClAMkT+J7AvmQawPXM/LzpfpWzilSCuGllyOExyfjhjnZtVm+POe5/IWPU?=
+ =?us-ascii?Q?+YocdsWw4PUEcAlGWBxgFBD90NRzYio4ZC0DJqWODraLVYtCnsuCd8wl6tkS?=
+ =?us-ascii?Q?DIE6Zxd4CaebhEWvLSXIbv1Xd60WdkfRsBjXhQEyw/mhukqT0MXbqWouOt/z?=
+ =?us-ascii?Q?D2SgvDU46FnbPSMqoItO0aA0pxJSyIhEFQNPOEbfquwM+34i9Yw5d8FPlrOd?=
+ =?us-ascii?Q?GSjWOY1HidqAA9PMr4VnkDsCe1Wx39eSPwAb0C5CooUIerpEL2uhfiuZfAsy?=
+ =?us-ascii?Q?mR6ls9wba9iRIKRat07IOzPlhprN8CASfmAYOrlrMKqqxSayCQ9HuKHNa4G6?=
+ =?us-ascii?Q?E68rq7qBcHKYVZqbGt9thbMZTerP8e2IkZn6vyi2TNK+eQfJ28XbWrdQcf+/?=
+ =?us-ascii?Q?6YXrM7Kl2GgCTY+P8ZC/pzVmpL7JfqEqZjXVyIl4i3Zjbbaauo0A/usmDYgU?=
+ =?us-ascii?Q?dfug8PCMaGxqbpFjEWpB9cIKPvVDIRmXkTua0O9g3MvVoA+3yqQ0/2DhYKT/?=
+ =?us-ascii?Q?vzE6nCUyJPrY+wvtsDDPj4kx/Rc8auFoUNvmRKAltQuyQy3Cenft2jJoF/Tf?=
+ =?us-ascii?Q?HFZLm4H4gA=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cede1ec1-8f6a-4dab-e327-08df152a60fb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71d7dab1-d844-4d4b-10ea-08df152a5fce
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 02:13:07.1665
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 02:13:05.3419
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jx0Z2RZQ2eyPXxlm+PRKn+UWEKlErwTP+pvxDOeI5pn9YIzFyOq1L+fyd2HR7350LoUNc9yuAcnJ382yIti2cQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: TNJTsD2toawnspc43rVjWxl7NtEDJAtKNWRvSdVX1eEh4EmFyKsCCVK9Q0fQn/ijYcLlaUWtPCY33C7LDnbMFg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8015
 
-The GMC (GPU Management Controller) API names each command in the
-GMCAPI_COMMANDS enum of the firmware bindings, and a message carries
-the enum's numeric id.
+Nova-core exports the GSP-RM log buffers over debugfs, and Open RM's
+log decoder turns a dump into text with the ELF of the firmware that
+wrote it. The decoder identifies that firmware by a header ahead of
+each buffer. The header, in the LIBOS_LOG_NVLOG_BUFFER_V2 layout, names
+the GPU, the firmware task that wrote the buffer, and the GNU build ID
+of the firmware.
 
-The GMC send, receive and error lines printed the bare id, so a reader
-had to look 0x10001 up in the bindings to learn that it was GSP_INIT:
+Nova-core wrote no such header, so a dump could not be matched to its
+firmware, and a decode with the wrong ELF produced garbage rather than
+an error.
 
-    GSP GMC: send: seq# 0, command_id=0x10001, length=0xf8
+Prepend the header to each debugfs dump, with the build ID read from
+the BLID tag of gsp.tlv. The log buffers are created before boot loads
+the firmware from that file, so request the file once when the buffers
+are created and hand it to the boot sequence. A file without a usable
+build ID is reported with a warning, and its dumps carry no header.
 
-Print the name beside the id, from a type that wraps an id for
-formatting, so that the ids stay plain integers at the send and receive
-interfaces:
-
-    GSP GMC: send: seq# 0, command=GSP_INIT (0x10001), length=0xf8
+Also, r000 has several more log buffers that must be provisioned, so do
+that too.
 
 Assisted-by: LLM
+Reviewed-by: Timur Tabi <ttabi@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/boot.rs |  9 ++--
- drivers/gpu/nova-core/gsp/cmdq.rs | 13 +++---
- drivers/gpu/nova-core/gsp/fw.rs   | 70 +++++++++++++++++++++++++++++++
- 3 files changed, 82 insertions(+), 10 deletions(-)
+ drivers/gpu/nova-core/firmware/gsp.rs |  54 ++++++-
+ drivers/gpu/nova-core/gpu.rs          |   3 +-
+ drivers/gpu/nova-core/gsp.rs          | 212 ++++++++++++++++++++++----
+ drivers/gpu/nova-core/gsp/boot.rs     |   2 +-
+ 4 files changed, 234 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index 6f8f330a0297..8848feebb9db 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -42,6 +42,7 @@
-         cmdq::Cmdq,
-         commands,
-         fw::{
-+            GmcCommand,
-             GspArgumentsPadded,
-             GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER,
-             GMCAPI_CMD_EXEC_HS_BINARY, //
-@@ -169,8 +170,8 @@ fn dispatch_gmc_boot_event(
-             _ => {
-                 dev_err!(
-                     self.dev,
--                    "Unexpected GMC boot event: command_id={:#010x}\n",
--                    command_id
-+                    "Unexpected GMC boot event: command={}\n",
-+                    GmcCommand(command_id)
-                 );
-                 return Err(EINVAL);
-             }
-@@ -179,8 +180,8 @@ fn dispatch_gmc_boot_event(
-         handled.and_then(|()| self.core_resume()).inspect_err(|e| {
-             dev_err!(
-                 self.dev,
--                "GMC boot event {:#010x} failed: {:?}\n",
--                command_id,
-+                "GMC boot event {} failed: {:?}\n",
-+                GmcCommand(command_id),
-                 e
-             );
-         })
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index dd0b3dfc6f37..2b53b1e6cebf 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -52,6 +52,7 @@
-     driver::Bar0,
+diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/firmware/gsp.rs
+index a2db7b6ba131..e6ca8d559d7b 100644
+--- a/drivers/gpu/nova-core/firmware/gsp.rs
++++ b/drivers/gpu/nova-core/firmware/gsp.rs
+@@ -6,6 +6,7 @@
+         Coherent,
+         DmaAddress, //
+     },
++    firmware,
+     prelude::*, //
+ };
+ 
+@@ -21,6 +22,48 @@
+     gpu::Chipset, //
+ };
+ 
++/// Longest build ID that a log dump header carries, matching Open RM's `BUILD_ID_MAX_LENGTH`.
++pub(crate) const BUILD_ID_MAX_LENGTH: usize = 32;
++
++/// Build ID of the GSP firmware, from the `BLID` tag of its TLV.
++pub(crate) struct BuildId {
++    /// The ID, zero-padded to [`BUILD_ID_MAX_LENGTH`] bytes.
++    bytes: [u8; BUILD_ID_MAX_LENGTH],
++    /// Number of valid bytes in `bytes`.
++    len: u32,
++}
++
++impl BuildId {
++    /// Reads the build ID from the `BLID` tag of `tlv`.
++    ///
++    /// Returns `EINVAL` if the tag is absent or empty, or if its value is longer than
++    /// [`BUILD_ID_MAX_LENGTH`] bytes.
++    pub(crate) fn from_tlv(tlv: &Tlv<'_>) -> Result<Self> {
++        let value = tlv.get_bytes(b"BLID")?;
++
++        let mut bytes = [0; BUILD_ID_MAX_LENGTH];
++        bytes
++            .get_mut(..value.len())
++            .ok_or(EINVAL)?
++            .copy_from_slice(value);
++
++        Ok(Self {
++            bytes,
++            len: u32::try_from(value.len())?,
++        })
++    }
++
++    /// Returns the ID, zero-padded to [`BUILD_ID_MAX_LENGTH`] bytes.
++    pub(crate) fn padded(&self) -> &[u8; BUILD_ID_MAX_LENGTH] {
++        &self.bytes
++    }
++
++    /// Returns the number of bytes in the ID.
++    pub(crate) fn len(&self) -> u32 {
++        self.len
++    }
++}
++
+ /// The GSP firmware image, its signatures, and the GSP bootloader.
+ #[pin_data]
+ pub(crate) struct GspFirmware<'a> {
+@@ -36,13 +79,16 @@ pub(crate) struct GspFirmware<'a> {
+ impl<'a> GspFirmware<'a> {
+     /// Loads the GSP firmware binaries, map them into `dev`'s address-space, and creates the page
+     /// tables expected by the GSP bootloader to load it.
+-    pub(crate) fn new(
++    ///
++    /// `gsp_tlv` is the TLV of the GSP firmware, which names the image file and carries the
++    /// signatures.
++    pub(crate) fn new<'tlv>(
+         dev: &'a device::Device<device::Bound>,
+         chipset: Chipset,
+-    ) -> impl PinInit<Self, Error> + 'a {
++        gsp_tlv: &'tlv firmware::Firmware,
++    ) -> impl PinInit<Self, Error> + use<'a, 'tlv> {
+         pin_init::pin_init_scope(move || {
+-            let firmware = request_tlv(dev, chipset, "gsp")?;
+-            let tlv = Tlv::new(firmware.data())?;
++            let tlv = Tlv::new(gsp_tlv.data())?;
+             dev_dbg!(dev, "loaded gsp firmware v{}\n", tlv.get_string(b"VERS")?);
+ 
+             let fw_vvec = tlv.load_file(dev, chipset)?;
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index cecd8e79430d..173c57179b39 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -220,7 +220,6 @@ pub(crate) struct Spec {
+     pub(crate) chipset: Chipset,
+     /// Implementation field of `NV_PMC_BOOT_42`, which distinguishes this chipset from the other
+     /// chipsets of its architecture.
+-    #[expect(dead_code)]
+     pub(crate) implementation: u8,
+     revision: Revision,
+ }
+@@ -424,7 +423,7 @@ pub(crate) fn new<'a>(
+ 
+                 vgpu: VgpuManager::new(pdev, spec.chipset, fsp.as_mut()),
+ 
+-                gsp <- Gsp::new(pdev, bar),
++                gsp <- Gsp::new(pdev, *spec, bar),
+ 
+                 // This member must be initialized last, so that the unload bundle can never be
+                 // dropped from outside the constructed `GspResources`, and the unload sequence runs
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 85967119cd7e..f8c675288d58 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -12,13 +12,17 @@
+         CoherentView,
+         DmaAddress, //
+     },
++    firmware,
++    fs::file,
+     io::{
+         io_project,
+         io_write,
+         Io, //
+     },
+     pci,
+-    prelude::*, //
++    prelude::*,
++    transmute::AsBytes,
++    uaccess::UserSliceWriter, //
+ };
+ 
+ pub(crate) mod cmdq;
+@@ -42,8 +46,21 @@
+         sec2::Sec2 as Sec2Falcon,
+         Falcon, //
+     },
++    firmware::{
++        gsp::{
++            BuildId,
++            BUILD_ID_MAX_LENGTH, //
++        },
++        tlv::{
++            request_tlv,
++            Tlv, //
++        },
++    },
+     fsp::Fsp,
+-    gpu::Chipset,
++    gpu::{
++        Chipset,
++        Spec, //
++    },
      gsp::{
-         fw::{
-+            GmcCommand,
-             GspGmcMsgElement,
-             GspMsgElement,
-             MsgFunction,
-@@ -884,9 +885,9 @@ fn send_gmc(&mut self, command_id: u32, payload: &[u8], max_response_size: u32)
+         cmdq::Cmdq,
+         fw::GspArgumentsPadded, //
+@@ -100,6 +117,68 @@ fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
+     }
+ }
  
-         dev_dbg!(
-             &self.dev,
--            "GSP GMC: send: seq# {}, command_id=0x{:x}, length=0x{:x}\n",
-+            "GSP GMC: send: seq# {}, command={}, length=0x{:x}\n",
-             rpc_seq,
--            command_id,
-+            GmcCommand(command_id),
-             dst.header.length(),
-         );
++/// Longest task name in a log dump header, matching Open RM's `TASK_NAME_MAX_LENGTH`.
++const TASK_NAME_MAX_LENGTH: usize = 8;
++
++/// Header ahead of the log data in a debugfs dump, in the layout of Open RM's
++/// `LIBOS_LOG_NVLOG_BUFFER_V2`.
++///
++/// The decoder uses the header only when `build_id` matches the build ID of its GSP firmware ELF.
++#[repr(C)]
++struct LogBufferHeader {
++    /// Architecture code of the GPU, from the `NV_PMC_BOOT_42` architecture field.
++    gpu_arch: u32,
++    /// Implementation number of the GPU within its architecture.
++    gpu_impl: u32,
++    version: u32,
++    /// Number of valid bytes in `build_id`.
++    build_id_length: u32,
++    /// Name of the LIBOS3 task, printed ahead of each decoded line.
++    task_prefix: [u8; TASK_NAME_MAX_LENGTH],
++    /// Value that the decoder adds to each timestamp, zero when unknown.
++    local_to_global_timer_delta: u64,
++    /// Build ID of the GSP firmware, zero-padded.
++    build_id: [u8; BUILD_ID_MAX_LENGTH],
++    /// `LIBOS_LOG_NVLOG_BUFFER_FLAG_*` bits.
++    flags: u32,
++    reserved: u32,
++}
++
++// SAFETY: `LogBufferHeader` is `repr(C)`, its integer and byte array fields leave no padding
++// between or after them, and it has no interior mutability.
++unsafe impl AsBytes for LogBufferHeader {}
++
++impl LogBufferHeader {
++    /// The `LIBOS_LOG_NVLOG_BUFFER_V2` layout.
++    const VERSION: u32 = 2;
++    /// `LIBOS_LOG_NVLOG_BUFFER_FLAG_PACKED_METADATA`: each log entry packs its argument count and
++    /// task id into the word that holds its metadata address.
++    const FLAG_PACKED_METADATA: u32 = 0x1;
++
++    /// Builds the header for a dump of the `task_prefix` task's log, on the GPU that `spec`
++    /// describes, whose GSP runs the firmware with `build_id`.
++    fn new(spec: Spec, build_id: &BuildId, task_prefix: &str) -> Self {
++        let mut header = Self {
++            gpu_arch: spec.chipset.arch() as u32,
++            gpu_impl: u32::from(spec.implementation),
++            version: Self::VERSION,
++            build_id_length: build_id.len(),
++            task_prefix: [0; TASK_NAME_MAX_LENGTH],
++            local_to_global_timer_delta: 0,
++            build_id: *build_id.padded(),
++            flags: Self::FLAG_PACKED_METADATA,
++            reserved: 0,
++        };
++
++        // The last byte stays zero, so that the name is NUL-terminated for the decoder.
++        let prefix = task_prefix.as_bytes();
++        let len = prefix.len().min(TASK_NAME_MAX_LENGTH - 1);
++        header.task_prefix[..len].copy_from_slice(&prefix[..len]);
++
++        header
++    }
++}
++
+ /// The logging buffers are byte queues that contain encoded printf-like
+ /// messages from GSP-RM.  They need to be decoded by a special application
+ /// that can parse the buffers.
+@@ -114,7 +193,13 @@ fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
+ /// then pp points to index into the buffer where the next logging entry will
+ /// be written. Therefore, the logging data is valid if:
+ ///   1 <= pp < sizeof(buffer)/sizeof(u64)
+-struct LogBuffer<'a, const NUM_PAGES: usize>(Coherent<'a, [[u8; GSP_PAGE_SIZE]; NUM_PAGES]>);
++struct LogBuffer<'a, const NUM_PAGES: usize> {
++    /// Header that a debugfs dump carries ahead of the data, present when the GSP firmware's
++    /// build ID is known.
++    header: Option<LogBufferHeader>,
++    /// The buffer that GSP-RM logs into.
++    buffer: Coherent<'a, [[u8; GSP_PAGE_SIZE]; NUM_PAGES]>,
++}
  
-@@ -1063,9 +1064,9 @@ fn log_event(&self, function: Result<MsgFunction, u32>, seq: u32) {
-     fn log_gmc_event(&self, header: &GspGmcMsgElement) {
-         dev_warn!(
-             &self.dev,
--            "GSP GMC: dropping unclaimed message (seq {}, command_id=0x{:x})\n",
-+            "GSP GMC: dropping unclaimed message (seq {}, command={})\n",
-             header.gmc.sequence,
--            header.gmc.command_id(),
-+            GmcCommand(header.gmc.command_id()),
-         );
+ /// A log buffer at the default size, [`RM_LOG_BUFFER_NUM_PAGES`] pages.
+ ///
+@@ -127,20 +212,66 @@ fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
+ type SmallLogBuffer<'a> = LogBuffer<'a, 1>;
+ 
+ impl<'a, const NUM_PAGES: usize> LogBuffer<'a, NUM_PAGES> {
+-    /// Creates a new `LogBuffer` mapped on `dev`.
+-    fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
+-        let obj = Self(Coherent::zeroed(dev, GFP_KERNEL)?);
++    /// Creates a new `LogBuffer` mapped on `dev`, whose debugfs dump opens with `header`.
++    fn new(
++        dev: &'a device::Device<device::Bound>,
++        header: Option<LogBufferHeader>,
++    ) -> Result<Self> {
++        let buffer = Coherent::zeroed(dev, GFP_KERNEL)?;
+ 
+-        let start_addr = obj.0.dma_address();
++        let start_addr = buffer.dma_address();
+ 
+         let pte_view = io_project!(
+-            obj.0,
++            buffer,
+             [build: 0][build: size_of::<u64>()..][build: ..NUM_PAGES * size_of::<u64>()]
+         )
+         .try_cast::<PteArray<NUM_PAGES>>()?;
+         PteArray::init(pte_view, start_addr)?;
+ 
+-        Ok(obj)
++        Ok(Self { header, buffer })
++    }
++}
++
++impl<const NUM_PAGES: usize> debugfs::BinaryWriter for LogBuffer<'_, NUM_PAGES> {
++    fn write_to_slice(
++        &self,
++        writer: &mut UserSliceWriter,
++        offset: &mut file::Offset,
++    ) -> Result<usize> {
++        if offset.is_negative() {
++            return Err(EINVAL);
++        }
++
++        // An offset too large for a `usize` is past the end of the dump.
++        let Ok(offset_val) = usize::try_from(*offset) else {
++            return Ok(0);
++        };
++
++        let header = self
++            .header
++            .as_ref()
++            .map_or(&[][..], |header| header.as_bytes());
++        let total = header.len() + self.buffer.size();
++        if offset_val >= total {
++            return Ok(0);
++        }
++
++        let count = (total - offset_val).min(writer.len());
++        let mut written = 0;
++
++        // The header comes first, and a read that reaches past it continues in the buffer.
++        if let Some(header_rest) = header.get(offset_val..) {
++            written = header_rest.len().min(count);
++            writer.write_slice(&header_rest[..written])?;
++        }
++        if written < count {
++            let buffer_offset = offset_val + written - header.len();
++            writer.write_dma(&self.buffer, buffer_offset, count - written)?;
++            written = count;
++        }
++
++        *offset += i64::try_from(written)?;
++        Ok(written)
+     }
+ }
+ 
+@@ -164,15 +295,22 @@ impl<'a> LogBuffers<'a> {
+     /// Number of log buffers.
+     const COUNT: usize = 6;
+ 
+-    /// Allocates the six log buffers, mapped on `dev`.
+-    fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
++    /// Allocates the six log buffers, mapped on `dev`, and gives each one the dump header for
++    /// the GPU that `spec` describes when `build_id` is known.
++    fn new(
++        dev: &'a device::Device<device::Bound>,
++        spec: Spec,
++        build_id: Option<&BuildId>,
++    ) -> Result<Self> {
++        let header = |task_prefix| build_id.map(|id| LogBufferHeader::new(spec, id, task_prefix));
++
+         Ok(Self {
+-            loginit: TaskLogBuffer::new(dev)?,
+-            logintr: TaskLogBuffer::new(dev)?,
+-            logrm: TaskLogBuffer::new(dev)?,
+-            logmnoc: TaskLogBuffer::new(dev)?,
+-            logroot: SmallLogBuffer::new(dev)?,
+-            logrmon: SmallLogBuffer::new(dev)?,
++            loginit: TaskLogBuffer::new(dev, header("INIT"))?,
++            logintr: TaskLogBuffer::new(dev, header("INTR"))?,
++            logrm: TaskLogBuffer::new(dev, header("RM"))?,
++            logmnoc: TaskLogBuffer::new(dev, header("MNOC"))?,
++            logroot: SmallLogBuffer::new(dev, header("ROOT"))?,
++            logrmon: SmallLogBuffer::new(dev, header("RMON"))?,
+         })
      }
  
-@@ -1269,9 +1270,9 @@ fn consume_element<R>(
-             ),
-             QueueElement::Gmc(message) => dev_dbg!(
-                 &self.dev,
--                "GSP GMC: receive: seq# {}, command_id=0x{:x}, length=0x{:x}\n",
-+                "GSP GMC: receive: seq# {}, command={}, length=0x{:x}\n",
-                 message.header.gmc.sequence,
--                message.header.gmc.command_id(),
-+                GmcCommand(message.header.gmc.command_id()),
-                 message.header.length(),
-             ),
-         }
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index f7e83e75e53e..106d71f95fc3 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -12,6 +12,7 @@
- use kernel::{
-     bitfield,
-     dma::Coherent,
-+    fmt,
-     io::io_write,
-     prelude::*,
-     ptr::{
-@@ -802,6 +803,75 @@ unsafe impl AsBytes for GmcApiHeader {}
- // SAFETY: All fields are integer types for which all bit patterns are valid.
- unsafe impl FromBytes for GmcApiHeader {}
+@@ -184,27 +322,27 @@ fn init_arguments(
+     ) -> Result {
+         libos.init_at(
+             0,
+-            LibosMemoryRegionInitArgument::new("LOGINIT", &self.loginit.0),
++            LibosMemoryRegionInitArgument::new("LOGINIT", &self.loginit.buffer),
+         )?;
+         libos.init_at(
+             1,
+-            LibosMemoryRegionInitArgument::new("LOGINTR", &self.logintr.0),
++            LibosMemoryRegionInitArgument::new("LOGINTR", &self.logintr.buffer),
+         )?;
+         libos.init_at(
+             2,
+-            LibosMemoryRegionInitArgument::new("LOGRM", &self.logrm.0),
++            LibosMemoryRegionInitArgument::new("LOGRM", &self.logrm.buffer),
+         )?;
+         libos.init_at(
+             3,
+-            LibosMemoryRegionInitArgument::new("LOGMNOC", &self.logmnoc.0),
++            LibosMemoryRegionInitArgument::new("LOGMNOC", &self.logmnoc.buffer),
+         )?;
+         libos.init_at(
+             4,
+-            LibosMemoryRegionInitArgument::new("LOGROOT", &self.logroot.0),
++            LibosMemoryRegionInitArgument::new("LOGROOT", &self.logroot.buffer),
+         )?;
+         libos.init_at(
+             5,
+-            LibosMemoryRegionInitArgument::new("LOGRMON", &self.logrmon.0),
++            LibosMemoryRegionInitArgument::new("LOGRMON", &self.logrmon.buffer),
+         )?;
  
-+/// A GMC command id that formats with its name.
-+///
-+/// [`fmt::Display`] writes the name that the bindings give the id, then the id itself, as in
-+/// `GSP_INIT (0x10001)`. An id that the bindings do not name writes `UNKNOWN`.
-+#[derive(Copy, Clone)]
-+pub(crate) struct GmcCommand(pub(crate) u32);
+         Ok(())
+@@ -212,18 +350,20 @@ fn init_arguments(
+ 
+     /// Exposes each log buffer as a binary file in `dir`, under the lowercase form of its name.
+     fn register_debugfs<'data>(&'data self, dir: &debugfs::ScopedDir<'data, '_>) {
+-        dir.read_binary_file(c"loginit", &self.loginit.0);
+-        dir.read_binary_file(c"logintr", &self.logintr.0);
+-        dir.read_binary_file(c"logrm", &self.logrm.0);
+-        dir.read_binary_file(c"logmnoc", &self.logmnoc.0);
+-        dir.read_binary_file(c"logroot", &self.logroot.0);
+-        dir.read_binary_file(c"logrmon", &self.logrmon.0);
++        dir.read_binary_file(c"loginit", &self.loginit);
++        dir.read_binary_file(c"logintr", &self.logintr);
++        dir.read_binary_file(c"logrm", &self.logrm);
++        dir.read_binary_file(c"logmnoc", &self.logmnoc);
++        dir.read_binary_file(c"logroot", &self.logroot);
++        dir.read_binary_file(c"logrmon", &self.logrmon);
+     }
+ }
+ 
+ /// GSP runtime data.
+ #[pin_data]
+ pub(crate) struct Gsp<'gsp> {
++    /// The GSP firmware's TLV.
++    gsp_tlv: firmware::Firmware,
+     /// Libos arguments.
+     pub(crate) libos: Coherent<'gsp, [LibosMemoryRegionInitArgument]>,
+     /// Log buffers, optionally exposed via debugfs.
+@@ -242,13 +382,25 @@ impl<'gsp> Gsp<'gsp> {
+     // Creates an in-place initializer for a `Gsp` manager for `pdev`.
+     pub(crate) fn new(
+         pdev: &'gsp pci::Device<device::Bound>,
++        spec: Spec,
+         bar: Bar0<'gsp>,
+     ) -> impl PinInit<Self, Error> + 'gsp {
+         pin_init::pin_init_scope(move || {
+             let dev = pdev.as_ref();
+-            let log_buffers = LogBuffers::new(dev)?;
 +
-+impl GmcCommand {
-+    /// Returns the name of the id in the `GMCAPI_COMMANDS` enum of the bindings.
-+    fn name(self) -> &'static str {
-+        match self.0 {
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_GSP_INIT => "GSP_INIT",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER => {
-+                "EXEC_GENERIC_BOOTLOADER"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_HS_BINARY => "EXEC_HS_BINARY",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_GSP_SUSPEND => "GSP_SUSPEND",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_GSP_RESUME_DONE => "GSP_RESUME_DONE",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_ADD_VGPU_TYPE => "ADD_VGPU_TYPE",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_SUPPORTED_VGPU_TYPES => {
-+                "QUERY_SUPPORTED_VGPU_TYPES"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_CREATABLE_VGPU_TYPES => {
-+                "QUERY_CREATABLE_VGPU_TYPES"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_ASSIGN_VGPU_TYPE => "ASSIGN_VGPU_TYPE",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_DEASSIGN_VGPU_TYPE => "DEASSIGN_VGPU_TYPE",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES => "QUERY_VGPU_PROPERTIES",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE => {
-+                "QUERY_ASSIGNED_VF_VGPU_TYPE"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK => {
-+                "BOOTLOAD_GSP_VGPU_PLUGIN_TASK"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK => {
-+                "SHUTDOWN_GSP_VGPU_PLUGIN_TASK"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE => {
-+                "SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES => {
-+                "CLEANUP_GSP_VGPU_PLUGIN_RESOURCES"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_PLUGIN_TRIGGERED_EVENT => {
-+                "VGPU_PLUGIN_TRIGGERED_EVENT"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_SCRUB_GUEST_FB => {
-+                "VGPU_MGR_SCRUB_GUEST_FB"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_ALLOC_GSP_CEUTILS => {
-+                "VGPU_MGR_ALLOC_GSP_CEUTILS"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_FREE_GSP_CEUTILS => {
-+                "VGPU_MGR_FREE_GSP_CEUTILS"
-+            }
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_SCHED_CONTROL => "SCHED_CONTROL",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_MMU_FAULT_QUEUED => "MMU_FAULT_QUEUED",
-+            bindings::GMCAPI_COMMANDS_GMCAPI_CMD_INVALID => "INVALID",
-+            _ => "UNKNOWN",
-+        }
-+    }
-+}
-+
-+impl fmt::Display for GmcCommand {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        write!(f, "{} (0x{:x})", self.name(), self.0)
-+    }
-+}
-+
- /// The headers that open a GMC API queue element: the queue element header and the GMC API
- /// header.
- #[repr(C)]
++            let gsp_tlv = request_tlv(dev, spec.chipset, "gsp")?;
++            let build_id = BuildId::from_tlv(&Tlv::new(gsp_tlv.data())?)
++                .inspect_err(|_| {
++                    dev_warn!(
++                        dev,
++                        "no build ID in the GSP firmware TLV, so its log dumps carry no header\n"
++                    )
++                })
++                .ok();
++            let log_buffers = LogBuffers::new(dev, spec, build_id.as_ref())?;
+ 
+             Ok(try_pin_init!(Self {
++                gsp_tlv,
+                 cmdq <- Cmdq::new(dev, bar),
+                 rm_state_monitor: Coherent::zeroed(dev, GFP_KERNEL)?,
+                 rmargs: Coherent::init(
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 5da3d134eec7..6f8f330a0297 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -362,7 +362,7 @@ pub(crate) fn boot(
+         let dev = pdev.as_ref();
+         let hal = super::hal::gsp_hal(chipset);
+ 
+-        let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset), GFP_KERNEL)?;
++        let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset, &self.gsp_tlv), GFP_KERNEL)?;
+ 
+         let generic_bootloader = hal.generic_bootloader(dev, chipset, gsp_falcon.imem_size())?;
+ 
 -- 
 2.55.0
 
