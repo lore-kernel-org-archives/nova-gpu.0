@@ -1,47 +1,47 @@
 Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010005.outbound.protection.outlook.com [52.101.46.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFC73A8744
-	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 01:08:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D4F3A963C
+	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 01:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693723; cv=fail; b=D5bDcfAwj8Rhj5vz9f1LBaYjQqPGttKvpDG8KzdWXHA19AojyT/ZIHaaN7wORo9QEbelL2zM0I7+gy45BLIBqoK+ngx+IziWVoD0ge35srALLf2oqZ6foBDXm1ePObom9jNVwHXKjZPRWPUZLLI/CWbQ2lINy1NwOi4r+TJTShw=
+	t=1789693730; cv=fail; b=NRSv2owx7N4YS1ausIK/m1Ca6E2KoojXMln7z5mbf06UCor19YliYxGin7m2xjJa15OSXncMObVN6M8KYceYXgpAQiJX3FkqFJSidPk7NSa4hMWc759CL456IH+KHFIVtk0xcPEddisc8SnX9oL9/fpDkXZz4SzKQhpxV7zz05E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693723; c=relaxed/simple;
-	bh=PIWS+bvZXPffFhk3EtyMOkC75jPXTyckjzrb3z6JPZo=;
+	s=arc-20240116; t=1789693730; c=relaxed/simple;
+	bh=z19xIEev/iLH2tMv5dBc7OK7Nc1dVNkXXQRIwW3V/os=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=l7+Qr5jtmBQiQnH+MqAwbDu4jQGJeYAn4F2lx8Cul/UCVVPH4JVKugs5NwzbXEk+v+HK5OlxZ/6S4Nxgcld4vgyncZFAwVthqylSSno+br2oDM6XTyrs1w0DJjKEWibTdfoNV4q4RvsEG4Cn3x/WmzZfsapGn4sY2vsEPaqz31c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mbcjuyc7; arc=fail smtp.client-ip=52.101.46.5
+	 Content-Type:MIME-Version; b=EdRb3wnG5JPzG9bzcmba5kd2KOQ9rxhKGH5QJANOn85l6eMMR5KYRY+jQ3JAZrSkV1Oldc0eVTRuqxM83yjcilk4bseo7IobCXXWa21QrHheg8JsX7QPhKzDb1igD62Lz5cs0i9HsiHNC+mRwTtjpxxPHuMAdGePIXHPYjLvG4A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tow7q/8z; arc=fail smtp.client-ip=52.101.46.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mbcjuyc7"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tow7q/8z"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gn1i88bvc1BIQIDp4jwkXUGJpiRLfz9tlnDYxtDbpCOOLCPRKpwCbDzVTNfvFA+O+6m/su1RsC+ACnk/oBTFGu89i1SCHuTr9n+XFPhclXaka8KI8za+68cVYsnKLSlo5vQBEMfxf2okoOyZC+72ymwMFVNR/Nr1+Mk9Jw5JqYE32btNC5qNPhGJin0f77k6intKKy5zMKc/s1w3uhPnG1IPfSfxkbzYx0xqYJm3WPXdaHWLedBNrEq66f4cZzIAhzUr63KIkVGYsqLCOiwR+SiFlOjTZINJZHFfmxu0gpjVpV8GEB+5csQ5VypmoE8bkaUquG1kJIAei1gZIq0jig==
+ b=w20dUfvvwvG9IjfeEZowFuEedaez31bQ9r2VrfMnYirrqJAw6D+z6+3DpPN7jMnhswdgvo5mzSs7V//jBIROip/pxtG/vdLt932vaFp4D8F4dUaJhbhwcw9X4FuRwGlrqv772LGSElJ/hbtHHBHim6W0ygF6x91NpFMD4R6KrzNW2g9EAbldkzBs6R3ScM14UfVjwOuG6k0LVpbhMgAbuCcRSMTsft8LcjTt0G7b3i6WmwgSd1sXmkUHSzp8s4x6Tk/CUXXTCUSpJsZKwPoxyTi1CxlLD6U00A6FIQIM4WTWP5Uz6LrnMCxCvNDk85ewq/sCl8x2KQdo1KdBNKDkiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Yutjo/VL9eK4snlhBpsCsbHKWUQ64bIamenjL49MgM=;
- b=FtP9zuFgckAP8TG7a8V5d/1ln5Jhzmb7DxapuEitMJQx+QAH0keZYSYWOw1S/WT1UAWqp9Sz92FYJvb91SVdA+U8CX9ySasU0j5wUltwVty5SIpmnVdCwbROnUysq95HOue5OxE/Lq03u9hcxX3oI1BcGkdKqUMGqNhjBuBZMVtgW30KiWJLA7f2WUZCp7+ZC5bKddP7EBb+fclzwkMT4DbjE5o8Nk89rd4ZBrZ8QVqZyM390/Mdd3MZgFo01blzirIzfl85xEBWaNcgwq48JAjCdYA5OaYC2aKuyYvIraEjd8hr2qunbRAgNzBwiMyMPShLo7hTz9N6ptTZolLaHQ==
+ bh=6XDKtF/8fFx5fZjuTvrZQN3codKVUTM8K6Vex+zEtsg=;
+ b=dskHDN+Xs+Pa85d1XSfa6x/z3eNsh6RvSQVRQ4DDrXaF6SWadPsDP/qWMWdkM0Tn9ged01jIGbi75v7wVQNvnBKW1M9biE8Tqy6qMwtPBK2Qjcxnb49cUTEJgM/rj8hikGz+ogD03uu5vmuCqoYP2c1xO/MWXDj4vFFNMcZH6MUEIohuLbK3pROYgBfrL39+/BmjmoKuqh60ONkg/W5KF9ALcXzOgZMCcQM291aIwWlNM+Yu5PnLV6hHUMC+xAaKYccWlOBfUD4ZQe9B0zya5o+nYzxmyzetDNJK6pSyLQjRsP6haTOGT1XVWcbfh0qy7U9FQObzx/lmKsWKH3J34w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Yutjo/VL9eK4snlhBpsCsbHKWUQ64bIamenjL49MgM=;
- b=mbcjuyc7t/yQtm9AZAln4nW/gV23zPBCC2VVg1IJDDr+ewuDD1D9+8BpgpjMN1TyG3BOcoR9/25N5MhzGZe/rcRtcl9wGvv5J0SL1NkO5ux8gN/4Te+oStuVD1p6Jw+3FiG/eONCc26PL2j5VZf+BW6D2NLioZGIppeTQqTnrEtBdAGc4d82oMEIFRWgZXtso9ubyKNcg/leeEDbr98HoR65R82QCZf+dzYcYcO29AeSPLV8z0XkgDTlQt8MVP2oXd5JpfqbJrCF85lkrr8QCW4uYJ4XwNTjpw6JrLorFBnDdxE8jWhKcV0D6veeMDAL+kB+5+ZbKZ7bn1jzctTDcg==
+ bh=6XDKtF/8fFx5fZjuTvrZQN3codKVUTM8K6Vex+zEtsg=;
+ b=tow7q/8zI7uaZvV/CjvdqEE/dUTFfSfmT+SreuS8cB9s9luak7qHVB9km9th6qSABH79wTY1TCZckkDgl15xggfjeba3QjtE9V6oHL8VdEzAfLxkzRvNKcuS9oFXFaofgQkawNd5JNVqnF0x0Iv0is9BYgn2YkMq/0vEzmM9op7BqExQS+7ID0PXSc46yTV4RvAGYC0TCxxm280uWUwuTvN/RVNeC236Fl06BRGbIVQDnyemzNVRzxKaS55d9pQEec5Lg8ydarQZ4vfCHeUgt5AN/MQ8gTk6AwyJE+5M0hhEhoR5dUsnc4zd4DebNs6HDvU1RLO4XAh/XLvocYX1Ww==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 01:08:16 +0000
+ 2026 01:08:17 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 01:08:15 +0000
+ 01:08:16 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -64,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v3 23/33] gpu: nova-core: add LIBOS3 log buffers and state monitor buffer
-Date: Thu, 17 Sep 2026 18:07:09 -0700
-Message-ID: <20260918010719.1176945-24-jhubbard@nvidia.com>
+Subject: [PATCH v3 25/33] gpu: nova-core: gsp: let the GSP HAL load the generic bootloader
+Date: Thu, 17 Sep 2026 18:07:11 -0700
+Message-ID: <20260918010719.1176945-26-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918010719.1176945-1-jhubbard@nvidia.com>
 References: <20260918010719.1176945-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0076.namprd05.prod.outlook.com
- (2603:10b6:a03:332::21) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: BY3PR10CA0017.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::22) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -84,279 +84,162 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB8349:EE_
-X-MS-Office365-Filtering-Correlation-Id: b98e657b-41e7-48df-68f4-08df15214420
+X-MS-Office365-Filtering-Correlation-Id: 3d832389-7585-45ff-5c4b-08df152145b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|56012099006|3023799007|11063799006|10067099003|6133799003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|56012099006|11063799006|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	YEzzj6hX75DzqgIovOwIhRobI2n+o1kuJWaftkXfbTilXkW0cV48s0jsYNs5E/itG+yyZ98iJXzrrkReOT6/d2sY6BrKmXFSBMrSg7IxqmQyQgw3h2wwTgls/KAxcTDbqsKtCeAO6Q1DjvLF3Wg9U0mneImvaxAhRRgkndEWfWlxK5pxXQjxozujq3qgAruO2+mfLmXKexSTu+Uwc2vO9+ymOQV2ucA4NHaAAjMG+9ssIKGLI3LgkajgNv44b93dbiHLWlstPQeC84EPPl3/wcomXhs19dLUwfhq/acqGe0HmF5FdXt50Yc3v5YX/N+MGXc8v2cdSpmOPNyy27u2IOKSusny53XkSN8uX2pWz+Dx8Y/V3AdZhhAq1PfEZjJrbUZD2kSSMhfHoJ9Mf+IO6gdekM04gi8TQCBEvWWQWLWKvyq9G1cKY+yrSF8kwVfoK9u5+12/G4/VOxgzZFRBreOqckgwtfb7+ra1nwOllQcTeU1NwEXu9XUW1KKklF4lfz91Z6M64QJO2vHefnz6bLmJ+BL97IO8FJPNLs1orWmGksRUIdBKGN+I9EqAd1CszB8gPa8VPEoNfrNQhGckSe7dKvSwCDeCdO86nGyGGHbuCws9US0/5e58T3+X/xW7ZQSVGuweHoMjOwluHRiOvadW8c78DuJmqRnkyCLXISY=
+	etht0gQebnqAoH3zC/TBXvw0aFtYAmuEEVboOMhv+sPO8SgaW1DYKftKPB+Xn8pjG/lbzpwVeeyst25JwdDZ3VhtXTdoTDSnRxcdXLg0IookBxqrNrP/uHBHif/+9/6t7UkwDBZBh6VD0HXUtETrPrssdjzrNugx6dhmgPQtjuL5tD52p57Qxz9EP8NorTDoQTcPYFJhwJl/vQssqwUksHvKGRs30hJi4JQEcSBBPoak90f7muzYomIp5vWycBrSfLQzBtdhAS/n2eLbBHES8+IVeECraaVstj6+ARHpdNSpL+O8xlXUF8PS38Ofa/HTS8SeL/Scdzvdv4uglI++QJ4kKhIS/tEC22dHKloYMDuYeMUqDO8Lz40Jrsq+17LKqNRKmnx+04enWXx1sLcS3s85aRtZ7Pp8PbfHya/JwxoD0rfpgFWdDzJ9QFKyxq4rg3cBAc8uy5q2OpeqJBqEDGKKgaslD83pZaRxPyPlJjmt5ay0hJgV4KCfJc/jkTLoxn/oVVU14nDvUbby0DU/Tc0jJOFIvfe7m2FvBvGZU7LHHCF5wStqEWOL74ypMAzJHuyxBuhJ1cuNGQobmFYwQyzZ8tR/MhTmgTZP4nfMrO0UTgnXPBkdphPMyC32j6GK+jq8eLLxPrVc8/KVaG4qU5hJ3Mc7MhI9PQ7j96ansUA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099006)(3023799007)(11063799006)(10067099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cT6pt+2O26QDGu4IL3N4qE3SYi9IKEJAYqyYy4owGIkvXI/USd8Rpt3833Ve?=
- =?us-ascii?Q?Rm7Ti5VW0yEa6vOGwyPe6Txty38oMkGSOMEsEvCzynZamJrCPnEBnd0fNP5X?=
- =?us-ascii?Q?beEvske+8+nCQVoK649dGsGSDMof8TWvr9Pui8dlEPBlzxiiAisHf4J6Elj3?=
- =?us-ascii?Q?CIvyAuWp8ZvsYMXBFCyicyL0AM2R241sZ9O38UeJKP/smEe2kffLCp2JlZnv?=
- =?us-ascii?Q?LM5XDclyTFFv0PMjny8qAkbbo3tFlHXcqTWGrx7iZUebVsuwuAZ5UmYCQYGw?=
- =?us-ascii?Q?/wb7xC7fkDTaCfnoLL7NQdCZi3vro/7e+ISngRKRKZBYixnMYhV+SToalaQ6?=
- =?us-ascii?Q?klINojCjpXYqFyErYe4fCNM1QVqHQb2SE7ipHqsbErk7n+biMkYjPm5CVlLz?=
- =?us-ascii?Q?1TURMazec+ikRfAjDd200w9g5wm73bJusaTZXlyK06QnWwJbrkNVR3PLsRfR?=
- =?us-ascii?Q?KFx0WDbS3umK8AfDjLw1GUN22kffPDw3bmJA5LzzFJBkGPH0+37hmayc5dvG?=
- =?us-ascii?Q?kk5mkBBTNyvvshqqysv08VUVkwcEKdVsLxnY9OWdC0bzifNu8q8YZxwHHFMk?=
- =?us-ascii?Q?l5ID4HqwsUFVcmbfkhXd/5G35bxky43sfxuJRmVpC1T1NrFDtxp/TbaGMxsb?=
- =?us-ascii?Q?lu5wD25MYFAAPqGNHvJ1WkwkERI0jop1ra7FSCMsc8tG/dVLQDRPayj8iapE?=
- =?us-ascii?Q?OKz2fvZHghTNlTmdk4znGj8OcvkKSwxGNyxa/odhHUV7XIOb03B8fayxgFiU?=
- =?us-ascii?Q?8C9b0cVyR0ZWcsN8NkVxXYO3D/A0L85iR6iWh+p6QxHfFajLLQZ54p0CzwGk?=
- =?us-ascii?Q?P5JsHGiO+Vywu2N8JSu6Jh39vfMJ0+CNVruPtgK2mWha46ozXG9iyvBjNreb?=
- =?us-ascii?Q?w3sowg+HY81/miyiev8i90xMiN/iKGn7hZRSGcSYtgCpEugYRYyGTQfb9Tb4?=
- =?us-ascii?Q?QfgA5wMmZj3NzIEawB3Y+zyxQXZRq5z42WvLqQ2odZNIXEYcXv7niiJRbi+9?=
- =?us-ascii?Q?oBj7Lnl/EMbAOU8FU2H3DVgzIckpe+koAlHQFfbEvMXym29emhJDhexOlso6?=
- =?us-ascii?Q?URB01JGjpIYcYlERY0VEJixrrFHWfc1a5VvmM+fm4FhP4iFV8lS+KP7jkE9h?=
- =?us-ascii?Q?1YysgVJI+/bi3ih5AXrMVPW9TpGDyJSWpe1AjyMQY0wPVRM6nCWfBZqJZ1A5?=
- =?us-ascii?Q?mG19vI6nWkgGKxTH4U8FBHcmciU1nzKEKKa0XFNC3sb85mOGS/Bqh1IpGfJk?=
- =?us-ascii?Q?OZnmXhyl9kbUiIiv8J6WH3YKxOxhaPqE2qzu/z0uTz4Z1pQt/IMwttFLpjGt?=
- =?us-ascii?Q?UuJC/ajoeNOxLiMyk2RepTj3KRBkJ2RVuv/ipHdPCBIo5OwasyU4rAfB+lXA?=
- =?us-ascii?Q?Bhjdqp8k5Oda6SX0pbcYt22qIaOadzMe8OvF4DuffyXMKihxm2+7SJcqbETV?=
- =?us-ascii?Q?4eQjcUFCrCIShOY/gzYKZpoEsElyXIjN45BUIMCpLd4uIjP0UdP1qqYPLi3r?=
- =?us-ascii?Q?uSMO0IgXfrE2kDnDJomK3+7E17NcBTeIybMwODkXkjDwosbC4oLFv2/l1+fL?=
- =?us-ascii?Q?qRFn0SdH91sRcT3m5c5SMQsi2S73/8j887t46boX5jcKR/LuW6cYefmeElAK?=
- =?us-ascii?Q?C/z9ybFemOHrcAnVb8iUIelup0Mi2HC+8G3iuxv7d5jlUpG7LlwzLe4quVZq?=
- =?us-ascii?Q?JgU8A8HnXO8cnSgac/6Ng8wiSB2qghMDM+O1j5hsQiT9hJRL8V+y9uXGs5VF?=
- =?us-ascii?Q?DpIZXOwLrg=3D=3D?=
+	=?us-ascii?Q?7FgoSFd2uRt0U3IdJiU6yWaqj/tq2xPCaboQ2MThRs6ldneZbVxGpobnBkdI?=
+ =?us-ascii?Q?yao3g8oB+ohTIaMnEbBtKZFJQyzmnQmS+jsFFOjTam27K08iLGFRR9lnkD7f?=
+ =?us-ascii?Q?M6EULkFH9u51twW1pMa7HSUfD7t1BQt9E8zmUBs96qSOUF4b2v+Y+MiNwVke?=
+ =?us-ascii?Q?nOmUpiy89wudB/PVqXCJgA/Sgabg5kZujXZED+jDDO8hIs1FxTPOpxFuaxr8?=
+ =?us-ascii?Q?0zjMwmg1/tOxrFYEBpt2KBMPlG20GChsFhSh0pZRf9UXeYed3zg6/ttITbuB?=
+ =?us-ascii?Q?RH5fnmdbMhHOPgyIUno1sOUq7KCASmPx1umjFKAc5nPoHQwdB2AJq1bAXkBP?=
+ =?us-ascii?Q?GpGZwNjZN8Eq1IvkdobscfHsstYZ4oUqPjYoVQLLI78fWM3YwBN/muura94Y?=
+ =?us-ascii?Q?wJY70JDSem8Lj60ACvSLJ78jC2DE+ZW+pGLCA5lefPdrmYEOYXMSpiV7Ktow?=
+ =?us-ascii?Q?G01PR544zhw1zJ6NaWE/FIdfe5r3jzQh3MipUBOwUZekafl9IJYLAgKD6OAi?=
+ =?us-ascii?Q?DznrsznTfYyDNSgfHauyduQU476MZitEOPe6UCMHEDAgrbRGhhj1LgDBFprF?=
+ =?us-ascii?Q?q5xfCQEUH+SKg6ZLY47AmjDPQ3vYeCPe7NKco6c+wspJkTraxy/i9HtZU7W1?=
+ =?us-ascii?Q?7QweHyuIzaduAzRSkd0f6oFlOnAJF+wVOs9NKf6vLV0wk7thEsbTIck1+N8R?=
+ =?us-ascii?Q?NGPFYcPyE46wBWOfNTcfvK5jH99kB4ylYpPOASOr6KHXeuhCrTMq5j1AvW3t?=
+ =?us-ascii?Q?6mXOBvsMWVv4/5F3M33aprUWg0mszVVfThfP2Lc6rrLRQ+5QAr0puIV/gxM6?=
+ =?us-ascii?Q?B6HWCxLUk60ZZ1Tfuu073xaCxZFyyrKoYquY/3MaPJi3Iugwj5q3Y4vrRkgt?=
+ =?us-ascii?Q?zM07xAZcczfyzo0o+rdLkHoEv8drHoQWaeK6r2glc9kU1lciNBAs8H5b46yO?=
+ =?us-ascii?Q?Uqq7Wc7k/knxeAgPxat9f96djevXn126KQ5AF8fRKXJ5O/lRiIqzGFWetTtO?=
+ =?us-ascii?Q?w2W9A4DjsG70+4bdZudYx5CSv6xhZ/cD25lb58XJIchDB/juoI30bB399z3r?=
+ =?us-ascii?Q?d03k+ylOCC6dOPN7/P1H9n1NmwguVAKBZ/lG7rHMmHvrKfwGAL44s/+YgB9V?=
+ =?us-ascii?Q?alipBwXdyHzE0DEGX4BSVBgvdwrMv12ys/+p+RW2HTLRuskWpQKR8wKN+IFr?=
+ =?us-ascii?Q?FzA+ptaW3yEi1Oveh0ucg6++Tu0RH4KC2HMVnGPeBoGTDEAeDBrUtGvUW2WY?=
+ =?us-ascii?Q?hxa+6xEbO5VtD0sQHmVnNJzkEh+hOII5g/Rw1ElsPQ5HHwYnf/c40e5EAWON?=
+ =?us-ascii?Q?N7XPT9dOktHC7otp2lkzCbaQfSo4A1ja2YVa3+rzG01ECvu7TbJSncdIcmRb?=
+ =?us-ascii?Q?N+Dr9E76I10T1VDcNk+ay+Z8KpiqFTq5jNX7ykbRluirlA/bmv79h3VNJ/+N?=
+ =?us-ascii?Q?BFBS0X9P7crT1a5TG1V2ZwhO7pmR4isynuGuyee+jZXxqCIDZBBtWjCqu++x?=
+ =?us-ascii?Q?tWHbt+Tr2IYPlGNwzRyMOP9E/6+47nx1pETzCU1rS+UwQPhlp/kIlS+JlYBJ?=
+ =?us-ascii?Q?nqcJGIOrRL7dGVsa74uzYALjyFOI8lXy3mkg7+gxCtpMpJbKfDL5LIQZmFv5?=
+ =?us-ascii?Q?AeMIXog5Kk+Db9wRqfmamzB69clvmgyGrXoumAgD7uYo+u14XSrScxUarUQd?=
+ =?us-ascii?Q?dRvLEdvkozFcwh2MAMRTJLaPn3sydcOu3+sfthrpYnJRtkKBud+asA8fli3b?=
+ =?us-ascii?Q?7UksvnEbyw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b98e657b-41e7-48df-68f4-08df15214420
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d832389-7585-45ff-5c4b-08df152145b4
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:53.2210
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:55.8790
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IKdlCWIQ/vRzNtkogSkM6BsXFqA/7jRWQSo3dB6S/Uf1S2KHnbflfbVYeROyo33lMt9Gd+EVQpQ7XZ9B7Bxmnw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: qE3vAHJvoIZkVT44RISYsKHbjrp10JeeK8/LVfAza54yhtAB43kBovE4nSxTNQIodItv2RnxPKKyHzebeg4Msg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
 
-GSP-RM runs on LIBOS, and each LIBOS task logs into a buffer that the
-driver provides and names in the init argument array. The r000 firmware
-runs LIBOS3, which has six logging tasks, and LIBOS3 also expects one
-more page, the state monitor buffer, in which GSP-RM reports its own
-state.
+Turing and GA100 boot the GSP through the generic falcon bootloader. On
+those chipsets the r000 GSP-RM raises a load-and-execute event that
+requests a bootloader run, and the handler for that event runs the
+bootloader that the boot sequence supplies. Whether a chipset boots
+through the bootloader is a property of the TU102 HAL: a field of its
+two instances, set for Turing and GA100 and clear for the other Ampere
+chipsets and for Ada.
 
-Nova-core allocated log buffers for three of the six tasks, and no state
-monitor buffer.
+Only the TU102 HAL tested that field, to choose how to load FWSEC. The
+boot sequence had no way to obtain the bootloader for the handler
+without a second list of the chipsets.
 
-Allocate the three missing log buffers and the state monitor buffer,
-name every log buffer in the init argument array, and give each new log
-a debugfs file next to the existing ones. The switch to r000 passes the
-state monitor buffer to GSP-RM.
+Add a HAL method that loads the generic bootloader. The TU102 HAL loads
+it when its field is set, and every other HAL returns no bootloader. The
+method has no caller until the switch to r000.
 
 Assisted-by: LLM
-Reviewed-by: Timur Tabi <ttabi@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp.rs | 129 ++++++++++++++++++++++++++---------
- 1 file changed, 98 insertions(+), 31 deletions(-)
+ drivers/gpu/nova-core/gsp/hal.rs       | 28 ++++++++++++++++++++++++--
+ drivers/gpu/nova-core/gsp/hal/tu102.rs | 14 +++++++++++++
+ 2 files changed, 40 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 90b4c3380f11..a8aec431b0b1 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -80,7 +80,6 @@ pub(crate) fn dev(&self) -> &'gpu device::Device<device::Bound> {
+diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp/hal.rs
+index d8329f6fcc65..8c2a8abcb187 100644
+--- a/drivers/gpu/nova-core/gsp/hal.rs
++++ b/drivers/gpu/nova-core/gsp/hal.rs
+@@ -5,10 +5,16 @@
+ mod gh100;
+ mod tu102;
  
- /// Number of GSP pages to use in a RM log buffer.
- const RM_LOG_BUFFER_NUM_PAGES: usize = 0x10;
--const LOG_BUFFER_SIZE: usize = RM_LOG_BUFFER_NUM_PAGES * GSP_PAGE_SIZE;
+-use kernel::prelude::*;
++use kernel::{
++    device,
++    prelude::*, //
++};
  
- /// Array of page table entries, as understood by the GSP bootloader.
- #[repr(C)]
-@@ -116,9 +115,19 @@ fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
- /// then pp points to index into the buffer where the next logging entry will
- /// be written. Therefore, the logging data is valid if:
- ///   1 <= pp < sizeof(buffer)/sizeof(u64)
--struct LogBuffer<'a>(Coherent<'a, [u8; LOG_BUFFER_SIZE]>);
-+struct LogBuffer<'a, const NUM_PAGES: usize>(Coherent<'a, [[u8; GSP_PAGE_SIZE]; NUM_PAGES]>);
+ use crate::{
+-    firmware::gsp::GspFirmware,
++    firmware::{
++        gen_bootloader::GenericBootloader,
++        gsp::GspFirmware, //
++    },
+     gpu::{
+         Architecture,
+         Chipset, //
+@@ -42,6 +48,24 @@ fn boot<'gpu>(
+         gsp_fw: &GspFirmware<'gpu>,
+     ) -> Result<Option<super::UnloadBundle<'gpu>>>;
  
--impl<'a> LogBuffer<'a> {
-+/// A log buffer at the default size, [`RM_LOG_BUFFER_NUM_PAGES`] pages.
-+///
-+/// Matches the registry defaults for the init, interrupt, RM and MNOC tasks
-+/// (`NV_REG_STR_RM_GSP_LOG_BUFFER_SIZE_TASK_*_DEFAULT`).
-+type TaskLogBuffer<'a> = LogBuffer<'a, RM_LOG_BUFFER_NUM_PAGES>;
-+
-+/// A single-page log buffer, the size of the logs of the root task and of the RM state monitor
-+/// task.
-+type SmallLogBuffer<'a> = LogBuffer<'a, 1>;
-+
-+impl<'a, const NUM_PAGES: usize> LogBuffer<'a, NUM_PAGES> {
-     /// Creates a new `LogBuffer` mapped on `dev`.
-     fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
-         let obj = Self(Coherent::zeroed(dev, GFP_KERNEL)?);
-@@ -127,22 +136,90 @@ fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
- 
-         let pte_view = io_project!(
-             obj.0,
--            [build: size_of::<u64>()..][build: ..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
-+            [build: 0][build: size_of::<u64>()..][build: ..NUM_PAGES * size_of::<u64>()]
-         )
--        .try_cast::<PteArray<RM_LOG_BUFFER_NUM_PAGES>>()?;
-+        .try_cast::<PteArray<NUM_PAGES>>()?;
-         PteArray::init(pte_view, start_addr)?;
- 
-         Ok(obj)
-     }
- }
- 
-+/// The log buffers to which GSP-RM writes its debug output, one per LIBOS3 task.
- struct LogBuffers<'a> {
--    /// Init log buffer.
--    loginit: LogBuffer<'a>,
--    /// Interrupts log buffer.
--    logintr: LogBuffer<'a>,
--    /// RM log buffer.
--    logrm: LogBuffer<'a>,
-+    /// Init task.
-+    loginit: TaskLogBuffer<'a>,
-+    /// Interrupt task.
-+    logintr: TaskLogBuffer<'a>,
-+    /// RM task.
-+    logrm: TaskLogBuffer<'a>,
-+    /// MNOC task.
-+    logmnoc: TaskLogBuffer<'a>,
-+    /// Root task.
-+    logroot: SmallLogBuffer<'a>,
-+    /// RM state monitor task.
-+    logrmon: SmallLogBuffer<'a>,
-+}
-+
-+impl<'a> LogBuffers<'a> {
-+    /// Number of log buffers.
-+    const COUNT: usize = 6;
-+
-+    /// Allocates the six log buffers, mapped on `dev`.
-+    fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
-+        Ok(Self {
-+            loginit: TaskLogBuffer::new(dev)?,
-+            logintr: TaskLogBuffer::new(dev)?,
-+            logrm: TaskLogBuffer::new(dev)?,
-+            logmnoc: TaskLogBuffer::new(dev)?,
-+            logroot: SmallLogBuffer::new(dev)?,
-+            logrmon: SmallLogBuffer::new(dev)?,
-+        })
-+    }
-+
-+    /// Fills the first [`Self::COUNT`] entries of `libos` with the log buffers, under the names
-+    /// that GSP-RM looks them up by.
-+    fn init_arguments(
++    /// Loads the generic falcon bootloader for the chipsets whose GSP boots through it.
++    ///
++    /// The bootloader runs from the last blocks of an IMEM of `imem_size` bytes. On every other
++    /// chipset this returns `None`.
++    ///
++    /// # Errors
++    ///
++    /// Errors from loading the bootloader image are propagated as-is.
++    #[expect(dead_code)]
++    fn generic_bootloader(
 +        &self,
-+        libos: &mut CoherentBox<'_, [LibosMemoryRegionInitArgument]>,
-+    ) -> Result {
-+        libos.init_at(
-+            0,
-+            LibosMemoryRegionInitArgument::new("LOGINIT", &self.loginit.0),
-+        )?;
-+        libos.init_at(
-+            1,
-+            LibosMemoryRegionInitArgument::new("LOGINTR", &self.logintr.0),
-+        )?;
-+        libos.init_at(
-+            2,
-+            LibosMemoryRegionInitArgument::new("LOGRM", &self.logrm.0),
-+        )?;
-+        libos.init_at(
-+            3,
-+            LibosMemoryRegionInitArgument::new("LOGMNOC", &self.logmnoc.0),
-+        )?;
-+        libos.init_at(
-+            4,
-+            LibosMemoryRegionInitArgument::new("LOGROOT", &self.logroot.0),
-+        )?;
-+        libos.init_at(
-+            5,
-+            LibosMemoryRegionInitArgument::new("LOGRMON", &self.logrmon.0),
-+        )?;
-+
-+        Ok(())
++        _dev: &device::Device<device::Bound>,
++        _chipset: Chipset,
++        _imem_size: usize,
++    ) -> Result<Option<GenericBootloader>> {
++        Ok(None)
 +    }
 +
-+    /// Exposes each log buffer as a binary file in `dir`, under the lowercase form of its name.
-+    fn register_debugfs<'data>(&'data self, dir: &debugfs::ScopedDir<'data, '_>) {
-+        dir.read_binary_file(c"loginit", &self.loginit.0);
-+        dir.read_binary_file(c"logintr", &self.logintr.0);
-+        dir.read_binary_file(c"logrm", &self.logrm.0);
-+        dir.read_binary_file(c"logmnoc", &self.logmnoc.0);
-+        dir.read_binary_file(c"logroot", &self.logroot.0);
-+        dir.read_binary_file(c"logrmon", &self.logrmon.0);
+     /// Performs HAL-specific post-GSP boot tasks.
+     ///
+     /// This method is called by the GSP boot code after the GSP is confirmed to be running, and
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index 1b17ece53bd6..32931fd0b7cf 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -31,6 +31,7 @@
+             FwsecCommand,
+             FwsecFirmware, //
+         },
++        gen_bootloader::GenericBootloader,
+         gsp::GspFirmware, //
+     },
+     gpu::Chipset,
+@@ -316,6 +317,19 @@ fn boot<'gpu>(
+         Ok(unload_guard.dismiss())
+     }
+ 
++    fn generic_bootloader(
++        &self,
++        dev: &device::Device<device::Bound>,
++        chipset: Chipset,
++        imem_size: usize,
++    ) -> Result<Option<GenericBootloader>> {
++        if !self.needs_fwsec_bootloader {
++            return Ok(None);
++        }
++
++        GenericBootloader::new(dev, chipset, imem_size).map(Some)
 +    }
- }
- 
- /// GSP runtime data.
-@@ -158,6 +235,8 @@ pub(crate) struct Gsp<'gsp> {
-     pub(crate) cmdq: Cmdq<'gsp>,
-     /// RM arguments.
-     rmargs: Coherent<'gsp, GspArgumentsPadded>,
-+    /// Buffer in which GSP-RM reports its own state.
-+    rm_state_monitor: Coherent<'gsp, [u8; GSP_PAGE_SIZE]>,
- }
- 
- impl<'gsp> Gsp<'gsp> {
-@@ -168,17 +247,12 @@ pub(crate) fn new(
-     ) -> impl PinInit<Self, Error> + 'gsp {
-         pin_init::pin_init_scope(move || {
-             let dev = pdev.as_ref();
-+            let log_buffers = LogBuffers::new(dev)?;
- 
--            let loginit = LogBuffer::new(dev)?;
--            let logintr = LogBuffer::new(dev)?;
--            let logrm = LogBuffer::new(dev)?;
--
--            // Initialise the logging structures. The OpenRM equivalents are in:
--            // _kgspInitLibosLoggingStructures (allocates memory for buffers)
--            // kgspSetupLibosInitArgs_IMPL (creates pLibosInitArgs[] array)
-             Ok(try_pin_init!(Self {
-                 cmdq <- Cmdq::new(dev, bar),
-                 rmargs: Coherent::init(dev, GFP_KERNEL, GspArgumentsPadded::new(&cmdq))?,
-+                rm_state_monitor: Coherent::zeroed(dev, GFP_KERNEL)?,
-                 libos: {
-                     let mut libos = CoherentBox::zeroed_slice(
-                         dev,
-@@ -186,20 +260,15 @@ pub(crate) fn new(
-                         GFP_KERNEL,
-                     )?;
- 
--                    libos.init_at(0, LibosMemoryRegionInitArgument::new("LOGINIT", &loginit.0))?;
--                    libos.init_at(1, LibosMemoryRegionInitArgument::new("LOGINTR", &logintr.0))?;
--                    libos.init_at(2, LibosMemoryRegionInitArgument::new("LOGRM", &logrm.0))?;
--                    libos.init_at(3, LibosMemoryRegionInitArgument::new("RMARGS", rmargs))?;
-+                    log_buffers.init_arguments(&mut libos)?;
-+                    libos.init_at(
-+                        LogBuffers::COUNT,
-+                        LibosMemoryRegionInitArgument::new("RMARGS", rmargs),
-+                    )?;
- 
-                     libos.into()
-                 },
-                 logs <- {
--                    let log_buffers = LogBuffers {
--                        loginit,
--                        logintr,
--                        logrm,
--                    };
--
-                     #[allow(static_mut_refs)]
-                     // SAFETY: `DEBUGFS_ROOT` is created before driver registration and cleared
-                     // after driver unregistration, so no probe() can race with its modification.
-@@ -211,9 +280,7 @@ pub(crate) fn new(
-                         .expect("DEBUGFS_ROOT not initialized");
- 
-                     log_parent.scope(log_buffers, dev.name(), |logs, dir| {
--                        dir.read_binary_file(c"loginit", &logs.loginit.0);
--                        dir.read_binary_file(c"logintr", &logs.logintr.0);
--                        dir.read_binary_file(c"logrm", &logs.logrm.0);
-+                        logs.register_debugfs(dir)
-                     })
-                 },
-             }))
++
+     fn post_boot(
+         &self,
+         gsp: &Gsp<'_>,
 -- 
 2.55.0
 
