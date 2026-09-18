@@ -1,43 +1,43 @@
 Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010005.outbound.protection.outlook.com [52.101.46.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81193A450A
-	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 01:08:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFC73A8744
+	for <nova-gpu@lists.linux.dev>; Fri, 18 Sep 2026 01:08:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693717; cv=fail; b=AtQYEr5QbG0z4SxFy08dYDsy1PJdZuNtn8gTak5Z3XWP165A08uMZHotbPO1KHJgygcRv48fpgkRUEbDapTy7dXvDvabcmq8P1YYnNBu4M5NyCQ5L6lhR8NID7HBw4d0/uxzSPdYbTqvaGh5HCNeGUmiRkDu9pQ8KL0xv5NouxA=
+	t=1789693723; cv=fail; b=D5bDcfAwj8Rhj5vz9f1LBaYjQqPGttKvpDG8KzdWXHA19AojyT/ZIHaaN7wORo9QEbelL2zM0I7+gy45BLIBqoK+ngx+IziWVoD0ge35srALLf2oqZ6foBDXm1ePObom9jNVwHXKjZPRWPUZLLI/CWbQ2lINy1NwOi4r+TJTShw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693717; c=relaxed/simple;
-	bh=Oy4Ov/QHfe6vTP1jT5QPoqkGNJLDABFmFhnqdWmk9B8=;
+	s=arc-20240116; t=1789693723; c=relaxed/simple;
+	bh=PIWS+bvZXPffFhk3EtyMOkC75jPXTyckjzrb3z6JPZo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JXrzJvy0QYvByNtRpd/DD+FrKUlJDWSF3SCbJvnAPAdQyOT0+QfoIH5zdK3Nz9XEiCJyZXxXlsMNCDr4tNk6huy3DlAv7M/377ounOBwll4cfz3AByMAmO8upPt4asgNtwkdPs6Ig8Tazr6jKN7cF86k/CqPa2S36vdFn3RJMsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CkyTxbs3; arc=fail smtp.client-ip=52.101.46.5
+	 Content-Type:MIME-Version; b=l7+Qr5jtmBQiQnH+MqAwbDu4jQGJeYAn4F2lx8Cul/UCVVPH4JVKugs5NwzbXEk+v+HK5OlxZ/6S4Nxgcld4vgyncZFAwVthqylSSno+br2oDM6XTyrs1w0DJjKEWibTdfoNV4q4RvsEG4Cn3x/WmzZfsapGn4sY2vsEPaqz31c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mbcjuyc7; arc=fail smtp.client-ip=52.101.46.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CkyTxbs3"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mbcjuyc7"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ibCO5hNTB5naZimBoQMKTQeq/zMTbns4zINTR/fvoUZMf4f9tWMyrJ3vEM+TdtyV0dOONUaZMzCnUViQK04ODPJcbGSfanYrDIYNtJndEefoISj+LqURVf5vdYSp3i0D8MFpU7jIXkF/RlNkhoBZMa45UY0QWt3QhKw5wfKIkZdH4HncmTTYufr2aPuX08YAwK9Szm2ZBEEWC8lyhYcNaDMFdKEGVKyY5E5z5dNYWTrOX+v6TLjhaCbFt1QSDAKFtSTNpnCu2ZnxVzZ5ndMaVCaY7lafOeb6hgru1PjMeWtxXpMnB1YFspWgZKqoaojCwuKno6OhtU0ndZyCSPFoig==
+ b=Gn1i88bvc1BIQIDp4jwkXUGJpiRLfz9tlnDYxtDbpCOOLCPRKpwCbDzVTNfvFA+O+6m/su1RsC+ACnk/oBTFGu89i1SCHuTr9n+XFPhclXaka8KI8za+68cVYsnKLSlo5vQBEMfxf2okoOyZC+72ymwMFVNR/Nr1+Mk9Jw5JqYE32btNC5qNPhGJin0f77k6intKKy5zMKc/s1w3uhPnG1IPfSfxkbzYx0xqYJm3WPXdaHWLedBNrEq66f4cZzIAhzUr63KIkVGYsqLCOiwR+SiFlOjTZINJZHFfmxu0gpjVpV8GEB+5csQ5VypmoE8bkaUquG1kJIAei1gZIq0jig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HzPmIx2EdkgBQVsLXX2NokcliH/QSr/JFD966FoTrwk=;
- b=yrgKlzxXgVtmwPuVUVsWb4m+t5SNnaOvBL6IemVHInUq2G8htuxvOWtSy0/VYf95kQXsqZ0SdHyT2aAYoSZlJDMX1P4lnx+jOblGZNB0r7SC9sROyvUPsA/UBwFQi/BceFfZyROJyQYNKaEsATsLugq55RqpvqLRUiSrjOf0fqudqeV0NXwZ2c6EuZyxGkgT9kVofYqAq68GC2gMIx3X7oW16BN5WGx3dtxvlfP4ri/1FOiUBY7o/d3Lcv570A9uVWGpjwA7ZpgvjQHdJqlQvYfuM8phLNbkR92h5Hr9NWuH47sosAoO++OF3LCQRz36QGREbdL2BdJXb2rc9YWptA==
+ bh=3Yutjo/VL9eK4snlhBpsCsbHKWUQ64bIamenjL49MgM=;
+ b=FtP9zuFgckAP8TG7a8V5d/1ln5Jhzmb7DxapuEitMJQx+QAH0keZYSYWOw1S/WT1UAWqp9Sz92FYJvb91SVdA+U8CX9ySasU0j5wUltwVty5SIpmnVdCwbROnUysq95HOue5OxE/Lq03u9hcxX3oI1BcGkdKqUMGqNhjBuBZMVtgW30KiWJLA7f2WUZCp7+ZC5bKddP7EBb+fclzwkMT4DbjE5o8Nk89rd4ZBrZ8QVqZyM390/Mdd3MZgFo01blzirIzfl85xEBWaNcgwq48JAjCdYA5OaYC2aKuyYvIraEjd8hr2qunbRAgNzBwiMyMPShLo7hTz9N6ptTZolLaHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HzPmIx2EdkgBQVsLXX2NokcliH/QSr/JFD966FoTrwk=;
- b=CkyTxbs3yGkUlPKT5xP8VCiGJ0N/Zoumjqxi950lu+AZmxD0QGZsV+VQ6Nxh14nMiEO4S5qHoNlGahoF79/YP5oIG82FuqSag4ydo/G/IwXzokzqx37zHyseNWWkzkmzm02U1YSn0hFiz1OIOZ8uJdvePZROW8WuV4I1TLUfjFj3zL7TT5fj1R4K8MTbXCbGa5pKLL+Jh4dxOCrwVRcPe8ojlZMTp8fBbc62ePefN4ueBXN6CiP+ZtmYDMWxvp8H8oO8WTny4mi8VToJKt3MYteIDkyPdZjp77fdte0CNUPyH+d44XZujR0Tkma1y5kDKf4ijtjKxbE/sq/QkfOk3Q==
+ bh=3Yutjo/VL9eK4snlhBpsCsbHKWUQ64bIamenjL49MgM=;
+ b=mbcjuyc7t/yQtm9AZAln4nW/gV23zPBCC2VVg1IJDDr+ewuDD1D9+8BpgpjMN1TyG3BOcoR9/25N5MhzGZe/rcRtcl9wGvv5J0SL1NkO5ux8gN/4Te+oStuVD1p6Jw+3FiG/eONCc26PL2j5VZf+BW6D2NLioZGIppeTQqTnrEtBdAGc4d82oMEIFRWgZXtso9ubyKNcg/leeEDbr98HoR65R82QCZf+dzYcYcO29AeSPLV8z0XkgDTlQt8MVP2oXd5JpfqbJrCF85lkrr8QCW4uYJ4XwNTjpw6JrLorFBnDdxE8jWhKcV0D6veeMDAL+kB+5+ZbKZ7bn1jzctTDcg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 01:08:15 +0000
+ 2026 01:08:16 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
@@ -64,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v3 22/33] gpu: nova-core: gsp: send GSP_INIT and decode its reply
-Date: Thu, 17 Sep 2026 18:07:08 -0700
-Message-ID: <20260918010719.1176945-23-jhubbard@nvidia.com>
+Subject: [PATCH v3 23/33] gpu: nova-core: add LIBOS3 log buffers and state monitor buffer
+Date: Thu, 17 Sep 2026 18:07:09 -0700
+Message-ID: <20260918010719.1176945-24-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918010719.1176945-1-jhubbard@nvidia.com>
 References: <20260918010719.1176945-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0084.namprd05.prod.outlook.com
- (2603:10b6:a03:332::29) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR05CA0076.namprd05.prod.outlook.com
+ (2603:10b6:a03:332::21) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -84,474 +84,279 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB8349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bb22bc4-27c4-44e5-e8af-08df1521437d
+X-MS-Office365-Filtering-Correlation-Id: b98e657b-41e7-48df-68f4-08df15214420
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|56012099006|3023799007|11063799006|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	HxDGUVL470S+jsphnrgJIdIpdS2sVTUCz9DeNelirYxv4frGpU4JDqAMb8pIyCbQpxolFaXfq9wN6EK/W/EYCGq0Ou0Jg1XD+gZN4F8S0hxTbipHAxthB6mKsJMPU6DooLJA5feCTcEr7JHh5uu2JX3442/3Tbjz6sgPEyXhCIqq80WXFLAHFIC6LlTbBr3g5UrqWGaIyNP27zTK/QC0RBZqey88u+tqO/R1AmlrVdOneEAmTVvJrJTZWp/ot9oTyqGaEUcNEY/vSVOsxfSSy/hUrp3/5ECUSG0R2QoZbhoEkOtkhkk0qRrJWiRsfzuWS9qtLMjX1wnVMet/fBwIKKpXTqwRgZGV0xSRq3JLDcHboEE2y1xnf9Ssj+7ZW4DuRDEryzD8gMxvHZs8s3xFJTTt1/TBi5HTl7d90IM3qEfm6SByBV2vFRvVfzAedbf8zPuvljl05yH8PltGSZXKTa8QKvDQwl6TDYFuQr9Ly6vu6DvW2bgQjL2zQ1+/ugj+pODypI+RoZJ3QI5qSDJqLVwQ02tfgDbFVrM17u9vi6MQ6zyqUhzL7F286IZcpBKpe+BBW9gt4SyIEqxmbtvfO3oUe3488vczvqidZvcLn7uscvG5VjgyhsjUZSFn8P/ccL81RF/GUVjsN1/Sui/FvU1lA8+6Qy1uEs3pL1VMK18=
+	YEzzj6hX75DzqgIovOwIhRobI2n+o1kuJWaftkXfbTilXkW0cV48s0jsYNs5E/itG+yyZ98iJXzrrkReOT6/d2sY6BrKmXFSBMrSg7IxqmQyQgw3h2wwTgls/KAxcTDbqsKtCeAO6Q1DjvLF3Wg9U0mneImvaxAhRRgkndEWfWlxK5pxXQjxozujq3qgAruO2+mfLmXKexSTu+Uwc2vO9+ymOQV2ucA4NHaAAjMG+9ssIKGLI3LgkajgNv44b93dbiHLWlstPQeC84EPPl3/wcomXhs19dLUwfhq/acqGe0HmF5FdXt50Yc3v5YX/N+MGXc8v2cdSpmOPNyy27u2IOKSusny53XkSN8uX2pWz+Dx8Y/V3AdZhhAq1PfEZjJrbUZD2kSSMhfHoJ9Mf+IO6gdekM04gi8TQCBEvWWQWLWKvyq9G1cKY+yrSF8kwVfoK9u5+12/G4/VOxgzZFRBreOqckgwtfb7+ra1nwOllQcTeU1NwEXu9XUW1KKklF4lfz91Z6M64QJO2vHefnz6bLmJ+BL97IO8FJPNLs1orWmGksRUIdBKGN+I9EqAd1CszB8gPa8VPEoNfrNQhGckSe7dKvSwCDeCdO86nGyGGHbuCws9US0/5e58T3+X/xW7ZQSVGuweHoMjOwluHRiOvadW8c78DuJmqRnkyCLXISY=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099006)(3023799007)(11063799006)(10067099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Xw0S7zYaklmZi264/jgU+KKUdEfQxsnWtZT2eU8iTu0M4zwM4YRSP4WCDdZh?=
- =?us-ascii?Q?thJ4y0f9dGmjuHQzbjlbTIhaoakLvpiZkDOZWzXRqO8tTM5bXlGsJpFrRiOm?=
- =?us-ascii?Q?tBn+Xtn7wXggheVWpDTAquwGarC1RazFrVmwKnokTKqJNahVQGDHCz1lbxt6?=
- =?us-ascii?Q?V8LPUr6+AESKu9gCBIEuxpDvOizLkAhGkl3jATpmNgUWQuU5w37vwuwlW5yo?=
- =?us-ascii?Q?jghwQyU81OP9/VGnT8EnJJ/tlQiGmym7DPxKIV2mLCsaRffW9X3ysyjjsXta?=
- =?us-ascii?Q?HIW70G5XBvI64SM3v1gfLFO8P2uhfvXG4ffT6q74XP+7UYx0QOnpQ90PPAiu?=
- =?us-ascii?Q?3xNcWws4dC1biMEKLIONivH6ibP1UK8v13nwX4bPfxZvP8pX+wNz8TBZwKNt?=
- =?us-ascii?Q?NmDRSWp372bjzywHGsfoou0G5uv3HzxCHFSyvTvsYthRk51l8qsvtYY/FxkZ?=
- =?us-ascii?Q?D6xwFHt6nDnDxCGTC1+lB60+mBr7l0hL80TkePjU9LMVS65T6G8HsgAPBpOn?=
- =?us-ascii?Q?WwLxTPbUKxlrbu/QxxDryOdm7Tst2lRhIytiml8WtjJ/OEQNp0NVwLSm6Q4m?=
- =?us-ascii?Q?8xaPdpaR05nAQ9w2yEFMQ9eIAiGcrjqkUMtsKqJmtt2XbsqdzKwwKzTtvOCj?=
- =?us-ascii?Q?7HfpqZ8FwFs7rUIyrTjmcBjhiH9o4JOqJ9yyj0ORBA/Exi79R9LtHoDKakQe?=
- =?us-ascii?Q?AUaxzv/7Uxo+co8F7YOCal5l5aPkETg8I3lujsTXRc2F3UlhX97+/kZTr900?=
- =?us-ascii?Q?9jQjYPy+squ/L5AFLkj7gVyX2oqg3YgsNZtGChgM8E1+00X6DQbxjaup5RuF?=
- =?us-ascii?Q?fxI5sqiSAphuraQRBO3rY5q2vehKH4cKrZJExi3OHJUOS/dYOa+m17ze/6hk?=
- =?us-ascii?Q?zgv3DxR3dTI7/cbJ+v6RHpv1kc7cAbzydm6B/i7R9ogvdzMZ49nEveYgdUrQ?=
- =?us-ascii?Q?am2mpSSwqQ7kUmty9ye5PpAytGuzFtXR+SWPddoA/5hIS3ac4dlh57VKS8YI?=
- =?us-ascii?Q?fdPrEhUr4eU9c5Z1oZPrXEl88P4d2LSz4Y7RmIBB+8H4Y9mHuLgGlNaecH0l?=
- =?us-ascii?Q?5dweizSe1qXvgxfwzWmWAOVlmCtDyIbbnhm8LJamnOLgtkoU7ETYc4FglhMe?=
- =?us-ascii?Q?cT3iHR2oSjUD6BUFWxT0fKrbkoFCOD+5WgKksthA7zYulpqs9fPy8w1h8hJ/?=
- =?us-ascii?Q?g/Wbs4pCQ/1VUzGo0WkNXGhMqHjqhxlzc+EViwbMoo00ntZ9iobaynybD6i/?=
- =?us-ascii?Q?P8xAC3SfEuRmFxs0jBSk4x/p1y1on26kMOWkgLWD56ztYMOZ9nn1O0oluhfo?=
- =?us-ascii?Q?5Wr/OfsUT+z9HszhGVzwHnL0fZkPGxiH4QKLSFz4yZeV4syHLtAYXrNRpr2i?=
- =?us-ascii?Q?OLWu7DPzONQpxtt97EbKFrWjye/pFr54Wsy/QXjTsrw8sfkZSbcV0PgTsZMN?=
- =?us-ascii?Q?AD0U6zkwGcoxY36/2HZgbyKc26ghixVAb9hLJht7v3+spujrf+1vnXfAEQ1W?=
- =?us-ascii?Q?gtgJ1zJjJqVLKoqqh1g9LYdoEk99UEtIc+BDl7rT5LOB12vr1ld37NgC9/p6?=
- =?us-ascii?Q?98a+1JrE41M5wK2q9FWPeqSoC3yKtZ9BGsZNftRQ5/tz0QlfwnbKs+yodqL6?=
- =?us-ascii?Q?RwAcdq/AMgKTHYDkNj3J0Y8F5OZ0ivHXWmM4MYCZ3uJeanXq9v0CQ04TAlao?=
- =?us-ascii?Q?7DI8x5OUKsyfDHZ9dBasCM4HwGv69hJJLrOUc0A4wdvEokWItXXDzhWz6dFL?=
- =?us-ascii?Q?aeJUYlxMMw=3D=3D?=
+	=?us-ascii?Q?cT6pt+2O26QDGu4IL3N4qE3SYi9IKEJAYqyYy4owGIkvXI/USd8Rpt3833Ve?=
+ =?us-ascii?Q?Rm7Ti5VW0yEa6vOGwyPe6Txty38oMkGSOMEsEvCzynZamJrCPnEBnd0fNP5X?=
+ =?us-ascii?Q?beEvske+8+nCQVoK649dGsGSDMof8TWvr9Pui8dlEPBlzxiiAisHf4J6Elj3?=
+ =?us-ascii?Q?CIvyAuWp8ZvsYMXBFCyicyL0AM2R241sZ9O38UeJKP/smEe2kffLCp2JlZnv?=
+ =?us-ascii?Q?LM5XDclyTFFv0PMjny8qAkbbo3tFlHXcqTWGrx7iZUebVsuwuAZ5UmYCQYGw?=
+ =?us-ascii?Q?/wb7xC7fkDTaCfnoLL7NQdCZi3vro/7e+ISngRKRKZBYixnMYhV+SToalaQ6?=
+ =?us-ascii?Q?klINojCjpXYqFyErYe4fCNM1QVqHQb2SE7ipHqsbErk7n+biMkYjPm5CVlLz?=
+ =?us-ascii?Q?1TURMazec+ikRfAjDd200w9g5wm73bJusaTZXlyK06QnWwJbrkNVR3PLsRfR?=
+ =?us-ascii?Q?KFx0WDbS3umK8AfDjLw1GUN22kffPDw3bmJA5LzzFJBkGPH0+37hmayc5dvG?=
+ =?us-ascii?Q?kk5mkBBTNyvvshqqysv08VUVkwcEKdVsLxnY9OWdC0bzifNu8q8YZxwHHFMk?=
+ =?us-ascii?Q?l5ID4HqwsUFVcmbfkhXd/5G35bxky43sfxuJRmVpC1T1NrFDtxp/TbaGMxsb?=
+ =?us-ascii?Q?lu5wD25MYFAAPqGNHvJ1WkwkERI0jop1ra7FSCMsc8tG/dVLQDRPayj8iapE?=
+ =?us-ascii?Q?OKz2fvZHghTNlTmdk4znGj8OcvkKSwxGNyxa/odhHUV7XIOb03B8fayxgFiU?=
+ =?us-ascii?Q?8C9b0cVyR0ZWcsN8NkVxXYO3D/A0L85iR6iWh+p6QxHfFajLLQZ54p0CzwGk?=
+ =?us-ascii?Q?P5JsHGiO+Vywu2N8JSu6Jh39vfMJ0+CNVruPtgK2mWha46ozXG9iyvBjNreb?=
+ =?us-ascii?Q?w3sowg+HY81/miyiev8i90xMiN/iKGn7hZRSGcSYtgCpEugYRYyGTQfb9Tb4?=
+ =?us-ascii?Q?QfgA5wMmZj3NzIEawB3Y+zyxQXZRq5z42WvLqQ2odZNIXEYcXv7niiJRbi+9?=
+ =?us-ascii?Q?oBj7Lnl/EMbAOU8FU2H3DVgzIckpe+koAlHQFfbEvMXym29emhJDhexOlso6?=
+ =?us-ascii?Q?URB01JGjpIYcYlERY0VEJixrrFHWfc1a5VvmM+fm4FhP4iFV8lS+KP7jkE9h?=
+ =?us-ascii?Q?1YysgVJI+/bi3ih5AXrMVPW9TpGDyJSWpe1AjyMQY0wPVRM6nCWfBZqJZ1A5?=
+ =?us-ascii?Q?mG19vI6nWkgGKxTH4U8FBHcmciU1nzKEKKa0XFNC3sb85mOGS/Bqh1IpGfJk?=
+ =?us-ascii?Q?OZnmXhyl9kbUiIiv8J6WH3YKxOxhaPqE2qzu/z0uTz4Z1pQt/IMwttFLpjGt?=
+ =?us-ascii?Q?UuJC/ajoeNOxLiMyk2RepTj3KRBkJ2RVuv/ipHdPCBIo5OwasyU4rAfB+lXA?=
+ =?us-ascii?Q?Bhjdqp8k5Oda6SX0pbcYt22qIaOadzMe8OvF4DuffyXMKihxm2+7SJcqbETV?=
+ =?us-ascii?Q?4eQjcUFCrCIShOY/gzYKZpoEsElyXIjN45BUIMCpLd4uIjP0UdP1qqYPLi3r?=
+ =?us-ascii?Q?uSMO0IgXfrE2kDnDJomK3+7E17NcBTeIybMwODkXkjDwosbC4oLFv2/l1+fL?=
+ =?us-ascii?Q?qRFn0SdH91sRcT3m5c5SMQsi2S73/8j887t46boX5jcKR/LuW6cYefmeElAK?=
+ =?us-ascii?Q?C/z9ybFemOHrcAnVb8iUIelup0Mi2HC+8G3iuxv7d5jlUpG7LlwzLe4quVZq?=
+ =?us-ascii?Q?JgU8A8HnXO8cnSgac/6Ng8wiSB2qghMDM+O1j5hsQiT9hJRL8V+y9uXGs5VF?=
+ =?us-ascii?Q?DpIZXOwLrg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3bb22bc4-27c4-44e5-e8af-08df1521437d
+X-MS-Exchange-CrossTenant-Network-Message-Id: b98e657b-41e7-48df-68f4-08df15214420
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:52.1917
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:53.2210
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2Bd2AxS3NcUN1sSljR3Vvz/lrt+HPTtSnVrKlIyE4MNkVaNGbubkJb5A8Cgsytw8BWEkOfao64pS+Jlmt5vlJg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: IKdlCWIQ/vRzNtkogSkM6BsXFqA/7jRWQSo3dB6S/Uf1S2KHnbflfbVYeROyo33lMt9Gd+EVQpQ7XZ9B7Bxmnw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
 
-GSP-RM answers GSP_INIT only once it has finished starting. To finish
-starting, GSP-RM first raises the load-and-execute events and waits for
-the driver to service them. So the code that waits for the reply has to
-service those events while waiting.
+GSP-RM runs on LIBOS, and each LIBOS task logs into a buffer that the
+driver provides and names in the init argument array. The r000 firmware
+runs LIBOS3, which has six logging tasks, and LIBOS3 also expects one
+more page, the state monitor buffer, in which GSP-RM reports its own
+state.
 
-Add the GSP_INIT sender and the wait for its reply. The wait passes each
-event that arrives before the reply to a handler that the caller
-supplies, and it keeps one deadline from the send however many events
-arrive, as the RPC reply wait does. Decode the reply into the static
-configuration type that the boot sequence already returns, so that the
-rest of the driver reads the same configuration whichever firmware
-produced it.
+Nova-core allocated log buffers for three of the six tasks, and no state
+monitor buffer.
+
+Allocate the three missing log buffers and the state monitor buffer,
+name every log buffer in the init argument array, and give each new log
+a debugfs file next to the existing ones. The switch to r000 passes the
+state monitor buffer to GSP-RM.
 
 Assisted-by: LLM
 Reviewed-by: Timur Tabi <ttabi@nvidia.com>
-Reviewed-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs        | 108 +++++++++++++++++++----
- drivers/gpu/nova-core/gsp/commands.rs    |  99 ++++++++++++++++++++-
- drivers/gpu/nova-core/gsp/fw.rs          |   7 +-
- drivers/gpu/nova-core/gsp/fw/commands.rs |  55 ++++++++++--
- 4 files changed, 241 insertions(+), 28 deletions(-)
+ drivers/gpu/nova-core/gsp.rs | 129 ++++++++++++++++++++++++++---------
+ 1 file changed, 98 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index b202bd8185ba..f64a97736ed7 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -625,19 +625,38 @@ pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
-         self.inner.lock().send_command(command)
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 90b4c3380f11..a8aec431b0b1 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -80,7 +80,6 @@ pub(crate) fn dev(&self) -> &'gpu device::Device<device::Bound> {
+ 
+ /// Number of GSP pages to use in a RM log buffer.
+ const RM_LOG_BUFFER_NUM_PAGES: usize = 0x10;
+-const LOG_BUFFER_SIZE: usize = RM_LOG_BUFFER_NUM_PAGES * GSP_PAGE_SIZE;
+ 
+ /// Array of page table entries, as understood by the GSP bootloader.
+ #[repr(C)]
+@@ -116,9 +115,19 @@ fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
+ /// then pp points to index into the buffer where the next logging entry will
+ /// be written. Therefore, the logging data is valid if:
+ ///   1 <= pp < sizeof(buffer)/sizeof(u64)
+-struct LogBuffer<'a>(Coherent<'a, [u8; LOG_BUFFER_SIZE]>);
++struct LogBuffer<'a, const NUM_PAGES: usize>(Coherent<'a, [[u8; GSP_PAGE_SIZE]; NUM_PAGES]>);
+ 
+-impl<'a> LogBuffer<'a> {
++/// A log buffer at the default size, [`RM_LOG_BUFFER_NUM_PAGES`] pages.
++///
++/// Matches the registry defaults for the init, interrupt, RM and MNOC tasks
++/// (`NV_REG_STR_RM_GSP_LOG_BUFFER_SIZE_TASK_*_DEFAULT`).
++type TaskLogBuffer<'a> = LogBuffer<'a, RM_LOG_BUFFER_NUM_PAGES>;
++
++/// A single-page log buffer, the size of the logs of the root task and of the RM state monitor
++/// task.
++type SmallLogBuffer<'a> = LogBuffer<'a, 1>;
++
++impl<'a, const NUM_PAGES: usize> LogBuffer<'a, NUM_PAGES> {
+     /// Creates a new `LogBuffer` mapped on `dev`.
+     fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
+         let obj = Self(Coherent::zeroed(dev, GFP_KERNEL)?);
+@@ -127,22 +136,90 @@ fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
+ 
+         let pte_view = io_project!(
+             obj.0,
+-            [build: size_of::<u64>()..][build: ..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
++            [build: 0][build: size_of::<u64>()..][build: ..NUM_PAGES * size_of::<u64>()]
+         )
+-        .try_cast::<PteArray<RM_LOG_BUFFER_NUM_PAGES>>()?;
++        .try_cast::<PteArray<NUM_PAGES>>()?;
+         PteArray::init(pte_view, start_addr)?;
+ 
+         Ok(obj)
      }
- 
--    /// Receives one GMC event and passes its command id and payload slices to `handler`.
-+    /// Waits for the response to the GMC request with command id `command_id`, and passes every
-+    /// other GMC element that arrives first to `on_other`.
-     ///
--    /// This method may sleep while waiting. The queue mutex stays locked across the wait and the
--    /// `handler` call, so `handler` must not call back into this [`Cmdq`].
-+    /// This method may sleep while waiting. The queue mutex stays locked across the whole wait and
-+    /// across the `on_other` and `decode` calls, so neither may call back into this [`Cmdq`].
-     ///
--    /// See [`CmdqInner::receive_gmc_and_dispatch`] for the return value and the errors.
--    #[expect(dead_code)]
--    pub(crate) fn receive_gmc_and_dispatch<R>(
-+    /// See [`CmdqInner::await_gmc_response`] for the return value and the errors.
-+    pub(crate) fn await_gmc_response<R>(
-         &self,
--        timeout: Delta,
--        handler: impl FnOnce(u32, &[u8], &[u8]) -> Result<Option<R>>,
--    ) -> Result<Option<R>> {
--        self.inner.lock().receive_gmc_and_dispatch(timeout, handler)
-+        command_id: u32,
-+        on_other: impl FnMut(&GspGmcMsgElement, &[u8], &[u8]) -> Result,
-+        decode: impl FnMut(&[u8], &[u8]) -> Result<R>,
-+    ) -> Result<R> {
-+        self.inner
-+            .lock()
-+            .await_gmc_response(command_id, on_other, decode)
-+    }
-+
-+    /// Sends a GMC API request to the GSP without waiting for the response.
-+    ///
-+    /// # Errors
-+    ///
-+    /// Errors from [`DmaGspMem::allocate_command`] are propagated as-is.
-+    pub(crate) fn send_gmc_no_wait(
-+        &self,
-+        command_id: u32,
-+        payload: &[u8],
-+        max_response_size: u32,
-+    ) -> Result {
-+        self.inner
-+            .lock()
-+            .send_gmc(command_id, payload, max_response_size)
-     }
- 
-     /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are logged and
-@@ -812,7 +831,6 @@ fn poison(&self, reason: fmt::Arguments<'_>) -> Error {
-     /// # Errors
-     ///
-     /// Errors from [`DmaGspMem::allocate_command`] are propagated as-is.
--    #[expect(dead_code)]
-     fn send_gmc(&mut self, command_id: u32, payload: &[u8], max_response_size: u32) -> Result {
-         let seq = self.seq;
-         self.seq = self.seq.wrapping_add(1);
-@@ -1204,8 +1222,9 @@ fn consume_element<R>(
- 
-     /// Receives the next queue element and, if it is a GMC element, passes it to `handler`.
-     ///
--    /// `handler` receives the command id and the payload that follows the GMC API header, as two
--    /// slices because the ring may wrap, and returns `None` for an element that it declines.
-+    /// `handler` receives the headers that open the element and the payload that follows the GMC
-+    /// API header, as two slices because the ring may wrap, and returns `None` for an element that
-+    /// it declines.
-     ///
-     /// Returns `Ok(None)` when `handler` declines the element or when the element is not a GMC
-     /// element.
-@@ -1220,7 +1239,7 @@ fn consume_element<R>(
-     fn receive_gmc_and_dispatch<R>(
-         &mut self,
-         timeout: Delta,
--        handler: impl FnOnce(u32, &[u8], &[u8]) -> Result<Option<R>>,
-+        handler: impl FnOnce(&GspGmcMsgElement, &[u8], &[u8]) -> Result<Option<R>>,
-     ) -> Result<Option<R>> {
-         self.consume_element(timeout, |this, element| match element {
-             QueueElement::Other(_) => {
-@@ -1230,18 +1249,73 @@ fn receive_gmc_and_dispatch<R>(
-             }
-             QueueElement::Gmc(message) => {
-                 let header = message.header;
--                let command_id = header.gmc.command_id();
- 
-                 dev_dbg!(
-                     &this.dev,
-                     "GSP GMC: event: seq# {}, command_id=0x{:x}, length=0x{:x}\n",
-                     header.gmc.sequence,
--                    command_id,
-+                    header.gmc.command_id(),
-                     header.length(),
-                 );
- 
--                handler(command_id, message.contents.0, message.contents.1)
-+                handler(header, message.contents.0, message.contents.1)
-             }
-         })
-     }
-+
-+    /// Waits for the response to the GMC request with command id `command_id`, up to
-+    /// [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-+    ///
-+    /// The response's payload is passed to `decode`, as two slices because the ring may wrap.
-+    /// Every other GMC element that arrives first is passed to `on_other` with the headers that
-+    /// open it and its payload slices, and any other element is logged. Neither kind of element
-+    /// extends the deadline.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if the response does not arrive before the deadline, however many other
-+    ///   elements arrive while waiting.
-+    /// - `EIO` if the queue is poisoned or an element fails framing validation (see
-+    ///   [`Self::wait_for_element`]), or if the response carries a failure status.
-+    ///
-+    /// Errors from `on_other` and `decode` are propagated as-is.
-+    fn await_gmc_response<R>(
-+        &mut self,
-+        command_id: u32,
-+        mut on_other: impl FnMut(&GspGmcMsgElement, &[u8], &[u8]) -> Result,
-+        mut decode: impl FnMut(&[u8], &[u8]) -> Result<R>,
-+    ) -> Result<R> {
-+        let dev = self.dev;
-+        let deadline = Instant::<Monotonic>::now() + Cmdq::RECEIVE_TIMEOUT;
-+        loop {
-+            let remaining = deadline - Instant::<Monotonic>::now();
-+            if remaining.is_negative() {
-+                break Err(ETIMEDOUT);
-+            }
-+
-+            let response =
-+                self.receive_gmc_and_dispatch(remaining, |header, payload_0, payload_1| {
-+                    if header.gmc.command_id() != command_id {
-+                        return on_other(header, payload_0, payload_1).map(|()| None);
-+                    }
-+
-+                    let status = header.gmc.status();
-+                    if status != 0 {
-+                        dev_err!(
-+                            dev,
-+                            "GSP GMC: command 0x{:x} failed, status={:#x}\n",
-+                            command_id,
-+                            status
-+                        );
-+                        return Err(EIO);
-+                    }
-+
-+                    decode(payload_0, payload_1).map(Some)
-+                })?;
-+
-+            if let Some(response) = response {
-+                break Ok(response);
-+            }
-+        }
-+    }
- }
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 2c7965174445..74ae92428cad 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -30,13 +30,21 @@
-         },
-         fw::{
-             self,
--            commands::GspInitRequest,
--            MsgFunction, //
-+            commands::{
-+                GspInitRequest,
-+                GspInitResponse,
-+                GspInitResponseSchema, //
-+            },
-+            GspGmcMsgElement,
-+            MsgFunction,
-+            GMCAPI_CMD_GSP_INIT, //
-         },
-         nvkv::{
-+            Decoder,
-             Encodable,
-             EncodedStream,
--            Encoder, //
-+            Encoder,
-+            UnknownKeyPolicy, //
-         },
-     },
-     sbuffer::SBufferIter,
-@@ -287,6 +295,91 @@ pub(crate) fn build_gsp_init_payload(
-     Ok(encoder.finish())
  }
  
-+/// Largest `GSP_INIT` response that the driver accepts.
-+const GSP_INIT_MAX_RESPONSE_SIZE: u32 = 48 * 1024;
-+
-+/// Sends `GSP_INIT` and returns the static GPU configuration that its reply carries.
-+///
-+/// Every GMC (GPU Management Controller) element that arrives before the reply is passed to
-+/// `on_unsolicited_element` with the headers that open it and its payload, as two slices because
-+/// the ring may wrap. The load-and-execute events that GSP-RM raises while it starts arrive this
-+/// way.
-+///
-+/// `payload` is the stream from [`build_gsp_init_payload`].
-+///
-+/// # Errors
-+///
-+/// - `EIO` if GSP-RM reports a failure status.
-+/// - `ETIMEDOUT` if the reply does not arrive within [`Cmdq::RECEIVE_TIMEOUT`] of the send,
-+///   however many events arrive while waiting.
-+///
-+/// Errors from `on_unsolicited_element` and from decoding the reply are propagated as-is.
-+#[expect(dead_code)]
-+pub(crate) fn gsp_init(
-+    cmdq: &Cmdq<'_>,
-+    payload: &[u64],
-+    on_unsolicited_element: impl FnMut(&GspGmcMsgElement, &[u8], &[u8]) -> Result,
-+) -> Result<GspStaticInfo> {
-+    // Qualified because `zerocopy::IntoBytes` also gives `[T]` an `as_bytes`.
-+    let payload = AsBytes::as_bytes(payload);
-+
-+    cmdq.send_gmc_no_wait(GMCAPI_CMD_GSP_INIT, payload, GSP_INIT_MAX_RESPONSE_SIZE)?;
-+
-+    cmdq.await_gmc_response(
-+        GMCAPI_CMD_GSP_INIT,
-+        on_unsolicited_element,
-+        decode_gsp_init_reply,
-+    )
++/// The log buffers to which GSP-RM writes its debug output, one per LIBOS3 task.
+ struct LogBuffers<'a> {
+-    /// Init log buffer.
+-    loginit: LogBuffer<'a>,
+-    /// Interrupts log buffer.
+-    logintr: LogBuffer<'a>,
+-    /// RM log buffer.
+-    logrm: LogBuffer<'a>,
++    /// Init task.
++    loginit: TaskLogBuffer<'a>,
++    /// Interrupt task.
++    logintr: TaskLogBuffer<'a>,
++    /// RM task.
++    logrm: TaskLogBuffer<'a>,
++    /// MNOC task.
++    logmnoc: TaskLogBuffer<'a>,
++    /// Root task.
++    logroot: SmallLogBuffer<'a>,
++    /// RM state monitor task.
++    logrmon: SmallLogBuffer<'a>,
 +}
 +
-+/// Decodes the `GSP_INIT` reply from its payload, which the ring may have split in two, into the
-+/// static configuration type that the boot sequence returns.
-+///
-+/// # Errors
-+///
-+/// - `EINVAL` if the payload is not a whole number of NVKV words, if the stream is malformed or
-+///   omits a required key, or if GSP-RM reported no framebuffer region.
-+/// - `ENOMEM` if the words or the decoded regions cannot be allocated.
-+fn decode_gsp_init_reply(payload_0: &[u8], payload_1: &[u8]) -> Result<GspStaticInfo> {
-+    const WORD_SIZE: usize = size_of::<u64>();
++impl<'a> LogBuffers<'a> {
++    /// Number of log buffers.
++    const COUNT: usize = 6;
 +
-+    let len = payload_0.len() + payload_1.len();
-+    if len % WORD_SIZE != 0 {
-+        return Err(EINVAL);
-+    }
-+
-+    let mut words = KVVec::with_capacity(len / WORD_SIZE, GFP_KERNEL)?;
-+    let mut bytes = SBufferIter::new_reader([payload_0, payload_1]);
-+    for _ in 0..len / WORD_SIZE {
-+        let mut word = [0u8; WORD_SIZE];
-+        bytes.read_exact(&mut word)?;
-+        words.push(u64::from_le_bytes(word), GFP_KERNEL)?;
-+    }
-+
-+    let decoder = Decoder::new(&words, UnknownKeyPolicy::Ignore);
-+    let mut schema = GspInitResponseSchema::default();
-+    let decoded = KBox::try_init(decoder.decode(&mut schema)?, GFP_KERNEL)?;
-+
-+    let mut gpu_name = [0u8; GspInitResponse::MAX_GPU_NAME_LEN];
-+    let name = decoded.gpu_name();
-+    gpu_name
-+        .get_mut(..name.len())
-+        .ok_or(EINVAL)?
-+        .copy_from_slice(name);
-+
-+    let mut usable_fb_regions = KVec::new();
-+    for region in decoded.usable_fb_regions() {
-+        usable_fb_regions.push(region, GFP_KERNEL)?;
-+    }
-+
-+    Ok(GspStaticInfo {
-+        gpu_name,
-+        bar1_pde_base: decoded.bar1_pde_base(),
-+        usable_fb_regions,
-+        total_fb_end: decoded.total_fb_end().ok_or(EINVAL)?,
-+    })
-+}
-+
- pub(crate) use fw::commands::PowerStateLevel;
- 
- /// The `UnloadingGuestDriver` command, used to shut down the GSP.
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index e86283f67358..cc0bc8f8ae87 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -1048,13 +1048,17 @@ pub(crate) struct GmcApiHeader {
-     /// Sequence number that GSP-RM copies from a request into its response.
-     pub(crate) sequence: u64,
-     /// In a request, the largest response that the sender accepts. In a response, the `NV_STATUS`.
--    pub(crate) max_resp_or_status: u32,
-+    max_resp_or_status: u32,
-     reserved: [u32; 5],
- }
- 
- /// Bits of [`GmcApiHeader::command`] that hold the command id. The high byte holds flags.
- const GMCAPI_COMMAND_ID_MASK: u32 = 0x00ff_ffff;
- 
-+/// GMC request that carries the system information and registry keys to GSP-RM. GSP-RM answers
-+/// it with the static GPU configuration once it has finished starting.
-+pub(crate) const GMCAPI_CMD_GSP_INIT: u32 = r000_00::GMCAPI_COMMANDS_GMCAPI_CMD_GSP_INIT;
-+
- /// GMC event that requests the driver to run the generic falcon bootloader on the descriptor that
- /// the event carries.
- pub(crate) const GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER: u32 =
-@@ -1097,7 +1101,6 @@ pub(crate) fn command_id(&self) -> u32 {
-     ///
-     /// The value is meaningful only on a response, which GSP-RM marks with a flag in the command
-     /// word. In a request, the same word holds the largest response that the sender accepts.
--    #[expect(dead_code)]
-     pub(crate) fn status(&self) -> u32 {
-         self.max_resp_or_status
-     }
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 4fdd6ff23dc1..748639942fe1 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -455,10 +455,7 @@ pub(crate) fn new(
- // Should decode with UnknownKeyPolicy::Ignore.
- nvkv_decode! {
-     /// Schema for the `GSP_INIT` response.
--    // TODO: expect() doesn't work here due to Self:: reference, fixed in 1.97.0
--    // https://github.com/rust-lang/rust/pull/154377
--    #[cfg_attr(not(CONFIG_KUNIT), allow(dead_code))]
--    struct GspInitResponseSchema => GspInitResponse {
-+    pub(crate) struct GspInitResponseSchema => GspInitResponse {
-         gpu_name:
-             Array<u8, { GspInitResponse::MAX_GPU_NAME_LEN }, { Self::GPU_NAME_STRING_KEY }>,
-         fb_regions: Accumulated<FbRegionSchema>,
-@@ -475,15 +472,61 @@ impl GspInitResponseSchema {
- }
- 
- /// Payload of the `GSP_INIT` response.
--struct GspInitResponse {
-+pub(crate) struct GspInitResponse {
-     gpu_name: ArrayVec<u8, { Self::MAX_GPU_NAME_LEN }>,
-     fb_regions: KVVec<FbRegion>,
-     bar1_pde_base: u64,
-+    #[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
-     vmmu_segment_size: u64,
- }
- 
- impl GspInitResponse {
--    const MAX_GPU_NAME_LEN: usize = 64;
-+    pub(crate) const MAX_GPU_NAME_LEN: usize = 64;
-+
-+    /// Tag of a general-purpose region. Any other tag marks a region that GSP-RM reserves for the
-+    /// use that the tag names.
-+    const FB_REGION_TAG_NONE: u32 = 0;
-+
-+    /// Returns the GPU name, which GSP-RM sends with its NUL terminator.
-+    pub(crate) fn gpu_name(&self) -> &[u8] {
-+        self.gpu_name.as_slice()
-+    }
-+
-+    /// Returns an iterator over the FB regions from which the driver may allocate: the
-+    /// general-purpose regions that are not protected and that support both compression and
-+    /// isochronous access.
-+    pub(crate) fn usable_fb_regions(&self) -> impl Iterator<Item = Range<u64>> + '_ {
-+        self.fb_regions.iter().filter_map(|region| {
-+            if region.limit >= region.base
-+                && region.tag == Self::FB_REGION_TAG_NONE
-+                && !region.flags.protected()
-+                && region.flags.support_compressed()
-+                && region.flags.support_iso()
-+            {
-+                region.limit.checked_add(1).map(|end| region.base..end)
-+            } else {
-+                None
-+            }
++    /// Allocates the six log buffers, mapped on `dev`.
++    fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
++        Ok(Self {
++            loginit: TaskLogBuffer::new(dev)?,
++            logintr: TaskLogBuffer::new(dev)?,
++            logrm: TaskLogBuffer::new(dev)?,
++            logmnoc: TaskLogBuffer::new(dev)?,
++            logroot: SmallLogBuffer::new(dev)?,
++            logrmon: SmallLogBuffer::new(dev)?,
 +        })
 +    }
 +
-+    /// Returns the exclusive end of the FB physical address space, which spans every region
-+    /// including the ones that [`Self::usable_fb_regions`] leaves out.
-+    ///
-+    /// Returns `None` if no region that GSP-RM reported has a limit at or above its base.
-+    pub(crate) fn total_fb_end(&self) -> Option<u64> {
-+        self.fb_regions
-+            .iter()
-+            .filter(|region| region.limit >= region.base)
-+            .map(|region| region.limit)
-+            .max()?
-+            .checked_add(1)
++    /// Fills the first [`Self::COUNT`] entries of `libos` with the log buffers, under the names
++    /// that GSP-RM looks them up by.
++    fn init_arguments(
++        &self,
++        libos: &mut CoherentBox<'_, [LibosMemoryRegionInitArgument]>,
++    ) -> Result {
++        libos.init_at(
++            0,
++            LibosMemoryRegionInitArgument::new("LOGINIT", &self.loginit.0),
++        )?;
++        libos.init_at(
++            1,
++            LibosMemoryRegionInitArgument::new("LOGINTR", &self.logintr.0),
++        )?;
++        libos.init_at(
++            2,
++            LibosMemoryRegionInitArgument::new("LOGRM", &self.logrm.0),
++        )?;
++        libos.init_at(
++            3,
++            LibosMemoryRegionInitArgument::new("LOGMNOC", &self.logmnoc.0),
++        )?;
++        libos.init_at(
++            4,
++            LibosMemoryRegionInitArgument::new("LOGROOT", &self.logroot.0),
++        )?;
++        libos.init_at(
++            5,
++            LibosMemoryRegionInitArgument::new("LOGRMON", &self.logrmon.0),
++        )?;
++
++        Ok(())
 +    }
 +
-+    /// Returns the BAR1 page directory entry base address.
-+    pub(crate) fn bar1_pde_base(&self) -> u64 {
-+        self.bar1_pde_base
++    /// Exposes each log buffer as a binary file in `dir`, under the lowercase form of its name.
++    fn register_debugfs<'data>(&'data self, dir: &debugfs::ScopedDir<'data, '_>) {
++        dir.read_binary_file(c"loginit", &self.loginit.0);
++        dir.read_binary_file(c"logintr", &self.logintr.0);
++        dir.read_binary_file(c"logrm", &self.logrm.0);
++        dir.read_binary_file(c"logmnoc", &self.logmnoc.0);
++        dir.read_binary_file(c"logroot", &self.logroot.0);
++        dir.read_binary_file(c"logrmon", &self.logrmon.0);
 +    }
  }
  
- nvkv_decode! {
+ /// GSP runtime data.
+@@ -158,6 +235,8 @@ pub(crate) struct Gsp<'gsp> {
+     pub(crate) cmdq: Cmdq<'gsp>,
+     /// RM arguments.
+     rmargs: Coherent<'gsp, GspArgumentsPadded>,
++    /// Buffer in which GSP-RM reports its own state.
++    rm_state_monitor: Coherent<'gsp, [u8; GSP_PAGE_SIZE]>,
+ }
+ 
+ impl<'gsp> Gsp<'gsp> {
+@@ -168,17 +247,12 @@ pub(crate) fn new(
+     ) -> impl PinInit<Self, Error> + 'gsp {
+         pin_init::pin_init_scope(move || {
+             let dev = pdev.as_ref();
++            let log_buffers = LogBuffers::new(dev)?;
+ 
+-            let loginit = LogBuffer::new(dev)?;
+-            let logintr = LogBuffer::new(dev)?;
+-            let logrm = LogBuffer::new(dev)?;
+-
+-            // Initialise the logging structures. The OpenRM equivalents are in:
+-            // _kgspInitLibosLoggingStructures (allocates memory for buffers)
+-            // kgspSetupLibosInitArgs_IMPL (creates pLibosInitArgs[] array)
+             Ok(try_pin_init!(Self {
+                 cmdq <- Cmdq::new(dev, bar),
+                 rmargs: Coherent::init(dev, GFP_KERNEL, GspArgumentsPadded::new(&cmdq))?,
++                rm_state_monitor: Coherent::zeroed(dev, GFP_KERNEL)?,
+                 libos: {
+                     let mut libos = CoherentBox::zeroed_slice(
+                         dev,
+@@ -186,20 +260,15 @@ pub(crate) fn new(
+                         GFP_KERNEL,
+                     )?;
+ 
+-                    libos.init_at(0, LibosMemoryRegionInitArgument::new("LOGINIT", &loginit.0))?;
+-                    libos.init_at(1, LibosMemoryRegionInitArgument::new("LOGINTR", &logintr.0))?;
+-                    libos.init_at(2, LibosMemoryRegionInitArgument::new("LOGRM", &logrm.0))?;
+-                    libos.init_at(3, LibosMemoryRegionInitArgument::new("RMARGS", rmargs))?;
++                    log_buffers.init_arguments(&mut libos)?;
++                    libos.init_at(
++                        LogBuffers::COUNT,
++                        LibosMemoryRegionInitArgument::new("RMARGS", rmargs),
++                    )?;
+ 
+                     libos.into()
+                 },
+                 logs <- {
+-                    let log_buffers = LogBuffers {
+-                        loginit,
+-                        logintr,
+-                        logrm,
+-                    };
+-
+                     #[allow(static_mut_refs)]
+                     // SAFETY: `DEBUGFS_ROOT` is created before driver registration and cleared
+                     // after driver unregistration, so no probe() can race with its modification.
+@@ -211,9 +280,7 @@ pub(crate) fn new(
+                         .expect("DEBUGFS_ROOT not initialized");
+ 
+                     log_parent.scope(log_buffers, dev.name(), |logs, dir| {
+-                        dir.read_binary_file(c"loginit", &logs.loginit.0);
+-                        dir.read_binary_file(c"logintr", &logs.logintr.0);
+-                        dir.read_binary_file(c"logrm", &logs.logrm.0);
++                        logs.register_debugfs(dir)
+                     })
+                 },
+             }))
 -- 
 2.55.0
 
