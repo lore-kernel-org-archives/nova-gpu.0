@@ -1,52 +1,55 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020131.outbound.protection.outlook.com [52.101.196.131])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011046.outbound.protection.outlook.com [40.93.194.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49F554705C
-	for <nova-gpu@lists.linux.dev>; Sun, 20 Sep 2026 13:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A816E3B3C1D
+	for <nova-gpu@lists.linux.dev>; Sun, 20 Sep 2026 15:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789912234; cv=fail; b=nccxGfPzArFGK51q0G859G5ZA3Sb/yPXhcakTj3qusgucte2UpS6IJ6/3SVtCGo1HbtYmh7JZgNwSqYsjBobaxai2KXJhLTaK97nI4zTrWpsDB6f9Dlv3v/U/pg3Ng/cHv9HEV3yN5g7kEveW+JqhcQ/NcKPKlIAONVYT+B8AGY=
+	t=1789916681; cv=fail; b=BdkwvkTWwDEAhVknW2TNcOa8MGUZGXHUDGYW71y3D8dc8ptptk6J/pmTLW5EzPPvNYgSzigsGXSAOi9w58kSPdTjZMlSeM8fwXw68hFZJlIH7tVJ7nOB8J9/u2BIFz12Wghu4JH665Shu3WMzkPAuA9jqv/fUf3Liwfz41H6zHI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789912234; c=relaxed/simple;
-	bh=viqJ4MxOJ9y9JGwM6+qrbujBSNGRtp4C9GhxBdEMOw4=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=vFKrPKWvSGEbZrBn19hoNxG6QzuVMK6hM0mp2Bc9t/SdZHjREXIfNIIPpGYiLWcjz0g9+aWIhFU5HQf0wl12JUq+IfJA8U9+EOqC7i8YOGn1kYbyUBbVF34I8iF/9w3b4/2xDZY3tWFbwmUMZ36nHX62SVn5HRp+oB51NGidNFU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=rI28Q8d4; arc=fail smtp.client-ip=52.101.196.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1789916681; c=relaxed/simple;
+	bh=Jc7TnKwBmZBkg+aYwHjG7GWj2EaFkMDuHhD5aSaOcbk=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=QYSSFVRpM7ZAkg35vfqtoeYo/On9OFfRjm1B/UtaUFdXWekw98uLI8oFWYWwck0Ou5iBAGhf47zfdJ2qz8Go0bKhCNClfL77JxjFcExKG/28iQqxz/j+XwnU4/UzOc+rzI7w2Ugv/Q/NIWMTMRBmMIXwYHMJHhUPy0VRbpwYlCI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hePgrP6P; arc=fail smtp.client-ip=40.93.194.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="rI28Q8d4"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hePgrP6P"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZIvXVl/sem216gK7wp/bxKR9HNZRN3zssVW0/7nWoj0BxiNktsH2LbcCV8CSC75Xyc0gqEE1FomCwq4kzrvvnxN92CcgCnFiWGeqjLzoiFEKOmVIyXNgFPap/WiZ5+2MHulsN5xz9oP+MVEITxeOURX9PjciE6E2Cec0mnBy2LjkeyYJB4NDe5iZf78Qt1ZlYAvoUGvRmRADINcfX43Xd1dEFK5VnbvRQLn3raOuvEOMekiCx6603GkfGwMnNz6OYhPQN5gZu+t4USNWdQel7e10CBpRftWjZP+1Sq0j647V70RmuakNJcFAJPphssyrGfk9w95OvgYl4VGugVbaVg==
+ b=Ki0I0TlVeCX0jxCn5d6Ll3EOg+P5pOW2+NJnKg5rN6Y9g1AP0iUzVltQBk7yzMKnG0hbyX6pgxUkxQGdVZGafQJ7VesxqEHHeQUWOyqgE8G1svHBMyjBL90Pr0wTknoc2ZxHFGNW3V7vkqU4Bq4VnfCXfN8YZwNp71oyZJbsLua99EOZJgxENeModcGgdlf7GZnwBDetbT0EI+wlLMntGwHFH7zVQiYyn6wbz2Ktf8E0RnhbY/Strm51ylXjCqE0RZ/BSCMs4IBjABQt9i1fhJji9UJSXqFbVBulFhkTgZnsNBFzs0aLWw2q8df29M5AfUfvZOkbHdeGawEYqejTkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=viqJ4MxOJ9y9JGwM6+qrbujBSNGRtp4C9GhxBdEMOw4=;
- b=kidAIYaJdGnTb1aqZzeGRVWOijJddJvhMsgFScDPfsKyWgINvXOLI8NRbR6EQcjiOglRyTBv7hLBZ27UpmeYxsd7hy8Ih7d99o90kp64fuLpymMQISVGnFCS8wu9O3HCIuXufCNfUcXA/c0FeySyCxqeMJReFn4np+xvEzroH7tARyY7/fcQJWavyiDzjFKS5kcSxw4DyHjihTSFsKHK79INlKphpAL1ANB2HzB9NNgxemf1vZb8TdbRawFCzUqaD3cR6Egae6LC6xw41MkfFTvA8D39S+67FJLSovkq0dJlJoTgPLp8els5pWayWmIdI2bmS3I4bToSup1zXGL25w==
+ bh=Jc7TnKwBmZBkg+aYwHjG7GWj2EaFkMDuHhD5aSaOcbk=;
+ b=Pbhw6rNQx+Uw2jHsGwdqHZpvd1YX+b/8XAWQuj5qraKumdx3P7sr8KwVS6iQ58vvaD/se39mSHaUbTrgmOJ0y/NyjBnY+VAUttqUURjLUXiyUzINf2e5ZaWN13GMNsMtqHprncjybuN9KtZhsA2WjVKA5rG4ppGfwCQt3d3zNYKgxTRXJGNuFNM6GAUn/C9Y1m/P9wg5RlmmkhRfCAWEbn8kCJ/jtAZWVPUyMTekPhulG4UVuMrtAtvINCuRlaqTate5OH/dnKPaXYPQpMBpKyvLAy0NoCSvZFkYmb1vejHJDS5pxBiNxvwyhpSB0kP3SHQaHL//Z7SFoJ6zbXFq8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=viqJ4MxOJ9y9JGwM6+qrbujBSNGRtp4C9GhxBdEMOw4=;
- b=rI28Q8d4knSnp7Qr0QGUaJIJscdsHsPfQvrQTLe9ellFLDbpFX0QCCxDAJdLQFruw5N4W4zWX8JNy7OAMbqbszqDSbyRGP1w5WEjwbHK7hxdGaEkwDoMG3VvqjMlPcd5ClxI1Zs8QXXEb9kQpXqyxi2wfjhESpMkmunjUm4Shu0=
+ bh=Jc7TnKwBmZBkg+aYwHjG7GWj2EaFkMDuHhD5aSaOcbk=;
+ b=hePgrP6Pm8eg/NJ3WO/WfnoOrE18o2EBeZ7w+HHLfW1FylHCUZ5b2kVW3jwXBof4f+k2AVDkZ3YfP4Oc/6OtIaFsNJUbGgGSaKsJ+r3XS+ScwWjPHEoFO6WU5vOrfWKdWvFz/vDgu/G/ofSEFfljimD44ks0wql2sxhqSfU6rNhQcFA5hNlqe1zzSQ1edpkOkti1QIckOZsnZTcDIoRsFLRTrJa/3H3IdWhTPLUqef9m8PqXnAIYxEdQxQvQ3Fw/ZfnbRxf8//RIE7yD33pXi1twRV4H8WdSGzQVewZByevPJZHaM92rFWsTwnYmFz9aVY1Zaqoehn/ODxT3XJdo2A==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
- by LO0P265MB6291.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:24e::11) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by LV8PR12MB9419.namprd12.prod.outlook.com (2603:10b6:408:206::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
- 2026 13:50:28 +0000
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0428.011; Sun, 20 Sep 2026
- 13:50:28 +0000
-Content-Transfer-Encoding: quoted-printable
+ 2026 15:04:32 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0428.014; Sun, 20 Sep 2026
+ 15:04:32 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 20 Sep 2026 14:50:27 +0100
-Message-Id: <DLK6XHP5NIN4.37W548MAWYF67@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+Date: Mon, 21 Sep 2026 00:04:29 +0900
+Message-Id: <DLK8I686ILHU.2NE50HPZX3Z10@nvidia.com>
+Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
  <ecourtney@nvidia.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
  <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
@@ -59,11 +62,7 @@ Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
  <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
  <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
- constant expressions
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
+Content-Transfer-Encoding: quoted-printable
 References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
  <20260902-cv-v3-1-0f90659e711d@nvidia.com>
  <DLFPWSS3LZSN.12G96EM0FI18C@nvidia.com>
@@ -71,10 +70,11 @@ References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
  <DLIN1ZH244ZA.3JVCE0YKWAQ6B@nvidia.com>
  <DLK50D524P11.3CZN924YW8HHQ@garyguo.net>
  <DLK5E4VWQNU7.1K3YYYCZO2WRY@kernel.org>
-In-Reply-To: <DLK5E4VWQNU7.1K3YYYCZO2WRY@kernel.org>
-X-ClientProxiedBy: LO4P265CA0006.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ad::20) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4b4::24)
+ <DLK6XHP5NIN4.37W548MAWYF67@garyguo.net>
+In-Reply-To: <DLK6XHP5NIN4.37W548MAWYF67@garyguo.net>
+X-ClientProxiedBy: TY4P286CA0135.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37f::18) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -82,135 +82,134 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|LO0P265MB6291:EE_
-X-MS-Office365-Filtering-Correlation-Id: 925215e3-64a5-432c-3e02-08df171e2130
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LV8PR12MB9419:EE_
+X-MS-Office365-Filtering-Correlation-Id: d77ffa48-d972-4d97-f270-08df172879c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|10070799003|6133799003|10067099003|4143699003|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|10070799003|1800799024|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	+qn7qPuMdO+EQ53Kue1aDIMFw8OJgXTyPjLfy7RWfIannxie1pkgVCm51UNvAVv+J7gZyZRaVh8Nmdkyv1i9QtZGdSQDzoe4lTu6Z3Olyl+J1gXtJIH0p6MK9pkhhWne6XM9pXhClzxaE9kv17wcQyiYu9YAME0NtzB4VkJALfChLW27XrBliDwggxz+FpC8rv5YtrFg9Mo4U4w3idDJCcu8mp1HpqEECK9r90DApKg3JCsIHLpj2K4rBqvNPVnPzevDpaYcfUlzi+o2CzlOfcq+sfAQxod1n5QkIXKNANTn5eQsIoTc9xtwxUbo0UFsFK8jCLmOTHdE1atRjqqKtriDE6BG3uX+kiLLb2n/4QhwCRAQkuqDc20nlKeWoNtfhErL82O+cYk0qNg9IZUDENECUlCAxKcqAmX2+jblQ8WsBFFxrcbpG9cIamct/HcKkOKf0lsLi2+NFy+sPAcICKfyvl/5xjDZk4ryx3WQyt+Hs6P33mlxMUnbhKM/HTah6oVfrKUOw3jW33y3Oxx/A7g1kM1wz8jRdIoQeIhtz1SO/3W2GohlwxpBfVz4QoWc+rRpeJ2FrbRKDPniiXp2NKAk3LzzN1vHhw4+1Mjukj2ZrDe6YUUpL2rFyypAUxyB
+	/5xJX0xJc83v3WxILarX9NtDH2lWfQxz8UqQti8KgrI53BrgiI8/ocj5T2UqGqEooZTow+nD7OrJn56dpNF4BpxXW1LoGR9TS/2GyoWHqvBc0I5NoNaphw6tq/E91zr87ly2z5RedWBby7FNo1VL6EyFwwoy7mUwQcuW5IQ07CWQc6rpJtGXDMpKKpEQYbGsvYi3wrWRjI/B4aMf7ElZ/U3zWyUGhbGdJpdMF+923/ruvWyA5+hdfrrlprGOjRuRRa3iWf7E2JFv/Duj0O3SxkP8lB42Fxp6tBatXclbgw7G/xe8dg6RCn240NjvKDnBaoo5HjA6r4W/5E27BltSNUmPdD3Q8WiV8qUK1BUIpNz986ix9cBiq9GNU4u9yWjRkpStYg435Rh3B8O2eAa8idxAMT4djL6By2vvclKjQNVcP1tWhSfRgw97wZ/j+y7Tmrm9RLXDlTvTl6sNZwjJrmEopLSBeZ8LtFjtL/LzUEwOm02BO2whLE7yeVhc9hzwbm+Tkv/PzbVF6sdHChaJpJJMRI+EIps/5dJL9y6/deiClgn7aTzCHFGvnG2KJGRBuLQcx/Jtv8mZRLehq+tWsqVHV5edM+ZDY1T3/M30LGvMGY2lbB68zZm6V0sSBDrDpedwXkQ/lS418gtv6SLEDMapEbX4L47gQoG2kPl9kcg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10070799003)(6133799003)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(10070799003)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cVJwMWZEMUErVjBxUnJ4bjEzaUJRV0dqTy9DUVFzb2VvQ1ZIS2hsS0dTY1pz?=
- =?utf-8?B?N2tONG9BUXRHaEJlTm02NFozMkRqbmFiOUZObGtucGpIMG5tVm5sS1dMV0pm?=
- =?utf-8?B?MDNjTXlMMG9kb0M1M1JDeUpEZHlBQk9NOUJyUVd3Q2YwMUcreVNIYnFFL2lm?=
- =?utf-8?B?dkJ2bXFEUFlFMmtNejhyekxoNDNUNlViR3pxZFhCc0djL1hoYjNQWUl4WHNJ?=
- =?utf-8?B?TFNSR1NONVpXZUlWM2ZRZThUeE5hVDhiSkQ3YktyOFZDNnMvMllvSlo4OUNS?=
- =?utf-8?B?dmZSNTFIdUNHUFZNLzRVUEU0L3lMdlh4WGg5NThmM09ZVGdXUU9ORnYySjZ2?=
- =?utf-8?B?dWUxdGpidmVZOG5sNzBGb3BkWFpHNGxmMFdPQWlOSXBiUHNQK0IvQkNNelNJ?=
- =?utf-8?B?OUdGdGYvTWpteHJoS2ZJLzdoaEFwekJWWU5vay9Oa0NRT2R5WU9IR1hHZXli?=
- =?utf-8?B?M1YxRVYwenBDVm9Uams2c1J3K2JZbW1veDd4aWNhZ1pjUGFPclJSVVRnMDkr?=
- =?utf-8?B?T1Z4M2ZxeUVGOTNOTzhLTzBJdVN6bEdXODVkYUJWczdlRkI2R0gzS0lGVE1S?=
- =?utf-8?B?bU9SU1N3QzlRQ3ZHWFl5QnptME5uSEozeWMxbTBjLzRvZm9jRzVrWkR4NUN0?=
- =?utf-8?B?eGpWWmkwWHdYRnpkOVRETzA1MERZMi9Kd2h0Q3Vqa2RyUzIrVHltem0rNW1S?=
- =?utf-8?B?U01GckEzRnJFdElCT1FFdnJURUFYWmVXeklOUzNaMVJzcGFNQnZjNXNybEpq?=
- =?utf-8?B?MDFCQVBaTlEzWHlZZ2U1YTZYWGZxZC9RVW5pVURSYWpwYXdESFNaY3ZrcHRt?=
- =?utf-8?B?TkR1LzRpbFNvMzh1QVBEdC9sR3JMRVJzL1ViV0JjMkFkWmdJZ3h5RWNnMDZH?=
- =?utf-8?B?S2FUWWRHQjRhRnNpclZ2cU81dGE1UjBhdzBvaVN4QkZ6VUtNdEJUNnlLUi93?=
- =?utf-8?B?cWNBREtjU2JaWmt6VUZIQy9ZU09tclJsMkUxTElxNktHWndNQjNobzN1SVRT?=
- =?utf-8?B?U2pjZUdkL3Y5cTNJVDR0NVRVWThVU25RY1ptMDhSc0d2eHQ0WnpnLzRoQnpv?=
- =?utf-8?B?WXZoaldpQlM1R1N0cGNzekhxT29rejJKdS9nZEJWZHVsVlRlZmRscHJMbXU3?=
- =?utf-8?B?WVcwWUxyV2d0YWJOMCtkaldaVEZZb1FEQWt1ZndkcHNhK2lZOElLOFdCQURS?=
- =?utf-8?B?SWF5TlNrYUxtOU1tUUt6cm5FNVp4dCtmcUlNNDUwT0wyNUJKMFRhRnZqTWhY?=
- =?utf-8?B?dkNyWVBWV2FIdW0xVCtrMDRFblgvZkZab3NiOU05RE9lR2lnOFpzYkhSQmha?=
- =?utf-8?B?M2NoR2lqQ1loK3Z0MnNDc21lK05oZ1k0am0xWlpHSzVlSUoxL0FpU1ByUU00?=
- =?utf-8?B?MnF5RGlrOTFOSlhobVA2QVhUck9yZWcvZVV1VVlLYzNTZUNPMGRtMGZPZ29n?=
- =?utf-8?B?ZkhsT0dPUitMSWhNSzBpbDBtUXdYYmM0MDdraU9CKzU0RG14L29SUGd5UFNv?=
- =?utf-8?B?WXJWbkpzcEw1ZE91QnhYNHZ6OXA4QVYvUFNaRTBuL2kySGJkQ25ucU1NWWRQ?=
- =?utf-8?B?cVJlUE1ERFY3NHFOUDhTalRSVDBSZzRsQ281aXM1UzRlUVNUMlQyd2J5dm0v?=
- =?utf-8?B?VlJocjdWdGtFV1VpZVhwSjc4a3JGOUtYZnRudW8xUUd6dE51Smx4U1k2VXVU?=
- =?utf-8?B?MEVtM0VVVlVxRk1rMzJMdzhyK3NxZ21mMmJzREh0N0JBQ0NWWHlJUFpEWlJm?=
- =?utf-8?B?TjhodENhT1ljNFB6Y2Vad0NzN29WZkFiYXNocWcxSXQxZ2oyUFRGTWFDWXVS?=
- =?utf-8?B?K0ppd2RUME1RUzRHY1pWdGZFWEhXUUxwNjE5MTdYM2cxUk9NU0NMY212Tkpm?=
- =?utf-8?B?SEtYdGFlRnhmcXFhWXpQWldMdzFrNUJCRGxsTGdJbUZyc2F2ZDdpZWtCNnFi?=
- =?utf-8?B?U2pkRUxvVnNGNTRaWXBIYjYxV1FsSm9lUXlOcEtjdUtHSlByUDA3TjBLRFdS?=
- =?utf-8?B?bWQzWWxLallOWXY5WjJ3d2dGdkk5UHl6VDU0ZkJJNFAzeEhvbUNIWlQwbmFI?=
- =?utf-8?B?NVljTXBWay8rcDBYQi9rNEkxbXZodzRFM3Jka0NZdzVRWndnU21tdDBySTZI?=
- =?utf-8?B?NW5OL1NqWjE5ZjNxcEFjaFFhN1dKcDlRdTcrNGN1WWdaNU5qVkkvNld3VHVw?=
- =?utf-8?B?SDh1WllVc2ZNS2Z2Z05mQ283OTRPdDEyNFlDUVpxa0FITlBuQ1ZXYjRPRUNy?=
- =?utf-8?B?akRWMkU0RW84QWdYTGFvaUtoRjN2clFPVXkyWWJjUVBHK1BXeXh0VHhRY2xo?=
- =?utf-8?B?bSt0RjVTbGtaR2p2VnhHdUNCdEd4SFBPS3JvQ1REaVEvT2ExRGxTZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 925215e3-64a5-432c-3e02-08df171e2130
-X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
+	=?utf-8?B?UWZCRWZGNnlPVWtEZ2VRMkxWSzY0anJROEJsbk9ma3RySW5TaVNqdnp6SnU3?=
+ =?utf-8?B?cUNicXBsUWJiMVFBMEdoYTZWOWJ0M0VMR1pqOWdXWXVBZW56WmZ5ZTdoQzBl?=
+ =?utf-8?B?UDlGeDdiSTF0TG0rTktlSDdYQ2FoTFpyQUFHYWdJK21YdVFnT1d5OUg5VGdG?=
+ =?utf-8?B?dlRLTTBtL3lCMWNFakc1eXJUM0NJc3c3eFh5ekJBVEx6VVJCRFVvaGFPNUY0?=
+ =?utf-8?B?QmhiZnAzZFJIVXlpa1RrNWxJaFgrNEpWeXdWT3cvSWFQazVnTTdHQjlUVkEz?=
+ =?utf-8?B?NytETllWam5lWUUwMHFEaEU1eGhQdXkraUhhL3MzSUtVZ2FseitwL2tnd2dT?=
+ =?utf-8?B?by93Szc5ai96K1N2RWpVd2FFTGhiV2FGVmRpVVVRYUw1WWdla1NDd3ZSU25t?=
+ =?utf-8?B?TnRoN09aVzB5ZkRvU3k0eENkZVhmQmdBcnRtaGFlbkgwZ3pOOVNFdmtZUnRs?=
+ =?utf-8?B?dWtlVkVxTnduaWZycGdIbW5HMHdNRG5yRGlVWk1DR09PQ3V6YU54aFg2bkhs?=
+ =?utf-8?B?Zms3ZERPZUVGZUxHNnBCZjUwWmR3SnN0TzBacVFvd0tPRXlwR2pVTHVkb3d4?=
+ =?utf-8?B?QXYwWTV3VVBubVVKL3M0RWlMNm5FZThFQy9sR1ZBM2U3MVU5amY5NVdpZkN2?=
+ =?utf-8?B?b0d5ZkhYOWVSZ2lGa2xOcE5xQlVIaEhLQ0l2T1FRZ0RWMnlIN3hScDUxM2ZV?=
+ =?utf-8?B?akQ3OHd2ZHcyRWhFbVFxN0FqMzJ0MlZqNkR4VjdyYzZ0Rll3STB0VjNvZWxa?=
+ =?utf-8?B?VE9xMXNLN2piZ3R2ZzhSMU9pQVZzVlNDWlBCTk53VTFzNlhLaXg2blRaOFFl?=
+ =?utf-8?B?WXlFZG9KcGtMLytrTEZkRFFPc0VXZDYzd1JjR3d2d01YSkpnbEhiR0dUdEdn?=
+ =?utf-8?B?NnB3THl0U3FSK3MvWUlSNGNYa2dGUXltWEZqUEtrNVd3c3NLQ0pPK2oyRTVM?=
+ =?utf-8?B?eld4QWl0QkVUcFFKN1J6UEx6cjdaYkxlQUlVSFlVM0VpME4vZ0ZlQnBHb1Vt?=
+ =?utf-8?B?M0dJUlo1K0t3SGJuU1h1TXVJYkJyRDY1bWcwNnNPMXllYSt5QjVveHd1Ny82?=
+ =?utf-8?B?LzRnVWo5bHdKSmhUMUVmeDBGbTdKeSs4RGhDSS9KcFlIMVdQK2s0VVlHZGRp?=
+ =?utf-8?B?N2gxcitDWis4SExBRFJXVk1YbkMyOXVlWFBvOXF2T3NZQWlhdk0xQ2pxTVkv?=
+ =?utf-8?B?YmFlaTFmNzdwWkpINW5sUDU0S0dUcWxlUjdZa3lvd1J1dU1JTUZzL096bE5P?=
+ =?utf-8?B?VjJQRnRTaThXZzBndVR0YTc3Y3hRNHhrSFh6M0RMMXpCT1p6TDV6blVobWo2?=
+ =?utf-8?B?QUxFa2EvSW80YWE0cHVwUDJYME13Rm1XaHlRaTRGUFQxQ3dFMDJHcjhHNUpw?=
+ =?utf-8?B?NWJ4UkRWbGNlNFVYWVg2ZDBSenRMd3dGMjZsU3U3cEllZVNGRnY1Rm4vT2xo?=
+ =?utf-8?B?dkRFczFNK0xnT21IcWd5M0pNSDVDU1BEOE5OL1lJSW1MMXVtaVpjeDg5MGNj?=
+ =?utf-8?B?RUxPYktCc3NQOC9wYkVCS25zdEk4MVBDMTc3TFAvbWNTdStuWmwya3dBMFN5?=
+ =?utf-8?B?UE5HZEZRZVZxWHhqd0dTYS80U2hBdzAyUEF1dlJkYkI1RnRMK0hGRzFITlEr?=
+ =?utf-8?B?NVF5Tkd6MVNuNzQwV09vWXUxY1lnbW90Z3lJck9iVDNvNVFybFI3QnhvY1c3?=
+ =?utf-8?B?RkR4eE1na2lHQ2JXUzY2eGhsdnRDaGkvLzRYL0pmR1FtWnhMazg1aXF0dE0w?=
+ =?utf-8?B?Qm5LeFhpTkdCalNKT2FjSlhHV2RKbHNLRm1wamxpVVNYQ3h2R2RDSXhyRUdE?=
+ =?utf-8?B?NmdUUFNPWEwxWGI1RWhPSDhka0QyYjN5L3JtSE9ReHd1WWdmVjRxVU5XYThw?=
+ =?utf-8?B?TmxSRFkwcDdSZW9RRDVINURlanpNZXhBcnQ5ODllREpwT3FTdGl5QmI2S2JH?=
+ =?utf-8?B?OTZNdTVSUW5jbHd2ak1ETWhudFlNa1FpZUo3dEc4bjc2WlErNGRtcTBoa21h?=
+ =?utf-8?B?TWxxUkN1djVRV1hnckFHQ2REK2R5SzdCek9heUY2bEo0NmFDdHFhZUxKZDFI?=
+ =?utf-8?B?RkZyYjdpRFkra2ZldWh0Ny9XZFRvZzlRSmtSOThEVXdFNmRRNnY4Nm5PMzJP?=
+ =?utf-8?B?aGtldE05alhKV0JObFo2NDhLdDlSb3ZKcnNMVWMxbVhsdVVFR0dydnFSeE5F?=
+ =?utf-8?B?K2x2T0lteXBybStsY2s3U0VBN292cHkzTHFnYnJ6TVNVeHhDdnpoS3BlM0ti?=
+ =?utf-8?B?MWZ4Y3owaUEzSVhxZWkzQmg4ZXlJMVprMmFnQVVYNm9lZjlYQ1Ftcm5abVFx?=
+ =?utf-8?B?bkFwSFRGVHhsdkozTUlNc1VCOFdBenZtN1lWZXYxZmQyZ1ZsZlUyU2pRL3JJ?=
+ =?utf-8?Q?5rUlPrzrkMDQllNe+EXp5Xjai1yr2qd7qotzjwHXHGS+n?=
+X-MS-Exchange-AntiSpam-MessageData-1: SmT6civKcHk70g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d77ffa48-d972-4d97-f270-08df172879c7
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 13:50:28.4155
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 15:04:32.1036
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f4SA8ay99k3rQkg6s5H9XRnY1yvl/5Q7MP0dG8s55ov1y1DryZ0qYwWVQjkAYmB+S3+g2jLpNoY6ZHGm+aO9nQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6291
+X-MS-Exchange-CrossTenant-UserPrincipalName: qjaBtJZnZGJH1onM/JXU9pwpUueggvjCPewdjUQcA/5r0+gv3cLh/qDxhBInVG5ML72YGKYpbrteSi9DoT0j9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9419
 
-On Sun Sep 20, 2026 at 1:38 PM BST, Danilo Krummrich wrote:
-> On Sun Sep 20, 2026 at 2:20 PM CEST, Gary Guo wrote:
->> On Fri Sep 18, 2026 at 7:03 PM BST, Alexandre Courbot wrote:
->>> On Thu Sep 17, 2026 at 9:53 AM BST, Gary Guo wrote:
->>>> On Tue Sep 15, 2026 at 8:39 AM BST, Alexandre Courbot wrote:
->>>>> On Wed Sep 2, 2026 at 6:16 PM JST, Eliot Courtney wrote:
->>>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
->>>>>> unfortunate because it disincentivizes using it in interface boundar=
-ies.
->>>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for cons=
-tant
->>>>>> value) takes a const integer expression and widens it to i128 (at bu=
-ild
->>>>>> time only) before passing it as a const generic value to a new trait
->>>>>> `FromConst`. The value is then converted and appears in the
->>>>>> associated constant `FromConst::VALUE`. The trait is implemented by
->>>>>> NonZero, Bounded, and Alignment and lets values of each be construct=
-ed
->>>>>> from constants without a verbose turbofish syntax.
->>>>>> For example, `const { NonZero::new(1).unwrap() }` can be written as
->>>>>> `cv!(1)`.
+On Sun Sep 20, 2026 at 10:50 PM JST, Gary Guo wrote:
+> On Sun Sep 20, 2026 at 1:38 PM BST, Danilo Krummrich wrote:
+>> On Sun Sep 20, 2026 at 2:20 PM CEST, Gary Guo wrote:
+>>> On Fri Sep 18, 2026 at 7:03 PM BST, Alexandre Courbot wrote:
+>>>> On Thu Sep 17, 2026 at 9:53 AM BST, Gary Guo wrote:
+>>>>> On Tue Sep 15, 2026 at 8:39 AM BST, Alexandre Courbot wrote:
+>>>>>> On Wed Sep 2, 2026 at 6:16 PM JST, Eliot Courtney wrote:
+>>>>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
+>>>>>>> unfortunate because it disincentivizes using it in interface bounda=
+ries.
+>>>>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for con=
+stant
+>>>>>>> value) takes a const integer expression and widens it to i128 (at b=
+uild
+>>>>>>> time only) before passing it as a const generic value to a new trai=
+t
+>>>>>>> `FromConst`. The value is then converted and appears in the
+>>>>>>> associated constant `FromConst::VALUE`. The trait is implemented by
+>>>>>>> NonZero, Bounded, and Alignment and lets values of each be construc=
+ted
+>>>>>>> from constants without a verbose turbofish syntax.
+>>>>>>> For example, `const { NonZero::new(1).unwrap() }` can be written as
+>>>>>>> `cv!(1)`.
+>>>>>>>
+>>>>>>> Suggested-by: Gary Guo <gary@garyguo.net>
+>>>>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 >>>>>>
->>>>>> Suggested-by: Gary Guo <gary@garyguo.net>
->>>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>>>>> I don't think we have any user but nova-core at the moment, and it
+>>>>>> benefits from this in several series (patch 3 here, but also ID pool=
+ and
+>>>>>> later r000). Miguel, is this ok if we take it (i.e. the next revisio=
+n)
+>>>>>> through drm-rust-next?
 >>>>>
->>>>> I don't think we have any user but nova-core at the moment, and it
->>>>> benefits from this in several series (patch 3 here, but also ID pool =
-and
->>>>> later r000). Miguel, is this ok if we take it (i.e. the next revision=
-)
->>>>> through drm-rust-next?
+>>>>> How about a topic tag shared between Rust and drm-rust-next? We could=
+ also
+>>>>> remove the old num casts API as part of topic tag and fix all existin=
+g users as
+>>>>> part of merge.
 >>>>
->>>> How about a topic tag shared between Rust and drm-rust-next? We could =
-also
->>>> remove the old num casts API as part of topic tag and fix all existing=
- users as
->>>> part of merge.
+>>>> Not opposed to the idea but IIRC there was already some pushback to th=
+e
+>>>> idea. There doesn't seem to be an urgency to remove the old num casts
+>>>> API that justifies doing it now with a more complicated merge path.=20
 >>>
->>> Not opposed to the idea but IIRC there was already some pushback to the
->>> idea. There doesn't seem to be an urgency to remove the old num casts
->>> API that justifies doing it now with a more complicated merge path.=20
+>>> Sorry, what pushbacks? I thought that `cv!` is what everyone agrees on.=
+ I see no
+>>> downside of this compared to the turbofish const conversion APIs.
+>>>
+>>> I am not opposed to delaying removal for the next cycle, but IMO the `c=
+v!` macro
+>>> should be present on Rust tree so it's visible and improvements can be =
+made from
+>>> there, so I think we should do a topic tag regardless whether the old A=
+PI
+>>> removal happens or not.
 >>
->> Sorry, what pushbacks? I thought that `cv!` is what everyone agrees on. =
-I see no
->> downside of this compared to the turbofish const conversion APIs.
->>
->> I am not opposed to delaying removal for the next cycle, but IMO the `cv=
-!` macro
->> should be present on Rust tree so it's visible and improvements can be m=
-ade from
->> there, so I think we should do a topic tag regardless whether the old AP=
-I
->> removal happens or not.
+>> I think Alex refers to this thread [1]; there's was some more context to=
+ this
+>> though.
 >
-> I think Alex refers to this thread [1]; there's was some more context to =
-this
-> though.
+> Right, so "pushback" here relates to the logistics of old API removal, no=
+t the
+> idea of `cv!`?
 
-Right, so "pushback" here relates to the logistics of old API removal, not =
-the
-idea of `cv!`?
-
-Best,
-Gary
-
->
-> [1] https://lore.kernel.org/all/DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org/
-
-
+Correct - sorry about the confusion.
