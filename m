@@ -1,52 +1,50 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012022.outbound.protection.outlook.com [40.107.200.22])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013071.outbound.protection.outlook.com [40.93.196.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C536194D
-	for <nova-gpu@lists.linux.dev>; Mon, 21 Sep 2026 06:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA1335E1AD
+	for <nova-gpu@lists.linux.dev>; Mon, 21 Sep 2026 06:35:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972370; cv=fail; b=C2+momknptkxB9Uaa9B85hVdzzd8/jpVHrGAfBBwmNtrVDyKti6PaLh0Wnwsa3xvad4IkMhbNSmtOjAxpxyQZ/2k1MTLMbIE2ipGeGd1eYCLRv8hVG4NyzHAL/qsPY1eFRNyIyvCmV9yIKcK2XfQko7nJjKMgZoj8doYv4jRwy0=
+	t=1789972507; cv=fail; b=drAtMqKSZUwDap8BqPDKqku/mUxE7tcn3AqGbf5TWeGjSX569VaEZVXfZCOLgblRm3A+w3vw59agVne703uCzc/S4jEGPKHA/flSqV/2AZdXwqoLYdZFbCtd3HLHviQwC3atijYQgqbxBjvlhmv7s/lUPI/ZstueqLsGN8RJQi0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972370; c=relaxed/simple;
-	bh=pZUpq0a8bkrVSt6RfDbQneqXcdZLt/sjoKeT84D97aQ=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=RLyDkTyQcICypg6m2SuPBsHsrMsjjTFOLJEmN4wyXLVMXx66XtIeWrRGKaPvKRXPYiAfrPlqwxZ2rOa8SHfr3+8CgAbfDKj68FxFrfQai+mgmW/RNHvrbbm0yMLg3F2o3A6m1xDKVdrCULmPjrdc7+ljO9nPzFCDfQnXudRpO9w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AjN5x1ZG; arc=fail smtp.client-ip=40.107.200.22
+	s=arc-20240116; t=1789972507; c=relaxed/simple;
+	bh=7TbaGLhegkBz68oJt6jlgabvuAhj8jNJ0c+vh7aCRhs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=AMrJtNWeEAIPNfo1nluhAJUKtLldXH6GWw9rAQs0mbhPtBzNWVHFO5cbJg4njWrzbvZWIGnmS2CksxkILoeb4OrHZFgOG/KH3vJKDXW6WFNLNUHkCeUWbR5LyY2PuSH2b3uSNO5q6d1qdLrGRlagiUGHVbMblmF3t7c3znM4Ftc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mBXmiXaj; arc=fail smtp.client-ip=40.93.196.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AjN5x1ZG"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mBXmiXaj"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cw8UNjsMBr/gGPyXHjDoRLCcLV6y5CX6u3opqkVCOQ30JI8uUzLWrq0t/bASqGTNu5mufnenMKqGY2TEtAQcmstimhKiqPD63h2/KpQtyiO/hKBJzuhL2g7i3OqGFV1M3eTIEycbzYrvxhWocndTu2ob7p5eN+RFjiF9vv7O8ERdNgzS6qB+TNlSJV2yv5UFgMd242RmnE5MjSql9mz7snoLSAlDXSrd8FuxEHvjx0OAK3lv6Lkc9CbBKy1okRhMbx6AMwTP08IIV4WIWjKOtATXvcibXP3gQap7GzlcXOgC0mYv7xVKVAxfw+Q/OPgTTK0/IocIE1qn+5zR85P3cg==
+ b=MMS2pZluoLoX6nRuCv2lqdhElqXAFsmiazZered3aL8YUkPH3RGrvoUM+unQ0HMOoTYBtM0p1l4yh2M/7oO6uuzvEUUuqS2mgO/3RudnSZj8OmyDX/ld5JXSBphanFMXqNILhG9ZuiifN6d8se4CBwVcbHMCXqIkrUSl/IVKM/LnLxkixMbJXDAoUgKJorbhg7gYib9KKYk8wU1my+0V66IVEC0LgTMt/RPsd3pIvhnrBcECR9GTt9XlDizdxij5yXIq+xERF9ZdoepEqiIXiWo8MB8sVevN4lv564CBWHho7cdiUyM4gLZ4ea7LPgYkVXG/yPCD7wpOtCdbXBLDBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UhaFfF/onMUWRkbN7kKLfwv7lgJvqRmBWncdSwuNT84=;
- b=bCRGYfJjmX7AEO4/oqWWd3LCk8uFii3uRH8ruLPlNvcNATRoOcKRsdk90/T/BpJXUvrceSIMnj8GugwEGuRFGlyWSI0AApzlMJcD5cJwa0mRiMSFvgP+nkWK0+YMd8HNTQL58Z4GG+xB11XhrXNcP8+wo0AMpsIuNJVrpET2FGuPNLZvZhZ8BlF7FeRMq+1LHVYKIn6CMqoIy67yOkPz1MpubasAJ48KOZlWErfpRb/MnKqicdVeE9T2YDZVCL1DKdskhFOnqdzn0lvaowBdKY6wJ+TQyHA2/cl/o3vdguKeBeORFH2sp0a9AyIFmJDMHFwGjkaBC8cF3nUaQOrD3Q==
+ bh=yVPSHqgl9aCOQANFDtWMj+i5iVOfTUt6jAA/VDaKvRs=;
+ b=wRcRWoFerpWk1GZ83vDsh2C6ZqMbgsN2AaVKnjlb5OPuXixpIXsCynIdhRQcVlwpRfUgGdB8RsOleJwxyBwBEKmnmIc9GtILmaUhJ9a78QbrvdX7Lg+1OtrRvCRQb9/Rfb+IwVVK6oh54D0wlWaIzSrWNgkYkzTz8THYIbkva+zBUtuiYf4B6tuykKtjEJQDYIn4qrb96uXa2F/dLqOPly2IITyo3YJHrR1+uY4BqVb18zMDdTjIUpw9dj47fquu7QSSV2btcdPsHCJfLW0Ph4Vf3Ar73LEeSNSJca8o3n/WA6nrV73SEqUzZ5BqRODY3y8p51YNQ3rEuwBcI8gaqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UhaFfF/onMUWRkbN7kKLfwv7lgJvqRmBWncdSwuNT84=;
- b=AjN5x1ZGHwPlz4yW7BulCPcFbxu84SqwFcaJj0OlNnpEn6sWwj3SS6xZj1vW+D1t8sC5KFb8+Ce7bWaU2PoDqyxkFuIr6WjGRdC+F/hxiZDdrTtGru8aogUvLnbmzy874cz3IB2CABUEcYHIfvPfC1IPP7qdPoTH+dymbVN+uKTJjttrWV0EmA+qf2AtBNJZ7pS1f++KjceI5FvhFhzC3cgRDM4zaUXv2Q29oVCWjn2Prydf8IevSfX98khj84xqN5hc0eAIPC7hOWF9Habbxb0KurWdn0OqQlF/krv2Q0rlZ/jBDSpOquINwt+7QfVo4RB/cxv46E616Z8W2Xx7uQ==
+ bh=yVPSHqgl9aCOQANFDtWMj+i5iVOfTUt6jAA/VDaKvRs=;
+ b=mBXmiXajw1opaflDiXZxenbwgNUkOfhaTLWdGzQpL5i8CdCZROaSqojWQDpGY8jEQw9bBGEsxUmmZzeq7alsPHJ9MS1Xlt3rjtOsprgRiIwmTIdnSYXYsz/+IH3fk1Fs/eFcbQ6FQOltzSBASgAv+4jWtrPhiE1OyuLravG/eikwKfWED9BZsa6TFT0tjhRGBHbcglyCSelRrUyvUERhAHlTJdmo8LacAwSa2ZN/Cj1KedSxpjcr2kYIe6Lg30VBrI2d4kofJU98AIht2s6mNUap8tVKtOkPG2My40kV1rtnPpJbEWdb/I7RlXtbsKicQFa+f8PFDlNUHjolpyrcGg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
  by LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 06:32:44 +0000
+ 2026 06:35:01 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 06:32:43 +0000
+ 06:35:01 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 15:32:29 +0900
-Message-Id: <DLKS8PHXT0HV.6FNYAREVUCY2@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
+Date: Mon, 21 Sep 2026 15:34:58 +0900
+Message-Id: <DLKSALWQJPTD.3GB5J9TR4JUBQ@nvidia.com>
 Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
  "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
  <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
@@ -58,14 +56,16 @@ Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
  Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
  "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 10/17] gpu: nova-core: stop re-parsing a bad GSP
- message
+Subject: Re: [PATCH v4 03/17] gpu: nova-core: add the GIN vector, leaf and
+ subtree types
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
 Content-Transfer-Encoding: quoted-printable
 References: <20260912044400.677097-1-jhubbard@nvidia.com>
- <20260912044400.677097-11-jhubbard@nvidia.com>
-In-Reply-To: <20260912044400.677097-11-jhubbard@nvidia.com>
-X-ClientProxiedBy: TYCPR01CA0154.jpnprd01.prod.outlook.com
- (2603:1096:400:2b1::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ <20260912044400.677097-4-jhubbard@nvidia.com>
+In-Reply-To: <20260912044400.677097-4-jhubbard@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0173.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::16) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -75,110 +75,343 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LV5PR12MB9779:EE_
-X-MS-Office365-Filtering-Correlation-Id: 723fd310-016f-4204-1607-08df17aa2480
+X-MS-Office365-Filtering-Correlation-Id: c69e6d5c-c45d-40e9-822a-08df17aa76c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|10070799003|366016|376014|7416014|1800799024|23010399003|56012099006|11063799006|4143699003|18002099003|22082099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	gAnL7D8miUbLk6PgBiRr9j8IfnI0stS/8wMqukGz9S06c6cKAN+hXU3KJg3S7bVvSW6R2feb06ztls3W2Eiih2dLHU8WLP6KFvD6t5n9/0QgYu/QOq/Qq79P3dr2HDEV3WSTG7NJyJwPIMSbzAAIsGZDNNnxJRzsbMIugQ0Bv1tIat/RIjv29tqc5UWtEltpVUbI36bHow/BiOc6YT3geJdjFlKGRJ1bg0WdDKGSk509ua+GyW70drttj6Tq7moluyvxX11FH5H+uAB9PJnJby3KuZnJdeW4STtEOYbNKYNgsTHiigXUuLSiWdvfJ3Ii218wSxdLjA7jM3VgzOeLsNg+dlPa5TO/TYOYV4JcvJ1wAOCr4Tm5lS7gNIS0IyLmbRz8WmM8OD5xK1puMrUbS+qlGbdfG+ufsHsKhOLBvZtcFfNYtPoTj9K6GxDxGqa8KcMnrP/DSE+ByYyFasA3T5XwW64GH3adsXG6xe/GR3CwKXnnj+QVw9m82TSVpm0uUfk9oQAReZN2AZjDr1FEeLVj5k/XB1T296KW5ROPGOxli9dyeMn8fjc8fc6J63iFVKf7i08ckpNhtf2V001RjI14fQPntFY1iBXWnGXawWo5iRirv2bpMoc8v3e/kkac8rpI4DlO+XQmf7XE9s9a/2m6CnIpFyvcYrhTCJSOPok=
+	EyMkTN+jMVNGdkgrvbM9Xrhtx05LZI0ULUeMGWrB72mC23QidNjyu2rsGeusjqwk5mSvAAQydpDWRJ+PuswyLUGMDrs6bsbnuU0pGdR7xuJtoLz+3J0y/hk3vU8FsMeNq3bI3BI9RkaCgr+jAOwtIb2e9apiSaOLtFmUo6Hc9+vtR2yYFBzyBAsIYjz+8HzQndFL2cjJhB2NjjOUzSK7TP2oQA9opGpVUx8xYR8jAn4E+xOtjFoouQqO+nOcUZ1P+rSJqKDWm9U0QupTk2ZEKChpdMP2J/PbMIw38JZbh3elwYwUOuW4q/oycU0Cwi6xqH9/A2Xy0EeTYbtSUnO7tS3Su2mIsZsfJScWsI2e8AtKm4VWvqib6iLXJUJ7VB70lX3NsSPJ25xIIyeaJC9YIr1GXw9VJaDhq1vck3XsHmd0cOH+ycFwoFpqBstPRIq1YgxmpOEyYXFLPdE71z3hvt1oOhJsF132jRSx+fgVIM2neQq1Ox0krgcTllvWIidTX79XWYNYQNZsU08REyjAKDLnhkW0ZCAkyPZKOzi1Uv3cZ0tg8PUPKWGCkIYidH1gSWDwyUMOyuosaHOMct1CjRGs7uLiFrMLZYcrOCtjWxVD4bNuR5i2ghFQ4WUmEMTqVHrOywtlwdQF/Q7Xs6ljGWyGTTw1jkT7A2rNmZyhwTY=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(7416014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NnU1NXZrV1JLUnptS2JaY0tZbEMrdGl1UlovL3ZqMTVYSGo5WG1XZ29qTUov?=
- =?utf-8?B?NzNWMk14OGVZVmFOOEVVQklWdWJtN1dpMi9JWFZiZWdRamNramxNR1JjMEdD?=
- =?utf-8?B?VUFxMkVpM0F5a3QrK1pXM0htWmV2b3VWSlJWWEZPdGoxSUsvNVlnbXhOUDUr?=
- =?utf-8?B?TDI5ZnpiWmM1L1BncEsvZWhMY05yU1g4ejFOelFkaUNaOS9RUnFIa2d1VVV0?=
- =?utf-8?B?M3ZCd3lkY0l1VmJLazFvQk1rZXZiRWhKWHlGaUx5T2hLS3czTmYwYWtRQ2tp?=
- =?utf-8?B?VGxYMGNIUTNFTCtUVG5JWlROVWxqbU5Jd2VWcWdNUG9BZ1VVM1hiSzA3QmpY?=
- =?utf-8?B?S29aakluMHR3QVdkSzAwZ1d4YkNYT0UrQlRXMmNBSHlCTmFvV2RQbndWTnB6?=
- =?utf-8?B?OVFPSXhtVG92alVNUGFtM2c5N0tuTWlVRlhKVElRdkR0cDBoQWFGVWFSRVBs?=
- =?utf-8?B?UkVUUlB2RldCUWorVTFzbUZHcWZiSHBmTytKVFJjVW96aXIxNlVZRG1EaHFy?=
- =?utf-8?B?WXc4Njd4QW5tVHRHaE1UUTY1QURyM1htOTN4WFVJTkVkdmVuKzNzVHdoNTla?=
- =?utf-8?B?Z3AvVThsaFpiajAvZDI3UmVuWFBodElNeEtYeFFWMlZCblZHUVV1d1Z0bTBL?=
- =?utf-8?B?dWVDV1FOa0RpRjlsMHhHY0FMUE9EUVAva2lrMHBIMkIxdkoyUmd4SS9oNlZD?=
- =?utf-8?B?czB3NGlJUUcxV2dvRWdiblJOYk5iTklyY2tZS0NMMHFRenRuMVV0WndTNkM5?=
- =?utf-8?B?U0REc0FwY3hCQkwvYkFJWHJPOHBEMHgrT3ZCZnRWRTVCdnJkb2ZCZHIxSlk3?=
- =?utf-8?B?TVZyZllRaUo3R1BkUVJJaFZtVmhkbDkxc1JUc1RuVTg5ZXVDbVU0S1Jhc2Q5?=
- =?utf-8?B?TmlQZGhndk9BSDVXMDBYalR0SEp4czNXLytwK3Y4NDlVN2oyV2xUbUc0VjV1?=
- =?utf-8?B?VmYwNlY5QlRqaVZTNzRGKy9DY3ZEc0lRRTI3ZW1QN3ZONi96cnV6aSs4UnBY?=
- =?utf-8?B?bTMrYkNKZ0hrSURxb1VVREpHemdCRENhdk02V1U2RmJvM0tRUnB1RUJYSGZS?=
- =?utf-8?B?K1pUWC9yZUlvRlRuc1MrNVZheDNldlpjN1Q4cGhtd3FqalhZL0MyY0tXV0tp?=
- =?utf-8?B?TXNWb3lXd0RVN0tCcnNaRnlSOGYrcnlmU2tJamJBaVhYVk5Fb0RxNGMzc3ll?=
- =?utf-8?B?ZUk1dzlBUFNhZFExQWR4UnI2MGhHcnBYRmttNmMxVTdibHltbG1EWjBsQzNO?=
- =?utf-8?B?bkpmUDlrVGYrK3NLZXhxYXluVm4rNFprQXI1VHlEZ2crU1BuTHRydER5Mms3?=
- =?utf-8?B?UVljQ04ycDZBdUFmTG5zczNnSnFMdzdtOXdqemtIZmY4UHIxdUZtQmQ0R281?=
- =?utf-8?B?eWw4UDhKUGs1YlZzU2NUdXIyL2lwaFJ4V2FXczJRNVBPS1lTYkZMWDFCQ1g3?=
- =?utf-8?B?dmdiTHk4eUhTYzFhdEFiMHVuR3VucnkyajdvOU85YlB1dzVNUUQ3MGJBTmhG?=
- =?utf-8?B?TnVRVi9BbWdrZzBoOFloUG5BV052aU8vdWZhY05vWWUrYjZHK0t4WWlMR1Zt?=
- =?utf-8?B?bDZ5WnN4eDMrVG0yUW45Mm1zMG1EbmY0QjNzbjBudXZsK0d0Z3U3c3cwTTE5?=
- =?utf-8?B?dTZtVS9uRFdmZ2M2YlA1bFNRU2hZTXY3bVdhdSs1bjJmdldEdHF6ckN2YTN1?=
- =?utf-8?B?RVV0ZkhDaGVDTG5NbUViOGNHcEtpdUVWTDlLbWNMWWN0a0JKTWo0VXdPeXNu?=
- =?utf-8?B?QVFjL2NHMzUrQjQySlRNd3pwZ1VKcWZSWmpxR0pheXExWmZYTGxpa1BxNmtB?=
- =?utf-8?B?ekRYSTJoUXZNSjhHTU5sWjJQQUF6WitaalZNT0xIQVZjMzV0SFJrOHhITUtp?=
- =?utf-8?B?TU9BOXZrTHJOOHVMT0pmZUJuaTBPbWxrSmhuRUl0ck9uRHZCTitPTUlzOWh6?=
- =?utf-8?B?SzAvbjNUMC9FZ2xkbW1OcEtUSS9QVms5TXhIUTBidEVDdWFTQ0dlN0hnWFBV?=
- =?utf-8?B?ZXlWUEo2bUc5Q1RnbVlQemJtVjZRbHY1ZW1WTTFXYWE4N3ZOajlOZkhjT1pB?=
- =?utf-8?B?V0hBbFhtWHpmdmFhbWxYSk11SVJXV0FCbTZVZHVKL2tJdDRsWlgvQ2N4ekVi?=
- =?utf-8?B?TVpaWEFBamVmY3RxOUJEMis0eS9RQkp6dGtpLzJJU2tndXJDZVIxYk5SZ1Zq?=
- =?utf-8?B?WHFoTkJKZGw5dS9xdVFwTlBTbTh5UDF0WkhteUVrZVJWT092VUs1RlJaUFNX?=
- =?utf-8?B?R2IxSW9DS044TVJzWU5zWDZiRVU2cW05ZU9LMHdIUWRidDZIV2M2QWR2R0Ni?=
- =?utf-8?B?MzVrMzV2V1ZKNUhTamxKc2pRcENuNUFabFZsQThUWU1iMDgrMmorTFlvSVRK?=
- =?utf-8?Q?625ecLGcNuUN5m3uDT3IRWGspBi3FT88MSV0YwgD5vvte?=
-X-MS-Exchange-AntiSpam-MessageData-1: ifc6k14XMGK/sQ==
+	=?utf-8?B?dEErL25uTjF4c0RIVTYyNzNwbUdKYnpPMzNjdHk0ejcxc0g2UU5ZVGhZQSsv?=
+ =?utf-8?B?RGp0RVh2Vit2d01oNWVyL0xtVUp1VnRCWnVVQU55N1JZZm44Z1dXUllWR0JU?=
+ =?utf-8?B?eXlyZGxCSHROU3N3eHEzdTl1MXhVVUEyOUppMEd0SDJKRDI0UjBqaTRCa2hX?=
+ =?utf-8?B?MWtYVXV0djlqbFZXcFYwYVMxSVdaaEwzZml4VDRDalNZaFBsQXB0azJWNmlM?=
+ =?utf-8?B?b0dud2xGWGorWk12L0Z4MnJRYzlSemFWTjB5U0didHFZcTRtRWZPUjY5ZDhr?=
+ =?utf-8?B?M2ZTdkFiRmpRNmZXYjJ5Ym44R2NKc0NLVXZ5ZjF2RFpKZU42d3VoU1J3R0hq?=
+ =?utf-8?B?cGJMQTB6U2JBTXNRckVwSEZiMHlhRXBDQVF1aHdOWlVOTkIxUSs2N3FSYStw?=
+ =?utf-8?B?aVV2ZDdVckZOZ0xnUWY0WXNsZmpRcFI4dDU0MllITGJ5OFk4bzZ6MU04WFQ0?=
+ =?utf-8?B?V2Z4OVA0V2hTallVTGlZZEtnYlFGZHFVYnd0UnFFcXVFQzkyZkpiU09xNFBy?=
+ =?utf-8?B?QkdLdXNmNVI5TXZwdThpa3o1amNwK2hnejRqWStwOW53WkdNUGpQTzBUcXBi?=
+ =?utf-8?B?b2J1RVVnaWdTRzVKSGt6NytzYTN6U3M4ME1HQklYQ0ZGNGNiTXZKQ0twc29D?=
+ =?utf-8?B?VGZReDEvaEhTaldBU0FVRWN5OW9QQndacGNkbHQ2WTAvWGxIR0hpa1pKYk1o?=
+ =?utf-8?B?OVRnY1FvSDNtKzJqUFR1Rm1WSXZxL010MnRKeTUvNkRNbVBEUDZjK2h5UkRt?=
+ =?utf-8?B?cHNzRTlzYitLbC82ZXZaV0Y0UEg3MTNEZE1qWnhvUStlQ1gvenNETER3ODJB?=
+ =?utf-8?B?Qk1OTTdEd2plaGRVMHNHa1Q0UkdNaHJsRXRIaWdmZlZhYmc2SWVRd1NFL01F?=
+ =?utf-8?B?SjRDWGsxU1ZHL2VaREFDd29VelJhcmFncmtKNy9vTmFLNHB4enJYaUo2cmV0?=
+ =?utf-8?B?SFBqS3RvaVBLdGZyc1BvRFVkMm5CQXBNeFpwQjB6S2JlS3JVUjJQc1JMdzBW?=
+ =?utf-8?B?NUlUeit3dmhXS3hZcmpBM1dFKzZ0Y0dOaFBvdlBqM1p2U2hGNzgzUUZYNEJC?=
+ =?utf-8?B?S3hiU3VzY2VvRmIxc3R5blhpbDJ4VTBjek1IZWs4bjNJbXFiVTl5YklmNkdy?=
+ =?utf-8?B?RUUzbVR3YVIwa1hjbzJpdHBMR2RtbnFYdUNQcE1vSjBhWmNhY1JyWTE5bTNq?=
+ =?utf-8?B?WmN6Z0lhaFRySm5TTDhxUkw1Z20raS9SVjRnK0pYRTVXalZRZXR3akpHQjVm?=
+ =?utf-8?B?VjRhS2JFdUZqb3ZTK2IzVzJWN3Z6QXRUUFZ0T0grREFiOElZUFFHNHdJb3Fs?=
+ =?utf-8?B?R0JTbDhQczJsczA0NVVCK0ZRNUJLRnRuOVJvcytaVmFPV3c0cEozVE9TR3pW?=
+ =?utf-8?B?SHJqb1NZeStZWFdncUppSTd3cFdOVlNzeU1XYmFTNmNzeHdQSitrRjlERC9F?=
+ =?utf-8?B?OW5Yem80ejN4RW1ZcjdPQVhHWS9lOWJ0Ri9YU1dNbWdqK3lRTlNPM3FUTEpl?=
+ =?utf-8?B?djU3ZWR6TlBxellNYmd6b3lqZVFFaHBCcXFQNHBGZDdwUW5pbU9YQ0hpZW1o?=
+ =?utf-8?B?OVdFUTBrSFRSTmlYTnhIYXZ5b2tGQ3JzUDBMYmI1aCsrR2VSd1dZSGFMZlJh?=
+ =?utf-8?B?dXY1M2hFMlhOMDJDVXRyWXBnQndFZ3MzSjAxVVh2UFN4RTA0SG04ZVN3T2F5?=
+ =?utf-8?B?bFRuTE1IT3pPNHROVEhUQzJEYVcxR1liTTRvSitrMkRGTjdQMWRpenRjTHZk?=
+ =?utf-8?B?Nk8zaHYvZG54MVZRRUFyVWphazMzd3o4QXdjdXZ2ZVBIRHU5OGdpZnN4RkM5?=
+ =?utf-8?B?VVBscG1MZStMemFZYnF1RndkVWhxZmJOVDBpOS9YSjk0SEtlQ051ZnE0eG5M?=
+ =?utf-8?B?MmZaQjJxZHJ6OVFRMjRkSlp1UUpTenovZWE0ZWhvQXYwd05ITTFVYjZLYjdx?=
+ =?utf-8?B?R3BkRVhTSnNXaDRvdXZvSzdtdTFRNlBjRjlDYkhQVjJ2eHdna2F0RVN4TlhP?=
+ =?utf-8?B?SU12TFhTd2Y1bWovRmNOSzBQRWZxbXRkS2RkeG1jZkZkMS8wR3ZNMzZSM3p2?=
+ =?utf-8?B?bm9yYXhNN2lMWTVDcUp0blBNME9qQ2pRY1REdDQvYlY2bnlJSklwY2oxN3E1?=
+ =?utf-8?B?RmZrMmg4NSs0N0kzNVFBTmozSGRlZVNKZ3lkMG04K2dYZTduTHlta2FvZDFV?=
+ =?utf-8?B?aHZpdXcvZ2tzeDY1UllpME11VHhOU0VtQ2V3QWVHa1ZxUEY4VlBPc2ZUaVMz?=
+ =?utf-8?B?R05qY2Z6VE1YNXh3NXZFd1ZRV29Nb2dnOGgxc2ZqSFgrTnFhVjArNUJwU05R?=
+ =?utf-8?B?VmZQaU81QjVkaURuSVpZTDR4N3RLSG1GZXZoOFVoREhUUHcwVFdEOUVHRVlu?=
+ =?utf-8?Q?NFdgzH5hx6BwVs1cMZ7xgVDN6jbCJvaM0KltrGRyq0NjN?=
+X-MS-Exchange-AntiSpam-MessageData-1: zwtObTPfB9RNiw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 723fd310-016f-4204-1607-08df17aa2480
+X-MS-Exchange-CrossTenant-Network-Message-Id: c69e6d5c-c45d-40e9-822a-08df17aa76c7
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:32:43.8056
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:35:01.6059
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pbzZDmCMSKfwCevKrnDOIgoIv/q++66YG2IGvx3emxypMxwMz6rC+R2oV4ojib6nk7jO/WH70z85Hh/RJ1UPIw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: pa1KiQNGQVyze8aQDQ9ZGXlqsuxIx3icsH1sWV8mkSgLZnQXiZE5S98LQJiMgBV4Hg8UUtbPWdjf8/0A7VAguQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9779
 
 On Sat Sep 12, 2026 at 1:43 PM JST, John Hubbard wrote:
-> A GSP message carries its length inside the checksummed region. Once the
-> framing or the checksum fails, there is no trustworthy length with which
-> to skip the message.
->
-> Two failures left a bad message at the queue head. A framing or checksum
-> failure returned without advancing the read pointer, so every later
-> receive parsed the same message again. A validly framed message whose
-> typed payload failed to decode returned early and did the same.
->
-> Poison the queue on a framing or checksum failure: log what was
-> inconsistent and fail every later receive, so the bad message is parsed
-> once and recovery takes a device reset. Advance the read pointer past a
-> validly framed message whether or not its payload decodes, and warn when
-> the payload is shorter than the type it decodes into.
->
-> Assisted-by: LLM
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+<...>
+> diff --git a/drivers/gpu/nova-core/irq/interrupt_tree.rs b/drivers/gpu/no=
+va-core/irq/interrupt_tree.rs
+> new file mode 100644
+> index 000000000000..24976a3146be
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/irq/interrupt_tree.rs
+> @@ -0,0 +1,238 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFIL=
+IATES. All rights reserved.
+> +
+> +//! Vector addressing in the GIN CPU interrupt tree.
+> +//!
+> +//! A [`GinVector`] names an interrupt source, a [`LeafIndex`] the leaf =
+register that latches it,
+> +//! a [`LeafMask`] a set of vectors within one leaf, and a [`Subtree`] o=
+ne `TOP` bit. The types
+> +//! keep the four from being confused with one another.
+> +//!
+> +//! See `Documentation/gpu/nova/core/interrupts.rst`.
+> +
+> +use kernel::{
+> +    num::Bounded,
+> +    prelude::*, //
+> +};
+> +
+> +use crate::num;
+> +
+> +/// Number of vectors one leaf register carries, one per bit.
+> +const VECTORS_PER_LEAF: u32 =3D u32::BITS;
+> +
+> +/// Number of leaves one subtree covers.
+> +const LEAVES_PER_SUBTREE: u32 =3D 2;
+> +
+> +/// Number of subtrees the widest supported tree implements.
+> +const MAX_NUM_SUBTREES: u32 =3D 8;
+> +
+> +/// Number of leaves the widest supported tree implements.
+> +const MAX_NUM_LEAVES: u32 =3D MAX_NUM_SUBTREES * LEAVES_PER_SUBTREE;
+> +
+> +/// Number of bits needed to address every vector in the widest supporte=
+d tree.
+> +const VECTOR_BITS: u32 =3D (MAX_NUM_LEAVES * VECTORS_PER_LEAF).ilog2();
+> +
+> +/// Index of a leaf register within the widest supported tree. An 8-leaf=
+ tree implements only the
+> +/// lower half of the range.
+> +pub(super) type LeafIndex =3D Bounded<usize, { MAX_NUM_LEAVES.ilog2() }>=
+;
+> +
+> +/// Number of leaves a tree implements.
+> +#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+> +#[repr(usize)]
 
-The idea is nice, but the implementation is a bit too C-like and even
-with this patch we are missing cases: for instance `send_command` still
-operates , which is technically not an error but introduces a timeout
-before the receiving end fails.
+supernit: since we use `self as u32` below, let's make the internal
+representation `u32` as well so the cast becomes an actual no-op.
 
-Basically the poison flag is here to prevent access to some
-functionality if it is set. This is conceptually very similar to the
-`Mutex` and should operate similarly, i.e. by wrapping the data it
-protects into a dedicated type, and providing references to the wrapped
-data only if we are not poisoned.
+> +pub(super) enum LeafCount {
+> +    /// Turing through Ada.
+> +    Eight =3D 8,
+> +
+> +    /// Hopper and later.
+> +    Sixteen =3D 16,
+> +}
+> +
+> +impl LeafCount {
+> +    pub(super) const fn into_u32(self) -> u32 {
+> +        // CAST: both discriminants are 16 or below.
+> +        self as u32
+> +    }
+> +
+> +    pub(super) const fn into_raw(self) -> usize {
+> +        num::u32_as_usize(self.into_u32())
+> +    }
+> +
+> +    /// Returns the number of subtrees a tree of this size implements.
+> +    pub(super) const fn subtree_count(self) -> u32 {
+> +        self.into_u32() / LEAVES_PER_SUBTREE
+> +    }
+> +
+> +    /// Returns the set of every subtree a tree of this size implements.
+> +    pub(super) const fn subtree_set(self) -> SubtreeSet {
+> +        SubtreeSet((1u32 << self.subtree_count()) - 1)
+> +    }
+> +
+> +    /// Returns the number of vectors a tree of this size carries.
+> +    pub(super) const fn vector_count(self) -> u32 {
+> +        self.into_u32() * VECTORS_PER_LEAF
+> +    }
+> +}
+> +
+> +// `VECTOR_BITS` and `LeafCount::Sixteen` are written separately. This a=
+ssert keeps them in
+> +// agreement about the widest supported tree.
+> +static_assert!(1 << VECTOR_BITS =3D=3D LeafCount::Sixteen.vector_count()=
+);
+> +
+> +/// Set of vectors within one leaf, one bit per vector.
+> +#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+> +pub(super) struct LeafMask(u32);
+> +
+> +impl LeafMask {
+> +    /// Returns the mask with every vector set.
+> +    pub(super) const fn all() -> Self {
+> +        Self(u32::MAX)
+> +    }
+> +
+> +    pub(super) const fn from_raw(raw: u32) -> Self {
+> +        Self(raw)
+> +    }
+> +
+> +    pub(super) const fn into_raw(self) -> u32 {
+> +        self.0
+> +    }
+> +
+> +    pub(super) const fn is_empty(self) -> bool {
+> +        self.0 =3D=3D 0
+> +    }
+> +
+> +    /// Returns whether every vector in `other` is also in this mask.
+> +    pub(super) const fn contains(self, other: Self) -> bool {
+> +        self.0 & other.0 =3D=3D other.0
+> +    }
+> +}
+> +
+> +impl From<Bounded<u32, 32>> for LeafMask {
+> +    fn from(vectors: Bounded<u32, 32>) -> Self {
+> +        Self(vectors.get())
+> +    }
+> +}
+> +
+> +impl From<LeafMask> for Bounded<u32, 32> {
+> +    fn from(vectors: LeafMask) -> Self {
+> +        vectors.0.into()
+> +    }
+> +}
+> +
+> +/// One subtree, held as the `TOP` bit that covers it.
+> +///
+> +/// # Invariants
+> +///
+> +/// Exactly one bit is set.
+> +#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+> +pub(super) struct Subtree(u32);
+> +
+> +impl Subtree {
+> +    /// Returns the subtree at index `idx`.
+> +    const fn new(idx: u32) -> Self {
+> +        // INVARIANT: shifting `1` left leaves exactly one bit set.
+> +        Self(1 << idx)
+> +    }
+> +
+> +    /// Returns this subtree's index within the tree.
+> +    pub(super) const fn index(self) -> u32 {
+> +        self.0.trailing_zeros()
+> +    }
+> +
+> +    pub(super) const fn into_raw(self) -> u32 {
+> +        self.0
+> +    }
+> +}
+> +
+> +/// Set of subtrees, one bit per subtree, in the layout of the `TOP` reg=
+isters.
+> +#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+> +pub(super) struct SubtreeSet(u32);
+> +
+> +impl SubtreeSet {
+> +    pub(super) const fn contains(self, subtree: Subtree) -> bool {
+> +        self.0 & subtree.into_raw() !=3D 0
+> +    }
+> +
+> +    pub(super) const fn is_empty(self) -> bool {
+> +        self.0 =3D=3D 0
+> +    }
+> +
+> +    pub(super) const fn intersection(self, other: Self) -> Self {
+> +        Self(self.0 & other.0)
+> +    }
+> +
+> +    /// Returns one more than the highest index in this set, or `0` for =
+an empty set. An MSI-X
+> +    /// allocation that covers the set needs this many entries.
+> +    pub(super) const fn span(self) -> u32 {
+> +        u32::BITS - self.0.leading_zeros()
+> +    }
+> +
+> +    /// Returns the subtrees of this set, lowest index first.
+> +    #[expect(dead_code)]
+> +    pub(super) fn iter(self) -> impl Iterator<Item =3D Subtree> {
+> +        (0..u32::BITS)
+> +            .map(Subtree::new)
+> +            .filter(move |subtree| self.contains(*subtree))
+> +    }
+> +}
+> +
+> +impl From<Subtree> for SubtreeSet {
+> +    fn from(subtree: Subtree) -> Self {
+> +        Self(subtree.into_raw())
+> +    }
+> +}
+> +
+> +impl From<Bounded<u32, 32>> for SubtreeSet {
+> +    fn from(subtrees: Bounded<u32, 32>) -> Self {
+> +        Self(subtrees.get())
+> +    }
+> +}
+> +
+> +impl From<SubtreeSet> for Bounded<u32, 32> {
+> +    fn from(subtrees: SubtreeSet) -> Self {
+> +        subtrees.0.into()
+> +    }
+> +}
+> +
+> +/// A GIN interrupt vector, bounded to the widest tree any supported par=
+t implements.
 
-Here the data we want to protect is `gsp_mem` in `CmdqInner`, so it
-would be declared like:
+"part" is new vocabulary and might be confusing to the reader. "Chipset"
+or "variant" would be better imo.
 
-    gsp_mem: Poisonable<DmaGspMem<'a>>,
+> +#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+> +pub(super) struct GinVector(Bounded<u32, VECTOR_BITS>);
+> +
+> +impl GinVector {
+> +    /// Returns vector number `VECTOR`.
+> +    ///
+> +    /// Fails to compile if `VECTOR` is beyond the widest supported tree=
+.
+> +    pub(super) const fn new<const VECTOR: u32>() -> Self {
+> +        Self(Bounded::<u32, VECTOR_BITS>::new::<VECTOR>())
+> +    }
+> +
+> +    pub(super) const fn into_raw(self) -> u32 {
+> +        self.0.get()
+> +    }
+> +
+> +    /// Returns this vector's leaf.
+> +    pub(super) fn leaf_index(self) -> LeafIndex {
+> +        // CALC: `self.0 / VECTORS_PER_LEAF`.
+> +        self.0.shr::<{ VECTORS_PER_LEAF.ilog2() }, _>().cast()
+> +    }
+> +
+> +    /// Returns this vector's bit within its leaf.
+> +    pub(super) const fn leaf_mask(self) -> LeafMask {
+> +        LeafMask(1 << (self.0.get() % VECTORS_PER_LEAF))
+> +    }
+> +
+> +    /// Returns this vector's subtree.
+> +    pub(super) const fn subtree(self) -> Subtree {
+> +        Subtree::new(self.0.get() / (VECTORS_PER_LEAF * LEAVES_PER_SUBTR=
+EE))
+> +    }
+> +
+> +    /// Checks that a tree with `leaves` leaves implements this vector.
+> +    ///
+> +    /// # Errors
+> +    ///
+> +    /// `EINVAL` if it does not.
+> +    pub(super) const fn validate(self, leaves: LeafCount) -> Result {
+> +        if self.0.get() >=3D leaves.vector_count() {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        Ok(())
 
-And now every access to the inner `gsp_mem` is conditioned to it not
-being poisoned, and we can't omit checking the flag before accessing it.
+This is a simple if/else case, so:
 
-Eventually I think `Poisonable` could even be useful in the `kernel` crate.
+    if self.0.get() >=3D leaves.vector_count() {
+        Err(EINVAL)
+    } else {
+        Ok(())
+    }
 
-That's quite a rework though, so I'd suggest to remove this patch from
-this series and re-consider it after it is merged, as it is not really
-related to IRQ handling and is more a cmdq hardening effort.
+is more idiomatic.
