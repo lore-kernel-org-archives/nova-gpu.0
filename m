@@ -1,51 +1,51 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011042.outbound.protection.outlook.com [52.101.57.42])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021102.outbound.protection.outlook.com [52.101.100.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361A3248F64
-	for <nova-gpu@lists.linux.dev>; Wed, 23 Sep 2026 11:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B059483BD9
+	for <nova-gpu@lists.linux.dev>; Wed, 23 Sep 2026 11:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.102
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162317; cv=fail; b=Wk6dwDzKNB0UJ6cLUrDC3jFnyGYnwy9o3cMi/PED+GqQ+DEGhmPljcTwLtq3tQUNMmh/VuCqxIaWVfaCOKn5MlO4Ay/pNftwpfKs5rtfzDetktrMKyYJDZo79X7WTBVTGn7fmNtBww3Miw4yug8WWurxvDTcMbIBKH5z4M0bHjg=
+	t=1790163029; cv=fail; b=HQx4220e3oXeJrz/poSVZxigdBOnqMddh0J0hj8A5eDelnG2qmFF4kKZtM+sTtc8cC1kqJ+l41PbPuDOS9KtfP9jBVG4wDKUksmw3+NQiYl71dvMPNo7Ix0cJdXUMgyYl0vt876XuY9G8ysyknztRgZjRQIhOWeaOYj6vEkiRWQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162317; c=relaxed/simple;
-	bh=zbHwaaITYlnx03LIruykDehVDU48ElyqH+y8NqYT9+g=;
+	s=arc-20240116; t=1790163029; c=relaxed/simple;
+	bh=p5E/t1gtRKx9MD306/JgrHgOR+y3DYgNlwQiUGsRTzE=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=eaubEpX+WEkWJgBXJjnxaD2IB0rzJoVos7Byzj4QNV1HvyOOXKMzzK6QoAGI9+BMME+BXMTiaRXd4b9jVhe0d69Fve1XQfBYugU4ID9XUBJGtjcdAfJ8bCQX0Orji81sSKC5NrANF3JS8kwK65c1amU1Z9N8ajfMKZjJmyR4aE0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ALchgZGj; arc=fail smtp.client-ip=52.101.57.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 In-Reply-To:MIME-Version; b=t8bpvjOXOh2x3D9rq+j8VrGAtyNIWOApCeXMdp+2NqeVgk5dq1Eiz4jWmA3OeFEztgHyJMJOy+2VzpzXjD8eM3+jAxIE50teYp5ZtqjCGJclVDcLDiMJcnWCcBHNAmCucbeBo0tS1oqVt2Rpw/Dy4Sw2opo8kGALmZMcyRhXxIM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=DMPLQDmZ; arc=fail smtp.client-ip=52.101.100.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ALchgZGj"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="DMPLQDmZ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EkA1kHMnlxSHtULkpRvNAH0SbX4UMqWMZuKdYg72bt7HS6jSP8y1Lh1hDRbicvPfzJ+co8uxMYY/5Maagbw24b2+E0YMEJ0PQhCnvfsfJpjoy1MhiOyHMKQuJ1j749K3SXRrLYEB37UXDwwvIzsxEhdBZ/uqDvUqa2ZI07m9yx0ePW803EQxjm9WBb2SSoz2HJ735uAMb09lhJi1rbJr1d+UKq3+L+zK4glrfeIrz5ntTEpofMYR1EsdBF9dNi/skABiLC8CQshqH1lnxDzePnuuiSZxyTlfgqzJfm6xiD6FFXubtX0HNIuzqFeeJlAVPbq9rKDhXS7xcJILJvGE0A==
+ b=G7EaElgo1ZrpqvYTvCFlRR7l5NcFrsW1g8HPfE/kwrlRb8SIgf3fGDaroOXIXC4aUf4JJ46eo1ND4UaWzF5QnmEG+ZeSKO+FrWGKDSuqsdCAPGE62d5fCJeZjc5xHpIc0kLnPdqwt/hOL4wb3oJSXirhXPjXPpPguQi31jD2Iaf98u8NpDF7ItTl7L7x98MM/T5hE8IdhVwYqyjI+53HFPNal3qAr+EZ/+rgB3M4l4B/4vzgrvXGxAqam/YnenJiHaUQAAgHTY87hG3qfJzri3dse5Lk84QBaG/Yt+8OeoM+NLaSQEtTfHy8UocGg2chBVXG8T6ptL268gSB79UV5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VRIwlt3tDf0I0Y1PIoiFIL+hAMKt5fcd+gHoOvlevrs=;
- b=Rn5jsY2PsTAouvMcvL1fuWFw06zVVnoao+e7+sVrVVlb1pQmtpasXwxNrRHvwyDVXVJoUYuRrmE2CTP0BRA1vbu51dir25HCO37EhaSZxy3UymeZCETwuskQwF5Vh3HPZIisBzvwp2DKxNUgGGioRKvBs7YZKRRk00ihOyaf1jlUrqscWdPsgqOGPXc1KG8E7SLhNxdv83FwVW9BVJ6DsPSXHCmL63d1HpNDbznjZXjtPbvdaDtV73TboBQXDyK7BbLZVZs9O57qBuVC31Rbzree9m7XgMEt8tzC1R8UKPYJNeGU/9JtgYRp61Ln9t7kVgLgyPr41EqygbouuKP7Ug==
+ bh=p/j+9VJFu4qcmRrzoGzG5ApHMhHK/LR5OQK6NbligLE=;
+ b=dXkwOS5GbsRqMOPxnGV8Oyqucz00+CkjJsk2a0/fZedm3/ItvWMlKZk4ChLWi80Ri1w7gisNvOIIpmCLgMTkV1jVyjwy3UIBm1H+KnsUeR9cPlvHjictfibHl6ZzfaTS2j2ApF5eBGG4Cn/KS9kM3RULCJQFZXAPY2Mra+aKnqUMFgxE0wpg6h0d+9lY80Nl7bVlRcrBpsfaC0eU5H3u6/6hlfmZbZVuAlkSFnPaYIkA1xBkG2wqF6Sj9SF07J+MTDrD6gzLihYKPKGgYtBcqDUvJ0F6d1IG+EMbidvPujtPMbCMXZLfB4hIeTbrgPeRFCuNQMRjl/W66vlUouTgSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VRIwlt3tDf0I0Y1PIoiFIL+hAMKt5fcd+gHoOvlevrs=;
- b=ALchgZGjZ71utZgFyjUPDknD1AKifGv+I/VSbTLnLCZKbfX7wNMe2eCdW48icqggDyjIQo20lWbD1/TFVMesbf/+jwS67cn15wxerV6zZCNrLgFl9CGr+ezBa181HLVEKeEtc1X2V5KuNKydGOQw3QPCwv93iB7mPLQCyMUVX3+dnrwthmpJ1Z+SRmLS+rISYjbICQjPcPQDoGx1LGv3JGRFqGm9KSO27DlxoNb5I/2JfyBWjzSJfv+e3ahfu0Dp4rLNRK927EYoMLVa3G1mq/u05VG011dx/VIipMZRGANvvFQZ2LOB+7gN3S/SyoAayrWKe/OGOuLklw5OxoiVCA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by LV8PR12MB9665.namprd12.prod.outlook.com (2603:10b6:408:297::9) with
+ bh=p/j+9VJFu4qcmRrzoGzG5ApHMhHK/LR5OQK6NbligLE=;
+ b=DMPLQDmZPZUOkWwAsthwpJwx7u1xPnB6yupbt+C/LcgTygd/XNDiJRx3PzPXQZ6yn0Arpf+0UqmYtuG0dn8ESmqLeDrKNF0dBnJ+z098LwYvcEqLizZZ6qcTyiAKluf36T+vKnLFkBUaoIX/PisMg9lJLctVm83kRD8zLfFOOF4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LOYP265MB2400.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:11e::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
- 2026 11:18:29 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 11:18:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 11:30:14 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 11:30:14 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 20:18:24 +0900
-Message-Id: <DLMNKPICH09T.14GE59LIB5QKQ@nvidia.com>
+Date: Wed, 23 Sep 2026 12:30:12 +0100
+Message-Id: <DLMNTQWLGXJA.39Z56H8BZMBPR@garyguo.net>
 Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
  "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
  <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
@@ -57,15 +57,19 @@ Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
  Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
  "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 09/33] gpu: nova-core: add GMC API message types
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
+Subject: Re: [PATCH v3 08/33] gpu: nova-core: gsp: compute the queue regions
+ from a count and a slot
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>
+X-Mailer: aerc 0.22.0
 References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-10-jhubbard@nvidia.com>
-In-Reply-To: <20260918010719.1176945-10-jhubbard@nvidia.com>
-X-ClientProxiedBy: OS7P286CA0011.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:26c::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ <20260918010719.1176945-9-jhubbard@nvidia.com>
+ <DLMFFOSI9SZ9.2ECOM8X8PA147@nvidia.com>
+In-Reply-To: <DLMFFOSI9SZ9.2ECOM8X8PA147@nvidia.com>
+X-ClientProxiedBy: DU7P250CA0022.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:10:54f::6) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -73,391 +77,269 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LV8PR12MB9665:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36fc719f-9ee6-492a-9614-08df19646418
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOYP265MB2400:EE_
+X-MS-Office365-Filtering-Correlation-Id: af8107d2-3980-42d9-f2a6-08df19660919
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|6133799003|18002099003|22082099003|3023799007|11063799006|10067099003|56012099006|4143699003;
+	BCL:0;ARA:13230040|1800799024|7416014|366016|376014|10070799003|23010399003|6133799003|18002099003|22082099003|10067099003|56012099006|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	VmXdC1hbQdOdNvxR6QLEuWLfb/WW3rZCz4WTgIB0HHhYG8CMBB+AyxBfb3D888rDPr+ljY+2RRqw8s5JiRhtZIJgzgf0rA1+xbv3hdOWIw9SeepGOkQkXBomQ54Q66EMo8hC+oIAxv+JSCF72LMxPdZZLq7AP88/7JWSao+oKIOC6THmUpk7ru/s+1nn87aD0WKEX14KBtyoKuzlinBm9n4u9P9upQEDT+hzHpHvfubpC7LoLw3eVd50H0JzwjQ9RTpskL2L/2aQCpZy+8/wBJ1+zgBdpqgKMTNeue1pedG0KP1ucNX15HbGNsLdYeNg8L3bwLpqKs7cOA6sZIukqMq56as7Uv1OwqWX8DBI3x8mIJgXyjQRU+SJtHxi1lpykIPDNgANadch0ZCwCRILl6kz05R55wG9l/XtQYutezAP2f97kMYIA0kWjaoC/pe11Y+b7aGKlQQQrG8ZRt9WkLp2anTcMCHDMHHmkslGps9oP3N9sXZGyinAzMJl9Nm7TUiwkntLjPC7CjRNFFjvId0uL5Iu+XrYXkH84Jzc7Q6SIa5EvKlkQ4mP54S7Kpg49+pB5PgoxHcCSfcxeKyWedFxJ1EB2oY5kdbxRNsPURPjdzLKM+zOE505lDFjyvd5VYpk77C42kZ8u8TcT6Ee6ieuKf0BSjYw4waTV/clGEA=
+	aSenx7YYCO3uGYQerovX4+4ZYB2rGqEV7eBBJr8N34VO9VVlX9HsIYO3ZO+/X99RwO4FbbpY25n4Gy5p3A4/Roh9cugBnR1LzOSUtfn3IKCjNHxZZeh2QFPK3JGQkYtWuzbtawR2y7ZGpK/ou+/N9GgxuribdXew6L0VLpIwegw+KevF9LF2ogn3V7wASEdxaMUivggtUnrijOpgd8EYMp0Kqqo25eA7dh0KF89MYXmsFdj1RSDQHYSB3dL1fMPYofW10nLh17c9FLvgz06leJHn/oLBfU6w1I2nYYUARcKRoaK5/bqmlg0aDiV1AmgfIpHS9o7D04AGmQxuWIbg7Q9j0gII1ixgoSzF/qCpD+OufLzD6o6dQyM3KQZLWvXPOI2z7H8hVe76FThcD9STLh/q6eWF3OU8U53AP4GsMx94+keVvwblniw5tIX5dUxAosasdhKgTeC8FUsVaRJK8OClresiR/TOo2Qf4H71Tpwj1rlsYxYLbUDbde+PfzLs6OJRhBVebYEsi1sbdYNvRwCYmnuY8sPt64rgl23Bf+Kts0m3nmwO1VvyFOLf3UkMJ1qhf0459AZXFhtCgmV8p4B7yCJV31B3b1Ixa99NAFGQYNAL8x7SdtSqh0TxScpKBKbIgX0jK9ryKoyHWbgXs7NnGA0rMc5JGiZqoJqrscc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(10070799003)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3BPcTVLbklJcTRLVytRRkF2blVKUmEyakFBSEZTL1E5SlRaY1pXQmRFSDFr?=
- =?utf-8?B?NUNEZkN1RFExQmNCbWR0bE4zc3Y2SEd3WEZVZXhvQXlQc2FiWVBtUHVpT3Zw?=
- =?utf-8?B?TDhZOTFMUWgvSWdvbUpha0tlNjM0YnhScWN3SGVhT3BMdVhHQW90M2dSeUVT?=
- =?utf-8?B?L0NJVHR4N1doeWQyOWFDRnpyMDU3Y3VuOFNHSjdNajQ5ZjRjTE4wNWMwcnpa?=
- =?utf-8?B?WHEvbjBRQ3VpQUdjUncxTkJGazVGbkl2bUpQR1I5dS9WaW1FQnpFYW5iRStH?=
- =?utf-8?B?Z1BpOXNKZHF4dWNvSjJBNE1iWkpDYTFGRm1wM0cxTmxjaGdFNzAzY3pWZG9z?=
- =?utf-8?B?dXl5NlU0dnl0L0orL2pNUzJ0eFQvcmVvR0ZPcldjTC9UR2tWbm9UeGhOLzJQ?=
- =?utf-8?B?dnFxVytNOFduck1KT1RnZW96M3cwQnhiQXZ2eVo0NDF1OGwza2h2TTBPNXd2?=
- =?utf-8?B?a01nYWtHNm9JN1pKUXBmVHBRNDBhUFhTeUJyM0QvdmZaSXpsZ3JUZ0JzQU95?=
- =?utf-8?B?UE1Jc056SE13dzcwN3A2VjRKYk5HcmZ0Y3B3YkdXSHJRSXdKOHBPZXdpQmJE?=
- =?utf-8?B?bUxFdnZtQysyR01KTXA4TW9IaWJDVUxTQ3NYQW1SRWJ2Rko1M0Y4eTI5a1lr?=
- =?utf-8?B?M2taNEJMRmIvQ3hpczM0bG9GSmlvd3p1SzlBcjlpVE5oUlVzZmw2bmlKZTNt?=
- =?utf-8?B?T21BWCtXTWg5YndLazVLU3BGZ1o3TzgyUzh2ZnBjVFRVcHJiOVpjUW90aDFl?=
- =?utf-8?B?MjdhWWI1SVJ0RU5zZExhQmRZdTRSVEFSRjNFbmRlWWM1ektwZTNaN0ZSQTkz?=
- =?utf-8?B?dlpvQ3pRVVpOZWVabHh3YlJiRVE5cTZhdXJaaDJ3SWNQUDAxNmY2cUFDZlI4?=
- =?utf-8?B?UFdDdEJ5VnNJaGoxRCtVVlpqVzhKLzJGWUJQbXlVUFFXRFhiNnM2b0EyV3d5?=
- =?utf-8?B?RUxCZjRrenNRVmt1YmhqT2l1VkNmdmpvSU4vL2Q4ZzhiM2Rmamwya1cvNE4r?=
- =?utf-8?B?R21SbW1uakg4cW5mZUZWMndtR3RwOHA2a3RkMjhZWll6RHN3Y21jb0pLR3Zt?=
- =?utf-8?B?SG1HcVhpUmFHcHBLTlVBajBNN21pbzEzUXo0eUM0Nk9ib0JOMFhOZFVJT2ZQ?=
- =?utf-8?B?Rkh0NytXdGtoejlYdVY4OFBGanZLOVNPSTdhTDhUVXU0S1JtUnU2TGdieFRR?=
- =?utf-8?B?bWpWclpwQ3o0eFlsbXF0bGUybnB5WXNwYWZZR00vdUorOUlwQ2drcFo0NVNU?=
- =?utf-8?B?WUptaU0wZUE5VVdVWmJRS3VzZHlNQnJ2cGNlY3QvVEZrWFFZRFBtSmU2dG4r?=
- =?utf-8?B?WDBDcXVSdEpYb0JGWVhLVTJGdnk5MjBGM2RpR2NWajFMQkFTeloxdjF0d0Zw?=
- =?utf-8?B?RXR1czcrd1gyQkRONGJTNm9PalJ6bzByL1FqWWdIemhydHBEM1YzTUVWV2xW?=
- =?utf-8?B?cGt6Q1ZvdVFNRzBiREwrd3phd1BVdklUUzV2Ry9nQ1FmQ2h3aXFPMDRQa0NZ?=
- =?utf-8?B?RkZwWmxYU0lwSGZjUmFQaTJoRUtiUkdUMGVtR2xQZmxvNTVXc3BqekdTL28v?=
- =?utf-8?B?Vy8rc2RVRCtyTVk2bDhnaUhWdC9NejRhUVpwTXNOK2pkTUJ0djd1UFdpRFgy?=
- =?utf-8?B?WW5XTHFZTlpsUngzVEsyWHZKRzNaU1NtOXk1WVFieXgxLzFBSy9WaGJPMjEy?=
- =?utf-8?B?bmhHanVRYjg5azdCYW1yVXExZDFHZmFrUkZhQktFZFVZcjVBL3h0OG15bmdX?=
- =?utf-8?B?cDlmanR4TngrdVpLSTRkdWtwRDRvZXh5YVl2eVc0dFpPTWExeG50WE1PWmZx?=
- =?utf-8?B?ZFRzNFR2anB0S2xldDIvamJqWU13ViszVjlacDZoRDNseVowejNYNy9zK2wy?=
- =?utf-8?B?TlUxeFZUVjhOR3B5YVBHalRTTFhKWnBsakpEUmdvY0tzZEJmMG1idnNyUTlw?=
- =?utf-8?B?WE5jYklrb003cFFMUWNaTkpGSGhkNC9MdDlCWHltYjZoeFIvWTZod1d5TTNS?=
- =?utf-8?B?cy9qbHl1Z2VQRW4vU0hLRERFTWJ2d2NJNFl1VmgxSUJrOHdoWnEyZGZXd3Vn?=
- =?utf-8?B?OEQySGZ3MzRDekxxWTdzNUcvMVd6bU43bXhmSHhUVldlV1RLRmQ4NktqSGl0?=
- =?utf-8?B?U3dXOXppV0ltQStFd2dwR2dOU1hkem1PRmNTNHR1WEN2Snp1VUEvMWw5OG54?=
- =?utf-8?B?KzVQZWxrYzFJajN3OTFaZ1liSGwvSjNoN3BBNVd0dmQxRXlSMk91YjBNYktO?=
- =?utf-8?B?QVNQbS8raEE5Q09vcEM2clo0cW1MRHRjekJTTHdrbGtadnY4M2RsdnV1a0ky?=
- =?utf-8?B?aFFBVE11Zjd5YkJSOXFnRzB0d3BpajAvNzhod28yWXJlYnIzMHY1bWhyL2kz?=
- =?utf-8?Q?s8h/5MCH+x6z/lymtj2zolLdRIQZ0onkwNkRdz+5Z/VZh?=
-X-MS-Exchange-AntiSpam-MessageData-1: 69LnxDbY7HDyEQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36fc719f-9ee6-492a-9614-08df19646418
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+	=?utf-8?B?Yk4yeHYyemZkT3MrZ243c2djZVR1M1V1ZktBQVZvTnNvNTd0cjE4UkVBMjlT?=
+ =?utf-8?B?bEJ3ZDBERk5SbzB3bFJFc0RKWlhqUVdwSmg1Vlg1RFlvZW9yL0p4dS84ZFdw?=
+ =?utf-8?B?d2pzZWlhWTJJRHVlUkc0VVM1clNmaXhwT0RWbWxXbTlWUkFjNjd6QkVyRjFl?=
+ =?utf-8?B?SFRFQzE1L1lVUld0YzNOKzFhOHEvanExZmNYVXFab0xvVkhlSTJyM1N2QzJa?=
+ =?utf-8?B?VURuQlhVNDNkbHhPc3YzODFNbXFDT0Rrcm9ydm1SblFhbWZ3TlVSbC8yZWJT?=
+ =?utf-8?B?UTlLU1hGSmRFdkxqRjROTHVsY0IrTnJZdnUwNzdDSVJGRk5YYjFuSnYyVHRw?=
+ =?utf-8?B?NE9kS1R5RTJXK3VqbmlNUFNRaUVSMmZwbC9BMDNRNXlNdTdoNWpYQU5oOWs3?=
+ =?utf-8?B?UVNsSEI2NjQ1dlF5UEhsc0o4Y2hPajREaUw1R0hoUDA4ZXJZWUIrdGFLZzNt?=
+ =?utf-8?B?cDEyQk80bW5ld3dteDZKcFZuQ2lXRno4Y0RRck9SOWcrcll5RmNsUHhDY2kv?=
+ =?utf-8?B?ZWkxV3pTd2ZoZkthL0J6TmtiWTJMMlBUWmpCSzJSOGd3cDhRUndqVzJEM3hB?=
+ =?utf-8?B?bzVrSW5rdFlzT0M2UEY0b2lZVHB3OTB6bkEyNEMraTFWMUs3VlhaaDhKN2lU?=
+ =?utf-8?B?SHh3WmtRcG5hY2ZKaEU5aFJDdi9jVEQzQUloWlBWZjFVaTJMeFg1bndTVUpz?=
+ =?utf-8?B?SkdCckJQZGs0WXZpdGZoRndraVhXeWdSUnZmU0ViQVlxMXJDSFpqUXlwbm9t?=
+ =?utf-8?B?Ulg0SlZ2eUs4L2Y4djVLMnorTlVCa3pUdk40YVNDM09SUUNSbllBR1d4MmhM?=
+ =?utf-8?B?ZHJPQTB3TnhHRW5nWTRraTVhNExIdmdFOTZYaFhRWThtazI2TURuLzVJMGdG?=
+ =?utf-8?B?NEdUM2wwWVlPdGpIZjhrd04vWUM3WEUzdmllM1ovQnluQkdGaWVJamdnc3I1?=
+ =?utf-8?B?UE5qY0tmWC8wS09nUDhoNmJLMDA0M2tjSFBNVkc0NDM4d2xlNkloV0dEYjlV?=
+ =?utf-8?B?ZUVCS3dmK2RRSUF1bm92WWNrN2hwOG90RHhwZlAxOVRIU081a0Z2QmtKTkVN?=
+ =?utf-8?B?eklIbkQrU1oxbXJxMlNpcnhwZEdnZm9rbkJuRkpFK3hGNk9vS0RwaGZ4dmtV?=
+ =?utf-8?B?MXNzLzQvaUJKZWU4cUdEYlo5d1lNVW1oTzUxdHNtWmw4UHJYb0RLOGRVbWV6?=
+ =?utf-8?B?VXlNQ1FMNEY5RWVmYVVscXRoblVLVkcwQXBLQWpjVjBxSjczMGtESGRRZTAw?=
+ =?utf-8?B?dUl6YUJLNjFzSVBCNkNrL2ZxZ3ZMZCt4MTY3aHZFcDdpS0pyTEFVSEFDWGhJ?=
+ =?utf-8?B?K2tCNjRqU1BnTlNoV2VZd2VzRU0wa0tDalQzQm0wU3BlMllWN1pDSVpidnFO?=
+ =?utf-8?B?VStMb3BpMVJ0a0tzNVFKRUtjcEpLZkx1ZnRzeE1hZXpYOU5YTmVSeGJTZkVi?=
+ =?utf-8?B?Q1puNnpaSGM0V29obXlnVjBHbkE5bGUwbno0aDl0YlROWE4yNDdpNjY1SU0v?=
+ =?utf-8?B?YTUybVl6ZDZYUDVhOW9SUVhVVzMxc0ljdDk1c2s3WFhhWkZPeGlyS2cxbnhR?=
+ =?utf-8?B?OEtqais3WHJaY1phQjQzZkZBcWx1TG5rRjkwMjlWYXoxa3JUbGgrMTlDcUY3?=
+ =?utf-8?B?UVRveWlHYlpJd0ZvTE0rZlowSmg5SVltaDFocWRhUUM1TWlDSitkVjhVVzdq?=
+ =?utf-8?B?U1RmSkZGTUQ2OEIwbmpJQ1JEU3FNaDl2eEFidFVCRHpSdHZhRGhscmhPUG1j?=
+ =?utf-8?B?ak1CS2pyKzRTR0hBUDdKdi9kV09TQ1QwOTJQUU53Z2piSDc3aEo2V21ZMGl2?=
+ =?utf-8?B?VU16NjRKU0JFN0M1alVqbjU3TkF2SWhBYkhOTEdkeXB1aTF2bXdkUkN4bHMx?=
+ =?utf-8?B?R0NtZjJEMG1ZVytza2I0UlZ3SHFlMFpTMU85NUJOMWxpU0tHRFNnYW1QMk5y?=
+ =?utf-8?B?ZTRiWHRITEF2TzlHWGh1VkdkdCt3MXFSRm1OK1FENDliZVEwdm9XK3FFb2c0?=
+ =?utf-8?B?SWNqQTcvaUFTdXRPclg4dHdEVUxINXkrOFRtckZTUnNNSnFFWWNjWHBPU2VF?=
+ =?utf-8?B?bGl5aDZ4bGNONGN0dFp4T3h4QnJuc25ZRXp3QytmWS9XcEVaNjhmOExHUCtt?=
+ =?utf-8?B?bnFqWnFuYW5vdUlqNEw4NWRhNUU2SFZhS1FIODMreEplKzNMZnNnZVlMeVBX?=
+ =?utf-8?B?VzVxREVzVzBpdFFyT3RJRjVoL1ltUUZGME9DL2xZOXlwYmRFMzRtbVdFMlNi?=
+ =?utf-8?B?M0N0c01MdFhwcGFJblV5em01TWtIeHV5QjdUZjFnTzgzR251aHo2dlpSOW9B?=
+ =?utf-8?B?bWRJSnhrejJkQ2krRzhxWk1LeW81UG45b3QwK1ZOWGR6aE9JL2FiUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: af8107d2-3980-42d9-f2a6-08df19660919
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:18:28.4634
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:30:14.1425
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BiJ2GutxPTkBcm2pBbGMg/ayG6XRi0Jycj5+a5KgMfNYXsZlPuqF4VxexCEv6AfBIZfPFR5aSA0kHhI+rUIupA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9665
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1fp4zUFB8L8WKkc9f7cetEfiyjXhcjHFdfvnWvvfZZKsfeycnPz52LoWjVhbh6v2l9DK40rAi0VAOzDlfU63xA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2400
 
-On Fri Sep 18, 2026 at 10:06 AM JST, John Hubbard wrote:
-<...>
-> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/=
-fw.rs
-> index 285c23cea771..1aca5ca82764 100644
-> --- a/drivers/gpu/nova-core/gsp/fw.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw.rs
-> @@ -50,6 +50,11 @@
->          cmdq::Cmdq, //
->          GSP_PAGE_SIZE,
->      },
-> +    mctp::{
-> +        MctpHeader,
-> +        NvdmHeader,
-> +        NvdmType, //
-> +    },
->      num::{
->          self,
->          FromSafeCast, //
-> @@ -889,6 +894,221 @@ unsafe impl AsBytes for GspMsgElement {}
->  // are valid.
->  unsafe impl FromBytes for GspMsgElement {}
-> =20
-> +/// First word of every queue element: `"MCTP"` in ASCII.
-> +const MCTP_MAGIC: u32 =3D 0x4D43_5450;
-> +
-> +/// The queue element header that opens every queue element, whatever ki=
-nd of message follows.
-> +///
-> +/// It holds an MCTP (Management Component Transport Protocol) header an=
-d an NVDM (NVIDIA
-> +/// vendor-defined message) header. The NVDM type selects the message he=
-ader that follows: the RPC
-> +/// header or the GMC (GPU Management Controller) API header.
-> +///
-> +/// ```text
-> +///     +------------------------------------+
-> +///     | queue element header               |  QueueElementHeader: magi=
-c, element length, MCTP
-> +///     |                                    |  header, NVDM header, mes=
-sage length
-> +///     +------------------------------------+
-> +///     | message header                     |  the RPC header or the GM=
-C API header. The NVDM
-> +///     +------------------------------------+  type selects between the=
- two.
-> +///     | payload                            |  command-specific data
-> +///     +------------------------------------+
-> +/// ```
-> +#[repr(C)]
-> +pub(crate) struct QueueElementHeader {
-> +    magic: u32,
+On Wed Sep 23, 2026 at 5:55 AM BST, Alexandre Courbot wrote:
+> On Fri Sep 18, 2026 at 10:06 AM JST, John Hubbard wrote:
+>> The r000 firmware uses msgq v2, the queue layout that keeps the queue
+>> pointers in BAR0 registers as counts that do not wrap at the ring size.
+>> The r570 firmware's layout keeps the pointers in shared memory as
+>> indices into the ring. The two layouts differ in where a pointer is
+>> read and in how the size of the region that the driver may write, and
+>> of the region that it may read, follows from a queue's write pointer
+>> and read pointer. Splitting a region across the end of the ring is the
+>> same in both, and whether a region wraps follows from the order of the
+>> two pointers.
+>>
+>> The functions for the writable region and for the readable region each
+>> branched on the order of the write pointer and the read pointer. Each
+>> branch chose where the two slices ended, and the function then built
+>> the slices with open-coded pointer arithmetic. The SAFETY comments
+>> argued the slice bounds branch by branch, so the switch to msgq v2
+>> would have had to rewrite the branches and the argument along with the
+>> pointer rules.
+>>
+>> Compute the number of slots in a region and its start slot once, and
+>> split the ring at the start slot. The first slice ends at the end of
+>> the region or at the end of the ring, whichever comes first, and the
+>> second slice carries the rest.
+>>
+>> No functional changes.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/gsp/cmdq.rs | 120 ++++++++++--------------------
+>>  1 file changed, 41 insertions(+), 79 deletions(-)
+>
+> This looks like an improvement regardless of the r000 switch!
+>
+>>
+>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
+sp/cmdq.rs
+>> index 80e6e79c5f3c..a1c9b7cce255 100644
+>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>> @@ -262,107 +262,69 @@ fn new(dev: &'a device::Device<device::Bound>, ba=
+r: Bar0<'a>) -> Result<Self> {
+>>          Ok(Self { mem: gsp_mem, bar })
+>>      }
+>> =20
+>> -    /// Returns the region of the CPU message queue that the driver is =
+currently allowed to write
+>> -    /// to.
+>> +    /// Returns the region of the CPU message queue that the driver may=
+ write to.
+>>      ///
+>> -    /// As the message queue is a circular buffer, the region may be di=
+scontiguous in memory. In
+>> -    /// that case the second slice will have a non-zero length.
+>> +    /// The ring wraps, so the region comes as two slices, and the seco=
+nd is empty unless the
+>> +    /// region crosses the end of the ring.
+>
+> There is a recurring pattern in this series to drive-by rewrite comments
+> when there is no real need to do so. The new comment is not even
+> marginally better as we lose the temporal nature ("currently") of the
+> borrow. This creates churn restating the same thing using different
+> words and disrupts the diff, so can we avoid doing that unless the patch
+> actually changes what the comment describes?
 
-Do we want to mention that the expected value is `MCTP_MAGIC`?
+That's a pretty common thing for LLM to do :)
 
-> +    /// Length of the whole element: the queue element header, the messa=
-ge header and the
-> +    /// payload. Open RM calls it `mctpPayloadSize`.
+>
+>>      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mu=
+t [[u8; GSP_PAGE_SIZE]]) {
+>> -        let tx =3D self.cpu_write_ptr();
+>> -        let rx =3D self.gsp_read_ptr();
+>> +        let avail =3D num::u32_as_usize(self.free_slots());
+>> +        let w_slot =3D num::u32_as_usize(self.cpu_write_ptr());
+>> =20
+>>          // Pointer to the first entry of the CPU message queue.
+>>          let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.msg=
+q.data[build: 0]);
+>> =20
+>> -        let (tail_end, wrap_end) =3D if rx =3D=3D 0 {
+>> -            // The write area is non-wrapping, and stops at the second-=
+to-last entry of the command
+>> -            // queue (to leave the last one empty).
+>> -            (MSGQ_NUM_PAGES - 1, 0)
+>> -        } else if rx <=3D tx {
+>> -            // The write area wraps and continues until `rx - 1`.
+>> -            (MSGQ_NUM_PAGES, rx - 1)
+>> -        } else {
+>> -            // The write area doesn't wrap and stops at `rx - 1`.
+>> -            (rx - 1, 0)
+>> -        };
+>> -
+>>          // SAFETY:
+>> -        // - `data` was created from a valid pointer, and `rx` and `tx`=
+ are in the
+>> -        //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_write=
+_ptr` and `gsp_read_ptr`,
+>> -        //   thus the created slices are valid.
+>> -        // - The area starting at `tx` and ending at `rx - 2` modulo `M=
+SGQ_NUM_PAGES`,
+>> -        //   inclusive, belongs to the driver for writing and is not ac=
+cessed concurrently by
+>> -        //   the GSP.
+>> -        // - The caller holds a reference to `self` for as long as the =
+returned slices are live,
+>> -        //   meaning the CPU write pointer cannot be advanced and thus =
+that the returned area
+>> -        //   remains exclusive to the CPU for the duration of the slice=
+s.
+>> -        // - The created slices point to non-overlapping sub-ranges of =
+`data` in all
+>> -        //   branches (in the `rx <=3D tx` case, the second slice ends =
+at `rx - 1` which is strictly
+>> -        //   less than `tx` where the first slice starts; in the other =
+cases the second slice is
+>> -        //   empty), so creating two `&mut` references from them does n=
+ot violate aliasing rules.
+>> -        unsafe {
+>> -            (
+>> -                core::slice::from_raw_parts_mut(
+>> -                    data.add(num::u32_as_usize(tx)),
+>> -                    num::u32_as_usize(tail_end - tx),
+>> -                ),
+>> -                core::slice::from_raw_parts_mut(data, num::u32_as_usize=
+(wrap_end)),
+>> -            )
+>> -        }
+>> +        // - `data` points to the `MSGQ_NUM_PAGES` initialized entries =
+of the CPU message queue.
+>> +        // - The returned slices cover the `avail` free slots from the =
+write pointer on, which the
+>> +        //   GSP does not read until `advance_cpu_write_ptr` publishes =
+them.
+>> +        // - `split_at_mut` gives two non-overlapping halves, and the `=
+&mut self` borrow lasts as
+>> +        //   long as the returned slices, so that no other call hands o=
+ut the same region while
+>> +        //   they live.
+>> +        let data =3D
+>> +            unsafe { core::slice::from_raw_parts_mut(data, num::u32_as_=
+usize(MSGQ_NUM_PAGES)) };
+>> +        let (before_w, after_w) =3D data.split_at_mut(w_slot);
+>
+> This creates a reference over the whole ring, including the parts owned
+> by the GSP, which breaks the `Coherent` safety contract that the device
+> must not be able to read or write to a live slice. So we'll need to call
+> `from_raw_parts_mut` twice, with the correct sizes, instead of
+> splitting.
+>
+> (also `split_at_mut` is panicking and should have a `PANIC:` comment
+> justifying why it cannot, but once the point above is addressed that
+> call will go away).
+>
+> I wanted to try it locally and ended up with something that seems to
+> work, so let me share it to save some time:
+>
+>     fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut =
+[[u8; GSP_PAGE_SIZE]]) {
+>         let avail =3D self.free_slots();
+>         let w_slot =3D self.cpu_write_ptr();
+>
+>         // Pointer to the first entry of the CPU message queue.
+>         let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.msgq.=
+data[build: 0]);
+>
+>         let in_after =3D avail.min(MSGQ_NUM_PAGES - w_slot);
+>         let in_before =3D avail - in_after;
+>
+>         // SAFETY:
+>         // - `data` was created from a valid pointer of `MSGQ_NUM_PAGES` =
+entries.
+>         // - The `in_after` entries after `w_slot` belong to the `avail` =
+entries that the driver is
+>         //   currently allowed to write.
+>         // - The `in_before` first entries belong to the `avail` entries =
+that the driver is
+>         //   currently allowed to write.
+>         // - The slices do not overlap.
+>         unsafe {
+>             (
+>                 core::slice::from_raw_parts_mut(
+>                     data.add(num::u32_as_usize(w_slot)),
+>                     num::u32_as_usize(in_after),
+>                 ),
+>                 core::slice::from_raw_parts_mut(data, num::u32_as_usize(i=
+n_before)),
+>             )
+>         }
+>     }
+>
+> It has turned out quite short, which I like! I also opted to work with
+> the original `u32` until the very end, as it results in less conversions
+> overall.
 
-We probably don't care what OpenRM (without a space :)) calls it. But
-why not use the same name, so the relationship becomes clear?
+Possibly take some thing from the old projection syntax rework series?
 
-> +    element_len: u32,
-> +    mctp: MctpHeader,
-> +    nvdm: NvdmHeader,
-> +    /// Length of the message header and the payload, the queue element =
-header excluded. Open RM
-> +    /// calls it `nvdmPayloadSize`.
-> +    message_len: u32,
+https://lore.kernel.org/rust-for-linux/20260415-projection-syntax-rework-v1=
+-4-450723cb3727@garyguo.net/
 
-Same here. Btw, reading at the comment, it sounds like `message_len` is
-always equal to `element_len - size_of::<QueueElementHeader>`? Or am I
-misreading?
+Best,
+Gary
 
-> +    reserved: u32,
-> +}
-> +
-> +static_assert!(
-> +    core::mem::offset_of!(QueueElementHeader, magic)
-> +        =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT, mct=
-pMagic)
-> +);
-> +static_assert!(
-> +    core::mem::offset_of!(QueueElementHeader, element_len)
-> +        =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT, mct=
-pPayloadSize)
-> +);
-> +static_assert!(
-> +    core::mem::offset_of!(QueueElementHeader, mctp)
-> +        =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT, mct=
-pHeader)
-> +);
-> +static_assert!(
-> +    core::mem::offset_of!(QueueElementHeader, nvdm)
-> +        =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT, nvd=
-mHeader)
-> +);
-
-Mmm, that's not great. Basically we are redefining a new type that is
-mirroring a binding-generated type, and relying on these asserts to make
-sure the two types match. All that because `GSP_MSG_QUEUE_ELEMENT` has
-too long a size due to the encryption support part.
-
-This is something where I would like to ask OpenRM to revise their
-definition so we can leverage the generated bindings properly, and end
-up with just
-
-  pub(crate) struct QueueElementHeader(r000_00::GSP_MSG_QUEUE_ELEMENT);
-
-But in the meantime, I guess defining our own type like this patch does
-is the only viable route. Let's add a (short) note explaining the reason
-for this though.
-
-If we confirm the layout at build-time though, we should also assert the
-offsets of the members in the union - which IIUC from your reply to
-Timur you already did.
-
-> +
-> +#[expect(dead_code)]
-> +impl QueueElementHeader {
-> +    /// Builds the queue element header of an element whose message head=
-er and payload together
-> +    /// take `message_len` bytes.
-> +    ///
-> +    /// # Errors
-> +    ///
-> +    /// - `EOVERFLOW` if a length does not fit its 32-bit field.
-> +    fn new(nvdm: NvdmType, message_len: usize) -> Result<Self> {
-> +        Ok(Self {
-> +            magic: MCTP_MAGIC,
-> +            element_len: size_of::<Self>()
-> +                .checked_add(message_len)
-> +                .ok_or(EOVERFLOW)?
-> +                .try_into()
-> +                .map_err(|_| EOVERFLOW)?,
-> +            mctp: MctpHeader::single_packet(),
-> +            nvdm: NvdmHeader::new(nvdm),
-> +            message_len: message_len.try_into().map_err(|_| EOVERFLOW)?,
-> +            reserved: 0,
-> +        })
-> +    }
-> +
-> +    /// Returns the length of the whole element, the queue element heade=
-r included.
-> +    fn element_len(&self) -> usize {
-> +        num::u32_as_usize(self.element_len)
-> +    }
-> +
-> +    /// Returns the length of the payload that follows a message header =
-of `message_header_len`
-> +    /// bytes.
-> +    fn payload_len(&self, message_header_len: usize) -> usize {
-> +        num::u32_as_usize(self.message_len).saturating_sub(message_heade=
-r_len)
-> +    }
-
-Passing the header length looks awkward and error-prone, and as
-discussed with Timur you then need to manage errors (which was done in
-the "add GMC transport receive path" patch rather than now).
-
-There are only two callers of this, one per header type, let's make the
-caller responsible for subtracting their own header after they have
-matched against it instead of unconditionally subtracting an arbitrary
-amount here.
-
-> +
-> +    /// Returns the number of queue slots that this element occupies.
-> +    fn element_count(&self) -> u32 {
-> +        self.element_len
-> +            .div_ceil(num::usize_into_u32::<GSP_PAGE_SIZE>())
-> +    }
-> +}
-> +
-> +// SAFETY: All fields are integer types or transparent wrappers over one=
-, with no padding.
-> +unsafe impl AsBytes for QueueElementHeader {}
-> +
-> +// SAFETY: All fields are integer types for which all bit patterns are v=
-alid.
-> +unsafe impl FromBytes for QueueElementHeader {}
-> +
-> +/// Header of a GMC API message.
-> +#[repr(C)]
-> +#[derive(Zeroable)]
-> +pub(crate) struct GmcApiHeader {
-> +    /// Command id in the low three bytes, flags in the high byte.
-
-... then this should be a `bitfield` type. :) Especially since I see we
-are doing some bit-masking in later patches. Commands can then be a
-nicely-defined enum used for the relevant field.
-
-> +    pub(crate) command: u32,
-> +    /// Payload size in bytes.
-> +    pub(crate) size: u32,
-> +    /// Sequence number that GSP-RM copies from a request into its respo=
-nse.
-> +    pub(crate) sequence: u64,
-> +    /// In a request, the largest response that the sender accepts. In a=
- response, the `NV_STATUS`.
-> +    pub(crate) max_resp_or_status: u32,
-> +    reserved: [u32; 5],
-> +}
-> +
-> +static_assert!(size_of::<GmcApiHeader>() =3D=3D size_of::<r000_00::GMCAP=
-I_HEADER>());
-> +static_assert!(
-> +    core::mem::offset_of!(GmcApiHeader, command)
-> +        =3D=3D core::mem::offset_of!(r000_00::GMCAPI_HEADER, command)
-> +);
-> +static_assert!(
-> +    core::mem::offset_of!(GmcApiHeader, size)
-> +        =3D=3D core::mem::offset_of!(r000_00::GMCAPI_HEADER, size)
-> +);
-> +static_assert!(
-> +    core::mem::offset_of!(GmcApiHeader, sequence)
-> +        =3D=3D core::mem::offset_of!(r000_00::GMCAPI_HEADER, sequence)
-> +);
-> +static_assert!(
-> +    core::mem::offset_of!(GmcApiHeader, max_resp_or_status)
-> +        =3D=3D core::mem::offset_of!(r000_00::GMCAPI_HEADER, __bindgen_a=
-non_1)
-> +);
-> +static_assert!(
-> +    core::mem::offset_of!(GmcApiHeader, reserved)
-> +        =3D=3D core::mem::offset_of!(r000_00::GMCAPI_HEADER, reserved)
-> +);
-
-So for this one the story is different than `QueueElementHeader`:
-`GMCAPI_HEADER` has the right size and a layout that we can wrap, so
-here we have no excuse for not defining a newtype instead of doing this
-tedious checking.
-
-I understand there is an union and this requires an unsafe block to
-read, but we would need exactly one, in the `status` method. Which imho
-is better than adding ~60 LoCs redefining what we already have and
-confirming what we already know.
-
-> +
-> +impl GmcApiHeader {
-> +    /// Returns the `NV_STATUS` that a response carries.
-> +    ///
-> +    /// The value is meaningful only on a response, which GSP-RM marks w=
-ith a flag in the command
-> +    /// word. In a request, the same word holds the largest response tha=
-t the sender accepts.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn status(&self) -> u32 {
-> +        self.max_resp_or_status
-> +    }
-> +}
-> +
-> +// SAFETY: All fields are integer types with no uninitialized padding by=
-tes.
-> +unsafe impl AsBytes for GmcApiHeader {}
-> +
-> +// SAFETY: All fields are integer types for which all bit patterns are v=
-alid.
-> +unsafe impl FromBytes for GmcApiHeader {}
-> +
-> +/// The headers that open a GMC API queue element: the queue element hea=
-der and the GMC API
-> +/// header.
-> +#[repr(C)]
-> +pub(crate) struct GspGmcMsgElement {
-> +    element_header: QueueElementHeader,
-> +    pub(crate) gmc: GmcApiHeader,
-> +}
-> +
-> +// `AsBytes` below requires that no padding separates the two headers.
-> +static_assert!(
-> +    size_of::<GspGmcMsgElement>() =3D=3D size_of::<QueueElementHeader>()=
- + size_of::<GmcApiHeader>()
-> +);
-> +
-> +#[expect(dead_code)]
-> +impl GspGmcMsgElement {
-> +    /// Creates the queue element header and the GMC API header of a req=
-uest that carries
-> +    /// `payload_size` bytes of payload.
-> +    ///
-> +    /// `max_response_size` is the largest response that the sender acce=
-pts, and zero for a request
-> +    /// that GSP-RM does not answer.
-> +    ///
-> +    /// # Errors
-> +    ///
-> +    /// - `EOVERFLOW` if a length does not fit its 32-bit field.
-> +    pub(crate) fn init(
-> +        command_id: u32,
-> +        sequence: u64,
-> +        payload_size: usize,
-> +        max_response_size: u32,
-> +    ) -> impl Init<Self, Error> {
-> +        try_init!(GspGmcMsgElement {
-> +            element_header: QueueElementHeader::new(
-> +                NvdmType::GmcApi,
-> +                size_of::<GmcApiHeader>()
-> +                    .checked_add(payload_size)
-> +                    .ok_or(EOVERFLOW)?,
-> +            )?,
-> +            gmc: GmcApiHeader {
-> +                command: command_id,
-> +                size: payload_size.try_into().map_err(|_| EOVERFLOW)?,
-> +                sequence,
-> +                max_resp_or_status: max_response_size,
-> +                reserved: [0; 5],
-> +            },
-> +        })
-> +    }
-> +
-> +    /// Returns the length of the whole element, both headers included.
-> +    pub(crate) fn length(&self) -> usize {
-> +        self.element_header.element_len()
-> +    }
-> +
-> +    /// Returns the number of queue slots that this element occupies.
-> +    pub(crate) fn element_count(&self) -> u32 {
-> +        self.element_header.element_count()
-> +    }
-
-Let's provide an `element_header` returning the header which the caller
-can then query instead of one proxy method per method of the header we
-want to access.
