@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66FD30D407;
-	Wed, 23 Sep 2026 00:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2C3339361;
+	Wed, 23 Sep 2026 01:09:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790124087; cv=none; b=f0O6rrF19/eQSJo+ZSxJLKLhU/B2FfXSTt3zxqEIRHd8/dIGq02Ypq3tMDda7FP100Tip9HdwIcNDplsoTuoIj5o5fzqsZitXJ77xuACbCfwZkCc+RlY1HvyxIVl5pxE3Mbod5sBdcohVgWQzG/SzyF3siJeq7YA6rAJBw0qpQ4=
+	t=1790125782; cv=none; b=fsZCaKVSYEv8sqRNi+vXf6uMiw4yGSL+4JgbRmcxyDhZk2jKt9EFUIcpn5aCMkpKZdOVmUr49TnL+u7aX2Nvq8BCMkjd68O1yl4mZ4SdUnP7n7G//6wtDV3f/77H0Y3x1W4IrA5HQTRr9UgKB8TmFRB4UtOqLEJnTLk1054wvh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790124087; c=relaxed/simple;
-	bh=g2S7HmKqHtwnub+B0hhnpOmWnyi9XiiNZ2PuiQEW2W4=;
+	s=arc-20240116; t=1790125782; c=relaxed/simple;
+	bh=4luIcd1c3odYu0Km/GZtAMewjZYlHPVFLXQWXInkfsA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZiW5k3O9/xbN/H/4U16sJgrxPsAR7inTPL2ZhVkh45SBx0gG/bPA/025v7+i5iruxUmGZe83UVevrpdPsrhesP24hPWv81aBsfmyK6QCRWrwZHNmMZiFVvCy28u6fYUeDimzSpQJm0N8G8wft7r9H7D8DzpBg+ovt50shE1vlpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwZMGon8; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=bNDr3WKbbRfRlLdxjhvAxaCUFizHtCY4DFYr2m3p7RdnaZmk23JurO3vVWK1C5HcsIV2uQIxq+kKa3iGz5532j6NJ+mlenCl4H10kp6zqIZ7x+eV3n29+znSUVd94zvvjHAMsqeCLLqyATOPTZ1a92I5/M4AfJenR0OzJb9RFbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e//0skrL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwZMGon8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A0475C2BCFD;
-	Wed, 23 Sep 2026 00:41:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e//0skrL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C8525C2BCB8;
+	Wed, 23 Sep 2026 01:09:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790124087;
-	bh=g2S7HmKqHtwnub+B0hhnpOmWnyi9XiiNZ2PuiQEW2W4=;
+	s=k20201202; t=1790125781;
+	bh=4luIcd1c3odYu0Km/GZtAMewjZYlHPVFLXQWXInkfsA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hwZMGon89+2bQV4j4iJcPN92GYXx/hU7UxP7dkKuueltrf+5ZJvGAq8JukONCQTpk
-	 eQ/39u+FBcnmFo9JdFGKBkeGSf7v56mvCf244+o7HUuQbNUaPW2LMLLf4xMS6yDJ/y
-	 f9QnvXo0OTPcCxFU0ZKKaZM0KcS55fvCe9A7oaAmWIVIBzBj1+sCFYAEN1BgGXh0Yz
-	 E+6m3IgkF/oE34LgMAs/F17W/jnaPM8ybhjkSycHXMzP/KgROmatPfj5EvR2XtZOyr
-	 Gs18iBUmEbJYWzniiDaToejXhtEqkhPkdZLGzFwClCF8Z08lvVQ8qL1gsJgHRUTB9N
-	 RwHPBnmxgkgvA==
+	b=e//0skrL0xQAWN2nRh4TCw0whntA95ghZjzMu4SA6/juxwchoN8KayCweGsGqDe5i
+	 xlLfomPbGMyieRxwKQKTaDyslLOeAeJFUNg+Dh0gnJi+SGwUbktDn0z3qbFT0gP5G7
+	 EcmwkxTF2NtAGK/G0TXmQjtPDGFUmqAUzeRPkz/GwCtWBoHHc9v3B0rX+3tqB4CSb9
+	 uAU9fpy/9aGGBy5xy4VGZq9tUapKQ++3BVUBPmDaf62P6HCwA//Rg0FAU392yxgX6a
+	 bIoKr2hqw2cQpWCzUQ4twvsf64bNcD/jtVpKoU4dfs5BtDvwt4YD/OHndB43gkXoo1
+	 QKKelHvRXzCAw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E354C98302;
-	Wed, 23 Sep 2026 00:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA5F2C98302;
+	Wed, 23 Sep 2026 01:09:41 +0000 (UTC)
 From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Wed, 23 Sep 2026 02:41:10 +0200
-Subject: [PATCH v2 4/4] gpu: nova-core: Extract PFALCON register
+Date: Wed, 23 Sep 2026 03:09:25 +0200
+Subject: [PATCH v3 1/4] gpu: nova-core: Extract PFSP register definitions
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -40,30 +40,30 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v2-4-74600fc068c4@nanonej.com>
-References: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v2-0-74600fc068c4@nanonej.com>
-In-Reply-To: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v2-0-74600fc068c4@nanonej.com>
+Message-Id: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v3-1-cd26aa94c021@nanonej.com>
+References: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v3-0-cd26aa94c021@nanonej.com>
+In-Reply-To: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v3-0-cd26aa94c021@nanonej.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=23772; i=dev@nanonej.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5168; i=dev@nanonej.com;
  h=from:subject:message-id;
- bh=kaVLvZKR5SdXT3PW2e4UtwBiY+0RTQ66muvu+eze5nY=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqsyA1uDYzTeMlwdVcCbHQHSCz3IA5ne/P+TdRp
- WU9sFp763eJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCarMgNQAKCRBmh/EjChUV
- /YmID/0fC1RZYSqjA3DVX8qd06CZbUYMqZU8euN8/78XUW9MonhhlKvonECEqb1irdMMBLZr/H2
- QA/VtoBsS2EqGUf7i99p13sVP0vujPMbg8nBP7yBoQbcM6u4aTnETDlwZsAwGnA6AvKV9gbFHyA
- zR47qtYPF+XIk2o0UJgqm7B7CwrYq10XHzW2jgNgSXgDOjSB2XR66oOEr/ayRmMby5Zjk7sJEQ2
- hq2gSxgNg8OiU8yT+shgyWtNE03XwwzlLHL2IzY0cmsWlyDF+s7eJUypBIFA6MBZhq8IVNOrkwh
- dueXaEYgXWhSAiAfqf9pObZUxMo6bh32KsTwxqWA85N0OthQ/z7++vs11GGvKhStdQIo5U7PYZ+
- YST95AyrH/LRc57bzRzcxsl+7crJJKQGHflZAf/SmLcBUONdtKS0AuNN/wofbN1ffqH+3sSXbVb
- +dgAqH3SH9th1vEThKHSB5CRmmPwoB0JSzG46a/H+TqiqDqgablDw69z1+vCpRMWJCtnFwpIPNv
- BnKVc1H+Fh7/bYKy7OlZ5O599AQbv+FBSTJXlomdLI7KgOqdAVGyAs60tKIfIf2QnLBsWJNwNBV
- Fmn6dwnkNASl559Wcovs9w+E8cRdc0hwG61pdh3Bs3icf/xpHLC5omwlOfKdMhBXd+PJvSJlt5v
- S1fjgVYdrR5/Dpg==
+ bh=iNKHZoLfFLYw78c3GCijvpikUhWdYQcglLUTmZXVb7g=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqsybTOg8K2k1eDtvN4HAihSEd33PtgzTiuScGb
+ 4oQpTLDsaCJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCarMm0wAKCRBmh/EjChUV
+ /VdQD/9SlZG2q/Kw2H+7ua6pQDXZIWU1+X6Io6/Gy+OU5LN63fEqOk/lN2HjaD2bhDcHH8T0EB6
+ RKJDdc2asWAIanHtsKgkvqTp3ajH/vY5zPSnSjglX4Kn0mT2BNmpt2NoSnd7CZw/Dv+45HvBk6w
+ 6FNk/4S+WUa+CjgnOVntFowhZcBnJBe68bftMlR0Nc+2HOqakGDq0FULgktwkhfimvgeEjBoAZK
+ QWpq1UZQwVH6ISmJ+EcZU/29egG9aBPeI7iHMuqxHklDfrCEvYdav/6AGmHPSAPhLVgEoLwOCy/
+ tB8zJPySvcuAqoA7YLHHgcw+PbwC/BdyNdV8i+SdJ3PDEFEVXfRclMzOcm07iD3kcDFlc2OKKit
+ CVYpvRAgtj5JSmP8Ql/UjILcWJqwmAwcyGcxeXzXLfDjZfRwoJjHcPPXVBelWUaQJ01x/n1Nyfx
+ qmOZGycHc+6rD2xguDE9Uoy29nhCOor8iBbxM6kKla/g0n7b91WAclF6IGCZJPSNSSBt/sskjUc
+ kXHem16KJZn/iWA/vjj4ntAak81au0dQjfW9XuYPBcprFLK6sC04IVGjFn/ED75BQa1WCcjFeQU
+ QlecYz3F2ZCfsph9lObeXOeGivPS5mHgG+nsioo5WtM36QH4Gr6OLzgqTkifjEMJ/eG12f5n8R7
+ Zq/3jA0VgT7nPXw==
 X-Developer-Key: i=dev@nanonej.com; a=openpgp;
  fpr=83B64FB07C91212F5285227D6687F1230A1515FD
 X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with
@@ -73,686 +73,154 @@ Reply-To: dev@nanonej.com
 
 From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-Move PFALCON register definitions from the root regs.rs file into the
-falcon module that own them, in the existing falcon/regs.rs file.
+Move PFSP register definitions from the root regs.rs file into the
+falcon module that own them, in the new falcon/regs.rs file.
 
 This follows the same pattern established by previous commits for
-GSP, PDISP, PFB, PBUS, PMC, PFSP, PRISCV and PFALCON2 registers:
-register definitions move to the module that interprets their
-service, visibility changes to pub(super).
+GSP, PDISP, PFB, PBUS and PMC registers: register definitions move to
+the module that interprets their service, visibility changes to
+pub(super).
 
-The firmware module still needs to configure the FBIF DMA index used
-by the bootloader to fetch the FWSEC firmware from system memory, so
-the falcon module now exposes a set_fbif_transcfg() helper on
-Falcon<Gsp> to access the NV_PFALCON_FBIF_TRANSCFG register.
-
-As the bootloader was the only user of the pfalcon field from outside
-the falcon module, the field can now be made private, resolving the
-corresponding TODO.
+Since PFALCON registers are defined in the root regs.rs but are
+also part of the falcon interface, accessed by the whole falcon
+module, they are re-exported in falcon/regs.rs so falcon code can use
+a single regs:: prefix.
+Once the PFALCON family moves out of the root module, these
+re-exports will become plain definitions.
 
 Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
 Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
 ---
- drivers/gpu/nova-core/falcon.rs                    |  13 +-
- drivers/gpu/nova-core/falcon/gsp.rs                |  23 +-
- drivers/gpu/nova-core/falcon/regs.rs               | 250 +++++++++++++++++++--
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  18 +-
- drivers/gpu/nova-core/regs.rs                      | 222 +-----------------
- 5 files changed, 263 insertions(+), 263 deletions(-)
+ drivers/gpu/nova-core/falcon.rs      |  4 ++--
+ drivers/gpu/nova-core/falcon/fsp.rs  |  6 +++---
+ drivers/gpu/nova-core/falcon/regs.rs | 42 ++++++++++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs        | 23 --------------------
+ 4 files changed, 47 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 60cbd742bad7..95b5146af5b2 100644
+index 9015de965a53..1900d642baa1 100644
 --- a/drivers/gpu/nova-core/falcon.rs
 +++ b/drivers/gpu/nova-core/falcon.rs
-@@ -44,8 +44,8 @@
- pub(crate) const MEM_BLOCK_ALIGNMENT: usize = 256;
+@@ -31,13 +31,13 @@
+     num::{
+         self,
+         FromSafeCast, //
+-    },
+-    regs,
++    }, //
+ };
  
- bounded_enum! {
--    /// Revision number of a falcon core, used in the [`crate::regs::NV_PFALCON_FALCON_HWCFG1`]
--    /// register.
-+    /// Revision number of a falcon core, used in the
-+    /// [`crate::falcon::regs::NV_PFALCON_FALCON_HWCFG1`] register.
-     #[derive(Debug, Copy, Clone)]
-     pub(crate) enum FalconCoreRev with TryFrom<Bounded<u32, 4>> {
-         Rev1 = 1,
-@@ -60,7 +60,7 @@ pub(crate) enum FalconCoreRev with TryFrom<Bounded<u32, 4>> {
+ pub(crate) mod fsp;
+ pub(crate) mod gsp;
+ mod hal;
++mod regs;
+ pub(crate) mod sec2;
  
- bounded_enum! {
-     /// Revision subversion number of a falcon core, used in the
--    /// [`crate::regs::NV_PFALCON_FALCON_HWCFG1`] register.
-+    /// [`crate::falcon::regs::NV_PFALCON_FALCON_HWCFG1`] register.
-     #[derive(Debug, Copy, Clone)]
-     pub(crate) enum FalconCoreRevSubversion with From<Bounded<u32, 2>> {
-         Subversion0 = 0,
-@@ -106,8 +106,8 @@ pub(crate) enum FalconModSelAlgo with TryFrom<Bounded<u32, 8>> {
- }
- 
- bounded_enum! {
--    /// Valid values for the `size` field of the [`crate::regs::NV_PFALCON_FALCON_DMATRFCMD`]
--    /// register.
-+    /// Valid values for the `size` field of the
-+    /// [`crate::falcon::regs::NV_PFALCON_FALCON_DMATRFCMD`] register.
-     #[derive(Debug, Copy, Clone)]
-     pub(crate) enum DmaTrfCmdSize with TryFrom<Bounded<u32, 3>> {
-         /// 256 bytes transfer.
-@@ -364,8 +364,7 @@ pub(crate) struct Falcon<'a, E: FalconEngine> {
-     hal: KBox<dyn FalconHal<E>>,
-     dev: &'a device::Device<device::Bound>,
-     bar: Bar0<'a>,
--    // TODO: make private
--    pub(crate) pfalcon: Mmio<'a, PFalconRegisters>,
-+    pfalcon: Mmio<'a, PFalconRegisters>,
-     pfalcon2: Mmio<'a, PFalcon2Registers>,
- }
- 
-diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core/falcon/gsp.rs
-index 4c96ae325fda..a14795657c9e 100644
---- a/drivers/gpu/nova-core/falcon/gsp.rs
-+++ b/drivers/gpu/nova-core/falcon/gsp.rs
-@@ -5,6 +5,7 @@
-         io_project,
-         poll::read_poll_timeout,
-         register,
-+        register::Array,
-         Io,
-         Mmio, //
+ /// Alignment (in bytes) of falcon memory blocks.
+diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-core/falcon/fsp.rs
+index 85f9c8c5d60e..2bd8674f27a1 100644
+--- a/drivers/gpu/nova-core/falcon/fsp.rs
++++ b/drivers/gpu/nova-core/falcon/fsp.rs
+@@ -17,7 +17,7 @@
      },
-@@ -18,10 +19,12 @@
+     prelude::*,
+     sizes::SZ_1K,
+-    time::Delta,
++    time::Delta, //
+ };
+ 
+ use crate::{
+@@ -26,11 +26,11 @@
          NovaRegisters, //
      },
      falcon::{
 +        regs,
          Falcon,
--        FalconEngine, //
-+        FalconEngine,
-+        FalconFbifMemType,
-+        FalconFbifTarget, //
+         FalconEngine, //
      },
--    regs,
+-    num,
+-    regs, //
++    num, //
  };
  
- /// Type specifying the `Gsp` falcon engine. Cannot be instantiated.
-@@ -57,7 +60,7 @@ pub(crate) fn clear_swgen0_intr(&self) {
-     /// Checks if GSP reload/resume has completed during the boot process.
-     pub(crate) fn check_reload_completed(&self, timeout: Delta) -> Result<bool> {
-         read_poll_timeout(
--            || Ok(self.bar.read(regs::NV_PGC6_BSI_SECURE_SCRATCH_14)),
-+            || Ok(self.bar.read(crate::regs::NV_PGC6_BSI_SECURE_SCRATCH_14)),
-             |val| val.boot_stage_3_handoff(),
-             Delta::ZERO,
-             timeout,
-@@ -83,4 +86,18 @@ pub(crate) fn priv_target_mask_released(&self) -> bool {
- 
-         hwcfg2 != 0 && (hwcfg2 & LOCKED_MASK) != LOCKED_PATTERN
-     }
-+
-+    /// Configures the FBIF translation registers for the given DMA context.
-+    pub(crate) fn set_fbif_transcfg(
-+        &self,
-+        ctx_dma: usize,
-+        target: FalconFbifTarget,
-+        mem_type: FalconFbifMemType,
-+    ) -> Result {
-+        self.pfalcon.update(
-+            regs::NV_PFALCON_FBIF_TRANSCFG::try_at(ctx_dma).ok_or(EINVAL)?,
-+            |v| v.with_target(target).with_mem_type(mem_type),
-+        );
-+        Ok(())
-+    }
- }
+ /// FSP message timeout in milliseconds.
 diff --git a/drivers/gpu/nova-core/falcon/regs.rs b/drivers/gpu/nova-core/falcon/regs.rs
-index 09ebaf5424d9..9ef3ffd0fa65 100644
---- a/drivers/gpu/nova-core/falcon/regs.rs
+new file mode 100644
+index 000000000000..336f065929db
+--- /dev/null
 +++ b/drivers/gpu/nova-core/falcon/regs.rs
-@@ -1,14 +1,234 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--use crate::driver::NovaRegisters;
--use kernel::io::register;
-+use kernel::{
-+    io::{
-+        register,
-+        Io,
-+        Mmio, //
-+    },
-+    time, //
-+};
- 
--use crate::falcon::{
--    FalconModSelAlgo,
--    PFalcon2Registers,
--    PeregrineCoreSelect, //
-+use crate::{
-+    driver::NovaRegisters,
-+    falcon::{
-+        DmaTrfCmdSize,
-+        FalconCoreRev,
-+        FalconCoreRevSubversion,
-+        FalconFbifMemType,
-+        FalconFbifTarget,
-+        FalconMem,
-+        FalconModSelAlgo,
-+        FalconSecurityModel,
-+        PFalcon2Registers,
-+        PFalconRegisters,
-+        PeregrineCoreSelect, //
-+    },
- };
- 
-+// PFALCON
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: GPL-2.0
++
++use crate::driver::NovaRegisters;
++use kernel::io::register;
++
++// FSP (Foundation Security Processor) queue registers for Hopper/Blackwell Chain of Trust.
++// These registers manage falcon EMEM communication queues.
 +
 +register! {
-+    base: PFalconRegisters;
++    base: NovaRegisters;
 +
-+    pub(super) NV_PFALCON_FALCON_IRQSCLR(u32) @ 0x00000004 {
-+        6:6     swgen0 => bool;
-+        4:4     halt => bool;
++    pub(super) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
++        31:0    address => u32;
 +    }
 +
-+    pub(super) NV_PFALCON_FALCON_MAILBOX0(u32) @ 0x00000040 {
-+        31:0    value => u32;
++    pub(super) NV_PFSP_QUEUE_TAIL(u32)[8] @ 0x008f2c04 {
++        31:0    address => u32;
 +    }
 +
-+    pub(super) NV_PFALCON_FALCON_MAILBOX1(u32) @ 0x00000044 {
-+        31:0    value => u32;
++    pub(super) NV_PFSP_MSGQ_HEAD(u32)[8] @ 0x008f2c80 {
++        31:0    val => u32;
 +    }
 +
-+    /// Used to store version information about the firmware running
-+    /// on the Falcon processor.
-+    pub(super) NV_PFALCON_FALCON_OS(u32) @ 0x00000080 {
-+        31:0    value => u32;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_RM(u32) @ 0x00000084 {
-+        31:0    value => u32;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_HWCFG2(u32) @ 0x000000f4 {
-+        /// Signal indicating that reset is completed (GA102+).
-+        31:31   reset_ready => bool;
-+        /// RISC-V branch privilege lockdown bit.
-+        13:13   riscv_br_priv_lockdown => bool;
-+        /// Set to 0 after memory scrubbing is completed.
-+        12:12   mem_scrubbing => bool;
-+        10:10   riscv => bool;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_CPUCTL(u32) @ 0x00000100 {
-+        6:6     alias_en => bool;
-+        4:4     halted => bool;
-+        1:1     startcpu => bool;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_BOOTVEC(u32) @ 0x00000104 {
-+        31:0    value => u32;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_DMACTL(u32) @ 0x0000010c {
-+        7:7     secure_stat => bool;
-+        6:3     dmaq_num;
-+        2:2     imem_scrubbing => bool;
-+        1:1     dmem_scrubbing => bool;
-+        0:0     require_ctx => bool;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_DMATRFBASE(u32) @ 0x00000110 {
-+        31:0    base => u32;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_DMATRFMOFFS(u32) @ 0x00000114 {
-+        23:0    offs;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_DMATRFCMD(u32) @ 0x00000118 {
-+        16:16   set_dmtag;
-+        14:12   ctxdma;
-+        10:8    size ?=> DmaTrfCmdSize;
-+        5:5     is_write => bool;
-+        4:4     imem => bool;
-+        3:2     sec;
-+        1:1     idle => bool;
-+        0:0     full => bool;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_DMATRFFBOFFS(u32) @ 0x0000011c {
-+        31:0    offs => u32;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_DMATRFBASE1(u32) @ 0x00000128 {
-+        8:0     base;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_HWCFG1(u32) @ 0x0000012c {
-+        /// Core revision subversion.
-+        7:6     core_rev_subversion => FalconCoreRevSubversion;
-+        /// Security model.
-+        5:4     security_model ?=> FalconSecurityModel;
-+        /// Core revision.
-+        3:0     core_rev ?=> FalconCoreRev;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_CPUCTL_ALIAS(u32) @ 0x00000130 {
-+        1:1     startcpu => bool;
-+    }
-+
-+    /// IMEM access control register. Up to 4 ports are available for IMEM access.
-+    pub(super) NV_PFALCON_FALCON_IMEMC(u32)[4, stride = 16] @ 0x00000180 {
-+        /// Access secure IMEM.
-+        28:28     secure => bool;
-+        /// Auto-increment on write.
-+        24:24     aincw => bool;
-+        /// IMEM block and word offset.
-+        15:0      offs;
-+    }
-+
-+    /// IMEM data register. Reading/writing this register accesses IMEM at the address
-+    /// specified by the corresponding IMEMC register.
-+    pub(super) NV_PFALCON_FALCON_IMEMD(u32)[4, stride = 16] @ 0x00000184 {
-+        31:0      data;
-+    }
-+
-+    /// IMEM tag register. Used to set the tag for the current IMEM block.
-+    pub(super) NV_PFALCON_FALCON_IMEMT(u32)[4, stride = 16] @ 0x00000188 {
-+        15:0      tag;
-+    }
-+
-+    /// DMEM access control register. Up to 8 ports are available for DMEM access.
-+    pub(super) NV_PFALCON_FALCON_DMEMC(u32)[8, stride = 8] @ 0x000001c0 {
-+        /// Auto-increment on write.
-+        24:24     aincw => bool;
-+        /// DMEM block and word offset.
-+        15:0      offs;
-+    }
-+
-+    /// DMEM data register. Reading/writing this register accesses DMEM at the address
-+    /// specified by the corresponding DMEMC register.
-+    pub(super) NV_PFALCON_FALCON_DMEMD(u32)[8, stride = 8] @ 0x000001c4 {
-+        31:0      data;
-+    }
-+
-+    /// Actually known as `NV_PSEC_FALCON_ENGINE` and `NV_PGSP_FALCON_ENGINE` depending on the
-+    /// falcon instance.
-+    pub(super) NV_PFALCON_FALCON_ENGINE(u32) @ 0x000003c0 {
-+        0:0     reset => bool;
-+    }
-+
-+    pub(super) NV_PFALCON_FBIF_TRANSCFG(u32)[8] @ 0x00000600 {
-+        2:2     mem_type => FalconFbifMemType;
-+        1:0     target ?=> FalconFbifTarget;
-+    }
-+
-+    pub(super) NV_PFALCON_FBIF_CTL(u32) @ 0x00000624 {
-+        7:7     allow_phys_no_ctx => bool;
-+    }
-+
-+    // Falcon EMEM PIO registers (used by FSP on Hopper/Blackwell).
-+    // These provide the falcon external memory communication interface.
-+
-+    pub(super) NV_PFALCON_FALCON_EMEMC(u32) @ 0x00000ac0 {
-+        /// EMEM byte offset (4-byte aligned) within the block.
-+        7:2     offs;
-+        /// EMEM block to access.
-+        15:8    blk;
-+        /// Auto-increment the offset after each write.
-+        24:24   aincw => bool;
-+        /// Auto-increment the offset after each read.
-+        25:25   aincr => bool;
-+    }
-+
-+    pub(super) NV_PFALCON_FALCON_EMEMD(u32) @ 0x00000ac4 {
-+        31:0    data => u32;
++    pub(super) NV_PFSP_MSGQ_TAIL(u32)[8] @ 0x008f2c84 {
++        31:0    val => u32;
 +    }
 +}
 +
-+impl NV_PFALCON_FALCON_DMACTL {
-+    /// Returns `true` if memory scrubbing is completed.
-+    pub(super) fn mem_scrubbing_done(self) -> bool {
-+        !self.dmem_scrubbing() && !self.imem_scrubbing()
-+    }
-+}
-+
-+impl NV_PFALCON_FALCON_DMATRFCMD {
-+    /// Programs the `imem` and `sec` fields for the given FalconMem
-+    pub(super) fn with_falcon_mem(self, mem: FalconMem) -> Self {
-+        let this = self.with_imem(mem != FalconMem::Dmem);
-+
-+        match mem {
-+            FalconMem::ImemSecure => this.with_const_sec::<1>(),
-+            _ => this.with_const_sec::<0>(),
-+        }
-+    }
-+}
-+
-+impl NV_PFALCON_FALCON_ENGINE {
-+    /// Resets the falcon
-+    pub(super) fn reset_engine(pfalcon: Mmio<'_, PFalconRegisters>) {
-+        pfalcon.update(NV_PFALCON_FALCON_ENGINE, |r| r.with_reset(true));
-+
-+        // TIMEOUT: falcon engine should not take more than 10us to reset.
-+        time::delay::fsleep(time::Delta::from_micros(10));
-+
-+        pfalcon.update(NV_PFALCON_FALCON_ENGINE, |r| r.with_reset(false));
-+    }
-+}
-+
-+impl NV_PFALCON_FALCON_HWCFG2 {
-+    /// Returns `true` if memory scrubbing is completed.
-+    pub(super) fn mem_scrubbing_done(self) -> bool {
-+        !self.mem_scrubbing()
-+    }
-+}
-+
- // PFALCON2
- 
- register! {
-@@ -82,20 +302,10 @@
-     }
- }
- 
--// PFALCON and FUSE registers are defined in the root `regs.rs` but are
--// part of the falcon interface, accessed by the whole falcon module. They
--// are re-exported here so falcon code can use a single `regs::` prefix.
--// Once these families move out of the root module, these re-exports become
--// plain definitions.
-+// FUSE registers are defined in the root `regs.rs` but are part of the
-+// falcon interface, accessed by the whole falcon module. They are
-+// re-exported here so falcon code can use a single `regs::` prefix.
- pub(super) use crate::regs::{
-     NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION, NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION,
--    NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION, NV_FUSE_OPT_FPF_SIZE, NV_PFALCON_FALCON_BOOTVEC,
--    NV_PFALCON_FALCON_CPUCTL, NV_PFALCON_FALCON_CPUCTL_ALIAS, NV_PFALCON_FALCON_DMACTL,
--    NV_PFALCON_FALCON_DMATRFBASE, NV_PFALCON_FALCON_DMATRFBASE1, NV_PFALCON_FALCON_DMATRFCMD,
--    NV_PFALCON_FALCON_DMATRFFBOFFS, NV_PFALCON_FALCON_DMATRFMOFFS, NV_PFALCON_FALCON_DMEMC,
--    NV_PFALCON_FALCON_DMEMD, NV_PFALCON_FALCON_EMEMC, NV_PFALCON_FALCON_EMEMD,
--    NV_PFALCON_FALCON_ENGINE, NV_PFALCON_FALCON_HWCFG2, NV_PFALCON_FALCON_IMEMC,
--    NV_PFALCON_FALCON_IMEMD, NV_PFALCON_FALCON_IMEMT, NV_PFALCON_FALCON_MAILBOX0,
--    NV_PFALCON_FALCON_MAILBOX1, NV_PFALCON_FALCON_OS, NV_PFALCON_FALCON_RM, NV_PFALCON_FBIF_CTL,
--    NV_PFALCON_FBIF_TRANSCFG,
-+    NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION, NV_FUSE_OPT_FPF_SIZE,
- };
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index a87878fe2aec..db1cb4498acd 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -12,10 +12,6 @@
-         Device, //
-     },
-     dma::Coherent,
--    io::{
--        register::Array,
--        Io, //
--    },
-     prelude::*,
-     ptr::{
-         Alignable,
-@@ -48,7 +44,6 @@
-     },
-     gpu::Chipset,
-     num::FromSafeCast, //
--    regs,
- };
- 
- /// Structure used by the boot-loader to load the rest of the code.
-@@ -247,14 +242,11 @@ pub(crate) fn run(&self, dev: &Device<device::Bound>, falcon: &Falcon<'_, Gsp>)
-             .inspect_err(|e| dev_err!(dev, "Failed to load FWSEC firmware: {:?}\n", e))?;
- 
-         // Configure DMA index for the bootloader to fetch the FWSEC firmware from system memory.
--        falcon.pfalcon.update(
--            regs::NV_PFALCON_FBIF_TRANSCFG::try_at(usize::from_safe_cast(self.dmem_desc.ctx_dma))
--                .ok_or(EINVAL)?,
--            |v| {
--                v.with_target(FalconFbifTarget::CoherentSysmem)
--                    .with_mem_type(FalconFbifMemType::Physical)
--            },
--        );
-+        falcon.set_fbif_transcfg(
-+            usize::from_safe_cast(self.dmem_desc.ctx_dma),
-+            FalconFbifTarget::CoherentSysmem,
-+            FalconFbifMemType::Physical,
-+        )?;
- 
-         let (mbox0, _) = falcon
-             .boot(Some(0), None)
++// PFALCON registers are defined in the root `regs.rs` but are part of the falcon
++// interface, accessed by the whole falcon module. They are re-exported here so
++// falcon code can use a single `regs::` prefix.
++// Once the PFALCON family moves out of the root module, these re-exports become
++// plain definitions.
++pub(super) use crate::regs::{
++    NV_PFALCON_FALCON_BOOTVEC, NV_PFALCON_FALCON_CPUCTL, NV_PFALCON_FALCON_CPUCTL_ALIAS,
++    NV_PFALCON_FALCON_DMACTL, NV_PFALCON_FALCON_DMATRFBASE, NV_PFALCON_FALCON_DMATRFBASE1,
++    NV_PFALCON_FALCON_DMATRFCMD, NV_PFALCON_FALCON_DMATRFFBOFFS, NV_PFALCON_FALCON_DMATRFMOFFS,
++    NV_PFALCON_FALCON_DMEMC, NV_PFALCON_FALCON_DMEMD, NV_PFALCON_FALCON_EMEMC,
++    NV_PFALCON_FALCON_EMEMD, NV_PFALCON_FALCON_IMEMC, NV_PFALCON_FALCON_IMEMD,
++    NV_PFALCON_FALCON_IMEMT, NV_PFALCON_FALCON_MAILBOX0, NV_PFALCON_FALCON_MAILBOX1,
++    NV_PFALCON_FALCON_OS, NV_PFALCON_FALCON_RM, NV_PFALCON_FBIF_CTL, NV_PFALCON_FBIF_TRANSCFG,
++};
 diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 13ccfd429e05..34cf62b4c8f8 100644
+index 9978fb2803b0..693b5148b1d8 100644
 --- a/drivers/gpu/nova-core/regs.rs
 +++ b/drivers/gpu/nova-core/regs.rs
-@@ -2,28 +2,13 @@
- // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
- use kernel::{
--    io::{
--        register,
--        Io,
--        Mmio, //
--    },
--    sizes::SizeConstants,
--    time, //
-+    io::register,
-+    sizes::SizeConstants, //
- };
- use pin_init::Zeroable;
- 
- use crate::{
-     driver::NovaRegisters,
--    falcon::{
--        DmaTrfCmdSize,
--        FalconCoreRev,
--        FalconCoreRevSubversion,
--        FalconFbifMemType,
--        FalconFbifTarget,
--        FalconMem,
--        FalconSecurityModel,
--        PFalconRegisters, //
--    },
-     mm::tlb::TlbAckMode, //
- };
- 
-@@ -116,209 +101,6 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+@@ -372,29 +372,6 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
      }
  }
  
--// PFALCON
+-// FSP (Foundation Security Processor) queue registers for Hopper/Blackwell Chain of Trust.
+-// These registers manage falcon EMEM communication queues.
 -
 -register! {
--    base: PFalconRegisters;
+-    base: NovaRegisters;
 -
--    pub(crate) NV_PFALCON_FALCON_IRQSCLR(u32) @ 0x00000004 {
--        6:6     swgen0 => bool;
--        4:4     halt => bool;
+-    pub(crate) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
+-        31:0    address => u32;
 -    }
 -
--    pub(crate) NV_PFALCON_FALCON_MAILBOX0(u32) @ 0x00000040 {
--        31:0    value => u32;
+-    pub(crate) NV_PFSP_QUEUE_TAIL(u32)[8] @ 0x008f2c04 {
+-        31:0    address => u32;
 -    }
 -
--    pub(crate) NV_PFALCON_FALCON_MAILBOX1(u32) @ 0x00000044 {
--        31:0    value => u32;
+-    pub(crate) NV_PFSP_MSGQ_HEAD(u32)[8] @ 0x008f2c80 {
+-        31:0    val => u32;
 -    }
 -
--    /// Used to store version information about the firmware running
--    /// on the Falcon processor.
--    pub(crate) NV_PFALCON_FALCON_OS(u32) @ 0x00000080 {
--        31:0    value => u32;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_RM(u32) @ 0x00000084 {
--        31:0    value => u32;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_HWCFG2(u32) @ 0x000000f4 {
--        /// Signal indicating that reset is completed (GA102+).
--        31:31   reset_ready => bool;
--        /// RISC-V branch privilege lockdown bit.
--        13:13   riscv_br_priv_lockdown => bool;
--        /// Set to 0 after memory scrubbing is completed.
--        12:12   mem_scrubbing => bool;
--        10:10   riscv => bool;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_CPUCTL(u32) @ 0x00000100 {
--        6:6     alias_en => bool;
--        4:4     halted => bool;
--        1:1     startcpu => bool;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_BOOTVEC(u32) @ 0x00000104 {
--        31:0    value => u32;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_DMACTL(u32) @ 0x0000010c {
--        7:7     secure_stat => bool;
--        6:3     dmaq_num;
--        2:2     imem_scrubbing => bool;
--        1:1     dmem_scrubbing => bool;
--        0:0     require_ctx => bool;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_DMATRFBASE(u32) @ 0x00000110 {
--        31:0    base => u32;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_DMATRFMOFFS(u32) @ 0x00000114 {
--        23:0    offs;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_DMATRFCMD(u32) @ 0x00000118 {
--        16:16   set_dmtag;
--        14:12   ctxdma;
--        10:8    size ?=> DmaTrfCmdSize;
--        5:5     is_write => bool;
--        4:4     imem => bool;
--        3:2     sec;
--        1:1     idle => bool;
--        0:0     full => bool;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_DMATRFFBOFFS(u32) @ 0x0000011c {
--        31:0    offs => u32;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_DMATRFBASE1(u32) @ 0x00000128 {
--        8:0     base;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_HWCFG1(u32) @ 0x0000012c {
--        /// Core revision subversion.
--        7:6     core_rev_subversion => FalconCoreRevSubversion;
--        /// Security model.
--        5:4     security_model ?=> FalconSecurityModel;
--        /// Core revision.
--        3:0     core_rev ?=> FalconCoreRev;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_CPUCTL_ALIAS(u32) @ 0x00000130 {
--        1:1     startcpu => bool;
--    }
--
--    /// IMEM access control register. Up to 4 ports are available for IMEM access.
--    pub(crate) NV_PFALCON_FALCON_IMEMC(u32)[4, stride = 16] @ 0x00000180 {
--        /// Access secure IMEM.
--        28:28     secure => bool;
--        /// Auto-increment on write.
--        24:24     aincw => bool;
--        /// IMEM block and word offset.
--        15:0      offs;
--    }
--
--    /// IMEM data register. Reading/writing this register accesses IMEM at the address
--    /// specified by the corresponding IMEMC register.
--    pub(crate) NV_PFALCON_FALCON_IMEMD(u32)[4, stride = 16] @ 0x00000184 {
--        31:0      data;
--    }
--
--    /// IMEM tag register. Used to set the tag for the current IMEM block.
--    pub(crate) NV_PFALCON_FALCON_IMEMT(u32)[4, stride = 16] @ 0x00000188 {
--        15:0      tag;
--    }
--
--    /// DMEM access control register. Up to 8 ports are available for DMEM access.
--    pub(crate) NV_PFALCON_FALCON_DMEMC(u32)[8, stride = 8] @ 0x000001c0 {
--        /// Auto-increment on write.
--        24:24     aincw => bool;
--        /// DMEM block and word offset.
--        15:0      offs;
--    }
--
--    /// DMEM data register. Reading/writing this register accesses DMEM at the address
--    /// specified by the corresponding DMEMC register.
--    pub(crate) NV_PFALCON_FALCON_DMEMD(u32)[8, stride = 8] @ 0x000001c4 {
--        31:0      data;
--    }
--
--    /// Actually known as `NV_PSEC_FALCON_ENGINE` and `NV_PGSP_FALCON_ENGINE` depending on the
--    /// falcon instance.
--    pub(crate) NV_PFALCON_FALCON_ENGINE(u32) @ 0x000003c0 {
--        0:0     reset => bool;
--    }
--
--    pub(crate) NV_PFALCON_FBIF_TRANSCFG(u32)[8] @ 0x00000600 {
--        2:2     mem_type => FalconFbifMemType;
--        1:0     target ?=> FalconFbifTarget;
--    }
--
--    pub(crate) NV_PFALCON_FBIF_CTL(u32) @ 0x00000624 {
--        7:7     allow_phys_no_ctx => bool;
--    }
--
--    // Falcon EMEM PIO registers (used by FSP on Hopper/Blackwell).
--    // These provide the falcon external memory communication interface.
--
--    pub(crate) NV_PFALCON_FALCON_EMEMC(u32) @ 0x00000ac0 {
--        /// EMEM byte offset (4-byte aligned) within the block.
--        7:2     offs;
--        /// EMEM block to access.
--        15:8    blk;
--        /// Auto-increment the offset after each write.
--        24:24   aincw => bool;
--        /// Auto-increment the offset after each read.
--        25:25   aincr => bool;
--    }
--
--    pub(crate) NV_PFALCON_FALCON_EMEMD(u32) @ 0x00000ac4 {
--        31:0    data => u32;
--    }
--}
--
--impl NV_PFALCON_FALCON_DMACTL {
--    /// Returns `true` if memory scrubbing is completed.
--    pub(crate) fn mem_scrubbing_done(self) -> bool {
--        !self.dmem_scrubbing() && !self.imem_scrubbing()
--    }
--}
--
--impl NV_PFALCON_FALCON_DMATRFCMD {
--    /// Programs the `imem` and `sec` fields for the given FalconMem
--    pub(crate) fn with_falcon_mem(self, mem: FalconMem) -> Self {
--        let this = self.with_imem(mem != FalconMem::Dmem);
--
--        match mem {
--            FalconMem::ImemSecure => this.with_const_sec::<1>(),
--            _ => this.with_const_sec::<0>(),
--        }
--    }
--}
--
--impl NV_PFALCON_FALCON_ENGINE {
--    /// Resets the falcon
--    pub(crate) fn reset_engine(pfalcon: Mmio<'_, PFalconRegisters>) {
--        pfalcon.update(NV_PFALCON_FALCON_ENGINE, |r| r.with_reset(true));
--
--        // TIMEOUT: falcon engine should not take more than 10us to reset.
--        time::delay::fsleep(time::Delta::from_micros(10));
--
--        pfalcon.update(NV_PFALCON_FALCON_ENGINE, |r| r.with_reset(false));
--    }
--}
--
--impl NV_PFALCON_FALCON_HWCFG2 {
--    /// Returns `true` if memory scrubbing is completed.
--    pub(crate) fn mem_scrubbing_done(self) -> bool {
--        !self.mem_scrubbing()
+-    pub(crate) NV_PFSP_MSGQ_TAIL(u32)[8] @ 0x008f2c84 {
+-        31:0    val => u32;
 -    }
 -}
 -
