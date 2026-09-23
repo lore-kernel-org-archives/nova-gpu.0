@@ -1,291 +1,225 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022127.outbound.protection.outlook.com [52.101.101.127])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC11055D860
-	for <nova-gpu@lists.linux.dev>; Wed, 23 Sep 2026 16:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.127
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182045; cv=fail; b=eqp/SgsTyjqFbYBx9RGcc5YaAI+d2lXB+hlgN01ljg3mux5nvYYFOe640WwzFJdDwS9avvtk0CacE9huOBZ4CEZmf0sTe5hLTW7uODelfrAAetn/ZXxpSAj542MbBz2XQUGrn3sjLTyfemxkIWa/WakUXL2DKUlqqr+Z3H7L8zw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182045; c=relaxed/simple;
-	bh=sDQ6GMxXak0YDfceh+sjOzAeKfnidSAVY7ZoSmkcN7k=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=pt8+epziIaaduVegi5RHm6uTXO3bWJXN5ZIiLRhXJNqyJZcx5wUL57HfKG7WD51UU1FVrG5dj/351bCOXNOo//sQktTYP73/4i7P5O5s2k6xZEDn5FzX7P2W/o3MvJ4cLCNYzUohw2KdWzb11WCq+zgnZtBAtaCgwJEMpGyOrkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=jazPfo6S; arc=fail smtp.client-ip=52.101.101.127
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA72B579829
+	for <nova-gpu@lists.linux.dev>; Wed, 23 Sep 2026 20:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790193932; cv=none; b=eaxTsaCl3Jwr2C9RHWh+Azpldytrl3c5xP5IhfhQmD8UufSHfx3/MQKJdBZb9mIgfWTD5ajipQR5idkS3BVmYb1jkywXxkyAph2yg8LeEUA2d8dBYY+U7bEuZMD2JcTVgTyoTeq0zKDf2vaC7karJ7gm5JArgHdZXc7WhVDW2Uc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790193932; c=relaxed/simple;
+	bh=UThFQqE2nFbGVGXVivJEy6xsdCtKSR8oOWel8XxMWs4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hcu00PQe5M4MbueGiTaaQrzE07cbEbqcD55QjCVzw9B4cHj7qN14utsSFHb05YxhEek5jBBhLGloi6YqlG7G88uHX3eV65zy2QZU8ftqr2mRWSHPLUYnx7+osXO4okkXbnhGk0n2uisLWGwyxCKSY7Mrl046wDrN0qA1SusqrOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=ZbAdGQxS; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=q1/FY4qD; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="jazPfo6S"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K6GchP4cT1Do1nV4JaSj+r256nwTK4P/RLJZLkMvxJVE2DrnJ8uX7ck86QlEj3wsk7i2mOX4abA60C98uqXToTZpxouSJKrEPkkPU2MFJejf/sgqYUL2OD/UaC6CvKcD02Uv3C2LqCi5oS8J++jtPNvLVUBYEEaK3pk1gGgbBUPe4Y9hTUNsRRqZG+Ug8rxRverjFsdw0UZvyB2DfrbO82XBLREtKOHHF3b62Lty1dcyEsTj6E6HIA7BuqxPUydh/LVh8bXIMMmBqFpDk2a2ZPgxtSKyhx9m9VmAaqa+46oOKuXxnwp41fzNgEQEc9OoIZzsVfv48v3+4xeo7yt+hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S16zuhR5Vwyw/I8pmdJSZlCM09CHQsiJaalMfLUWTsM=;
- b=dsLe0T/ncSX3lsLQtSSUBXVM+Bc7YQgBPCNeoU29jNShgjEDBlxoj3ml5mujyqGPbmUgsxVIQgB3wZyxrA4DuVWP8Fa9h6u6ThmcXUeqnseKK2HQJbqtvkvTpnNj/St4/RrEAYwlnDqAhJrtuhCFweYycQnTeJfMSH75bM8OPnSVAP9iPXUzAoczH4t7ahaFr+gLuvPXmGatouhu4BAZpQ+mjuRgOJ6SuEWOF0VGGdAnRAdJq7Wm7MY0Gt1+0hZ3Lxv32dLVMp2LeKFuaC+Ni/YHLsBXnhHRZcqfEbyk+AmYTWeb4Paauu4taVeFtcLKktuWKw/Gil5EXNn5Ee+N1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S16zuhR5Vwyw/I8pmdJSZlCM09CHQsiJaalMfLUWTsM=;
- b=jazPfo6ShinodtWsx3U0WIpF2CedskgcR9JdIHJ9kCDUKJ1DdUbRuySa74OIUtAoKpsCWGSKjp+etKkcky3XRz+9iFsKbO1xM4ZmhjIUaRi5Nb7KbCH4dWUqo7KALLYgxqGE3FPFjm4eW3TG4mZNN7ERL9gCW8p1JwN9UykK2Io=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB7202.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:32d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 16:47:12 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 16:47:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 17:47:10 +0100
-Message-Id: <DLMUKFL5CAZ5.2ICMKG94JXP52@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng"
- <boqun.feng@gmail.com>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 08/33] gpu: nova-core: gsp: compute the queue regions
- from a count and a slot
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-9-jhubbard@nvidia.com>
- <DLMFFOSI9SZ9.2ECOM8X8PA147@nvidia.com>
- <DLMNTQWLGXJA.39Z56H8BZMBPR@garyguo.net>
- <DLMQ5TVNFSC1.2AGU37ACR0Y9Q@nvidia.com>
-In-Reply-To: <DLMQ5TVNFSC1.2AGU37ACR0Y9Q@nvidia.com>
-X-ClientProxiedBy: LO2P123CA0084.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:138::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="ZbAdGQxS";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="q1/FY4qD"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id D8ABBEC00CC;
+	Wed, 23 Sep 2026 16:05:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 23 Sep 2026 16:05:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790193928;
+	 x=1790280328; bh=JUwLwolmgzoYkr0jKNKZ779s9mSH2rxnP/9sdt8jqGA=; b=
+	ZbAdGQxSkA2mHJIQdiZGQnpOXxNybNglJjNbF7RMCpAJs5VRcUI72J/ViT6RzEpR
+	WRoHSsmZb3IyvAH0jft5GVzgIE9EZz2Tnl/2iLK82iwBVLzIlvThtMjjeU7EdgKy
+	2pCP1efixRn9hJ8uOBCmyE0cx6hq1dzmLJ7t+ocEWw0PfnuljFLv+/sPHU1KZHTj
+	E679FOSa7RsINEkAqUOb043E94WNXgdakXmPLVTzZMVjgup0et4oLWhPcZFvdG3F
+	bNooSnCoWTIqjOPvgGHPWUhVFhsXcHBchw8PWjIzgB/dlpB0gxEcA68lTa612cLK
+	U7llEkvOjBnaLv96wMUXiw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790193928; x=
+	1790280328; bh=JUwLwolmgzoYkr0jKNKZ779s9mSH2rxnP/9sdt8jqGA=; b=q
+	1/FY4qDb0A+YxToOOP4iHReDhjS7JWTJ/E0ZofWhdjmI0f6HVNwIhP2irzKoN+1R
+	DerQ4oc3DADQgz8yKJ7LOqUCtUPE2MMqIY2p5B+clNhQ2NbtluX/7klJbIYV3x6N
+	cmpCez7oxuA7o3ZysrfzhcimbFyxgkbF8ILN2FNUX+ckFjbZN9z2AsPdO+/jdOg0
+	2q05irA37EWzGzPjtE13GAvB0CpZdGzNfd0uA5K3qVwr+mgFNFOZeUTBBVjCX7q2
+	eL7sYWI4cqLYs5pmJkyLDq7klnELvbe+BxHkNRxvSBUcNEmagX15ydjkoLWeM8C3
+	eLFUzkvh3TJnsgEwx4wBg==
+X-ME-Sender: <xms:CDG0auGNTePmPgQ-G9omMqR9AwVIsb0IZTDbzLgFL02ERxaTu2rk_g>
+    <xme:CDG0apt2Wv3NC5DBtN3tOs_ha1zM3O2TrYXGieorEmyf18LVZVyA2Y4TXWHbZoSHZ
+    q_nTadSxXS4pTcYLgJKtDXlWpZMaNPBmC8vjgRA1bdOin-f8GidrA>
+X-ME-Received: <xmr:CDG0ajtD0YJSxJ-w4iWCayrkBBQrF1xM3UmAwHXihfQHfM9VBy4mcLBRlimWwA>
+X-ME-Proxy-Cause: dmFkZTE99ioZg8PG1u/Lino5tKLa9aVNVWGU06n/wTa0B3sKfMwnM4kcsu8D3pzwQpGVLG
+    pw6n0QH07tKGTiHMH/ysrTzxxqmYHWncsTkTQd02CX0Dgxn4kpyZiL7E1vwIzwGpUDBoP0
+    6Kgw9cu27Mp8rTWQv9gsdhTS/Hnq24kPXUEr9buaOHqjJY1u8sDy2OxHajrOpip/NR11t1
+    kr0f8gBhcBSHKv93lGsuIvXcY6IokGZCMJ26okZSGj8LEu4N4WBD+YWOZhiMtUBtzB0RF4
+    Da+tPf9Rv5e/MoP+z6RyZ1uCcGaS0a88XvEYVIdkr98M42pcuiQA4KlNQ7TjrVrnRj8vlI
+    ARI7tgJ49LrQeMSzDn++bJjHmKImKDJi6T/8xXujy6PE4FGMdr2ldu1AUVfmMlbBCnRAMn
+    AUDpcEWoVefErF+ACGL9MTFDOhGxaRGJt21B/u4dMl9ZCdyLIwE94YNRmrp/4kv+q0itJ4
+    pWUDoR5Yq2BDdKkY/Khv4znGt5Mdv5wKT18N8DRvnBNjotjghj638QgkLFHH6nSleIXrOh
+    kUjMg/OpWVEyef56f8AYcKVxN7eeJ0wcpisKrBK20C5O0dDzNXrvIIrLa/K6vMIc8TNyM2
+    a7DXfVmQtQDszRniNXVR7TtdHSUXkDnPlAm4iLu3ps3fA+YIq1J0e9PrHTkw
+X-ME-Proxy: <xmx:CDG0aiFdhCc7XPldMWKu413HiCiaRysPExNh_DTmqxuk9qz4u9fnYg>
+    <xmx:CDG0auLeqwb_kChf1eLIJerrtUl0ZXVqtejU06nNSbUeCxk6p2QGkw>
+    <xmx:CDG0aqa-7IdZRaFr_9o62XFrRnvPnOfVfgxJalEi5iaAcnmYnGn2TA>
+    <xmx:CDG0aroIBlLQlpNkXlzI3oB7DiOpHdxKa9GuHZNi98sVoImc66ZEQg>
+    <xmx:CDG0avbie63RuYOgdqg40gJ-OXcF0zpzZSIZJ4BfLPjtJxzHK0OA9qZP>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Sep 2026 16:05:24 -0400 (EDT)
+Date: Wed, 23 Sep 2026 14:05:20 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>,
+ <kvm@vger.kernel.org>, alex@shazbot.org, "Simon Song (SW-GPU)"
+ <xinmengs@nvidia.com>
+Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
+ variant driver
+Message-ID: <20260923140520.5cbea0c7@shazbot.org>
+In-Reply-To: <DLHV4FKD31CX.3JEB9FLV2327F@kernel.org>
+References: <20260914121217.70fa0d93@shazbot.org>
+	<DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
+	<20260915120148.7548a8ca@shazbot.org>
+	<DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
+	<20260916141718.GU3968357@nvidia.com>
+	<DLGUPX9KPFKF.12CU304YAST79@kernel.org>
+	<20260916162817.GW3968357@nvidia.com>
+	<DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
+	<20260917132829.GA3968357@nvidia.com>
+	<DLHOBJB1NYJA.3FCP9OLPBVRZA@kernel.org>
+	<20260917171056.GF3968357@nvidia.com>
+	<DLHV4FKD31CX.3JEB9FLV2327F@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB7202:EE_
-X-MS-Office365-Filtering-Correlation-Id: d479c290-9f98-4947-d2ad-08df19925064
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|7416014|366016|376014|1800799024|10067099003|56012099006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	8f/rEyN5VT2ZI5BpTU4gXa35y5xAmFqLxNBcSg0fNmGr2dQxkw/UoRszpdf+39yM1s09VkSbuA4+NIZgyCeS13StXqNWDOGHWai+2PbV/HUdhZuCL7bIKWTC39gDfKDmbpi05LwhH9aJkF9leHC2NDSj8YBI8McV4X04fScDpL9+I980+GCfNuAsZDfy1nGZPRiAfDuIvUJTPbzCfUGzPMAJpRNEuW7OJEncafjRr8Lf9rpaYaMrjS9hb7B/7jkkf2EEZfDMScVu+TxxKGjLPjU/Cxk6BZvIMmgMatJvUR1yAVMSlOBahlWp+8rzbU748SahaWaMNYD0DE9rJ2dlil7+l1MukLyoze2/5YiVV97VmwgD1XPZz7nHt/CLyVZF/3Fh62ke8GcDh04RyRVbh5PnsqO2tYC2Me5x5uCNvn7m4qk7kUZbzyuxOlnSk/oplwaTiP0tfWZCmKpLmrLr6UoxWzt8QbkxBF6Cl4lD9K81Pv8LJL1k8jU4bSaa9pNX1fM83WahljkcxLqWKbRS1VmzBrLrSUNlwwxkO+IFETaTGuq2wWQgBeGlcoOeMGpk9fp6S7r65rFY+SyVypwocJmigRTORJz8zps6qca4e0fWGc/G6mhm89Yfw3Ti4MxON0izQ9vwjlUvjFJh0x1TvNwMStyaWJYqSM5c8O0OuBQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(7416014)(366016)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?emJ0bks2d3ZFeS83dHNJTHd2UDIxTENqMHluY3lMTXR0RjRBbC8xczE0Q1J5?=
- =?utf-8?B?ajNvRmRTQmJZMk9JTmFZKzhGWXQrOC8wUnp1cTZ1L1ZvSE4yditHQ3pxTUJ2?=
- =?utf-8?B?d25lYmxzNEloa2JDbTArYlpRdTNqbytKTWY2MHdjbGhTb1JzdVhFRmthZ0RD?=
- =?utf-8?B?NXVmb1JlL1lqdjFGTTZYN2ZXMnlhendLTDNmUExWR1pGbXcxWFlBMnA0TmUr?=
- =?utf-8?B?blFoSXY4MS9Tb2dKbko3b3FobThObGdOeFdsZGlPOGczTUtXay8zaGNhQWhJ?=
- =?utf-8?B?SjZ4U1cvTWlLdFFOYjRoRXNhaVdzUUxuK2t1ZVU4VlRjNm4weFpIV2ViV2J5?=
- =?utf-8?B?cks1VzR1SXNPR2lxRmJyc3lIa0VvY1dUTDlXV3paL09ZUEh6OUM3cUlUL1Fr?=
- =?utf-8?B?L1c1N1Ard1pmOCtmK2t0bHo2U293a2xvNTNZQUdzMFp5NTdhUUxGd0srZnlB?=
- =?utf-8?B?ZERLZXROZWQ2V2VvRWNLckNTVDJHNmpoVkczbFY5aVFLbEFTakJJS3VvYnhq?=
- =?utf-8?B?RkxRMVNVazc3SzJSUE8ySjg1ZTVRVGxDRjIzWGtmWnJtMkphU05uU01FN202?=
- =?utf-8?B?aHhRdS9FSXhMNE5oOHFrelFVVzR4czIxRkdHbWl1ZTNLZmVDV3laMXczRzFx?=
- =?utf-8?B?VlloeEhCa1ZYVGFiOXZ1eW5ZaEtJVUtleVNVbWZTNG1BT015c3pYOS9zZ1FR?=
- =?utf-8?B?UXVnc1BJbEoyZFJMMEkxcU8vSGsvRGkxT0FZQ05mWVRGdDdtMGlaYUY5OC9K?=
- =?utf-8?B?OW0wV0hPbnc5QjkycS9nZVdWZmgxNTRoc1ZGcUpSRmM2b0VrZ2ZMTzRVbjRs?=
- =?utf-8?B?S25aVWJwaXlCaG9YNWpkenI1MUQ2S1daZkVScXlTaEM5VVRiZ2FmKzJidzZx?=
- =?utf-8?B?bEM4WUltb0tJenQvUnN2L1gra1UrR2tQaWpNT0FKLzNrM3RaZkpJUjcrNmUv?=
- =?utf-8?B?UUxBR3IxbGovZHN5b1BaVEdCS2p4ak5EOUJjWXlIbkZ2Z3RCQVYwM09MNGQ4?=
- =?utf-8?B?U1g0SEFPeVlISmNmS0MrcW56bVBjWFhzWHNmMHVhZ05JZEJlR3dwTHJJM2Rr?=
- =?utf-8?B?bWVrUVVnNnV6OUR6NHdzZ1Q0Q21kRVNZZncvUEo5aDBxdUNkK1F2QWR3WkJz?=
- =?utf-8?B?NU5ROFNHUFlIekNncXdvQThUaFpNRUJsZ3hWZUhmY1Ntck1nTVBoNWpyVm1y?=
- =?utf-8?B?cVgzYzNYMmRTc0NTNndTRTRuTTZZb0pBelNidTBsd3pURU9td0J3OUxPaTdt?=
- =?utf-8?B?V1F4d1l3b2lBdzc2RHp2c1NhUnNWNUtWbUxIUzdCZGxSdUVCbDhjYWFGejIz?=
- =?utf-8?B?bGdscUoxRjBOVFFLdzBRRUFvdHA2a0pTb2NXbFZaQlgwV25pS1dDcytVQ2lT?=
- =?utf-8?B?dE9UbG9jeUJRYVFOSTdyeG8vYVgzQ2hPeXcvVkNMUndyNGdaWUJXSnJGVUNt?=
- =?utf-8?B?clpvbyt1K0FFWHNBLzEzNGsrb2phZ0FOdXFieE5kWXJjTUl1TG1tVGZxYmh5?=
- =?utf-8?B?OTdJdTB4Szd5dVR1eEU5azlUTk5JcDJTQmgreFp5V2poWUlleGo4NE9heThH?=
- =?utf-8?B?d2hHaVo5V3RZQU1pSUVicVIrbFlxVVNpb2htZEowUzg3ZWl3dm5LOG5GMUc5?=
- =?utf-8?B?TGZHb0N4VUYwWHo1TnloTHdqOHVHdm9ORTl5Q0lsTWh4bTk2eFQ2bUNDZU1v?=
- =?utf-8?B?cHBiR2g0TUZLQmptVUFEYzFoRE5iNGVCdjA5WXRUS3JKTWZYZnRGU3dkUE11?=
- =?utf-8?B?dHZlOXgwb2dLc090czJGcHhJZHpTVE0xWmRjT29oQ1R4N0p0ZmRFK0xYNXNH?=
- =?utf-8?B?RGFQeUZHVFM5ajhWVkUwUnhNaG44ZC8zOXRXQ2RiUWNaTkR5NndyV1NEUmds?=
- =?utf-8?B?eGVIMXZBTnlSWld0U2dQU2s4YkNSczUzdXE2REhtMWFkSmo1QWNHOEFzK3Nu?=
- =?utf-8?B?VEtBN041bFNVRlkzV1lBenFUc1lQWkJrcXl2L0dhcm5PWUdFbG82N2pyR0pT?=
- =?utf-8?B?Qm1pMUhmV000VHJ4aTB0bzRNNnIyc1JqbUNsV28weDhCb3pnSjJCRFlMUWtZ?=
- =?utf-8?B?eTFMeGFnOTVvblpJYlEybWRqcUVtZGdvbmNGSGNoZHl3UnZ1V091U2wwNnBD?=
- =?utf-8?B?M0YrQ3c4ejhEQ2gvN1JtOVRnQmdHSTUrWkRIS2kvQnRQT2xXVlZjTE11dk1O?=
- =?utf-8?B?ekN0blFnYmlLcCs4UFZzdlRGeWZrY1JIRlFKZTFFc2VacDJaSnFvQm5kL1Rs?=
- =?utf-8?B?Nm1zdEZnTk5QSlhiUmhGZlRmTGYvWnBTMU5Md3I3SmVnUks1WHh4OWNqYjgv?=
- =?utf-8?B?Ykt4SEZQTzBtQjRKaVZSK1hlOVVjdnh4SUdhQVBEdGtQYXNsQUc4UT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d479c290-9f98-4947-d2ad-08df19925064
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:47:11.6319
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zY2ko6J4D5EUHo3SoOF2nH2crmmgTw+dnon0zFg9L1Ole+RdOYmODm8/qUKtoNolHm+B1hGWCCzibrMV7uxlBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB7202
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed Sep 23, 2026 at 2:20 PM BST, Alexandre Courbot wrote:
-> On Wed Sep 23, 2026 at 8:30 PM JST, Gary Guo wrote:
->> On Wed Sep 23, 2026 at 5:55 AM BST, Alexandre Courbot wrote:
->>> On Fri Sep 18, 2026 at 10:06 AM JST, John Hubbard wrote:
->>>>      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &=
-mut [[u8; GSP_PAGE_SIZE]]) {
->>>> -        let tx =3D self.cpu_write_ptr();
->>>> -        let rx =3D self.gsp_read_ptr();
->>>> +        let avail =3D num::u32_as_usize(self.free_slots());
->>>> +        let w_slot =3D num::u32_as_usize(self.cpu_write_ptr());
->>>> =20
->>>>          // Pointer to the first entry of the CPU message queue.
->>>>          let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.m=
-sgq.data[build: 0]);
->>>> =20
->>>> -        let (tail_end, wrap_end) =3D if rx =3D=3D 0 {
->>>> -            // The write area is non-wrapping, and stops at the secon=
-d-to-last entry of the command
->>>> -            // queue (to leave the last one empty).
->>>> -            (MSGQ_NUM_PAGES - 1, 0)
->>>> -        } else if rx <=3D tx {
->>>> -            // The write area wraps and continues until `rx - 1`.
->>>> -            (MSGQ_NUM_PAGES, rx - 1)
->>>> -        } else {
->>>> -            // The write area doesn't wrap and stops at `rx - 1`.
->>>> -            (rx - 1, 0)
->>>> -        };
->>>> -
->>>>          // SAFETY:
->>>> -        // - `data` was created from a valid pointer, and `rx` and `t=
-x` are in the
->>>> -        //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_wri=
-te_ptr` and `gsp_read_ptr`,
->>>> -        //   thus the created slices are valid.
->>>> -        // - The area starting at `tx` and ending at `rx - 2` modulo =
-`MSGQ_NUM_PAGES`,
->>>> -        //   inclusive, belongs to the driver for writing and is not =
-accessed concurrently by
->>>> -        //   the GSP.
->>>> -        // - The caller holds a reference to `self` for as long as th=
-e returned slices are live,
->>>> -        //   meaning the CPU write pointer cannot be advanced and thu=
-s that the returned area
->>>> -        //   remains exclusive to the CPU for the duration of the sli=
-ces.
->>>> -        // - The created slices point to non-overlapping sub-ranges o=
-f `data` in all
->>>> -        //   branches (in the `rx <=3D tx` case, the second slice end=
-s at `rx - 1` which is strictly
->>>> -        //   less than `tx` where the first slice starts; in the othe=
-r cases the second slice is
->>>> -        //   empty), so creating two `&mut` references from them does=
- not violate aliasing rules.
->>>> -        unsafe {
->>>> -            (
->>>> -                core::slice::from_raw_parts_mut(
->>>> -                    data.add(num::u32_as_usize(tx)),
->>>> -                    num::u32_as_usize(tail_end - tx),
->>>> -                ),
->>>> -                core::slice::from_raw_parts_mut(data, num::u32_as_usi=
-ze(wrap_end)),
->>>> -            )
->>>> -        }
->>>> +        // - `data` points to the `MSGQ_NUM_PAGES` initialized entrie=
-s of the CPU message queue.
->>>> +        // - The returned slices cover the `avail` free slots from th=
-e write pointer on, which the
->>>> +        //   GSP does not read until `advance_cpu_write_ptr` publishe=
-s them.
->>>> +        // - `split_at_mut` gives two non-overlapping halves, and the=
- `&mut self` borrow lasts as
->>>> +        //   long as the returned slices, so that no other call hands=
- out the same region while
->>>> +        //   they live.
->>>> +        let data =3D
->>>> +            unsafe { core::slice::from_raw_parts_mut(data, num::u32_a=
-s_usize(MSGQ_NUM_PAGES)) };
->>>> +        let (before_w, after_w) =3D data.split_at_mut(w_slot);
->>>
->>> This creates a reference over the whole ring, including the parts owned
->>> by the GSP, which breaks the `Coherent` safety contract that the device
->>> must not be able to read or write to a live slice. So we'll need to cal=
-l
->>> `from_raw_parts_mut` twice, with the correct sizes, instead of
->>> splitting.
->>>
->>> (also `split_at_mut` is panicking and should have a `PANIC:` comment
->>> justifying why it cannot, but once the point above is addressed that
->>> call will go away).
->>>
->>> I wanted to try it locally and ended up with something that seems to
->>> work, so let me share it to save some time:
->>>
->>>     fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mu=
-t [[u8; GSP_PAGE_SIZE]]) {
->>>         let avail =3D self.free_slots();
->>>         let w_slot =3D self.cpu_write_ptr();
->>>
->>>         // Pointer to the first entry of the CPU message queue.
->>>         let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.msg=
-q.data[build: 0]);
->>>
->>>         let in_after =3D avail.min(MSGQ_NUM_PAGES - w_slot);
->>>         let in_before =3D avail - in_after;
->>>
->>>         // SAFETY:
->>>         // - `data` was created from a valid pointer of `MSGQ_NUM_PAGES=
-` entries.
->>>         // - The `in_after` entries after `w_slot` belong to the `avail=
-` entries that the driver is
->>>         //   currently allowed to write.
->>>         // - The `in_before` first entries belong to the `avail` entrie=
-s that the driver is
->>>         //   currently allowed to write.
->>>         // - The slices do not overlap.
->>>         unsafe {
->>>             (
->>>                 core::slice::from_raw_parts_mut(
->>>                     data.add(num::u32_as_usize(w_slot)),
->>>                     num::u32_as_usize(in_after),
->>>                 ),
->>>                 core::slice::from_raw_parts_mut(data, num::u32_as_usize=
-(in_before)),
->>>             )
->>>         }
->>>     }
->>>
->>> It has turned out quite short, which I like! I also opted to work with
->>> the original `u32` until the very end, as it results in less conversion=
-s
->>> overall.
->>
->> Possibly take some thing from the old projection syntax rework series?
->>
->> https://lore.kernel.org/rust-for-linux/20260415-projection-syntax-rework=
--v1-4-450723cb3727@garyguo.net/
->
-> Oh yes, I forgot about this patch. Do you mean using `ptr::project` to
-> create the final sub-slices, or am I missing something else?
+On Thu, 17 Sep 2026 22:09:58 +0200
+"Danilo Krummrich" <dakr@kernel.org> wrote:
 
-I think it's possible to use I/O projection on `CoherentView` and then you
-assert that it's not concurrently accessed by turning them from `CoherentVi=
-ew`
-to `&mut []` using `CoherentView::as_mut`.
+> On Thu Sep 17, 2026 at 7:10 PM CEST, Jason Gunthorpe wrote:
+> > On Thu, Sep 17, 2026 at 04:50:07PM +0200, Danilo Krummrich wrote:  
+> >> On Thu Sep 17, 2026 at 3:28 PM CEST, Jason Gunthorpe wrote:  
+> >> > On Wed, Sep 16, 2026 at 08:02:17PM +0200, Danilo Krummrich wrote:  
+> >> >> >> TBH, I don't think it makes a difference; having Rust abstractions is pretty
+> >> >> >> much the same as having another driver. I.e. it would be equivalent to saying
+> >> >> >> "before we accept another pci-vfio driver we need to do some rework".  
+> >> >> >
+> >> >> > Well, it is, but thats the point when judging effort..  
+> >> >> 
+> >> >> So it seems that we agree that there isn't really a difference between adding a
+> >> >> new C or Rust driver in this regard.  
+> >> >
+> >> > To be clear I was trying to say I think you are are underestimating
+> >> > how much work this is and how long it will take. Including all the
+> >> > preconditon C reworks has to be included when considering how much
+> >> > work is involved.  
+> >> 
+> >> I'm not sure I follow what you mean by "preconditon C reworks".  
+> >
+> > Rust bindings often seem to need C code rework for Rust, drvdata here
+> > is an example.  
+> 
+> I can assure you we can set this concern aside. The driver core code, auxiliary,
+> platform, PCI, DMA, scatterlist, DRM, firmware loader, IRQ, I/O and fwctl, to
+> name just a few, did not need any changes. And from the top of my head I can't
+> think of any case where changes were needed.
+> 
+> For VFIO I already wrote the code, and no changes were required either, except
+> for the drvdata things of course.
+> 
+> But, as discussed, this is an existing layering violation. The Rust driver code
+> code simply relies on its own subsystem's API contract. Please let's not frame
+> this as a Rust issue.
+> 
+> Plus, it is trivial to address, so it luckily is not a huge problem anyway. :)
+> 
+> >> Or do you refer to other C core reworks people are working on? If so, they are
+> >> only relevant if they affect the drivers. And if they affect the drivers,
+> >> there's not really a difference between adding a new C driver and adding a Rust
+> >> abstraction.  
+> >
+> > A new C driver should not need reworks?  
+> 
+> If a new C driver is not affected the Rust abstraction won't be affected either.
+> They are just users of the same APIs the C drivers consume. So, that doesn't
+> seem to be a concern then.
+> 
+> >> > I cannot forsee rust bindings for vfio until sometime in 2027.  
+> >> 
+> >> What is different in 2027 than is now?  
+> >
+> > I mean I think that is how long it will take to merge something like
+> > that, given how many other vfio series there are, the lack of
+> > expertise, and some general expectations. There are already lots of
+> > series for vfio that are in front of something like this in the queue.  
+> 
+> The same would then be true for an nvidia-vgpu driver written in C, no? Again,
+> the Rust abstractions are nothing else than a driver in the end. They only
+> consume the driver facing APIs and translate them to a safe Rust API.
+> 
+> > And then we end up with what will be one of the most complex drivers
+> > in a form nobody familiar with vfio can review.  
+> 
+> I think this isn't the case; the people you refer to can still review semantics
+> and vfio design specifics. It's not like everything is different.
+> 
+> For instance, there's still a get_region_info() callback on
+> vfio::pci::Operations where people can review whether this semantically makes
+> sense.
+> 
+> And for the language specifics we have a lot of Rust familiar people around who
+> will review the code and help to improve it.
+> 
+> Why not see this as a chance to scale on both ends? More people on both ends
+> will get familiar with VFIO and Rust at the same time.
 
-Best,
-Gary
+This thread has gone cold for a few days and nothing really seems to be
+dissuading from the direction of implementing the Nova interfacing
+vfio-pci variant vGPU driver in Rust.  Zhi has been investigating the
+gaps and bugs in the PoC, and afaik, nothing stands out as a blocker.
 
+I'll do my best to use LLM assisted reviews on my part, but the
+expectation should be that I won't be merging any Rust code without
+formal reviews on list.  Over time I hope to be able to contribute from
+that perspective, but the Rust community is going to need to hold their
+end of the bargain as well.  If meaningful reviews are not provided,
+the driver can be orphaned and removed.
+
+The Rust community also needs to be proactive in supporting the vfio
+community such that abstractions and interfaces between C and Rust
+don't become a barrier for C-based development.  Keeping the Rust code
+working when the C code changes is the Rust community's job, we
+shouldn't expect more than "best effort" from the existing C-focused
+community.
+
+I also want to be clear, I'm not endorsing Rust as a pattern anywhere
+beyond this individual vfio-pci variant driver.  Any other proposals
+would need to bring a comparably sized community to sponsor them.
+
+Dave's approach to make vfio-pci-core a stateless helper with respect
+to drvdata, with a dash of Jason's macro idea to minimize the driver
+boilerplate for the common cases, seems like the right direction to
+remove that convention.  I've handed off my own LLM generated version
+that does this and it should be refined and posted soon.
+
+So, unless there's an aspect we haven't considered, it seems the Rust
+variant driver should be the direction here.  Thanks,
+
+Alex
