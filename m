@@ -1,327 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010020.outbound.protection.outlook.com [52.101.46.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251953F5BFD;
-	Thu, 24 Sep 2026 18:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272957; cv=none; b=fhwAu1a5LYzkm1z12s8RpqTwzX4igbNdNRGgED9yK7qk9K752KDAPyD+9B0oAKw0QY7Ttr2AWOSfOV/h+HBxW2A8nZH/uqIPBpmr50IqJQPc4K8Q3LHSQlOzaz95bz6ElhreqKD+Agp0fCeGeTYxT5EkPRhj18XgVpbOXz+Yz6A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272957; c=relaxed/simple;
-	bh=vhlYxrq3zkhDOveFX1ZVtXnhoHqfgwNrFALGgBEHfvg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=GH2hUtvUHMuAU0wQ0o5Fxdqb1iQ2IHFg14fnR2ltj4EymNB53xvjgtFaNnhElz4Nv1vR3lvjrHE/Ps9P3SLGo+HqS+6aeUNLsxopYKYPbsiO2Hw3VtYhvF7YaxvMjxs8cJxIL/rRSut+6bqZnkYdFpYEahRO1/Cl8/Ya1gdS/XQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CtNBYdX4; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120EA49BD74
+	for <nova-gpu@lists.linux.dev>; Thu, 24 Sep 2026 19:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790276652; cv=fail; b=fOo/4g/OGpsw68ThxduXFuuGZce3GewApGIjZYwetpGxTV6ALdVkM3bdRRirsuX5ShoPPXEaU+gphqi63CKXrLRN4DPb89G1O9iRhs0Sa+5iwmuX0zqGUldxEI8pe7u3RhG65ZUW+7USu7EGFf08hVZGXq7ihPp9soTSe55ZUmk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790276652; c=relaxed/simple;
+	bh=A4H9CiuhQPTw0EtbVbcoz6Iw0eB21V/9tLjZlVrT6qk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LeueOF1cCDr3iJoBk+BuAUvFplujRACyYRFC0TtvOSmeGv0FscTq7MgFolRO6K5pTGzsdkz6zoKpK4YhsEzhlvq+hRKrOtu7RkgbgmnTIsY/A18ZAaM1kZSnOGvcDZGNUxV2JhQuGQC6G+NQJf0go17esg30x8TddCzI1ZMlVUs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QWudlwjn; arc=fail smtp.client-ip=52.101.46.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CtNBYdX4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929D61F000FF;
-	Thu, 24 Sep 2026 18:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790272956;
-	bh=7XuW8fR6obHIaECVkQ/oQW8UbYwTRR48c0HPzP0MOGo=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=CtNBYdX4hAYjYZhVp62dDw10ZSvEsXwhf8WbMaG7QqvwG2ejItwNA/vMxflQEaBgG
-	 lQljaNpKl/DB60I7eovidWmR6OXM1yTz6EgQ7YBGa981N0cJMfU4zMgiS3mCkonos1
-	 2iUE027Nkvbrw59/iw6XouLu73Y1uQOLbsv09hnnrCouG/QKgwdv8Gvhwi3m4cauQt
-	 v8KziPMkFJqT/hRZAwvEQCTULagBmBKcurrRdt3siwl9izz1FN/v7IPL4KmAJB0U3N
-	 G8UhiFTBqJfB79qhMk88JS76iG6HgDZzByRjfKw6YbMF+caWp5rckLucp2V2ye/LAV
-	 P0z1L2vriLA4Q==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QWudlwjn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cmc9DKmuVbl5LeDae4yX4n7L/HbRBiWrhokHiulyHU6VtfQ3En2M9BqH4FIQROKQDbeh5iisg1MDJp+gyouvJqNFJVHxb7btMrkLo7wx0BTeiih2nLzbvZbc5wmcGFnGgZZXR/gkiy7TJIeekFjoqsRTneUJ3kR0BqozxRlRmV8HWcjNc+15C5ynfxHjlQfnYisgEqM7jAzqeFkG1xI2s/j2zCw2MT5lBzCkQlsAPOYaSqkDfq/d1HFjSXZXU5+usDK8gRqtHfePkcIqZdbt13B1wdTk39ZS0PaWJZkpwngHU4eDaSeoH8reqo3mD76i+PSS1g77tEEQrmXwmpgfMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ShDmf1jHZoyQ/UH4L8M/3VDcFpjBYgJfnkSaMpj4gEs=;
+ b=iTfyrfvd+eWhO8sBcikVCxCLnZgmX+Mzwk1jv5fXG7jQbtW+bxrJfRvVgKiqGThZltjkSOa+QHBKcapX4GR0geShjduk3kUGnGT/5jr1JKeAKIrKB2/VB/hvDisH8gOuacmJTymudP7TcSiZgzfmsM59bzGJm6nsPzX592E54UMIiGWfOERuyNQIrlCH35aSSYDlbnUPvoB6CEM8MQPcIRWFlkMTxJAk8skimP2i4m3GR6Jcj0TcQLv2OZqxTdA8bf1LxMq5KD1ZbxAlJzxfyFLM5m63CU8SXfZjJJJh34fdixrgh1XFUkhdIyu6/Si+kutmWP0azo0L+49VpebEiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ShDmf1jHZoyQ/UH4L8M/3VDcFpjBYgJfnkSaMpj4gEs=;
+ b=QWudlwjnvCi1mWRcHeapbJxcJkV/oaoTNPqXLz9wnHlnOYj0mmDgOom/6sRp2vDTHloFUvPuGsXKe6DYgqO2CTub8kKbhuhhLLPJSeF+oc1UpiFIZxtGl7PsVg/nIKI16jemzYMU6HtSroXyZvAz2XX6fyQYtC3e27to61dwGDkFudP+tPvfbHCydYfcJ5iRWQcuY+XmNiu6VdifTkj9cL/AmkT4gjxnyWDXV4ON2CZDYjO2PWMtwcrtFh5wytjoaZ5jJhZDk6RxJA4Ad8NIHs7vetDKFwtBS/l4gZ/qjRXIHjcVAjL0xBIoGzrNcpIyi8Zm/zjZ2iUZZ4d+PcVK+w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ BL1PR12MB5777.namprd12.prod.outlook.com (2603:10b6:208:390::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 19:04:00 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 19:03:59 +0000
+Message-ID: <caceec40-4ae4-46ed-8ff8-594fd4046ab2@nvidia.com>
+Date: Thu, 24 Sep 2026 12:03:56 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/5] rust: pci: make Vendor::from_raw() public
+To: Alice Ryhl <aliceryhl@google.com>, Maurice Hieronymus <mhi@mailbox.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-pci@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+References: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org>
+ <20260812-b4-rust-pci-edu-driver-v3-3-5d0b5594e52b@mailbox.org>
+ <ao2Lef62ZvkP9eWI@google.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <ao2Lef62ZvkP9eWI@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7PR04CA0102.namprd04.prod.outlook.com
+ (2603:10b6:806:122::17) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 20:02:29 +0200
-Message-Id: <DLNQSN92C9RT.WNMLAMGA5UBW@kernel.org>
-Subject: Re: [PATCH v3 5/5] rust: samples: add EDU PCI driver sample
-Cc: "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Lyude Paul" <lyude@redhat.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-To: "Maurice Hieronymus" <mhi@mailbox.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org>
- <20260812-b4-rust-pci-edu-driver-v3-5-5d0b5594e52b@mailbox.org>
-In-Reply-To: <20260812-b4-rust-pci-edu-driver-v3-5-5d0b5594e52b@mailbox.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|BL1PR12MB5777:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb37c020-0ddf-47ff-93f3-08df1a6e9727
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|10070799003|23010399003|10067099003|22082099003|18002099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	nv5xEmsN9/oSo2Be+kdYcC3weUfooc33dBl4uijrZDC7QO+mVvvqwvx/JnaqA6mVFEMV+DOsS3mE2JgTSEzih1N8B60eA6pqSbpYB65IDGMiNVGCOkvPmw9U/wS4Bom3yHLJd5wQbjn5AUC/83IH1RqbE7ExKucQkwdRa5/lZM05T0OKNd6+dQOCXuTpD9eJ895QcX3au6pluDZIBrW7e7IlTV8jXOSMhnROY3S76Xxx6C2ubjvfqHjYAUhfxmsYa7m6s7lVQidXZIRTgwMfpzfz1x4oAayaYaiCwZvqpWrcSoIFwaq4mmvFyWQGc7bxCv32wyKhPTasgidpb9lKvXs0yhgPcVGXQmMUy0Bsy+Qu1g1n1LRDi3PcFYAoAXA7NgRA+FgqK5HAFau91rWiUqKaZvwwdVCnzKce6zzVJtV4Mt9XSmubentirIfn94E8ljDzZ7qBGQmIdYAKIQdhocoY4qKUlABBli00Sx6O79NFmiWEdrz/bL2l8nUnAxKwvN9TVQAOc99gpBfMQqHmUhV+C3d2j2iIF1UlE8b+wU44VADksZkj4+VqIlC1SSV36njXDSFJTXx6p0VX2cG8jKhe6yzifIUCOejX4AZyd/NVUhcksoyb+htCAbeUxC3Nvcf2hlDIFraTLWAO1x8NStCTycglVqhN6OB/CbX3EE4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(10070799003)(23010399003)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bEFOaDlkZEtTVjVIU2JjVTRyYnhKRWNseXhmRlM5Q1dxVHA5aEZacmtiMzh4?=
+ =?utf-8?B?emEwL3lQL25reVdVMDd2bGFDcTFDbFl0ZFpSZnh6RjVrVVNNdE51QXIvMmhE?=
+ =?utf-8?B?ZzNrdXgxazIzOXVFTER6MVlXVVZXcWlqNlBhYmlrZUVvUmtoWEJOTENkQ0d3?=
+ =?utf-8?B?ZTJCSGV6MWxaaGxZd1J4d3VJRm5TRlk4SzliVmJwaktCVll1WXJsbldGcWlO?=
+ =?utf-8?B?cER5SjBycDFYT2hXTStsVVQ3ZVhFMXk1NUx1ak9DZFp3NE9KenFiVzA5R2Iy?=
+ =?utf-8?B?S3dLR2o4NUIwRUxVaWZFQmJlNUwwdGhCelEydVpRUDlSemVRRTI0YllLb2x5?=
+ =?utf-8?B?Z0dKVWNzWHNsMVJNNHk0Z1M2U1VRUFBEU05TVWZqano0WDN5c0grS2RYRkhF?=
+ =?utf-8?B?TG91bTUrZStqenFMa29PdjJNLzZ0UEZuUnRBMUZremhvUmg5UU5GTG95dmdz?=
+ =?utf-8?B?eitndzloQ0U1QWgrYmxUU2owUTRJR056THJncXFGRk14b0crS09VL3NDRkZo?=
+ =?utf-8?B?RjJZZG9udW5TMldtVG1Ud0pmU0V1a1h1bE1aQlExbnRvdzlvT1ZlbzVLTVcw?=
+ =?utf-8?B?REdpVlIvVml3WmtoWXlLVCtzc0NLQTlRTWFrN3I0UzlKLzRIZERnZkFZajBJ?=
+ =?utf-8?B?VFdNWDNJY0VBTE82dzRRMk5YWEU1T1VlUzZlZTFPOXI2QXRkaTZZQkUxa3pE?=
+ =?utf-8?B?c0g5NFIyQWI1cmdIVW1QeHNWVTU2VjB3eU84QVV3S0toK2pSMkJaN2JkTGU2?=
+ =?utf-8?B?ME0zS3lDcHBSMlFiam9yeFhHTEp2RnJsYkRndEJrcUpvcjNXWTVsVVh6QjFE?=
+ =?utf-8?B?RWtBNUFrY0NSY3ZPWVZzTzJuUEhxTFdIWFBQbDJaamZER0l4c3YweEc3T3Rx?=
+ =?utf-8?B?YlJyVFUxTURWQnBuZFJla1RTNnV5Tnh0UFNXYStSYUFxM2pXaDcxeTN2eWI5?=
+ =?utf-8?B?WkNVa1MxVThBWkdIeEtwbnM3VE5zZ0kxdVdGd2ZSRWN5STZsVW4xSHR0djBZ?=
+ =?utf-8?B?eXl2bzlkRzlhZFliUjFISVdXS21iVDJiZzhQVEk1UXFpazl5cVNMYW9yRVdl?=
+ =?utf-8?B?WUF6bWZxYnFuY0pvNGp6N2NJSEU3c2I3VzQxWGUyNSs1bmhYT1Rrb2c4MnNX?=
+ =?utf-8?B?SDB5NlNYTnY1dThXSFNhN3lmZnl0TlpOMXhMV0dWUGorbzhMNTQrWGJDNEN6?=
+ =?utf-8?B?aE5EMWlnNUJtWHl2R1dJRVhsay92bTlJN3pVWFFCclY4ZXRJQjNyNVMyV1dm?=
+ =?utf-8?B?Z0JjTnRhV3VmemFJMlBnTXpTeWpQcVdCZHpGVWt2cEgwQVl4eW5SS1dDb3JW?=
+ =?utf-8?B?NjNzZkoySGlQWUdVLzRUT2pMRDdKc1pIVWNiZExwblZzZnNxZHVBUkFGYjRx?=
+ =?utf-8?B?SjNHbStwbVFmVmNITjdkNVYzUmVkSUdQWVlveFJOaStMcDAxR3lUc0xyZGtF?=
+ =?utf-8?B?Uk90RVFuUS9MeXcxSzdpR2JBa3lwQUw2U1JieHpDbm0yb2U0VnIzcjdUNnJP?=
+ =?utf-8?B?akVpa0twMmtzY2xwV0FZZVBWQktySHA4ekJKYzZaNm9GblFJNzJ3bkN1UTFD?=
+ =?utf-8?B?Rk1JTHNRL2dDMzJ0YTR4NzVzODBxdHlsc3RsZWYzdjJRUkRWOW5nczdlL1JM?=
+ =?utf-8?B?MTNRRlVBVTQ3R3VmTGhnMUp3R0RHM2RsYjY2ODd2VkZwc0ZIVTcwcllITG1T?=
+ =?utf-8?B?ZmtSQmpnNEl5TWlCcnJGMjgvMElnczF0Q2xFYnRqaHhOMCsweC9DU05SbitP?=
+ =?utf-8?B?NGQ4UC9WWERWU0pVWDlNQTM1ektyQi9wZGJVL2pWOGhFSk1UbXZMVmg2TkFz?=
+ =?utf-8?B?Qm9ybWw1M2U0YTF2YjV1bTVVY0xRT1NSYXl2NFRtVXd2ZkczMEV4dHJPd1ZI?=
+ =?utf-8?B?S0ZBOTRqMEUvUk1Ta29YME01UVkyeXpDQ1p2UmM3MitRSlg3NXZYdG5PRnZy?=
+ =?utf-8?B?ZStDaHdXMzNBd0RHYW9kc3JESVU4a2dQV1NHRVF0d1JycnRCWXM2YndUb3lQ?=
+ =?utf-8?B?U2hxbmNHdURyUWx6dnYzcW1IWHhOTS9hYzJvT0tVN2JzcmltWE9halBVUld4?=
+ =?utf-8?B?NDVvdXJua0FpSEVqOXlPbmhQcjlocFl0SVZpTFE4SmY4aXBNZGx0VHpLd0ZP?=
+ =?utf-8?B?NnVjbGxIakNFMWczM0FyQjRtWDAyNFF0YUFHZTRzTlJYaGZDSXZVMGtTTUpp?=
+ =?utf-8?B?cUxTVm10VHNUbnBUVklWOEhRM1AxOEp3S05TWnV3MUxidUFnWS8waW9Bcmcx?=
+ =?utf-8?B?NXlGUVJEZ1B1SFVEZExnVkpHVStRNTRzOWpDc21sY1Y1cW4zN1E3SzJRZnhD?=
+ =?utf-8?B?SUpTdXM4R01XcWhyK2dFYjg2TFo2K1FUQ0I5cjVFZGVwUFJhWWtEZ0lPWVkz?=
+ =?utf-8?Q?vra9V0oQPqMdWZ5A=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb37c020-0ddf-47ff-93f3-08df1a6e9727
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 19:03:59.6798
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Mqlxl6C2MZU4KJJkz71WNnAjFGuxuIVtBnGR6AbmL4KphP34hiMuxz2a2O97YoLxAoNzxEbn3KfIU9t8uahzfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5777
 
-On Wed Aug 12, 2026 at 9:52 PM CEST, Maurice Hieronymus wrote:
-> +const QEMU_VENDOR_ID: u16 =3D 0x1234;
-> +const QEMU_EDU_DEVICE_ID: u32 =3D 0x11e8;
-> +const QEMU_EDU_DEVICE_MAGIC: u8 =3D 0xed;
+On 8/25/26 5:32 AM, Alice Ryhl wrote:
+> On Wed, Aug 12, 2026 at 09:52:37PM +0200, Maurice Hieronymus wrote:
+>> `Vendor::from_raw()` is currently `pub(super)`, so a Vendor can only be
+>> obtained through the named constants generated from the
+>> `PCI_VENDOR_ID_*` defines in `<linux/pci_ids.h>`. A driver therefore
+>> cannot match a device whose vendor ID has no symbolic name.
+>>
+>> Such devices exist. QEMU's "edu" educational device and the legacy
+>> qemu/Bochs stdvga both use vendor ID 0x1234, which is not registered in
+>> `pci_ids.h`. Per the policy stated at the top of that header, IDs are
+>> only added there when shared between multiple drivers; a single-driver
+>> ID is expected to be open-coded in the driver instead. C drivers already
+>> do this -- see `drivers/gpu/drm/tiny/bochs.c`, which matches with a bare
+>> ".vendor = 0x1234".
+> 
+> IMO we should just add Qemu to the list. No reason to hard-code it per
+> driver for this case.
+> 
+I strongly agree. There is no need to break the nice type system here,
+just to avoid adding an "edu 0x1234" entry.
 
-This should be local to magic().
+thanks,
+-- 
+John Hubbard
 
-> +const QEMU_DMA_BASE: u64 =3D 0x40000;
-
-This could be of type regs::DMA_DST and local to test_dma().
-
-> +
-> +const IRQ_MAGIC_VALUE: u32 =3D 42;
-> +
-> +/// Bit set in `IRQ_STATUS` when a DMA transfer has completed.
-> +const DMA_IRQ: u32 =3D 0x100;
-
-Why is this not part of the IRQ_STATUS declaration in register!()?
-
-> +
-> +mod regs {
-> +    use super::*;
-> +
-> +    register! {
-> +        pub(super) IDENTIFICATION(u32) @ 0x0 {
-> +            31:24 major;
-> +            23:16 minor;
-> +            7:0 magic;
-> +        }
-> +
-> +        pub(super) LIVENESS_CHECK(u32) @ 0x04 {}
-> +
-> +        pub(super) FACTORIAL(u32) @ 0x08 {}
-> +
-> +        pub(super) STATUS(u32) @ 0x20 {
-> +            0:0 computing;
-> +            7:7 raise_interrupt;
-> +        }
-> +
-> +        pub(super) IRQ_STATUS(u32) @ 0x24 {}
-> +        pub(super) IRQ_RAISE(u32) @ 0x60 {}
-> +        pub(super) IRQ_ACK(u32) @ 0x64 {}
-> +
-> +        pub(super) DMA_SRC(u64) @ 0x80 {}
-> +        pub(super) DMA_DST(u64) @ 0x88 {}
-> +        pub(super) DMA_COUNT(u64) @ 0x90 {}
-> +        pub(super) DMA_COMMAND(u64) @ 0x98 {
-> +            0:0 start_transfer;
-> +            1:1 direction;
-> +            2:2 raise_irq;
-> +        }
-> +    }
-> +
-> +    pub(super) const END: usize =3D 0xA0;
-> +}
-> +
-> +type Bar0<'a> =3D pci::Bar<'a, { regs::END }>;
-> +
-> +struct EduDriver;
-> +
-> +#[pin_data(PinnedDrop)]
-> +struct EduDriverData<'bound> {
-> +    pdev: &'bound pci::Device,
-> +    #[pin]
-> +    irq_handler: irq::Registration<'bound, IrqHandler<'bound>>,
-> +    // Declared last so the device stays enabled until the IRQ handler i=
-s freed.
-> +    _enable: pci::DeviceEnableGuard<'bound>,
-> +}
-> +
-> +#[pin_data]
-> +struct IrqHandler<'a> {
-> +    pdev: &'a pci::Device,
-> +    bar: Bar0<'a>,
-> +    #[pin]
-> +    irq_test_completion: Completion,
-> +    #[pin]
-> +    irq_dma_completion: Completion,
-> +    dma: Coherent<u64>,
-> +}
-> +
-> +impl EduDriver {
-> +    fn init(pdev: &pci::Device<Bound>, bar: &Bar0<'_>, handler: &IrqHand=
-ler<'_>) -> Result {
-
-I think this should rather be named selftest() and it should be a method on
-EduDriverData instead rather than a function on EduDriver. The same goes fo=
-r all
-the other functions below.
-
-> +        Self::config_space(pdev);
-> +        Self::magic(pdev, bar)?;
-> +        Self::liveness_check(pdev, bar)?;
-> +        Self::factorial(pdev, bar)?;
-> +        Self::test_irq(pdev, handler)?;
-> +        Self::test_dma(pdev, handler)?;
-> +        Ok(())
-> +    }
-
-<snip>
-
-> +    fn magic(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Result {
-> +        let identification =3D bar.read(regs::IDENTIFICATION);
-> +
-> +        let magic: u8 =3D identification.magic().into();
-> +
-> +        if magic !=3D QEMU_EDU_DEVICE_MAGIC {
-
-Can't we construct a regs::IDENTIFICATION value and compare this instead of=
- the
-raw value?
-
-> +            dev_err!(
-> +                pdev,
-> +                "magic mismatch: expected {:#x} got {:#x}\n",
-> +                QEMU_EDU_DEVICE_MAGIC,
-> +                magic
-> +            );
-> +            return Err(ENODEV);
-> +        }
-> +
-> +        dev_info!(
-> +            pdev,
-> +            "major: {:#x} minor: {:#x}\n",
-> +            identification.major(),
-> +            identification.minor()
-> +        );
-> +        Ok(())
-> +    }
-> +
-> +    fn liveness_check(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Resu=
-lt {
-> +        let test_value =3D 0xabcd;
-> +
-> +        bar.write(regs::LIVENESS_CHECK, test_value.into());
-> +
-> +        let inverse_value =3D bar.read(regs::LIVENESS_CHECK).into_raw();
-> +
-> +        if inverse_value !=3D !test_value {
-
-I think this would read better as
-
-	let pattern =3D regs::LIVENESS_CHECK::from_raw(0xdead_beef);
-	bar.write_reg(pattern);
-	if bar.read(regs::LIVENESS_CHECK) !=3D !pattern {
-	    return Err(ENODEV);
-	}
-
-And in the regs module we could implement
-
-	impl core::ops::Not for LIVENESS_CHECK {
-	    type Output =3D Self;
-=09
-	    fn not(self) -> Self {
-	        Self::from_raw(!self.into_raw())
-	    }
-	}
-
-> +    fn test_dma(pdev: &pci::Device<Bound>, handler: &IrqHandler<'_>) -> =
-Result {
-> +        dev_dbg!(pdev, "testing dma\n");
-> +
-> +        let dma =3D &handler.dma;
-> +
-> +        const DMA_VALUE: u64 =3D 42;
-> +
-> +        kernel::dma_write!(dma, , DMA_VALUE);
-> +
-> +        handler.bar.write(regs::DMA_SRC, dma.dma_handle().into());
-> +        handler.bar.write(regs::DMA_DST, QEMU_DMA_BASE.into());
-> +        handler
-> +            .bar
-> +            .write(regs::DMA_COUNT, (dma.size() as u64).into());
-> +        handler.bar.write(
-> +            regs::DMA_COMMAND,
-> +            regs::DMA_COMMAND::zeroed()
-> +                .with_start_transfer(true)
-> +                .with_direction(false)
-> +                .with_raise_irq(true),
-> +        );
-> +
-> +        handler.irq_dma_completion.wait_for_completion();
-> +
-> +        // Destroy previous value to test roundtrip
-> +        kernel::dma_write!(dma, , 0);
-> +
-> +        handler.bar.write(regs::DMA_SRC, QEMU_DMA_BASE.into());
-> +        handler.bar.write(regs::DMA_DST, dma.dma_handle().into());
-> +        handler
-> +            .bar
-> +            .write(regs::DMA_COUNT, (dma.size() as u64).into());
-
-Please avoid as casts and use FromSafeCast instead.
-
-> +impl pci::Driver for EduDriver {
-> +    type IdInfo =3D ();
-> +    type Data<'bound> =3D EduDriverData<'bound>;
-> +
-> +    const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> +
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<kernel::device::Core<'_>>,
-> +        _id_info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> +        pin_init::pin_init_scope(move || {
-
-Let's make this a single try_pin_init!() block. You can subsequently chain =
-it
-with pin_chain() to call selftest().
-
-This is what I came up with for a talk; it doesn't align perfectly as it ha=
-s a
-couple of things refactored and uses self-referencial pin-init, but you get=
- the
-idea.
-
-	fn probe<'bound>(
-	    pdev: &'bound pci::Device<kernel::device::Core<'_>>,
-	    _id_info: Option<&'bound Self::IdInfo>,
-	) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-	    try_pin_init!(EduDriverData {
-	        _: {
-	            dev_dbg!(
-	                pdev,
-	                "Probe Rust EDU driver sample (PCI ID: {}, 0x{:x}).\n",
-	                pdev.vendor_id(),
-	                pdev.device_id(),
-	            );
-	        },
-=09
-	        _enable: pdev.enable_device().inspect(|_| pdev.set_master())?,
-=09
-	        bar: pdev.iomap_region_sized(0, c"rust_driver_edu")?,
-=09
-	        irq_vec: pdev.alloc_irq_vectors(1, 1, IrqTypes::default().with(pci=
-::IrqType::Msi))?,
-=09
-	        irq_handler <- irq::Registration::new(
-	            irq_vec.index(0)?.into(),
-	            Flags::TRIGGER_NONE,
-	            c"rust_edu_irq",
-	            try_pin_init!(IrqHandler {
-	                bar,
-	                irq_test_completion <- Completion::new(),
-	                irq_dma_completion <- Completion::new(),
-	                pdev,
-	            }),
-	        ),
-=09
-	        dma: {
-	            let mask =3D DmaMask::new::<28>();
-=09
-	            // SAFETY: There are no concurrent calls to DMA allocation and=
- mapping primitives.
-	            unsafe { pdev.dma_set_mask_and_coherent(mask)? };
-=09
-	            Coherent::zeroed(pdev.as_ref(), GFP_KERNEL)
-	        }?,
-=09
-	        pdev,
-	    })
-	    .pin_chain(|this| this.selftest())
-	}
-
-> +            let bar =3D pdev.iomap_region_sized::<{ regs::END }>(0, c"ru=
-st_driver_edu")?;
-
-With the above, we also get rid of the turbofish.
