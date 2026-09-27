@@ -1,70 +1,221 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de [91.216.248.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CF2270575
-	for <nova-gpu@lists.linux.dev>; Sun, 27 Sep 2026 18:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EFB3BB661;
+	Sun, 27 Sep 2026 22:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.248.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790532728; cv=none; b=e18qUX1v4HbLQaGR8DGXBdYPTseOFe0a6pxASGwo0WQqwc/zkGR8XsyhE3Ha/dndpPSlTxYo/exV61N66zeJLBdDBBhDVTWSQ9+VicGcJ3P6ein6thShiEqPnA3aTvJs84vGuE/kZkitIYC/OlKenuUe//nGL9K3DT3VB1rEtTY=
+	t=1790549641; cv=none; b=JWyubjgMT9CF1DAsjCQzlPyz6XnrN0ig0e7xL/eBbR+ld/iHwqf4xoLYkqEn/j23C/GUkdfoziYvgSNu7L9zAXPVnwSXUQEJfs6LFb5f8NfyldXceBcjxV3muUCdNdUlQ8s1ANXKxT+r89jCqF7LVW7V4fABUMPPxENPINIbS7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790532728; c=relaxed/simple;
-	bh=BaA+PvTIQkJ8Rsg8Gex3ng2jCts9EGUcExk5dx8M/ZU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RRrzn5b86Jiny8Q5veiW9kN4YUMfqnxJTf7RR6vBVxTG5z8XNKv6Urm0YUT1xuFjYi1WXqKilNZGRPkGQYcS9XlE/pV+iis/U2qrawA31/1G+Y6VfVT0xEGgwKo+hYApCjARR7cVGQIIudJ/f7NR6YFFxLfSSwOaNtddThqtNZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Gh7FhbGn; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1790549641; c=relaxed/simple;
+	bh=xC9euzdpfWQA6clWp09WVE/7sgF5HEkIjOsWgJhhgTE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lujh6DGJD09q1B3ff4zuXczW+Feoyu75KGzVEUsD8cyu0ZoK/XoFAeGaq4InekaARYci93+/9V0mDgmzama9RlZ/Hj1YE2wubTONM+d4SGskl7lwafbs6W2HWbZt8r/WDhS1yHTcCBhJxOya1E+v8FkymKnVhVSfcj/wWP38Bnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de; spf=pass smtp.mailfrom=matt3o12.de; dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b=QPxsBAyX; arc=none smtp.client-ip=91.216.248.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matt3o12.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Gh7FhbGn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=sfz2jeqf2ra6deha5l34k43swm.protonmail2; t=1790532721;
-	x=1790791921; bh=BaA+PvTIQkJ8Rsg8Gex3ng2jCts9EGUcExk5dx8M/ZU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Gh7FhbGn8KUlaG29K/qsA9gm7ZnxyGWOJIurE59aWJEPrym8NCx6TYC6KDacc70jB
-	 TPoVGZgnDRApuPRfFIN9bJ1jXJotl3S/9SV2ePvHNeW/D0inXTl9Qrx/yzPWnCSF12
-	 mJi+Uo8kYI+BHITIrUupGP7n9dCXFcLRqryvOipV8fgshYq+MdpAo9J2z+ewRXxnni
-	 tgKmsT/U+gQhn1ppAWYsTktS9kdwqU3MlD2q/JLdRqCRGpqptOroUfkwej249qI6tt
-	 nAc2NjgyBN+Ki9iwA/eDmBH14HrrEszHZ0z14nfhtQ+ctUCsdxgIgmIOO26Fm644/d
-	 4DM4mH+iZWkhA==
-Date: Sun, 27 Sep 2026 18:11:57 +0000
-To: Danilo Krummrich <dakr@kernel.org>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Lorenzo Delgado <lnsdev@proton.me>, Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alexandre Courbot <acourbot@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v3] rust: io: convert ResourceSize into a transparent newtype
-Message-ID: <20260927181154.1757237-1-lnsdev@proton.me>
-In-Reply-To: <DLNPXJ4WPH4L.2MBUGV1TAESYY@kernel.org>
-References: <20260920-resource-size-newtype-v3-1-9451444e83bb@proton.me> <DLNPXJ4WPH4L.2MBUGV1TAESYY@kernel.org>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: 541aa433539a53276ac34d20166f44a5eb3c53af
+	dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b="QPxsBAyX"
+From: Matteo Kloiber <kernel@matt3o12.de>
+X-Lima-ML-UUID: 7b21bed0-f515-40d2-8fad-e214b5c9faf0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
+	s=securedbylima-20230709; t=1790549158;
+	bh=xC9euzdpfWQA6clWp09WVE/7sgF5HEkIjOsWgJhhgTE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=QPxsBAyXObGEqRuVtVwk+kG/MmUHlCLH7ftmtL5BWr2j8oaZf0M4V9Q3kIBZ9zV+2
+	 uylOzjCrgcHThRhe5hs4jq2HvGiNof6YkMwPPkWx3ToNAJplgp+cp0SpLJ0eZShIhP
+	 cL9aqqpJMKK1jiCRLqPoDgiKaEH3N2yN8bY7vVrd8qp8ScHRVQw3QGZxZ9UKv/+oAR
+	 xLVSKeXX1+T/jtMI9IQloUVQvaHzI/703WAmDE/7Jdc8d2wO5bvZAMStVQq6a1vbR5
+	 RNVGTGvhjnpL8x33L1GqLVpWnHzdQflfLmVHlzU0CgiRtDVX2EmxDPhXofOm2Jdl3V
+	 I/ygm44GFUvqA==
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Robin Murphy <robin.murphy@arm.com>,
+	aliceryhl@google.com,
+	ojeda@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	abdiel.janulgue@gmail.com,
+	daniel.almeida@collabora.com,
+	a.hindborg@kernel.org,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	driver-core@lists.linux.dev,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum segment size
+Date: Mon, 28 Sep 2026 00:44:43 +0200
+Message-ID: <20260927224446.1053037-1-kernel@matt3o12.de>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
+References: <20260831233215.287881-1-kernel@matt3o12.de> <20260831233215.287881-3-kernel@matt3o12.de> <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com> <20260913210806.125589-1-kernel@matt3o12.de> <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com> <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org> <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net> <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com> <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net> <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org> <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 24, 2026 at 7:21 PM CEST, Danilo Krummrich wrote:
-> So, I think we should change dma_len() to just return u32 (I'm also fine =
-with a
-> new type, but it might be slighly overkill).
->
-> I'd usually pick this patch regardless and leave that for a follow-up, as=
- it is
-> a separate issue. But if we change dma_len() first, we only have to updat=
-e tyr
-> once, whereas if change it after we end up touching nova and tyr twice.
+First of all, thanks for merging my first two patches and sorry about my late reply.
 
-Makes sense, thanks. I sent v4 with a patch in front that makes dma_len()
-return u32, so the newtype patch no longer touches tyr or nova-core:
+What I think Alex meant and what I agree with is that the new API should focus on
+making semantic bugs harder, not to necessarily make it easier to write safer
+drivers. That being said, I think we can do both with this change.
 
-https://lore.kernel.org/r/20260927-resource-size-newtype-v4-0-447a08af23fb@=
-proton.me
+The key change here is that we introduce a structure that defines dma
+parameters for a device. This structure deliberately has no default
+implementation and new fields should be added even if they require changes for
+all dma drivers.
 
-Heads-up: patch 1 interacts with Alexandre's nova_num on one line in
-gsp.rs. Whichever lands second needs a two-line fixup; details in the
-cover letter.
+```
+pub struct Params {
+    pub streaming_mask: DmaMask,
+    pub coherent_mask: DmaMask,
+    pub max_seg_size: NonZeroU32,
+}
+```
 
+Suppose, we didn't have `max_seg_size` before and only discovered it later. We
+would add it and the compiler would guide us to any drivers that will need to
+consider an appropriate value for `max_seg_size`.
+
+If rust was bigger in the kernel, this could be quite a bit of work, requiring
+coordination with other maintainers, but I would call this a feature because it
+actually requires everyone to at least consider what the right value is instead
+of forgetting to set it.
+
+The same is also true for new drivers. Authors do not have to be omniscient of
+all dma related settings and instead just fill out the struct and already have
+some important ones set.
+
+If a parameter is only important for some drivers but those drivers should not
+forget it, we could make it an Option so that drivers that really don't need
+a parameter can set it to `None`, but they had to think about it at least.
+
+I think, instead of discussing different possibilities, it might be easier to
+discuss code directly. Taking Alex's example, I went ahead and wrote a small
+LLM assisted PoC. I'm happy to share it here or in another thread, but here are
+the main changes:
+
+1. The PCI and platform probe callbacks receive a unique setup token:
+
+```rust
+    fn probe<'bound>(
+        dev: &'bound Device<device::Core<'_>>,
+        dma: dma::Setup<'bound>,
+        id_info: Option<&'bound Self::IdInfo>,
+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
+```
+
+The bus driver creates this token and drivers cannot obtain another one from
+the device. 
+
+2. `setup.configure(params)` consumes the token, applies the parameters through
+   the C DMA setters, and returns a `dma::Handle<'bound>` on success.  This
+   combines the setters and `finish()` from Alex's outline into one call.
+
+```
+pub fn configure(self, params: Params) -> Result<Handle<'bound>> {
+    let dev = self.dev.as_raw();
+
+    // SAFETY: `dev` is valid and its DMA parameters are initialized by the bus. The `Setup`
+    // invariants exclude concurrent DMA operations and other parameter setters. Consuming
+    // the unique token prevents reconfiguration after a handle has been issued.
+    unsafe {
+        to_result(bindings::dma_set_mask(dev, params.streaming_mask.value()))?;
+        to_result(bindings::dma_set_coherent_mask(dev, params.coherent_mask.value()))?;
+        bindings::dma_set_max_seg_size(dev, params.max_seg_size.get());
+    }
+
+    Ok(Handle { dev: self.dev })
+}
+```
+
+3. The handle contains a bound device reference and is copyable, but provides
+   no way to reconfigure DMA:
+
+```rust
+#[derive(Clone, Copy)]
+pub struct Handle<'bound> {
+  dev: &'bound device::Device<Bound>,
+}
+```
+
+4. Allocation and mapping APIs now require a Handle. 
+
+For example, scatter list now takes:
+
+```
+pub fn new<'a>(
+  dma: dma::Handle<'a>,
+  pages: P,
+  dir: dma::DataDirection,
+  flags: alloc::Flags,
+) -> impl PinInit<Self, Error> + 'a {
+```
+
+The PoC uses Handle for coherent allocations, owned scatterlists, and DRM
+scatterlist mappings.
+
+5. Each pci/platform driver that uses DMA configures its own `Params`. Let's
+   look at `samples/rust/rust_dma.rs`:
+
+```rust
+fn probe<'bound>(
+    pdev: &'bound pci::Device<Core<'_>>,
+    setup: dma::Setup<'bound>,
+    _info: Option<&'bound Self::IdInfo>,
+) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+    pin_init::pin_init_scope(move || {
+        dev_info!(pdev, "Probe DMA test driver.\n");
+
+        let mask = DmaMask::new::<64>();
+
+        let dma = setup.configure(dma::Params {
+            streaming_mask: mask,
+            coherent_mask: mask,
+            max_seg_size: const { NonZeroU32::new(u32::SZ_64K).unwrap() },
+        })?;
+
+        let ca: Coherent<'_, [MyStruct]> =
+            Coherent::zeroed_slice(dma, TEST_VALUES.len(), GFP_KERNEL)?;
+
+        for (i, value) in TEST_VALUES.into_iter().enumerate() {
+            io_project!(ca, [panic: i]).copy_write(MyStruct::new(value.0, value.1));
+        }
+
+        let size = 4 * page::PAGE_SIZE;
+        let pages = VVec::with_capacity(size, GFP_KERNEL)?;
+
+        let sgt = SGTable::new(dma, pages, DataDirection::ToDevice, GFP_KERNEL);
+
+        Ok(try_pin_init!(Self::Data {
+            pdev,
+            ca,
+            sgt <- sgt,
+        }))
+    })
+}
+```
+
+What I am not 100% sure about is how we should handle drivers that don't use
+dma. Currently I just discarded the setup token like suggested, for example
+`samples/rust/rust_driver_auxiliary.rs`:
+
+```rust
+impl pci::Driver for ParentDriver {
+  fn probe<'bound>(
+    pdev: &'bound pci::Device<Core<'_>>,
+    _dma: kernel::dma::Setup<'bound>,
+    _info: Option<&'bound Self::IdInfo>,
+  ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound { ... }
+}
+```
+
+But maybe it would make sense to introduce a C API such as: `debug_no_dma` and
+have the bus call it unless configure was called first. This would then trigger
+a debug warning if a marked rust device calls any C APIs that use DMA
+regardless. But this could also very well be a worthwhile follow up.
