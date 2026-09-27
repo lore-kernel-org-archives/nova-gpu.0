@@ -1,54 +1,54 @@
 Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012030.outbound.protection.outlook.com [52.101.43.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C479F3D5C26
-	for <nova-gpu@lists.linux.dev>; Sun, 27 Sep 2026 11:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B433D3BE632
+	for <nova-gpu@lists.linux.dev>; Sun, 27 Sep 2026 11:15:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790507706; cv=fail; b=dxGBcTaohEVXXBjlWuPOBh40bB8HyrbfjkFFx2A5a2jvdoL72gHQ5sTSSMULFwnJ/A0ZtuYDdvJVx1246Pcje80+m4pUiI7nLiR1EgnbjhZ/5wHGXeXBd4is70nkayRpvaa6wZ3rPQWOwMCZBkWf6CIktM04koHCuf9UCC9c2K8=
+	t=1790507711; cv=fail; b=NP3kewO0MMDdwT+/t2t5gg6RNaqZxZ85ZZVAkibYbabHE4tI1F9vm7qgNW1DGQVq4P3VxTSpjBRVzurCP6LqVM9OMC3s0OPIpAskKBtuWH0TJM5Hfo1xZRvtQTwNEbY1rLCIylUbmlMVm5py3jejwfmK7pjsOsI3Q13lwt29HwQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790507706; c=relaxed/simple;
-	bh=Fwgotugp/8QsSni/VUbPfakBZHOPMe+9Blz0ySfLy5M=;
+	s=arc-20240116; t=1790507711; c=relaxed/simple;
+	bh=qAaRy2gWrz4TYgZVnxjV/xW/ixwhVDlm45da2waqGiA=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=AxjJef2Ys+c9EzuTDza/ACBrnvbsdmBMhptIbUTjmX+mMPGl5o2t/QMQYIiysKvA5/ctlZADZp3nrWQleCmjFtA2RAfH2CRCZ6PyEHxqSr1wY6lTx3TLihNvtOovMRYPT6as4uslX+5T5zRjlqg1yfl7KKi9M3i0zG1qdrl7hi0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ff4wm5Vq; arc=fail smtp.client-ip=52.101.43.30
+	 To:Cc:MIME-Version; b=erzu4sZxXMcSiRBkj0QVHIClq9LmgYElmc5s7IjOyM++/i7wed+a5frjyfYJ+lr//ipB+uCwNVrGOitlqAmw9hWzZs8QgZeJ+q/4ylOkqEtFWNsrSuUEw+ry/5RWvEpO3k9mkSkSavfQAQRKTs6eAC+rShd1rQsBi/DDnHv/yaE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BrM2iBiY; arc=fail smtp.client-ip=52.101.43.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ff4wm5Vq"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BrM2iBiY"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P7s8TtmyAwTt4uXATYLRGhUnlHSTPfJjCVtJHb9FnJj9SIzG6Y841jj2voeXvWNLxoQxkOdzmKvg4CW+E19wkeEz5RiAbrvP4fVh2PiA4Dz2Eks+tlN/R9qQ20/LTguzvasIUv2igBKy+ylfct2QzP9jnIOoNQ1ai5B8M/5WgOExRRbqEMFgeOiCPG04ePvxpoMM4Jy8YcD4cSRgI1wj3NXLJJ1sMPWU/WfRmZrXfm0fwrrTlAj7Ui+CD7vEAFfeaMhB/6w2ova/atZP7DxmyWiblI4RuIS+OSvSsp/SqcCC+Pny3lqqOOZa/9F2HB5Dz3IRYkPx+xd2iefdkIeUBA==
+ b=qImJbfhXfEUcbrWUCim2NVmOymWyHgOCaQmwimeomOWGjHNJ1+wrr1lhc4rtZf1zeQNByrjOGI1r+sou4d8iwkOjTqzv1l4AtsXuCEWKS6mG9T4RrIbzHg5sP4c6rAUXfR55EMGDiTCpMjFFtVQBFHqzPt+BmThCdytk7crrMM6ZkyV/ntbuMZvjS6/xH34GCmNgIWofQDpYqHvnyFO3p1Icy5f4p6Ka7dm5qnRRHQMH5aeqN83OzM2G5ur8Z98QoJUzfiPUhrOtxQheKeYq98+RT9gZLUE/rSgNrA9zoWvBfTyLTtdkHnvtxzTmlKWBbdMYjXnObE3ahownTdjLDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B5xiNzIqdwdssv5Ad1FHEwVp/CX6iLgS9N55MFvLe2o=;
- b=C+WOX75AhCmdOnzld97mprsclfhWuIES3Ep62JXHlCQit9iKZpHApFJoXiZqTftzP3YGtPFkjWIp3jsaSHZP1E+4WqIG+jVYkPMg3BTgtUkD5tP0w/tr5914WrZCLuHvyaUQ4GsUqT7MVuGOPn0mLI+lUw04HKpLCHZjSCnGBGJH2vLGjfydgfYIrH9G6i1sVemg7LCqFS4zwkZVd2JH4WjW47n8kF4udmtdD1c3YJVfI8l2eRqNqQ3p+cuvcQ2jKadRRu63PJ5IU5zD6DItW6ZFG705HcBkC9GdXWd+/h+cEwHquaYiafzEHux4Btf9Dw9/dSlqEAEGTcn7YMNX7A==
+ bh=9M0glkbLSRXoZo2icAVce5z8OLnohM7yEIpD7QQ9DFw=;
+ b=g+0h7HKl0AC4GVV+vzdVN2H4JJxWZek341szF4j8Kki6fDtCMZgnJZP2b3U4g2MdRmb1qzwnDi/ezQenAoLrXQ7bkNHQEYK/0/y2O8pqDiWAP9uhGIqJA+wYizJJ0OMKaDSGBIoiuyrrjUcp1x6ok9fIZf5i+7uRKHGgkSY41iDJykOc1urkvmWV+6GOb0S1gs0J2J6HsIffN8g7HsLZfvLMa1fWfO/rszP8m2amcKKNAiJOlh4OAIKi1mqzeVfDzBqGb6yUeX1ea9WtINPj9BcMHFjTV21Q5ufn6q1VHNQpaKrrgU+f0gd2J2xHWwQ+B+NRRzpXNEy0IJ2A8EmeWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B5xiNzIqdwdssv5Ad1FHEwVp/CX6iLgS9N55MFvLe2o=;
- b=Ff4wm5VqtZ2ayf6GQRLmUUkiX0E6U0x2KEo2S8s8VVbj/2j9qbGNhE1W82GNmgFJEcXpAJXWy1KjFvdcWUbJXPXeEUs+1oMI1oPa00Qka5B0/h9BAxDt7+vDidrBX9SPzP9QoryGCiP/63oxNaZLnge/5Put+WxDZy1cERztBTuVR+P+/2wrWOKGEeD8DP5lZQKrkyP7nGRDSr12mMrJjDe51FjAP4CuXfUXh6j9u2n+kRCShKoCDbOX7gzS+VeUZZJhL7bqaFo5TPjP92A1nYmcEZyCpiIr3br+0JMDzzcf1Q/Y5oZECo7ErgX5d8JPVWDNJLjwFtZW1Wu3AB2WQg==
+ bh=9M0glkbLSRXoZo2icAVce5z8OLnohM7yEIpD7QQ9DFw=;
+ b=BrM2iBiYGjnPiizTzDAJCFuvA3aRhCOpUAdYKPGxfkfV1sCW8Q+zBsNe3qi1HNoKzTIM2+oL9UyMPH7YZyqs9P2Ja+RnrfMomws8VLseioAoBRzeZaFeaKZwhj8SqtBPD0P1fy6gFkz8MbIrHxfZ3nlI3lkq6uVB5//KwX9PljYzHAOlM0vmgPwqV3n8PaZuRvV0k56c/8/mE7Rok2dNU9sB89Mm33YyqPTMn5UykfkqgwMCuHGeAxFMH+tdG/M1eCxwOQ6x3DUhfepIlRspnj8uYFAW6BfyRub8o6II0O6ic35hrB0z8vd0citFBYn+g1CoMo+RgRp33n1lk+i4sA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
  by LV8PR12MB9154.namprd12.prod.outlook.com (2603:10b6:408:190::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Sun, 27 Sep
- 2026 11:14:47 +0000
+ 2026 11:14:53 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Sun, 27 Sep 2026
- 11:14:46 +0000
+ 11:14:53 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Sun, 27 Sep 2026 20:14:28 +0900
-Subject: [PATCH 06/10] gpu: nova-core: gsp: cmdq: move the RPC send code
+Date: Sun, 27 Sep 2026 20:14:30 +0900
+Subject: [PATCH 08/10] gpu: nova-core: gsp: cmdq: move the RPC receive code
  into a sub-module
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-cmdq-rpc-v1-6-822db5af910e@nvidia.com>
+Message-Id: <20260927-cmdq-rpc-v1-8-822db5af910e@nvidia.com>
 References: <20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com>
 In-Reply-To: <20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com>
 To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -61,8 +61,8 @@ Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP301CA0077.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7b::19) To MW4PR12MB6873.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYWP286CA0014.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:178::20) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -72,615 +72,446 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LV8PR12MB9154:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84f67f2e-5610-4d06-b9b6-08df1c8889c3
+X-MS-Office365-Filtering-Correlation-Id: 5815b074-50e5-4f40-773d-08df1c888db0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|6133799003|22082099003|18002099003|10067099003|3023799007|56012099006|11063799006|5023799004;
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|22082099003|18002099003|10067099003|3023799007|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	uFrRXrJSKvZ2NF5ZKZFb2zI3kEzmEAZm8MU3n1aJ3qzCqUInkPEJfK9gmMKb+d8YolaEJUlNmM4UCRzDRmBO0GOxtZ3wQLBjs3utNhfpVmwutuS1hXo8mKA4Hhb5jgCV01jJLCaAGamowp12BsPXhCYgR+vlflLntqK0ap95l72oM+Lm3ZO1Qe1xIRg0hofzGPwwGGptDcS34G0mCvOFTKbEypUJxKSijkjy96IR8qELq7Zp7/CgtGJ6DLy/EJwTeHGR/GB1yCUOQTvB95EhtQrhf0a2WdGWvNtr+wAsAX/BWNYV+MAfojVQa+pZej8p60/C8DtB8N0x4QgO9DhzyF6V9MbXjg/vPphqfV+EkK6wgmjgP1/OZorIlWtEiz+aJUh/q03Br09hmJeM37yHjSYtlj4cFZMaZNIc6mGz1fRiklf/Yc4nHqBDMavZFF0m4NnCzjE3rrxRIyI3K0sR7thut9jkkXhTRC0wEuP/YynbIFWdho+PQmcU3pnv9dEY9I5u5kF1UALf2CizXYQT8o76LckVmEbfySkhCszwN050xmBwGWgvRBz6PDiEDXkEOll+TIAzppZy8Gf1t+A0PxIOi9HrW8VPqR+ei2immeaTNWxbnF3fgU/5xDJ5hou0khhXt7oHYtri8u0YdQDB13qTR1zh0Vts2VE1pgLgyFI=
+	U4nM5xdt8tKc26yY7iKZmFfQ5z0Z1y0/OJtaUqf2A9Wbn/PWKdFcvFg7rKh5MNmDUnYD3sM0Zs/iXBbbnA7dCzhgkdt955fjFY/1SW2hVqHkrk0Lru2j6yYGHmVfpjM/znqh33tNcaDS48U3MkvArN9tRyL6Y12atVcpctEfHY44oozvKiU1jQNsFUzRyh/cZgSST/MZBxdEy5gK2Ci/QhOA6SbELihJW5VrweSOCgk9/0tPKj/UwdR59jheSdFIWDIOMcQqIdaV9mfa/cujhSKNCrs9lYXnAAR8DPlJDHOFnokarjatprUEymwkX8vtMYpwLceBmwWMXibOvUbN0keXj+FyJ2XhCE0ZbiyGQ0B9TgjLkbgAggrOBEz6dZJpptyGqex6JOcM65qcQL9TWqWYTGzZ0MRv7rDOGl7vtTBsXjkKJUlvtpXQBrT3lmeiASyf5jEp8uqHipClWsGxHIkMZccUPDNWubdWsj27g5hmzN/SnT9XflAQ4jSWoCB+kld4GWFLuxhp81RN14SiET2Mo8sIhfoWGYOvAN1ZBAGh0HJuzhaPtlbnJah7dPa9foZenzuxFCn6hOyG5P2N6DoSEoX1I07upNyQfPfIgLjVkKtEb4bwz6x1ke/sAiuijcLRa354e3q7RHmDFyHhvjok08I+/Mea6if56M4C4Us=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(22082099003)(18002099003)(10067099003)(3023799007)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U3pENjZ3Mk5lSE85NWgxdmFGM3h4VjBISXZYVi8xMml1cHZhcVBWK050OVhs?=
- =?utf-8?B?djZrbldKei82eFV1cFlqdC93VmlwR0VoMFlLakNaYTN2SnJuV2FLUlJTbXJF?=
- =?utf-8?B?T1BUYWhCT1Q4OUhjQXBpTjkwUElCRllIcnpKSkJsTTBEMjlUYXRyZ0hTdWxp?=
- =?utf-8?B?L3VmVzU4NEJVU1pFRGFPQnZ4aTBOSEhSdmlCSU1mVklpa2hSN0NtQXpocEti?=
- =?utf-8?B?eXdUNnJxOE5xKzA2ZStKVVZ0MXQxTVFPZmxySkd3Z0NRMmNWdW5JemQ3MWsr?=
- =?utf-8?B?K21CVWwySlM1cUJpS3czbzhVWDUwalZvSlErVHpGeGZDZWFwc1hpUjhFK1dh?=
- =?utf-8?B?NFgxREZXMEJhQUl6TlMvSTRGTFF3N3ljK0NZSmRVNGpJUnRGazRqRDBhTktU?=
- =?utf-8?B?SGc4bVI3NURWcTVsV2Iyai92eXhhZXVWZkswUktYVGc0ejhEbkIzenhtL3hN?=
- =?utf-8?B?OWlSUUVHVHhaU2JsRlNoaStsc2w0NlNSbCtmeCtVZ0NUSFpGS2h1cHZtanVR?=
- =?utf-8?B?V3N6V3M5M3Zxb1BWeTNSVkhxUVNybUcwU20xazVWYnVqdC9xMWZHVE02emdT?=
- =?utf-8?B?QTM0bDRQcEFOSVNEVCswSUxaaTJialJyK0o5dHlQN3pSQkJiZFVvU1loMFh6?=
- =?utf-8?B?MlR3SzJpbjVUeHU0VUs2KzM4R010aURiYTFHK0tqdVBwZ2toTERueG5lV1Rj?=
- =?utf-8?B?ZmV6ajkvdzYrT3VjS0o0ZzFranAwdFI2ZXU3djNqbFM0cHE5Y2ZZUnBZdUdt?=
- =?utf-8?B?M05jZWNPQ1d2QUgwMzhKWDN6TEZRUG8wVndwdnlzUTB3WTJ3LzRJSnBKeDgz?=
- =?utf-8?B?NEVXMjB2R2dZa056KzVZTU92UTI4V1BrUENUNVNlNGd3aWZUbWZxQ1JHSEZo?=
- =?utf-8?B?MW5KVGVjTzVlVU1lVldBUjJkYW51eDQ5VjVsMDdYYUFSN0t5REtxd2RKMVpF?=
- =?utf-8?B?S3h5NzEvam1xMU5TVElOdWtFN0pjbS9JZmE4dE9hN2E2UzdpVVBFditXSFBn?=
- =?utf-8?B?eHoxcVpsaVl5aG9jZE9HTFovakVtWFJ0UHZUNSt0TG5SRjEzbmpBY29FNHU0?=
- =?utf-8?B?eC9PYTI2U0dGTlpRRVZsTDlzK0FIRndLTDZXT3lINnNZTW5hNEM0bjBkVytB?=
- =?utf-8?B?ZkxyRFZsSUZLWGVyTjBNanR3d2dtTGdCamx2VXdZWGpyejgzUkhyVGg2M3Mz?=
- =?utf-8?B?NUJqY2ZLQ3JrMTNZQ2hkYWlUbjM5L3lGTTN3RjQrSEhXL1dzVG4vYnVKQlVV?=
- =?utf-8?B?WE1rSjgrOC9WZVJqWURvVHJibmtIS2hQMURBRW5IcjQveE5KV256NElNNWxN?=
- =?utf-8?B?TE5XWForVDlPMWFmU2Y1WWxKREg1Y0FITmhrUmJ5eWc3NUFWeXBCcmpVU1ZL?=
- =?utf-8?B?eUk2YUVRZkQ0SUw4SDE2c3BpbUNvdTgrVk1YV0FxU1VIdzlwWU1naCtGa1FF?=
- =?utf-8?B?c1crMjZLakhTSXNlcmNGb0hVSHVqdFNJUmhqeG5iUUNCQ3RLdVQ0bjZuTyt2?=
- =?utf-8?B?c09wOFV0N2NUNEgzM2JIUlpCbXRyd0NLRzByYTQzdm1Ldk5LOHgyS3lGcnVo?=
- =?utf-8?B?cjVjWFNkc2xsNnk5MXd5Yzljellza1BTbnRFVXcvbHhjUlkvazQvcGtxK05D?=
- =?utf-8?B?aUkvRjJBUXdrS1NmNWhTalpGNmN3dmpZNS9MdmppWE83SmJKRGRmd2xqb3FM?=
- =?utf-8?B?V05FQ25WYnBDWGE2U0syRDNDVFUzTG1TRThZSHg2YklyMTkwMWhYS0V3VTdS?=
- =?utf-8?B?UFh0QU1HOEZCY3JKZVlNWFN6RGlpbHdXRTMzYnE0ZmEwN3AzNUNSdE8vcHgw?=
- =?utf-8?B?d1ZIanptT05vQUp2QkV4cllXWTdHRmhtS2JRUWFNRkEwbG5INktuemtscEg4?=
- =?utf-8?B?b2Y5NjY4UG5JTVBjNWFOZzZYZCt4RzhpbDM0eTBYbEhsNzd0enhtRkkwWUt6?=
- =?utf-8?B?bERWRUdhOHB2dkVYRzg1TTF5a2VTOTQzbUk0N29kSTVnWitBcDdVblVGTWlu?=
- =?utf-8?B?c25uaSt1ekdZcEUvRERtSE5YYmhsTXlrUnRnRkZ1dDJvK0IvZGxQUGVLT1Bm?=
- =?utf-8?B?eDhWNWI1cnJIOUJRS3BPV2dpY3J1NjVWeXh2OEFQNjF1S0ZieGEzL0UydmxO?=
- =?utf-8?B?bk12Smt0UVVpTi9pWVpqWUFFNll5K1VRR0dVRUhKTEdYU0hKNGJNZ2RpdUZa?=
- =?utf-8?B?Y3dFWS9qeGZXR3Y1RUZHK21yM0dCSGlYcmhkQnRNM0pXSnA2S2M3YWdKZnNn?=
- =?utf-8?B?SXRjTURlSW9ReHlSSXZIMElsVzhHMkxqUEFLa0dqTStkQ2YwQlhkN0hXaXpy?=
- =?utf-8?B?N3hCU2o3MWZkNVZJRGlucE9lWHErajMvR3ZSdzV2VDk1K2w4RmVwdSt5SUIw?=
- =?utf-8?Q?0U/lyKAUtON0vEQjJ2wd6hKL/+64aAEuvQyeKjyVfCZMT?=
-X-MS-Exchange-AntiSpam-MessageData-1: +1BM23dBSvgeJQ==
+	=?utf-8?B?UG51d0NuanZ0Ylc3S0tWNnEwQ0c3SnJYK0toV3NSWXRNVmhOWXU4K0RLV1dD?=
+ =?utf-8?B?dnBTZXU4Z0cxVFlRWXNKQlhkRk5uR3B6RXU1RTVYWjh3eklIMWhaSDBrVGsz?=
+ =?utf-8?B?ZHY1czhvQTJXa1NyTi96TVJoRU9jK2p5UlNSeVUzL0ZnT090UHFWV0ltcSs0?=
+ =?utf-8?B?VmhUNUYzK0xKMEZFdkFmZUd2VlJkUGhrUnJLcTAzeGxpUHFOR2gzbCtndjVw?=
+ =?utf-8?B?ZEpZQ0hrK1YxVGdRMTFsRWlZVGxnVE4vaGxWK3BBakQyaVI3c1dSRWNlSGVX?=
+ =?utf-8?B?UCtwMkFJRDFLTFRtSzcrQWVtZm5Ea1JZRFYzditoemZRME5QRDYwSXBGSy9F?=
+ =?utf-8?B?M0l6WWFRRW5WalJ6VElDR3MyNE1RQk9PZUlIZkhZdWNvSmNadFlkRUtralZF?=
+ =?utf-8?B?eG1oTWZmNUpJN1N0M1c5aVdhaHZ0MXM1ZEhYUG5ydWhHN09pNDJJVGpPcVNZ?=
+ =?utf-8?B?Tm5QUWU2V3FTZzJRWnp1OStWbHZWdWs5OEtpOU1DRHF6YndzaGVuZTczRjc1?=
+ =?utf-8?B?aUNOZElBOUh2Q0xSaEFhOEt5TGdoeElvSGsvY0FCRkV2MUxrY1pNdGsvTzBZ?=
+ =?utf-8?B?VFVhV25Cclg0N3hjd2FDY0JVdHgrekRTYnVUNkZ2STZ3NDhHN1l5dmZaRWFr?=
+ =?utf-8?B?WGJVdU0zc0NEcjBBSnNJYmlyaWE2dTd0NkZtQVYzc2l5S0d0TDdjcFBXTjh6?=
+ =?utf-8?B?YjMvSU51Y1BhZDkxZ0FNd0hXUDhiaThWbXFxN0tNb2kzZnBQcDBpVkp4d0Vh?=
+ =?utf-8?B?YzZ6bjlqZjJMb1NzZTdabHp1WVZlN1licTdBWlk3ZUpsRE1KdCtZeTEzSWZ4?=
+ =?utf-8?B?RnE4R0JEUWo4eS9LS3VSRk5RVC9lcXpKN0JzVTNEakE2NGU2d2g4czYwUHFU?=
+ =?utf-8?B?MWFidVNFU1RORm9BdnhoL2hUZUpVRjg0MExCSEtyZmFuK1VlNUVxT25OL2Ji?=
+ =?utf-8?B?RVc2TGhjek1sTEliVzBhVVo2Qzc1N1daQ01YWkFySGxYVk1yWklSVE9GcDZD?=
+ =?utf-8?B?alRpTWIrdUtTNzF4elBkYTFLQkxvWUR4RlEyRFJEemNCRWxwMXZnREE5UWhX?=
+ =?utf-8?B?cWdNcE1jRWlaaEtHMnNJdG5ld1JwWWFqQ2JzRUJlaGhhOWVTTTJkalVGdDNG?=
+ =?utf-8?B?MldPNksvZUxrYkRqT2VhNFJaY09ValU3b0crMkhHL1hGdzVUSWdZczF4YytY?=
+ =?utf-8?B?TnhYNFdQci9ZZFVqNllLSTdmbmZ1ZFhpbmY4UDhzZkJ4T0xHaW5UbkcrU2h6?=
+ =?utf-8?B?bHlOL3N6WFZ1cXFpTHVESG5OZTZMNG5oUitMQ0svWmI5SFhEeGJUVzUySERV?=
+ =?utf-8?B?Ujc0czFLVHhFdTRrWS9leENaZTkrcVVOREROdzY5U1QyVjJaRUNSbEhCY2dm?=
+ =?utf-8?B?OXZtcWt6SDBUSUN1MFhXTDJ6c09OdVg4a3BYNUQ0VXpYWUV3RGxabUhQb3U2?=
+ =?utf-8?B?M3Myd1BRYkVyY1JwVDhZeGFaQTQ5MHd2Z3JUVldpanUxb2lObXVrZ2NnZG93?=
+ =?utf-8?B?aFVoSmQ2ZmJLbHMydE00OXlrcXdjUzVUdEZPQmJZVmFQRjQ5MjJ2MVZrLzli?=
+ =?utf-8?B?M3h4UnRTOHNIYzJ0TlhzYjRrTlBZeTZIa2kvMHNkekppdEtVVFNKdUl5aXNC?=
+ =?utf-8?B?ZnNMQWRJNjJOQTh3ZG1DeHl6UWNJQnJOYml4UUhLcGlQbzBzdjVta0N3NHd2?=
+ =?utf-8?B?eWJtNTdxN0VWa205bkNlc0lDSi9hN3lXd3U1TjFnVmNMWlBWUEJTbWU4T0lM?=
+ =?utf-8?B?TGVSMG5oS1FESWFFUTBRTTlvbTVtSHBicEtPb09vdzRuenF5aThpaEIwQ1BD?=
+ =?utf-8?B?MStVYTZzU1Q2cEdYVmViL1ZtY3A0ZS9lRmdQUVB2Um00R0RhOFU3Y0dsSnZy?=
+ =?utf-8?B?TEpBTWlmNi9teEhGY2x6OWlNVFBSMXFlc2JVVlFubmZnVEhNSnF1MnF2OXpG?=
+ =?utf-8?B?ZFEvdnhRVU1rWTZFa3hENkd2U0t2bVpaVVJOL0w1Q0xGU0gvMlNYdE90eFJp?=
+ =?utf-8?B?anZYOVd3RkxRMjFmcU5MaExGUWFGWDU2Q1lpVUFrMk5qZ2FGNThnT3R2eFVv?=
+ =?utf-8?B?VTlPd0IrT0x0SXpneENINEhUcU1EdWMzVkdIRUVGS2lSRFJLeWVFcDdLWHFR?=
+ =?utf-8?B?c25kSzA0akNVblpzZkRkeUltM1ZJUWlxQjZ4YWloUFZROTNKNWRsYjBTeGw0?=
+ =?utf-8?B?NUNuZkpzMExMTmlXbjdXN3JpejZQM0ZDV1JZS2d3ZHdXWm1rcnJvWndydU5O?=
+ =?utf-8?B?N2xiSXlQR0xXcjNsZzJaVER2RGhXN3lDSk5SdVVFeWFoY1QwR1B2OHh5QUtn?=
+ =?utf-8?B?VzRSdEpQaW55M3c0aTEvSmFsaEJ4QS9PZnY0cEFsZVVobDc4a00rN1pucjNU?=
+ =?utf-8?Q?qErLNYSCA+IUBFDIx8+sxIwCWUITZFsMlcLxZn8bUV1wd?=
+X-MS-Exchange-AntiSpam-MessageData-1: CjXso/zHf6O+Ug==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84f67f2e-5610-4d06-b9b6-08df1c8889c3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5815b074-50e5-4f40-773d-08df1c888db0
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 11:14:46.4112
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 11:14:52.9165
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AD1Dvs3XmeEwIQ6xEbgB8YyAZ2QjjnRr02Rjh8Me1C1T4ojRQOXpGL+W72EU7jj3XKeJPmfnqYTKIR0TxpzNkA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: L0huy28x61rwSFXFN3JHP9xe9Xf+aTTdw6IwduF6DaP+GaK2v27bmbX7SR3qJuIFiBCuZe5+8LRF8VuhgR1m+w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9154
 
-Move the types and code related to sending a RPC command into the `rpc`
-sub-module. The methods are still declared as members of `CmdqInner` and
-`Cmdq`; only they are now in their own sub-module.
+Move the types and code related to receiving a RPC message into the
+`rpc` sub-module. The methods are still declared as members of
+`CmdqInner` and `Cmdq`; only they are now in their own sub-module.
 
 This is a pure move commit, with no functional change intended.
 
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs                  | 214 +-----------------
- drivers/gpu/nova-core/gsp/cmdq/rpc.rs              | 248 +++++++++++++++++++++
- .../nova-core/gsp/cmdq/{ => rpc}/continuation.rs   |   0
- drivers/gpu/nova-core/gsp/commands.rs              |   2 +-
- 4 files changed, 251 insertions(+), 213 deletions(-)
+ drivers/gpu/nova-core/gsp/cmdq.rs      | 130 --------------------------------
+ drivers/gpu/nova-core/gsp/cmdq/rpc.rs  | 132 ++++++++++++++++++++++++++++++++-
+ drivers/gpu/nova-core/gsp/commands.rs  |   6 +-
+ drivers/gpu/nova-core/gsp/sequencer.rs |   4 +-
+ 4 files changed, 137 insertions(+), 135 deletions(-)
 
 diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 602824236f64..2d22ae45e990 100644
+index d50a2a594f82..ea395c70324a 100644
 --- a/drivers/gpu/nova-core/gsp/cmdq.rs
 +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
--mod continuation;
-+pub(crate) mod rpc;
- 
- use core::mem;
- 
-@@ -35,11 +36,6 @@
-     },
- };
- 
--use continuation::{
--    ContinuationRecord,
--    SplitState, //
--};
--
- use pin_init::pin_init_scope;
- 
- use crate::{
-@@ -50,7 +46,6 @@
-             MsgFunction,
+@@ -43,7 +43,6 @@
+     gsp::{
+         fw::{
+             GspMsgElement,
+-            MsgFunction,
              MsgqRxHeader,
              MsgqTxHeader,
--            RpcMessageHeader,
              GSP_MSG_QUEUE_ELEMENT_SIZE_MAX, //
-         },
-         PteArray,
-@@ -67,68 +62,6 @@
+@@ -62,29 +61,6 @@
  /// reply type are sent using [`Cmdq::send_command_no_wait`].
  pub(crate) struct NoReply;
  
--/// Trait implemented by types representing a command to send to the GSP.
+-/// Trait representing messages received from the GSP.
 -///
--/// The main purpose of this trait is to provide [`Cmdq`] with the information it needs to send
--/// a given command.
--///
--/// [`CommandToGsp::init`] in particular is responsible for initializing the command directly
--/// into the space reserved for it in the command queue buffer.
--///
--/// Some commands may be followed by a variable-length payload. For these, the
--/// [`CommandToGsp::variable_payload_len`] and [`CommandToGsp::init_variable_payload`] need to be
--/// defined as well.
--pub(crate) trait CommandToGsp {
--    /// Function identifying this command to the GSP.
+-/// This trait tells [`Cmdq::receive_msg`] how it can receive a given type of message.
+-pub(crate) trait MessageFromGsp: Sized {
+-    /// Function identifying this message from the GSP.
 -    const FUNCTION: MsgFunction;
 -
--    /// Type generated by [`CommandToGsp::init`], to be written into the command queue buffer.
--    type Command: FromBytes + AsBytes;
--
--    /// Type of the reply expected from the GSP, or [`NoReply`] for commands that don't
--    /// have a reply.
--    type Reply;
--
--    /// Error type returned by [`CommandToGsp::init`].
+-    /// Error type returned by [`MessageFromGsp::read`].
 -    type InitError;
 -
--    /// In-place command initializer responsible for filling the command in the command queue
--    /// buffer.
--    fn init(&self) -> impl Init<Self::Command, Self::InitError>;
+-    /// Type containing the raw message to be read from the message queue.
+-    type Message: FromBytes;
 -
--    /// Size of the variable-length payload following the command structure generated by
--    /// [`CommandToGsp::init`].
+-    /// Method reading the message from the message queue and returning it.
 -    ///
--    /// Most commands don't have a variable-length payload, so this is zero by default.
--    fn variable_payload_len(&self) -> usize {
--        0
--    }
--
--    /// Method initializing the variable-length payload.
--    ///
--    /// The command buffer is circular, which means that we may need to jump back to its beginning
--    /// while in the middle of a command. For this reason, the variable-length payload is
--    /// initialized using a [`SBufferIter`].
--    ///
--    /// This method will receive a buffer of the length returned by
--    /// [`CommandToGsp::variable_payload_len`], and must write every single byte of it. Leaving
--    /// unwritten space will lead to an error.
--    ///
--    /// Most commands don't have a variable-length payload, so this does nothing by default.
--    fn init_variable_payload(
--        &self,
--        _dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
--    ) -> Result {
--        Ok(())
--    }
--
--    /// Total size of the command (including its variable-length payload) without the
--    /// [`GspMsgElement`] header.
--    fn size(&self) -> usize {
--        size_of::<Self::Command>() + self.variable_payload_len()
--    }
+-    /// From a `Self::Message` and a [`SBufferIter`], constructs an instance of `Self` and returns
+-    /// it.
+-    fn read(
+-        msg: &Self::Message,
+-        sbuffer: &mut SBufferIter<core::array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError>;
 -}
 -
- /// Trait representing messages received from the GSP.
- ///
- /// This trait tells [`Cmdq::receive_msg`] how it can receive a given type of message.
-@@ -558,58 +491,6 @@ fn notify_gsp(bar: Bar0<'_>) {
+ /// Number of GSP pages making the [`Msgq`].
+ pub(crate) const MSGQ_NUM_PAGES: u32 = 0x3f;
+ 
+@@ -490,17 +466,6 @@ fn calculate_checksum<T: Iterator<Item = u8>>(it: T) -> u32 {
+     fn notify_gsp(bar: Bar0<'_>) {
          bar.write_reg(regs::NV_PGSP_QUEUE_HEAD::zeroed().with_address(0u32));
      }
- 
--    /// Sends `command` to the GSP and waits for the reply.
--    ///
--    /// Messages with non-matching function codes are silently consumed until the expected reply
--    /// arrives.
--    ///
--    /// The queue is locked for the entire send+receive cycle to ensure that no other command can
--    /// be interleaved.
--    ///
--    /// # Errors
--    ///
--    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply is
--    ///   not received within the timeout.
--    /// - `EIO` if the variable payload requested by the command has not been entirely
--    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
--    ///
--    /// Error codes returned by the command and reply initializers are propagated as-is.
--    pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
--    where
--        M: CommandToGsp,
--        M::Reply: MessageFromGsp,
--        Error: From<M::InitError>,
--        Error: From<<M::Reply as MessageFromGsp>::InitError>,
--    {
--        let mut inner = self.inner.lock();
--        inner.send_command(command)?;
 -
--        loop {
--            match inner.receive_msg::<M::Reply>(Self::RECEIVE_TIMEOUT) {
--                Ok(reply) => break Ok(reply),
--                Err(ERANGE) => continue,
--                Err(e) => break Err(e),
--            }
--        }
--    }
--
--    /// Sends `command` to the GSP without waiting for a reply.
+-    /// Receive a message from the GSP.
 -    ///
--    /// # Errors
--    ///
--    /// - `ETIMEDOUT` if space does not become available within the timeout.
--    /// - `EIO` if the variable payload requested by the command has not been entirely
--    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
--    ///
--    /// Error codes returned by the command initializers are propagated as-is.
--    pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
+-    /// See [`CmdqInner::receive_msg`] for details.
+-    pub(crate) fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
 -    where
--        M: CommandToGsp<Reply = NoReply>,
--        Error: From<M::InitError>,
--    {
--        self.inner.lock().send_command(command)
--    }
--
-     /// Receive a message from the GSP.
-     ///
-     /// See [`CmdqInner::receive_msg`] for details.
-@@ -685,97 +566,6 @@ fn send_command_element(
-         Ok(())
-     }
- 
--    /// Sends `command` to the GSP, without splitting it.
--    ///
--    /// # Errors
--    ///
--    /// - `EMSGSIZE` if the command exceeds the maximum queue element size.
--    /// - `ETIMEDOUT` if space does not become available within the timeout.
--    /// - `EIO` if the variable payload requested by the command has not been entirely
--    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
--    ///
--    /// Error codes returned by the command initializers are propagated as-is.
--    fn send_single_command<M>(&mut self, command: M) -> Result
--    where
--        M: CommandToGsp,
 -        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
 -        Error: From<M::InitError>,
 -    {
--        let dev = self.dev;
--        let seq = self.seq;
--        let size_in_bytes = command.size();
+-        self.inner.lock().receive_msg(timeout)
+-    }
+ }
+ 
+ /// Inner mutex protected state of [`Cmdq`].
+@@ -613,99 +578,4 @@ fn wait_for_element(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+             contents: (slice_1, slice_2),
+         })
+     }
 -
--        let init = |dst: &mut GspCommand<'_>| {
--            // Extract area for the command itself. The GSP message header and the command header
--            // together are guaranteed to fit entirely into a single page, so it's ok to only look
--            // at `dst.contents.0` here.
--            let (cmd, payload_1) = M::Command::from_bytes_mut_prefix(dst.contents.0).ok_or(EIO)?;
--            let rpc_header_init = RpcMessageHeader::init(size_in_bytes, M::FUNCTION);
+-    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+-        let GspMessage {
+-            header,
+-            contents: (slice_1, slice_2),
+-        } = self.wait_for_element(timeout)?;
 -
--            // SAFETY: `rpc_header_mut()` and `cmd` are valid references, and not touched if the
--            // initializer fails.
--            unsafe {
--                pin_init::raw_try_init(
--                    core::ptr::from_mut(dst.header.rpc_header_mut()),
--                    rpc_header_init,
--                )?;
--                pin_init::raw_try_init(core::ptr::from_mut(cmd), command.init())?;
--            }
+-        let rpc_header = header.rpc_header();
+-        let payload_length = rpc_header.length();
 -
--            // Fill the variable-length payload, which may be empty.
--            let mut sbuffer =
--                SBufferIter::new_writer([&mut payload_1[..], &mut dst.contents.1[..]]);
--            command.init_variable_payload(&mut sbuffer)?;
+-        dev_dbg!(
+-            &self.dev,
+-            "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}\n",
+-            rpc_header.sequence(),
+-            rpc_header.function(),
+-            payload_length,
+-        );
 -
--            if !sbuffer.is_empty() {
--                return Err(EIO);
--            }
+-        // Validate the RPC layer before returning the message.
 -
--            dev_dbg!(
--                dev,
--                "GSP RPC: send: seq# {}, function={:?}, length=0x{:x}\n",
--                seq,
--                M::FUNCTION,
--                size_in_bytes,
--            );
+-        // Check that the driver read area is large enough for the message.
+-        if slice_1.len() + slice_2.len() < payload_length {
+-            return Err(EIO);
+-        }
 -
--            Ok(())
+-        // Cut the message slices down to the actual length of the message.
+-        let (slice_1, slice_2) = if slice_1.len() > payload_length {
+-            // PANIC: we checked above that `slice_1` is at least as long as `payload_length`.
+-            (slice_1.split_at(payload_length).0, &slice_2[0..0])
+-        } else {
+-            (
+-                slice_1,
+-                // PANIC: we checked above that `slice_1.len() + slice_2.len()` is at least as
+-                // large as `payload_length`.
+-                slice_2.split_at(payload_length - slice_1.len()).0,
+-            )
 -        };
 -
--        self.send_command_element(size_in_bytes, init)
+-        Ok(GspMessage {
+-            header,
+-            contents: (slice_1, slice_2),
+-        })
 -    }
 -
--    /// Sends `command` to the GSP.
+-    /// Receive a message from the GSP.
 -    ///
--    /// The command may be split into multiple messages if it is large.
+-    /// The expected message type is specified using the `M` generic parameter. If the pending
+-    /// message has a different function code, `ERANGE` is returned and the message is consumed.
+-    ///
+-    /// The read pointer is always advanced past the message, regardless of whether it matched.
 -    ///
 -    /// # Errors
 -    ///
--    /// - `ETIMEDOUT` if space does not become available within the timeout.
--    /// - `EIO` if the variable payload requested by the command has not been entirely
--    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
+-    /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
+-    /// - `EIO` if there was some inconsistency (e.g. message shorter than advertised) on the
+-    ///   message queue.
+-    /// - `EINVAL` if the function code of the message was not recognized.
+-    /// - `ERANGE` if the message had a recognized but non-matching function code.
 -    ///
--    /// Error codes returned by the command initializers are propagated as-is.
--    fn send_command<M>(&mut self, command: M) -> Result
+-    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
+-    fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
 -    where
--        M: CommandToGsp,
+-        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
 -        Error: From<M::InitError>,
 -    {
--        match SplitState::new(command)? {
--            SplitState::Single(command) => self.send_single_command(command),
--            SplitState::Split(command, mut continuations) => {
--                self.send_single_command(command)?;
+-        let message = self.wait_for_msg(timeout)?;
+-        let function = message.header.rpc_header().function().map_err(|_| EINVAL)?;
 -
--                while let Some(continuation) = continuations.next() {
--                    // Turbofish needed because the compiler cannot infer M here.
--                    self.send_single_command::<ContinuationRecord<'_>>(continuation)?;
--                }
+-        // Extract the message. Store the result as we want to advance the read pointer even in
+-        // case of failure.
+-        let result = if function == M::FUNCTION {
+-            let (cmd, contents_1) = M::Message::from_bytes_prefix(message.contents.0).ok_or(EIO)?;
+-            let mut sbuffer = SBufferIter::new_reader([contents_1, message.contents.1]);
 -
--                Ok(())
--            }
--        }
+-            M::read(cmd, &mut sbuffer)
+-                .map_err(|e| e.into())
+-                .inspect(|_| {
+-                    if !sbuffer.is_empty() {
+-                        dev_warn!(
+-                            &self.dev,
+-                            "GSP message {:?} has unprocessed data\n",
+-                            function
+-                        );
+-                    }
+-                })
+-        } else {
+-            Err(ERANGE)
+-        };
+-
+-        // Advance the read pointer past this message.
+-        self.gsp_mem
+-            .advance_cpu_read_ptr(message.header.element_count());
+-
+-        result
 -    }
--
-     /// Wait for a message to become available on the message queue.
-     ///
-     /// This works purely at the transport layer and does not interpret or validate the message
+ }
 diff --git a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-new file mode 100644
-index 000000000000..3bafe456efd6
---- /dev/null
+index 3bafe456efd6..335f94c4d2aa 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
 +++ b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-@@ -0,0 +1,248 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Support for the RPC message type on the GSP command queue.
-+
-+mod continuation;
-+
-+use kernel::{
-+    prelude::*,
-+    transmute::{
-+        AsBytes,
-+        FromBytes, //
-+    },
-+};
-+
-+use continuation::{
-+    ContinuationRecord,
-+    SplitState, //
-+};
-+
-+use crate::{
-+    gsp::{
-+        cmdq::{
-+            GspCommand,
-+            NoReply, //
-+        },
-+        fw::{
-+            MsgFunction,
-+            RpcMessageHeader, //
-+        },
-+    },
-+    sbuffer::SBufferIter,
-+};
-+
-+use super::{
-+    Cmdq,
-+    CmdqInner,
-+    MessageFromGsp, //
-+};
-+
-+/// Trait implemented by types representing a command to send to the GSP.
+@@ -7,6 +7,7 @@
+ 
+ use kernel::{
+     prelude::*,
++    time::Delta,
+     transmute::{
+         AsBytes,
+         FromBytes, //
+@@ -35,7 +36,7 @@
+ use super::{
+     Cmdq,
+     CmdqInner,
+-    MessageFromGsp, //
++    GspMessage, //
+ };
+ 
+ /// Trait implemented by types representing a command to send to the GSP.
+@@ -100,6 +101,29 @@ fn size(&self) -> usize {
+     }
+ }
+ 
++/// Trait representing messages received from the GSP.
 +///
-+/// The main purpose of this trait is to provide [`Cmdq`] with the information it needs to send
-+/// a given command.
-+///
-+/// [`CommandToGsp::init`] in particular is responsible for initializing the command directly
-+/// into the space reserved for it in the command queue buffer.
-+///
-+/// Some commands may be followed by a variable-length payload. For these, the
-+/// [`CommandToGsp::variable_payload_len`] and [`CommandToGsp::init_variable_payload`] need to be
-+/// defined as well.
-+pub(crate) trait CommandToGsp {
-+    /// Function identifying this command to the GSP.
++/// This trait tells [`Cmdq::receive_msg`] how it can receive a given type of message.
++pub(crate) trait MessageFromGsp: Sized {
++    /// Function identifying this message from the GSP.
 +    const FUNCTION: MsgFunction;
 +
-+    /// Type generated by [`CommandToGsp::init`], to be written into the command queue buffer.
-+    type Command: FromBytes + AsBytes;
-+
-+    /// Type of the reply expected from the GSP, or [`NoReply`] for commands that don't
-+    /// have a reply.
-+    type Reply;
-+
-+    /// Error type returned by [`CommandToGsp::init`].
++    /// Error type returned by [`MessageFromGsp::read`].
 +    type InitError;
 +
-+    /// In-place command initializer responsible for filling the command in the command queue
-+    /// buffer.
-+    fn init(&self) -> impl Init<Self::Command, Self::InitError>;
++    /// Type containing the raw message to be read from the message queue.
++    type Message: FromBytes;
 +
-+    /// Size of the variable-length payload following the command structure generated by
-+    /// [`CommandToGsp::init`].
++    /// Method reading the message from the message queue and returning it.
 +    ///
-+    /// Most commands don't have a variable-length payload, so this is zero by default.
-+    fn variable_payload_len(&self) -> usize {
-+        0
-+    }
-+
-+    /// Method initializing the variable-length payload.
-+    ///
-+    /// The command buffer is circular, which means that we may need to jump back to its beginning
-+    /// while in the middle of a command. For this reason, the variable-length payload is
-+    /// initialized using a [`SBufferIter`].
-+    ///
-+    /// This method will receive a buffer of the length returned by
-+    /// [`CommandToGsp::variable_payload_len`], and must write every single byte of it. Leaving
-+    /// unwritten space will lead to an error.
-+    ///
-+    /// Most commands don't have a variable-length payload, so this does nothing by default.
-+    fn init_variable_payload(
-+        &self,
-+        _dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
-+    ) -> Result {
-+        Ok(())
-+    }
-+
-+    /// Total size of the command (including its variable-length payload) without the
-+    /// [`GspMsgElement`] header.
-+    fn size(&self) -> usize {
-+        size_of::<Self::Command>() + self.variable_payload_len()
-+    }
++    /// From a `Self::Message` and a [`SBufferIter`], constructs an instance of `Self` and returns
++    /// it.
++    fn read(
++        msg: &Self::Message,
++        sbuffer: &mut SBufferIter<core::array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError>;
 +}
 +
-+impl CmdqInner<'_> {
-+    /// Sends `command` to the GSP, without splitting it.
+ impl CmdqInner<'_> {
+     /// Sends `command` to the GSP, without splitting it.
+     ///
+@@ -191,6 +215,101 @@ fn send_command<M>(&mut self, command: M) -> Result
+             }
+         }
+     }
++
++    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
++        let GspMessage {
++            header,
++            contents: (slice_1, slice_2),
++        } = self.wait_for_element(timeout)?;
++
++        let rpc_header = header.rpc_header();
++        let payload_length = rpc_header.length();
++
++        dev_dbg!(
++            &self.dev,
++            "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}\n",
++            rpc_header.sequence(),
++            rpc_header.function(),
++            payload_length,
++        );
++
++        // Validate the RPC layer before returning the message.
++
++        // Check that the driver read area is large enough for the message.
++        if slice_1.len() + slice_2.len() < payload_length {
++            return Err(EIO);
++        }
++
++        // Cut the message slices down to the actual length of the message.
++        let (slice_1, slice_2) = if slice_1.len() > payload_length {
++            // PANIC: we checked above that `slice_1` is at least as long as `payload_length`.
++            (slice_1.split_at(payload_length).0, &slice_2[0..0])
++        } else {
++            (
++                slice_1,
++                // PANIC: we checked above that `slice_1.len() + slice_2.len()` is at least as
++                // large as `payload_length`.
++                slice_2.split_at(payload_length - slice_1.len()).0,
++            )
++        };
++
++        Ok(GspMessage {
++            header,
++            contents: (slice_1, slice_2),
++        })
++    }
++
++    /// Receive a message from the GSP.
++    ///
++    /// The expected message type is specified using the `M` generic parameter. If the pending
++    /// message has a different function code, `ERANGE` is returned and the message is consumed.
++    ///
++    /// The read pointer is always advanced past the message, regardless of whether it matched.
 +    ///
 +    /// # Errors
 +    ///
-+    /// - `EMSGSIZE` if the command exceeds the maximum queue element size.
-+    /// - `ETIMEDOUT` if space does not become available within the timeout.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
++    /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
++    /// - `EIO` if there was some inconsistency (e.g. message shorter than advertised) on the
++    ///   message queue.
++    /// - `EINVAL` if the function code of the message was not recognized.
++    /// - `ERANGE` if the message had a recognized but non-matching function code.
 +    ///
-+    /// Error codes returned by the command initializers are propagated as-is.
-+    fn send_single_command<M>(&mut self, command: M) -> Result
++    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
++    fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
 +    where
-+        M: CommandToGsp,
 +        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
 +        Error: From<M::InitError>,
 +    {
-+        let dev = self.dev;
-+        let seq = self.seq;
-+        let size_in_bytes = command.size();
++        let message = self.wait_for_msg(timeout)?;
++        let function = message.header.rpc_header().function().map_err(|_| EINVAL)?;
 +
-+        let init = |dst: &mut GspCommand<'_>| {
-+            // Extract area for the command itself. The GSP message header and the command header
-+            // together are guaranteed to fit entirely into a single page, so it's ok to only look
-+            // at `dst.contents.0` here.
-+            let (cmd, payload_1) = M::Command::from_bytes_mut_prefix(dst.contents.0).ok_or(EIO)?;
-+            let rpc_header_init = RpcMessageHeader::init(size_in_bytes, M::FUNCTION);
++        // Extract the message. Store the result as we want to advance the read pointer even in
++        // case of failure.
++        let result = if function == M::FUNCTION {
++            let (cmd, contents_1) = M::Message::from_bytes_prefix(message.contents.0).ok_or(EIO)?;
++            let mut sbuffer = SBufferIter::new_reader([contents_1, message.contents.1]);
 +
-+            // SAFETY: `rpc_header_mut()` and `cmd` are valid references, and not touched if the
-+            // initializer fails.
-+            unsafe {
-+                pin_init::raw_try_init(
-+                    core::ptr::from_mut(dst.header.rpc_header_mut()),
-+                    rpc_header_init,
-+                )?;
-+                pin_init::raw_try_init(core::ptr::from_mut(cmd), command.init())?;
-+            }
-+
-+            // Fill the variable-length payload, which may be empty.
-+            let mut sbuffer =
-+                SBufferIter::new_writer([&mut payload_1[..], &mut dst.contents.1[..]]);
-+            command.init_variable_payload(&mut sbuffer)?;
-+
-+            if !sbuffer.is_empty() {
-+                return Err(EIO);
-+            }
-+
-+            dev_dbg!(
-+                dev,
-+                "GSP RPC: send: seq# {}, function={:?}, length=0x{:x}\n",
-+                seq,
-+                M::FUNCTION,
-+                size_in_bytes,
-+            );
-+
-+            Ok(())
++            M::read(cmd, &mut sbuffer)
++                .map_err(|e| e.into())
++                .inspect(|_| {
++                    if !sbuffer.is_empty() {
++                        dev_warn!(
++                            &self.dev,
++                            "GSP message {:?} has unprocessed data\n",
++                            function
++                        );
++                    }
++                })
++        } else {
++            Err(ERANGE)
 +        };
 +
-+        self.send_command_element(size_in_bytes, init)
-+    }
++        // Advance the read pointer past this message.
++        self.gsp_mem
++            .advance_cpu_read_ptr(message.header.element_count());
 +
-+    /// Sends `command` to the GSP.
++        result
++    }
+ }
+ 
+ impl Cmdq<'_> {
+@@ -245,4 +364,15 @@ pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
+     {
+         self.inner.lock().send_command(command)
+     }
++
++    /// Receive a message from the GSP.
 +    ///
-+    /// The command may be split into multiple messages if it is large.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if space does not become available within the timeout.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-+    ///
-+    /// Error codes returned by the command initializers are propagated as-is.
-+    fn send_command<M>(&mut self, command: M) -> Result
++    /// See [`CmdqInner::receive_msg`] for details.
++    pub(crate) fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
 +    where
-+        M: CommandToGsp,
++        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
 +        Error: From<M::InitError>,
 +    {
-+        match SplitState::new(command)? {
-+            SplitState::Single(command) => self.send_single_command(command),
-+            SplitState::Split(command, mut continuations) => {
-+                self.send_single_command(command)?;
-+
-+                while let Some(continuation) = continuations.next() {
-+                    // Turbofish needed because the compiler cannot infer M here.
-+                    self.send_single_command::<ContinuationRecord<'_>>(continuation)?;
-+                }
-+
-+                Ok(())
-+            }
-+        }
++        self.inner.lock().receive_msg(timeout)
 +    }
-+}
-+
-+impl Cmdq<'_> {
-+    /// Sends `command` to the GSP and waits for the reply.
-+    ///
-+    /// Messages with non-matching function codes are silently consumed until the expected reply
-+    /// arrives.
-+    ///
-+    /// The queue is locked for the entire send+receive cycle to ensure that no other command can
-+    /// be interleaved.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply is
-+    ///   not received within the timeout.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-+    ///
-+    /// Error codes returned by the command and reply initializers are propagated as-is.
-+    pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
-+    where
-+        M: CommandToGsp,
-+        M::Reply: MessageFromGsp,
-+        Error: From<M::InitError>,
-+        Error: From<<M::Reply as MessageFromGsp>::InitError>,
-+    {
-+        let mut inner = self.inner.lock();
-+        inner.send_command(command)?;
-+
-+        loop {
-+            match inner.receive_msg::<M::Reply>(Self::RECEIVE_TIMEOUT) {
-+                Ok(reply) => break Ok(reply),
-+                Err(ERANGE) => continue,
-+                Err(e) => break Err(e),
-+            }
-+        }
-+    }
-+
-+    /// Sends `command` to the GSP without waiting for a reply.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if space does not become available within the timeout.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-+    ///
-+    /// Error codes returned by the command initializers are propagated as-is.
-+    pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
-+    where
-+        M: CommandToGsp<Reply = NoReply>,
-+        Error: From<M::InitError>,
-+    {
-+        self.inner.lock().send_command(command)
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc/continuation.rs
-similarity index 100%
-rename from drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-rename to drivers/gpu/nova-core/gsp/cmdq/rpc/continuation.rs
+ }
 diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index e087c9e8c35c..4322a4d554f9 100644
+index 4322a4d554f9..81bd457a6eb6 100644
 --- a/drivers/gpu/nova-core/gsp/commands.rs
 +++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -23,8 +23,8 @@
+@@ -23,9 +23,11 @@
      gpu::Chipset,
      gsp::{
          cmdq::{
-+            rpc::CommandToGsp,
+-            rpc::CommandToGsp,
++            rpc::{
++                CommandToGsp,
++                MessageFromGsp, //
++            },
              Cmdq,
--            CommandToGsp,
-             MessageFromGsp,
+-            MessageFromGsp,
              NoReply, //
          },
+         fw::{
+diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
+index dae34c11eb05..ebf13867746f 100644
+--- a/drivers/gpu/nova-core/gsp/sequencer.rs
++++ b/drivers/gpu/nova-core/gsp/sequencer.rs
+@@ -28,8 +28,8 @@
+     },
+     gsp::{
+         cmdq::{
+-            Cmdq,
+-            MessageFromGsp, //
++            rpc::MessageFromGsp,
++            Cmdq, //
+         },
+         fw,
+         GspBootContext,
 
 -- 
 2.55.0
