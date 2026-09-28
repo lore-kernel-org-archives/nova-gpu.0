@@ -1,28 +1,28 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010046.outbound.protection.outlook.com [52.101.85.46])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013019.outbound.protection.outlook.com [40.107.201.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3571C499F1E
-	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 10:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13E94973AF
+	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 10:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591366; cv=fail; b=aPCY+4tqurYuD2Liqg4YzEGfQy6G8B9354QflDkNc6qeddBrLTS2p9pG5ICrHq7AnM1JyqVTaaHrkqKPBVGwnHEFanVpFXcqP4/UjK1NwyiAI0RLlKNnC2dx4qf8kVABiag34Mg8szfZyKX4CGHeiJwIbyWusAJ8I7XrHjG9ROc=
+	t=1790591389; cv=fail; b=q0CnJEw/PoKSyuyoiD9Xc202Cqu8+syfqBlG2vDHeefZjpBCmY9W3LobicUhcn9Ufuh/6nMS+lb6ecZQblqOCUkBQGkoCGNr3wUkpD8iPGasUjoqTB9bwFwSF4xkaqvMI2KYpUDdJV4Wa9AUThO88O8c6740W+rR3IhtzQtukf8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591366; c=relaxed/simple;
-	bh=YNqtgkc0Ufc4+ty4EfPNvfFjz2DJtgyusyZq8lqefF8=;
+	s=arc-20240116; t=1790591389; c=relaxed/simple;
+	bh=wG0dJIJ7ZfsRZ9867Ra3w7yTFDu5Faj81oWQ6F2pd5I=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=blitrhgdJCfgzPOmRRFpVSmI0/EHJbSHH6T/bEgcPycwxBCO4eqYHpzQ3LvKceFowSEQlbAlRzfPS+9Mk5/YSw8kqaV9ueotb2qrgZoUumB0q+shc0+UVKXgnLbI1m8AXlQzoaK0Aupr8HFlhCkhYdFqab86HidS0bGR7e3+xSA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hBA1TrFS; arc=fail smtp.client-ip=52.101.85.46
+	 MIME-Version:Content-Type; b=ht/AQGAO+7xhXMAvqNNyBDptboaAtgAzFrFai3sIAT9tA+Wx15nUGkTO2wZ1iMLno5TB93AzkNN5zVNw3fjZfpchY0Ux5eM+z8CB6sv3Z4jSc73q/+f0TG7JkjpzeVny8NiZC28rC44zh/6kktrXz6GsojHHT/8nCfThQz5qJEs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IxAfTPDM; arc=fail smtp.client-ip=40.107.201.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hBA1TrFS"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IxAfTPDM"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RNrsNAT5ZEsg0wsz2dQVR//iAoDyOuQUrJSVkMtywFrAML2G89EkYRZ0s129lgozsd5t3ELfeLVxNKHoclfleYcQDkk/5s3PHsQBvZ1EpWEE9uPOg65RJFymjDb5tphh20GcebsM8YMk1CYfDaUrVblojVOZCO1K1n2FdZxWlR9rMHP2xNRzsOaddklqr3WjEYSbKPoob6KM+VgWd4hF1Wk/08q6R+sIzreT5jFoLG9qP+stFkw8/fFYurnSNgWsXyNcc5pau8E4r+lnvHg43+nksdm2ql3QC2+c9LOK6GF5vDHBqLesirNVZmNHIc58K6rPH/663RpbXB0jHqgRLg==
+ b=mHkO4xowokUTSRvkKeZIkK7+ykMch9NoBuI7fiXGmGcCEJ82uchpOGiIo9vLIW0MwqPp1nmTfR3L97dTaZOJwFkjtU9AZsQcK612VJkwc/90mH8b5naPTXnwOiQLsR7AERdIpgIB3yzgUY/t1Q+1OS27WYqBSTBWpZIAs6WX4ueYUplggAeAQleUaI7MtAA+0fRuTSkW7iwvbqRQtk+xvGIS1cTfEiOfj9joVYXiF92MEj+xWhsREuCUrrt5aoTmDiOwQDhmN0EcHQALA7aR4y/x/nGElQwGO0Q7Kjl+62h9ys1QWIRETa/Y9I7DhT5JwarZMl+kKSsR1i9ztPbfIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HksbFAgHlQmqqHjFNq5XXWeUjqCi8XQ3y3a5HmYCmls=;
- b=lOOgitkCF3gIOYMotlKYBfB+rAxcwNoyf5/9jEh7TPeBLveDkds9e1h40htsj6GfADVp2xtUPgT8t8Goc/WlstynMHC7yqw1Codi9y1WHTb2+yaUofUNUi2yBo1BV6qeSWt2HDIzhr8JkJg173yzW+J6RI6PIByjP5ausUbU9lcb6Z4SJhjmJf8e2pIXVD4YWH5XQ/HnwQWZMIk+Um2/yjc7ssFyGZGJjaN177OICMCtq69VIYgLCs8bmthC3ubAzSdVzSpMz1AGRDvsGORbrchNgHL370d0QaOjo+EwB5CJX9F1RPiYuJoS3tteWovKaKP/tT6PkKFgCLaFUzrq+g==
+ bh=S7FZQVKNTQiDDVBYHy0qy/Zf+4cyGQ4jo5mBgEnymY0=;
+ b=ApJTFhb/aQiv4Qsx1RPj8EQm8HgkILFUurtfWgIzjeF0904U0Pk0MhDphS7d3R6rnXCSRvI8fmuDHCCYy9WKfIHFjOMbF7Eu/N0783ZDhMdhi6+D5O1+/NfUYw26RCvrqH+q+t9KeIdzpjkp4HwPIRB5K7LXP91+7wYgn3KZFNQWA+xANdNMaPfu2F356jDhuqjTKEO6G+M4GKwh7Gk1U+5w1+0Mzo5vMATVwGaGfTR9Iv80UPxvBA/uXcGPQ59JobFT1xWGMnBewD0jgt2pVa7T7oHGiMBw1DpnBUcI15Z+tF0W+/0AV5yQPN7TyIkIHRzIsV2TwNKcdHhr3ToYCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HksbFAgHlQmqqHjFNq5XXWeUjqCi8XQ3y3a5HmYCmls=;
- b=hBA1TrFSHrV32X8gCw3wu0bodtybMp313PQvkzckGzsxJ7exVyZCAnVPo4Q+T9FAGij/omdrjVJlw4rfKJ15jOD2VyiFifIG4r+0nmLQWvWAGkWw/O13xUMIAp68D3a83FS7265CudUPTTHlGuFGsXjc1zZd3hJxKFd7pKu4SaPkN/wA8QvfvaZeTkFkwMJUY4IBfk8ec005gV6QfLx02JownVbWh98pUYyy7CD0vBoNAVrRZOhZu2i/kfeFkvST/N0velbXMbiSfvH0jizMpxZZMF4tj9oBLQPEoSzjMMftZYwPT4K0U9a4RtgwaHXUwv49ZNEbhP080/SL/+OTqQ==
-Received: from BN9PR03CA0666.namprd03.prod.outlook.com (2603:10b6:408:10e::11)
- by CY1PR12MB9676.namprd12.prod.outlook.com (2603:10b6:930:104::19) with
+ bh=S7FZQVKNTQiDDVBYHy0qy/Zf+4cyGQ4jo5mBgEnymY0=;
+ b=IxAfTPDMPC3RwC2sK/tseZQUr+Ru47TNiYkun1S/uOXP5c8+e2QJClxHZBHii6sJ7AAT1yHMNV4XOcitP6Ic0+nSBvZVL7KIHYvU9lSDBtp/gvBTlD3KEiz6XD4hhks6ECWA2Nv47LFns/oRRcKWd578jiAmb7MQa4DsPo7PofAVB6HiXqHr9VHhRWIt1CMFBq7eaHAAO0EskcYqM5iXvdUrswbr9g0iB3+Wwh3zOZTBj587HyxKlsdXRnAwczgD6R3hZlN8D5BQSfO06Y+YJZJ38VwQYtP/Wf7g6RjaBwYBrntAVauix8BnoQevX2J/uoDSFTsNmerqu5bjGYeZdw==
+Received: from BN9PR03CA0849.namprd03.prod.outlook.com (2603:10b6:408:13d::14)
+ by DS7PR12MB5816.namprd12.prod.outlook.com (2603:10b6:8:78::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 10:29:19 +0000
-Received: from BN1PEPF00005FFC.namprd05.prod.outlook.com
- (2603:10b6:408:10e:cafe::63) by BN9PR03CA0666.outlook.office365.com
- (2603:10b6:408:10e::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 10:29:41 +0000
+Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
+ (2603:10b6:408:13d:cafe::a6) by BN9PR03CA0849.outlook.office365.com
+ (2603:10b6:408:13d::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 10:29:19 +0000
+ 28 Sep 2026 10:29:40 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- BN1PEPF00005FFC.mail.protection.outlook.com (10.167.243.228) with Microsoft
+ BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:29:18 +0000
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:29:40 +0000
 Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:29:05 -0700
+ 2026 03:29:22 -0700
 Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
  (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:29:04 -0700
+ 2026 03:29:21 -0700
 Received: from inno-dell.home (10.127.8.10) by mail.nvidia.com (10.129.68.9)
  with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Mon, 28
- Sep 2026 03:28:56 -0700
+ Sep 2026 03:29:14 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
@@ -76,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>
-Subject: [PATCH v3 02/31] gpu: nova-core: gsp: decouple boot context from VgpuManager
-Date: Mon, 28 Sep 2026 13:28:05 +0300
-Message-ID: <78ff6a24cb06be02215a2e0a26153f5f5a2991bc.1790580105.git.zhiw@nvidia.com>
+Subject: [PATCH v3 04/31] gpu: nova-core: gpu: add a channel ID pool for vGPU
+Date: Mon, 28 Sep 2026 13:28:07 +0300
+Message-ID: <ee1d8c303607f9bdcc5a5ddbb329a89222a13c0b.1790580105.git.zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790580105.git.zhiw@nvidia.com>
 References: <cover.1790580105.git.zhiw@nvidia.com>
@@ -93,144 +93,100 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFC:EE_|CY1PR12MB9676:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c5eb640-9de6-4ecc-72e4-08df1d4b5aa3
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS7PR12MB5816:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4161a2ef-19f0-411a-7a82-08df1d4b67a5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|23010399003|36860700016|376014|1800799024|3023799007|10067099003|18002099003|11063799006|56012099006|22082099003;
+	BCL:0;ARA:13230040|36860700016|376014|7416014|82310400026|23010399003|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	H4ovBmFlm4pG3rRwWn3x6j18vzZL4jYdSYAnooIe6GhOdZrtzKznnJ4eFLq63+rGS2e5knDv/4EDv8cuDnl6kxDbjKC/u0A/PMVkefS+5S9+GnYOLgmv6vSdC2A6xS2sDt6wMrR9fUF3XQMuOpZoDSuePMcna92JfhZeejHxswb5pGGr9GYNsWhD57cHtVOioR+TtVSXEOZKFB3+AE3gF45pbRc+4RiCedKiU+t7fAQ0tklfURrsvtUq+0MoCTezziyWkvMepU0vMls8xvueOSoafECg4tIx+UV+xXVIEA/99yFEciTZ+SvXAoLq/JSAMOPh40e2HmH+Tw5rXeHP8Lq3GdlyCmmXbG5Mbedpzp/VacaNHSwwdxc4ABKuQFrGp7UWaDOA0GR2WfR24oj5d34irmMRpvj7LUOkd+VTfFS6xLPAp/35pPopIjYmreIezGMjpWODlFfE3tFosKzfdAYQoBRxkNqilfAOTW3LQNTU4ZLlEiyTDxOi/dQc4MqBCffWE5QKiR7+OwxKzITGtZsbg4lVAzrDn2cgzrh1krAkZBZMv/JMDWpz3+M7nbTx8husRqizcJv9liIVLD9hEKLGAgN6zvkFuFBC5J8Am0fvCAC7NP6r8w4LVtChewu3+NKIyH2yRoZpPxH5VyhPNSecueRaKg6+AXMGc3k3c//4yZwrCMvBPR5oH7SkgfFHIRdK7jv1aMsU1grBs4ND9g==
+	fOnr4k7ldFhHG/TV1aw/Rzu3/28IPMjB8nyPIo1z+LrLMMCJCi6QmaSyE5allk/LA+zcqhZtIc15o7X6oKdFdv7V/5mAb8q+8tsg7Xa3v/E/b0dcJYMDvnf150G39cCK5jAEzNXxrnQQHy4Bw++DBC6AP7cm5uZUw829YD6MB1aF21d/xsaNgxJ/a+NDLKCXTwmh6rygGn3q2hrSrkABDtUvklfD0y4xwsDaoPohY+8yT2ZLJW+oR14xNgRuNAq2InAYL4m7XgPqPnLPeuDQrowzZLqb3mkd/2/aT0Nk6WhdjimfFPv1ma+rYCUULRfowiSMs8eZaS6poQW+AoYfDkpO6iYldKLs2KTfm8kon/qNvOi/cgv1hIuoopo9IGfExot+NXuHr/VrDf+L7XQz7gig6OyS6MsqRNBxnInt2zcMp0NDE2x4SvzLnVUWnKAvOvtRCBgRPlgO7ZymDyQvHpHueqghqmLUBpC/7qzlX1ltkphCyC2niKeJNLwwXQyJ1BtFTOTdyHjznb56nkisml63APMaQ3hef3Bv/u6qkcY1Lzi5u6DX8rskQO9/hGNOH7ZN/cj1tVCXKDWXH+kTKdxZJ3iGIx1TSmLFsfFZMEe2JxYF3Ku9udj73DYJ2CZRmKm9lvH7BsP+Uu1t/AcMvRTZlzynBf1cSAG7AjT5YAYsuVw1+bykxVAXdX26yabTyP/3YReSjlDKgZdwhvSZow==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(23010399003)(36860700016)(376014)(1800799024)(3023799007)(10067099003)(18002099003)(11063799006)(56012099006)(22082099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(82310400026)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	kOXwTON5/4RUGsg6I6PHNBb225jNCdGuP+VpxTY0KGCERIWTIi5g5QiFDdK+SLMD54jz0FTwtdhdPPihnf3Zbq+46cLlnAfWlwp90b0FF2BE5OWmGPglM8HArwUxCD1SFBuriZqrE4Gie4mQQZK/uKedLLZN7MeMEiB3Bdacz6WnBiYYlxLK5a61qvfwG6dV3xo5DsYlHKN4rDGOBmpz16pnbGOarXVlosJC/XUFDAs2yLwr2BHrm4bvv3wVg/6fDjncTtjt6Fvyh0NL8LEH1MssqN0EI9om5qgkGltqUSJiacONnE4zfAKrwDn1vA9DIJ33DrIg1QWi2xzrcwuZ40tdyvBtgMSVjeVx+/GQUESThiEwopnTNbkpO81SciL/dSprXe4iiGL92Ei0VZ7Yh0nKaYr0jzhPR2S9biIG44wTi2uHK9ePc7kzZBgb470U
+	qrV8RytSK5Lab2p1+G02WzZJxpr5PbRv1gXBTM3kiefZuR7wOI535FsUcCnkWUzmJJ7ZyBajSv2A251lMmrzOnFBZSakFqnRrjV1o5iAM1OkDv8nHq7BzGa84soE9V8WsarRQoQp2C0E3Zrgf2p5axBiy020hcyW4IvvM1t4XikWUtvdRlpXlMX9LPsK1Hzp20N0Iu+FQniRaT4TDdjB8kpPKKN/YfG0trkIBxC+NCrm7mu2gL5nF1llmJxphtFK4rLHPZmFkk5LnNM0z/tgj2e9WJzu/K7nQdmqeRifRGsn4iDJRaKQRSVRK/wYDfF7f+yrGjhegTi6qvBwh5H4I/cKbCmpDB0ZKR+TV+5h3qhQEZebcu30g+jVCdDPV85d6z94xi8c88J9AgSItQfoynVdd0JM8675YKIbuq7dFzv8pJpyO4HQyEQRJ6/xvHJ5
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:29:18.8332
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:29:40.6779
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c5eb640-9de6-4ecc-72e4-08df1d4b5aa3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4161a2ef-19f0-411a-7a82-08df1d4b67a5
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00005FFC.namprd05.prod.outlook.com
+	BN2PEPF000044A7.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9676
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5816
 
-GSP boot uses the detected vGPU mode to size firmware resources and
-populate GSP_INIT. Carrying the whole manager in the boot and unload
-context couples these operations to its runtime interface.
+Channel ID reservations need a GPU-owned pool shared by vGPU instances.
 
-The boot code only needs read access to the mode, and unloading does
-not use the manager. A short state borrow is sufficient for both
-context construction sites.
+The pool must remain at a stable address while its reservations exist.
+Its storage also needs to remain available throughout GPU cleanup.
 
-Make GspBootContext borrow VgpuState directly and read it in the
-VRAM and GSP_INIT helpers. Return a state reference from the
-manager without changing mode detection or the values passed to firmware.
-
-No functional change is intended.
+Create a private pinned ChannelIdPool with a single 2048-channel
+capacity constant.
 
 Cc: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Eliot Courtney <ecourtney@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- drivers/gpu/nova-core/fb.rs           | 2 +-
- drivers/gpu/nova-core/gpu.rs          | 4 ++--
- drivers/gpu/nova-core/gsp.rs          | 4 ++--
- drivers/gpu/nova-core/gsp/commands.rs | 4 ++--
- drivers/gpu/nova-core/vgpu.rs         | 4 ++--
- 5 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/nova-core/gpu.rs         | 9 +++++++++
+ drivers/gpu/nova-core/gpu/channel.rs | 4 ++++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index 26e94d908b77..882827bcfd3a 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -295,7 +295,7 @@ pub(crate) fn wpr2_range(bar: Bar0<'_>) -> Option<Range<u64>> {
- 
- /// Computes the number of VF partitions and the WPR2 heap size from the vGPU state.
- fn wpr2_heap_params(ctx: &gsp::GspBootContext<'_, '_>, fb_size: u64) -> Result<(u8, u64)> {
--    Ok(match ctx.vgpu.state() {
-+    Ok(match *ctx.vgpu_state {
-         VgpuState::Disabled => (
-             0,
-             gsp::LibosParams::from_chipset(ctx.chipset).wpr_heap_size(ctx.chipset, fb_size)?,
 diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index be212bbf724f..3272afdb7d1e 100644
+index 650bef8b5f44..c239b6614d44 100644
 --- a/drivers/gpu/nova-core/gpu.rs
 +++ b/drivers/gpu/nova-core/gpu.rs
-@@ -372,7 +372,7 @@ fn drop(self: Pin<&mut Self>) {
-                     gsp_falcon: &*this.gsp_falcon,
-                     sec2_falcon: &*this.sec2_falcon,
-                     fsp: this.fsp.as_mut(),
--                    vgpu: &*this.vgpu,
-+                    vgpu_state: this.vgpu.state(),
-                 },
-                 bundle,
-             )
-@@ -445,7 +445,7 @@ pub(crate) fn new<'a>(
-                     gsp_falcon,
-                     sec2_falcon,
-                     fsp: fsp.as_mut(),
--                    vgpu,
-+                    vgpu_state: vgpu.state(),
-                 })?,
-             }),
- 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 5b57be7f2d42..3dbc37a3b35b 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -66,7 +66,7 @@
-         fw::GspArgumentsPadded, //
+@@ -48,6 +48,7 @@
+         GpuMm,
+         VramAddress, //
      },
-     num,
--    vgpu::VgpuManager, //
-+    vgpu::VgpuState, //
++    num,
+     vgpu::VgpuState, //
  };
  
- pub(crate) const GSP_PAGE_SHIFT: usize = 12;
-@@ -85,7 +85,7 @@ pub(crate) struct GspBootContext<'ctx, 'gpu> {
-     pub(crate) gsp_falcon: &'ctx Falcon<'gpu, GspFalcon>,
-     pub(crate) sec2_falcon: &'ctx Falcon<'gpu, Sec2Falcon>,
-     pub(crate) fsp: Option<&'ctx mut Fsp<'gpu>>,
--    pub(crate) vgpu: &'ctx VgpuManager,
-+    pub(crate) vgpu_state: &'ctx VgpuState,
- }
+@@ -56,6 +57,10 @@
+ mod hal;
+ mod regs;
  
- impl<'ctx, 'gpu> GspBootContext<'ctx, 'gpu> {
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index d6895dc5207e..9473004a0921 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -47,14 +47,14 @@
- pub(super) fn build_gsp_init_payload(ctx: &GspBootContext<'_, '_>) -> Result<EncodedStream> {
-     let mut encoder = Encoder::new();
-     let vf_info = build_vf_info(ctx)?;
--    GspInitRequest::new(ctx.pdev, ctx.chipset, ctx.vgpu.state(), vf_info)?.encode(&mut encoder)?;
-+    GspInitRequest::new(ctx.pdev, ctx.chipset, *ctx.vgpu_state, vf_info)?.encode(&mut encoder)?;
++use self::channel::TOTAL_CHANNELS;
++
++pub(crate) use self::channel::ChannelIdPool;
++
+ macro_rules! define_chipset {
+     ({ $($variant:ident = $value:expr),* $(,)* }) =>
+     {
+@@ -335,6 +340,8 @@ pub(crate) struct Gpu<'gpu> {
+     /// GSP and its resources.
+     #[pin]
+     gsp_resources: GspResources<'gpu>,
++    #[pin]
++    chid_pool: ChannelIdPool,
+     /// System memory page required for flushing all pending GPU-side memory writes done through
+     /// PCIE into system memory, via sysmembar (A GPU-initiated HW memory-barrier operation).
+     ///
+@@ -417,6 +424,8 @@ pub(crate) fn new<'a>(
+             // Initialize this early because `gsp_resources` depends on it.
+             sysmem_flush: SysmemFlush::register(dev, bar, spec.chipset)?,
  
-     Ok(encoder.finish())
- }
++            chid_pool <- ChannelIdPool::new(cv!(num::u32_as_usize(TOTAL_CHANNELS))),
++
+             gsp_resources <- try_pin_init!(GspResources {
+                 device: pdev,
  
- /// Builds the optional VF topology portion of the `GSP_INIT` request.
- fn build_vf_info(ctx: &GspBootContext<'_, '_>) -> Result<Option<VfInfo>> {
--    let VgpuState::Enabled { total_vfs } = ctx.vgpu.state() else {
-+    let VgpuState::Enabled { total_vfs } = *ctx.vgpu_state else {
-         return Ok(None);
-     };
+diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
+index 485efaba059d..75666c6768e6 100644
+--- a/drivers/gpu/nova-core/gpu/channel.rs
++++ b/drivers/gpu/nova-core/gpu/channel.rs
+@@ -21,6 +21,10 @@
+     }, //
+ };
  
-diff --git a/drivers/gpu/nova-core/vgpu.rs b/drivers/gpu/nova-core/vgpu.rs
-index 6b7e045acea8..905b3a7331fd 100644
---- a/drivers/gpu/nova-core/vgpu.rs
-+++ b/drivers/gpu/nova-core/vgpu.rs
-@@ -85,7 +85,7 @@ fn detect_state(
-     }
- 
-     /// Returns the detected vGPU state for this boot.
--    pub(crate) fn state(&self) -> VgpuState {
--        self.state
-+    pub(crate) fn state(&self) -> &VgpuState {
-+        &self.state
-     }
- }
++// TODO: Query the channel capacity through GMCAPI once an equivalent of
++// NV2080_CTRL_CMD_INTERNAL_FIFO_GET_NUM_CHANNELS is available.
++pub(super) const TOTAL_CHANNELS: u32 = 2048;
++
+ /// Pool for tracking reservations of channel IDs.
+ #[pin_data]
+ pub(crate) struct ChannelIdPool {
