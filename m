@@ -1,62 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020117.outbound.protection.outlook.com [52.101.196.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938124D178D
-	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 13:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790603308; cv=none; b=dqFlAip23VumWXL1ROTaUAw6aq4gqG1MATjmsMtqa5MRbPMORo8VOT8jJ9viqF/b3otAsrgXVt3FjaTvLTsXsd6bi/DXpCmO0iD4XKh/EpPL4y8L51LuPvCmrcx3yfZnRhVWOe9iB+vs0MwjXVLoVEFzNawre2adBE2DEQjsJUQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790603308; c=relaxed/simple;
-	bh=DoFmpe5dH4D15u8tAPjmGxEH71pXp6AyIiL++gOhPuI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=MR9v8X6rzonSEZx/US3RZdIfhFOETAc1OUBotKjtvzMkmaNY2t9fwH0OFd4Hbvi4h8o6EkqR8IAPwovFn4pntdbpZ/S9NngNUiREXverayEc/IMZHbUSRT38C5TEk/NCHcekUVE6nX6kl4XYJcItR2Yj2iINg0md/wO8AOUdzS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvQ0AYQo; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B974D178A
+	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 13:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.117
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790603624; cv=fail; b=k1bOI9HSCNxjDlhs6+37G8cMCNG3sF7o/06SefTL3uX2xduxv67mvjw9xqLq3Laxbp9arIY6VCnCK6OIjwqmZVH66sq4BBGWe/Nm55Fq7qmZSa+u/ORy5ESKjmY6QAJ/LdnkNS5y+h20bZNkfcirBTBxlZq3uNv005oQdSnERgA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790603624; c=relaxed/simple;
+	bh=Gj8yUYg1qx+twSr/QwCBC4IyO9WrhZXWY3WH4S57oWs=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=NFwWCzPcDFjOhcgJBdKN72Ascqcmvl4cdJnN1zSXlQkAK8t9WVakqCgHCMg5h86ZaMTLakG0qeD23PF2fHHf4GUtSO70H1noyUm10StSKSzX5MEAfQSGYTDcl/3lMDV+mK/gaZEWdbiR1dsuAnFIiW9mpfQdagNscyZDmca3lLQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=K/m8ox8v; arc=fail smtp.client-ip=52.101.196.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvQ0AYQo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F057A1F000FF;
-	Mon, 28 Sep 2026 13:48:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790603307;
-	bh=DuZ9RG51Y4GEDXhLouoO+o5u6/tFI+61S6wJ7IA4vKc=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=VvQ0AYQouiS0Ta2PPVFnkaQ4fZOiLCISxsCOrJfat5gqE6V1fEALaxJY/HrwJgiRV
-	 f//Qt/oqzyNJFH3rlATAYaJU/LqhWY5MKqU4c1pGPNL5XOKUJek5wZS0ihWGmEN6pj
-	 xpOtOWolxKjbxfgNS5hsLJiQ8RMd1YailLKDUZf0XU5edPcXxUJjeyV2xucF5IDboJ
-	 8sm+TP0veTSdoEJDalDI83u9yvP3VJwKYFGRytYpNsrdNyMNJqqwE1B6D5ESKfApDD
-	 lfTMSfIPhJjIlDgAX4rSnX+S7Gbz9NsMgwEe4ZEqWSUxhNQUd0e/uU7RaowBlXoCqq
-	 iyCbXfKOjH03w==
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="K/m8ox8v"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w8ILCo13LPpV7LRrDir2iLwXDyvXKHkUdX35E/9wMDMC0JybC3wa47r9m9ljqMEem4xa1Dd92E/u/MZ7j1MTxcqbrXQ9jOH8vwKRsXhiKfmcc4tZ8NW1WexoWMuDKEJcDGi9VYwJMceLL5rUv1SAXkln4oH2ITQauVOQgRK9AiWa7pAZdqcjxLeUdvp9eZrFKys2RduAmU7Wmcpyl0Kt/hAKFHtXuYLG+cVoAyd6lAG2yrTAfLeow0jAbbc1Ibaa1U61r8bEAPnjePKWLjmQxc4EByETGdjbQiPdGYDlVeQnMfArImtdjNIFC7drLs2aN6WKKAvBJU7H093gAumHXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3Lpg3zbpCsf7SiWZKVb87T9FUyiL4SgcDOur4GlH9oA=;
+ b=bT2y6fQO1YBbVP91a1ZBEmkSzKxNsSrjyEPpjJueQWb6rcGGlr4eAsERdzrXF/L1V7LS/McExpfCMQ9sE5Ixf+yeJo8ExG8Y5fQCoxG7QJuORbRCs+cr40eNuUDZNnq8fo85KviZvToNbKTCDorVVaa1Bh/XWc9HzUWi43gclbTOoG+Vtp1QXTghYRbdeosYCI25xGaWqMS3im1pHQSCTsMAFF/zbqJtFWYmuC2+qrIUbKsZXtS171xmoSi5VgOwYCFHL+Dj25JR+wQ5OXMuaNWaUkVvU1mOksDj2hMXJhsT+Ijx4QdliuCmbqHHGa2w6eLR/dyHRZxOag4vV7ercA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3Lpg3zbpCsf7SiWZKVb87T9FUyiL4SgcDOur4GlH9oA=;
+ b=K/m8ox8vPwFkmlrzqB9ncCSZSuv/TgxPIykzFZp9wOsgOCuidQFSH77vMuFsbfME9A3vb/7ioDoqNOJgrJn+DgCfXIjmN0C+HQ4vLLnBWqnzWMukAGZK2lcCHCcX77eABNOKAtLREwVS6H1SoXoWGiExmHAfSxDVeOMapl/agFA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWXP265MB2983.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:c3::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 13:53:38 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 13:53:38 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 14:53:37 +0100
+Message-Id: <DLR009WMVVQ5.26C5V2E6GFD40@garyguo.net>
+Subject: Re: [PATCH] gpu: nova-core: use a single try_pin_init!() block in
+ probe()
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
+Cc: <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0
+References: <20260927144417.1280385-1-dakr@kernel.org>
+ <DLQX3FCYMAGD.3MS8E1JK5J7D2@garyguo.net>
+ <DLQXLV1FYMQS.JBP531K4P4T8@kernel.org>
+ <DLQXTBWUJWGP.WGY6G88ATQM7@garyguo.net>
+ <DLQXWXRP3P1J.28SLFOJJQ2EDK@kernel.org>
+In-Reply-To: <DLQXWXRP3P1J.28SLFOJJQ2EDK@kernel.org>
+X-ClientProxiedBy: LO3P265CA0003.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:bb::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 15:48:24 +0200
-Message-Id: <DLQZW9ZSEQF8.EFP3CFEMUABB@kernel.org>
-Cc: <aliceryhl@google.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: use a single try_pin_init!() block in
- probe()
-References: <20260927144417.1280385-1-dakr@kernel.org>
- <DLQIRUGZ3L4S.2HUCTWWXHIDII@nvidia.com>
-In-Reply-To: <DLQIRUGZ3L4S.2HUCTWWXHIDII@nvidia.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB2983:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80ce15f4-13a3-4844-5837-08df1d67e590
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10070799003|10067099003|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	8RyQBdfYmP9SGR9VvZsbs9oWPB+tj9kaVSDKyeEZEXxHIP4J0IqBsFMXxWTgCRGcfFafTawAacb1n5Bpr/OSaMX0VuxMGtt0eAXDsnXnWtrPWu/dnFtUTihLwDzVXgupmxC0SALKUVt/2Gn/2syY8CiNRX2vpnYVsgsVlJvXYseUNLLK3vrE5TRJEcNRrgBNgRW5+E8csZ5/rqWZmg/OjVoDzESM4fWCgZAt7b9o/0kCEYXKxOJM4E4xw7hXGOVMS/QwDwGTuFKV0dhUFFdmiSq+IxYTm4/uHAdGFs5qEUvRt2/os7VaW3+0sR7FieGGuQ+2098ot6p8pJAiihDU/q8ijBr+bNfJBl05fROE3mHWSd/JLaoT3RocFmeEWPSdcBUakymrkDg8sRer2Va75wv6jkevBAQF5h5yEtiFVmdNNpcS567UtYAs0VdYNuEY1wAvc+aGiPNufzfQu841afAISoPyR0jcO2x6TXVLhH0g7IBiTOxnQeSMTjHRbYmhIWDCmb8HYDxvWiu2QbhMyrGMntHzIW54+94VcQExVHKJJdM7lD5yK+TXGo73AKagtnN9z12ezUhfj3MXz0MjjrfShY4bYa23rMp1RcQquvuZDKNu0oq97jIpKtYcn3o+e764sXn7Qj5wFkDUiK909JHT4Q7nnllmElN7b/OUwks=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10070799003)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Sm52bkhhU2lRNGE3dDhqRU5LMWhOUE5DUWtIOXBnYnJKNTdrdXJyMlF4Zk1K?=
+ =?utf-8?B?cE1nSk5YRmN4RWMwZlNielM4dEUxTzdxMHMraUp4R2s4UTVVMGFlbHpwVUYy?=
+ =?utf-8?B?K1NZN25ISGlRMnJLeTdwcTRxYllDc2dDcmQycGZvSlpTSWVpb2xuVHFRVTM0?=
+ =?utf-8?B?cHRJUUhnOWM5QWFoSFAzK1JCdEh4Tk5YRnl4aTZkQkp5L3VwVm12UUpJZHE3?=
+ =?utf-8?B?OWZoNE5SOWhRQVFGTU96MjJ3ME9sQm5oZUR4bWlFZ1I3WlY2MGQrVk5SaEc2?=
+ =?utf-8?B?N0p3OW5WeVhZSjhBcnVxZ21tb1lWV0FCWElTNFRaeU91NGlxLzFUY05zMXZH?=
+ =?utf-8?B?Y0dweS9EQm11dFJDU1pNazlvbnh1ZE5oMGx0VnFucHJXMGlqOGwwSUtZeUhz?=
+ =?utf-8?B?ZDdXc2xOMVFaam9ZRVo2UDl0dHA0NEJHeTRCUEdFWGp5THd6OEowbVdHWVJr?=
+ =?utf-8?B?R2xZRXRSUGtiYzdKaHovMDN3QXJFd1ZwSFZMTk0yNmdNM2Mybk1JVjhReVlP?=
+ =?utf-8?B?VmJxaU1XTUp0TjJQWmZKckpnV1Q4TXFhR1k5MzdpQWM2NGNGbEtaSHpaaUJv?=
+ =?utf-8?B?WWc5K20raTZHLzBvRVZMS1RUczhoVWlvVzNNRmN4SzU2NFI0V1BDcTNTN0NQ?=
+ =?utf-8?B?VWl4eEx1SWRPSE5CVnFwQ1V3VnBpTnE5WG9GbjdXKytmSVBLelNjdnRJcTcy?=
+ =?utf-8?B?Y0hIRFRqNytHOTJ3bmk3dDFTTkVBdEVsUDAzYzd2ajVDRm1rUmNFeG1BUWMv?=
+ =?utf-8?B?Wm5DemJOMEFySFViTzRUbDlMUlVIandnMHdXTW9UK000VXZkRUZuUmcwY2RL?=
+ =?utf-8?B?YzQ4TWJQN2lidUJBekZuR01WaklHTDBpMTZzRS9yTGYrbkhBb3k3K3pzZjlz?=
+ =?utf-8?B?WS9adUp1MGplVCsvUEE0NnJwc0NpR2h3bTlqcXcwVG5xUWNQMzlYYTIxcTdH?=
+ =?utf-8?B?Q3pMZGh4ZHovcENQRFR3R3E0QitJUjAvM2F1M0ZCRVBqNnFmenJDTi9Hczgx?=
+ =?utf-8?B?U0NBa2NDbnFWY24wWW5OYUI3OTI4anE2cENQT2lnbGZ1YmN4NGxHSEZpVWJK?=
+ =?utf-8?B?eW9ySTBuTTNzWHd5bjRhVXFmOUdtN3FtQVF0eitsY1EwQkhhWHpRSi90eGd3?=
+ =?utf-8?B?QjFJcWppLzdEakxkeFpFWEZhQlFIcXRwNnZYY2dVQzBoN0RSNTQ3WG50UTk4?=
+ =?utf-8?B?ZFN3Zk50b091V0huVHJ0K2I5c2Uvc0JRWVIvdC9UeXBUNDAxOGFmRjFUcm5w?=
+ =?utf-8?B?Q1RMQlZldVJYaFpuWGdmcjVGL2hTVUlQVGFyZUVnOVMxMzA5c25MZTVKcE00?=
+ =?utf-8?B?MExBK2U5eWhHMTFuaDVhMkRjWm9jNDRCUytiQ05vclZsWnlUQlBONC90a3hi?=
+ =?utf-8?B?RjRUNFNjRnc5aXVVYkoyQWJQYy9jYzBrSjNQMXhNdnZWbUJtU2VNNWFBalZN?=
+ =?utf-8?B?Wmh2aFZHTklVNmYvK0lEM1lTdXF0VTE5TFNmOTBoMFhQTlJaYTBGRGdESWwv?=
+ =?utf-8?B?OS9DQnZpT3VUZlpyb3JnZHowSTBPTG14ODFJekJCWEpzZ1RhQTZJTFcrUjFT?=
+ =?utf-8?B?RmM1TWw5ZmI4TUZjV3FZbExLb3B2MGtnamw2U0dld1JBcUVxOG5zWWZCRWta?=
+ =?utf-8?B?UG5LQ0VENnpGSVgrb2RURGR1NDNHZVZubGZDR3NnRFFSUTRNdlJMWkVsZm9D?=
+ =?utf-8?B?OVdWTERNWm5hRVQ3dUhVdEdzTHVicHBPRGdOTnhlelVqbTJLZ2luU1liT2hw?=
+ =?utf-8?B?Szh0MGxwWHhUNXQwT1p6VExKb0hMdEVKenJsR2xPNjEyVTRIUXVVU0pHZVpa?=
+ =?utf-8?B?VXk4MGZselU2Mk1aTURyVU5zaWRBbGtHRFZVQzgyc0VIcEtYbHIzZThtVnRH?=
+ =?utf-8?B?YVJkTlVnQUJHTjNFdzVrV1JFS1BwUUdDUE1QQlBLTnVBVGxwMkNqYzZKZm14?=
+ =?utf-8?B?VVUwTk9UYnRDdVQ3aWZldzB4bVFHaUF5RlYwUWlJTVM4U0g5dG04THFGdXhP?=
+ =?utf-8?B?NjdiaGN3NVRTaFdtMEYwS256S01ycXh3L3VReExGTkMxUGpmL1pERTgyd1Fa?=
+ =?utf-8?B?cG9XMjFHNjVrOE5YSEQ4NXB0OWFRYlZTaWNMKzdwSU44NXpNRE40ZzlzWjU2?=
+ =?utf-8?B?WGl5UXFTWW1QUkFyMVNPeDRqWlZjVjF6LzFDM25ramNka1h0RVlvc09aUWs0?=
+ =?utf-8?B?QTZaclVNRkxOMS9HYXZCWE9jQ01jdWg2V2JhTmZMc01wOThsMkRtYm9aaFV6?=
+ =?utf-8?B?NFdvajR3YnZFekJZQ0xGVUtJMVVUNGRkaEFaNmtWTGJtL3AwUTdISk5BSkJ0?=
+ =?utf-8?B?QXk4U21IeXZuRXEzZFdkcDFpNlNtRWFCU00ydXVmQUdpTGYrQTczdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80ce15f4-13a3-4844-5837-08df1d67e590
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 13:53:38.1696
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8d2Q5pHCn8KOuPP3A+Y0hGBcw4eQHjKXVmugimYDxWipLO2v0OD1znDRVSreyg4GGTaaEp4mCjFhrQ2NdfDvag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2983
 
-On Mon Sep 28, 2026 at 2:23 AM CEST, Alexandre Courbot wrote:
->> +        dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+On Mon Sep 28, 2026 at 1:15 PM BST, Danilo Krummrich wrote:
+> On Mon Sep 28, 2026 at 2:10 PM CEST, Gary Guo wrote:
+>> On Mon Sep 28, 2026 at 1:00 PM BST, Danilo Krummrich wrote:
+>>> On Mon Sep 28, 2026 at 1:36 PM CEST, Gary Guo wrote:
+>>>> I think this doesn't need to use `pin_chain`? You can do
+>>>>
+>>>>     gpu <- ...,
+>>>>
+>>>>     _: {
+>>>>         #[cfg(...)]
+>>>>         gpu.run_self_tests(pdev);
+>>>>     }
+>>>
+>>> Unfortunately, this produces the following error.
+>>>
+>>> 	error[E0382]: borrow of moved value: `gpu`
+>>> 	   --> drivers/gpu/nova-core/driver.rs:140:62
+>>> 	    |
+>>> 	119 |             gpu <- Gpu::new(
+>>> 	    |             --- move occurs because `gpu` has type `core::pin::P=
+in<&mut gpu::Gpu<'_>>`, which does not implement the `Copy` trait
+>>> 	...
+>>> 	129 |                 gpu.run_selftests(pdev);
+>>> 	    |                 --- value moved here
+>>
+>>     gpu.as_mut().run_selftests(pdev);
+>>
+>> should work?
 >
-> Don't you want to put this in the `_:` block below, so it printed at the
-> actual initialization time instead of the time the initializer is created=
-?
+> I tried that previously, that gives another error. I didn't dig in furthe=
+r
+> though.
+>
+> 	error[E0596]: cannot borrow `gpu` as mutable, as it is not declared as m=
+utable
+> 	   --> drivers/gpu/nova-core/driver.rs:129:17
+> 	    |
+> 	129 |                 gpu.as_mut().run_selftests(pdev);
+> 	    |                 ^^^ cannot borrow as mutable
+> 	    |
+> 	help: consider changing this to be mutable
+> 	    |
+> 	119 |             mut gpu <- Gpu::new(
+> 	    |             +++
+> =09
+> 	error: aborting due to 1 previous error
 
-No, because the :_ block below will become the PCI device enable guard soon=
-. We
-could put it in a separate :_ block, but that seemed odd to me.
+Right, we didn't create the let binding with `mut`.
 
-In any case, we probably should drop this dev_dbg!() entirely, as its value=
- is
-quite limited.
+Does this fix it for you?
+
+diff --git a/rust/pin-init/internal/src/init.rs b/rust/pin-init/internal/sr=
+c/init.rs
+index c5b5a0ce5c4e..031adb46cefe 100644
+--- a/rust/pin-init/internal/src/init.rs
++++ b/rust/pin-init/internal/src/init.rs
+@@ -446,7 +446,7 @@ fn init_fields(fields: &Punctuated<InitializerField, To=
+ken![,]>, pinned: bool) -
+                 // Allow `non_snake_case` since the same warning is going =
+to be reported for the
+                 // struct field.
+                 #[allow(unused_variables, non_snake_case)]
+-                let #ident =3D #guard.let_binding();
++                let mut #ident =3D #guard.let_binding();
+             },
+             Member::Unnamed(_) =3D> quote!(),
+         };
+
+Best,
+Gary
