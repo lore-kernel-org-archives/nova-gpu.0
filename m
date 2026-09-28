@@ -1,221 +1,225 @@
-Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de [91.216.248.203])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013021.outbound.protection.outlook.com [40.93.201.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EFB3BB661;
-	Sun, 27 Sep 2026 22:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.248.203
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790549641; cv=none; b=JWyubjgMT9CF1DAsjCQzlPyz6XnrN0ig0e7xL/eBbR+ld/iHwqf4xoLYkqEn/j23C/GUkdfoziYvgSNu7L9zAXPVnwSXUQEJfs6LFb5f8NfyldXceBcjxV3muUCdNdUlQ8s1ANXKxT+r89jCqF7LVW7V4fABUMPPxENPINIbS7g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790549641; c=relaxed/simple;
-	bh=xC9euzdpfWQA6clWp09WVE/7sgF5HEkIjOsWgJhhgTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lujh6DGJD09q1B3ff4zuXczW+Feoyu75KGzVEUsD8cyu0ZoK/XoFAeGaq4InekaARYci93+/9V0mDgmzama9RlZ/Hj1YE2wubTONM+d4SGskl7lwafbs6W2HWbZt8r/WDhS1yHTcCBhJxOya1E+v8FkymKnVhVSfcj/wWP38Bnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de; spf=pass smtp.mailfrom=matt3o12.de; dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b=QPxsBAyX; arc=none smtp.client-ip=91.216.248.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matt3o12.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31AE18D62A
+	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 00:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790555006; cv=fail; b=MV5EnzFfx+T/vbQA/UPURrOEW73mNky7uz/4/Bfg4M/IxJEGnPsuhpjubph4OexmpqN08Dx8wRBqF/BEW3Sl1e42KH5/dUc9t2m3hhM/rQJNgFaTYCuHXaEvtxPI8vTU+/Qdgx4qpGpOkR+p56nmj8PxuwDY/Q1gkGp9WuU2mm8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790555006; c=relaxed/simple;
+	bh=3nsBSOOoi0k9fV9bEp+LbH+vWU/uRBibEE0CofblfR0=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=MgRkwCpx+JWNwPP/XzURl9bJTdAOzL5M/SywT3hHJ3z9YjphN/tgWNR4L+oRtZZdH2+w0Kk9hqg0SavtgutWPEpijXlq9dXPfsbCuYg6kh8LEIepa+ZWgEmPJHL9Qpnf6UE9l4HoYDFYNP83dpCv5wd6a79SgaLE3Pm6i+x0Xuw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BccpRyYo; arc=fail smtp.client-ip=40.93.201.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.b="QPxsBAyX"
-From: Matteo Kloiber <kernel@matt3o12.de>
-X-Lima-ML-UUID: 7b21bed0-f515-40d2-8fad-e214b5c9faf0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
-	s=securedbylima-20230709; t=1790549158;
-	bh=xC9euzdpfWQA6clWp09WVE/7sgF5HEkIjOsWgJhhgTE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QPxsBAyXObGEqRuVtVwk+kG/MmUHlCLH7ftmtL5BWr2j8oaZf0M4V9Q3kIBZ9zV+2
-	 uylOzjCrgcHThRhe5hs4jq2HvGiNof6YkMwPPkWx3ToNAJplgp+cp0SpLJ0eZShIhP
-	 cL9aqqpJMKK1jiCRLqPoDgiKaEH3N2yN8bY7vVrd8qp8ScHRVQw3QGZxZ9UKv/+oAR
-	 xLVSKeXX1+T/jtMI9IQloUVQvaHzI/703WAmDE/7Jdc8d2wO5bvZAMStVQq6a1vbR5
-	 RNVGTGvhjnpL8x33L1GqLVpWnHzdQflfLmVHlzU0CgiRtDVX2EmxDPhXofOm2Jdl3V
-	 I/ygm44GFUvqA==
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	aliceryhl@google.com,
-	ojeda@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	abdiel.janulgue@gmail.com,
-	daniel.almeida@collabora.com,
-	a.hindborg@kernel.org,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	driver-core@lists.linux.dev,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum segment size
-Date: Mon, 28 Sep 2026 00:44:43 +0200
-Message-ID: <20260927224446.1053037-1-kernel@matt3o12.de>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
-References: <20260831233215.287881-1-kernel@matt3o12.de> <20260831233215.287881-3-kernel@matt3o12.de> <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com> <20260913210806.125589-1-kernel@matt3o12.de> <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com> <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org> <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net> <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com> <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net> <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org> <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BccpRyYo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OZOpwOLJetXEcwvtSh/3ze3Ri+gCyfbisx0prW3izsHCuR0GCK3f8h1IlWg0ztOuEpmXV9NG1WyEKPaL2G0hUy1OdVLisQBBHgvGNXMA0vlNANyNx3/yMyayVNWSxoZYPSI8WqyCdFmcopIRKHLb4dwMwjroIjY2amGAEDb80Mvv4fb4qk6UZtSwZVowG+CewIBLW02RwQOUQCsEv4pGF2ZtxNs5ifjUzH1/ztNPhCPEYeZ1d260K8WG7h1LJKoA+xrKW54T3IS6JTU0AzUIo0H05ceAT2/QHyyax+639LppU4cLc5JDmWq7cTXmEAaTzRWlMrvaaiEzXlOUTNDRQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FgYtBHIE6RlIxjnh2ac1O+tqYkVfZ1kotdbW/8mZ2zI=;
+ b=I2HlS7iZF4jx8RQda0l52/uuwILU84iQtQrmpTq8B25I1fU3cQ9p592ARZAYTyroK7LIFAxO1XjodPPp5h3wunZZhqwL3zATxoq4QqIR7wmDJDFDhDAdFa9TU2syJEZmxGeAEy91jVA2QTJgnd0eG/u0Ze+fjOLi8oTSkzvMZG2Fqa4Lg5FekK4uckMeD6yuCHbXdJ+ShWwx8aMXaIpRacPXE4zov3/9mH6d+UwAdTZNeRxZ7n9TYl5+78hwyP5+WrGf94WXlmqJE6sdvpj+ZrJSsvT9ioPTMkzZGOvB3PtvcWy805AxZdSK2/ROkLv3R6NOssENDTKLjEgCB5vOYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FgYtBHIE6RlIxjnh2ac1O+tqYkVfZ1kotdbW/8mZ2zI=;
+ b=BccpRyYou6tAIfeG2p1VfsVK/LDJyNfdeP2dwNDqRMLARMY6zKEQXNUZC4kOVG+copiC2EiN/JZQglkfO1M4ne4or9HDy6bkeQQo3J+ORJ+WmY+KlyROV5/DDsykRt/eJnGRcIdTzoLqd9mCUC6wjJOMzxJRjBjab1rVbnkxOsJwt0Pnp5Udi7/jD8AW10KRorNu4rUll1svhxc0JvJzxZdkYkfV/q9e5iKGuXpqGHNfErJs8Tn+eb01zomcxxxjP1O4hqYm2YiwZVozMYmfox53pi/G00Qy05+xumNWmaDHa2G2hH9T7p7JqZPbVTa1Tuxy7SN3/GuHAInOxYb7oA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by MN6PR12MB8541.namprd12.prod.outlook.com (2603:10b6:208:47a::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 00:23:21 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 00:23:21 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 09:23:18 +0900
+Message-Id: <DLQIRUGZ3L4S.2HUCTWWXHIDII@nvidia.com>
+Cc: <aliceryhl@google.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH] gpu: nova-core: use a single try_pin_init!() block in
+ probe()
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260927144417.1280385-1-dakr@kernel.org>
+In-Reply-To: <20260927144417.1280385-1-dakr@kernel.org>
+X-ClientProxiedBy: TYCP286CA0220.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c5::20) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MN6PR12MB8541:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a71b34e-4e38-4f0e-771a-08df1cf6b376
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|10070799003|376014|23010399003|10067099003|11063799006|7136999003|6133799003|22082099003|18002099003|11062099010|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	/bTD93OG8FvtdaoKFU/O5twHFQ1HEtLbbTUCWUQveTs781vLgejQN600pAZqC2pxOCblm4VmUdul79r1GkCvWr/G/7vcSWu3ly8GmzIEeMH0SM2qhSP+Qxq0P0UwSZqztUeTCQMA1hm5lHN/t/5H+Y/lX2FEDGb7RDjhnZMz+6kywfwPPQx1DQBr3SOVI7/REiw4XkG5m2ja4T/ARsgaoWhuVo80gVNWzpF/CZvN7+7V+d2cJQfCgWA1uDCGGvlHXYQXS55i2ZEQU3PVZw4MLIjDKCYo8IkUEgdeGwgDC4EUQMupZN6/kO5Hrdb/ep+j/5rmJxkA5Jj4Xml9MrSMfVUMLSEenCcnf7m2uFPUGm1MFXBz7fRYSNTixL2SVYk0pTlfASzqvsU2KtAHOsptmeEIj61qeXsRr0aI2mvxgXlHonh/g7eYTBb9ut8TXrM0JkA1MSbubTOXuy1AT17npP6XlIuyF797sVqlVL+/d7PomnsL8PnyJ+bmMRqcSkHRlaltOz9YGs6QUPpQ9qlqP2SpCD6QDHqv2Lk8/9J9OJ8fKVB2QJkXhb8wxQ+XxF64diqSIZ/lrCklBqo/DkfRjkmiwrjwfUy1CofXZQEUxyyusFQpfqFZxswncVYJvxzjLDu5ePVF4KEuZTLe0nnBIe52PYAx2EGmMylekZsde8I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(23010399003)(10067099003)(11063799006)(7136999003)(6133799003)(22082099003)(18002099003)(11062099010)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZmNRS2QzVm96Q3ZRMEd0QlVqVHVBMlV4c292a2JkNnd1UlVpWG9aSTRhUDZC?=
+ =?utf-8?B?NXRQcFFvekF4QWpFM1FhaSs3WFJqM0g2dndyb005YmdxUTVrd1FYb1BaYm1R?=
+ =?utf-8?B?d21ySW40Y0d0aXFHLzBkMHV4U25PdkV5U2pBUVRJbVNYWW5jZEhuM3ZjWDFx?=
+ =?utf-8?B?RnNaelhRaUxyYnJ1SnZNa2ZTbUlhYnhtUWZleHdmdEpoRGZmbWNTN0JrVWRa?=
+ =?utf-8?B?VG9jV0ErUzBqWktqd2pxSjNRU3B0K3Fmb3JTaFlGV2hKMXBnUDZYZkRoTy9W?=
+ =?utf-8?B?UEwySjlNZzVvQ1MwVjRIdDh5N3phc01UTVhmWERJVlltMkpPcTZnVlZjSmp1?=
+ =?utf-8?B?WkRUbE5ZL2QwVG1LSkF2dUJXbHVMM2dsWkN1UUVmeDZVcUVMbG1xZ25mUzZM?=
+ =?utf-8?B?Wmt0NVVqVWdyMVdGcmtQZGJINnJNVnZOeVNLSWV4cHM0VDRJZlprNk9vWjZL?=
+ =?utf-8?B?RW54TnEvT3U1MUtQQzNIUkpkUmQ5Zldkd1JEck5rUHFwYmhQOWJwSUoyaUdW?=
+ =?utf-8?B?eFZBVWhCU0tjWElEZGtHK2tuNEIwZDBhOHU1bGhSb016RlJYaURJK0xlQ2pi?=
+ =?utf-8?B?d29mU0hJZmxPMkxpY3NvZkdFTmZ4QkU1VWlaOS9UVDBtUkVVaStvQk15WTZv?=
+ =?utf-8?B?eFFOZVZvN0swdkpXUEZjWTdHYXc3cFBtN2hUQlR3bEJRSTBkM1VuSmlOWGpL?=
+ =?utf-8?B?SEswK0VVR2hsWWJ3cllzTGlSWmFuQzZiVFNxWU1ZZVZNZkxEKzlUV0gwZi9X?=
+ =?utf-8?B?T0duZjhPOTI5SGcrRGszTEZGUlo5bHFCcDVHd3d0YWc1OXhPQUlDcnNRaUpD?=
+ =?utf-8?B?TW5IWjNoWEo5L3oxdHdpdGtleE1BVmE2RVE2K1duSm4reWFjbTVYaldkclNo?=
+ =?utf-8?B?L00yMVMyWTNhYlRnZUJUUFJYSzh6WFFheFVjbEUrc05wOWk3L3duajcwbkZu?=
+ =?utf-8?B?TTlpbVYrRGZNLy9Ncmk0SU5yMStlUU9mRFRrVTgxbDdFNnloWEVEdWlqend4?=
+ =?utf-8?B?QmJ6UDl6dE51ZGRURytmVlhTQ1UwalhDSGkwY1Y4b3cxMURmWnVaZVQyelUy?=
+ =?utf-8?B?b3NlcHRjWVBlQVRGWjNWd2t0L1k5Wm9GaWFVeS9rWENldkFNSEw5TkNKWnBr?=
+ =?utf-8?B?dE44UFd4eE5qT0dPTEMzWURjNXc3ZjBJRGYwbzl1dURmUDN1V05FL0hzSVlq?=
+ =?utf-8?B?aUJaemZhZjNhTzA1RGRCV0tFK2dubUpkeFhnU2I1TzVYSElEbjlnQ29UWTFn?=
+ =?utf-8?B?M1pVSXFMNzdEMCs5N1o4dERwWEQrMUpyVzRZLzNpSFdYSVlNaFJrSFg1NXcw?=
+ =?utf-8?B?TG5zZFBoWDgwT0hvMWxDUUxjQ09RZ0JQdjNzTWZiRHVyL0duZTZMckdkenA0?=
+ =?utf-8?B?M2llQWdQczVrSzgzY0ZTOHRYQzlsWmJZdHVyUVFudk9lZjZFcUw2VVR0Q1pu?=
+ =?utf-8?B?cWJaYkh0M2Y4M0kyY1k4bUpoWUNpWEd2OFM4Yyt4bWpSL2FjZmxhS3ZEeUNC?=
+ =?utf-8?B?V3VJSGtKc0JvbFp2V2JVY1dBM0M2MUJ1Wld0TWh2MXVLUFpTOXM4VndCcmdO?=
+ =?utf-8?B?LzZJSTZsaDFNTXpjby9OSmJTNVBXdmx3d3BINHIvQ2oxYjFZVVJNV0lHSDQw?=
+ =?utf-8?B?Wlc5VHVKd2l6SDluZVRrZDZDV21UTEpKWWkwUkkwM25TR29oOFA2UUV1cmZ1?=
+ =?utf-8?B?b1lCSnZkWXFTSkVJa2laNVJUbUlhL2tubkgvbmp1L29YUk9uMTdXbFR1ZUlu?=
+ =?utf-8?B?ai9TRFBQUFRwdmRoYVZ6UVVjQ2JXaEM1RTR5NUdzeTQzR2NtdFhnbVhGeUcw?=
+ =?utf-8?B?L0xxc1NtZmY2QmZxZm1hM3BRaGw1eHBweUlJSmJ2aVBMdkdoM3hwY1g0bHUw?=
+ =?utf-8?B?SHZkZnZBNHAwUFdJbzE3azRvR0JNN2FxWkVaQXlOeXFlTzFyUHYyRlpsSWxt?=
+ =?utf-8?B?UTNGalA3VUQ3dlZXaWVrR296WUdLUlZKVzZHM1o2am14SmJtSXJMTFJvOVdm?=
+ =?utf-8?B?T29CSUhrNzB5NC94a2VrR1BjbzErQlp6cDlmM1BtazBvMUJUZ3R4cnNHcStT?=
+ =?utf-8?B?dWVnN2s4NjhsL0RPaFhUa2lzbDI5Z1pxcDV3ekxQb2orUjdydXFhenU2b0JU?=
+ =?utf-8?B?SkFlSjkyeWU3N0V3N05MWk56MW0reVJnc3kwR0N0SEMwNzBkelBJcjVxWmk0?=
+ =?utf-8?B?VWNYdkVTVlFsMlNwRkNKc2dBSmRhekhnVHhJK2lyRzlzb3czemM2U0k4YjlD?=
+ =?utf-8?B?NWI1UVJMVXA3dWpQY0pwc0RvbllnOGNyL2t2b1NrNzJVZjNnTk5MZUhPcFp2?=
+ =?utf-8?B?RUFVbmRENll4akJueDlxaHM2aThyWmFTb0V5cm9ZcW9zS2h5UWordTRhVmhp?=
+ =?utf-8?Q?zCWVba7A5bHEb6Uq+8zKNuyfQF4RZIjgGO6xO5qo2R+oF?=
+X-MS-Exchange-AntiSpam-MessageData-1: R34Kf/gEqweP8Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a71b34e-4e38-4f0e-771a-08df1cf6b376
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 00:23:21.0244
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bmNn3lLHh/6YLSWo/ONACwvRN+6fOEZEAWa6ZQrJqJZtJOJ8gDiLq5yiSzNVXsslCiUJXVE/F1lpaNI7VVW7Tw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8541
 
-First of all, thanks for merging my first two patches and sorry about my late reply.
+On Sun Sep 27, 2026 at 11:44 PM JST, Danilo Krummrich wrote:
+> Just like in Gpu::new() a single try_pin_init!() block makes the code
+> more readable.
+>
+> Besides that, it prepares the code for a proper PCI device enable guard
+> that we will get soon.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/gpu/nova-core/driver.rs | 105 ++++++++++++++++----------------
+>  1 file changed, 54 insertions(+), 51 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
+er.rs
+> index bdaed5408a00..623d59dcde6e 100644
+> --- a/drivers/gpu/nova-core/driver.rs
+> +++ b/drivers/gpu/nova-core/driver.rs
+> @@ -100,57 +100,60 @@ fn probe<'bound>(
+>          pdev: &'bound pci::Device<Core<'_>>,
+>          _info: Option<&'bound Self::IdInfo>,
+>      ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+> -        pin_init::pin_init_scope(move || {
+> -            dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+> -
+> -            pdev.enable_device_mem()?;
+> -            pdev.set_master();
+> -
+> -            Ok(try_pin_init!(NovaCore {
+> -                bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core=
+/bar0")?,
+> -                bar1: {
+> -                    let bar1_idx =3D bar1_resource_index(pdev)?;
+> -                    pdev.iomap_region(bar1_idx, c"nova-core/bar1")?
+> -                },
+> -                // TODO: Use self-referential pin-init syntax once avail=
+able.
+> -                gpu <- Gpu::new(
+> -                    pdev,
+> -                    // SAFETY: `bar` is initialized above, pinned, and o=
+utlives `gpu`.
+> -                    unsafe { &*core::ptr::from_ref(bar) },
+> -                    // SAFETY: `bar1` is initialized above, pinned, and =
+outlives `gpu`.
+> -                    unsafe { &*core::ptr::from_ref(bar1) },
+> -                ).pin_chain(|_gpu| {
+> -                    #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+> -                    _gpu.run_selftests(pdev);
+> -                    Ok(())
+> -                }),
+> -                _reg: {
+> -                    // TODO: Use `&gpu` self-referential pin-init syntax=
+ once available.
+> -                    //
+> -                    // SAFETY: `gpu` is initialized before this expressi=
+on is evaluated
+> -                    // (`try_pin_init!()` initializes fields in initiali=
+zer order), lives at
+> -                    // a pinned stable address, and is dropped after `_r=
+eg` (struct field
+> -                    // drop order).
+> -                    let gpu =3D unsafe {
+> -                        Pin::new_unchecked(&*core::ptr::from_ref(gpu.as_=
+ref().get_ref()))
+> -                    };
+> -
+> -                    // SAFETY: `NovaCore` is dropped when the device is =
+unbound;
+> -                    // i.e. `mem::forget()` is never called on it.
+> -                    unsafe {
+> -                        auxiliary::Registration::new_with_lt(
+> -                            pdev.as_ref(),
+> -                            c"nova-drm",
+> -                            // TODO[XARR]: Use XArray or perhaps IDA for=
+ proper ID
+> -                            // allocation/recycling. For now, use a simp=
+le atomic counter that
+> -                            // never recycles IDs.
+> -                            AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
+> -                            crate::MODULE_NAME,
+> -                            NovaCoreApi { gpu, pdev },
+> -                        )?
+> -                    }
+> -                },
+> -            }))
+> +        dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
 
-What I think Alex meant and what I agree with is that the new API should focus on
-making semantic bugs harder, not to necessarily make it easier to write safer
-drivers. That being said, I think we can do both with this change.
+Don't you want to put this in the `_:` block below, so it printed at the
+actual initialization time instead of the time the initializer is created?
 
-The key change here is that we introduce a structure that defines dma
-parameters for a device. This structure deliberately has no default
-implementation and new fields should be added even if they require changes for
-all dma drivers.
+Not that it matters much, but it sounds slightly more consistent.
 
-```
-pub struct Params {
-    pub streaming_mask: DmaMask,
-    pub coherent_mask: DmaMask,
-    pub max_seg_size: NonZeroU32,
-}
-```
+Regardless,
 
-Suppose, we didn't have `max_seg_size` before and only discovered it later. We
-would add it and the compiler would guide us to any drivers that will need to
-consider an appropriate value for `max_seg_size`.
-
-If rust was bigger in the kernel, this could be quite a bit of work, requiring
-coordination with other maintainers, but I would call this a feature because it
-actually requires everyone to at least consider what the right value is instead
-of forgetting to set it.
-
-The same is also true for new drivers. Authors do not have to be omniscient of
-all dma related settings and instead just fill out the struct and already have
-some important ones set.
-
-If a parameter is only important for some drivers but those drivers should not
-forget it, we could make it an Option so that drivers that really don't need
-a parameter can set it to `None`, but they had to think about it at least.
-
-I think, instead of discussing different possibilities, it might be easier to
-discuss code directly. Taking Alex's example, I went ahead and wrote a small
-LLM assisted PoC. I'm happy to share it here or in another thread, but here are
-the main changes:
-
-1. The PCI and platform probe callbacks receive a unique setup token:
-
-```rust
-    fn probe<'bound>(
-        dev: &'bound Device<device::Core<'_>>,
-        dma: dma::Setup<'bound>,
-        id_info: Option<&'bound Self::IdInfo>,
-    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
-```
-
-The bus driver creates this token and drivers cannot obtain another one from
-the device. 
-
-2. `setup.configure(params)` consumes the token, applies the parameters through
-   the C DMA setters, and returns a `dma::Handle<'bound>` on success.  This
-   combines the setters and `finish()` from Alex's outline into one call.
-
-```
-pub fn configure(self, params: Params) -> Result<Handle<'bound>> {
-    let dev = self.dev.as_raw();
-
-    // SAFETY: `dev` is valid and its DMA parameters are initialized by the bus. The `Setup`
-    // invariants exclude concurrent DMA operations and other parameter setters. Consuming
-    // the unique token prevents reconfiguration after a handle has been issued.
-    unsafe {
-        to_result(bindings::dma_set_mask(dev, params.streaming_mask.value()))?;
-        to_result(bindings::dma_set_coherent_mask(dev, params.coherent_mask.value()))?;
-        bindings::dma_set_max_seg_size(dev, params.max_seg_size.get());
-    }
-
-    Ok(Handle { dev: self.dev })
-}
-```
-
-3. The handle contains a bound device reference and is copyable, but provides
-   no way to reconfigure DMA:
-
-```rust
-#[derive(Clone, Copy)]
-pub struct Handle<'bound> {
-  dev: &'bound device::Device<Bound>,
-}
-```
-
-4. Allocation and mapping APIs now require a Handle. 
-
-For example, scatter list now takes:
-
-```
-pub fn new<'a>(
-  dma: dma::Handle<'a>,
-  pages: P,
-  dir: dma::DataDirection,
-  flags: alloc::Flags,
-) -> impl PinInit<Self, Error> + 'a {
-```
-
-The PoC uses Handle for coherent allocations, owned scatterlists, and DRM
-scatterlist mappings.
-
-5. Each pci/platform driver that uses DMA configures its own `Params`. Let's
-   look at `samples/rust/rust_dma.rs`:
-
-```rust
-fn probe<'bound>(
-    pdev: &'bound pci::Device<Core<'_>>,
-    setup: dma::Setup<'bound>,
-    _info: Option<&'bound Self::IdInfo>,
-) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-    pin_init::pin_init_scope(move || {
-        dev_info!(pdev, "Probe DMA test driver.\n");
-
-        let mask = DmaMask::new::<64>();
-
-        let dma = setup.configure(dma::Params {
-            streaming_mask: mask,
-            coherent_mask: mask,
-            max_seg_size: const { NonZeroU32::new(u32::SZ_64K).unwrap() },
-        })?;
-
-        let ca: Coherent<'_, [MyStruct]> =
-            Coherent::zeroed_slice(dma, TEST_VALUES.len(), GFP_KERNEL)?;
-
-        for (i, value) in TEST_VALUES.into_iter().enumerate() {
-            io_project!(ca, [panic: i]).copy_write(MyStruct::new(value.0, value.1));
-        }
-
-        let size = 4 * page::PAGE_SIZE;
-        let pages = VVec::with_capacity(size, GFP_KERNEL)?;
-
-        let sgt = SGTable::new(dma, pages, DataDirection::ToDevice, GFP_KERNEL);
-
-        Ok(try_pin_init!(Self::Data {
-            pdev,
-            ca,
-            sgt <- sgt,
-        }))
-    })
-}
-```
-
-What I am not 100% sure about is how we should handle drivers that don't use
-dma. Currently I just discarded the setup token like suggested, for example
-`samples/rust/rust_driver_auxiliary.rs`:
-
-```rust
-impl pci::Driver for ParentDriver {
-  fn probe<'bound>(
-    pdev: &'bound pci::Device<Core<'_>>,
-    _dma: kernel::dma::Setup<'bound>,
-    _info: Option<&'bound Self::IdInfo>,
-  ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound { ... }
-}
-```
-
-But maybe it would make sense to introduce a C API such as: `debug_no_dma` and
-have the bus call it unless configure was called first. This would then trigger
-a debug warning if a marked rust device calls any C APIs that use DMA
-regardless. But this could also very well be a worthwhile follow up.
+Acked-by: Alexandre Courbot <acourbot@nvidia.com>
