@@ -1,52 +1,52 @@
 Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4993FC5AE
-	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 08:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC76E3FC5AE
+	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 08:43:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584998; cv=fail; b=OI7qokryN0JrgDn3J9/J8rIaqz6YxSzh7wAkoco+5tLfq/3PYuk0ymLod2g8byNAiqBDv4XIXmsoqSiDvisnUx/g9GUIfnNvvZO7xySBWIS61/9ZBjiExnDIeJIMojl4SsuBq4Q0Iuc82eIxL65mF8GLD8pn8xtVG98rs/FHfYc=
+	t=1790585000; cv=fail; b=mPD2QGhK5RV/FN5R9k9gu4MX+MGPc1wouAgABvhom2FnLhIAM2TwENjv+vW4XrYkMP2nERIHTFlJhGAHQ7I42utETaR9SR4itPyjVnV/bE4pcPw7DeqCaJtCVhZrriRn7OjqQOePgy6KnxQMWzR2B/BpOf8ljdMryvLoCVm95q4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584998; c=relaxed/simple;
-	bh=s02IK5D/FSXAEcKZ4It1UhYn2yEyM7+Yd2Z8YOTePLo=;
+	s=arc-20240116; t=1790585000; c=relaxed/simple;
+	bh=N1+1QdzF0147TR9pjiReVPFo7PeCGIPCUhzl14a/iEw=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=i0gLarY7e46mKyTgNhotdTMpxmePc8QlKN/jEvKVfGYTNmRlMqc0RI0tz5vXfAKJCaVqu84CuNPRNeyuHWKEfEYvoyq2wOKvHMZFUEo5ol+ki8MJjSFsYRuqC8H6FXWbZFQL0Jf4+9igWMRpTiciLGLOYH8isS+ABofPVdtRls4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=g1+1An0r; arc=fail smtp.client-ip=52.101.52.56
+	 To:Cc:MIME-Version; b=q/78ZxW5QuyHCJK0BmQv5Vg6Cj6AJ+Wy36taWIys1pGJkl1bi+3s5Pp7YLXacRW0hPhEXU/J771c96xssfu7QmU5MeurDH2dEsd2MCYFajcm3A6zzdkAcYKatDlxk+xEFzcu8+GhOR6im8wKvOyor9Pp6pS+UXAC3Gi/WUAeDLg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hyuMyI2t; arc=fail smtp.client-ip=52.101.52.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="g1+1An0r"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hyuMyI2t"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PUKgFKS2vDR7AinY+nCqHKqS2+xDfJmbysV1FA6zHO6KeO0Ewxlb6wRyZICO2LvqEDMSY2oMOsvQu8P53ouAmjkQskeJSGYrivburBIIGcTd4avODbj13b34bmE3uoDa+7pLz98qZE2jAmSh1kQ4yH+RNgQh7m+Vdsp+3QIMGIMpRnnABQoNfKULlYdJoC+06Kar0ZyrAAsAWVt0ryWGfTEvOR9VqyLesQ8IiUqErok8okHXBW7kAYGBAdB49l8Img+2N3UGXGMbuNt0xKeDgVxpy8L4n+c1HcHgteVmgGwa8mugb4CyqET7CZY3gA6YBBH8LmSmZo/6l7fRCW2zpw==
+ b=vcjpFjuk1heijbN4YPL440zABJWW+8fUib48hlozXuUEkEF/qrQ9/QcKqPYOlw03SMvZJ/3t26gCvSIq2ZSzKYide8cgDiQwqshiDuYMtyJhasrAyoYKx4J4rD7v9/heQ9JlnsNdC01PdSuzKxtOED5RDpGzYpwl4EjSgCjUdoCpXbz50dJkjfBZIHXVADMY/G1x5J65yafuXiLngc72vrMH2DhvJSpFc7XQyj1VT63wMGtND4nOau7C+LP+awA8lHPPmmpb0HhLl70zPwLx5sKv4qxD3Bu2if5azVLvTm09aHRh1Yxg5rE/jUaA9Bpf3HTLX0b4TY9eiP/ybt5RhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R6Zctiz8euiDNmZkseoLVILEwvuTTChwgaa+QYb6TRA=;
- b=wQlDLfbPo1GMYeG1gK6ELI13rRafOJTHWWZgL6yuOlkzU8caaOpikBnY3k9wOP2mWjM7J+dzua0sEiF9Mr8Mhes2QevFlg6bwhsitTq8nQRWQvocd0jHcuTHEvpkazCkGyZ7vfFtQJlaTFHWBFIcF5+Jq8C5FjHWKGmYI/FNmvfqY7rrMJCXEbxLFhvR+w7E2Pw5/Pe8GTUwfB9JdiKdzQmo2BGil1nW8wA6XhofTnUAx4Rp4VdqqJmadmMAj+8KBqhj4qexOxL/5mthuJuU++m2qx3uY/SG9XDp9f7ImYw9tgJWRVTGZQbEi85Za9Jg7qQ4jfPGODt70k1SYtgjRw==
+ bh=9bQZ4Pl+C2/kVysjclV8MULoP6A6723vSBikcamVv9Y=;
+ b=aPaYk8koj0EU89ju3BK0ma6Ffn8UiVJk9e3qRj/9D3aZ+TdZEFMFIDe5P9RUuSR7COVrKil9none+/v/zQQd21Ao3P0MWwTLMjZtq4cLOZBNLElKpdi42JvKChq8NU9+P1kdRKxwh0v4RvxFOG6ZftsnT1DrulJvOo7sVptf8TkFOOhq4o0zuF/iVaC7qtVkvK+eewY55BGEeBQ7dd075Hpi+T62FspRpxuGtOQvS+9e/pSAZis/ISiIFH6mEjz/vfEi3knDCS2ckzGjoysgNG2xw1HcLTlxUzhpwWw3S/lMyhhSK6kIEhUIkoCFE8R9Ie0boMMeZc+ygDOp7U0ZSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R6Zctiz8euiDNmZkseoLVILEwvuTTChwgaa+QYb6TRA=;
- b=g1+1An0rGudA9HlC7Csi5sz9UVaYOdqXIMIjVrPJ+a0fqh3o/ziTLAe590KlBzS1Y1M2ydRmgA99DGHjd5osTuWdrthGsWdaWbfKSJ208G/kiV1w9wfX7m5ChOn2I8Mm5dgLsxy3w9Atyvi9Gy3xuiB/gjXCddvSpdPoFrYU6e0XP4u7AXkeWtC+dBAPwAfikLFPYxbL56eGm4I2S5RuyiclcoZT6BIiKL8Oa9AEn4N9EuwjC76wjYK1U4RZ/fanAqsb+tuV4BpXrTjy8yLK6iAQ1Z60JdymvOFJlUFUVqHTCSYiM+MxaYQMzJFKiQ8Rh2JYJ/HGmmTAT3Zzb6St/w==
+ bh=9bQZ4Pl+C2/kVysjclV8MULoP6A6723vSBikcamVv9Y=;
+ b=hyuMyI2t8lAR7kdFMKs2/rw66/dtFW1XERs9byJ1ZqPm5oWUXhTNufeJ+Fy6+dDBZlOlXm2dL2cFfIwZwNJXLPIuRCckrX74oniFzkzJj4YW+QNjEs5EOWYKCNrr/xShH0OZqq2ozP+7dmiP7d8XBtiGGYFM6ArOL2DHJQbeJk0zFtrK/8/EFEFlYTlvYm0DEsiYnDSuxCX8gQ9yc+HtxB8HgO5jMGFcCGWVBh3ksMN1u5sYjnbuqAJ2BQqpmWyf8D5KsdX2YsyPv8jzXNFyH4WTytWM9A1AhEII8JR+8CfqTi+itz6Pg8/aMO4XxFhlcYP3gBTkNO3kgBHjfdjVqg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
  CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.24; Mon, 28 Sep 2026 08:43:09 +0000
+ 15.21.451.24; Mon, 28 Sep 2026 08:43:13 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 08:43:09 +0000
+ 08:43:13 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Mon, 28 Sep 2026 17:42:42 +0900
-Subject: [PATCH v3 3/8] rust: alloc: add ArrayVec
+Date: Mon, 28 Sep 2026 17:42:43 +0900
+Subject: [PATCH v3 4/8] gpu: nova-core: add NVKV encoder
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-nvkv-v3-3-f04504c262c2@nvidia.com>
+Message-Id: <20260928-b4-nvkv-v3-4-f04504c262c2@nvidia.com>
 References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
 In-Reply-To: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
@@ -67,8 +67,8 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0187.jpnprd01.prod.outlook.com
- (2603:1096:400:2b0::8) To DS0PR12MB6413.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY6P301CA0006.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::7) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -78,467 +78,446 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY8PR12MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97dc680a-ced9-4b71-04d7-08df1d3c85fd
+X-MS-Office365-Filtering-Correlation-Id: 0780275d-3497-469e-0dce-08df1d3c880e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|10067099003|56012099006|11063799006|921020|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|10067099003|56012099006|11063799006|921020|3023799007|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	xXootskZ6eSFSXD72BE2WmiaEY9NKqg1ROdkDaY4EY6rCFvszgezRzevMJfjatE5GX5VxMmdAW5siUvzxUzpjCxkfWyNAfjQX3ZW3dcFo6BlOYv4iEvvgbFSpLpW+xAoSl0qqadGNa4FliTkhRR48z3pqTLpgpn5yKD89USmMrCKTp1ILww2wFnkZMeELSBuF+Nd4RAT70syBM1g9YI/+uxUQLgI9sazWUrVX0jfe17+U9JHlxxZ+rqW8MuCa3w9CK7NfxD+Q+BCR97Ad6KvhSqfnIr/J35Vtd7fDV20bFGvU6GIdXSTWzPqKKeFPqo1gV4WBxFQ66YuNa+Vb116WQehCzWiR6lNNoxjmm5HODy6VkdcQo/BB+VfdLxohLOZukek+koRpyZUmYfWbmL7MPqolXVSJzKCAzPeVvKh0sHPC8lHK4RPiFD05wQTvERBB8NDoCLcRbhHywVjEItkwTy162wIZGnzAA8MQF20rVILKVzxQUuoPjqZgbqP9w9Zif3tEPj4EsRBHH5mHoqC35I6I09e3/fgqJiycRoOgj9y1GYhwXD7DjgxwuQrs0TeGLoLCzXqmJj8vfAGZDv6kuB+YQ3mpaOH8LRZB3ocfb9JbQi2DR3dyVKiNNV5PHuapfQJe46LesfmMC+dVyohKcru1JVEMCllLZpk2NgeTXieWwNBq1JEQ9F+c8KSw9Z/w3mAdn/fy1hLhCH4gMcTQg==
+	GJS9DGw/zhovl6BQhtcUwhM3qHVPTw3RKiuqKRGdN1aIuC+oqGPoK/NAk2IfKbGx5ExmrkWBZMp0Qbr5l4aI/a83lKo/RtOK4cxE+Th0zYAB3kvYvIc3wfgpemV3RD+UGsNdzbYUxWuLyC0ch4wJjfY8ops2G4OxJ3ji90l5Bp8ToZU7VbKVjUIIlnqKm+FneKvm6fVCGLH6WYB/yeS2JT9m8L2+txsX3imGHA830Eah6fgpsr2RODg16kqtfYXe5P0Ku4GWMLtCA57yPHMP+wyAA0wOyz26H4sqisjq5Drw8xvlDN3gNAFlVqVc7FK2D1hk3qS0fS22jDCibDsetKdolodhmjhLDeQrx0HT/v+Z1zfZJJzQ6o02Pt6xjSk/TY2F7WCG3JOog0aIOMv67udMmCPbtoUO2fheFPjHYL9vXnl+/ErFhxshnQ1oVgkpGQ3gSmbkJsNl5NIdyerqPqFB7cWXePuOPjXfA/qABpFzJVaOMgtOtfPcj7RmSVF3t1zkhqupNSzkXsAPmHcD48fNKP/0BVbyXaNvztdRDSIrmc1ByTlihyt3LMgTcHOYzrbmANjR2MIjMhpBAYl9O/22p/0vyrjF8dBdtnEMIaqMVJxKGxay1eQjXnWB4+JRbxNjy9BzkoVBA+RuwBcMlrrqHblFExS7tsAegQeoYwiX/YDbYfMSG2f7N6MSzud9IUFWAV3VpYarg0mSPyeUOA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(921020)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(921020)(3023799007)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M2NZRUZLK1ZPRWIzdjhlMDJtR2s1TkZmVDdab3ZDWXl6bEZra3FLWVRqRlBq?=
- =?utf-8?B?UEQ1b0t6cjZ5MW96NjgzV1lpSTFXdzV6eFJwWUtDa0tTc3lOeFMwVDROblV2?=
- =?utf-8?B?MVZXNmI5UTQ2UDJZUGpTOTBGcncvRXVGRFB1M0hhVURVRkl3YlJ2SGdSbENy?=
- =?utf-8?B?L2FYSG13ZlZmNFkxTVdDTXY1M3dpUzh0cndxTU1RTHpSRGNSSWRrYUd4WjU0?=
- =?utf-8?B?b3pQeTMySyswbzFQUWpaNkFSYjMrbEFpZWtZRForc0JFYXJ2MDdyU2RsQ1lH?=
- =?utf-8?B?My96NERmOGRxR0ZQVURvSFMwa3hKYktWeFUrODJrWVNSRlRmbk5XSjR0Y2VK?=
- =?utf-8?B?ek1JaXo2MG1nNlRzU0FJbkJmWHhHNTFlNkQzdWlPcDVmTXFMU1BaYU5Cb2ZV?=
- =?utf-8?B?b0NtQmpkOVp0R205RFRpQlNoUzhvdlQyWGpDd1NsTFFzUGpGdkpCS1hoaVdV?=
- =?utf-8?B?elpETlM5aGhrOXFCbGNmeDdhaUd6S0JBSlBPaXlaNnJJSFlLUVBDR1FzSXRi?=
- =?utf-8?B?ZVBVSEF5SXpFcDBaL3hxZkd4Nm9lRzlEUHNZSTZGYTdOLzhRMkVyRmlQeXE0?=
- =?utf-8?B?eEJIenFrTGVKbXRHTXdpaUNhUlVUMjZ0TlhuZmFsS3pZOGM0Zm94b0xsWU0r?=
- =?utf-8?B?bEF1YnZnVEJiTVBXMkRpZGhydnNiamtRQ0VDS1hyZ1d2bWh3dmw5Tnc0NWNz?=
- =?utf-8?B?ajlWK080SXhNRnNHakRnUlVKZHFTVmZxTGlJTVNvZTJNNWRYVFB2Z1RlZHcy?=
- =?utf-8?B?MTR4cDEwZXFXUW9EckluUEZ1eXl6YXRiSk1Jb2pGdU9GVVFvY3ZjVjBDL3gx?=
- =?utf-8?B?TTQvSEZPKzVJa3lPaU0yT0ZsVEpZd3VWRm1HajFwMDYvcUFua3FXOWNYMlVL?=
- =?utf-8?B?bXJ3T0g1MWtjTjVGSFJka1podlcyenJXU1JzaFlrRjdYWEQzbUZQaTJ5MVR5?=
- =?utf-8?B?TlI4ZG5PVHdIOHJ0ajJnMWFDYjdJT3U0bmM5eDU2bUYrckFaTnZDQ0xCaTVE?=
- =?utf-8?B?Uk9ka29qNCtDcU11eXpzUG9rWmVuVkNWanpOSFhJaG5xWko1eFlibjUxKzhM?=
- =?utf-8?B?UXZRaHdxbXI1RjFVdDk3ODhNWGkyNGZWQVNCMGhNcjY2TTRLK09BaGF1YWN1?=
- =?utf-8?B?L3F4UHRMd3kzQTJ2SktXTWJYMXRFVnZnQ2UzeWlwWnFqQWk4VU1Wd3NjSDI0?=
- =?utf-8?B?bS9FbnFCS2FRdm9ncU44YUNIdTdBb3M5S3AwTXF2UVpXWU9qdVBYMG95WXVK?=
- =?utf-8?B?OXE3ajZyakVlc3F1Z3c0TlFrQlF3YndWVm1tSStnWWVoUGQ2eXhpL0hzSm5t?=
- =?utf-8?B?ZngxSGlPendZeVA4bjdaeGhEdTB3MXo0Y3p0RGtnWlZKWlRDYk5hUXlTZUpr?=
- =?utf-8?B?ZzNzOFE0bnNyL3lpK0Rka3NjTUFXVk1SM245Wk4wQ29NcTI5SkpnRkgzK0Q1?=
- =?utf-8?B?NitHNDdZQ01IR3paNVdCbW9HTEJWK1d3YzBpRjgxQjNJcEhjSUNQMXEzSFhx?=
- =?utf-8?B?UHRvalRKYS9iZXdnN1gwbllsL1RDOFRwbC9UUkU2dUJDOUQ4MUJrN0xGUk1h?=
- =?utf-8?B?TG9zdTJhaG81ZXcyTldJanlxY3JXcy90ZEJ6M21qb0Z0ZExFN2lZRFpuS1pT?=
- =?utf-8?B?cklyaVQ2RmpNNFpKdW9EOUlneGt2UkZsOUVwbmtDUWI4TTJDLy8vdVFSMCtU?=
- =?utf-8?B?bW1MRitOY2FKN3hkbks3SVpVMjdLUUR0U25YMXpXb1NzR2lWTTZZc3JnemtV?=
- =?utf-8?B?WHZ4dXdJVGtPS3RkazM5aXA4US9ja085N1dqaUw2YW9Mbm5keFBYNHBiVnJj?=
- =?utf-8?B?QTI5bTVjdlMyYjJXS3d2elNxc2xPVjQxVUR2cmNLaU5hUDJQYWFSemhabmNV?=
- =?utf-8?B?bHoyczVvL0JBaXFOamtFWm1DR3ZWdmtwVnEwMDFtWFpnbTh3VzRlaHNueXNE?=
- =?utf-8?B?NjN4QXJOb3ZoUjM3WXUzNStja3ZFQXI1cDN2aUNnK2g2SzB6OGdzeDBkYWdj?=
- =?utf-8?B?N3R5Yit1ZmZCYVBac3BLYk9rc2FZZUZmS0NxTEgxSk5Hd2t2bjhOSTJrQ0ZM?=
- =?utf-8?B?NkhTWHU2Mks3SWJlUXpMOE9hM2x5OEs1d29CRXZ1R2ZnYUNkNFhFd0IyL1pO?=
- =?utf-8?B?bEZacUlIZkFGajhoWGNEUDNiWVJsYjBrQkgrdDY0TVRNNkNHcE1NOWErOUpL?=
- =?utf-8?B?ZFphdkNoWGRjNDN6Z2FpT2FDRFUzaVI0VC9kU2FmMGVTRHFuR0U5ZHFYTTlT?=
- =?utf-8?B?WlpQYnFkUjhOeVNpa29IbEtrOEpzR0FxK3NLcXhQcURkY3MrNEo1V0M1N0xt?=
- =?utf-8?B?K3RIampMRk9mRnBRS20wb1JmcDdkWktmdU9KTUtURFRzNmc3Nmx1WStTWGZn?=
- =?utf-8?Q?KOzdKifd7ejTMcqygPj6KgIRyb8MX8ndBAlDEY3HnsbpS?=
-X-MS-Exchange-AntiSpam-MessageData-1: +NU33D/1w0S3GA==
+	=?utf-8?B?Ulpxa3pva0hWTHJwWHZzSUZLOVNCem9ha05PemhQdFFveml4STZQTzRGbkhC?=
+ =?utf-8?B?MGx6ZElBYlQ5M0VGN1RKcVFWaGlOTmgrY1JPd1hXbDFIaVh4Nmg2K2lSU01r?=
+ =?utf-8?B?SHNrWnB3ZldadGY0b3BheVBHMTZmVXFqK3F2NTN0ZFlrbGFFcXlIRnljbG8w?=
+ =?utf-8?B?KzkvSTl6YndWOWJvSWpadDhJQi9sVnVIUGFxazFWK2dLWFNIclhQK1JUamRY?=
+ =?utf-8?B?RUZVVzJNUnVJQXRuVXJ0OEd5MXlVeEwrZVlXdkFGWjNDK1NDMEYrV3NIY2lv?=
+ =?utf-8?B?dVRSL1ZEY2hsUHpLa1JjTVhnOXZXTWVxRHNEaUI2MmhUeXBMM0tzK2c4WkM5?=
+ =?utf-8?B?T3FnU3UrVnFiV0YxR3Z6Nk5DU0pleGJML29oY2VkcTQ0d3l2c09Pd25ZRkI3?=
+ =?utf-8?B?OUY3VFNDV0J0UVd3TnlWTkFBd2l1WTNWMG51eUx6cVBDbkFQMENCK0JyYkVo?=
+ =?utf-8?B?NGkxWi92WkpKdlM2Q1RFWWdTbTQvMU5reFZWZWYvNENjZ0ZQbFNGMFlMa1Jm?=
+ =?utf-8?B?OVZHREtWZDNZY0RGTXE3Z3FnVXVBdXh3RHI0czJpWGJRcGY4cmlFa2Zma3Qz?=
+ =?utf-8?B?NnV4a09BQ1JhRnhBZkxIMmtnZ2RudHFoeEhnVnlEdzh0M0NJYWU1VXg5ZllM?=
+ =?utf-8?B?Y2Nic0ovcEtYa3IrN0R5b2xGYThkM01HVk1RNFFwdmNCVmVLZjVIUGV4YmNj?=
+ =?utf-8?B?b05ETEpRWktLM0pEQU9PY3c1amRQa2ZpMUpMR29McHZlMnFyVXFPYnhLbW5B?=
+ =?utf-8?B?OWhCSmdqbjY3OUE4QWpUcnJwTFRqRWo2MEZsUUtTdkpDU1hXU1N6eEpuY2Fl?=
+ =?utf-8?B?OHUzQkZ3Qkl6ZlNPQ29CdVV3NW91YU15d0VIV2prU3lpMGxXOWpVamVWQkNT?=
+ =?utf-8?B?WEJkL3JZWlJWWWJrTXlEcGkzYXBjRmVUSE1ldXFSbXRHUFA4d0U3TXNXdmQ4?=
+ =?utf-8?B?TStZK0lRQTBMTDVVOUo1dU5YQkhqbS95K0dtY01ZelpLbyttcnUzSHptTEZx?=
+ =?utf-8?B?cVpjSXlFOGhwOWtveTIvYVN1eWFXTkNNSlkydjB0S1pINjFXY1Vva25HQ283?=
+ =?utf-8?B?S21BRXBHcS9keFFSTkZhWFpKdXBZdFpWL3h5eVJhZU90UmNZbU1QQ2FqaVhD?=
+ =?utf-8?B?Z2gyRUxPMHE0OEd6ZDlPNjNkdm1uVXhKU29JSWY2UmdRUUt2MkF6bVBHZS8y?=
+ =?utf-8?B?WkZKZUlRQVQ2MTVXRW5qQ2JzQitnWnhjZ2hjOEw0UGZKOHFiZ0E3YlNGbG1q?=
+ =?utf-8?B?RlNpcjhkTFhNZTFrcXJnK2NiOGk2R0FGb0JRYUlzNm9CN1VUL1dhbEEydkVu?=
+ =?utf-8?B?ZjY2bm5uVmpYdFhjZjBrazhneHZaRk9UblgzUFhrZTAyWHN6czIyUTR2bm4z?=
+ =?utf-8?B?dk1VajJuUDE0RXllQmN2VkNQNDU0bGRZUVA1dytzR25hZk1XaWE5RWFrMFB3?=
+ =?utf-8?B?aHhoVjkyK3A4K3p4NUNDakg5MDdBTHpPTXlVUTkxNm1PbWlTSVFNemRueFFk?=
+ =?utf-8?B?NkNqdUtkaUE5K29MS3NCUkRrTVpUMzM4YUpRTEMxZ0J5WkhabVM4eHVRTmFI?=
+ =?utf-8?B?SGZzWEdkcC9zcnhPd3VGS2l1dFZDVzYyaE1NQ0hpK0JpOWR4QUtzcGxRQlV5?=
+ =?utf-8?B?b25wYmxuSFBtUjFBWEE5RC9hV1kvdWJWRzRXWnp5YnY4OTB5aHMxa2I2Vmhs?=
+ =?utf-8?B?UGVDUG1XbVZPUkU0eUptNnF0WFFWb1F4NlE3emdmRENwNTNqNmZ5cHpXQms5?=
+ =?utf-8?B?eC9kUW8rN3ZJb1lxUCtNSXdXM3pCL2VFVFZneGlhM1psQlJIM3UrS0RiMncw?=
+ =?utf-8?B?MWZ4VGhvWU5qeVVWbENoK2IwSzhsaS9mOGFLWDg1bmdlK0U3SDNkc2JSNWNJ?=
+ =?utf-8?B?Z0t5aisrS1cvYUJpTjJ3dVQxK2lXb0drSlMrcVNVTGJmalV0ZldIMjI5UDRr?=
+ =?utf-8?B?RGhmOTBNYmI0TjRFV3JxaDBRVmRsalplblBPYS8zT1lOakVKWFRjUHJSejZR?=
+ =?utf-8?B?NE1IeFFiT2JGYXk4QWl6aWdVeWZJWVJRNzFmL25YSEhTejQzN1RUOEJQMW5U?=
+ =?utf-8?B?MDhzcnBySWF6VUk3QloyWFRjbVZrUHJIRlJNM2R0Szl2dkE3OFkzYkxNSWtw?=
+ =?utf-8?B?TFpaTEZUV3FibnhwcGI4WGZ1R0VOQmYvY3BydFBjcExuNGtYOTk0WjF2dndu?=
+ =?utf-8?B?T01MY1ljeEZzR0ZLNHQzeWJoaUduVDY5dXF0bkpQR3hlb1ZmaXAxclFyaTZB?=
+ =?utf-8?B?MHRaclptQ2QwdjVINy9aWXBGbTAvVGVWVDNPbTBkcHFjRGNjc1JIRmxnMVpa?=
+ =?utf-8?B?Z1B2TXpKcGZjUUdBT2ZxcEJVVTFlQ2NOWTVjeXZjWXJ5V1FscDBIYm9VeWdQ?=
+ =?utf-8?Q?tGwtJ6pHrYIYLnjrvWBi17IqEbtpdGhttRXr6yh7NmEXJ?=
+X-MS-Exchange-AntiSpam-MessageData-1: j9fl+feSpfKNAA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97dc680a-ced9-4b71-04d7-08df1d3c85fd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0780275d-3497-469e-0dce-08df1d3c880e
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:43:09.4337
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:43:13.0092
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CF6vatCF+9cI2wxd6xbqWQPL1mQyNl/3h2tCK4WkkOWHw7cKogx/v40nYnUTeGEa0nDVElddMagnVgA4Q2xL3A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: KubIG4GOZPChFQbP8RnGk/Xlb/rvpb9D9U4uMw2gaJz/N+3sQ2u+L/jd51+STwKtUQguWNpchWXuN9iLJErCdQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
 
-Add a fixed capacity vector backed by [MaybeUninit<T>; N]. The ArrayVec
-is also initializable with a closure, returning an Init instance, to
-avoid constructing it on the stack. ArrayVec is useful for small but
-varying size arrays stored on the stack, to avoid a heap allocation, or,
-for larger varying size arrays initialized into caller provided memory
-but not wanting to provide an allocator.
+Add an encoder for NVKV, which is the wire format for GMCAPI. The
+encoded stream is a sequence of 64-bit values. The first 64-bit value
+encodes an op word which describes the function of the next N values.
 
+Essentially, the format encodes a sequence of calls to some function
+f(key, index, value), where value is a [u8], u32, u64, [u32], or a
+[u64]. The key is a u16 and the index is a 12 bit integer. The
+interpretation of these function calls is per GMCAPI.
+
+Add tests for the wire encoding for each primitive.
+
+Co-developed-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- rust/kernel/alloc.rs          |   3 +
- rust/kernel/alloc/arrayvec.rs | 347 ++++++++++++++++++++++++++++++++++++++++++
- rust/kernel/alloc/kvec.rs     |   1 +
- 3 files changed, 351 insertions(+)
+ drivers/gpu/nova-core/gsp.rs             |   1 +
+ drivers/gpu/nova-core/gsp/nvkv.rs        | 122 ++++++++++++++++++
+ drivers/gpu/nova-core/gsp/nvkv/encode.rs | 210 +++++++++++++++++++++++++++++++
+ 3 files changed, 333 insertions(+)
 
-diff --git a/rust/kernel/alloc.rs b/rust/kernel/alloc.rs
-index 21067bde6860..510e2c7f9f72 100644
---- a/rust/kernel/alloc.rs
-+++ b/rust/kernel/alloc.rs
-@@ -3,10 +3,13 @@
- //! Implementation of the kernel's memory allocation infrastructure.
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 25ea43f1cbe9..7b1bf74464e2 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -24,6 +24,7 @@
+ pub(crate) mod cmdq;
+ pub(crate) mod commands;
+ mod fw;
++mod nvkv;
+ mod regs;
+ mod sequencer;
  
- pub mod allocator;
-+pub mod arrayvec;
- pub mod kbox;
- pub mod kvec;
- pub mod layout;
- 
-+pub use self::arrayvec::ArrayVec;
-+
- pub use self::kbox::Box;
- pub use self::kbox::KBox;
- pub use self::kbox::KVBox;
-diff --git a/rust/kernel/alloc/arrayvec.rs b/rust/kernel/alloc/arrayvec.rs
+diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gsp/nvkv.rs
 new file mode 100644
-index 000000000000..4172a982e477
+index 000000000000..0957dce92f96
 --- /dev/null
-+++ b/rust/kernel/alloc/arrayvec.rs
-@@ -0,0 +1,347 @@
++++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+@@ -0,0 +1,122 @@
 +// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+//! Implementation of [`ArrayVec`].
++//! Codec for NVKV, the binary key-value format of GMCAPI.
++//!
++//! Essentially, the format encodes a sequence of calls to some function f(key, index, value),
++//! where value is a [u8], u32, u64, [u32], or a [u64]. The key is a u16 and the index is a 12 bit
++//! integer. The interpretation of these function calls is per GMCAPI. Generally speaking, the
++//! function calls will map to some struct - for example, f(GPU_NAME_STRING_KEY, 0, b"some gpu")
++//! naturally maps to storing a &str with the GPU name.
 +
-+use crate::{
-+    alloc::kvec::{
-+        impl_slice_eq,
-+        PushError, //
++#![expect(unused_imports)]
++
++use core::ops::Deref;
++
++use kernel::{
++    alloc::{
++        allocator::KVmalloc,
++        Allocator, //
 +    },
-+    const_assert,
-+    error::{
-+        code::EINVAL,
-+        Error,
-+        Result, //
-+    },
-+    fmt, //
++    bitfield,
++    num::Bounded,
++    prelude::*, //
 +};
++use zerocopy::Immutable;
 +
-+use core::{
-+    borrow::{
-+        Borrow,
-+        BorrowMut, //
-+    },
-+    mem::MaybeUninit,
-+    ops::{
-+        Deref,
-+        DerefMut, //
-+    },
-+    ptr,
-+    slice, //
-+};
++use crate::bounded_enum;
 +
-+use pin_init::{
-+    init_from_closure,
-+    Init,
-+    Zeroable, //
-+};
++mod encode;
++pub(crate) use encode::*;
 +
-+/// A fixed capacity vector that holds at most `N` elements.
++/// The allocator backing [`EncodedStream`].
++type StreamAllocator = KVmalloc;
++
++/// An encoded NVKV byte stream.
 +///
 +/// # Invariants
 +///
-+/// - `len` is at most `N`.
-+/// - The first `len` elements of `data` are initialized.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::alloc::ArrayVec;
-+///
-+/// let mut v = ArrayVec::<u8, 4>::new();
-+/// v.extend_from_slice(b"abc")?;
-+/// assert_eq!(*v, *b"abc");
-+///
-+/// assert!(v.extend_from_slice(b"ab").is_err());
-+///
-+/// v.push(4u8)?;
-+/// assert_eq!(*v, *b"abc\x04");
-+/// assert!(v.push(5u8).is_err());
-+///
-+/// v.clear();
-+/// assert!(v.is_empty());
-+/// # Ok::<(), Error>(())
-+/// ```
-+#[derive(Zeroable)]
-+pub struct ArrayVec<T, const N: usize> {
-+    data: [MaybeUninit<T>; N],
-+    len: usize,
++/// The byte length is always a multiple of `size_of::<u64>()`.
++pub(crate) struct EncodedStream(Vec<u8, StreamAllocator>);
++
++impl EncodedStream {
++    /// Creates an empty stream.
++    fn new() -> Self {
++        // INVARIANT: An empty stream's byte length is 0, a multiple of `size_of::<u64>()`.
++        Self(Vec::new())
++    }
++
++    /// Appends a single `u64` to the stream.
++    fn push_u64(&mut self, value: u64) -> Result {
++        // INVARIANT: Appending `size_of::<u64>()` bytes keeps the byte length a multiple of
++        // `size_of::<u64>()`.
++        Ok(self.0.extend_from_slice(&value.to_ne_bytes(), GFP_KERNEL)?)
++    }
++
++    /// Appends `data` as bytes to the stream, zero-padded to a `u64` boundary.
++    fn extend_with_padding<T: IntoBytes + Immutable + ?Sized>(&mut self, data: &T) -> Result {
++        let bytes = data.as_bytes();
++        let padded = bytes.len().next_multiple_of(size_of::<u64>());
++        // Reserve so that a failed allocation can't leave the invariant violated.
++        self.0.reserve(padded, GFP_KERNEL)?;
++        self.0.extend_from_slice(bytes, GFP_KERNEL)?;
++        // INVARIANT: The padding ensures the total length remains a multiple of
++        // `size_of::<u64>()`.
++        Ok(self.0.extend_with(padded - bytes.len(), 0u8, GFP_KERNEL)?)
++    }
 +}
 +
-+impl<T, const N: usize> ArrayVec<T, N> {
-+    /// Creates an empty [`ArrayVec`].
++// The Deref to `&[u64]` relies on this alignment guarantee.
++static_assert!(align_of::<u64>() <= StreamAllocator::MIN_ALIGN);
++
++impl Deref for EncodedStream {
++    type Target = [u64];
++
++    fn deref(&self) -> &Self::Target {
++        // An empty `Vec`'s pointer isn't necessarily aligned by `StreamAllocator::MIN_ALIGN`.
++        if self.0.is_empty() {
++            return &[];
++        }
++
++        // PANIC: By the type invariants the byte length is a multiple of `size_of::<u64>()`, and
++        // the backing buffer of a non-empty vector has at least `u64` alignment per
++        // `StreamAllocator`'s minimum alignment.
++        <[u64]>::ref_from_bytes(&self.0).expect("EncodedStream invariant violated")
++    }
++}
++
++/// The identifier of an NVKV key.
++pub(crate) type KeyId = u16;
++
++/// The index of an NVKV value.
++pub(crate) type Index = Bounded<u64, 12>;
++
++bitfield! {
++    /// The op word that starts each NVKV operation.
++    struct Op(u64) {
++        15:0 key;
++        27:16 index => Index;
++        31:28 opcode ?=> Opcode;
++        63:32 value;
++    }
++}
++
++bounded_enum! {
++    /// Describes the format of the following NVKV operation.
++    #[derive(Debug, Copy, Clone, PartialEq, Eq)]
++    #[repr(u8)]
++    enum Opcode with TryFrom<Bounded<u64, 4>> {
++        /// A 32-bit value in the op word.
++        Imm32 = 0,
++        /// 32-bit values for consecutive keys, starting at the op word's key.
++        Seq32 = 1,
++        /// 64-bit values for consecutive keys, starting at the op word's key.
++        Seq64 = 2,
++        /// An array of bytes.
++        Array8 = 3,
++        /// An array of 32-bit elements.
++        Array32 = 4,
++        /// An array of 64-bit elements.
++        Array64 = 5,
++    }
++}
+diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+new file mode 100644
+index 000000000000..8b66ddb15189
+--- /dev/null
++++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+@@ -0,0 +1,210 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++#![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
++
++use kernel::prelude::*;
++
++use super::{
++    EncodedStream,
++    Index,
++    KeyId,
++    Op,
++    Opcode, //
++};
++
++/// An encoder for an NVKV stream.
++pub(crate) struct Encoder {
++    stream: EncodedStream,
++}
++
++impl Encoder {
++    /// Creates an empty encoder.
++    pub(crate) fn new() -> Self {
++        Self {
++            stream: EncodedStream::new(),
++        }
++    }
++
++    /// Returns the encoded data.
++    #[must_use = "encoded stream must be consumed"]
++    pub(crate) fn finish(self) -> EncodedStream {
++        self.stream
++    }
++
 +    #[inline]
-+    pub const fn new() -> Self {
-+        // Clippy triggers this even if the enclosing function is never called, so skip if clippy is
-+        // on.
-+        const_assert!(
-+            cfg!(clippy) || size_of::<Self>() <= 512,
-+            "use `init_with` instead of constructing a large ArrayVec on the stack"
++    fn encode_op(&mut self, op: Op) -> Result {
++        self.stream.push_u64(op.into_raw())
++    }
++
++    /// Encodes a 32-bit value as an IMM32 pair, with the value in the op word.
++    #[inline]
++    pub(crate) fn encode_u32(&mut self, key: KeyId, index: Index, value: u32) -> Result {
++        // TODO: Consider automatically merging sequential keys.
++        self.encode_op(
++            Op::zeroed()
++                .with_key(key)
++                .with_index(index)
++                .with_opcode(Opcode::Imm32)
++                .with_value(value),
++        )
++    }
++
++    /// Encodes a 64-bit value as a single-element SEQ64 pair.
++    #[inline]
++    pub(crate) fn encode_u64(&mut self, key: KeyId, index: Index, value: u64) -> Result {
++        // TODO: Consider automatically merging sequential keys.
++        const KEY_COUNT: u32 = 1;
++        self.encode_op(
++            Op::zeroed()
++                .with_key(key)
++                .with_index(index)
++                .with_opcode(Opcode::Seq64)
++                .with_value(KEY_COUNT),
++        )?;
++        self.stream.push_u64(value)
++    }
++
++    /// Encodes a byte array as an ARRAY8 pair, zero-padded to a multiple of 8 bytes.
++    #[inline]
++    pub(crate) fn encode_array8(&mut self, key: KeyId, index: Index, array: &[u8]) -> Result {
++        let value_count = u32::try_from(array.len()).map_err(|_| EMSGSIZE)?;
++        self.encode_op(
++            Op::zeroed()
++                .with_key(key)
++                .with_index(index)
++                .with_opcode(Opcode::Array8)
++                .with_value(value_count),
++        )?;
++        self.stream.extend_with_padding(array)
++    }
++
++    /// Encodes a 32-bit array as an ARRAY32 pair, zero-padded to a multiple of 8 bytes.
++    #[inline]
++    pub(crate) fn encode_array32(&mut self, key: KeyId, index: Index, array: &[u32]) -> Result {
++        let value_count = u32::try_from(array.len()).map_err(|_| EMSGSIZE)?;
++        self.encode_op(
++            Op::zeroed()
++                .with_key(key)
++                .with_index(index)
++                .with_opcode(Opcode::Array32)
++                .with_value(value_count),
++        )?;
++        self.stream.extend_with_padding(array)
++    }
++
++    /// Encodes a 64-bit array as an ARRAY64 pair.
++    #[inline]
++    pub(crate) fn encode_array64(&mut self, key: KeyId, index: Index, array: &[u64]) -> Result {
++        let value_count = u32::try_from(array.len()).map_err(|_| EMSGSIZE)?;
++        self.encode_op(
++            Op::zeroed()
++                .with_key(key)
++                .with_index(index)
++                .with_opcode(Opcode::Array64)
++                .with_value(value_count),
++        )?;
++        self.stream.extend_with_padding(array)
++    }
++}
++
++#[kunit_tests(nova_core_nvkv_encode)]
++mod tests {
++    use super::*;
++
++    // Tests that each kind of value is encoded to NVKV wire format properly.
++    #[test]
++    fn encode_all_value_kinds() -> Result {
++        // All keys, indexes, and values are distinct but arbitrary values to make it easier for the
++        // test to catch bugs in the encoded output.
++        const U32_KEY: KeyId = 0x1001;
++        const U64_KEY: KeyId = 0x1002;
++        const ARRAY8_KEY: KeyId = 0x1003;
++        const ARRAY32_KEY: KeyId = 0x1004;
++        const ARRAY64_KEY: KeyId = 0x1005;
++
++        const U32_VALUE: u32 = 0x1111_2222;
++        const U64_VALUE: u64 = 0x3333_4444_5555_6666;
++        const ARRAY8_VALUE: &[u8] = &[0xaa, 0xbb, 0xcc];
++        const ARRAY32_VALUE: &[u32] = &[0xbbbb_cccc, 0xdddd_eeee];
++        const ARRAY64_VALUE: &[u64] = &[0x0123_4567_89ab_cdef, 0xfedc_ba98_7654_3210];
++
++        let mut encoder = Encoder::new();
++        encoder.encode_u32(U32_KEY, Index::new::<0>(), U32_VALUE)?;
++        encoder.encode_u64(U64_KEY, Index::new::<1>(), U64_VALUE)?;
++        encoder.encode_array8(ARRAY8_KEY, Index::new::<2>(), ARRAY8_VALUE)?;
++        encoder.encode_array32(ARRAY32_KEY, Index::new::<3>(), ARRAY32_VALUE)?;
++        encoder.encode_array64(ARRAY64_KEY, Index::new::<4>(), ARRAY64_VALUE)?;
++
++        let encoded = encoder.finish();
++        assert_eq!(encoded.len(), 10);
++
++        // IMM32 has its value in the op word.
++        assert_eq!(
++            encoded[0],
++            Op::zeroed()
++                .with_key(U32_KEY)
++                .with_index(Index::new::<0>())
++                .with_opcode(Opcode::Imm32)
++                .with_value(U32_VALUE)
++                .into_raw()
 +        );
 +
-+        // INVARIANT: An empty ArrayVec trivially has all its elements initialized.
-+        Self {
-+            data: [const { MaybeUninit::uninit() }; N],
-+            len: 0,
-+        }
-+    }
++        // The SEQ64 op word followed by the value.
++        assert_eq!(
++            encoded[1],
++            Op::zeroed()
++                .with_key(U64_KEY)
++                .with_index(Index::new::<1>())
++                .with_opcode(Opcode::Seq64)
++                .with_value(1u32)
++                .into_raw()
++        );
++        assert_eq!(encoded[2], U64_VALUE);
 +
-+    /// Creates an initializer for an [`ArrayVec`] populated by `f`.
-+    ///
-+    /// `f` gets an empty [`ArrayVec`] and can fill it in place.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::alloc::ArrayVec;
-+    ///
-+    /// let v = KBox::init(
-+    ///     ArrayVec::<u8, 4096>::init_with(|v| v.extend_from_slice(b"abc")),
-+    ///     GFP_KERNEL,
-+    /// )?;
-+    /// assert_eq!(**v, *b"abc");
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    pub fn init_with<E>(f: impl FnOnce(&mut Self) -> Result<(), E>) -> impl Init<Self, E> {
-+        let init = move |slot: *mut Self| {
-+            // SAFETY: By the initializer contract `slot` is valid for writes. Once `len` is zero
-+            // the slot holds a valid empty ArrayVec, since `data` requires no initialization.
-+            // INVARIANT: An empty ArrayVec trivially has all its elements initialized.
-+            unsafe { ptr::addr_of_mut!((*slot).len).write(0) };
++        // The ARRAY8 op word has the byte count. The bytes follow, padded out to a whole word.
++        assert_eq!(
++            encoded[3],
++            Op::zeroed()
++                .with_key(ARRAY8_KEY)
++                .with_index(Index::new::<2>())
++                .with_opcode(Opcode::Array8)
++                .with_value(3u32)
++                .into_raw()
++        );
++        assert_eq!(
++            encoded[4],
++            u64::from_le_bytes([0xaa, 0xbb, 0xcc, 0, 0, 0, 0, 0])
++        );
 +
-+            // SAFETY: `slot` holds a valid ArrayVec and no other reference to it exists.
-+            let v = unsafe { &mut *slot };
-+            f(v).inspect_err(|_| {
-+                // SAFETY: `slot` holds a valid ArrayVec, and on failure the slot is never accessed
-+                // again, so the elements can't be dropped twice.
-+                unsafe { ptr::drop_in_place(slot) }
-+            })
-+        };
++        // The ARRAY32 op word has the element count. The two elements follow in little endian.
++        assert_eq!(
++            encoded[5],
++            Op::zeroed()
++                .with_key(ARRAY32_KEY)
++                .with_index(Index::new::<3>())
++                .with_opcode(Opcode::Array32)
++                .with_value(2u32)
++                .into_raw()
++        );
++        assert_eq!(
++            encoded[6],
++            u64::from(ARRAY32_VALUE[1]) << 32 | u64::from(ARRAY32_VALUE[0])
++        );
 +
-+        // SAFETY: `init` fully initializes the slot on success and drops the potentially filled
-+        // ArrayVec on failure.
-+        unsafe { init_from_closure(init) }
-+    }
-+
-+    /// Appends an element to the back of the [`ArrayVec`].
-+    ///
-+    /// Fails when the [`ArrayVec`] is full, handing the element back in [`PushError`].
-+    pub fn push(&mut self, v: T) -> Result<(), PushError<T>> {
-+        self.try_push_init(v)
-+            .map_err(|PushInitError::Full(v)| PushError(v))
-+    }
-+
-+    /// Appends an element to the back of the [`ArrayVec`] by initializing it in place.
-+    ///
-+    /// Fails with [`FullError`] when the [`ArrayVec`] is full.
-+    pub fn push_init(&mut self, init: impl Init<T>) -> Result<(), FullError> {
-+        self.try_push_init(init)
-+            .map_err(|PushInitError::Full(_)| FullError)
-+    }
-+
-+    /// Appends an element to the back of the [`ArrayVec`] by initializing it in place.
-+    ///
-+    /// Unlike [`ArrayVec::push_init`], the initializer may be fallible. If the [`ArrayVec`] is
-+    /// full, the original initializer `init` is handed back in [`PushInitError::Full`]. If the
-+    /// initializer itself fails, its error is returned in [`PushInitError::InitError`].
-+    pub fn try_push_init<I, E>(&mut self, init: I) -> Result<(), PushInitError<I, E>>
-+    where
-+        I: Init<T, E>,
-+    {
-+        let Some(slot) = self.spare_capacity_mut().first_mut() else {
-+            return Err(PushInitError::Full(init));
-+        };
-+
-+        // SAFETY: `slot` refers to allocated, aligned memory valid for a write of one `T`.
-+        unsafe { init.__init(slot.as_mut_ptr()) }.map_err(PushInitError::InitError)?;
-+
-+        // INVARIANT: The element at index `len` was just initialized, and the new `len` does not
-+        // exceed `N` because a spare slot existed.
-+        self.len += 1;
++        // The ARRAY64 op word has the element count with the two elements after.
++        assert_eq!(
++            encoded[7],
++            Op::zeroed()
++                .with_key(ARRAY64_KEY)
++                .with_index(Index::new::<4>())
++                .with_opcode(Opcode::Array64)
++                .with_value(2u32)
++                .into_raw()
++        );
++        assert_eq!(encoded[8], ARRAY64_VALUE[0]);
++        assert_eq!(encoded[9], ARRAY64_VALUE[1]);
 +
 +        Ok(())
 +    }
-+
-+    /// Appends a clone of each element in `slice` to the back of the [`ArrayVec`].
-+    ///
-+    /// Fails with [`EINVAL`] if `slice` is longer than the remaining capacity.
-+    pub fn extend_from_slice(&mut self, slice: &[T]) -> Result
-+    where
-+        T: Clone,
-+    {
-+        let Some(dst) = self.spare_capacity_mut().get_mut(..slice.len()) else {
-+            return Err(EINVAL);
-+        };
-+
-+        for (d, s) in dst.iter_mut().zip(slice) {
-+            d.write(s.clone());
-+        }
-+        // INVARIANT: The next `slice.len()` elements after `len` were just initialized, and the
-+        // new `len` does not exceed `N` because the spare capacity was enough.
-+        self.len += slice.len();
-+
-+        Ok(())
-+    }
-+
-+    /// Removes all elements.
-+    #[inline]
-+    pub fn clear(&mut self) {
-+        let elems: *mut [T] = self.as_mut_slice();
-+        // INVARIANT: An empty ArrayVec trivially has all its elements initialized.
-+        self.len = 0;
-+        // SAFETY: There are no references to the elements since we hold `&mut self`. The elements
-+        // can't be dropped again because `len` is already 0.
-+        unsafe { ptr::drop_in_place(elems) };
-+    }
-+
-+    /// Returns the initialized elements as a slice.
-+    #[inline]
-+    pub fn as_slice(&self) -> &[T] {
-+        let ptr = self.data.as_ptr().cast::<T>();
-+        // SAFETY: `MaybeUninit<T>` has the same layout as `T`, and by the type invariants the first
-+        // `len` elements of `data` are initialized.
-+        unsafe { slice::from_raw_parts(ptr, self.len) }
-+    }
-+
-+    /// Returns the initialized elements as a mutable slice.
-+    #[inline]
-+    pub fn as_mut_slice(&mut self) -> &mut [T] {
-+        let ptr = self.data.as_mut_ptr().cast::<T>();
-+        // SAFETY: `MaybeUninit<T>` has the same layout as `T`, and by the type invariants the first
-+        // `len` elements of `data` are initialized.
-+        unsafe { slice::from_raw_parts_mut(ptr, self.len) }
-+    }
-+
-+    /// Returns a slice of `MaybeUninit<T>` for the remaining spare capacity of the [`ArrayVec`].
-+    fn spare_capacity_mut(&mut self) -> &mut [MaybeUninit<T>] {
-+        // PANIC: `len` never exceeds `N` by the type invariants.
-+        &mut self.data[self.len..]
-+    }
 +}
-+
-+/// Error type for [`ArrayVec::try_push_init`].
-+pub enum PushInitError<I, E> {
-+    /// The [`ArrayVec`] is full. Hand the initializer back.
-+    Full(I),
-+    /// The initializer failed.
-+    InitError(E),
-+}
-+
-+impl<I, E> fmt::Debug for PushInitError<I, E> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        match self {
-+            PushInitError::Full(_) => write!(f, "Not enough capacity"),
-+            PushInitError::InitError(_) => write!(f, "Initializer failed"),
-+        }
-+    }
-+}
-+
-+impl<I, E> From<PushInitError<I, E>> for Error
-+where
-+    Error: From<E>,
-+{
-+    #[inline]
-+    fn from(e: PushInitError<I, E>) -> Error {
-+        match e {
-+            PushInitError::Full(_) => EINVAL,
-+            PushInitError::InitError(e) => Error::from(e),
-+        }
-+    }
-+}
-+
-+/// Error type for [`ArrayVec::push_init`].
-+pub struct FullError;
-+
-+impl fmt::Debug for FullError {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        write!(f, "Not enough capacity")
-+    }
-+}
-+
-+impl From<FullError> for Error {
-+    #[inline]
-+    fn from(_: FullError) -> Error {
-+        EINVAL
-+    }
-+}
-+
-+impl<T, const N: usize> Default for ArrayVec<T, N> {
-+    #[inline]
-+    fn default() -> Self {
-+        Self::new()
-+    }
-+}
-+
-+impl<T, const N: usize> Drop for ArrayVec<T, N> {
-+    fn drop(&mut self) {
-+        // SAFETY: The slice holds initialized elements that are never accessed again after this
-+        // point.
-+        unsafe { ptr::drop_in_place(self.as_mut_slice()) };
-+    }
-+}
-+
-+impl<T, const N: usize> Deref for ArrayVec<T, N> {
-+    type Target = [T];
-+
-+    #[inline]
-+    fn deref(&self) -> &Self::Target {
-+        self.as_slice()
-+    }
-+}
-+
-+impl<T, const N: usize> DerefMut for ArrayVec<T, N> {
-+    #[inline]
-+    fn deref_mut(&mut self) -> &mut Self::Target {
-+        self.as_mut_slice()
-+    }
-+}
-+
-+impl<T, const N: usize> Borrow<[T]> for ArrayVec<T, N> {
-+    fn borrow(&self) -> &[T] {
-+        self.as_slice()
-+    }
-+}
-+
-+impl<T, const N: usize> BorrowMut<[T]> for ArrayVec<T, N> {
-+    fn borrow_mut(&mut self) -> &mut [T] {
-+        self.as_mut_slice()
-+    }
-+}
-+
-+impl<T: Eq, const N: usize> Eq for ArrayVec<T, N> {}
-+
-+impl_slice_eq! {
-+    [const N: usize, const M: usize] ArrayVec<T, N>, ArrayVec<U, M>,
-+    [const N: usize] ArrayVec<T, N>, &[U],
-+    [const N: usize] ArrayVec<T, N>, &mut [U],
-+    [const N: usize] &[T], ArrayVec<U, N>,
-+    [const N: usize] &mut [T], ArrayVec<U, N>,
-+    [const N: usize] ArrayVec<T, N>, [U],
-+    [const N: usize] [T], ArrayVec<U, N>,
-+    [const N: usize, const M: usize] ArrayVec<T, N>, [U; M],
-+    [const N: usize, const M: usize] ArrayVec<T, N>, &[U; M],
-+}
-+
-+impl<'a, T, const N: usize> IntoIterator for &'a ArrayVec<T, N> {
-+    type Item = &'a T;
-+    type IntoIter = slice::Iter<'a, T>;
-+
-+    fn into_iter(self) -> Self::IntoIter {
-+        self.iter()
-+    }
-+}
-+
-+impl<'a, T, const N: usize> IntoIterator for &'a mut ArrayVec<T, N> {
-+    type Item = &'a mut T;
-+    type IntoIter = slice::IterMut<'a, T>;
-+
-+    fn into_iter(self) -> Self::IntoIter {
-+        self.iter_mut()
-+    }
-+}
-+
-+impl<T: fmt::Debug, const N: usize> fmt::Debug for ArrayVec<T, N> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        fmt::Debug::fmt(self.as_slice(), f)
-+    }
-+}
-diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
-index 1b7b3a1ca770..bb4da220293b 100644
---- a/rust/kernel/alloc/kvec.rs
-+++ b/rust/kernel/alloc/kvec.rs
-@@ -1242,6 +1242,7 @@ fn eq(&self, other: &$rhs) -> bool { self[..] == other[..] }
-         )*
-     }
- }
-+pub(super) use impl_slice_eq;
- 
- impl_slice_eq! {
-     [A1: Allocator, A2: Allocator] Vec<T, A1>, Vec<U, A2>,
 
 -- 
 2.55.0
