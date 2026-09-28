@@ -1,68 +1,68 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010028.outbound.protection.outlook.com [52.101.85.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9443C49A3A2
-	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 10:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC6249B465
+	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 10:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790591426; cv=fail; b=TF2P7fmrWagQeGToeNkcgB8UVhBzNcV7WvlF+dRSUf6hQfYIHmeuPIDnIh3919fuF+Hpaa6pcaQ6jVlEFIRhjA8disEv6sMwdZS0FvGx0eZCgojjpFG6tSe+fRlCTd8y+8bcgOFqqhy7gc4XeD/JsIuXaZcHGHchfAsYYZlsvSs=
+	t=1790591431; cv=fail; b=mjkL2gPqO41MMwtQj2vBmH0ubp/DI8DsfRW/dEAyg31OphFxQm0PueB8CFd3mephD+I+BklUKwJnUDozfaO3+G/KDdCJgWEjuepppQadi1MhOuKQSa3ZPVEFBByDvzynwC302p2M/IYJVTY+ZlElYeGeBfTgFB/0ik6VK4ZveLw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790591426; c=relaxed/simple;
-	bh=wCI7T48BiCUd9SEuipjaqZC08rGASyDcXhTALyDY6LI=;
+	s=arc-20240116; t=1790591431; c=relaxed/simple;
+	bh=54LhS7hIlxIWqNlOMhzT7nGgvdq1bM02Nmdjcw3L1KE=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MwU/cJ4+wzvKMdFYh2FZw4C2Er+tuGIjqbM4itIy+4d8huq5qw3EYuBJm6Dz/jN/D9GvkHUs9LcOfFhQrYDiBPGlTilaAFQjYrMhLqGFI2LgqExUn+3+3ak13sENxCUrgqJowUd/J0k2ZDLL2vGmNdqGlvIJwklG3jyLdjs3kC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rDbUz91t; arc=fail smtp.client-ip=52.101.43.8
+	 MIME-Version:Content-Type; b=lwxeYNCSU6jqjmBiXh3nDMWqp8LCJ8s92+jH97T+xw9GPrjfxmwUqjbt89I8WFem5UgugkuhwccjZQMOteF7saippfrrnCZsEcj+wd8rfty/U5Lp2z2qmBaOKCIe/BXib3EDdSi9QM4JhUwtRn+6TG4yJe265EVBey/yxkC1VFQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Yc6zbEDc; arc=fail smtp.client-ip=52.101.85.28
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rDbUz91t"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Yc6zbEDc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PEhLccrPs/PH6oHJksUlc0copvhjrngnm1UFCK5340hp9HVzuYaNNFoPeq+XpYg/e6OCuRzyxCWfdJE875IkFXN/FMFOw+CnSq+75adlIeS4/LzuAzedKeTHfRKIxHwLB9yioU104qh0th8GlIjegMY8SlEuZ8Zhyg243mBSVy0g2ZeZRHBG+yCKRSNnWKPxn2+fgtbqRUtsb2sbuRD0OleV/Kcjc5dvOoh5d31U2rjfCy2FNyHhq+FGVS+YsOiFrjNoQ9W9KQizpEEl1TT2Y9nJ36R5ht5eOlWSbyBg+Qxlqq18tlWVAoB358ioXu+8qc7Q8YD28w6yZxO5CcGinA==
+ b=dZh68KorYuL5yCybPgJDOILqBgnFGI0av1z9FmFHbmVS96ha8ul2klNS/fasIO0NAXBEA5AacOspF51RSdq6SMIAvFOworUhjxD0/2QQqOyZmJopko/CJuJMGTbyKbNGnSWl89X+OkQGewKoUZ96lD+xBwoZLdqmuk+lteUUY7aDcTSCC5hsjUHWeINj6jTds5+nKHWIEOkMixpBL8kjn7qDJAIbgf+rzNaP4sH18wQbSyT5rSSRwm4uJ3sOMx97B+EQmn8GadEkHg4rfYdI3r3Kzna8AkfSrDd8LkOafXAy8aDvx+0++Y4q+TSq/v1OolF3pkX71SvPeYyLUKmW2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vBeSNWI/NrFIYvxRhnHcnx27ZxXUuamLj/xF0HV/jGE=;
- b=ITqL+KUn2I3j0HuiIjFX/zuoUSihkOguDXP/N8yHRMZWQMlPVchq8XB0pFk2sE8Zlr5ANVrzXRjyc8z9bAl/ui4bwxESxVZNILBf0d3v2VTUAi+lSxbZbFoaLri09NxDaRpxHRiOEwBR4OJkRYKZmlzl0PejAPSmp5drREmsIY8TBp6/y9Jieot/MyNTib+sCCIAABlWqfNOAWe7Y+BjmrYM7Ic7cw7klCdhj+pNlyow6dpHc7xBzQDLAjBaOOL3G0uTK4sGwlZpcDaKV3S0Jcr5fRTEQHjhjtoSafU2+8Md90GBp5WdPEQ2dksuHDsYviK4ZGuSnJLvrUrqUuX6Ng==
+ bh=Af77Zadpl4OjgI6o1HTK6fmqhgul+jVtdUEl6CZ8gDo=;
+ b=T47qlPvH5SZTqbRJIStFI+KBZ4RRoU+aK8TI06SvNAa9V+YxtSLcgg0qtR7o+QYpPzvWhNmnIwCdBs4lSbRpzLALvOcDfc7iC7BbNq/MbXilNBHKF4kJzEEKuZDqljSUk6bOoIwGJpPtrwMlZAIzsw4NsJnFCnSUhrsogBwT7zUHMmQZEeRmE8xsUJRGuXjbfxH58K4bnPwK7rBN/yVdTuGetzzrjCEVvRH3e+n2LpP02BZ1RXznMQa42Uw3OPraIsZ78Ve7hFQEU30tnilO6doy5nGX2mDop/89zO7gETQ4MEc9mYvWlKs8PlSiSlxHQICCKSPO3PQ1J7EIaGtT4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vBeSNWI/NrFIYvxRhnHcnx27ZxXUuamLj/xF0HV/jGE=;
- b=rDbUz91tARAZTwL+bBwtlQLcOD/UPKI3FFLTxT28Yi0FjuBkWBV6FSSbR3dbsTZJkOjl0/ybJnBFmGSKkfcDLkxtE6X6tRGMoQmamBRKwedQebGw1dG8VFXgVysMj9vWOXorM8m4sn6DFBrB5OfBVl87i/VtF01LBfysmjWIh7zZxpm+hRD88gmW5VjX9J8A0AL1KV8OrJL3KKISJClTS2vxIxy+U4PR6732IS205ySuzQO4oNHlsBz9200yV+vWhW6b0nbyvvhnRkkXiUwu8MOhcWtdBwPsohcnWZYfu9m2tXMVpvqWnPKvAsxSLhGS9kdW9tfu50kMlLE1yzhsKw==
-Received: from MW4P221CA0019.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::24)
- by MW4PR12MB6975.namprd12.prod.outlook.com (2603:10b6:303:20a::9) with
+ bh=Af77Zadpl4OjgI6o1HTK6fmqhgul+jVtdUEl6CZ8gDo=;
+ b=Yc6zbEDcHx4pehwjDKx+AocJ6L6+o63k6fvHRXt9Dp68E+qWrvwRCLFEjjXn5R+M1V3XNzDigcBDaxXBT8jzWS2CZCYJT0+X+K0zPhHF5d4LC4Xsjm38dfEQyucMb2Q7sUcPckiLlykr05FV9oGG7iS/+bJakoE8ItmkimwNrXuI3Z0rGvrnDtq4h4OOnc+ZQU+NhV1Z2UmdGUil3bPuOHqpfJzAYx8klI/sF9RJ25XhotCgFz8ZpGM8qcVUgfXG1+ZNkHptoiseu+VyuMXuh90zRPiJiYaJM/gkFTsxWVBTqjL63xbHTOpozesifMJHBscomLzLqMb/wcisRYsdHg==
+Received: from BN0PR04CA0170.namprd04.prod.outlook.com (2603:10b6:408:eb::25)
+ by PH8PR12MB6795.namprd12.prod.outlook.com (2603:10b6:510:1c6::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 10:30:15 +0000
-Received: from MWH0EPF000C6192.namprd02.prod.outlook.com
- (2603:10b6:303:8b:cafe::d) by MW4P221CA0019.outlook.office365.com
- (2603:10b6:303:8b::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 10:30:23 +0000
+Received: from BN2PEPF000044A8.namprd04.prod.outlook.com
+ (2603:10b6:408:eb:cafe::71) by BN0PR04CA0170.outlook.office365.com
+ (2603:10b6:408:eb::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 10:30:15 +0000
+ 28 Sep 2026 10:30:22 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- MWH0EPF000C6192.mail.protection.outlook.com (10.167.249.102) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF000044A8.mail.protection.outlook.com (10.167.243.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:30:15 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 10:30:22 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:29:58 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 03:30:06 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 03:29:56 -0700
+ 2026 03:30:05 -0700
 Received: from inno-dell.home (10.127.8.10) by mail.nvidia.com (10.129.68.9)
  with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Mon, 28
- Sep 2026 03:29:48 -0700
+ Sep 2026 03:29:57 -0700
 From: Zhi Wang <zhiw@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>
 CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
@@ -76,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<kwankhede@nvidia.com>, <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
 	<zhiw@nvidia.com>, Alistair Popple <apopple@nvidia.com>
-Subject: [PATCH v3 08/31] gpu: nova-core: mm: borrow BarUser for temporary BAR1 access
-Date: Mon, 28 Sep 2026 13:28:11 +0300
-Message-ID: <7d3fb1c09f9c93b440cb5d83dd9665e6a4e39096.1790580105.git.zhiw@nvidia.com>
+Subject: [PATCH v3 09/31] gpu: nova-core: mm: add VramBlock
+Date: Mon, 28 Sep 2026 13:28:12 +0300
+Message-ID: <5dfa551cff300e34420b67571ee111774f42338b.1790580105.git.zhiw@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1790580105.git.zhiw@nvidia.com>
 References: <cover.1790580105.git.zhiw@nvidia.com>
@@ -93,211 +93,137 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6192:EE_|MW4PR12MB6975:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbcb925a-34af-4eb6-a747-08df1d4b7c81
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A8:EE_|PH8PR12MB6795:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9c2c2a8-8f25-4116-11dc-08df1d4b807e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|7416014|376014|82310400026|23010399003|10067099003|6133799003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|7416014|10067099003|11063799006|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	Y2WK8eyQiPJl65Iq1127vwdhJlET5M+u4jk9nXPBMy9Iti7eXaDR571P9Kwf1Shxvmv+hnU4IcLjc/5MSnojiwgikYXuI1eBEvapmYqiB8snya8RZkMzCWCDwdsvju+Gyi3bokSxFvMm/O1Ij0889bGbKKUbAPhWTriAqwiVPutQiezT9MsIeYJ2LmZ8Up+mic03t2XaZTfvix0H0IJN48GJ08A1jhSvh3W0oCYUreyY39zZAZSEro3WbsypJXoYdW2NgEiTusguJnidpobIZZ03hN9Nre0SseQiKOel3g6jqFDffi9t41/AT5PcLtIIF9ean1deV3cfHcMicOHaks5QHyffbqfiCfdlbVp67PWBcu6uo1OhYcMdE/vYlr/wgEtGJtS3nQ+PDttV0XFV9OIguVtaycuGDUqCUVCAliYZdCPO8j2D1VhzUCV74i3bNQE45MGJNqbZe8Dtmu8DWU4xKPfqa7KQ84ZG1ABFMMDjYK2ATyagvpUKQl/qt9jwTHVe+THGJHOtZJnABgNgRu+sCoJoZsQrVYRupKSCn7wkdpZbZDrdpRa7eK8uvxuoL5X2bxEOMsxJXhykGGcuGQ7TmS3UA+PJlifkLcqNB3CJpy8gtJsbeCGTyY7ok91XdEiq+cYlXL0D/alv8KBE1Hgsc9dtOLcosyrbeHlAR4xzVnhTCkFrCwQvcas6225Pjvops0ZmaLNIs03t4SXDjg==
+	lrSIL9L09ST0WDv6kB7WBD93pgNjO+1M7iEfdWqi7WllK7lmipZFHoUqws1kigzlojjAyr+pkho3eVnLPeF34F40h98k/oXdmV86wNGRLqaU9apgZBWzcysuCJNFGxc2nt1f0AiDuuZnJzxDyUqOaC9o5LKFHZkGizJuhIXWJNlUaQ2TXJHd7vntKoBLL9XZJR4iFdJKniVuR0/CRur+GGf3LvAjozvWw2kfgUhDGSnDJyXmtLPSkL02QAGL51CCSZ88qgCRouaS0uAwb4UzgjsRI6y8I00lbvSl0UYvTMX2y5WVvwduMxW+lZLeW3CQrgKTv3IXCc9+Wk80jtuEKWukpscTMaor8ubuyZvjBh+8tHLx9B1VE/P4D3nmxpNAhuM+CKEZhxSfxVQ6KaKIXJFbZ2UFTMaFdRxYpzFWi5/t/Lmu89/ANG6K5XrQSMoDsnVQQ+rSgM3KRTBI52GuvDJqtLEcgDQ9gGko/Fswo4i+EPGOK832kk5VhEveWcuxq/uNNO2txBSyb7ZftIzz+t5aiWbKsqbUhNQPuq8vOe45jYZ3tG8ZYf631Lq8yjwo4GbNREY2NYE9QSEUW+M7Tzx4swxE6NK0WlixvdhU0ftqu4/KTszixvu1JxGyY/eWMZgeIG0soy+22wFci7QQxP760z54BqU7W+xFZexU/QBUloowhDrIPXh2hfbI707B
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(7416014)(376014)(82310400026)(23010399003)(10067099003)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(7416014)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	wpuM8WZukss3nvd17gcwYPEcTboLCoNeaGMko2AO4dDPgA5CjVNwWVBW8lbGedu5kcnWZlWRdUmkp/AnNWW83fA4J/M4bSMNVlebX6d6RwdRMdJSpVEaTugFpY0sPjtRQQfRKSTkudg3H6II6FRbu1RNEootA2pDeFqNiXon3THPZLF/o15Rnwz7PwQDhV65U3vNlJM/yj/EN66RdHDOfGKHxvuV+zQGD7H+pZjWsHo0+DsyBBkb1YVmp2PmnWxqICgTURsrxwGTyT1tsJ05uqouoX+XlCEvVpsnxhc348ir38l3CBx75nDnmJx3iqyvDJlYSvAQQiYGGYBBIpi9UI97OjmyojHdigNtgxhiHbjkH8iPX6sLKqgUKA0DSJlp3pM6jFQKUwR+1B924lN1vrYZVBeuABnq2KycyctURGky+KCocCaxilavlNcGlLda
+	E2bIU4J0gn13YsqWCb1/+F8C+B/NcfGfsNLcc3nOEC1HL34+AneMmHyUxWm1B8Icg13bekESrlUqJ3qKMx3FKVX/mvlraxLvaqG8mHbKUWC2Uzs0OyB9LdsOPQyIYmm8VxTqIkBmJWerdWi8XW4aj754H+wsqg2jwTHb8BYkOm1jO34w0v8J+ZQRt3x/Lz7HY0rCXSXCghmcLI5SVw4BODJHupoxi5ugB0dvOEoEpe+yFKSdg+hJjG7T6vbPqcaxrnzBATxkaUsMCaBZVQnG9RtcY51j0W5AhVWsPDz1yNuaPjkHRr42DKQnJccgpybdBUG1cHdZSdOZLNvN2YXWKcBPAphTKZWZq9MunpocdosjHASlgaRf/XxweodgumkUz7oW+nzhLDfhAUM7+PSi1cUyojzeGGa+P6YUXLCSjKpt4COyiTEZ8FoJxIoKVgdC
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:30:15.7478
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:30:22.3291
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbcb925a-34af-4eb6-a747-08df1d4b7c81
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9c2c2a8-8f25-4116-11dc-08df1d4b807e
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6192.namprd02.prod.outlook.com
+	BN2PEPF000044A8.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6975
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6795
 
-Temporary BAR1 access needs a borrow of the GPU-owned BarUser. Store
-BarUser inline in Gpu and borrow it in BarUserAccess, avoiding a separate
-allocation and reference counting for these accesses. Update the existing
-self-test entry points to accept the borrowed interface.
+vGPU memory slots need allocations at fixed offsets within usable VRAM.
+Add GpuMm::alloc_vram_range and VramBlock to own these exact allocations
+and return their storage to the buddy allocator on drop.
 
-No functional change is intended.
+Use the buddy allocator's range validation and retain the checks for
+absolute physical address overflow and alignment.
 
 Cc: Alistair Popple <apopple@nvidia.com>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 ---
- drivers/gpu/nova-core/gpu.rs         | 21 +++++++++------------
- drivers/gpu/nova-core/mm.rs          |  5 ++---
- drivers/gpu/nova-core/mm/bar_user.rs | 27 ++++++++++++---------------
- 3 files changed, 23 insertions(+), 30 deletions(-)
+ drivers/gpu/nova-core/mm.rs      |  2 +
+ drivers/gpu/nova-core/mm/vram.rs | 75 ++++++++++++++++++++++++++++++++
+ 2 files changed, 77 insertions(+)
+ create mode 100644 drivers/gpu/nova-core/mm/vram.rs
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 11d9986c4b19..97b33d4b2631 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -16,7 +16,6 @@
-         SizeConstants,
-         SZ_4K, //
-     },
--    sync::Arc,
- };
- 
- use crate::{
-@@ -340,7 +339,8 @@ pub(crate) struct Gpu<'gpu> {
-     /// the GSP is still operational.
-     mm: GpuMm<'gpu>,
-     /// BAR1 user interface for CPU access to GPU virtual memory.
--    bar_user: Arc<BarUser<'gpu>>,
-+    #[pin]
-+    bar_user: BarUser<'gpu>,
-     /// GSP and its resources.
-     #[pin]
-     gsp_resources: GspResources<'gpu>,
-@@ -545,18 +545,15 @@ pub(crate) fn new<'a>(
-             },
- 
-             // Create BAR1 user interface for CPU access to GPU virtual memory.
--            bar_user: {
-+            bar_user <- {
-                 let pdb_addr = VramAddress::from_raw(gsp_resources.static_info().bar1_pde_base());
-                 let bar1_idx = crate::driver::bar1_resource_index(pdev)?;
-                 let bar1_size = pdev.resource_len(bar1_idx)?;
--                Arc::pin_init(
--                    BarUser::new(
--                        pdb_addr,
--                        gsp_resources.spec.chipset,
--                        bar1_size,
--                        bar1,
--                    )?,
--                    GFP_KERNEL,
-+                BarUser::new(
-+                    pdb_addr,
-+                    gsp_resources.spec.chipset,
-+                    bar1_size,
-+                    bar1,
-                 )?
-             },
-         })
-@@ -573,7 +570,7 @@ pub(crate) fn run_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bou
-             dev,
-             this.mm,
-             info.usable_fb_regions(),
--            this.bar_user,
-+            this.bar_user.as_ref().get_ref(),
-             info.bar1_pde_base(),
-             this.spec.chipset,
-         ) {
 diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index ea85c821f0e2..a835180db6c5 100644
+index a835180db6c5..a1e0bbffc460 100644
 --- a/drivers/gpu/nova-core/mm.rs
 +++ b/drivers/gpu/nova-core/mm.rs
-@@ -298,8 +298,7 @@ pub(crate) mod selftest {
+@@ -67,6 +67,8 @@ macro_rules! impl_pfn_bounded {
+ mod regs;
+ pub(super) mod tlb;
+ pub(super) mod vmm;
++#[expect(dead_code)]
++pub(crate) mod vram;
  
-     use kernel::{
-         device,
--        sizes::SizeConstants,
--        sync::Arc, //
-+        sizes::SizeConstants, //
-     };
- 
-     use super::*;
-@@ -309,7 +308,7 @@ pub(crate) fn run(
-         dev: &device::Device<device::Bound>,
-         mm: &mut GpuMm<'_>,
-         mut usable_fb_regions: impl Iterator<Item = Range<u64>>,
--        bar_user: &Arc<bar_user::BarUser<'_>>,
-+        bar_user: &bar_user::BarUser<'_>,
-         bar1_pdb: u64,
-         chipset: Chipset,
-     ) -> Result {
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index cd2d0271e64c..414c69e037ee 100644
---- a/drivers/gpu/nova-core/mm/bar_user.rs
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -7,10 +7,7 @@
-     io::Io,
-     new_mutex,
-     prelude::*,
--    sync::{
--        Arc,
--        Mutex, //
--    },
-+    sync::Mutex, //
- };
- 
- use crate::{
-@@ -60,12 +57,12 @@ pub(crate) fn new(
-     }
- 
-     /// Map physical pages to a contiguous BAR1 virtual range.
--    pub(crate) fn map(
--        self: &Arc<Self>,
-+    pub(crate) fn map<'access>(
-+        &'access self,
-         mm: &mut GpuMm<'_>,
-         pfns: &[Pfn],
-         writable: bool,
--    ) -> Result<BarUserAccess<'gpu>> {
-+    ) -> Result<BarUserAccess<'access, 'gpu>> {
-         if pfns.is_empty() {
-             return Err(EINVAL);
-         }
-@@ -73,21 +70,21 @@ pub(crate) fn map(
-         let mapped = vmm.map_pages(mm, pfns, None, writable)?;
- 
-         Ok(BarUserAccess {
--            bar_user: self.clone(),
-+            bar_user: self,
-             mapped: Some(mapped),
-         })
-     }
- }
- 
- /// Access object for a mapped BAR1 region.
--pub(crate) struct BarUserAccess<'gpu> {
--    bar_user: Arc<BarUser<'gpu>>,
-+pub(crate) struct BarUserAccess<'access, 'gpu> {
-+    bar_user: &'access BarUser<'gpu>,
-     /// Cleared only after PTE invalidation and its TLB flush succeed.
-     mapped: Option<MappedRange>,
- }
- 
- #[expect(dead_code)]
--impl BarUserAccess<'_> {
-+impl BarUserAccess<'_, '_> {
-     /// Tear down the BAR1 mapping.
-     pub(crate) fn release(mut self, mm: &mut GpuMm<'_>) -> Result {
-         self.unmap(mm)
-@@ -167,7 +164,7 @@ pub(crate) fn try_write64(&self, value: u64, offset: usize) -> Result {
-     }
- }
- 
--impl Drop for BarUserAccess<'_> {
-+impl Drop for BarUserAccess<'_, '_> {
-     fn drop(&mut self) {
-         if self.mapped.is_some() {
-             kernel::pr_warn!(
-@@ -185,10 +182,10 @@ fn drop(&mut self) {
- /// address space. Uses the `GpuMm`'s buddy allocator to allocate page tables
- /// and test pages as needed.
- #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
--pub(crate) fn run_self_test(
-+pub(super) fn run_self_test(
-     dev: &device::Device<device::Bound>,
-     mm: &mut GpuMm<'_>,
--    bar_user: &Arc<BarUser<'_>>,
-+    bar_user: &BarUser<'_>,
-     bar1_pdb: u64,
-     chipset: Chipset,
- ) -> Result {
-@@ -401,7 +398,7 @@ pub(crate) fn run_self_test(
-     drop(vmm);
- 
-     // Test 4: Exercise `BarUser::map()` end-to-end.
--    let bar_user = Arc::pin_init(
-+    let bar_user = KBox::pin_init(
-         BarUser::new(pdb_addr, chipset, SZ_64K.into_safe_cast(), bar1)?,
-         GFP_KERNEL,
-     )?;
+ /// GPU Memory Manager - owns all core MM components.
+ ///
+diff --git a/drivers/gpu/nova-core/mm/vram.rs b/drivers/gpu/nova-core/mm/vram.rs
+new file mode 100644
+index 000000000000..b6cc177825d7
+--- /dev/null
++++ b/drivers/gpu/nova-core/mm/vram.rs
+@@ -0,0 +1,75 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++//! VRAM allocation.
++
++use core::ops::Range;
++
++use kernel::{
++    gpu::buddy::{
++        AllocatedBlocks,
++        GpuBuddyAllocFlags,
++        GpuBuddyAllocMode, //
++    },
++    prelude::*,
++    ptr::Alignment,
++    sync::Arc, //
++};
++
++use crate::num::IntoSafeCast;
++
++use super::{
++    GpuMm,
++    PAGE_SIZE, //
++};
++
++/// A physically contiguous VRAM allocation.
++pub(crate) struct VramBlock {
++    _blocks: Pin<KBox<AllocatedBlocks>>,
++    address: u64,
++    size: u64,
++}
++
++impl VramBlock {
++    pub(crate) const fn address(&self) -> u64 {
++        self.address
++    }
++}
++
++impl GpuMm<'_> {
++    /// Allocates an exact byte range relative to the buddy allocator's base.
++    pub(crate) fn alloc_vram_range(&self, range: Range<u64>, align: u64) -> Result<Arc<VramBlock>> {
++        let size = range.end.checked_sub(range.start).ok_or(EINVAL)?;
++
++        let align = align.max(PAGE_SIZE.into_safe_cast());
++        let min_block_size = usize::try_from(align).map_err(|_| EOVERFLOW)?;
++        let min_block_size = Alignment::new_checked(min_block_size).ok_or(EINVAL)?;
++
++        let buddy = self.buddy();
++        let base = buddy.base_offset();
++        let address = base.checked_add(range.start).ok_or(EOVERFLOW)?;
++        base.checked_add(range.end).ok_or(EOVERFLOW)?;
++        if !address.is_multiple_of(align) {
++            return Err(EINVAL);
++        }
++
++        let blocks = KBox::pin_init(
++            buddy.alloc_blocks(
++                GpuBuddyAllocMode::Range(range),
++                size,
++                min_block_size,
++                GpuBuddyAllocFlags::default(),
++            ),
++            GFP_KERNEL,
++        )?;
++
++        Ok(Arc::new(
++            VramBlock {
++                _blocks: blocks,
++                address,
++                size,
++            },
++            GFP_KERNEL,
++        )?)
++    }
++}
