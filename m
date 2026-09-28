@@ -1,166 +1,198 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012041.outbound.protection.outlook.com [52.101.48.41])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020114.outbound.protection.outlook.com [52.101.195.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB61D4D597C
-	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 15:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC85E45D5FC;
+	Mon, 28 Sep 2026 17:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.114
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790608311; cv=fail; b=THZ/xj8J2HKxfWBI4aqqa1t9welh0Z13PsxKJo2Xhdq+L+fzbnlMvTDfUlk/k82AbInbhoyPRwO4s2P2siYdJ4im6MdixJTNKGg6oHSPQv+YpkCrg9hDzLctRGDpl1d+TerCsFy/3ZWdwb9eN7Af/WMT3MiMeIkFX/4k5relT7o=
+	t=1790617204; cv=fail; b=EM9SoS8n/wXnv1+Dh3aBKhKZiVmukogRZQGpOFZyzgkbv30DTmjRfTRnv2EE7IAH7LlfYSt6KG3HEb6w6FuRQi41q3RHx3th0GA6LaR8HHY2Db8RtMCWhGzYVW/hjn1mPYymPaH/rUIHOGFJioR6Rk+w3bI+mY5KKhgDqnYJaqk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790608311; c=relaxed/simple;
-	bh=aQ/P893frlnLS1MawGbPuEF/MzwUL9LZA011s0iYLxQ=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NYiRsUUKxsSBaB8DtfEzDuVTEW1y8ZdcT2KrrDTZet5KTRCNFf9xYHjmDjs4Jxskzcs64iAmGkegLe+k5guqoPbqGns5rPahLQFpkTBmPy25cdTGaGw6DxCwwvrBoCvKQnOj2UUgEPwuNTu2cOECkzG5rwwMj0KOBSZaING5H2c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hjHFth8z; arc=fail smtp.client-ip=52.101.48.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790617204; c=relaxed/simple;
+	bh=SuSI7wHRIXp483n0Jnu93lMEkiG0DXCgR57GdISZtGA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=nUzY4mBPbHBlQUj19PNbmkdBRnumSLZeamQChUbLOxycZe6vhP+N+auS8YHNsw2fQnkh3WbNPc7b/QNc7NRecV1ENYT8BnfjnLSSS/wnTXqaDvTaIE9OlGH85wi/elqNaJC+bHN2Kf7BlLyUZ3Oop+TGmwtNRDQB4yNS+6G+poQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=PlrWdOy4; arc=fail smtp.client-ip=52.101.195.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hjHFth8z"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="PlrWdOy4"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oA8582gSKuNrnBej028cjxChmo/hCQwiNC9sp/NtRb8YeXzMQq5VdCTU2DqDkE/jPb7LY6GDg2NrO5t/T3Nv9USdwEEeUYkFlhZHlE4kIONrLoHEAUDIriQlhgaLz0es4/0vBXDpc/2V/4arj0tPYUX3b7FIO1Lblobs3HX46+pIWXLoVKITjU2dUx/4F/mUNcmLr8EgQ0urPtVAdJwDWhWf92+d87Op9vbUm3QSmMV+Lkr5ZL9twg/cdxqUT/hXrn/fXGpvRzBx5T4sfmGtIWZZg3wGorUQXG5YK4uUBSsoudf96HB1dF3nMDY1FEFzal/lLoTNPfFxThhQRhkVMg==
+ b=ku7kZGYg9ewDOcG/4+iveo15O1AedeR2LYNX+apvgl9H006YME8R/ItYf7Q67600wPQm2RqEF48PbB8oKKSF6UBhF4tP9UTSneaL9Rvt34hhtBzTdxHSHZQOamVDKJGJmiTKGyeaRxsnmC19rFpDAFVc0i9j9RPDkQFnlcdkiUJRRAMNH+tYYJOJicFzPCkDJj0Z8sqCdf8Wut5mUblXocCzhNkQbosY27FJxv933BfEokDJdKHTzbUOt1siz+1T9L/x3N/PPKuZRBxdX+YQKkYct4nbBPWCaOTOXDO+klWw41LjarZZ+PVSKHXQdkQRYoQRqEDgFw3Z0ikale98Xw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/NL1V2ZKoklmAUPAmm38CBH7IscW6dqQn3lZ2m4J0BI=;
- b=RmpQqqVrzHL85dPk8wxIJlLxHQroRnwsKXSXutyWW+669njNRwYdenRa08+IcSnuHVAcid00Iv8gdwV9XFDUrEmLLQbCDykel+h6u/KpbZmsF7abNLNjhhwwnY79CNUndsqtW4lB+LkvBa+S7zvfXpPpPl9z4umvCGEXLo4OQMlpJHwkoW83NpMVLxs1S9Fe4hTMJFE1NYnk9ipNE8vD9NwHAO04PnEZTOctpjwIZJr/9zaIVw5IYqz38ih9x5bHYld5y/shMDVlH0fiqbNo6YAH1K6THGYmhlK/iYuUIyFWGRf8R3bO9rhC8CGtAHiR2rWNfsjqD8FvVYCunkUrUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=JxJS/+91w9weshBNSYqTOLIW63VifjRMMR4S8CwXFlw=;
+ b=UCvt7oj5xCD92XhxfdZzuGnoIC4Cak8ucMLw3RRr8t1qdLBVhPtUz96IbhB6PIYcCUlFLvORVd0xhZG5qO/uRDpRsdJ6nmuPyu7hdXUTQE7lldZUl+lbn2fw4BBED3YUBij6cyAVimoQEZe8FLz2fbv241g1d9OBl6UjzfF5kJHIxTOO3RhggSLdnLbOtF5FGewwph06xbfQU0SiE2y7n8bFh1927cHJVyRaMtuqxHmH/cnnsjA0gq/M/DWwjkSGWfWmvBRUrywVPy8T82AbW3VNRF4cN9fiv4VYxELJZkOO1sbsSzpq4rR5gXFnR3osGTHefGGd/wkWFe7lD3hK+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/NL1V2ZKoklmAUPAmm38CBH7IscW6dqQn3lZ2m4J0BI=;
- b=hjHFth8z+m8oTQEAPmlzTkTW1kdDqaOKwZt0//qTsUKR0pTMok35RFaURQ/Qqhn3NfKt2wnXheoHY+mqwo5jHf7vmcwwMHzK6mfzHRUxx7VX4U47SRSJVRYJLdplV60YdS+54UZkc2/j+QQ79/qdagTL87yJBO2Qukw74JRD9SGbyf0wwoGUMUPVn7fmhTDYy/mBUk5Ge4HF3DhBBHDS+iPsqdJ3icO0rKVkKIPKtVmySZWwQRBTUGgxeOe69ERfKrvERPpODtznRqlStEsq34H5HbmHFmlYbwaV8M1sPPpChl/XF4DlBXwWbuN/SdQ6ytPl+WZbrbSFrwy3e+Coyg==
-Received: from DSSP221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:3d5::19) by
- SA1PR12MB7412.namprd12.prod.outlook.com (2603:10b6:806:2b2::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.23; Mon, 28 Sep 2026 15:11:43 +0000
-Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
- (2603:10b6:8:3d5:cafe::8c) by DSSP221CA0002.outlook.office365.com
- (2603:10b6:8:3d5::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 15:11:43 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 15:11:42 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 08:11:12 -0700
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 08:11:12 -0700
-Received: from inno-dell (10.127.8.10) by mail.nvidia.com (10.129.68.8) with
+ bh=JxJS/+91w9weshBNSYqTOLIW63VifjRMMR4S8CwXFlw=;
+ b=PlrWdOy4eSRC4GFH/U5CouhiCVtGkNfQ1lqn50Pq2YQyCH2x++RguU5cWi50gcnIkzQWSOX+53GaO3v2VgKc1jKIS30zDbK6GJbue0SQVDVldJLICTAqlOMNo09+M2H0++PHvfO+LZrx050sy+9xrx2dA6TrBF5RaZoNPz4ySs4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWXP265MB5178.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:195::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Mon, 28 Sep 2026 08:11:08 -0700
-Date: Mon, 28 Sep 2026 18:11:06 +0300
-From: Zhi Wang <zhiw@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-CC: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, Gary Guo
-	<gary@garyguo.net>, Alistair Popple <apopple@nvidia.com>, Timur Tabi
-	<ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
-	<nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 8/9] gpu: nova-core: gsp: move the RPC commands into
- a sub-module
-Message-ID: <20260928181106.06eca8fc@inno-dell>
-In-Reply-To: <DLQX62L47S38.1D5416RRETLY3@nvidia.com>
-References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
-	<20260927-cmdq-rpc-v2-8-c3f66ae73be4@nvidia.com>
-	<20260928122015.3df66b3e@inno-dell>
-	<DLQX62L47S38.1D5416RRETLY3@nvidia.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 17:39:55 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 17:39:54 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 18:39:54 +0100
+Message-Id: <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ "Robin Murphy" <robin.murphy@arm.com>, <aliceryhl@google.com>,
+ <ojeda@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
+ <a.hindborg@kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
+ segment size
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Matteo Kloiber"
+ <kernel@matt3o12.de>
+X-Mailer: aerc 0.22.0
+References: <20260831233215.287881-1-kernel@matt3o12.de>
+ <20260831233215.287881-3-kernel@matt3o12.de>
+ <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
+ <20260913210806.125589-1-kernel@matt3o12.de>
+ <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
+ <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
+ <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
+ <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
+ <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
+ <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
+ <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
+ <20260927224446.1053037-1-kernel@matt3o12.de>
+ <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
+In-Reply-To: <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
+X-ClientProxiedBy: LO4P302CA0030.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c1::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|SA1PR12MB7412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e03a5ff-6aab-4ee1-452d-08df1d72ce04
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB5178:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88a88409-acb2-4561-7fdf-08df1d8781ef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|7416014|11063799006|56012099006|4143699003|10067099003|18002099003|3023799007|22082099003|13003099007;
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10070799003|10067099003|56012099006|4143699003|6133799003|3023799007|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	xMVxXBipd0JyighYH2KgBmnEkjxqlSWfB2xQojE/X4/TuiNr8CHOEBrTeCcviTNCt+VsVQV2wusMaiEFgdVdWt56XbK//QAKkKD7QkaZM/n+yd35zYs9maSDVdx2F7+zyUMuiHxQ+LEdbAXMMn8A04i2N3vf0Jkli4meAQbJuS55pEIVEUsbgmG88iS/+sISUa28LExRer5L9OfZ3RcnN0/9xrns1rRsbjRbBfH2nV0njodpT+4m5SeoMHFgxBro6j+4HUgD4Mzkv2tOB9g/DC4QLdxYyl/tYNuXO9f4nnA2IGwp3tuHJ7bkwcE37nONkLIGTGt0ldM3keRf8oIYwLATPDntcdTI11e2gllEbR/kqZoRwl33EEilkKAwMnlCODbr4Wq2mNDikq0tKYOiWHkMKFSGJtWv9SI2+D2RUAJk9tIFPCGJqDgQ4rxXohqB/kYhwephr7kRrZ26JtWRftxhyhcZ3vO3t0pvByxk+1N8A9XM/itWLi0Zkj3ysyGyRXm52C6Qs1f/DlbnBcYMZ7oW6Tgix9srfbwNAOLkQmZSOipuf3045a5yfIWXg5+qI23NJJrtcwvRYDh/9sZX0AOiKJUB0Tju51kWafMz1dUWZM80xLq42U7FRafIy/+daFVJrgscCkg2Gq5OUdGX2C2cHSqMZyfaT2vK12f9Aeo2pxxIAQqrhPvZzGY4/+hIjGA2kzaXd8swu9l/JdsQOQ==
+	NyFwSqBJr/fD6QoBOFC0pEqy+hxx4Y6lS4nANS9j941+JL5VllhoF6BKu9bNW30ciYUX5bmjyg4nxVg9FEct7t067Tu6lkdYqXwGZoY4iVFPjgEwyM9msQ7k3ua0P2NpbMnTuf0+WyY70a6wDbXWmgH1gm2WwHcFkX6/B0w5MvuHsbK5j8mD1U33YEwZOcdirnX17cwMUG3+rzRkThu/N0BbdLLpsSI2/pmsID4TKDpywxDmwvbweMfza68EnWa3deB3+P/DTNUC9p9P/WK7ll3LwDLA8ZUtHSldJad/9WCjbKLq+S8LcFpczF3QSqChEb6nAK+e8lmuR24ZntfRBNOaFwFS/cytYYG/WOOw5LTWGf+olX/2VwIKp/kj5DL/jRGQ/EwuRns+GpFLpdjwDJceqTYofvqd62IzFael3b5aFcUzHdJ21Qu4qft8OX9orUAuOMeS5EydDBJqrinf/j3+jgLB/aWNQptZB0Xe/7M1TU5OhuaZfuTmcSmeeQspAi5mwuKegVV9o4E4jEvz+HO9a0WVAc4SmSvBJPNqnBIU9P8iOxV76P/79oZ272j2NQEge7JxVY5sYnGZCMbGAxyQH2EFQYqSBZCQ4trNxsJnnumJ4eXKwWTfnrdrpM4R6UVDUAhk+6uSJGE5HGrVC3mXXuand6Wx3tLL9Ds7GQw=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(7416014)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(3023799007)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10070799003)(10067099003)(56012099006)(4143699003)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	k7273S+vR0kbsBNgL1k9lqRdBOch6y756paojNSHiDiT/69cmnaU+LPjDEH+IBX9OIoHdXLjFrOzMM4S0uxOHo/lAw1UxSb1vAZj2G3d+uX8EANH5nnM9kOfrEn/O7s9yena7PKPEQt6rDMPabpdvKPf1i8TKZldjn/6zHHakPkS2QCTFaDPMAVdt5cDZy/e0N0dl/m8tc7jJr9SkC65KoWW5kMucXhb3UErkYlLXYSoL36JHaJ9bPZdEqoFtPmZJHj57Mq8UgP+qd3NsvsfWzfklz5eLVq9TH+eq3r/M6kHt8KWzVKf2rWaS5E7LJ8rq179UAX+dkt2/42kO1nTaFbO9AYgtz+IQEMAicRLvST7ozk/H9XnVOtOciRcaTt3C0rm5JLWx7otR7ibUCgGdhDCarJTEpOqI0fmmn4cnLlb3wtM2L9l71hq1zSOFieM
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 15:11:42.8419
+	=?utf-8?B?NmQwNTM1cy8zY3VwTGJTd0t4MGdGbFc4a3pwUzQ2VzhJZURqWHpWb05HeG5w?=
+ =?utf-8?B?V0Z1ZndzNkZNa0tRWFErc3IwOGpzdnpGSWhYMjZrVFYvOXNKWWxJcFpaNjNi?=
+ =?utf-8?B?d09lOTEyZU9tUk1RNFdXSXAvblRyYzdTLzNPWGEzOGg5TmI0dS9TS1JBbUQ0?=
+ =?utf-8?B?bURJM2t6bmJnK0laQy9sNDhPVlBSYUVqSFh1UU5ySjhSQitkS1hiWDMxYTFS?=
+ =?utf-8?B?cG1jM21RRmtjLzdjYzNDQ3hmU1RYNms2bGlXZ2p6QXlLUTBkeFRhZ0xYRmMy?=
+ =?utf-8?B?VHN2bnc4Z3BaYm8rZDJVcUhoSSs5bkxlN2FkSjlyYkZmTFRaSG9PWGJCNlVB?=
+ =?utf-8?B?SjAyZ2NKNVpGbzJHWjVGVjBoTHVSRkR4bEhTNWFvaTJCVHRXWWpQY1VBOURQ?=
+ =?utf-8?B?L1I0ZC94dUJZaitoc3pFTzgrYWw4ZkdBUmU1QW5lMDdqR2loeCt0YXBkT2NQ?=
+ =?utf-8?B?Y3lYQ0loRHdRL2MrMUE2NFlNV1BwbjVYRE8rU3dNRHRETE9BQkVNZXI2bVJp?=
+ =?utf-8?B?cDBpQThlT3FCVUZBNlNpLzdERW1VKytzbjBkUTJmUmFySXpBUDFMSFZsUnM3?=
+ =?utf-8?B?L2NjSXp0KzhIMElwaUFEL1IvRld0Zk96V1VKTDFVeVNpdVhrMnZCa3VIeFFp?=
+ =?utf-8?B?WHIrSkNOT2pIL3BFbHdBdFFCRytib09ZSFpIS2tIS0lDMndJWWpiT2RoeHRR?=
+ =?utf-8?B?dnpiYlRSN25Wc3lUdUE2RFFQcW1mTkdxSnMzdGE3akJ0V1luZHNlcXB5enFN?=
+ =?utf-8?B?WXE5Y1dDcGZ3R1dPVkk5c052Z3djTGdoTzB1MHhZcUpWMklzTjl1R0xJQ3FO?=
+ =?utf-8?B?cWJNTkRnRzZrL05yb0JCQW00K0RFSzRRNjRJMlVnY1psVFk3Y1lWQ3pSUkx3?=
+ =?utf-8?B?TlMzOTNwSkNFWE5GdzdGbzI3Mmk3VlRzMkFFS1Bnb3hDOTNrTUZWODdnOWph?=
+ =?utf-8?B?T05xZlV0V2NJQ2lValorY1g1M1lRRHU3bmRzcnJWODlIQ0Frb3VCZk5JTHZW?=
+ =?utf-8?B?YXlpNGFCcy9Bbk94OE1FOUMzM0h2VFZOa1IvaWZNWlBJSkxRY2ltUkRWN0hF?=
+ =?utf-8?B?aUxucnMyY2k3UW1TSXFuU2ovZkRhNFdxNGVaZnRZRTU4K1ZnRWNZNWU1Mk1P?=
+ =?utf-8?B?RTJrUjE0RzRDeUw2QTA3UUlpamNFWXRXMHhKZWMvSmg0R2xoYXQ1T2xYZG5m?=
+ =?utf-8?B?aE5wVXRqR1k1UGhWUXNLeDZjNkYrUlJyMWE0MS9Uei9nRXNJM1lWS3dGWFA3?=
+ =?utf-8?B?bzEycDJIbFd5Z2pNZHg0YjBWZlRRck5KYlIrMnVtbDhXT09GYm9DcnF5L3d4?=
+ =?utf-8?B?V3NxaE93VnpLeDFuR1NpWXV2aTNGaDRTb3JQWG1LWmhpTW9ydzAvNHdHbUpZ?=
+ =?utf-8?B?TS9yM0dxWkV1QVBzYm1VZVZUaFU0QjZNNGx3aG1haDRJNEhyODFnQldpeHN5?=
+ =?utf-8?B?dXFQeXVHZitTeEZWejJpNjcvcDlycmpFZnY2M2IyNy9qSk5UODlwbTdNSG1O?=
+ =?utf-8?B?Qk4wQlJPTHdDd2pkL1ZDR21TeC9aK2RzK1dpd0FvT3JRUVFPRHRmOTZ4OUM3?=
+ =?utf-8?B?NEFwQndQMjNMdytkbnNhL3hBZzJ3QjdQK0pqbjNqVWpWblVpRHhXQU1tcGwz?=
+ =?utf-8?B?TlNjWDljNDBtMGFzWTBYcVkyM01UdGxXVG15OWVBRHVNcGFCalh4OWNOSWxh?=
+ =?utf-8?B?bklOdndBNExFYmVlbmNIZ1N1OWxCUlJtTVM5aGkvMmxlSzRMemRPVjYrTWhx?=
+ =?utf-8?B?emRXalRrRmtjYk5PMk0vRXQ0U0hqbnUyWldlNDdKb3lJUkI4TVl2empTTHln?=
+ =?utf-8?B?K0xTYjJaQ1dyUmliVytCd0M1SGFnMmMwejVPSzFpYjNiaDh3MkwyUklyRmFy?=
+ =?utf-8?B?UmNrK1E0TGtpMGFGdkJCNmtnT3Z2VXFYc0xmV3BZNFQrWlNYcXB1L1liYWRG?=
+ =?utf-8?B?ZnJDSjRNQ2pZeDIxZy9jQThEY3ZZdGxGTnhmWHk1L2pneGNab2xuQUdGVWZr?=
+ =?utf-8?B?bUlkUytpMnI3ZWV5VW5UUDhNN0kzVVdiYXBWa3VjMC84WVFyd1JuV0xxMG52?=
+ =?utf-8?B?V2Y1SmtzUWdBZ2Z6L3Nqc1hPcXh5ZDRDTjBUcWFONHpTRWZKRVRLTTFXcS9M?=
+ =?utf-8?B?bnBHRkg3Z0JwSGF2MHdVWFBZMUtNM1h3eFh4V1JTdDFCdVNRQ3Y5YU5PcCs2?=
+ =?utf-8?B?TVNwWDIzejVPMTVZQUNvbjlOMzVrTkozQVJzVC9aV001c1hNZkhsaXVVMFZC?=
+ =?utf-8?B?Qm1sWDZ5V1BUMzQzSXVSM1lMSExiV1NZT0k3RkowQVA4c2o4VkdodXE5dndx?=
+ =?utf-8?B?cUxWaWVxNnpRWGZheUZZamFWOXdUNFplRFErZXJuWGNmc0pjTmkrQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88a88409-acb2-4561-7fdf-08df1d8781ef
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:39:54.8548
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e03a5ff-6aab-4ee1-452d-08df1d72ce04
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7412
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lvKuWJyAmL8eXxVeYPZdEDCV6b8RFMx/Q2MAV4NQ2EemHv5UKXF/IedAm2bDhjJbxYw8FBU+WzXgCKxMIeK8jA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5178
 
-On Mon, 28 Sep 2026 20:40:08 +0900
-"Alexandre Courbot" <acourbot@nvidia.com> wrote:
+On Mon Sep 28, 2026 at 4:05 PM BST, Alexandre Courbot wrote:
+> On Mon Sep 28, 2026 at 7:44 AM JST, Matteo Kloiber wrote:
+>> First of all, thanks for merging my first two patches and sorry about my=
+ late reply.
+>>
+>> What I think Alex meant and what I agree with is that the new API should=
+ focus on
+>> making semantic bugs harder, not to necessarily make it easier to write =
+safer
+>> drivers. That being said, I think we can do both with this change.
+>>
+>> The key change here is that we introduce a structure that defines dma
+>> parameters for a device. This structure deliberately has no default
+>> implementation and new fields should be added even if they require chang=
+es for
+>> all dma drivers.
+> <...>
+>
+> Thanks for the detailed plan; I think it mostly makes sense.
+>
+> A few details that we have discussed offline with Danilo:
+>
+> - The `probe` methods should not take the `dma::Setup` token directly,
+>   but rather a bus-specific struct that contains it and can be augmented
+>   with other capabilities. Drivers would have to deconstruct it using
+>   the `..` operator to make sure code doesn't break if we add new tokens
+>   to it.
 
-> On Mon Sep 28, 2026 at 6:20 PM JST, Zhi Wang wrote:
-> > On Sun, 27 Sep 2026 22:46:25 +0900
-> > Alexandre Courbot <acourbot@nvidia.com> wrote:
-> >  
-> >> Move the types and code related to RPC commands into the
-> >> `rpc` sub-module, and update their users to reference them from
-> >> their new location.
-> >> 
-> >> This is a pure move commit, with no functional change intended.
-> >>   
-> >
-> > Hi Alex:
-> >
-> > What would be the plan for commands.rs in the future after the
-> > movement? I was adopting the similar code structures
-> > (fw.rs/command.rs) for vGPU manager's RPCs and GSP plugin RPCs,
-> > e.g. having RPC typed code and function handler(wrapper)s, it would
-> > be nice that I can align with the idea accordingly.  
-> 
-> Can you point me to the the structure you have if it is posted?
-> (sorry, too many series in-flight and I cannot find where it is ^_^;)
-> 
+I was quite skeptical whether the complication of adding the dma setup toke=
+n is
+worth the effort, but the capacity struct sounds like a very nice design as=
+ it's
+infinitely extensible. I can foresee that we might want to eventually get r=
+id of
+the special `Core` typestate and just replace everything with setup
+capabilities.
 
-No worry.
+Best,
+Gary
 
-I am trying to maintain vGPU-related RPCs and GSP plugin RPCs in below
-two files. Basically the maintaining schema is similar to current
-nova-core fw.rs and commands.rs. 
+> - The token should not assume default parameters and only call functions
+>   corresponding to parameters explicitly set; converting the token to a
+>   handler means the driver acknowledged all the settings, so we should
+>   not make any parameter mandatory (the doc should of course detail what
+>   drivers *should* do).
+>
+> With that and your plan I believe you have a solid basis to send a
+> RFC/PoC. :)
 
-IMO, nova-core and vGPU managers bindings should stay together, but
-there can be quite many vGPU RPCs. Would it be a good idea to maintain
-them together with nova-core's fw.rs and commands.rs?
 
-https://github.com/zhiwang-nvidia/nova-core/blob/zhi/nova-vgpu-20260928/drivers/gpu/nova-core/vgpu/fw.rs
-https://github.com/zhiwang-nvidia/nova-core/blob/zhi/nova-vgpu-20260928/drivers/gpu/nova-core/vgpu/commands.rs
-
-> If you add vGPU RPC commands then I guess somewhere like
-> `gsp/commands/rpc/vgpu.rs` would be a good place for them. But let's
-> wait until this series is approved before settling on a design -
-> moving code around is easy anyway.
-> 
-
-Sure.
