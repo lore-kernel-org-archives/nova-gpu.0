@@ -1,52 +1,52 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011068.outbound.protection.outlook.com [52.101.52.68])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A07647C10E
-	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 08:43:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4993FC5AE
+	for <nova-gpu@lists.linux.dev>; Mon, 28 Sep 2026 08:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790584991; cv=fail; b=S7pQw3v5GWVWSgYBaiqe/18FfVe1J+RAWgyXsoYyz3lSi68Nd+3K226MmBO24I+5wdRRahzZwZlbFq4RxWw+elW/LPB6tcC1qtD4oYoJ7MXXsnIwf4iBJDnplaJuvOreRNPNgZRUUeM3OcfkrsyociAwI5rbTwK6bnTf87SHdkE=
+	t=1790584998; cv=fail; b=OI7qokryN0JrgDn3J9/J8rIaqz6YxSzh7wAkoco+5tLfq/3PYuk0ymLod2g8byNAiqBDv4XIXmsoqSiDvisnUx/g9GUIfnNvvZO7xySBWIS61/9ZBjiExnDIeJIMojl4SsuBq4Q0Iuc82eIxL65mF8GLD8pn8xtVG98rs/FHfYc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790584991; c=relaxed/simple;
-	bh=HrAsVoV3jbHXMN8Du+O3k+uG5XXkHBincCrfN25/Hmk=;
+	s=arc-20240116; t=1790584998; c=relaxed/simple;
+	bh=s02IK5D/FSXAEcKZ4It1UhYn2yEyM7+Yd2Z8YOTePLo=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=DaekD1lOH5x0TOCPBdOBGqtQd518RjmJccL8WcTADpu7lr/MahYeo6KFLGMUS0viDfSQMW2GmWEGxDSvu4E1CIWTrSxw4En4JhA7btiQVHRgI/+5m55FeAVpwPmHr6qwSMgkocPz1YQBZsx29ALpo/id9Vh0WGYh6bg22mlHmlo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HzBM7j+A; arc=fail smtp.client-ip=52.101.52.68
+	 To:Cc:MIME-Version; b=i0gLarY7e46mKyTgNhotdTMpxmePc8QlKN/jEvKVfGYTNmRlMqc0RI0tz5vXfAKJCaVqu84CuNPRNeyuHWKEfEYvoyq2wOKvHMZFUEo5ol+ki8MJjSFsYRuqC8H6FXWbZFQL0Jf4+9igWMRpTiciLGLOYH8isS+ABofPVdtRls4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=g1+1An0r; arc=fail smtp.client-ip=52.101.52.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HzBM7j+A"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="g1+1An0r"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lAKbhcUmb3c9LHvkiTcqJaUMDWsVDZfKTCGG6WXJZ1xMp+nOmhMCcXs2MKaBTbunr+a4LHzHNBqN41zySjQm1ulZfcKOqg9LOfpKQYrNd+uCAb7Zc/ERFQ0O3JlJl3cP4aPRH1kI4VVsXUjA9yFMzMlySvhKzeaYEudVgvX0k34P0DNi018OtYl3eTh2SrZBYyK1m+daStA0D9JKar0kmkoVofx4AJyIIESlV7qUmFpxNHzdgwYLgRo1hIudFsWz/MbjBf7FbSPOZL+8DvNXMzEJQa6NwPHBBo2Bo4dELMO5J2HHy/pgMYsbMfNFg4j4TPySgB861JvKNoH1p7b24Q==
+ b=PUKgFKS2vDR7AinY+nCqHKqS2+xDfJmbysV1FA6zHO6KeO0Ewxlb6wRyZICO2LvqEDMSY2oMOsvQu8P53ouAmjkQskeJSGYrivburBIIGcTd4avODbj13b34bmE3uoDa+7pLz98qZE2jAmSh1kQ4yH+RNgQh7m+Vdsp+3QIMGIMpRnnABQoNfKULlYdJoC+06Kar0ZyrAAsAWVt0ryWGfTEvOR9VqyLesQ8IiUqErok8okHXBW7kAYGBAdB49l8Img+2N3UGXGMbuNt0xKeDgVxpy8L4n+c1HcHgteVmgGwa8mugb4CyqET7CZY3gA6YBBH8LmSmZo/6l7fRCW2zpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JtVpn+OiXrI1znyTYB9URgUkP7WgVNIA3CIbMb84E/s=;
- b=jY/HLEy9iyfrmqvf2m8Sb/+0Sukav8T2JHpsoXb0GCZtSdtR+g3r2Cq8CHVjZMYLRctt5P3Gv8HrRJS4ClpVMC7r4fo9O5zgT4IK70GyZI2Hkokxy613zpDyvoo2FHHwWHfZlncu0WuVSWqGkMJDIV4u8+2pvLT3YaZbUZSURzjoWgnxU2CUIUpTDgBUcXbztCkVHg/P8V0tqTA9LpVmvUsqRgQh78iTMz2B5xtrQUFi+5eXIlLiBeVZCSNFOdJNh1msH95HFayXFdOBufsHoHhCEAM0IpQVQ4nGwmdGZs6tlgb3T4IHAMOqQ1gwJhjKFG++jeNEI+9FVyJSXnXURA==
+ bh=R6Zctiz8euiDNmZkseoLVILEwvuTTChwgaa+QYb6TRA=;
+ b=wQlDLfbPo1GMYeG1gK6ELI13rRafOJTHWWZgL6yuOlkzU8caaOpikBnY3k9wOP2mWjM7J+dzua0sEiF9Mr8Mhes2QevFlg6bwhsitTq8nQRWQvocd0jHcuTHEvpkazCkGyZ7vfFtQJlaTFHWBFIcF5+Jq8C5FjHWKGmYI/FNmvfqY7rrMJCXEbxLFhvR+w7E2Pw5/Pe8GTUwfB9JdiKdzQmo2BGil1nW8wA6XhofTnUAx4Rp4VdqqJmadmMAj+8KBqhj4qexOxL/5mthuJuU++m2qx3uY/SG9XDp9f7ImYw9tgJWRVTGZQbEi85Za9Jg7qQ4jfPGODt70k1SYtgjRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JtVpn+OiXrI1znyTYB9URgUkP7WgVNIA3CIbMb84E/s=;
- b=HzBM7j+AXCMAeNUYZZs624pF54hCurMvHD9qB4prYciq4Y5ZGIcPIoomEChGNIr77izItkKCla11+HcTRhjS3Vy18LKzTs6/g+fRNy0Jx/IR2sBfHmN2brwPKBHO75rDUxPvJSzc41cKiNZsDsjPs8LDkAZtwYFK3WliCvyq5JNSs9aXG769tzW5+AgNKYgrC5IiGG23OQOoqu+9OVwnm2VG72XGuwVhWb+dwb+VPzPBVMik7a2sYoIZmFy1HFbzbUwvgAHY7v4JQaBkY0zXDbyegfHzUUQ437K9pBYHeXcYFDWTlO8BmKpfP3D+dYESAJDmGNO0N+nZRK+MUlUB2Q==
+ bh=R6Zctiz8euiDNmZkseoLVILEwvuTTChwgaa+QYb6TRA=;
+ b=g1+1An0rGudA9HlC7Csi5sz9UVaYOdqXIMIjVrPJ+a0fqh3o/ziTLAe590KlBzS1Y1M2ydRmgA99DGHjd5osTuWdrthGsWdaWbfKSJ208G/kiV1w9wfX7m5ChOn2I8Mm5dgLsxy3w9Atyvi9Gy3xuiB/gjXCddvSpdPoFrYU6e0XP4u7AXkeWtC+dBAPwAfikLFPYxbL56eGm4I2S5RuyiclcoZT6BIiKL8Oa9AEn4N9EuwjC76wjYK1U4RZ/fanAqsb+tuV4BpXrTjy8yLK6iAQ1Z60JdymvOFJlUFUVqHTCSYiM+MxaYQMzJFKiQ8Rh2JYJ/HGmmTAT3Zzb6St/w==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
  CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.24; Mon, 28 Sep 2026 08:43:05 +0000
+ 15.21.451.24; Mon, 28 Sep 2026 08:43:09 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 08:43:05 +0000
+ 08:43:09 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Mon, 28 Sep 2026 17:42:41 +0900
-Subject: [PATCH v3 2/8] rust: alloc: add Vec::push_init
+Date: Mon, 28 Sep 2026 17:42:42 +0900
+Subject: [PATCH v3 3/8] rust: alloc: add ArrayVec
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-nvkv-v3-2-f04504c262c2@nvidia.com>
+Message-Id: <20260928-b4-nvkv-v3-3-f04504c262c2@nvidia.com>
 References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
 In-Reply-To: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
@@ -67,8 +67,8 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP301CA0052.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:384::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCPR01CA0187.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b0::8) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -78,108 +78,467 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY8PR12MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87ca6b5c-68a4-489f-f418-08df1d3c83d5
+X-MS-Office365-Filtering-Correlation-Id: 97dc680a-ced9-4b71-04d7-08df1d3c85fd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|10067099003|56012099006|11063799006|921020|18002099003|22082099003;
+	BCL:0;ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|10067099003|56012099006|11063799006|921020|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	S2ktxvX2P/VnA0kI2ysLG2TkwjwNwSdVPaoErn/NldNzfn14lXcfhpFknBjKdCdUBtI7LJojkFBDkmVtw2WdS9LAFNpQfFrafPTfOYPVk9O77K11jtwQ6F6616PtrYfD5ZOkZlCcsi9r43xCRRlhmhIT4YzFlaQKKragoXmGHcvGaCa7pCtmgINR2QK2Lcc9fWkINF3I/NUEv7atQIy5rxCo8d3ReXbcvQiHYRFIOnhAGk6gvMzRg0dvxIPQkLzsurKp+FVS7Uc6BPuDB2j4+e/PPf4sboMAO6GNl88miCKOa/xrEcoFn8VBWGzq8pK+IJLvL/a62YvaJyzFoPQW9+zMpzn9boR6HD/WwcViEcrDbKu4yDnlHCujonH49dBJ2+Zdt5eYR/XcaZG1efzN7TCwLxlvCUaRq2FaxVinR81eENDEVnXAymahCSyl7HlDrHon3cT5AQWr0zqGs3xKB6rmWvb33TMo5ihTnK/WsZlzKxHP47Hrvnd/csb9z5MuSm8cU4P3yFnxwEKJgcQVR4sr4wucS+xQ/xFHJ/Opf/veqogeNRI6Ey/wIzt4ytDpQ6mohP7AaoCWpddrGgHNQ4P2aYVqM+kEP7wZXTxaHYI6XOdZ0zj5ZFbYkLkIGZuuFOxPYNSqdLZrlQG+OMmCIhPY3+qPzZxJwtSzwUWB8qZek2eeVZVAUd/DmiIRCW0wa/nQBl9/GMvy+2nQq4eFrw==
+	xXootskZ6eSFSXD72BE2WmiaEY9NKqg1ROdkDaY4EY6rCFvszgezRzevMJfjatE5GX5VxMmdAW5siUvzxUzpjCxkfWyNAfjQX3ZW3dcFo6BlOYv4iEvvgbFSpLpW+xAoSl0qqadGNa4FliTkhRR48z3pqTLpgpn5yKD89USmMrCKTp1ILww2wFnkZMeELSBuF+Nd4RAT70syBM1g9YI/+uxUQLgI9sazWUrVX0jfe17+U9JHlxxZ+rqW8MuCa3w9CK7NfxD+Q+BCR97Ad6KvhSqfnIr/J35Vtd7fDV20bFGvU6GIdXSTWzPqKKeFPqo1gV4WBxFQ66YuNa+Vb116WQehCzWiR6lNNoxjmm5HODy6VkdcQo/BB+VfdLxohLOZukek+koRpyZUmYfWbmL7MPqolXVSJzKCAzPeVvKh0sHPC8lHK4RPiFD05wQTvERBB8NDoCLcRbhHywVjEItkwTy162wIZGnzAA8MQF20rVILKVzxQUuoPjqZgbqP9w9Zif3tEPj4EsRBHH5mHoqC35I6I09e3/fgqJiycRoOgj9y1GYhwXD7DjgxwuQrs0TeGLoLCzXqmJj8vfAGZDv6kuB+YQ3mpaOH8LRZB3ocfb9JbQi2DR3dyVKiNNV5PHuapfQJe46LesfmMC+dVyohKcru1JVEMCllLZpk2NgeTXieWwNBq1JEQ9F+c8KSw9Z/w3mAdn/fy1hLhCH4gMcTQg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(921020)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OFNCekR3MmNIUEtlU1BnZlROZGp2OU5McHowY2kzSlNRMFVKVysrOFE1V2hw?=
- =?utf-8?B?V2lkS3dCTXRtbEhwakcramlsUEI4ZmtFVTI2Qm5MeXRwbzJjbzJyMW9MT1Uw?=
- =?utf-8?B?U1U2Qnlsb21tNm5pY3pBQ1hhWU1PcldkLzh6enBhc1Jac3Y4U0RLMW9PSWI0?=
- =?utf-8?B?R1lhZ3NnSldiWm14MW5hQlNXSTBkTWhDVGpvSmo3V0t2RDJzcFQ2Q2d0YXdk?=
- =?utf-8?B?bFJnZjg5SFAwdWNlVFJXVDJSVC90RXd5djJ1dEhlSHVNRmZXQVk3NjNMN1dV?=
- =?utf-8?B?RGZTQ0NWL0FTMlpXODFkUzZiQ0pZZURrRFVMM095TnhSMUJVeVlOeTVVelVT?=
- =?utf-8?B?RG9HeTBlcDdHSm1uMXQvaFZzSi9EdGNOVEVDMFpSZEl1YWRReEdBdHZMNVNK?=
- =?utf-8?B?dEhTWmVvZkpQelN1eXd3K1JqVlFxWUlmdktGemF6eERtVnhDcnRVNHlpaEJQ?=
- =?utf-8?B?Z0Zab3hKZmtDVjhLVUZhYmpUNUI2UEJHZWx3STRSVGQxWE9EVkpvSFExRWFX?=
- =?utf-8?B?bWxsclhWQmpnWEZKeUlWVlFWRDlSYmlRRVVpeFU4aTAwcGlsQXEzU09OZFhH?=
- =?utf-8?B?M0NNVVo4YS9pc0pMYTNXR0NQREthQmNIelltcFlHZmJQV01xMG5rZW9XZnpr?=
- =?utf-8?B?Z29iUlRHbis2R2lwTGhORGRvVGhNZUw5VzBkNXVDOVI1eXJVV3ZhSkZYMFpT?=
- =?utf-8?B?ZU5EdUhVOWJBSXhEMmh5YkpUVllWeFhjQyt3Q3pGWGgrTGg0andmOWQ1S1Ro?=
- =?utf-8?B?bFIvOTZaRlhzUmI4ak1ObVRYelAzTEdvekxVOUphQ3Nyc1FnaGVwQXUvYnk5?=
- =?utf-8?B?V2hLanZNQVlPYUY3b3FoaVFiSENsNE82YWZnbE9KWU1DQ2Rwa1daaWdXVWFh?=
- =?utf-8?B?Qis0STgwNGdKVGc4RFZCUjZGTW85ajhNQTgwUVN6T0Fwem8rVUtDYWN2b1Vv?=
- =?utf-8?B?dEFhdVh6RHlKS0NUMnlCZ09XWGdKZ2oyK2ZORzZWcW5WcXowWnl6QkdVK0lt?=
- =?utf-8?B?bVhISkxaa042cFhBTE1Zcmt0R0tZNlZhaDJuVStLS3B0SVNRMlFJK0htMWh2?=
- =?utf-8?B?ZENyTlJ1L0VGKzJBTytyY2dFL2VoS2FOeXZlbXpnb2JRdEZIMjhMU24xVDlB?=
- =?utf-8?B?YnY5Wjd0M1hvVS9sNFg0dGZ4UktaMk14dlRrRll2NUNCTDZmZkJXd3lBWXln?=
- =?utf-8?B?MGZrMWZUeDV1bkpxcnVQVGw2K0pSbXJnVWw4b2xFOEg2WVc0Tys5dXhkWjZw?=
- =?utf-8?B?ay9uNHBCM0h0Ni9tbkNQbzRpVFBzWlc3WFhhbGVvc0xmcUxrYTF0aTRPTXFN?=
- =?utf-8?B?YXFESFU2cmhGZHRQQm1sYnZGYlVtQjZiM3NpWGJaUkZ5WHVRTVd5dmR2L25K?=
- =?utf-8?B?MkhRa1cyUElzMzVZUU9rTkFpQjFZS21yTUJacE44N0lYRHJOY0JsVDVQbmd0?=
- =?utf-8?B?TDg1dW1OOEFjUm9jc0Nqa0JUVVFsUkpSRWdaSnd5bHpwNHRWRFJRRFplOUhI?=
- =?utf-8?B?bEZ4dzNSMzVKRnhnUFVJbmZvblo3NkMwSnJWVW9ieEFheGtFenpjd0JoNVh5?=
- =?utf-8?B?VjhESEE1d3AzdDlrTzVrZy9mOFV4RGthd0huSlRtN1RUV3NaMitWL3dRN0NW?=
- =?utf-8?B?VW1QN1prazl4TDgzU3ZXeEk3N0hiZkY2RmlRa0F3aHhmbzVtQndlOE1Lanlx?=
- =?utf-8?B?RDlaSUQxcmgrbnh5Wm5QbS9HanllaWw1ajd4M0tBRUZEZTJNbFA2VkNYYW5S?=
- =?utf-8?B?bDYyUXB0eUo2TGp5UFk1TE1lWUhZMzZCMkRVNSswQTNwVjNUN3krMThlakxO?=
- =?utf-8?B?Y2lCczRzaGJZaDhOTi9CSmhwOVBSMXhVa1NweEQvTk1GWlI2RkJpbTc1a1k4?=
- =?utf-8?B?N2dyemhwN2s2M2F0YlJLOGtRWmpoVWNwSzZyZzVPNEdwYklTNTk4anBpczlR?=
- =?utf-8?B?M0h3ZVM5Y0hld21QRjdLSkRJeFhKUWlMc0FNR29nMEJJUmxYZVZ0aXlDTkFM?=
- =?utf-8?B?bUNnVUlVUHFDSUtobFNnY3ZDMzh0Um1pVWNwaXpibWxEM3hCUHd4bXZKaXNG?=
- =?utf-8?B?Q0R3RjloMWZHb2NIbVU5aEtRUldpVzlMYmw5Q2tjMU9kbllKZWsyR1hKUXJw?=
- =?utf-8?B?MUZudjNMc1h2WU9pUDFBbFJ3OEs1S29jTWtVckJ0N2FRN1E4L3RaWXdVRW1j?=
- =?utf-8?B?WFJqOFNTVFpDZFJQdGw1NDJqMmJ2YWdxM3F5NjUvV3BudUNTVGdwTXZBUzhr?=
- =?utf-8?B?NFhYNHZxZkRuSGN5TTV4VytHUm5wRGtxMjNST1ArSDJZTXJDcHBiclhFTUY5?=
- =?utf-8?B?VTZjWUV6U0tIZWcvcjRmUUtRM3BDbjVJTUxQMHJZRG9KY3pBZTZicDZET0s0?=
- =?utf-8?Q?IHkyM0HVyf57zyqJdP0qRgoGg9u1G+QsrjqRDzG0qRFhk?=
-X-MS-Exchange-AntiSpam-MessageData-1: OOHMkSotlnR0dw==
+	=?utf-8?B?M2NZRUZLK1ZPRWIzdjhlMDJtR2s1TkZmVDdab3ZDWXl6bEZra3FLWVRqRlBq?=
+ =?utf-8?B?UEQ1b0t6cjZ5MW96NjgzV1lpSTFXdzV6eFJwWUtDa0tTc3lOeFMwVDROblV2?=
+ =?utf-8?B?MVZXNmI5UTQ2UDJZUGpTOTBGcncvRXVGRFB1M0hhVURVRkl3YlJ2SGdSbENy?=
+ =?utf-8?B?L2FYSG13ZlZmNFkxTVdDTXY1M3dpUzh0cndxTU1RTHpSRGNSSWRrYUd4WjU0?=
+ =?utf-8?B?b3pQeTMySyswbzFQUWpaNkFSYjMrbEFpZWtZRForc0JFYXJ2MDdyU2RsQ1lH?=
+ =?utf-8?B?My96NERmOGRxR0ZQVURvSFMwa3hKYktWeFUrODJrWVNSRlRmbk5XSjR0Y2VK?=
+ =?utf-8?B?ek1JaXo2MG1nNlRzU0FJbkJmWHhHNTFlNkQzdWlPcDVmTXFMU1BaYU5Cb2ZV?=
+ =?utf-8?B?b0NtQmpkOVp0R205RFRpQlNoUzhvdlQyWGpDd1NsTFFzUGpGdkpCS1hoaVdV?=
+ =?utf-8?B?elpETlM5aGhrOXFCbGNmeDdhaUd6S0JBSlBPaXlaNnJJSFlLUVBDR1FzSXRi?=
+ =?utf-8?B?ZVBVSEF5SXpFcDBaL3hxZkd4Nm9lRzlEUHNZSTZGYTdOLzhRMkVyRmlQeXE0?=
+ =?utf-8?B?eEJIenFrTGVKbXRHTXdpaUNhUlVUMjZ0TlhuZmFsS3pZOGM0Zm94b0xsWU0r?=
+ =?utf-8?B?bEF1YnZnVEJiTVBXMkRpZGhydnNiamtRQ0VDS1hyZ1d2bWh3dmw5Tnc0NWNz?=
+ =?utf-8?B?ajlWK080SXhNRnNHakRnUlVKZHFTVmZxTGlJTVNvZTJNNWRYVFB2Z1RlZHcy?=
+ =?utf-8?B?MTR4cDEwZXFXUW9EckluUEZ1eXl6YXRiSk1Jb2pGdU9GVVFvY3ZjVjBDL3gx?=
+ =?utf-8?B?TTQvSEZPKzVJa3lPaU0yT0ZsVEpZd3VWRm1HajFwMDYvcUFua3FXOWNYMlVL?=
+ =?utf-8?B?bXJ3T0g1MWtjTjVGSFJka1podlcyenJXU1JzaFlrRjdYWEQzbUZQaTJ5MVR5?=
+ =?utf-8?B?TlI4ZG5PVHdIOHJ0ajJnMWFDYjdJT3U0bmM5eDU2bUYrckFaTnZDQ0xCaTVE?=
+ =?utf-8?B?Uk9ka29qNCtDcU11eXpzUG9rWmVuVkNWanpOSFhJaG5xWko1eFlibjUxKzhM?=
+ =?utf-8?B?UXZRaHdxbXI1RjFVdDk3ODhNWGkyNGZWQVNCMGhNcjY2TTRLK09BaGF1YWN1?=
+ =?utf-8?B?L3F4UHRMd3kzQTJ2SktXTWJYMXRFVnZnQ2UzeWlwWnFqQWk4VU1Wd3NjSDI0?=
+ =?utf-8?B?bS9FbnFCS2FRdm9ncU44YUNIdTdBb3M5S3AwTXF2UVpXWU9qdVBYMG95WXVK?=
+ =?utf-8?B?OXE3ajZyakVlc3F1Z3c0TlFrQlF3YndWVm1tSStnWWVoUGQ2eXhpL0hzSm5t?=
+ =?utf-8?B?ZngxSGlPendZeVA4bjdaeGhEdTB3MXo0Y3p0RGtnWlZKWlRDYk5hUXlTZUpr?=
+ =?utf-8?B?ZzNzOFE0bnNyL3lpK0Rka3NjTUFXVk1SM245Wk4wQ29NcTI5SkpnRkgzK0Q1?=
+ =?utf-8?B?NitHNDdZQ01IR3paNVdCbW9HTEJWK1d3YzBpRjgxQjNJcEhjSUNQMXEzSFhx?=
+ =?utf-8?B?UHRvalRKYS9iZXdnN1gwbllsL1RDOFRwbC9UUkU2dUJDOUQ4MUJrN0xGUk1h?=
+ =?utf-8?B?TG9zdTJhaG81ZXcyTldJanlxY3JXcy90ZEJ6M21qb0Z0ZExFN2lZRFpuS1pT?=
+ =?utf-8?B?cklyaVQ2RmpNNFpKdW9EOUlneGt2UkZsOUVwbmtDUWI4TTJDLy8vdVFSMCtU?=
+ =?utf-8?B?bW1MRitOY2FKN3hkbks3SVpVMjdLUUR0U25YMXpXb1NzR2lWTTZZc3JnemtV?=
+ =?utf-8?B?WHZ4dXdJVGtPS3RkazM5aXA4US9ja085N1dqaUw2YW9Mbm5keFBYNHBiVnJj?=
+ =?utf-8?B?QTI5bTVjdlMyYjJXS3d2elNxc2xPVjQxVUR2cmNLaU5hUDJQYWFSemhabmNV?=
+ =?utf-8?B?bHoyczVvL0JBaXFOamtFWm1DR3ZWdmtwVnEwMDFtWFpnbTh3VzRlaHNueXNE?=
+ =?utf-8?B?NjN4QXJOb3ZoUjM3WXUzNStja3ZFQXI1cDN2aUNnK2g2SzB6OGdzeDBkYWdj?=
+ =?utf-8?B?N3R5Yit1ZmZCYVBac3BLYk9rc2FZZUZmS0NxTEgxSk5Hd2t2bjhOSTJrQ0ZM?=
+ =?utf-8?B?NkhTWHU2Mks3SWJlUXpMOE9hM2x5OEs1d29CRXZ1R2ZnYUNkNFhFd0IyL1pO?=
+ =?utf-8?B?bEZacUlIZkFGajhoWGNEUDNiWVJsYjBrQkgrdDY0TVRNNkNHcE1NOWErOUpL?=
+ =?utf-8?B?ZFphdkNoWGRjNDN6Z2FpT2FDRFUzaVI0VC9kU2FmMGVTRHFuR0U5ZHFYTTlT?=
+ =?utf-8?B?WlpQYnFkUjhOeVNpa29IbEtrOEpzR0FxK3NLcXhQcURkY3MrNEo1V0M1N0xt?=
+ =?utf-8?B?K3RIampMRk9mRnBRS20wb1JmcDdkWktmdU9KTUtURFRzNmc3Nmx1WStTWGZn?=
+ =?utf-8?Q?KOzdKifd7ejTMcqygPj6KgIRyb8MX8ndBAlDEY3HnsbpS?=
+X-MS-Exchange-AntiSpam-MessageData-1: +NU33D/1w0S3GA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87ca6b5c-68a4-489f-f418-08df1d3c83d5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97dc680a-ced9-4b71-04d7-08df1d3c85fd
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:43:05.8428
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:43:09.4337
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eRhwzxc3daXbmwVyr781M02OyWEe6nGjUXKraGg2Zka8qazsQmL0PDjP1afahCPKZtXG14ocL1K9KVnzOxJ1SA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: CF6vatCF+9cI2wxd6xbqWQPL1mQyNl/3h2tCK4WkkOWHw7cKogx/v40nYnUTeGEa0nDVElddMagnVgA4Q2xL3A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
 
-Add `Vec::push_init` which is the init-infallible version of
-`try_push_init`.
+Add a fixed capacity vector backed by [MaybeUninit<T>; N]. The ArrayVec
+is also initializable with a closure, returning an Init instance, to
+avoid constructing it on the stack. ArrayVec is useful for small but
+varying size arrays stored on the stack, to avoid a heap allocation, or,
+for larger varying size arrays initialized into caller provided memory
+but not wanting to provide an allocator.
 
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- rust/kernel/alloc/kvec.rs | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ rust/kernel/alloc.rs          |   3 +
+ rust/kernel/alloc/arrayvec.rs | 347 ++++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/alloc/kvec.rs     |   1 +
+ 3 files changed, 351 insertions(+)
 
-diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
-index a2b72a7779d9..1b7b3a1ca770 100644
---- a/rust/kernel/alloc/kvec.rs
-+++ b/rust/kernel/alloc/kvec.rs
-@@ -369,7 +369,24 @@ pub fn push(&mut self, v: T, flags: Flags) -> Result<(), AllocError> {
+diff --git a/rust/kernel/alloc.rs b/rust/kernel/alloc.rs
+index 21067bde6860..510e2c7f9f72 100644
+--- a/rust/kernel/alloc.rs
++++ b/rust/kernel/alloc.rs
+@@ -3,10 +3,13 @@
+ //! Implementation of the kernel's memory allocation infrastructure.
  
-     /// Appends an element to the back of the [`Vec`] instance by initializing it in place.
-     ///
--    /// Unlike [`Vec::push`], the initializer may be fallible. If the allocation fails, the
+ pub mod allocator;
++pub mod arrayvec;
+ pub mod kbox;
+ pub mod kvec;
+ pub mod layout;
+ 
++pub use self::arrayvec::ArrayVec;
++
+ pub use self::kbox::Box;
+ pub use self::kbox::KBox;
+ pub use self::kbox::KVBox;
+diff --git a/rust/kernel/alloc/arrayvec.rs b/rust/kernel/alloc/arrayvec.rs
+new file mode 100644
+index 000000000000..4172a982e477
+--- /dev/null
++++ b/rust/kernel/alloc/arrayvec.rs
+@@ -0,0 +1,347 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Implementation of [`ArrayVec`].
++
++use crate::{
++    alloc::kvec::{
++        impl_slice_eq,
++        PushError, //
++    },
++    const_assert,
++    error::{
++        code::EINVAL,
++        Error,
++        Result, //
++    },
++    fmt, //
++};
++
++use core::{
++    borrow::{
++        Borrow,
++        BorrowMut, //
++    },
++    mem::MaybeUninit,
++    ops::{
++        Deref,
++        DerefMut, //
++    },
++    ptr,
++    slice, //
++};
++
++use pin_init::{
++    init_from_closure,
++    Init,
++    Zeroable, //
++};
++
++/// A fixed capacity vector that holds at most `N` elements.
++///
++/// # Invariants
++///
++/// - `len` is at most `N`.
++/// - The first `len` elements of `data` are initialized.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::alloc::ArrayVec;
++///
++/// let mut v = ArrayVec::<u8, 4>::new();
++/// v.extend_from_slice(b"abc")?;
++/// assert_eq!(*v, *b"abc");
++///
++/// assert!(v.extend_from_slice(b"ab").is_err());
++///
++/// v.push(4u8)?;
++/// assert_eq!(*v, *b"abc\x04");
++/// assert!(v.push(5u8).is_err());
++///
++/// v.clear();
++/// assert!(v.is_empty());
++/// # Ok::<(), Error>(())
++/// ```
++#[derive(Zeroable)]
++pub struct ArrayVec<T, const N: usize> {
++    data: [MaybeUninit<T>; N],
++    len: usize,
++}
++
++impl<T, const N: usize> ArrayVec<T, N> {
++    /// Creates an empty [`ArrayVec`].
++    #[inline]
++    pub const fn new() -> Self {
++        // Clippy triggers this even if the enclosing function is never called, so skip if clippy is
++        // on.
++        const_assert!(
++            cfg!(clippy) || size_of::<Self>() <= 512,
++            "use `init_with` instead of constructing a large ArrayVec on the stack"
++        );
++
++        // INVARIANT: An empty ArrayVec trivially has all its elements initialized.
++        Self {
++            data: [const { MaybeUninit::uninit() }; N],
++            len: 0,
++        }
++    }
++
++    /// Creates an initializer for an [`ArrayVec`] populated by `f`.
++    ///
++    /// `f` gets an empty [`ArrayVec`] and can fill it in place.
++    ///
 +    /// # Examples
 +    ///
 +    /// ```
-+    /// use pin_init::init_zeroed;
++    /// use kernel::alloc::ArrayVec;
 +    ///
-+    /// let mut v = KVec::<[u8; 200]>::new();
-+    /// v.push_init(init_zeroed(), GFP_KERNEL)?;
-+    /// assert_eq!(v[0], [0; 200]);
++    /// let v = KBox::init(
++    ///     ArrayVec::<u8, 4096>::init_with(|v| v.extend_from_slice(b"abc")),
++    ///     GFP_KERNEL,
++    /// )?;
++    /// assert_eq!(**v, *b"abc");
 +    /// # Ok::<(), Error>(())
 +    /// ```
-+    pub fn push_init(&mut self, init: impl Init<T>, flags: Flags) -> Result<(), AllocError> {
-+        self.try_push_init(init, flags)
-+            .map_err(|PushInitError::AllocError(_)| AllocError)
++    pub fn init_with<E>(f: impl FnOnce(&mut Self) -> Result<(), E>) -> impl Init<Self, E> {
++        let init = move |slot: *mut Self| {
++            // SAFETY: By the initializer contract `slot` is valid for writes. Once `len` is zero
++            // the slot holds a valid empty ArrayVec, since `data` requires no initialization.
++            // INVARIANT: An empty ArrayVec trivially has all its elements initialized.
++            unsafe { ptr::addr_of_mut!((*slot).len).write(0) };
++
++            // SAFETY: `slot` holds a valid ArrayVec and no other reference to it exists.
++            let v = unsafe { &mut *slot };
++            f(v).inspect_err(|_| {
++                // SAFETY: `slot` holds a valid ArrayVec, and on failure the slot is never accessed
++                // again, so the elements can't be dropped twice.
++                unsafe { ptr::drop_in_place(slot) }
++            })
++        };
++
++        // SAFETY: `init` fully initializes the slot on success and drops the potentially filled
++        // ArrayVec on failure.
++        unsafe { init_from_closure(init) }
 +    }
 +
-+    /// Appends an element to the back of the [`Vec`] instance by initializing it in place.
++    /// Appends an element to the back of the [`ArrayVec`].
 +    ///
-+    /// Unlike [`Vec::push_init`], the initializer may be fallible. If the allocation fails, the
-     /// original initializer `init` is handed back in [`PushInitError::AllocError`]. If the
-     /// initializer itself fails, its error is returned in [`PushInitError::InitError`].
-     ///
++    /// Fails when the [`ArrayVec`] is full, handing the element back in [`PushError`].
++    pub fn push(&mut self, v: T) -> Result<(), PushError<T>> {
++        self.try_push_init(v)
++            .map_err(|PushInitError::Full(v)| PushError(v))
++    }
++
++    /// Appends an element to the back of the [`ArrayVec`] by initializing it in place.
++    ///
++    /// Fails with [`FullError`] when the [`ArrayVec`] is full.
++    pub fn push_init(&mut self, init: impl Init<T>) -> Result<(), FullError> {
++        self.try_push_init(init)
++            .map_err(|PushInitError::Full(_)| FullError)
++    }
++
++    /// Appends an element to the back of the [`ArrayVec`] by initializing it in place.
++    ///
++    /// Unlike [`ArrayVec::push_init`], the initializer may be fallible. If the [`ArrayVec`] is
++    /// full, the original initializer `init` is handed back in [`PushInitError::Full`]. If the
++    /// initializer itself fails, its error is returned in [`PushInitError::InitError`].
++    pub fn try_push_init<I, E>(&mut self, init: I) -> Result<(), PushInitError<I, E>>
++    where
++        I: Init<T, E>,
++    {
++        let Some(slot) = self.spare_capacity_mut().first_mut() else {
++            return Err(PushInitError::Full(init));
++        };
++
++        // SAFETY: `slot` refers to allocated, aligned memory valid for a write of one `T`.
++        unsafe { init.__init(slot.as_mut_ptr()) }.map_err(PushInitError::InitError)?;
++
++        // INVARIANT: The element at index `len` was just initialized, and the new `len` does not
++        // exceed `N` because a spare slot existed.
++        self.len += 1;
++
++        Ok(())
++    }
++
++    /// Appends a clone of each element in `slice` to the back of the [`ArrayVec`].
++    ///
++    /// Fails with [`EINVAL`] if `slice` is longer than the remaining capacity.
++    pub fn extend_from_slice(&mut self, slice: &[T]) -> Result
++    where
++        T: Clone,
++    {
++        let Some(dst) = self.spare_capacity_mut().get_mut(..slice.len()) else {
++            return Err(EINVAL);
++        };
++
++        for (d, s) in dst.iter_mut().zip(slice) {
++            d.write(s.clone());
++        }
++        // INVARIANT: The next `slice.len()` elements after `len` were just initialized, and the
++        // new `len` does not exceed `N` because the spare capacity was enough.
++        self.len += slice.len();
++
++        Ok(())
++    }
++
++    /// Removes all elements.
++    #[inline]
++    pub fn clear(&mut self) {
++        let elems: *mut [T] = self.as_mut_slice();
++        // INVARIANT: An empty ArrayVec trivially has all its elements initialized.
++        self.len = 0;
++        // SAFETY: There are no references to the elements since we hold `&mut self`. The elements
++        // can't be dropped again because `len` is already 0.
++        unsafe { ptr::drop_in_place(elems) };
++    }
++
++    /// Returns the initialized elements as a slice.
++    #[inline]
++    pub fn as_slice(&self) -> &[T] {
++        let ptr = self.data.as_ptr().cast::<T>();
++        // SAFETY: `MaybeUninit<T>` has the same layout as `T`, and by the type invariants the first
++        // `len` elements of `data` are initialized.
++        unsafe { slice::from_raw_parts(ptr, self.len) }
++    }
++
++    /// Returns the initialized elements as a mutable slice.
++    #[inline]
++    pub fn as_mut_slice(&mut self) -> &mut [T] {
++        let ptr = self.data.as_mut_ptr().cast::<T>();
++        // SAFETY: `MaybeUninit<T>` has the same layout as `T`, and by the type invariants the first
++        // `len` elements of `data` are initialized.
++        unsafe { slice::from_raw_parts_mut(ptr, self.len) }
++    }
++
++    /// Returns a slice of `MaybeUninit<T>` for the remaining spare capacity of the [`ArrayVec`].
++    fn spare_capacity_mut(&mut self) -> &mut [MaybeUninit<T>] {
++        // PANIC: `len` never exceeds `N` by the type invariants.
++        &mut self.data[self.len..]
++    }
++}
++
++/// Error type for [`ArrayVec::try_push_init`].
++pub enum PushInitError<I, E> {
++    /// The [`ArrayVec`] is full. Hand the initializer back.
++    Full(I),
++    /// The initializer failed.
++    InitError(E),
++}
++
++impl<I, E> fmt::Debug for PushInitError<I, E> {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            PushInitError::Full(_) => write!(f, "Not enough capacity"),
++            PushInitError::InitError(_) => write!(f, "Initializer failed"),
++        }
++    }
++}
++
++impl<I, E> From<PushInitError<I, E>> for Error
++where
++    Error: From<E>,
++{
++    #[inline]
++    fn from(e: PushInitError<I, E>) -> Error {
++        match e {
++            PushInitError::Full(_) => EINVAL,
++            PushInitError::InitError(e) => Error::from(e),
++        }
++    }
++}
++
++/// Error type for [`ArrayVec::push_init`].
++pub struct FullError;
++
++impl fmt::Debug for FullError {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        write!(f, "Not enough capacity")
++    }
++}
++
++impl From<FullError> for Error {
++    #[inline]
++    fn from(_: FullError) -> Error {
++        EINVAL
++    }
++}
++
++impl<T, const N: usize> Default for ArrayVec<T, N> {
++    #[inline]
++    fn default() -> Self {
++        Self::new()
++    }
++}
++
++impl<T, const N: usize> Drop for ArrayVec<T, N> {
++    fn drop(&mut self) {
++        // SAFETY: The slice holds initialized elements that are never accessed again after this
++        // point.
++        unsafe { ptr::drop_in_place(self.as_mut_slice()) };
++    }
++}
++
++impl<T, const N: usize> Deref for ArrayVec<T, N> {
++    type Target = [T];
++
++    #[inline]
++    fn deref(&self) -> &Self::Target {
++        self.as_slice()
++    }
++}
++
++impl<T, const N: usize> DerefMut for ArrayVec<T, N> {
++    #[inline]
++    fn deref_mut(&mut self) -> &mut Self::Target {
++        self.as_mut_slice()
++    }
++}
++
++impl<T, const N: usize> Borrow<[T]> for ArrayVec<T, N> {
++    fn borrow(&self) -> &[T] {
++        self.as_slice()
++    }
++}
++
++impl<T, const N: usize> BorrowMut<[T]> for ArrayVec<T, N> {
++    fn borrow_mut(&mut self) -> &mut [T] {
++        self.as_mut_slice()
++    }
++}
++
++impl<T: Eq, const N: usize> Eq for ArrayVec<T, N> {}
++
++impl_slice_eq! {
++    [const N: usize, const M: usize] ArrayVec<T, N>, ArrayVec<U, M>,
++    [const N: usize] ArrayVec<T, N>, &[U],
++    [const N: usize] ArrayVec<T, N>, &mut [U],
++    [const N: usize] &[T], ArrayVec<U, N>,
++    [const N: usize] &mut [T], ArrayVec<U, N>,
++    [const N: usize] ArrayVec<T, N>, [U],
++    [const N: usize] [T], ArrayVec<U, N>,
++    [const N: usize, const M: usize] ArrayVec<T, N>, [U; M],
++    [const N: usize, const M: usize] ArrayVec<T, N>, &[U; M],
++}
++
++impl<'a, T, const N: usize> IntoIterator for &'a ArrayVec<T, N> {
++    type Item = &'a T;
++    type IntoIter = slice::Iter<'a, T>;
++
++    fn into_iter(self) -> Self::IntoIter {
++        self.iter()
++    }
++}
++
++impl<'a, T, const N: usize> IntoIterator for &'a mut ArrayVec<T, N> {
++    type Item = &'a mut T;
++    type IntoIter = slice::IterMut<'a, T>;
++
++    fn into_iter(self) -> Self::IntoIter {
++        self.iter_mut()
++    }
++}
++
++impl<T: fmt::Debug, const N: usize> fmt::Debug for ArrayVec<T, N> {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        fmt::Debug::fmt(self.as_slice(), f)
++    }
++}
+diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+index 1b7b3a1ca770..bb4da220293b 100644
+--- a/rust/kernel/alloc/kvec.rs
++++ b/rust/kernel/alloc/kvec.rs
+@@ -1242,6 +1242,7 @@ fn eq(&self, other: &$rhs) -> bool { self[..] == other[..] }
+         )*
+     }
+ }
++pub(super) use impl_slice_eq;
+ 
+ impl_slice_eq! {
+     [A1: Allocator, A2: Allocator] Vec<T, A1>, Vec<U, A2>,
 
 -- 
 2.55.0
