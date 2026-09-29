@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46723347FC0
-	for <nova-gpu@lists.linux.dev>; Tue, 29 Sep 2026 20:43:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BAEB3B0AE6;
+	Tue, 29 Sep 2026 20:50:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790714630; cv=none; b=flXIshnxeuFOEkJcE3uMHnB1ahT5RexWwLg3wLuMGKSzBhdbB0zlB3Gqh+6suW2niltyaOlnU2x6Z3fLics8TodSHYiZS60QhihWOLnmVSrTHR25+7Wf1VWN7B3aNeAU8lAQETerjjvJNJPJm6sFzzESHSQSSxK54Wdly/mc2mk=
+	t=1790715041; cv=none; b=s7l1Wik/sY39vWcI4up9ZLUU9XUmowSVvBTrqBzNVqRyCbCp8HxyrfjuwWmIuFzp+SS0d8eAW8Buoz3EB8d+qnHlDBJnwsYhHkOFEDaY0JImf3i8YBnhDa94j7slRrj9tR1YQVY+fDSBcJGTRMuWXwapifS2R48fWxHnTKTMhp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790714630; c=relaxed/simple;
-	bh=+I4eiRyNkoHX2kwGmYTNuaCLykOKZqpMXqcNccT+Mvc=;
+	s=arc-20240116; t=1790715041; c=relaxed/simple;
+	bh=m6wj2C4OtcvRKRBX6549Ak89F48s00Sl7G6TS9CKi7M=;
 	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=VFkt335oduirZtAJtXpKdN2EOqvTWsIz3nXgkeOAVPoBGwmOLcRKH5sfXQ2qrPUdrnXUrnbtPsIV7mVBAlFqyHDRil7s20PNPK4swIXqk0pslz+G4wuwXc29J83DKHhXLHjL9wSkyEj6alMJyJqkuMbIoh9D9w1g17xfsyyybOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VhOanSht; arc=none smtp.client-ip=100.103.45.18
+	 References:In-Reply-To; b=RpO4BRHX/7yX7PDKP3fhmFehMlr6xD77mKZvEyjNX+2EQENc1Rks6jAh2cAPsPHhthcGp9MTUORXxWhc1kAVC4sVmyFhAfZFpvKEFYiMKs+ee5f94LLx1QIa1lWMlnrfJI6VxBfswnAlhI8Tp3VVgYI3zqXapBfVJP02kaxooo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIraCwcl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VhOanSht"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856FC1F000FF;
-	Tue, 29 Sep 2026 20:43:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIraCwcl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B1A1F000FF;
+	Tue, 29 Sep 2026 20:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790714628;
-	bh=1QdUQtGpZBOclXG/K5zrAwhgVwrWhwndx2juy1qfu6Y=;
+	s=k20260515; t=1790715040;
+	bh=ADs9ZYyqsWeL94lFD4OG3Qdzxe1lLtlhm4i2oa4wmTc=;
 	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=VhOanShtKisgQOxdUhh0WvO1nLI4+lImCAPmIKhhdmgKgnLv664LZwqF7fK0hGhwI
-	 z1zbchdcqh9FDydsMDp5N5dR3c6cZT5S9sCipd1Q1lOjRlHKWoajlCg6ESGjk94CHC
-	 UXZN3iP/+yVPsCDlihDl4ZrootfmTmnOim0VsgcoMxAMHYr9H+oN+y9eBF+W3s6MRA
-	 0os1Pj1botqPDDEg7THy2DOdzI0g9cKwIRzxmlUaSakJxWvu7uRpJiw+u9rdgCZJda
-	 QgcgTUnkTcxVqeZuWu5yXsHe5HfF4rRzSXFEKowQRvotqAqQZsKpWzW/ttCCaDTNPX
-	 oxBHoz5QvDvog==
+	b=IIraCwclqxnaJoaRUNhDz8Y3UK85mKdY0vwBn1016kOxVe1o5MzXStDS5z23m+YA1
+	 miMt+ucJzN/qO1V+oKQqL0PAdZZAG3ZHkZcR3fx3uStSmPZhGSo2nx8z9SsiL8XL7m
+	 ZgFqHV+X9QceLD+U7GBtZAf5BORtyxGlqY3s2rqcZ9kNmVlWCfCVw/jFcHcGn6qx1h
+	 TTKDRd9OA9E4AwIJEdJEZTpQiEfyZ1hi8myg84QPTtxbFi45dJiXT0YIrQOGbEWVfa
+	 U9hRqwhtDWZzDUooq+LQusqcacgiTPAx5s95dn8pPL84XPlZ3Qm/XKjMk7eAb4VUWN
+	 tLl8MMBT8r+CA==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -34,37 +34,62 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 22:43:45 +0200
-Message-Id: <DLS3CUGE89P0.AV9LGT4GCLVV@kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: use a single try_pin_init!() block in
- probe()
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
+Date: Tue, 29 Sep 2026 22:50:34 +0200
+Message-Id: <DLS3I2C50V88.1YA81R37NW4JU@kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: restore the "Probe Nova Core GPU
+ driver" debug print
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
+ Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
 To: "John Hubbard" <jhubbard@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260927144417.1280385-1-dakr@kernel.org>
- <DLQIRUGZ3L4S.2HUCTWWXHIDII@nvidia.com>
- <DLQZW9ZSEQF8.EFP3CFEMUABB@kernel.org>
- <51dccdd0-eb85-4572-be62-6ca39038cbdf@nvidia.com>
-In-Reply-To: <51dccdd0-eb85-4572-be62-6ca39038cbdf@nvidia.com>
+References: <20260929204334.368569-1-jhubbard@nvidia.com>
+In-Reply-To: <20260929204334.368569-1-jhubbard@nvidia.com>
 
-On Tue Sep 29, 2026 at 10:31 PM CEST, John Hubbard wrote:
-> I really would like this restored. This is a high value thing to
-> print, because it acts as kind of a bookend, showing the beginning of
-> trying to boot up.
+On Tue Sep 29, 2026 at 10:43 PM CEST, John Hubbard wrote:
+> This is a high value thing to print, because it acts as kind of a
+> bookend, showing the beginning of trying to boot up.
+>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Fixes: 658c5f0042e6 ("gpu: nova-core: use a single try_pin_init!() block =
+in probe()")"
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/driver.rs | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
+er.rs
+> index 291a047e4d86..96f2638d6400 100644
+> --- a/drivers/gpu/nova-core/driver.rs
+> +++ b/drivers/gpu/nova-core/driver.rs
+> @@ -102,6 +102,8 @@ fn probe<'bound>(
+>      ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+>          try_pin_init!(NovaCore {
+>              _: {
+> +                dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
 
-Hm...the next print in the boot process is
 
-	nova-core 0000:01:00.0: NVIDIA (Chipset: GA106, Architecture: Ampere, Revi=
-sion: a.1)
+I'd like to keep it outside of this block, as it will transform into a fiel=
+d
+storing a pci::DeviceEnableGuard soon.
 
-which is at the very beginning of probe and to me seems sufficient.
+Let's put it in its own _: {} block or before try_pin_init!().
 
-But a debug print doesn't hurt, so if you prefer to keep it, no concerns fr=
-om my
-end.
+> +
+>                  pdev.enable_device_mem()?;
+>                  pdev.set_master();
+>              },
+>
+> base-commit: 658c5f0042e6e897338dd04330a363aa7022c85d
+> --=20
+> 2.55.0
 
-> I can post a trivial patch to restore it, if desired.
-
-That'd be great, thanks!
