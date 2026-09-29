@@ -1,125 +1,395 @@
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C1A559300
-	for <nova-gpu@lists.linux.dev>; Tue, 29 Sep 2026 18:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707686; cv=pass; b=R1FbSkc9JFF44y/WGMUAOmIbh1rND7fL6X8569QuXkZkDjEKwY7FX/4IQoYwShK69UjWxnb/nbjrlljHQ0UyQPB0TdmDOxIvH5STXUkHgkeQ21lvx+cDBfOTKdu7BWQiPr1Tb/PUwLA9Wa8hlnPfnl6cWvTd9Vpdy8oPhBv00Ng=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707686; c=relaxed/simple;
-	bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lii2yyOygcld80LlbXbBqE6uP/2EELJb9yH8FNMjwfBS/bM4+UxK2DjNafRO9QCsNo/wp9vtWfSJZVyuu/vp4SZoWVih9Z9P6xrROP1BRbV31jJOC3goCCFLqdj3CcqjjQeQauAJSgtoz0ZLW1IVMn3EUwGMN7Wsa8Nn6/pyavY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RMJLNL2N; arc=pass smtp.client-ip=74.125.229.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E83B37C0FE;
+	Tue, 29 Sep 2026 19:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790708432; cv=none; b=SzqGu9f2xnzqVDFpcWKbzY+OZ93LuDVOkQFSQWcoWPpxFxuBEj18DEQM6jTX/WaH4oYcoEYKX+910BWjTkS8dn9McAo9vwnAEAd34uNh+mVdrtWskWkMUBmb4cKte2fuxg8w6cHNap8N3bjdeIpVby7dtuJT0vckrXVBOQuG1Ww=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790708432; c=relaxed/simple;
+	bh=dhqVqz+SiAESsSV6D00FPsIc7eomWXgZcbEs+w43ruE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oTIs4FfAtr6emMR/XLVik8JIr0JhT2inF/C8AhU8+f+oLjmhzopms4Ma8O6zWUXgnKZsSO7fZlHWoOiLwUC97qbP56UE5gkOTb7X9sxs3oPHZjrp8j2DbeFjoOzyt5Nclm5zPrWiBmS6nz+xMeFDROCUvFTqULI1mMNfMkMpwso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/dI7hh7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RMJLNL2N"
-Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-14a08c1a158so90650c88.1
-        for <nova-gpu@lists.linux.dev>; Tue, 29 Sep 2026 11:48:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790707683; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kTEKlMTImfHlDAmE8SBo7ZYQLBwbT9MgiCPeurPDJBMcJ2zA2M3/Eh9CFOQfkHNsDG
-         O+Jz9OHNjRVi9ahZ+bZFXdqrM1SISlvejvC7TDO6gtwkW6CuYkiKCe23ryhft35QSU54
-         XIaL7FScn5ED3a1ftiC1lJtapWqJP6hluyUuXILx2yAkx4AIITzixDFrY+pH1LX4i6RL
-         De6uD4Kwm9QEngJqnEYDKtrl9NjybOYKhyyO6bn4uFCst8YvOxx4PLyUMrqrQwkhV9c1
-         AIgU8wggLX0Z6enGNnaGxXWKUfhV4opFIsI8Jkne5bOZwkp6C63NjvjLOeklRJDgdzqv
-         LCRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
-        fh=1h6xAGAmH3FkssQghvzo2k1jEvu6gQdLJLQ6tM2c7Ig=;
-        b=lvJDNErqWRZ6x+Hzn0eR7wsyaidfTcQ9N6TupyqjVdqSfubH2of9JkYMANCMciqU7N
-         Kh2yMjkpw/zLqKIF9l5PGsRwFh7oEcXsa2NWElNjT5IoRZPdV6LL0Zp7MMQTD0VNCrWy
-         Xe4v1UI6J9KaBqnJoLSSRtfGtu4Suxkd974CHg9WCFrOJw9Ndod5jD37/3r74ssi3kt3
-         L3r+4YftBkV4D6eIEQfYuDh/rucSp8j+BmbVlmd8gunaZFAiYT3vONHCRwvndD3AsGZc
-         LvqcqTsEX2KuQLhi6ao0iiG1OZIs8VSNqFXjpXvSSJLca2gI2O5v7YerAbI9sSPLVirr
-         2zzA==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790707683; x=1791312483; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
-        b=RMJLNL2N3l7L/aq79TmiRxi0ZfMyWKFWGrSh2f13HDBuB96JK+h+AqAFZ73+KKj2bk
-         RWGXoXpswfP2RO+DupMU4JWhIjC9FWrw//PxcwojmwrVnhyKjSCUwRKiN7jYizO7nLp0
-         K2ewFsV+3biyGr60zIFu/Z5hEaqZwr9GkLNBe+QvZw4OZxBbA4LXX3PS6HvlpkCSEYhB
-         NyrhYtC8LyXEcCdmE+NiQFbIOlQ3wqWybOvfYB7+4wIc3uN9nykldCszsbL8KxbZ9/+6
-         k4c6brB0IgU7V2L+zA+ouV8EdScg0xofTQZ8hgVQJEbjaQGuJDTDT0Wo6S8MMX7yd1aw
-         V7nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790707683; x=1791312483;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4mXsG2n0x6/G8L81DtdCpyrZDoIOY4779O+uiKUC11g=;
-        b=GgVnttOrjXHj8YpUsAZ06HI/eKVJ43yqxLGLeV8wpFdDl8PyP/MRdNv7Xn74W7PDyZ
-         vdCGpIcsVuOdpxeBeCF8ITBDoXStjZvcn0UFf7ak3Cpd8GHVYXuXLtt/W4gZxjKsspz4
-         6K6Z2I4RXvRs01dCiBcXzq0exPjeLjW0fnD6v2ToXWSo+jdvWSKRrs/jWi4zlUthx2Pg
-         0qPFV5fG/HvWXmhnEgiqQIYGXNPxJLw5uZKYLpD26qaa46YZ9+5aYsC3eyp5ogswJ09i
-         VLoJxfmSTFApp6v4nZkKbFvVKfhqTbMgakwgNe1FpSSgYQQrnWu0Ibzm/7uu+UBAkWCa
-         Pvxg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlJorVQP38kh4xWk30TVOJRkyi2v8IklI8+vXkQLL0ndvqYmhD4Kwhz010E70xNwPVPsieO7N0OA==@lists.linux.dev
-X-Gm-Message-State: AFq9FYIYKSDyo9oV/o/4SGtPxXe3w6A9w2cfkEXJi8CtG8iadHZGxPo4
-	4eAurX14B+NKE0N85PTQ15gMPZ7bM/DUKw6Lm6CCxDSc0PGkvGAmoFnmJz5WDqLVpmCK6DawfCT
-	dkisIB76BlhWJBV3SpAg26v8/b3ZDaeQ=
-X-Gm-Gg: AYBFou2Q1r+u8h5tDIrg0ERUEF5Wq5RFxbjA6F/l+I3sIKYPs+Sq6MIrtzPBpeTq2Ui
-	k6L7Knt3jKCSSiseA6u48ZXfByfzlzkM1N/NafS700FQHoz2tetFSWuwIZEWDyetcJdzgKvSVFy
-	rJmda5fLy1Nb3FW3EANzxG6guOipSAXUq9kTF1q4yg5SROhH8O4MyQcaV1UfEwePqD7F7uaHsNN
-	iSQHpv1kp5hFeNLZ2oO6sdpX0w/0b6izXBl4Ray3n12da8iCmivGe2yhNwDAMmASr6QhSw8Yzl4
-	spSwwXXI3/u0dFWpYdcU/vgSI96gykdqWyFf8Brl0Fz1KMyfzpsji7zX/BPTSHpfgGeRoWyelTa
-	fo6CKs8ROzAt1pNuuPQt4My+OC1L+hNnjYLf2hjmozphrWlI0oKVGbugx+08DcMDT57Ed5Dl8fK
-	NXzTTC35vyrjM7GPSYEaQyqn+ZwBeH0KapnYd02LdNc6/wwCoPb+0=
-X-Received: by 2002:a05:7300:d0ae:b0:34b:101f:cdaf with SMTP id
- 5a478bee46e88-34c65a6e7f8mr375267eec.1.1790707683419; Tue, 29 Sep 2026
- 11:48:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/dI7hh7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21241F000FF;
+	Tue, 29 Sep 2026 19:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790708430;
+	bh=d2KNc+edJ1xpzJQNDTc+4zFjbcgQDd8/TWXP72PyXjw=;
+	h=From:To:Cc:Subject:Date;
+	b=P/dI7hh7UPtBdsA5HVwnKYBz21QFzLqZjgvusWayRfPNAErMqFREn1zHPPB4WuobY
+	 ewm9lmwwQLUtQp1Pmwdu34elnQAvvceml0zLcGD73vsDLIZoaFCR7N8zIbhgUwH5n9
+	 ATuT7t9SL1yjPPi/vWmo6Is/Te1CL1sWT/HhSEK2krEUX0dboFekNsGz0oISqyH1M8
+	 wxX8UVj6rPFe+zaQAGBczdUnjoGjbuviBLb9UXYcca0L8dGrkM7l2dswF8wW2pE2Yf
+	 bM9FPiNdMG40E58LZtYHT2zsVqL0ZOwbV16f8g4nJ62ePG1gdUb0L1cGhMX1731eXF
+	 gD3Ol2phtNLWA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	aliceryhl@google.com,
+	acourbot@nvidia.com,
+	daniel.almeida@collabora.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	tamird@kernel.org,
+	work@onurozkan.dev
+Cc: nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 1/2] rust: drm: Return impl PinInit from drm::Registration::new()
+Date: Tue, 29 Sep 2026 20:59:30 +0200
+Message-ID: <20260929190024.2248099-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260929135855.36775-1-chaoji_xinren@163.com> <20260929135855.36775-7-chaoji_xinren@163.com>
-In-Reply-To: <20260929135855.36775-7-chaoji_xinren@163.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 29 Sep 2026 20:47:51 +0200
-X-Gm-Features: AclHuK863ebGI2IXnXKyI5Z8WG1aeHKK_SaCRYSny_74NDfJ3eAdiAl5z7WrHIE
-Message-ID: <CANiq72=ciUBTJJ=SvdrGBpNp3GvzA_m5NGeWmuCgypkFA1i-LA@mail.gmail.com>
-Subject: Re: [PATCH v6 06/10] rust: macros: exercise the intended conversion
- doctest failures
-To: Kaiqi Guo <chaoji_xinren@163.com>
-Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
-	Jesung Yang <y.j3ms.n@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Danilo Krummrich <dakr@kernel.org>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Charalampos Mitrodimas <charmitro@posteo.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 3:59=E2=80=AFPM Kaiqi Guo <chaoji_xinren@163.com> w=
-rote:
->
-> Suggested-by: Charalampos Mitrodimas <charmitro@posteo.net>
->
-> Link: https://lore.kernel.org/rust-for-linux/m2qzr81jrd.fsf@ip-192-168-1-=
-196.ap-southeast-1.compute.internal/
+Convert drm::Registration to return an impl PinInit<Self, Error> rather
+than creating a separate allocation. This removes an otherwise
+unnecessary allocation.
 
-I have been seeing more and more lately these newlines between tags --
-is there perhaps a tutorial out there mentioning to do this or a
-script that ends up splitting them or similar?
+Update both in-tree callers (nova, tyr) to construct their bus device
+private data using try_pin_init!().
 
-It is especially strange in cases like this one, because the Link is
-for the Suggested-by, no? So logically they should be tied together
-(if the kernel allowed newlines to group tags to begin with).
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ drivers/gpu/drm/nova/driver.rs |  27 ++++---
+ drivers/gpu/drm/tyr/driver.rs  | 138 +++++++++++++++++----------------
+ rust/kernel/drm/driver.rs      |  76 ++++++++++--------
+ 3 files changed, 130 insertions(+), 111 deletions(-)
 
-By the way, since I am here: it sounds like this could be split into
-different patches, although it is not a big deal.
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
+index 46e13fe795eb..50537efe8d94 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -25,10 +25,11 @@
+ 
+ pub(crate) struct NovaDriver;
+ 
++#[pin_data]
+ pub(crate) struct Nova<'bound> {
+-    #[expect(unused)]
+     drm: ARef<drm::Device<NovaDriver>>,
+-    _reg: drm::Registration<'bound, NovaDriver>,
++    #[pin]
++    reg: drm::Registration<'bound, NovaDriver>,
+ }
+ 
+ /// DRM registration data, accessible from ioctl handlers via the registration guard.
+@@ -68,17 +69,19 @@ fn probe<'bound>(
+         adev: &'bound auxiliary::Device<Core<'_>>,
+         _info: &'bound Self::IdInfo,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+-        let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
+-        let reg_data = DrmRegData {
+-            api: NovaCoreApi::of(adev)?,
+-        };
+-        // SAFETY: `reg` is stored in `Nova` and dropped when the driver is unbound; it is
+-        // never forgotten.
+-        let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, reg_data, 0)? };
+-
+-        Ok(Nova {
++        try_pin_init!(Self::Data {
++            reg <- {
++                let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
++
++                let reg_data = DrmRegData {
++                    api: NovaCoreApi::of(adev)?,
++                };
++
++                // SAFETY: `reg` is stored in `Self::Data` and dropped when the driver is unbound;
++                // it is never forgotten.
++                unsafe { drm::Registration::new(adev.as_ref(), drm, reg_data, 0) }
++            },
+             drm: reg.device().into(),
+-            _reg: reg,
+         })
+     }
+ }
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 730b84e37a54..6e1008290b5f 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -57,6 +57,7 @@
+ 
+ #[pin_data(PinnedDrop)]
+ pub(crate) struct TyrPlatformDriverData<'bound> {
++    #[pin]
+     _reg: drm::Registration<'bound, TyrDrmDriver>,
+ }
+ 
+@@ -117,73 +118,76 @@ fn probe<'bound>(
+         pdev: &'bound platform::Device<Core<'_>>,
+         _info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+-        let core_clk = Clk::get(pdev.as_ref(), Some(c"core"))?;
+-        let stacks_clk = OptionalClk::get(pdev.as_ref(), Some(c"stacks"))?;
+-        let coregroup_clk = OptionalClk::get(pdev.as_ref(), Some(c"coregroup"))?;
+-
+-        core_clk.prepare_enable()?;
+-        stacks_clk.prepare_enable()?;
+-        coregroup_clk.prepare_enable()?;
+-
+-        let mali_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"mali")?;
+-        let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
+-
+-        let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
+-
+-        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
+-
+-        issue_soft_reset(pdev.as_ref(), &iomem)?;
+-        gpu::l2_power_on(pdev.as_ref(), &iomem)?;
+-
+-        let gpu_info = GpuInfo::new(&iomem);
+-        gpu_info.log(pdev.as_ref());
+-
+-        let pa_bits = MMU_FEATURES::from_raw(gpu_info.mmu_features)
+-            .pa_bits()
+-            .get();
+-        // SAFETY: No concurrent DMA allocations or mappings can be made because
+-        // the device is still being probed and therefore isn't being used by
+-        // other threads of execution.
+-        unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
+-
+-        let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
+-
+-        let mmu = Mmu::new(pdev.as_ref(), iomem.as_arc_borrow(), &gpu_info)?;
+-
+-        let firmware = Firmware::new(
+-            pdev.as_ref(),
+-            iomem.clone(),
+-            &unreg_dev,
+-            mmu.as_arc_borrow(),
+-            &gpu_info,
+-        )?;
+-
+-        firmware.boot()?;
+-
+-        let reg_data = pin_init!(TyrDrmRegistrationData {
+-                pdev,
+-                fw: firmware,
+-                clks <- new_mutex!(Clocks {
+-                    core: core_clk,
+-                    stacks: stacks_clk,
+-                    coregroup: coregroup_clk,
+-                }),
+-                regulators <- new_mutex!(Regulators {
+-                    _mali: mali_regulator,
+-                    _sram: sram_regulator,
+-                }),
+-                iomem,
+-                gpu_info,
+-        });
+-
+-        // SAFETY: `reg` is stored in `TyrPlatformDriverData` and dropped when the driver is
+-        // unbound; it is never forgotten.
+-        let reg = unsafe { drm::Registration::new(pdev.as_ref(), unreg_dev, reg_data, 0)? };
+-
+-        let driver = TyrPlatformDriverData { _reg: reg };
+-
+-        dev_dbg!(pdev, "Tyr initialized correctly.");
+-        Ok(driver)
++        pin_init::pin_init_scope(move || {
++            let core_clk = Clk::get(pdev.as_ref(), Some(c"core"))?;
++            let stacks_clk = OptionalClk::get(pdev.as_ref(), Some(c"stacks"))?;
++            let coregroup_clk = OptionalClk::get(pdev.as_ref(), Some(c"coregroup"))?;
++
++            core_clk.prepare_enable()?;
++            stacks_clk.prepare_enable()?;
++            coregroup_clk.prepare_enable()?;
++
++            let mali_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"mali")?;
++            let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
++
++            let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
++
++            let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
++
++            issue_soft_reset(pdev.as_ref(), &iomem)?;
++            gpu::l2_power_on(pdev.as_ref(), &iomem)?;
++
++            let gpu_info = GpuInfo::new(&iomem);
++            gpu_info.log(pdev.as_ref());
++
++            let pa_bits = MMU_FEATURES::from_raw(gpu_info.mmu_features)
++                .pa_bits()
++                .get();
++            // SAFETY: No concurrent DMA allocations or mappings can be made because
++            // the device is still being probed and therefore isn't being used by
++            // other threads of execution.
++            unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
++
++            let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
++
++            let mmu = Mmu::new(pdev.as_ref(), iomem.as_arc_borrow(), &gpu_info)?;
++
++            let firmware = Firmware::new(
++                pdev.as_ref(),
++                iomem.clone(),
++                &unreg_dev,
++                mmu.as_arc_borrow(),
++                &gpu_info,
++            )?;
++
++            firmware.boot()?;
++
++            Ok(try_pin_init!(TyrPlatformDriverData {
++                // SAFETY: `_reg` is stored in `TyrPlatformDriverData` and dropped when the
++                // driver is unbound; it is never forgotten.
++                _reg <- unsafe { drm::Registration::new(
++                    pdev.as_ref(),
++                    unreg_dev,
++                    pin_init!(TyrDrmRegistrationData {
++                        pdev,
++                        fw: firmware,
++                        clks <- new_mutex!(Clocks {
++                            core: core_clk,
++                            stacks: stacks_clk,
++                            coregroup: coregroup_clk,
++                        }),
++                        regulators <- new_mutex!(Regulators {
++                            _mali: mali_regulator,
++                            _sram: sram_regulator,
++                        }),
++                        iomem,
++                        gpu_info,
++                    }),
++                    0,
++                )},
++                _: { dev_dbg!(pdev, "Tyr initialized correctly.") },
++            }))
++        })
+     }
+ }
+ 
+diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+index 74f6ed690d8b..13aa609350b1 100644
+--- a/rust/kernel/drm/driver.rs
++++ b/rust/kernel/drm/driver.rs
+@@ -12,7 +12,10 @@
+     prelude::*,
+     sync::aref::ARef, //
+ };
+-use core::ptr::NonNull;
++use core::{
++    marker::PhantomPinned,
++    ptr::NonNull, //
++};
+ 
+ /// Driver use the GEM memory manager. This should be set for all modern drivers.
+ pub(crate) const FEAT_GEM: u32 = bindings::drm_driver_feature_DRIVER_GEM;
+@@ -143,9 +146,15 @@ pub trait Driver {
+ /// The registration type of a `drm::Device`.
+ ///
+ /// Once the `Registration` structure is dropped, the device is unregistered.
++#[pin_data(PinnedDrop)]
+ pub struct Registration<'a, T: Driver> {
+     drm: ARef<drm::Device<T>>,
+-    _reg_data: Pin<KBox<T::RegistrationData<'a>>>,
++    #[pin]
++    data: T::RegistrationData<'a>,
++    /// Even if `T::RegistrationData` is `Unpin`, the registration must not be moved because a
++    /// pointer to `data` is stored in the DRM device.
++    #[pin]
++    _pin: PhantomPinned,
+ }
+ 
+ impl<'a, T: Driver> Registration<'a, T> {
+@@ -159,39 +168,41 @@ impl<'a, T: Driver> Registration<'a, T> {
+     pub unsafe fn new<E>(
+         dev: &'a device::Device<device::Bound>,
+         drm: drm::UnregisteredDevice<T>,
+-        reg_data: impl PinInit<T::RegistrationData<'a>, E>,
++        data: impl PinInit<T::RegistrationData<'a>, E>,
+         flags: usize,
+-    ) -> Result<Self>
++    ) -> impl PinInit<Self, Error>
+     where
+         Error: From<E>,
+     {
+-        let parent = drm.as_ref();
+-        if parent.as_ref().as_raw() != dev.as_raw() {
+-            return Err(EINVAL);
+-        }
+-
+-        let reg_data: Pin<KBox<T::RegistrationData<'a>>> = KBox::pin_init(reg_data, GFP_KERNEL)?;
+-
+-        // Store the registration data pointer in the device before registration, so that it is
+-        // visible once ioctls can be called.
+-        let ptr: NonNull<T::RegistrationData<'static>> =
+-            NonNull::from(Pin::get_ref(reg_data.as_ref())).cast();
+-
+-        // SAFETY: No concurrent access; the device is not yet registered.
+-        unsafe { *drm.registration_data.get() = ptr };
+-
+-        // SAFETY: `drm` is a valid, initialized but not yet registered DRM device.
+-        let ret = unsafe { bindings::drm_dev_register(drm.as_raw(), flags) };
+-        if let Err(e) = to_result(ret) {
+-            // SAFETY: `drm_dev_register()` synchronizes SRCU on failure, so no concurrent
+-            // access to `registration_data` is possible at this point.
+-            unsafe { *drm.registration_data.get() = NonNull::dangling() };
+-            return Err(e);
+-        }
+-
+-        Ok(Self {
++        try_pin_init!(Self {
++            _: {
++                let parent = drm.as_ref();
++                if parent.as_ref().as_raw() != dev.as_raw() {
++                    return Err(EINVAL);
++                }
++            },
++
++            data <- data,
+             drm: (&*drm).into(),
+-            _reg_data: reg_data,
++            _pin: PhantomPinned,
++
++            _: {
++                // Store the registration data pointer in the device before registration, so
++                // that it is visible once ioctls can be called.
++                let ptr: NonNull<T::RegistrationData<'static>> =
++                    NonNull::from(data.as_ref().get_ref()).cast();
++
++                // SAFETY: No concurrent access; the device is not yet registered.
++                unsafe { *drm.registration_data.get() = ptr };
++
++                // SAFETY: `drm` is a valid, initialized but not yet registered DRM device.
++                let ret = unsafe { bindings::drm_dev_register(drm.as_raw(), flags) };
++                to_result(ret).inspect_err(|_| {
++                    // SAFETY: `drm_dev_register()` synchronizes SRCU on failure, so no
++                    // concurrent access to `registration_data` is possible at this point.
++                    unsafe { *drm.registration_data.get() = NonNull::dangling() };
++                })?;
++            },
+         })
+     }
+ 
+@@ -208,8 +219,9 @@ unsafe impl<T: Driver> Sync for Registration<'_, T> {}
+ // SAFETY: Registration with and unregistration from the DRM subsystem can happen from any thread.
+ unsafe impl<T: Driver> Send for Registration<'_, T> {}
+ 
+-impl<T: Driver> Drop for Registration<'_, T> {
+-    fn drop(&mut self) {
++#[pinned_drop]
++impl<T: Driver> PinnedDrop for Registration<'_, T> {
++    fn drop(self: Pin<&mut Self>) {
+         // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensure that existing
+         // `drm_dev_enter()` critical sections complete before unregistration proceeds. This
+         // is required for the safety of `RegistrationGuard`, which relies on the SRCU barrier in
 
-Thanks!
+base-commit: 10a6623a24a85708650efad7be15182289403cd7
+-- 
+2.55.0
 
-Cheers,
-Miguel
