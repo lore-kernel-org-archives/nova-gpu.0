@@ -1,151 +1,185 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012003.outbound.protection.outlook.com [40.107.200.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE8052ED3B
-	for <nova-gpu@lists.linux.dev>; Tue, 29 Sep 2026 14:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790690426; cv=none; b=Eu/7PZ4ShB5LHy+k1XUAyqI0AUCY5XXLvu4eXud4art+lmXEWo0ZhibHYwkzrb1WwDVqpKQvXUZVmdIFMA9W0J3g9AfSmAzluroY0rfcZd2vg3hNLh5tdqbrkjNUI3yHrFoR2qbcZjJJTbPXdy4wuER4v0fn3sc0vaAqXHDabxM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790690426; c=relaxed/simple;
-	bh=kMTfXmN76tXHjg7lMHDG8E9G2SXwV63lnKr/zCIsIT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PYSSjlu6dNXGOi+hYeFW+AT+SPq2au+7uFIlhk78d8qZHJGbN3Iq4mYgBwzBWGAs9vxcMFnMmCqyoIS0QelKeSkU6mILQ3XWZU24vos6PiBzMSm86duaBrSRpFZslIO4ADWn57Ow1dQrDD7OOtvdoEesuVbPd1Q1YBOMLGKj/Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TkbjctR2; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9458737FF7F
+	for <nova-gpu@lists.linux.dev>; Tue, 29 Sep 2026 14:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790692842; cv=fail; b=b7bhEO9cqqLZ7zSbGwJmE1Z7ea7BLuia0srAQwaLk78rlU0ezqP+kPqN5CpO5dpWBWx2Jr9R2X83LzcLLl9zEErerVuYe6pcEmciBHxiUN/xbWr0sb/irG0WRT59QBVZHqQE3w4+a+OGoZzPlyUFC58QmWf/sSKMdYhLxAaKzZ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790692842; c=relaxed/simple;
+	bh=1h3RTlmqFRyw2GwXHbXQJi0s+YR16hRqXIUaeq4eChM=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=N+XIJCdMKjiQMkPqYHo+a3lJiVj5EGRV+TlRadvh4yyAnFLADxzegNnV8onLFyqdkE3OtAvjPGi4QuiwF5JQaH5cgVLVdsMCJNSg1guMsNR8pgP3WVcg9HafAbz9bL8r9dJZjg/46ZvYufbYP/lOiuFsIm0yt5rFmNaVfqSePyw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DhLhMNXL; arc=fail smtp.client-ip=40.107.200.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TkbjctR2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vj
-	bTBB8DwF7g9ji0l50jBGPJhPvM44ev2BgqTyu3dIY=; b=TkbjctR20LRlfwvrAB
-	KVBHS85+oqhRKGYSn1vgukFqgOhXrRCMw8Js2AzqwfwK8DgudcQbh2UZehvEH9iE
-	adHzmP5zg8OcuqWTOC6nnFrQbCMTz1M5VvCvHz/9kDzu2yifaE8WLFWUwn/tAu4L
-	RNepQx1NAcFFefcG2OhGy9/bk=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgB3SLFPxLtqLmV_Bw--.47547S2;
-	Tue, 29 Sep 2026 21:59:48 +0800 (CST)
-From: Kaiqi Guo <chaoji_xinren@163.com>
-To: rust-for-linux@vger.kernel.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: Jesung Yang <y.j3ms.n@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Kaiqi Guo <chaoji_xinren@163.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v6 10/10] gpu: nova-core: use conversion derives for two register enums
-Date: Tue, 29 Sep 2026 21:58:55 +0800
-Message-ID: <20260929135855.36775-11-chaoji_xinren@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260929135855.36775-1-chaoji_xinren@163.com>
-References: <20260929135855.36775-1-chaoji_xinren@163.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DhLhMNXL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hcmdD5iTunAhQuOwu3m12USo+2Ev0JW/J4DSQfLiSV//8eibrs+EWmD6KU/QUzM2PtsSlKI1zuTcdwzLm1VGxhpgwBY311SgblrWlgmJ9x99tWoSoVU9DeVUrYjIERZhyVjuMp71hVlOHNG0Apbo0WG65OiNSJIGkR+BEXDHec4FbEcLYFIY+CKo2CA12kn8iX3hPdGqH5XMkv8Q937c/gIjH53763c/IsBpWcwCI/O5TbiVN2xFlPF7vh2D9wA41+REijDX136iE16GXiuNuV9R9eJrJ2vkVQA8+M/cTB9Q+qXT0xcbjs+VzvZmxRNQSxAAiyhBeXGI/wctwCPqgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v4aL6GbJ9FiMExmgue30oCHr4+UQLRVfMHX4WMvdwNk=;
+ b=sMRxKUDhFtEbFJ3huBqsKSlI7UvS5M3tvpgAGiV5/IXvXb04d6tRQE2At606n6OrS8QtQZgygQ8eU/eBpwz/2HxtP1OzxQpMQHOsU5xFn6DVkKPrthQb9il/kYk0LAGa9uI7nJt68+vI7E3lmdR01bYBaJyQbqOd+gU9I2QuZIp3fEtViBd0yFJxshKlNphDt1FAjTrRDgzK5vG2R4nea07TEibgomzjeGEA+sqcNe5URx/53n/M378t86yPVJEOyPqpgQjm6ioLqtyrvcDNx53T7XHKxkpMD69WQwEt7lJ82wX8xWAR4IizOxerLfmmGT4ObLwVxlhqK+sB0uGoxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v4aL6GbJ9FiMExmgue30oCHr4+UQLRVfMHX4WMvdwNk=;
+ b=DhLhMNXLlI8Xq1e3JJvzqJZsXP4xMozlLs7pifJP6iGgjgn+6eJK+UZPU3QOs2pwu0uJXefNlYWbFc8z333xk8xOjlkwvmWd4Fys3JTyYhb/gQAZaSxvCZKCqtkhWGunJvtkI17WNT/mp7YEEVDYFD4AHM6ihIAu4+aJxmP2BuSyvX9dWu/R30Yz0jBAv3VUh+0CPw/a9jLHkvQDBtGSKzA5ShBPtHvmF9lgdHxK12v0OPXmtPpuoIYKBNd5eCFuqV9RGrVOT7P+Xh8zwbDSeW19Nm4xOma2hZZGfD9JupjJUhVAj1uj03h2TyZ9ybG83nT6nWHoM2vdJmicw8pEHA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CH3PR12MB8909.namprd12.prod.outlook.com (2603:10b6:610:179::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
+ 2026 14:40:26 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 14:40:25 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 29 Sep 2026 23:40:22 +0900
+Message-Id: <DLRVMM6HVO54.NV3FUAYPC7UU@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 8/9] gpu: nova-core: gsp: move the RPC commands into
+ a sub-module
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Zhi Wang" <zhiw@nvidia.com>
+References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
+ <20260927-cmdq-rpc-v2-8-c3f66ae73be4@nvidia.com>
+ <20260928122015.3df66b3e@inno-dell> <DLQX62L47S38.1D5416RRETLY3@nvidia.com>
+ <20260928181106.06eca8fc@inno-dell>
+In-Reply-To: <20260928181106.06eca8fc@inno-dell>
+X-ClientProxiedBy: TY4P301CA0025.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:2b1::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgB3SLFPxLtqLmV_Bw--.47547S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJF48Wr13Xw47Wr47AFy5urg_yoW5Aw1rpF
-	45KrZ2kr17Zwn3Xa4xA3WUZFW3Cas3GFZ8uF47Jw1DursFyF10k3ykXrWFq34DG34IkrW2
-	gryvk345ua4UK37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piXTm-UUUUU=
-X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4hXPS2q7xFWmOAAA3t
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH3PR12MB8909:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9b5581d-4f8b-46b9-d0a3-08df1e37994d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|366016|23010399003|22082099003|18002099003|3023799007|56012099006|10067099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	Vq115iPDGFf9oT8nriYZToncQaIah5wf01m4LRuNzy8ur85RVX54gnotZ/t6seHmw0mfikl6/xeslm5Bz43Tynl2vxhQ5n+C4WQTA134ABrQmDNuvv9ulIVyu2sD+LEO6fbiUUHJioJTsyjDtns4ssmqQp2LbGyZKzag1nBmw7jOwSKj61tUYaTnEvIJwj30Kbt98uH31lashWjf+AuoaxvpAdRYLn4/Buk+IGn7bJxEvEQbXJLnxARo1laqHxiW6Vcy6wdqJD6/7XP5j6+A/KlxOYTtL1SOrSUpQ2k40ZycBlBA4+nQtOgn6Ra3vt6xwrxoZDSESQEh1Oa8wT9dXGymAyhjgnuGvWTAFNkqNEDwmd3i6paNcwIBZmkQm/wuKztk7qaptLSwB5c+F8Z9ej+VuOc62mWbcpz/yyv0C41vNSx9tc2o+7D0WrGIUtGfX83LVR76cMlgdpG3ew5tN7R1JkaesniwRUkRs3pnrNIRkE0A9FaP+C2oFDe+v4FYQ2aRmwk3DN7sI9WMWGisum4gCO7q0fmVrgPf1lM2rmX9QVdLd6FSU8qK9adwIDp0lUQhadHtN1aoDrv71/MD1CMFfMtJ1j6vgjzkApan2XHk3XmMn9gHyONi2ZJqUqS0tt/lqJABL9ISViX40wxdWMcwaYxOTN2oG0uW6MYL8G8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(23010399003)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bWF5L28zWGtEMjZtajhCWFgrbTlOMlFCbTU0MDdNa1NiTGRHUFRNd0xwR3Mv?=
+ =?utf-8?B?Z1Z2RDZjTnYzdGNpTzVad3ZBdGlUSVBJMjlEWmdtS0liZ3ZZdGV1cmE3K05I?=
+ =?utf-8?B?a1JMMnhFeE1nV1VUSXFXM0lJNzlhaTZFeDlPZldnT1k0d1p5VlJCeitjVWY4?=
+ =?utf-8?B?QW1FMmJObHBQYmVQUHM2YU42UnBqTzkrZ2dRRDF2L1dEbUtVZFl2U3hPUzEy?=
+ =?utf-8?B?djRwNzVEd2lWTS9FM1lma0IwemRwS3ZOOGxTRVpqMXpQRVdPRGZTMmRzZjJx?=
+ =?utf-8?B?ZllpODdVbnpPUTBBVXh2QWZMdEVoaXdOKzQwbUkvb25xVlNPZFJDVFJ5N2R1?=
+ =?utf-8?B?djBnNHhXYWxQSk1ucDdmS2VPVXBTNXcrajh1ZW5NSGUzVFNDc2FhajlNNmZK?=
+ =?utf-8?B?V0RtZ0tQY1dHNkFuRVp4Y0VuV2x1Q2RFQnE0TFRnR291NytoUGowWlhJKytY?=
+ =?utf-8?B?aWZ4TElJNDYvQjlxdjd0YVE3YVZWVU1oVFN3Vk92aGx5OU1IajVPaExEN3By?=
+ =?utf-8?B?THpTa0EwWWdZUkpFbWdlTmd4cXc3WFd2aCtyUTU4TzBuRVNwMmRiQ0ZWR2s0?=
+ =?utf-8?B?ZU5UUFFPTTlRd3RkbTB1WlVpSXRHbDJyaEEzVHlYQWFKMStMOUJ4NFhseHNO?=
+ =?utf-8?B?Q3Y3dHJHdnB3OXQwUkZZVjFuVVEycXVuclhkYk9PYW5IUHNhSzM0K3U2Vzkv?=
+ =?utf-8?B?RFIzS3k3ODIwZkVOSWhlUUJrdm0vOWJ6OU5OR2RMUERKR0lXcUIxaEY2MVB0?=
+ =?utf-8?B?ZEpha3lhcnFJMEpBSWlyNE1NSUkwZWVXOHRhUWxaMlJVMENVM0lZWHVuUFd6?=
+ =?utf-8?B?eDNwYUpkU2UrWVM0QS9EdXA2YS9kVlJYbGRSYjg2YVhJNjJGNmhWR0xtTVBl?=
+ =?utf-8?B?U3hWeTFJR3RmM1hQMWdDMTY5TjhJNWtHc3hzY09LaWNRbDcwSHlaUTJzY2sr?=
+ =?utf-8?B?OHl6S0NzYk1HSzdIZHk3Q1JTb0Z2eVNxTklxS0NvNDlNS0puWGxBb3FTcThP?=
+ =?utf-8?B?VUhtb1NBWHRrQm5Lc2hKVmo3TXlWczg2eElFdGNUeTg4T1kvNllQendaalVP?=
+ =?utf-8?B?M0phNkp1ZVlIbkp6anc1d3ZVOHQvS0IzY0lET1g2S3J0QVc5M3loQkVCMEJI?=
+ =?utf-8?B?SzhpQkpadlBna1psdURBTHRCZFBUOWY0UHhxMTdleFlrcitHTEhZcEF1NTZw?=
+ =?utf-8?B?bkpkQnp2VGlvcE1NVmlwbVUzM0lwV0ozdDA0SVVxSStVbWNndnpnNW56UUdp?=
+ =?utf-8?B?S1RTQmF6SjdBVU9Ecmp5ejg1M2pVVmRWMTV0aWlnYWhndElNeUJXTTJ4TnBn?=
+ =?utf-8?B?ZVFUbWREMUc4YW9NWEptN1JmNVJYQnVDN3JaQ0FrZ0E3TlZSdU5FL0pUdWxX?=
+ =?utf-8?B?dHVKZ3JUSFR1SjhKb1o1aUxWNTZwUmk0QVhtRlV2Y2lURVErbnRJVDJHTDFR?=
+ =?utf-8?B?Zlc4OFhNVFVVdzVySHRtZHg5R2RvcEwzWVA3VXZ0TENxTEsycEp5aHJydWx0?=
+ =?utf-8?B?UnU5dXlQTHJZWG4zVTF5VFdWa2VLWXgydzNLN3llcGUwaW1WM0tmU0JVVFVw?=
+ =?utf-8?B?RXZBWG1HbkdyUllzYWhRci9Zc0VJK2NpdzY4ai84UDNUZWRxWU9NT3ZMRWhl?=
+ =?utf-8?B?aDQ5ZEhwTytkY0tlL1A2aDRXZjdUc3ZFcGY1bjc2eWJ2Rm5SL1ZyMlRwV3BP?=
+ =?utf-8?B?Q3MwcGlzb1lwNnlvcHFiQjVDZlBTT1NJRWdVY251MlN2b2hta3Jpa0hnZmp3?=
+ =?utf-8?B?V2RsRTJIbnV4azRzQ1ZSRXBaNG9Qd2ZUUkVCWUgvcjBSUEw5TGxRL3c5ZGFw?=
+ =?utf-8?B?YkNpSDM2ZEorU1YrZEVhdmxYNmo2ODhHajZOaVpYVlhUd2ZsYW44Tlpmd3B1?=
+ =?utf-8?B?NGFYdVNvYU9yMmN2Q2UyNG9pQjFaM1pUQUV6VDVaWEZDaCs2MjJLUjgrdTNs?=
+ =?utf-8?B?bjQwQWY2UWdlNklFdVA5ZWExWnNKbE8rVURJTjU0cGxCczNQNTZ0L2E5eGZE?=
+ =?utf-8?B?Y3kvZmpwdW56REpwdWtTeDFhaUVLL3V2aDFJWUhGNXArZDZRc0lrMy9DOTBh?=
+ =?utf-8?B?L2JlcGpxUmVTNXBCa2FNSVRSRlRQWm0xUkxueXI1M0ZkQzUrSE9yVlNlcklk?=
+ =?utf-8?B?ZkxoSjRGa2lLNm5GbUkxOVE0UkRwTU9XUlRhNUhZejBlK1NlNUp1T0N4VktF?=
+ =?utf-8?B?OXQzZExZenQ4TGZsZTFmS0Z2b0tYVTNqZkRrM0ZUcEdqTTZVbEx6YWJ2MlI3?=
+ =?utf-8?B?Z21Eb25GaUVORHBPK2RzY3g4bkh4dUJnanduM3FROGx0V1hqYmJjWS9VSW4x?=
+ =?utf-8?B?TWxCUkFCVGRYQ1JISEJDTzMwcUxEbWdKeHlLbUQ2WjFGSlN2aG02REhNU0E2?=
+ =?utf-8?Q?1z3TFB1PLp5IAw4jVldeetR7eAh5tvZOkBEXwuoOpUdGo?=
+X-MS-Exchange-AntiSpam-MessageData-1: ortGOp9YU9TvfQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9b5581d-4f8b-46b9-d0a3-08df1e37994d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:40:25.6855
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XCwsVM4FUaA0T0RgqE5AiwRBWmCvXu2fE1m87dU/KKWJcGEV4rQQMjrK79J4+/rJdURbX0mVFuxi38d+GXpSWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8909
 
-Replace bounded_enum! for Architecture with TryFrom and Into using the
-shared convert helper. Keep the six discriminants, Bounded<u32, 6> input
-and output, and Error/EINVAL on invalid inputs.
+On Tue Sep 29, 2026 at 12:11 AM JST, Zhi Wang wrote:
+> On Mon, 28 Sep 2026 20:40:08 +0900
+> "Alexandre Courbot" <acourbot@nvidia.com> wrote:
+>
+>> On Mon Sep 28, 2026 at 6:20 PM JST, Zhi Wang wrote:
+>> > On Sun, 27 Sep 2026 22:46:25 +0900
+>> > Alexandre Courbot <acourbot@nvidia.com> wrote:
+>> > =20
+>> >> Move the types and code related to RPC commands into the
+>> >> `rpc` sub-module, and update their users to reference them from
+>> >> their new location.
+>> >>=20
+>> >> This is a pure move commit, with no functional change intended.
+>> >>  =20
+>> >
+>> > Hi Alex:
+>> >
+>> > What would be the plan for commands.rs in the future after the
+>> > movement? I was adopting the similar code structures
+>> > (fw.rs/command.rs) for vGPU manager's RPCs and GSP plugin RPCs,
+>> > e.g. having RPC typed code and function handler(wrapper)s, it would
+>> > be nice that I can align with the idea accordingly. =20
+>>=20
+>> Can you point me to the the structure you have if it is posted?
+>> (sorry, too many series in-flight and I cannot find where it is ^_^;)
+>>=20
+>
+> No worry.
+>
+> I am trying to maintain vGPU-related RPCs and GSP plugin RPCs in below
+> two files. Basically the maintaining schema is similar to current
+> nova-core fw.rs and commands.rs.=20
+>
+> IMO, nova-core and vGPU managers bindings should stay together, but
+> there can be quite many vGPU RPCs. Would it be a good idea to maintain
+> them together with nova-core's fw.rs and commands.rs?
 
-Use From and Into for FalconCoreRevSubversion, which covers every value
-of Bounded<u32, 2>. Its existing infallible conversion and blanket
-TryFrom error type remain unchanged. Leave other register enums and
-Chipset conversion behavior in place.
+Unless there is a good reason not to do so, I'd put all vGPU commands
+into their own submodule. This makes it easier to e.g. create a version
+of the driver without vGPU support, which I feel like we may end up
+putting behind a Kconfig option since it won't be relevant to
+consumer-grade GPUs.
 
-This exercises both fallible and exhaustive conversions in actual
-register field users without changing register accesses or GPU
-initialization logic.
-
-Link: https://lore.kernel.org/rust-for-linux/DHHJCEG8BC47.2VC6GLDRRZH1B@nvidia.com/
-Signed-off-by: Kaiqi Guo <chaoji_xinren@163.com>
----
- drivers/gpu/nova-core/falcon.rs | 19 +++++++++----------
- drivers/gpu/nova-core/gpu.rs    | 22 ++++++++++------------
- 2 files changed, 19 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 65cb12d26e2b..15bbbda7df28 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -59,16 +59,15 @@ pub(crate) enum FalconCoreRev with TryFrom<Bounded<u32, 4>> {
-     }
- }
- 
--bounded_enum! {
--    /// Revision subversion number of a falcon core, used in the
--    /// [`crate::regs::NV_PFALCON_FALCON_HWCFG1`] register.
--    #[derive(Debug, Copy, Clone)]
--    pub(crate) enum FalconCoreRevSubversion with From<Bounded<u32, 2>> {
--        Subversion0 = 0,
--        Subversion1 = 1,
--        Subversion2 = 2,
--        Subversion3 = 3,
--    }
-+/// Revision subversion number of a falcon core, used in the
-+/// [`crate::regs::NV_PFALCON_FALCON_HWCFG1`] register.
-+#[derive(Debug, Copy, Clone, kernel::macros::From, kernel::macros::Into)]
-+#[convert(Bounded<u32, 2>)]
-+pub(crate) enum FalconCoreRevSubversion {
-+    Subversion0 = 0,
-+    Subversion1 = 1,
-+    Subversion2 = 2,
-+    Subversion3 = 3,
- }
- 
- bounded_enum! {
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index fd1414004dd0..66249bb5b369 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -14,7 +14,6 @@
- };
- 
- use crate::{
--    bounded_enum,
-     driver::Bar0,
-     falcon::{
-         gsp::Gsp as GspFalcon,
-@@ -155,17 +154,16 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-     }
- }
- 
--bounded_enum! {
--    /// Enum representation of the GPU generation.
--    #[derive(fmt::Debug, Copy, Clone)]
--    pub(crate) enum Architecture with TryFrom<Bounded<u32, 6>> {
--        Turing = 0x16,
--        Ampere = 0x17,
--        Hopper = 0x18,
--        Ada = 0x19,
--        BlackwellGB10x = 0x1a,
--        BlackwellGB20x = 0x1b,
--    }
-+/// Enum representation of the GPU generation.
-+#[derive(fmt::Debug, Copy, Clone, kernel::macros::TryFrom, kernel::macros::Into)]
-+#[convert(Bounded<u32, 6>)]
-+pub(crate) enum Architecture {
-+    Turing = 0x16,
-+    Ampere = 0x17,
-+    Hopper = 0x18,
-+    Ada = 0x19,
-+    BlackwellGB10x = 0x1a,
-+    BlackwellGB20x = 0x1b,
- }
- 
- #[derive(Clone, Copy)]
-
+Bindings are a different story, they are generated in one go and unused
+ones are just optimized away, so having them all in the same file is fine.
