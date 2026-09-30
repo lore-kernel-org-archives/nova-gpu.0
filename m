@@ -1,46 +1,46 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013031.outbound.protection.outlook.com [40.93.201.31])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9DE379EC4
-	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 03:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2744535F19D
+	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 03:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790739795; cv=fail; b=WnwIWTIqNH7fH0MZZgQZ30UjJp5DmD+QQB/02B9tzFEm5Ae1Mab8r+/szZOjNGdAoyI37RylT022zJ4zz2IixpiEO434gu41HifOu9fvKnjdNsKJ4+2kiZoFbHJUnBjbaB0nRb1pzqjPxnD7IuTnSv7TV1WlreVeT2FCIPE4gnk=
+	t=1790739796; cv=fail; b=ZDG8cgHjarcKFhAZ0krngga6UrgClp3XGYb4QCWjfKzO1nxuUkZfGx5ybvDbVBsUG8QdpE0cmyJOtLyfjS/Eh8zcoh5A0xFOyDcBzRZ8r4fOJ6JNefuBBGeVKOZS+eNqHTS5j3X4MS/BQc8tbdCQFEDUORTd5jJFFlEhPZUzYd0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790739795; c=relaxed/simple;
-	bh=KAxodlPE6bqpiwWCLbHY2NCa8InFSWHimOzTF5xdFIw=;
+	s=arc-20240116; t=1790739796; c=relaxed/simple;
+	bh=j3ebPshD/rSF4Pr+NgUdkPyyd04+APpu5PG/xfzx8Vg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KPR8mmDp1rty+H3+xq/ulku09Vhl6u3PMcf9gIunyxw8bbVO0nxntnL4cBS43EyERXlaxV8WWRIObMd9wxPH5mDHp+2mRMHkEhmGWjgL0WS/3NDYLf0oRTHwd3pXKadKyeg4PdjVtbk8QhClbH3UEEdsGGdT6Lw5onLZujpsSBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Vesd2+vR; arc=fail smtp.client-ip=40.93.201.31
+	 Content-Type:MIME-Version; b=iOu0xLB3zH6zuuxqYA/3YxQ0YB+aLDQJtA+6sip8mUAffkKzfmdYIvjP66zXdVZX1qfzAV2HVLSzKK84nENmnrpu0FdpAc3REKiwK3zbg1h/y9e0VT3QGZoYVl7ml81l0jLjjXq41UxGOP50d4EsppmujHckVYrqDB9qaDYqnIc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cNLqq5+t; arc=fail smtp.client-ip=52.101.56.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Vesd2+vR"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cNLqq5+t"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l2DkchECkMUxoRiBeVkPSa1gkjHPOdauuyLrrcAzUGgeawXlL6UJXSg6/YWkt/MrsdA3yQompCv1v+Pqyn/8EETjefdE7jXSUvXBlucp9idXTH+ijjQFbdABslyvadew7JNzbFs0zTCDQY0OD6hjOWbUHGU4YINqqSNoDzs9ejywzJa1zUq9u/MRO7oWz0lAhiIDc1BxzqJKI8nSJDXc9ElXlY13iA0A+hXQIoGKa7Dr/PTL/GF30/t/t5RzhOvEwyeZMRqEwBI/h+ATQzx5E9OjsIJC4+ux3TMgZsqeJj0raqKGCNRTwyuC5FIGlE47MAHE1bPJkf0W5RKhUN2cNQ==
+ b=pwa6eV0iNVM02woDwU9RyDIHUFBVqH9ZVrEDNdDIGKGy28LBHjCXZ+MHgmN7QkfM3huRrrUjBjeT8DpuWDDDd9RXCxWplAB5PWp6K3mjj8L6BeLQ46lOgi6ahRybFn00QzgoXeGj3/mDQ00u7dAJKQwhwDaSevy+BjZnrIOG+Nr0yxLSG/Z7q/FQ6lPuL86bhwINWhPLIwdtlZ1oBDHObn54aFOaYAau6KYOJ6+BZCwinfq+tJmniiue4V2Tp0VOtqs/u+9h4ZpU6NsRk8bDz6MtjPUrAhOT0GUtL1onA3rYWRj5BrJLLxFmGUcnx4EBRzjiFiEu9BWnvos+ohT0gg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fWKWRGTDc0vU9OB4itx4XwF+GsrQ54NBXSsi75MelWY=;
- b=iXFopP5SXZKdcGiK9it+KEwRyppVr6A5WTFyqCrbVTTeW+neDKtLv1mCZiQcRl0WTlMaRJzXAdXJtvV8/ke3Bw9ErI4hqEjSr3P18YcoVWhMG+Uf56VuyC8Y+ND+K9m8/FWF+d3QLlTjA/NVjugYK6zw0+FkNsibqbxdOUkaVjepb/JZiBnlJEhU9kfdcGZJMLSTCjPPJ+ByeSzZrTka1Gzc2yV0jN3REySP+1B/6OKMSs4zNQw8tvklvREHvrw+voY20/1/g6vmeGrAKuXwlhY+rEjEwF8AWtoVM8y42gTrhzX5jkNPIcjuqMot3umOJbOP0uXRbCDRRnWHHt5v7w==
+ bh=t2VWx/RFrbcot4atdTAqI6b6sI07VKnG8eXOO8rbh3s=;
+ b=qa+Wgv0OMZO0ME2Vz/psMLqZaJ+gEOha4zMmB31VSqt4v8olVJRFN3VvzURh2gU3eX9hCHDLngDyWKoYFfIhy54ysws3ZYoOc+gS2JNKNM8QnELx1pZcXYynhiVJAyfstPLot2E2vktbkXaQqdKfnSeHUnZK7fHjG3ERBr5s7J+D8kVXbF7WNwDmOIPXFTS91OHQe7kv4l95FbSb+PoEgdb4sR/dxqqsb8TJgZWLb0xmfH/SV02L9D6ulLLPRppuMTNyNylyQK+jpT/7W3j/BVtkuQKLS7xdY+bIOSz3HsHv0oSRV7EpGZ1f7o2gJKRly0CGJuYvGmvtRwVwXRhm9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fWKWRGTDc0vU9OB4itx4XwF+GsrQ54NBXSsi75MelWY=;
- b=Vesd2+vR46ULfwNjDRSyQV0M9PHzlWNQHcg3qyxPYXBUPC1f51oow3turoK9aTWx1fNxvRy4xrkGeZUcVFx/BUvHZBg8pC+716pQtISTXWIUNQCgquEfHWP0GDkpDvDBqpkH6B67xHF4J+RJbKuCmM5l1JLIHcLpYjWBI1EQrs8Y6IrK5THA2kY9OqC3GO2GC25X5wHxeHJAnSiEWjgfxEzdzuPZktEFXg3UDMGsclpJnpkDqz/KbR4BgQAXDDcTic0u6WiEf/r6eVaa9WNTR20q1WlCgg/wUjOK5kz6ysA1ij9JCv/KajdIV7Ooo3tWZN8oX/dRXXWPxC71ZuO3gQ==
+ bh=t2VWx/RFrbcot4atdTAqI6b6sI07VKnG8eXOO8rbh3s=;
+ b=cNLqq5+tERo98Ol9/HOHjI/2jnakbbn8ULkUUaI46YY3I0YBVyc92g0xt+BikguJnUckuGzyhNGqz+9ugPVIa6rxPqx7v/1llEomzVWrX2fMR8GqV6T4M6W60PUQUKQCiIuFjYQvKo1Nxy9HpHQ+bI3ZXjyea4sqLnl6Uiqmxrsi42IKHmTj9bHEINoaJWv9783EThktRqmkvE1kp5LNSCGvJRxKY40edAZYj31QTwxmW+aMTMo9L0oVBIg1kYVTyUv/bi8bTpTFgoXxI5yqfkL4a7A9WYCz3EiUqemwFQi2SSQpphb/SNEtx+QK7t3yRNpM9DRzouM1nGMBbsCYPA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.26; Wed, 30 Sep 2026 03:42:16 +0000
+ 15.21.451.26; Wed, 30 Sep 2026 03:42:14 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
- 03:42:16 +0000
+ 03:42:14 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -62,20 +62,19 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	Trevor Gross <tmgross@umich.edu>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
 	John Hubbard <jhubbard@nvidia.com>,
 	Will Pierce <wpierce@nvidia.com>
-Subject: [PATCH v5 06/15] gpu: nova-core: add the GIN interrupt tree and allocate its vectors
-Date: Tue, 29 Sep 2026 20:41:39 -0700
-Message-ID: <20260930034148.590687-7-jhubbard@nvidia.com>
+Subject: [PATCH v5 05/15] gpu: nova-core: add the per-architecture GIN CPU interrupt HAL
+Date: Tue, 29 Sep 2026 20:41:38 -0700
+Message-ID: <20260930034148.590687-6-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930034148.590687-1-jhubbard@nvidia.com>
 References: <20260930034148.590687-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PH0PR07CA0055.namprd07.prod.outlook.com
- (2603:10b6:510:e::30) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: PH8P222CA0002.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d7::31) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -85,469 +84,284 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6248:EE_
-X-MS-Office365-Filtering-Correlation-Id: db0395cd-b79b-4e9d-c7ad-08df1ea4d259
+X-MS-Office365-Filtering-Correlation-Id: e2433b64-5242-46ee-b56f-08df1ea4d167
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|11063799006|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|5023799004|11063799006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	HPtNqJbDodoKGkn9/2NqFEAgdbMdYGPpoQvAnEW081UVoeichLXZWaAqWezw7/4S6t6wgzBeJmB4uUoTYQJj5ubDirT8RZwLsiVFOBBrFkeWa2KAUncvX7Y85+Q3SGhkjCCiVYQ0vB3d2/r1tEXJ1Sy2E+ENdGgcwAA/LnZ5msJki1rISQsFEl7ebCpWjxfc1DKMzsM9bQD88xg55qxy9cEXi+Add5c7SLx4486jzvYMbq/18QrXeklEZNvK+IURva6l9/4/0LtCKN+wtfV/YcX0R9qZH8Arc39FruHExH/JHc+2D5EG8/LhMoMiGmAImltl26QWYowb5rGafqwnSZGy3a4pAnSwsgtaXHg6XRgwpxX8YEshe7ToDCipC9+AkODsT8ISUSzRNxehJPm5d9KFXVZu77PaBMxgpllJFKmdXYcBaPoyAMYdZXMa1qY6gPgdUap0lFd3in7qyaLtyK78VI1InY497uXFTJeYX+2HSeSuDeLP6naT/MeAJ7Z47IB0mxAmquYEC2jz2HL9zRxab0DPSdcye5dSpe2PvRIAvqLVGpJqL71IGu/3rmCCaaqmjVtU8P7mW92x+ALZPC3etM+hy5q9fYs6GMiboBBsq9ig2gXj+fLb20JiDXNb0Jw9t9dlzLCEH4RQXO1z5wHZEtSP1vjucgs8Tv2M2gc=
+	RHhrdn2EYAkoB61jOwKvD+3vCHp6BDsollX7Y+aE7gBbAcoNgcVEdvhL7CEV9qqm2BgvEVvJAq/sm3snCB5uWHfK/YBADZICRCwYHo3i80IveqUJLrukVCRyiVhrVHsukMoWBjqdsEsPQVy47WbfgMTkD2QYrALsLJDPQkubjuZ2vcWNw+JvD6RYbEtvklOCFCoaYAuDXiXHW//0admZdpoZi/fRmFiWGBvqt395oNPTaPyjhu54DwYYNeU7+eruHCwOqBP01ou++WWfFpIpSEMrlZkyZMaN+KEMy5n93MrBwBEZ2e17JKYJUMMWSDULc7KP6GWFB0BPVnA3dtCZ9zJ0RtNRU2z2AcrpFpvwWkO/ta1Ab/z/aw2DNU9CunT+87iYpP36IvlokApoePlEJQCS2ZSoeZAwbdju9gOLfX0NcijoyUFdDQiQPv0sCh+9sCfi5doV7XgI+3P7oDdPUi6tNetq3ScBU1L3mCvVU72j5cT+RuZw5BAVj255bkSxobclYEu2s9+Y9+rGzrz+PABPd7f0XBj92d8PmPvoULfHr9EjREFyRuE1yZRgoVLqu2BQpRSYwkM0bzzL6aDQMkf2NbmH7hLha11TkoB9GMgNBkB57HnfbQNHgp/jIVgPY3geBY0xu/PwmZy96hxtxhI9Uk2C/uQoi58o213CjQQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?m9nZgJvCDmGVcQY6UzsdbAh2g41crkyDCzQem9fwVb5piNGgIidvC5X47XQq?=
- =?us-ascii?Q?UqYiQvXPmSdU6cmAaAfr737vwvYcVhNdqBKqt6hb87UPxwXvOmvm40NVnORy?=
- =?us-ascii?Q?JzA0X0iHNov2cYTD6yeMYooelM99GbseCxniACwhGVHe8nzld+afYDO8YebF?=
- =?us-ascii?Q?Zw1nfSTmJY8XwmbQXRnmdJVTeeIktmyjZD65LK8Bl5N3mKmRlh02dl+I1/JE?=
- =?us-ascii?Q?3NyW1U2xn+Jtj4imw2XGGD0hzno95RIe0E0wWK4Hh5IDYRvfYHwS5HGtH+pi?=
- =?us-ascii?Q?jzDFZTw1G8AOcPr4Y0hwHt2nWn3FTQzqVD1RZ2ObGBeVo23mOMqcyAn0tdRM?=
- =?us-ascii?Q?e0Bft4yPOkJ1o5YgGX3FzNHlBdBP6P38FJoBo8FBx4mAGGL319REuTpy1a/J?=
- =?us-ascii?Q?xSncPJGamRUVvsyW69BKqNuXGt+n1e8sooGLfrzC3o0YXdrBlB3nSGwnvNO6?=
- =?us-ascii?Q?exzGWcu3LpcE+3yqKuc0ByorlrVEZt3PGy8DAk/c/0aWqaTb1zx+TWYIDPSG?=
- =?us-ascii?Q?4A0NNDkedbSgWJ/nhZa9ZtV0oYyfR8Lc3sZzhxmNo4+EhhzukxekvNfcEjCb?=
- =?us-ascii?Q?3TRfzqZsJ230j0LWTn/vSYmXw1K3tlEZjucKaIrVlyXs6ke/NZPyD+5r/zfb?=
- =?us-ascii?Q?AiqYTaJ5wqO4v1pfHm1CrsRXUEVuR+h4h0Js/NMcQ5nfBIS9SbJ+grDBg0tj?=
- =?us-ascii?Q?7Irkn1z6dPGUiuhTAsg9+Oec/9oGaWxJYeDi+/i9huZQyObDESIprKbqZeKl?=
- =?us-ascii?Q?ghHyT0Wcoq9YU3eyTEZWzefEgZnd8Pgi2uSsxA67o+qLxporPIIVbe0SQoYo?=
- =?us-ascii?Q?F1JOlGLiGG049XnvFEU9+CJpH7N7U2nHgAp8BSzvnQ8x8JqGqaYvs7gzm/Nb?=
- =?us-ascii?Q?I862nbnvqH6FWH8r4VfhA+IZLydWyHJ+tYJALyiAtQoA8mTnon3hwtSCcpTO?=
- =?us-ascii?Q?wbqRUMvt9PG0k32dmRIlR2ZYtDMM48Q41+fmwMdrNxQNfhBTPMQ08ohb+q4Z?=
- =?us-ascii?Q?vAVw4ag5QVP1zCq2hST95qzc8f1nrCSfwx2/vkBTjTd0lGHN5pBCpZagTucE?=
- =?us-ascii?Q?TMR1XUc4l8do837fUUtx7QVGaPw0DGQM98FHD55uvMRzsowUgORMpSwWZ2LX?=
- =?us-ascii?Q?OSfYbPaf0T+ekQUepkZwhePpWql91v6dvTtO5fdEHNcs4vS9DVv/tKigM6Cq?=
- =?us-ascii?Q?zmuYxtVNjYx9pUOxGZ8M/wVKgyWW2jvTmUUKXXppPySzAvmedLFCnwbVZZFM?=
- =?us-ascii?Q?kFBQZOoPBG2MqfGQ+W6/W37UY2loVqrCyQE3a+CZkGhDI4uSGWJFzPm9BCeS?=
- =?us-ascii?Q?aTCVWclXPl4hf6DrcMKQmU+bmoV/1jyblUXjadgbpT2D/s59zlb/exg5CqOn?=
- =?us-ascii?Q?x09SxQCYCZ+UCPHtmlpBuoy1F71h6bfNVdEa6caowURWMBbqTSdexIh1ooSb?=
- =?us-ascii?Q?DgxuKeK+cfZscDRrfh6QWLRIT7kRb73L+iEY4Kz0YmcGbayW8TctCB6LA22b?=
- =?us-ascii?Q?UHRRo1VpFrkFF0Y74oEN5LPyStxpV1cr8S8WUSqd+jRlm9kGS4CMD74LavPN?=
- =?us-ascii?Q?m6tBHHsdjq1FCWesmch8vuR3x5CZnbZe2UYoMVx4Oxuv59aK7e83quh3vrPA?=
- =?us-ascii?Q?XiqSO5YcaDHToCKWX3jtJ0VG56a92eVmb2vCUorIPS+wEETSf2tM7GIKowFZ?=
- =?us-ascii?Q?znUVnBg+0+l34qOGrj9dB3D+SHCawtdZwptLbd2/UvwT2khiuoRpkEyfNNom?=
- =?us-ascii?Q?khP8WNdjoQ=3D=3D?=
+	=?us-ascii?Q?dxLVg/QwO8Dau8qddOtwZ+f0eP/o6xdPn6sY09fRJWIGjZhL4YIClfSS14Yb?=
+ =?us-ascii?Q?HRjl2zYUAnGtyydFhGTf47dkjhNwdukP7gvJb6naSFVDXsFXDQuxmIpCz/iv?=
+ =?us-ascii?Q?fAwGBhJldQK05TjP7DAA1Lja//cOt5r5Qll7iapKPvkliH2dvtEuzyqhRtCO?=
+ =?us-ascii?Q?zBzKR5Vh3mU8GlZ4ti9sj/EZ2KzXL0bQES3avUHBhyE4VLDMaqjLxZ/KKabp?=
+ =?us-ascii?Q?ap/GlwHAqekxkISR767ZyhfbVW7A5+jXfmJWiMlZTT1dapxFK153s9Wl45UL?=
+ =?us-ascii?Q?ilLROuwfcX/zJJDpYlH5PHaEYEfIgsGdU2YrPALFfEVK9hfwnQ86Uo/GDlGb?=
+ =?us-ascii?Q?GcQYsgrynlzuR5OQGnNbITc2R07dobvWU2/BdIT1gZwQHa4ePS7HW+VnAkSd?=
+ =?us-ascii?Q?gsawdfldu//FCajCD41iklBkVwHR/FqdqUwS5MEV00vBwUuzsqjeCTIKLICy?=
+ =?us-ascii?Q?lnfsYqKhKlyM+1pu0rQLXA1o+nqRx1rBPutNuVkCgqGXmZHa9aO+WwCv+6g8?=
+ =?us-ascii?Q?Ebp+dVFpU1K+gIC6TtppPgxXLb2ArLsgq4TSVnBiO+3QAqAv/l4jSZNMKqyZ?=
+ =?us-ascii?Q?qsi0JWAX74xA3WuCCyp/UoLIMTGKmTKebRXTcbJBPrhjr0RAmmuziHHE1eZZ?=
+ =?us-ascii?Q?9RoPd51K2//xjefas6K45G0OB3SY0Ygf5nv+7fwv68D3E85QYAdz0+vlSYVx?=
+ =?us-ascii?Q?ZD+zEtTIy3AE0eD+Zw+HetGMUdnxI2P9hSBI/m7NcAFjVs+ydVT1tRomMaA5?=
+ =?us-ascii?Q?Al4vpQXneGRnAbTYZEgZ1eEO4mYVRIVBM7WPYl7BcsNYzWT/657lttpOlOmo?=
+ =?us-ascii?Q?2RsnsOFOHu+uMb7RsQhuneHe3R2EVfIv6dHlFp+Una2bPNbrzm+0A3zn11Pq?=
+ =?us-ascii?Q?/DewgKfcYs5UQXYLJVd7xPGLClY7dr2wGKIcX4rX6X8WjJJqHvnnm9uKKmrw?=
+ =?us-ascii?Q?zbDgdAEmugG4I8Es5fRmgqkepBoR8csYDAmMKReVAb8Uydst9hgykH/Q1s17?=
+ =?us-ascii?Q?pE0wbuBSfDBHB0K/WOq1YI5CsRSkpz2vuaTlziES+4qUUW3xhvfuQw25I4ni?=
+ =?us-ascii?Q?GWaFn8phJC6/FsXPdVhUad0jHQA9E9arNsjMepd2MrUO0IqdrNoJ4rjY5cCw?=
+ =?us-ascii?Q?4+l9rOnJmG53I0BzT32PoGVzWzgGBt2/pqPZCOfPA1wwVpsvQuMdWkCGmOPA?=
+ =?us-ascii?Q?tDTD3YSM4ikA40qsrK1BLh2FxDPvC4M9qeD1MZHYvgw5FIGWDupIM3uSteef?=
+ =?us-ascii?Q?jQig9S8yWSduFNb4ozAif7/snTpsjmagnwDs6E6FEpYjtl6x1ZmldsTgqOJM?=
+ =?us-ascii?Q?RfYEV8rnDjJstEP79UHAXKLJ5lozuJ8+u3i7KGVR++M+gMZlRByEYn2zVxam?=
+ =?us-ascii?Q?EosOCTxCLjTL73AsDPaBlAJks8z9urqtwmcTe+3Lfu07HO5NFQtGRbHC+RTp?=
+ =?us-ascii?Q?GC7u9vyhBx5ybSRt02ORgjh9TPhXDkeN4516sIuu5WVjrnmjrkM+P6nhnFyL?=
+ =?us-ascii?Q?qg2rATlo/pYXtmc/+OixGJCDs3yAmD1OR7Z9fvHs+/G9GQidE1GA2Y12c0Qz?=
+ =?us-ascii?Q?eq5PzJj7LizXLw6VoYEpbJcCWMwyoUZV3N1rNNJNPmvnCbOTwWYe1qxtpHP+?=
+ =?us-ascii?Q?o+zdNgwVPHm4rGWOFKd8GweUiyJFwOknN/XF0up9x6zrdQmThxhaRu5d6ySK?=
+ =?us-ascii?Q?gULcYiwqjihe56F58DYMUUL2CQfkjcrqh2aFYTRBjbkdL3piuEzcAZm8+5HE?=
+ =?us-ascii?Q?RXxavH88AQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db0395cd-b79b-4e9d-c7ad-08df1ea4d259
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2433b64-5242-46ee-b56f-08df1ea4d167
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:16.3736
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:14.7889
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6H7Y9UMFf0Ln9wrPjxeknUrIULedpXl9ZdfNDh54/TFeIRrqd8/quHJALn4eTF1lHYSNtbBGQTGCP5gtTnadxA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wTwjqFT5RFRONhMKwUApEWCpNUgpA8xFCU637O6DMisPWBNp6dy26MZ3PDuLE7DSfpqEjJmio4x96Sj/VMFTAQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6248
 
-From: Joel Fernandes <joelagnelf@nvidia.com>
+The GIN CPU interrupt tree differs by GPU family in two ways:
 
-Servicing a GIN leaf has a required order: read its pending bits, then
-clear them. Clearing a leaf first discards every vector latched in it,
-and the hardware keeps no record of what was discarded. The interrupt
-never arrives, and no register shows that it was ever pending.
+* The size of the tree. Turing, Ampere and Ada implement 8 leaves.
+  Hopper and later families implement 16.
 
-Every subtree enabled at TOP also needs an allocated PCI vector with a
-handler registered on it. Under MSI-X each subtree has its own table
-entry. Linux masks every entry until a driver requests its IRQ, and a
-masked entry sends no message. An enabled subtree whose entry was never
-requested raises interrupts that never reach a handler, while the leaf
-and TOP registers show them pending and enabled. Under MSI the whole
-tree raises a single message, so one entry serves every subtree.
+* The write that rearms delivery. A message-signaled interrupt is
+  delivered once per edge, and the PCI side delivers nothing more until
+  the CPU rearms it. Before Hopper, MSI rearms by writing the
+  end-of-interrupt register in the BAR0 mirror of PCI configuration
+  space. On Hopper and later, MSI rearms by clearing and then setting
+  the TOP enables of every serviced subtree, which produces a new edge.
+  MSI-X rearms the same way on every family, but for the handler's own
+  subtree only, since each subtree has its own table entry.
 
-Add the CPU interrupt tree of one PCIe function. The tree allocates the
-PCI vectors for the subtrees that it services and hands out the request
-for each, so that the chipset is given once and the vectors live as
-long as the tree. Reading a leaf yields the handle that clears it, so
-that the wrong order does not compile. Building a tree fails if it
-names a subtree that the GPU does not implement. A reset disables every
-vector, clears every pending bit, rearms delivery, and leaves the
-serviced subtrees disabled at TOP, so that a handler registered
-afterwards receives no interrupt left over from boot.
+Add an interrupt HAL that provides the leaf count and performs the rearm
+for each family. Name the interrupt type with two variants, MSI and
+MSI-X, since nova-core never allocates the level-triggered INTx that the
+kernel's PCI interrupt type also names.
 
-Request MSI-X entries 0 through the highest serviced subtree, since an
-MSI-X allocation cannot be sparse, and fall back to a single MSI
-message, never to INTx.
+The HAL has no user yet.
 
+Assisted-by: LLM
 Reviewed-by: Will Pierce <wpierce@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-[jhubbard: reworked on top of the GIN vector types: a leaf read yields
- the handle that clears it, enables are guarded, the leaf count and the
- rearm come from the interrupt HAL, the drain reads every implemented
- leaf rather than descending from TOP, the tree owns its PCI vectors,
- and a reset returns the tree to a known state before a handler is
- registered]
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/irq.rs                |   2 +-
- drivers/gpu/nova-core/irq/interrupt_tree.rs | 298 +++++++++++++++++++-
- 2 files changed, 293 insertions(+), 7 deletions(-)
+ drivers/gpu/nova-core/irq.rs           | 13 +++++
+ drivers/gpu/nova-core/irq/hal.rs       | 67 ++++++++++++++++++++++++++
+ drivers/gpu/nova-core/irq/hal/gh100.rs | 40 +++++++++++++++
+ drivers/gpu/nova-core/irq/hal/tu102.rs | 43 +++++++++++++++++
+ 4 files changed, 163 insertions(+)
+ create mode 100644 drivers/gpu/nova-core/irq/hal.rs
+ create mode 100644 drivers/gpu/nova-core/irq/hal/gh100.rs
+ create mode 100644 drivers/gpu/nova-core/irq/hal/tu102.rs
 
 diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
-index 62c242b71dc8..b2cfe73af114 100644
+index 1ec0bb055d3b..62c242b71dc8 100644
 --- a/drivers/gpu/nova-core/irq.rs
 +++ b/drivers/gpu/nova-core/irq.rs
-@@ -10,7 +10,7 @@
+@@ -9,5 +9,18 @@
+ //!
  //! See `Documentation/gpu/nova/core/interrupts.rst`.
  
- mod hal;
--mod interrupt_tree;
-+pub(crate) mod interrupt_tree;
++mod hal;
+ mod interrupt_tree;
  mod regs;
- 
- /// The message-signaled interrupt type that Linux granted.
-diff --git a/drivers/gpu/nova-core/irq/interrupt_tree.rs b/drivers/gpu/nova-core/irq/interrupt_tree.rs
-index 279a43514b1f..6e97828bbd42 100644
---- a/drivers/gpu/nova-core/irq/interrupt_tree.rs
-+++ b/drivers/gpu/nova-core/irq/interrupt_tree.rs
-@@ -1,22 +1,47 @@
- // SPDX-License-Identifier: GPL-2.0
- // SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
--//! Vector addressing in the GIN CPU interrupt tree.
-+//! The GIN CPU interrupt tree for one PCIe function.
- //!
- //! A [`GinVector`] names an interrupt source, a [`LeafIndex`] the leaf register that latches it,
- //! a [`LeafMask`] a set of vectors within one leaf, and a [`Subtree`] one `TOP` bit. The types
- //! keep the four from being confused with one another.
- //!
-+//! Servicing a leaf requires reading its pending bits before clearing them. Only
-+//! [`Tree::read_pending`] produces a [`LeafPending`], and only a [`LeafPending`] clears a leaf,
-+//! so that the wrong order does not compile. This module does not serialize access to the tree.
++
++/// The message-signaled interrupt type that Linux granted.
++///
++/// nova-core never requests INTx, so this has no variant for it, unlike [`kernel::pci::IrqType`].
++#[derive(Clone, Copy, Debug, Eq, PartialEq)]
++enum MsiType {
++    /// A single message, which every subtree raises.
++    Msi,
++
++    /// One table entry per subtree.
++    MsiX,
++}
+diff --git a/drivers/gpu/nova-core/irq/hal.rs b/drivers/gpu/nova-core/irq/hal.rs
+new file mode 100644
+index 000000000000..387695cca37b
+--- /dev/null
++++ b/drivers/gpu/nova-core/irq/hal.rs
+@@ -0,0 +1,67 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++//! Per-architecture differences in the GIN CPU interrupt tree.
 +//!
- //! See `Documentation/gpu/nova/core/interrupts.rst`.
- 
- use kernel::{
-+    device::Bound,
-+    io::{
-+        register::Array,
-+        Io, //
-+    },
-+    irq,
-     num::Bounded,
-+    pci::{
-+        self,
-+        IrqType, //
-+    },
-     prelude::*, //
- };
- 
--use crate::num;
++//! See "Per-architecture differences" in `Documentation/gpu/nova/core/interrupts.rst`.
++
++mod gh100;
++mod tu102;
++
++use kernel::{
++    io::Io,
++    prelude::*, //
++};
++
 +use crate::{
 +    driver::Bar0,
-+    gpu::Chipset,
-+    num, //
++    gpu::{
++        Architecture,
++        Chipset, //
++    }, //
 +};
- 
--use super::regs::*;
++
 +use super::{
-+    hal::{
-+        cpu_interrupt_hal,
-+        CpuInterruptHal, //
++    interrupt_tree::{
++        LeafCount,
++        Subtree,
++        SubtreeSet, //
 +    },
 +    regs::*,
 +    MsiType, //
 +};
- 
- /// Number of vectors one leaf register carries, one per bit.
- const VECTORS_PER_LEAF: u32 = u32::BITS;
-@@ -78,6 +103,11 @@ pub(super) const fn subtree_set(self) -> SubtreeSet {
-     pub(super) const fn vector_count(self) -> u32 {
-         self.into_u32() * VECTORS_PER_LEAF
-     }
 +
-+    /// Returns every leaf a tree of this size implements.
-+    pub(super) fn iter(self) -> impl Iterator<Item = LeafIndex> {
-+        (0..self.into_raw()).filter_map(LeafIndex::try_new)
-+    }
- }
- 
- // `VECTOR_BITS` and `LeafCount::Sixteen` are written separately. This assert keeps them in
-@@ -130,7 +160,7 @@ fn from(vectors: LeafMask) -> Self {
- ///
- /// Exactly one bit is set.
- #[derive(Clone, Copy, Debug, Eq, PartialEq)]
--pub(super) struct Subtree(u32);
-+pub(crate) struct Subtree(u32);
- 
- impl Subtree {
-     /// Returns the subtree at index `idx`.
-@@ -151,7 +181,7 @@ pub(super) const fn into_raw(self) -> u32 {
- 
- /// Set of subtrees, one bit per subtree, in the layout of the `TOP` registers.
- #[derive(Clone, Copy, Debug, Eq, PartialEq)]
--pub(super) struct SubtreeSet(u32);
-+pub(crate) struct SubtreeSet(u32);
- 
- impl SubtreeSet {
-     pub(super) const fn contains(self, subtree: Subtree) -> bool {
-@@ -173,7 +203,6 @@ pub(super) const fn span(self) -> u32 {
-     }
- 
-     /// Returns the subtrees of this set, lowest index first.
--    #[expect(dead_code)]
-     pub(super) fn iter(self) -> impl Iterator<Item = Subtree> {
-         (0..u32::BITS)
-             .map(Subtree::new)
-@@ -250,3 +279,260 @@ fn from(vector: GinVector) -> Self {
-         vector.0.extend()
-     }
- }
++/// Clears and then sets the `TOP` enables of `subtrees`, which produces a new delivery edge.
++fn cycle_top_enables(bar: Bar0<'_>, subtrees: SubtreeSet) {
++    bar.write_reg(NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_CLEAR::zeroed().with_subtrees(subtrees));
++    bar.write_reg(NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_SET::zeroed().with_subtrees(subtrees));
++}
 +
-+/// Disables `vectors` in `leaf`.
-+fn clear_leaf_enables(bar: Bar0<'_>, leaf: LeafIndex, vectors: LeafMask) {
-+    bar.write(
-+        Array::at(*leaf),
-+        NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF_EN_CLEAR::zeroed().with_vectors(vectors),
++/// The leaf count and the rearm of the GIN CPU tree, which differ by GPU family.
++pub(super) trait CpuInterruptHal: Send + Sync {
++    /// Returns the number of leaves the tree implements.
++    fn leaf_count(&self) -> LeafCount;
++
++    /// Rearms PCI interrupt delivery after a handler serviced `subtree`.
++    ///
++    /// `serviced` is every subtree that nova-core services, for the Hopper-plus MSI form, which
++    /// cycles the `TOP` enables of them all. See "Rearming PCI interrupt delivery" in
++    /// `Documentation/gpu/nova/core/interrupts.rst`.
++    fn rearm_pci_irq(
++        &self,
++        bar: Bar0<'_>,
++        msi_type: MsiType,
++        serviced: SubtreeSet,
++        subtree: Subtree,
 +    );
 +}
 +
-+/// Disables the subtrees in `serviced` at `TOP`.
-+fn clear_top_enables(bar: Bar0<'_>, serviced: SubtreeSet) {
-+    bar.write_reg(NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_CLEAR::zeroed().with_subtrees(serviced));
-+}
-+
-+/// The CPU tree of one PCIe function, the subtrees that nova-core services, and the PCI vectors
-+/// that deliver them.
-+///
-+/// A subtree may be enabled at `TOP` only once a handler is registered on the PCI vector that
-+/// delivers it. See "The serviced-subtree invariant" in
-+/// `Documentation/gpu/nova/core/interrupts.rst`.
-+pub(crate) struct Tree<'a> {
-+    bar: Bar0<'a>,
-+    hal: &'static dyn CpuInterruptHal,
-+    serviced: SubtreeSet,
-+    /// The interrupt type that Linux granted for `vectors`.
-+    pub(super) msi_type: MsiType,
-+    vectors: pci::IrqVectorRegistration<'a>,
-+}
-+
-+impl<'a> Tree<'a> {
-+    /// Creates the tree of `chipset` and allocates the PCI vectors for the subtrees in `serviced`.
-+    ///
-+    /// Requests MSI-X entries `0` through the highest subtree in `serviced`, since an allocation
-+    /// cannot be sparse, and falls back to a single MSI message for the whole tree.
-+    ///
-+    /// # Errors
-+    ///
-+    /// `EINVAL` if `serviced` is empty or names a subtree that `chipset` does not implement.
-+    /// Otherwise, when neither interrupt type could be allocated, the error from the MSI request.
-+    pub(crate) fn new(
-+        pdev: &'a pci::Device<Bound>,
-+        bar: Bar0<'a>,
-+        chipset: Chipset,
-+        serviced: SubtreeSet,
-+    ) -> Result<Self> {
-+        let hal = cpu_interrupt_hal(chipset);
-+        let num_leaves = hal.leaf_count();
-+
-+        if serviced.is_empty() || serviced.intersection(num_leaves.subtree_set()) != serviced {
-+            return Err(EINVAL);
++/// Returns the [`CpuInterruptHal`] for `chipset`'s architecture.
++pub(super) fn cpu_interrupt_hal(chipset: Chipset) -> &'static dyn CpuInterruptHal {
++    match chipset.arch() {
++        Architecture::Turing | Architecture::Ampere | Architecture::Ada => tu102::TU102_HAL,
++        Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => {
++            gh100::GH100_HAL
 +        }
++    }
++}
+diff --git a/drivers/gpu/nova-core/irq/hal/gh100.rs b/drivers/gpu/nova-core/irq/hal/gh100.rs
+new file mode 100644
+index 000000000000..6e307c8d120b
+--- /dev/null
++++ b/drivers/gpu/nova-core/irq/hal/gh100.rs
+@@ -0,0 +1,40 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+        let entries = serviced.span();
-+        let (vectors, msi_type) = pdev
-+            .alloc_irq_vectors(entries, entries, IrqType::MsiX.into())
-+            .map(|vectors| (vectors, MsiType::MsiX))
-+            // Every subtree raises the one MSI message, so one MSI vector serves the whole tree.
-+            // See "Delivery over PCI" in `Documentation/gpu/nova/core/interrupts.rst`.
-+            .or_else(|_| {
-+                pdev.alloc_irq_vectors(1, 1, IrqType::Msi.into())
-+                    .map(|vectors| (vectors, MsiType::Msi))
-+            })?;
++use crate::driver::Bar0;
 +
-+        Ok(Self {
-+            bar,
-+            hal,
-+            serviced,
-+            msi_type,
-+            vectors,
-+        })
++use super::{
++    cycle_top_enables,
++    CpuInterruptHal,
++    LeafCount,
++    MsiType,
++    Subtree,
++    SubtreeSet, //
++};
++
++/// The CPU interrupt tree properties of Hopper and Blackwell.
++struct Gh100;
++
++impl CpuInterruptHal for Gh100 {
++    fn leaf_count(&self) -> LeafCount {
++        LeafCount::Sixteen
 +    }
 +
-+    /// Returns the [`irq::IrqRequest`] for the PCI vector that delivers `subtree`.
-+    ///
-+    /// # Errors
-+    ///
-+    /// `EINVAL` if `subtree` is not one of the serviced subtrees.
-+    pub(super) fn request_for(&self, subtree: Subtree) -> Result<irq::IrqRequest<'_>> {
-+        if !self.serviced.contains(subtree) {
-+            return Err(EINVAL);
-+        }
-+
-+        let entry = match self.msi_type {
-+            MsiType::MsiX => num::u32_as_usize(subtree.index()),
-+            MsiType::Msi => 0,
++    fn rearm_pci_irq(
++        &self,
++        bar: Bar0<'_>,
++        msi_type: MsiType,
++        serviced: SubtreeSet,
++        subtree: Subtree,
++    ) {
++        let subtrees = match msi_type {
++            MsiType::Msi => serviced,
++            MsiType::MsiX => subtree.into(),
 +        };
 +
-+        self.vectors.index(entry).map(Into::into)
++        cycle_top_enables(bar, subtrees);
++    }
++}
++
++const GH100: Gh100 = Gh100;
++pub(super) const GH100_HAL: &dyn CpuInterruptHal = &GH100;
+diff --git a/drivers/gpu/nova-core/irq/hal/tu102.rs b/drivers/gpu/nova-core/irq/hal/tu102.rs
+new file mode 100644
+index 000000000000..7e3aea946d05
+--- /dev/null
++++ b/drivers/gpu/nova-core/irq/hal/tu102.rs
+@@ -0,0 +1,43 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++use kernel::io::Io;
++
++use crate::{
++    driver::Bar0,
++    irq::regs::NV_XVE_CYA_2, //
++};
++
++use super::{
++    cycle_top_enables,
++    CpuInterruptHal,
++    LeafCount,
++    MsiType,
++    Subtree,
++    SubtreeSet, //
++};
++
++/// The CPU interrupt tree properties of Turing, Ampere, and Ada.
++struct Tu102;
++
++impl CpuInterruptHal for Tu102 {
++    fn leaf_count(&self) -> LeafCount {
++        LeafCount::Eight
 +    }
 +
-+    /// Rearms PCI interrupt delivery to the CPU after servicing `subtree`, the one subtree that
-+    /// the calling handler serves.
-+    ///
-+    /// A handler must call this before returning, or it receives no further interrupts.
-+    pub(super) fn rearm_pci_irq(&self, subtree: Subtree) {
-+        self.hal
-+            .rearm_pci_irq(self.bar, self.msi_type, self.serviced, subtree);
-+    }
-+
-+    /// Enables the serviced subtrees at `TOP`.
-+    ///
-+    /// Each of them must have a handler registered on its PCI vector.
-+    pub(super) fn enable_top(&self) {
-+        self.bar.write_reg(
-+            NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_SET::zeroed().with_subtrees(self.serviced),
-+        );
-+    }
-+
-+    /// Disables the serviced subtrees at `TOP`.
-+    pub(super) fn disable_top(&self) {
-+        clear_top_enables(self.bar, self.serviced);
-+    }
-+
-+    /// Enables the serviced subtrees at `TOP` until the returned guard drops.
-+    pub(crate) fn enable_top_guarded(&self) -> TopEnableGuard<'a> {
-+        self.enable_top();
-+
-+        TopEnableGuard {
-+            bar: self.bar,
-+            serviced: self.serviced,
-+        }
-+    }
-+
-+    /// Enables `vectors` in `leaf`.
-+    pub(super) fn enable_leaf(&self, leaf: LeafIndex, vectors: LeafMask) {
-+        self.bar.write(
-+            Array::at(*leaf),
-+            NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF_EN_SET::zeroed().with_vectors(vectors),
-+        );
-+    }
-+
-+    /// Disables `vectors` in `leaf`.
-+    pub(super) fn disable_leaf(&self, leaf: LeafIndex, vectors: LeafMask) {
-+        clear_leaf_enables(self.bar, leaf, vectors);
-+    }
-+
-+    /// Enables `vectors` in `leaf` until the returned guard drops.
-+    pub(super) fn enable_leaf_guarded(
++    fn rearm_pci_irq(
 +        &self,
-+        leaf: LeafIndex,
-+        vectors: LeafMask,
-+    ) -> LeafEnableGuard<'a> {
-+        self.enable_leaf(leaf, vectors);
-+
-+        LeafEnableGuard {
-+            bar: self.bar,
-+            leaf,
-+            vectors,
-+        }
-+    }
-+
-+    /// Reads the pending bits of `leaf`, and returns the handle that clears them.
-+    pub(super) fn read_pending(&self, leaf: LeafIndex) -> LeafPending<'a> {
-+        let pending = self
-+            .bar
-+            .read(NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF::at(*leaf))
-+            .vectors();
-+
-+        LeafPending {
-+            bar: self.bar,
-+            leaf,
-+            pending,
-+        }
-+    }
-+
-+    /// Disables every vector in every implemented leaf, including the subtrees that nova-core does
-+    /// not service. Call this only during probe.
-+    pub(super) fn disable_all_leaves(&self) {
-+        for leaf in self.hal.leaf_count().iter() {
-+            self.disable_leaf(leaf, LeafMask::all());
-+        }
-+    }
-+
-+    /// Clears every pending bit in every implemented leaf, including the subtrees that nova-core
-+    /// does not service.
-+    ///
-+    /// The serviced subtrees are disabled at `TOP` on return. Call this only during probe, with no
-+    /// interrupt handler registered.
-+    pub(super) fn drain(&self) {
-+        self.disable_top();
-+
-+        // A vector that latched while disabled does not show in `TOP`, so read every leaf rather
-+        // than descending from it.
-+        for leaf in self.hal.leaf_count().iter() {
-+            self.read_pending(leaf).clear();
-+        }
-+    }
-+
-+    /// Disables every vector, clears every pending bit, and rearms PCI interrupt delivery.
-+    ///
-+    /// The serviced subtrees are disabled at `TOP` on return. Call this only during probe, with
-+    /// no interrupt handler registered.
-+    pub(super) fn reset(&self) {
-+        self.disable_all_leaves();
-+        self.drain();
-+        for subtree in self.serviced.iter() {
-+            self.rearm_pci_irq(subtree);
-+        }
-+
-+        // A `TOP`-enable rearm leaves the subtrees that it cycles enabled, and a subtree may be
-+        // enabled only once a handler is registered on its vector.
-+        self.disable_top();
-+    }
-+}
-+
-+/// The pending bits of one leaf as they were read, and the handle that clears them.
-+pub(super) struct LeafPending<'a> {
-+    bar: Bar0<'a>,
-+    leaf: LeafIndex,
-+    pending: LeafMask,
-+}
-+
-+impl LeafPending<'_> {
-+    pub(super) fn vectors(&self) -> LeafMask {
-+        self.pending
-+    }
-+
-+    /// Clears the vectors that were pending at the read. A vector that latched since stays pending.
-+    pub(super) fn clear(&self) {
-+        self.clear_vectors(self.pending);
-+    }
-+
-+    /// Clears `vectors` and no other bit.
-+    pub(super) fn clear_vectors(&self, vectors: LeafMask) {
-+        if !vectors.is_empty() {
-+            self.bar.write(
-+                Array::at(*self.leaf),
-+                NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF::zeroed().with_vectors(vectors),
-+            );
++        bar: Bar0<'_>,
++        msi_type: MsiType,
++        _serviced: SubtreeSet,
++        subtree: Subtree,
++    ) {
++        match msi_type {
++            MsiType::Msi => bar.write(NV_XVE_CYA_2, 0u32.into()),
++            MsiType::MsiX => cycle_top_enables(bar, subtree.into()),
 +        }
 +    }
 +}
 +
-+/// Disables a set of vectors in one leaf when dropped.
-+pub(super) struct LeafEnableGuard<'a> {
-+    bar: Bar0<'a>,
-+    leaf: LeafIndex,
-+    vectors: LeafMask,
-+}
-+
-+impl Drop for LeafEnableGuard<'_> {
-+    fn drop(&mut self) {
-+        clear_leaf_enables(self.bar, self.leaf, self.vectors);
-+    }
-+}
-+
-+/// Disables the serviced subtrees at `TOP` when dropped.
-+pub(crate) struct TopEnableGuard<'a> {
-+    bar: Bar0<'a>,
-+    serviced: SubtreeSet,
-+}
-+
-+impl Drop for TopEnableGuard<'_> {
-+    fn drop(&mut self) {
-+        clear_top_enables(self.bar, self.serviced);
-+    }
-+}
++const TU102: Tu102 = Tu102;
++pub(super) const TU102_HAL: &dyn CpuInterruptHal = &TU102;
 -- 
 2.55.0
 
