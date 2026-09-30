@@ -1,46 +1,46 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010005.outbound.protection.outlook.com [52.101.201.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99E638E8A1
-	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 03:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4BF9397933
+	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 03:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790739802; cv=fail; b=Hc6QEmLRM1TkzBX5Bb2PRqJQwOuxuehhAf7g9pUkP4/NkXxq0FC0sXXYc2IBJG9nb0pYWm5TzaXSjqzbqB4vm8Kpn0MD+um1OhOPu45eTWNpHVAGK3Qg32OxcuHFFcceItXGOGPj4M6Mk8+roz/idWeUH1UdkedTIHESxUgyWVc=
+	t=1790739804; cv=fail; b=SI9hltbpDZN4bqAXrw33yuAXtTLamOgQ9eyy2X6GvUBBY0J0hqeakYTTHt7F7zHVMwVqvp5eqTQqwtV/dmWNI2X90+CDdVnvUeTTraxQ2surAyhuw7MtG0TGUDbY6f53rioyseQXm5Sovlvf/UE9QF1LaGExJX7qyxHuzz+hZDM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790739802; c=relaxed/simple;
-	bh=lUWQlpQLBXs2jwVGwknbQrTcE6ZOmjbru92R4mOEl1k=;
+	s=arc-20240116; t=1790739804; c=relaxed/simple;
+	bh=FVWhUmSd0SxEGUVx4tSVvwevpZ69i+ampnTCakXEGNs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uamnfY0lj/UOfQAs9duL6UqtTJ+Rfw+ce9Vp9ZFJmEgnaR2V27YEwtABW9fHolFQTxIiR4cPCapoLzGgwt8zPXHfUbzCd/rNUwDL2Bk4+2yodu3klQFN/+310cl2rneoKcJaULbL6pW0FxG7r2OoNG1hHtJsrD97F7dTsP2ELdc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RN0ypfO3; arc=fail smtp.client-ip=52.101.56.58
+	 Content-Type:MIME-Version; b=K8oMAIynTdLcoCE6lJLTPi3tq7WPFFyRKGKyHUo+gHLClB0HGP67h3ti1LqDlxXfUvyKrGAgBYnggB+OPIrsQB9kgJtd0eWutj4+gcYolcYqOOezIQBelGDyfRdlogzn9aSVHTNwTH5TPdg4A+jUOwnG1mvOr/q+7ERQ7+Cieww=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DLMHrE3j; arc=fail smtp.client-ip=52.101.201.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RN0ypfO3"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DLMHrE3j"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MJDA1JFtKhM8wLziHc4irLhcw5EeUYzjNQ9ixZ2/5FQvZextOeseUcK6scKSa0Y42010bwCDs2Hb43256NE4+HezzW2xgBC7cmEE5Bi/LjYs8Nqei7vRfEDqg6cciHsusGULUWNvovcDg7sGigrFM6gXfE4w5JgfrEAonPG7YVxYPs6TT81lVx1tnes+IAXrdXMjbfK57Tax7mXIqD7DAb5FLRctR/l4cjqtktRlxWEw0irH5OeqQIZb3AZ6UA9lcy9bLOq8csDaFMIfCty5yf25tpGLZWxsTVDJUvNh/8RBSfaa7U5g7gNUOkSG/SixieEcRbKyaNjJsAfwLLTRow==
+ b=GeWPpHCvv20mZwobLcJTxHj+NU1DPTie87A7/Facz1pNb9SD94+2kyUDEsASywDf2iz+RG4sJndG2t9Us8EXb/nRfmpW+qDtsFOjrs0r5YVamg96+uDgIBcv9e3XgVCyOMnQK0DHHN40Rn9S2U+Gugjsh/3ljebHoJD94rPn/wL/8dGyPAhcpevN6nskyrRb4MqJOuW5w/nGwjoMoZi467oIbWJMYlLo2vacyfDcWa9yZ+LWbVX3xHNf7L3u+5kuywFQ71KiGL6FRI6bmahWrcQ4xy3NOjUY5pzUMSTxC30V7D3N8F7V4fX8JRLhC6vpHdZgfEg1AxetACv81ROAOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HiOXOmILdLvTDf+atlsHOwQ3KyN1aiqmu44Bwj7gnJA=;
- b=quvLLRyne1/bFhhbkvsiUNXnv8+rjjNY05QLIIWpb5d9vcougQ5kUdeknKUg1XAr86y+K6oM0Tt7Ay7av71vPCVUDxdf7SN9dCRsDWj/rHvNTlRrmkn4al0Tk09Ol1y6gUWhijJrQRoYlDZBeYKhku1risqeCTWudCQC4WU1IArppMVj0EfWSfOrXcfLKO3VDs0cq5qg+iBQFWoVjjChx5YSQXCPc2vVI5/oGj3ys9ZYkbD51EHYF3O/GclhYdlI6o2T0XFdXDokitSFr7lNzG5p9c1YDJzqqqXAaxzwCGe0/CIGbb0tsPJYS7JJkCC/6XtVWrYqndvnf4sM2wjiew==
+ bh=Ho6StAlcm1htBHWlGuDoifK9WXX1zoWgXskF1xQLE20=;
+ b=eC+FT4y1iKxS17DfaLtbnE/r3Ugrk6I8BXuZ29e/fIcjXA/9l8zbpZ+nDya9zmPZ6HV0aQkRwtHk+Te+kecm1JABQC+l99OO98lx4gOt4RFk6g8NjtkZFnc6us4gCtU1sOscvYqlGn8mAIOEmun0DQpToH6UGq/5d7YOtYbrMQxKIsdlXiKGnC1H2GbPcJyamj1rBGIuS/g88UImqBd4ctmJfQTZL2lMvLv2Uq+l2SitOlAnirJmFQsDXwAOIEf1Gl2Kv4V1w6QwygDEFuPjjQQ3DvGeqjttUSnR9D6vQrSUJWfN2c+YVKrGkFc/xL8GafuB/HF/9oEPDZ/Qg4Lr3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HiOXOmILdLvTDf+atlsHOwQ3KyN1aiqmu44Bwj7gnJA=;
- b=RN0ypfO3AvNnQOyHa1a5g2PRmVW1HFLAIiBriIyWLMO+8+exdmkzaHWVnYkSgQDg2wlSXbIhzhMzXnxvw09hxnS1E3IJqbJ+arFKHVkhR1unD3EXAQ1TwbqChyDahT1nwjrCvGR2MgxHocPQEJRtQeJ1IiEKns3Kqp7S8Lipfii5x4Hhl5m8iAPzr0x8l0FV4lrKpQC7UIV8sgmT2WtxH3pPpVFzZqgI9QDQ+1Yw6OmKZ/K8NpLL+HPZc+TTI+oAH0c9ARQ8mO4Z5erWfl6imevWHJS9Fa2KAWYPPQJA7cfhL6QCH0Om8xjw8Sl6mHUo5Gc7uaXKDdXJ70/F4+FNXA==
+ bh=Ho6StAlcm1htBHWlGuDoifK9WXX1zoWgXskF1xQLE20=;
+ b=DLMHrE3jMH+NYn+edyhoOFbc6jiRxxyb0M3cJBCiS3yfiKHZrxcAaXCBha0hrlqw1s1548y5him+0cNYFWf6XxKqcLIxg5GeRumR0lnpqz7B3nxMcteSNW3p6Hm3sbCG4ShgWoerIY5abjqAoeS2CbixIjBanglKEnIPfwhX+7jLCFXZJYmEkpfEfEJ1d+8PX45nDWVk3UzuUJFQeNNHpc89K9KJHQyqdu1BtT0/C2EcXfsSjWrnBb0sXRFvenS4zilP6MP9EBQXa0dTYKA3oBCyAIyUzZZmW1BNjmAenZ5to7PBjWzeEKPX5NJqvEyrtU8SIBZBvzrjxJkkWA+hiw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.26; Wed, 30 Sep 2026 03:42:24 +0000
+ 15.21.451.26; Wed, 30 Sep 2026 03:42:19 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
- 03:42:24 +0000
+ 03:42:19 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -62,18 +62,19 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	Trevor Gross <tmgross@umich.edu>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v5 11/15] gpu: nova-core: bound a GSP wait by a single deadline
-Date: Tue, 29 Sep 2026 20:41:44 -0700
-Message-ID: <20260930034148.590687-12-jhubbard@nvidia.com>
+	John Hubbard <jhubbard@nvidia.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v5 08/15] gpu: nova-core: add an interrupt delivery self-test
+Date: Tue, 29 Sep 2026 20:41:41 -0700
+Message-ID: <20260930034148.590687-9-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930034148.590687-1-jhubbard@nvidia.com>
 References: <20260930034148.590687-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PH0PR07CA0031.namprd07.prod.outlook.com
- (2603:10b6:510:e::6) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: PH8P221CA0057.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:349::12) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -83,243 +84,438 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6248:EE_
-X-MS-Office365-Filtering-Correlation-Id: e597c530-8c5a-4e41-2706-08df1ea4d6e0
+X-MS-Office365-Filtering-Correlation-Id: d080d597-fdcd-4413-00c6-08df1ea4d409
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|11063799006|6133799003|3023799007|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|5023799004|11063799006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	lZIWViKbnqmJcDszob8IvFd5bk8NIR3KIRJprki5ck4suKgwEEv9HdvnepiJHE4Me29Y1avnuFScpu7YVafeKV/XeW7XglAaAv2ZWzW9D4Qk64306r4krwFYYULyIdIOO3epgj5GA2BL/vupVhg4KLZGnBLM7NnmY+H4nOua3YVYRaAK/9jwV3kTnDV91fH0AAqte39VckvgLUx5HExRre598sleIUzKkqC+bDLBsWJGycLxPv0iPyu4VqGu+dLSwpjn73pJ5jeMr1aoUdW6QpSBukLup5qNq0AZ1Bf0xK6WSqj1KsTQbW56GsjkOo5pK+qm9NdRSzayPM5gFVHpdT2PiS8CQuy3D+Vo9VH+DLNi/8spdbb7UPytQQubwCttxUmiLgO5BrOe4fb/mS2vzUXv5SI4lYMqpRiT+OrCXNy7W4jSWZMfVtgSbC75kfNjb3JsFyzDvOTrXXpVPyFF8nV6DzFG20rwI9r2Wv7C8lTkXIr05/nhY3MXzmHD6w7tsu4N4Js3HllAbdQpqifG26cc4Kr0Rm7LvEZUlshQbOMh3FfOfgfy96mD0Re3Zb8XYVIxmjFnFFIwakvoqZXObJpImw9DWxP/sRCsU6Y1Fj5tcbuYAgIadsMfitAvQPzLlWoThPiASBdYQkf4FganjltVzLBY3QjBs6Wixb+XLwY=
+	KJsCw6MOBrUkQAXj+CZ3X+ouRBpjSehI55f4IDnXzNs9RK4nCcaPCZIEnZL80Zp0ueSrHbW0/TyRIPXDBEcUyX4QZxYD4fW7+4tNqnw0oFojDMM5VDRvou9YAzDJ66kc0DARX6EGQh8vggbeZY8Nw0egw7Zjy8BVxNjY/Z5gcMSnPRXHPAfzeBsyeUCofZyXRlM8Hs8aMUVE8pj25L4Kht6/dgP0aTmeo3YSUewOl7hAFM+9/w+tLRb7vanZ02aawUMpkpm2hFLds/SyhayQt2z/xV9fr2yM7mtPsFxCbQBskHfjCYYws8kDejPMxq9q28n91FgjrJmcYk+YJnbxYgHiw5DcJq0XUg/+09DtKsoF67Dhr5wABoBYyIEdCIARyFZxclZd67s05UOm4BJLVFY+A9Q2A/kcf7oiI4fJ/819llIbfFHmxh+I1COfmpecuCRcl2z+mExfPNbJVWCsRzMwL8zwkAanKADau0/gU+lbjayi7sfM/2BxqVbywwCw3ESrryXPj36EzgIVpfKE4XJnu3MafkiSSRh68gNYBR+w7ZTVzy85iVq1+WZsrN40PhCMKj8kxQvI2BEbuEjHlhlmuZzXc6se3MeiYf4jGuVTIIaPbyhQIXrqW4aLTFcbj/3qE6uF0hcQSaw+L8GY1X8VTqWH1Ie1EQooqXVSeBQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wo3aqbh7DDbqb6nad6+wT8E2xhUGRv/dwwjrgpY9Oc3FNMq50MAzICBYY+ym?=
- =?us-ascii?Q?vrzDodo7GLDSgrjyjAKedF0+wY0RdYKmmQmZJBA3cIWYK/OiQZ5Isxr204/q?=
- =?us-ascii?Q?ubyEun6XYUrPT7REuGf8LsjgyhnAIExWyAGGY2hKEeH82ZJpyzBC3YkOBQtP?=
- =?us-ascii?Q?8gSJT2Z6Y5VOAyXKJcbUXf8/xRPZzgVZlZvRm+yj1bjfva7pS7EZp/3hAsp5?=
- =?us-ascii?Q?MUBKJpQojSHdAlz4SVomtPlmtWGQdCE5pgB81eCBNdeAyS2D//SufqUg2sLm?=
- =?us-ascii?Q?IMD34n9InthrDkNx6bgh3OHjh+lvlUUkUG4UG3LREqiJgvcum5XC4AvqK8DB?=
- =?us-ascii?Q?utY+nsrWLF/VxkHmJbIrblONq9FU89dVBV3Q+ReGpnjGth3be99524u+x+kR?=
- =?us-ascii?Q?6Offbs+fYRDzSGchhOf0JCrx6Zfs5jc5Z3lGQgkzRDyjYkRmcwZsHwBrMOa6?=
- =?us-ascii?Q?x2fW3ieQiH/sDFBgCOhWzuqSQ97ygE2L/xQGUtBzGiLR1LedcpC5JW6Nyct4?=
- =?us-ascii?Q?OYGrFXAAh4/2OJlryNxJLLtsxFqBJ8rw+VpgiHy2RGVzTjC9TxUBNu+vNYNe?=
- =?us-ascii?Q?b5KA3SyPHeDzcn/rIGO7tlvG5wEq2Rph54YV7Ve9c8GL/Wjk/k/v7rTBpxYx?=
- =?us-ascii?Q?YZ+dyYBMYj/5LA9PwtoemIgnIC7jm7RPgEAZ//Q3HCxXNv5bmII7lhRUltN8?=
- =?us-ascii?Q?p4Wlbdv0X5fjWbOgaYRSOYazbL7Mwo+QkpJ8gX/UivwvXvzx5lLIcnRIBijv?=
- =?us-ascii?Q?FutGIGEr9tqvG6J6oZRgLY/A/D61F1uKxSHRfPkyOeCH2NNMwmk4F3FFlP43?=
- =?us-ascii?Q?N3VAqe1Q+3VUsEeAv62krHwUad1bGRSsPfh3nn47v2EuD9rtRdlSdf0xX0iD?=
- =?us-ascii?Q?sewNQ/brApt+L/+krXri2c7bdJBhPY4BA65Fj35GeLxRSGAlyNEWPb4wmiKu?=
- =?us-ascii?Q?ohfQH64rEPHEWzwau4JN3ldIhk8WlNwT8y4t5VYdFlD60Zo4bOlkwm1wRLll?=
- =?us-ascii?Q?YJ5wZ3OY36CV+Qe+L7NC7FG36oEdh3zsgCrU8m7IUJZUkr36w1Yk68oxZOst?=
- =?us-ascii?Q?h+t9ni95bBTAoOzVdg7vj9QkMXWccRTwHLNE8H6H57vyLNCz3YNeULrDjH/B?=
- =?us-ascii?Q?m9jHOzdmIvjndZO7KoqP82L8Kq711js8Y820sLEMJj7f5bU82KNNFcFEFk75?=
- =?us-ascii?Q?ThOs1r4NJpHubn2LyPt0vetazxk/tYCjeBoNaA1zX09W60QWdxRMd3zhQQPG?=
- =?us-ascii?Q?4fYl1FXIXTNkBW2V1DQnuVVhb+zEe/O3qVfxHV2vO9ipdrtaSOMgt4H7Vn7t?=
- =?us-ascii?Q?6jWnVkBGtYF3c8AZyl6hx64ELFIZstHkXrrAV+Ir9bPmtOcp2B8LuqZppIYb?=
- =?us-ascii?Q?WfhJgT88Flv5bi85goBuT94zuwaGr1jv4n8r9D66Tg+FERwwSNJSGvlhqx1s?=
- =?us-ascii?Q?CsM88/nfb0KUXQSxFT0AuFtRZt33e1+t15SiMSTjPx26hrAuu+OiP38AMt9z?=
- =?us-ascii?Q?Lp1d2f7/LZoOOdg+ATlTvDbRBsXOTPsgP9ZxNfICmZaKDCYQjHVjAv6UPyAL?=
- =?us-ascii?Q?kNF/xA7K6CH5uzQXEP5CHJu1z93DVbpeeBqQzv5bn0UPy/YPmgf1Gwux6YiV?=
- =?us-ascii?Q?R0IX4HeniPkJ6Lgqh/1FpDaOTyEkWlhd4eCu0B64IgOm/y/ct3npj26QGNFX?=
- =?us-ascii?Q?NlHu+0TOARyQGezsF3H/6Wy6ZuxbaQY+5ISXgToiDCkZdBJ4z6r7E9QWFnPV?=
- =?us-ascii?Q?dTzLiYvAyQ=3D=3D?=
+	=?us-ascii?Q?gKBE7nig8lzdmfRnsPy6Rr27UDXLODJbH+NIzW6qaU3mTx5Toftl0KYooE02?=
+ =?us-ascii?Q?p94C/YgW5yc4Jx3Rzry74q4IA2p3ezZpTimgImeyxnKkwbbHIoxoEQlfCeOB?=
+ =?us-ascii?Q?4o/6sKDmJ1HIAzZumM3HPMFoq5tnFHpxduNxJgs8PRiNfM6AOm4v5kA5qWKF?=
+ =?us-ascii?Q?n7iToQpWgn/S8cYp7SEyFIZxjgPRX1KTAPVC212gE+JKmp+d5F0TkpnWNfLb?=
+ =?us-ascii?Q?+W+MaA65Sq3/wCc84cqt7vTHTfXBSHZRUZ5DIVrLK0mfQR3S+D8X9CfeVh36?=
+ =?us-ascii?Q?Sr+P9rRwMtZqLjt0lrpkBpjoGJpLZ94wnLWashCBO0ZgwGJiTYveHT3RqZrB?=
+ =?us-ascii?Q?EzpQPc6ZVqa+CnKgOyXSHANDUBrbckIeDQm89FDi3w/bbL8O1iI4Ro9sTkHN?=
+ =?us-ascii?Q?u8w0zJfw3Uc1deu1JZn/vGEksfozrm/C/dkpYya3r529HW+K4i+oX9+ywYwg?=
+ =?us-ascii?Q?EAU8d+lX1jwc4On7JiC/R7ATRY+PCJ2IuwgRfspTkdEtM8ifbV+k+bn9UV9k?=
+ =?us-ascii?Q?7DeL+mRWA7C/oexBzCp7HH2PeHct6xs8S3ZCfb+ZcgOOPRDm1aqd9BAQckJK?=
+ =?us-ascii?Q?AnSyLZplXbTVXrkeXfYQdger1cn6UuZEFl4jKHkU7ez8ZQH/MZWUm7Jd5XhA?=
+ =?us-ascii?Q?j7f47OireM4ZT5iNeQv1BIagqvKVGnyD+rT5jtILwn59d0E7yrhBTZM4mi6m?=
+ =?us-ascii?Q?tYWwDC/SSKb+kxovv1A2NbXvMTIroxuZV4XWXXR92fRd6MeVBqmdti6a1ZBX?=
+ =?us-ascii?Q?4Jhy9PPsrm8gU+DcjxtBvc0UikJ/t+TxU4/8jDlzb3+SEte9ECh4hpztrDBL?=
+ =?us-ascii?Q?lNgaL6bVwwuqHb3cVw3gzE/hJlK7GZ+bYRhrbW4ELNzp09BcF4PlhR6xrne3?=
+ =?us-ascii?Q?zl5/tXjwThLmgqAwfVg4NrYL7EIy4NayMRpllMVifpCqVBSspAKy14xZfc0H?=
+ =?us-ascii?Q?G+kt6kYLkFRhe6eWveNaAGPvaSQrSbb++WJDypbeYGOmeqjnfP0O19dGsGAK?=
+ =?us-ascii?Q?8/GQynrYEkCmtNTnziYXQIbL2KIsp/vFpm59Ka4E1cf+zKsizrkIjDQTIHbH?=
+ =?us-ascii?Q?o4d35rg3tj5dtFDyiBb8Lpen/enSqhYpyrvcE8H4XrXBnoviNRXB0p5fwEXB?=
+ =?us-ascii?Q?AzH/DwK5uf0nskz7DECPnuYseAexTeF2Z/sUybBKMxwg493xwqSVmqSJNiig?=
+ =?us-ascii?Q?ESb8HcDj+niW0ZgIqKTWCFBRWV/JXedAxgPYuhx8mhrB8TJAkqHOhkSU3clt?=
+ =?us-ascii?Q?UqbwvRNsB0VInikDR+XqjpiONSjkpoe05v1PPC9Y/0wdoGVs/l7wxObJrKY9?=
+ =?us-ascii?Q?rL/IvldZi02J3HkpNZGs5sxSm5OyzNbl/Tp34spDLfadSPMFlIRvfdBWwNp4?=
+ =?us-ascii?Q?d2zaJZMOPxxpzZ8TkpXaIEAMISP9G/dTISsjORaITcUXEkeemwCfUbQnK/D3?=
+ =?us-ascii?Q?o77kS+e/WXPty12rzb3UNBvrTjqbyjt5KwQTax3l9AstkVPD6IGOcQ0fmi+K?=
+ =?us-ascii?Q?puwSuWSpl14Knc4kUOnhTsNJc6GAH+tnNy76sQc8yjJ4CEVTNzOpH54OSu5u?=
+ =?us-ascii?Q?rHgsgtio7uaR1knhNHbgXqlHobdWkh57py3q8ztwRQ016WCIuItCSUvRkO7C?=
+ =?us-ascii?Q?ml1InP/mDeG7SeuLVdpfIjUfZV8rUeXAMeX5TMUj3nDoCZ/7c2b73YaCQDyV?=
+ =?us-ascii?Q?/0GW8u0rfE7X7HlxocA5pqQprEP8LnwltEUXF+tEQ50sr3VGdVPPvUNhvrlF?=
+ =?us-ascii?Q?V0UiASLPEA=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e597c530-8c5a-4e41-2706-08df1ea4d6e0
+X-MS-Exchange-CrossTenant-Network-Message-Id: d080d597-fdcd-4413-00c6-08df1ea4d409
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:23.9455
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:19.2229
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Kiq0jfD8+GJcJtAsDC/sBuMjhtcTS+BJ57vpf3OpLMzhxKxHYOfuwT6YgREKlze3y7fMcU5qhmdNHIOFVUgBGw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: cEXATZb1CXmXKSjPqnSrVWn4mi/2DnAYriu2uoTTKojBNR+z826YkOBo3O8chmiK5cfFOCvlPrNFt7MYKxqqIw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6248
 
-The GSP posts unsolicited events on the same queue as command replies,
-so a caller waiting for one message consumes whatever arrives first and
-reads again.
+A GPU interrupt can be lost in the MSI or MSI-X allocation, in the GIN
+tree's enables, or in the rearm, and every one of those failures looks
+the same: no interrupt arrives, and no register or log line says which
+one broke.
 
-Every read started a fresh five-second timeout, so a steady stream of
-events extended the wait without bound. The two boot-time waits for an
-unsolicited event also released the queue mutex between reads, so a
-command sent from another thread could consume the event and leave the
-waiter to time out.
+Add a probe-time self-test, built under NOVA_CORE_SELFTESTS, that
+latches the CPU doorbell vector through the GIN software trigger and
+waits for a registered handler to service it. One delivery would pass
+with a broken rearm, because the first message-signaled interrupt
+arrives whether or not the driver rearms, so the test triggers twice and
+waits for the first handler to finish before the second trigger. It runs
+after GFW boot and before GSP boot, on a quiesced tree, and fails probe
+unless both deliveries arrive, each finds only the doorbell pending, and
+the leaf ends clear.
 
-Compute one deadline when the wait begins and pass the time remaining to
-each read, and hold the queue mutex across the whole wait. Put the loop
-in one helper that the command reply wait and both boot-time event waits
-share.
+The doorbell has the same vector on every supported GPU, so the test
+names it without asking GSP-RM. It allocates the PCI vectors for the
+doorbell's subtree and releases them before returning, so under MSI-X
+the delivery also exercises that subtree's table entry.
 
 Assisted-by: LLM
+Co-developed-by: Joel Fernandes <joelagnelf@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs      | 72 ++++++++++++++++++++------
- drivers/gpu/nova-core/gsp/commands.rs  |  8 +--
- drivers/gpu/nova-core/gsp/sequencer.rs |  8 +--
- 3 files changed, 59 insertions(+), 29 deletions(-)
+ drivers/gpu/nova-core/Kconfig               |   5 +
+ drivers/gpu/nova-core/driver.rs             |   5 +
+ drivers/gpu/nova-core/irq.rs                |   2 +
+ drivers/gpu/nova-core/irq/doorbell_test.rs  | 257 ++++++++++++++++++++
+ drivers/gpu/nova-core/irq/interrupt_tree.rs |  15 ++
+ drivers/gpu/nova-core/nova_core.rs          |   2 +-
+ 6 files changed, 285 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/nova-core/irq/doorbell_test.rs
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index ad2a14d08cb0..ae3808de44e2 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -28,7 +28,11 @@
-         },
-         Mutex, //
-     },
--    time::Delta,
-+    time::{
-+        Delta,
-+        Instant,
-+        Monotonic, //
+diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
+index 1934f17baa8b..2e11e46c99c7 100644
+--- a/drivers/gpu/nova-core/Kconfig
++++ b/drivers/gpu/nova-core/Kconfig
+@@ -24,4 +24,9 @@ config NOVA_CORE_SELFTESTS
+ 	help
+ 	  Build the driver self-tests and run them when the GPU is probed.
+ 
++	  If the interrupt delivery test fails, the probe fails and the driver
++	  does not bind to the GPU. A broken interrupt path would otherwise
++	  show up later as a hang, far from its cause. Every other self-test
++	  logs its failure and lets the probe continue.
++
+ 	  If unsure, say N.
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index fc321c6a10b0..6d45fec6d7cc 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -123,6 +123,11 @@ fn probe<'bound>(
+                 // We must wait for GFW_BOOT completion before doing any significant setup on
+                 // the GPU.
+                 gpu::wait_gfw_boot_completion(pdev.as_ref(), bar, spec.chipset)?;
++
++                // The self-test disables and drains the whole tree, so it has to run before
++                // `Gpu::new` boots the GSP.
++                #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
++                crate::irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
+             },
+ 
+             // TODO: Use self-referential pin-init syntax once available.
+diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
+index b2cfe73af114..ff8b00a82442 100644
+--- a/drivers/gpu/nova-core/irq.rs
++++ b/drivers/gpu/nova-core/irq.rs
+@@ -9,6 +9,8 @@
+ //!
+ //! See `Documentation/gpu/nova/core/interrupts.rst`.
+ 
++#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
++pub(crate) mod doorbell_test;
+ mod hal;
+ pub(crate) mod interrupt_tree;
+ mod regs;
+diff --git a/drivers/gpu/nova-core/irq/doorbell_test.rs b/drivers/gpu/nova-core/irq/doorbell_test.rs
+new file mode 100644
+index 000000000000..aef9f4c7f2e8
+--- /dev/null
++++ b/drivers/gpu/nova-core/irq/doorbell_test.rs
+@@ -0,0 +1,257 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++//! Interrupt delivery self-test.
++//!
++//! The test triggers the CPU doorbell vector from software, twice, and checks that each trigger
++//! reaches a registered handler. It runs during probe under `CONFIG_NOVA_CORE_SELFTESTS`.
++//!
++//! See "Self-test" in `Documentation/gpu/nova/core/interrupts.rst`.
++
++use core::pin::Pin;
++
++use kernel::{
++    device::Bound,
++    irq,
++    pci,
++    prelude::*,
++    sync::{
++        atomic::{
++            Atomic,
++            Relaxed, //
++        },
++        Completion, //
 +    },
-     transmute::{
-         AsBytes,
-         FromBytes, //
-@@ -130,7 +134,9 @@ fn size(&self) -> usize {
- 
- /// Trait representing messages received from the GSP.
- ///
--/// This trait tells [`Cmdq::receive_msg`] how it can receive a given type of message.
-+/// A reply that [`Cmdq::send_command`] waits for, or an event that [`Cmdq::await_msg`] waits for.
-+/// The receiver matches a message's function code against [`Self::FUNCTION`] and decodes the
-+/// message with [`Self::read`].
- pub(crate) trait MessageFromGsp: Sized {
-     /// Function identifying this message from the GSP.
-     const FUNCTION: MsgFunction;
-@@ -566,8 +572,9 @@ fn notify_gsp(bar: Bar0<'_>) {
-     ///
-     /// # Errors
-     ///
--    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply is
--    ///   not received within the timeout.
-+    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply does
-+    ///   not arrive within [`Self::RECEIVE_TIMEOUT`] of the send, however many events arrive
-+    ///   while waiting.
-     /// - `EIO` if the variable payload requested by the command has not been entirely
-     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-     ///
-@@ -582,13 +589,7 @@ pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
-         let mut inner = self.inner.lock();
-         inner.send_command(command)?;
- 
--        loop {
--            match inner.receive_msg::<M::Reply>(Self::RECEIVE_TIMEOUT) {
--                Ok(reply) => break Ok(reply),
--                Err(ENOMSG) => continue,
--                Err(e) => break Err(e),
--            }
--        }
-+        inner.await_msg()
-     }
- 
-     /// Sends `command` to the GSP without waiting for a reply.
-@@ -608,15 +609,25 @@ pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
-         self.inner.lock().send_command(command)
-     }
- 
--    /// Receive a message from the GSP.
-+    /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are logged and
-+    /// consumed.
-+    ///
-+    /// The queue mutex is held for the whole wait, up to [`Self::RECEIVE_TIMEOUT`], so no other
-+    /// caller can send a command or consume an event meanwhile.
-     ///
--    /// See [`CmdqInner::receive_msg`] for details.
--    pub(crate) fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if the event does not arrive within [`Self::RECEIVE_TIMEOUT`] of the call,
-+    ///   however many other events arrive while waiting.
-+    /// - `EIO` if a message fails framing or checksum validation.
-+    ///
-+    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
-+    pub(crate) fn await_msg<M: MessageFromGsp>(&self) -> Result<M>
-     where
-         // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-         Error: From<M::InitError>,
-     {
--        self.inner.lock().receive_msg(timeout)
-+        self.inner.lock().await_msg()
-     }
- }
- 
-@@ -870,6 +881,37 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
-         result
-     }
- 
-+    /// Receives a message of type `M`, waiting up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-+    ///
-+    /// Any other message that arrives first is logged as an event and does not extend the
-+    /// deadline.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if no message of type `M` arrives before the deadline, however many other
-+    ///   messages arrive while waiting.
-+    /// - `EIO` if a message fails framing or checksum validation (see [`Self::wait_for_msg`]).
-+    ///
-+    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
-+    fn await_msg<M: MessageFromGsp>(&mut self) -> Result<M>
-+    where
-+        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-+        Error: From<M::InitError>,
-+    {
-+        let deadline = Instant::<Monotonic>::now() + Cmdq::RECEIVE_TIMEOUT;
-+        loop {
-+            let remaining = deadline - Instant::<Monotonic>::now();
-+            if remaining.is_negative() {
-+                break Err(ETIMEDOUT);
-+            }
-+            match self.receive_msg::<M>(remaining) {
-+                Ok(msg) => break Ok(msg),
-+                Err(ENOMSG) => continue,
-+                Err(e) => break Err(e),
-+            }
++    time, //
++};
++
++use super::interrupt_tree::{
++    GinVector,
++    LeafEnableGuard,
++    LeafMask,
++    Subtree,
++    TopEnableGuard,
++    Tree, //
++};
++
++use crate::{
++    driver::Bar0,
++    gpu::Chipset,
++    selftest_assert,
++    selftest_assert_eq, //
++};
++
++/// The CPU doorbell vector. Every supported GPU uses this number, so the test needs nothing from
++/// GSP-RM, which is not running yet.
++const DOORBELL_VECTOR: GinVector = GinVector::new::<129>();
++
++/// The only subtree that this test services.
++const DOORBELL_SUBTREE: Subtree = DOORBELL_VECTOR.subtree();
++
++/// Time allowed for each delivery to arrive.
++const DELIVERY_TIMEOUT_MS: time::Msecs = 1000;
++
++/// The self-test's interrupt handler.
++///
++/// It clears only the doorbell's bit, rearms delivery, and never walks the tree. A missing rearm
++/// shows up as a timeout on the second delivery.
++#[pin_data]
++struct DoorbellTestHandler<'a> {
++    tree: &'a Tree<'a>,
++    /// Completed by the first delivery.
++    #[pin]
++    first: Completion,
++    /// Completed by the second delivery.
++    #[pin]
++    second: Completion,
++    /// Deliveries that found the doorbell bit set.
++    irq_count: Atomic<u32>,
++    /// The doorbell leaf's pending bits, as read by the first delivery.
++    first_pending: Atomic<u32>,
++    /// The doorbell leaf's pending bits, as read by the second delivery.
++    second_pending: Atomic<u32>,
++}
++
++impl irq::Handler for DoorbellTestHandler<'_> {
++    fn handle(&self) -> irq::IrqReturn {
++        let leaf = self.tree.read_pending(DOORBELL_VECTOR.leaf_index());
++        let pending = leaf.vectors();
++        if !pending.contains(DOORBELL_VECTOR.leaf_mask()) {
++            self.tree.rearm_pci_irq(DOORBELL_SUBTREE);
++            return irq::IrqReturn::None;
 +        }
++        leaf.clear_vectors(DOORBELL_VECTOR.leaf_mask());
++        // Rearm before completing, since the waiting thread triggers the next doorbell as soon as
++        // it wakes.
++        self.tree.rearm_pci_irq(DOORBELL_SUBTREE);
++
++        match self.irq_count.fetch_add(1, Relaxed) {
++            0 => {
++                self.first_pending.store(pending.into_raw(), Relaxed);
++                self.first.complete_all();
++            }
++            1 => {
++                self.second_pending.store(pending.into_raw(), Relaxed);
++                self.second.complete_all();
++            }
++            _ => (),
++        }
++
++        irq::IrqReturn::Handled
++    }
++}
++
++/// The self-test's handler registration and the enables that deliver to it.
++///
++/// Drops in the order that "Enabling the GSP event" in
++/// `Documentation/gpu/nova/core/interrupts.rst` requires: the vector is disabled, then the
++/// handler is freed, then the subtree is disabled.
++struct SelftestResources<'a, 'r> {
++    _leaf_guard: LeafEnableGuard<'a>,
++    reg: Pin<KBox<irq::Registration<'r, DoorbellTestHandler<'a>>>>,
++    _top_guard: TopEnableGuard<'a>,
++}
++
++impl<'a> SelftestResources<'a, '_> {
++    fn handler(&self) -> &DoorbellTestHandler<'a> {
++        self.reg.handler()
 +    }
 +
-     /// Logs an event, meaning a message that no caller was waiting for.
-     ///
-     /// An OS error or robust-channel record is logged at error level and an unknown function code
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 0c787fd689bf..cdbb13674f08 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -188,13 +188,7 @@ fn read(
++    /// Disables the doorbell vector and waits for a handler in flight on another CPU to finish.
++    ///
++    /// The handler's counters and the leaf's pending bits are final on return.
++    fn quiesce_source(&self) {
++        self.handler()
++            .tree
++            .disable_leaf(DOORBELL_VECTOR.leaf_index(), DOORBELL_VECTOR.leaf_mask());
++        self.reg.synchronize();
++    }
++}
++
++/// Runs the interrupt delivery self-test.
++///
++/// Call this only during probe, before GSP boot: it disables every vector in the tree and clears
++/// every pending bit. On return, the doorbell's subtree is disabled at `TOP`, and the test's PCI
++/// vectors and handler are released.
++///
++/// # Errors
++///
++/// `EINVAL` if `chipset` does not implement the doorbell's subtree. `ETIMEDOUT` if a delivery
++/// does not arrive within [`DELIVERY_TIMEOUT_MS`]. `EIO` if a self-test assertion fails.
++/// Otherwise the error from allocating the PCI vectors or registering the handler.
++pub(crate) fn run_selftest(pdev: &pci::Device<Bound>, bar: Bar0<'_>, chipset: Chipset) -> Result {
++    let tree = Tree::new(pdev, bar, chipset, DOORBELL_SUBTREE.into())?;
++    let tree_ref = &tree;
++    let request = tree.request_for(DOORBELL_SUBTREE)?;
++    let doorbell = DOORBELL_VECTOR.leaf_index();
++    let doorbell_mask = DOORBELL_VECTOR.leaf_mask();
++
++    dev_info!(
++        pdev,
++        "interrupt self-test: starting on vector {}, subtree {}, with {:?}\n",
++        DOORBELL_VECTOR.into_raw(),
++        DOORBELL_SUBTREE.index(),
++        tree.msi_type,
++    );
++
++    // GFW boot can leave vectors enabled and pending. Registering a handler unmasks the PCI
++    // interrupt, and they would be delivered to a handler that services only the doorbell.
++    tree.reset();
++
++    // A delivery proves nothing unless the doorbell bit starts out clear.
++    let pre_pending = tree.read_pending(doorbell).vectors();
++    selftest_assert!(
++        pdev,
++        !pre_pending.contains(doorbell_mask),
++        "vector {} already pending, leaf[{}] is {:#x}",
++        DOORBELL_VECTOR.into_raw(),
++        doorbell.get(),
++        pre_pending.into_raw()
++    );
++
++    let handler_init = try_pin_init!(DoorbellTestHandler {
++        tree: tree_ref,
++        first <- Completion::new(),
++        second <- Completion::new(),
++        irq_count: Atomic::new(0),
++        first_pending: Atomic::new(0),
++        second_pending: Atomic::new(0),
++    }? Error);
++
++    // Registration must precede any enable, or a delivery reaches no handler.
++    let reg = KBox::pin_init(
++        // SAFETY: this registration is dropped before the enclosing function returns, so its
++        // `Drop`, which calls `free_irq()`, always runs.
++        unsafe {
++            irq::Registration::new(
++                request,
++                irq::Flags::TRIGGER_NONE,
++                c"nova-core-selftest",
++                handler_init,
++            )
++        },
++        GFP_KERNEL,
++    )?;
++
++    let resources = SelftestResources {
++        _leaf_guard: tree.enable_leaf_guarded(doorbell, doorbell_mask),
++        _top_guard: tree.enable_top_guarded(),
++        reg,
++    };
++    let handler = resources.handler();
++
++    tree.trigger(DOORBELL_VECTOR)?;
++    let mut completed = handler
++        .first
++        .wait_for_completion_timeout(time::msecs_to_jiffies(DELIVERY_TIMEOUT_MS))
++        .is_some();
++
++    // The second trigger waits for the first delivery, or the two could coalesce.
++    if completed {
++        tree.trigger(DOORBELL_VECTOR)?;
++        completed = handler
++            .second
++            .wait_for_completion_timeout(time::msecs_to_jiffies(DELIVERY_TIMEOUT_MS))
++            .is_some();
++    }
++
++    resources.quiesce_source();
++
++    let count = handler.irq_count.load(Relaxed);
++    let first_pending = LeafMask::from_raw(handler.first_pending.load(Relaxed));
++    let second_pending = LeafMask::from_raw(handler.second_pending.load(Relaxed));
++    let residual = tree.read_pending(doorbell).vectors();
++
++    if !completed {
++        dev_err!(
++            pdev,
++            "interrupt self-test: only {} of 2 deliveries arrived within {} ms\n",
++            count,
++            DELIVERY_TIMEOUT_MS,
++        );
++        return Err(ETIMEDOUT);
++    }
++
++    selftest_assert_eq!(pdev, count, 2, "delivery count");
++
++    // Every other vector in the leaf is disabled and was drained, so require the exact mask.
++    selftest_assert_eq!(pdev, first_pending, doorbell_mask, "first delivery");
++    selftest_assert_eq!(pdev, second_pending, doorbell_mask, "second delivery");
++    selftest_assert!(
++        pdev,
++        !residual.contains(doorbell_mask),
++        "vector {} still pending, leaf[{}] is {:#x}",
++        DOORBELL_VECTOR.into_raw(),
++        doorbell.get(),
++        residual.into_raw()
++    );
++
++    dev_info!(
++        pdev,
++        "interrupt self-test: passed, subtree {}, {} deliveries\n",
++        DOORBELL_SUBTREE.index(),
++        count,
++    );
++
++    Ok(())
++}
+diff --git a/drivers/gpu/nova-core/irq/interrupt_tree.rs b/drivers/gpu/nova-core/irq/interrupt_tree.rs
+index 6e97828bbd42..4bb27cc8b6cd 100644
+--- a/drivers/gpu/nova-core/irq/interrupt_tree.rs
++++ b/drivers/gpu/nova-core/irq/interrupt_tree.rs
+@@ -444,6 +444,21 @@ pub(super) fn read_pending(&self, leaf: LeafIndex) -> LeafPending<'a> {
+         }
+     }
  
- /// Waits for GSP initialization to complete.
- pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
--    loop {
--        match cmdq.receive_msg::<GspInitDone>(Cmdq::RECEIVE_TIMEOUT) {
--            Ok(_) => break Ok(()),
--            Err(ENOMSG) => continue,
--            Err(e) => break Err(e),
--        }
--    }
-+    cmdq.await_msg::<GspInitDone>().map(|_| ())
- }
- 
- /// The `GetGspStaticInfo` command.
-diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
-index 1782ed7d7ca6..250adc9fe74f 100644
---- a/drivers/gpu/nova-core/gsp/sequencer.rs
-+++ b/drivers/gpu/nova-core/gsp/sequencer.rs
-@@ -343,13 +343,7 @@ pub(crate) fn run(
-         libos: &'a Coherent<'a, [LibosMemoryRegionInitArgument]>,
-         bootloader_app_version: u32,
-     ) -> Result {
--        let seq_info = loop {
--            match cmdq.receive_msg::<GspSequence>(Cmdq::RECEIVE_TIMEOUT) {
--                Ok(seq_info) => break seq_info,
--                Err(ENOMSG) => continue,
--                Err(e) => return Err(e),
--            }
--        };
-+        let seq_info = cmdq.await_msg::<GspSequence>()?;
- 
-         let sequencer = GspSequencer {
-             bar: ctx.bar,
++    /// Sets the pending bit of `vector` in its leaf, as if the vector's source had raised it.
++    ///
++    /// # Errors
++    ///
++    /// `EINVAL` if this tree does not implement `vector`.
++    #[cfg_attr(not(CONFIG_NOVA_CORE_SELFTESTS), expect(dead_code))]
++    pub(super) fn trigger(&self, vector: GinVector) -> Result {
++        vector.validate(self.hal.leaf_count())?;
++        self.bar.write_reg(
++            NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_LEAF_TRIGGER::zeroed().with_vector(vector),
++        );
++
++        Ok(())
++    }
++
+     /// Disables every vector in every implemented leaf, including the subtrees that nova-core does
+     /// not service. Call this only during probe.
+     pub(super) fn disable_all_leaves(&self) {
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 8202c4982efa..8c0761dedda4 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -18,7 +18,7 @@
+ mod fsp;
+ mod gpu;
+ mod gsp;
+-#[expect(dead_code)]
++#[cfg_attr(not(CONFIG_NOVA_CORE_SELFTESTS), expect(dead_code))]
+ mod irq;
+ mod mctp;
+ mod mm;
 -- 
 2.55.0
 
