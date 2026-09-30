@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA19125A0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81F223392A
 	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 00:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727932; cv=none; b=t0CfU+tHnMX5A0NNbcE+5K1wIu4UgyavonfQ4egU3E2w32KX1DG0+YLP7bRVpKzXWAniH1aG5EkZyku38QcQMtrVVzR8ZGoQLtGvoKhuqXSJPeuRBuQQAiCRlxq6vXdr4T8SJdAz9Sink/3z0qIJB5beTuP4x5PllYBFSTWsbVE=
+	t=1790727933; cv=none; b=uJKdDjUAt3sezXw7NuZXt+mBlJ46iURfWsJ2dk5I9VoSSqdCC+kRXWw1uh7W5yF12nVN92mZNJrDt4V7sJgLt2qdTtr0XSA8wwY153x5J9qto11SonRL6u0pQY7G1avetpvK4CClz6fO1kfF8MINQZ6ZRr2glQuXFWj91D5Arbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727932; c=relaxed/simple;
-	bh=RKChD4B6Oe+HUsoUz0tam54PYPqsINXNCyEULmBfqJg=;
+	s=arc-20240116; t=1790727933; c=relaxed/simple;
+	bh=SW7J5SMiqL0Gzbl5kRpwafYMsTVBh/CSMRByH/pbITo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EJPoPaNoHdGRp7lTiN/AYPAIp7a6OnnqlAikLpu0Xf7oSILgZfmqr51YGvMhKRsYnVlRAfMFd+G6UYtbjRqCBCsdoROcNDCF+ya2wWjKSV7PBy2PVvh2xlrplDbEvE/IJ05/oekq//PxLtRa2f5jKkUnxbsX0lhAEJICaOE9Y9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VObfXnLs; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=J3uSclvBl1vczSgbX7vQG8JylVU2af5gBNjnqzQiDBK/DqguwnTfCXO4aHWOBYRRXI7MKTCtYxsoB727J1BUg1yyq2ztJ+0uX5GalBJBMedZaTGT8Jpy99knjKDoc4L/hIJNekGp2g2bXa7ulcnIoGsyumVSeOgBVnFRt7+lJCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GYHjrjVU; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VObfXnLs"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GYHjrjVU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Xm
-	IjwWkfyV3nQktprLLb1SMxMbkUSrDRoe2LC20Hng4=; b=VObfXnLslOGVcRXhqy
-	9hmg3ikodnB20JzkG+TzEK6lB412Vu/StTpEPbQx1ePzmJgMw8NYCsS4ZW6E1opR
-	v8D310CBuh0YShbnWbbgaOB5VGY8Bz+rCHYcKmvuERG532eQr1rt/VAfS9V99Dmf
-	h3DINdqVKTsy/Ki7g433AuBUQ=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=OH
+	RhH+1oSg7raFJfGpoVKv9XaHUJiFyyvPNWgrzFE7Q=; b=GYHjrjVU4uTOXfFJhF
+	Vq7R33Yv1RdCBik1As5JdfQJmu6oSz/eB5cBVOfGRy0t/oROi3O7MQ/pYYGfE9Nv
+	XAyONjiBMAcuFzZdLi6qLUvITqOmZCpKolLN3/dP3TBaAmeC0h2+/MaLqKQaIoFj
+	yEYYl8hDQOrF5VYmdDmI7tsC4=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgBXnq7EVrxq2GTBBw--.56601S8;
-	Wed, 30 Sep 2026 08:24:53 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgBXnq7EVrxq2GTBBw--.56601S11;
+	Wed, 30 Sep 2026 08:24:59 +0800 (CST)
 From: Kaiqi Guo <chaoji_xinren@163.com>
 To: Jesung Yang <y.j3ms.n@gmail.com>,
 	Miguel Ojeda <ojeda@kernel.org>,
@@ -49,9 +49,9 @@ Cc: rust-for-linux@vger.kernel.org,
 	Charalampos Mitrodimas <charmitro@posteo.net>,
 	shivamklr@cock.li,
 	Kaiqi Guo <chaoji_xinren@163.com>
-Subject: [PATCH v7 06/11] rust: macros: exercise the intended conversion doctest failures
-Date: Wed, 30 Sep 2026 08:24:31 +0800
-Message-ID: <20260930002436.21395-7-chaoji_xinren@163.com>
+Subject: [PATCH v7 09/11] rust: macros: validate and qualify conversion helper types
+Date: Wed, 30 Sep 2026 08:24:34 +0800
+Message-ID: <20260930002436.21395-10-chaoji_xinren@163.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260930002436.21395-1-chaoji_xinren@163.com>
 References: <20260930002436.21395-1-chaoji_xinren@163.com>
@@ -62,90 +62,115 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgBXnq7EVrxq2GTBBw--.56601S8
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuF48Kw48XF13Ar17Cr1DGFg_yoW5WFykpa
-	yqyayxK3yxGas3Gw4IkFyjqw429ryfWa98XrW8JwnF9w43GF4fur45Kr45GrnYkF18ZF13
-	Ka4jyr1DAFn2va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:PSgvCgBXnq7EVrxq2GTBBw--.56601S11
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr17Kw4UWFy7KF13ArWfGrg_yoW5Kr1fpr
+	WUC3y2gFW7J343Gay3Kw47X3yrWFWfJ3W5GFW7Jw4IvF45WF4kWr47Kr4ftryrKr4DArya
+	9ryqqayDK34jy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEVc_sUUUUU=
-X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC-hWUEGq8VtWD7QAA3U
+X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4huVEWq8VtuD-gAA3b
 
-Use unit-only enums in the repr(C) compile-fail examples so they
-exercise the representation check rather than rejecting a struct. Fix
-the missing semicolon incidentally hidden by the TryFrom negative test,
-and correct the convert helper documentation.
+Reject generic arguments attached to a primitive helper input.
+Previously bool<Undefined> was silently treated as bool because only the
+final identifier was validated.
 
-Give the negative Bounded<u32, 32> examples a signed enum representation
-so that -1 is a valid discriminant and the conversion overflow assertion
-is what rejects it.
+Qualify Result in generated TryFrom signatures and the backing primitive
+passed to Bounded::new. Local aliases named Result or u8 must not alter
+the implementation after its input was validated as a primitive. Add
+compile-pass and compile-fail regressions for each case.
 
-Suggested-by: Charalampos Mitrodimas <charmitro@posteo.net>
-
-Link: https://lore.kernel.org/rust-for-linux/m2qzr81jrd.fsf@ip-192-168-1-196.ap-southeast-1.compute.internal/
 Signed-off-by: Kaiqi Guo <chaoji_xinren@163.com>
 ---
- rust/macros/convert.rs |  4 ++--
- rust/macros/lib.rs     | 12 +++++++++---
- 2 files changed, 11 insertions(+), 5 deletions(-)
+ rust/macros/convert.rs | 59 ++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 57 insertions(+), 2 deletions(-)
 
 diff --git a/rust/macros/convert.rs b/rust/macros/convert.rs
-index c07870914242..78efbc7b99d7 100644
+index ddbb686d01e7..127d36ae2faf 100644
 --- a/rust/macros/convert.rs
 +++ b/rust/macros/convert.rs
-@@ -893,7 +893,7 @@ mod overflow_assert_works_on_signed_bounded {}
-     ///
-     /// #[derive(Into)]
-     /// #[into(Bounded<u32, 32>)]
--    /// #[repr(u64)]
-+    /// #[repr(i64)]
-     /// enum Foo {
-     ///     // `-1` cannot be represented with `Bounded<u32, 32>`.
-     ///     A = -1,
-@@ -1459,7 +1459,7 @@ mod overflow_assert_works_on_signed_bounded {}
-     ///
-     /// #[derive(TryFrom)]
-     /// #[try_from(Bounded<u32, 32>)]
--    /// #[repr(u64)]
-+    /// #[repr(i64)]
-     /// enum Foo {
-     ///     // `-1` cannot be represented with `Bounded<u32, 32>`.
-     ///     A = -1,
-diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-index cc6a96516c93..4d420d34ed6b 100644
---- a/rust/macros/lib.rs
-+++ b/rust/macros/lib.rs
-@@ -656,7 +656,7 @@ pub fn CovariantForLt(input: TokenStream) -> TokenStream {
- ///
- /// ## With `#[convert(...)]`
- ///
--/// The macro implements `From<Foo>` for each `T` specified in `#[into(...)]`,
-+/// The macro implements `From<Foo>` for each `T` specified in `#[convert(...)]`,
- /// which always overrides `#[repr(...)]`. `#[convert(...)]` is useful when the same type
- /// needs to be specified in both `#[into(...)]` and `#[try_from(...)]`:
- ///
-@@ -734,7 +734,10 @@ pub fn CovariantForLt(input: TokenStream) -> TokenStream {
- /// // `repr(C)` enums are not allowed.
- /// #[derive(Into)]
- /// #[repr(C)]
--/// struct Foo(u8);
-+/// enum Foo {
-+///     A,
-+///     B,
-+/// }
- /// ```
- #[proc_macro_derive(Into, attributes(into, convert))]
- pub fn derive_into(input: TokenStream) -> TokenStream {
-@@ -947,7 +950,10 @@ pub fn derive_into(input: TokenStream) -> TokenStream {
- /// // `repr(C)` enums are not allowed.
- /// #[derive(TryFrom)]
- /// #[repr(C)]
--/// struct Foo(u8)
-+/// enum Foo {
-+///     A,
-+///     B,
-+/// }
- /// ```
- #[proc_macro_derive(TryFrom, attributes(try_from, convert))]
- pub fn derive_try_from(input: TokenStream) -> TokenStream {
+@@ -295,7 +295,7 @@ fn impl_try_from(
+             #[automatically_derived]
+             impl ::core::convert::TryFrom<#input_ty> for #enum_ident {
+                 type Error = ::kernel::prelude::Error;
+-                fn try_from(#param: #input_ty) -> Result<#enum_ident, Self::Error> {
++                fn try_from(#param: #input_ty) -> ::core::result::Result<#enum_ident, Self::Error> {
+                     #overflow_assertion
+ 
+                     #(#clauses)* {
+@@ -492,7 +492,8 @@ impl Bounded {
+     const QUALIFIED_NAME: &'static str = "::kernel::num::Bounded";
+ 
+     fn emit_new(&self, expr: &Expr) -> TokenStream {
+-        let Self { base_ty, bits, .. } = self;
++        let base_ty = self.emit_qualified_base_ty();
++        let bits = &self.bits;
+         let qualified_name: syn::Path = parse_str(Self::QUALIFIED_NAME).expect("valid path");
+         ::quote::quote! {
+             #qualified_name::<#base_ty, #bits>::new::<{ #expr }>()
+@@ -556,6 +557,8 @@ fn validate_type(ty: &Type) -> syn::Result<ValidTy> {
+     let segment = &path.segments[0];
+     if segment.ident == Bounded::NAME {
+         return validate_bounded(segment);
++    } else if !matches!(segment.arguments, PathArguments::None) {
++        return Err(make_err(ty));
+     } else {
+         return validate_primitive(&segment.ident);
+     }
+@@ -2074,3 +2077,55 @@ mod incomplete_wide_input_8 {}
+     /// ```
+     mod incomplete_wide_input_9 {}
+ }
++
++mod helper_type_tests {
++    /// ```compile_fail
++    /// use kernel::macros::Into;
++    /// #[derive(Into)]
++    /// #[into(bool<Undefined>)]
++    /// enum Invalid { A, B }
++    /// ```
++    ///
++    /// ```compile_fail
++    /// use kernel::macros::TryFrom;
++    /// #[derive(TryFrom)]
++    /// #[try_from(bool<Undefined>)]
++    /// enum Invalid { A, B }
++    /// ```
++    ///
++    /// ```compile_fail
++    /// use kernel::macros::From;
++    /// #[derive(From)]
++    /// #[from(bool<Undefined>)]
++    /// enum Invalid { A, B }
++    /// ```
++    mod primitive_arguments_are_not_ignored {}
++
++    /// ```
++    /// #![allow(non_camel_case_types, dead_code)]
++    /// use kernel::{
++    ///     macros::{
++    ///         From,
++    ///         Into,
++    ///         TryFrom, //
++    ///     },
++    ///     num::Bounded, //
++    /// };
++    ///
++    /// type Result = ();
++    /// type u8 = i8;
++    ///
++    /// #[derive(Debug, PartialEq, From, Into, TryFrom)]
++    /// #[from(Bounded<u8, 1>)]
++    /// #[into(Bounded<u8, 1>)]
++    /// #[try_from(u8, Bounded<u8, 2>)]
++    /// enum Switch { Off, On }
++    ///
++    /// let value = Bounded::<core::primitive::u8, 1>::new::<1>();
++    /// assert_eq!(Switch::from(value), Switch::On);
++    /// assert_eq!(Bounded::<core::primitive::u8, 1>::from(Switch::On), value);
++    /// assert_eq!(Switch::try_from(0_u8), Ok(Switch::Off));
++    /// assert_eq!(Switch::try_from(value.extend::<2>()), Ok(Switch::On));
++    /// ```
++    mod names_in_scope_do_not_change_generated_types {}
++}
 -- 
 2.50.1 (Apple Git-155)
 
