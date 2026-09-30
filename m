@@ -1,53 +1,53 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012011.outbound.protection.outlook.com [52.101.43.11])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011067.outbound.protection.outlook.com [40.107.208.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E3237DE8D
-	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 02:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996DD38E8A8
+	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 02:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790736282; cv=fail; b=WTLw2Ye72ns8XASKQlkRiyqLeBexLpYNFMOn9VZWmGmmLhHeBtNVNAqavV0h7C6dHabDc2sT2e6nfqFZiQbS8e1xF/HzWONCUV4POJG5F9y9Iub1cdVZ+f1thZe8zp/7b9sDZJ2Tg1smbLCA8YrLcX7KyZwK2f0iZaa1kP53UI8=
+	t=1790736287; cv=fail; b=NTaO9SwxuQppGlz9iDg+ffpvOXbAkSySiBX4iaGkmASINVkAoKyiBR82Vk2E1rTGLu6JxZKmh3nWmvKtXmt19Jpgo1ybp3x/Y5nf+yJ+RAcJWQtxvo+7CndVRyRaoXGHRj+bb+6y1Uj+D+PUsCFsgeB0NW/yb2Qt4ZiXC3TTF/Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790736282; c=relaxed/simple;
-	bh=9AXZPej4Tbz/s4QvC5vf7J4ucLsKCMVxkHI/UfY9pMU=;
+	s=arc-20240116; t=1790736287; c=relaxed/simple;
+	bh=UxabjW5d4vipkfRXHzQ1MGf440nMI4VIp0NxeK58hlc=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=iQ8kW4J1z/LhmAsW6tF+wLPvWENYgG68y3Jy2axy/Aw8+KZ/JouLDlyGrPz2BN+rzMgVHgNWnjg7N0Ft4O4uGUmeSKOJloNLRsny+SbWzazgajs+oqwIy9SB1jkW3MixAKcqQcpOyHxMVbZ/du2vFXrvI41ddTsIxxXOQVcJmI4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZP+MKX3g; arc=fail smtp.client-ip=52.101.43.11
+	 To:Cc:MIME-Version; b=Vi2tpC9Srpm2R8ad0L4gfyu7yvfKeZXx9cuNeyjQEh+XnCRADrxMAo30RIAhSLfzsmyeOcemzbnMnEsrHm0lPd2KBmZtWjNgY908ND1ZbbOVWzPgGRyATFerpe611Ftbd1PptR27fofwy+pcEBhY+EOkDlUVqDRog3zukOElaC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o0bbyqan; arc=fail smtp.client-ip=40.107.208.67
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZP+MKX3g"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o0bbyqan"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BuibJFQE/Rl2Lye3I1/S7p6/FNUIKlYf+6Oh9OQ1oW7IfACnRKR9hQ8xsGERc29kPPUkzH+Qm1lr2B8opddjZLMZWvMs1HrxFhi5btxDpPST03HAuHwnWO8w6tCecvUSxPQH4w2laR+Xo9gvCSO8QqrhbnmTOK2fLO4YACCi0ZazuX8S+Lt4XbXfRdbso3W57g+IC9iFQkdEZEIWX2yg1nrPhon7ZuvQM0Yzi+HjbMCPGK3hL7xWTDmOMG99XXGYLGOaR3aw2Ad7dLspCRHdgW8jJFYP4G9811URDjiyTfArB+FkDBjxxCwypRbjLkdKmPBrEP74a6wmHF3A45lLhg==
+ b=Oe1S/Lg4UJHuOeQcigWQD7h6Bplw6BZVk+ObDlp4Izp6gqgvXtS9C9JH6DhdF8EBn4hCUL/he7bDA+cJYykQDjqNPl49Tdak62qbhmlAVpI8VmEqG+H4l3VJEPI2LgA/Jh+JqXuvpWBS8t+WzpI4J6WPx9i1hshQfk71SuMJZgoxNN5uURp6+2cvNyTrY4WjLlU/DCYhC/E//h23Roi7rGgxWQSr196Atrw6BPJbP2LiyjBRKlAB5nvOvSghY4m36TlMwOAz6mFVCWpA41bXXyHIpF7qwx+kq9yQ91ZbNYWREKsBac8iRy+mxNoPV44v6DrScXfOjNZBPVv81XdtTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vDwPtECw0jqvH+8BUByjuVTSQUOuw7KWZ4wgCaZrR0U=;
- b=uyjipCGFLTt0tarp5xqTiC+TFx3z3+oeB84pMMN/4DjkssevHjMZfvB7gGamUe8HPRooSsCoVq/JbqLpYnl7rV3s3BfMie/iQYSW+nUzUq3Lo91r0y0g4cdR2Ov9bZa5xo/LdtHvZuqfKvBvxziYuvoTuOL+qZ2kUMTi74ryvHV3uUjtVY3HKBELgRbQ4E3cX/idpuLVKJ87sDNm37bxvbQTWRV/Y/I6sCGmQRekqCoCLyBWCJYbbVo9lN2W+8lLHcL4Pg72kO26rN/Fy076ynlvY1eFVH/R69w94EOyPspeYvedwQ8u6lYBu8bS9Tq2wzPfvCYSaOYbxa/MbLUCmw==
+ bh=iwKMUxwz3LWBROLsrEpxE7WbG4KsLMnFOOkpo5ANuSI=;
+ b=E1vTr4vFuhAF4nvKxl5vX90jd+3FBEa6f4K/Rve2n/NX9D7cZwZUNZMngVzgYyv4fFdYQztke8m6DPEsY3NcZMrYfsd+JYRrzfpYrBVUGMlU3URCjVfiOs/Yg/FqFHR0xfpHd/+Tng06wSosMpFBy2DLm+tNKdnlpkaroahOA0/tkkblONOG2P3rH4MEAeH0O4Pr/F5sBTlhsgnB1HDlgFa7yvAjUWJ8pMR3b2lmeE+usYOiWMki4CPByn4xSl228v9QgEhZoSxvZRgkMUAnx9WqbQuoEXYEMHullfYAjuhZucwzxU+Z/HbfnOCuuC6ZwvTjtEuxbG9g+syHj5cQrA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vDwPtECw0jqvH+8BUByjuVTSQUOuw7KWZ4wgCaZrR0U=;
- b=ZP+MKX3gAz710tCc9ip78TAkbzYUfrtA3IVVmwlPuooO9vpSAIfaeuBPzusWSAYx0CY93a+RmV3Kj/RvOsnrk/PVs/CVJmtCJgs2oZ/bDMT4/c0Nk7+p57BaPKA2oHkc5+cdg35jXNCCLXlcxVnzDMiZichRzaGOzHzlczwfKA1T23GR6xM2bNAxFRMURqe+R2S9r1xRns2f0fK+zXGRjl5eJgTfug8JkE/qkGxnkE0hXxToG/1oQeURjbrqXPUaix7DN3VbSbicqnmWpSWC/oDt6MubtOGYU7OEKez2A8skBphnhvrK37zxil+YTJF+euWFlURmJRV28TRANVGL0w==
+ bh=iwKMUxwz3LWBROLsrEpxE7WbG4KsLMnFOOkpo5ANuSI=;
+ b=o0bbyqan8ndygEx9LFtHTPzO+RZCNtr98/fvpdU16YbVJ+GlkKQbx/q4S2nHMxfbI/m1DkroodLM1DoogoQwZsmZOuhovB3mMNXnxlVt4qSAzxu9fXTwRpSboGvd5DB2szhxMcRVMCMVgs2LgLRb1dGYi4QcqFOvANd59f10oIcdQJo+NQbpet0ApemzjQ4WlM48WYOHBFdrIrhRn4NLqjrOsCOW3OY2eJeq+Ek5jJzZ+S8zi4jX/0dlSB/XMcUQmMnK2y9cVkzhh3tBp33V4u4YLs/A/VQxXqZVYv9hr1PMNQd1OFyvLTLQjDvNm18kENHiH4/qphJ2kgnviXyywA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
  BL3PR12MB6523.namprd12.prod.outlook.com (2603:10b6:208:3bf::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 02:44:35 +0000
+ 2026 02:44:39 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 02:44:35 +0000
+ 02:44:39 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 30 Sep 2026 11:42:53 +0900
-Subject: [PATCH v9 4/9] rust: sizes: implement SizeConstants for Alignment
+Date: Wed, 30 Sep 2026 11:42:54 +0900
+Subject: [PATCH v9 5/9] rust: use Alignment size constants
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-chid-v9-4-0d6cca376cff@nvidia.com>
+Message-Id: <20260930-chid-v9-5-0d6cca376cff@nvidia.com>
 References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
 In-Reply-To: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
 To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
@@ -68,8 +68,8 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0202.jpnprd01.prod.outlook.com
- (2603:1096:405:7a::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4PR01CA0036.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bd::6) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -79,150 +79,368 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL3PR12MB6523:EE_
-X-MS-Office365-Filtering-Correlation-Id: 206bb98c-d437-4bb6-0bde-08df1e9cc38a
+X-MS-Office365-Filtering-Correlation-Id: 29140a2b-8c04-4137-75b0-08df1e9cc5d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|7416014|376014|1800799024|366016|10067099003|56012099006|921020|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|10070799003|7416014|376014|1800799024|366016|10067099003|56012099006|921020|6133799003|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	acPnZP2BlcIouwSgohWpVq2OUB36hciA3YdK9dC2z6fI+1BI4T0tHWxjtGz16L2KQafVurPjURiVNMKX0S/uwFwM80dchtvKQVQz23EspClfN+F1Ix8GK2GpDYxbYsaApjUATF07dmAVehghfUKBhJMsqjnNSMulHigLXCMIdi6RILyUgOOPEKa2TdPij/aWk9ED+ZyEPcm0mqHiUVxpgX8ilfyL2GD4H4Mo6OOWuz5qs9xbA3jCBb1wmCKwQyuhXCNSwTzKIRku4naltX1JfhOB17j+FNZdv6qmcr0VIvULfhpQ6pM6Rl46/07tklszWMvLCSLHidi1b7oOu7ZskepsG1+RbsunvwyRbxljavJ7B68JG4+43NG5JauAgPTdBzC4i959BB9eAZ4tir1/ZFwUhq/iHKLgsxNhLyFthxzAj8ADqXNxhzSmG2e6VQItsveC/ZvZ2pW1TE37zvAG5xn+M8gJqs9AYqsLcHgHnU1nnqiDiNdwojwWQRae/nPnf46lUytVml2W9h2hN4CTbaq94RprxAykHpCIsudpKzAz1cnKH9SsE2kkMIw54LfZ+oLwWwrmhgoD5CgcQYpBLKTHPKqfyB/tIbgz6jby8XxSTbF6Gb0ZpYeA4DffGJM0DZyvesBm1DjKaJw21q5+e1IhEILJi+uGMH5gDuNX4upB+/p/4PFvWm5FFWxW5ciAf495Amwt0tBVjoH6rVwQTg==
+	PK9BbmIIuuAQVUPug7WjIXXDne+zn8eIHr1lDPDQBdr9LvJg3tbZgXznLpWlEuIJHwdLFnwjDyFDvtVZpxaUti4g+0cwg6rmdM4Orv5mrP1qe+gwGeLrK//UDx5EUU3bhhXB0SI5Rqj0ci9ddUtWahLXSkYk71QLoAgVWPMfXbLBo0pY8oyagNzDOT9SsgXOb+kCuimKViB6mq9O8e6wELWDUiRQSUdxWWgaleVT5x316OmxujRIeIVbS/hqOeHrISexmcR6ObnUn4wfJZpo/+IiUPP/8FsfTiHrdbPqH1aAhBFH7St5gizqr/RMFwUFe+Z44gaQ49eTLaAQn2ocZfTmqNVkKooVvWmnkYrKc6dz4ghJWB4rx/AldYKSs7/jhJMC/ujTqwScen4D5v/PxQbODoSH9JH0IU5gTlqyWBBGtCEzQZwTHR/O3X1QJ16aYaLkXvlzG8BO8dvvSENAQMOzih/57u1eSK52Q2ySVjrQlr/SaZZ1k+R4GvcsNKMpDDNZMAWyhfwmltcstAnG4O6QUPvQ96/xxlLgZGLRhPM81sgGRjTBPqcsnMMxCfsqzmTjTbd9f1vj+fP2fuvGGV/h9dm93I4H8p5Axg5SMlv+USWRJdyMscMULVZ1YLYaVKci6QM6QCCOTYJmRbJE2HPZK6GM8UpatlTQ95z0tw69NNyycoQJbMqivk5Mnlsy7P3Rux7c7D2IVxDTpVxw+w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(921020)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(921020)(6133799003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enNSY291eUR5TEJmTjRYN2p3cXQwWnhlL0V0aXBmcEpUTEMwOXh6ME5LK0FW?=
- =?utf-8?B?SGxOSFh5aUo1QXlGdXdKNkpSWmpjTThXdktKUmtLRFRicVJZTkkzbzhjTmFh?=
- =?utf-8?B?Smo3T2xaU1oxekRwcTlNTjk1Q3lKTEMrdHBYMnRZSzhMWWVtM21MYWlYTUtF?=
- =?utf-8?B?aXVzVUJvUitpZE16QWZDWktjZzZUS1VNVnZMSi81Ukt1YjBGRVo3dm1TTEVr?=
- =?utf-8?B?MTV0dXg4cnZTMjA2UVd5aStKamNTT09vYTlvMTc3VmN5elUwRmNkbnJjODZW?=
- =?utf-8?B?V0l5OU9XSDQ3NVZwY090eDd2ckFadTU3ZmhXcUs4TGF2amdXNUhsZWVNSHVU?=
- =?utf-8?B?WVJoTkdVd0RyNjFpbVpnMEVGTXRaanlVeHdsMmlEZXFoWG1NVFErbmtGUFZq?=
- =?utf-8?B?bTh5VGRHcXpLOEYxWnVBVWJ6MUR5eHVOSFNGdTBPb1JPK2xvMGpyWXQ5YjRu?=
- =?utf-8?B?QnZzaTVDdGYwbXE0U0k0c1ljUWxwNi9tcVZkTHFPMFd4UkxSZ2Q4NmdFMzJP?=
- =?utf-8?B?ZjhKVXlROEUvMjd1TnUzR1VOS3lCdGJ1MGNKamFFdFpLNjc5UDZoeSs4SnJQ?=
- =?utf-8?B?bXMxYlZjL0w5QkJZdzJSYXhQR0tWenBoYjZacktLaGNBZmY4blY4ajM1OUFp?=
- =?utf-8?B?R0pBaVNEaE95ZTNDdFR3UU5KSy9NMWJwejFKZUNkY2ppZGE2azFWNUFqRDZz?=
- =?utf-8?B?V0wvYmxCODVOb3BpV3FPYlBTUlAvUEJORmgybEhFOWFLZjdKQnZOUDg4QVg0?=
- =?utf-8?B?STl6TFptWFpTTEhsZUdwamt4ZGdPdDM1YUk0YVMxMlJLYjV0VG8wWE5GZjY4?=
- =?utf-8?B?VXFRSGcyZ01sdXJ6ZnE0cDNGRE1mVjFNVVNLeGc0eW5tZ0xJQUZZQmdIOHY1?=
- =?utf-8?B?OG1iQW9jZDJ5TFhzaHJiTDZCZTNoQ2pucEV5LzRkcjVaeVhSaUMwRHhTajdI?=
- =?utf-8?B?V2FqUkZ2VmZUZjRvUlcweUZaVTUrM1JVMGJ5KzdKVlg0RmhUNXdNdnNKUkJE?=
- =?utf-8?B?Zkd1VU41TkExNitLRmovSVBaK0hqV0hkWnBQUWxOT1Jha1FOQTJuS1B6WTZZ?=
- =?utf-8?B?QzBTOFRPS0k5UGRVWW16VFJaZm56UFNhNjBxNlo5MmdubDlLenVvSnc5MjZk?=
- =?utf-8?B?MlczMmFEUS9ZUlVvaFNCcERoRmVmT01VcGdQOHIzU29LKy9KYytQOU16UW94?=
- =?utf-8?B?UDhvbUVobHU2bUFTQ3ZXZkdrUHlxVVhQdnVmcWpYTkxhQk1xRGowcUZCSWJp?=
- =?utf-8?B?WnNvbUsxSVNhMWt0bnNTb0w1K1RUYUUzQWYzRXRLM0RVSXljaVYrN0o2R3lY?=
- =?utf-8?B?aXEva3JSb0ZRWHFjN2M1Z014Uk9ST1dBVlJ1SVpoRkJrSnJjUHFaWjRZNHM4?=
- =?utf-8?B?dnlBK051UzJCL2pxbEdadGdxWUlpbzZ0MXN1TWVtZXlrSldYczNRMW5WK093?=
- =?utf-8?B?c1F6VHYxdVdReTlQMzl1VVExTGkyL3lqTk10ZmhCR3oyNHNJWjdlRGlkYUZ3?=
- =?utf-8?B?NC9qV2N5ckJTSm9jZGpDV0pxc2N3QWVYbXJDQWx0M2xzcVFqWWVDN1Jqcnl1?=
- =?utf-8?B?N3A4TllmM2ZTV0pQOWRFT2hXK054NTZqTGpWbThKakpRQlNVdTlvbjNTYU41?=
- =?utf-8?B?T1JUU1QwS01kUE1SVTJXQkJuUGNKWDdtUE5wUm9VY1BLL2NGdThjdG9BV3Fk?=
- =?utf-8?B?VVhvb3B3eFI4S1lieUU2SElpT1h5bVBuZWYrejArQVZ5MDdzbVJ6MStRNjZR?=
- =?utf-8?B?ZzF6YjhOSEJ0amE5M2RFYlRGRm9WTjIwZEZ6QVdJVFF6T3lNYVczUWZGL0xm?=
- =?utf-8?B?ZS83VzVmU3VFcTlLWTFhSEduY0F1K29kSXUzNDgvQkdtZXBIRXBPSi93U2Iz?=
- =?utf-8?B?M1g5TEhVTjVVanhBK1JCL056L1pBNkpRRVZOZWhxMjkxU0wxdVMvSkI5Rzh5?=
- =?utf-8?B?ZjUwM0xSNW1HYWlPdzMvMXFKOWFzWWVCNjhqMGVjeC9iSG9OVzRHbFlRUkhh?=
- =?utf-8?B?eWh3akI3R1I4ZzN3RG8rb0NURnI3aGg3VGlNNktwaXJSM0c1L2kxYTFIamE4?=
- =?utf-8?B?bnZvS0QrQ2t1MTd2NGdsZlBzSnlYNjlpZjladDJ6U0xKMWEzaTFkbmhZcEZS?=
- =?utf-8?B?Q0JjK3BwYUdwNEk3ZDJkMldNM0RVZFZod0lML29neEFZSnE4clVmYVlaV0hv?=
- =?utf-8?B?cnNWSkozdFVQd3hpVXVIc2VvSktoTmxQTnZzQU9DQzNVc0xqNzFaclNSYnIv?=
- =?utf-8?B?ZUY5bXRYODZCZFNONkw5NTdFaWxTcE1IWUZXRnBmQ01KY2lML1pFb2h4Q2hM?=
- =?utf-8?B?dEpCQkZ3R3ZiaS9EVEtrYjBoRVFWWGNBQXk5cmNQZHFDMTk3QVg5R1o4Q3ly?=
- =?utf-8?Q?7jvO/eXm4ijorp3DoUbcBC3QEzl577aEzSSr+qOV5PJa2?=
-X-MS-Exchange-AntiSpam-MessageData-1: bcPZHXN4lXCnmA==
+	=?utf-8?B?RXpSZlgxQ3ZQNVlPRHRFcklSanJjZUF1STZoWjRMMVdYY1prdG12blR1RkUw?=
+ =?utf-8?B?S2VsMk1FV3MyMG9raVlPMEg2dlhzV3c2UTdyaHRUSVo4eW4yYllXRzhWZDJZ?=
+ =?utf-8?B?MVZ3ZDV2di9xaUVibTd4RlI0MFUwZmpqNytZSC9RUFBjUEQrUHh6T0lqNU1p?=
+ =?utf-8?B?RkNTcHRYVEJtUlZ4R0VOYmtETWowYVRabHJjWU9zUkVsSjdOSWpSSHhhN1Vm?=
+ =?utf-8?B?UFJtcVp0NUdGTzNsK1NMNlhCOVBWVldLV2luUTFkbVZTSXlmOGVhMmdmR09Q?=
+ =?utf-8?B?NElBSnZXSEUxVlpvTTBPRTA3dmNTVGl1bWtVSWF0ZHJQbFVjOUorcHphOEN5?=
+ =?utf-8?B?OWNVaTNYV0RxUnN1ZVBkWmlTR3Uwb0tIQjZDalgwR2JDNkJWUjFWb21Ebk9B?=
+ =?utf-8?B?UFRib0ZDTUJpNGpmT0pEck92QjFLRWhUUUNXMURtczVQeWZ4SzF0d1NnaWZC?=
+ =?utf-8?B?VEVuWnJKYzAzWmFDSTJNamcxeWJnVXNHOWJuSDFyaWlLbElYRXJiVzhYTjFw?=
+ =?utf-8?B?dWlQL2d6K1VhR1praVlzZ0N3cWo2TW9tbTNja2N4NXdkcjROdFFFMHIzV0hy?=
+ =?utf-8?B?bU93TnliQ2pGNmpmTUo3cmNyMzVMekNLb0hRVThHa2JiNEdCNzlDaFB0akQw?=
+ =?utf-8?B?aG9KZVlwcTViV1VIeWovK3YwYWRZTGt4UWlPOUxKWllUTWhHSUxUak9OTnZs?=
+ =?utf-8?B?ZDl6NGpvZEVPa1dINEhSMzJNZXNNVDZzajhFTktqeUN1UndDZHFvRUxZL2R0?=
+ =?utf-8?B?U20vM3BtYWhKV3RYdDBTV3l3REVqUnFhMWI2eFdBejFkWFkxOHh0b2NwMyt1?=
+ =?utf-8?B?RTdDekQ5YWtlOXU2cHk1WFc1Wm1ScXlYOFE3aU1zTUlCTVBoeVZxOVhNVVhz?=
+ =?utf-8?B?OExhOXpxYWNWTitBZUdiKzZNd0NHMFdQRDlVaTlQclU0OU1OTFNTUHlyQlNw?=
+ =?utf-8?B?MFdxVWYzeFc5cVZGaGxPcnZtTHdVd2wyNmdDMGFMWjV5aEI4QTJLTnZic2oz?=
+ =?utf-8?B?NTVSOHRnV2hmZXVudjFNaEdUV0RUZ09tUEFBbGQ0ZDVNM011RmxIT0VmRlRo?=
+ =?utf-8?B?KzVVc1krTDErTzBVWlYyeFQ5RXYxNlAvYU5LNzRBbjB3NjJSUS9mMDlTakhZ?=
+ =?utf-8?B?c2lBQnhCTk5zc25pQkVNaVBFRWlGNUVOSGtiNUNvYVJJY3ppem9rQXh1Sm54?=
+ =?utf-8?B?Mnl3ZDZsN0t6c1UzczY1d1FCbC9Ua1R5SEV3eGsyMWJLWGdnUnIvN05XREJE?=
+ =?utf-8?B?NHBTRU1RWk1sRDdUZDdndEZYVnZSQnVQL0E0MlRrcVdBYjEvei9MTGNBeklJ?=
+ =?utf-8?B?TVBHMjZIN2FsSllJWUtPUzYvbUVmTFN1ei9tZkpTbU1SRUR3VnpoNjg0Qjk0?=
+ =?utf-8?B?MFdmR1o0NjdySEc2a0F2cjRlR0Y1dEl1SEN5ZEk4bnVqaVZ0Vlh4bkl1dXhZ?=
+ =?utf-8?B?VmFWd1NCR3pSOHMvbUh1SGE3SThKY0F6Rzl3L3NUS2Ixa0tIWnVlRFdKcytM?=
+ =?utf-8?B?ZzZZc1NrYTZqNy92QUFPRlc4bmg2RndhQjhqc1BpeVl3dXhSbkVkdU1rTGtw?=
+ =?utf-8?B?SzgrZ0syZkRvelZVQ0RHelBoRE14YXFGOWlBcmlJVlQrb0JyWkxETGtva0FX?=
+ =?utf-8?B?QjNoY0FRc29YWmgxN0lrTWRQTE93Y0czd1hWT3l5amhvUDlLcEgwQzdvQ0Vp?=
+ =?utf-8?B?QStQZEFyait0eHZDVUo2SS90Njg2YUM4V2ZLSTNVN0xHczJEbE9wMWxiYzlq?=
+ =?utf-8?B?ZXJlZm9ZVWpBNGRmZSs0SDhjY2l4d091MThTQWxaVTF4czNQUnRsckY1enRO?=
+ =?utf-8?B?QjVVSk9vR3NsYTNndXhSVzBNRWlIY0lKWWt4TDR6a0czVm91dlRjcytCRW1r?=
+ =?utf-8?B?WUVnV0c3MkZhVytkdWxhM2oyelpLUlFzc05oYS9PdmthVC9WMm85QmpLSkpo?=
+ =?utf-8?B?R21QQnBiU2oraERrWHJCcC91amszZFRlOWxKYWVUMVc1UVpkejhTVTRNT1o3?=
+ =?utf-8?B?ak96dEdRZGhiSU1RUTFYbHE1M1R5dXVJdHBOMFo3UXBWZ0dQVXJHeVdYOWVK?=
+ =?utf-8?B?REs0YnVDakRTbXFTSDU2Z3FRa2YwSHdoZlVEYjBHSDlvckZQUDVuQ0M0ZURV?=
+ =?utf-8?B?bU9yUU40d1FjYUJTbGtUWXQ1blBaSHp5dUJZRE53Z3c4dFp5REdlSkQyRllr?=
+ =?utf-8?B?ZHErbnYrWm9hcWh0TG5ER09ucmJIMEtnWVFjektXR0s2Y3M0UFc2SnhDcFNX?=
+ =?utf-8?B?VlBVMy9YNHNBQ3ZsYlpqeWtPVVZHTXBuUzlPRWk1VS9vdE50cjJXZE9haC9C?=
+ =?utf-8?B?WEMwaXo4bmN2RkJzSGxuM1IvaHdQRElvc0FOSFFaUCtDdHQvTTY3S0ROUWZQ?=
+ =?utf-8?Q?XFlWFwcJtUCReEVTg2Ati+ZOpxvtcno7kwmIryiPoYS9b?=
+X-MS-Exchange-AntiSpam-MessageData-1: 7WuEGTcISsVSHQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 206bb98c-d437-4bb6-0bde-08df1e9cc38a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29140a2b-8c04-4137-75b0-08df1e9cc5d2
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 02:44:35.6010
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 02:44:39.5281
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b2CTCFFo/1wuAEYOtIU8VTEfM5pBkNEIwMIuEmMhccTlw8uY/w7thi0cNCqqzubGwH5A6VyyKIn3NlfT0/Z1lA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: M5z5Sl0F7A9oepZGV+qJ6eg306cPe9FciSxyW3CjvkDPFP6UQH6EYyv6kGpJHl+30uhOHdNuVkUrN7yIbr/OHA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6523
 
-Currently, constructing an alignment is quite verbose [1]:
+Use `SizeConstants` for Alignment that are implemented now.
 
-    Alignment::new::<8>()
-
-It's unfortunate because it disincentivizes using it at interface
-boundaries. Implement `SizeConstants` for `Alignment` so we can write
-e.g. `Alignment::SZ_8` instead.
-
-Link: https://lore.kernel.org/an4xDp29VX8Am0uR@yury [1]
 Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- rust/kernel/sizes.rs | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/fb.rs           | 10 +++++-----
+ drivers/gpu/nova-core/fb/hal/gb100.rs |  2 +-
+ drivers/gpu/nova-core/fsp.rs          |  4 ++--
+ drivers/gpu/nova-core/gsp/fw.rs       | 12 +++---------
+ drivers/gpu/nova-core/vbios.rs        |  7 +++++--
+ rust/kernel/gpu/buddy.rs              | 26 +++++++++++++-------------
+ rust/kernel/io.rs                     |  5 +++--
+ 7 files changed, 32 insertions(+), 34 deletions(-)
 
-diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
-index 7d03361eae3d..188e00c2b8b4 100644
---- a/rust/kernel/sizes.rs
-+++ b/rust/kernel/sizes.rs
-@@ -13,6 +13,11 @@
- //! these constants as [`u64`] (or [`u32`]) rather than [`usize`], because
- //! device address spaces are sized independently of the CPU pointer width.
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index b0c0b8fe6008..5ceb7760c78e 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -219,7 +219,7 @@ pub(crate) fn new(
+         };
+ 
+         let frts = {
+-            const FRTS_DOWN_ALIGN: Alignment = Alignment::new::<SZ_128K>();
++            const FRTS_DOWN_ALIGN: Alignment = Alignment::SZ_128K;
+             let frts_size: u64 = hal.frts_size();
+             let frts_base = vga_workspace.start.align_down(FRTS_DOWN_ALIGN) - frts_size;
+ 
+@@ -227,7 +227,7 @@ pub(crate) fn new(
+         };
+ 
+         let boot = {
+-            const BOOTLOADER_DOWN_ALIGN: Alignment = Alignment::new::<SZ_4K>();
++            const BOOTLOADER_DOWN_ALIGN: Alignment = Alignment::SZ_4K;
+             let bootloader_size = u64::from_safe_cast(gsp_fw.bootloader.ucode.size());
+             let bootloader_base = (frts.start - bootloader_size).align_down(BOOTLOADER_DOWN_ALIGN);
+ 
+@@ -235,7 +235,7 @@ pub(crate) fn new(
+         };
+ 
+         let fw_image = {
+-            const FW_IMAGE_DOWN_ALIGN: Alignment = Alignment::new::<SZ_64K>();
++            const FW_IMAGE_DOWN_ALIGN: Alignment = Alignment::SZ_64K;
+             let fw_image_size = u64::from_safe_cast(gsp_fw.size());
+             let fw_image_addr = (boot.start - fw_image_size).align_down(FW_IMAGE_DOWN_ALIGN);
+ 
+@@ -245,7 +245,7 @@ pub(crate) fn new(
+         let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(chipset, vgpu_state, fb.end)?;
+ 
+         let wpr2_heap = {
+-            const WPR2_HEAP_DOWN_ALIGN: Alignment = Alignment::new::<SZ_1M>();
++            const WPR2_HEAP_DOWN_ALIGN: Alignment = Alignment::SZ_1M;
+             let wpr2_heap_addr = fw_image
+                 .start
+                 .checked_sub(wpr2_heap_size)
+@@ -256,7 +256,7 @@ pub(crate) fn new(
+         };
+ 
+         let wpr2 = {
+-            const WPR2_DOWN_ALIGN: Alignment = Alignment::new::<SZ_1M>();
++            const WPR2_DOWN_ALIGN: Alignment = Alignment::SZ_1M;
+             let wpr2_addr = (wpr2_heap.start - u64::from_safe_cast(size_of::<gsp::GspFwWprMeta>()))
+                 .align_down(WPR2_DOWN_ALIGN);
+ 
+diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
+index 612f70333c11..37b2ae762df4 100644
+--- a/drivers/gpu/nova-core/fb/hal/gb100.rs
++++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
+@@ -80,7 +80,7 @@ fn write_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>, addr:
+ 
+ // This PMU reservation size is r570-specific.
+ pub(super) const fn pmu_reserved_size_gb100() -> u32 {
+-    cv!(const_align_up(SZ_8M + SZ_16M + SZ_4K, Alignment::new::<SZ_128K>()).unwrap())
++    cv!(const_align_up(SZ_8M + SZ_16M + SZ_4K, Alignment::SZ_128K).unwrap())
+ }
+ 
+ impl FbHal for Gb100 {
+diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
+index 3a4a10487f33..637a00b2c951 100644
+--- a/drivers/gpu/nova-core/fsp.rs
++++ b/drivers/gpu/nova-core/fsp.rs
+@@ -20,7 +20,7 @@
+         Alignable,
+         Alignment, //
+     },
+-    sizes::SZ_2M,
++    sizes::SizeConstants,
+     time::Delta,
+     transmute::{
+         AsBytes,
+@@ -259,7 +259,7 @@ fn frts_vidmem_offset(hal: &dyn hal::FspHal, fb_info: &FbSizes) -> Result<u64> {
+         if fb_info.pmu_reserved_size != 0 {
+             offset = (offset + u64::from(fb_info.pmu_reserved_size))
+                 // The 2 MiB alignment is r570-specific.
+-                .align_up(Alignment::new::<SZ_2M>())
++                .align_up(Alignment::SZ_2M)
+                 .ok_or(EINVAL)?;
+         }
+ 
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 1b548bbf146e..b4866ad21f6e 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -25,10 +25,7 @@
+         Alignment,
+         KnownSize, //
+     },
+-    sizes::{
+-        SizeConstants,
+-        SZ_128K, //
+-    },
++    sizes::SizeConstants,
+     transmute::{
+         AsBytes,
+         FromBytes, //
+@@ -63,7 +60,7 @@
+ enum GspFwHeapParams {}
+ 
+ /// Minimum required alignment for the GSP heap.
+-const GSP_HEAP_ALIGNMENT: Alignment = Alignment::new::<{ 1 << 20 }>();
++const GSP_HEAP_ALIGNMENT: Alignment = Alignment::SZ_1M;
+ 
+ impl GspFwHeapParams {
+     /// Returns the amount of GSP-RM heap memory used during GSP-RM boot and initialization (up to
+@@ -207,10 +204,7 @@ pub(crate) fn from_ranges<'a>(
+             bootBinOffset: ranges.boot.start,
+             frtsOffset: ranges.frts.start,
+             frtsSize: ranges.frts.len(),
+-            gspFwWprEnd: ranges
+-                .vga_workspace
+-                .start
+-                .align_down(Alignment::new::<SZ_128K>()),
++            gspFwWprEnd: ranges.vga_workspace.start.align_down(Alignment::SZ_128K),
+             gspFwHeapVfPartitionCount: ranges.vf_partition_count,
+             fbSize: ranges.fb.len(),
+             vgaWorkspaceOffset: ranges.vga_workspace.start,
+diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
+index 9c214b9f4dd9..a2d2d170b501 100644
+--- a/drivers/gpu/nova-core/vbios.rs
++++ b/drivers/gpu/nova-core/vbios.rs
+@@ -11,7 +11,10 @@
+         Alignment, //
+     },
+     register,
+-    sizes::SZ_4K,
++    sizes::{
++        SizeConstants,
++        SZ_4K, //
++    },
+     sync::aref::ARef,
+ };
+ 
+@@ -291,7 +294,7 @@ fn next(&mut self) -> Option<Self::Item> {
+ 
+         // Advance to next image (aligned to 512 bytes).
+         self.current_offset += image_size;
+-        self.current_offset = self.current_offset.align_up(Alignment::new::<512>())?;
++        self.current_offset = self.current_offset.align_up(Alignment::SZ_512)?;
+ 
+         Some(Ok(full_image))
+     }
+diff --git a/rust/kernel/gpu/buddy.rs b/rust/kernel/gpu/buddy.rs
+index d502ada6ebbd..691bb40629d4 100644
+--- a/rust/kernel/gpu/buddy.rs
++++ b/rust/kernel/gpu/buddy.rs
+@@ -31,11 +31,11 @@
+ //! let buddy = GpuBuddy::new(GpuBuddyParams {
+ //!     base_offset: 0,
+ //!     size: SZ_1G as u64,
+-//!     chunk_size: Alignment::new::<SZ_4K>(),
++//!     chunk_size: Alignment::SZ_4K,
+ //! })?;
  //!
-+//! The trait is also implemented for [`Alignment`], providing each size as a
-+//! compile-time validated alignment.
-+//!
-+//! [`Alignment`]: crate::ptr::Alignment
-+//!
- //! # Examples
+ //! assert_eq!(buddy.size(), SZ_1G as u64);
+-//! assert_eq!(buddy.chunk_size(), Alignment::new::<SZ_4K>());
++//! assert_eq!(buddy.chunk_size(), Alignment::SZ_4K);
+ //! let initial_free = buddy.avail();
  //!
- //! ```
-@@ -105,6 +110,7 @@ macro_rules! define_sizes {
-     (@internal [$($type:ty),*] $($names_and_metas:tt)*) => {
-         define_sizes!(@consts_and_trait $($names_and_metas)*);
-         define_sizes!(@impls [$($type),*] $($names_and_metas)*);
-+        define_sizes!(@impl_alignment $($names_and_metas)*);
-     };
+ //! // Allocate 16MB. Block lands at the top of the address range.
+@@ -43,7 +43,7 @@
+ //!     buddy.alloc_blocks(
+ //!         GpuBuddyAllocMode::Simple,
+ //!         SZ_16M as u64,
+-//!         Alignment::new::<SZ_16M>(),
++//!         Alignment::SZ_16M,
+ //!         GpuBuddyAllocFlags::default(),
+ //!     ),
+ //!     GFP_KERNEL,
+@@ -74,14 +74,14 @@
+ //! # let buddy = GpuBuddy::new(GpuBuddyParams {
+ //! #     base_offset: 0,
+ //! #     size: SZ_1G as u64,
+-//! #     chunk_size: Alignment::new::<SZ_4K>(),
++//! #     chunk_size: Alignment::SZ_4K,
+ //! # })?;
+ //! # let initial_free = buddy.avail();
+ //! let topdown = KBox::pin_init(
+ //!     buddy.alloc_blocks(
+ //!         GpuBuddyAllocMode::TopDown,
+ //!         SZ_16M as u64,
+-//!         Alignment::new::<SZ_16M>(),
++//!         Alignment::SZ_16M,
+ //!         GpuBuddyAllocFlags::default(),
+ //!     ),
+ //!     GFP_KERNEL,
+@@ -114,7 +114,7 @@
+ //! # let buddy = GpuBuddy::new(GpuBuddyParams {
+ //! #     base_offset: 0,
+ //! #     size: SZ_1G as u64,
+-//! #     chunk_size: Alignment::new::<SZ_4K>(),
++//! #     chunk_size: Alignment::SZ_4K,
+ //! # })?;
+ //! # let initial_free = buddy.avail();
+ //! // Create fragmentation by allocating 4MB blocks at [0,4M) and [8M,12M).
+@@ -122,7 +122,7 @@
+ //!     buddy.alloc_blocks(
+ //!         GpuBuddyAllocMode::Range(0..SZ_4M as u64),
+ //!         SZ_4M as u64,
+-//!         Alignment::new::<SZ_4M>(),
++//!         Alignment::SZ_4M,
+ //!         GpuBuddyAllocFlags::default(),
+ //!     ),
+ //!     GFP_KERNEL,
+@@ -133,7 +133,7 @@
+ //!     buddy.alloc_blocks(
+ //!         GpuBuddyAllocMode::Range(SZ_8M as u64..(SZ_8M + SZ_4M) as u64),
+ //!         SZ_4M as u64,
+-//!         Alignment::new::<SZ_4M>(),
++//!         Alignment::SZ_4M,
+ //!         GpuBuddyAllocFlags::default(),
+ //!     ),
+ //!     GFP_KERNEL,
+@@ -145,7 +145,7 @@
+ //!     buddy.alloc_blocks(
+ //!         GpuBuddyAllocMode::Range(0..SZ_16M as u64),
+ //!         SZ_8M as u64,
+-//!         Alignment::new::<SZ_4M>(),
++//!         Alignment::SZ_4M,
+ //!         GpuBuddyAllocFlags::default(),
+ //!     ),
+ //!     GFP_KERNEL,
+@@ -178,14 +178,14 @@
+ //! let small = GpuBuddy::new(GpuBuddyParams {
+ //!     base_offset: 0,
+ //!     size: SZ_16M as u64,
+-//!     chunk_size: Alignment::new::<SZ_4K>(),
++//!     chunk_size: Alignment::SZ_4K,
+ //! })?;
+ //!
+ //! let _hole1 = KBox::pin_init(
+ //!     small.alloc_blocks(
+ //!         GpuBuddyAllocMode::Range(0..SZ_4M as u64),
+ //!         SZ_4M as u64,
+-//!         Alignment::new::<SZ_4M>(),
++//!         Alignment::SZ_4M,
+ //!         GpuBuddyAllocFlags::default(),
+ //!     ),
+ //!     GFP_KERNEL,
+@@ -195,7 +195,7 @@
+ //!     small.alloc_blocks(
+ //!         GpuBuddyAllocMode::Range(SZ_8M as u64..(SZ_8M + SZ_4M) as u64),
+ //!         SZ_4M as u64,
+-//!         Alignment::new::<SZ_4M>(),
++//!         Alignment::SZ_4M,
+ //!         GpuBuddyAllocFlags::default(),
+ //!     ),
+ //!     GFP_KERNEL,
+@@ -206,7 +206,7 @@
+ //!     small.alloc_blocks(
+ //!         GpuBuddyAllocMode::Simple,
+ //!         SZ_8M as u64,
+-//!         Alignment::new::<SZ_4M>(),
++//!         Alignment::SZ_4M,
+ //!         GpuBuddyAllocFlag::Contiguous,
+ //!     ),
+ //!     GFP_KERNEL,
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index de8ef8e2aec4..5712478a5461 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -19,7 +19,8 @@
+     ptr::{
+         Alignment,
+         KnownSize, //
+-    }, //
++    },
++    sizes::SizeConstants, //
+ };
  
-     (@consts_and_trait $($(#[$meta:meta])* $name:ident,)*) => {
-@@ -119,13 +125,22 @@ macro_rules! define_sizes {
-         /// choose the width that matches their hardware. All `SZ_*` values fit
-         /// in a [`u32`], so all implementations are lossless.
-         ///
-+        /// Also implemented for [`Alignment`], providing each size as a
-+        /// compile-time validated alignment.
-+        ///
-+        /// [`Alignment`]: crate::ptr::Alignment
-+        ///
-         /// # Examples
-         ///
-         /// ```
--        /// use kernel::sizes::SizeConstants;
-+        /// use kernel::{
-+        ///     ptr::Alignment,
-+        ///     sizes::SizeConstants, //
-+        /// };
-         ///
-         /// let gpu_heap = 14 * u64::SZ_1M;
-         /// let mmio_window = u32::SZ_16M;
-+        /// let page_align = Alignment::SZ_4K;
-         /// ```
-         pub trait SizeConstants {
-             $(
-@@ -137,6 +152,16 @@ pub trait SizeConstants {
+ #[cfg(CONFIG_HAS_IOMEM)]
+@@ -90,7 +91,7 @@ pub fn ptr_try_from_raw_parts_mut(base: *mut u8, size: usize) -> Result<*mut Sel
+ impl<const SIZE: usize> KnownSize for Region<SIZE> {
+     const MIN_SIZE: usize = SIZE;
+     // Alignment of 4 is the most common; different base types can be added once required.
+-    const MIN_ALIGN: Alignment = Alignment::new::<4>();
++    const MIN_ALIGN: Alignment = Alignment::SZ_4;
  
-     (@impls [] $($(#[$meta:meta])* $name:ident,)*) => {};
- 
-+    (@impl_alignment $($(#[$meta:meta])* $name:ident,)*) => {
-+        impl SizeConstants for crate::ptr::Alignment {
-+            $(
-+                $(#[$meta])*
-+                // A non-power-of-two constant will fail the build here if used.
-+                const $name: Self = crate::ptr::Alignment::new::<{ self::$name }>();
-+            )*
-+        }
-+    };
-+
-     (@impls [$first:ty $(, $rest:ty)*] $($(#[$meta:meta])* $name:ident,)*) => {
-         impl SizeConstants for $first {
-             $(
+     #[inline(always)]
+     fn size(p: *const Self) -> usize {
 
 -- 
 2.55.0
