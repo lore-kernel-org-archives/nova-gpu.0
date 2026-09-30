@@ -1,70 +1,69 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010025.outbound.protection.outlook.com [52.101.56.25])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013049.outbound.protection.outlook.com [40.93.196.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00084F7982
-	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 14:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4707E4DEC1D
+	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 14:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777923; cv=fail; b=SD0XBw/YO9NYBtECpNtPKxlM72oHg4uE+58GepH6dsR65xaFIFW7a+ySVPc557RzuzIEHwe1EERJjljW9sZDFc4BYv/VeqbYFRnRpVmAqyUjggYT9PF7qfLslttmWR4xUHu+maql4X2GrieXX33yN10dijGu6XJvehkfJjrb6GY=
+	t=1790780239; cv=fail; b=dAqsPVSyC5N+Wj37cFVDC3kugh7UC7/pYxphmBkDpw+BtWX/lr3XQN9H0HoYo4F9AvROqSWHv1ftmaLzx+UzgASfKw2vYCb2yG2GSKVSjFGo3SGiMzR4o45d+O393fRwJS5lnhjXTn0uCrp4Wra78bqRehpk/sIyj1tG9FCxLrw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777923; c=relaxed/simple;
-	bh=X+0toS8N7uE5h9ukxEMeQyCzYrydIAi8gQML9g0vFxI=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=hvWZjQo3ZL6w7ZSXGJvd1baT2xg8xmjL1GcKUdBclTotMPivIb5zXbATMlyWd1rMTvQf5Ti2bBrIGNo66QOTdggHNx6y+Z1QPzfUOWTMoYcWu88Sgj38idPQ2r+jI2MGXT1UWUcyxIWjsaQU4tjVtvn0Lf1STHu+jFbBm5ca1eA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rcXttamY; arc=fail smtp.client-ip=52.101.56.25
+	s=arc-20240116; t=1790780239; c=relaxed/simple;
+	bh=v7IAdhfwNRDNYR12Fwla/Mw6PW3tIFPoc5Q0N34mygE=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=Sg4AlbmMKtQ6v9tVei7zZ4zUcz6sL7V6Bgd2oFHPRkWhIHopooyku7QIAdOAsZvYhWcvWDa2GH13PDZHFsyx9HYtpDuPeNPIDvLuSTTC4vok6+uHX0SquyyGiMCu4GNzCDb917/c6MTYL4+jbuMU1BrWPgySMQ6Bx/5EjSZDoVA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o9OeWF9h; arc=fail smtp.client-ip=40.93.196.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rcXttamY"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o9OeWF9h"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CrxRVesm5wjidSCrpHMEAKQzOZ3uvT1+hHo1gIt+agkqkh9U+XYwIsoYm8OH0Isn0iLY7ChSZIgqE2M249cUeQR+wHUA7K4IvfsTH/5/f/FyjYM8X+YzU8WzVYlLWIWu5M7e9WLS4hwuBcW2Bn2JRRIbsiLAThDEP28QgZhTgPdwuWHaqoJGIqb3Mzzb8Zjf2cA5EFib7/3o5fcnSmjZL/1pYNqYXRyoG6p9q/6ofLQkgPj61J6ME5co+1uPTkRRqUeDtQgUU4c778ghTIS/3kTor2yfav6Dm1fHgHibxrZWzJoXvnUUd4ZjInWSPJ1ubFkVATac9T/9mFUYAWdp7g==
+ b=yIwZtMMJ0bfpU+/MGGK062pdRdr8IHtWSpoAKzt9Z8NhA+tAt8jLL9gmb2pji6WCo9rML8781vX3ipSqjALkzYWTHPLP0FRh5cfFNFcRoHRnr2miZNwNnumWHe8FA9e9WKjM0d8RLFdilPkTqGppBaS+MJc0Z2OJyLXeCjxYIzD6T4wtsJ8y4ZprfpoadGxAdFmh1vL/t/Wpjf9qlfN0zCDlcrgTdqdAtbFi4ON3Jn0/gcr2mUSiEQet8Qsgg6qxdKt5azzKGHOBvhGEIb9Ld2lEIG1oSAop3d/2G3yj10n5uEeW9K/4S5y/dtl5gJb77bhq6tDdgby1YP5IYnkfTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=azOc5EJvy3AhV7o2eg1cefKeicaEh1+bo/KBiryc5O0=;
- b=fOT5CgDnEbNUy6jWhx6qA6tR8UCh1JN8QmIIMXyMKyBynGzKqArtbM88UhheCBrLPDraqzrKXvfKvExKVXB2Ynm5S2Da+Uq/7wptUpcfzqJzD79dCRLrxLQxDBbBEqvU/KWIEZ2RgwGAXbchVwgJjeXU/ZGSk5c01M/PCJubhffRt97LZXSOl7DTakjwbhFn0tvYNuN6thFneET2lZYaL6kIlmw6phRgn5ugjzckwziPL0sO22vamUXXIhelZEU1EaltQmCwqAKUPMHzwygCgkHZbhJuc/cZd17O5hs7NRckh2EU1v6TT/Ycon4dPNvKX+8Dm6tL26NWZar4RN9lIg==
+ bh=xQ9APqN/lZ35U9+oMCw6a72bug2p+o5VID34NGtvVac=;
+ b=oul1qnQpNZuRqZnAPJqhMFw4ln+3tT+i1F7K0cOqJzlFGMywBZJTn6K6py1x85TwTeF+P6TyABXj53V0dfwINhsLxhmz3M1yJTKY1tvibD7mpAwyM4FNKwSo/5wX5j7LwMznNXLzrAWPIEmJfXcK3Qn2wRJ6in139kqwSgg9PNq67X9Q/9YlTp+fWiVkujfToe+Lz9TFPuIt6M7fQ5JmOOpOCLU8CaAUs5lXsQVnRqf29TiHCADTZnf6BZzdA9U6bzbfTXh55fatALMRmzs2KFgJLBY5HblVPg4FLiLNnSPIWag+U2llU7gJrrHFmEwGODE08+FUvn7dtS6/iNALBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=azOc5EJvy3AhV7o2eg1cefKeicaEh1+bo/KBiryc5O0=;
- b=rcXttamY+kGheR9r6TRV1bzmKxrJILRK4YytoyXgNhKGhpxu7uAb9b4nUvxVN5U28TreSbsHleDQiytZV2VZnEqXZathUd2y28IwDz3XyhlqywnP9zvnRSYERudJt6ecZe3EcDmshZF7++Dw1QWXQuG0rNImrFdVdTY+pI2nDUFGBlZP5Cb8bNdtqvaU2EK4CoGXEGEn38mLORVYBl+PhcHAIfQJ43TL5xucDb8K00YALo7B5y+5OGONdn+EnPI5L8eGvmFhBnnfG9kU+bthBcDUjQdU1NPONOFBTlP86anOgwEVErDMiAdZF8AZFlIMh1q0lWU8qzKCcSjGgpXDPg==
+ bh=xQ9APqN/lZ35U9+oMCw6a72bug2p+o5VID34NGtvVac=;
+ b=o9OeWF9hML1AFiSiW6+9qLQlbjtbfaL6c8Th0dMfULagrQVEhqP8T+eBL4i62C+xg/3+/aN4XB7PoigVeCRcxUBaIZcy8pgWYvqpLYuc/K/V5dwuff6sNqvsHmiB6T51Elt9WUXz8AG/TdPhihXFxlxH2E+UjR+VnO71KhezJFv4bWOlwYTlg7HqFDVZinjqr4w3V5/mmGNqUm/gO6VssYozSY8l3vveTysSTvtxhdJCeAKtFG2cYhXDN9G34HanBSr9Sj01lnAtFdPOy2gdusMsflULZlxlAmrObTcyMOxQ33aY/T6ZHjVyN1YhoC+11Y0nVeBZRtoH/9isMsxCcw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS6PR12MB095541.namprd12.prod.outlook.com (2603:10b6:8:498::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 14:18:19 +0000
+ by DM3PR12MB9392.namprd12.prod.outlook.com (2603:10b6:0:44::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.15; Wed, 30 Sep 2026 14:56:55 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 14:18:18 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 23:18:09 +0900
-Message-Id: <DLSPS53NPYB9.1H9UH2Y6JV49B@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 2/9] gpu: nova-core: gsp: introduce and use proper
- RpcMessageHeader type
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
- <20260927-cmdq-rpc-v2-2-c3f66ae73be4@nvidia.com>
- <DLQOB23WLFC6.UKBAHKWNG7ZY@nvidia.com>
-In-Reply-To: <DLQOB23WLFC6.UKBAHKWNG7ZY@nvidia.com>
-X-ClientProxiedBy: TYCP301CA0080.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7b::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ 14:56:55 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Subject: [PATCH v3 0/9] gpu: nova-core: gsp: prepare the command queue for
+ r000 dual-message types
+Date: Wed, 30 Sep 2026 23:55:39 +0900
+Message-Id: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyQrCMBRFf6VkbSR9tZMr/0NcZHixT+hgUoNS+
+ u8mdSXo8sA95y7MoyP07JgtzGEgT+MQodhlTHdyuCInE5mBgEq0UHPdmzt3k+ZoStuUQoGokcX
+ 55NDSc0udLx/2D3VDPSc/LTry8+he21fI0+5HNuRc8AbAqFLaNhd4GgIZkns99ix1A/wzIZq6s
+ FUlsS4UHr7MdV3fqIh1pe0AAAA=
+X-Change-ID: 20260927-cmdq-rpc-ed5f850b207e
+To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
+ Gary Guo <gary@garyguo.net>
+Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4PR01CA0060.jpnprd01.prod.outlook.com
+ (2603:1096:405:370::13) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -73,313 +72,167 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS6PR12MB095541:EE_
-X-MS-Office365-Filtering-Correlation-Id: 581e0130-bac0-40fd-bcf3-08df1efdaccc
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM3PR12MB9392:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d8ce0de-2593-4d70-ee54-08df1f031179
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|376014|1800799024|7416014|366016|4143699003|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|10070799003|1800799024|376014|7416014|23010399003|11063799006|10067099003|260925022911599003|260925021311599003|260925021911599003|3023799007|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	m69imjWLC7/BcXzSgaKqUBE2mdE7BkYSLieBy6QswPE4ea4UeK0nzYRH7hqD8lNjDwU87LT//wONOYoEZej0KZcenieVyvFNSe5QowtbdJ9Cm3YueP4GxzSpS4sGFyQPfpjyvLhGk+bGcgqUUit4UD6EuE3JwoO2RTysKN88zwgz/4qgugRUNNgJuFggSfwL8TUr8avUIBrHoe3/OHZ85oD+vbrQm+DkC030hPXNiV2KEf2gYd77SbX7c8VeDMkUkPbAKfWdzq6jQFePEAMBqXZedMkeic6t+rtDiOl9KANpkwTx4Wlz6DQx1HyoWWiN6g53zzcrcO1D9eD+B43Y4CGHNQjl1IW7/aAYaZ3KTyiGKhcgizPLbUwnY0fR/Ngg2ZMyKUAK7/AJO4c28tSrULNG4QtVK5UIWZaM4M+o2DxOgayScYpkdMVbeo2TslciKk51AZqTGiIcjAzxxF0AUpJIxe4q6jZcql/DEl+8BH7fFiZZNtRDuaonWbo61w+rh7GLU8QXtenht3hNxMiC13zCLzYuOC+gwpHLRvERJh15374GvLLCU3dTZ10FNW65B6sj8XC4YhWkfsYTEOycaWvYZ2cYbXR9f8XwHlDOp0YGC7/57oSbuXDi2HXeC0UyetJZd6cg0VsQEsvqIdWea8jJS8I224FcF2w4AkFXn/M=
+	I2ItdsY1AmBemkMXDEbTy4ewx8qX7L8JqASvUjDzMqgz8BtFWeqcVAn8biHOFhuBDJN9m0n4UWydJIg9O7Js5QaftKtL4xuz8h3O1d3yLj3Zq/FdJ9YtRjgemfGDfPINNDU9/Zy3WfvRVHWS03yqioRcP2ACPQN96D70oq2VoZb1e7FH4/IoMuM+cCUgESwq3xtyGVau/86yQFKOGRwQfv8gWd7hckXu3f+FCZuS/N17JPUq6mlWF76aoVOaUDmEij+g4DAqMbVyrj/9YR+W9LZFRHsDM9lycc0yLY4XKZpDyrBx22Z9v5qxxKHBXFibaSZLqE2RGuZ5D0PQgJma72Xv1sxca6GHbILLiAJEqK5kpkcDIXJSchc+dJ1bQOlJ8utBHm94scFnfgg/P9TgHNSzpc1gXlxR+79TCzaZErMGQ8H17qZJLZ/45s7L4cZDr0b/sItU3Oa/E3X0WbFsGKH8/Zb06mjHjLKEH0FKgoin/1Hom0X4Ds6qMI873qKPXoplHKKFw2sVjySnK/Z5bFshqZ2DmMK/qzEbyqZ4k5TWNbKjCwwt7fR5J1UsePYdzG+6IPyiaHyxnXt3ajaeLC/6gnbs8bftEXp3ilC2BLrWiH+s24qK7og++nPGOMqzesohBwOjeuPiu9wBBH1ve9Xio5Q4PXatgiqjT1Rdyc0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(1800799024)(7416014)(366016)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(7416014)(23010399003)(11063799006)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(3023799007)(56012099006)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NEYxeExOWWFyVDNOaEd5K0JRaEdCMDc0eWFNbWJlTlJ5RHl2Y2I3S0xtSnRB?=
- =?utf-8?B?dTBybUtYdG5qTittNzZWL2xJOXEvbWJSMndLQXMwbFlaTGhnazNvSjY1R20z?=
- =?utf-8?B?U0c2NVdpUC9XRUgwa2tKQm5RYnAyKytOV1VpK1R5ZGp2bjRCWTdHVVBSbXVZ?=
- =?utf-8?B?c0NVbzh5bFQ0UXhkUkhCczhMbndXaGJ6dkdvZDZvK2pQeHY4NzVFa2pUSkdL?=
- =?utf-8?B?ZjQ5Ny9Gb3V2WE9OcENmMnRXd3lRcFZHV0ZYNDhxa0JHa1Z3WkJGVmtaVVRi?=
- =?utf-8?B?VVZWVTI2OXJuTlhKOVY5dTA4aURMRkM5NWNZeE1CM2VTak14Y1p1OUVxVTNE?=
- =?utf-8?B?bE52MTNtd3JXOGE4cXYzL0dJMGcwVk54ZE4vOFI2K3lKZVcvcHhDN0Z4UTQ4?=
- =?utf-8?B?RUtIcE5HMSswZHgrSzB2MGtqNmgvRzdCWDRhcUkwTHJBUDVlc243SjJ0YTdC?=
- =?utf-8?B?TzIvUVpvam5TVXMxWGdMc2R6RVZNK2Ezb3grUjZOYSsvVys0dklnN3BRVWZF?=
- =?utf-8?B?TE4wUnZVWHRzekhZUXZPcWpyVUkvNDFhVmRJMllDTTJCWm1PTjJlY29HWjZR?=
- =?utf-8?B?TVJJbENHR0xwUjVOaFZpR2FlaVlSNnRCb2VNbE5RVkFKK2dyMGc3aGNWNmtF?=
- =?utf-8?B?SE45eThlQlI3V1FrU1hXU3JPMFVSS1I4dEhNTlNJTExrWGhIY1hUVTRkU1dz?=
- =?utf-8?B?amdVb0xhdkNNUFNVR0J0N1BEeFRGcDNPbmg1ZzhQcDVJdEFPMkQ4SWpCSVpy?=
- =?utf-8?B?akVnc1FYQjFQbjZWbnV3QmNCMVZpS25jamdKaU9rRElqQk9mWnY5Z2h3dkxX?=
- =?utf-8?B?emJBVS9ra2wyK1c2TGx4cmdCUXM1ZXZkOS9EMTB0SnVRcFVIWVlhdk5rVS84?=
- =?utf-8?B?ZDdaaFdHOU1Jd1hFY3VpVzRJN0oxaVROdnF3NnAyVHBzaWZHN3ZSSnpPVThz?=
- =?utf-8?B?U3JNUnpXRkRaQVlUa3g4dWdSRWlnbjgvQ1gzL3habVdiZXY0WUY4eUVTb2dv?=
- =?utf-8?B?dFRBMzlSbm8xK1Y5L0Q5dFU4c2k2L3pFSmxiL2p3akZtbmEydE5NWEdNODRJ?=
- =?utf-8?B?YjdKS2ZwRWNQSFpwKzE5a01GSHpnemZqMU5YYS90LzI1V3BtTk05amVyM3Fh?=
- =?utf-8?B?S01kNzQ0RlZVT0ZVZEhXZlR6UlJNeFBnSlRQUVF0V3NUVFpZNjQzdmhRdzlv?=
- =?utf-8?B?WGxFWFN0VlJYWGFpR0U0c0RwTVlrK0lHWmdteUdMLzdqRXdpL0FiWEVmdFp4?=
- =?utf-8?B?eFM3cWErL3B2Z1JORnRZYU9iTnFqZnM5ZXpxdkNUenB2M3ZncjZyMkpVQ1BC?=
- =?utf-8?B?OS9zdnNkeWxWTzRrcjJoVVJsWGpKS1FWQkxMVzRKR3hYUkhCcU5yQ0g2ZENy?=
- =?utf-8?B?WGVQdllOQmVtU0pBRmRSTHRrWXhRY3F0QWxDTVdJNzl4ZEQ4M1F3dlJSYUVL?=
- =?utf-8?B?TThFcFJUVkN1SEtoNDdhTjJSVEFNODloQTllMWhJajJaSVpJREc0Z3lxUStu?=
- =?utf-8?B?V3FUc2NFWDRQNjBRNnYxOWJ5TWFSdTN6WmJaT0diTHI5b05NSkhia3pkYXlu?=
- =?utf-8?B?ZW8ySnNhMkx4bzRyMTFyK29kbFFxUm83ZzVla3dFMFdNMzFaY2huM3p1Qnhl?=
- =?utf-8?B?ZzZac2s3OWdFaDVvSWxyQW1vcG83RGVEcTFDSUFtTHo3L0MzeDUrTzFyT3dQ?=
- =?utf-8?B?SVlzV0dWV0ZROGEvRy9VaUtLZEQxMmFGOUVQWWdkSThaVEp5UStTUXZLckdT?=
- =?utf-8?B?c0tURndXTEs2MUw3Y0pqd2JiL2M3WEZYRmFYQlUxUlFLaFZ0dEU1Ulp3dElw?=
- =?utf-8?B?M1c4dXVIclg1TFA5dkFXRjlqNXVWUEtKdnYxMnZMZXFCbkxlRFJhbkk2bU9O?=
- =?utf-8?B?TkdqYjVVNU1JMmR1K21DWmpKU3ljS1NwU0VvOW5xUW5ncVhSSjU4b2laZTBV?=
- =?utf-8?B?QjZaTUhMYnhLT3gydWpkN1YrWU8wM3NtRWlzbDNoMHdPUU5ueW56bkUrRUh0?=
- =?utf-8?B?cXVIMjV3anNqUjBqaXM1TFBBYnBucXdWR0FaOFgwbC85QjREWUpjUjQxU05F?=
- =?utf-8?B?UzZoTCtxd3U3WXpDak1seFN3V1RuSTRFcm9zVlQrclo3aW9sNGRNTC82Z2pr?=
- =?utf-8?B?TEhHUGllTFdWTFpPS1lPcDU4UHFCV0cyUlR6YXc0dFhYdlU2NkUvNFJaNVRD?=
- =?utf-8?B?RWhpaGRxcFV6NHhRVUNlYWdXRjd1Yjg1cVRqSGtXc3hIR0RVUFRPc1JqVTdo?=
- =?utf-8?B?TkJ5Qy93cURsQXZsdWtTZHZ0amNwMjF0ZTN3dUUvVEtPcGxSYmo3UWFnVkVW?=
- =?utf-8?B?Z0JXYi9uMWpkRFZFNlN2WEszUkViYUlqWUZSK3dRc252ZC80UkpGSk92TE55?=
- =?utf-8?Q?nYuaZllRTGqCmm/w4141TX5Bw/kPUcC/VVPxv192BD6SH?=
-X-MS-Exchange-AntiSpam-MessageData-1: nI+CglzHvPeVzA==
+	=?utf-8?B?czRVaVc1N1NTa0xyNDJsSzdCZzZqQkVUWE91eVdNQm9Lb1hZMlo0MTdQM1Nv?=
+ =?utf-8?B?V3ZKcjRwRmM1c01RMTNrS211OEZZR3ByOUx3UVpGZTdwQXdVSEhHamxuTGh3?=
+ =?utf-8?B?WUJlOFljOXZyVFNoR3ZRTWRSRnIwNW9tV3YxRWc2Nk9Cc0F6MmdEQ1NXck9x?=
+ =?utf-8?B?S0NWVHUrTi9DS1BVQVF1VGNlV2NsK2VhaHpWNy9lRmYzVkFreldhNmhFenNs?=
+ =?utf-8?B?Y1NqUTRvSmwwZDhaa1dmRzgwaHVZZEt0K3FLWDBxaDFNNEJLaTlTUWFGcjgy?=
+ =?utf-8?B?emVxSjc5MDA4R3lodFhKQTg1THNwQzRGVkNkVHBWQ0tVSnB0OVFLU0VRSGd2?=
+ =?utf-8?B?bmxxQnRnVUxFRTdyeXFrTjNXUEI2N21tdjZCVUlMakpsWDhnZm9CMTExSHg1?=
+ =?utf-8?B?ZkxDaTh3MFNYMFkzQWtrSlBpMitaUUtkTnBGeFh5a3hpZ2FNYkZmWGo3T1JK?=
+ =?utf-8?B?NVIveUphZ0taY09yZkpYWlhwZVFqaGxnb2FUZUFieTEvSjNaVXYycWw2ZGVX?=
+ =?utf-8?B?cGJEaEg4N21yVW9yckZsVE9ZdzhYOXpTU1NJMnl3RG9JZHEwZSt2NWlwRW8x?=
+ =?utf-8?B?QndGbDRXcHduTDFFcHZoY1VLaGFRb2Q5VWRQRUpuSjQrRUFsVUFUQXRRUDBJ?=
+ =?utf-8?B?aUcxLzc2Rk8wajg2MXZ6d29QUWZrUWZseVdkR1lzQnhnMlJ3WVJQa0hIaS92?=
+ =?utf-8?B?NkdwNjdlOXhDMTYyUHdKdjRCcWxZUmV4Y29lRDZWRDZraWdyQncrSzBJbmNB?=
+ =?utf-8?B?aC8vcno3L2N0czl4Q3pMNGxqcnJId1VxTWV4bzlhUnFZcS9Va0ljd2dtMExI?=
+ =?utf-8?B?R1R1VzltUWord1JlUmtSM2o0VEhPNWE3WDhsQ3IvdHR0NXlXYSt1bEl0RXNw?=
+ =?utf-8?B?VEozbVp2Y3gzV0JJb1ZySFVoSXFtK1NzVmlkUHBtS1JpVkFBKzIyNVZUNHBx?=
+ =?utf-8?B?Z3dEZ1Fackx3cGdxMHlsSFJyaXdJemlsb1FlR01yZHYwNUpuRG1zQmRqV0tz?=
+ =?utf-8?B?YmVvTTVLRzBHL2w5ZzFMNFN6ZzJGMWhIdnhJSkJ6QVJMRU85R0RMS0FuTyty?=
+ =?utf-8?B?RCtPanNjdmlpTjY4M3k4NEJiMXVXNVJaOU9Ba09tZU1VczFYNHB5Q1dBV0gv?=
+ =?utf-8?B?UWwwVEZvcCs3eE8vK3hoMHNVSFg4bFByMmoxcEFhVDI3bVBnT0FCaVd1ZFAy?=
+ =?utf-8?B?SmlCa3ZhMktxQjZxQk04cXRlQjAxNU5JR0NFZm1nSkVDN1czbXhXWDR1S1E3?=
+ =?utf-8?B?WW5XWnFJK2VKaGNCamZWL2h5REl2a28yY056ak1SZHR3akZLbVpvdVp1RWdy?=
+ =?utf-8?B?UTBXd21DZFJ6QU1nTldxZENCZFNzYU9QeTV2cW9QcndkNTI3VmY4U1ZwWXl5?=
+ =?utf-8?B?UVBGNmVSb24wYVNTblMvcTN4dzdGbDNXZUYyWVpGdVJHUDVxNGY1T1Y5d0Rk?=
+ =?utf-8?B?SGxmZFRtWldLZWJJeVV6U1JCbDgxSkNHNUtCcC9tUDNGZmxGVUxGejdwK2hi?=
+ =?utf-8?B?a09mQW5kT2UrQkpiMnBQZGVHdDBYZk84TGdieXRjaGI1ZWkyZ2x1encvMENk?=
+ =?utf-8?B?Qm1CTVR1Umk4STRHckpNd1RLMzQ5SVJyQmF2YnMvOUlhd2wyRUpzR3BaZEFy?=
+ =?utf-8?B?ckM0Y1Zqb2ZLZDBTaDZkTkVjWUJaUWxiSmN3N0laOTI2VW1ucEdndE9QWUNH?=
+ =?utf-8?B?SW5BK2VqT1JUTlN0V2dTdFJWTFp0aWRsa0d3dGlkVVF1bndSNUJaOUU1ZFUw?=
+ =?utf-8?B?WHlrbWRUMW5IdXZJSkVFa25VcWsxcjdscXg4RmR2bkVGTGYvWHpHMGpGVFp2?=
+ =?utf-8?B?TWVjY05FeSs0Tm1QMk50WDIrZkJ0KzM3MFJQQjNCbEVTSFphVG5nLzNyVUJI?=
+ =?utf-8?B?RzNwZm8vOU03WThZb0VvQVhtMlhRd3Uvck9Jcjlwd2dPaDZqcjJncW5YalAr?=
+ =?utf-8?B?Y0hpbXdQczBKRUpDVVZYTzVRYkRockowdjBtOFBoSTJYZDk0R1dsaGExWnJw?=
+ =?utf-8?B?ZHBYY2hQdEFTSG1Ec21lMFJ2WGx2Wk95TUpTTWZTbWhnVHluNGZha1d0bFlF?=
+ =?utf-8?B?U1loZUhjZVI2LzVDSkg5bkxYYmRjbldOOWQ1b1BENGJpSE8zLzR2N1dENVZy?=
+ =?utf-8?B?b2Y0WkdRcFJ4NlBOblRkNWhvc1huWWEwSG1vNm51V0RRL013SDdKWEZ6eDl3?=
+ =?utf-8?B?YmJZRzdzVzdJQTBoaWNhSzUzYTBQZFc1bnltOThja2VTUFByNUxRbUxkK1h5?=
+ =?utf-8?B?UjBtWnJrTm54SjdEM1JCT3RwVk4xYkdBUjA1MlBsbnFMM2dxZndtdkZnUTFX?=
+ =?utf-8?B?S3FYZ3V3SmlFTkJxd1d5OVd4NFJobUhNcmJaZ1VZTDE5ZTJSMTFnTjMwV3M3?=
+ =?utf-8?Q?nQ0FxbJ/ZNQZBAdo9VRttI4YKJMKGSls5ha8bNeipwVHQ?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4IbBpOdLhToVnQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 581e0130-bac0-40fd-bcf3-08df1efdaccc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d8ce0de-2593-4d70-ee54-08df1f031179
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:18:18.8210
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 14:56:55.0178
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4G2tHtAGwChComa9YwOsDGgX6lf78DsuwAYThYGYTCJ0MFgLGFTFglBuw4E2Bi2fI8/aneOTFV0lME2yTLJ9PQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB095541
+X-MS-Exchange-CrossTenant-UserPrincipalName: gaJ9m3+moIs61e8zovBcc9NoL7oCMcoi7OYmMeNrBQpqovv4FXX/P1ENl04Vpbub7J/8pK1758RMEDyGv7VaSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9392
 
-On Mon Sep 28, 2026 at 1:43 PM JST, Eliot Courtney wrote:
-> On Sun Sep 27, 2026 at 10:46 PM JST, Alexandre Courbot wrote:
->> So far, the GSP command queue transport and message layer code were
->> intertwined, a design issue that goes as deep as the types themselves:
->> the generated bindings for `GspMsgElement` even include the RPC header
->> at its end.
->>
->> This makes it difficult to introduce the new GMC message type; thus this
->> patch works around these limitations to make the RPC message header more
->> explicit and allow it to be eventually handled by a different layer.
->>
->> The `RpcMessageHeader` wrapping type is introduced following the same
->> model as `GspMsgElement`, and can be obtained from the latter. The
->> methods of `GspMsgElement` that actually query the RPC header are moved
->> to `RpcMessageHeader`.
->>
->> Regarding initialization, `GspMsgElement` leaves the RPC header zeroed,
->> and the command queue code is now responsible for initializing it in a
->> separate call.
->>
->> The only functional change is that the RPC debug messages now display
->> the size of the RPC payload instead of the whole message including its
->> headers, as they are technically part of the message layer. This metric
->> is arguably more useful as the headers have successfully been parsed by
->> the time we can print these messages.
->>
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/gsp/cmdq.rs | 25 +++++++----
->>  drivers/gpu/nova-core/gsp/fw.rs   | 95 +++++++++++++++++++++++++-------=
--------
->>  2 files changed, 78 insertions(+), 42 deletions(-)
->>
->> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
-sp/cmdq.rs
->> index d293d28b0967..3a8548a51259 100644
->> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->> @@ -50,6 +50,7 @@
->>              MsgFunction,
->>              MsgqRxHeader,
->>              MsgqTxHeader,
->> +            RpcMessageHeader,
->>              GSP_MSG_QUEUE_ELEMENT_SIZE_MAX, //
->>          },
->>          PteArray,
->> @@ -664,11 +665,16 @@ fn send_single_command<M>(&mut self, command: M) -=
-> Result
->>          let (cmd, payload_1) =3D M::Command::from_bytes_mut_prefix(dst.=
-contents.0).ok_or(EIO)?;
->> =20
->>          // Fill the header and command in-place.
->> -        let msg_element =3D GspMsgElement::init(self.seq, size_in_bytes=
-, M::FUNCTION);
->> +        let msg_element_init =3D GspMsgElement::init(self.seq, size_in_=
-bytes);
->> +        let rpc_header_init =3D RpcMessageHeader::init(size_in_bytes, M=
-::FUNCTION);
->>          // SAFETY: `msg_header` and `cmd` are valid references, and not=
- touched if the initializer
->>          // fails.
->>          unsafe {
->> -            pin_init::raw_try_init(core::ptr::from_mut(dst.header), msg=
-_element)?;
->> +            pin_init::raw_try_init(core::ptr::from_mut(dst.header), msg=
-_element_init)?;
->> +            pin_init::raw_try_init(
->> +                core::ptr::from_mut(dst.header.rpc_header_mut()),
->> +                rpc_header_init,
->> +            )?;
->>              pin_init::raw_try_init(core::ptr::from_mut(cmd), command.in=
-it())?;
->>          }
->
-> nit: I think the style is to have separate unsafe blocks for each call
-> with separate justifications.
+The upcoming r000 firmware support [1] introduces a new type of command
+named GMC alongside the existing and already supported RPC command type.
 
-Fixed.
+Since RPC was the only command type supported so far, it was embedded
+into the lowest command queue level: the message header actually
+includes the RPC header and the code considers them as one.
 
->
->> =20
->> @@ -694,7 +700,7 @@ fn send_single_command<M>(&mut self, command: M) -> =
-Result
->>              "GSP RPC: send: seq# {}, function=3D{:?}, length=3D0x{:x}\n=
-",
->>              self.seq,
->>              M::FUNCTION,
->> -            dst.header.length(),
->> +            size_in_bytes,
->>          );
->> =20
->>          // All set - update the write pointer and inform the GSP of the=
- new command.
->> @@ -777,16 +783,17 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<G=
-spMessage<'_>> {
->>              return Err(EIO);
->>          }
->> =20
->> +        let rpc_header =3D header.rpc_header();
->> +        let payload_length =3D rpc_header.length();
->> +
->>          dev_dbg!(
->>              &self.dev,
->>              "GSP RPC: receive: seq# {}, function=3D{:?}, length=3D0x{:x=
-}\n",
->> -            header.sequence(),
->> -            header.function(),
->> -            header.length(),
->> +            rpc_header.sequence(),
->> +            rpc_header.function(),
->> +            payload_length,
->>          );
->> =20
->> -        let payload_length =3D header.payload_length();
->> -
->>          // Check that the driver read area is large enough for the mess=
-age.
->>          if slice_1.len() + slice_2.len() < payload_length {
->>              return Err(EIO);
->> @@ -833,7 +840,7 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout=
-: Delta) -> Result<M>
->>          Error: From<M::InitError>,
->>      {
->>          let message =3D self.wait_for_msg(timeout)?;
->> -        let function =3D message.header.function().map_err(|_| EINVAL)?=
-;
->> +        let function =3D message.header.rpc_header().function().map_err=
-(|_| EINVAL)?;
->> =20
->>          // Extract the message. Store the result as we want to advance =
-the read pointer even in
->>          // case of failure.
->> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp=
-/fw.rs
->> index 918a7ae809eb..b12034db7857 100644
->> --- a/drivers/gpu/nova-core/gsp/fw.rs
->> +++ b/drivers/gpu/nova-core/gsp/fw.rs
->> @@ -781,11 +781,25 @@ fn new() -> Self {
->>      }
->>  }
->> =20
->> -impl bindings::rpc_message_header_v {
->> -    fn init(cmd_size: usize, function: MsgFunction) -> impl Init<Self, =
-Error> {
->> -        type RpcMessageHeader =3D bindings::rpc_message_header_v;
->> +#[repr(transparent)]
->> +pub(crate) struct RpcMessageHeader {
->> +    inner: bindings::rpc_message_header_v,
->> +}
->> =20
->> -        try_init!(RpcMessageHeader {
->> +// SAFETY: Padding is explicit and does not contain uninitialized data.
->> +unsafe impl AsBytes for RpcMessageHeader {}
->> +
->> +// SAFETY: This struct only contains integer types for which all bit pa=
-tterns
->> +// are valid.
->> +unsafe impl FromBytes for RpcMessageHeader {}
->
-> nit: these impls are not used
+This makes the r000/GMC support difficult to land without a refactor,
+with the result of transport layer code being duplicated between the two
+message types, and no clear separation between the RPC and GMC code
+which are mixed together in the command queue. Merging the code that way
+would introduce quite some technical debt.
 
-Nice catch, removed them.
+Thus, this series prepares a proper landing ground for a new message
+type by extracting all the RPC layer code and moving it into its own
+sub-modules, making the `cmdq` module completely agnostic of the type of
+message it transports. By the end of the series, the only mention of RPC
+in `cmdq.rs` is for the `rpc` sub-module.
 
->
->> +
->> +impl RpcMessageHeader {
->> +    /// Creates a new RPC header.
->> +    ///
->> +    /// `cmd_size` is the size in bytes of the payload. `function` is t=
-he RPC function of the
->> +    /// message.
->> +    pub(crate) fn init(cmd_size: usize, function: MsgFunction) -> impl =
-Init<Self, Error> {
->> +        let init_inner =3D try_init!(bindings::rpc_message_header_v {
->>              header_version: MsgHeaderVersion::new().into(),
->>              signature: bindings::NV_VGPU_MSG_SIGNATURE_VALID,
->>              function: function.into(),
->> @@ -796,8 +810,32 @@ fn init(cmd_size: usize, function: MsgFunction) -> =
-impl Init<Self, Error> {
->>              rpc_result: 0xffffffff,
->>              rpc_result_private: 0xffffffff,
->>              ..Zeroable::init_zeroed()
->> +        });
->> +
->> +        try_init!(RpcMessageHeader {
->> +            inner <- init_inner,
->>          })
->>      }
->> +
->> +    /// Returns the length of the RPC's payload, not including the head=
-er.
->> +    pub(crate) fn length(&self) -> usize {
->> +        // `length` includes the length of the RPC message header.
->> +        num::u32_as_usize(self.inner.length).saturating_sub(size_of::<S=
-elf>())
->> +    }
->
-> Suggest calling this `payload_length` because now we have to `lengths`,
-> one which is the length of the entire thing (On GspMsgElement), and
-> this, which is just the payload. optional nit: rename
-> GspMsgElement::length to frame_length.
+With the transport and message layers properly separated, support for
+GMC can be added into sibling modules of `rpc`, and the transport layer
+can be converted once when doing the switch to r000.
 
-I'm not completely convinced here, since the type should make it clear
-which length we are dealing with. One could argue that GspMsgElement's
-length is also the length of its payload, putting us in the same
-situation, only with a longer name. :)
+This moves quite a bit of code around, but most of it is moved verbatim.
+No significant functional change is intended.
 
->
->> +
->> +    /// Returns the sequence number of the message.
->> +    pub(crate) fn sequence(&self) -> u32 {
->> +        self.inner.sequence
->> +    }
->> +
->> +    /// Returns the function of the message, if it is valid, or the inv=
-alid function number as an
->> +    /// error.
->> +    pub(crate) fn function(&self) -> Result<MsgFunction, u32> {
->> +        self.inner
->> +            .function
->> +            .try_into()
->> +            .map_err(|_| self.inner.function)
->> +    }
->>  }
->> =20
->>  /// GSP Message Element.
->> @@ -811,17 +849,15 @@ pub(crate) struct GspMsgElement {
->>  impl GspMsgElement {
->>      /// Creates a new message element.
->>      ///
->> +    /// The RPC header is left initialized to zero and must be initiali=
-zed separately using e.g.
->> +    /// [`Self::rpc_header_mut`].
->> +    ///
->>      /// # Arguments
->>      ///
->>      /// * `sequence` - Sequence number of the message.
->>      /// * `cmd_size` - Size of the command (not including the message e=
-lement), in bytes.
->>      /// * `function` - Function of the message.
->
-> nit: Update or remove argument list?
+For the r000 series, this essentially means the following:
 
-Oh right, `function` has been removed. Fixed, thanks - I've kept the
-list format to limit the diff.
+- Its patch 7 making `allocate_command` generic can be dropped as the
+  transport layer makes no assumption about the message type.
+- Patches adding GMC support will do it in dedicated `gmc` sub-modules,
+  following the model set by RPC. These `gmc` sub-modules will start as
+  `dead_code` as they are being built.
+- The "switch to r000" patch will essentially operate on the transport
+  layer level, i.e. `cmdq.rs`.
+- There should be no need for extra post-switch RPC fixing, as the
+  transport layer code will already be shared with GMC.
+
+Overall, this should make the r000 series much easier to review and
+eventually land, while not creating new technical debt.
+
+This series is based on `drm-rust-next`.
+
+[1] https://lore.kernel.org/all/20260918010719.1176945-1-jhubbard@nvidia.com/
+
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+Changes in v3:
+- Use dedicated `RpcMessage` type to distinguish parsed RPC message from
+  the transport-level `GspMessage`.
+- Introduce traits for sending and receiving elements on the command
+  queue (thanks Eliot!).
+- Split unsafe blocks, drop unused impls, and other fixes on patch 2.
+  (thanks Eliot!)
+- Squash the two move commits into a single one.
+- Link to v2: https://patch.msgid.link/20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com
+
+Changes in v2:
+- Fix checksum on receive incorrectly using the whole slots allocated
+  to the message instead of its actual length. (Sashiko)
+- Drop patch 1 to avoid having to validate the `elemCount` header
+  member against edge cases. (Sashiko)
+- Fix incorrect layer separation in receive path, where the CPU read
+  pointer was advanced in the message layer.
+- Fix doclinks pointing to old function names. (Sashiko)
+- Link to v1: https://patch.msgid.link/20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com
+
+---
+Alexandre Courbot (9):
+      gpu: nova-core: gsp: cmdq: validate checksum earlier on receive
+      gpu: nova-core: gsp: introduce and use proper RpcMessageHeader type
+      gpu: nova-core: gsp: cmdq: group the RPC-specific part of send_single_command
+      gpu: nova-core: gsp: cmdq: split the transport part of the send path
+      gpu: nova-core: gsp: cmdq: split RPC parsing part of the receive path
+      gpu: nova-core: gsp: cmdq: split the transport part of the receive path
+      gpu: nova-core: gsp: cmdq: move the RPC code into a sub-module
+      gpu: nova-core: gsp: move the RPC commands into a sub-module
+      gpu: nova-core: gsp: add `rpc` to RPC message send/receive methods
+
+ drivers/gpu/nova-core/api.rs                       |   2 +-
+ drivers/gpu/nova-core/gpu.rs                       |   2 +-
+ drivers/gpu/nova-core/gsp.rs                       |   4 +-
+ drivers/gpu/nova-core/gsp/boot.rs                  |  12 +-
+ drivers/gpu/nova-core/gsp/cmdq.rs                  | 351 +++----------------
+ drivers/gpu/nova-core/gsp/cmdq/rpc.rs              | 380 +++++++++++++++++++++
+ .../nova-core/gsp/cmdq/{ => rpc}/continuation.rs   |   0
+ drivers/gpu/nova-core/gsp/commands.rs              | 335 +-----------------
+ drivers/gpu/nova-core/gsp/commands/rpc.rs          | 339 ++++++++++++++++++
+ drivers/gpu/nova-core/gsp/fw.rs                    |  88 +++--
+ drivers/gpu/nova-core/gsp/sequencer.rs             |   6 +-
+ 11 files changed, 834 insertions(+), 685 deletions(-)
+---
+base-commit: 10a6623a24a85708650efad7be15182289403cd7
+change-id: 20260927-cmdq-rpc-ed5f850b207e
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
+
