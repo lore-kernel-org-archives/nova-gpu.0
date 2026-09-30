@@ -1,127 +1,95 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75443472F86
-	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 11:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767384; cv=pass; b=lPDfuJhABb47m6ga4KqntKt26tXGc8NDF3oo4yGWvIGtHc7HMtAfwpQwzMgdYAwI5qvka5J033hlCruhB6/3Lqk0cNEAadf2z1d7Unr2H4P7Xdb61dleigRTus/1cUSclu9ixtN/Twu4DjsRy9YRpWBSC3eVYxJYejaFewfFgSw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767384; c=relaxed/simple;
-	bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T4CLk+pxoyp22ZAoYx5LNZA1gBz/AI3T7OJCm31WCvWwcrfMu+B3y8x3WfYbxpn3Z99OTSUaZp+Kx5BWcI9tLiiKjvPkaLUQA9u3Wey7LvbHpNY9PJkZiLAwkLZGxYloe2NKpthxcwOk4QnvhRrcF1WRNif6XmURzTUm3LKcYOc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XPZuM9gB; arc=pass smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082BF4E73D3;
+	Wed, 30 Sep 2026 12:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790772709; cv=none; b=PogBm1AsQql0L+AQNERTdbRu3HGraLh0QA/UtbSteeZJ9gyhsZcI0KhnnTf4p0zRkKDjld0zbwGBw9Ru8c7nqibdRJBARVETWGxWoJwAMibOBZB4+xgoSJpxba1RmKxCb30hsCoCnMaq3RROOOxV47msAOFSt8bBDUsOf3y8EzM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790772709; c=relaxed/simple;
+	bh=QxHUjEqNNe7RMAaAj3xQobPFYKOPL0m80zff2N+Cjdo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Yj/p95KmGQEbdok21BJpIen6HOSiaMdpoNk1lf0wJxE3PR+3wqNR5wgK6ilLIFa3EH+msWI3GTsJt9wyr7HQS6d4SSIxSTIJYp6SDVpztaX3Hq4dGD3k3SZD+B1Y3jDDBFqlUKsNVUqHV2jbfXaof2rXhrKjjlfeEvxNP+JxuDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GUYR2r+U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XPZuM9gB"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-32be7127c64so593267eec.2
-        for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 04:23:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790767382; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sbd0FEVi1VSoeJEp7ITj23syCbtt17nrfY/jze0yCZo2FApvTcZsuAJs5Jwauc4Tk4
-         PnhZkOMjyJ7NJnkgmCGqZtdI/3E/sBrchiSa5TMPCkR+1g6+Nywzn56GdEaQcpu90JmL
-         BskFjBrIZiMXv62H0FzpjhBurGhoenHvU168bzB+mPjbSJBDbCXOnF0tMSbHUvQLiIbj
-         Bjm8DUHFMEahE+oeIl8shFF3Ib1Ck8AD9iALxjxrDKCqltxGay2RKHCmQ2UJXfUwoiYx
-         SJzG2Yfa8IXZHqws/Jas07K3BHfmL/0DhxEHydgazFfT2HmvegXzbrvw86mZB80QDnn5
-         O19w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
-        fh=F/HDOx9QZRHJHbXpf0j5ou9+aSO123BkAmUdegsHe7k=;
-        b=bCxn1pzZU8xk0SCMtcANZJvK/5ZXbwdDOS13gEfBbN/DgEBxfLNJVXWwkPkD2Hjyg4
-         YJksWz7kLnsybT0+XZu43E7OJtiwu5n/9JxI5wUqCyC+/yt3oELWtY9VSY2oCExslPWw
-         vBk098xrFAt8+M007mQlRdumejyo+Up+oyD6lv4w13VVO4amTEAD+IReWm7mq2xxCsXa
-         47mtk5N/KZty5l1eHrMP1KkTxFv3esUizglqZ9ZOuK/Mol4rUnnGWH/FGKr5hZvgjfHp
-         VhSIcquP8V+ggNFBlv56EpR/TsoFGXJsakFmeh2Wpl2oVpeJt/7db2n74uhGGQyOt3FM
-         H+kA==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767382; x=1791372182; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
-        b=XPZuM9gBMzJRRawc2y7kPoLSSMyssPB8hHJsxJ6tsrRbZ8Cw4gtu+A2N+22LeNweM7
-         E53ov5dbpagfpCurmun8JRPbqzCtK1yTDfSyRaaFixnlQ//IiFup4Nf63OErCFT/FTiq
-         MMJF9ZJHsoemO2370nEOYk2EhBLyx7K2r3zZ4SSns20uU4rw4cFpWLhlpqsmyW4G56Ai
-         U59hPzTj3ebipz4P9mG8t2AsPzCKonaQGOM4jPfXP7i+sTaEWkkZZj2wlk8e6lbbTdjr
-         +JwhhZpfbHb2zqt9KXNiPLGKLRQyIvck7d+ZMVTd7bgoq5M7v9yRYf5iI18CTBs4klHB
-         lEug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767382; x=1791372182;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
-        b=QF0erwH7Ub/5zjxXYIVs3epwj9fng+hptRpBzcgvWk4WF5BH34Of/9lMiuT0+VdVNJ
-         nLPfJcWjYaRJPHkGCAeX0A1KgWOjDfW4LyGBPUvlFrHOPahKFTYwREXNZwwo4AxCnNct
-         ktBKLD57hDlOVIDMzyJLGkQJfxZenXlPAwvnfRcD7rKcxGArb2e7kUEIxo2sfkF/g/vO
-         4MiKUTBAyQE9fioYdCLLMnMaVWiRsUOVpcbsN4cSEmjXVp/ccmK4Cos+8TG+IKZj1qcG
-         C0fyiEHUZGoGvhFTrilMuSjyYLt7Wa5pLNN635PPojh6p22emYzPLGgxGJ9oOVZQU5qX
-         GPlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzhf0ST6TRw+wXzxL/39Ea6ZSf22EYSK1QDH0x1LIpRTMWWEc0wKV12ape3UON+IyyWsdbAjlxltQ==@lists.linux.dev
-X-Gm-Message-State: AFq9FYK6N0dXKHUby5N3Aqk+ZE6Dri+tj+17OXnMQEKF3YnzAeBu5F13
-	u2b3UKcmX1+KC7egknf7Asc65R+ks58ODF7l3zDmushPMdaCEJ+IVjkG5E2Nt2uU8jiL6fsvWG1
-	OGOdv5/ohyp7zR7JEoZVHBi6VCV3v4Z8=
-X-Gm-Gg: AYBFou1CBPgNVIQ7pS+1Y7bvOSOifwKl7h1mKHiUxjzLpT1gciLI82ZbLaRxuB8aKS4
-	mlU8alnexJWyN8dVDBAFQ7NWo+W5psg4sMJQ8xsfA9tq7mAvVCpz8t992a/HjGAMcICsjJsrzmK
-	TUK6dO8bNL89KAIgI5BaD/7FYA97XlEljlMKGiDVIQWxokIE9BTfVf22pYF3xuTgOrIkcR0kLcd
-	VWPLJHo/4N2LM7WzwsN25CqYTVSSZKIEFgpAHehojrAVTQkWh+SEvPjfwFrlNM+GHrUCARa08hy
-	gFh6RzmjMnc2R85EDWRCQjQH0RXReCHyY5E6CLLgvkI0VlFF4TS2jnycR4/5tOiuBHBLgkiJ9xa
-	E5gkk2ReTOVEvH7I26Rfh0oZfxOR47LzFI1wfKsk16HvypizZgCACFam3MU5MzUjat0rB/nukpy
-	e+mCv0ZbJ32Jx92jM1ffYVaYQRt2JD6aXAcEL+pvegPj+eg5+PRAo=
-X-Received: by 2002:a05:693c:8085:b0:34c:f181:85e4 with SMTP id
- 5a478bee46e88-34cf1818b1fmr2066899eec.1.1790767382465; Wed, 30 Sep 2026
- 04:23:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GUYR2r+U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27CDA1F000FF;
+	Wed, 30 Sep 2026 12:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790772699;
+	bh=CQpG+P530RxPFSP0FViSAaWSuxATCRl8mcOZOSkm/fw=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=GUYR2r+U8txbkma9EciXQENw03fi2xzl5rz7ma7NoVdpwWTDC9gTvBiNW+hCtafZY
+	 ow8UG9Gs7LSXm5iJvcJF4N7Q4Tw+xZDiiXunzghkvK668aRb5fPruWgPRw1Ql0wR8x
+	 XkFLMLaZ1GJbhMk3gdiGY3JX7Vl9bFTeJiMXq29a+X5XU8X5DTBpSDrMglBDWKwiCn
+	 P1n3r7Htbod1GvWKBgR+sLY7crZ9dIfroMAwDEAL4vBWqMwIr8zG5FqiSuxv9Olqq9
+	 DV49D6F89PY5VfIDmmgC8OuJxUzE4+bTnx0K41dtNC8fa7UzZY70G5gRDQpikAoCW8
+	 szXDFJ5eOLrZQ==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com> <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
- <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com> <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
-In-Reply-To: <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 13:22:49 +0200
-X-Gm-Features: AclHuK_tZvjMuy0Rny6WfvK_GwQlWAvr20_A4Fja8oGIX-etyz8meHHBtoM6IgM
-Message-ID: <CANiq72n5jjW8U9VkYJZYFpL9Z5rPe=nRfs3DqmUdfxCW39oMgQ@mail.gmail.com>
-Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
-	Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 30 Sep 2026 14:51:34 +0200
+Message-Id: <DLSNXUU1UXIH.JG4L0L5ZFV89@kernel.org>
+Subject: Re: [PATCH v5 07/15] gpu: nova-core: wait for GFW boot in probe,
+ not in the Gpu constructor
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex
+ Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+To: "John Hubbard" <jhubbard@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260930034148.590687-1-jhubbard@nvidia.com>
+ <20260930034148.590687-8-jhubbard@nvidia.com>
+In-Reply-To: <20260930034148.590687-8-jhubbard@nvidia.com>
 
-On Wed, Sep 30, 2026 at 1:04=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
->
-> I am considering picking the series through DRM, but it also has a
-> dependency on the `cv!` macro [1].
->
-> Is this ok if we take the patch introducing `cv!` through DRM as well?
->
-> [1] https://lore.kernel.org/all/20260917-cv-v4-1-547ef5727451@nvidia.com/
+On Wed Sep 30, 2026 at 5:41 AM CEST, John Hubbard wrote:
+> @@ -113,6 +117,14 @@ fn probe<'bound>(
+>                  pdev.iomap_region(bar1_idx, c"nova-core/bar1")?
+>              },
+> =20
+> +            _: {
+> +                let spec =3D Spec::new(pdev.as_ref(), bar)?;
+> +
+> +                // We must wait for GFW_BOOT completion before doing any=
+ significant setup on
+> +                // the GPU.
+> +                gpu::wait_gfw_boot_completion(pdev.as_ref(), bar, spec.c=
+hipset)?;
+> +            },
 
-I asked Gary yesterday if there was any more recent discussion on the
-tag thing from v3. Does anyone want to do some cleanups this cycle
-through rust-next with `cv!`?
+So, apparently this is done in order to be able to add this
 
-Cheers,
-Miguel
+	#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+	crate::irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
+
+in a subsequent patch.
+
+I prefer to make wait_gfw_boot_completion() an associated function of Gpu, =
+keep
+it called from Gpu::new() and guard the whole block with
+#[cfg(CONFIG_NOVA_CORE_SELFTESTS)], such that eventually it becomes:
+
+	#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+	_: {
+	    let spec =3D Spec::new(pdev.as_ref(), bar)?;
+=09
+	    Gpu::wait_gfw_boot_completion(pdev.as_ref(), bar, spec.chipset)?;
+
+	    irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
+	},
+
+With this Gpu::new() remains self-contained and we don't build up corss
+initialization dependencies.
