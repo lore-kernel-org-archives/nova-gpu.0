@@ -1,96 +1,96 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805E4466B1B
-	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 09:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F6045041A
+	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 09:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790759541; cv=pass; b=V8Tl8tOWPUGsuJOdw14slOxRPWyzFNsBwtpy59UWyuhDIBcUYG9MqgIOQPIsfDzIS9OUIv0/Zl9Rc8CiiZCQLhjIMZVnOaEDsaR7N7act+5gunb2wtVrLRO+A5YuocTj6EfNWm7jP7wnxlfMlI5hddGRHTKcNkV8Er/MpwBoOt4=
+	t=1790759557; cv=pass; b=GYwFYOXnpz4bNnPKAngeHRe0qN2OJwrkef7EiAWwXTmv8jxjU3AytTJzsE43rVtKfRap8VrEkb7qSaRGpkzGj7OiSZggpvSkhQL6oXoYPcTi0kzltj1HHep3mdP+KsKTQi+PiWpgGvCoDrdhK1k9GWC7B7syCCD5dZOJN2hccoE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790759541; c=relaxed/simple;
-	bh=7p8DMwyq2mZD7oBNmsoZbD5KB/43vQVkjyvaz1CCGNM=;
+	s=arc-20240116; t=1790759557; c=relaxed/simple;
+	bh=3sCYKDjhxCoL+MufuJuPd+TE5a5HbHhTgY09VgieO1Q=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bCvYQ4LQomQBM8Y37jqD80Oip1yT07qpjbWjqdHMTE13IlqmgV0esikcBo4MoeTtVlCtRqQyy6A8lMx+hnY3oFRcAJjt9mNJtzm9pcxw/5O1zvfOUL63VJxMqAKCdMuqEhcDjl6pGaIJJtW0YzDo9A1pJ0x0zLC2rrFJOSK9gfk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O0p/gCbi; arc=pass smtp.client-ip=74.125.229.140
+	 To:Cc:Content-Type; b=s+8Su1DET8G6JvS+YqHPYG84+eAMnmCo7bVL5zk844O93nS5YE+aLPs5WYdYc+kV0sns71WLTo6Ms4Ojs3KM01Hk4HNiY3usbzVoxLnvgIffHOJhGpLajY1VsrwkO+dvrXbTSWIuMRtfdCkUEpevQwdMUVzwVoCaAtDLVWTzDeg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PY0JRve/; arc=pass smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O0p/gCbi"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-1431a73fa1eso333541c88.0
-        for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 02:12:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790759538; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PY0JRve/"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e79c06622so548903eec.3
+        for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 02:12:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790759554; cv=none;
         d=google.com; s=arc-20260327;
-        b=E0L+eHqmMgNbo9kDxTKtBsz69c6dWPZLEueDGyfpPqXDMgwa7csYqGjmVmEJ2r2Kw/
-         w486E5nJUwqFsi29na3y8KMBv0SLZoSrANlyoRSoCIiqmq69jMbSTzGP19MmBrHSp9B0
-         c4rUj7v2loyFOAdIhimZDS0sJwPIjLplR6/r4FNIx58QTG3qvVM1kHOrKERgRHwzsJj4
-         PHxmWHoHN/SQFXJ5VdA34X6jsN29IleNeSv+fUDyODLEjH+eJFso0zsVWoYUotosRkXz
-         beTJA6enXhSo1BQzJ23f5x9TaP8UKAoAad+HcjGa55mByDbI3ZXYc4UNmjY8qislTWhM
-         Wi2Q==
+        b=I2/yQb6WqcXURM65HqSgOhVkYHr9+qtPWdXLVD1WW23H8xehNRTnVWWcrdrYSdia7N
+         hH7vKhm2yU6NC0GaFfVNj/EQWzJFWSmkgLxtdDcoL5tEyyiQMqcbqqNb4eJa0PF8Z0Pc
+         NcWK3hq6oBXdVksLStx/+1s+ky79iCDTLxCY/pwJccmh8gTrivCj2pTEFxEFo0vkds73
+         8m/hjSQhBAOsrmtwUsQItQPPeWfTMFMU+9Sa5Pc5ctk0RGHmZu2nHtgCSUpEuhLaYmT7
+         hqBNtgzTAwVXtQqMi/uu5TJH68T5wKfHabshHoCIkS6NsQXxZmst+CJNcb96fwmnH2HO
+         3QWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
-        fh=rpvs8mdu5LUi2Rx1egneLbB7EFxic12Fo+6rHmSzDiA=;
-        b=cOwQigc0vdX8be7jNTnwBmCJGnvzI2/XVUnwB6SzgBKuMQMtK7XN+noAEgXEuF/q+V
-         l9F2YC/WHW3mOVrLAl8v8eDAND8INGMPjV9QT2jKEjrb5oxrlyDPu+SA4gkgTKP5Yc2y
-         CJ8hh8hnpDfBm2gXkWlzoZhR+QQChV3JXW2cDLt1WDCzSh7R3dNy4ALCHCiP+jsk6RPJ
-         viRN3We9JMQ5fulEIfqnywhhmAe0RifB1K9TQOFLJzqkgVrs8yAnBkhZlQcIcVDpYbuy
-         7fsL9CoFjJJ3nLkNr9M361LsjiUpb4YtAG8QW+nkKb0uM8KTv8/2kYsMi2WxhoNz0Mct
-         A4VA==;
+        bh=3sCYKDjhxCoL+MufuJuPd+TE5a5HbHhTgY09VgieO1Q=;
+        fh=hIilx2pB1VbXJn5CNn3Bc+B5oPrnI6xq0brMGpz4/gs=;
+        b=av39YdtN/l51NbbS/ItTd+XZ4nokfv6ODUHC0ga4bnWSJ3JS4JI86v2zOAdYdgoEAr
+         lm6SlEozqEYkhnNXqHM02AUx55bnz1jzf2xpbrm2G+VS36coOhf+t18B8bb8YE5qqFEh
+         un73vzcX+23ax+Yw2sK6Ijao9R3c+0viHWZwGu6htxHfIyu/T9qB7hBFiSbp4UDWuKBx
+         cjzUE1WDa2ojpi52wGiJ72Lj9cSrG3dP20nBNL6bRDHjMbyvByx97lmNxF4Vv38lr39m
+         nMSkYmXY5Wuk+yigH5s/LmXd9xo7x9XcE+OL4pwzPqGF6JbKpO1+Kpsu6j9hwzVb/3WL
+         sf6g==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790759538; x=1791364338; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1790759554; x=1791364354; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
-        b=O0p/gCbiW7Hf2MD8p5HUOYFBr0feTTZZ7GLYxm7tYStp5LKoC74tU/ORLX6o40Eqme
-         aTtGwjYlMis+XumFpbSBfU0fI793HLQFpLSZwIDsbKXCyO/AJn5tAl3HmAE2BPFKt901
-         +5C+foz5AfaGY/+7r/xAqd70Q+7Jb30j1uMPI7kb0YxUGHnRXxvVCAMaCAjZlCFCTZ1a
-         QQ1sRqNW/sKgwr23CFbpXPBv4UfIosuIbuzY6N7JLZ7BWsnc4CFZSdU1zK4EeF2J1DCv
-         7FlpftLEsWYGhhH2+RlSsXeAWZ/7MO14qxkwimXfX6E/j/4t6Ki6d2YiPPBNkspAKsYk
-         plqg==
+        bh=3sCYKDjhxCoL+MufuJuPd+TE5a5HbHhTgY09VgieO1Q=;
+        b=PY0JRve/vMGGRFsG1FLoU0//Ut+u00cIxm0xQVw9FcAZDT3C/cqHASX0fxwq5CmLFW
+         03b+FIlDqlm6LToZj4H7i7SwuKHpYajPELSvyKG+5YOot/9EHpHaLcqw/dm2qtnmFROr
+         RUVfbB1SD/3AoZIpRrN3Eg+jVYVwCaNZsX+i0+cUoMoqwYgrLgZ+qN1yJjlpE6QgyXIo
+         LP/MCly6NnWXh5SsLvsZQlUIVpPVO33c3Vjj5KaOfvp+0uMR09d0tQcQUGdX2vOLfzeo
+         ze+cUAvsJCk4fGgHH0GXSkZh6iNMqjgGrrjLWGXgplnslj4bdE+AhnKh6ogK3mYSgUWk
+         bg2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790759538; x=1791364338;
+        d=1e100.net; s=20260707; t=1790759554; x=1791364354;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
-        b=v3pzJODtO4a5yH6uYV5dS6MIgMkdb9aKpMD6D16nehOrC1mlCnutmGuOd/ME4dXvAe
-         3/QEzw+83+yJEibCJrMqVAsZCvy6Lg8LLDjzb8vDbZe+9Lte8zk3Y+6eqnf6WdRCIOXW
-         nUA0i5Y5ultQ3BBN/4D/ygG7Mll8i8fucwP+iQWnOFu9xbgWdtHKy9ZOjWGrkks3AcH7
-         lVrgdxqElVt1pfuGMBf77k0gYssZOLx+HZQKezj+CRziwE5fFbfOmNFyt4q1/oCEhemK
-         l316g0uObbi9CETx+zWS+uScuPTJay4JnqIEqBUmx53g4vmD5tGtLF6WVNZqvySV8Z1f
-         aU+g==
-X-Forwarded-Encrypted: i=1; AKwUvByLvNKVPO1OvnVsKl6mXAFGYwYeBZ4YnQvsdi2yc07ltakD2xM4omxyR750LjpVxyD7lANTnxKUug==@lists.linux.dev
-X-Gm-Message-State: AFq9FYIa357l/t40iO5GhcnVcPojLnvzLwPByB5GnavPUz7UiId2C/Og
-	X1slJgphbeKzm/7TMf+87y29dNcgxQd/HWXg1PMq47PJ1ZOlZ5dWheitYTXxDblSgS07uD4sBpz
-	HVMO1gdCJ5zCCKPzaVzWvZkJLhlJSSPo=
-X-Gm-Gg: AYBFou3osMrBAXdfZSeCmhinjwz3NjGw/ztGnRdX8L9odm0rV7rm8kT0NSPHa1AFCNd
-	33Qi872POrlXWmZPRk5kQ9aRhBb3m71IxseL09XJBQAl74wbZqp3GbVmq1ST9Pw3bfoQvy1G90s
-	5MK4i/GD8qvBq/SoP9okLiuEbFh7PuCwY2PBKt7uJqkUklJ59Nw8RLpyBlTLDYrZxOabndth11i
-	srkmWT/k2pEsjBSlDxEbD6KCFiubFlkQVMiMvdDn3XV9ZZliGudeqWUSHNYA2WJyOjPcFDKdpEd
-	2xbdbag6+YEnAZTGGVl3AHAKnVKO4GsEkAFUlUt8W+UCHCXe1Zk0+dCCGQz8NjxhBQiBbb6yCqQ
-	qK6H2qU5UhRTcEf+6S4DaEZdsQBABJyl5CQ3lEXsRf1Zsif7YduThZoz1k8T2DQoz8l4fA67V64
-	h9sX1mVfrdCn+eUZuwE6YMa5GwJwKBeW3g4DCwaZ4V2YACAKQ+a3k=
-X-Received: by 2002:a05:7301:6192:10b0:34b:101f:cdaf with SMTP id
- 5a478bee46e88-34cde6749bbmr2001616eec.1.1790759538076; Wed, 30 Sep 2026
- 02:12:18 -0700 (PDT)
+        bh=3sCYKDjhxCoL+MufuJuPd+TE5a5HbHhTgY09VgieO1Q=;
+        b=F+WQxNQkbSLdFn1+PkZtpmX2nSkuzjcGucITGHgEE3CXDRSxvEmwrW6NxuoP/yvVh/
+         ENLBnY3OrqmrQ/WBjHfaBsdk6Lnes6Crq+QLPwg0qtTqaFtL3oV4hHrGfCO7KVfKUDRd
+         I6gEemFpuBg92/5Y4z8ZpMtkfqR/Fn3+bij1eoPRFWaj/BJnqf5x2nSept6D8B1VPYuT
+         6Nevg8Y9lnMXmCK6lQSW6FoUxRHd16Bd0wOGS30frV2NIcqT2nBhOl2j46nv2EpNjzdf
+         7K6eBxo2TP9bobwylDzSIhNQFB/lceidfdzLe05yafN4j5YGbnnNO3P817yN+8l7V22+
+         qPwQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXERRVtVQ0UsHz7DEMtzpmvEbeFxZKs5IBcz/cslRxNcU5/lGq1ap1cXIL8hgVUnODSKEbYCVmLg==@lists.linux.dev
+X-Gm-Message-State: AFq9FYIPye+7pwIaHQ6oA4iIRtEhXlzmxroEuUSOQQzQjkHFyc8w6BXj
+	ftbyWCEvjH8Mtw15Q8wOdBsL2LCgTyJIKrzgBA+rCl7TCE2HAvTensFYN2l3enN8bm9r5A6cBJq
+	aKX4T/cgu8VSkr3rZOnfJiruaOWOIaIQ=
+X-Gm-Gg: AYBFou0cutkaqVIuBVIvcFXUN6XDnKdPJ5beqvvC1vfuHBOh41psxlw7CTmnq9HicCC
+	Aix33BeIkG0tqv1J8gB9c8dl3D1ml+DtPpZh4Ou08URs+Bc9sdNyGc36WqITwU8YsB1qLKyJDNW
+	gjMTaR6RnmkfXsXU621NmPmyyaGwGP/zqXDY+ulCPHRgwJIhO8/0KVTUOaY57c56Nab0Yjm8NTT
+	fyjuyZDvAgaLQ3CSkDog6fOT3t6CKrXHivjDccwX2SNAjwwom/WreY2XK2cf+3z6DFRIpJtVvVb
+	N8uZU7LukGWcUaZxp3N2z6XuX/ydOOYxUolVEBLCN26nIEVVTRxXx9Yk+j2vabdtkyJc+mFBDbW
+	s2YXwxRF8qyjBjdSsxxE93vPc6hipluK8pLX4rhqr/shY1SLyn7UUMfqbSXvxCKvcLJcZ49fsgA
+	GuZDfx2fu7m5LmJDuOWrm8tm+cI9BiAoI3tII42afLRN/eQyR2ncVQ28gT4KyCnQ==
+X-Received: by 2002:a05:7301:1503:b0:340:f698:fd56 with SMTP id
+ 5a478bee46e88-34cdbecb18fmr1744208eec.2.1790759554357; Wed, 30 Sep 2026
+ 02:12:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com> <20260930-chid-v9-4-0d6cca376cff@nvidia.com>
-In-Reply-To: <20260930-chid-v9-4-0d6cca376cff@nvidia.com>
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com> <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
+In-Reply-To: <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 11:12:05 +0200
-X-Gm-Features: AclHuK9QlKMhXKITkkBnbYFPptADooLzR8_3Lk9f3AVt-2WcqKF5YbgcQH-UReU
-Message-ID: <CANiq72nuhGkeDFwyWG91xJTAV_uio5PM_PoYvXLCWF7ebKBLeQ@mail.gmail.com>
-Subject: Re: [PATCH v9 4/9] rust: sizes: implement SizeConstants for Alignment
+Date: Wed, 30 Sep 2026 11:12:21 +0200
+X-Gm-Features: AclHuK-0KwyFg0Dwivk-_8qXi4qsCxM4xdJVFSz7hSpIH-HUHIS-SB0FCeiFTpk
+Message-ID: <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com>
+Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
 To: Eliot Courtney <ecourtney@nvidia.com>
 Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
 	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -110,19 +110,12 @@ Content-Transfer-Encoding: quoted-printable
 On Wed, Sep 30, 2026 at 4:44=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
 m> wrote:
 >
-> Currently, constructing an alignment is quite verbose [1]:
+> Add some more size constants, mirroring include/linux/sizes.h. This is
+> useful for making `Alignment` implement `SizeConstants` in a following
+> patch, because these are more common alignment values.
 >
->     Alignment::new::<8>()
->
-> It's unfortunate because it disincentivizes using it at interface
-> boundaries. Implement `SizeConstants` for `Alignment` so we can write
-> e.g. `Alignment::SZ_8` instead.
-
-I don't find the former disincentivizing -- it is how I would expect
-to have to write such a call in general. We do have the other size
-constants already, and `SZ_` is well-known, so the short form is fine
-too here, but I just wanted to mention that I don't think we should be
-scared of seeing colons and angle brackets. :)
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
 If this ends up going through bitmap or DRM or similar this cycle:
 
