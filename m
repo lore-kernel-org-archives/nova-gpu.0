@@ -1,46 +1,46 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013031.outbound.protection.outlook.com [40.93.201.31])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4035390CA3
-	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 03:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99E638E8A1
+	for <nova-gpu@lists.linux.dev>; Wed, 30 Sep 2026 03:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790739801; cv=fail; b=utdUE4pOWWsQQg1XWf1ZtHK0cTFI+ip3j38tJI2bbtuqh5vHq2i3vRrq8QHjdKjAX2uyV9ia+qoDMJtOnfJF0L9oWE76LztoDKD64wksB4JNPdYBrcMKLj1fAwrfnuCawKjVWwuL0q5bjpWlc/CVsilygAgIT2aoz83rwrEoRBk=
+	t=1790739802; cv=fail; b=Hc6QEmLRM1TkzBX5Bb2PRqJQwOuxuehhAf7g9pUkP4/NkXxq0FC0sXXYc2IBJG9nb0pYWm5TzaXSjqzbqB4vm8Kpn0MD+um1OhOPu45eTWNpHVAGK3Qg32OxcuHFFcceItXGOGPj4M6Mk8+roz/idWeUH1UdkedTIHESxUgyWVc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790739801; c=relaxed/simple;
-	bh=s/0ir5YCC5445AekmDKR7H/2GdsTRWKEzn7cck/3l3Y=;
+	s=arc-20240116; t=1790739802; c=relaxed/simple;
+	bh=lUWQlpQLBXs2jwVGwknbQrTcE6ZOmjbru92R4mOEl1k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gvZdd6+xAuideEcuAZ0LDkFkZaG2JUcmn2Yxv5bNqpjc32rR6/yZaSsFjCI2A0xUg0XJnDkMjH9xDFZxk5RPv/QfaAKspjNiSpX5eKDMliyuwR2Krmo5tw2O7DBbMOYm4dWsR3W/wV2XDTAYBcpjls72uvX5VZWuRI8d8sNW6vc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Wnw/3SBn; arc=fail smtp.client-ip=40.93.201.31
+	 Content-Type:MIME-Version; b=uamnfY0lj/UOfQAs9duL6UqtTJ+Rfw+ce9Vp9ZFJmEgnaR2V27YEwtABW9fHolFQTxIiR4cPCapoLzGgwt8zPXHfUbzCd/rNUwDL2Bk4+2yodu3klQFN/+310cl2rneoKcJaULbL6pW0FxG7r2OoNG1hHtJsrD97F7dTsP2ELdc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RN0ypfO3; arc=fail smtp.client-ip=52.101.56.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Wnw/3SBn"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RN0ypfO3"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HVzOi1BKm2CQeMoYrT6fJy5964ozljOtCPbCPibawuv8hlhvUMq1CqlW2hRbdWhZoqyX37XyMlBCemA6E3wqyo9wiv9CeOSD4HlNEpgSM0aV/RTaZqxmOcp74zTp6oaxGFR/9JTKNLjFNeuqZGYdoO7ILFuPIcr5hKCJ48L/XtX+8qyBkgeGGaf1vW7rADTqh/zbKGUY2Ne2k4ArZCYinfdWOFSlK2RBaWNBdVCYbCgzdIfemUI92iA7rbzpkGNWl+mvYGgG+6IPH5C87B30+I6biSDF3DCa93+62Jle+M3SQYNVyPGNCgRIf4J2qwM3XGckAj7xtN3ZSssYnBRvQA==
+ b=MJDA1JFtKhM8wLziHc4irLhcw5EeUYzjNQ9ixZ2/5FQvZextOeseUcK6scKSa0Y42010bwCDs2Hb43256NE4+HezzW2xgBC7cmEE5Bi/LjYs8Nqei7vRfEDqg6cciHsusGULUWNvovcDg7sGigrFM6gXfE4w5JgfrEAonPG7YVxYPs6TT81lVx1tnes+IAXrdXMjbfK57Tax7mXIqD7DAb5FLRctR/l4cjqtktRlxWEw0irH5OeqQIZb3AZ6UA9lcy9bLOq8csDaFMIfCty5yf25tpGLZWxsTVDJUvNh/8RBSfaa7U5g7gNUOkSG/SixieEcRbKyaNjJsAfwLLTRow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bdm8xPtbHBIfDQSbbb3uBhqdGZ8cYBEgozG1rALy5no=;
- b=Cy4ofpdY6qyc2jWJ4bVDbahPeBVuWC/qYYALOaz6pEPqkVNUZG9SU5wm2qkzs77oN/qYTfVEE/o0ffRC22iFwz4rzOX2c3FhNTaBfM35wgBhNw/YKmKVOX+ivfkYXDyIzqdXE4g+uPy2+NfPOADmMf6P928Pj5gsmmw5LjyuWdJw9xUg+/A7Scd+ssuc5diIrPTCWwqVX00KN2RqSN+9+jKLm1vv9DCgDZi6N7Tch/JysmKLWGXSWVG7NiwuX7QIvLGsR7O/G1VgbwKN9Kmx4SmRQJRVlhEnRuNPg0RU8NJPXVMBBF8Kf5KUdB/ozL0gXbjOHhaNjz9npNTSs2yHcA==
+ bh=HiOXOmILdLvTDf+atlsHOwQ3KyN1aiqmu44Bwj7gnJA=;
+ b=quvLLRyne1/bFhhbkvsiUNXnv8+rjjNY05QLIIWpb5d9vcougQ5kUdeknKUg1XAr86y+K6oM0Tt7Ay7av71vPCVUDxdf7SN9dCRsDWj/rHvNTlRrmkn4al0Tk09Ol1y6gUWhijJrQRoYlDZBeYKhku1risqeCTWudCQC4WU1IArppMVj0EfWSfOrXcfLKO3VDs0cq5qg+iBQFWoVjjChx5YSQXCPc2vVI5/oGj3ys9ZYkbD51EHYF3O/GclhYdlI6o2T0XFdXDokitSFr7lNzG5p9c1YDJzqqqXAaxzwCGe0/CIGbb0tsPJYS7JJkCC/6XtVWrYqndvnf4sM2wjiew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bdm8xPtbHBIfDQSbbb3uBhqdGZ8cYBEgozG1rALy5no=;
- b=Wnw/3SBny1CXr3YvQATc1fbQpg7keWbIotlD1H+kdhFDHu02a+khWw6PGZeFL1LXM2cypOJIEHC8Pc8KBZCv/zNqFH0x6SGQiZoJ5Nbw0GJXgBnnu9q5buteQtd/Y3VuwkW9AUCeTLao2LvbdOezTSU9HGBw4O8c3UpEDqzaOyFQkvCgvOmmhU28rBhKZITx1TMu5QQh6FN3aiYm3+Em+2RdZig2CSE4NORlA+kT+P+sORHrMbGEQd6NwezZ9uA4v9J82NjH8HnwP9cntKZcXy8r/SrbdS5VW2A/imso++L3Ct2oA555TWW3L+pgB01fM+pEMlQmmsQIPaw4p1j2tA==
+ bh=HiOXOmILdLvTDf+atlsHOwQ3KyN1aiqmu44Bwj7gnJA=;
+ b=RN0ypfO3AvNnQOyHa1a5g2PRmVW1HFLAIiBriIyWLMO+8+exdmkzaHWVnYkSgQDg2wlSXbIhzhMzXnxvw09hxnS1E3IJqbJ+arFKHVkhR1unD3EXAQ1TwbqChyDahT1nwjrCvGR2MgxHocPQEJRtQeJ1IiEKns3Kqp7S8Lipfii5x4Hhl5m8iAPzr0x8l0FV4lrKpQC7UIV8sgmT2WtxH3pPpVFzZqgI9QDQ+1Yw6OmKZ/K8NpLL+HPZc+TTI+oAH0c9ARQ8mO4Z5erWfl6imevWHJS9Fa2KAWYPPQJA7cfhL6QCH0Om8xjw8Sl6mHUo5Gc7uaXKDdXJ70/F4+FNXA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.26; Wed, 30 Sep 2026 03:42:25 +0000
+ 15.21.451.26; Wed, 30 Sep 2026 03:42:24 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
- 03:42:25 +0000
+ 03:42:24 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,17 +63,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v5 12/15] gpu: nova-core: add the falcon interrupt registers and HAL methods
-Date: Tue, 29 Sep 2026 20:41:45 -0700
-Message-ID: <20260930034148.590687-13-jhubbard@nvidia.com>
+Subject: [PATCH v5 11/15] gpu: nova-core: bound a GSP wait by a single deadline
+Date: Tue, 29 Sep 2026 20:41:44 -0700
+Message-ID: <20260930034148.590687-12-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260930034148.590687-1-jhubbard@nvidia.com>
 References: <20260930034148.590687-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PH8P220CA0006.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:345::7) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: PH0PR07CA0031.namprd07.prod.outlook.com
+ (2603:10b6:510:e::6) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -83,344 +83,243 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MN0PR12MB6248:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf752726-538c-42d6-b2c0-08df1ea4d7b4
+X-MS-Office365-Filtering-Correlation-Id: e597c530-8c5a-4e41-2706-08df1ea4d6e0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|5023799004|11063799006|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|11063799006|6133799003|3023799007|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	5/ijn0QO0ebk4kImspB09dYbB+OvBBOTFp1CO85RaguNlB7u1lX6uVeqYMKvhx1BtMJ5sNUQiIsQb3wXeST9RytY9Zrf5+QMzjd/yo6aMxBw7KM43ydLw4NdVcMJwPA7QIH/H7WhlK7M/Q5jIC2LVksa50SwXnaCtJeZBIKq9n4r5pvgHwDwgKhB4lqrbIgTKk5GwAXNPQ+s05IjaMNRFjfcvhtt0GZb+dvCQwGvzjA2Mi+q8qoEfZzD14MnZGwpKuNskoxWx/ec6AzGI9HysY/HlTI93/3G5zV/SomOY69TAiCPXArAEwqwKqJbSWJvBTYDbcVzB0p8yHFq6KEoNXukz1GOWCdUQTjfuJJDjkm9nLCcpwqgwHosMlfWTZUc73BUkzf407Ze1U+woJGpoyvfxav2ra6UnPL+hYbI8TxRYXRacv7TWWmIcvpAGzmkJicTO2SPcM2Q8trYKjWY0TM0AWdz35bv7tVJQW5qHwJONbLGJMrfLew5wGHvk5TUEtu8Y0U18ZGh6iG5466+hDVVfRycFs8pX3eHI8344sTqXF5Dh/PZ4b/GeFRXVVxlM76NBu9oMbji1M8VEQ6w9lnrYosjiENC8Fo5oPbiQVL41MLLRqownzeRpUFKZvAky1cHXv2yfFHqkr4eLh5UsA==
+	lZIWViKbnqmJcDszob8IvFd5bk8NIR3KIRJprki5ck4suKgwEEv9HdvnepiJHE4Me29Y1avnuFScpu7YVafeKV/XeW7XglAaAv2ZWzW9D4Qk64306r4krwFYYULyIdIOO3epgj5GA2BL/vupVhg4KLZGnBLM7NnmY+H4nOua3YVYRaAK/9jwV3kTnDV91fH0AAqte39VckvgLUx5HExRre598sleIUzKkqC+bDLBsWJGycLxPv0iPyu4VqGu+dLSwpjn73pJ5jeMr1aoUdW6QpSBukLup5qNq0AZ1Bf0xK6WSqj1KsTQbW56GsjkOo5pK+qm9NdRSzayPM5gFVHpdT2PiS8CQuy3D+Vo9VH+DLNi/8spdbb7UPytQQubwCttxUmiLgO5BrOe4fb/mS2vzUXv5SI4lYMqpRiT+OrCXNy7W4jSWZMfVtgSbC75kfNjb3JsFyzDvOTrXXpVPyFF8nV6DzFG20rwI9r2Wv7C8lTkXIr05/nhY3MXzmHD6w7tsu4N4Js3HllAbdQpqifG26cc4Kr0Rm7LvEZUlshQbOMh3FfOfgfy96mD0Re3Zb8XYVIxmjFnFFIwakvoqZXObJpImw9DWxP/sRCsU6Y1Fj5tcbuYAgIadsMfitAvQPzLlWoThPiASBdYQkf4FganjltVzLBY3QjBs6Wixb+XLwY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1CRQtP5qG9httochWdn+KypqKFSC18XrOMIJtTHptfgpaAYxgS3uiaQ/D/de?=
- =?us-ascii?Q?lDAg6zSDKxjlyyn52ok2h1Gg1X4ZOY1bVMXOe77N2vIlzrRsbo58ESb29vbP?=
- =?us-ascii?Q?goTfq+RKhpp9SXpdjJaSnfwkgPm6c6Xo74spGLsn8JK6JqaAaTGAKqpw+Lih?=
- =?us-ascii?Q?MUJR2TP1cjxDtVxl24R6eulYeAHYrcPz9mimo1JMCCXTAT/oJUqKPCD0M2Ux?=
- =?us-ascii?Q?k6e6x8MahiIzjGxF8p4CjfYNf/WhaaLwRmBwWnl+RNxviR510hR6VN4jEpBj?=
- =?us-ascii?Q?i+RvTWhWvW2Dkt/QUOobuQQlxXonfCNYyvT/TVs3BZUMPwoij8x28lagr/eE?=
- =?us-ascii?Q?h1qQCeqSI6ea8m0TFks/piJS0l2W8xMNjDEvsl7dDASbrB9ai+gBqC3oi0KP?=
- =?us-ascii?Q?CLQSIpdes8l6gK9IsMufLQxQMU9NDMXDWRI4l/U+Fzq4NLoRseXMH9vfpYPA?=
- =?us-ascii?Q?8yTJH+oWu2WgM/pxtdz7m7wJ5ilc0zSaElxaEFHJ3gqHPnhwZ5J+rEe5hgfC?=
- =?us-ascii?Q?u55WeBIiG12BkblbVtwtndzcz2XdMsjmTQUrvtVcyjKvsgynoYp261UwE3dw?=
- =?us-ascii?Q?4a5oInqOTwBko9np5UUV+dHQthrNDY3ebDqFx0aAa1Ki/LgWBzzayC7ZHkOC?=
- =?us-ascii?Q?bJ2D1FiLjfpksdy3iA3VkFxXD+Jkh87ipCB0prgh3yQ/wQUBgfEgDcHJx03k?=
- =?us-ascii?Q?GbOCN/x+RGOBA0piHw19V3JRHVBZXWn4hM5WoW2rSGwTGQPi1vXAgWK/J1im?=
- =?us-ascii?Q?zxf79ckq3glyugcGQ/bjRYWfDn0HbBrLK/wUpP9gMP6RqdqhdQEy19p0QE+I?=
- =?us-ascii?Q?lN//x9WE8PQYDdTonQ9586WC4e0TGf42Y4ce6P0u988U/jXyM2Uc9zwNE0mG?=
- =?us-ascii?Q?+3Pt+EQGycikexPr0cjQH6vCA39SEc4AAMrIuUBxz4y0WbLBsVTPJftPvr13?=
- =?us-ascii?Q?grGgen7mtWPnLnBkFizLQqI+vdKbOROERMSW9ijPjgxjo3otb8cPOwijkcVe?=
- =?us-ascii?Q?dbPmkV6xee68Hy12zJOim06zSKizIw8kfYR9hu1/zi3EvZHjnrg8OBVL6SEB?=
- =?us-ascii?Q?Mj32LNjXhaJf7E0a1gdDX5J4rABP5QNpgyRcYK9r9YIwoLsNS37MOq4zid8R?=
- =?us-ascii?Q?0mVHsjLu7FH98R59jmjjKjsl/sfHIfDH0xCUWXjE9QWl49V45gd8mXg4csTG?=
- =?us-ascii?Q?ee4DovHJw8jrtJ77j+8cIoHadKMgJD6qHWXQkX1XKSXqcXmKAQE6MlONjzA0?=
- =?us-ascii?Q?203WlhcNF/sTcJ+NrsSEiCkvkYFQRUf3xtvA4vfm7l+I5lo462mOibSO46WG?=
- =?us-ascii?Q?uLCWgBFxVlNloDDYqpSdIPppVK+lZJ4gE/KsbBvvGPn+VSEcAPftV9WLNx9U?=
- =?us-ascii?Q?iGGqCTH6UkWwS+y3nnPmSVsg6YireTEASqEl3NJRkMgPVZwDAwmulLtUj0+P?=
- =?us-ascii?Q?g6P32aNpLSXvu6c9xfF2q5YawbCC3TkYvMsfSVCUKsIW0TcWquR866qYqRqQ?=
- =?us-ascii?Q?z4ANC9DdDMkHYPkt05V+DufM5X2S6WR9YSGHmiWeIEFTco0/X7hLXaVdKImn?=
- =?us-ascii?Q?Hm5nMoX5tndmCwEp9wkp9uOI8i2obNgl6n5B5lRjuwscGFDJEWWR7hS4iIKM?=
- =?us-ascii?Q?316X+fLzaWHN3ojl2g15E6j8oodqTsIttl9jjLv4hzXcBy1EwkXaDDfIcaCZ?=
- =?us-ascii?Q?GUFXJegK0NtUwNJ7O0N9ktRljto0Tb0fe7X8d4jjV9e/HmBQYLEkZ4qnwP5b?=
- =?us-ascii?Q?AYtnpVFPEQ=3D=3D?=
+	=?us-ascii?Q?wo3aqbh7DDbqb6nad6+wT8E2xhUGRv/dwwjrgpY9Oc3FNMq50MAzICBYY+ym?=
+ =?us-ascii?Q?vrzDodo7GLDSgrjyjAKedF0+wY0RdYKmmQmZJBA3cIWYK/OiQZ5Isxr204/q?=
+ =?us-ascii?Q?ubyEun6XYUrPT7REuGf8LsjgyhnAIExWyAGGY2hKEeH82ZJpyzBC3YkOBQtP?=
+ =?us-ascii?Q?8gSJT2Z6Y5VOAyXKJcbUXf8/xRPZzgVZlZvRm+yj1bjfva7pS7EZp/3hAsp5?=
+ =?us-ascii?Q?MUBKJpQojSHdAlz4SVomtPlmtWGQdCE5pgB81eCBNdeAyS2D//SufqUg2sLm?=
+ =?us-ascii?Q?IMD34n9InthrDkNx6bgh3OHjh+lvlUUkUG4UG3LREqiJgvcum5XC4AvqK8DB?=
+ =?us-ascii?Q?utY+nsrWLF/VxkHmJbIrblONq9FU89dVBV3Q+ReGpnjGth3be99524u+x+kR?=
+ =?us-ascii?Q?6Offbs+fYRDzSGchhOf0JCrx6Zfs5jc5Z3lGQgkzRDyjYkRmcwZsHwBrMOa6?=
+ =?us-ascii?Q?x2fW3ieQiH/sDFBgCOhWzuqSQ97ygE2L/xQGUtBzGiLR1LedcpC5JW6Nyct4?=
+ =?us-ascii?Q?OYGrFXAAh4/2OJlryNxJLLtsxFqBJ8rw+VpgiHy2RGVzTjC9TxUBNu+vNYNe?=
+ =?us-ascii?Q?b5KA3SyPHeDzcn/rIGO7tlvG5wEq2Rph54YV7Ve9c8GL/Wjk/k/v7rTBpxYx?=
+ =?us-ascii?Q?YZ+dyYBMYj/5LA9PwtoemIgnIC7jm7RPgEAZ//Q3HCxXNv5bmII7lhRUltN8?=
+ =?us-ascii?Q?p4Wlbdv0X5fjWbOgaYRSOYazbL7Mwo+QkpJ8gX/UivwvXvzx5lLIcnRIBijv?=
+ =?us-ascii?Q?FutGIGEr9tqvG6J6oZRgLY/A/D61F1uKxSHRfPkyOeCH2NNMwmk4F3FFlP43?=
+ =?us-ascii?Q?N3VAqe1Q+3VUsEeAv62krHwUad1bGRSsPfh3nn47v2EuD9rtRdlSdf0xX0iD?=
+ =?us-ascii?Q?sewNQ/brApt+L/+krXri2c7bdJBhPY4BA65Fj35GeLxRSGAlyNEWPb4wmiKu?=
+ =?us-ascii?Q?ohfQH64rEPHEWzwau4JN3ldIhk8WlNwT8y4t5VYdFlD60Zo4bOlkwm1wRLll?=
+ =?us-ascii?Q?YJ5wZ3OY36CV+Qe+L7NC7FG36oEdh3zsgCrU8m7IUJZUkr36w1Yk68oxZOst?=
+ =?us-ascii?Q?h+t9ni95bBTAoOzVdg7vj9QkMXWccRTwHLNE8H6H57vyLNCz3YNeULrDjH/B?=
+ =?us-ascii?Q?m9jHOzdmIvjndZO7KoqP82L8Kq711js8Y820sLEMJj7f5bU82KNNFcFEFk75?=
+ =?us-ascii?Q?ThOs1r4NJpHubn2LyPt0vetazxk/tYCjeBoNaA1zX09W60QWdxRMd3zhQQPG?=
+ =?us-ascii?Q?4fYl1FXIXTNkBW2V1DQnuVVhb+zEe/O3qVfxHV2vO9ipdrtaSOMgt4H7Vn7t?=
+ =?us-ascii?Q?6jWnVkBGtYF3c8AZyl6hx64ELFIZstHkXrrAV+Ir9bPmtOcp2B8LuqZppIYb?=
+ =?us-ascii?Q?WfhJgT88Flv5bi85goBuT94zuwaGr1jv4n8r9D66Tg+FERwwSNJSGvlhqx1s?=
+ =?us-ascii?Q?CsM88/nfb0KUXQSxFT0AuFtRZt33e1+t15SiMSTjPx26hrAuu+OiP38AMt9z?=
+ =?us-ascii?Q?Lp1d2f7/LZoOOdg+ATlTvDbRBsXOTPsgP9ZxNfICmZaKDCYQjHVjAv6UPyAL?=
+ =?us-ascii?Q?kNF/xA7K6CH5uzQXEP5CHJu1z93DVbpeeBqQzv5bn0UPy/YPmgf1Gwux6YiV?=
+ =?us-ascii?Q?R0IX4HeniPkJ6Lgqh/1FpDaOTyEkWlhd4eCu0B64IgOm/y/ct3npj26QGNFX?=
+ =?us-ascii?Q?NlHu+0TOARyQGezsF3H/6Wy6ZuxbaQY+5ISXgToiDCkZdBJ4z6r7E9QWFnPV?=
+ =?us-ascii?Q?dTzLiYvAyQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf752726-538c-42d6-b2c0-08df1ea4d7b4
+X-MS-Exchange-CrossTenant-Network-Message-Id: e597c530-8c5a-4e41-2706-08df1ea4d6e0
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:25.3595
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 03:42:23.9455
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hRumqMr3ncFvIWcpqa92frNN8wwjhffItKgQElW3/9XxWoixwn9eEzdGRwb1JvKJqUx3GRfB857aZuJTNNAviQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kiq0jfD8+GJcJtAsDC/sBuMjhtcTS+BJ57vpf3OpLMzhxKxHYOfuwT6YgREKlze3y7fMcU5qhmdNHIOFVUgBGw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6248
 
-A falcon latches each interrupt cause that is raised in its IRQSTAT
-register. On a RISC-V falcon, each cause is routed either to the host,
-meaning the CPU, or to the falcon's own core, and two routing registers
-hold that routing. The falcon signals the interrupt tree only when its
-set of host-routed causes goes from empty to non-empty, so a handler
-that clears the tree leaf while a cause is still latched has to write
-INTR_RETRIGGER, which makes the falcon re-emit its causes. Turing
-falcons have no INTR_RETRIGGER, and the routing registers have
-different offsets from GA102 on.
+The GSP posts unsolicited events on the same queue as command replies,
+so a caller waiting for one message consumes whatever arrives first and
+reads again.
 
-Add IRQSTAT, INTR_RETRIGGER, and the two routing registers, the last at
-both sets of offsets, and add two falcon HAL methods: one intersects an
-IRQSTAT value with the routing registers, and one retriggers the
-falcon, or does nothing on Turing. GA100 keeps the Turing HAL, as it
-does for boot, and the retrigger register is a property of that HAL's
-instance.
+Every read started a fresh five-second timeout, so a steady stream of
+events extended the wait without bound. The two boot-time waits for an
+unsolicited event also released the queue mutex between reads, so a
+command sent from another thread could consume the event and leave the
+waiter to time out.
 
-The two methods have no user yet.
+Compute one deadline when the wait begins and pass the time remaining to
+each read, and hold the queue mutex across the whole wait. Put the loop
+in one helper that the command reply wait and both boot-time event waits
+share.
 
 Assisted-by: LLM
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/falcon/hal.rs       | 21 ++++++-
- drivers/gpu/nova-core/falcon/hal/ga102.rs | 16 ++++++
- drivers/gpu/nova-core/falcon/hal/tu102.rs | 51 ++++++++++++++++-
- drivers/gpu/nova-core/regs.rs             | 69 +++++++++++++++++++++++
- 4 files changed, 154 insertions(+), 3 deletions(-)
+ drivers/gpu/nova-core/gsp/cmdq.rs      | 72 ++++++++++++++++++++------
+ drivers/gpu/nova-core/gsp/commands.rs  |  8 +--
+ drivers/gpu/nova-core/gsp/sequencer.rs |  8 +--
+ 3 files changed, 59 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/falcon/hal.rs b/drivers/gpu/nova-core/falcon/hal.rs
-index 7e532889a1f4..2f02da52334e 100644
---- a/drivers/gpu/nova-core/falcon/hal.rs
-+++ b/drivers/gpu/nova-core/falcon/hal.rs
-@@ -12,6 +12,7 @@
-         Architecture,
-         Chipset, //
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index ad2a14d08cb0..ae3808de44e2 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -28,7 +28,11 @@
+         },
+         Mutex, //
      },
-+    regs,
- };
+-    time::Delta,
++    time::{
++        Delta,
++        Instant,
++        Monotonic, //
++    },
+     transmute::{
+         AsBytes,
+         FromBytes, //
+@@ -130,7 +134,9 @@ fn size(&self) -> usize {
  
- mod ga102;
-@@ -70,6 +71,24 @@ fn signature_reg_fuse_version(
-     /// these. For anything above, the PIO registers appear to be masked to the CPU, so DMA is the
-     /// only usable method.
-     fn load_method(&self) -> LoadMethod;
-+
-+    /// Returns the causes in `latched` that are routed to the host, meaning the CPU, rather than
-+    /// to the falcon's own RISC-V core.
-+    ///
-+    /// The causes routed to the core belong to the firmware running on it, and the host does not
-+    /// service them.
-+    #[expect(dead_code)]
-+    fn host_routed_causes(
-+        &self,
-+        falcon: &Falcon<'_, E>,
-+        latched: regs::NV_PFALCON_FALCON_IRQSTAT,
-+    ) -> regs::NV_PFALCON_FALCON_IRQSTAT;
-+
-+    /// Retriggers the falcon, which then re-emits its host-routed causes into the interrupt tree.
-+    ///
-+    /// Turing falcons have no retrigger register, so on Turing this does nothing.
-+    #[expect(dead_code)]
-+    fn retrigger(&self, falcon: &Falcon<'_, E>);
- }
+ /// Trait representing messages received from the GSP.
+ ///
+-/// This trait tells [`Cmdq::receive_msg`] how it can receive a given type of message.
++/// A reply that [`Cmdq::send_command`] waits for, or an event that [`Cmdq::await_msg`] waits for.
++/// The receiver matches a message's function code against [`Self::FUNCTION`] and decodes the
++/// message with [`Self::read`].
+ pub(crate) trait MessageFromGsp: Sized {
+     /// Function identifying this message from the GSP.
+     const FUNCTION: MsgFunction;
+@@ -566,8 +572,9 @@ fn notify_gsp(bar: Bar0<'_>) {
+     ///
+     /// # Errors
+     ///
+-    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply is
+-    ///   not received within the timeout.
++    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply does
++    ///   not arrive within [`Self::RECEIVE_TIMEOUT`] of the send, however many events arrive
++    ///   while waiting.
+     /// - `EIO` if the variable payload requested by the command has not been entirely
+     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
+     ///
+@@ -582,13 +589,7 @@ pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
+         let mut inner = self.inner.lock();
+         inner.send_command(command)?;
  
- /// Returns a boxed falcon HAL adequate for `chipset`.
-@@ -86,7 +105,7 @@ pub(super) fn falcon_hal<E: FalconEngine + 'static>(
-         }
-         // GA100 boots like Turing so use Turing HAL
-         Architecture::Ampere if chipset == Chipset::GA100 => {
--            KBox::new(tu102::Tu102::<E>::new(), GFP_KERNEL)? as KBox<dyn FalconHal<E>>
-+            KBox::new(tu102::Tu102::<E>::ga100(), GFP_KERNEL)? as KBox<dyn FalconHal<E>>
-         }
-         Architecture::Ampere
-         | Architecture::Ada
-diff --git a/drivers/gpu/nova-core/falcon/hal/ga102.rs b/drivers/gpu/nova-core/falcon/hal/ga102.rs
-index f9a8444cf840..b0eb1901d213 100644
---- a/drivers/gpu/nova-core/falcon/hal/ga102.rs
-+++ b/drivers/gpu/nova-core/falcon/hal/ga102.rs
-@@ -169,4 +169,20 @@ fn reset_eng(&self, falcon: &Falcon<'_, E>) -> Result {
-     fn load_method(&self) -> LoadMethod {
-         LoadMethod::Dma
+-        loop {
+-            match inner.receive_msg::<M::Reply>(Self::RECEIVE_TIMEOUT) {
+-                Ok(reply) => break Ok(reply),
+-                Err(ENOMSG) => continue,
+-                Err(e) => break Err(e),
+-            }
+-        }
++        inner.await_msg()
      }
-+
-+    fn host_routed_causes(
-+        &self,
-+        falcon: &Falcon<'_, E>,
-+        latched: regs::NV_PFALCON_FALCON_IRQSTAT,
-+    ) -> regs::NV_PFALCON_FALCON_IRQSTAT {
-+        let pfalcon2 = falcon.pfalcon2;
-+        let mask = pfalcon2.read(regs::ga102::NV_PRISCV_RISCV_IRQMASK).value();
-+        let dest = pfalcon2.read(regs::ga102::NV_PRISCV_RISCV_IRQDEST).value();
-+
-+        regs::NV_PFALCON_FALCON_IRQSTAT::from(latched.into_raw() & mask & dest)
-+    }
-+
-+    fn retrigger(&self, falcon: &Falcon<'_, E>) {
-+        super::tu102::retrigger_ga100(falcon);
-+    }
- }
-diff --git a/drivers/gpu/nova-core/falcon/hal/tu102.rs b/drivers/gpu/nova-core/falcon/hal/tu102.rs
-index 7fc6e83c2566..bd66b7759ea6 100644
---- a/drivers/gpu/nova-core/falcon/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/falcon/hal/tu102.rs
-@@ -5,6 +5,7 @@
- use kernel::{
-     io::{
-         poll::read_poll_timeout,
-+        register::Array,
-         Io, //
-     },
-     prelude::*,
-@@ -23,14 +24,42 @@
  
- use super::FalconHal;
+     /// Sends `command` to the GSP without waiting for a reply.
+@@ -608,15 +609,25 @@ pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
+         self.inner.lock().send_command(command)
+     }
  
--pub(super) struct Tu102<E: FalconEngine>(PhantomData<E>);
-+/// The falcon HAL for Turing and GA100. GA100 boots like a Turing, but unlike Turing, it has a
-+/// retrigger register.
-+pub(super) struct Tu102<E: FalconEngine> {
-+    /// If `true`, the falcons have `NV_PFALCON_FALCON_INTR_RETRIGGER`.
-+    #[expect(dead_code)]
-+    has_intr_retrigger: bool,
-+    _engine: PhantomData<E>,
-+}
- 
- impl<E: FalconEngine> Tu102<E> {
-+    /// Returns the HAL of Turing falcons.
-     pub(super) fn new() -> Self {
--        Self(PhantomData)
-+        Self {
-+            has_intr_retrigger: false,
-+            _engine: PhantomData,
-+        }
-+    }
-+
-+    /// Returns the HAL of GA100 falcons: the Turing HAL, with the retrigger register.
-+    pub(super) fn ga100() -> Self {
-+        Self {
-+            has_intr_retrigger: true,
-+            _engine: PhantomData,
-+        }
+-    /// Receive a message from the GSP.
++    /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are logged and
++    /// consumed.
++    ///
++    /// The queue mutex is held for the whole wait, up to [`Self::RECEIVE_TIMEOUT`], so no other
++    /// caller can send a command or consume an event meanwhile.
+     ///
+-    /// See [`CmdqInner::receive_msg`] for details.
+-    pub(crate) fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
++    /// # Errors
++    ///
++    /// - `ETIMEDOUT` if the event does not arrive within [`Self::RECEIVE_TIMEOUT`] of the call,
++    ///   however many other events arrive while waiting.
++    /// - `EIO` if a message fails framing or checksum validation.
++    ///
++    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
++    pub(crate) fn await_msg<M: MessageFromGsp>(&self) -> Result<M>
+     where
+         // This allows all error types, including `Infallible`, to be used for `M::InitError`.
+         Error: From<M::InitError>,
+     {
+-        self.inner.lock().receive_msg(timeout)
++        self.inner.lock().await_msg()
      }
  }
  
-+/// Writes `NV_PFALCON_FALCON_INTR_RETRIGGER`.
-+#[expect(dead_code)]
-+pub(super) fn retrigger_ga100<E: FalconEngine>(falcon: &Falcon<'_, E>) {
-+    falcon.pfalcon.write(
-+        Array::at(0),
-+        regs::NV_PFALCON_FALCON_INTR_RETRIGGER::zeroed().with_trigger(true),
-+    );
-+}
-+
- impl<E: FalconEngine> FalconHal<E> for Tu102<E> {
-     fn select_core(&self, _falcon: &Falcon<'_, E>) -> Result {
-         Ok(())
-@@ -79,4 +108,22 @@ fn reset_eng(&self, falcon: &Falcon<'_, E>) -> Result {
-     fn load_method(&self) -> LoadMethod {
-         LoadMethod::Pio
+@@ -870,6 +881,37 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
+         result
      }
-+
-+    fn host_routed_causes(
-+        &self,
-+        falcon: &Falcon<'_, E>,
-+        latched: regs::NV_PFALCON_FALCON_IRQSTAT,
-+    ) -> regs::NV_PFALCON_FALCON_IRQSTAT {
-+        let pfalcon2 = falcon.pfalcon2;
-+        let mask = pfalcon2.read(regs::tu102::NV_PRISCV_RISCV_IRQMASK).value();
-+        let dest = pfalcon2.read(regs::tu102::NV_PRISCV_RISCV_IRQDEST).value();
-+
-+        regs::NV_PFALCON_FALCON_IRQSTAT::from(latched.into_raw() & mask & dest)
-+    }
-+
-+    fn retrigger(&self, falcon: &Falcon<'_, E>) {
-+        if self.has_intr_retrigger {
-+            retrigger_ga100(falcon);
+ 
++    /// Receives a message of type `M`, waiting up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
++    ///
++    /// Any other message that arrives first is logged as an event and does not extend the
++    /// deadline.
++    ///
++    /// # Errors
++    ///
++    /// - `ETIMEDOUT` if no message of type `M` arrives before the deadline, however many other
++    ///   messages arrive while waiting.
++    /// - `EIO` if a message fails framing or checksum validation (see [`Self::wait_for_msg`]).
++    ///
++    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
++    fn await_msg<M: MessageFromGsp>(&mut self) -> Result<M>
++    where
++        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
++        Error: From<M::InitError>,
++    {
++        let deadline = Instant::<Monotonic>::now() + Cmdq::RECEIVE_TIMEOUT;
++        loop {
++            let remaining = deadline - Instant::<Monotonic>::now();
++            if remaining.is_negative() {
++                break Err(ETIMEDOUT);
++            }
++            match self.receive_msg::<M>(remaining) {
++                Ok(msg) => break Ok(msg),
++                Err(ENOMSG) => continue,
++                Err(e) => break Err(e),
++            }
 +        }
 +    }
- }
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 9978fb2803b0..88662da634dc 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -124,11 +124,25 @@ pub(crate) fn usable_fb_size(self) -> u64 {
- register! {
-     base: PFalconRegisters;
- 
-+    /// Clears the latch of every cause whose bit is written as `1`. Write-only.
-+    ///
-+    /// The write ends the latch and not the source, so a cause driven from outside the falcon
-+    /// stays set. "Retriggering a falcon" in `Documentation/gpu/nova/core/interrupts.rst` names
-+    /// those causes.
-     pub(crate) NV_PFALCON_FALCON_IRQSCLR(u32) @ 0x00000004 {
-         6:6     swgen0 => bool;
-         4:4     halt => bool;
-     }
- 
-+    /// Interrupt causes latched in the falcon, one bit per cause, whichever target each is routed
-+    /// to.
-+    ///
-+    /// The causes routed to the host are the ones also set in `NV_PRISCV_RISCV_IRQMASK` and
-+    /// `NV_PRISCV_RISCV_IRQDEST`.
-+    pub(crate) NV_PFALCON_FALCON_IRQSTAT(u32) @ 0x00000008 {
-+        6:6     swgen0 => bool;
-+    }
 +
-     pub(crate) NV_PFALCON_FALCON_MAILBOX0(u32) @ 0x00000040 {
-         31:0    value => u32;
-     }
-@@ -256,6 +270,16 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         0:0     reset => bool;
-     }
+     /// Logs an event, meaning a message that no caller was waiting for.
+     ///
+     /// An OS error or robust-channel record is logged at error level and an unknown function code
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index 0c787fd689bf..cdbb13674f08 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -188,13 +188,7 @@ fn read(
  
-+    /// Makes the falcon re-emit its host-routed causes into the interrupt tree. Write-only.
-+    ///
-+    /// Present from GA100 on. See "Retriggering a falcon" in
-+    /// `Documentation/gpu/nova/core/interrupts.rst`.
-+    ///
-+    /// The hardware headers declare two elements, and OpenRM writes only the first.
-+    pub(crate) NV_PFALCON_FALCON_INTR_RETRIGGER(u32)[2] @ 0x000003e8 {
-+        0:0     trigger => bool;
-+    }
-+
-     pub(crate) NV_PFALCON_FBIF_TRANSCFG(u32)[8] @ 0x00000600 {
-         2:2     mem_type => FalconFbifMemType;
-         1:0     target ?=> FalconFbifTarget;
-@@ -414,6 +438,29 @@ pub(crate) mod gm107 {
-     }
+ /// Waits for GSP initialization to complete.
+ pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
+-    loop {
+-        match cmdq.receive_msg::<GspInitDone>(Cmdq::RECEIVE_TIMEOUT) {
+-            Ok(_) => break Ok(()),
+-            Err(ENOMSG) => continue,
+-            Err(e) => break Err(e),
+-        }
+-    }
++    cmdq.await_msg::<GspInitDone>().map(|_| ())
  }
  
-+pub(crate) mod tu102 {
-+    use kernel::io::register;
-+
-+    use crate::falcon::PFalcon2Registers;
-+
-+    // The RISC-V interrupt routing registers, at the offsets that Turing and GA100 use.
-+
-+    register! {
-+        base: PFalcon2Registers;
-+
-+        /// Enabled causes, one bit per cause. Read-only to the host.
-+        pub(crate) NV_PRISCV_RISCV_IRQMASK(u32) @ 0x000002b4 {
-+            31:0    value => u32;
-+        }
-+
-+        /// Causes routed to the host, one bit per cause. A clear bit routes the cause to the
-+        /// RISC-V core.
-+        pub(crate) NV_PRISCV_RISCV_IRQDEST(u32) @ 0x000002b8 {
-+            31:0    value => u32;
-+        }
-+    }
-+}
-+
- pub(crate) mod ga100 {
-     use kernel::io::register;
+ /// The `GetGspStaticInfo` command.
+diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
+index 1782ed7d7ca6..250adc9fe74f 100644
+--- a/drivers/gpu/nova-core/gsp/sequencer.rs
++++ b/drivers/gpu/nova-core/gsp/sequencer.rs
+@@ -343,13 +343,7 @@ pub(crate) fn run(
+         libos: &'a Coherent<'a, [LibosMemoryRegionInitArgument]>,
+         bootloader_app_version: u32,
+     ) -> Result {
+-        let seq_info = loop {
+-            match cmdq.receive_msg::<GspSequence>(Cmdq::RECEIVE_TIMEOUT) {
+-                Ok(seq_info) => break seq_info,
+-                Err(ENOMSG) => continue,
+-                Err(e) => return Err(e),
+-            }
+-        };
++        let seq_info = cmdq.await_msg::<GspSequence>()?;
  
-@@ -430,6 +477,28 @@ pub(crate) mod ga100 {
-     }
- }
- 
-+pub(crate) mod ga102 {
-+    use kernel::io::register;
-+
-+    use crate::falcon::PFalcon2Registers;
-+
-+    // The RISC-V interrupt routing registers, at the offsets that GA102 and later use.
-+
-+    register! {
-+        base: PFalcon2Registers;
-+
-+        /// Same as [`super::tu102::NV_PRISCV_RISCV_IRQMASK`], at the GA102 offset.
-+        pub(crate) NV_PRISCV_RISCV_IRQMASK(u32) @ 0x00000528 {
-+            31:0    value => u32;
-+        }
-+
-+        /// Same as [`super::tu102::NV_PRISCV_RISCV_IRQDEST`], at the GA102 offset.
-+        pub(crate) NV_PRISCV_RISCV_IRQDEST(u32) @ 0x0000052c {
-+            31:0    value => u32;
-+        }
-+    }
-+}
-+
- pub(crate) const NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS: u32 = 0xff;
- 
- pub(crate) mod gh100 {
+         let sequencer = GspSequencer {
+             bar: ctx.bar,
 -- 
 2.55.0
 
