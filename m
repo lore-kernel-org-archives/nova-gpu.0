@@ -1,96 +1,97 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55ABD4F5DF7
-	for <nova-gpu@lists.linux.dev>; Fri,  2 Oct 2026 16:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6185012A3
+	for <nova-gpu@lists.linux.dev>; Fri,  2 Oct 2026 17:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790960388; cv=pass; b=Katud5DRlbBR3uHgA+4boASeg+xnvpUHQUX5xNccFTtuWtfXMz1k3oTXYS4FMBBsrgxVf4y1/yTVMNrNlPz97rzAfT3GVu+jzQD3oCUJJrOv/8H2IBCPQNi8xlh8J9DI5ZBtgpHrlu2VnzbWQ2dbfL8QZEHjIPO39ziae5MLcBc=
+	t=1790961354; cv=pass; b=d313FWeaQMbyIZc/G/TUvfODA73+fBljHhu9WqpgrAQtE1lJptgJ7BpDxs7dhyz8nvt6qcxybBS1+WuTnU33Om5Z2DI+939dPc8rKzc1eVhODkguzrn001w+yPo7yhTjvQSaRKWlpFxxSCKtzkaMgb9INWXw9qndxwQFEF+zB5I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790960388; c=relaxed/simple;
-	bh=EHkJtd8Eu6RlYIDachMsn7gB1X9/FWHuhTARdLq36AQ=;
+	s=arc-20240116; t=1790961354; c=relaxed/simple;
+	bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o1Kkg6fd3bX+i+oyctBkh2Re8Kf6U8Sr8/qyuoQKgvb2eBbSvlQ382ZdrIY2Nu32bEHsZcL7oG9H0ctLYQPcyjqDQdsqoGF/ktCgZlRoBrJylZ/7YmyY5yjnmq8iBrK04xkp+hig/WS/0guYNav0PV0VzDgHTecHlJgOxibFlfY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d6ySJgHZ; arc=pass smtp.client-ip=74.125.229.12
+	 To:Cc:Content-Type; b=PIuXcJ681n1/VoQEOdbmEDIt8F2lLyADFcTvViwnwmzbr8Oz+MsFV3Jqgvxt9xqWkEWNVMNCjWzDu95w7DTZRLvpyis3z5awdXK2KIK7F/MdQyHvowx23nc6civ/U6RJnGSynBP7+tc+715VDQlCWid0wG24mNJV9JV5kP3GPwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hxrqyKDC; arc=pass smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d6ySJgHZ"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bc6ff6cadso1188945eec.0
-        for <nova-gpu@lists.linux.dev>; Fri, 02 Oct 2026 09:59:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790960386; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hxrqyKDC"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b010e8c94so455866eec.3
+        for <nova-gpu@lists.linux.dev>; Fri, 02 Oct 2026 10:15:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790961339; cv=none;
         d=google.com; s=arc-20260327;
-        b=TNqSIFSrNBXN1mqRu1O3eRAC7o/YBYocy+NM4NnR5rwJV/RfKvr6yD8inu97n1NVE/
-         aNPCf4wgoFs/ELexJoF5ksEBWTpVFPD+ojTaxCevJAM/LnVKwqC+vRbZfpA8plNX0EtK
-         5dZ5z3Cdkx2Vve/pcGDicFHRwbHm+Jdxkwo/SBl3V8n6gnAJzmIDOC262sCxJWs0+/Bx
-         cHA2HFsLM/DUBuc2MGNhAR9PwT3IxCtx+yKqqFIqWLkULUZMPlqjVsKGq2o2BbkRfC0P
-         deo9qMQ4E/jzKo3dww2A2ffdYZ88lfGAsC51Vb/pzD4hp4m7l/Hb2HnnFsBkpzXzZ8L+
-         0tEQ==
+        b=NLCC6l65oipJ7KSXfMZEIcmPJ0HOQEeLrhOMTxnAWhdQN0V9RxyQz5l0TQnUqhFpMV
+         LJOn5SlFRVdzIjEaZxGoEzWSDBqD3pZpMuoK+qlUGiyd1NC0O7nF7rZWOJTunV7R4lIl
+         jva0WRI41UCx6O3NE3xQ3b///fWV9EbKUrgYoPvg1gaSsl5mHJeBqD//9C197XNsqvgE
+         SxCen3DEZ3mAHmtyciv6oQSvaDXnyL/rqbWAVHnWmmr5P+/05bNGcJQmpod58xJ/dFzr
+         JDGKYPV7obeWgNeZKoFPZDMvhJxSnZ3b6RJYhLZ5hMU9NtkwbdQZV0MwGY9PAeIE5Lb4
+         VPqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
-        fh=sKAosauINRZ5I0iwcFknsTSAq4pn24rJGkZOJUHFKH8=;
-        b=GuF/V+JH/Xfkr+cYGdDvr3QI+D7ktraVjGUi8QsLvClje0S5ZgahK/i5SYivlvaXDG
-         JZvZrj+IbrA2jQXbYvDtdTvcJUBdmRgbn9te10o0BafhH6989jMP8B5H5s5NgY0Ibqqe
-         MIoKE8brXz6GRKaqgr4BQ1CNfwLcvywFCXes3pmsoSPydbde2oTSbHIbZExQYg2OW9Gl
-         +hyYZwnC8h8SfSyUq9WI8PyuSr5Xm8C8ddz7OxsFl/W/N5uQgAjxIaLSMERlqzX+FeaF
-         o4J080b8qHsuLzvlhVvxKx2BWrXK2mZHnW2u3iFCtzpqXFQueslXh7sIy4Me6WCxILwX
-         vxmg==;
+        bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+        fh=9wFfV2QjVg7rsxXy3v6Paoau4qbwHj9cJMkfgkD6Eho=;
+        b=kd6I39EAZaLE5FoL8Je+bOaVspNlh+92k97+BwqDEG34nIfAV/HFgdrw68HJlj2ml7
+         nhetCfAmuHZ0Du3SX+bl9UUzOSkt2Z0mHr05r5krKpP3agmK3s/HXooO4hGbVdf5Incj
+         05++AazRfxFO0Te8TQ3s90mIjiFoiU9PHLvuTH0qIaabsVTeV7TvBwieHP5zPhXhDWCR
+         31Be9dwhqrr2MocNMiNE2f7lYi+VS9BAiRbuxOE/D9/XJaTlwJmycE5qBmxjoFONYdDS
+         eN0P+eo9T7AG81+OYLUf2Mtll9tBcTwZFcj61nf2xfAZooMiyyBJA4DuaEVli0H7AjkI
+         /QJg==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790960386; x=1791565186; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1790961339; x=1791566139; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
-        b=d6ySJgHZxj362HyGZfg06uaME+igXnmtS2FiOdSbqBdRxK+c2PclrEvThjtFzpZx19
-         Ry1mPUADTvz8M8NRVwIUAGis0AyuonAfzGbi3wvg3omDbNjGZSBvEPoh/MVRI9awZFVE
-         rwKMek4Jgrx1KLX6ak7+lnPQ687s0KSZ6xhUzXjlXdHDnu4t6Gw7gWAXGzW+vnqvVEWG
-         oUoT7T3WlRoBla/JfE8EZf61RluNsII+Zqjf/HVoBF5fgarvN3ZNhgPtpjoiKJdsE1Uk
-         jn7p7g3yN+ZAx6bNIZypr3cx1lYjF5BeDIQ+ev3y0lQkqqE2CcuW/6EgAguiy+v+dSqD
-         pWRQ==
+        bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+        b=hxrqyKDCuHupCQvLtaE3FjStg1xDRLIlQdf059EUv3YpACdv/5iP0TPPp4+C1sXB9E
+         iS9BUryozD2XkL63+aN6/SUFmgNuEm0LwOQL2aJ63af/SkKCAIk341vHpTfPKBu5epq+
+         GkrzC7HpyvH+ioY8NBqTNXpv8Brt7zDoK7nHi2jn/Nde8vl0uqEgpULP9f10Wt1iaU0v
+         8Q7QrcV5jnRBbAzyQtHXl/gy8L/yKNQHEFia6WZBhI9BA04PPAoo1I/aPN8GpRrVxQqM
+         ThgX/GVod88tmSHslC3zhw/XGq84TNvWAvhmNFecIg1NMH5lTQ90m0tNYJ/kGIEpQuIw
+         ppPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790960386; x=1791565186;
+        d=1e100.net; s=20260707; t=1790961339; x=1791566139;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
-        b=Rb1Vw9APw5P3M/4ksAO//Bns7t6yf3jMtA2naSjxVYtqWiGVVbK/V4NMlp5cGcu6Ml
-         wBLSdvkrwbDQKBypiNock3z8vHU6OFSS+DNifQKbBPGGwR0JtukbCYlqrMxJvKabmytB
-         KkjieCAt7ITt7ixUBwTrQqp2vizspVo0MbZLL4bzwl8m7fw093nN2rGhkKbJz8J7qDSK
-         GgFcQIToD49GQxasOSiHPFUxd58V6RPOLRGfUyvJuC2jiktB4R5vl8kTHFxD2Vm7TWnY
-         dsI7RVtNCbkzzYngQVpD+rsS+/TRy+1a0Xi6tYld6Mn8Pl31w/gdb2l1hk/Knh8ZCuLu
-         KJ0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByCVRfdO1LUSlGvKcDrhkxHiRUKTWMDI8nmKKD52dEJeUpDxGzZuE4s/Y7cMHOkjoPXo01b8dUGxg==@lists.linux.dev
-X-Gm-Message-State: AFq9FYJzyCuB2f9/ON21TtOWxkNwvJeirxVhlQ+NV0HKyzPcNZOQaM5n
-	qxsgnURPeH2zgwFQyo+poUSXqIy0eIgcL6sIa73IVJYhe7PvNoKLO2RhUncLSCQIqT6yAhi7/hY
-	SaxbWsSNv3NAt/QxiS84BgNWnmwp2ztA=
-X-Gm-Gg: AYBFou0kfAu/Y0Be/JWuxm7MBuVgCsQvC7VPZjI8SoG3kRgKTpCQudYBetPenq1UfLn
-	fGZxHQ+nX7dSEExobxkbJcdmrGA0DHB0EFtAj+KZnE22CfBqk90DJVARcnXXHcOLZ4MtRwZmDTa
-	Ccse5hY+1m3YLSF1VmXYLeMIj7y/AK52PiV5cW/pt5twqbyOr8uf2cOW8D5edtsM+JqTnUlohrp
-	IKbKBFNpMLSm4PT0rerfUftytD6D0/nry+AyJZhxmQk2BAGJHYcabmqOZm/m1grmd2bGgNYZfNM
-	cD88aF/IKXBIVcMUThAGFS/Y+QSNoV3gJA/nkXfFObZ0A9mwjGwrUkzrM82nPtebJ4OFsZ3OEEi
-	r+8Q+KBowClj6tDnxPA9IgACfqwlZQ7acBECUQ7eOwGow9cHfCygCf59rQxvYD1POeqLqaImy3j
-	9KqxG34AUJLyZZhJHHULXuhtA90EAvj8b8qs559/HvrejeE4okZlinGDkHI6/1fg==
-X-Received: by 2002:a05:7301:468a:b0:340:f698:fd56 with SMTP id
- 5a478bee46e88-34f1507015fmr4716231eec.2.1790960386330; Fri, 02 Oct 2026
- 09:59:46 -0700 (PDT)
+        bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+        b=doo5vNzzSfaKbG/8mEp9P71QfD+CzRHMz1vWe4VSofDYVfMkrvurXtzvWAWGrev4C9
+         kw3cZ8KHZKnPowTXkiU5f23WA9fDH5iEoHaiZV6cWWDiGh60LKc07cTp3wKp0YZFRBel
+         ag7nS4wM/whbJje1zGVFeU2cLpUqcTGfWkZmVtOrT8Z3G57iZAe1E8F9grCkdCNJ/u9S
+         SSz1OwonxGEC+M7Om8wlryacx5EyhjdvmbbDJIqJcXXicnqQAidy8OJkVCZlZe7WknIf
+         kuE6mDHFFXnOc2O9hBGxvBaM9jVeRlccsVUy4Qp7kACltVsj34h+my0FkpbCgbLWWRa7
+         lgEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFJbhbqEFsHt3cntHuELrtaizKe1ITLKzIGt5Ce3lDZjyQqDjdglAg9zuw2jHbwEgHQhyWl5VfSg==@lists.linux.dev
+X-Gm-Message-State: AFq9FYJi26sZ5bW8/sM8vWv+CFD2CrxkkLxxDDVT0z7VnP/Koaf+c9b9
+	Ob2K3oWmB7+4EfL/wcmPBXciAfeRUoIGwtm1DhLcbUmPZ0kfwD7T56sifhnBDnCmNN44pF1+jkW
+	igDwfrycSlsqrqsENsfI48sGfSOFBWdI=
+X-Gm-Gg: AYBFou0ht4lCmml6iV6mgBRMKArgs69Up4zZqWORDG0uEyvXh2ThGiUkw7BJ6COGf1J
+	jLbTz8OBiFPrPrx5/9aig/Wus7cjHecVx692PvwNKG06/TZMcX0lgOvw7mRU4Nd0iQR3ovsGgDP
+	+TlSm47eijulP/ZMzP13ptpX44PDwd0POlyztN1emHsL9BXfgFxMEZfuHiOEUG+CEVboHl+78Gv
+	kVMJd3txmumIlawppuyAc5/OmRyp+6gQW3skdkqrFfKJBw8WCPbxSfz0Numc+2u0zhr39g5Jq/E
+	E8qCxcJnlaswSo9U99sRAeGSeI9hhUhzuky102wInD2QeEj5MiZIaLn/RDUfi9WfaHCrvd4VXMx
+	Po6mtAvSkk0fbFxKlEga2e74UMO5Y5QIl47LgyT93eWVH9fOnZ4C89HRsciljFtcnk/jRMuwzOJ
+	LqdkXyHZLTqgSzWqZAPs1uL1czRe/dRIv9bmLIl7SOZg2fxe/lLik=
+X-Received: by 2002:a05:693c:8951:20b0:34c:15b5:b4e7 with SMTP id
+ 5a478bee46e88-34f1503d60cmr5903420eec.2.1790961339293; Fri, 02 Oct 2026
+ 10:15:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260917-cv-v4-0-547ef5727451@nvidia.com> <20260917-cv-v4-1-547ef5727451@nvidia.com>
-In-Reply-To: <20260917-cv-v4-1-547ef5727451@nvidia.com>
+References: <20260902-cv-v3-0-0f90659e711d@nvidia.com> <20260902-cv-v3-1-0f90659e711d@nvidia.com>
+ <DLFPWSS3LZSN.12G96EM0FI18C@nvidia.com> <DLHFKT44IHW9.2QWQB0O0LJHJJ@nvidia.com>
+In-Reply-To: <DLHFKT44IHW9.2QWQB0O0LJHJJ@nvidia.com>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 2 Oct 2026 18:59:31 +0200
-X-Gm-Features: AclHuK_QhqfJYiyMedO2piq5-wcrguEMff8QxYGEopB8UiRg5ASf89kljYpIsb8
-Message-ID: <CANiq72m0PLhT=-ODzQtX7k3jn6=XXpESDUbnHcAmR-1gFqR7uQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
+Date: Fri, 2 Oct 2026 19:15:27 +0200
+X-Gm-Features: AclHuK8WU7MmTRz2zVr217nxxpeT8qmaOpCUrJpN90HnuhJSuc8jn6MdcGDQfTo
+Message-ID: <CANiq72mrp7qw5jikznfRoWMjcWk3Vwm3dzPdWcC1AZ8jGzdibw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
  constant expressions
 To: Eliot Courtney <ecourtney@nvidia.com>
 Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
@@ -103,85 +104,19 @@ Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
 	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
 	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org
+	dri-devel@lists.freedesktop.org, 
+	dri-devel <dri-devel-bounces@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 10:35=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.c=
-om> wrote:
+On Thu, Sep 17, 2026 at 9:59=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
+m> wrote:
 >
-> from constants without a verbose turbofish syntax.
-> For example, `const { NonZero::new(1).unwrap() }` can be written as
+> Will send the next version based on drm-rust-next, but Miguel please let
+> us know if it's ok to take through drm-rust-next. Thanks!
 
-Word wrap or newline?
-
-> +/// Creates a value from an integer constant expression, with validity c=
-hecked at build time.
-
-Maybe:
-
-  ... a constant value ("cv") ...
-
-since we explain that in the commit message, but not in the actual
-documentation :)
-
-I would also say "at compile time", and possibly mention it is usable
-in const context (we use "build time" for things like `build_assert!`,
-which can be much later, e.g. link time).
-
-> +    };
-> +    // Using `FromConst<V>::VALUE` means const generic expressions can't=
- be used, since it requires
-
-Newline between these two lines?
-
-> +/// Types that can be created from an integer constant expression valida=
-ted at build time.
-
-Ditto (please see above).
-
-> +/// Implement this trait to make a type usable with [`cv!`]. Use the [`c=
-v`] macro, not this trait
-
-The second intra-doc link should also have a `!` for consistency.
-
-> +    /// Fails the build if `V` is not a valid value for `Self`.
-
-[`Self`]
-
-> +                // CAST: the macro is only used for types up to 64 bits =
-wide, so `MIN` and `MAX`
-
-"CAST: The"
-
-> +                // CAST: the assert above confirmed that `V` fits in `$t=
-ype`.
-
-Ditto.
-
-> +                // SAFETY: the assert above confirmed that `value` can b=
-e represented within `N`
-
-Ditto.
-
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
-
-One thing before that, though: are these assertions expected to fail?
-
-    const X: i64 =3D 1 << 31;
-    const Y: i64 =3D cv!(1 << 31);
-    assert_eq!(X, Y);
-
-Or:
-
-    const X: u64 =3D 2 << 31;
-    const Y: u64 =3D cv!(2 << 31);
-    assert_eq!(X, Y);
-
-Because that is quite surprising, especially since we say "with the
-target type inferred from the context" in the documentation.
-
-I hope that helps & thanks Eliot for working on this!
+Ok, given the recent discussions, let's move this forward... I have
+replied in v4 with the Acked-by, although with some feedback.
 
 Cheers,
 Miguel
