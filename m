@@ -1,76 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6811E318BB8;
-	Tue,  6 Oct 2026 22:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4143E38836A;
+	Tue,  6 Oct 2026 22:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791325160; cv=none; b=V8CcvWHFkRAEADfEiparAVPDkcBE1krhjXSHGBgMjlbnBawN53h83S3cIvt89sHpKjmc6/758cJbPER0+LA/e4yPJlHXnqgcqF76578oYzvxa47GThKfBdlly9gHbxob9eF/jMETz55heJb6eYomIiYqKfpydQpNs1KzmEkkkzY=
+	t=1791325221; cv=none; b=jBVgx723LPlfutH1n00Zj21fRxqPyeVba+UYlw2AFa0fxPbJ0dPWr6iHfD5MrkItZeoiSVu9Mw6hLqYAQCok9gFymRyV17IGD1NqP3gc2be3929aY1rcEv/+1wxsO66b8guk0cy5io+qVUBmIszi7huvfxu7xpnXw/26V1AfliY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791325160; c=relaxed/simple;
-	bh=Ythw/NfjY1eDW5x+/1kEfCmBTrY14Ka7sawd+P1FLcg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F3NSST0/V3Gk4peyxP5PgSHmF4PP3S4aKqLL5YoNiJgKrNpSI5TrdcZ4Vk2W/BhsV5jqYlUNOug6w3oybFEcvTiuAG3zwjjjZcOQSbMon9tRTJZsBHwP2TmsNVTLdcCFyDfC5TtKwsn3l/zCU/V7hmzoS3U5IqbJUaFFE4HaRYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2mrwbAz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791325221; c=relaxed/simple;
+	bh=PO8FlmAppGType6lBoyHdjXUzhfsHpl7vSjXpJjFldQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=DPd32fs9lDt0KRNxke9FKt9NQF6N0fQd/72djyBZzhUF5wWLIP539I5AB5BKuOg1qi+Ml5yjeArMj0BVYcAFcrzt6KqBDSx2/4ys1y4ju/Lv4RoeCKUc6yW9KfEv8uVTgujo260n4RUAz6MkYaFki1FepK0a6VySDSbOur3SIHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsA1JsL2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2mrwbAz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516D61F0089B;
-	Tue,  6 Oct 2026 22:19:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsA1JsL2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 635BD1F0089B;
+	Tue,  6 Oct 2026 22:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791325159;
-	bh=yoz81NNJye7tqFJfq6/+j2f4bS1mDaz+zAr4Z6WtmlM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H2mrwbAzBClnxhvRFMYxigOuYhKMn7ijXwR8Qrx7baAJeXzyic/m6tBEFFcdbAJ3b
-	 VoCFMck86sbcQ3B473rFsrdvf4oTRZTMQgy6o0h9fJO2AeZTRbWkrueUiOTZl9s20l
-	 I6tdnlA9vDXHWCbkYTmomZR0lddNauOLZb+hrjh6llY+36qmnCopBV4T9kdkXh6vSH
-	 iDEQPZlOMuV11SGYuP24gpM1HFEtioraOxddAeH9jR2afox1U77MeFuxi9BtHvm/8G
-	 OogBj/0hmXTmNeEAfst+35IcVpHnD1COUz/PbhXCbNU/Hn04yU2nK3aYqq0BgZVuMR
-	 CKG0HfgpwfgyQ==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Gary Guo <gary@garyguo.net>,
-	Tim Kovalenko <tim.kovalenko@proton.me>,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpu: nova-core: fsp: use KVec::zeroed() in recv_msg()
-Date: Wed,  7 Oct 2026 00:19:13 +0200
-Message-ID: <20261006221913.41298-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261006065437.58408-3-blum@kernel.org>
-References: <20261006065437.58408-3-blum@kernel.org>
-X-Patch-Reply: applied
+	s=k20260515; t=1791325219;
+	bh=6XEv2S3lnEbAy/rtFG4gRenDM0hZDhO4PFP4tPnmJgg=;
+	h=Date:From:Subject:Cc:To:References:In-Reply-To;
+	b=JsA1JsL2LMhAHfQBfq2zOYKpu3aBiDPbM9+qCx47t5J4ZoutScrZRdpf5snaqchnh
+	 oeDdyLcKtNqlOdTlHqo995YUWeUvIEXkib2VAv7uZmvRQ6veh1MdP4JEPRpsWRMW1D
+	 +3++f/TXJm3mbvJVZIMQGyb0fbmn0e2xBop9WlmLVzVYshJ42qyjQ8x7oozD/M4a6n
+	 tsdi2zNjfUz7bwm9xdqSD+nrJp/43Zmyq2Dzwd8IqH9pzlpoxltrAnfBtMgYeg0FHT
+	 9gJjdnxVnWx7PU5HH6HgOp3zIRH6bnzWbo0ad2H9UCQaZItBRwYgNn6UFKJbzH8gEF
+	 2/4vV69bHSXSA==
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Wed, 07 Oct 2026 00:20:15 +0200
+Message-Id: <DLY3SJLA1YG0.1YBCCD2CAH2IC@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: firmware: fwsec: use zeroed() to
+ zero-pad buffers
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Robin Murphy" <robin.murphy@arm.com>, "Tim Kovalenko"
+ <tim.kovalenko@proton.me>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: "Thorsten Blum" <blum@kernel.org>
+References: <20261006100442.80432-3-blum@kernel.org>
+In-Reply-To: <20261006100442.80432-3-blum@kernel.org>
 
-On Tue,  6 Oct 2026 08:54:35 +0200, Thorsten Blum wrote:
-> [PATCH] gpu: nova-core: fsp: use KVec::zeroed() in recv_msg()
+On Tue Oct 6, 2026 at 12:04 PM CEST, Thorsten Blum wrote:
+> -            let mut ucode =3D KVec::with_capacity(aligned_code_size, GFP=
+_KERNEL)?;
+> -            ucode.extend_from_slice(code, GFP_KERNEL)?;
+> -            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
+> -
+> +            let mut ucode =3D KVec::zeroed(aligned_code_size, GFP_KERNEL=
+)?;
+> +            ucode[..code.len()].copy_from_slice(code);
 
-Applied, thanks!
+I kinda dislike that this is now a potential panic, but it does better expr=
+ess
+the intent.
 
-  Branch: drm-rust-next
-  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
+Can you please add a corresponding // PANIC comment?
 
-[1/1] gpu: nova-core: fsp: use KVec::zeroed() in recv_msg()
-      commit: 3e3404c52370
-
-      [ Avoid the unnecessary turbofish syntax. - Danilo ]
-
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
-
-The patch is queued up for the upcoming merge window for the next major kernel
-release.
+Thanks,
+Danilo
