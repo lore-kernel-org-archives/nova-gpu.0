@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314AB3B2FCD;
-	Tue,  6 Oct 2026 10:06:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447003AA510;
+	Tue,  6 Oct 2026 11:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281164; cv=none; b=Ijs627wnfKrU6PND/ISLxaqN2BuqZ3Xj2bGR9YeRGjTZcZdx8y30wPvpmEoQdxWNVlnpebZJrdQnVLVXnKnAgvQhZqHAv84oamz1860folSqhF9Yeg4XsTREtWjkPCi462qx6OmEhEX7lenblZk0uJST6F+Ar2hgmJp9/GexdZA=
+	t=1791287637; cv=none; b=s3xLFRqsQ507ajeTzgy37sJIey03hcvcjSuN0xPqtxoDEY/pMFKoyWi9fhaelzZWgw3sADAv+Kv6exwArvbm+GFcagurvftH2Y/ZZyUznXmYbqVTLPo+jhsBOLIce6mopkTx29ffNzueH4+0dajqP8hs3mVDwv+nFVYrA8p9Txo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281164; c=relaxed/simple;
-	bh=7ISurMb0auFlN/SwmBEY3otzpEgamf9U/yTqct3dbz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VvRrBLO9cScm+9W5tDa677acwT9WjMpIXhELpLBXwjlS+5D0FH7GlFhYqIZwQ8NUf4ouHTXRmTb0o6Cjxz3CeY8I3A50IIoTTP/NNhVffz6N67zwUroZwtv9uvcGb7tnp18gyjmA9U1lcU1iGGf50oKnlQhg7IlRSKCv0881qMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6gnRyUw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791287637; c=relaxed/simple;
+	bh=VetweA1aMKnwvp/z6U6ngiU40fTiotUsT0isaYLH2nU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gAB/Ok341+iMCUkE4uVJEo0vZ1nMSgBxFefWCbt+FNt5Q4JtpZ7/U6myNYL6EaNXOd20upMY/qg6iUENjryFEfVq/bUUWIQaHgKFOpNET1k4Yhm5jMeTZTXF7rK+Xav35e73jHpytiQvrN3EztCp/XgJqZDZd2Tuph2GlpNmhB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LNqUMrpZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6gnRyUw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAEA41F000FF;
-	Tue,  6 Oct 2026 10:05:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LNqUMrpZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB03D1F000FF;
+	Tue,  6 Oct 2026 11:53:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791281162;
-	bh=HaLuhfmI2200d0t+fAcSUnDd7yPphUbg2WEHqVSyuzk=;
+	s=k20260515; t=1791287635;
+	bh=pm06+NkcSQVhTckq2o+B0jIj5R0QdwE0Dppd+dgufN8=;
 	h=From:To:Cc:Subject:Date;
-	b=E6gnRyUwot60DvB/vq5hbDsV2Frqdj5UvrhZLN5okcGmyTq/HpHK/ulcZDle1gTx8
-	 mejVGKAiRZ9BSkLI0GeYY1d1IkuOzMhVI8GiK9rNwAFVjHWpIB6SJUVZjSIOz+XqCK
-	 tuhsnCnp2+XHvxm+oH+wSxPoJBmWDt+qA1uR01ltdOb9EELexBy1uYaYtdSbcZic0n
-	 9IQ5TeG+0oBZX3EPDOs1EV81rGothWqv0dGemzJnbzHWbA3nkQmduJwyhN3G0zoRlq
-	 9DpliCvCwUM0e10Lq7Fx04fYjyhrIxKk2+31+lXTbUUEKIqJ3POGUqgd6dtR8ZmJey
-	 2EV3xZPjI+1Pw==
+	b=LNqUMrpZgBVOLJSZ/W/MvA4gaS5eLGfbM29hyELkMy+C5gL5fIj5/sPuiqbsz8aih
+	 9qgYrjPfyC56shoPoNkk9g2LjskPA9VsvwCaA06BAMQ2Wq4tCxRRxFa/lmGSP79d40
+	 KZG2pz9bEKE9qjcnB8tiHaUiRsT3kFM0DoTrIqM16un8ROE/XYT9+QSkekALTXLSPb
+	 S+9ZPun9DMuNdGc2pbrEwyqXU4KKAIvkSd3QG89YJCnjpuIijhArElc5rKbsHpNZrV
+	 ZT5kfam8A7V2HNBUDeBv1gcrCX8MUtK+lO8bPjkP4hWPrtM1qM+goOMZAAaPEXtStX
+	 n8tb3ZBR1R83g==
 From: Thorsten Blum <blum@kernel.org>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alice Ryhl <aliceryhl@google.com>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	Gary Guo <gary@garyguo.net>,
-	Timur Tabi <ttabi@nvidia.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Tim Kovalenko <tim.kovalenko@proton.me>
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Gary Guo <gary@garyguo.net>
 Cc: Thorsten Blum <blum@kernel.org>,
 	nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] gpu: nova-core: firmware: fwsec: use zeroed() to zero-pad buffers
-Date: Tue,  6 Oct 2026 12:04:36 +0200
-Message-ID: <20261006100442.80432-3-blum@kernel.org>
+Subject: [PATCH] gpu: nova-core: gsp: use KVVec::zeroed() for payload buffers
+Date: Tue,  6 Oct 2026 13:53:06 +0200
+Message-ID: <20261006115311.92873-3-blum@kernel.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -49,43 +47,42 @@ List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1585; i=blum@kernel.org; h=from:subject; bh=7ISurMb0auFlN/SwmBEY3otzpEgamf9U/yTqct3dbz4=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlHju/68HNO1poNnkbba5ZkP5rtNFlWzF1RJvf/FGPVG xd1Hpkd6yhlYRDjYpAVU2R5MOvHDN/SmspNJhE7YeawMoEMYeDiFICJrHVlZHj/raRZ2+rsM4+w C6YG7pNbP2+9ONPp8h8uh57XUV9MpTgYfrPmeG+f/3Lvj8KPNZuKOwKa50qfzWwInS1X/S7ZLT7 5MScA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1795; i=blum@kernel.org; h=from:subject; bh=VetweA1aMKnwvp/z6U6ngiU40fTiotUsT0isaYLH2nU=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlHHqpfm9o2s1SW41RCvNtzc4OZK9ed9M3b7zqP06r87 tW1ByKndZSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEntsyMryLCCg+cU22NvP3 /SN7Li282nR136Q5XhvuBvzeorBkyqMljAwX5jv53jeXUeh3NdnItW/miuMLok6XW/NaK82Os5E sf8UNAA==
 X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Use KVec::zeroed() to allocate the zero-padded microcode buffer and copy
-the bootloader code into it. Also use KVVec::zeroed() to initialize the
-firmware object's leading zero padding.
+Use KVVec::zeroed() instead of KVVec::from_elem() to allocate and
+zero-initialize the command and continuation payload buffers.
+
+Also use KVVec::zeroed() in the test helper read_payload().
 
 Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/nova-core/gsp/cmdq/continuation.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index ec4d92317a93..37dcd4bf4711 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -137,10 +137,8 @@ pub(crate) fn new(
-                 .align_up(Alignment::new::<{ falcon::MEM_BLOCK_ALIGNMENT }>())
-                 .ok_or(EINVAL)?;
+diff --git a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs b/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
+index 05e904f18097..9ef19f28de97 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
+@@ -106,9 +106,9 @@ pub(super) fn new(command: C) -> Result<Self> {
  
--            let mut ucode = KVec::with_capacity(aligned_code_size, GFP_KERNEL)?;
--            ucode.extend_from_slice(code, GFP_KERNEL)?;
--            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
--
-+            let mut ucode = KVec::zeroed(aligned_code_size, GFP_KERNEL)?;
-+            ucode[..code.len()].copy_from_slice(code);
-             ucode
-         };
+         if command.size() > MAX_CMD_SIZE {
+             let mut command_payload =
+-                KVVec::<u8>::from_elem(0u8, payload_len.min(Self::MAX_FIRST_PAYLOAD), GFP_KERNEL)?;
++                KVVec::zeroed(payload_len.min(Self::MAX_FIRST_PAYLOAD), GFP_KERNEL)?;
+             let mut continuation_payload =
+-                KVVec::<u8>::from_elem(0u8, payload_len - command_payload.len(), GFP_KERNEL)?;
++                KVVec::zeroed(payload_len - command_payload.len(), GFP_KERNEL)?;
+             let mut sbuffer = SBufferIter::new_writer([
+                 command_payload.as_mut_slice(),
+                 continuation_payload.as_mut_slice(),
+@@ -235,7 +235,7 @@ fn init_variable_payload(
  
-@@ -162,8 +160,7 @@ pub(crate) fn new(
-                     .ok_or(EOVERFLOW)?
-             };
- 
--            let mut firmware_obj = KVVec::new();
--            firmware_obj.extend_with(align_padding, 0u8, GFP_KERNEL)?;
-+            let mut firmware_obj = KVVec::zeroed(align_padding, GFP_KERNEL)?;
-             firmware_obj.extend_from_slice(firmware.ucode.0.as_slice(), GFP_KERNEL)?;
- 
-             (
+     fn read_payload(cmd: impl CommandToGsp) -> Result<KVVec<u8>> {
+         let len = cmd.variable_payload_len();
+-        let mut buf = KVVec::from_elem(0u8, len, GFP_KERNEL)?;
++        let mut buf = KVVec::zeroed(len, GFP_KERNEL)?;
+         let mut sbuf = SBufferIter::new_writer([buf.as_mut_slice(), &mut []]);
+         cmd.init_variable_payload(&mut sbuf)?;
+         drop(sbuf);
