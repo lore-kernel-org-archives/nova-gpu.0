@@ -1,74 +1,78 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011000.outbound.protection.outlook.com [52.101.52.0])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010016.outbound.protection.outlook.com [52.101.61.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601E43E832A
-	for <nova-gpu@lists.linux.dev>; Tue, 13 Oct 2026 05:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5854B7E792
+	for <nova-gpu@lists.linux.dev>; Tue, 13 Oct 2026 06:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.16
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871111; cv=fail; b=PLzCPxwyBqe7ReoeD0B/DU+WbfKrD/YQAtOK38/Lt3Wgu0IZ+tTsXm8iy5gA402rHb8WDc/zUwm6yhbbv2ZwIScG/Xex/hvIe5zWFtVwi+zKuqbj36T3yrrjxvbVqECeNGZrRUJRmwZR2OFwfWbfv+d5oOPawShI+FqDqjV2FY0=
+	t=1791872618; cv=fail; b=jL4XUFq1QWW6TVtEFpIol6zCz/4VBRPkz84TDiB8SSb/BUzc1A1F9i76UwksfNKC9ONksB06nK+g/p3oE/RLTqeNAOPDiXw74LMPdZQPEdny4GgNRnUq455lS52INzDCicfYKirfANZig5V2/+wZwFgKzkveP8FwnkWA4TZxdmw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871111; c=relaxed/simple;
-	bh=CpnbHouBUCAZlwYU8BAnBxyb1lIvKdgC7QAzINjpIGA=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=tLgmRR+DuDqHkiJQtCl3HcK5awvGgW3IwmftEJy+PrauTxwndkTz3UbcmE3GkVnlMO4MC5PS4U5Y41Wd/UYtYOLscKYYlhTat8eIKfrh9fKLBBYbj+ZO4jlVIa8aoFue5xnNhQj8koM8wj30guYRaATTm9xhEm2zK88jS3fbblg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MPMp8Icl; arc=fail smtp.client-ip=52.101.52.0
+	s=arc-20240116; t=1791872618; c=relaxed/simple;
+	bh=tg3xPE6xJKDTAGUwcqfT+8Dg3895fho/z/aKUnVKHPM=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=Dc8ZPVEMOq7dVHTRvRpqfUxTo7ycvpRuZYMEfBcrgnzi+H/gARnG0JyIg5QwhnueCGbcLCWcO6GCIL+9I3Gp9EaXSwPqV+KXaLhIalHK6QZbLQUSU+jDIoZSBlv56P6YvWJFbsZ8OVlXqUztw/4EBQJMPz5mjnqFHSUm1cvPltU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=T0tsoi2g; arc=fail smtp.client-ip=52.101.61.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MPMp8Icl"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="T0tsoi2g"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZtLOwqacTPc/A4T8LhXWc+OsHgKeMoQmwFazyJ6OuGWZ7J7Al2nh2hTEyutQcL8l4ay1rNyZouzro4d+0E9p8ZQrI2ArE93SOz5O6ZRKmSydtuJlJ+XKUVjsM4vtSN2YIagmJaZAcIIT+zbRAsx+jB56HDqSGK7iq+fh5IfX2MLFz2qiwehURloNsLw1LYgW3wS/SkaQVk4QChLu7Ss+aMr/znCWWFl1VnpMuUpLYxdjOemOLS5nzBgdTHRji89fBHFAlxGq+uRV+2z8IZMypq9J8ZPSW4mOt/RLjafF+MicFYasO+JcAzYM1Q9U1M1psLYXxt7nRTZrn/qi8llDRA==
+ b=QGcsPwZv76LWGBi9iRoln5XmblNlIXEG/VVHvPyYq48sJj5753Vd1DGFdFrgQD4gT5enxTsU3FaY+H+gE3qx4M0n9BBlVV3Szhx5SXn0ICN+lyt7BMtkCt1HZ33R/fEzicM2HWS3buXsnHuGjk+AXvdI3R4JRGLpa9fzcEk8Hd+P3m5f+D22Ki18SbXvZukQlJQBM1PPGKGfj6/691TRmA+4e4ZeAw+CdSTGWRPX70A3k5kFN/c9r6x9jBXl5LICqNKWWvIdlrncicax6l/hT8Tte7e5vIj774QcsxtDht8nNI/3w6Qk4QOr1MSqlqA1mOrVPEphq7CdPI41+3F6lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FRwJPJCWuDHIgLggipR2f7ie+6oeYpVAU0TUJfSer/c=;
- b=MF4Y5s00mbNSV0RUFfH/YOXTJtDUYQl+fqz7pamCnS3ZzVOFsynJIZ9ofMDrPwIOuZsMwFsTPyZRtaQ1xeGDz95p/OyD+l6PvN0DOmDYONiRAyZdxEiwB1bM2s8M63sP7Tnxunh3Dv00ON6hfAkPa54NSZZfnvXIXS3nlJUKKR5FoBZik3Y5pELBnczLpfwyoKfEX1RM1Cl7RSeh9hH0Dbu/zfpAcHaDUdL3peorlp9V2Ked5ZMYMqSGQHbcXXPs0CyrebZKLm5w1f/iHTIAfTvYwYhtU0MNmBPnascB9OW/etWkUmeJ/QnESloNrY1iGQYLgm/vy895aKZ8bueS8w==
+ bh=vyA6b9wdiCQr7MCdES8SBWJ7zdyF9TjwUkD5GkXVC+Q=;
+ b=wj6a8E32GG9GMzI9cyzj99JFa6UOJ7Jz7GytoZKkCOjpRhIqE7KObHoQu4GlXry7/HltViESyL8JiLXXxKUTwg4ajBddZRA1/uaohpy+bRfOwaM1coISL6S8ywOpJ08MB5TFVKUwmRRhGiIxEh/zZSk6/6KV9TJ6rg6ESGfkJjaVF6fSf4ALUCX5VISbnvMjisFxSv7n+OZYwSDcM31RK4SmRI8lS1QW2MkvGHP56GL0cPGowC44kSyt+gn4W37ssvDWSmhnlD3AV492daK8CK1bDsV9eyjxrLkZ8uooas9xs5ACOVqW0v6lW5r+5bEqb/wwt/T3mU7JAcQNlu1RSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FRwJPJCWuDHIgLggipR2f7ie+6oeYpVAU0TUJfSer/c=;
- b=MPMp8IclHFC/ym+V/NA3uQbid2h4ZEAaR70GdJ+9FQHDRDF74obYnZzu/swYYH3vL1bjAu0yYWglZykykADc1McJmZZC5NcND+t1DayeMmjBK0Pad8gTOk0BmtIfY2c9y0dlrQoTM+5k7ypEXPx33lWuIZEXcxOiYve227FgxqMFpBP9JC4M5aLL0KuHApxX8vTY0ziq3Xo5bLnEDZmGW5pLZdUNRceXQPzgIwqq7Dw2WFTdbKJQF1Ro+AwnkI2qWDNBtkVRPfa53zKlNUyhviWXf+Y7fCsRbVboMP0whul/qlE3TSf3tTQ00Lo7GaO13poyI1/pGH7304WRHnQVUg==
+ bh=vyA6b9wdiCQr7MCdES8SBWJ7zdyF9TjwUkD5GkXVC+Q=;
+ b=T0tsoi2gk2VCkEfzzzWS27JqYy8recfsMbi+FTVJl4BjrWH+GZxT8ukg3c9a8sbAOTZeAhWwEW2+Y5KpItIgMnTidxymQKbJScObRufvKK3O2AxBZuR7UUeq4i2P3nFu7ddCckrwPTr66t9v3qxvpqYNqsjuTIbFpljxwV+8ns6vHzn9fwjU2OeE94mYN+DvfrCO8Q6/jsMXaaz7wT76geeGHHrfSyYlMZQbbgv1o3famQbf5kZFUBDLZ9s3k3Y8QI+707AJcY39V6QeB0DtcLX1orSDIx7HEcEwjP7zsZVQR4Q9nSPbcL4gvkj9qNMFkgbAIGP143i3weuvxpMOLg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MW6PR12MB8916.namprd12.prod.outlook.com (2603:10b6:303:24b::14) with
+ PH8PR12MB6868.namprd12.prod.outlook.com (2603:10b6:510:1cb::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 05:58:24 +0000
+ 2026 06:23:03 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 05:58:24 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Tue, 13 Oct 2026 14:58:07 +0900
-Subject: [PATCH v5 2/2] gpu: nova-core: use cv! for constant casts
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-cv-v5-2-113a538dfaef@nvidia.com>
-References: <20261013-cv-v5-0-113a538dfaef@nvidia.com>
-In-Reply-To: <20261013-cv-v5-0-113a538dfaef@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0172.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c6::10) To DS0PR12MB6413.namprd12.prod.outlook.com
+ 06:23:02 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 15:22:59 +0900
+Message-Id: <DM3HTEQWMPZ2.6IYTH17NNAA@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/8] rust: alloc: add Vec::try_push_init
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-1-f04504c262c2@nvidia.com>
+ <DLXISL19ZQBY.1E3J1G0HKGPZJ@nvidia.com>
+In-Reply-To: <DLXISL19ZQBY.1E3J1G0HKGPZJ@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0126.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::19) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -77,387 +81,177 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MW6PR12MB8916:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad4a43a9-1578-4f9e-1578-08df28eefe1b
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH8PR12MB6868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 022fdd45-2aba-4c7a-299e-08df28f26f0f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|10070799003|23010399003|921020|11063799006|56012099006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|7416014|376014|366016|10070799003|1800799024|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003|6133799003|261009223027099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	RajhD5or1V29osMMe/6cNuC1FWmFQiF9z2XnXtRkbziiAfwaFaHg/o1AOi95bi9cX0JiPQuHWmeU7kJRDSw5AtzzpTTb5xTBKvXFn6QqFP0a6MyObPnsU5lmN9yrSak9WDUsuPoe2AYZfwQj/EMIcImYTqBnuTBYeC6gQ1OckL26P1u6WjvopbJBhS0ttZDjtOrabbWngJRU2idiVmIR9DJj8kDQ/PKG1BvYOSZywNA/JIyZDGKYnZaixmHGToNXLustuXc9Qtlu7Rpk4Bq9QY+d/HgMyLZQx+2i7DMkyRXdIqksMtt+HIp7HDjAhZoQfBO08fyVdBvytbdvaG5zToFgkTT4naGosmDafzeSKlS6rQStESVeoD346OArzKtcDzlhvXmuhBw+4aAhE8CpT1qiQ52duWLG9NkdzAjkj5DWC95f6uufnuyK92bNAT28ERo6Q4F//4eZYEOvNmMWbgpAyy4/nEI8PxW1s7+L1uu6dlq4mKbZyct3XnupLxUi5OpF2ALBibGnmwZDCrCnaS3C3nwQKD3miM4pqrfgKqz2Uwuv8+gwx57fU2XgRgdr6JIKqNnaFtd4cPqCIqtmkqidvvvdcHuX+aFr1Fpqv5znq1SRP2csW9Xu2KKJs5luNHSUNJ8j8P6wO1ruVSHRwrZwb/Ood30LZ0hbrJ7d0QV/b/Foq6V7FH+Sa8crEtpk0xwZNqt0UXjKN+kshXDhwQ==
+	1kZJofTxR498GIpac99Gmy6vLfwy7Pf/dmlE7/e2GdothEjBnFECUUbibbXmjkx/ytrNziWipGy1Y0UcQ1I0MsmBABbMtLwPq93MkE/0dqyPEgBtbwfbIRYwYJW5cK2TqvlbvTJtWGFfh5nz37ln6QBIe1Bd6mBeFVBsYyLw9J7Jsjbt/9/NQHJPn9p5O11CU95twXzbiMg5trm1WUCBJbi9n4fUs4TBayu4GKBEpKdsJGqimy4P/+lJRMCf73fMc9lXSLs9pRlHDS0g4rEWnOj6BpHVxaXoPUUbzOaUX65qzSM8dadfsig5dTE9dOVemmYaWjNzuq7T0/DJY8Q08Tde5Kgg9hHehKLz1jkxrx0b2T0J8aVzAbR6AqOC5O1gIRkp1ApyrjluAn/z8ELtZYZ/B2qEr4k2E846zEL7vXjCHEnqTop5fbhVpFJ2h0qtq96+fWZ+5efoBV4aPQxG3wDpuoVzOue0qR+Ri++udayWX/qadbEWZ+eGSDuiknG9ODr6qcEgib8Fmw7TmP+uC3B9f5hkua7/aCB/IkDYkaHF0X2lBdBn8AUaIlkPJZEVu7qwBxet1u1OyY6mK71e3CVwOw8dnfiuuqIIm9KywxaWHzUrHYdoL5pzZ0JpXPPiS5oc4WwrQaIpegjxK0i1RuRpQJCnf6oMpDUyROI2fAY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(10070799003)(23010399003)(921020)(11063799006)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UkdRWlBQZ3pJdVV2UGxJcktjT3pwdlpwWDc0SzZRT01WRGwzODVUakJVd09N?=
- =?utf-8?B?YWt2TExVSXllcjJxeXM1blJyVVI5bUkrWHFMelFBUzlEVmYrejMyTk5nVkpX?=
- =?utf-8?B?ZFVoa3M3czhKa3JGczhZWlNRUnZaQXhwdUpwS1IwUGNYbDFsNjluKzZ1cjJR?=
- =?utf-8?B?bExnNTJOblgxRUJISXhlajlGeThjTTFPeWZvM3UrN0cxODZ5elNvN0xzaFFB?=
- =?utf-8?B?c3Mzd1V6OFRjZGhSOHkvaXpUSWYxMUZQdmZPakZuY1JGcGxGRUF2dEJJS0sz?=
- =?utf-8?B?MkQ5WjlLSHhwR1NVcFQyeHA5NVdLbWhVMVlxbmN5Zkc0K1RseDYwOHEzTU1J?=
- =?utf-8?B?TXh3SW5Ea0ZZWkE1RUhmdkl2OUY3U3RVT0x3aUJSVGlTLzMxMHVEM002OEZ4?=
- =?utf-8?B?WWJDYkJvdkh3Z0poWGVScW9JQi9xYkhraDA5eDJONWlZRXdHMHFaWWxJTkpZ?=
- =?utf-8?B?K01yY1hHNFdDWG12eTYzeUxKUDFQVFVTbENwYlozVTlqZlRMMEJKVlBjVFpU?=
- =?utf-8?B?QkgydVlJdlpNdmFrT1d2bGpmZU5TUHlMSFZFMW1oZzRjQ3h2b29MOE0va2Fx?=
- =?utf-8?B?OVk0c2ZKUXpWaUZWdUx6cVdIZmd5TkRodnhYZDNoOElJMm4wZDZodStBdmRS?=
- =?utf-8?B?ZmRQU21SdzBiemV0SE9qQTZYd3B0RlRrc3RKSFBKWTBZb3ptK2FFMXYzVDdh?=
- =?utf-8?B?VjhNTENoazRXUW5Ud3NnM2xWdWlPV1ZPbTFWMG9jQ1pGeUQwMlJRWGoxa0Rl?=
- =?utf-8?B?c0RVRml6dE9KODhDR1lNRllHczc0ZVNOS01sTGpQeFdabi9QbXRGeElCcTVP?=
- =?utf-8?B?THdNU1ZORnpQY2dBRTFxeDV6ZWRDOWhiRUxKYlNEUmZPeWZCbVZFa0hsWXJL?=
- =?utf-8?B?K0FvR2RycFl0UFEzdkNRcVMreVNyZjBrZzJtTEtHODVDNUk0ZTFUUFo4TVha?=
- =?utf-8?B?bTZLOTJ3VGk2bWcwUUxmUHVrZmozRElUS2pLSXRBODMxY01wNWdPNENQYjhC?=
- =?utf-8?B?ZUVEZDM2dnJpYzBwbm11TFFWWTZabndlMWt3MDErcHVOdUlzcThkamIzeDlq?=
- =?utf-8?B?TGFESllvRUkzdjhLaTFqcHBMem9yOHczakxIWkFGanFnWmJkdzN3c0ZSd2Mr?=
- =?utf-8?B?eUZCUmVSZGpuOGRzYXBjWVBoS1MwOUdvQmNSaE9qSHdWdFhxUUMyT1NlMU9V?=
- =?utf-8?B?Q0g3THVHWkNoWFEyY0tBWWNyeEpWVFJqblZpcmdHb25QRURDV2hKQ2cxZEVm?=
- =?utf-8?B?dmh3bnNiNE4vUmhjV3d1Wi9sd1RjSGdYODM1b1lpQnBuOHFMRkJrQ2s3YlRW?=
- =?utf-8?B?c3dueHFpb2xFdDQ2M2RlYlFrcVU1dE1PK0F2ajZuNVJySnBBSi90TmFkSCsy?=
- =?utf-8?B?WDRoZ2hXRU8zMzVvT1BXdVExZWxMaFdLL1N1TGNWeUpGTlhCQXpqQ0RzbVBp?=
- =?utf-8?B?WDJxcy9OTWJqTzNMM20vWk0xOGhScGQxSUZGZG4xd3lsZzA5U2FpekZiTnVm?=
- =?utf-8?B?ak9nWHA3MlNiM01aTUNkMmhmbmphbEh6anB1R0V0SXhZOVIzM0lHU2U1NjJR?=
- =?utf-8?B?RE1CblN3NDhoSnNldEhFWkNGTmtWUEJpVGVpVlhZRzgzaDkvTXlEMGtFdGxH?=
- =?utf-8?B?UUl1MUI4RkoyK3ZPa3hoQmtTbkRKbVlsYjZOd0FKdmpjWVNLSVRxcUEyVFlW?=
- =?utf-8?B?VENPRUJFZlF1cUtCa0RnU21Vc09DVk94UTBmM1FIMzE2Y1NLSSthdVNCT3Av?=
- =?utf-8?B?bXk5cXZIL3ExbStaVEFQeXpNeGxXWjFiNUd2bjg4ZWhoQWpxS2U4Wk5ncXZ3?=
- =?utf-8?B?ZjREYVJ6OVlUSUI0b09hRk8rRStKMUVLcC9sc2t4bVFTQldjazFZL21XYUc3?=
- =?utf-8?B?Y2xneHVINTFnNmxOdEY2OXlERjB2VjFhZlZuemtQSUtxb2FZK0JUSnZnWXBO?=
- =?utf-8?B?RzJqV09aVUNROTZoaFpuTlQzUzY2SWdiV1RaNzNLZitMNmVGdnk4VDY3NU5w?=
- =?utf-8?B?RHdTd1QvaXFqZlVtTk5LYi9kdnoyYVprWG5PRlNiVHZiVnd2dmRZR1lRSUtp?=
- =?utf-8?B?Q1QvS3B4Z2I0RmtpV1BWMCszNC9LUVAxNHBHT0pQVWE2MEFKTUVHczBuYzMw?=
- =?utf-8?B?c3dJNFk2Qjg0aU1tdVVGcEZwbFE2aHREUzhFcko4RVJzU0xBcGtiU3NGYzV1?=
- =?utf-8?B?VVhOTGx3TlB1dVRMUHpTdHdQOUtjTXFDVFBZRzVkOURSUFZ3VnZyOWdCYSsw?=
- =?utf-8?B?dk00UW85dFAxUmtWcmtZcDdlZmJ4YWJSNVluc1kvSWpsYlFNdTZyQ21vUUd2?=
- =?utf-8?B?OEFObi8reUFwR1lTVmo3WWZaWkRvZkwyZGorSWxER2piSWdYUnRYRnFwNkty?=
- =?utf-8?Q?bERdUpTHVjxkHocYTLJXx8mOIH+d4tG76Mv8ggy/EC0hP?=
-X-MS-Exchange-AntiSpam-MessageData-1: Z4FAVRLuRS2Uew==
+	=?utf-8?B?WS9wa0JQUkJVV0c3cksrMmg1dEpaT0d5N2FGV3FMOVlLdlNxVExYQmZMN3Jz?=
+ =?utf-8?B?UHl6V2w3YmFsbmhJeHBCOHdzRXV0MW14NzJaU1pBdkJ1MVp3bVlyNFV6M2M1?=
+ =?utf-8?B?V1NnR3FVZnFSS1ZDbUFqc254TzZiMlBYRWgxRnNsSXZ0RGpVSDlNblovTFJp?=
+ =?utf-8?B?Nk9mSEErZ0krL2RYRWl1NUFlNVozdkpTT3RaaGsvZTZndGt2cFU1WjZDakpY?=
+ =?utf-8?B?eG1heVF2NUFpcG4xd0Z5c2xIODFmNndtQ1ZvY1dESW1hSURXNzVuaTBrc2h1?=
+ =?utf-8?B?bmkrU2dYTWhuZ25WSXdicmEvWUtvWWdyOEtqdEsvWElFTlNlemJpTXN6bFNN?=
+ =?utf-8?B?VDdUWFVRa3BSVUlQRnp5Yk9GSWZQRm1idnJ5OHRDRkhoOS9scHNTc3J0MU5I?=
+ =?utf-8?B?bXYwWjFUVGh6RWRJeEQyUXM2bithTWlYRGwyRUY5SmJTbmhoRmluYk9GbHVm?=
+ =?utf-8?B?eW4wL1NqaXpuNXVmRit2RUp1a2dHZHE4K2tPRUhoeGxlWFNBRVZLUk5lWXhG?=
+ =?utf-8?B?QWFZNDlpZjVxTVREYVg5TjVnUWQyM2xDd0VLK1E2dy8rK0psNGM5TVNQdXFZ?=
+ =?utf-8?B?L3I1Yk15b2tZeE9BWlQvVVdVOGJTMTFCb3hpZTFOc2VrSlh5TERjZDAreW5E?=
+ =?utf-8?B?MFQ2WVBhaWFFMGlvUlIwdGFqY1E1aVh0WEVxU3pMU0N0WUtyZHV4a010NUtl?=
+ =?utf-8?B?NFJWYmhmRC9RT3ducFROc3Fad3R6R2paWWcrMTRGMCt0MGtOUFhoclpEc09J?=
+ =?utf-8?B?YnlOdFRCZXU0dHNBZnNMRFZzSFlTT3QzOC8rZDVNdGlFK3o4KzN3YjhWdDNX?=
+ =?utf-8?B?eEpNakpmSGFtUFlicDJEWGlPK2JzcnVjTkk5L2NwMnRGVzVpOFlzUDhIbk1t?=
+ =?utf-8?B?UVJ3WFRVS2FrUW1kbzcraG1aaCtwczJYanNFbzQ1Y0d1RGwyMmIwcmFPQThj?=
+ =?utf-8?B?ZXcwV1g1aHVoTjJ0L3M0VWs1RXJPSkFyNGdHWDkwcHJuakJ5SnMwOCtnbUJu?=
+ =?utf-8?B?bTQ4emR3Njkwa2RZdXl1VzkxN2pqVlBEYkFkeUlGZzZTU2NVbVcvcWkrNDNO?=
+ =?utf-8?B?SEhLL3lIWDZqWTNjMXp5WDQ5Q0JiRm4zWmhsWmVXSDNUZVFEbWtCOU9XT1c0?=
+ =?utf-8?B?cVlYTWZSaWNsQUlDUWU4ZEhaSFh2OTAyVTkzdjdRd3g1Nmo0SXorNWo1bmxL?=
+ =?utf-8?B?ajc4RW5TUDd5ck1KVUpQZUhPUVhKVDI2bGpRNjdGVW5EMXFPWExDN1hXcFNU?=
+ =?utf-8?B?UWxlZnZVZnhWZ3QxL213RXd6ZTRsYXg4ZVpEQ3FCaDQ5c2Yzd2pFUEdCVEI4?=
+ =?utf-8?B?NDEyUXRjZkFNSjFJTGhKQWpPR0pHT3ZMelJERy85SjFQWXJzVzZQWG82aVd3?=
+ =?utf-8?B?Qy9XZXRLQVNiY1RaNVpSSm8rK3l2cGdEZUM4Mlh6eERDa2hmSmdLbjBDOWVB?=
+ =?utf-8?B?OXd0WWZQMTRSWWlEUVVLQy9IZHlFSlZCOXFqVFpzU3BNT1VBVUhsNGdhakxa?=
+ =?utf-8?B?YVNDZkM2Wi9CckNyUGxKY2FUMmNvMGZ0aGJkOTVwL0g3Y0tzc2k4T3JQWDVh?=
+ =?utf-8?B?UUkvaG5NTmtCNXhQZ0hPZHdtd3I0VHY3ZGJ0dXN2K1pVWmcrNW5OYkJJQ1FB?=
+ =?utf-8?B?QlZiaThKOE1lRzluQlY5SjdjajJBMk9Hck1uWWVJeU5NZVhZRG9vWG5nY2pQ?=
+ =?utf-8?B?K2ZNck0xd29zMmtyd2NWQlg0TnpSUWd2Q2I3V3lOdWliYnZIZ3p0MVFHQ1BN?=
+ =?utf-8?B?RmtJUldwR2I0RU13dDYrS2VzNGFITEFyOW16WmlZczVleGY3WHdRVGxlYmFR?=
+ =?utf-8?B?dW1OUVVIaXdaQjdaV2R1aGFlZlRKcVBoR3d0YjBjdG1meCtTZFlQZ3dxMXp0?=
+ =?utf-8?B?ai82ZVJvM0c4cElwSlVPWVF3dk43RUtmUHpOcnUzNEkwbmpsMkV0NXdEb3A4?=
+ =?utf-8?B?c2pmUUdPcFUwRDkwREtYaGNlZXBGZ3NEaGJmalJQZmVJSmw3WWlxZzlRL21x?=
+ =?utf-8?B?WGpRVXBicW5aa2dhT2x1V25BU3NGVS9oU0MxbDUyV1VQZWx5NGo1Q1FZTlJV?=
+ =?utf-8?B?d05HM01UTUp3YncyWVdCbndGejloai9EbGYwWDJkNllMYWU3VTlvam5ML2hr?=
+ =?utf-8?B?OWlxY2tpQ05La3NMK0RQanFDL2laSWxJSllDdUhIQ28ydUVMdCtWM1BqZFRi?=
+ =?utf-8?B?L05iQnJIUTQyNUVQeGJEOEprNEpmcWFLRUN3Z1R0VERmOTVJQ0diR2J3M0tF?=
+ =?utf-8?B?cHZ6WExsbGhqZ0ZkbkZ4TzlHaUswV1dpTjdPSklEdStWNlNXQi9IZUE5bmVp?=
+ =?utf-8?B?TkQ3b3RkWFd5YWpMN3c5b0I1aDd3MGduc3FyVDJkVDRzY25YanJ2R3ZONEZy?=
+ =?utf-8?Q?ZseYbrEH3jaTnPfsTc82Ny6xGrgpFAK52BbV56lhCP/C0?=
+X-MS-Exchange-AntiSpam-MessageData-1: vmxZ+pOaLcyEjQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad4a43a9-1578-4f9e-1578-08df28eefe1b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 022fdd45-2aba-4c7a-299e-08df28f26f0f
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 05:58:24.2923
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 06:23:02.1788
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BsxZKktXQVqniS9vC5hHr+o4fLK8FWihRr2FWtRQZSsdVvcLPv46MfjkGkI0YPWeHqENfj4jXnwKSYxlrJkRYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8916
+X-MS-Exchange-CrossTenant-UserPrincipalName: xmm0X0835HYd094qnk5RKaHThr9D6ZVowv6l/v+hf807UCPlAqldkZQoWi9PMp7uHoMakH0nXLieKEWWYhoQDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6868
 
-The new `cv!` macro allows safe casting of constant expressions in a
-const context. Update code in nova-core to use it.
+On Tue Oct 6, 2026 at 2:52 PM JST, Alexandre Courbot wrote:
+> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+>> Add `Vec::try_push_init` for fallible initializers (`impl Init<T, E>`)
+>> and a new sum error type `PushInitError<I, E>` that it returns. If
+>> allocation fails, it hands back the original initializer. A From impl
+>
+> nit: missing `` around "From".
+>
+>> for `Error` lets callers decay the `PushInitError<I, E>` to a regular
+>> Error if they want.
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  rust/kernel/alloc/kvec.rs        | 55 +++++++++++++++++++++++++++++++++=
++++++--
+>>  rust/kernel/alloc/kvec/errors.rs | 30 ++++++++++++++++++++++
+>>  2 files changed, 83 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+>> index c7546b9da4fa..a2b72a7779d9 100644
+>> --- a/rust/kernel/alloc/kvec.rs
+>> +++ b/rust/kernel/alloc/kvec.rs
+>> @@ -52,10 +52,18 @@
+>>      }, //
+>>  };
+>> =20
+>> -use pin_init::Zeroable;
+>> +use pin_init::{
+>> +    Init,
+>> +    Zeroable, //
+>> +};
+>> =20
+>>  mod errors;
+>> -pub use self::errors::{InsertError, PushError, RemoveError};
+>> +pub use self::errors::{
+>> +    InsertError,
+>> +    PushError,
+>> +    PushInitError,
+>> +    RemoveError, //
+>> +};
+>> =20
+>>  /// Create a [`KVec`] containing the arguments.
+>>  ///
+>> @@ -359,6 +367,49 @@ pub fn push(&mut self, v: T, flags: Flags) -> Resul=
+t<(), AllocError> {
+>>          Ok(())
+>>      }
+>> =20
+>> +    /// Appends an element to the back of the [`Vec`] instance by initi=
+alizing it in place.
+>> +    ///
+>> +    /// Unlike [`Vec::push`], the initializer may be fallible. If the a=
+llocation fails, the
+>> +    /// original initializer `init` is handed back in [`PushInitError::=
+AllocError`]. If the
+>> +    /// initializer itself fails, its error is returned in [`PushInitEr=
+ror::InitError`].
+>> +    ///
+>> +    /// # Examples
+>> +    ///
+>> +    /// ```
+>> +    /// struct Element {
+>> +    ///     buf: KVec<u8>,
+>
+> It becomes a tad confusing when the element of a `KVec` is itself a
+> `KVec`... Can we just use primitive types inside `Element`?
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- drivers/gpu/nova-core/falcon.rs                    |  9 ++--
- drivers/gpu/nova-core/fb/hal/gb100.rs              |  4 +-
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  7 +--
- drivers/gpu/nova-core/fsp.rs                       |  3 +-
- drivers/gpu/nova-core/gsp/cmdq.rs                  |  6 +--
- drivers/gpu/nova-core/gsp/fw.rs                    | 38 +++++++--------
- drivers/gpu/nova-core/gsp/fw/commands.rs           |  2 +-
- drivers/gpu/nova-core/num.rs                       | 55 +---------------------
- 8 files changed, 28 insertions(+), 96 deletions(-)
+SGTM, added the failure case in the example as well.
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 9015de965a53..0b377bd6524a 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -28,11 +28,8 @@
-     driver::Bar0,
-     falcon::hal::LoadMethod,
-     gpu::Chipset,
--    num::{
--        self,
--        FromSafeCast, //
--    },
--    regs,
-+    num::FromSafeCast,
-+    regs, //
- };
- 
- pub(crate) mod fsp;
-@@ -515,7 +512,7 @@ fn dma_wr(
-         target_mem: FalconMem,
-         load_offsets: FalconDmaLoadTarget,
-     ) -> Result {
--        const DMA_LEN: u32 = num::usize_into_u32::<{ MEM_BLOCK_ALIGNMENT }>();
-+        const DMA_LEN: u32 = cv!(MEM_BLOCK_ALIGNMENT);
- 
-         // DMA transfers can only be done in units of 256 bytes. Compute how many such transfers we
-         // need to perform.
-diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
-index 9fa094939600..612f70333c11 100644
---- a/drivers/gpu/nova-core/fb/hal/gb100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
-@@ -28,7 +28,6 @@
-         hal::FbHal,
-         regs, //
-     },
--    num::usize_into_u32,
- };
- 
- struct Gb100;
-@@ -81,8 +80,7 @@ fn write_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>, addr:
- 
- // This PMU reservation size is r570-specific.
- pub(super) const fn pmu_reserved_size_gb100() -> u32 {
--    usize_into_u32::<{ const_align_up(SZ_8M + SZ_16M + SZ_4K, Alignment::new::<SZ_128K>()).unwrap() }>(
--    )
-+    cv!(const_align_up(SZ_8M + SZ_16M + SZ_4K, Alignment::new::<SZ_128K>()).unwrap())
- }
- 
- impl FbHal for Gb100 {
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index 1ff04bc2c7f8..68858b48390e 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -17,10 +17,7 @@
-         Io, //
-     },
-     prelude::*,
--    ptr::{
--        Alignable,
--        Alignment, //
--    },
-+    ptr::Alignable,
-     sizes,
-     transmute::AsBytes,
- };
-@@ -136,7 +133,7 @@ pub(crate) fn new(
-             let code_size = usize::from_safe_cast(tlv.get_u32(b"CDSZ")?);
-             let code = blob.get(..code_size).ok_or(EINVAL)?;
-             let aligned_code_size = code_size
--                .align_up(Alignment::new::<{ falcon::MEM_BLOCK_ALIGNMENT }>())
-+                .align_up(cv!(falcon::MEM_BLOCK_ALIGNMENT))
-                 .ok_or(EINVAL)?;
- 
-             let mut ucode = KVec::with_capacity(aligned_code_size, GFP_KERNEL)?;
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index b738dcabcdef..3a4a10487f33 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -50,7 +50,6 @@
-         NvdmHeader,
-         NvdmType, //
-     },
--    num,
-     regs, //
- };
- 
-@@ -288,7 +287,7 @@ fn new<'a>(
-         };
- 
-         let version = hal.cot_version();
--        let size = num::usize_into_u16::<{ core::mem::size_of::<NvdmPayloadCot>() }>();
-+        let size = cv!(core::mem::size_of::<NvdmPayloadCot>() => u16);
- 
-         Ok(init!(Self {
-             header: FspMessageHeader::new(NvdmType::Cot),
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 1b2f346a237f..090e67ac9a26 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -167,7 +167,7 @@ fn read(
- #[repr(C, align(0x1000))]
- #[derive(Debug)]
- struct MsgqData {
--    data: [[u8; GSP_PAGE_SIZE]; num::u32_as_usize(MSGQ_NUM_PAGES)],
-+    data: [[u8; GSP_PAGE_SIZE]; cv!(MSGQ_NUM_PAGES)],
- }
- 
- // Annoyingly we are forced to use a literal to specify the alignment of
-@@ -240,8 +240,8 @@ unsafe impl FromBytes for GspMem {}
- impl<'a> DmaGspMem<'a> {
-     /// Allocate a new instance and map it for `dev`.
-     fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
--        const MSGQ_SIZE: u32 = num::usize_into_u32::<{ size_of::<Msgq>() }>();
--        const RX_HDR_OFF: u32 = num::usize_into_u32::<{ mem::offset_of!(Msgq, rx) }>();
-+        const MSGQ_SIZE: u32 = cv!(size_of::<Msgq>());
-+        const RX_HDR_OFF: u32 = cv!(mem::offset_of!(Msgq, rx));
- 
-         let mut gsp_mem = CoherentBox::<'_, GspMem>::zeroed(dev, GFP_KERNEL)?;
-         gsp_mem.cpuq.tx = MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES);
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 918a7ae809eb..1b548bbf146e 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -57,7 +57,7 @@
- 
- /// Maximum size of a single GSP message queue element in bytes.
- pub(crate) const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: usize =
--    num::u32_as_usize(bindings::GSP_MSG_QUEUE_ELEMENT_SIZE_MAX);
-+    cv!(bindings::GSP_MSG_QUEUE_ELEMENT_SIZE_MAX);
- 
- /// Empty type to group methods related to heap parameters for running the GSP firmware.
- enum GspFwHeapParams {}
-@@ -110,20 +110,18 @@ pub(crate) struct LibosParams {
- impl LibosParams {
-     /// Version 2 of the GSP LIBOS (Turing and GA100)
-     const LIBOS2: LibosParams = LibosParams {
--        carveout_size: num::u32_as_u64(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS2),
--        allowed_heap_size: num::u32_as_u64(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB)
-+        carveout_size: cv!(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS2),
-+        allowed_heap_size: cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB => u64)
-             * u64::SZ_1M
--            ..num::u32_as_u64(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB) * u64::SZ_1M,
-+            ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB => u64) * u64::SZ_1M,
-     };
- 
-     /// Version 3 of the GSP LIBOS (GA102+)
-     const LIBOS3: LibosParams = LibosParams {
--        carveout_size: num::u32_as_u64(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS3_BAREMETAL),
--        allowed_heap_size: num::u32_as_u64(
--            bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB,
--        ) * u64::SZ_1M
--            ..num::u32_as_u64(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MAX_MB)
--                * u64::SZ_1M,
-+        carveout_size: cv!(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS3_BAREMETAL),
-+        allowed_heap_size: cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB => u64)
-+            * u64::SZ_1M
-+            ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MAX_MB => u64) * u64::SZ_1M,
-     };
- 
-     /// Returns the libos parameters corresponding to `chipset`.
-@@ -682,12 +680,8 @@ fn id8(name: &str) -> u64 {
-             id8: id8(name),
-             pa: obj.dma_address(),
-             size: num::usize_as_u64(obj.size()),
--            kind: num::u32_into_u8::<
--                { bindings::LibosMemoryRegionKind_LIBOS_MEMORY_REGION_CONTIGUOUS },
--            >(),
--            loc: num::u32_into_u8::<
--                { bindings::LibosMemoryRegionLoc_LIBOS_MEMORY_REGION_LOC_SYSMEM },
--            >(),
-+            kind: cv!(bindings::LibosMemoryRegionKind_LIBOS_MEMORY_REGION_CONTIGUOUS),
-+            loc: cv!(bindings::LibosMemoryRegionLoc_LIBOS_MEMORY_REGION_LOC_SYSMEM),
-             ..Zeroable::init_zeroed()
-         });
- 
-@@ -715,12 +709,12 @@ pub(crate) fn new(msgq_size: u32, rx_hdr_offset: u32, msg_count: u32) -> Self {
-         Self(bindings::msgqTxHeader {
-             version: 0,
-             size: msgq_size,
--            msgSize: num::usize_into_u32::<GSP_PAGE_SIZE>(),
-+            msgSize: cv!(GSP_PAGE_SIZE),
-             msgCount: msg_count,
-             writePtr: 0,
-             flags: 1,
-             rxHdrOff: rx_hdr_offset,
--            entryOff: num::usize_into_u32::<GSP_PAGE_SIZE>(),
-+            entryOff: cv!(GSP_PAGE_SIZE),
-         })
-     }
- 
-@@ -947,9 +941,9 @@ impl MessageQueueInitArguments {
-     fn new<'a, 'b>(cmdq: &'a Cmdq<'b>) -> impl Init<Self> + use<'a, 'b> {
-         init!(MessageQueueInitArguments {
-             sharedMemPhysAddr: cmdq.dma_addr,
--            pageTableEntryCount: num::usize_into_u32::<{ Cmdq::NUM_PTES }>(),
--            cmdQueueOffset: num::usize_as_u64(Cmdq::CMDQ_OFFSET),
--            statQueueOffset: num::usize_as_u64(Cmdq::STATQ_OFFSET),
-+            pageTableEntryCount: cv!(Cmdq::NUM_PTES),
-+            cmdQueueOffset: u64::from_safe_cast(Cmdq::CMDQ_OFFSET),
-+            statQueueOffset: u64::from_safe_cast(Cmdq::STATQ_OFFSET),
-             ..Zeroable::init_zeroed()
-         })
-     }
-@@ -969,7 +963,7 @@ impl GspAcrBootGspRmParams {
-     fn new(target: GspDmaTarget, wpr_meta_addr: u64) -> impl Init<Self> {
-         let params = init!(Self {
-             target: target as u32,
--            gspRmDescSize: num::usize_into_u32::<{ size_of::<GspFwWprMeta>() }>(),
-+            gspRmDescSize: cv!(size_of::<GspFwWprMeta>()),
-             gspRmDescOffset: wpr_meta_addr,
-             bIsGspRmBoot: 1,
-             wprCarveoutOffset: 0,
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 567c56fbbfe3..b38eb716448b 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -82,7 +82,7 @@ pub(crate) fn new(offset: u32, value: u32) -> Self {
- 
-                 // We only support DWORD types for now. Support for other types
-                 // will come later if required.
--                type_: bindings::REGISTRY_TABLE_ENTRY_TYPE_DWORD as u8,
-+                type_: cv!(bindings::REGISTRY_TABLE_ENTRY_TYPE_DWORD),
-                 __bindgen_padding_0: Default::default(),
-                 data: value,
-                 length: 0,
-diff --git a/drivers/gpu/nova-core/num.rs b/drivers/gpu/nova-core/num.rs
-index f4169235bc24..3b3f1ed2dc75 100644
---- a/drivers/gpu/nova-core/num.rs
-+++ b/drivers/gpu/nova-core/num.rs
-@@ -96,8 +96,7 @@ pub(crate) const fn [<$from _as_ $into>](value: $from) -> $into {
- ///
- /// Prefer this over the `as` keyword to ensure no lossy casts are performed.
- ///
--/// If you need to perform a conversion in `const` context, use [`u64_as_usize`], [`u32_as_usize`],
--/// [`usize_as_u64`], etc.
-+/// If you need to perform a conversion in `const` context, use [`cv!`](kernel::num::cv).
- ///
- /// # Examples
- ///
-@@ -164,58 +163,6 @@ fn into_safe_cast(self) -> T {
-     }
- }
- 
--/// Implements lossless conversion of a constant from a larger type into a smaller one.
--macro_rules! impl_const_into {
--    ($from:ty => { $($into:ty),* }) => {
--        $(
--        paste! {
--            #[doc = ::core::concat!(
--                "Performs a build-time safe conversion of a [`",
--                ::core::stringify!($from),
--                "`] constant value into a [`",
--                ::core::stringify!($into),
--                "`].")]
--            ///
--            /// This checks at compile-time that the conversion is lossless, and triggers a build
--            /// error if it isn't.
--            ///
--            /// # Examples
--            ///
--            /// ```
--            /// use crate::num;
--            ///
--            /// // Succeeds because the value of the source fits into the destination's type.
--            #[doc = ::core::concat!(
--                "assert_eq!(num::",
--                ::core::stringify!($from),
--                "_into_",
--                ::core::stringify!($into),
--                "::<1",
--                ::core::stringify!($from),
--                ">(), 1",
--                ::core::stringify!($into),
--                ");")]
--            /// ```
--            #[allow(unused)]
--            pub(crate) const fn [<$from _into_ $into>]<const N: $from>() -> $into {
--                // Make sure that the target type is smaller than the source one.
--                static_assert!($from::BITS >= $into::BITS);
--                // CAST: we statically enforced above that `$from` is larger than `$into`, so the
--                // `as` conversion will be lossless.
--                build_assert!(N >= $into::MIN as $from && N <= $into::MAX as $from);
--
--                N as $into
--            }
--        }
--        )*
--    };
--}
--
--impl_const_into!(usize => { u8, u16, u32 });
--impl_const_into!(u64 => { u8, u16, u32 });
--impl_const_into!(u32 => { u8, u16 });
--impl_const_into!(u16 => { u8 });
--
- /// Creates an enum type associated to a [`Bounded`](kernel::num::Bounded), with a [`From`]
- /// conversion to the associated `Bounded` and either a [`TryFrom`] or `From` conversion from the
- /// associated `Bounded`.
+>
+>> +    /// }
+>> +    ///
+>> +    /// impl Element {
+>> +    ///     fn new() -> impl Init<Self, Error> {
+>> +    ///         try_init!(Element {
+>> +    ///             buf: KVec::with_capacity(16, GFP_KERNEL)?,
+>> +    ///         }? Error)
+>> +    ///     }
+>> +    /// }
+>> +    ///
+>> +    /// let mut v: KVec<Element> =3D KVec::new();
+>> +    /// v.try_push_init(Element::new(), GFP_KERNEL)?;
+>> +    /// assert!(v[0].buf.is_empty());
+>> +    /// # Ok::<(), Error>(())
+>> +    /// ```
+>> +    pub fn try_push_init<I, E>(&mut self, init: I, flags: Flags) -> Res=
+ult<(), PushInitError<I, E>>
+>> +    where
+>> +        I: Init<T, E>,
+>> +    {
+>> +        if self.reserve(1, flags).is_err() {
+>> +            return Err(PushInitError::AllocError(init));
+>> +        }
+>> +        // SAFETY: The call to `reserve` was successful, so there is at=
+ least one spare slot.
+>> +        unsafe { init.__init(self.spare_capacity_mut().as_mut_ptr().cas=
+t::<T>()) }
+>
+> I guess it comes down to the same but I'd feel safer if we could
+> explicitly index the first element using `get_unchecked_mut(0)`:
+>
+>     unsafe { init.__init(self.spare_capacity_mut().get_unchecked_mut(0).a=
+s_mut_ptr()) }
+>
+> (removing a cast is also nice I guess)
 
--- 
-2.56.0
-
+The file appears split on the convention here (get_unchecked_mut vs
+get_mut_ptr + arithmetic + cast), but absolutely do not mind changing
+this one here.
