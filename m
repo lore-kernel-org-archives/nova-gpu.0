@@ -1,143 +1,184 @@
 Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2EA4F85B4
-	for <nova-gpu@lists.linux.dev>; Tue, 13 Oct 2026 13:18:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E5751474D
+	for <nova-gpu@lists.linux.dev>; Tue, 13 Oct 2026 13:26:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897506; cv=pass; b=aTtIjAm6eOKBuaI4sv4/M5aNe/QIVuIOmyraP7VooV91xZpeeG9zYwMhRO1tDSyuKXZvTqyEo38DUhX1EA+mFYjWDwkcxYDa5OElWNG+4Zt4f2V9LPH5zT281TRCQTEv+yV/QCZv/w/ySVVwPKuWgkRw9zh/sPbtBmiwnAALSIA=
+	t=1791898013; cv=pass; b=Y+VZ5ixRr7ujMXZDdJ3Xq30IIUw1RePhoU4JZhsf6vVAWcsyNJRHrlcaz6gSbRVO6U08FaKuUQmGjuCyvFWALlQGHUdbDkd0Pjv7e0iIUxe8kOfHRlh0Bb3DmD4XeLPIUEW1ByFXRs0o544p/9feCCP3Nig+IFgfT9Ttp2PHJwk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897506; c=relaxed/simple;
-	bh=hJKIthmcoSQplDJE0ksiUJ2iIxFkUQVvqygF1wIyD9Q=;
+	s=arc-20240116; t=1791898013; c=relaxed/simple;
+	bh=lExLfL8EGZo1KdexXBFgjyFCjMP6bRK4lgga8bV9zCE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ajYdOGs8su2AYWi2RY9oltWPDO5B4PAkYE1kXxt0Qfkn0YGTl9JbtVGU4ipoRIc3mMsMA4/PFyRSnbaPbpMNrCVftgIm+N/IIcBR4nynjG05X9KK7Hf2IcpUhALctnWaDexT6KrDOqmjBLQuN4rOyEo4KRtbkRmNFEnVPzbBbTc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c0Mqxf/g; arc=pass smtp.client-ip=74.125.82.176
+	 To:Cc:Content-Type; b=SIx/9wuwufVDU3yCDWx0jXSI5ROubAbsO1f3E9i5gbgP7blUArKl1GK9jqkeEI78z7QgCXCc1UfxrSwgAs6pZoxPp8TxpWQmGwukSCJ0WOpHQMc98i2TXT/AAZLP4k/2ybVCAlyRIrMWNleH6i3YIHxmfAW94C2mNukmCUNv7AA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZD8siJ2x; arc=pass smtp.client-ip=74.125.82.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c0Mqxf/g"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-313bab9cfe7so313015eec.3
-        for <nova-gpu@lists.linux.dev>; Tue, 13 Oct 2026 06:18:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791897503; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZD8siJ2x"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35ca5244753so80945eec.2
+        for <nova-gpu@lists.linux.dev>; Tue, 13 Oct 2026 06:26:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791898010; cv=none;
         d=google.com; s=arc-20260327;
-        b=D1YMc9PmCkXmV7FMyRGq3x1cNPGDJFcIDmzMB93flTBYqEv5kwLfK/cHQefxN2TrIP
-         5zivW/J3upj+mXc4Im9Nh1MTSewoHsa9vnCI967yz30JM203sjRJljhjVCwEDAMLnOf9
-         Z626njIv2nKDUCkq4cuZ4SxUuROQodfP2JYOl2EMLr4v0Zevlvmvv9x0u13ewtFMQJyg
-         bkDy9rZ1HfPJ53lYiMAN4cC6fryjD0k34OOgunRBJ5hzqFQPpkY3sR/1ylkPmTuDcPcT
-         mOqkTOetC8M1/rUtrmvAzF1gKEm0Nbizzi5l+1GG4MiCEkUQfOHuk+DyWKgQHuziPViC
-         VKnA==
+        b=i0KiEOkZGV8AYlKifM9QndAjELrhzc6+NfkQIBaVKJEAsREiyvtuHGUt064K8399+g
+         nhpMzb9q02ocjGNHCzQ7864yFBH+TC5YX4i/AqeBAu6S8XywtooiceNpgh9Vbt2s+sgN
+         6NFxTZAq9xGYbMuAB8342SkUbdqkNLHnCkRBBeV09jIpjQxqva17oWNTJT0bIo9sUp2h
+         hH5WbKhae1tfTFJMaprfX/wInBjQiUV1hZqE+P46tq1juZctGeA0uUBHafWmnj9cS/zf
+         DVp0nI+wMa1cyxewCVpQco8FptTtwvB1qMjyfuE6G5ib14S2CzuDbXJN4TaxgBlPS/iU
+         NoQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=bL59kslE7Bvimc7NTbR0+OM7nidwyCwsipRxQthChUo=;
-        fh=JrHvzTDrzryL5SbhmDr5z4oTSNrnnMtEsZlQmo9kC9w=;
-        b=CitprzMWQbvr8uvU0nCah/X2DGrXLMJlhuLajrBE8t7VAIZxOsRAEFjnAkeMDQc0X5
-         vQoTXkX09EN8M+T0bSKiVxOu6m3QG5M0ERgQYVB2i/eXQuS2faNVPWLM1dk6psTpCBNg
-         jtdPqpmYaHnhY1VkjgyMvjeNNinjzscnTG6W1aKUnEH1hnSgUbnFbvIBoh5eFakRQqCD
-         F91rip2/QOb/xuhl8KrlUj80aFWPbwPIDsmQKVjVOaWAjdloTWB6lHkLsUnawFYJ5Wzm
-         PGzKBAIdI8vxMKv2WwRyEmG00DqsnU3WE+bQXrSJOuejRYu6ZKyyUZfttZm3Fj3obKkF
-         YRVA==;
+        bh=fGIxI7204PZMse0yE/ISC/r7QTFczS4XL47HKFAk11s=;
+        fh=8vNbzD5FARudkyOG71ZPoJEG3Y1Ofb0d8OMRkiM7lSU=;
+        b=jZVrvANsTV3bzGlKpPLSfe1xS9Qmyq9ML2f+5Chlz2OtNn+LNaInb94v7k0TJrL68m
+         e4VZPaftAQgiB5bmooCdCwMAcjbq01ZZIcsGZWewFikvlIhyieKCNkyszEdaofKh6Kz9
+         3Vfonb8WiqJiv6I8BLWOxDMu9KM9ZCIJO38vBnGiFw0DTBE65/WajFgEQVAPJNfPNsMS
+         oD6IauMrGBNnTRbS78sCTJ1nKTt3hg8gevZW7UtS7RV43RGyGkPp1/N+2JgIGs2H7gRg
+         0coX/n5npK6Ug+SwL+6Pe7zIsAhjeOU+zJfgHcTdp/wCu/1Epe07YxcuHux0/EQnDqD8
+         VKJA==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791897503; x=1792502303; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1791898010; x=1792502810; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=bL59kslE7Bvimc7NTbR0+OM7nidwyCwsipRxQthChUo=;
-        b=c0Mqxf/g51Ne/hxAHwK+4CgkRqSrBa0VC52zwZZbHXedusdQ4eHFPT/sX7JImhtMk2
-         0gewWj+T1+LL+TSQpgmQKVw/aTGVYCKFUfUyxLxTxx7OttGIq+N7io/7oJtfMsOVU/mQ
-         hqQbZuqhpRJMfBQ7C9eQOmFw3yhO5v14Ue39U2sqQ8ExNLQQ4RjjLFAmQWyPtP98+M6I
-         dqCFQyj0T+8jJ9HIcLG8sxGkgmO4xHgiTiVfT3rDrXInUQi84qq7uMloS28alA8Pu/Zx
-         BB6ZqAdzidcpuI/ui4/vVDY5RdJawLNbWbaJosbpBQue0RzOogze1gxk9h383dxTObUP
-         KpTg==
+        bh=fGIxI7204PZMse0yE/ISC/r7QTFczS4XL47HKFAk11s=;
+        b=ZD8siJ2xJBS3+X2W5mt4O3kjRvIHyxXcBFJaKt/t2jhN2IkI8QO+9KEYL3+twVuS1G
+         mEC0Gvq6gfIlKP9HUJyLCGVgDIy/kX9pfN5x8TqJPa/AIdZMKNJHkz5kj4FQtxZea0H7
+         iTkOouUxVRVenw2oUj5ODEnKhw2JkhRRNGUptSkUmE3a/ljVIX2Fv+6Yfb3jNrLYkpzC
+         UN9puytNOU/YJJn1Y/KywZ4mlyLDSRIUz/xCSniDwrlq2uCB+75RafPdNC42h/yR+/TV
+         fS+dfFeneSuQh5Y6vdK47MOfxLnCMwX/gTXAm69PjtRr1zR1tGlmkLOIfZTrvrPCY3uP
+         O1PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791897503; x=1792502303;
+        d=1e100.net; s=20260707; t=1791898010; x=1792502810;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bL59kslE7Bvimc7NTbR0+OM7nidwyCwsipRxQthChUo=;
-        b=gTdLreME2mNQcUa7sNu1s1MUEFbgnwxhGhEAUF3esCk6s1AVXTu4uXBYZYXGRKckww
-         Y0TXpLus+jkFaH8qHyOZq4HdVe+txDXugGg6eQHxVbGf99gHJo1BG7HjRELZQLwac9Fy
-         S6ocHlSPHprwzG+QDWqJb/nJvqdzFAjzcmLPxllixlh9JYO2wBjhy6ep2ik5G5dTPjum
-         TW6b0CWnlK3OGtsmbxbOJ7M+8oJ7bGwSMOAN3lqyybjWq2Tr6D9dSg5xu2I+8x0lcJWA
-         mt3l3xWiKdPNNH4+f5efIQkXvaT7WQA7aX2mse8wO8f8avW2XwDmoeLITdEiV0NxlgNN
-         yNRg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxnCmodlYZ8EmZV8mlYcVn/t4R3qpA4qDAWLGVE5TB2OJ90oK63yhKZnp2TWTYDL4+/32d/Y+9Cw==@lists.linux.dev
-X-Gm-Message-State: AFq9FYLhMgTrWvTdn+Q6b1CWD0adeqrriEQ+TBNQf+wIVunaDHXG2/8W
-	ozn2+A6B7oS3GFXlLe8G3VYTx3TlT5gXmxn3Cr+ydDPx1vvktPkr10H+WvHbmVVaqeXFOhx8X0C
-	bIMmuKvwEFLFQj0kvTeUEuhM1eiU1MK8=
-X-Gm-Gg: AYBFou0hjR6xn37N3dUWuQ4gVNhPqkDpeGCXuCWM58JjsVKR07Yay289FTP1Mv3B5pB
-	q8/7TBL9OdYVLuab2Gzyx3nd1VHDcYRCKL2rIddJaKi6cHMh8Rs8duFga21uly+sYdOgTohiANO
-	6EZr07+VacORO66RRZQi398l5JFuDkzIAw+SBgGp8NsoY2/f+H34UiX4R8B6JMsryv/wJruzsSx
-	X/vQI8i/tI6HTuy7ztpTfgVO6c5YpedbjlJyt2JvNai+2waDzXBtK724eN+xVDNjHhKO1bMuL8n
-	JnV8HgPzW9uuL8VTRhLtndgHvecrFzCGq6BxodhIo8c27CTSDyf129krI7/h4riLYESslDz/zx2
-	qluyju67zrwoG+YeflYZX0E73ecFhKwK3ws70hnC949eDSM7YxISADUPwhO8Pc5mvuLaxEs6Z/j
-	wn+Hn2boYpupeAeP17BpbeTwgPnICfu1koTttDZPLuBHT9+jN+DWe0vlCGb4vvaw==
-X-Received: by 2002:a05:701b:4510:20b0:16b:4f52:a08 with SMTP id
- a92af1059eb24-16b4f520f3amr27369676c88.0.1791897503344; Tue, 13 Oct 2026
- 06:18:23 -0700 (PDT)
+        bh=fGIxI7204PZMse0yE/ISC/r7QTFczS4XL47HKFAk11s=;
+        b=BE/y+GCu+n46vs5kad6NI72ZiemdvhGcOW2+dMA/UB9JIiX5j+WcptBH2z2uB7kh8P
+         fftyjRq+qrss4L3rXhRETLtgnI/q6NiHP7Oxshe+MwMckWPv+jl4pXLSfF/YElD88QDq
+         opO3uC8TPTPBiBNMOF+FCcEhi/L9KGg6dAuf71Lr7Ih0+/dcfESuQ/YV71iQt1DA6hQr
+         qTQ+3IRlKXPJbICAfVQm5kSsCiIoiLhwXgeagrMErm9oxsyY1ijH+nXlNXvHMEpm3+Ue
+         WVjKhcwVwtHlodnBl1mdilk38rkSo28Hl7bxl+e/4Je1NmM1/jkwLGvgCvEQezaIHQzo
+         LyoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxvAK//I/rea8ptT0JyYEDeB66J0cLaDaNl58JKo3aqHsgJ6Bb8u6g3RgW/EH9VCu+InPD5nZWLzQ==@lists.linux.dev
+X-Gm-Message-State: AFq9FYJxMXu8BMIDhl5TsXJz4O6zsfMc+xTrwA6fqL5yTZ0t/fZXYOnC
+	s09JOucPpRy1Rmp7zAulOjZTiFOzSB/F8PtvZmBsIJeWv/CL1FZ3DOxjlfrDIine50rBq/H1FY6
+	thr1FVcB4s2O3qASSEsBmgtbiS4N8Bqw=
+X-Gm-Gg: AYBFou3iaUTsicJ0bPS/ruzqcmOnw6aj4GMEe7+1kXPEsGDNBeRanFJ3uDela+JVNeY
+	5pbJkSbASwaduczM7ANzmMExFymTn8xTj/BJ1hjyTsAm+wKZKLNJnCq2arJ6quuLo7M5yuq8zGO
+	OAoCaGu+MzYqSnvYarH3vjZ2Raiy9xKhBg18vYh5NXn8DdoPi0VqzePoE7tvIrzbwksXGCRGja2
+	XxhxERIDzT/0QZzY64x+jhinwDYhmqZt6S1hrOICpXUh8aKwhuEzohT7XxH7qhLVWzS9k9KHxqU
+	4POMlgi8cnYbJIVdpWvk8buPw8/WM3g55b/AdZriTAxSIkT7D9fHGjVvf2P/bqvqbEt4taFJ+OC
+	RWUuIeIEoYzaw0bDew5dYEZUtnS0N3tN7heRedTT7WqTPhLDzoiyDGSZ+HLURtq6erpPCUJrVuA
+	lTmMe2BGsZ57n/swZZ+dTFiZOZB/zrfK7YpZSbCWctS6sPvfXQvjQ=
+X-Received: by 2002:a05:693c:8810:20b0:35b:cb5b:c71e with SMTP id
+ 5a478bee46e88-35bcb6b1c6cmr7485005eec.1.1791898010056; Tue, 13 Oct 2026
+ 06:26:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20261013-cv-v5-0-113a538dfaef@nvidia.com> <20261013-cv-v5-1-113a538dfaef@nvidia.com>
-In-Reply-To: <20261013-cv-v5-1-113a538dfaef@nvidia.com>
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
+In-Reply-To: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 13 Oct 2026 15:18:10 +0200
-X-Gm-Features: AclHuK_z220Bvz1iedMpcDzIc6RcPj5ZS2ls1iZZ_k6lRJyNsSKpCWB6rOoIE30
-Message-ID: <CANiq72kccCL7DjBtLw7AF-nNcKo7OjjVwZ7Ba4fZAQXVZaMkMA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] rust: num: add cv! macro to create values from
- constant expressions
+Date: Tue, 13 Oct 2026 15:26:36 +0200
+X-Gm-Features: AclHuK8MId34SKofgkVHxoilN91tJK91SiQlB8ktXLqMDzqKOFOns7JAmHwAjko
+Message-ID: <CANiq72kohkx1-9iendYSD4gML8wv5bF+HrY7RO2vagLhtXYSKQ@mail.gmail.com>
+Subject: Re: [PATCH v9 0/9] rust: Add support for reserving of ranges of IDs
 To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
 	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	Yury Norov <ynorov@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 7:58=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
+On Wed, Sep 30, 2026 at 4:44=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
 m> wrote:
 >
-> Currently, using NonZero/Bounded constants is quite verbose. It's
-> unfortunate because it disincentivizes using it in interface boundaries.
-> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
-> value) takes a const integer expression and widens it to i128 (at build
-> time only) before passing it as a const generic value to a new trait
-> `FromConst`. The value is then converted and appears in the
-> associated constant `FromConst::VALUE`. The trait is implemented by
-> NonZero, Bounded, and Alignment and lets values of each be constructed
-> from constants without a verbose turbofish syntax.
+> Add support for reserving of ranges of IDs, with a usage in nova-core
+> for channel IDs. This entails adding bindings for the C bitmap
+> API for ranges of bits, then users of that in `IdPool`, and finally a
+> user of `IdPool` in nova-core, `ChannelIdPool`.
 >
-> For example, `const { NonZero::new(1).unwrap() }` can be written as
-> `cv!(1)`.
+> Channel ID tracking is needed for allotting ranges of channel IDs to
+> vGPU guests, and later for regular host channel ID reservation.
+> nova-core needs allocation of a contiguous sequence of IDs with a
+> specific length and sometimes a specific alignment [1].
 >
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
+> About the tradeoffs between different data structures:
+> - IDA/xarray do not support allocating a contiguous sequence of IDs
+>   (ida_alloc_range() allocates a single ID within a range, not a contiguo=
+us
+>   sequence).
+> - A maple tree works, but is not as good a fit. The ID space is small
+>   (limited to 2048) and aligned allocation needs an alloc_range()+erase()=
+ retry
+>   loop (plus a Mutex around it, or new mas_empty_area() bindings) that
+>   essentially reimplements bitmap_find_next_zero_area(). See the maple tr=
+ee
+>   version at [2]. For 2048 IDs a bitmap is also considerably faster and s=
+maller
+>   [3].
+> - The bitmap API natively supports aligned contiguous area allocation
+>   (bitmap_find_next_zero_area()).
 >
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Acked-by: Danilo Krummrich <dakr@kernel.org>
+> This is based on drm-rust-next and depends on the cv! series [4].
+>
+> [1]: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvi=
+dia.com/
+> [2]: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nv=
+idia.com/
+> [3]: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.co=
+m/
+> [4]: https://lore.kernel.org/all/20260917-cv-v4-0-547ef5727451@nvidia.com=
+/
+>
 > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Applied to `rust-next` -- thanks everyone!
+Applied (the following subset that Alexandre suggested in a sibling
+reply) to `rust-next` -- thanks everyone!
 
-    [ Added a few intra-doc links. - Miguel ]
+>       rust: bitmap: use function-level cfg on kunit test
+>       rust: bitmap: restrict bitmap length to at most i32::MAX
+>       rust: sizes: add sub-1K size constants
+>       rust: sizes: implement SizeConstants for Alignment
+>       rust: bitmap: add contiguous area operations
+>       rust: id_pool: add contiguous ID reservation
 
-And thanks Eliot for the quick respin :)
+If someone does not want them to be applied for some reason, please shout.
+
+For the second one:
+
+    Cc: stable@vger.kernel.org
+    [ Added a few intra-doc links. Added backticks to C types. Capitalize
+      tagged comments. - Miguel ]
+
+By the way, I didn't modify the patch for the following, but we should
+migrate `id_pool.rs` to the vertical kernel style. Also, before I
+forget, we can clean up a few consistency bits in `bitmap.rs` before
+we keep extending it (like in one patch here) -- I can copy this to a
+"good first issue" or I may just send it:
+
+  - Fix the broken intra-doc link for `c_ulong`.
+  - Add backticks around configs like `CONFIG_RUST_BITMAP_HARDENED`.
+  - Capitalize tagged comments like `// INVARIANT: ...`.
+  - Make periods consistent (adding them) at the end of bullet points.
 
 Cheers,
 Miguel
