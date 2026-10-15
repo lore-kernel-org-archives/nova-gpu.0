@@ -1,52 +1,50 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012018.outbound.protection.outlook.com [52.101.53.18])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012012.outbound.protection.outlook.com [40.107.200.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717A832C302
-	for <nova-gpu@lists.linux.dev>; Thu, 15 Oct 2026 01:33:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E03713790B
+	for <nova-gpu@lists.linux.dev>; Thu, 15 Oct 2026 12:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027998; cv=fail; b=hBgcRfYzYyi34XNbN1qv5ZgaLJwv5D3YIhMRsjsJzOuk29K+DjzStfro+Qr9IdeV3VA6KmFg4aPu7/0YU0GK1DpvpAGZ+o9TFuBPVu4M8ccDf86tCkZXwTPZhcip/zOYNERryOwuVogXt4+6kAi0/JYKg7mmIk5yoom8nDtYnPs=
+	t=1792068612; cv=fail; b=lcQlnDTEZpaA9kqv8eNORL6ZRawb7nhey3yUagI1vwaOddBpikkE9jDBaL6Obot8+kbyWYHg8rA4oGB/VuWW5cQiQp0edmYiuIJVzmCeDF9QMHin7vIdks5omAgku0FzajHf5SkH/lEh08EqzWR6RiYG/eNOdZ2un9h71+Ba6mo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027998; c=relaxed/simple;
-	bh=vfrwwN3OP8R4lyjy65cew9aMEpoD5KejD9PiZUTNlIo=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=ONFb7dZ48iJhlZ8G47XwsoHzHpbDLsjittRUeIcKxQ8ROOMXKjtwdZSwal9zqhvjgOSXl1n/RPLSQr+RsSO3Rp2/+lyG9i78KYjTXlqV5pVTsDerkjPk0yr5kCZJDLoXxDJo4oqPW0hNebRrilSmHZFrgnZUF8EYaQd3cFt2QrU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DhveExgt; arc=fail smtp.client-ip=52.101.53.18
+	s=arc-20240116; t=1792068612; c=relaxed/simple;
+	bh=V1V569HuMH0nJYDAQDKKRGgddR/ERVxebUYjLM3uCsk=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=jZ2FOVHwu/itK8l26uFgyWwEvUmrX1r8IJeT2eRcUJHPSBRSwumzS3mK/rZfYt79p3lMLcs/23dEpzIwGY9CKAyhhgr0+JFV+NHxLiZC++W9GN+oEWnL7KxathDgRSFB/V9zphTvC99JO4h8C61rfpUivt3lULuP9d3iA2rBBtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eGoBQfox; arc=fail smtp.client-ip=40.107.200.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DhveExgt"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eGoBQfox"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=agTpnnZgoNiLLTbqsRrs94BRwzqTz4kQB6XVKOMIxAJegqZ/3WJvmWAaYWBoaqWc3ptwaokXKl1Ev9vYJaiyUT70danSGQ+5+ADfUmClFTHav8L1d28eqZGFvZ9bW0iPU4JMYMHGRedRMCAS51yPUibFnYgRIRpiMDHiw8aHTCJInso/IjQi8tbHAUmqKXmWASplB+aNQ3CiQj4d+o4VJZB20ubrGcAR2v+Q5WDtnLcBZ45ai1PILASaUl3+ujfyI55Eo+9uy0Lt99LSxFlo38GXCaXxYyedlHkcEVO4JUO3YynYWyCt9M/yfW5cGtraVhT8UDd6EtTACh1FxlNihA==
+ b=SJAl3Db5AdQ6kc3uZ978X8P8DEzYcmNxUp/+boWqAqixRumpG5jlpaK9Dh53wTOql7EVsQI6oftG+PrrN8ftpP34qIiq5ZNmOmqU+KkIK0a+fxiAY3iydlABkdEIhkFVQWAREqCe/UYhK7ylbVZXa2FwfaZbUVsr3eryvdVJpxDb4eKx6EzNFkT7aj/Ck8dqeEhoSI1e5vYgAEyZwwSEWO17jd/tr+upH5obKx0XYL8nfLdwGrPztDMQCxHCl6cOYyy2aJslnsMZnOlUG357e0poezO94PyKEmvSZeSoOrJ9NCszok2RwrFOPdXsQ6DFZiBAZqvDrgmMkDmG0MUyDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0py5ZYysNLER5TCYw/drBkHoJiFxfW5uxO7/toLiW/Q=;
- b=uuPbRYcdZy/fZ6YrlkpE16uBYA0QhhfShlXx2NYeXKFd0boW5C1PDt+dZm8uKQ3GUYi9476lOZoyBGsML5ged/s8PyQlt0TlvEw9u9nWerVtzXPcmwccxVekraIKa/IxXCPHioefaYx2+LC26c/f5DDu2qpjWBVQ3uOT5NBPMsSDkHaVjI/9ZjSGGlF8h0Tqlbz1YqZWMsPuXK+Q8UVyIWlsotFr9yQ5x/BeKWqkSVlTSqpNRAQ3ImZbXU8TqK6rNWaFxvhj5tURnLAOy2dVjc0FDCnioS/caBGREaLTjRDsc8IYe/R/mfz5pNTHGUr7F8e9lniW+UNsgNUj/W/Crg==
+ bh=gyLbfZJaF+b4DEQKf6VxcWquykG3D0VNP4Bj3lRi8oM=;
+ b=i2hHRk8fZHC2P7wP0aEa/dLOIxXMjx5RDUaQ/UaYt80LnUkZr5/nqwwMov/6qMwd4URQIaV4HRK/qzUq6iSIE1SwtQQjw4mvTLdvE35feCY74Dca/iJgAuqth27wkHiX2L9XXA/oakcNDSqt4myQtw48Q6Ehzgbrn2Y1LPM2FBGVdJs/mS5zGxgv/Bs27FIaeG34qPanC+uy06kFXVMg6yoEmvUPY3Ik6ln6h1WCdwDh4LVgt4WpFn0rXLOrg9Mzyqhi03m5CP43zW6URc4xtqtMbpo5ID5zZ7vl6Ua6toZz4+JrOFHpzJYp39UmV4Dpll39fvXIjn5HiXztxok0Tg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0py5ZYysNLER5TCYw/drBkHoJiFxfW5uxO7/toLiW/Q=;
- b=DhveExgtO+uYtC3Ii+vB/1vtTvfIB7XaQkZJEY3aFtdiAsy94O3ECFUN2KqZO+md+1ZyIzg6/jt0pHrIm3ABztWxHZKuCHChNOXiVV7PJGOpejhZQNENern2mb4QCniOQGdm9JKce8TxO7qmCp/Pe/WBe82SHVVfbmCCqqulTCeIzSW3S8SsO7piXXsvJX71XLPFOU4fYWvr7oWVnnv74kt/rVBLpzb8IB5qN/a1xsqfUCCAVOafUIxcz5wVch2TSMn+Nk7/Gv3BxEtU6gikri1RvwnDZn3FB+UmeRMy0BdpZvFOo7PKpGbkzvysHOmgtnkJ3WqEEFVpxNvdxmNx7w==
+ bh=gyLbfZJaF+b4DEQKf6VxcWquykG3D0VNP4Bj3lRi8oM=;
+ b=eGoBQfoxD6N21RbnyXVl5XqnyXlbS8NEs8kxoH7uhdPU4QFI0SfcZSWbHI5jclNItdCz2BSwyBMF8rB9vzKUxJs4+IVCWnOlvrmZ9PAYDAFp9ErBdxYzfiKT5orLEkO3oi9N02k1Y7H+ZVKiXMjkJWFE2373qqNuOjS5hGCnDvAFZCd3dhubV84XG+7C5HNlvOLzOxcJiwM20E/VmcKEdt/rRvxi5yLIbFA7U7nO4DBOIdGCv859mABrjOv/V8SCJ25HmGl+hWUejLJAGSUNmYP1icW0ZTWguOBSFuBpOU5l6Vi0ezzhyKRJjeo2dGLwx/bD9Cq/1Bv9MsYG4si0hQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CH2PR12MB9542.namprd12.prod.outlook.com (2603:10b6:610:27d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 01:33:10 +0000
+ DS7PR12MB6333.namprd12.prod.outlook.com (2603:10b6:8:96::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.13; Thu, 15 Oct 2026 12:50:02 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 01:33:10 +0000
+ 12:50:02 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Oct 2026 10:33:06 +0900
-Message-Id: <DM50WK54LKD7.1YGZ0JEZ9KMG6@nvidia.com>
-Subject: Re: [PATCH v3 6/8] gpu: nova-core: add NVKV typed encoding
+Date: Thu, 15 Oct 2026 21:49:59 +0900
+Message-Id: <DM5FAT7JWWZP.24VCIV1SXFQM2@nvidia.com>
 From: "Eliot Courtney" <ecourtney@nvidia.com>
 To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
  <ecourtney@nvidia.com>
@@ -66,13 +64,14 @@ Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
  <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
  <dri-devel@lists.freedesktop.org>, "dri-devel"
  <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 7/8] gpu: nova-core: add NVKV typed decoding
 X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
 References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-6-f04504c262c2@nvidia.com>
- <DLYE7KKATCU6.CUH7GIJJJ9PW@nvidia.com>
-In-Reply-To: <DLYE7KKATCU6.CUH7GIJJJ9PW@nvidia.com>
-X-ClientProxiedBy: TYWPR01CA0028.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+ <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
+ <DLYE7QGIIJ66.3SKOCYO9GAMCA@nvidia.com>
+In-Reply-To: <DLYE7QGIIJ66.3SKOCYO9GAMCA@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0127.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37f::15) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
@@ -81,98 +80,317 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH2PR12MB9542:EE_
-X-MS-Office365-Filtering-Correlation-Id: 315038e9-41fd-4126-cff1-08df2a5c459c
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS7PR12MB6333:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b2397d0-6ea9-4265-25a3-08df2abad413
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|10070799003|7416014|1800799024|23010399003|56012099006|11063799006|4143699003|18002099003|10067099003|22082099003;
+	BCL:0;ARA:13230040|366016|7416014|376014|10070799003|1800799024|23010399003|261009223027099003|56012099006|4143699003|11063799006|260925021311599003|260925021911599003|10067099003|18002099003|22082099003|10063799003|260925022911599003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	4J+nQlEfqKROK/2YPlGDKRDeqFIQgizy9qUHF1S88tSzdp9fwR62oWYLTBwjhwNVr7DgkkbN4ZMFjhfvqPuGT2shRna0oFeC7bdiAUoy4yKjbm4CGFWhf1gM5RDBV7Of2w2vIB6Nd3+ArY3NsCCT5c7x8bTkY2pqs3aFtaqH8k5kqtgVY7gF0YS6tUJgEObuXAf+eq2jVlyJ1qmndmIT3L7cqDrxVi/13IfnCwryVpABz7POec39lv6XrR+ajs3Oy9ZCEfJeSlh70KqbVySGmf3z39roEHKJ+zZCikMzevgyIq4t5hAIyDNQvmUKUSXq5BU21fUbyIJI5qWhc4/tYNkRJUEIbgj8A4nudumir+IGYmMK1nB90akY7VvLj9lcceJvsVfmXJZ87te3ge608NO9vzTFVBzuLgUlrRpSAKhtqLrD8Rn1/vOJUhS/zz3s2rsG5Okk7Wwkj6rWFOnSvWCTfz9b8KnvycYa7KANfLLM13J3l5UD6NwhZLvLNNo4XaCm+UUvJkvWxBaPpKmP+yhogvHUCJcvblaR1Z9GglownkxEVVd9hqU8iZWT7ZE6501tCFaLcTVwzJkZKK25BHPqRnDM/Z2zHfAy2rQ900qBu8F0igilVP9Lu+i38SpO9KVX0JENgIaHSnCWTiI99+BpDY8qirYGkymeOuuv+tU=
+	t/4D/66dEexJNvxdy6S3w5Rs78DYL7Qs+ortEuy+EtqWKz0WogjVV+Z/ssXSgYPNlSRv3uKgEyxtPUkdOO+XFAyVqKhOEfZNwXMiXLX6HanST/J2sym0smTD2wAdAXt1hgkpP5NubnSu9n6z5TJaDI4cJWRI/Yqt0pduv9tv9Bol7g7bzBWJtqnoXzCukkFahd5P9VpG2RPv+fbcqoCozQqciFqHy7IseVtKtrNSdkppEzulKDZsW5kGswWg9h0ocCs7EFTOaADwmUyo+7zHvsEgk1sKLNW0a20noDw8qbX40HeypGmWRl2q6XSOR1feerFZXbTDY9OW56sPYtkH2DtIOw2CDfidMW7oiEFoyB+zbqJ8H5DXSAwDud1djDm/eSLwQtyVstj7Hkr3r8nWSA6ZHtQmUuvxSqxk7W8WyCALIjJwM2pnL7T8nqkN47oUt++ZD3yTiAZaslYEjwheoffcCLjw6wEYjizi5fYm6J27VjpZHQ8SH3UWehJMc00yI3+20E0gso7nsdLvi4/3R6whbzYCr35UyR4ZSR5jd79RbjIfXOTUXQdOt3hAOHyIqyCg9ACAZ8tywiU5C3/gFheSqkdwQHJsx+nfxFj1QLoMygzJyTFo1K5zdGthlFP05VIT+d+azPluScVzZYVT7SFuC1oDA6S8XFuyBvaH5Xo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(7416014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(10070799003)(1800799024)(23010399003)(261009223027099003)(56012099006)(4143699003)(11063799006)(260925021311599003)(260925021911599003)(10067099003)(18002099003)(22082099003)(10063799003)(260925022911599003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cWREcGMyNURoRE9xQnBuR3dvRVVJNUZCVUZuY3RYamRFcDJjQUxZVjRZaUtJ?=
- =?utf-8?B?RFJxamZVV2ZYM2VyQlkvM3E1VkpIYTNGYmxCNHJManR3RW0weTNYbTg2NlhD?=
- =?utf-8?B?RE92OUdxUXZ4TUdQdytQdVErTkJQWk43VjAzdExaK0xIckJYdnBwMHUwQ00z?=
- =?utf-8?B?K21VWncrTTNGREZlTzZaWTAvbmpTNzMvSGtIRkNOVG1DcGpGTkltRGFocG04?=
- =?utf-8?B?NkJLeHc3UnNCUHpNRFk4T3h1Zm01MGp5WHdWVUdSVUdGMU11Vzc4OVIwR0lv?=
- =?utf-8?B?eU1Sa3FNeTcvZ3JMeDZ2QWQvak5ENzlqdmpmQzB0V09JR0pieWVxbFowWVl6?=
- =?utf-8?B?dFNtYXByTzhOTzZxQTcxMitQdGY0UUcwRndmdXF5SWR2Y0NnN3dUUEJmNTRZ?=
- =?utf-8?B?aW52Nit0MWpuY1h5eEwydC9NTjd0NG9DQUdMWFBCTjIrOHRyUTFvMm9pYWh5?=
- =?utf-8?B?LytWZTZRKzJJTGhxS0V3ZmZ3eVlCUnIvVzE0QW81TThjTXQwbFBQYnNsNlNn?=
- =?utf-8?B?cWRza1JmM20reWZtS1hUcXM2WDlrRjhjOGw0dEZIaGdKaC9kNm1LQWY0SXVI?=
- =?utf-8?B?TUtkN3laM1Vta05JVTNZOGdsSnBoMmRnR0k5WHRXdGc5OUR5OXlmQ1VGcFBq?=
- =?utf-8?B?OGxYbnRDejJEVWhpRGJueUZ2VnI0VmlsMFpFaTUyUFkrN1Rtdkx5UnRwZWFY?=
- =?utf-8?B?bytGU1paYTFIbVEzYitJRGVMMEtLeGc5UWx3dno3emR0NGVJWGpGU0VUZ0Uv?=
- =?utf-8?B?UG9IY2VKOGEzN3lIMjRSNi9pd0ZxTjcyTHd4RC9yTTBMYklGa3RSKzg3Y09K?=
- =?utf-8?B?VUdXSkNaUWQwZmZZOFVteURTT0JEbk9WQURqTkdmaEQ2VlEyQ3dSMC9vSDhF?=
- =?utf-8?B?aktRSGF2ajEvNjcvWVg4azlBL0JiUkJtcndLSFlmcG8zRWs4RUIzeTVGTDFI?=
- =?utf-8?B?TzVRM0tORi95ZWRFNHltZVN6dTUxUkJVOWJ1UGFrOVlhTG8vYjlmTlMxYVY3?=
- =?utf-8?B?Y1IyVStUb0Y3SUdBVWdzUVFOL2lRbjc0N1ovYlM1K042TU53WEdqLzdaLzFl?=
- =?utf-8?B?MW5DS1dtZ1NQQ2tPMHFlenE0VnVjWFB2ZlRSS0NYMWNjbVZDcUVRNzl1ZGNm?=
- =?utf-8?B?bUhraEdNcWphclJ5MjVvT2RHcTRtYm1UZUdJdWh1RG1SWXVlYytuRXcraTVt?=
- =?utf-8?B?V2x1TDRLNlNyT01LcEw5V3BWSXphQlB1VFJtaDRmOU95WHdIZ1JzZU1ab0xC?=
- =?utf-8?B?cmovSTNQOEgralpycm9OcWZPaXFoVDBRRDkwdEs3YW5VMEpMMTNwQmhCemor?=
- =?utf-8?B?bkJnYlkzbVFWZGNrcGF3VHRHenlLby9zZ2RSK1dUaDZYcjB0aDVQREI3YVBB?=
- =?utf-8?B?MForbGoxTGx5a3lwdzBidi9DZEs5SGF2czMrNU1DakN2Ky9YbUpIQTBwdVFN?=
- =?utf-8?B?YmI2Q1BRemhScUFsUjh4WWp1QUVUb2p1UGRGYTlCcWdkT2twMFVsaldBSjcx?=
- =?utf-8?B?TDRHaHptcG0ydGd1Ym8wYUpxekdabUZGbFkvbU1KeEErUUZqZ01Fc290enFB?=
- =?utf-8?B?Q3dwUGhONHdCWXpTUDJ6ZFNDVnlxa3BlUERWazZDdTdFQnBad3IrODh6Nmsw?=
- =?utf-8?B?SStTY2RKS3RiTDduZ0NGdE9EOEtyRVQreEJyVjdLWnZrek1CUGpUd2RuaUs3?=
- =?utf-8?B?OERjSmNuWkExOG95YnprTFhjM1d5cERoMW5zam9uSERJejM1SlFaeHhIcEs5?=
- =?utf-8?B?aUR2TjlKVWdUM0FDNEdCdHJMcE14QXBwZTZvYk1rM3c4MElkZjMzWjNKa0l0?=
- =?utf-8?B?VkdxYm9GRnR0UmxDOU1RZXc1M1JqOG1hSkNBVWYyYS9nR2N3VWFRc3lZWXA5?=
- =?utf-8?B?MVYrbWJxTWNRN3NiaDBzQURBZVFtVjFKVzdxVWIxZWJyMjdSYk03Nzl6Ry9p?=
- =?utf-8?B?VllFaDRWNzlVckRaVUp6ZStnV2cvMkUzaHBGOS9Lc3RmQk9CM2NQZlhPYnRi?=
- =?utf-8?B?bjBkOE9Cb1hzeFV6M2dFcytRMVkrNjgyQmNEMC9IQmM4NWcwNHQyb1dzbDZs?=
- =?utf-8?B?VThwcU1tamVUU0JkZERjV3I5UWgrZDJIVHBKWEJnZ3Rua3l2VnMxTDRWWjYw?=
- =?utf-8?B?dnBabDh6Q1ptTndGbDVxOUFTZTV6MFNKeHhZUCtNa2t3b1pGUWcvQ1NkUWlT?=
- =?utf-8?B?bVZPLys4ZGtZY2tad3hXRUN2UnlpVzBNdmVFeFdGZVJSUERYekJNSGRNb3Ny?=
- =?utf-8?B?YkxsY203cTkzMGJLcVNyUU9BVEpRcHVYUWFGa1dRQnJmcXVjaEFZc3FxdmJJ?=
- =?utf-8?B?SUdoQjBCVXNld1VaYTljT2tvLzRqSERMZzAxbXY5K0pzUE4rc0MvT3RpMUpq?=
- =?utf-8?Q?g6+92rXH+ZIppZGNNy6Eh3TlV6ZDxHjs1e788BzJekpp0?=
-X-MS-Exchange-AntiSpam-MessageData-1: FxO3gMRTnsluRg==
+	=?utf-8?B?SzZ2OXBGUTg4VFR3NFpvM0hldnJucXIwWlJRZ28vcFhLalZWNTIvRHpyV3hK?=
+ =?utf-8?B?NTZGNzBKK1VTV0Z5dWxPNE1ZdVdxTkJBaUl1VTA1MHJCZ2hoYnYwc2dVcFlI?=
+ =?utf-8?B?QnJ3b2g3RnpJZVZIaWUrMmJmZHpBdm9pYVdiNHB0bmNmNUNzVTFoVUlNSEZ4?=
+ =?utf-8?B?R3hWQUNxeFdFTzlKTlVXNVJDSWlKV1RodExaVG12RXNuWkRzZUh5UUFIYzZs?=
+ =?utf-8?B?dUxYMFNrY2ZzaXJpaEdzQytwbjdVUjdld0dMOFF2L1QyTTlaUUNLMGo3eGI2?=
+ =?utf-8?B?eGVyYi96bGNnSFc1ZDVqdXNQQ1VUYTlMMGd6U1RBbkVOR3k0R1lmbTJtbEov?=
+ =?utf-8?B?SWdNVDZCNldWSVl3dEJ1VGdPZGh3TmN3RHdETzdGUGtENzF2bU9nVXpsM2hq?=
+ =?utf-8?B?TUpJcnpLbTJXTTNvQW5UOTdvRmd0V05qcDdTdTNENGYyZjY3bkRUOXdtUmhR?=
+ =?utf-8?B?K3h1NHlreTA0MkNaWnlaNnBTZXgyQ2NJemNLNUtlbG8rYlZmQkVPalE2UFdF?=
+ =?utf-8?B?dnY1NlB0QUdDL1BwR21BVmk0SXlVMEtqbzFwdWcxYXVISExXNk9qbVV0ZjFS?=
+ =?utf-8?B?WWVqNk5qU1dkRDZKaW95eGE1L3AvK1NrajZ5VEZDTzAyM3kxUnNRa3JEeVdT?=
+ =?utf-8?B?UVJMbU1mWHpBSHptVkIyTVJWU3J4K2RQMysyWngveVhEZmw0cjNYZjBZaFBp?=
+ =?utf-8?B?a3ZyR3RXOFNzUm9LNGo5REZDeXNrVEVReGlrZi9VK2V4SGVlMU5OY1MwRHY2?=
+ =?utf-8?B?THJjM0dmT3RLQ1h2UE4xVmtmNGloTWhRNmI0NmhHUENyaGVWcVlXUnhkcjJt?=
+ =?utf-8?B?N3NXQVJoT0RYZ21yV08rTUxYa3NYYlNtc3ZLK3czd1FNK3ZyRmtXc0U3MUtl?=
+ =?utf-8?B?ZTVaYkJ6K3VUMzM3UUhXbVB1bnIwdnlyUzNCRUMwUExOZ2pWNVZlYU5BeHMw?=
+ =?utf-8?B?NHZqdllISnBiSXhra2hWV3RFYXNhWnc3VGg1MVJuaVBaY2FPcWZPM0pjMjB2?=
+ =?utf-8?B?NGVjYm9sSjZ6b2M1enVLWXVzOHVuWjAwaHhCS2gzY0p6YTNyNS9uWHR2V0xh?=
+ =?utf-8?B?VWl4d2hPNFlVUlhkekswWWY5SjFEamF6QitTSGRaOVU4aHlRZmdNL3Zudm1a?=
+ =?utf-8?B?ZnRWV1hTT216aXphZE9CNDVRazd1dkhDRGxpeWNYcnA4UzdCUU40N2ZzaHQv?=
+ =?utf-8?B?ekRNbmVVZzJIbERIT0R0TGp3dWJaVHdadUZvUU9RNzRsSVk5by83djJDSlpX?=
+ =?utf-8?B?MGMrK3FZUk5QYTlRb0k0d3oxREd1UmExdVNvZ0tDRUxFQWdCLzhqc29kdGtx?=
+ =?utf-8?B?eXF2eUppcE5GaUVYTXUvb01nZVhqRnVicjVvQkpmM0QybnBqSkRyckhBKysv?=
+ =?utf-8?B?UjVhRzVkbGFtYnpSQjgyNlVsREUxOU5leWIwT20wdTAzSVdDK0NzSXppRCtY?=
+ =?utf-8?B?dThQRWxwcmk0NS9VbE42b2JwQksxREZqdXpRY2gva2FMem9oc0dEWnJaOUEz?=
+ =?utf-8?B?NGN0bEFPVHErdkVOMkQxVm5OSVhuaTZWWmZ4WWhpME1WYTNTVXRRckZ2eWhl?=
+ =?utf-8?B?UUxxUlJBMzBRVUNQUFVSYlNmcjdvQzVyRTBlbis1RGJzRmVEY3c5dFgrVVV1?=
+ =?utf-8?B?bFgyRU1wVENsZkJHWXNTTEorVnlJa0NLNzRiQzhDSU9Sby9RMkU5c2d3MTNo?=
+ =?utf-8?B?cVI4QkgrNnNFUzFzK1VhU1FsQkxmdDc1czZLM2prN1hTREhCZjgvTFd6Y3l2?=
+ =?utf-8?B?N0VGMjJ1bFRvWDlzaUN0RTN4elpGOVJjWDJ2cTFIbTBFL2ZDN0Ixcm82NzlW?=
+ =?utf-8?B?TjJrWDFvaE94eGprOHdtckxNWDB1SmxhZG55d1lrZldYVWlaRjlhTXN5Nmtz?=
+ =?utf-8?B?NHpQdGJsKzQ5VU5jaUFkTzVVa0lTSHBxMUVwTVVOa2ZWSFA0QmhMS09nb2VL?=
+ =?utf-8?B?elp0VDlrTDhhM1FBd1FCN2NCYTlDbUIyd0k5UWNvWFBUY3VpWU9PbFhvQ1lj?=
+ =?utf-8?B?UHlQNXh1VDNhTURkcDVlZGxhaThiWXZ5dUY3MG1CMENxUHowaU0xMWZtNloy?=
+ =?utf-8?B?RmV2d2o5aE1JdVZtTnhmd1dSdExDaXNGdDc5aElLRVNIM2UyM2ZQNFdweDdn?=
+ =?utf-8?B?M0Vab0NueXRIclBudmFyalM2c1BWajVDZ3Q0OXlnL0tLSS9CYStWSnhpRkd3?=
+ =?utf-8?B?emc3SDkvZ2VUNzRocVNFY203TW9mbUlKbG92TGNZd2hzTE94bFNDMmswbGVo?=
+ =?utf-8?B?ZjFNanU5bU9XcExOOXFSS2w3T1Z6bm8xTlloN25rM05tZjVoVU1oUzUyMm41?=
+ =?utf-8?B?Y3RCTFo4UXI2L0NTVXp5Q0pGeVVFbDc5b3VtbWJVblJrS0pZMGdyTDI1TDZu?=
+ =?utf-8?Q?10gnO/58S2URu0WbCTYv6BdhwMi7I2L5jEBbjsRTjfYz8?=
+X-MS-Exchange-AntiSpam-MessageData-1: Dyu1I6FkhIyN5A==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 315038e9-41fd-4126-cff1-08df2a5c459c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b2397d0-6ea9-4265-25a3-08df2abad413
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 01:33:10.5180
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 12:50:02.2402
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OSkPWYYmDArAS+1+Aa0wfWNAbTKxQ789wuz1OYFvWhygrCW6uhSwEgvV35kwo/AOAjjfR7IQjjeifp28GFjDDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9542
+X-MS-Exchange-CrossTenant-UserPrincipalName: aA4LCbigtWCF9fz/dsHK6TXIa+8vfMFiw0wHhvUOTDhShgMfe+l442xed+CjZ0n0NxdH5mlJ7+qbYfi1QlWmkQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6333
 
 On Wed Oct 7, 2026 at 3:30 PM JST, Alexandre Courbot wrote:
 > On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
-> <...>
->> +    // Tests that encoding via the `nvkv_encode!` macro works correctly=
-.
->> +    #[test]
->> +    fn encode_typed_struct() -> Result {
->> +        const U32_KEY: KeyId =3D 0x0001;
->> +        const U64_KEY: KeyId =3D 0x0002;
->> +        const NAME_KEY: KeyId =3D 0x0003;
->> +        const FIXED_KEY: KeyId =3D 0x0004;
->> +        const OPT_KEY: KeyId =3D 0x0005;
->> +        const INDEXED_KEY: KeyId =3D 0x0006;
->> +
->> +        nvkv_encode! {
->> +            struct TypedRequest {
->> +                a: Key<u32, U32_KEY>,
->> +                b: Key<u64, U64_KEY>,
->> +                name: Key<&'static [u8], NAME_KEY>,
->> +                fixed: Key<[u8; 4], FIXED_KEY>,
->> +                opt: Option<Key<u32, OPT_KEY>>,
->> +                indexed: IndexedKey<u32, INDEXED_KEY>,
+>> Similar to the typed encoding layer, add some decoding type machinery.
+>> Add a simple macro `nvkv_decode!` which implements `Schema` for a struct
+>> by composing visit calls to each member. Add some common `Schema` kinds,
+>> such as `Array` which collects an array value into a fixed maximum size
+>> array, and `Required` which fails a decode if the value is not sent.
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/gsp/nvkv.rs        |  11 +-
+>>  drivers/gpu/nova-core/gsp/nvkv/decode.rs | 622 ++++++++++++++++++++++++=
+++++++-
+>>  2 files changed, 628 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/g=
+sp/nvkv.rs
+>> index 7ac3a459a98b..5791df07a7fa 100644
+>> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
+>> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+>> @@ -9,7 +9,7 @@
+>>  //! function calls will map to some struct - for example, f(GPU_NAME_ST=
+RING_KEY, 0, b"some gpu")
+>>  //! naturally maps to storing a &str with the GPU name.
+>> =20
+>> -#![expect(unused_imports)]
+>> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_imports))]
+>>  #![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
+>> =20
+>>  use core::{
+>> @@ -23,7 +23,8 @@
+>>  use kernel::{
+>>      alloc::{
+>>          allocator::KVmalloc,
+>> -        Allocator, //
+>> +        Allocator,
+>> +        ArrayVec, //
+>>      },
+>>      bitfield,
+>>      num::Bounded,
+>> @@ -148,6 +149,12 @@ fn default() -> Self {
+>>      }
+>>  }
+>> =20
+>> +/// A schema field for an array value under the NVKV key `KEY_ID`.
+>> +#[repr(transparent)]
+>> +pub(crate) struct Array<T: Default + Copy, const N: usize, const KEY_ID=
+: KeyId> {
+>> +    vec: ArrayVec<T, N>,
+>> +}
 >
-> API question: `IndexedKey` is module-private, but this use of
-> `nvkv_encode` looks like something that driver code could very well do.
-> Should it be crate-visible? If so, why not move it next to `Key` in
-> `nvkv.rs`?
+> I still don't see why this needs to be declared in this module when no
+> encoder element ever uses it, and the module reexports everything from
+> `decode` anyway. Can this be moved next to the other schema kinds?
 
-It's not used immediately, but I think it's fine for it to be crate
-visible since it is fair game to use it.
+This will be used soon [1] for encoding. The convention I have been
+using is if a type is used for both encoding and decoding, I put it in
+nvkv.rs (since it doesn't fit obviously in either - the
+encoding/decoding related impls can go in there though). If we put
+IndexedKey in nvkv.rs as pub crate since we'll use it soon, it's
+consistent to keep Array here as well. WDYT?
+
+[1]: https://lore.kernel.org/all/473ff4cbabf401357934a611c0310499130d9efe.1=
+790580105.git.zhiw@nvidia.com/
+
+>
+>> +
+>>  bitfield! {
+>>      /// The op word that starts each NVKV operation.
+>>      struct Op(u64) {
+>> diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova=
+-core/gsp/nvkv/decode.rs
+>> index c4c24fe1108e..24dad31296cb 100644
+>> --- a/drivers/gpu/nova-core/gsp/nvkv/decode.rs
+>> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
+>> @@ -3,11 +3,22 @@
+>> =20
+>>  #![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
+>> =20
+>> -use kernel::prelude::*;
+>> +use core::{
+>> +    convert::Infallible,
+>> +    marker::PhantomData, //
+>> +};
+>> +
+>> +use kernel::{
+>> +    alloc::ArrayVec,
+>> +    prelude::*, //
+>> +};
+>> +use pin_init::init_array_from_fn;
+>> =20
+>>  use crate::{
+>>      gsp::nvkv::{
+>> +        Array,
+>>          Index,
+>> +        Key,
+>>          KeyId,
+>>          Op,
+>>          Opcode, //
+>> @@ -15,6 +26,353 @@
+>>      num, //
+>>  };
+>> =20
+>> +/// Defines a schema struct together with its [`Schema`] and [`Visit`] =
+implementations that decode
+>> +/// into `$target`.
+>> +///
+>> +/// Each member of the struct should implement [`Schema`] and [`Visit`]=
+. For every (key, index,
+>> +/// value) triple decoded from the NVKV stream, the generated parent `V=
+isit` implementation will
+>
+> nit: let's put backticks around (key, index, value) and link to `Visit`
+> (and other types mentioned in this doccomment, and possibly elsewhere in
+> this patch).
+
+Done (here and other locations).
+
+>
+> <...>
+>> +/// A schema field for a key that must be present.
+>> +///
+>> +/// `finish` fails with `EINVAL` if no value arrived for the key.
+>> +#[repr(transparent)]
+>> +pub(crate) struct Required<T, const KEY_ID: KeyId>(Key<Option<T>, KEY_I=
+D>);
+>
+> I just noticed that the schema field types are conflating several
+> concepts together. On the one hand, you have types associating a key to
+> some kind of storage (Key, Array, Indexed - let's call these leaf
+> types), and on the other what looks like modifiers on said leaf types
+> (Accumulated).
+>
+> Which leaves `Required` somewhere in between, as it takes a key
+> parameter and can only be applied to value types, i.e. you currently
+> cannot have a `Required<Array<...>>`. But `Accumulated<Array<...>>` does
+> work IIUC.
+>
+> So I think `Required` should work the same way as `Accumulated`, i.e.
+> just wrap it around the type you want to make required, instead of
+> switching the leaf type.
+>
+> And for symmetry, we should also have an `Optional` wrapper type, so we
+> can also make fields optional even if they are not `Key`s instead of
+> having specific behavior for `Key<Option>` (which again is not
+> composable).
+>
+> Which would give us 3 leaf types (Key, Array, Indexed) and 3 modifiers
+> (Required, Optional, Accumulated), with a non-wrapped leaf meaning
+> "default if unspecified" - which is easier to understand than the
+> current types where `Required` is a synonym for "a `Key` except it's
+> required".
+>
+> This means `Required` would then be used like `Required<Key<...>>`,
+> which is a bit more verbose, but again nicer to read.
+
+Yerp I think that is fine. I originally did it this way to avoid the
+verbosity you mention ("Required<Key...>") and to avoid needing Default
+implementations, but I'm fine with that version too. Let me update it.
+
+>
+> <...>
+>>  /// A decoded NVKV value.
+>>  #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+>>  pub(crate) enum DecoderValue<'a> {
+>> @@ -51,7 +409,16 @@ fn try_from(value: DecoderValue<'a>) -> Result<Self>=
+ {
+>>  impl_try_from_decoder_value!(&'a [u32], Array32);
+>>  impl_try_from_decoder_value!(&'a [u64], Array64);
+>> =20
+>> -/// A visitor that consumes decoded NVKV and produces a `Target`.
+>
+> Why change this doccomment? Let's introduce its final form in patch 5.
+
+Thanks for spotting, think I did not absorb the change into the correct
+commit.
+
+>
+>> +/// Lets `Key<Option<T>, KEY_ID>` accept whatever `Key<T, KEY_ID>` acce=
+pts.
+>> +impl<'a, T: TryFrom<DecoderValue<'a>, Error =3D Error>> TryFrom<Decoder=
+Value<'a>> for Option<T> {
+>> +    type Error =3D Error;
+>> +
+>> +    fn try_from(value: DecoderValue<'a>) -> Result<Self> {
+>> +        T::try_from(value).map(Some)
+>> +    }
+>> +}
+>
+> IIUC this block could go away if we add an `Optional` wrapper suggested
+> above.
+
+Think this is ok, one issue with `Optional` is that it's currently not
+possible to pin_init (or init) an Option without materializing the value
+that goes in there on the stack. It's an issue either way though but the
+`TryFrom<DecoderValue>` limits it to small values (refs or small integer
+types). Anyway, I think we can just add another assert on the size for
+now, so SGTM.
+
+>
+>> +
+>> +/// The state of one NVKV decode operation which produces a target valu=
+e `Target`.
+>>  pub(crate) trait Schema {
+>>      type Target;
+>> =20
+>> @@ -65,7 +432,12 @@ fn init() -> impl Init<Self>
+>> =20
+>>      /// Returns an initializer that makes the decoded `Target`.
+>>      ///
+>> -    /// After the returned initializer runs, the schema should be empty=
+ again.
+>> +    /// After the returned initializer runs successfully, the schema mu=
+st be empty again. For
+>> +    /// example, this is required by [`Accumulated`] which finishes one=
+ object and then decodes the
+>> +    /// next one with the same schema. Implementations generated by `nv=
+kv_decode!` meet this
+>> +    /// requirement. If the initializer fails, the `Schema` can be in a=
+ valid but non-fresh state.
+>> +    /// Taking `self` instead of `&mut self` would avoid this contract,=
+ but it forces a copy of the
+>> +    /// schema onto the stack.
+>
+> Let's not cite specific implementations in the doccomment of a trait. We
+> want to say that the schema *must* be empty (as opposed to "should")
+> from patch 5, and that should be clear enough and sufficient. I'd also
+> move the last sentence to patch 5, and drop the rest.
+
+Done
+
+[...]
+>> +        assert_eq!(decoded.slots, [10, 20, 30, 40]);
+>> +
+>> +        Ok(())
+>> +    }
+>> +
+>> +    // Tests that a schema too large for the stack decodes on the heap.
+>
+> How are we testing this? Do we expect the stack to explode as a test
+> failure? That should be guaranteed by the use of `KBox` and `init`, so I
+> am not sure there is much to test here...
+>
+> But if you decide to keep it, let's at least size the schema so the
+> stack *actually* explodes: 2KB is not enough, we want at least 16KB, and
+> for good measure let's go with at least 128KB to be sure. Otherwise I
+> think it's fine to drop this test.
+
+Happy to drop this test.
