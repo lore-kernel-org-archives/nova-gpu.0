@@ -1,67 +1,67 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C20D4D09F1
-	for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 13:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782614D7957
+	for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 13:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158886; cv=none; b=Th4Eh5WOojr4tRUYhG0ChSDoq6ThMne5NFMyP8FpXhjAVZBhUbBmcxo78L4cLevNFVhM0xzycR2amCTBtusnMv0yU3Bk3tm1wt+ZF273mZGZ3Ucj3cNV5UManMIP5vFNMHe908FyYzJ1imqi09b1HsXWUN/zzCJ579xvWVrIb3Q=
+	t=1792158887; cv=none; b=oGo7MoQJvd4u6jvMnMI3pSBaIjQ2+yiNFsx0XrsLHBGyiUcCA5S44ts/CXribcsl9IXV6gQ6lHJdcvm5X2yJ/rUUQUFFihrj+OelQIJP42BfKyslVKrKZCr1xhtgJmQQP48SlnWxM2uQMz0334vy3gE2iOvTUY1vZeJBNN6QwDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158886; c=relaxed/simple;
-	bh=yC1TM1aBiAR4TfDk+QbdmRUAzel//L0Cezzj31VLyYk=;
+	s=arc-20240116; t=1792158887; c=relaxed/simple;
+	bh=VwOW9LuuRP4zm4xzSacphrIEqTeIFqxhd0KQcV0jQFA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=n1/Rk5KFBLCNwP71IknjJybnpvQAhnEOIHLt4Ls5qeDD8wVSyRTs33kaLpi2KWr+7mL8cBF9PAxCXL5vXilMH+QybeIpEiGJNodY5JJaHYYZbcTSm3AVTqtIP/797kRAe4zu9gAyq3p0+BDcleaJfc+kname90T3Dw8NukyFSno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AhniEKRJ; arc=none smtp.client-ip=209.85.128.69
+	 To:Cc:Content-Type; b=T6Kpp62/HXN+wIu68dqwchhgmmqMz7xCji76cusg14th59N8XtDd3dqBRjRsSrzQbgF699ulB0eZ/SvAIbH6i3R3aqXNWYu73Nd++vHWKWnmWeRsQFuEcJO7ZQ2HBUH+ehfXc6dAF80c8MSVL92twqXHmAZ38X9/Djx3IV1N8vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BsXaP1JX; arc=none smtp.client-ip=209.85.208.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AhniEKRJ"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a01b112fa2so44139735e9.1
-        for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 06:54:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BsXaP1JX"
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6b1c2d36cabso5719760a12.1
+        for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 06:54:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792158883; x=1792763683; darn=lists.linux.dev;
+        d=google.com; s=20251104; t=1792158884; x=1792763684; darn=lists.linux.dev;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=o1zW8ObmJUqyJoTK7Wl6HPlLn7nz+xpXE4cGz+lwfMk=;
-        b=AhniEKRJ8makfYDUGfQY91mnH9JthpkbCebYX5OW9FqzKNKlulgTQhPZGRhvxPJx1l
-         oHHMHMGHh8oO4bCKBxi6mfEiFws4IV76INWMe9mF3TF+XXoJpcJwMkuA+jJ9OVLnKapg
-         t7lTYsw+l4t2XHrU8dIA0A34NfKwMi8jt9urHrSb9Bl56SlG2rM516rasOi5EBXIvbj/
-         eC/UdQ+PPnBVcIc0M9EWh0Zs3TFb5IeIU7++YKvCJSuENGqC0GUKPQEnYSSowzB5mClG
-         Ps6JjMpp/gFEQptCakLtHoA0q3yllvfCJIctmhZYaFafEeJBnoQk5pR2Mge1Cibt2JPt
-         Kukw==
+        bh=4RB0qRPK5JwVr0FFzsYrhcGUqlQtMIIbndksgD1L2mI=;
+        b=BsXaP1JX5RWrbnWFfBvJJWgQlP3hIMV6z2fbpNLKRgxIF7Yo86ZyicL6+tY+q8KaKf
+         PpQEGpU07Lh3JpOWBsWObnOIpWMsxTQQPI7mw62aROEDQ2BbbtZF3Btk/DK0FtPbVOo3
+         H6hHsXw8dvJc/R5RpFcCNNvOebQmt/g8ba5SbVo5AR51poFZKhaYjIdKQBrrdTCAil6X
+         KeS/3mKSS9/A8Dx38Z6wV68ewjb6+sN6/ZEiCeJNEd0MTUwSzBqnTQWSLH9F62KcHx8B
+         K9ZT4gpVg551cm9OxMcelpNh9IdTkhQc4OWKf78r03fGgou08jKuviW6DErwyD5uQDGy
+         sX8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158883; x=1792763683;
+        d=1e100.net; s=20260707; t=1792158884; x=1792763684;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=o1zW8ObmJUqyJoTK7Wl6HPlLn7nz+xpXE4cGz+lwfMk=;
-        b=CJzwEWQ0rSHsA1KVJyjeIACj5LeBncm/dJNraFQMM3KYlJ+7VlxqFkBM4EYrTmj4++
-         zR9YTxXtvS4qWSUyzHuAnxTHyFNKAwH++h18tr78AqjstdrCub35ImcQzctosbZb3TeR
-         SnJOkefvMDNjW/K0rCK9cHIWkUsZh/JrdbUxj4ip1b6SbNfSWrvCzDUQTM56u9qRzWQs
-         9dEnr+T/i+SFnaTvqhk/DfVhLS90T1s4XuUqNo4zXrg5+pT5hbhKxX+UW6UHdemhJ6pn
-         g0mkZt/2+elZ3r/zw+d758Q9ixvM1Edxcvhqc4z2JMfQUKIOqK/Lcv+4s02MXDG66/5C
-         Lz8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwESov4YrWpbI6286c9lPeCqFs8yovPBtyFG8PzVnGRTp249r3J6XFtxr5a2Zuvj9le8177vAnsbQ==@lists.linux.dev
-X-Gm-Message-State: AFq9FYJsAfiwP5GCRweECDTs9rCbB2e2gDTcBE08RUDiZRP+cZlxLyjZ
-	Eeip6r72OzA/I9bIrNcjoqTl3SZb5TjnmSb20rXzJqSOMxjAc8KgU51pDKTe66tIvBguyDt2LLM
-	i+AoIrR4C4XHHW+a3bg==
-X-Received: from wrwq7.prod.google.com ([2002:a5d:5747:0:b0:48c:7482:b673])
+        bh=4RB0qRPK5JwVr0FFzsYrhcGUqlQtMIIbndksgD1L2mI=;
+        b=0CZ4lkmdhU2ZddaqVrwKledWo8O6Be8wDzjTi1Lu7trHQkD6c3heSJm14TI9W8wcOB
+         iDnmxCJpY92D1uOf1zWQAJn5AXCrSpKFMfCatlg5A1mmfsLSE3UOCBDKYu2vWYFnM/r7
+         2+Hk4ZuznwItBdocXmm04+OsbMVcItBtOW5nKj/W/dAqzb+NsgkISNIV1mFEY5ulY+Gb
+         R/sjRYr1lMHuui+V2+Ab2SBtS4aCqzjGr2EL+5VcRuiT1Nk6JRTokXyNTEZNrMEMcQ64
+         ky9r5QoOGsj50fxh3CKJdWf5WpeS9AhsJ3o6iGMHJWVnY6ElJJZ4/+u4LPpyVYpYc+FH
+         u0BQ==
+X-Forwarded-Encrypted: i=1; AKwUvByqgb+2EPl2kD75wqgkjVKrZJmyGkeWCBvmxwilPolnVqq0T0qB46D90Xkyx8LH1UPxvAwYDW0rKw==@lists.linux.dev
+X-Gm-Message-State: AFq9FYKProYN261QK1tSPOQnfoDLJT33GXA2NwgJ3L7Q/2gzkIpOQ3Z/
+	aEGBptvbaSuHkXP443CqgtsnbVFmMCK9gJVboLlaAJ+UORGQjokmJfc8EMG1DTs02M0lw9i0hwE
+	nSz1IOZR8dP9+Zm4bWg==
+X-Received: from wrwc4.prod.google.com ([2002:a5d:63c4:0:b0:48c:44a2:fe52])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8216:b0:49d:34:420d with SMTP id 5b1f17b1804b1-4a18e4b0465mr464383285e9.20.1792158883019;
- Fri, 16 Oct 2026 06:54:43 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:54:35 +0000
-In-Reply-To: <20260814230923.1292966-4-dakr@kernel.org>
+ 2002:a05:6402:5285:b0:6b1:497d:1c64 with SMTP id 4fb4d7f45d1cf-6b17c293eccmr19329170a12.45.1792158884099;
+ Fri, 16 Oct 2026 06:54:44 -0700 (PDT)
+Date: Fri, 16 Oct 2026 13:54:36 +0000
+In-Reply-To: <20260814230923.1292966-5-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
-References: <20260814230923.1292966-1-dakr@kernel.org> <20260814230923.1292966-4-dakr@kernel.org>
+References: <20260814230923.1292966-1-dakr@kernel.org> <20260814230923.1292966-5-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261016135439.44716-3-aliceryhl@google.com>
-Subject: Re: [PATCH 3/7] rust: drm: move file_operations from gem to device
+Message-ID: <20261016135439.44716-4-aliceryhl@google.com>
+Subject: Re: [PATCH 4/7] rust: fs: add iminor() helper
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: Alice Ryhl <aliceryhl@google.com>, acourbot@nvidia.com, daniel.almeida@collabora.com, 
@@ -75,11 +75,10 @@ Cc: Alice Ryhl <aliceryhl@google.com>, acourbot@nvidia.com, daniel.almeida@colla
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Aug 15, 2026 at 01:09:01AM +0200, Danilo Krummrich wrote:
-> Move the file_operations definition from drm::gem::create_fops() into
-> UnregisteredDevice in drm::device. This is the file_operations of the
-> DRM minor device, set through the drm_driver struct. It is not specific
-> to GEM.
+On Sat, Aug 15, 2026 at 01:09:02AM +0200, Danilo Krummrich wrote:
+> Add a Rust helper for iminor(), which extracts the minor number from a
+> struct inode. This is a static inline function in the C headers, so
+> bindgen does not generate a binding for it.
 > 
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
