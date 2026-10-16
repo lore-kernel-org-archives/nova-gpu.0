@@ -1,67 +1,67 @@
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67FF4C9DFF
-	for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 13:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C20D4D09F1
+	for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 13:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158885; cv=none; b=KRTsRR6ChgRO4OTipjbyudRnTpWoZaSc3kGW9fJUzngTCmVpDuQ2Au3fCZc0FYtL0SvcpOpwKN62JkhWfreFwabI7s2sjOqIQ1o5sEQp1mIHg9FYlRyvksOqYTrDY2ntSrgbopihW18jlG0stHOpha7g+MXFOnGOcH8+0TggZpo=
+	t=1792158886; cv=none; b=Th4Eh5WOojr4tRUYhG0ChSDoq6ThMne5NFMyP8FpXhjAVZBhUbBmcxo78L4cLevNFVhM0xzycR2amCTBtusnMv0yU3Bk3tm1wt+ZF273mZGZ3Ucj3cNV5UManMIP5vFNMHe908FyYzJ1imqi09b1HsXWUN/zzCJ579xvWVrIb3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158885; c=relaxed/simple;
-	bh=deHPgZF7ogGMiSKR7XCrVK7BhURB4dZRyrwFrmzyzTA=;
+	s=arc-20240116; t=1792158886; c=relaxed/simple;
+	bh=yC1TM1aBiAR4TfDk+QbdmRUAzel//L0Cezzj31VLyYk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=VtL3VRQcgM7ha7ztuvkTlSbdkStIjDIyodoi3GHy/d9RhE64e69CFYegOIY4W+nQ5uST9uA6ZGd3PfG6/nkaYcUF+VpyxkIi4kWH43XYN4OQ0NeH+9Q4DQ90jTozI9zRbM9uC10vF1FyxMFI34fkvJto5B8XshOmw4o1lTvb5o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TYs81EDG; arc=none smtp.client-ip=209.85.218.72
+	 To:Cc:Content-Type; b=n1/Rk5KFBLCNwP71IknjJybnpvQAhnEOIHLt4Ls5qeDD8wVSyRTs33kaLpi2KWr+7mL8cBF9PAxCXL5vXilMH+QybeIpEiGJNodY5JJaHYYZbcTSm3AVTqtIP/797kRAe4zu9gAyq3p0+BDcleaJfc+kname90T3Dw8NukyFSno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AhniEKRJ; arc=none smtp.client-ip=209.85.128.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TYs81EDG"
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c3613c35145so555631266b.3
-        for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 06:54:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AhniEKRJ"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a01b112fa2so44139735e9.1
+        for <nova-gpu@lists.linux.dev>; Fri, 16 Oct 2026 06:54:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792158882; x=1792763682; darn=lists.linux.dev;
+        d=google.com; s=20251104; t=1792158883; x=1792763683; darn=lists.linux.dev;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xqeqqSt0YOpLVQ4yu04gr8nCmmHhkZ/s47wtOe1ej+o=;
-        b=TYs81EDGbz978/Ow9KfFX7LvAnhZZdE/QUfk8GwCyC8B5S5Ty4V69+PhKdLWQRkZ01
-         eiuq8g4j1uH1eEuDCOQiEb0dPLurHfwRD8eE5NtbkOQAF++IH3VmMGH0PwWj8R2rg7PI
-         tLDp4mqBmyXWj5JJ7IuD2eN4cjCjbev3QuSNgG3qC8p9ulmpJvgO0TD9u1TdgGAV6R61
-         48LXgRdpjdwc3Gx/G84VVMl3Qxm1f+zmuijavWSYxUawWufy7qktlll3Dkw/64CJV6N5
-         7gnDRqXIAVuMa3P5vFIhYuSkv43cQ481kIxSJHoJEIL/1GMcQe97Yl/r9UBrU4dJoW4m
-         jAFA==
+        bh=o1zW8ObmJUqyJoTK7Wl6HPlLn7nz+xpXE4cGz+lwfMk=;
+        b=AhniEKRJ8makfYDUGfQY91mnH9JthpkbCebYX5OW9FqzKNKlulgTQhPZGRhvxPJx1l
+         oHHMHMGHh8oO4bCKBxi6mfEiFws4IV76INWMe9mF3TF+XXoJpcJwMkuA+jJ9OVLnKapg
+         t7lTYsw+l4t2XHrU8dIA0A34NfKwMi8jt9urHrSb9Bl56SlG2rM516rasOi5EBXIvbj/
+         eC/UdQ+PPnBVcIc0M9EWh0Zs3TFb5IeIU7++YKvCJSuENGqC0GUKPQEnYSSowzB5mClG
+         Ps6JjMpp/gFEQptCakLtHoA0q3yllvfCJIctmhZYaFafEeJBnoQk5pR2Mge1Cibt2JPt
+         Kukw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158882; x=1792763682;
+        d=1e100.net; s=20260707; t=1792158883; x=1792763683;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xqeqqSt0YOpLVQ4yu04gr8nCmmHhkZ/s47wtOe1ej+o=;
-        b=rbxpwMIIbRkKjNA0vHQQ6uR9rbCMs3SAzuhxUpY0ngtQTYP/V2kfRrcB+6hMch2xnP
-         mAcllGDJGga6VwOtU2fUOwOe5RSks+OUaOAykVvPquZT6Iskp6qpCMpQhEDJCGX238qx
-         wIMvld46EsxJsvFkR4JzTGpJFQrQoOmKrwgto3SVdNPRK/f6EU6RFvbOgXWv0mcGb4/Z
-         Rn+CNlm1xPe7+tDWhcJiRZnsRAqlwwTzEhrCzlGD7HSj4n0QE7sK4R2fpJ0tvAhguwyM
-         xrKnhAxC12Fwtne/DNXNyIB8+p1Ax1d2ZpDTxEQZpKy30+eOO/RAZz7s4sDULzLAV1Dh
-         Q7vQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFqa0LqsslNH80rsDgmEvCWO6ievpH7VlEIJZzFHVU/r0sEkCyUhZjLJjBpGRjLt5itBsa+ieCMg==@lists.linux.dev
-X-Gm-Message-State: AFq9FYKeOTkfihWneKhm3RzbqG2YCJebG/lcBayGA8aNQSiaaCYiuKo6
-	N7kIbZEKm9LdE+3lLI7Z+5dQtv5Q19jd9JTtwEAQQXPPUKr58wpd8SJnYyNPnaLjRIax5Japtl6
-	4FoKYCWyE/TgHh9DM1Q==
-X-Received: from ejbrh8.prod.google.com ([2002:a17:907:20e8:b0:c35:81ab:15ef])
+        bh=o1zW8ObmJUqyJoTK7Wl6HPlLn7nz+xpXE4cGz+lwfMk=;
+        b=CJzwEWQ0rSHsA1KVJyjeIACj5LeBncm/dJNraFQMM3KYlJ+7VlxqFkBM4EYrTmj4++
+         zR9YTxXtvS4qWSUyzHuAnxTHyFNKAwH++h18tr78AqjstdrCub35ImcQzctosbZb3TeR
+         SnJOkefvMDNjW/K0rCK9cHIWkUsZh/JrdbUxj4ip1b6SbNfSWrvCzDUQTM56u9qRzWQs
+         9dEnr+T/i+SFnaTvqhk/DfVhLS90T1s4XuUqNo4zXrg5+pT5hbhKxX+UW6UHdemhJ6pn
+         g0mkZt/2+elZ3r/zw+d758Q9ixvM1Edxcvhqc4z2JMfQUKIOqK/Lcv+4s02MXDG66/5C
+         Lz8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwESov4YrWpbI6286c9lPeCqFs8yovPBtyFG8PzVnGRTp249r3J6XFtxr5a2Zuvj9le8177vAnsbQ==@lists.linux.dev
+X-Gm-Message-State: AFq9FYJsAfiwP5GCRweECDTs9rCbB2e2gDTcBE08RUDiZRP+cZlxLyjZ
+	Eeip6r72OzA/I9bIrNcjoqTl3SZb5TjnmSb20rXzJqSOMxjAc8KgU51pDKTe66tIvBguyDt2LLM
+	i+AoIrR4C4XHHW+a3bg==
+X-Received: from wrwq7.prod.google.com ([2002:a5d:5747:0:b0:48c:7482:b673])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:3f20:b0:c3e:e726:9548 with SMTP id a640c23a62f3a-c3ee7269fcdmr508329766b.14.1792158881705;
- Fri, 16 Oct 2026 06:54:41 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:54:34 +0000
-In-Reply-To: <20260814230923.1292966-3-dakr@kernel.org>
+ 2002:a05:600c:8216:b0:49d:34:420d with SMTP id 5b1f17b1804b1-4a18e4b0465mr464383285e9.20.1792158883019;
+ Fri, 16 Oct 2026 06:54:43 -0700 (PDT)
+Date: Fri, 16 Oct 2026 13:54:35 +0000
+In-Reply-To: <20260814230923.1292966-4-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 Mime-Version: 1.0
-References: <20260814230923.1292966-1-dakr@kernel.org> <20260814230923.1292966-3-dakr@kernel.org>
+References: <20260814230923.1292966-1-dakr@kernel.org> <20260814230923.1292966-4-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261016135439.44716-2-aliceryhl@google.com>
-Subject: Re: [PATCH 2/7] rust: drm: gem: gate open/close callbacks with RegistrationGuard
+Message-ID: <20261016135439.44716-3-aliceryhl@google.com>
+Subject: Re: [PATCH 3/7] rust: drm: move file_operations from gem to device
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: Alice Ryhl <aliceryhl@google.com>, acourbot@nvidia.com, daniel.almeida@collabora.com, 
@@ -75,16 +75,11 @@ Cc: Alice Ryhl <aliceryhl@google.com>, acourbot@nvidia.com, daniel.almeida@colla
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Aug 15, 2026 at 01:09:00AM +0200, Danilo Krummrich wrote:
-> Wrap the GEM object open and close callbacks with a RegistrationGuard
-> (drm_dev_enter / drm_dev_exit) to ensure the driver callbacks only run
-> while the parent bus device is bound.
-> 
-> If the device has been unbound, open returns -ENODEV and close silently
-> returns. This prevents driver code from accessing device resources after
-> unbind and is a prerequisite for making drm::Driver::File
-> lifetime-parameterized, since GEM callbacks receive a &drm::File that
-> could otherwise be used to access invalidated file private data.
+On Sat, Aug 15, 2026 at 01:09:01AM +0200, Danilo Krummrich wrote:
+> Move the file_operations definition from drm::gem::create_fops() into
+> UnregisteredDevice in drm::device. This is the file_operations of the
+> DRM minor device, set through the drm_driver struct. It is not specific
+> to GEM.
 > 
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
