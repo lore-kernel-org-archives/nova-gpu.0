@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.123
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792424628;
-	b=NqAGh2+YHlwtgmAjfsRqqa04I+OTfqILJHYigZ2gAGBKZ2BIXiU7IamcsxxptUlFResn
-	 fU/HKSDOIvvXku+VyIKe0lKV8svr1aCQsp06aQUPiiEg3nFhyz1JTzC1VxQJyHqKZzN2u
-	 4tZifjg3F8cQ63zc17c3Qhq89st51vL6ehNZcrzuMsRN91juI3TQj0crqtYBWeF9PkxuK
-	 Hk/dnUYIdO5NkR0xsKjYbk0XiKkf6iwk8wkLEMx0+1LHst5zPEiuSlQxzfRY43YV557Nx
-	 0UPG7tUWhfHPesw0G6EwI64Ny+O++4MdMiooYwgfawHvKZscMemYXlW/kaVNaGTYTFQ==
+	t=1792426386;
+	b=aK2LwCWtwq4+MvXymxGAwAMLnK2y16JLPYVgtsim3Rp0ZhAZkqJtGZ9gRfz/ObhC3F9+
+	 mV4fBMoUc8K2EtFAGadSkXFq7WQNYiiEXkDMxiDYLejKnI2SEfSFjntsyJBhwqcEPXmPN
+	 5v2vAAOmPWGUUqt6LQTaiVdKyuVja4hUhJOCBDmICqTV+LKuUZ/fFd85qvWUqHdCol83o
+	 qh5n+0ixLVAb7QdDUvW5SI20TS2WhhBlHtzOyazy9xCVmqHKGwvcxvn/VI7agaQCgBrAA
+	 2JvBXgy/UwdDcI8GGcsRA15jzXcsStTZ+PyrlXWwbeYGW0mwOKnJSE/tvFEkFtwEVsw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424628;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=l+PJNaaQkcG0U6cvab+pi5NeILsnDidwAVp4AKHhEWI=;
-	b=B36/mr/Ww9ZIUCQCKgSqO6GOVC/D8XJ3x+7mZetuSygHBo1OxYZVPVxOWD4nlBEJX7Md
-	 Gmv0Ei6nifOEzIxCLRQF40xjSB0xbxbsLXEE+bUiai5bLkS20n85pb5zS/Bw2L+2kylCP
-	 NrWQrS80ukH9Ng3CY7iF2KQgY3b/A8QQHbvZUi4ObiLX/Yn91d4PjhPnxYsBy40xFx4L5
-	 dK7E+0qKeNHNfxP8OpQ1/iMgaGWCsErcfIN3xY+Q1u+NrGi1S3R/PG7J3mXi798oQVn5R
-	 dQZh4N2wB4ZRdBveZ5t1o/fYj74ljx4xwBzMSFCLkZKat3cnXvyyyQcaMvc4pmvJG0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792426386;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
+	b=Y/svw/WJ+uzCMHmgg00/L+ds43HG4gGP7C17u8pnjQimkx9I0jhn/m6AeOCR8z4ExE5o
+	 wWBYeObGsDr9dSv2BhcJFfsF4ISSahONdOqr02dIApVMMOeqoGtw4hb6S1M48KBbpXpm0
+	 1xC3zs59X/PJz1Ly+f2C/1JuZ8HVIbUelzda1oWXCmHyOU3/Poo50khGujw9C5Zrchav4
+	 pnOyTKxdagcKqdpzqtYiMqVndTor6TzEtGPV8W/WACx0tvLb0Hi3RvL6Vb/4giQwA5HBc
+	 HusnmQxGS6EMHGK94j8xnF78z+zHV+0k09c/K9ZqF+uV2VtjSn2z6jgPeHsPTyMPBBw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gfxstrand.net;
-	spf=fail smtp.mailfrom=gfxstrand.net;
-	dkim=pass header.d=gfxstrand-net.20251104.gappssmtp.com header.i=@gfxstrand-net.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=I5zMYMFj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=garyguo.net;
+	spf=pass smtp.mailfrom=garyguo.net;
+	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=N2iD3960;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.123
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021123.outbound.protection.outlook.com [52.101.100.123])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115FB606AAD8
-	for <nova-gpu@lists.linux.dev>; Mon, 19 Oct 2026 15:43:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 115FB606AAD8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gfxstrand.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=gfxstrand.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33944606A31D
+	for <nova-gpu@lists.linux.dev>; Mon, 19 Oct 2026 16:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33944606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gfxstrand-net.20251104.gappssmtp.com header.i=@gfxstrand-net.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=I5zMYMFj
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15dd124bbe7so4195412c88.1
-        for <nova-gpu@lists.linux.dev>; Mon, 19 Oct 2026 08:43:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792424626; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EFWsbYC4Dfwh4HhSQkVuK3dkfRgJ3W2+TU97LNSomdcq8j8ELuPZwhYnGwdMDM+/bs
-         OUrORC4iceHdQYBq+l7Rb2tubi+q7Nav91AZI05qQuBClf7sC71Dedqa76xA8j2sT7BE
-         6lKAwvYW8LfQ74VqW0ftLpogc8XpxOVcpa1rX4neGLKGFUWZhIXGqKLqaWnKTcBrFqo3
-         a2BtQ5R350fd2Khtgfgjw1KflsEzxxyXypX+wndCfbjjIDrcpxq+Z3G5bje0Mjt7712+
-         l963HKn+3b4UaSn1EPG+R9VMblMIWPTetzzzOWmFMeMZmhb+JFEFMtXXQ7k2QWTz77sV
-         iP7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l+PJNaaQkcG0U6cvab+pi5NeILsnDidwAVp4AKHhEWI=;
-        fh=DPbqjFHnSnGngpEO4rloLb+7ewZKpS02VGDwPQtDUMo=;
-        b=TOM+O0w1OB9AiTs6iw1S9tRRc4ttOCV1nZt87X4SwQrSYouPkwuWsthEcajqjqAAc5
-         eoYjmUWSBownT0P945wuzc0kEwQsr+B0Zxv60NqejvnCjcypKAYKyMLkT0w0WXVbobfE
-         q6sSnqKGGwRILXmecb+wli610FH0niC7Ol3JxdsxLtv8NM9urw+q/NjR2g/5cByYI5u6
-         arFEdgpUo78UQ3Z9PHPXTxYf0jAC5nShweSeM5nJQjiaqX38yN8WZsSBo/snKFAHMGmn
-         zCObkKF/+X/TrfEEbmbiyTFuacILFaD3JXW5/t2OJxTflwOTWEuDepMhXFVI1LiveHl2
-         F6Aw==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gfxstrand-net.20251104.gappssmtp.com; s=20251104; t=1792424626; x=1793029426; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l+PJNaaQkcG0U6cvab+pi5NeILsnDidwAVp4AKHhEWI=;
-        b=I5zMYMFjy1p5CX18X0aBj7x8S85V3V69gQYG7/b39u+IKGe4NL7REZtX4AiEZBM4qq
-         JLPRLVfw8S0RwtSxsDxnAwBq8GRN6zbA0cwg2niPSEFVPebhinjS3ai0Fkva/55PDmgF
-         m5WZd76e5bZFOs8RvbQWdVba0p9VuUP/hUAZEv1rt/xpY/mMP/4YbezMK7o9KaDKGNO4
-         tVw5g+J4wOgvS4ij79Lgb8NDzdYp4WPRI0povclW3o9XntlkD9+O8pjtTkTS9DLoI9Ww
-         zCTRg4FVujYAJp/C7g+V83uCTL5C8JM/XQwCs2KnvtXrEdP+ldGYsTQO6ZcA3eQ4DREY
-         2G+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792424626; x=1793029426;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l+PJNaaQkcG0U6cvab+pi5NeILsnDidwAVp4AKHhEWI=;
-        b=cZciRXBv5gXSrvFrcpMj3V/fHrG0STpF/VdtKxGuzB6/PY2yrkHK1hdsTMfdKyTlu3
-         20scYK2elMjD7wCNmy6WYlFSVEzNAIo1vMU8KCWZC6VUEiA5jq0+KFvcBow3+vNIzzbO
-         J0oZHFdSMTvQoGgwfDNMhKA4455szQVJPWqcnSTtMrw3L18mR92pyIZSvKKJmICBJ+xt
-         hw+L+0K80TyFAfD4a/f9ceKjR8ProAS2LA26lBlchb1HYOzOTAKpMWoGpk6qKvoRQScY
-         x/ys87yMT26Nf6eETPY5I28FI2SUhJC59u7EiZCD++V33Pnh85L98TfDm9bAndcnpwSa
-         JbVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxejvpvkOSlJRo+04wZOsZkflJAYy1ngv3XKIFYzrxAJcf1upn0NKyulI21B2paSwhAYYrgEuc4tg==@lists.linux.dev
-X-Gm-Message-State: AFq9FYJ6yQ6bHiWKoEtaR4bso5QkgAD2t4KIreoFNKl/ohuDbkLehMS6
-	xNdBM/mtqm4+KMtUqhGm0Cuuve+yM3nhzNqLHX8n8UqzWZGbjb8GU6Gq23a6tkqJO9xLEWr+/AW
-	rjLSStxpX0VxbHM+B2tGDFLz9gme4TmJCF24cLKX6oA==
-X-Gm-Gg: AYBFou3iCTPZiVIWKvDtkkGT/0dq3FFrp4zj/OmW3hxJg/VuKUuJJkyAzWHhrOp2mES
-	C6mXQIo6/qnZuIVDopdakdrxKc07nS0PWjMHXmAc6Y3O4uA8XRSj23hRvW1Gr9qBgPObLo5EMhH
-	7ozze8FrV13Ceu42uwupvLS+iD/NXNSgSqTbrczL+jyJSXAO20mg3BhFrp7L000G137NAfGjqfn
-	dPnWJ9/28IOtkqxa7oaJk5NowaVFam6sOEe0DBQF83RxUP38yNYXdrEMb3abkJuIOrqG21jcOaa
-	CLgUBV0nuNfYPaipk6Uot3K7vsu+tTX9mXnPdMhowkp39CK85bWt
-X-Received: by 2002:a05:701b:21cd:b0:14c:be8e:69f2 with SMTP id
- a92af1059eb24-18512b3f773mr11411490c88.21.1792424625673; Mon, 19 Oct 2026
- 08:43:45 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=N2iD3960
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O9r+e9wI69I2waFmI1ddQ7gQFeJbzlBYkX31m09JBMXQMaidfD9Z8o3bKXPVNHCbnaKN3qTaMzbP0Gu6lb5+4nd1gtSo54tvcFaaGS0Pg0WPnx6Wc9P7nesovpQtq/FqPMC7rnj6ECJB4AUuSCTOvT4b8w7eb7kETxmeN9Ry1sN7w0Cl4tz1+MtrpNGtYL9pJ0sPg0dTgj/Lg8GCBwfd5cAys5EwEF9ziGJL+LcKnwRRDI2DF8Sa9fkFds6QgRsjezoKcC4koYiS0U9eygIk4KuWiY1q9jLBNRIGfZ+xQRR7aHh3dCkUXaSHa/kxXufWA+BKLgaqeAgbU7+SSml2hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
+ b=wxOD5/uwB19Aehvfrr7zxIB0JhmNYu08DtoTUZp/gijN78d9d1v0vXDMCyvbwULGNMsAzidUAon76KIBpCkH5gZuT8xoWCxE15xokzXJK0lcyXRWdeBvwYY2dUSvwk4jafjr+ZQNtFMbygZb5DUsRXcqnbJkK1oLPUsv7ODOP9XIL1ctZjaFvi4QO0lOUQAcxr/NbXZcLXGNVSWprhDewcn/Z6F8zqGcQyo3CYzdeRg9p1rOGery/v/NkEnNCffNebn6Rt1/yXEnP5NlbNWOFMTCbBmvqhnLlTRp5rd+8Ja27jGGSKHtUIizktoK8YYFgbBA2VECU4gFP/Xmq+DtAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
+ b=N2iD3960HViSVf82fD/CvlEXnHNUIAo5DUH4lnqumCLKbb9kkQ13gP6EyOYcE0NZXKjFrTBf514CYOKHC6vfZbyXmPZRaxL0uBYPGlhJl3mnZ56RgP8w7N52tk38PkBICOqufH2PM+vTPbWwP6iuODK4BZG1tQxFqmkKRGsa8/M=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LOEP265MB828591.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:501::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 16:13:02 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 16:13:02 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 19 Oct 2026 17:13:01 +0100
+Message-Id: <DM8Y4G5JMZ64.9PYKH079V51H@garyguo.net>
+Cc: "M Henning" <mhenning@darkrefraction.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Benno
+ Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v6 01/13] rust: auxiliary: let registration_data_with()
+ closures return covariant sub-fields
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alistair Popple" <apopple@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, "nova-gpu" <nova-gpu@lists.linux.dev>
+X-Mailer: aerc 0.22.0
+References: <20260909064506.910162-1-apopple@nvidia.com>
+ <20260909064506.910162-2-apopple@nvidia.com>
+In-Reply-To: <20260909064506.910162-2-apopple@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0211.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a5::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -103,176 +105,174 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-References: <20260909064506.910162-1-apopple@nvidia.com> <20260909064506.910162-9-apopple@nvidia.com>
-In-Reply-To: <20260909064506.910162-9-apopple@nvidia.com>
-From: Faith Ekstrand <faith@gfxstrand.net>
-Date: Mon, 19 Oct 2026 11:43:34 -0400
-X-Gm-Features: AclHuK8wgzDeroqopGem9K3ppSyG5cc3vLnnGQN2wHpX-RdNKKojDR1u5BsOoW0
-Message-ID: <CAOFGe97oDdZP-XDhthZ-5tuJjuJyKxvLq9YqvWaTApZE6B8exQ@mail.gmail.com>
-Subject: Re: [PATCH v6 08/13] drm: nova: Add usable VRAM size to GPU info
-To: Alistair Popple <apopple@nvidia.com>
-Cc: rust-for-linux@vger.kernel.org, nova-gpu <nova-gpu@lists.linux.dev>, 
-	M Henning <mhenning@darkrefraction.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOEP265MB828591:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bd1a282-f98e-451f-0d02-08df2dfbd99d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|10070799003|1800799024|261009223027099003|10067099003|56012099006|6133799003|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	4o+Jvkuw9HawK+Nf7wZ2SyDfr71gg3TlnsFT0b1hblkgmCkp8bDXQeb5QgQNZrHscfZ+hR83oywuCOgsIQjol4cmN9etz3lDK04HxFXexw+7BL9Jn8xIBVJDYjYi7zMLNhCrAyto4QSw28DXWz47FsolWu7lBUjgedyvfSmKysqa3nLo6SDP0qE2xw6BZre2xEvMCLr5qECDobMW93WSSJc63HhxEiR40plziUts7GXGpqWzfcoQJ3TgiZ+APCdeOJ0eR1bgTn4wmRA/bWJUQKXjV2SvCGVY7x1l5EoFXOJrW8m2R7h02yolM19B2A4gohzkjdeI4/ZOUCmttvqC9IuHO1fhJRa3bdofrZvK+hVQRkHtys9yZlkiIFt4M05vnKx/9isjYgxM1UFhJs6VGxARH17vzSImHoJshkpDG9MjuQ5L9qFLkzaRG8E9pfNeZFiRW6AdtWxjBkxRLVYgNiQ7wiGOczRkVeLNlXfityes4Sx9zRzigqMtj6zBtFiAZsDvDuHdpKa0ygSjeq7vfDgdkzddEcGHZo0Sj2tvE5l2L1nBDs16c3jt3k71E5NavDhr5+qkftKNwpPj+cJwiKunUao0FXVwEJnZWgJxGQ7oFyOS2rFY19FlBUsu2h5p
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(10070799003)(1800799024)(261009223027099003)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b1daWUJmaS9ndVhUUGkzaDdxanppZXFvNlMzMlFCTkRYRTRBT1BGRlRlL2ZJ?=
+ =?utf-8?B?c2htbUtjNHNNcDFmK1M5M1NTR0lUMVpJd00vZXFHeUVHMHdYY3d3V2dBS2pj?=
+ =?utf-8?B?d1p2L3hKT0k2bnVuaGxVdEY1eUt1VVpEWEFTS2R3Rk5NYWdSb0xValUvc3hE?=
+ =?utf-8?B?cGp3V1NHSWJIeVY0UEdZejdEK29RUEJMNlF0dVNXYy9yRGU1cmdRY2FCNHQx?=
+ =?utf-8?B?ZDZNb0R4S0hLV0tXT05ReVhYRHRQYm5SY3AyektFaDlDVVBobndGVnhGL0xY?=
+ =?utf-8?B?aDJmWUpFR0U3N3ZTVWlKSUFZVFRCZnRRdmFUTzV4bGpZYXhVU1p5ZEhhOUZV?=
+ =?utf-8?B?dHdSaFNmS0JLaXpFWDZ3MUpvYlB3aVhyc2ZRTlZSSkpUUlR3Y0xLYnlHcStO?=
+ =?utf-8?B?UENQeEQxcEVJUmJGaDBEdFUyY1Q5YXpqM1VqT3E4VFlaMXR2TFEzOFdDa2xw?=
+ =?utf-8?B?STJUcitZVkNJMjhhU0pnL29aeUJ6VDhDUDJOaWRlR3FkUzJGRyswUThWVGpy?=
+ =?utf-8?B?SjhLT1BYK2daRjhLOEhLRGpROXdJSC9ZcXkwdWpnOHdDcUFaSW4ycUpHQzMr?=
+ =?utf-8?B?bDU1SEVLYUVRd0FmcURjV2w2anZ1VTV4Y1pEN3J0eERSK3EwZGI0OU15cGZQ?=
+ =?utf-8?B?a2lrSkY5YWZKU0d3bVF6R0N6T0o3V3o1T2lUV3gzaDE5MG9QeGFBMXdZbVh5?=
+ =?utf-8?B?d2s5cm82Ym1xT0pxQml6UGhId1NCVUo1SkozbDNnem1nZFdKRzQvUXBRS0I3?=
+ =?utf-8?B?UU93N0xFMHRkTkZKelVaVnhOaWViNko1ekdUUFBtSHdYNkQ3QlphaDBrdEI3?=
+ =?utf-8?B?UHRDM1ZpcjZGa1dERVcvUS9NcG10SURkbmwwRER3UE1VelhmSnhGcGRwelBk?=
+ =?utf-8?B?dnRFekErL0pKamJuZDJTcCtDWlN6YmpIK01sYjIyWmZTZlNPd0Z3QzFJV29k?=
+ =?utf-8?B?blVpc1ZyRUozYWNzY2JuU0pZYUV2V0d3ektCaWV0Ykl6RGN2bHNpZ0plK0tq?=
+ =?utf-8?B?NSt2Y2o4RGRMUlVUd2sySnc5NmVoK1Z2NDJIRE1vamVUcEs3ME5rM2I2Ukcv?=
+ =?utf-8?B?bS9sd2w4NE1ndlBmNzJLck91TEwrS0J4WWM2WDEya3c4Y0drY0MrWnlTWXVm?=
+ =?utf-8?B?Tkwrc2xjeDRMRXhIaEZMSTFJc3B1RnN5b2V4STFvVDhSaExGUXFMcGJXeUtO?=
+ =?utf-8?B?YmhBeDJsazI3SXA2N3BidVpIRk9qTVlkMDFCU0lBYmplTEJTdzI5aVY4SFgy?=
+ =?utf-8?B?RnlUY3JDcHV1cUpwTnhJRUFWZjFSQVRaekJ3ZkNBeDdtZWxvYTY5TnBhcEp6?=
+ =?utf-8?B?MVF2UzVleCtxclpEOStGUlJSTjNXWURRb0hsL3owNUQrMjBYUis5QjR6LzlG?=
+ =?utf-8?B?c0tqaDhWSHh4UTFWbzJ5TGNmTFBGNGNQNWN4SEVwZTJmcFpvUncvQStqUEVE?=
+ =?utf-8?B?ZzE3WGljZ0kyY0FOK1I4RXpnYThVS2QrYlp5OXd0OWg1aGRibzE1WW45dXQx?=
+ =?utf-8?B?UzVtUTFqSDUwWDJsNnAwTjZzVVlBRWVOZXNDTmJGTXppRTRzQnNyVmJVSFZC?=
+ =?utf-8?B?SnFzQmNsL0YyUVJFQ2NQa093blhKTVdubVNDVkljTzUwT3lwclhrZUxqeUt6?=
+ =?utf-8?B?eXBHYXhEUnkwcGVOY1hvQkF1TWp0RklyOFY3UFdMRXRBUGkwVGpzRzlaVG9w?=
+ =?utf-8?B?MW5WbmtUK2lmb2tGaGVyQzFDQTg5a2w5VnphcytPUnhlT3JmazdGeE0zUEJZ?=
+ =?utf-8?B?ZHBXN05ha3Fyd08ydkFCM2VscFZBTGJtaTVLYlNKRjRvcmhrNnpSTzBKM1lw?=
+ =?utf-8?B?ZzB2ZUo3QW8zeTFHZ3M2a3EyY2pwcTFMY0IxdVJZME9WWm4rcDN5NllxQ0FG?=
+ =?utf-8?B?SzR3NS9JOGVGdFRsWVdOYXVPa241V2ovZ3ppSEhQcDNoZEEzWnNIQkQydVBC?=
+ =?utf-8?B?TDN3SHlMaW04V2tRcS85VmovSmNxci9hQWtVRWwwU2J0YUxTeFBJSXd0Sk1W?=
+ =?utf-8?B?S293ck04YlVGWFZ4b0VoTXJYSi9yOTFTSlNQalpua0lVZmY5Zit4cHY0UFhS?=
+ =?utf-8?B?V0tsRU9UdFdEVUE1SHJOWjM1MmdrUk52cFZxS3g2aWZmM2VZRnF6aW0yMU1q?=
+ =?utf-8?B?bkxSOVFnbSs1UFBiUjVDVzArV1l3bUFQckRmZnRuNXZ1YTFnbDRSZlJiaDU5?=
+ =?utf-8?B?VEVwYUZXL2VKNkJlM2s0WGRHTXZ2RzlLM05VVlY1Tm55MVhzbkpHTllhYndV?=
+ =?utf-8?B?OWJ3ZmxoYTM3enpXNTFGNXArSkhwK0IyOVdGWWdJS0ZsNHA3aHVUWlltNmh3?=
+ =?utf-8?B?TnZVZHZDYnlsekc0M0lWWUdhYUVpWWtwdWs0eFE4QXlOQW4zOXp4Zz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bd1a282-f98e-451f-0d02-08df2dfbd99d
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:13:02.1994
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d2c++JvB991yrwA0hPbGiS301Y/8NnIrTopDih3lh5b2scGWBytdzceKUh62mzwEXBqyRkvW2EqmvIgTUYSf9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOEP265MB828591
 
-On Wed, Sep 9, 2026 at 2:46=E2=80=AFAM Alistair Popple <apopple@nvidia.com>=
- wrote:
+On Wed Sep 9, 2026 at 7:44 AM BST, Alistair Popple wrote:
+> The closure passed to registration_data_with() currently receives
+> `Pin<&'a F::Of<'a>>` with `'a` universally quantified. This prevents the
+> closure from returning references derived from the registration data,
+> even for sub-fields that are covariant in their lifetime, because the
+> compiler cannot relate `'a` to any lifetime the caller knows about.
 >
-> Add a field to the GPU info structure containing the total usable
-> framebuffer size. The usable framebuffer excludes GSP carveouts and
-> other protected regions, so it may differ from the BAR size and total
-> physical VRAM.
+> Tie the outer reference to the `&self` lifetime instead, i.e. pass
+> `Pin<&'this F::Of<'a>>`. This gives the closure the implied bound
+> `'a: 'this`, so covariant sub-fields such as `&'a T` can be coerced to
+> `'this` and returned directly, while invariant fields still cannot be
+> coerced and therefore cannot escape with an incorrect lifetime.
 >
+> This allows auxiliary child drivers to project covariant data out of
+> invariant registration data without having to wrap every use in a
+> closure.
+
+Looking at this again I think the current API might be unsound where this p=
+atch
+becomes fix rather than just a feature update.
+
+For an invariant `&'b F::Of<'a>`, it's actually a requirement that `'a` str=
+ictly
+outlive `'b`. With the current API surface, we can obtain a `&'a F::Of<'a>`=
+,
+then we can store it inside `F::Of<'a>` (because, well, F::Of<'a> being
+invariant, it can internally have a `Mutex<Option<F::Of<'a>>`), and then we=
+'re
+able to UAF within the destruction code of `F::Of<'a>`.
+
+The fix, is, well, this patch.
+
+Would you might pulling this patch out, rework the commit message a bit and=
+ send
+as a standalone fix?
+
+Best,
+Gary
+
+>
+> Link: https://lore.kernel.org/nova-gpu/DL3WPTVM033J.33RWYCZOC67Z1@kernel.=
+org/
+> Suggested-by: Gary Guo <gary@garyguo.net>
+> Co-developed-by: Danilo Krummrich <dakr@kernel.org>
 > Signed-off-by: Alistair Popple <apopple@nvidia.com>
 >
 > ---
 >
 > Changes since v5:
 >
->  - Expose the GSP static info through a NovaCoreApi::gsp_static_info()
->    accessor and read the VRAM size from it rather than adding a
->    forwarding method, as suggested by Danilo
->
-> Changes since v3:
->
->  - Partially new for v4 - previously a separate scalar GETPARAM
->    parameter
+>  - New for v6
 > ---
->  drivers/gpu/drm/nova/file.rs          |  2 ++
->  drivers/gpu/nova-core/api.rs          |  6 ++++++
->  drivers/gpu/nova-core/gpu.rs          |  6 ++----
->  drivers/gpu/nova-core/gsp/commands.rs | 10 +++++++++-
->  include/uapi/drm/nova_drm.h           |  6 ++++++
->  5 files changed, 25 insertions(+), 5 deletions(-)
+>  rust/kernel/auxiliary.rs | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-> index 4a65bec0fbce..d0ab3df6bcd2 100644
-> --- a/drivers/gpu/drm/nova/file.rs
-> +++ b/drivers/gpu/drm/nova/file.rs
-> @@ -38,10 +38,12 @@ impl GpuInfo {
->      /// another documented default instead.
->      fn new(reg_data: &DrmRegData<'_>) -> Result<Self> {
->          let spec =3D reg_data.api.with(|api| api.get_ref().spec());
-> +        let gsp_static_info =3D reg_data.api.with(|api| api.get_ref().gs=
-p_static_info());
->
->          let info =3D uapi::drm_nova_info_gpu {
->              architecture: spec.chipset.arch() as u32,
->              chipid: spec.chipset as u32,
-> +            vram_size: gsp_static_info.vram_size(),
->          };
->          Ok(Self(info))
->      }
-> diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-> index 876451dcc051..64f9ea442278 100644
-> --- a/drivers/gpu/nova-core/api.rs
-> +++ b/drivers/gpu/nova-core/api.rs
-> @@ -15,6 +15,7 @@
->  pub use crate::gpu::Spec;
->
->  use crate::gpu::Gpu;
-> +use crate::gsp::commands::GetGspStaticInfoReply;
->
->  /// API handle for the auxiliary bus child drivers to interact with nova=
--core.
->  pub struct NovaCoreApi<'bound> {
-> @@ -28,6 +29,11 @@ pub fn of(adev: &auxiliary::Device<Bound>) -> Result<N=
-ovaCoreApiHandle<'_>> {
->          NovaCoreApiHandle::of(adev)
->      }
->
-> +    /// Returns the GPU [`GetGspStaticInfoReply`].
-> +    pub fn gsp_static_info(&self) -> &GetGspStaticInfoReply {
-> +        &self.gpu.gsp_static_info
-> +    }
-> +
->      /// Returns the GPU [`Spec`].
->      pub fn spec(&self) -> &Spec {
->          &self.gpu.spec
-> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index 91db64dcaea7..b9fba3a79b1e 100644
-> --- a/drivers/gpu/nova-core/gpu.rs
-> +++ b/drivers/gpu/nova-core/gpu.rs
-> @@ -301,7 +301,7 @@ struct GspResources<'gpu> {
->  pub(crate) struct Gpu<'gpu> {
->      pub(crate) spec: Spec,
->      /// Static GPU information as provided by the GSP.
-> -    gsp_static_info: GetGspStaticInfoReply,
-> +    pub(crate) gsp_static_info: GetGspStaticInfoReply,
->      /// GSP and its resources.
->      #[pin]
->      gsp_resources: GspResources<'gpu>,
-> @@ -422,9 +422,7 @@ pub(crate) fn new<'a>(
->                      dev_dbg!(
->                          dev,
->                          "Total usable VRAM: {} MiB\n",
-> -                        info.usable_fb_regions.iter().fold(0u64, |res, r=
-egion| res
-> -                            .saturating_add(region.end - region.start))
-> -                            / u64::SZ_1M
-> +                        info.vram_size() / u64::SZ_1M
->                      );
->                  }
->
-> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
-e/gsp/commands.rs
-> index ffc25fd8c47b..5c1f9d296198 100644
-> --- a/drivers/gpu/nova-core/gsp/commands.rs
-> +++ b/drivers/gpu/nova-core/gsp/commands.rs
-> @@ -212,7 +212,7 @@ fn init(&self) -> impl Init<Self::Command, Self::Init=
-Error> {
->  }
->
->  /// The reply from the GSP to the [`GetGspStaticInfo`] command.
-> -pub(crate) struct GetGspStaticInfoReply {
-> +pub struct GetGspStaticInfoReply {
->      gpu_name: [u8; 64],
->      /// Usable FB (VRAM) regions for driver memory allocation.
->      pub(crate) usable_fb_regions: KVec<Range<u64>>,
-> @@ -261,6 +261,14 @@ pub(crate) fn gpu_name(&self) -> core::result::Resul=
-t<&str, GpuNameError> {
->              .to_str()
->              .map_err(GpuNameError::InvalidUtf8)
->      }
-> +
-> +    /// Returns the total usable VRAM size in bytes, i.e. the summed len=
-gths of all usable FB
-> +    /// regions.
-> +    pub fn vram_size(&self) -> u64 {
-> +        self.usable_fb_regions.iter().fold(0, |size, region| {
-> +            size.saturating_add(region.end - region.start)
-> +        })
-> +    }
->  }
->
->  pub(crate) use fw::commands::PowerStateLevel;
-> diff --git a/include/uapi/drm/nova_drm.h b/include/uapi/drm/nova_drm.h
-> index 26a5e7ca5425..946bd4bf8fbd 100644
-> --- a/include/uapi/drm/nova_drm.h
-> +++ b/include/uapi/drm/nova_drm.h
-> @@ -180,6 +180,12 @@ struct drm_nova_info_gpu {
->          * currently known chips.
->          */
->         __u32 chipid;
-> +
-> +       /**
-> +        * @vram_size: Amount of usable FB, excluding GSP carveouts and p=
-rotected
-> +        * regions.
+> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+> index 60dfbec8f330..06f816420790 100644
+> --- a/rust/kernel/auxiliary.rs
+> +++ b/rust/kernel/auxiliary.rs
+> @@ -305,6 +305,10 @@ unsafe fn registration_data_pinned<F: ForLt + 'stati=
+c>(&self) -> Result<Pin<&F::
+>      /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The=
+ closure receives a pinned
+>      /// reference to the registration data.
+>      ///
+> +    /// The outer reference carries the `&self` lifetime while the inner=
+ type carries the HRTB
+> +    /// lifetime `'a`, implying `'a` outlives `&self`. This allows the c=
+losure to coerce covariant
+> +    /// sub-fields (e.g. `&'a T` to the caller's lifetime) and return th=
+em directly in `R`.
+> +    ///
+>      /// For covariant types that implement [`trait@CovariantForLt`], pre=
+fer
+>      /// [`registration_data`](Self::registration_data) which returns a d=
+irect reference.
+>      ///
+> @@ -314,13 +318,14 @@ unsafe fn registration_data_pinned<F: ForLt + 'stat=
+ic>(&self) -> Result<Pin<&F::
+>      /// Returns [`ENOENT`] if no registration data has been set, e.g. wh=
+en the device was
+>      /// registered by a C driver.
+>      #[inline]
+> -    pub fn registration_data_with<F: ForLt + 'static, R>(
+> -        &self,
+> -        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
+> +    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
+> +        &'this self,
+> +        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
+>      ) -> Result<R> {
+> -        // SAFETY: The HRTB closure prevents the caller from smuggling i=
+n references with a
+> -        // concrete short lifetime, making the round-trip from `'static`=
+ sound regardless of
+> -        // variance.
+> +        // SAFETY: The HRTB on the inner type prevents the caller from e=
+xploiting a specific
+> +        // choice of `'a`. Covariant sub-fields can be safely coerced to=
+ `'this`, while
+> +        // invariant fields cannot be coerced and thus cannot escape wit=
+h an incorrect
+> +        // lifetime.
+>          let pinned =3D unsafe { self.registration_data_pinned::<F>()? };
+> =20
+>          Ok(f(pinned))
 
-Does this also exclude the compression tag carve-out?
 
-> +        */
-> +       __u64 vram_size;
->  };
->
->  #define DRM_NOVA_GETPARAM              0x00
-> --
-> 2.54.0
->
