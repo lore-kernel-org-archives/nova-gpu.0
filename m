@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC40480941
-	for <nova-gpu@lists.linux.dev>; Mon, 19 Oct 2026 04:37:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D14946F4A4
+	for <nova-gpu@lists.linux.dev>; Mon, 19 Oct 2026 04:37:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792384657; cv=none; b=k8zYkL3Wc0nlGllumKZBX2+aNdbE2Xs4+7b+CULLbKhFN/Ga5fI1yyBixjS50M3fQ8beWbyERfOKgR83M+modXH9n0w0syBVF17x4Jl7TDsTkwhFn1PhLcHg/f2+RECq4ebxRUfK2+r/dYbw9gI4k4WF3aKQSvNYPv8rIn0P/Mg=
+	t=1792384676; cv=none; b=sQUkJgCDSOZa9z1EdSUXuR0nZeu1WZkb2I9TgbINuxYtJCT3Ex3bW+1r6ND5/9OZRnzPtwcOLn+7Qs6m9R/GZHIcPlHGVlYmxunEHIGuDsWjtteZGveDJdAB6PY3mw/1y7BaV8hLKPdbaShpFK88HZDn4UCwcVmFLPxGbEVGQ4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792384657; c=relaxed/simple;
-	bh=nrSw7454Yde/Xd9a5ZeyoU3us508jOrB5rWc9Varruc=;
+	s=arc-20240116; t=1792384676; c=relaxed/simple;
+	bh=cO6goq4027r706qXfwzVEth0aI6OAe+j8CxRIg0EMr8=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=d8d/CSSQ9lJTtE3v3gA8s7AfTNmLplZxbio17AFzCygwV4Hu17wUxFlEhgjDzV4RLk1Fe0mlZPWxwhTtQr51xH6zPmvEooZy89hLNho7ntc/rJwVZwZyy6QD/MKH152LYhZ2T/IcvPVq1ZXzuTqcqHS+IQ1Cpca58dziFl+55L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pct28buN; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=AaAztOZy19uwZeybPdn6DXeb+vyqH+SBexUVzbKUAChSYKTyaWWOtcMLB/w8wQtbS+J/6Br4EZmPnSe8pgwb9NWPazANBEvX1+iRZKALNTBLeA/1ZAtw3MLXnj51uYWgLUu0y+/9joJXGdrI4H1CdwI3eVNet/LSaaDQvGqOinw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0HvTiXT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pct28buN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721E81F000C4;
-	Mon, 19 Oct 2026 04:37:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0HvTiXT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4C71F000C4;
+	Mon, 19 Oct 2026 04:37:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792384653;
-	bh=d+qqxLO0uMgUfP0IagOu8i6E4S3pBHSASehhGJyH+S4=;
+	s=k20260515; t=1792384665;
+	bh=JLiYDv+iV8ZTsAXWw6zS9tWEJ0XwIEI9q0xb2IWt+6k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pct28buNLdmszT33OjrkZxssR1Wc+lIkLprI0go3bot1IHKbvvzPngcyWAQgmTueq
-	 ewcc8OkDCeu2SUdBQVw9kFxxUHIRoFUbMGBniLTFNVtl9rm5CAYkZOHq4j+Y/7mD8D
-	 aiKnsrfQKD5uN6yzm8RuAnRKVXFE+kfqtUikAwtXk7Wa+84iG2zdGFrttiB0USh7eN
-	 ezRhh+ES/0qrsRHlGqP700AxB/Ni/MyL9LxK1v3hGVta6d0zLCOXAAs4sLzdd/OmNJ
-	 W32nAHyPERlZu5ZixB9MpkU76mqiCYk2kfmG6scikuNSQPjaLiooYvJTewVLrXyBUH
-	 IRTrtC9DMksog==
-Message-ID: <sashiko-outbox-176642@kernel.org>
+	b=A0HvTiXTTb+fgyfMjZrkP+c3qyHBg11kE0aaAViN9Yt8s9lNI1YoJZ4W9AU0WHbkx
+	 k7ncgPO7+HwHLGQKC9a6Mtk2WzuHonqaHUDsMIVF5Mw9QyA4GmRNhLTpn4Guw1Ljd4
+	 qDi0V3cdbo/xQhYyq3K0+UWUcgiVWAvrQkuH4NnVT7QLsM8eALdJv4guIX/p1Fv0p3
+	 sCMXsEECciqv6tvIpmQaZjvCVcMi3zP+PyNtUlIjp+vQnSfjnj5OfybhEznF9b7WDN
+	 0QNgSiGM2hVjJkQtkw619IZ1XZ75B86fMnVKIRV9MmEqBHu6NyMRUB0r2IXYUzSCzm
+	 q3E4wyrkF3QQQ==
+Message-ID: <sashiko-outbox-176643@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/3] gpu: nova-core: add ChannelIdPool
+Subject: Re: [PATCH v10 2/3] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "Burak
  Emir" <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel
@@ -41,12 +42,12 @@ To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>
  Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
 Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
  Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261019-chid-v10-3-67de9180b4ed@nvidia.com>
+In-Reply-To: <20261019-chid-v10-2-67de9180b4ed@nvidia.com>
 References: <20261019-chid-v10-0-67de9180b4ed@nvidia.com>
- <20261019-chid-v10-3-67de9180b4ed@nvidia.com>
+ <20261019-chid-v10-2-67de9180b4ed@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 04:37:32 +0000
+Date: Mon, 19 Oct 2026 04:37:43 +0000
 Precedence: bulk
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -55,103 +56,90 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] gpu: nova-core: call to missing IdPool::reserve_ids() and release_i=
-ds()
+- [Medium] rust: id_pool: panic in find_unused_id() on small or zero capaci=
+ty pools
 --
 
-commit 086e60d9f7e7ac9b6628a571ed585382eb5212a9
+commit 018a4fbd0a161c3060c7581d4c4fd80bc70dcd41
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-gpu: nova-core: add ChannelIdPool
+rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
 
-This commit introduces ChannelIdPool on top of IdPool to automatically
-track and release contiguous ranges of channel IDs for nova-core.
+This commit stops rounding small capacities up to BitmapVec::MAX_INLINE_LEN
+in IdPool::with_capacity() so that capacities smaller than MAX_INLINE_LEN,
+including 0, can be used directly. It also updates IdPool::grow_request() to
+grow to at least BitmapVec::MAX_INLINE_LEN.
 
-Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvid=
-ia.com/ # [1]
-Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvi=
-dia.com/ # [2]
-Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com=
-/ # [3]
+> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+> index 384753fe0e44a..7bb8bb89297f0 100644
+> --- a/rust/kernel/id_pool.rs
+> +++ b/rust/kernel/id_pool.rs
+> @@ -106,13 +106,8 @@ pub fn new() -> Self {
+>      }
+> =20
+>      /// Constructs a new [`IdPool`] with space for a specific number of =
+bits.
+> -    ///
+> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_=
+LEN`].
+> -    ///
+> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      #[inline]
+>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, A=
+llocError> {
+> -        let num_ids =3D usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+>          let map =3D BitmapVec::new(num_ids, flags)?;
+>          Ok(Self { map })
+>      }
 
-> diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core=
-/gpu/channel.rs
-> new file mode 100644
-> index 0000000000000..485efaba059d9
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/gpu/channel.rs
-> @@ -0,0 +1,198 @@
-[ ... ]
-> +impl ChannelIdPool {
-> +    /// Creates a pool managing `num_chids` channel IDs.
-> +    pub(crate) fn new(num_chids: NonZero<usize>) -> impl PinInit<Self, E=
-rror> {
-> +        try_pin_init!(Self {
-> +            inner <- new_mutex!(IdPool::with_capacity(num_chids.get(), G=
-FP_KERNEL)?),
-> +        })
-> +    }
-> +
-> +    /// Reserves a contiguous area of `count` channel IDs starting at a =
-multiple of `align`,
-> +    /// returning a guard that releases the area on drop.
-> +    pub(crate) fn reserve_ids(
-> +        &self,
-> +        count: NonZero<usize>,
-> +        align: Alignment,
-> +    ) -> Result<ChannelIdReservation<'_>> {
-> +        let mut ids =3D self.inner.lock();
-> +        let range =3D ids.reserve_ids(0, count, align).ok_or(ENOSPC)?;
-> +        Ok(ChannelIdReservation { pool: self, range })
-> +    }
-> +}
-> +
-> +/// A reserved contiguous area of channel IDs.
-> +///
-> +/// Releases the whole area back to its [`ChannelIdPool`] when dropped. =
-Releasing locks a
-> +/// sleeping [`Mutex`], so the area must be dropped in a context that is=
- allowed to sleep.
-> +#[must_use =3D "the channel ID reservation is released immediately when =
-unused"]
-> +pub(crate) struct ChannelIdReservation<'a> {
-> +    pool: &'a ChannelIdPool,
-> +    range: Range<usize>,
-> +}
-> +
-> +impl Drop for ChannelIdReservation<'_> {
-> +    fn drop(&mut self) {
-> +        self.pool.inner.lock().release_ids(&self.range);
-> +    }
-> +}
+[Severity: Medium]
+With the capacity floor removed, can calling IdPool::find_unused_id() on a
+pool created with capacity 0 (or any capacity <=3D offset) trigger a panic =
+when
+CONFIG_RUST_BITMAP_HARDENED=3Dy is enabled?
 
-[Severity: Low]
-Does this fail to build under CONFIG_NOVA_CORE due to a missing prerequisite
-patch for IdPool?
+In rust/kernel/id_pool.rs, IdPool::find_unused_id() passes offset directly =
+to
+Bitmap::next_zero_bit() without checking whether offset >=3D self.capacity(=
+):
 
-In drivers/gpu/nova-core/gpu/channel.rs, ChannelIdPool::reserve_ids() calls
-ids.reserve_ids(0, count, align), and <ChannelIdReservation as Drop>::drop()
-calls release_ids(&self.range).
-
-However, in rust/kernel/id_pool.rs, kernel::id_pool::IdPool only defines
-single-ID operations:
-
-    pub fn find_unused_id(&mut self, offset: usize) -> Option<usize> {
-        self.map.next_zero_bit(offset).map(|id| {
-            self.map.set_bit(id);
-            id
+    pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>>=
+ {
+        // INVARIANT: `next_zero_bit()` returns None or an integer less tha=
+n `map.len()`
+        Some(UnusedId {
+            id: self.map.next_zero_bit(offset)?,
+            pool: self,
         })
     }
 
-    pub fn release_id(&mut self, id: usize) {
-        self.map.clear_bit(id);
-    }
+In rust/kernel/bitmap.rs, Bitmap::next_zero_bit() asserts that start is
+strictly less than self.len():
 
-Neither IdPool::reserve_ids() nor IdPool::release_ids() exists in the tree =
-yet.
+    pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
+        bitmap_assert!(
+            start < self.len(),
+            "`start` must be < {} was {}",
+            self.len(),
+            start
+        );
+
+When a pool is constructed via IdPool::with_capacity(0, flags) and a caller
+invokes pool.find_unused_id(0) before growing the pool, self.len() is 0 and
+start < self.len() fails, panicking under CONFIG_RUST_BITMAP_HARDENED=3Dy
+instead of returning None. The same happens if a caller creates a small pool
+(for example with capacity 1) and calls find_unused_id(1).
 
 [ ... ]
 
+>
+>
+>
+>
+>
+>
+>
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-chid-v10-0=
--67de9180b4ed@nvidia.com?part=3D3
+-67de9180b4ed@nvidia.com?part=3D2
