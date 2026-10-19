@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.123
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.72
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792426386;
-	b=aK2LwCWtwq4+MvXymxGAwAMLnK2y16JLPYVgtsim3Rp0ZhAZkqJtGZ9gRfz/ObhC3F9+
-	 mV4fBMoUc8K2EtFAGadSkXFq7WQNYiiEXkDMxiDYLejKnI2SEfSFjntsyJBhwqcEPXmPN
-	 5v2vAAOmPWGUUqt6LQTaiVdKyuVja4hUhJOCBDmICqTV+LKuUZ/fFd85qvWUqHdCol83o
-	 qh5n+0ixLVAb7QdDUvW5SI20TS2WhhBlHtzOyazy9xCVmqHKGwvcxvn/VI7agaQCgBrAA
-	 2JvBXgy/UwdDcI8GGcsRA15jzXcsStTZ+PyrlXWwbeYGW0mwOKnJSE/tvFEkFtwEVsw==
+	t=1792426605;
+	b=z9MT1MpEy8rmYJR3O3yEyGqSHiLKX9dcvmnSWuW37Gh1argYY1GtgvsAB54fRrsjcHHc
+	 t/UVzmnKI1EYU/wyV+q43FV4rTwPIrftn3X1cKSWAdmsHPkHT/4LV3ABtx20q/SxSLveI
+	 MduQ3U2lngqIFu88oNtKC/JOSI4Y1ez+1PTUkQv1G/8QB8rRxqVI7GtAIjMFNeoswxKMl
+	 SBl1hutLASOoADJcsNMWQNzKwcXdJF6orcLr01mMPtIONIyep1nDca2EQDIX5AK2tv00s
+	 40gamUZ7bP3Q6PRS7ioXqAvavJ3SpEqjX8NDDHf1o6+15fR1czk7W2dKtZMwkc148pQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792426386;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792426605;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
 	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
@@ -24,77 +24,77 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
-	b=Y/svw/WJ+uzCMHmgg00/L+ds43HG4gGP7C17u8pnjQimkx9I0jhn/m6AeOCR8z4ExE5o
-	 wWBYeObGsDr9dSv2BhcJFfsF4ISSahONdOqr02dIApVMMOeqoGtw4hb6S1M48KBbpXpm0
-	 1xC3zs59X/PJz1Ly+f2C/1JuZ8HVIbUelzda1oWXCmHyOU3/Poo50khGujw9C5Zrchav4
-	 pnOyTKxdagcKqdpzqtYiMqVndTor6TzEtGPV8W/WACx0tvLb0Hi3RvL6Vb/4giQwA5HBc
-	 HusnmQxGS6EMHGK94j8xnF78z+zHV+0k09c/K9ZqF+uV2VtjSn2z6jgPeHsPTyMPBBw==
+	bh=Ydt0CLyOsOCLEfdPC6Vanczhg6KWP8Ljp09RX5WLWNU=;
+	b=YrVVmpSuv/N5/YsBmf0fdNwt5y/AC8dp2Dage/X3YqwXs0fqgxxKumHXYmTZJaz5Nj2l
+	 xAenUWWjhDiP/u4YIwbejS3vuU2iVMEC9c/BGSKdo1gszoe5yV1L+BwlaH76WB6+vSJd1
+	 aNdaNezUDpybzDRglsUDtxWdimCLudASiYW0sf6YlqB8MNnWLMfm9Zdwwu0Aj/3OqmTiA
+	 3i5A652TEcMRl8/v8qz2XNoHC/KaSizwdbJSwrCqtxdeB/a8gRPDJSC78qNwKyYgLcjI2
+	 67v+/rRhnC2fGnKNujZd92pm8GYhWskYVGM+QBD7bPfMhZ4xuq/zEZZ+If+P5tXY5CQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=garyguo.net;
 	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=N2iD3960;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.123
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021123.outbound.protection.outlook.com [52.101.100.123])
+	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=KnYqLxjG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.72
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022072.outbound.protection.outlook.com [52.101.96.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33944606A31D
-	for <nova-gpu@lists.linux.dev>; Mon, 19 Oct 2026 16:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33944606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C19606A31B
+	for <nova-gpu@lists.linux.dev>; Mon, 19 Oct 2026 16:16:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C19606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=N2iD3960
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=KnYqLxjG
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O9r+e9wI69I2waFmI1ddQ7gQFeJbzlBYkX31m09JBMXQMaidfD9Z8o3bKXPVNHCbnaKN3qTaMzbP0Gu6lb5+4nd1gtSo54tvcFaaGS0Pg0WPnx6Wc9P7nesovpQtq/FqPMC7rnj6ECJB4AUuSCTOvT4b8w7eb7kETxmeN9Ry1sN7w0Cl4tz1+MtrpNGtYL9pJ0sPg0dTgj/Lg8GCBwfd5cAys5EwEF9ziGJL+LcKnwRRDI2DF8Sa9fkFds6QgRsjezoKcC4koYiS0U9eygIk4KuWiY1q9jLBNRIGfZ+xQRR7aHh3dCkUXaSHa/kxXufWA+BKLgaqeAgbU7+SSml2hw==
+ b=bdKQ3Q/Icx7HB7bzceLGWxrawHdpOZUgy2aOpAikIx3600lyKdWoKFDgAR2bxaT0xgx4m3/nO0oVRoMKS+RcgVLkO9tByg2kCUdA2gK3OZxnuRT6Rnvh8BBV8RubPUsUsN2x+2NK8lf1XPagturl9LVgxKmktQe8yy1VLntLzJX8ZVJTcXuuHEzcv8qgzCwUxqJjIi2ino2a3pLbclu8Z+rDgDMRFNzI7uZajoppesumHIvTRh+OXr8O0470l5VlJ9uf8grEtKHVWF/w00Vx+jqk90loJxeYRUHKObiTDhobLzN8Icc+Mp9Hp4B6Flsz1LvXBTZLx5gP9acFH+m7QA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
- b=wxOD5/uwB19Aehvfrr7zxIB0JhmNYu08DtoTUZp/gijN78d9d1v0vXDMCyvbwULGNMsAzidUAon76KIBpCkH5gZuT8xoWCxE15xokzXJK0lcyXRWdeBvwYY2dUSvwk4jafjr+ZQNtFMbygZb5DUsRXcqnbJkK1oLPUsv7ODOP9XIL1ctZjaFvi4QO0lOUQAcxr/NbXZcLXGNVSWprhDewcn/Z6F8zqGcQyo3CYzdeRg9p1rOGery/v/NkEnNCffNebn6Rt1/yXEnP5NlbNWOFMTCbBmvqhnLlTRp5rd+8Ja27jGGSKHtUIizktoK8YYFgbBA2VECU4gFP/Xmq+DtAQ==
+ bh=Ydt0CLyOsOCLEfdPC6Vanczhg6KWP8Ljp09RX5WLWNU=;
+ b=Z1xS2kMg7E0NMOUNCbDwInl0CkWQeEnbUFBKK3ijCy/3pclLftZw6emOLYz13dw4Uoo9/vjqEqWQUbZaXqpNvKfMOifmyTPqmExskp7tX2QuIiRomwxLU3T3dK7bhqzIkD3QAOLPYccu0vnpdRgnn14rpFi/GJjbGXp62RRzTaG3giusjVHh1cCC4WPU9PIj5UoiFk2Oy8gDiES3p3YSEcqTE+dVQbw3cR1CyUeAJ0axUY8T0yJjlDNszelmjZ9ZuG+IpFt8aHhGYWq2LWegET+gDQvf6cZCjOYb6Maln3MA25nfoPQKKQgYZjm/hvaqDYHB0gOeS+TCaP4DdcwpLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9xHq6YTiiR3fqLM+iZfaW09pYscwJBUnSi7WkmQCZXI=;
- b=N2iD3960HViSVf82fD/CvlEXnHNUIAo5DUH4lnqumCLKbb9kkQ13gP6EyOYcE0NZXKjFrTBf514CYOKHC6vfZbyXmPZRaxL0uBYPGlhJl3mnZ56RgP8w7N52tk38PkBICOqufH2PM+vTPbWwP6iuODK4BZG1tQxFqmkKRGsa8/M=
+ bh=Ydt0CLyOsOCLEfdPC6Vanczhg6KWP8Ljp09RX5WLWNU=;
+ b=KnYqLxjGF0FWk9jfCRprW1g83qR8ghyQqWgwJEFqG/vf8jApigQVLWp/FmQjn9rRjqfh0R2TiRa456UUqxzswKqxN2Xv3DzIz7uS3yNIiqH6a2+TLVaaPEoEQ+4h41mjayPjx08oR8Fpop1lNXCI8YrsT7pVMKysIHtL58EMWlI=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LOEP265MB828591.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:501::16) with
+ by CWLP265MB3138.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:bd::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:13:02 +0000
+ 2026 16:16:41 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 16:13:02 +0000
+ 16:16:41 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 17:13:01 +0100
-Message-Id: <DM8Y4G5JMZ64.9PYKH079V51H@garyguo.net>
+Date: Mon, 19 Oct 2026 17:16:40 +0100
+Message-Id: <DM8Y78VGDXM5.36K23TMPY8ZVZ@garyguo.net>
 Cc: "M Henning" <mhenning@darkrefraction.com>, "Danilo Krummrich"
  <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
  <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Benno
- Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>
+ Lossin" <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
 Subject: Re: [PATCH v6 01/13] rust: auxiliary: let registration_data_with()
  closures return covariant sub-fields
 From: "Gary Guo" <gary@garyguo.net>
-To: "Alistair Popple" <apopple@nvidia.com>,
+To: "Gary Guo" <gary@garyguo.net>, "Alistair Popple" <apopple@nvidia.com>,
  <rust-for-linux@vger.kernel.org>, "nova-gpu" <nova-gpu@lists.linux.dev>
 X-Mailer: aerc 0.22.0
 References: <20260909064506.910162-1-apopple@nvidia.com>
  <20260909064506.910162-2-apopple@nvidia.com>
-In-Reply-To: <20260909064506.910162-2-apopple@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0211.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ <DM8Y4G5JMZ64.9PYKH079V51H@garyguo.net>
+In-Reply-To: <DM8Y4G5JMZ64.9PYKH079V51H@garyguo.net>
+X-ClientProxiedBy: LO4P123CA0436.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a9::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -106,173 +106,113 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOEP265MB828591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bd1a282-f98e-451f-0d02-08df2dfbd99d
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB3138:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88f95707-a234-40a9-9215-08df2dfc5c42
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|10070799003|1800799024|261009223027099003|10067099003|56012099006|6133799003|18002099003|22082099003|4143699003;
+	BCL:0;ARA:13230040|23010399003|10070799003|366016|1800799024|376014|7416014|4143699003|56012099006|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	4o+Jvkuw9HawK+Nf7wZ2SyDfr71gg3TlnsFT0b1hblkgmCkp8bDXQeb5QgQNZrHscfZ+hR83oywuCOgsIQjol4cmN9etz3lDK04HxFXexw+7BL9Jn8xIBVJDYjYi7zMLNhCrAyto4QSw28DXWz47FsolWu7lBUjgedyvfSmKysqa3nLo6SDP0qE2xw6BZre2xEvMCLr5qECDobMW93WSSJc63HhxEiR40plziUts7GXGpqWzfcoQJ3TgiZ+APCdeOJ0eR1bgTn4wmRA/bWJUQKXjV2SvCGVY7x1l5EoFXOJrW8m2R7h02yolM19B2A4gohzkjdeI4/ZOUCmttvqC9IuHO1fhJRa3bdofrZvK+hVQRkHtys9yZlkiIFt4M05vnKx/9isjYgxM1UFhJs6VGxARH17vzSImHoJshkpDG9MjuQ5L9qFLkzaRG8E9pfNeZFiRW6AdtWxjBkxRLVYgNiQ7wiGOczRkVeLNlXfityes4Sx9zRzigqMtj6zBtFiAZsDvDuHdpKa0ygSjeq7vfDgdkzddEcGHZo0Sj2tvE5l2L1nBDs16c3jt3k71E5NavDhr5+qkftKNwpPj+cJwiKunUao0FXVwEJnZWgJxGQ7oFyOS2rFY19FlBUsu2h5p
+	4dkEeSEGbbBARXMWLun48gYxcgPFwqKOK2netXgs4s8zbwiVEC0R57Rvbld2dw9ibSD9f/TP7Ti8ovtt4Zq4aGT7gSxjcl9jiAWkEsBLjOcCYulRaMZw09tvEYUzB3Huy0ivjKTtmtSZ8XU5d0+xavDrQrOiRgkxqS20BTHW4BnjlTRO4ZLLTbzD8uv+OkkEobrQ3EaJEk28zTruFi3IHBNzPXTHehtCjKY0/CVOGmGq5ugpalfKTqlf2c200sdwY+J5sQOZTyOmloAJ7KR3a+QAzps3WdP2QvhF5tNe895xzM+CN5FEwG/hNoNIKN6OEgPQ4svIN8JD8FmdICdePlgzg5KffiF4tA4qwewvYoohLVVq3nb5nF+YPZONU01n42KlJlztADZynVWRoFb/hRZNvYZRsN5liciW5CU8j1ILpCuTZseBTMzyGxB2DSFBOOEKKHzF3SGa3NcPOmGbxzZ7i+fmbJ7KVtQUWPdEtlaQjoi3LrIfM/eRr1+iR3icpESfpB6j+xUbaXDeF3jY2o8cUQXh4BaZJ96nDPCochY6BXrnN7Swsdtt2Yrnvfi6f9GDb1TGZHf+Su9o2bFI74CzqJJm2FBDfs2+tgPhfuywBhnuknxK3b55ZVeyjd+zJdcDKILX7p3iX3KRUWglM4LSyB5CPpRUeeQaY3Mram8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(10070799003)(1800799024)(261009223027099003)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(376014)(7416014)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b1daWUJmaS9ndVhUUGkzaDdxanppZXFvNlMzMlFCTkRYRTRBT1BGRlRlL2ZJ?=
- =?utf-8?B?c2htbUtjNHNNcDFmK1M5M1NTR0lUMVpJd00vZXFHeUVHMHdYY3d3V2dBS2pj?=
- =?utf-8?B?d1p2L3hKT0k2bnVuaGxVdEY1eUt1VVpEWEFTS2R3Rk5NYWdSb0xValUvc3hE?=
- =?utf-8?B?cGp3V1NHSWJIeVY0UEdZejdEK29RUEJMNlF0dVNXYy9yRGU1cmdRY2FCNHQx?=
- =?utf-8?B?ZDZNb0R4S0hLV0tXT05ReVhYRHRQYm5SY3AyektFaDlDVVBobndGVnhGL0xY?=
- =?utf-8?B?aDJmWUpFR0U3N3ZTVWlKSUFZVFRCZnRRdmFUTzV4bGpZYXhVU1p5ZEhhOUZV?=
- =?utf-8?B?dHdSaFNmS0JLaXpFWDZ3MUpvYlB3aVhyc2ZRTlZSSkpUUlR3Y0xLYnlHcStO?=
- =?utf-8?B?UENQeEQxcEVJUmJGaDBEdFUyY1Q5YXpqM1VqT3E4VFlaMXR2TFEzOFdDa2xw?=
- =?utf-8?B?STJUcitZVkNJMjhhU0pnL29aeUJ6VDhDUDJOaWRlR3FkUzJGRyswUThWVGpy?=
- =?utf-8?B?SjhLT1BYK2daRjhLOEhLRGpROXdJSC9ZcXkwdWpnOHdDcUFaSW4ycUpHQzMr?=
- =?utf-8?B?bDU1SEVLYUVRd0FmcURjV2w2anZ1VTV4Y1pEN3J0eERSK3EwZGI0OU15cGZQ?=
- =?utf-8?B?a2lrSkY5YWZKU0d3bVF6R0N6T0o3V3o1T2lUV3gzaDE5MG9QeGFBMXdZbVh5?=
- =?utf-8?B?d2s5cm82Ym1xT0pxQml6UGhId1NCVUo1SkozbDNnem1nZFdKRzQvUXBRS0I3?=
- =?utf-8?B?UU93N0xFMHRkTkZKelVaVnhOaWViNko1ekdUUFBtSHdYNkQ3QlphaDBrdEI3?=
- =?utf-8?B?UHRDM1ZpcjZGa1dERVcvUS9NcG10SURkbmwwRER3UE1VelhmSnhGcGRwelBk?=
- =?utf-8?B?dnRFekErL0pKamJuZDJTcCtDWlN6YmpIK01sYjIyWmZTZlNPd0Z3QzFJV29k?=
- =?utf-8?B?blVpc1ZyRUozYWNzY2JuU0pZYUV2V0d3ektCaWV0Ykl6RGN2bHNpZ0plK0tq?=
- =?utf-8?B?NSt2Y2o4RGRMUlVUd2sySnc5NmVoK1Z2NDJIRE1vamVUcEs3ME5rM2I2Ukcv?=
- =?utf-8?B?bS9sd2w4NE1ndlBmNzJLck91TEwrS0J4WWM2WDEya3c4Y0drY0MrWnlTWXVm?=
- =?utf-8?B?Tkwrc2xjeDRMRXhIaEZMSTFJc3B1RnN5b2V4STFvVDhSaExGUXFMcGJXeUtO?=
- =?utf-8?B?YmhBeDJsazI3SXA2N3BidVpIRk9qTVlkMDFCU0lBYmplTEJTdzI5aVY4SFgy?=
- =?utf-8?B?RnlUY3JDcHV1cUpwTnhJRUFWZjFSQVRaekJ3ZkNBeDdtZWxvYTY5TnBhcEp6?=
- =?utf-8?B?MVF2UzVleCtxclpEOStGUlJSTjNXWURRb0hsL3owNUQrMjBYUis5QjR6LzlG?=
- =?utf-8?B?c0tqaDhWSHh4UTFWbzJ5TGNmTFBGNGNQNWN4SEVwZTJmcFpvUncvQStqUEVE?=
- =?utf-8?B?ZzE3WGljZ0kyY0FOK1I4RXpnYThVS2QrYlp5OXd0OWg1aGRibzE1WW45dXQx?=
- =?utf-8?B?UzVtUTFqSDUwWDJsNnAwTjZzVVlBRWVOZXNDTmJGTXppRTRzQnNyVmJVSFZC?=
- =?utf-8?B?SnFzQmNsL0YyUVJFQ2NQa093blhKTVdubVNDVkljTzUwT3lwclhrZUxqeUt6?=
- =?utf-8?B?eXBHYXhEUnkwcGVOY1hvQkF1TWp0RklyOFY3UFdMRXRBUGkwVGpzRzlaVG9w?=
- =?utf-8?B?MW5WbmtUK2lmb2tGaGVyQzFDQTg5a2w5VnphcytPUnhlT3JmazdGeE0zUEJZ?=
- =?utf-8?B?ZHBXN05ha3Fyd08ydkFCM2VscFZBTGJtaTVLYlNKRjRvcmhrNnpSTzBKM1lw?=
- =?utf-8?B?ZzB2ZUo3QW8zeTFHZ3M2a3EyY2pwcTFMY0IxdVJZME9WWm4rcDN5NllxQ0FG?=
- =?utf-8?B?SzR3NS9JOGVGdFRsWVdOYXVPa241V2ovZ3ppSEhQcDNoZEEzWnNIQkQydVBC?=
- =?utf-8?B?TDN3SHlMaW04V2tRcS85VmovSmNxci9hQWtVRWwwU2J0YUxTeFBJSXd0Sk1W?=
- =?utf-8?B?S293ck04YlVGWFZ4b0VoTXJYSi9yOTFTSlNQalpua0lVZmY5Zit4cHY0UFhS?=
- =?utf-8?B?V0tsRU9UdFdEVUE1SHJOWjM1MmdrUk52cFZxS3g2aWZmM2VZRnF6aW0yMU1q?=
- =?utf-8?B?bkxSOVFnbSs1UFBiUjVDVzArV1l3bUFQckRmZnRuNXZ1YTFnbDRSZlJiaDU5?=
- =?utf-8?B?VEVwYUZXL2VKNkJlM2s0WGRHTXZ2RzlLM05VVlY1Tm55MVhzbkpHTllhYndV?=
- =?utf-8?B?OWJ3ZmxoYTM3enpXNTFGNXArSkhwK0IyOVdGWWdJS0ZsNHA3aHVUWlltNmh3?=
- =?utf-8?B?TnZVZHZDYnlsekc0M0lWWUdhYUVpWWtwdWs0eFE4QXlOQW4zOXp4Zz09?=
+	=?utf-8?B?aXllNndMV1NMR2paME9EL1FuU1RaWS85SDE2SXNmckVyNlp1TjNNTDRPSEEz?=
+ =?utf-8?B?WklpTHd2My9iekxVcmZLdHFJYUowdGJWN05aZmhic1lpSVhoVU0rbG1zUFJI?=
+ =?utf-8?B?dTVOOWgxMThRdmt0N3NSS2pGVDhTYVdQa21RekJLU1Bhd1JaQm1Sb2p6WHVp?=
+ =?utf-8?B?WGdyL3M0Z2UvZy9vMWY2eTlIbTNkVTkwaXZYRElvdmlRWFRFSm40ZzVSV1ky?=
+ =?utf-8?B?dm5tWU1UY1hTOEpMZWJlU0dzQmZWZi9weWZicGN4NkdNeWpPaks0M1VvdWFp?=
+ =?utf-8?B?aE1YSS9rZGxOWnlSTWFMNEJCRmpBNUJuaVVNVWx0Y3FoYzFFSjY5T3hDeHV6?=
+ =?utf-8?B?L3hxU0RHZ0hiek1IWExRNkhRemJKNkxIZ0MrV2N3SW5rejFzZ0tqblRxbEtj?=
+ =?utf-8?B?QkRwSllVWTB4UUdSSzVBZlU0WXZpVzU1Q1A0TXREUE92RER0YVI0Q3VFWXJN?=
+ =?utf-8?B?MWNxcllReG9zUlgzU1M0eGRzVkJiWkhwajhGb1VGNnVkUHhMY0MzN3RCY0Zu?=
+ =?utf-8?B?L2ZIczNzdjBQWEl5WmU1ZFRPK0NGTVhkckZWL3RYZ0ZwWldSMGFrU2pWcm04?=
+ =?utf-8?B?TElPQWc0VTZOeEhkTmpoS21QcWVVT0pyM3NyZXhaaGJHS2RrV0tMVURQZVRD?=
+ =?utf-8?B?aFpBNFJDZ2NMdUxjWkw2RE50cWR3MTFxbnlrb3ZSZ2dkOFJleU9Rajh5czhM?=
+ =?utf-8?B?Y3kvRDFCbjVBTDJHSVdNS05NdFluMkVlMkVIcXZjQWpqM0lWajlEcW1qNEFr?=
+ =?utf-8?B?SjQ2WDlVZXpPQ0FWam9PMFAxVUVRQzZkT2RWZ3FFNm9ncnhXN3RrQlRaSXZ5?=
+ =?utf-8?B?UWhqcXUwckdYbXZWTHZKcUswYjlxUER6Zkl4NlMrZGlJRElFa3ZjN05rZlV0?=
+ =?utf-8?B?VXFyd2g2bE54SlNNckI4aHVlQllLYWdpVWU4VEMxcTI5WmJHRCtsYnJ1Mi9n?=
+ =?utf-8?B?SUZEK00yNHdkRWdFbWNRRTEydjg4c0JDSERSRFlFL1NkTE5vNGs3T3dFT28v?=
+ =?utf-8?B?ZTQ3L3cxSm14ZWVXT2pieEtoa2NzQm9qdlJwb1VzemhpZTIxR1pmblAyMUQr?=
+ =?utf-8?B?UDVpR0NoSk1FM0htVTBWQjV6UHQxZTJqQXYrMGNHTWRYa0I1b2FRdm8zZklu?=
+ =?utf-8?B?ZzFqVHJKa2xNOWpSSGo0bmNMYjBVSW5vb0YzUytYb2l5Mm8wWGh5STJ2UE5o?=
+ =?utf-8?B?ZjNGTmxXN0k1eTRRQjY0RGMycGxycDVaVk16SGM5VWJtZ24zZThhL25OemR6?=
+ =?utf-8?B?N0RXUHl0V2xjN2ExaS9IZERFNmNGR0FLODZ4bEJyWDBkckRRY0svL0ZSMWFP?=
+ =?utf-8?B?TXcydmw5RUlYMTQzb1BOUXJicXFBSXZZaU5SYUE4QlJuR0g0Rmp6K0x4UWZ0?=
+ =?utf-8?B?RmRZeXlwVnh0TUgyWjBCUE9wV3AyQ2dpY1JIRmZpbFp4K0Jxd1dPQmRndHI0?=
+ =?utf-8?B?SFprN2FXTzNHeEpjQS9XZncrSldENXBTdHF6Qjc4UlhULzUzVzFhWTFWYXh4?=
+ =?utf-8?B?Z2F4azh0aERpa2l4clF5TFk1V2FGaGd3bjB4R0taTXFIemc0QjdaYTZyNnUw?=
+ =?utf-8?B?OVpXQjFWZXpvYlF3dU9obC9XYVVxWVpnYlYreUs1QUptL2RTRFlNQTAzYjF5?=
+ =?utf-8?B?YllmS2ZMTmRHUFl2bXhoOUEyZkhqVHl2UmpLa2xHSjNjMitTRzlHMU1zamtk?=
+ =?utf-8?B?d05NUDNZMmJxcVg3Mm5XMDRZcXRDVEFvak1udWsrZ1hvUmxBQXhGc1Vtd0N5?=
+ =?utf-8?B?bVlXUEdCSi9zb2d1ODJmRjNWQlNNWkg3MTVjc09NL3pFU01aeG41WXhQUnFN?=
+ =?utf-8?B?bFJ5T3dxbW5zS0xsR3JHODlSSE9iN1hnWm92UTZDTWl0a1Y3NHVGb0JNZ0wv?=
+ =?utf-8?B?S2NvOFFGd1piVWJ5Y1RnYnVIQ2t0d3Y3NW8zNGxxQlRxVC9KVVZubGNOWXg3?=
+ =?utf-8?B?QXFFSW9UUWp0MUFqYTg1UUU2WjVNUDFEUzFTT2J0azZnSFd3TmUyTEQ5MFJW?=
+ =?utf-8?B?dmZ0ckE1UzZ0aGNXc2cyYklIZWE3NGxEb2ZBWmljSUQ4RzZ1dnVYazBXOStU?=
+ =?utf-8?B?cHJvUWVjU1ZVdDFHbWlvSmtkZ2VyN1NzU2pqQ1dvUUNVaTVwdEZwY1hZNmJ4?=
+ =?utf-8?B?alV6UVZUZ3dUUjRuN1BIcThReW10RUJzOVJTR0d6NkNHdFpYMCtXV1VnbmRM?=
+ =?utf-8?B?V1Z4blhoSDRDZUVFNVQ5NldkVm1LbTExSUtveU9uVGJqaWtSLzFwdUNSelF2?=
+ =?utf-8?B?THpRRUtQVXpyNmMwTm85RUJ4d3MwdXlBWkxHR1V4N2hIQWFhbk90L09ZZkg4?=
+ =?utf-8?B?ZWFISjA1aDV5aytqQnNJaTJKMERZeXNHcTdtWnU5WWp6TmNDb1l5Zz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bd1a282-f98e-451f-0d02-08df2dfbd99d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88f95707-a234-40a9-9215-08df2dfc5c42
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:13:02.1994
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:16:41.3399
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d2c++JvB991yrwA0hPbGiS301Y/8NnIrTopDih3lh5b2scGWBytdzceKUh62mzwEXBqyRkvW2EqmvIgTUYSf9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOEP265MB828591
+X-MS-Exchange-CrossTenant-UserPrincipalName: kLvRrPBXI7NI9t8lqbgk/OPUsw7/lQgM4A8NepfURExlYQD+qxG0Uj5hG2fum6SLv7Agv82a7FVNPJvu/6gg0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB3138
 
-On Wed Sep 9, 2026 at 7:44 AM BST, Alistair Popple wrote:
-> The closure passed to registration_data_with() currently receives
-> `Pin<&'a F::Of<'a>>` with `'a` universally quantified. This prevents the
-> closure from returning references derived from the registration data,
-> even for sub-fields that are covariant in their lifetime, because the
-> compiler cannot relate `'a` to any lifetime the caller knows about.
+On Mon Oct 19, 2026 at 5:13 PM BST, Gary Guo wrote:
+> On Wed Sep 9, 2026 at 7:44 AM BST, Alistair Popple wrote:
+>> The closure passed to registration_data_with() currently receives
+>> `Pin<&'a F::Of<'a>>` with `'a` universally quantified. This prevents the
+>> closure from returning references derived from the registration data,
+>> even for sub-fields that are covariant in their lifetime, because the
+>> compiler cannot relate `'a` to any lifetime the caller knows about.
+>>
+>> Tie the outer reference to the `&self` lifetime instead, i.e. pass
+>> `Pin<&'this F::Of<'a>>`. This gives the closure the implied bound
+>> `'a: 'this`, so covariant sub-fields such as `&'a T` can be coerced to
+>> `'this` and returned directly, while invariant fields still cannot be
+>> coerced and therefore cannot escape with an incorrect lifetime.
+>>
+>> This allows auxiliary child drivers to project covariant data out of
+>> invariant registration data without having to wrap every use in a
+>> closure.
 >
-> Tie the outer reference to the `&self` lifetime instead, i.e. pass
-> `Pin<&'this F::Of<'a>>`. This gives the closure the implied bound
-> `'a: 'this`, so covariant sub-fields such as `&'a T` can be coerced to
-> `'this` and returned directly, while invariant fields still cannot be
-> coerced and therefore cannot escape with an incorrect lifetime.
+> Looking at this again I think the current API might be unsound where this=
+ patch
+> becomes fix rather than just a feature update.
 >
-> This allows auxiliary child drivers to project covariant data out of
-> invariant registration data without having to wrap every use in a
-> closure.
+> For an invariant `&'b F::Of<'a>`, it's actually a requirement that `'a` s=
+trictly
+> outlive `'b`. With the current API surface, we can obtain a `&'a F::Of<'a=
+>`,
+> then we can store it inside `F::Of<'a>` (because, well, F::Of<'a> being
+> invariant, it can internally have a `Mutex<Option<F::Of<'a>>`), and then =
+we're
+> able to UAF within the destruction code of `F::Of<'a>`.
+>
+> The fix, is, well, this patch.
+>
+> Would you might pulling this patch out, rework the commit message a bit a=
+nd send
+> as a standalone fix?
+>
+> Best,
+> Gary
 
-Looking at this again I think the current API might be unsound where this p=
-atch
-becomes fix rather than just a feature update.
+Ah, I am looking at an old thread, this has been merged now.
 
-For an invariant `&'b F::Of<'a>`, it's actually a requirement that `'a` str=
-ictly
-outlive `'b`. With the current API surface, we can obtain a `&'a F::Of<'a>`=
-,
-then we can store it inside `F::Of<'a>` (because, well, F::Of<'a> being
-invariant, it can internally have a `Mutex<Option<F::Of<'a>>`), and then we=
-'re
-able to UAF within the destruction code of `F::Of<'a>`.
-
-The fix, is, well, this patch.
-
-Would you might pulling this patch out, rework the commit message a bit and=
- send
-as a standalone fix?
+Ignore the message please.
 
 Best,
 Gary
-
->
-> Link: https://lore.kernel.org/nova-gpu/DL3WPTVM033J.33RWYCZOC67Z1@kernel.=
-org/
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Co-developed-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
->
-> ---
->
-> Changes since v5:
->
->  - New for v6
-> ---
->  rust/kernel/auxiliary.rs | 17 +++++++++++------
->  1 file changed, 11 insertions(+), 6 deletions(-)
->
-> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-> index 60dfbec8f330..06f816420790 100644
-> --- a/rust/kernel/auxiliary.rs
-> +++ b/rust/kernel/auxiliary.rs
-> @@ -305,6 +305,10 @@ unsafe fn registration_data_pinned<F: ForLt + 'stati=
-c>(&self) -> Result<Pin<&F::
->      /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The=
- closure receives a pinned
->      /// reference to the registration data.
->      ///
-> +    /// The outer reference carries the `&self` lifetime while the inner=
- type carries the HRTB
-> +    /// lifetime `'a`, implying `'a` outlives `&self`. This allows the c=
-losure to coerce covariant
-> +    /// sub-fields (e.g. `&'a T` to the caller's lifetime) and return th=
-em directly in `R`.
-> +    ///
->      /// For covariant types that implement [`trait@CovariantForLt`], pre=
-fer
->      /// [`registration_data`](Self::registration_data) which returns a d=
-irect reference.
->      ///
-> @@ -314,13 +318,14 @@ unsafe fn registration_data_pinned<F: ForLt + 'stat=
-ic>(&self) -> Result<Pin<&F::
->      /// Returns [`ENOENT`] if no registration data has been set, e.g. wh=
-en the device was
->      /// registered by a C driver.
->      #[inline]
-> -    pub fn registration_data_with<F: ForLt + 'static, R>(
-> -        &self,
-> -        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
-> +    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
-> +        &'this self,
-> +        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
->      ) -> Result<R> {
-> -        // SAFETY: The HRTB closure prevents the caller from smuggling i=
-n references with a
-> -        // concrete short lifetime, making the round-trip from `'static`=
- sound regardless of
-> -        // variance.
-> +        // SAFETY: The HRTB on the inner type prevents the caller from e=
-xploiting a specific
-> +        // choice of `'a`. Covariant sub-fields can be safely coerced to=
- `'this`, while
-> +        // invariant fields cannot be coerced and thus cannot escape wit=
-h an incorrect
-> +        // lifetime.
->          let pinned =3D unsafe { self.registration_data_pinned::<F>()? };
-> =20
->          Ok(f(pinned))
-
 
