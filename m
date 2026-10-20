@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.2
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.66
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792490954;
-	b=ABvqK0z1nIntwL5ySeh6+jjIXjPQYKb5W9HJ7MaGnVJh0C9Ma4eVDp/l2vk0KhYDh2kf
-	 lMksbPaPIH2sCkjBK1dbQrFr/xw3qAPgIMvFK3kgqsNMNklSzzm6f77GsBA7/q2BVIHrc
-	 YGuks+7UCutqj4DQhqwuhk9kfFNcGd8xRsDZq87iqrLGASFRk39/2JBRP+2TI6LF2L/hN
-	 e2UPO3Y2sMJnwKQHbtVzixaIQhHQiH8iasNbvV9mAg2BrVY36XAd/izYq41vIXqsox6ys
-	 PhUP/xOtzuCW0SvZdwu8XHycG61/jyN+udldXYRRoBBsCHckKq983IVoRg7dlqH2XKw==
+	b=yAPKw/NzkvTqQ6CfaFU8RZAecqDksuLx55hLes/c+MR8ktEFmq7Azoj7oUfi85K9vWQr
+	 fT5Bv22Rv5EmAxHDzphYWEL+c3VQMOTsx0qotpXPs1xSM6mJUzes8NQZkrZAlY4FAwYpp
+	 pih8mX/KGy1rjzLV5+BVSMMU8JdqMiJcZwi16Vj75OTaBl0gkki0yt8u3Tfnmz0j10ABX
+	 8ZMOM7L6y68Va06htGglytqPfGkLgbXlX7j7WIfEPP7ngrtBsdk1aV/Va9P5vApTXi5D4
+	 EdBoFvkp6xpJlxFfDFoYnxnAp0bEJXlDHTDQi3/O85IwS5MFPgXBWPP6rLD1IrQy24A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792490954;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
@@ -25,61 +25,61 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vUMYTBfo1Bxb83xVJVk2CRhyXR9Jn0p3/zHpRZ1IRIE=;
-	b=AmEBxFMQU3GLUcwhSzMICatMLYhdrZi4jX+mAp2t6NKKF9dbXGf8tzvzEsc8CIKgXLtW
-	 gPhMeG9T1vQmovL6Jm2dZa2CEZKk9nq8VVCkgfFP7deR1VTP9+QExrpRLoUY5LTE6sGUj
-	 UZ7k/ux8d68bExHFFUXkG5M48hI80FVfFFHFIKw1ux2slaPpmXNRe32TacHG6Crp/BD4c
-	 4uHK2F/21+99HspLzoAI6GFG+Fr1H/p0/m/om9lWQtjuA303e3aYcsBxdPYC0TH+4CLCw
-	 kzT/29VVrkOOe+AxGl4gfgOKeiTCekICD5KIvYVrprNL++uRn096t/dBCzBYH5NQdVg==
+	bh=k5qnArfsYkEPr9Oc7MS4hkZaCEaeK4LjfRwj4bb3Yw4=;
+	b=1oz2R1lwv2L9bQaU0l/Q9ePnGlAcCSPY3/Hay1yHUrIZkg7zs4vwNt8iF6KIVUYd9nT7
+	 MQi5x0DBfc1Mhc4550V6xb+40Aey4HCgMP/TLfIpz14aVCroim92928kjhJD1B3fq6zWn
+	 oGVawRfRhRC/8fx9ztQbeb41OdHYNu6tqigv+dAv0GKPSi7HwGmO/svybjoqIJAp0YHK3
+	 7Is48VUdERWApsBxW3em/KhtBxucpsRxHgCyj9LMmJqGpQRDDLwVqzQ3eQFn92myvPxY8
+	 hd8I4ofcfqEQmJDnon/peCw02vfjvwTHAsTe1Uzc7191kg/FwQHSZmWByGCOxdVPAQg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dMoGaZzJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.2
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010002.outbound.protection.outlook.com [52.101.85.2])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PILFd0D9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.66
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011066.outbound.protection.outlook.com [52.101.52.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6B260A263D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15E560A260E
 	for <nova-gpu@lists.linux.dev>; Tue, 20 Oct 2026 10:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A6B260A263D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B15E560A260E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dMoGaZzJ
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PILFd0D9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zW6CpJrWlAYnQqFoTcsUUbfsHPQK6vE3wPUVxRB0O5NItEX9ShEkI/lA1K6LFWDdB/KzqsOxlEDqMXHNoqpT6M+M2c8K0AA5487q/Pw/NexUJko795RhmKQ1OlIUhELNvRUfynlzDjBczSL7/Fj806EPmYIBkXLHnk+iMeygUvdsFay4XJCoLTAwc+Ocuc0SJoUYE8yZYzXNg+5j5XFGmdZrCSqQMEmb7z18Iyrcd4yqoKBJ3BNB3Q1t3+UqQQO0sYnw6f1fwi4aiLskUHOJtYDPp47t6tAmhabnUpoGHPZslFAIShR5miiwzEHsUl1ciewk14ATfrDOdaKxiDu3Ig==
+ b=GJba6r5HzzPq3aOcTnT4QWXvnoBou9uaF7+/4ZPeEbQlLPb+tQlKwQISnq45yQuAR3TEV5ORCv+4KmBmreCu2wN41FaL8h0b4wwr4QQQ41mBW6tHIcAN5Si3wVN05z3L0gDzcX1nJR+EcSMa4XdBw6guCQlEeitz5nS2C6ZMc34gdrlhJE5X3ltQEMU+3hIioGSPgHN4+CzUaSd92dJl/6YE7dZs1/4M19E2U737g9oT5/tqnHrNeKkTV7wbiYG+ng2E6EuZlK5qJKXIcQzX9ohXtZZDauvc6W7NA5RgT69KOZDy0iP9zIUj/CI/aiBeThPl1f3xO4NrzvfZfqU8Zg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vUMYTBfo1Bxb83xVJVk2CRhyXR9Jn0p3/zHpRZ1IRIE=;
- b=Unn8Ukq3BhnNCZQiUjLGeJgGPNl09WP9OO2Aqc9MxxdByP0B23kPWW0yVyKzN0EIXMiLaxqmioNuSQogprvax4GgXJptspqIwW0N11OLANPDmBubqhyBS54mQnK1S1zuLQ4egMp/e75ej2bbGd3837W1HXGmEMQHvjcBzRCKvP5vSkrUwfzNg5Z/9yZ2+03B03fST8k9Xf8DdFDuSOLNuhaE4KZNGNKpIR8gpqkkTXX3cuaGL7KZtAtgWuSuB23ignU1lENjva2sWAaz8oQTwtw1lkhhyWu3WP6Tf787nyHdYzTJJGwKk3CnCXHRY/qJtd7rBkUDJ4hQrfubQSxb0g==
+ bh=k5qnArfsYkEPr9Oc7MS4hkZaCEaeK4LjfRwj4bb3Yw4=;
+ b=oUfewd236ir9mhHDdMyqtwBIS9j+Le78+CK7HAPdVPYFStkDvAg9aEpkQwd3ZnSzcizKXZ5pSj9bj3wXRFg2aNFFYh35aiOLIUummizKWyuq+agJvhwWhvr1VcV87+4XGetATldEPbMlVBiJsE6QYZmD+uFFJViZ+/af5fFO4lSeNHLDqcL+iw3SHI5vNHU6H0ULMlyCDMMGDfFkpabRYUPnhcEsd/Un+Ksvx8ipPKJTzWVlr2h9qNOLwKGLr9y+vloIJ6zckdscXuPMAoKh0HDKvUUGjYE56bVNxy/1gRqiv9HLsObWlgclTyTB25l9QvTOjdaNHfsXawE3KG7XbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vUMYTBfo1Bxb83xVJVk2CRhyXR9Jn0p3/zHpRZ1IRIE=;
- b=dMoGaZzJ+Wupi9e8r8nn2iXh9hh/IGZeqqqS693xtKDMaqZYIU9xC9kztPyCJa4VU2WJzcKrlaKXJ6JU6DvSEGRvPR/AAM2LZ0oV6+ajCm4MX4rJtIQ1KfOc/RTXU2e2VQWhiJ74TUsGDleBWWDppLpriJNxe2fxUzK40EWucA3Y4l5NT1pKYEcxo4eBcR6K7LUZFV0YwTvkbr91TFAKd0mCnby3jcvOBGGxQxJg5VfIgWVA9M5jQnwCeHcI7ThctG61aqgd7MJ1IJwBk8Whfh5kqVq41BfcaMab80yHlrdCA6wl6zgFYXJgmGIWF9XmnbwDwsGOEqqP33NYkWjwTQ==
+ bh=k5qnArfsYkEPr9Oc7MS4hkZaCEaeK4LjfRwj4bb3Yw4=;
+ b=PILFd0D9DxpE5Wv1gOj8gJStsIh1xII+62QNgQIJgrWffflo8nuTM2WALTW5T/9eXAMnYKG8yN9zBawHpGFHvFdjzN1ObMZ+ofATcUQf3omONdGOsSRDYU/2EL+NyVfiOvHaKPDfwN27a2MQ1qk/7PgaRShLTIw+8qfv7BqNQ07x4N2s4wSi3IZJxokKolMD+TbuUSTHmBzOjaXtYERr/VNrf8mZ0LakxqhXmkBffT8JoC4eJPzev7NaX8CU2rICfwZDsXZ/phJC/vQ2iV6w+B/2FrjIuPnms8xvskfJVedVkdESgyfGneNc2VX/wWI+9nfGeErkzhad3XYvS0O4TQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS6PR12MB754991.namprd12.prod.outlook.com (2603:10b6:8:4d2::23) with
+ by SN7PR12MB6862.namprd12.prod.outlook.com (2603:10b6:806:265::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 10:08:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 10:09:09 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 10:08:38 +0000
+ 10:09:09 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 20 Oct 2026 19:08:24 +0900
-Subject: [PATCH v5 03/14] gpu: nova-core: gsp: cmdq: validate checksum
- earlier on receive
+Date: Tue, 20 Oct 2026 19:08:34 +0900
+Subject: [PATCH v5 13/14] gpu: nova-core: gsp: move the RPC commands into a
+ sub-module
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-cmdq-rpc-v5-3-dceeb8f360ec@nvidia.com>
+Message-Id: <20261020-cmdq-rpc-v5-13-dceeb8f360ec@nvidia.com>
 References: <20261020-cmdq-rpc-v5-0-dceeb8f360ec@nvidia.com>
 In-Reply-To: <20261020-cmdq-rpc-v5-0-dceeb8f360ec@nvidia.com>
 To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -92,8 +92,8 @@ Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0131.jpnprd01.prod.outlook.com
- (2603:1096:400:26d::19) To MW4PR12MB6873.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P286CA0100.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:380::18) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -105,133 +105,854 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS6PR12MB754991:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94109c94-3847-479d-9a2d-08df2e921bf0
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SN7PR12MB6862:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d409619-5fec-43cc-fe6a-08df2e922eaf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|10070799003|366016|56012099006|11063799006|261009223027099003|10067099003|11062099010|18002099003|22082099003|7136999003;
+	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|10070799003|1800799024|6133799003|18002099003|22082099003|10067099003|3023799007|11063799006|261009223027099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	TTZE4WOequsUtfhP74Lwhea+ItiW8B8VTsF1la3Ph3NoStuki60J1+CX0XjhSAboum81efdw9n/xvTOxJz3Ky2IbUxAr3KFTYSxXSqBtF9T2GLoLyxEj7SyZtRuDjTs8+tML9qHiJe3+zVt5NWgJpZ7DEYgeoA+pq9GMjnQfLR2x+bWMu3sHoshbIRk6KWlr1l/707lFlh2Mbkz6pf30mOBzsG6g+8sAE7xdSmnWpk/QDhIAJq9UCP7ozNtLv9YEF3RDywSAEBKoVwXv7/J2bTLTveQSsW3GDQq73riz0Gp5T07JGgEpwmpWLd93XbYq2eF1o4iVIHfQ5az0cDzOjVnReImE75cuX1ifmwfi3+FkXWlGJaeXPJA1LFtwB935+bN6Bdt78S+klj/Rm/hddS/X3gmopdZXbLpwel8FLNlOq159zzVQt3X2K0hf5qeeWyfWMilkvivMLb0ZLMhV6fJjE+kAgsv3sUWBHv2l2zysZDgGO6xGBbOSU9z9vTg5FdpXa0L5iAkFGcAVmGa40Z3P8G48UI+elaLdN9fYb8ibzifQkrhI2nl2YyPWyAVZ+zvGn1hHSQEeLLT7kBzH8PW3K09WwnhiQ628NW4dNj4u3EHUz9OyOod73BXc3m31y93HAsBCbdDNmsLQVezl9fusuJOhOxzs20JVOQcJMyA=
+	KZHbCla0fpu1+P+ekGaBwZAoSEXiX+CSsiZAc16vfzQqYqh1YBx+AggYvzs76/4G7vrPFDeNkXy+ekbDKbRC15959K+cUPcYz28WnjxWIDCx4uwWmYZ9aXmE+i5kv+4cTmhEPX8aGXZRy3DbMopyQD/Hq7Lcz57gbt4V1CjHa4FlFJ3DnCMIeCNDeY+kUa2+cZUqw+ckvWeQLFEPMT27y29k/gkUzX0tDGThL0ZagVTRSTSZYmap9vJah0v3kzJmjWsL+MaeU6bXd8c0d38LMynP09YkTdEMR4aDP2uPsErA9tjr1eEy99pVDk9xtnyBPEQle1Ao+5Fh7q/xulwXvS6BxaSTATgmayMJYvtC4x2nyJvm3JFZaJ5KXzT2GgC4uyTalyEJWSAP4itFRMjPbyVMhnkQX0HCiK/uRo3afCblHowFV/+IvFD7bXrMqD6sHNBRc0RZSqENARn2oyptF2+Renxlka1+F63d8Wg7IDi685yvXvIvFqvvM2f8TYU9VF1B0XQygApvyAD4u2Q80sUswZtetjvB0pD8AEhMd0wHEiodOJX76ZFSZNhWHFbwMVzAogWUv0MboiVPplReLdc/aSFsqJ5NKq4EoAtELkjAy93LzKxqs7JId/4PgZeO3U0G6p99215HvIPeV242v8SeBilpJR7nXadJ0rA57hY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(10070799003)(366016)(56012099006)(11063799006)(261009223027099003)(10067099003)(11062099010)(18002099003)(22082099003)(7136999003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(10070799003)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VFF6c2loUlkxbXIxQ1NaVG4rN3Z6Z2pFYkhCMmFYTzNvRkFVTys2NkJ6M1NZ?=
- =?utf-8?B?L0VHL29hODZ4Sm5QU1ZENXNWRURBenlkeGtFODMrbzduWmp6UXduZmV3QzlJ?=
- =?utf-8?B?VEhyMU1rcWEwYnpuWWNtaVlmWDhHS3ErdzNxL0JsUjlhbTMrWDRPNm1XWGto?=
- =?utf-8?B?VEM2dmtXQVFmVlRNbnhlbVBGNG1pSFdNbGhMMzlET00wdGNtQ2E3SE9ZV25Q?=
- =?utf-8?B?VjJFMWVLQU9td25YY0tDeGhxcXc0Nkt3eGJubFlSK01TektnVS9ERTJ6RFZV?=
- =?utf-8?B?Wjl3NW05eGxWSmhsNGVEVFN4UFJ4QU5Ed1lGZWtrdFNFbDBEbHVpQ0MwRnRL?=
- =?utf-8?B?TFAxNVZuWlBxM0RDNVMzV3JLMExvQURWbVQvUi9qS013Z0xKUHVUMzhiZmgx?=
- =?utf-8?B?QTBhejVDbytGTGlxaE43MkdjSTRxRHpHeHZXNFhranhPREZ6WDVWZTdIbHZJ?=
- =?utf-8?B?cTNKMjJBaXNrNFcyT05hR2lWaVEyL00vVzUvamJpWU9rL0lXT0RxeU1BazJ2?=
- =?utf-8?B?Zjd0by9tVVdNK2NReGw0ZXJFMFBQV0JtUS9MSVpZVkVSUW1TaGhpdHQ4Mmt6?=
- =?utf-8?B?dnBZU25KOU85VTBLaDJFN0RuMEl4VzVhMnhJYWFoRkpmeUtxSHNjRXVqSStm?=
- =?utf-8?B?NjJCTk9tcnJEOE1pYmRrNDNhd3ByWFlvemhoN3FtajFjTVRsSi94ejUxUU1o?=
- =?utf-8?B?TFg0c1dPbXNncmhJWXdSMzN0dWV4VVZrVTFpQ3c5L1NrZmZsQlF2Wk52bHFJ?=
- =?utf-8?B?T0ZYTTNiVkhGb1h1aUx1Z3QxMlVMSVhIYkpjSmdrL3grbE5jZkgvNmxHTmFJ?=
- =?utf-8?B?TVo4NVdTK0U2Yi9ydzM1bklKNlAyT1lnK042OFFWZVFxeE9QdXFZYnR4b0R5?=
- =?utf-8?B?Y29EOG8zZXhmSnpleUVtZjJFWFNRZHRWUGhkc1JsS3ZNSkNQNWs0ME1PS2lP?=
- =?utf-8?B?Sm8wT2tCRnQ0cUs3SXpxN3dtQkdMNkFaSEJobEtRUGZlR3BKM3pUMUlaNU9p?=
- =?utf-8?B?bnd4cUx3NmZaSENiUzFBTDVMMWQ4YzBrUUpueFhwOG4xaGtnVk1WcGtLTWhW?=
- =?utf-8?B?YWZNNCtrdjFnajY3ZkNUeVFodk9ER0t3NWJvcG5mYlZVNmlmK0VZRU03b2VO?=
- =?utf-8?B?b0QyUUp4VHJaalhqZ1pKVkw4Qmk5OHRlWjlpdStjVGhwYUxJbWxUbFpNdDVX?=
- =?utf-8?B?VHJIWnV6VFlqS2FOVE0ya0hNRlRuS2dqVm1wNlVpeFEvV3ZjWkgwWFNUSkE5?=
- =?utf-8?B?WWlVcEZSSEI0NzZhd1pmVk1HNHN3ZVpKdHlaUCtnL2RIS212SVFnSzNiOUhi?=
- =?utf-8?B?VEozc3htUHFNWFlyWjBNZitjVHh3OGY0aUJRNkwvMmU3UW5sWGUyQzd6QThI?=
- =?utf-8?B?bVBuYTZya2t2WEJlRHZ6Qnc4a2lsWnJONktFU2tIVTYxZElwTEpTWXRRWW9J?=
- =?utf-8?B?a29vTmxZd3NqUkZ3TktIVWlRY1IyWUNuVGFob1F2T3FwWHNwRmVFVnM3eFFr?=
- =?utf-8?B?UGhBWDFtbC9sdmVNbDdLYnpjWEthNk5SZHdwYkhWYmJVMmx3N1hJMUgzeXow?=
- =?utf-8?B?azl0YVc0SmQ5UDVJci9JRHROS1h4WlArSWQ1UllidlBnQWl2M3JYdXBHeTZq?=
- =?utf-8?B?WnVRZ1pNbkpQZnZUN25FRjJNN2plQ0EzL3NBK3plZjE5WUx2bm1lWEswMXJ4?=
- =?utf-8?B?eDhSeTZDUG1RRWpQdGxQQXVjUFh2S29GUG1mamxscXhCZ0FIMnVzWXRra2hT?=
- =?utf-8?B?dzRFZFprZEJqeHZFWlM5a0w3QnFCR0liT01tRXF1OU1aVHV2TUJUMDBDTVMx?=
- =?utf-8?B?OG05T1A4a2VDM3VYM0JteHVla0drSHhzczkrMlNKQ1Q2SWoyeEhVc04zUTB3?=
- =?utf-8?B?aU9pM0s4OTNjb3FadVNRYi9Kam04alhwNGNGUi9JVGhwbHJKK3ltRHFMa2xN?=
- =?utf-8?B?N2MvTTR1TEowdGIweURjbHJlS3lqL2pvcjMrbkxDY0FoNnN2ZjZrVnp1VEhT?=
- =?utf-8?B?RGtXLytPSmlmTWxtRkhaUGphRUd1Wm9wdk1JZUQyY1UvNEhsODEwUnA2U3I4?=
- =?utf-8?B?bmFXSFBGeEJ2K2lDUFI4N0I2UUpjTk1UMEN4U0dqLzJqSE9ZcmV5SW0ybnU4?=
- =?utf-8?B?VzcyejRPcS95VndGdmJOdU1xL1luTDMybzFtSFFvYmQ4MHI3THpoQm0wMGVq?=
- =?utf-8?B?TXFmeWg3Q25hNnFmTG1HMituWHZYaUlweW5OKzRSd0xwNlRtenk5cnRUWHRa?=
- =?utf-8?B?aGJtM0FwUWZpTEQvK3lneFdGYStReE5Sc1NLdE0vMGRLazdRbE5TUnBpS2Iz?=
- =?utf-8?B?czFhOVAwZkUwTkxVYXRWdUJrWEIzQmRndjZCdmdDc2ZsRlF4R2tXMUl1S1ZF?=
- =?utf-8?Q?KMw8C1xQmE7zEKAQVdaXQgDBgnglBlMbRafv+x7M/NiDz?=
-X-MS-Exchange-AntiSpam-MessageData-1: Q2Pri6guhYrp2Q==
+	=?utf-8?B?SVA4SWFnZVVZd3hlTk1oQjk2VXVQV1pQK1BoQW5RY21halZvNGMweHAwSTd4?=
+ =?utf-8?B?U2ZyYTVJYUNiT2k2Z1crUzZoTWROaUIycXFmdlpDTEdsN3NQUU0xcjZicEpQ?=
+ =?utf-8?B?Q3Q1MFc0L0xsV1kybzBIdThUOExpOEhUNTBSS2Y4TTloYTJrYlMzQnVRWncr?=
+ =?utf-8?B?R2c4UG9sVTVlZFdYVTdWaU56K0MxT0tGZkNscVdIRHYrcGROREZWUzRjT1F0?=
+ =?utf-8?B?NXFCREM5aktuZ1lKRnFzVExsQ0NNSXRrYkc0Y2thcmh3M1dYQkE1VGN6bGl2?=
+ =?utf-8?B?VkIrQ2tTMmtUQ2l1em5Gc3A1U2NScDhhaFRBcDJ5TUhwMFcvS2ZKVzFoNU81?=
+ =?utf-8?B?LzB3bGQrbnQ5RmlQVE1VVE9CVStrRlNOMWxmUVFrbVFvZ1Q1QTlkMjMrcGlS?=
+ =?utf-8?B?cXdkVUFzN2U1MUFsMGxxUktvM2FaRlhRYWIxYldhck13WW9FUEQ2aTBTc3R4?=
+ =?utf-8?B?UEhtS1N5ZUUvNVpZTzdnR0lzb1F6RVlaemo4bzZSUWtzaFErWnBjL3BrNlZ5?=
+ =?utf-8?B?Z1dDaU9qR3UrZ2E2TUZKYXZZU0tDS2VHWXlTTmpmck8yZWZ0YW1tQkpOK05o?=
+ =?utf-8?B?czZFQ0lGUk0vbjRiKy95dTdHSklmaEpOWWVjWno0cSs3aEN5YThaeGtabEZT?=
+ =?utf-8?B?TkMyNWNGdWRSZFFGVVlzY0drRUNkd0VNdC9oMkRmSFFyVWlhcmRvZHFqN2Fx?=
+ =?utf-8?B?OTZMUkQ5SXFTdktrWlIxL1AraWdEV0g5SHpKMXNqNFUrdUhOZkdwWDhmRXRG?=
+ =?utf-8?B?OHRyNitrSnVDNFB4U21hTXI2T25JY1dOaFpNeEhYMjgwSlZHQitHWnhsMzQx?=
+ =?utf-8?B?MzdKK1JVL0NEOEIvenFzT1hWVWZKSDNha0FRbCtEellvWnBJSDN4cU50YXYx?=
+ =?utf-8?B?N1NBbEVxVDBlOEhEVFliNzViK0FjUCtxYkJWZUdqQS8vY0wvNUI4cHZXTXRI?=
+ =?utf-8?B?Mm9mVFMyZjUxbkxWd2dnSkVFTUhUY05TaVZnRGtWc0x0M1l3ejBIcEpiUHZt?=
+ =?utf-8?B?dDlRUDhUT1JhTUpXaTd2TW5VeU5KMVN1eU9ERzZsNUo3OXBqMk5CZEdOclpB?=
+ =?utf-8?B?N3pkSW5aS3BMOGpQcjhPaElaaEJnb3laUDdZNnVzUDZLTXhLUEtEUnoyaWlH?=
+ =?utf-8?B?aUJRT2NJYWkzMnZCUXViSkh5Z2lZVzlmZnpBRXdwTG95OEZEa0l1emkydkUr?=
+ =?utf-8?B?VEZIbzhYakZVZkRTYkpyWHk1YW9KVjU4WXlaa2E4bXkzNTlqYTY0djVhNUtq?=
+ =?utf-8?B?WDlpaC84cDB3cHB0K0YySmVzNkxtNldwZVlZeWJRMW50OUhDWjgwMVBDOHV2?=
+ =?utf-8?B?Y1VWckp3QXFYNG5leEtlc0FMVDlGejFXL1ZhMXp2Z1VlaU11UGd2U2p2OVhQ?=
+ =?utf-8?B?K0hxVjRZV2hzMG05S0ZkRVRraUpKcmJteUZlTitFSDRkM0kzNGl1d0ZIRjlG?=
+ =?utf-8?B?SjJjMFkwdWNmaTgxSDYxWmhCZGNaT3hselVCQUxoVTVTaitzby9zZVVDNmZi?=
+ =?utf-8?B?S3I4NURXUW1rZFBaYnJQMXRrUTgrZkxVUDdkYllPd1RjTzNxM3FMZGR5eWg2?=
+ =?utf-8?B?OFhjalVnVjZVejQ2SFhHVEE2UE5XWlJ1R3BNT2NvWmc3V1lrWm5NNDZiL2Fj?=
+ =?utf-8?B?a3hFa2w0Skk3aHZxU0ZlWkE5UXVrdm5LN0ZMV1E5V2lHc3I4VjhqZjRYQW44?=
+ =?utf-8?B?Z0t0RVlhT3FTaHhiQ0JMR2FYOEhGY2NUaEVVc1I0bXBoSHh2U1RpUk9hdlBV?=
+ =?utf-8?B?ck1mVzU1alpEbVpzcXZ2ZUVjQnI2b3QraGFkZjdCSGFjREtXTk9sVTdXeWI2?=
+ =?utf-8?B?MnRDR3pzYzMzQldoNDZORkkwQ21tVU9ER205c2M0cldXNmt5a01YT0lXYWw2?=
+ =?utf-8?B?N1NwY2xMbGFuZnh1NDFldk4wakZRNGZEeHdQK0RGeEtRcEJUTHFHRTVvUHZE?=
+ =?utf-8?B?SXE2ZE1XNm4waEpROGdYMEVNK3ZDL1hyQ1hubEI2cWlYaTNsMzNWcVh3TGJG?=
+ =?utf-8?B?R2ZCMlNBeWZkelJHTlNFRnZBTFpzU0RtaWZ5UUNmQzN2NjcveGZpQmg0TkRD?=
+ =?utf-8?B?NmZ4SER6OHdEQnF0QkpBZVc5MWlRZ3YyaU11NVR4ejQrcEdSZGJFazlKd0Uy?=
+ =?utf-8?B?NXJWcWhPbjk4UHJ1MjVDeVhWQjFJdmhwM3hzamhyNTFyU1lKaWlFQS96b1Ra?=
+ =?utf-8?B?aW5yb3hFbTk3bnloenE0c1RmTFBBQk1YR3NTNFNoVFd3NHlWU0w4ZGtDbkNh?=
+ =?utf-8?B?RXlMKzhEb3VrVU5KZzQ1QUZWVEEramwyT3dweStZNnFsVFJDVmMvWndNaStq?=
+ =?utf-8?B?YWdCMTdGMHpCY3J2NEZKZUxtLzZXL2dKdXBNTnNnMTcvbUoyaFM5MGNTYUZF?=
+ =?utf-8?Q?2P+/poHCJRHOrCrNOggLDKeJAHYV1FVT/ffX7h0mm3+XF?=
+X-MS-Exchange-AntiSpam-MessageData-1: gNsbO4ZKmJzc5w==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94109c94-3847-479d-9a2d-08df2e921bf0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d409619-5fec-43cc-fe6a-08df2e922eaf
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 10:08:38.0037
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 10:09:09.5609
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O0LH5VkpYJB1Ulg7cEK3aLzDIAFkhEDtQAnSsxtkKa2cmB7/dKvwOPQRS0tx5HVeAvQNsD7HGJcFJa1VNxT7Dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB754991
+X-MS-Exchange-CrossTenant-UserPrincipalName: RTyr2iJ2Bb+KGRFcHLk9bKyUUsSe7GTmPw1FX8ooA19mDufAMAVbTJFudaJtuG29edBqN0+nA9mg675OQoqUQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6862
 
-The checksum validation error message of `wait_for_msg` prints the
-message's sequence number before validating the checksum.
+Move the types and code related to RPC commands into the
+`rpc` sub-module, and update their users to reference them from their
+new location.
 
-But the checksum is part of the transport layer, and it not validating
-indicates a corruption that could very well be in the RPC message
-header, meaning the value of this field cannot be trusted.
-
-Furthermore, the transport layer is not supposed to know the kind of
-message it transports, and it accessing the RPC header is a layering
-violation.
-
-Thus, move the checksum validation before we start looking at the
-message header, and drop that information from the error message.
+This is a pure move commit, with no functional change intended.
 
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/gpu/nova-core/api.rs              |   2 +-
+ drivers/gpu/nova-core/gpu.rs              |   2 +-
+ drivers/gpu/nova-core/gsp.rs              |   4 +-
+ drivers/gpu/nova-core/gsp/boot.rs         |  12 +-
+ drivers/gpu/nova-core/gsp/commands.rs     | 331 +----------------------------
+ drivers/gpu/nova-core/gsp/commands/rpc.rs | 333 ++++++++++++++++++++++++++++++
+ 6 files changed, 344 insertions(+), 340 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 1bd15fc0aef2..0c18a586576c 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -789,6 +789,15 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-         // Extract the `GspMsgElement`.
-         let (header, slice_1) = GspMsgElement::from_bytes_prefix(slice_1).ok_or(EIO)?;
+diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
+index 29207c4bb743..eec69aace3b2 100644
+--- a/drivers/gpu/nova-core/api.rs
++++ b/drivers/gpu/nova-core/api.rs
+@@ -18,7 +18,7 @@
+ use crate::{
+     driver,
+     gpu::Gpu,
+-    gsp::commands::GetGspStaticInfoReply, //
++    gsp::commands::rpc::GetGspStaticInfoReply, //
+ };
  
-+        // Validate checksum after truncating the message to its exact length.
-+        if Cmdq::calculate_checksum(
-+            SBufferIter::new_reader([header.as_bytes(), slice_1, slice_2]).take(header.length()),
-+        ) != 0
-+        {
-+            dev_err!(&self.dev, "GSP receive: bad checksum\n");
-+            return Err(EIO);
-+        }
-+
-         dev_dbg!(
-             &self.dev,
-             "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}\n",
-@@ -817,21 +826,6 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-             )
-         };
+ /// API handle for the auxiliary bus child drivers to interact with nova-core.
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 4e59072cab50..ac5305d7ff5e 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -35,7 +35,7 @@
+     gsp::{
+         self,
+         cmdq::Cmdq,
+-        commands::GetGspStaticInfoReply,
++        commands::rpc::GetGspStaticInfoReply,
+         Gsp,
+         GspBootContext, //
+     },
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index dda58095f40b..75a3ba7d50f4 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -220,8 +220,8 @@ pub(crate) fn new(
+     }
  
--        // Validate checksum.
--        if Cmdq::calculate_checksum(SBufferIter::new_reader([
--            header.as_bytes(),
--            slice_1,
--            slice_2,
--        ])) != 0
--        {
--            dev_err!(
--                &self.dev,
--                "GSP RPC: receive: Call {} - bad checksum\n",
--                header.sequence()
--            );
--            return Err(EIO);
+     /// Query the GSP for the static GPU information.
+-    pub(crate) fn get_static_info(&self) -> Result<commands::GetGspStaticInfoReply> {
+-        self.cmdq.send_command(commands::GetGspStaticInfo)
++    pub(crate) fn get_static_info(&self) -> Result<commands::rpc::GetGspStaticInfoReply> {
++        self.cmdq.send_command(commands::rpc::GetGspStaticInfo)
+     }
+ }
+ 
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 4fb1b69ac9d5..8e446ad1eac2 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -43,9 +43,9 @@ pub(crate) fn boot(
+         let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset), GFP_KERNEL)?;
+ 
+         self.cmdq
+-            .send_command_no_wait(commands::SetSystemInfo::new(pdev, chipset))?;
++            .send_command_no_wait(commands::rpc::SetSystemInfo::new(pdev, chipset))?;
+         self.cmdq
+-            .send_command_no_wait(commands::SetRegistry::new(ctx.vgpu.state())?)?;
++            .send_command_no_wait(commands::rpc::SetRegistry::new(ctx.vgpu.state())?)?;
+ 
+         // Perform the chipset-specific boot sequence, and retrieve the unload bundle.
+         let unload_bundle = hal.boot(&self, &mut ctx, &gsp_fw)?.or_else(|| {
+@@ -79,7 +79,7 @@ pub(crate) fn boot(
+         hal.post_boot(&self, ctx, &gsp_fw)?;
+ 
+         // Wait until GSP is fully initialized.
+-        commands::wait_gsp_init_done(&self.cmdq)?;
++        commands::rpc::wait_gsp_init_done(&self.cmdq)?;
+ 
+         Ok(unload_guard.dismiss().1)
+     }
+@@ -88,10 +88,10 @@ pub(crate) fn boot(
+     fn shutdown_gsp(
+         cmdq: &Cmdq<'_>,
+         gsp_falcon: &Falcon<'_, Gsp>,
+-        mode: commands::PowerStateLevel,
++        mode: commands::rpc::PowerStateLevel,
+     ) -> Result {
+         // Command to shut the GSP down.
+-        cmdq.send_command(commands::UnloadingGuestDriver::new(mode))?;
++        cmdq.send_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
+ 
+         // Wait until GSP signals it is suspended.
+         const LIBOS_INTERRUPT_PROCESSOR_SUSPENDED: u32 = bits::bit_u32(31);
+@@ -118,7 +118,7 @@ pub(crate) fn unload(
+         let mut res = Self::shutdown_gsp(
+             &self.cmdq,
+             ctx.gsp_falcon,
+-            commands::PowerStateLevel::Level0,
++            commands::rpc::PowerStateLevel::Level0,
+         )
+         .inspect_err(|e| dev_err!(dev, "GSP shutdown failed: {:?}\n", e));
+ 
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index ceac0b0f9423..5f1c944678be 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -1,333 +1,4 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
+-use core::{
+-    array,
+-    convert::Infallible,
+-    ffi::FromBytesUntilNulError,
+-    ops::Range,
+-    str::Utf8Error, //
+-};
+-
+-use kernel::{
+-    device,
+-    pci,
+-    prelude::*,
+-    transmute::{
+-        AsBytes,
+-        FromBytes, //
+-    }, //
+-};
+-
+-use crate::{
+-    gpu::Chipset,
+-    gsp::{
+-        cmdq::{
+-            rpc::{
+-                CommandToGsp,
+-                MessageFromGsp, //
+-            },
+-            Cmdq,
+-            NoReply, //
+-        },
+-        fw::{
+-            self,
+-            MsgFunction, //
+-        },
+-    },
+-    sbuffer::SBufferIter,
+-    vgpu::VgpuState, //
+-};
+-
+-/// The `GspSetSystemInfo` command.
+-pub(crate) struct SetSystemInfo<'a> {
+-    pdev: &'a pci::Device<device::Bound>,
+-    chipset: Chipset,
+-}
+-
+-impl<'a> SetSystemInfo<'a> {
+-    /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
+-    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>, chipset: Chipset) -> Self {
+-        Self { pdev, chipset }
+-    }
+-}
+-
+-impl<'a> CommandToGsp for SetSystemInfo<'a> {
+-    const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
+-    type Command = fw::commands::GspSetSystemInfo;
+-    type Reply = NoReply;
+-    type InitError = Error;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init(self.pdev, self.chipset)
+-    }
+-}
+-
+-struct RegistryEntry {
+-    key: &'static str,
+-    value: u32,
+-}
+-
+-/// The `SetRegistry` command.
+-pub(crate) struct SetRegistry {
+-    entries: KVec<RegistryEntry>,
+-}
+-
+-impl SetRegistry {
+-    /// Creates a new `SetRegistry` command, using a set of hardcoded entries.
+-    pub(crate) fn new(vgpu_state: VgpuState) -> Result<Self> {
+-        let mut entries = KVec::new();
+-
+-        // RMSecBusResetEnable - enables PCI secondary bus reset
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMSecBusResetEnable",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        // RMForcePcieConfigSave - forces GSP-RM to preserve PCI configuration registers on
+-        // any PCI reset.
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMForcePcieConfigSave",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        // RMDevidCheckIgnore - allows GSP-RM to boot even if the PCI dev ID is not found
+-        // in the internal product name database.
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMDevidCheckIgnore",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        if matches!(vgpu_state, VgpuState::Enabled { .. }) {
+-            // RMSetSriovMode - required when vGPU is enabled.
+-            entries.push(
+-                RegistryEntry {
+-                    key: "RMSetSriovMode",
+-                    value: 1,
+-                },
+-                GFP_KERNEL,
+-            )?;
 -        }
 -
-         Ok(GspMessage {
-             header,
-             contents: (slice_1, slice_2),
+-        Ok(Self { entries })
+-    }
+-}
+-
+-impl CommandToGsp for SetRegistry {
+-    const FUNCTION: MsgFunction = MsgFunction::SetRegistry;
+-    type Command = fw::commands::PackedRegistryTable;
+-    type Reply = NoReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init(self.entries.len() as u32, self.size() as u32)
+-    }
+-
+-    fn variable_payload_len(&self) -> usize {
+-        let mut key_size = 0;
+-        for entry in self.entries.iter() {
+-            key_size += entry.key.len() + 1; // +1 for NULL terminator
+-        }
+-        self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>() + key_size
+-    }
+-
+-    fn init_variable_payload(
+-        &self,
+-        dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
+-    ) -> Result {
+-        let string_data_start_offset = size_of::<Self::Command>()
+-            + self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>();
+-
+-        // Array for string data.
+-        let mut string_data = KVec::new();
+-
+-        for entry in self.entries.iter() {
+-            dst.write_all(
+-                fw::commands::PackedRegistryEntry::new(
+-                    (string_data_start_offset + string_data.len()) as u32,
+-                    entry.value,
+-                )
+-                .as_bytes(),
+-            )?;
+-
+-            let key_bytes = entry.key.as_bytes();
+-            string_data.extend_from_slice(key_bytes, GFP_KERNEL)?;
+-            string_data.push(0, GFP_KERNEL)?;
+-        }
+-
+-        dst.write_all(string_data.as_slice())
+-    }
+-}
+-
+-/// Message type for GSP initialization done notification.
+-struct GspInitDone;
+-
+-// SAFETY: `GspInitDone` is a zero-sized type with no bytes, therefore it
+-// trivially has no uninitialized bytes.
+-unsafe impl FromBytes for GspInitDone {}
+-
+-impl MessageFromGsp for GspInitDone {
+-    const FUNCTION: MsgFunction = MsgFunction::GspInitDone;
+-    type InitError = Infallible;
+-    type Message = ();
+-
+-    fn read(
+-        _msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        Ok(GspInitDone)
+-    }
+-}
+-
+-/// Waits for GSP initialization to complete.
+-pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
+-    cmdq.await_msg::<GspInitDone>().map(|_| ())
+-}
+-
+-/// The `GetGspStaticInfo` command.
+-pub(crate) struct GetGspStaticInfo;
+-
+-impl CommandToGsp for GetGspStaticInfo {
+-    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+-    type Command = fw::commands::GspStaticConfigInfo;
+-    type Reply = GetGspStaticInfoReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init_zeroed()
+-    }
+-}
+-
+-/// The reply from the GSP to the [`GetGspStaticInfo`] command.
+-pub struct GetGspStaticInfoReply {
+-    gpu_name: [u8; 64],
+-    gpu_short_name: [u8; 64],
+-    /// The 16-byte SHA-1 based GPU identifier (GID) reported by GSP-RM.
+-    pub gpu_gid: [u8; 16],
+-    /// BAR1 Page Directory Entry base address.
+-    pub(crate) bar1_pde_base: u64,
+-    /// Usable FB (VRAM) regions for driver memory allocation.
+-    pub(crate) usable_fb_regions: KVec<Range<u64>>,
+-    /// Exclusive end of the FB physical address space.
+-    pub(crate) total_fb_end: u64,
+-}
+-
+-impl MessageFromGsp for GetGspStaticInfoReply {
+-    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+-    type Message = fw::commands::GspStaticConfigInfo;
+-    type InitError = Error;
+-
+-    fn read(
+-        msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        let mut usable_fb_regions = KVec::new();
+-        for region in msg.usable_fb_regions() {
+-            usable_fb_regions.push(region, GFP_KERNEL)?;
+-        }
+-        let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
+-
+-        Ok(GetGspStaticInfoReply {
+-            gpu_name: msg.gpu_name_str(),
+-            gpu_short_name: msg.gpu_short_name_str(),
+-            gpu_gid: msg.gpu_gid(),
+-            bar1_pde_base: msg.bar1_pde_base(),
+-            usable_fb_regions,
+-            total_fb_end,
+-        })
+-    }
+-}
+-
+-/// Error type for [`GetGspStaticInfoReply::gpu_name`].
+-#[derive(Debug)]
+-pub enum GpuNameError {
+-    /// The GPU name string does not contain a null terminator.
+-    NoNullTerminator(FromBytesUntilNulError),
+-
+-    /// The GPU name string contains invalid UTF-8.
+-    InvalidUtf8(Utf8Error),
+-}
+-
+-impl GetGspStaticInfoReply {
+-    /// Returns the name of the GPU as a string.
+-    ///
+-    /// Returns an error if the string given by the GSP does not contain a null terminator or
+-    /// contains invalid UTF-8.
+-    pub fn gpu_name(&self) -> Result<&str, GpuNameError> {
+-        CStr::from_bytes_until_nul(&self.gpu_name)
+-            .map_err(GpuNameError::NoNullTerminator)?
+-            .to_str()
+-            .map_err(GpuNameError::InvalidUtf8)
+-    }
+-
+-    /// Returns the short name of the GPU as a string.
+-    ///
+-    /// Returns an error if the string given by the GSP does not contain a null terminator or
+-    /// contains invalid UTF-8.
+-    pub fn gpu_short_name(&self) -> core::result::Result<&str, GpuNameError> {
+-        CStr::from_bytes_until_nul(&self.gpu_short_name)
+-            .map_err(GpuNameError::NoNullTerminator)?
+-            .to_str()
+-            .map_err(GpuNameError::InvalidUtf8)
+-    }
+-
+-    /// Returns the total usable VRAM size in bytes, i.e. the summed lengths of all usable FB
+-    /// regions.
+-    pub fn vram_size(&self) -> u64 {
+-        self.usable_fb_regions.iter().fold(0, |size, region| {
+-            size.saturating_add(region.end - region.start)
+-        })
+-    }
+-}
+-
+-pub(crate) use fw::commands::PowerStateLevel;
+-
+-/// The `UnloadingGuestDriver` command, used to shut down the GSP.
+-///
+-/// Only used within the `gsp` module.
+-pub(super) struct UnloadingGuestDriver {
+-    level: PowerStateLevel,
+-}
+-
+-impl UnloadingGuestDriver {
+-    /// Creates a new `UnloadingGuestDriver` command for the given [`PowerStateLevel`].
+-    pub(super) fn new(level: PowerStateLevel) -> Self {
+-        Self { level }
+-    }
+-}
+-
+-impl CommandToGsp for UnloadingGuestDriver {
+-    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
+-    type Command = fw::commands::UnloadingGuestDriver;
+-    type Reply = UnloadingGuestDriverReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        fw::commands::UnloadingGuestDriver::new(self.level)
+-    }
+-}
+-
+-/// The reply from the GSP to the [`UnloadingGuestDriver`] command.
+-pub(super) struct UnloadingGuestDriverReply;
+-
+-impl MessageFromGsp for UnloadingGuestDriverReply {
+-    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
+-    type InitError = Infallible;
+-    type Message = ();
+-
+-    fn read(
+-        _msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        Ok(UnloadingGuestDriverReply)
+-    }
+-}
++pub(crate) mod rpc;
+diff --git a/drivers/gpu/nova-core/gsp/commands/rpc.rs b/drivers/gpu/nova-core/gsp/commands/rpc.rs
+new file mode 100644
+index 000000000000..54c40f29e367
+--- /dev/null
++++ b/drivers/gpu/nova-core/gsp/commands/rpc.rs
+@@ -0,0 +1,333 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++use core::{
++    array,
++    convert::Infallible,
++    ffi::FromBytesUntilNulError,
++    ops::Range,
++    str::Utf8Error, //
++};
++
++use kernel::{
++    device,
++    pci,
++    prelude::*,
++    transmute::{
++        AsBytes,
++        FromBytes, //
++    }, //
++};
++
++use crate::{
++    gpu::Chipset,
++    gsp::{
++        cmdq::{
++            rpc::{
++                CommandToGsp,
++                MessageFromGsp, //
++            },
++            Cmdq,
++            NoReply, //
++        },
++        fw::{
++            self,
++            MsgFunction, //
++        },
++    },
++    sbuffer::SBufferIter,
++    vgpu::VgpuState, //
++};
++
++/// The `GspSetSystemInfo` command.
++pub(crate) struct SetSystemInfo<'a> {
++    pdev: &'a pci::Device<device::Bound>,
++    chipset: Chipset,
++}
++
++impl<'a> SetSystemInfo<'a> {
++    /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
++    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>, chipset: Chipset) -> Self {
++        Self { pdev, chipset }
++    }
++}
++
++impl<'a> CommandToGsp for SetSystemInfo<'a> {
++    const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
++    type Command = fw::commands::GspSetSystemInfo;
++    type Reply = NoReply;
++    type InitError = Error;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init(self.pdev, self.chipset)
++    }
++}
++
++struct RegistryEntry {
++    key: &'static str,
++    value: u32,
++}
++
++/// The `SetRegistry` command.
++pub(crate) struct SetRegistry {
++    entries: KVec<RegistryEntry>,
++}
++
++impl SetRegistry {
++    /// Creates a new `SetRegistry` command, using a set of hardcoded entries.
++    pub(crate) fn new(vgpu_state: VgpuState) -> Result<Self> {
++        let mut entries = KVec::new();
++
++        // RMSecBusResetEnable - enables PCI secondary bus reset
++        entries.push(
++            RegistryEntry {
++                key: "RMSecBusResetEnable",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        // RMForcePcieConfigSave - forces GSP-RM to preserve PCI configuration registers on
++        // any PCI reset.
++        entries.push(
++            RegistryEntry {
++                key: "RMForcePcieConfigSave",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        // RMDevidCheckIgnore - allows GSP-RM to boot even if the PCI dev ID is not found
++        // in the internal product name database.
++        entries.push(
++            RegistryEntry {
++                key: "RMDevidCheckIgnore",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        if matches!(vgpu_state, VgpuState::Enabled { .. }) {
++            // RMSetSriovMode - required when vGPU is enabled.
++            entries.push(
++                RegistryEntry {
++                    key: "RMSetSriovMode",
++                    value: 1,
++                },
++                GFP_KERNEL,
++            )?;
++        }
++
++        Ok(Self { entries })
++    }
++}
++
++impl CommandToGsp for SetRegistry {
++    const FUNCTION: MsgFunction = MsgFunction::SetRegistry;
++    type Command = fw::commands::PackedRegistryTable;
++    type Reply = NoReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init(self.entries.len() as u32, self.size() as u32)
++    }
++
++    fn variable_payload_len(&self) -> usize {
++        let mut key_size = 0;
++        for entry in self.entries.iter() {
++            key_size += entry.key.len() + 1; // +1 for NULL terminator
++        }
++        self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>() + key_size
++    }
++
++    fn init_variable_payload(
++        &self,
++        dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
++    ) -> Result {
++        let string_data_start_offset = size_of::<Self::Command>()
++            + self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>();
++
++        // Array for string data.
++        let mut string_data = KVec::new();
++
++        for entry in self.entries.iter() {
++            dst.write_all(
++                fw::commands::PackedRegistryEntry::new(
++                    (string_data_start_offset + string_data.len()) as u32,
++                    entry.value,
++                )
++                .as_bytes(),
++            )?;
++
++            let key_bytes = entry.key.as_bytes();
++            string_data.extend_from_slice(key_bytes, GFP_KERNEL)?;
++            string_data.push(0, GFP_KERNEL)?;
++        }
++
++        dst.write_all(string_data.as_slice())
++    }
++}
++
++/// Message type for GSP initialization done notification.
++struct GspInitDone;
++
++// SAFETY: `GspInitDone` is a zero-sized type with no bytes, therefore it
++// trivially has no uninitialized bytes.
++unsafe impl FromBytes for GspInitDone {}
++
++impl MessageFromGsp for GspInitDone {
++    const FUNCTION: MsgFunction = MsgFunction::GspInitDone;
++    type InitError = Infallible;
++    type Message = ();
++
++    fn read(
++        _msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        Ok(GspInitDone)
++    }
++}
++
++/// Waits for GSP initialization to complete.
++pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
++    cmdq.await_msg::<GspInitDone>().map(|_| ())
++}
++
++/// The `GetGspStaticInfo` command.
++pub(crate) struct GetGspStaticInfo;
++
++impl CommandToGsp for GetGspStaticInfo {
++    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
++    type Command = fw::commands::GspStaticConfigInfo;
++    type Reply = GetGspStaticInfoReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init_zeroed()
++    }
++}
++
++/// The reply from the GSP to the [`GetGspStaticInfo`] command.
++pub struct GetGspStaticInfoReply {
++    gpu_name: [u8; 64],
++    gpu_short_name: [u8; 64],
++    /// The 16-byte SHA-1 based GPU identifier (GID) reported by GSP-RM.
++    pub gpu_gid: [u8; 16],
++    /// BAR1 Page Directory Entry base address.
++    pub(crate) bar1_pde_base: u64,
++    /// Usable FB (VRAM) regions for driver memory allocation.
++    pub(crate) usable_fb_regions: KVec<Range<u64>>,
++    /// Exclusive end of the FB physical address space.
++    pub(crate) total_fb_end: u64,
++}
++
++impl MessageFromGsp for GetGspStaticInfoReply {
++    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
++    type Message = fw::commands::GspStaticConfigInfo;
++    type InitError = Error;
++
++    fn read(
++        msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        let mut usable_fb_regions = KVec::new();
++        for region in msg.usable_fb_regions() {
++            usable_fb_regions.push(region, GFP_KERNEL)?;
++        }
++        let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
++
++        Ok(GetGspStaticInfoReply {
++            gpu_name: msg.gpu_name_str(),
++            gpu_short_name: msg.gpu_short_name_str(),
++            gpu_gid: msg.gpu_gid(),
++            bar1_pde_base: msg.bar1_pde_base(),
++            usable_fb_regions,
++            total_fb_end,
++        })
++    }
++}
++
++/// Error type for [`GetGspStaticInfoReply::gpu_name`].
++#[derive(Debug)]
++pub enum GpuNameError {
++    /// The GPU name string does not contain a null terminator.
++    NoNullTerminator(FromBytesUntilNulError),
++
++    /// The GPU name string contains invalid UTF-8.
++    InvalidUtf8(Utf8Error),
++}
++
++impl GetGspStaticInfoReply {
++    /// Returns the name of the GPU as a string.
++    ///
++    /// Returns an error if the string given by the GSP does not contain a null terminator or
++    /// contains invalid UTF-8.
++    pub fn gpu_name(&self) -> Result<&str, GpuNameError> {
++        CStr::from_bytes_until_nul(&self.gpu_name)
++            .map_err(GpuNameError::NoNullTerminator)?
++            .to_str()
++            .map_err(GpuNameError::InvalidUtf8)
++    }
++
++    /// Returns the short name of the GPU as a string.
++    ///
++    /// Returns an error if the string given by the GSP does not contain a null terminator or
++    /// contains invalid UTF-8.
++    pub fn gpu_short_name(&self) -> core::result::Result<&str, GpuNameError> {
++        CStr::from_bytes_until_nul(&self.gpu_short_name)
++            .map_err(GpuNameError::NoNullTerminator)?
++            .to_str()
++            .map_err(GpuNameError::InvalidUtf8)
++    }
++
++    /// Returns the total usable VRAM size in bytes, i.e. the summed lengths of all usable FB
++    /// regions.
++    pub fn vram_size(&self) -> u64 {
++        self.usable_fb_regions.iter().fold(0, |size, region| {
++            size.saturating_add(region.end - region.start)
++        })
++    }
++}
++
++pub(crate) use fw::commands::PowerStateLevel;
++
++/// The `UnloadingGuestDriver` command, used to shut down the GSP.
++///
++/// Only used within the `gsp` module.
++pub(crate) struct UnloadingGuestDriver {
++    level: PowerStateLevel,
++}
++
++impl UnloadingGuestDriver {
++    /// Creates a new `UnloadingGuestDriver` command for the given [`PowerStateLevel`].
++    pub(crate) fn new(level: PowerStateLevel) -> Self {
++        Self { level }
++    }
++}
++
++impl CommandToGsp for UnloadingGuestDriver {
++    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
++    type Command = fw::commands::UnloadingGuestDriver;
++    type Reply = UnloadingGuestDriverReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        fw::commands::UnloadingGuestDriver::new(self.level)
++    }
++}
++
++/// The reply from the GSP to the [`UnloadingGuestDriver`] command.
++pub(crate) struct UnloadingGuestDriverReply;
++
++impl MessageFromGsp for UnloadingGuestDriverReply {
++    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
++    type InitError = Infallible;
++    type Message = ();
++
++    fn read(
++        _msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        Ok(UnloadingGuestDriverReply)
++    }
++}
 
 -- 
 2.56.0
