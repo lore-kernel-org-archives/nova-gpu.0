@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.6
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792770093;
-	b=1uxKOd3ZNdN5Lenx+oJM5sPE8txa0QnHExnH2aznAXF883R/yLwSVJKQWojR47qhJPPs
-	 ywAk8eC6Wco/1lUHxUptL4dhXfxz6WWiQJN+8SGaVHqTqPuUAZE/ebg+cZf9u16/ETSRf
-	 +dJUqqxvsq+TpsKqJXiLLSNpYGB7NsWfSbWKy5u1avihq8FqkG8xtWQaJvZg3EjJDcibd
-	 b0d6FcTt1MK54jv5se+EWN6NljlJe79eDeU2I4GI+I2RVh5C8YYMee/jxN8meR2fwWnl5
-	 iE6dhMlUxLLmv9eNE3zi5IR+tzOFC0xNINzvYCcwI/yMwPDF9cSlt3uN970qArj2YHw==
+	t=1792770189;
+	b=1IbhsEEAyuwwKSNXFmyZ6gGTNjztaxUEUUnEw1q+nNNRUt6eXc7fjbbMNf5mHgk+pvu3
+	 bJzU8zdTtJEN6A9C2CbhN1wWOO8WxBfFc0dJMvxNdlPmx8E8eT9Nj/k4m8NIEEZVgyZp1
+	 wB/uP295gUck0fMUXEQLLfDofJOdVy4Ev/LAeH4UtzX8FyQ2Addoj+aaSlEheRC36GXnr
+	 ORIcKKWYTDCIXsqF2GtfPwvM1Gh2zrKZjIiYqf87TZKEYSGxKwF9ODYv9AW1YeO6hXxRT
+	 5jKhGVt3pulZVf8vNzfFlZENMKVhngrmhMO4bqEnyWGxguhsYsEOfdk5JViETPEE4GQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770189;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -26,72 +26,72 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=C4zbaE/e+GmDcND1huMmVFuYUtPI97y8FYfbdlJVD3Y=;
-	b=UsKbcbI05agoo7zZKTPZyb/QKGcxOK53NSM91SkSFk2RsVao/gX9OO5neojRUC2Uzeqr
-	 tC+o05q19py1XFqPyUUr9PU7ThaVsxlbc0n9WfVIJBJpEtkfsF6NDNIsnDRbIAJuqF1+w
-	 S0cernD19biTsh+eGlSFRQFZ+++0dMD/6T7r3ugRpknrmKTmGp+GJXSR+7hzq45LB6uD+
-	 AdD6DmwAAGDWAEqYGbpnjxbvB6e0acBsvJkAT4OkEQEV387Lq5McqoNB3zQU476O9Q0GR
-	 3EDSmHmY6023aDly7ubwxdWNqmhSLyCiQTG+PDnXD8qvJX8YqS85VhfJH44sqvn8q6Q==
+	bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
+	b=NotWi63QGZsuxxQFKhpx1B5nCw7SbJx1yxxvHuHhXGRL4j0Ad/xAkWm3HkARSFta6/r2
+	 pMsIYL+Mdz7jAHJ9YYeph9hztmouv4sjjobXrpfszjiph15UsD4tmcatPnDSpymTUZz1G
+	 XsyfXFzyCniuHmuR1Z6IsGOx5veD2d70scJsElaTSIqVFcVLuje5yniJ+u6mDOi+DQkt3
+	 2yFLmbNmuaIpiH0rmkrCIHNNAQCFQWPHYw6jhB0go3pCWTrA5L2g7dfy4O4zXRKPr6/2g
+	 THYmui7VTTdAZfDtSqSteVXnJCOJaeD835PbCyqWBVYgfwgkaGnQIN5fhvrXR2xBW9g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JaVMTmOb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.1
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011001.outbound.protection.outlook.com [52.101.52.1])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rEhCzlPe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.6
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013006.outbound.protection.outlook.com [40.107.201.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF69C60A6F75
-	for <nova-gpu@lists.linux.dev>; Fri, 23 Oct 2026 15:41:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF69C60A6F75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D09606A31A
+	for <nova-gpu@lists.linux.dev>; Fri, 23 Oct 2026 15:43:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36D09606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JaVMTmOb
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rEhCzlPe
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NNkc3tJxOSnhC63fmbedk+DFKi7egSIM21mRSHvEWgoc6qd+9dh+v8uP/6yVCkTKsvbywd2qEoOgL2PZJqGLWygeDI1wAdT03oj67Knsc/Hmj9wg8QebvhjbE85BIbdPDciXHd4yFjXRv91N4B2pkjlCllX+KigHQmZ/FW5WXJx0XTyAbRLDyJjVBbJ2vPIlXi2RSsojNgnmN1uxEazUHdsVIJAy1+WwK8rT54SOFX0efO3uF2twFCn2gdmvtYUCao5GQN9Lmq7FtmE9q4yFekVJBG2p95KgOchX0asKr1Kos+uQAXHw9LMegyyfkBAGZbUYMXuMtUk+cETxKdyzQw==
+ b=mx6sNVGdFD/ztZQ+QSAEsHCAn0V1CdgjIPTDIoo/ISJL3irZ7e8e/iGEWfeUzGp73Hn/ZpVam9TwRMBm6Ta0lzdiQTf4v/C8e2RBcPkIzAA6IMiivZxcLqSTSDWNzunC8TUoTENwYDe8ZmvS65SqKLzO0cqx4etqeMYRNrhIgP2KGM9oCJcVsMZ/yegAUw3W7EvTRxiRDqnXWAiBcAW2dM6h8RHFJ2aC4xpdOEFIYGN6VsWeFg8+0ZTCZ6YpdV9b6yYgQ+n6f/rI2UNIqYMSD19Q8CUqi5dIqD4e31GVag6OlJGfU0cStcIjaeexF+4VU7MNk314Y6h8HogZSojijQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C4zbaE/e+GmDcND1huMmVFuYUtPI97y8FYfbdlJVD3Y=;
- b=e6AgKux/Xpq/AJUoXINSV+HH1e/4GGMPlpAwfZlD2+33r/kFRXdZc5fTo6Kxtf5qG391qvIPdSQnhGuOSOboanMlNui/Bic6iB9Xj89vFWrA1mQNor6ezSDLKCGuYFiG5dNlPPyUUzhAdobTVSZHhnpBxE5oOBhNtyJAUx4p0psBD7VonSysJspxdDuIuOex2DhMSeJoMpOSYHGcRs9mm++xWKtRa/pTIJSKpNmkW4P2a70neEAvwKDxYdMR9EOqPupRqS8Dlvj/S51iDnIB+1xwjNxsIyaDqh6Ug5krenmzG7Coi8Bc64sLAUXdDpDFoguqI+WWgI6yoTuEWcsHcw==
+ bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
+ b=JGtE62bpv6o+FfSjjLhBDZFptuPmItexet4TgTKHUC+JhrnkkT40wsNSuj7vANYUb1nMsIrddTyutvOnq2c8qMtw3f5weT3X7AA0b0kNlWKOCQWQ5ww+uUEmoxlW8AdL3TAZ5dovf8aRUG2T2dmL59PL24aCy2PD083qmO8Gx0ynWzk0uVbe1eZJmrDEBUoXyS3GncekpGjDKwePWnEQd2iMjyaiUJyvaNsIjqFkZRaEGOQcYC/UXM78dKo0UYpitAikxWDeDEykf8mL+o3UqVJB24Gets8WPBmsvXlgX3duSt7yaK933an7ndx50jvVZsG9AKjtB1G2u7upbXyitA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C4zbaE/e+GmDcND1huMmVFuYUtPI97y8FYfbdlJVD3Y=;
- b=JaVMTmObNoHjLyrW3sUDxIAakAWOIBHHS6QTLCHjpvYfXuBzOcpM4wM1AHsNRd+12Mpkat2m7VajpeUyVV61xUGp8BPBl+tz5Cn04RxFKA7y6I7cpJiHI99gbSPO3vpbXGQS7gH9Ey9bGsp03+aev8d053KQ0hmymQAVrxm7w0wiVCcuG/xKlOPWmYpSHI1XkpfthlOr0M4pBCO2hPfGY+F1Ww0tH62l7201B+kyA0+D3/6l8cWRN+EIpBzHUXtPo/t3It9YY0gcBbMeHHnnZKfCsF5a+d+KPQvjcjLnlre2pdktFqVuTpjr4HZTI3h0FTVePL341avhqeZ6bqTJZA==
-Received: from BLAPR03CA0108.namprd03.prod.outlook.com (2603:10b6:208:32a::23)
- by DS5PPF5FAA0E762.namprd12.prod.outlook.com (2603:10b6:f:fc00::651) with
+ bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
+ b=rEhCzlPeEbzr9//xeYRzu8Cx1LrVsn+5Ca4DTFiAZASA26nTQmIsp5Ceo+aRPM39Us9nIdkWqDfWvP37PjJ0K6agz8O4ptv8owRlV+hOSzPi3sg2AtKMl4S+UMvpuRtx9LQyyrYgiUtcFqlyohoUaC3bEoNGI0Hz++umGXBesR3dXoiwMRj1ZYQIt23+2iLUwCihF5nko3TmIlXJviLTjR+/ViDz+pBXe5nx/rlhF8YJtXmuXeCZQ/W6T1RNw/FI9w7X6j0qm8yAeG+xmD7m/IgxXmp8zzStjqoYEHgEfwM8LtDVqSPcDuruZ+ZhauzSzjrw7mi3fZQVRAbzVSe9Dw==
+Received: from SJ0PR03CA0134.namprd03.prod.outlook.com (2603:10b6:a03:33c::19)
+ by DS6PR12MB140904.namprd12.prod.outlook.com (2603:10b6:8:4f4::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 15:41:17 +0000
-Received: from BL02EPF00029928.namprd02.prod.outlook.com
- (2603:10b6:208:32a:cafe::80) by BLAPR03CA0108.outlook.office365.com
- (2603:10b6:208:32a::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri,
- 23 Oct 2026 15:41:17 +0000
+ 2026 15:41:01 +0000
+Received: from CO1PEPF00018860.namprd02.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::45) by SJ0PR03CA0134.outlook.office365.com
+ (2603:10b6:a03:33c::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.18 via Frontend Transport; Fri,
+ 23 Oct 2026 15:41:01 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BL02EPF00029928.mail.protection.outlook.com (10.167.249.53) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CO1PEPF00018860.mail.protection.outlook.com (10.167.249.249) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 15:41:17 +0000
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 15:41:00 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 23 Oct
- 2026 08:40:51 -0700
+ 2026 08:40:36 -0700
 Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 23 Oct 2026 08:40:50 -0700
+ 15.2.2562.56; Fri, 23 Oct 2026 08:40:34 -0700
 From: Simon Song <xinmengs@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
 	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -110,9 +110,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
 	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
 	<peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v2 10/12] rust: vfio: separate common device handling from PCI
-Date: Fri, 23 Oct 2026 08:40:05 -0700
-Message-ID: <20261023154009.2246627-11-xinmengs@nvidia.com>
+Subject: [PATCH v2 03/12] rust: pci: allow drivers to manage DMA ownership
+Date: Fri, 23 Oct 2026 08:39:58 -0700
+Message-ID: <20261023154009.2246627-4-xinmengs@nvidia.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
 References: <20261023154009.2246627-1-xinmengs@nvidia.com>
@@ -131,650 +131,68 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00029928:EE_|DS5PPF5FAA0E762:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf7e5700-9c5c-450f-5011-08df311c13e8
+X-MS-TrafficTypeDiagnostic: CO1PEPF00018860:EE_|DS6PR12MB140904:EE_
+X-MS-Office365-Filtering-Correlation-Id: 424304c6-555c-4f80-955a-08df311c0a0f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|7416014|23010399003|10067099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|3023799007|261009223027099003|5023799004|11063799006|22082099003|18002099003|6133799003|56012099006;
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|261021121427099003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|261022105027099003;
 X-Microsoft-Antispam-Message-Info:
-	/WueU1G2aHb0sis3Jb16vI0CZ9WQq9ppykHKqFGwJhRtnCEgAUyXG30BKif2VhssIFao5eW+iJdZD5kI/um7V+W5fkVuQ6rWBlSd3Fi+bOX7nIVQt1Mw8I6C2C2l13RPjwgClwJTLT8zrUHmGRVWPS3pBMmLs1y9z5XokqrNNQxuU36N0sDoHWZyWuSw78HmU/jYr/UbzRsqz6MWiPvUPHfVJCWudTKuXPS6rj4BPemLSosMn0MzsyFag+WVoE0ben84GBFuB7bu4ZNBdOPTYa7IN5YZAHzvxYvAsOk3Pf3dBZbhSA7qUpz4/1gxXc2Y8F5wqm1NVeiluJfdVDCtE0akbIcim3Ga+aI2EL0MhYdNcoDaxWoX0hlOzxkz3YbBMmKEb1Zo2dslTXE5J+7Ku9NEa5vvQKlTS2zSkX8co1XOsLrtwANRtQVuQeqiGw7rBk+ytVIrQQBl1bVLbElPHjQpS5vRH7wRNJD1wKJLbjxJejdU7lYRY4yh4hdnAFjpvDCL9tdZkyPwliVSRX+EZZqLWRHX6iP2AuUOuobiiL0PiIiDcL2j6TLobeU2rDYKEFi4/t2SoPQYfkWI4O0De8PLD2mYHf8eKmCg123towYMZJPRybM4Q4wUQwCUVFswVIUYOFIGjmAX7uWWc7aLEC6Nul+vE7Ahp9C8QxgyqO3qOARfdA5MvIavhiHUhi0fed9DZYPhjKtT4SpmXq0bGA==
+	T4h3fNZOLgbfLwZ+SPBROaUrpgfXCTi22YdPCL2Pwrh65IFm8jAsVXOre0e6h+rvcYPOuIDi3aScdcgQ1+/+Uhk+AcaSVNx8gKk6MofThIEV188Gx5nlLDzPyXwOKMZ55AmIDgNo9lj/WCItFdFZNjxGyzUns/xVjCudut4P0uD5lFuof8jTE1HPYhSCNHR7Wf6oxCp6E7tsy2t2DdM+hZCsT72VOVJ3UEYrUDLLnsgc4pPpHY0JpqBqRJRLntZSajE9YlKX564xTEUKTcZHcJbIJBAW4BBQwYPcfV1XqYh3vb4EiRkryiNfT4Gl4c3fvkTIMfqBfQLM/lUtdOiCBp1FKJ05iXuo1DSldRi+BkvuevqR4udhvGQ1EN9e/IUsVintuIlCaBsHeieF5XYBEkcql259uKbrf9oZj6X4KhGVJRq0nToVxCp2r/Ab+PljhiujErH88tLdTckCOMrN1fBAAtgRpTVyDHjZ6UwJ9N8pBqMBecJdAvuqmecN7iGsNrFlr14Ln2JIne9avim5neuVJsVRjSFJkMn4esTH+b+VwJji3X0FLm6XJt3SHXzn6YJ/OXCchZMWCAOPJEnYaBBogUS4Ml6uzEeOZRIebk/NUz4qssV8Po7m5Vz4n/SRNF2s0h2RXbj3OQrV/DAfbm4h4VZOEX2JqCrE17yKkbWHcxiR5+nDt74aZMhzwcU3s9YLMQJtyTDVEhIGDeui0Q==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(7416014)(23010399003)(10067099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(3023799007)(261009223027099003)(5023799004)(11063799006)(22082099003)(18002099003)(6133799003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(261021121427099003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(261022105027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	HjIEUoYkuFlEbv2SjOW4Bb2HYnjpILQUTBirtTOOKRV4mritu6ktEAvAj51Xi/Fx/vBF2d9Tbbq4Ytt9Kmem0WaWjC9P/jdnoxNnbagVYMPeqq96MpYTJcu6t+3f4qH1oYXOGuKAtL0PZgYteV1KfsaUFCPqP+wXfncYGVdPceCvEaaJxKsjQb6FeUob86g6uTNVzBrKjHUt+JKd6s83e0wLe682JR//2NLrg4JeFVkQbJ0AmNsf0GP/nGaJ6+fU4OdbqOqYFG/AxA2/hYZACsbPu3uJu/SC18aWH3uHFwszDxHEbUC65aCDAlFUxAzZ6cs/gHzisndTxle0Lk9/R7fTBNmBKLHE4H1s0EiiXYfzt6oUlIsCW/RPwEgjB3hgFCrx3FxShbpEYwvR30CJbrl1VX+dMln0ko5bN5qSp6zIoW6A4f7M5P6/OgvwdZsw
+	d7lepq/zECbr4FZrOIRPOTlR3OVgVtcGQuQZ7CU5Silf8RLkGUy3D8v7i6PXCdUrtJu0L1E4Ym07/0ByOllD7Rvyp/xZijNELjGyxRwV5pa6Ue6qTLvdkaOOcTOyzpwxe4s0LCyN+JL8Au4GwleXDWm2BOyVlJV7yE6lQRGED6l9WW6Eez0IR5uZiOAS4LYkLPwm+5XNCC9QVjgs2zhxvIX9oyyEvBqOt6fsI6re90sJUFO42Lex7ACC2Blb7WkZvXVxd7zDAhMavgzYwjjp2IIWdf2RKpp/mtriysES0555E03F853HgrmtSLqY4hJwrOeDM/yCrwVJ6bPzXnoQRu7U8ztC/F2pp7NW3V6lCuEYwA5Cqtg3PypUlGGJL6OhDpujwrXgXcos1d9Ltu9KcZvy9h0x0agJ1bkjW+Austsh776MIgdbz0RJqkEtFgfw
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:17.1139
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:00.6872
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf7e5700-9c5c-450f-5011-08df311c13e8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 424304c6-555c-4f80-955a-08df311c0a0f
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00029928.namprd02.prod.outlook.com
+	CO1PEPF00018860.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5FAA0E762
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB140904
 
-From: Zhi Wang <zhiw@nvidia.com>
+From: Danilo Krummrich <dakr@kernel.org>
 
-A VFIO PCI device contains a VFIO device. Expose that relationship in
-Rust so common device handling is independent of PCI resources.
+VFIO manages DMA ownership through the userspace IOMMU interface. Its
+PCI variant drivers must opt out of the driver's default DMA domain.
 
-Add vfio::Device and have vfio::pci::Device borrow its embedded device
-through AsRef, preserving the callback context. Share reference counting
-and callback-data lifetime handling in vfio. Keep driver operations,
-allocation, registration and the PCI enable/close sequence in vfio::pci.
+Add Driver::DRIVER_MANAGED_DMA and pass it to the PCI core. Existing
+Rust PCI drivers keep the default setting.
 
-No functional change is intended.
-
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Simon Song <xinmengs@nvidia.com>
 ---
- rust/kernel/vfio.rs     | 200 +++++++++++++++++++++++++++++++++++++++-
- rust/kernel/vfio/pci.rs | 199 ++++++++++++---------------------------
- 2 files changed, 255 insertions(+), 144 deletions(-)
+ rust/kernel/pci.rs | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/rust/kernel/vfio.rs b/rust/kernel/vfio.rs
-index ed93066e2da..a0bfbc7c59a 100644
---- a/rust/kernel/vfio.rs
-+++ b/rust/kernel/vfio.rs
-@@ -1,14 +1,29 @@
- // SPDX-License-Identifier: GPL-2.0
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 10864ffda4e..a156927e23d 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -108,6 +108,7 @@ unsafe fn register(
+             (*pdrv.get()).probe = Some(Self::probe_callback);
+             (*pdrv.get()).remove = Some(Self::remove_callback);
+             (*pdrv.get()).id_table = T::ID_TABLE.as_ptr();
++            (*pdrv.get()).driver_managed_dma = T::DRIVER_MANAGED_DMA;
+             #[cfg(CONFIG_PCI_IOV)]
+             if T::HAS_SRIOV_ENABLE {
+                 (*pdrv.get()).sriov_configure = Some(Self::sriov_configure_callback);
+@@ -345,6 +346,9 @@ pub trait Driver {
+     /// The table of device ids supported by the driver.
+     const ID_TABLE: IdTable<Self::IdInfo>;
  
--//! Virtual Function I/O (VFIO) abstractions.
-+//! Virtual Function I/O (VFIO) devices and callback data.
-+//!
-+//! Bus-specific device types borrow their embedded VFIO device through [`AsRef`].
-+//! C header: [`include/linux/vfio.h`](srctree/include/linux/vfio.h)
- 
- use crate::{
-     bindings,
-     prelude::*,
-+    sync::aref::AlwaysRefCounted,
-+    types::{
-+        CovariantForLt,
-+        ForLt,
-+        NotThreadSafe,
-+        Opaque, //
-+    },
-     uaccess::{
-         UserPtr,
-         UserSlice, //
--    },
-+    }, //
-+};
-+use core::{
-+    cell::UnsafeCell,
-+    marker::PhantomData,
-+    ptr::NonNull, //
- };
- 
- #[cfg(CONFIG_VFIO_PCI_CORE)]
-@@ -17,12 +32,187 @@
- /// Reset the VFIO device.
- pub const DEVICE_RESET: u32 = bindings::VFIO_DEVICE_RESET;
- 
--/// Reset the PCI slot or bus containing a VFIO device.
--pub const DEVICE_PCI_HOT_RESET: u32 = bindings::VFIO_DEVICE_PCI_HOT_RESET;
-+/// The context in which a VFIO device reference is valid.
-+///
-+/// Callback views can only be borrowed from the corresponding VFIO trampoline.
-+/// They cannot be refcounted or shared across threads.
-+pub trait DeviceContext: private::Sealed {}
++    /// Whether the driver manages DMA ownership instead of using the default DMA domain.
++    const DRIVER_MANAGED_DMA: bool = false;
 +
-+/// An ordinary device reference, without callback-specific operations.
-+pub struct Normal;
-+
-+/// The device is undergoing its exclusive first-open callback.
-+pub struct Open;
-+
-+/// The device is borrowed for a VFIO ioctl callback on the current thread.
-+pub struct Ioctl;
-+
-+/// The device is borrowed for a VFIO read callback on the current thread.
-+pub struct Read;
-+
-+/// The device is borrowed for a VFIO write callback on the current thread.
-+pub struct Write;
-+
-+/// The device is borrowed for a VFIO mmap callback on the current thread.
-+pub struct Mmap;
-+
-+/// The device is borrowed for a VFIO region-info callback on the current thread.
-+pub struct GetRegionInfo;
-+
-+mod private {
-+    pub trait Sealed {}
-+
-+    impl Sealed for super::Normal {}
-+    impl Sealed for super::Open {}
-+    impl Sealed for super::Write {}
-+    impl Sealed for super::Mmap {}
-+    impl Sealed for super::Ioctl {}
-+    impl Sealed for super::Read {}
-+    impl Sealed for super::GetRegionInfo {}
-+}
-+
-+impl DeviceContext for Normal {}
-+impl DeviceContext for Open {}
-+impl DeviceContext for Write {}
-+impl DeviceContext for Mmap {}
-+impl DeviceContext for Ioctl {}
-+impl DeviceContext for Read {}
-+impl DeviceContext for GetRegionInfo {}
-+
-+/// A VFIO device, independent of its bus-specific wrapper.
-+///
-+/// # Invariants
-+///
-+/// The underlying `vfio_device` is initialized and remains alive while borrowed.
-+/// Callback contexts are borrowed only for the corresponding callback and thread;
-+/// only [`Normal`] references can be reference-counted.
-+#[repr(transparent)]
-+pub struct Device<Ctx: DeviceContext = Normal> {
-+    raw: Opaque<bindings::vfio_device>,
-+    _context: PhantomData<(Ctx, NotThreadSafe)>,
-+}
-+
-+impl<Ctx: DeviceContext> Device<Ctx> {
-+    /// # Safety
-+    ///
-+    /// `raw` must point to an initialized `vfio_device` that remains alive for
-+    /// `'a`. The caller must provide the guarantees of `Ctx` throughout the borrow.
-+    #[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
-+    unsafe fn from_raw<'a>(raw: *mut bindings::vfio_device) -> &'a Self {
-+        // SAFETY: Self is a transparent wrapper; the caller guarantees validity and context.
-+        unsafe { &*raw.cast() }
-+    }
-+
-+    fn as_raw(&self) -> *mut bindings::vfio_device {
-+        self.raw.get()
-+    }
-+}
-+
-+// SAFETY: VFIO uses the embedded class device's refcount to own the full allocation.
-+unsafe impl AlwaysRefCounted for Device {
-+    fn inc_ref(&self) {
-+        // SAFETY: A shared reference keeps the initialized VFIO device alive.
-+        unsafe { bindings::get_device(&raw mut (*self.as_raw()).device) };
-+    }
-+
-+    unsafe fn dec_ref(obj: NonNull<Self>) {
-+        // SAFETY: The caller owns the VFIO reference being released.
-+        unsafe { bindings::put_device(&raw mut (*obj.as_ref().as_raw()).device) };
-+    }
-+}
-+
-+// SAFETY: Ordinary VFIO references expose no unsynchronized callback operations.
-+unsafe impl Send for Device {}
-+// SAFETY: Shared access only changes the embedded class device's reference count.
-+unsafe impl Sync for Device {}
-+
-+/// Callback data stored after the bus-specific C device structure.
-+///
-+/// # Invariants
-+///
-+/// `reg_data` is dangling when unpublished; otherwise it borrows pinned data kept
-+/// alive until callback access has ended. `open_data` is null outside a successful
-+/// first open, otherwise owns a pinned allocation until the last close.
-+/// The bus-specific layer drains callbacks before releasing either allocation.
-+struct CallbackData<R: CovariantForLt, O: ForLt> {
-+    reg_data: UnsafeCell<NonNull<R::Of<'static>>>,
-+    open_data: UnsafeCell<*mut O::Of<'static>>,
-+}
-+
-+#[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
-+impl<R: CovariantForLt, O: ForLt> CallbackData<R, O> {
-+    fn new() -> Self {
-+        Self {
-+            reg_data: UnsafeCell::new(NonNull::dangling()),
-+            open_data: UnsafeCell::new(core::ptr::null_mut()),
-+        }
-+    }
-+
-+    /// Access registration data without allowing its erased lifetime to escape.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Registration data must be published and remain valid through this call.
-+    /// The caller must exclude concurrent changes to `reg_data`.
-+    unsafe fn registration_data_with<V>(&self, f: impl for<'a> FnOnce(&'a R::Of<'a>) -> V) -> V {
-+        // SAFETY: The caller keeps registration data alive and excludes mutation.
-+        // Covariance permits shortening its erased lifetime to this borrow.
-+        let reg_data = unsafe { (*self.reg_data.get()).cast::<R::Of<'_>>().as_ref() };
-+        f(reg_data)
-+    }
-+
-+    /// # Safety
-+    ///
-+    /// The caller must be an I/O callback while VFIO keeps the device open.
-+    /// Registration and open data must remain valid, with their pointer slots
-+    /// unchanged throughout the call.
-+    unsafe fn callback_data_with<V>(
-+        &self,
-+        f: impl for<'borrow, 'data> FnOnce(&'borrow R::Of<'data>, Pin<&'borrow O::Of<'data>>) -> V,
-+    ) -> V {
-+        // SAFETY: The caller excludes open/close and unregister while borrowing the data.
-+        unsafe {
-+            self.registration_data_with(|reg_data| {
-+                let ptr = (*self.open_data.get()).cast::<O::Of<'_>>();
-+                // The data lifetime stays independent of the callback borrow,
-+                // so borrowed OpenData fields cannot be stored back into OpenData.
-+                f(reg_data, Pin::new_unchecked(&*ptr))
-+            })
-+        }
-+    }
-+
-+    /// # Safety
-+    ///
-+    /// Call only during exclusive first open, with no existing open data.
-+    /// All resources borrowed for `'a` must remain valid until `close()` returns.
-+    unsafe fn open<'a, I: PinInit<O::Of<'a>, Error>>(&self, init: impl FnOnce() -> I) -> Result {
-+        // Allocate before calling the driver so allocation failure cannot follow open.
-+        let data = KBox::<O::Of<'a>>::new_uninit(GFP_KERNEL)?;
-+        let data = data.write_pin_init(init())?;
-+
-+        // SAFETY: Only the owning pointer moves; close drops the allocation in place.
-+        let raw = KBox::into_raw(unsafe { Pin::into_inner_unchecked(data) });
-+        // SAFETY: First open is exclusive; the caller keeps borrowed resources alive
-+        // through close. Lifetimes do not affect the allocation's layout.
-+        unsafe { *self.open_data.get() = raw.cast::<O::Of<'static>>() };
-+        Ok(())
-+    }
-+
-+    /// # Safety
-+    ///
-+    /// Call once after a successful open, with all callbacks drained and the next
-+    /// open excluded. Registration data and borrowed resources must remain alive.
-+    unsafe fn close(&self) {
-+        // SAFETY: Last close exclusively takes the allocation published by open.
-+        let raw = unsafe { core::mem::replace(&mut *self.open_data.get(), core::ptr::null_mut()) };
-+        // SAFETY: The allocation came from KBox::into_raw and is destroyed without moving it.
-+        unsafe { drop(KBox::from_raw(raw)) };
-+    }
-+}
- 
- /// Capability buffer supplied by VFIO for a region-info callback.
--#[cfg(CONFIG_VFIO_PCI_CORE)]
- pub struct InfoCap<'a> {
-+    #[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
-     raw: &'a mut bindings::vfio_info_cap,
- }
- 
-diff --git a/rust/kernel/vfio/pci.rs b/rust/kernel/vfio/pci.rs
-index f3e68a3d18c..a27b1a1774c 100644
---- a/rust/kernel/vfio/pci.rs
-+++ b/rust/kernel/vfio/pci.rs
-@@ -10,9 +10,20 @@
- //! C header: [`include/linux/vfio_pci_core.h`](srctree/include/linux/vfio_pci_core.h)
- 
- use super::{
-+    CallbackData,
-     InfoCap,
-     UserBuf, //
- };
-+pub use super::{
-+    DeviceContext,
-+    GetRegionInfo,
-+    Ioctl,
-+    Mmap,
-+    Normal,
-+    Open,
-+    Read,
-+    Write, //
-+};
- 
- use crate::{
-     alloc::allocator::Kmalloc,
-@@ -39,61 +50,16 @@
- };
- use core::{
-     alloc::Layout,
--    cell::UnsafeCell,
-     marker::PhantomData,
-     ptr::NonNull, //
- };
- 
-+/// Reset the PCI slot or bus containing a VFIO device.
-+pub const DEVICE_PCI_HOT_RESET: u32 = bindings::VFIO_DEVICE_PCI_HOT_RESET;
-+
- /// Index of the PCI configuration-space region.
- pub const CONFIG_REGION_INDEX: u32 = bindings::VFIO_PCI_CONFIG_REGION_INDEX;
- 
--/// The context in which a VFIO PCI device reference is valid.
--///
--/// Callback views can only be borrowed from the corresponding VFIO trampoline.
--/// They cannot be refcounted or shared across threads.
--pub trait DeviceContext: private::Sealed {}
--
--/// An ordinary device reference, without callback-specific operations.
--pub struct Normal;
--
--/// The device is enabled but has not yet completed its first-open callback.
--pub struct Open;
--
--/// The device is borrowed for a VFIO ioctl callback on the current thread.
--pub struct Ioctl;
--
--/// The device is borrowed for a VFIO read callback on the current thread.
--pub struct Read;
--
--/// The device is borrowed for a VFIO write callback on the current thread.
--pub struct Write;
--
--/// The device is borrowed for a VFIO mmap callback on the current thread.
--pub struct Mmap;
--
--/// The device is borrowed for a VFIO region-info callback on the current thread.
--pub struct GetRegionInfo;
--
--mod private {
--    pub trait Sealed {}
--
--    impl Sealed for super::Normal {}
--    impl Sealed for super::Open {}
--    impl Sealed for super::Write {}
--    impl Sealed for super::Mmap {}
--    impl Sealed for super::Ioctl {}
--    impl Sealed for super::Read {}
--    impl Sealed for super::GetRegionInfo {}
--}
--
--impl DeviceContext for Normal {}
--impl DeviceContext for Open {}
--impl DeviceContext for Write {}
--impl DeviceContext for Mmap {}
--impl DeviceContext for Ioctl {}
--impl DeviceContext for Read {}
--impl DeviceContext for GetRegionInfo {}
--
- /// The trait for VFIO PCI variant driver implementations.
- ///
- /// Unoverridden callbacks delegate to the corresponding PCI core operation.
-@@ -280,20 +246,22 @@ pub fn region_end(&self) -> Result<u64> {
- /// - Callback contexts are only borrowed for the corresponding callback and thread.
- /// - `core_device` was initialized by `vfio_pci_core_init_dev()`.
- /// - The VFIO device refcount owns the allocation lifetime.
--/// - `reg_data` is dangling without an owner or points to a valid
--///   `<T::RegistrationData as ForLt>::Of<'_>` owned by the enclosing [`Registration`].
--/// - `open_data` is null outside a successful open, otherwise it owns a pinned
--///   `KBox<T::OpenData<'_>>` until last close. Only open/close mutate it; VFIO
--///   prevents I/O callbacks from racing those transitions. The data is dropped
--///   before PCI core close and before registration data is freed.
-+/// - `data` follows the VFIO registration and first-open/last-close lifetimes.
-+///   Open data is destroyed before PCI core close, and registration data is
-+///   released after PCI core unregistration has drained callbacks.
- #[repr(C)]
- pub struct Device<T: Operations, Ctx: DeviceContext = Normal> {
-     core_device: Opaque<bindings::vfio_pci_core_device>,
--    reg_data: UnsafeCell<NonNull<<T::RegistrationData as ForLt>::Of<'static>>>,
--    open_data: UnsafeCell<*mut T::OpenData<'static>>,
-+    data: CallbackData<T::RegistrationData, OpenDataFamily<T>>,
-     _context: PhantomData<(Ctx, NotThreadSafe)>,
- }
- 
-+struct OpenDataFamily<T>(PhantomData<T>);
-+
-+impl<T: Operations> ForLt for OpenDataFamily<T> {
-+    type Of<'a> = T::OpenData<'a>;
-+}
-+
- impl<T: Operations> Device<T> {
-     /// Allocate a VFIO PCI device for subsequent registration.
-     pub fn new(pdev: &pci::Device<device::Core<'_>>) -> Result<ARef<Self>> {
-@@ -307,6 +275,7 @@ pub fn new_passthrough(pdev: &pci::Device<device::Core<'_>>) -> Result<ARef<Self
- 
-     fn allocate(pdev: &pci::Device<device::Core<'_>>, passthrough: bool) -> Result<ARef<Self>> {
-         const_assert!(core::mem::offset_of!(Self, core_device) == 0);
-+        const_assert!(core::mem::offset_of!(bindings::vfio_pci_core_device, vdev) == 0);
-         let size = Kmalloc::aligned_layout(Layout::new::<Self>()).size();
- 
-         // SAFETY: The bound PCI device and static ops are valid. The allocation
-@@ -318,8 +287,7 @@ fn allocate(pdev: &pci::Device<device::Core<'_>>, passthrough: bool) -> Result<A
- 
-         // SAFETY: Initialise the Rust field in the newly allocated device.
-         unsafe {
--            (&raw mut (*this.as_ptr()).reg_data).write(UnsafeCell::new(NonNull::dangling()));
--            (&raw mut (*this.as_ptr()).open_data).write(UnsafeCell::new(core::ptr::null_mut()));
-+            (&raw mut (*this.as_ptr()).data).write(CallbackData::new());
-             (&raw mut (*this.as_ptr())._context).write(PhantomData);
-         }
- 
-@@ -332,50 +300,6 @@ fn allocate(pdev: &pci::Device<device::Core<'_>>, passthrough: bool) -> Result<A
-         Ok(unsafe { ARef::from_raw(this) })
-     }
- 
--    /// Access the registration data through a closure with an HRTB lifetime.
--    ///
--    /// The closure's `for<'a>` bound prevents the caller from smuggling
--    /// references with a concrete short lifetime out of the closure.
--    ///
--    /// # Safety
--    ///
--    /// Registration data must be published and remain valid through this call.
--    unsafe fn registration_data_with<R>(
--        &self,
--        f: impl for<'a> FnOnce(&'a <T::RegistrationData as ForLt>::Of<'a>) -> R,
--    ) -> R {
--        // SAFETY: Registration keeps the allocation and its borrowed resources
--        // alive until unregistration completes. Covariance permits shortening
--        // the erased binding lifetime to this callback's borrow.
--        let reg_data: &<T::RegistrationData as ForLt>::Of<'_> = unsafe {
--            (*self.reg_data.get())
--                .cast::<<T::RegistrationData as ForLt>::Of<'_>>()
--                .as_ref()
--        };
--        f(reg_data)
--    }
--
--    /// # Safety
--    ///
--    /// The caller must be an I/O callback while VFIO keeps the device open.
--    unsafe fn callback_data_with<R>(
--        &self,
--        f: impl for<'borrow, 'data> FnOnce(
--            &'borrow <T::RegistrationData as ForLt>::Of<'data>,
--            Pin<&'borrow T::OpenData<'data>>,
--        ) -> R,
--    ) -> R {
--        // SAFETY: VFIO excludes open/close and unregister while this callback runs.
--        unsafe {
--            self.registration_data_with(|reg_data| {
--                let ptr = (*self.open_data.get()).cast::<T::OpenData<'_>>();
--                // The data lifetime stays independent of the callback borrow,
--                // so borrowed OpenData fields cannot be stored back into OpenData.
--                f(reg_data, Pin::new_unchecked(&*ptr))
--            })
--        }
--    }
--
-     /// # Safety
-     /// The returned view must only be used during the callback represented by `Ctx`.
-     unsafe fn with_context<Ctx: DeviceContext>(&self) -> &Device<T, Ctx> {
-@@ -403,7 +327,15 @@ fn core_device(&self) -> *mut bindings::vfio_pci_core_device {
-     }
- 
-     fn vfio_device(&self) -> *mut bindings::vfio_device {
--        self.core_device.get().cast()
-+        self.as_ref().as_raw()
-+    }
-+}
-+
-+impl<T: Operations, Ctx: DeviceContext> AsRef<super::Device<Ctx>> for Device<T, Ctx> {
-+    fn as_ref(&self) -> &super::Device<Ctx> {
-+        // SAFETY: The PCI core device embeds an initialized vfio_device. The borrow
-+        // covers the same object and preserves the callback context and its lifetime.
-+        unsafe { super::Device::from_raw(&raw mut (*self.core_device()).vdev) }
-     }
- }
- 
-@@ -507,13 +439,14 @@ pub fn core_get_region_info(
- // SAFETY: The embedded device reference count owns the VFIO allocation.
- unsafe impl<T: Operations> AlwaysRefCounted for Device<T> {
-     fn inc_ref(&self) {
--        // SAFETY: `self` holds a live VFIO device reference.
--        unsafe { bindings::get_device(&raw mut (*self.vfio_device()).device) };
-+        self.as_ref().inc_ref();
-     }
- 
-     unsafe fn dec_ref(obj: NonNull<Self>) {
--        // SAFETY: The caller owns the reference being released.
--        unsafe { bindings::put_device(&raw mut (*obj.as_ref().vfio_device()).device) };
-+        // SAFETY: The caller owns a reference to this live PCI wrapper.
-+        let dev = unsafe { obj.as_ref() }.as_ref();
-+        // SAFETY: The embedded VFIO device owns the same allocation and reference.
-+        unsafe { super::Device::dec_ref(NonNull::from(dev)) };
-     }
- }
- 
-@@ -529,9 +462,7 @@ unsafe impl<T: Operations> Sync for Device<T> {}
- ///
- /// `vdev` must belong to a registered `Device<T>` in VFIO's first-open context.
- /// VFIO must exclude other opens, closes and I/O callbacks for this call.
--unsafe extern "C" fn open_device_cb<T: Operations>(
--    vdev: *mut bindings::vfio_device,
--) -> core::ffi::c_int {
-+unsafe extern "C" fn open_device_cb<T: Operations>(vdev: *mut bindings::vfio_device) -> c_int {
-     // SAFETY: `vdev` is valid; set by vfio_alloc_device.
-     let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
- 
-@@ -543,18 +474,9 @@ unsafe impl<T: Operations> Sync for Device<T> {}
- 
-     // SAFETY: Registration data is initialized before the VFIO device is published.
-     let result = unsafe {
--        dev.registration_data_with(|rd| {
--            // Allocate before calling the driver so allocation failure cannot follow open.
--            let data = KBox::<T::OpenData<'_>>::new_uninit(GFP_KERNEL)?;
--            let data = data.write_pin_init(T::open_device(dev.with_context::<Open>(), rd))?;
--
--            // SAFETY: Only the owning pointer is moved; the allocation remains pinned.
--            let raw =
--                KBox::into_raw(Pin::into_inner_unchecked(data)).cast::<T::OpenData<'static>>();
--            // SAFETY: First open is exclusive with I/O callbacks and last close.
--            // Lifetimes do not affect layout; the device owns the allocation until close.
--            *dev.open_data.get() = raw;
--            Ok::<(), Error>(())
-+        dev.data.registration_data_with(|rd| {
-+            dev.data
-+                .open(|| T::open_device(dev.with_context::<Open>(), rd))
-         })
-     };
-     match result {
-@@ -579,12 +501,9 @@ unsafe impl<T: Operations> Sync for Device<T> {}
- unsafe extern "C" fn close_device_cb<T: Operations>(vdev: *mut bindings::vfio_device) {
-     // SAFETY: `vdev` is valid.
-     let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
--    // SAFETY: Last close is exclusive with I/O callbacks and the next first open.
--    let raw = unsafe { core::mem::replace(&mut *dev.open_data.get(), core::ptr::null_mut()) };
--    // Run the driver's destructor while registration data and PCI resources are valid.
--    // SAFETY: Successful open transferred this allocation with `KBox::into_raw`.
--    // Last close takes ownership exactly once and drops it without moving the pointee.
--    unsafe { drop(KBox::from_raw(raw)) };
-+    // SAFETY: Last close drains I/O callbacks and excludes the next first open.
-+    // Registration data and PCI resources remain valid while open data is destroyed.
-+    unsafe { dev.data.close() };
-     // SAFETY: Matches the enable in open_device_cb.
-     unsafe { bindings::vfio_pci_core_close_device(vdev) };
- }
-@@ -602,7 +521,8 @@ unsafe impl<T: Operations> Sync for Device<T> {}
-     let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-     // SAFETY: VFIO invokes this callback for an open device with valid arguments.
-     match unsafe {
--        dev.callback_data_with(|rd, od| T::ioctl(dev.with_context::<Ioctl>(), rd, od, cmd, arg))
-+        dev.data
-+            .callback_data_with(|rd, od| T::ioctl(dev.with_context::<Ioctl>(), rd, od, cmd, arg))
-     } {
-         Ok(v) => v,
-         Err(e) => e.to_errno() as isize,
-@@ -633,7 +553,7 @@ unsafe impl<T: Operations> Sync for Device<T> {}
-     };
-     // SAFETY: VFIO invokes this callback for an open device with valid arguments.
-     match unsafe {
--        dev.callback_data_with(|rd, od| {
-+        dev.data.callback_data_with(|rd, od| {
-             T::read(dev.with_context::<Read>(), rd, od, &mut ubuf, &mut pos)
-         })
-     } {
-@@ -652,7 +572,7 @@ unsafe impl<T: Operations> Sync for Device<T> {}
-     vdev: *mut bindings::vfio_device,
-     info: *mut bindings::vfio_region_info,
-     caps: *mut bindings::vfio_info_cap,
--) -> core::ffi::c_int {
-+) -> c_int {
-     // SAFETY: `vdev`, `info`, and `caps` are valid kernel pointers provided
-     // by the VFIO core.
-     let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-@@ -664,7 +584,7 @@ unsafe impl<T: Operations> Sync for Device<T> {}
-     };
-     // SAFETY: VFIO invokes this callback for an open device with valid arguments.
-     match unsafe {
--        dev.callback_data_with(|rd, od| {
-+        dev.data.callback_data_with(|rd, od| {
-             T::get_region_info(dev.with_context::<GetRegionInfo>(), rd, od, info, &mut caps)
-         })
-     } {
-@@ -696,7 +616,7 @@ unsafe impl<T: Operations> Sync for Device<T> {}
-     };
-     // SAFETY: This callback runs while VFIO keeps both callback data allocations alive.
-     match unsafe {
--        dev.callback_data_with(|rd, od| {
-+        dev.data.callback_data_with(|rd, od| {
-             T::write(dev.with_context::<Write>(), rd, od, &mut ubuf, &mut pos)
-         })
-     } {
-@@ -713,7 +633,7 @@ unsafe impl<T: Operations> Sync for Device<T> {}
- unsafe extern "C" fn mmap_cb<T: Operations>(
-     vdev: *mut bindings::vfio_device,
-     vma: *mut bindings::vm_area_struct,
--) -> core::ffi::c_int {
-+) -> c_int {
-     // SAFETY: VFIO supplies an open device for this mmap callback.
-     let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-     let mut mapping = Mapping {
-@@ -723,7 +643,8 @@ unsafe impl<T: Operations> Sync for Device<T> {}
-     };
-     // SAFETY: This callback runs while VFIO keeps both callback data allocations alive.
-     match unsafe {
--        dev.callback_data_with(|rd, od| T::mmap(dev.with_context::<Mmap>(), rd, od, &mut mapping))
-+        dev.data
-+            .callback_data_with(|rd, od| T::mmap(dev.with_context::<Mmap>(), rd, od, &mut mapping))
-     } {
-         Ok(()) => 0,
-         Err(e) => e.to_errno(),
-@@ -830,7 +751,7 @@ pub unsafe fn new(
-             NonNull::from(Pin::get_ref(reg_data.as_ref())).cast();
- 
-         // SAFETY: No concurrent registration or callbacks; publish before registering.
--        unsafe { *dev.reg_data.get() = ptr };
-+        unsafe { *dev.data.reg_data.get() = ptr };
- 
-         Ok(Self {
-             dev: dev.into(),
-@@ -882,13 +803,13 @@ pub unsafe fn unregister(&self) {
-     /// Prepare the variant driver's state for a PCI reset.
-     pub fn reset_prepare(&self) {
-         // SAFETY: This owner keeps the pinned registration data alive.
--        unsafe { self.dev.registration_data_with(T::reset_prepare) };
-+        unsafe { self.dev.data.registration_data_with(T::reset_prepare) };
-     }
- 
-     /// Complete the variant driver's state update after a PCI reset.
-     pub fn reset_done(&self) -> Result {
-         // SAFETY: This owner keeps the pinned registration data alive.
--        unsafe { self.dev.registration_data_with(T::reset_done) }
-+        unsafe { self.dev.data.registration_data_with(T::reset_done) }
-     }
- 
-     /// Signal the VFIO error interrupt and return the PCI recovery result.
-@@ -923,6 +844,6 @@ pub unsafe fn runtime_resume(&self) -> Result {
- impl<T: Operations> Drop for Registration<'_, T> {
-     fn drop(&mut self) {
-         // SAFETY: The driver unregistered in `unbind`, or registration did not succeed.
--        unsafe { *self.dev.reg_data.get() = NonNull::dangling() };
-+        unsafe { *self.dev.data.reg_data.get() = NonNull::dangling() };
-     }
- }
+     /// PCI driver probe.
+     ///
+     /// Called when a new pci device is added or discovered. Implementers should
 -- 
 2.43.7
 
