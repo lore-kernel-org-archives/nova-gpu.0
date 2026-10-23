@@ -1,121 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.65
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.129
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792770212;
-	b=0Ez9q3lCl014IZkEDI1JsAHuh+RuxkIiak9gpcHNOjo5xbxfBXVk0frczGTqO6IQTWwm
-	 UPZyXWd/9vzKkC1nkSPmp+m02U4mjRFOvTNQ081JyqckiWxSl7fFC/XvZ84MdHRxShxmT
-	 RWWiqlvDJDNCHcmgZlPuwRi663LwA75H+gbAHLlsySxr9aMCVwrbT+auOFaPP2hUchGqo
-	 rJe+JBa5za9kkwVMPxsj+CM4EjQ+8DrseRxypmfdkeKmTD1omJTdXizz9Z5MgZiiDzQYj
-	 Y0AFvIeciI7Fv4zv/ua1mVzNpKyZGFa22iNYjjM5ZT39v3EwKI2SrWnfKM5qVgWOPHA==
+	t=1792786038;
+	b=E9p5KUl7OH6T67cGWODdnEm/F2jmqq20FOPcGaqoRllXy/2r8NJ4od3JiB8hBA3UYhg4
+	 HAXN++wxH2tGzhWza6/nsnUi4dp37HZkk3lxPS8Be/QJSxDD2nAQ4aiDSdCxR4d8bI16p
+	 96xa3wCU5hNw5McZHQWYm1fgERF4WeBQUAAC2Y91/zjIocB2cCYGpv/q62euUp80NrXia
+	 kByUqU3Zv7tGxEnlCEq0JI63nR06bv7dr/ikaesegj7Zb+afsoE/32H8nvRiwLYQcqf/A
+	 qP0+64hqqR++6QMR6veQdHTtLTU2Ekx+4j6LThu2LfDe+mEI6/ZEAT85in3pGEZ7biA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792786038;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Es8v+TmDgsT7AaU8tCGUkyLbuR3yWL8yc++7cel+0/U=;
-	b=nQ8BT4BfW2tNyNgIoirB6in/ZvMadsJxVxISs83D7+gVhDCQlYiOFGc99rDDR0fJV9gz
-	 jxPYsC7uD4O9/5Kr0KT2JsRzXaty+L1VuV3KvMqwSY+RdnahXGTZE09Wzj9wy0AG9TvwM
-	 BKc/cigVgcpBHAkZS7harW8uGXkdX5A8WehHRaYsDnB3Vdlrk517x+AWSoQ3B8KM2mTqW
-	 qVtt2o89phAtI/cZ8RtqV152dBL4lfH0+9vv883phqkEtJxyhVsoxtwo9vWezrW/9WW08
-	 qqwdeJE/8oD3+xkEP6OBS09wrl6f2kefKE7VU8F8t7Z+T1PRLdBGHmBnNiKcNhS9fLA==
+	bh=zFxmDs0W4AddHtK56Gr2S+uctg4ZEJXOdFOe6X4Ay8A=;
+	b=wuAB1qIKw0dxtrgOPS0WfzAcLg0165oG74ctqgq/elmytUoiu+Aq7puNM6o90U89VKCI
+	 FOeRhz9Zgkt9nK/zPYxzkyvZ+rt3cnVNg1maSGtb9NCY1CGVR6SPa2WOSb8ACoFZrtY21
+	 ftE6hdb3DwpZ2M6alFrsoDXyHkximmBtxJEG/QFKZTE6e6wPs21LJMD5QzUVTlMmJyfg3
+	 EgBaJTciF+RRmG50yT0BckrevQsc8FZEaCK/fTUApCR2/8P4d7CCEhUZ97VnwOM78nR6I
+	 7cvE9iZMmVB2CTPhUEqTbp78nW7MYDFdqlqzpNT2BIuMU1wPi+BQ+uLIxrL8dS75Z/A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Fo9YrXNh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.65
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010065.outbound.protection.outlook.com [52.101.85.65])
+	dmarc=pass header.from=garyguo.net;
+	spf=pass smtp.mailfrom=garyguo.net;
+	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b="w5QFi/om";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.129
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022129.outbound.protection.outlook.com [52.101.96.129])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627ED606A325
-	for <nova-gpu@lists.linux.dev>; Fri, 23 Oct 2026 15:43:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 627ED606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14A0606A31E
+	for <nova-gpu@lists.linux.dev>; Fri, 23 Oct 2026 20:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E14A0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Fo9YrXNh
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=w5QFi/om
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dsT36FRsB0q3f0gA/O1hQY4dbr4qRBcSVybhiUu5VoZwr8p5q/MOCsF6hffw6KT1+Yn3iP79PFjmosR9Ej6avIh4Ti567XVeYvBhjgLOTgzhXC1U9bEAPyZgPDSTlrCU3IcI1OUUA0S3ihTqLzJzm9ma5SuMVlHE2huviufg+3qSfVlFMeMl2DtTVtOKSiztV5OK7/VBz/lSZPKaWtQk836P9bshFFz2IVYHn8V5DmEigm6SdOeaxsFjH49QnyoUMyEK381t7+iSWsycjRRVMvmP2LUTLOPV9kiiLuBrP4is2M8+Kzln7TpxSqc3AyqG3z9H045uQdoS6rqDzqxGnw==
+ b=cW1aact6CO0uzxEAihrs9ZoNze8wJHCZl+Gxn9e1GTTtc/1CgqkJ8rZ7OYlxZhyRYwxb34AIoG3XQ4uGM0Qk4S/RRV3/yeOqMvQ9+LAYgWZg93MXA0aIC6py0KBZhqTWU7jAQlEnFZ8S00uqoGNSVE7/3BPZ7/gwY7BhlQt28uJMiyOculP2pRQKN1U0gACguiu2ZfksSdY7iZ8zqYKpLX3iQ33phknDB+0U6u47JU5GmnMnK+uNB9P1DJIQYw4boGolHzmsSHOX4pkMxjJHTvdF5hwRO16Z8AWStph7NYNDNPm60QUzVFacb4vXxRnixbM5hAm4u7rTxffliH2NgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Es8v+TmDgsT7AaU8tCGUkyLbuR3yWL8yc++7cel+0/U=;
- b=OgyQemrJIUWecvidN16uSRHbRlwh+qtYlfupt/f2hzNtPjR1e6EomWMatX2VMp5wK4eDOnQhI5tBY+VI4GUBT6JHNPS9oQpbI5iuUdHIfNQqbfjfSJLqYa4DF4MAFrTrQ1ulQouDny4m5AV19j9/1k19R+6iVhm139AW/H285ONLVGttwmRdzN9SqQrTy2VlQkakxSDCkBQ7X3hOwF6nK4OQLR+hEzh+3/SFhzbYBPFBTE5lRtWkW+UIyijqXtZ8tNpCBNgpxoLzSAPqptsTyywGFIOxl6SOaExk6H6GPQmCVaxC1PEBcqUALw1Xp9eFgBOsFqLMjeAU9iVXBqx10g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=zFxmDs0W4AddHtK56Gr2S+uctg4ZEJXOdFOe6X4Ay8A=;
+ b=ItwQHSdfFd6zjG+nAkla/E7jD4TjoLlkk3lUqfROtRHOYYE6O/mE095+ZgW+BQdChES9AK8RMzJ1YyXNEL0u+p0YztGX6Cy0pOcDrZE+MWJB1MjZJS5sHc8s2UxGJpRgIjAhZOUvpXoMs0usmOZMFaquYfSJnKKKaGdmaaaPTgsH/q27kxYqQ35gkIIyoAVRBVUkSvutyFky2T5ZHYManb6zS1K43rA8DVY0Ir8rH2MTN95TohfGUrhnxwq8YSF7T3rDUnHx8hskUZrDCwgMedsY37Tm/YeMwsfOrmTP/ax2eVsabupfEsX/TFCyNUxjLxhGjyufHAsIIqFRE+8t9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Es8v+TmDgsT7AaU8tCGUkyLbuR3yWL8yc++7cel+0/U=;
- b=Fo9YrXNhNK+c3XVRkNcGGElMtMH3FAoNIvGqviHXZdSyjdP6QQmSe4o4K4kPLHPwbkDkCIpKGDhmRSjKgnVRTktbw0SNon7EoZtjfE8aOTg+JFsj+G3JTyIlWkPxYBdOVH7PqRbD9jldshT6kRxJTkbxFKvHIj2j+sm1sfh6++kicJJ/dDoQqCncKqVtdlYVh2okFrwhzEOAEDpthwXsZmmjVUWtVPSAoXfZzyJchMdTGmQ6uIhVJ76z67IXaGnpKM0ETkJ8xD7T3O/YJgRrQ2/F+Gku1lOhAtWpCLE6T4bBdjY2svKAx9SHM7F1P6YnDe/YaXRylADEGVWlnxLqAw==
-Received: from SJ0PR13CA0195.namprd13.prod.outlook.com (2603:10b6:a03:2c3::20)
- by BL1PR12MB5897.namprd12.prod.outlook.com (2603:10b6:208:395::14) with
+ bh=zFxmDs0W4AddHtK56Gr2S+uctg4ZEJXOdFOe6X4Ay8A=;
+ b=w5QFi/omoWZlF0rabEi+AkCswuFJzxNvLuNrCKbozzOa1oRb0nWbnXwaNvszZ2k9a+i9MJUZ7XWLO/6QGqPVa5Z0fUPM+fxcrnMBb89Uxw56GFbU4Hhwr1DUIXn7HLtpwoNAJNMy7m0ikgXfRMOA9swC8bq4Z6YXTqNl0253rT8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
+ by LOYP265MB2400.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:11e::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Fri, 23 Oct
- 2026 15:41:19 +0000
-Received: from CO1PEPF00018861.namprd02.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::1e) by SJ0PR13CA0195.outlook.office365.com
- (2603:10b6:a03:2c3::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.4 via Frontend Transport; Fri, 23
- Oct 2026 15:41:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CO1PEPF00018861.mail.protection.outlook.com (10.167.249.250) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 15:41:18 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 23 Oct
- 2026 08:40:56 -0700
-Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 23 Oct 2026 08:40:54 -0700
-From: Simon Song <xinmengs@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
-	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
-	<linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
-	<boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
-	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
-	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v2 12/12] vfio/nvidia-vgpu: add the Rust VFIO variant driver
-Date: Fri, 23 Oct 2026 08:40:07 -0700
-Message-ID: <20261023154009.2246627-13-xinmengs@nvidia.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 20:07:14 +0000
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 20:07:14 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 23 Oct 2026 21:07:12 +0100
+Message-Id: <DMCHLXM8XVPO.3UDJN1SJR0JHY@garyguo.net>
+Cc: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+ <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+ <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+ <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+ <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+ <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>
+Subject: Re: [PATCH v2 01/12] rust: pci: add VFIO override device IDs
+From: "Gary Guo" <gary@garyguo.net>
+To: "Simon Song" <xinmengs@nvidia.com>, <dakr@kernel.org>,
+ <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>
+X-Mailer: aerc 0.22.0
 References: <20261023154009.2246627-1-xinmengs@nvidia.com>
+ <20261023154009.2246627-2-xinmengs@nvidia.com>
+In-Reply-To: <20261023154009.2246627-2-xinmengs@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0384.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18f::11) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:1cb::9)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -125,570 +112,112 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018861:EE_|BL1PR12MB5897:EE_
-X-MS-Office365-Filtering-Correlation-Id: 553a72de-b4aa-4517-848a-08df311c14e5
+X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LOYP265MB2400:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4255f6f3-8d3a-481a-62a3-08df31413ac3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|23010399003|1800799024|5023799004|11063799006|56012099006|261022075727099003|261021123027099003|261021130227099003|261022113327099003|261022105027099003|261022115727099003|261021135927099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|366016|23010399003|4143699003|56012099006|3023799007|261009223027099003|261022075727099003|261021121427099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	5khIg/a/zUkMnRKdE6tMoJ7nuVeeZZVcAXLcn+sQfUUT0F77wcGncNvq77vVUxo2Oo/V4eT4DSZCzu/NPAnF1SlX46W6d2F++tOCozNIMnNSvW/jWABaOg8YGj0Tps56g7dgDCLC/noQtYLei5CxOSjXSG29UP8VWY37OTwcEg8854LEUoo+UWGrNB4NjXnI+F/aUX4WTZbFwwVvQu8Rgyp2Vvqrytaryz0yBku+UHPZ9WZBGqpBM16zyErgWZaOYee539YfW/aMcR7NBiN/H/wnv7sB1Mv3ql8El/i5nKUSVA9teq35JLk47LNb6OOHRgT4fVCkKWfn0kn8iwdpQN4zS76nTdqrVZRb/g+xjBbGtXJ5dfuzAqbHtWAibRh4vTO3o/tANq6X92uJZ84ghSU9UBn/+vin8efK5tNvzlLiht9hCX/QAAT1vN8xKIR3OSZDOkzlTfHWJsGfl6s1fv4uv3co0PRNBZQ0H8jADtFRsqq6bNXUqCCwYwBK22O5VEchWx/x0gHFtpO+LB/topYfAjhBzENikTu1t2udCBLZ5vLaMFKrFN5odFstam41AR5iv4xdBEUt6rdo/p5q572YxazLbiVihLDEoVEzWykfdFn4avW2a4SRUQ48Ec1J4mZ8x8mKH0OCqlFq9ahDTS4srdyP5idhaqcLD5ybkmUswpYEuWNEc7MNeiaHfzw/oPgAJ7A7SvDgHh3fd4tU8g==
+	VXMCn/c/MV6V/EKwZ73ZP/pY+LrF0WeYdEdDy+7bIw0B6K1tkxtI4Gtz/6iZ63rxJ8YPpteXbs7zGK/dJJrFbpVnogyE3Uw3gZoMjogSosdmvHYfvZN/PDZPaUJ64C8Goq4TlrTtnZefdxOgNrwdqNWcSYTerwyFRHbClaM2JhkIF5T7J3GolNsGpGn2JPb5/KlTPjaf3dqi44M9zgiNtJi+s6yHWc06TqMU6k8N6jS364B/+Z5hhELsn+BWgmnjRis0Tmnp8f3rFR1OyNaPpVEb2EoQvaAAEfDukbQ7M/ggQmV7pHeTqg6v3Ni7F/3vdmt2FHkU7QKs4sy0p9eSbRBcSZ9VgnOM01Rc0FI5rS9w6gtMZoxs3mh4+DGZNjoKX/EQa8grswhpJ6F+1wuMbMxJzOq0hFVO3F/02FvjzjjGR1NR2A3xresd9yygCgEkHQ7yy/5A5szf5bKldO2ufY9VFwZ6M20bLI0P79Agil1ENCDeEI3BpG/ggJRFaaUA5tTYei/jvRTmIM6XorLoBlvcnTK9doQOceM/YTbaq4uLXOd4OLTGE3A+Fe0WmXcfbsk4d79Tl4+VAEe6TIj/qvs7NGHzWg0gC73AzpawTgPtLirF5iWHwd4sNbMMy7cTi41qp2ZTbOTeVzqu3DkEk8w4NlHs625r59Xd1kknDjU=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(5023799004)(11063799006)(56012099006)(261022075727099003)(261021123027099003)(261021130227099003)(261022113327099003)(261022105027099003)(261022115727099003)(261021135927099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(23010399003)(4143699003)(56012099006)(3023799007)(261009223027099003)(261022075727099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ruhYlfDSLF+XfLok+XoVwKvuWQakGWdvlEzfgveObR71v9+C2FIJiKq0KzZAztfYcquRVhpIvXWnaQf0PycnL73HOJxZriUSvB0UYLd6tFBfmPcuDr9iXCsDwm1JVO/59mHBwUremIULnRgEUUznvfhCLLtDyi7iAUx6/R4d8CdJMmk/6ca0WT6jNk/hfSxU8jKqYGTjPdE3/saxac2OV89C1RJT/jnsC8ulG5qxwaFqy51UqORWCm7G7exwAAaMgHLQI2OXdamrpNcw5i3VUkDvNSLVQgeDUY/ZFCctW8k1FRk1lyI+HOT7WYzTUezRZjDBm+PE8RaAaJLs8dzvIbE70FgmnX9AhN0KzoW6CTJtzlvJJYzcHumChqw0J9cyomg9J47ST6VbVWMnlf4pDoys1DMJxxFTorraab/0T7Glmov0IzViQFdtI2UyB+h+
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:18.8685
+	=?utf-8?B?elljZ1FMbmk0SGVBV1lYSEhEY0gxRHZUZjl2SU9ibzIxeVRwVkpHWmNHY3NL?=
+ =?utf-8?B?d3BKMEVUS0V5SCtQRVhzbDcrTk9yS2YyNkI3ZlVud3pERThzWXV0Q3VtSHBR?=
+ =?utf-8?B?VmZzdm5jRFlKb0ZKUytuZmR5VjZ2SUdURHQ3ZnMxOWlNcjFLLzFkZDNPMEli?=
+ =?utf-8?B?VXl3SFZ3M0tDZGRNZTQrVmQvSmxkUGU3ZVQ0ZEJlMXZwNW9CcklMVjF1TGhj?=
+ =?utf-8?B?VWVjZ28wTTU2bENOREVDckk4aE0wYzdWVG82TVRWSk8reHJoOEJ1Y3hWd200?=
+ =?utf-8?B?TFVKcVJNR1ExMWNPU3pMT1h5aHVhM2dnbjQ1RThaUnFTOHJ4VkpHQnoxM1dZ?=
+ =?utf-8?B?VVdlUEZVQ1FDRmtaNWZDa2ZvMWJwdmhsb2k4eFRheG45eVhicmIzQXZ6MXV4?=
+ =?utf-8?B?NlhhYWZrTk04NnVMNlR1RndXV2xZMzlOZWZYdlVoT0psNExDV3F6MW1CYUpC?=
+ =?utf-8?B?bG9MTWR2QzlDOWVxVE0xWVgyNTFvakRHMzlrWlJHcmhuRnlOQ2hxUURLU0k1?=
+ =?utf-8?B?UkpuRkp0WE8wUFV6YTBlUVJkeWFxbDUzQVhVMVU2cnE3aUp5LytPczNPd3JG?=
+ =?utf-8?B?NnBpaFhWTHJZQ1hPU0FHOGtpbmtDVndTdUlGWGRzV2NValFNTjRYRUtRR2hY?=
+ =?utf-8?B?VkxyUFNSU1FVMEJ3RnNJdDlUVWZWOVZiSTg4NmlKS3M0b2J5OHNpZjdQTGxF?=
+ =?utf-8?B?cDF6Z21xMWNuTU90MStGRmpjQkV3WDdZTDZjeENGSkdvQmFCRlhWaU8vUk40?=
+ =?utf-8?B?aExudEVwV1lJS1hlN1YyeUtoTEZ3OFBIWmRWRzNXcmswdmZiWEIzYklBQ3FZ?=
+ =?utf-8?B?TkpJV2hYVFlaQlQ0V0dSUkR5clRqRGVkTGJYZkRtaHY1U1VocXFIZzJiVVFT?=
+ =?utf-8?B?Si9DUjhqTmxHNlBzTGU0Z2xTeGdlQ0Q3a1k3MGEveUVsS0FtOEF2UklBbEh2?=
+ =?utf-8?B?OGpXekFXUm9YNU5BdFVpNzVrdFkvNWlZdUI0bEc0elJ2TXhNSFZQbm8xaVk3?=
+ =?utf-8?B?cEYyZG5kTDhVNzU2Si9nRmJTSVdxRG9RQldkbitqTVgvVFBrSktPWjAxS2g3?=
+ =?utf-8?B?dWZFV2JyRVVqeU1kZVdSZmVQV254RVlCN1FOZ21DV09oVkhyb3o4Y2s2ZTJh?=
+ =?utf-8?B?MFg3RnFRNU5hakQrUlJhR3RxWVFpcEd1WnFFUkp3RFk5QWdQRlcranNFd1JC?=
+ =?utf-8?B?Q0hTS2tLWGpTOWpSek5DRUlXeXROQlVPclExNFNKVEVnTUViWm9vdE90VnBm?=
+ =?utf-8?B?M0hJMWp0RUJNYjcyeG1CQ2xJbTBIUWxOOUZFMk4vcFBKRkphUm9xNHdoYUIv?=
+ =?utf-8?B?aUVVS0ZWODhDbFRyelU5eWtibWRFbWN0VUNQdVgwdnh1eWN6ZExOWkZTUmgy?=
+ =?utf-8?B?U2JoRUtocmNNUnUraWlnRllMOHU0K0F2TktKVUVTM0tPS1RMOVc2THQrV21a?=
+ =?utf-8?B?c1ppWTFDZEtMOHZCNmRSclBGNUU1UUdobFA0Q081NlJSSkMxTjV3SGZkcEVO?=
+ =?utf-8?B?WGlwVDRMZnppcmYvNzRLY0pYcGR1QUliK0F2M2R6bmRHMStuc3RkYXJiN3NZ?=
+ =?utf-8?B?NlNlU0lmbGxCWSsyZEx2M1RGd203U1pzVE9GRW5PSFNzRENRb2c2ZG5STDJZ?=
+ =?utf-8?B?NW02QkFHeGVjZVBPTkVzUkNoem15aG11TXI3NDNMcFJhUFViT0FaVzZFRW4v?=
+ =?utf-8?B?TDBhQXVQQnZIb1ZrS001bjhNemZTK0RXR0hpS0wyVjlXeThkYUFEemkvUHVy?=
+ =?utf-8?B?aC9OZlY4ZHhOTU5aNlc5OGtBbjJZbHlyMWh0ZllKMkNrSGhlMUUxaHQvMnZK?=
+ =?utf-8?B?RFlORG80SHlERzZ0Z0xVMVc3Mkw2RytZZlRVaVZqNlhNamg5a3JaOThQeXVP?=
+ =?utf-8?B?c1Y1S3YzVjgzWlBaanhndnE0Q1drVVFLTk9WNG5ZMlpsMUtTbmI4UDhvQ3l2?=
+ =?utf-8?B?dHVBS3Z4Q0NJb2t5eG9UU3JoV1lYaitRVnpRVGZnUjFQZWVQUGxmVTZnMlYv?=
+ =?utf-8?B?RWxkWVl2NWoyOG44bnRBVk5TODdBaWFQVVhVc2VBaDFKTUJYUnVwNnkvU2pa?=
+ =?utf-8?B?aGRlZGx3TDBwd2oyY0gxMTdqS3BZMW4zWW1zeXMrd3g1cmVCYXhkVVRlVXRy?=
+ =?utf-8?B?M01MbXNrSmRNTXZadllKTDdSZnpvRlJyWWhtZFl2VFM3NG1VVTFUS2E5cWNM?=
+ =?utf-8?B?YVZiMXY4RFZPTU5XVG1ZbG4zbXpSU09talEreG04bGgvV2FOMnNnRWxqdUtD?=
+ =?utf-8?B?ZFBWMmNNRjhoM0Q0eDdYY1lpeWQzSVFNWGJ1Ykd0cUN2Y0lVTmFhS0F2Ukdv?=
+ =?utf-8?B?Z2lETzVGTStPK1d1NDJodGRDcWJzR21jMjJyMHJYaFdVc2puMVVMZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4255f6f3-8d3a-481a-62a3-08df31413ac3
+X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 20:07:14.1026
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 553a72de-b4aa-4517-848a-08df311c14e5
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00018861.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5897
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UxR3gbjQ5OSmVuUW8ihZ6mfOLVe3dxQlmuTAP3MrfsmYu6PzXaTJAArovqh1lPgO1E7bk5Oc9wPckh39Z187eQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2400
 
-From: Danilo Krummrich <dakr@kernel.org>
+On Fri Oct 23, 2026 at 4:39 PM BST, Simon Song wrote:
+> From: Danilo Krummrich <dakr@kernel.org>
+>
+> VFIO variant drivers need override-only IDs and VFIO-specific module
+> aliases so userspace can select them for PCI assignment.
+>
+> Add a DeviceId constructor equivalent to PCI_DRIVER_OVERRIDE_DEVICE_VFIO,
+> matching a vendor and device without restricting the PCI class.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+> Signed-off-by: Simon Song <xinmengs@nvidia.com>
+> ---
+>  rust/kernel/pci.rs | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+> index d83492e06ce..10864ffda4e 100644
+> --- a/rust/kernel/pci.rs
+> +++ b/rust/kernel/pci.rs
+> @@ -206,6 +206,13 @@ macro_rules! module_pci_driver {
+>  impl DeviceId {
+>      const PCI_ANY_ID: u32 =3D !0;
+> =20
+> +    /// Equivalent to C's `PCI_DRIVER_OVERRIDE_DEVICE_VFIO` macro.
 
-NVIDIA vGPU VFs need nova-core to manage their instances when assigned
-to userspace through VFIO.
+The documentation should primary describe what the function is.
 
-Add a Rust VFIO PCI variant driver that uses the typed SR-IOV PF APIs
-to create an instance on first open and close it on last close. Expose
-the assigned device and subsystem IDs, enforce the assigned BAR1
-aperture, and coordinate firmware reset with PCI reset.
+The C equivalence is good to have but should be secondary info.
 
-Match NVIDIA devices through a VFIO override-only entry. Devices
-without an available Nova vGPU interface use ordinary PCI passthrough.
+Best,
+Gary
 
-Use the PCI adapter to keep callback data available throughout
-registration and removal. Extend the GPU build rules to make nova-core
-crate metadata available to the VFIO driver and export the Rust symbols
-it references.
+> +    pub const fn from_id_vfio_override(vendor: Vendor, device: u32) -> S=
+elf {
+> +        let mut id =3D Self::from_id(vendor, device);
+> +        id.0.override_only =3D bindings::PCI_ID_F_VFIO_DRIVER_OVERRIDE;
+> +        id
+> +    }
+> +
+>      /// Equivalent to C's `PCI_DEVICE` macro.
+>      ///
+>      /// Create a new `pci::DeviceId` from a vendor and device ID.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-Signed-off-by: Simon Song <xinmengs@nvidia.com>
----
- drivers/gpu/Makefile                        |  15 +-
- drivers/vfio/pci/Kconfig                    |   2 +
- drivers/vfio/pci/Makefile                   |   2 +
- drivers/vfio/pci/nvidia-vgpu/Kconfig        |  20 +
- drivers/vfio/pci/nvidia-vgpu/Makefile       |   3 +
- drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs | 402 ++++++++++++++++++++
- 6 files changed, 441 insertions(+), 3 deletions(-)
- create mode 100644 drivers/vfio/pci/nvidia-vgpu/Kconfig
- create mode 100644 drivers/vfio/pci/nvidia-vgpu/Makefile
- create mode 100644 drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs
-
-diff --git a/drivers/gpu/Makefile b/drivers/gpu/Makefile
-index e372fc02139..1b8a907e716 100644
---- a/drivers/gpu/Makefile
-+++ b/drivers/gpu/Makefile
-@@ -19,8 +19,9 @@ nova-core-y := nova-core/nova_core.o nova-core/nova_core_exports.o
- obj-$(CONFIG_DRM_NOVA) += nova-drm.o
- nova-drm-y := drm/nova/nova.o
- 
--# Export Rust symbols from nova-core only if nova-drm actually references them.
--nova-core-export-deps := $(if $(CONFIG_DRM_NOVA),$(obj)/drm/nova/nova.o)
-+# Export Rust symbols from nova-core only if dependent modules reference them.
-+nova-core-export-deps := $(if $(CONFIG_DRM_NOVA),$(obj)/drm/nova/nova.o) \
-+	$(if $(CONFIG_NVIDIA_VGPU_VFIO_PCI),$(obj)/../vfio/pci/nvidia-vgpu/nvidia_vgpu.o)
- 
- rust_needed_exports = \
- 	{ $(if $(strip $(2)),$(NM) -u $(2);,) echo "__DEFINED_RUST_SYMBOLS__"; \
-@@ -57,10 +58,18 @@ $(obj)/nova-core/nova_core_exports.o: private cmd_gensymtypes_c = \
- 		$(obj)/nova-core/nova_core.o
- endif
- 
--# Output nova-core's crate metadata for use by nova-drm at compile time.
-+# Output nova-core's crate metadata for its Rust consumers at compile time.
- RUSTFLAGS_nova-core/nova_core.o += \
- 	--emit=metadata=$(objtree)/$(obj)/nova-core/libnova_core.rmeta
- 
- # Allow nova-drm to import nova-core's types.
- $(obj)/drm/nova/nova.o: $(obj)/nova-core/nova_core.o
- RUSTFLAGS_drm/nova/nova.o := -L $(objtree)/$(obj)/nova-core --extern nova_core
-+
-+# Build the NVIDIA VFIO driver here so metadata and generated exports share
-+# the same dependency graph as nova-drm.
-+obj-$(CONFIG_NVIDIA_VGPU_VFIO_PCI) += nvidia-vgpu-vfio-pci.o
-+nvidia-vgpu-vfio-pci-y := ../vfio/pci/nvidia-vgpu/nvidia_vgpu.o
-+
-+$(obj)/../vfio/pci/nvidia-vgpu/nvidia_vgpu.o: $(obj)/nova-core/nova_core.o
-+RUSTFLAGS_../vfio/pci/nvidia-vgpu/nvidia_vgpu.o := -L $(objtree)/$(obj)/nova-core --extern nova_core
-diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
-index 296bf01e185..b48d8d1af42 100644
---- a/drivers/vfio/pci/Kconfig
-+++ b/drivers/vfio/pci/Kconfig
-@@ -74,4 +74,6 @@ source "drivers/vfio/pci/qat/Kconfig"
- 
- source "drivers/vfio/pci/xe/Kconfig"
- 
-+source "drivers/vfio/pci/nvidia-vgpu/Kconfig"
-+
- endmenu
-diff --git a/drivers/vfio/pci/Makefile b/drivers/vfio/pci/Makefile
-index 6138f1bf241..58c88304a18 100644
---- a/drivers/vfio/pci/Makefile
-+++ b/drivers/vfio/pci/Makefile
-@@ -24,3 +24,5 @@ obj-$(CONFIG_NVGRACE_GPU_VFIO_PCI) += nvgrace-gpu/
- obj-$(CONFIG_QAT_VFIO_PCI) += qat/
- 
- obj-$(CONFIG_XE_VFIO_PCI) += xe/
-+
-+# nvidia-vgpu is built from drivers/gpu/Makefile for nova-core crate linkage.
-diff --git a/drivers/vfio/pci/nvidia-vgpu/Kconfig b/drivers/vfio/pci/nvidia-vgpu/Kconfig
-new file mode 100644
-index 00000000000..1363f84163e
---- /dev/null
-+++ b/drivers/vfio/pci/nvidia-vgpu/Kconfig
-@@ -0,0 +1,20 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+config NVIDIA_VGPU_VFIO_PCI
-+	tristate "VFIO support for the NVIDIA vGPU"
-+	depends on NOVA_CORE && PCI_IOV && RUST
-+	select VFIO_PCI_CORE
-+	help
-+	  This option enables VFIO (Virtual Function I/O) support for
-+	  NVIDIA virtual GPUs (vGPU). It allows the assignment of a virtual
-+	  GPU instance to userspace applications via VFIO, typically used
-+	  with hypervisors such as KVM and device emulators like QEMU.
-+
-+	  Devices without an available Nova vGPU interface use ordinary PCI
-+	  passthrough. Both paths use the VFIO PCI core defaults; vfio-pci
-+	  module options do not apply.
-+
-+	  The NVIDIA vGPU allows a physical GPU to be partitioned into
-+	  multiple virtual GPUs, each of which can be passed to a virtual
-+	  machine as a PCI device using the standard VFIO infrastructure.
-+
-+	  If you don't know what to do here, say N.
-diff --git a/drivers/vfio/pci/nvidia-vgpu/Makefile b/drivers/vfio/pci/nvidia-vgpu/Makefile
-new file mode 100644
-index 00000000000..bce0133562f
---- /dev/null
-+++ b/drivers/vfio/pci/nvidia-vgpu/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
-+# nvidia-vgpu is built from drivers/gpu/Makefile for nova-core crate linkage.
-+# nvidia_vgpu.o (rust-analyzer marker - DO NOT REMOVE).
-diff --git a/drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs b/drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs
-new file mode 100644
-index 00000000000..f16d6cf6a4a
---- /dev/null
-+++ b/drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs
-@@ -0,0 +1,402 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! NVIDIA vGPU VFIO variant driver.
-+//!
-+//! Nova VFs own an instance between the first VFIO open and last close. Other
-+//! matching devices use ordinary PCI passthrough.
-+
-+use kernel::{
-+    bindings,
-+    device::{
-+        Bound,
-+        Core, //
-+    },
-+    io::resource::Flags,
-+    pci,
-+    prelude::*,
-+    sync::{
-+        CondVar,
-+        Mutex,
-+        MutexGuard, //
-+    },
-+    types::CovariantForLt,
-+    vfio::{
-+        self,
-+        pci::{
-+            GetRegionInfo,
-+            Ioctl,
-+            Mapping,
-+            Mmap,
-+            Open,
-+            Position,
-+            Read,
-+            Write, //
-+        }, //
-+    }, //
-+};
-+use nova_core::{
-+    NovaCoreVfApi,
-+    NovaCoreVfApiHandle,
-+    VgpuInstance, //
-+};
-+
-+struct NvidiaVgpuOps;
-+
-+struct VgpuRegistration<'a> {
-+    api: NovaCoreVfApiHandle<'a>,
-+    gfid: u32,
-+}
-+
-+#[derive(Default)]
-+struct InstanceState {
-+    active: bool,
-+    resetting: bool,
-+    reset_error: Option<Error>,
-+}
-+
-+#[pin_data]
-+struct NvidiaVgpuRegData<'a> {
-+    pdev: &'a pci::Device<Bound>,
-+    vgpu: Option<VgpuRegistration<'a>>,
-+    fb_bar: u32,
-+    #[pin]
-+    state: Mutex<InstanceState>,
-+    #[pin]
-+    reset_done: CondVar,
-+}
-+
-+impl NvidiaVgpuRegData<'_> {
-+    fn lock_instance(&self) -> MutexGuard<'_, InstanceState> {
-+        let mut state = self.state.lock();
-+        while state.resetting {
-+            self.reset_done.wait(&mut state);
-+        }
-+        state
-+    }
-+}
-+
-+struct NvidiaVgpuOpenData<'a> {
-+    registration: &'a NvidiaVgpuRegData<'a>,
-+    instance: Option<VgpuInstance<'a>>,
-+}
-+
-+impl<'a> NvidiaVgpuOpenData<'a> {
-+    fn new(
-+        dev: &vfio::pci::Device<NvidiaVgpuOps, Open>,
-+        rd: &'a NvidiaVgpuRegData<'a>,
-+    ) -> Result<Self> {
-+        let mut state = rd.lock_instance();
-+        let instance = match &rd.vgpu {
-+            Some(vgpu) => {
-+                // The firmware DBDF format has a 16-bit PCI segment field.
-+                let segment = u16::try_from(rd.pdev.domain_nr()).map_err(|_| EOVERFLOW)?;
-+                let dbdf = (u32::from(segment) << 16) | u32::from(rd.pdev.dev_id());
-+                let vm_pid = kernel::current!().tgid().try_into()?;
-+                let instance = vgpu.api.open(vgpu.gfid, dbdf, vm_pid)?;
-+                let info = instance.type_info();
-+                dev.set_device_id(info.pci_dev_id as u16);
-+                state.active = true;
-+                state.reset_error = None;
-+                Some(instance)
-+            }
-+            None => None,
-+        };
-+        Ok(Self {
-+            registration: rd,
-+            instance,
-+        })
-+    }
-+
-+    fn bar1_size(&self) -> Result<Option<u64>> {
-+        let Some(instance) = &self.instance else {
-+            return Ok(None);
-+        };
-+        let physical = self
-+            .registration
-+            .pdev
-+            .resource_len(self.registration.fb_bar)?;
-+        let size = instance
-+            .type_info()
-+            .bar1_length
-+            .checked_mul(1 << 20)
-+            .ok_or(EOVERFLOW)?;
-+        Ok(Some(if size == 0 {
-+            physical
-+        } else {
-+            size.min(physical)
-+        }))
-+    }
-+
-+    fn limit_bar1(&self, buf: &mut vfio::UserBuf, position: &Position<'_>) -> Result {
-+        if buf.is_empty() || position.region_index() != self.registration.fb_bar {
-+            return Ok(());
-+        }
-+        if let Some(size) = self.bar1_size()? {
-+            let offset = position.region_offset();
-+            if offset >= size {
-+                return Err(EINVAL);
-+            }
-+            if size - offset < buf.len() as u64 {
-+                buf.truncate((size - offset) as usize);
-+            }
-+        }
-+        Ok(())
-+    }
-+}
-+
-+impl Drop for NvidiaVgpuOpenData<'_> {
-+    fn drop(&mut self) {
-+        let mut state = self.registration.lock_instance();
-+        state.active = false;
-+        drop(self.instance.take());
-+    }
-+}
-+
-+impl vfio::pci::Operations for NvidiaVgpuOps {
-+    const NAME: &'static CStr = c"nvidia-vgpu-vfio-pci";
-+    type RegistrationData = CovariantForLt!(NvidiaVgpuRegData<'_>);
-+    type OpenData<'a> = NvidiaVgpuOpenData<'a>;
-+
-+    fn open_device<'a>(
-+        dev: &'a vfio::pci::Device<Self, Open>,
-+        rd: &'a NvidiaVgpuRegData<'a>,
-+    ) -> impl PinInit<Self::OpenData<'a>, Error> + 'a {
-+        NvidiaVgpuOpenData::new(dev, rd)
-+    }
-+
-+    fn ioctl<'a>(
-+        dev: &vfio::pci::Device<Self, Ioctl>,
-+        rd: &NvidiaVgpuRegData<'a>,
-+        _open_data: Pin<&Self::OpenData<'a>>,
-+        cmd: u32,
-+        arg: usize,
-+    ) -> Result<isize> {
-+        let reset = cmd == vfio::DEVICE_RESET || cmd == vfio::pci::DEVICE_PCI_HOT_RESET;
-+        if reset {
-+            if let Some(error) = rd.state.lock().reset_error {
-+                return Err(error);
-+            }
-+        }
-+        let result = dev.core_ioctl(cmd, arg)?;
-+        if reset {
-+            if let Some(error) = rd.state.lock().reset_error {
-+                return Err(error);
-+            }
-+        }
-+        Ok(result)
-+    }
-+
-+    fn read<'a>(
-+        dev: &vfio::pci::Device<Self, Read>,
-+        _rd: &NvidiaVgpuRegData<'a>,
-+        open_data: Pin<&Self::OpenData<'a>>,
-+        buf: &mut vfio::UserBuf,
-+        position: &mut Position<'_>,
-+    ) -> Result<isize> {
-+        if let Some(instance) = &open_data.instance {
-+            if position.region_index() == vfio::pci::CONFIG_REGION_INDEX {
-+                let offset = position.region_offset();
-+                return position.with_temporary(|next| {
-+                    let count = dev.core_read(buf, next)?;
-+                    buf.write_overlapping(
-+                        offset,
-+                        count.try_into()?,
-+                        u64::from(bindings::PCI_SUBSYSTEM_ID),
-+                        &(instance.type_info().pci_subsys_id as u16).to_le_bytes(),
-+                    )?;
-+                    Ok(count)
-+                });
-+            }
-+        }
-+        open_data.limit_bar1(buf, position)?;
-+        dev.core_read(buf, position)
-+    }
-+
-+    fn write<'a>(
-+        dev: &vfio::pci::Device<Self, Write>,
-+        _rd: &NvidiaVgpuRegData<'a>,
-+        open_data: Pin<&Self::OpenData<'a>>,
-+        buf: &mut vfio::UserBuf,
-+        position: &mut Position<'_>,
-+    ) -> Result<isize> {
-+        open_data.limit_bar1(buf, position)?;
-+        dev.core_write(buf, position)
-+    }
-+
-+    fn mmap<'a>(
-+        dev: &vfio::pci::Device<Self, Mmap>,
-+        rd: &NvidiaVgpuRegData<'a>,
-+        open_data: Pin<&Self::OpenData<'a>>,
-+        mapping: &mut Mapping<'_>,
-+    ) -> Result {
-+        if mapping.region_index() == rd.fb_bar {
-+            if let Some(size) = open_data.bar1_size()? {
-+                if mapping.region_end()? > size {
-+                    return Err(EINVAL);
-+                }
-+            }
-+        }
-+        dev.core_mmap(mapping)
-+    }
-+
-+    fn get_region_info<'a>(
-+        dev: &vfio::pci::Device<Self, GetRegionInfo>,
-+        rd: &NvidiaVgpuRegData<'a>,
-+        open_data: Pin<&Self::OpenData<'a>>,
-+        info: &mut bindings::vfio_region_info,
-+        caps: &mut vfio::InfoCap<'_>,
-+    ) -> Result {
-+        dev.core_get_region_info(info, caps)?;
-+        if info.index == rd.fb_bar && info.size != 0 {
-+            if let Some(size) = open_data.bar1_size()? {
-+                info.size = info.size.min(size);
-+            }
-+        }
-+        Ok(())
-+    }
-+
-+    fn reset_prepare(rd: &NvidiaVgpuRegData<'_>) {
-+        // PCI holds the device lock, and VFIO may hold its memory lock. Open and
-+        // close release this mutex before entering the VFIO core.
-+        let mut state = rd.state.lock();
-+        state.resetting = true;
-+        if state.active {
-+            if let Some(vgpu) = &rd.vgpu {
-+                if let Err(error) = vgpu.api.reset(vgpu.gfid) {
-+                    state.reset_error.get_or_insert(error);
-+                }
-+            }
-+        }
-+    }
-+
-+    fn reset_done(rd: &NvidiaVgpuRegData<'_>) -> Result {
-+        let mut state = rd.state.lock();
-+        let error = state.reset_error;
-+        state.resetting = false;
-+        rd.reset_done.notify_all();
-+        error.map_or(Ok(()), Err)
-+    }
-+}
-+
-+struct NvidiaVgpuDriver;
-+
-+kernel::pci_device_table!(
-+    PCI_TABLE,
-+    <NvidiaVgpuDriver as pci::Driver>::IdInfo,
-+    [(
-+        pci::DeviceId::from_id_vfio_override(pci::Vendor::NVIDIA, bindings::PCI_ANY_ID as u32),
-+        (),
-+    ),]
-+);
-+
-+#[pin_data]
-+struct NvidiaVgpuData<'bound> {
-+    reg: vfio::pci::Registration<'bound, NvidiaVgpuOps>,
-+}
-+
-+#[vtable]
-+impl pci::Driver for NvidiaVgpuDriver {
-+    type IdInfo = ();
-+    type Data<'bound> = NvidiaVgpuData<'bound>;
-+    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
-+    const DRIVER_MANAGED_DMA: bool = true;
-+    #[cfg(CONFIG_PM)]
-+    const PM_OPS: Option<pci::PmOps<Self>> = Some(pci::PmOps::new());
-+
-+    fn probe<'bound>(
-+        pdev: &'bound pci::Device<Core<'_>>,
-+        _info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        try_pin_init!(NvidiaVgpuData {
-+            reg: {
-+                let vgpu = match NovaCoreVfApi::handle(pdev) {
-+                    Ok(api) => Some(VgpuRegistration {
-+                        api,
-+                        gfid: pdev.vf_id()?.checked_add(1).ok_or(EOVERFLOW)?,
-+                    }),
-+                    Err(_) => None,
-+                };
-+                let dev = if vgpu.is_some() {
-+                    vfio::pci::Device::<NvidiaVgpuOps>::new(pdev)?
-+                } else {
-+                    vfio::pci::Device::<NvidiaVgpuOps>::new_passthrough(pdev)?
-+                };
-+                let fb_bar = if pdev.resource_flags(0)?.contains(Flags::IORESOURCE_MEM_64) {
-+                    2
-+                } else {
-+                    1
-+                };
-+                // SAFETY: This probe owns the unregistered device; bind/unbind handle registration.
-+                unsafe {
-+                    vfio::pci::Registration::new(
-+                        pdev,
-+                        &dev,
-+                        try_pin_init!(NvidiaVgpuRegData {
-+                            pdev,
-+                            vgpu,
-+                            fb_bar,
-+                            state <- kernel::new_mutex!(InstanceState::default()),
-+                            reset_done <- kernel::new_condvar!(),
-+                        }),
-+                    )?
-+                }
-+            },
-+        })
-+    }
-+
-+    fn bind<'bound>(_pdev: &pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) -> Result {
-+        // SAFETY: PCI installed the complete driver data; `unbind` unregisters it before removal.
-+        unsafe { data.reg.register::<Self>() }
-+    }
-+
-+    fn unbind<'bound>(_pdev: &'bound pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) {
-+        // SAFETY: Bind succeeded, and PCI has not removed or destroyed any driver data.
-+        unsafe { data.reg.unregister() };
-+    }
-+
-+    fn reset_prepare<'bound>(_pdev: &pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) {
-+        data.reg.reset_prepare();
-+    }
-+
-+    fn reset_done<'bound>(pdev: &pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) {
-+        if let Err(error) = data.reg.reset_done() {
-+            dev_err!(pdev, "VFIO device reset failed: {:?}\n", error);
-+            data.reg.error_detected();
-+        }
-+    }
-+
-+    fn error_detected<'bound>(
-+        _pdev: &pci::Device<Core<'_>>,
-+        data: Pin<&Self::Data<'bound>>,
-+        _state: bindings::pci_channel_state_t,
-+    ) -> bindings::pci_ers_result_t {
-+        data.reg.error_detected()
-+    }
-+
-+    #[cfg(CONFIG_PM)]
-+    fn runtime_suspend<'bound>(
-+        _pdev: &pci::Device<Bound>,
-+        data: Pin<&Self::Data<'bound>>,
-+    ) -> Result {
-+        // SAFETY: Called from this device's PCI runtime-suspend callback.
-+        unsafe { data.reg.runtime_suspend() }
-+    }
-+
-+    #[cfg(CONFIG_PM)]
-+    fn runtime_resume<'bound>(
-+        _pdev: &pci::Device<Bound>,
-+        data: Pin<&Self::Data<'bound>>,
-+    ) -> Result {
-+        // SAFETY: Called from this device's PCI runtime-resume callback.
-+        unsafe { data.reg.runtime_resume() }
-+    }
-+}
-+
-+kernel::module_pci_driver! {
-+    type: NvidiaVgpuDriver,
-+    name: "nvidia-vgpu-vfio-pci",
-+    authors: ["NVIDIA"],
-+    description: "NVIDIA vGPU VFIO variant driver",
-+    license: "GPL v2",
-+}
--- 
-2.43.7
 
