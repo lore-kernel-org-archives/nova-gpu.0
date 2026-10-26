@@ -1,65 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015613;
-	b=qKrHvgyH8dT3gUpS4zEXc3rvHJKkFMjOX70x75vvY5+YqwWdEadisjTWavUBVFHlOdsB
-	 GQX3xJKP/4CdX2Te9zy/Ek6TCdWE+yTE6UtuPs0NLNP8/y+Po+JpD5ETrjnGOUQyMWttq
-	 BMfirWGOVxbMHgMlYvheolbF7c00wMBY7RIi0WYci2sz57gpzl2TZELHLqymfW1cH7ALZ
-	 JhP9O7Ibgg4aBmisl0vVZAVKLjH3o48/aQ3U90YbZpBcWab65G73nrCnZZqyY/riB2eIM
-	 BOYYGyDqh8EX3xZiAxA0LW8VZpTLhpFiq6jVzrv88mJuKAoNEEY2w2PEFf/SaSu9/9g==
+	t=1793016711;
+	b=QNDf9v6W4kRdpPyyNp+zMK4TzlYHBCLM+2ghuruVYuwFdE3CtEY4VYlaoi5O/uhJol/b
+	 a2oOyYRFKJSMktDMWHq8P7pjPWXv4CFBBk1KKpxAag4sY4/TtpIMkSeyQOmbpjhJbx/mm
+	 539tqL1skJCjmmYNGgCHVqAscINjuQ18l1qnsmAkppuFXT5++YTmBswqydwYVpXT8BHKC
+	 kTm3kfIpNDHk6OpVxM/ZlqLgx6mAtBp9SrUf5aKu7X7xwvWQwlDZmTaLHvCCXGQHiFKfp
+	 qcZ7QwUS7ICLFX1iWqQ3RYtxayGVvT5hqpVFr9Tx4IJK95sF92KVWiQTiMy9Z3uZlBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015613;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=KPI6HH/W/aEYa7420sHzRciVfHFyHqvQMBmPbXCoemQ=;
-	b=uLGyE4l/TfZyPgD6FOjcCedFF8JoCHmX/n1MbBP8GLJTHVwbnzKlN69QIlogVSkjoNzO
-	 Z2+Qe7HfRH+qqf1By5sgrqW/JQ/xAhWvWATv4VNdUWY7xPTMnu03o2hT9OoY+Ln2qzKpk
-	 ly7zCG+etjPJ6+z37V/9wlLLankYZEskxGc7ZUo5HOHq4PbZLy8DAGPx0htcy1f/iX6QZ
-	 SGtcpbHfX0m1aipNLJhtw5TK9PAnTBUxigzlMQlCTKKuQsKDALb5RRwjxPtgjYMQfRNjz
-	 Hv9X45uzIlU6nvV8kihNhsG3opQAbFDIAoc7cU0C4da3+nrFjYvYuhPQVCbghQboBJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016711;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=mPNitt3FocwblgeYuJE6oudtAZGn2jwvulIUmLU4VCo=;
+	b=HFXZ1wt+XgckJ/ycTjCOZZqEpN7Arl5m/PIaDISybKaMz45vGxVE/2vaJRBtfGk7JR+I
+	 TwFLPkrhZvWQoIVDbFaQo4gMxvMRyzIkNRlfGERkK3n2EXjGhZqbMRxwnvhEShvEghjqb
+	 XxeMZ9g/p0BjRxPZ2+dVFKWnxMUXF/fur8ZPWFWI7B6Nf7t+4XvgKdP9uHjRrkLuv721J
+	 wjPJMuUITHpW4q+BpTGIjEreYlNj33R+1+h3J7Qqo018TzmWnUrqm6dZMbm2/xnCspbMx
+	 JuE9mvecUoqmfIoZrnMT0E0BqEgnFtcvs9eCtfLYhWvpe3RG+hWnN2aC1S6vaPCEUUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDG7W1ed;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2znGfjk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBED606A31D
-	for <nova-gpu@lists.linux.dev>; Mon, 26 Oct 2026 11:53:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2AA5606A31A
+	for <nova-gpu@lists.linux.dev>; Mon, 26 Oct 2026 12:11:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDG7W1ed
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201031F01825;
-	Mon, 26 Oct 2026 11:53:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2znGfjk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C885F1F01825;
+	Mon, 26 Oct 2026 12:11:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793015613;
-	bh=KPI6HH/W/aEYa7420sHzRciVfHFyHqvQMBmPbXCoemQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iDG7W1edYi8C7nc3DQyr0o6A5MiIWhWSwuUTmKlYz04He39jhnaqgNntu5ToF8Jkt
-	 fjNho7pst4At49tdy30Q2wAuA4sM7OSM0ZEeZX+bEhcPiS4BWDY/QShDGHRsfYabq6
-	 8Al9Unsw6ovlLd3anVAej3yE7YYfmYxEotaFcU+/occrEO+zihLOwhF1mbpcHqAvUD
-	 sEOZqyOHYxNYpD//ukPOCBLG7UEiIbbEoi9xsGvaNNjiDnLiTWptvQMn/cGgmqKx1b
-	 VmTjywDtv0uOTqfR5UDA4OKMHNnKciXjZ5CJCsV5I4UknDM+J5GuN8iWHEdlEIEx3H
-	 P/gvcR9/WIcKQ==
-Message-ID: <sashiko-outbox-185127@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] rust: drm: gem: add an is_imported() accessor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janne Grunau" <j@jannau.net>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
- =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, =?utf-8?b?T251ciDDlnprYW4=?= <work@onurozkan.dev>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Janne
- Grunau" <j@jananu.net>, "Sami Tolvanen" <samitolvanen@google.com>, "Lyude
- Paul" <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev
-In-Reply-To: <20261026-rust-drm-gem-shmem-imported-sgt-v1-2-36f15ace04b1@jannau.net>
-References: <20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net>
- <20261026-rust-drm-gem-shmem-imported-sgt-v1-2-36f15ace04b1@jannau.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 11:53:31 +0000
+	s=k20260515; t=1793016710;
+	bh=mPNitt3FocwblgeYuJE6oudtAZGn2jwvulIUmLU4VCo=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=V2znGfjkBCROQXAUh7afWPb23gOk8nQqUx0kNFHExrfr/dX8k5FcEKWk2dGaGepcm
+	 QvJdfMNHqWTowjQsLTMOptXSmVINZm8MR7Jgd3OEJZ7VK/tZxuC69zx0bCSxQADBU6
+	 akAKnt3VUAQiKfUElxWc+/pbBG12bVW1EFNaBQ6LUSb3oS7GDr7lqG5p38+y35BhVY
+	 L+Bo/9vPKcgMXw9QNZ2l4RsTF/VJoQInzykW3cl9Ai/oeXtJjJ8lROFR8+Ev8ShZdg
+	 JvM+V1BRIzJwnJv3ZhPNy7VK2YL+NFQEPUWvp0/RWmKmQ/veCJ0BbyevWKOrh+th2/
+	 WJm3M9XZ9sVSg==
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -68,43 +48,66 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 26 Oct 2026 13:11:47 +0100
+Message-Id: <DMERDJZTGIN2.3GG2GSRWTLE2X@kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: make bar1 optional
+Cc: <airlied@redhat.com>, "Alice Ryhl" <aliceryhl@google.com>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Benno
+ Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+To: "Dave Airlie via B4 Relay" <devnull+airlied.redhat.com@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261026-nova-bar1-option-v1-1-8b43585881a3@redhat.com>
+In-Reply-To: <20261026-nova-bar1-option-v1-1-8b43585881a3@redhat.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] rust: drm: gem: missing #[inline] on BaseObject::is_imported()
---
+On Mon Oct 26, 2026 at 4:50 AM CET, Dave Airlie via B4 Relay wrote:
+> @@ -135,7 +139,12 @@ fn probe<'bound>(
+>                  // SAFETY: `bar` is initialized above, pinned, and outli=
+ves `gpu`.
+>                  unsafe { &*core::ptr::from_ref(bar) },
+>                  // SAFETY: `bar1` is initialized above, pinned, and outl=
+ives `gpu`.
+> -                unsafe { &*core::ptr::from_ref(bar1) },
+> +                unsafe {
+> +                    match bar1 {
+> +                        None =3D> None,
+> +                        Some(bar1) =3D> Some(&*core::ptr::from_ref(bar1)=
+),
+> +                    }
+> +                },
 
-commit 870fd74aba497ab1671a05a6bf7eca2012bd1ed7
-Author: Sami Tolvanen <samitolvanen@google.com>
+This can just be
 
-rust: drm: gem: add an is_imported() accessor
+	bar1.as_ref().map(|b| unsafe { &*core::ptr::from_ref(b) })
 
-This commit adds BaseObject::is_imported() and a corresponding C helper
-shim to check whether a DRM GEM object is PRIME-imported.
+> +    /// BAR1 user interface for CPU access to GPU virtual memory, if the=
+ device has BAR1.
+> +    bar_user: Option<Pin<KBox<BarUser<'gpu>>>>,
 
-> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-> index e01b8311dd895..5da8627275a29 100644
-> --- a/rust/kernel/drm/gem/mod.rs
-> +++ b/rust/kernel/drm/gem/mod.rs
-> @@ -187,6 +187,13 @@ fn size(&self) -> usize {
->          unsafe { (*self.as_raw()).size }
->      }
-> =20
-> +    /// Returns whether the object's backing buffer is imported from ano=
-ther
-> +    /// driver.
-> +    fn is_imported(&self) -> bool {
-> +        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a va=
-lid `struct drm_gem_object`.
-> +        unsafe { bindings::drm_gem_is_imported(self.as_raw()) }
-> +    }
+Can we please add a TODO to replace this, once we can get rid of the extra
+allocation?
 
-[Severity: Low]
-This isn't a bug, but since BaseObject::is_imported() in
-rust/kernel/drm/gem/mod.rs is a small abstraction method in the kernel
-crate that directly forwards to bindings::drm_gem_is_imported(), should it
-be annotated with #[inline] per the Rust coding guidelines?
+> +            bar_user: match bar1 {
+> +                None =3D> None,
+> +                Some(bar1) =3D> Some({
+> +                    let pdb_addr =3D VramAddress::from_raw(gsp_static_in=
+fo.bar1_pde_base);
+> +                    let bar1_idx =3D crate::driver::bar1_resource_index(=
+pdev)?;
+> +                    let bar1_size =3D pdev.resource_len(bar1_idx)?;
+> +
+> +                    KBox::pin_init(
+> +                        BarUser::new(
+> +                            pdb_addr,
+> +                            gsp_resources.spec.chipset,
+> +                            bar1_size,
+> +                            bar1,
+> +                        ),
+> +                        GFP_KERNEL,
+> +                    )?
+> +                }),
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-rust-drm-g=
-em-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net?part=3D2
+I think this could also use map().
