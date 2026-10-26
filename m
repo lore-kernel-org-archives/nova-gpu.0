@@ -1,79 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792983420;
-	b=4R1wBBPkRI9Ocz5lTggUTOg0FBkzI2qQFpPbuVr+umJPtZ16UzI6xACMc4rEwgmKMUTx
-	 MKH5zkaMjU0Y4wWwduYHpRcg4IKKR/N7qZxmjUYUlwkOT8Wf5Gc1Kw/sLIcboswPyXDFQ
-	 lfC5NS3hoOIqhx4C58+ELVUjrna+kyc/QDdabe2A0n8Y8/0p+7ZndgKzAQIdAWmAx76hS
-	 I2ZYULb+8nFo5VFqdslHpRVq9vaB38nTOii29CR5GRQMa2cW8FBFEif1/B1ALHWgqAYfU
-	 WZY+tdzRjQpRsW9b/YF/qsrSXzI0nOqawXYA9XqULqkyKJssc4tkvpQkCZLThptSo8g==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792986654;
+	b=3WeviH1OU7G3ANIGxicoQ0OUoQjbyjCAUVT8DrphkFGzf8ZEMLR36yrw381oRotpcEBj
+	 J1RWzl5VvLb+EGuPT0b3jcjAcdqGQPIyR4tHFYllxAoqB/9DFnbxKqTUCca+rPYt/zSgL
+	 hYhxDhTtWyDd1PHGqvqOQxwWQk9ZOsf+UwVJxlh84M/Cap1Qfq6apySYVUTWjLfdqlcJm
+	 liFbMc9CzAo9L+4/yQooupakhZ7SyDODGD5NgUwJhGuAS1sn1LXN54SPxogSwWCr3mxBx
+	 N8d/biaU/zRFi267N3YBn9eoQYs54zw4Ou8iUSCb101kjS+RGTCE7XpgUQsH5zvuUUA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792983420;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=4EnjKd3VJElwYYKPc1UJ+fgB3qHQGsHVfDHnlbOdIR0=;
-	b=kMn1lHurDnyoFTXu51cX2AKya9hf2beiDVFoPCFSI/8N69XGPXLuTrzKn1gROCYG9uiZ
-	 ftWLBqYC7RhaD+ksBzWwxbtQPlx0T7oA/ktGTOUPEuUqFRLDBmgmFLDKi2idhQyqq1y3W
-	 7M645tEN9YkbyCqyb9iL6h3rB7VSlu/X2dzJW0arZUA+f0Ug2rvDHNa1MqbHPMN9x9uIk
-	 8hLrlls4wxgWcM6hPVr6LawwrrAw0KvvfBjwb5bECys4efI1xFBsyCEwDhum1GP9UFyxL
-	 c4HK6v2vM+zjYdQVW8BnMonalxsKDcfIDW6oxnUDlyWbur8WS04WRbuTCSutfG8Uzow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986654;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Dstu2QTm1JHio+YJD9hJVau24sRsy1SlCffFKN29bM4=;
+	b=z0jiARVRj0paJzFyCzSveggi4ga+0yqX7K4RGprSBnRuxvsqAYmdOGN9bbXc10Fk7ZhT
+	 K8l2aY1DwjbvHTRWbLJEiW2k7tMJ1AZbF2MVuXumT9SlmJyUR4LO2Y4kgyqbj0aUhcfFt
+	 9oSxebjmHIXp76MDdOFTI/6+JhnSfd/kZU2MI/+gZdABKGTIMhSILRFVNxnQcanzvuTUi
+	 FdUnGODrjfot92Q3ntwANx2FW6WqvHIFC7oZ3vqLEaIvSDgWUUimAYSpajFNn5SHo623M
+	 BnfVednlaX7fRKkfXqB9FHPteVSNcy+OtZCxlpWV4mTde4RAcu6keEGyfLY9I6W+Omg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPq7zIGb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fi9K7iVV;
+	arc=fail smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3993A606A31B;
-	Mon, 26 Oct 2026 02:57:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9511E606A321
+	for <nova-gpu@lists.linux.dev>; Mon, 26 Oct 2026 03:50:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPq7zIGb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fi9K7iVV
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792983420;
-	b=nAJiA1ubu2HYYUxu/oD+tUDES/nk/X2ICi7ForMYFK0P8+yJpWPc9+2CJeilslWB1mnm
-	 lDMi1fQXf56fMErkR3blPoH/oArmxCkJYtY4bpia9kKee2vaF7gdL9/0K6B9MDEbUbLJq
-	 5qGK9+rmSYc0JgO3hPP0ubGIkCRTeW41VwXHMEwW732yiMlS8F+gw7SHFX4FvhtH7D1qx
-	 fmmQY6lU8SYMSasxdigC1JSoz/EfiUWwG+XUKLimgO7ZUYEJrEZ6CwVnycOC86MN9CLZH
-	 wRhQ5TbpGTCWePGTumZt6GAhLS9Z3Ar9afkg5ll/4/qhkDQFNU0QFIWpf/f5Gk961ow==
+	t=1792986652;
+	b=FJOVJKjJfobybKganAutlca0e1pZrkzuGQrf/9ibF4xcZDWSju16sD5/uZxUS6abnAOE
+	 DxC3Uhhh9UfI4Wkq2ubZPmxW6RTW/ckdx6eG22pRZk/B4mmhlI3z65S1ExjkN9f8JvGZ4
+	 5WxwSLf9/w2460mE1AcNM9KwaB3shFT2gMPLS+B43b0rNoyJkUEOQWNSBvzdi0HZi7s1A
+	 +kW6uPX8/VRe7J34X2QXkthQRorzJKODxAs+iuLiEVenL/Ih8IXx5t/hPjQeMPukMS9Dp
+	 /7nbUsZzeCEJvJs4fXtsiASphlgZd5qKt8W2MADfkPqatOiLP/Fh3aJ0v1RjZQP5/oA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792983420;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=4EnjKd3VJElwYYKPc1UJ+fgB3qHQGsHVfDHnlbOdIR0=;
-	b=iwrbNfShNPS4PU4XHmPQTO8b7sC9Qs5gSkBrhCQa8S8EFWb7mh2Px9kWRqF7hQwijj/O
-	 anO0ZxuW5E3lGWoRqTUB6v9lWR7Nh3mojHU3rNvaEJ4wopiXplj3r3Yc+WgKZ+CsDLrDV
-	 FKYHR9WRRJkUbBdqd7U3CC0wvOFJDD/4M91jO+9ORbQJGKPlwme/tLr2Ll7AdIGehNdO7
-	 TanQn+9syeC29kBevQtc1KzkqYLaekNj8Tnx6WsId47E1Fu2RGscF8zTf/BKQVqe8XOFi
-	 51vd9u6GuDQ9UYi7YsiqIDOulkx8+zMy/CkFhFXktmixFH07iN0WcLIbRlzvmEmlMHw==
+	c=relaxed/relaxed; t=1792986652;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Dstu2QTm1JHio+YJD9hJVau24sRsy1SlCffFKN29bM4=;
+	b=xT4xndSKthuRuvnIQi4actfzcsf6S5luS0JSWltj1mcDNpsqEltcGgAqyPJ1kLd7N3NI
+	 qLn0lqK+kyVCS95RMN7RW40oKkGlR31Tur9BG41cYoMshjztggPJnd+l96+iLuYRxq0s7
+	 qtztqgE/86WTs1P2DRZntrY+fLRZ1+Y7bHVbOwttaTDXbuqbvvkBrtSP//o4nQxEN8rfg
+	 v5+OgV1+PQj+JnwKy0XWBZ4HLWLJzQhjZux769yeMPL4uBWyAkrDmnFPAafgxsjhdR/Cs
+	 J1K/uLOnaaCLZiWAK9+M++Fbb2ydqgyXVQ/bNxhLi0V8m/hUFwQpgi53MeyUU6S7g3A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3B7F11F01825;
-	Mon, 26 Oct 2026 02:56:59 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5DE9C1F031E3;
+	Mon, 26 Oct 2026 03:50:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792983419;
-	bh=4EnjKd3VJElwYYKPc1UJ+fgB3qHQGsHVfDHnlbOdIR0=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=hPq7zIGbbcKDqbmEmNPte6tfGFM0al+aaa2BAzKBVURtgB9mST/gugXLbVslzOvro
-	 o2fQ/x6hDdn3343vckx+Oo2HrpwYA0udV6pcqrRnRkrLplo4jWdEongfSaDnSpgUK+
-	 AKJBQcOafoSbCJBidCFb9MJOPxlNma5fz2k+hLAfgtbPCoH7uENPCWzQhto4XLQK1i
-	 IPN3I94QLM7r9QQ4NqE4TAQVFGgIxwIh5MlPSZB5hvamo/k06wP1RtdhU9aZXVsdlO
-	 lTQ/chJ2hPC6yLyi9AnSHT3Muyi8Mx5kYtdUuGa80rBQ8hHaygRbcmycaHGhkKdM8w
-	 w3SM/hBcy6xnA==
+	s=k20260515; t=1792986652;
+	bh=Dstu2QTm1JHio+YJD9hJVau24sRsy1SlCffFKN29bM4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=fi9K7iVVvw3j36l8DVntctjhWTdnb1V1Hmp9PYu6SUwPj7yypd6H0GmVzscR0t43S
+	 NV4m+oApZmG6RyifgSLd3ouHmdaYMMBO7TJvnagIqJ7eqybTcUvbxx3kyv7h0cIIrx
+	 uDrw2TcjJLhHiqKZboKqpq4qsEHou8bwiE0Zie0kZr7i1DzcCVuS70puq4sFcF+NYS
+	 iAAE21WtrtpQaYlRtUf0XgCuLhpJDlrUKO/1oNov3n1JTrNOTfz+QQnbfOJlHJ2AIn
+	 cXuqdEYI+E/lbFP/0lqMPHMnAuEQh99f8sQqTilwyPF1guQwUrLA5B7MEYHiiKwPjf
+	 eKxjLoo5PkmKA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 95D1144BCD;
-	Mon, 26 Oct 2026 02:56:58 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id B13A244BEB;
+	Mon, 26 Oct 2026 03:50:46 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Subject: [PATCH 0/2] nova-core: add initial support for gpu timer
-Date: Mon, 26 Oct 2026 12:56:47 +1000
-Message-Id: <20261026-drm-rust-next-v1-0-14a4ae469175@redhat.com>
+Date: Mon, 26 Oct 2026 13:50:36 +1000
+Subject: [PATCH] gpu: nova-core: make bar1 optional
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -84,71 +83,203 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7bkElIvpKdAhdaw9ZrBWC+Pekw
- xzmMFMgkTAlmFQBoZcTn7GJ6RS4fY0bIfvmYLUdTAO9HChPujFSvtGPxpEOPTkfoDWXUOD8/+a
- l1g9MHKSyXwAAAA==
-X-Change-ID: 20261026-drm-rust-next-d81ce0f4ecdf
-To: Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Lyude Paul <lyude@redhat.com>, 
- Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev, 
+Message-Id: <20261026-nova-bar1-option-v1-1-8b43585881a3@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINbNyy9L1E1KLDLUzS8oASrWNTEwTzNMM7FMSzFMVgJqKyhKTcusABs
+ ZHVtbCwDUigH0YgAAAA==
+X-Change-ID: 20261026-nova-bar1-option-407f1f49fd1c
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1299; i=airlied@redhat.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6274; i=airlied@redhat.com;
  h=from:subject:message-id;
- bh=AWylCJ32K1PQVK694S3XIzNgSfSyKYezuYTSe8/2JZc=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq3sF5TvjdrYFXJqaTGnHQnKmCCgVOheitNaqBP
- AzzJerMwjaJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCat7BeQAKCRAMdPNZecSG
- vqWrD/47tGijWYutlf7++GxY1NwK2qakbkhgLW2ko9JQ6au7YmOEBSotDqv/NqR+U8HrfyHIZ+Q
- HkmzzUMUP5Ab+7ezICsUmphhWqhVAv1jJ9g6/iYkKOu9kWQeV5wykT7ilxHfSVMJg3aid9WwQaC
- mngnr/fY23WQBzDQzPZ264ylgZfPqforP2wnxgT1ijE97hoyhfo5h0qyiosOrKtEfP28FKEuuOu
- nCBB0JhwQEPhtJTpwyZFGbKHyhUfVertUxWgWXcWmRlGntsfakW1qS2qqPvMhxQsnLfHZUGcBVV
- wcUOTiTaTteMEz/Xyhs97A3kPZFiVyO4lm/gXHE9wxUcYigdHQ5H/BUJI5EcEY23trAae/UuhS8
- gh8rifmqbI88IMj0dKr2zWoOTdpwxQFkHGpxzBoEwHmz5IQuYr5Q7KfA738zDZPYfchkGr2W8RV
- sAz4VHXqN+HKvDsMWt0OkAf5BT45ffswRv1N6QR+nwpGz9xGSyETWpH9aFDBMG+VSkTR98oTygZ
- 3o6tfAxHmegxfJvkTS2OcnrNz3f9VylJ/u6wZzgs37qWceB6U6l3W1b1OfzpLll7hZ4UsZNizv+
- j3W/bB0+m9FAqb43+qBYUmyHUXdUaKhGDYmpnlTOcAX71f0Rp8ZIZ9QbHrO6pld1q+nabpGhxVC
- 3J+8Pvc7xVMOpUA==
+ bh=dnbs8MiQY9p4YqWZ5cbaKv+lRKOcVPL0FWNe0TMwC5o=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq3s4Q/TNd+lWgDL8MspWTCvRZdcoGJ8ZHKMrs0
+ 8RTzD3Xr4iJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCat7OEAAKCRAMdPNZecSG
+ vn8XD/9Gu8KXT5NpE4TThSzqSJmeOiOMyIvBslZfD8V6j8z4vsTmwBXNBPSZqEJC0N0Lwx17rp8
+ kGevMXV0Lb1UpdDzi5u49puaMFZqT7zVnr93J5/ENpZalhA5snHN5p2CHWl/59y+gzNyYWQv4lU
+ AdtqZfOMcoaNxiTmghwws6/vFBI04mjNu+2e/x5YvFBabj01IzDmk/482Hiylw+J5vWw87asemX
+ 56HpZQMGoRkmned+u0un1g/miCqJ4WeA/IoznfDA5XjyM6jZ6NiYNCh+gP2pCfeHnp47ivBQDfR
+ htJD2SPOeX8AWKzz/K3fFGBFdwXWMAqWQuTT06krbu0VHoX7EhQXc6YjJY5G/5GByFO4aUIqXPG
+ i0pxAy24p6X7BLKV+Ulv25WLHSj8ncBvavoB0KLBtH6XL1lUgFvvpcb3k3vqxeccbS+UcOpX73J
+ TygHuJdgmKHMqPVn/frsyn2cNpMMk2U2zmIbzCEk6IOaZa/UliTp+NTwd0lyEwedpBS/4gCsToQ
+ B/IrBChJYNbNqQp3UFO3IYXoW2pLKjoPvUSrVoOGxwQ0EO+iGcbfcQPRul+JKycNl9FcYIPAwvF
+ SSI6yc0a0Q6U1bR7MkkO7XYCVcrC8celjW2x49enzU45/Uxr4xoHsYpocxRgnkDgZ1okEYzlmFE
+ +o3T09YDUDcMXsQ==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
  auth_id=1321
 X-Original-From: Dave Airlie <airlied@redhat.com>
 Reply-To: airlied@redhat.com
+Content-Transfer-Encoding: 7bit
 
-The GPU has a timer, one of the pieces of information
-we need to pass into GSP init later is the timer offset.
-    
-This series just adds support for setting up the timer
-on Turing+, with hals for Turing and Hopper.
-    
-Right now it calculates the value to send to GSP but
-the code to send it will be added later.
-    
-For some hardware variants sending a proper value
-is required for GSP init to succeed.
-    
-Dave.
+From: Dave Airlie <airlied@redhat.com>
 
+Not all devices have BAR1 so make it optional.
+
+Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
-Dave Airlie (2):
-      rust/timer: expose as_nanos for clock sources.
-      gpu: nova-core: add support for GPU timer block.
+ drivers/gpu/nova-core/driver.rs      | 15 ++++++++++++---
+ drivers/gpu/nova-core/gpu.rs         | 37 ++++++++++++++++++++----------------
+ drivers/gpu/nova-core/mm.rs          |  2 +-
+ drivers/gpu/nova-core/mm/bar_user.rs |  7 ++++++-
+ 4 files changed, 40 insertions(+), 21 deletions(-)
 
- drivers/gpu/nova-core/gpu.rs             |  5 +++
- drivers/gpu/nova-core/nova_core.rs       |  1 +
- drivers/gpu/nova-core/regs.rs            | 40 +++++++++++++++++++++
- drivers/gpu/nova-core/timer.rs           | 37 +++++++++++++++++++
- drivers/gpu/nova-core/timer/hal.rs       | 32 +++++++++++++++++
- drivers/gpu/nova-core/timer/hal/gh100.rs | 61 ++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/timer/hal/tu102.rs | 55 ++++++++++++++++++++++++++++
- rust/kernel/time.rs                      |  3 +-
- 8 files changed, 233 insertions(+), 1 deletion(-)
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 560a70c4f5a7..ccf26008abe8 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -37,7 +37,7 @@ pub(crate) struct NovaCore<'bound> {
+     #[pin]
+     pub(crate) gpu: Gpu<'bound>,
+     bar: pci::Bar<'bound, BAR0_SIZE>,
+-    bar1: pci::Bar<'bound>,
++    bar1: Option<pci::Bar<'bound>>,
+ }
+ 
+ pub(crate) struct NovaCoreDriver;
+@@ -112,7 +112,11 @@ fn probe<'bound>(
+ 
+             bar1: {
+                 let bar1_idx = bar1_resource_index(pdev)?;
+-                pdev.iomap_region(bar1_idx, c"nova-core/bar1")?
++                if pdev.resource_len(bar1_idx)? == 0 {
++                    None
++                } else {
++                    Some(pdev.iomap_region(bar1_idx, c"nova-core/bar1")?)
++                }
+             },
+ 
+             // Run self-tests that do not depend on the `Gpu` instance.
+@@ -135,7 +139,12 @@ fn probe<'bound>(
+                 // SAFETY: `bar` is initialized above, pinned, and outlives `gpu`.
+                 unsafe { &*core::ptr::from_ref(bar) },
+                 // SAFETY: `bar1` is initialized above, pinned, and outlives `gpu`.
+-                unsafe { &*core::ptr::from_ref(bar1) },
++                unsafe {
++                    match bar1 {
++                        None => None,
++                        Some(bar1) => Some(&*core::ptr::from_ref(bar1)),
++                    }
++                },
+             ).pin_chain(|_gpu| {
+                 #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+                 _gpu.run_selftests(pdev);
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 4e59072cab50..79018aff37f3 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -394,9 +394,8 @@ pub(crate) struct Gpu<'gpu> {
+     /// Must be kept declared *before* `gsp_resources`, so that its components are dropped while
+     /// the GSP is still operational.
+     mm: GpuMm<'gpu>,
+-    /// BAR1 user interface for CPU access to GPU virtual memory.
+-    #[pin]
+-    bar_user: BarUser<'gpu>,
++    /// BAR1 user interface for CPU access to GPU virtual memory, if the device has BAR1.
++    bar_user: Option<Pin<KBox<BarUser<'gpu>>>>,
+     /// GSP and its resources.
+     #[pin]
+     gsp_resources: GspResources<'gpu>,
+@@ -448,7 +447,7 @@ impl<'gpu> Gpu<'gpu> {
+     pub(crate) fn new<'a>(
+         pdev: &'gpu pci::Device<device::Core<'a>>,
+         bar: Bar0<'gpu>,
+-        bar1: Bar1<'gpu>,
++        bar1: Option<Bar1<'gpu>>,
+     ) -> impl PinInit<Self, Error> + use<'gpu, 'a> {
+         let dev = pdev.as_ref();
+ 
+@@ -580,17 +579,23 @@ pub(crate) fn new<'a>(
+             },
+ 
+             // Create BAR1 user interface for CPU access to GPU virtual memory.
+-            bar_user <- {
+-                let pdb_addr = VramAddress::from_raw(gsp_static_info.bar1_pde_base);
+-                let bar1_idx = crate::driver::bar1_resource_index(pdev)?;
+-                let bar1_size = pdev.resource_len(bar1_idx)?;
+-
+-                BarUser::new(
+-                    pdb_addr,
+-                    gsp_resources.spec.chipset,
+-                    bar1_size,
+-                    bar1,
+-                )
++            bar_user: match bar1 {
++                None => None,
++                Some(bar1) => Some({
++                    let pdb_addr = VramAddress::from_raw(gsp_static_info.bar1_pde_base);
++                    let bar1_idx = crate::driver::bar1_resource_index(pdev)?;
++                    let bar1_size = pdev.resource_len(bar1_idx)?;
++
++                    KBox::pin_init(
++                        BarUser::new(
++                            pdb_addr,
++                            gsp_resources.spec.chipset,
++                            bar1_size,
++                            bar1,
++                        ),
++                        GFP_KERNEL,
++                    )?
++                }),
+             },
+         })
+     }
+@@ -623,7 +628,7 @@ pub(crate) fn run_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bou
+             dev,
+             this.mm,
+             regions,
+-            &this.bar_user,
++            this.bar_user.as_deref(),
+             this.gsp_static_info.bar1_pde_base,
+             this.spec.chipset,
+         ) {
+diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+index 8a934c55169f..557bf76c2f5b 100644
+--- a/drivers/gpu/nova-core/mm.rs
++++ b/drivers/gpu/nova-core/mm.rs
+@@ -308,7 +308,7 @@ pub(crate) fn run(
+         dev: &device::Device<device::Bound>,
+         mm: &mut GpuMm<'_>,
+         usable_fb_regions: &[Range<u64>],
+-        bar_user: &bar_user::BarUser<'_>,
++        bar_user: Option<&bar_user::BarUser<'_>>,
+         bar1_pdb: u64,
+         chipset: Chipset,
+     ) -> Result {
+diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
+index 6e9384f06f43..205082df27bc 100644
+--- a/drivers/gpu/nova-core/mm/bar_user.rs
++++ b/drivers/gpu/nova-core/mm/bar_user.rs
+@@ -184,7 +184,7 @@ fn drop(&mut self) {
+ pub(crate) fn run_self_test(
+     dev: &device::Device<device::Bound>,
+     mm: &mut GpuMm<'_>,
+-    bar_user: &BarUser<'_>,
++    bar_user: Option<&BarUser<'_>>,
+     bar1_pdb: u64,
+     chipset: Chipset,
+ ) -> Result {
+@@ -202,6 +202,11 @@ pub(crate) fn run_self_test(
+         },
+     };
+ 
++    let Some(bar_user) = bar_user else {
++        dev_info!(dev, "MM: Self-test SKIPPED - no BAR1\n");
++        return Ok(());
++    };
++
+     // Test patterns.
+     const PATTERN_PRAMIN: u32 = 0xDEAD_BEEF;
+     const PATTERN_BAR1: u32 = 0xCAFE_BABE;
+
 ---
 base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
-change-id: 20261026-drm-rust-next-d81ce0f4ecdf
+change-id: 20261026-nova-bar1-option-407f1f49fd1c
 
 Best regards,
 -- 
