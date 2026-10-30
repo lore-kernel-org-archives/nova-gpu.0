@@ -1,122 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.20
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.57
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793380521;
-	b=BiNvIDFz1pE3u078jUgK2hcGG++JK+Hk7DEJCOujfLXgBSAedawV+OfX2lRgkFj0jX50
-	 Ek7fnEPjrdrdrWyY8MJx8P9YnVsgc7ues/86MXP9e2x8ZDfAxCu3i02Za873eBlmjziEw
-	 HOC57Pdre036Jd+As/hWDoP61DqeowvAIlCoA5v7F0ybfA7yUCZ9YKRUr+CjJSIUvHae9
-	 d4v9tfURVPyHA7DHXyYFH6FL/7Gg0/4mZ27uSdYBsk8wX0OOylQIXg0yceKNt3qXRbht0
-	 PAYGAItE5nZTAK38wahpLBGKc/d5VJSO2PvfL0SrkDe301dh8XF615yVKG3TMEAB79Q==
+	t=1793385181;
+	b=Aouz5YRGTrctoufKTQtPpchLIcMB5Nr+xYhWSnmFI1rmrX9tkUPDpCuOu518whxe+BCd
+	 v8CdtneuHcbEtOmJHF5I+nFQCZ+PHJjg8CMsHKmi2+EyyqYwQFwsM9d5cUBxaGQhYrkG+
+	 N/nmUpY+LxfN0uLWHlAT4Xkbd6bzORVh3JqlcNoBwiwT7eXi8I/oqkXzHu0QlwHEKmq/z
+	 2QkZj0XZ4CHoyToTEe9lf1/2dQAiA/mmavpxZ7t0usrkeszMLXaRboJFoo84aY1K1mXce
+	 o7yL+FTrCjKlxa/P46H0F8/iMwMI+AI9ECLEB+NHq86tF5Oup3JOcWazGw2rDBe2xpw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380521;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793385181;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=K2z9G3KUDjzHENYpfBwpbqIbzJwr7EbXGO9Q/HtmYAs=;
-	b=xHjyQx39cZIAzml8C3dfItGb+08iCWRy2aFcEjO5yC5KLx5KmpOcWJo/aaoj79Yatak3
-	 uuVvfL072RpUNPPYqBq4hTC9ZkiIk1RCIiJY5Tr+A7fscv4x4tjDOfriWByqVU1uOT8Ob
-	 bIQE0Dy9wWwpESkzrk3DrET2yFS0MclTd2+tACp/N609shAVLW9QmldziWAyFrRTdglp3
-	 zln5ZWaKaMEwkH87HW4VOlgucY5ehfkURzkFqny6GMcjbFVOTJt+42lkQrjSAc/iHYwL4
-	 4RZzvNViyy90l7E6MrsBtIY/TCJ/58MyUw732Tc+NxFc82FX8RVFeskEl/8XyXAN4Rg==
+	bh=GMqqwvtse6xWMOh6S1JwmmiPWU61bqTUoo4i9UheRG8=;
+	b=0Jjg02K8hif4ZZRfYbj5TqPceXsMBmztoSzm/3tpOivupzDzNZhIPTGkkAYyQIEAiz1Y
+	 gEMTBRHK7qrirxq0HlfbsQz/mA6CTbf19OWqTy4+3JDnchAgN5onejm2MQLU6Iegu8dZq
+	 l3cdTiq664cgf+/TtBCGwaf7fLgFmqM2kZr+FmkeRVPGPtMU6XiCo7V6Z6uESN0A9Na+u
+	 KGE7oFCHIkDatwlhwpEEp5kgrLk8PdFS68WMZgDf7NgKPlvWs59mhvHU0qi9WIYgdMrF+
+	 Iej9Jsa3b2/pU57pqLubPD1JMdNW13ZbRk3HKuL20j+oWwuyBEEfSBIoTDPhZEJgqAg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hL0z79xv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.20
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012020.outbound.protection.outlook.com [40.93.195.20])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JPL3EGMh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.57
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013057.outbound.protection.outlook.com [40.93.196.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14233606A31D
-	for <nova-gpu@lists.linux.dev>; Fri, 30 Oct 2026 17:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14233606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E80606A31E
+	for <nova-gpu@lists.linux.dev>; Fri, 30 Oct 2026 18:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8E80606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hL0z79xv
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JPL3EGMh
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zSybnpRbZ40Ihkc0ecHIHm6r3evNn6lLW7yVwoyJUfo/MycCVM4ZdE5iArO8ru6sOwRfIS+LF4wurHITxYgOEM2Z+hkEjmOFFfDqEnmjNbx2L8B3Em5r7MaRt1XaDIumUImKpRQJ8at2A3WcdAoCmck3ONWRz3uRFu4c8Q7EdUvk70TULnGCUsE2cFj8xJ9z87fopyS+ND5dFHhwseeId4swxacIzeRG6uiZKQ4V0P33LRi132QS11SknwjpKOpFaDYclQ88dBeZzfZEdFoVVDivyw90aduSLT19EI6AbX7ke0bqIl9mJ5CXyuHf/FuF76f9Grn9M1rT0lMG82WXtg==
+ b=sbUVOoVGj9EXHc91Sa94vsd3Tf3qkJNncX6PstLXSzwnJXZPZD5GezJQ4/7w7JD4tGngoflGoWuNNbm6NkioxWTl+YwQhAzDMr0SIt/LzWJ4+DLbRYbdTazXIlfxA2p6Nv/ODXQwg/iWdgr0hxenynzFEinULbuVqfnz/xkQry3yodhfCegoFp9pGQPHgYN7Hjfdiq9iw37tX/pONupAk/v1Y3ysR8/xtwwhbTx6Z6Uvlvq1gvgbEMOIWvMKY1xF4ygVi/2KeHfAmZi7Xh6sZSK2ySnHgrPBTtZunGjqssB3NMqe7o3fGPEhndxVv1BaHxCbUp3NtbAdzRkB36WYUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K2z9G3KUDjzHENYpfBwpbqIbzJwr7EbXGO9Q/HtmYAs=;
- b=ZhZrzq2nHh5EdeWqO7tijH2G9dW/bpU1s+qk1IBZ+gLuagcr8YcNEtKKTPi2+DJKXnCqgPFyXGr6FMicx2pJtSUiz4oVXU801XWfjnlC4oyoNcl+tEtPB/s+RqGCFBiJGHXnTbaYjIu7ycDGrq1um0TUSdimAVLUBMzpgvNKqh0KBFOvJa37B0h4xikJmoqvF3wRZwibm8L197KlkgfylpNaxDx7kkzeY1/PBfzBaENKGkPnPmG365K3WBLc+uYQb+PeIiqikyKARjCTllbtDFVQdJaqzSH/+SpQyzrh0X/MnufCJ5D/E88eT2Usoi28kukpiqrKIuwqUFQRqQRLig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
+ bh=GMqqwvtse6xWMOh6S1JwmmiPWU61bqTUoo4i9UheRG8=;
+ b=IptwW16uhdu/3eKhcxhqFolUGqLJAdkOakk+PsR4QEbGe41nqvJVpl7NXERFAvzJ97Ls3JgAotXmFBLoF1Lx2D5RQbNWNTq5ZLqs7urDT+VlH29Moe0GeMx1vZiwNxA1D5eCwnMLL7/y8qC5uzx4BaoXQV7f9O09yEAgSDmJrb/wpg+YwtpZpHJmwmYLTlBlRLWJLZ9j5go4KRPBBOBy4YXu4PJrRDDt76MQcPV5nVbLULz/q5BOtJpZRiRdPPpHIUXmUTzE9lPXrZqF1Lh9+sdm9oZTY09DbigXSlwVt63xpbR9E/D1kjJUl5ldwQk+wlugwR/JkQfp4c+9XNn55A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K2z9G3KUDjzHENYpfBwpbqIbzJwr7EbXGO9Q/HtmYAs=;
- b=hL0z79xvkLwzr8Mkw1s9ygSXddOapz8TxDZUuuKc6taQP40J13ycjZy7ebEDwoxk/v74KD6vcGuvErjAxZNH6sCFP4X/BG5a8CnW4YxymP1RPXkR8XRPRR7qYm6EDYc0Ig/pgd+zYbebBRo8b92/wqqGfnXcXO9bywid8nEhBL2z2xp3WGFPdS6fKFgpeV9Qy1FheLWnQa6f6Mi/zmQX3ZZ8VYjL2RrRLbvD8sZ2eSNzCG4ZPHkcvtPZDWkNaCLVUplBNCVwmP7yIrOJcYnnJrHM1/s6rsfabGB43dI7ZPbhk5PpUqSTj2plxzDjtyNwRYVMwib7sK1nkaCHqKwLPQ==
-Received: from CH0P220CA0029.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::17)
- by CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24) with
+ bh=GMqqwvtse6xWMOh6S1JwmmiPWU61bqTUoo4i9UheRG8=;
+ b=JPL3EGMhogFdxhksGQjMT16SJ2jNXc142PO8osX97FisQSaStdO0t8gdZtH4OkVvMSBlD+dXfW/ECJ1JBxJM8rI9KgOYuDdtZOS2NxnhIqddnqDAM93dLMen/8sZPYQOqZNf3mAsIiJn04yiTNvOdqZDs/8Z/BgJAij3J3mNUF5ufJSt6BC6m1tAHAu2uWPWV9VEkFQYILdGJJTl3f2aJ0HceKrxzGPsYl6RxE81kD9X7KO8C8Rzb4YcivkNLQs608xWqDHlQ0cGBGFjlTpSLyqutp203nxPVoEs03q+Xqi7fXd5qkXS9DHJZRPDOIfmmQpMHMSRa8mEg3NjKu5hzg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
+ by MW4PR12MB6973.namprd12.prod.outlook.com (2603:10b6:303:20a::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 17:13:34 +0000
-Received: from DS2PEPF00006E25.namprd05.prod.outlook.com
- (2603:10b6:610:ef:cafe::55) by CH0P220CA0029.outlook.office365.com
- (2603:10b6:610:ef::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Fri, 30
- Oct 2026 17:13:34 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- DS2PEPF00006E25.mail.protection.outlook.com (10.167.23.218) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Fri, 30 Oct 2026 17:13:34 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 30 Oct
- 2026 10:13:10 -0700
-Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 10:13:07 -0700
-From: Simon Song <xinmengs@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
-	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
-	<linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
-	<apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
-	<boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
-	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
-	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v5 6/9] rust: pci: add typed SR-IOV PF registration data
-Date: Fri, 30 Oct 2026 10:12:24 -0700
-Message-ID: <20261030171230.196717-7-xinmengs@nvidia.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261030171230.196717-1-xinmengs@nvidia.com>
-References: <20261030171230.196717-1-xinmengs@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 18:32:54 +0000
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 18:32:54 +0000
+Message-ID: <a3bc3e20-4a95-43e1-bda5-cea92d6e6fdc@nvidia.com>
+Date: Fri, 30 Oct 2026 11:32:53 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] gpu: nova-core: gsp: cmdq: do not sleep in wait_for_msg
+To: Alexandre Courbot <acourbot@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, nova-gpu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+References: <20261030-cmdq_wait_msg_timeout-v1-1-a1e628d2732c@nvidia.com>
+ <DMHW4DNFAF18.1N88RMWYD4TRY@nvidia.com>
+ <DMHX5VRNFYLQ.11FZIS5422ZS6@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DMHX5VRNFYLQ.11FZIS5422ZS6@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0119.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::34) To SA1PR12MB5614.namprd12.prod.outlook.com
+ (2603:10b6:806:228::7)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -126,317 +103,89 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00006E25:EE_|CH2PR12MB4215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32e45531-bf75-43d5-e94c-08df36a9216a
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|MW4PR12MB6973:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4da0446f-aad0-449f-7a42-08df36b43675
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|1800799024|6133799003|22082099003|18002099003|3023799007|56012099006|11063799006|5023799004|261026121527099003|261026140227099003|261028144727099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003;
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|18002099003|22082099003|56012099006|4143699003|11063799006|261028144727099003|261021123027099003|261026140227099003|10067099003|261021135927099003|261021121427099003|261022105027099003|261022075727099003;
 X-Microsoft-Antispam-Message-Info:
-	5kVjLOk6r1/lyhDrEqcLoACiC/WqfnKk6Qt9I7/VFC1CLHnusUKndc3I/YAJGthMN5Tmo3+yMeu9kBfijEf2aKEHhFQG/u2Iqi9cqho+Jm+wmDURdg6VXJ6He4RMLnuJsHclgKUdz4TLS9bOiQsw7RGjPn59huxfUbRNsBvNDWJIMZxvY3Ql2dwVlCT8yfn6wNd6LFfke2Ga5+D9ypFZiGQpoyNmVnR18rWOkMTIonhIZD23a0K1kWmdd/cOP0Lh3VGfovtWE+cxJXlKl1SaDHhyb97vl/0a0F+HQ2wkmZvXpAL5UqnfjJW6UtUa5EVRwfSN1ex2wJFm6/D2Yf2pDTEzX1FWiNAJAVY+Cg1uRu2RVUkYoDF9R5KyzUcgpxlezan2mSIbQwa6/VgC9FW3eP01WV748WPjFlKjnXCpuYug/Y7nmjyUcPgEnjU8HtFYrVRysX5gmnQ9UvFOWDYPCA3NC2RMVQqRxLbSRmW9nCh1GgCNQIqmYtRUjyTmG5Zch//pXGxdU/2t0lWKOif1j/Qlrwp9qpz13dI0Ot0W+7Zy1ULo0zB0aV5LfErv+doZ69VCCpLSmV78yix1v6JoPkPcVdoFlBtKHfFA1gNshG4zr+ZShx4dlH8dkRLt1Ouz3pA3kMpfCjX2Gdd09/Au7TbDG7kDH6SrLKgF5ChxEyYs8VaWwbKotkR6WM5uuoXxAol1Evm8bKfrYYu1mJUGVw==
+	FZS48QmzhOq2ONE9NfR0Y+Dr9dBNva0cdRTf7oJOCd1f7SkWLhNbYPEF9z5TM1d1OWYVsV8sX2oEGpxzziyTSQEWL5YPvqn9Ui09y2CcMfhPkAF+KktuEmKvtmp3B4ZigMvfznTRVtqm4DHe2x0m7N6gPUtC5A/wP4A/EH+3R1dWDON8tqnmzdgfRaJuZdqwahla3A53dn2zEyJs+4qhh+SgDuUY7V7uLbUHfsV8cC4IwOt6nE1lBhTVmSXQcVNXYke5FQKjMWq3IUhtJpbZSayzAMknbNogFYdi8XKHIIRS59PDu++CpgZVPq909Y8JikBHULok+bnfpIK+Ip6LAZGhhnJyFVu6H5P4h5W0V9/eVTXqr6Xy5ZVzAu6gxM/uQhCVZFPNse9GxeOUKx93IyP6OHt9HGG+6wa+OuAJOGHXKAPNkAyCm2gdN/z9HEwJFSBS3Crz2u+POm5XqKyEjbXxopG5QRalmKFcmwhHRDBc/a1sS1fncuSHIg9gt/Z8KR+JJ9MzYIAy1vvU1styMz5tQG6IXMDyWZLQYcBQTlXr2TD7WOD1x9hsDFpSNoxmu5NOfcq7HXC/UOILpyMGA7mBz4qZGYZJM8NqJDRugISuBFaQHlSWFsSXRF39eEEoZV9iFKvbjRU4RtPOT3KVZXPw8zVIXueiLnORDdJpPc0=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(5023799004)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(261028144727099003)(261021123027099003)(261026140227099003)(10067099003)(261021135927099003)(261021121427099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	T9WDD+UBOkv+KKOjOeKKQV37cX16Hwl5YpVtyZd12Lm4xMdx2/ej4W0PI+LwtFWo3tKEaRQJ8+hXJDYww4uviK4KE8SZZ/Jy5mYFQButAQkDGbEleQUG3U3jK51Io8O93CV6fiQ7MQ5qx389NqJAeZeD26r7sHmJ6z/xhvCmn/+8QaWdAdrqjMH+R4KPVT5Uq5Kc9Q73u4U6vrv1xMSxNW/7xYaSrTpMnjOHDqn1u/eItncctdJVJz1BeyIES9Xt4gveGd0TsoEX33EYUKK/UOw9k3ffK6dSoSfbZ+R/CDFOGpF6eZL1X413GIZiZRaSzL1lfpPwxtnFzRAlCdzVNaWbrS1xmeDC0LCOk0Ew9KX1CPFHdoB+J/sz6YOP+Ho7RVKXzg4NKQSZRhcfZMUycxMlHipCwZTZi4sPxh+z2YqltH67LGvpkWZZ0k5AT8qf
+	=?utf-8?B?KzUvWTNLMHpvZkx0SnBOUzMxNlRmVVZkS2VPWWJRV0RzVlViQ1RMYm5QUUh3?=
+ =?utf-8?B?bklBajVPVkx4ZmZEVDlZeDJ6aDNZckszbEpxWUdNVUN0eDlqbnRvTDU3VnNY?=
+ =?utf-8?B?dEV0bHptd0k0SGFtWEZUazR2TmhvM2JTZ1pkdnZxWWtrbFVJV1VQdndoZXFQ?=
+ =?utf-8?B?amdIVmZQMk5ob3lvME9reCt6WmMwbUJtMUVGcEpEYVBFdlpZWUswMWNjQ25T?=
+ =?utf-8?B?VWZ4UHh5dXowanNyRm8wdC9BdWZLbUFrRkI0NVkxY3JRZU55L3k2YnJFbUJn?=
+ =?utf-8?B?ZDZYd1N2ejcwZVJHMTk4a2w3U1VUZXRLb1hCaXdjaURFUTBLUVZucEhxdHhp?=
+ =?utf-8?B?bDVNM3l0aGpObFJ4MURGZDA5TkhtMGJBMkJZSGQxdFRIOUQ3RkRJcHRTcUZU?=
+ =?utf-8?B?ZmJ6NWE2UDd3T2VYeVp3YmtmZ2hIYUQybXVaYUFiOVNSZDhCL2pGZ1F4OFVo?=
+ =?utf-8?B?akROMHRJRzdxbW05dHVrRXNHMGpTVyt0QUJvRU9yS0xtWi9DTitEM20rL09M?=
+ =?utf-8?B?UU0vYmlIenJ5MnA2MnhIYmpYckpIOCtYT21XUFR6WDUrdzA2cGR5MmkxUFJX?=
+ =?utf-8?B?bzBzRllQdlBINDBmMEJEQ3JuTCs1YmFaUHg2cWNVRHM1dWRjay9NUGU2VzE4?=
+ =?utf-8?B?bzlrOWRUM01rYUlvY2hnYVQyR2MyZERrQkpFK1hCc2NwNVJaU1hNTEJTUjlB?=
+ =?utf-8?B?bXZleC9KdWxtQS94Q2hSa1lDR0c3Q1Bvd0JjMmI1NFBnOFpNTnJRZ1ZBWVRE?=
+ =?utf-8?B?azhNWm9EbFBPd3lZV2ttU1ZwQzd5aDZWemVJZndyZGZjMnlZMTNwMmZpT1NU?=
+ =?utf-8?B?MDNhdDBLOTRkd1MybnZzWFhxaVl4WkFnR3MyamZadU1vVnhuL3JyamRwSnkz?=
+ =?utf-8?B?VEF4UWhhc0t1NGQ1VVlndmoxZ1krY2tZWDM2ZGN6cklrcEhmbTlvZURoblNv?=
+ =?utf-8?B?bERmZHRoM0VXQ3d2MDJFTTJNTnRKa2p3R2htVDd2Yk5mckhKRG9UelhEWVp5?=
+ =?utf-8?B?TCt5azkwWFpTRUFmQVEyQXM1RmtEcCtrdGhwaVFxYVdJV3E0Z1paaURGV0pO?=
+ =?utf-8?B?Y2NINmcrMHpwK1VKNDM4K2lIaFUxU2xtdW8yTjk2NXRLNlRuZkJ2V25WaXZq?=
+ =?utf-8?B?bUVOdjdYeGtwT1R1YnRZRkpINmY4a1V6OWFNRFh3Z0IzTStpMGY0ZXF5K1FZ?=
+ =?utf-8?B?UzVXZkJsbHZKZUlNY3RYTU5vNit1N3g0ZnBHMnBsRTlMaTlrc24xNEQwOWhY?=
+ =?utf-8?B?QnJiaEJ4RXYxaVZNMGxxYXRhcU90eFRXRFRzY1d1VHk4b2hMcmpRR0lDQVlZ?=
+ =?utf-8?B?NGdNK0pOK3M3UC9PWWNyeFNVakN5N09DWEJ5bStMOXl1Q0cybmI2MjJ0MjB2?=
+ =?utf-8?B?Rm4yK3JHajc2TkoxSm9BR2NiZVFTR3RnV0ZxcTZnYmx1Qmk3MEduczJURGJp?=
+ =?utf-8?B?aG54U010VVhRRm81T01EdmhjTktTejZYeG43WTFOSDQ2RFptUTFEZGJOMU5Y?=
+ =?utf-8?B?cUdiMGFSeFk0SGNVbzZZcTlUMU43UlNhY3QvaXlQVDZTb2k5WUQzT3ZHQjlJ?=
+ =?utf-8?B?dXdPdW1PbU9yN3Y1RGNDQ0VlUVNGYVdRQU9VOGJteFFZOWdTejVhcFJ2akRj?=
+ =?utf-8?B?enFBbW1wU2ZDdVdCUnVPa1IzVUMvOFBzWGJUT1Y0MXMzWVN0WVRHYkRyVHlO?=
+ =?utf-8?B?V2lNaGtpeDFBaXMyT2tuUkJwRWo1RndpdytMemFEZVFnT2MzRUhyL1BmRUFo?=
+ =?utf-8?B?N09GeFFvUXVLN1lLN0JGb09UOCt2QTc4N2FpYWQrZEVLcWdwWUljbVlXRmpE?=
+ =?utf-8?B?MmlkY093TUpRUTY2dE1hSEszdUhTVE5nSnZJWm13d0RnS1NyOVJ3bStFa2s2?=
+ =?utf-8?B?NGl2amdOUnZJcW1Ma1d3QWRoMnFhR0o4ZVRiU1BrZ09qeWQwNUVIVjd0UmRu?=
+ =?utf-8?B?cG5MdXpKbEdqWGxKVDkwaTZHMUI0S0lLcG5MbktwaDhXa0M2ZWl0UHNVZS9o?=
+ =?utf-8?B?bTNYbEFOVVYwQnlmdys3SElVbWhqRkIwbXNmTGdBd1JaOEVja3JjeUFvQ2tK?=
+ =?utf-8?B?aUg0clUzSHVuUjhsZGtxTFlMbDBic0xBMHlSb0JncHdtbE5sNnVRT1ppMUNr?=
+ =?utf-8?B?S2taOFBFSFJTbElSRVJEdjQ3UUdEV1RaR2JNeTN0dVJMeVlaMkNMTTNjNGxI?=
+ =?utf-8?B?ZUFSVmMwaTdndU9CaHpNalJrMkhJaWR6cDJTczNUamVjMkJ2ZkY0bjhSbFY1?=
+ =?utf-8?B?VDdENFNMVEFLbjc3Y21STWcvQnVDUDVqM3dobHh0SXpkZmsvdkZzSUExeC9K?=
+ =?utf-8?B?a3JYbVJFZlpyTFVmTDlLZlVZZVVGdXhyRFFyaGRIcnBQdjFYaFM5Zz09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 17:13:34.6934
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4da0446f-aad0-449f-7a42-08df36b43675
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 18:32:54.7507
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32e45531-bf75-43d5-e94c-08df36a9216a
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00006E25.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4215
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XUQJPPQT0iej/J/Uk8dSakbuq/xJwChxQirBnNxW9WJtittc3DHglau3QDSNwNpjwzolFbBIPYYqhuuj7S5P5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6973
 
-From: Zhi Wang <zhiw@nvidia.com>
+On 10/29/26 10:21 PM, Alexandre Courbot wrote:
+> On Fri Oct 30, 2026 at 1:32 PM JST, Eliot Courtney wrote:
+>> On Fri Oct 30, 2026 at 12:21 PM JST, Alexandre Courbot wrote:
+...
+>> Previously we had a discussion about Delta::ZERO waits [1] and Danilo
+>> had some concerns about creating unnecessary contention by reading
+>> coherent memory extremely often. Also, AFAICT `fsleep`'s busy wait is a
+>> bit nicer than just spinning. WDYT? I think switching this to
 
-Rust PF and VF drivers bind to separate PCI devices and may reside
-in different modules. A VF driver that calls PF operations needs
-typed access to the data exposed by the PF driver. This data must
-remain valid until VF driver removal completes.
+Yes.
 
-Add VfRegistration to register a pinned object in the PF's private
-data. VF drivers can borrow it after checking the requested Rust
-type, using a higher-ranked closure or a covariant lifetime encoding.
+>> Delta::from_micros(1) is probably better.
+> 
+> Anything works for me as long as we reduce the spinning-induced latency
+> to something reasonable. I'll resping with `from_micros(1)`.
 
-Capture the core callback context in the initializer. Reject active
-VFs and an occupied registration slot before initializing the payload,
-then recheck the slot before publication in case the payload initializer
-created another registration. Publish only after all fallible work.
+That's good.
 
-During registration teardown, disable SR-IOV and wait for VF remove
-callbacks to finish before clearing the pointer and dropping the object.
-
-Co-developed-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-Signed-off-by: Simon Song <xinmengs@nvidia.com>
----
- include/linux/pci.h    |   7 ++
- rust/kernel/pci.rs     |   2 +
- rust/kernel/pci/iov.rs | 205 ++++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 213 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d31a8d107b1..9b6ae544469 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -551,6 +551,13 @@ struct pci_dev {
- 	u16		ats_cap;	/* ATS Capability offset */
- 	u8		ats_stu;	/* ATS Smallest Translation Unit */
- #endif
-+#if defined(CONFIG_PCI_IOV) && defined(CONFIG_RUST)
-+	/*
-+	 * Private data owned by the PF's Rust driver, readable by VF drivers
-+	 * through the PCI VF registration data Rust abstraction.
-+	 */
-+	void		*vf_registration_data_rust;
-+#endif
- #ifdef CONFIG_PCI_PRI
- 	u16		pri_cap;	/* PRI Capability offset */
- 	u32		pri_reqs_alloc; /* Number of PRI requests allocated */
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 8092f56ee2b..83d62f95b7e 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -60,6 +60,8 @@
-     Extended,
-     Normal, //
- };
-+#[cfg(CONFIG_PCI_IOV)]
-+pub use self::iov::VfRegistration;
- pub use self::irq::{
-     IrqType,
-     IrqTypes,
-diff --git a/rust/kernel/pci/iov.rs b/rust/kernel/pci/iov.rs
-index 1ff0ce94f16..83fa1ecfa50 100644
---- a/rust/kernel/pci/iov.rs
-+++ b/rust/kernel/pci/iov.rs
-@@ -8,7 +8,15 @@
-     bindings,
-     device,
-     error::to_result,
--    prelude::*, //
-+    prelude::*,
-+    types::{
-+        CovariantForLt,
-+        ForLt, //
-+    }, //
-+};
-+use core::{
-+    any::TypeId,
-+    marker::PhantomPinned, //
- };
- 
- impl Device<device::Core<'_>> {
-@@ -57,3 +65,198 @@ pub(crate) fn disable_sriov(&self) {
-         unsafe { bindings::pci_disable_sriov(self.as_raw()) };
-     }
- }
-+
-+/// Wrapper for VF registration data stored inside a [`VfRegistration`].
-+///
-+/// Stores a [`TypeId`] header (derived from `F`) followed by the pinned data,
-+/// so that [`Device::vf_registration_data_with()`] can verify the type at
-+/// runtime.
-+#[repr(C)]
-+#[pin_data]
-+struct VfRegistrationData<'a, F: ForLt + 'static> {
-+    type_id: TypeId,
-+    #[pin]
-+    data: F::Of<'a>,
-+}
-+
-+static_assert!(
-+    core::mem::offset_of!(VfRegistrationData<'static, CovariantForLt!(())>, type_id) == 0
-+);
-+
-+impl<'a, F: ForLt + 'static> VfRegistrationData<'a, F> {
-+    /// Pin-initializer for the registration data.
-+    #[inline]
-+    fn new<E>(data: impl PinInit<F::Of<'a>, E>) -> impl PinInit<Self, E> {
-+        try_pin_init!(Self {
-+            type_id: TypeId::of::<F>(),
-+            data <- data,
-+        }? E)
-+    }
-+}
-+
-+/// SR-IOV VF registration on a PF device.
-+///
-+/// Owns the registration data that VF drivers access via
-+/// [`Device::vf_registration_data_with()`] and [`Device::vf_registration_data()`].
-+///
-+/// Drop disables SR-IOV before clearing the registration pointer and releasing the data.
-+#[pin_data(PinnedDrop)]
-+pub struct VfRegistration<'a, F: ForLt + 'static> {
-+    pdev: &'a Device<device::Bound>,
-+    #[pin]
-+    inner: VfRegistrationData<'a, F>,
-+    #[pin]
-+    _pin: PhantomPinned,
-+}
-+
-+impl<'a, F: ForLt + 'static> VfRegistration<'a, F>
-+where
-+    for<'b> F::Of<'b>: Send + Sync,
-+{
-+    /// Create a new VF registration.
-+    ///
-+    /// Returns a pin-initializer so the registration can be embedded directly
-+    /// in the PF driver's bus device private data.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The returned registration must be embedded in the driver's bus device private data.
-+    pub unsafe fn new<'core, I>(
-+        pdev: &'a Device<device::Core<'core>>,
-+        data: I,
-+    ) -> impl PinInit<Self, Error> + 'a + use<'a, 'core, F, I>
-+    where
-+        I: PinInit<F::Of<'a>, Error> + 'a,
-+    {
-+        try_pin_init!(Self {
-+            _: {
-+                if pdev.is_virtfn() {
-+                    return Err(ENODEV);
-+                }
-+                if pdev.num_vf() != 0 {
-+                    return Err(EBUSY);
-+                }
-+                // SAFETY: The core callback serializes changes to this device's registration.
-+                if !unsafe { (*pdev.as_raw()).vf_registration_data_rust }.is_null() {
-+                    return Err(EBUSY);
-+                }
-+            },
-+            pdev,
-+            inner <- VfRegistrationData::new(data),
-+            _pin: PhantomPinned,
-+            _: {
-+                // The data initializer may have registered another object on this device.
-+                // SAFETY: The captured core context still serializes registration changes.
-+                if !unsafe { (*pdev.as_raw()).vf_registration_data_rust }.is_null() {
-+                    return Err(EBUSY);
-+                }
-+
-+                // SAFETY: The data is initialized and pinned, the slot is unoccupied, and
-+                // no VF can access it yet. No fallible work follows publication.
-+                unsafe {
-+                    (*pdev.as_raw()).vf_registration_data_rust =
-+                        core::ptr::from_ref(inner.as_ref().get_ref()).cast_mut().cast();
-+                }
-+            },
-+        })
-+    }
-+}
-+
-+#[pinned_drop]
-+impl<F: ForLt + 'static> PinnedDrop for VfRegistration<'_, F> {
-+    fn drop(self: Pin<&mut Self>) {
-+        // SAFETY: `pci_disable_sriov()` is safe to call on any `pci_dev`; it
-+        // is a no-op if the device has no VFs enabled. When VFs are enabled,
-+        // this blocks until all VF `remove()` callbacks complete.
-+        unsafe { bindings::pci_disable_sriov(self.pdev.as_raw()) };
-+
-+        // SAFETY: The device is valid and all VF remove callbacks have completed, so no VF
-+        // can access the registration pointer. The data remains alive until this returns.
-+        unsafe { (*self.pdev.as_raw()).vf_registration_data_rust = core::ptr::null_mut() };
-+    }
-+}
-+
-+// SAFETY: The inner data is `Send` (enforced by the bound), and `&Device` is `Send + Sync`.
-+unsafe impl<F: ForLt> Send for VfRegistration<'_, F> where for<'a> F::Of<'a>: Send {}
-+
-+// SAFETY: The inner data is `Send + Sync`. `VfRegistration` doesn't expose mutable access;
-+// VF drivers only read the data through an immutable pinned reference.
-+unsafe impl<F: ForLt> Sync for VfRegistration<'_, F> where for<'a> F::Of<'a>: Send + Sync {}
-+
-+impl Device<device::Bound> {
-+    /// Internal helper: reads the `vf_registration_data_rust` pointer from the
-+    /// PF, checks the `TypeId`, and returns a pinned reference.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The data lifetime must be hidden behind a higher-ranked closure independently of the
-+    /// reference lifetime, or `F` must be covariant in its encoded lifetime.
-+    unsafe fn vf_registration_data_pinned<F: ForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
-+        if !self.is_virtfn() {
-+            return Err(ENODEV);
-+        }
-+
-+        // SAFETY: This bound VF uses the `physfn` union field. PCI retains its PF until
-+        // VF removal completes, and the PF keeps the registration installed until then.
-+        let ptr = unsafe {
-+            let pf = (*self.as_raw()).__bindgen_anon_1.physfn;
-+            (*pf).vf_registration_data_rust
-+        };
-+
-+        if ptr.is_null() {
-+            return Err(ENODEV);
-+        }
-+
-+        // SAFETY: The registration keeps its data installed until VF removal completes,
-+        // including when probe initialization rolls back.
-+        // `ptr` points to a `VfRegistrationData` whose first field is a `TypeId`.
-+        let type_id = unsafe { ptr.cast::<TypeId>().read() };
-+        if type_id != TypeId::of::<F>() {
-+            return Err(EINVAL);
-+        }
-+
-+        // SAFETY: TypeId check confirms the stored type matches `F`. The data
-+        // is pinned inside the PF's driver data struct. Lifetime shortening
-+        // from the PF's binding scope to `'_` is layout-compatible.
-+        let data_ptr = unsafe {
-+            let vfrd = ptr.cast::<VfRegistrationData<'_, F>>();
-+            &raw const (*vfrd).data
-+        };
-+
-+        // SAFETY: `data` is structurally pinned inside `VfRegistrationData`.
-+        Ok(unsafe { Pin::new_unchecked(&*data_ptr) })
-+    }
-+
-+    /// Access the VF registration data through a closure with an HRTB lifetime.
-+    ///
-+    /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. Returns
-+    /// [`ENODEV`] if this is not a VF or no data was registered,
-+    /// or [`EINVAL`] if `F` does not match the type registered by the PF.
-+    ///
-+    /// The reference is borrowed from this VF, while the registration data's lifetime remains
-+    /// abstract so the closure cannot store shorter-lived references in invariant data.
-+    #[inline]
-+    pub fn vf_registration_data_with<'this, F: ForLt + 'static, R>(
-+        &'this self,
-+        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
-+    ) -> Result<R> {
-+        // SAFETY: The closure is higher-ranked over the data lifetime, independently of `'this`.
-+        // It cannot insert shorter-lived references, and the outer borrow cannot outlive this VF.
-+        let pinned = unsafe { self.vf_registration_data_pinned::<F>()? };
-+        Ok(f(pinned))
-+    }
-+
-+    /// Returns a pinned reference to the VF registration data.
-+    ///
-+    /// Available only when `F` implements [`CovariantForLt`](trait@crate::types::CovariantForLt),
-+    /// guaranteeing that shortening the PF data lifetime is sound.
-+    ///
-+    /// For non-covariant types, use [`Self::vf_registration_data_with()`].
-+    ///
-+    /// It returns the same errors as [`Self::vf_registration_data_with()`].
-+    #[inline]
-+    pub fn vf_registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
-+        // SAFETY: `CovariantForLt` permits shortening the encoded lifetime to this borrow.
-+        unsafe { self.vf_registration_data_pinned::<F>() }
-+    }
-+}
+thanks,
 -- 
-2.43.7
+John Hubbard
 
