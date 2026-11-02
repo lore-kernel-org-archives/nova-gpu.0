@@ -1,84 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793599359;
-	b=MgI+DlOIIu+th5EP0PGo4dj12dfV7F6j8IziGchICA3eQ7OkyEfx8EXgPPNNgegMHg80
-	 r8Fog0pmTDkwdJgHtyL3hvCZ1ODm+G3Owo7rwA8W402ZAlzP/ex4lkDE4zTRUjmkda62s
-	 j83BTWlphxyrrpu1vrS3U+ttGrryJGgX0dFu03hvsVXf0m3ylrWD1BUG18i3BY+GNqn8n
-	 BS2/uJmnmTg9lOOOMHEUk9WZFQn1KW0kMiBTpu6GESoS9u3UFIO7wf06fPF9zWHA+AtOc
-	 jiuHmx/60NqIAtPxuC2vDqhObeuHIwAN9D1K8MFJTTJ1HO3JvlCVqCRCXOwp3JKGDEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599359;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-Mimecast-Spam-Score:
-	 X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:Content-Type;
-	bh=QVqvMqk4u+JlZzNJJ2w9X65onVE+yQ82LguoHb35TXU=;
-	b=Y0b6YEcBaBwPQQQgNdBAN1mR/fL1AGdi6JW1lFnZA26RtWJ0YVGWCOJ7/riqN1aWS1As
-	 Xzhs465asWlIrTX4nFLG5G/ZS0qFq/DEQRe4Bf21JwGdGjx15GhVC9GSaW7ixL0Na0jr9
-	 E/3EAYJBj4eAkQj00nu6ohJGjcTr88Vq1tvriUfcr2khiaH2rhtkoWdgvvoBApS1wsbJl
-	 56Mpa6NU3ZrYM2LBIPdcnN0PvziI+iudRZgiE5Q/quCPA3mzPfc+6Ui3qdLmPtaGKvLQD
-	 /F2m9m3f3i5EY7ss1VO3aQ2nHeyP64wVZqfRELcMLNimMgkXr/rFi9QoKahPQJk24GA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Tc2RVoSh;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793603873;
+	b=c3fEGaTHC661nssmu8yEDy+LGJZh6ER8diJkprJRYWqffOuCJYj5b1Pn54ALrGzzKv32
+	 gyEHonoW2FRTgGeFp/zmt163Zhz+fYuoimHYiJK/VK55lCNveRUeDWCPQS72z4Ft6qxoE
+	 GzTydvrJvgoLyKqVEhT683rjUeicnxB9cCbaNn/SGzh4aVUHvbOYVWed6AfOhl080pSYk
+	 YnzFEYUIaDNSQjucOBg0ymQIs3IZigGSip5dxkT9HcvUiOM/EqwqvIohw6Ab5fdo9XyvR
+	 zx8FDpxW9P17Nl3Sx0zEafXC2ewTgSjo1InXlnuhgyEr96zZs4IdAbeeB3mM2MgFNZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603873;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CIZwBicKTVVZGS9q/v6H0FbAbpUFwd+2SA14hRFFKAg=;
+	b=pQyduWb0U0Erypo3h7B3MZAw4wRx+zv8PbfXKIX9+yOZvgNb2/KnLXxGzkJ4fc5zY7aU
+	 dltSX0tgDOjcHwTPEyc1IXK0GUKr5fq7GKnMsocwR4cRsJPPosrVuGPLd0NS/QPzQ8A8Q
+	 JIh08Vp4yiriUxk5cykNCa3TmBaqhQzQifBydtAVEJ/1erZmX86UkafI7odEPTBAottFp
+	 oxU2xIKIqAeSewvEMGZWZjcFWxbOOmhH9NLPcRPm4Rn9zcqkpGdMSnYuEMvKEROWU01I6
+	 ciJeyGd7ewlWR6GudpNNq3y2cWLVBE63gkvdJZz8BAVcmuwjBNz0SCxJngB411zT2iA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrNK0n+Y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C0C606A333
+	for <nova-gpu@lists.linux.dev>; Mon,  2 Nov 2026 07:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrNK0n+Y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793603872;
+	b=muFfu54Jz5UPvvaYMUW9MtgbkIz057L1/1AxbnddU9FB6I1yEpZRGF3opaangEnZAwWI
+	 874g64x04raoR3XdQJBPcCMskhPrCKgbi2TqkmYPPsN2EUre68ClZr/7NDE9T1D+hnaDv
+	 G9hNMvVco1BWWB9KKECzmsCcx9zwmQzlnVFi0Wng8DQQnVNJxbyDkdRxsTUB3pM1ds1x/
+	 WyhralMhFhBUec/zQbV4yvRnifvzc0+e6GiY3Lx9zwIPIXMYrUh6pf+g88r2WlGKdVpx+
+	 nVcSf3EoEuMuu+IVF0rLvwU3in7AugHM7Q1Oy/VQzPWC8KAsHVlRo8gtQQd5r0RcF1g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793603872;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CIZwBicKTVVZGS9q/v6H0FbAbpUFwd+2SA14hRFFKAg=;
+	b=UATK2Nu29DOJyLSqn2ZqtMNS4m4olHEKOrqP5raQq5TRHbCkv/0Lk3V3Jk0tLPsXL0oc
+	 ct0E9Ysk20DYhIFBqeIARc3dlTRyfAU8t8dg+vssyuU9NBUVAK6F/YUqVy7fqkC5RSY9Z
+	 5kjXfMPdacQy6Cd4/QkWuAPQC9EzcsIX5t+pmPBcw6rT80h20zKJ5Sw65LPVGZKKaKv72
+	 GR4wYIJ93DQgXTEItUNv7WGbo+oZgox35f5dtQzgJeCcCIqoYWZ0i25wu/Ouv5WIZ5iaT
+	 qwoaIN4KTwpQXMBlL6+80o7gET2PJqyj6yPwick14Y3escIcSCARtP8x9y0DFyRxkKA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A34606A32C
-	for <nova-gpu@lists.linux.dev>; Mon,  2 Nov 2026 06:02:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81A34606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Tc2RVoSh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793599357;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QVqvMqk4u+JlZzNJJ2w9X65onVE+yQ82LguoHb35TXU=;
-	b=Tc2RVoShe7XPy42P55C0xp8/Yl1sATU4Sa2PCxKp0eB5vJOmoC0/VoPT1QWz8Nk1bnCNdG
-	hdtgn7MM4y3Wfi3BOyqRatO3RRcSGwI+I4d0BXfk42w/nncJ1jmwg+TaNtafF7u3TgdjHB
-	ZkxM6X2QyxM4wLO1WWD6+Iu4m10FHQ4=
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com
- [74.125.82.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-679-vOvks6F_PU202OY6XLHU2Q-1; Mon, 02 Nov 2026 01:02:34 -0500
-X-MC-Unique: vOvks6F_PU202OY6XLHU2Q-1
-X-Mimecast-MFC-AGG-ID: vOvks6F_PU202OY6XLHU2Q_1793599353
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1af203073e0so2377421c88.1
-        for <nova-gpu@lists.linux.dev>; Sun, 01 Nov 2026 22:02:34 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793599353; x=1794204153;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QVqvMqk4u+JlZzNJJ2w9X65onVE+yQ82LguoHb35TXU=;
-        b=YRgP2ruO0bv30UV0a65W8Z7hjQ3hvmJwzaRS+JQIvAPSfYcETEaNFmB0Mei2kQdDz9
-         0inDgnuhEWEDsx1tnJhxKbvlpWWw+D731PFyyzNlCx/eOunzUBhmQqCmo6rWwLXEq5YQ
-         F/O3VC0mnSZnN/FE7+yqEQFERzgw1trB9qkOkNsb9SyMJ0uhDxZsphlL1LKV+7ihICV4
-         Ajq2DJsnD5pYnl9TN0c6AFgqb6gxbM7Hv+u8wp1W/0NB1/UNS8eo5qbzhHaYEaDe86Bq
-         Dn1DUqQl5mQKGyskQu4BWe0nJPtHDz8X9ockuiKHUeCLVFl4KqKEcSh2D3EgNAP/v31S
-         CsQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwCS0atj8HLMkVehFabnC2AiIT/RBlX+kOzcPv9e9z0BzRJ79nFlQQPf9XiqMdATOtdy5fg41sKbQ==@lists.linux.dev
-X-Gm-Message-State: AFq9FYKmh+/liWRJHG1OJ0VdWrUyDJun92N61NkqcRmt56Ao9eP4nVii
-	4dIBYesOV5oEZpqbAkpAHrzaGr4WWIrQzYSUGbcD+fwfnA6HIR31yTYMWiQjUQMSvaE27YupUwv
-	W1/Ez/sTfp1tOUwtPpx7QIZMUUCl+iGDoei2J1z4yZ+jjxtZ+3WDNKKmrH93haCrDjfIC06U4bl
-	TBggxa+Cr3hSvZO7Zcz0FzpgYK85gkG0iqchg=
-X-Gm-Gg: AYBFou2ZpZeKLw5cnKdHBlVcPJh0kkWVyK+o5noT3BtN8TJLF2Rzf6dZUz49ohRHBjD
-	QDlk8JRMsZzE0mi+tfLRG6kqWN32Cl0MLQ4e7cJuBez3u+EbtusoYVCw1I1AbM4HaQvhzY9ndew
-	/8Ejzma7eTFAhUwjwFiS6YVagT5Us7djtSN/m3QsIoVYJl8QgSvIi3J3EMLSyEeaILxSQtieGv8
-	wUfCCwTktOdwypy
-X-Received: by 2002:a05:7022:f903:b0:143:3c9f:10a6 with SMTP id a92af1059eb24-1ac56d94becmr14324055c88.4.1793599353188;
-        Sun, 01 Nov 2026 22:02:33 -0800 (PST)
-X-Received: by 2002:a05:7022:f903:b0:143:3c9f:10a6 with SMTP id
- a92af1059eb24-1ac56d94becmr14324025c88.4.1793599352617; Sun, 01 Nov 2026
- 22:02:32 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id A67111F000C1;
+	Mon,  2 Nov 2026 07:17:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793603872;
+	bh=CIZwBicKTVVZGS9q/v6H0FbAbpUFwd+2SA14hRFFKAg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=TrNK0n+YU+rlsW24+taaQ+ZmcXg7a/Eb9sYTev18p7Ye36VNPdXlyU9nBK49aXEsL
+	 H0DEveNZyDHlwQXApJVGbBbg2HwLdBP22nJTBVuaHV5gc/YjgT6tKeBTIHuUJR+vgm
+	 A6LKxi+8UkSvynzLl1eu5e11aFKvgF/NaImvDGSbzGtCerUWEtlLRr0e9FvUT2Nj/z
+	 V1fRDgg9s3GyBrdXwA7USXvGVg3RPY5VFk3aJK1QsaO2cH3PKeSYi+Pb+Y3Kiy+4Ww
+	 u3q7hQz0RcqavvrreT4xDruKT7VwUiK4AtL6Q67E5yOg2K0oqNV11iqE79WhYgdWe3
+	 +gEtO6gkLispA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1A7E2463E2;
+	Mon,  2 Nov 2026 07:17:51 +0000 (UTC)
+From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
+Date: Mon, 02 Nov 2026 17:17:40 +1000
+Subject: [PATCH 1/2] rust: time: expose as_nanos for clock sources.
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -88,85 +82,69 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-drm-rust-next-v1-0-14a4ae469175@redhat.com>
- <20261026-drm-rust-next-v1-2-14a4ae469175@redhat.com> <DMERUEZT5R3O.2K65JB1FXYVR4@kernel.org>
-In-Reply-To: <DMERUEZT5R3O.2K65JB1FXYVR4@kernel.org>
-From: David Airlie <airlied@redhat.com>
-Date: Mon, 2 Nov 2026 16:02:21 +1000
-X-Gm-Features: AclHuK9LHWn1BebolAfE1FBkDldbsia4yVg1MKh18rCBAaEY3IqcLaZpvevtFHY
-Message-ID: <CAMwc25pKs4jT63Ai2hE7qLu4kQfsf6h86EE3CbTB86hU6gjtXg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] gpu: nova-core: add support for GPU timer block.
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	FUJITA Tomonori <fujita.tomonori@gmail.com>, Lyude Paul <lyude@redhat.com>, 
-	Gary Guo <gary@garyguo.net>, Alexandre Courbot <acourbot@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	nova-gpu@lists.linux.dev
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: desiDJHRB0PHbGgAchS9BFLRayaQ4pxqtWMBeMFhdTw_1793599353
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-nova-timer-v1-1-b347ead64469@redhat.com>
+References: <20261102-nova-timer-v1-0-b347ead64469@redhat.com>
+In-Reply-To: <20261102-nova-timer-v1-0-b347ead64469@redhat.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo <gary@garyguo.net>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Dave Airlie <airlied@redhat.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=792; i=airlied@redhat.com;
+ h=from:subject:message-id;
+ bh=pY3ItZTyRBqrXe1s0swCsV4mLrXTPTHBAc2wQUfEkfs=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq6Dkd4edhhC5d0PBanFuqdPfSRLxn9C0KZMcmq
+ R6QvApbHsmJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCaug5HQAKCRAMdPNZecSG
+ vknnD/9PIRPEaWJ4iBZf/3M0f+Df4OQr8YuCkj7JIwVU2Hnp7HUgZpT96c4YCpNG6vX4IETenYO
+ /f0MDQ/so5SHJBFdgge3192sTNTBNcWp6NrHOneIJQ7aVVTlV1uapVKyYkL0PkPKzr9xyvYyy6y
+ v1GMlXiEf0z9s60gkdAO6hCUwGTQ5RlpAQE0NnuK6eI6L6jGuSXSIkCKyNhqrSdg2/UQA/szels
+ 44vV3DRWgbqrrCZyLigaolG7ytwHiT12K48tjrvr7je+qENQwIXBUXQEdqm3+WhCzVCLfzEaMUZ
+ cKZXirLWKD16DkvpVbT38zT6lwqC3ptd1lbdcgWff64glQc96qtUZ82YOW1mm6Ji5g3sFqFzUlY
+ DOClNG3bZ504qiPe6ZS3upbhtlFz1W/XV6RN0OO4upppvN2RpAWDqAhMDN7gt70iDhcKTHg2QIB
+ UM7N0Zb0AjyB/FXvk0sdTrE1QVkFcTaufQX02l7EJb/ifx+Gtzu/UPDsCivHq0fQ9IdXeQuoJG2
+ rx6O1Ubz8zrAQD7TXXkg/hd4gUhZywL8FxxYRpFpt5nLxbkb0cjeljOOSdImu+hq/yw0QgSquUp
+ 5WOvQUrEJ2jJ5A6JKvpTZLST0YrQnx2CCZ5w09+j/wvEEajk4RM9FD3KHMFQoUIIbstIBJ8B1+1
+ J7Bqp1pdkqV/lww==
+X-Developer-Key: i=airlied@redhat.com; a=openpgp;
+ fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
+X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
+ auth_id=1321
+X-Original-From: Dave Airlie <airlied@redhat.com>
+Reply-To: airlied@redhat.com
+Content-Transfer-Encoding: 7bit
 
-> > +#[pin_data]
->
-> Why is this #[pin_data]?
+From: Dave Airlie <airlied@redhat.com>
 
-cut-n-paste fail.
->
-> > +pub(crate) struct Timer {
-> > +    chipset: Chipset,
->
-> Why does this carry the Chipset?
+The nouveau C driver does ktime_to_ns(ktime_get()) to program
+the cpu ns into some hw/fw, so allow this method for rust drivers.
 
-indeed don't need it.
->
-> > +    sys_timer_offset_ns: i64,
-> > +}
->
-> More generally, what's the purpose of this struct? What does it represent?
->
-> Nothing seems to tie this object to a particular GPU or prevents constructing
-> multiple instances for the same GPU.
->
-> It also doesn't seem to provide any access to the underlying HAL's functions?
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+---
+ rust/kernel/time.rs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-At the moment this object has one job to store the 64-bit value from
-when we init the timer to give it to GSP. Do we need an object for
-that, I'm not sure, but handing around a 64-bit value
-sys_timer_offset_ns seems a bit raw, and there may be some time in the
-future we need to add more timer stuff.
+diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+index 6c0a5e8090d0..a91ddf04785b 100644
+--- a/rust/kernel/time.rs
++++ b/rust/kernel/time.rs
+@@ -211,8 +211,9 @@ pub fn elapsed(&self) -> Delta {
+         Self::now() - *self
+     }
+ 
++    /// Return the raw nanoseconds values since the epoch of clock `C`.
+     #[inline]
+-    pub(crate) fn as_nanos(&self) -> i64 {
++    pub fn as_nanos(&self) -> i64 {
+         self.inner
+     }
+ 
 
->
-> > +impl Timer {
-> > +    pub(crate) fn new(bar: Bar0<'_>, chipset: Chipset) -> Result<Self> {
-> > +        Ok(Self {
-> > +            chipset,
-> > +            sys_timer_offset_ns: hal::timer_hal(chipset).init(chipset, bar)?,
-> > +        })
-> > +    }
-> > +
-> > +    #[expect(dead_code)]
-> > +    pub(crate) fn sys_timer_offset_ns(&self) -> i64 {
-> > +        self.sys_timer_offset_ns
-> > +    }
->
-> What do we need this method for?
+-- 
+2.56.0
 
-This just gets the offset value, I've added a comment on where this
-value needs to end up once more GspInit is done.
->
-> > +}
-> > +
-> > +pub(crate) fn get_cpu_time_ns() -> i64 {
-> > +    Instant::<Monotonic>::now().as_nanos()
-> > +}
->
-> I don't think this helper adds much value, let's just make users call
-> Instant::<Monotonic>::now().as_nanos() themselves.
-
-Done.
-
-Will be sending v2 soon.
-
-Dave.
 
