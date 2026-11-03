@@ -1,60 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793664891;
-	b=QBJl6NLeR5g864s/rZq7pvZ/Om3+TUr1zX7yF1mO5QXzK5piLOR5XC7v1vVJotjBjy3v
-	 KtYILK2Dh6AQp8+JyotVAtK0909JkzTwrt9n7oReDcK2BZj8sgnycPXTcPGZp7WEMQqzV
-	 krFM8YgLbgbl6xXeT5p58f7vIc9rOi7QadldYO61oELi+hARjGw2b3egKJ0mLg4fz0veJ
-	 RGkaL2S/GLTdVeYIMPj60Tj2f3BzTHN3xj6JcvwYYSb+pteYgJcU03MrBVi8qm4koe4Kq
-	 O3wabI/ZdyuFmFMtmtAgy31hIIurWQlswxkKnlE7wxSsMhsVzaElAmrKjfpZP233YVQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664891;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=MbjkDPQk0zB4IT2QwWLAcutfUEqZ4J13V6xQxvyiL0g=;
-	b=uG5RqznE5z9O8l5pNiFj0BsWS86USUMYcnpmH81YqyHsdVEMv0F5QWyOlNngxKUsYnM7
-	 40JjUJLgNN/vyWSWAfqtYkpGkAgI6XFGJOAwm4ERRZqKvrmbHyLSC9LUDh2AcSaASGKi1
-	 fbtcXhJufjDDthbWk+DNt/kmV5T1Iq/pTjbCIZEqHELu1pibd8hHag9Gc1GEV9DOD1svD
-	 K7b59hrZPcvDPcNcH17lMrQ00NiHCZ8LVeJm674wDVLspSK73KwwTYffoHRENvZCPTwIE
-	 oXIcZYgtxDnwZL5AdMLFp24kT2WaBa7pmb4PJCBMYwmXgDlY6JyuDfDWbrek6CbMNOQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EowjhSZX;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793666034;
+	b=BiGaJoEF7vLhy/2Qkq/txEr2UoaCfq/4mL3SWGYyKJsJ2+uH/maqHWKL1nxYoXsfsMaK
+	 np0wAX6PGL2LFqb8ATEO/kqQVbHmk31y4CqmFtKB75AULStKe1n52WEK+5F5sytsT8/47
+	 6DIX3Zl37lbjZCTbEBQZJRr6DsYksUVqaWild4K5t0AiWpZvulT/qY28sHknnqjEI/nCH
+	 zhGha5tQQiaquVvTPPTURn1lGSNx32Dg5XQMKqm6NCllII4Db4f78rNQZ85WGPkA0wf0O
+	 lK7bKcRnwB4SkA3NPGUCAH3qoSEUVtRCBsDbjCFgkDx5+L9CrURLSyfwz8KxEKncoZg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793666034;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CIZwBicKTVVZGS9q/v6H0FbAbpUFwd+2SA14hRFFKAg=;
+	b=l2GfxoToU6eEdvmovkGhNNWLDopChILHWxTAiLXgWzBfgO1QAtDOwqrNetlw7sqmShaw
+	 nDu//hw1WF8ITtkASagB7oFHD1Ttuc+JvtSA982AM6HIN6C1mZcSRaNMbYi7fHuniJKrI
+	 ytElAFMCIsSyOxLkIw5QiKsjF0qfWB7V+2fflzpjbzdRwZDsMts4Kgm9zb3uLupyl5mgC
+	 p950kd1o6V8ulGMAxAO/v4qaL1IaGc/SoV/sAjr7O6XnRVTClI++Pa5seo8qvUMPrZUuN
+	 vfV1xcnlevZcL5ivTSR9uuzmSC8qCC7xRAPqJTEOElT3BuDikL5hkkjJUotuD4uuE9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EcyZqooR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B63606A324
-	for <nova-gpu@lists.linux.dev>; Tue,  3 Nov 2026 00:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E44606A324
+	for <nova-gpu@lists.linux.dev>; Tue,  3 Nov 2026 00:33:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EowjhSZX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C501F000C1;
-	Tue,  3 Nov 2026 00:14:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EcyZqooR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793666034;
+	b=ERKh/OdWBYnDY3EU7MxLPPHU3Q/7QpDMdMXIiHeAK3SIKhoakx38KYn59osVUugdHtso
+	 TDsn4uo1k0E4VWg/2zvrIWlbPleACpPYiQ0faLYJgYCZ7/ZBBnuzSRpmdHLHK5v4TOiGL
+	 G2Gi4zFtFGVcRG/XeROLBgVAD7p7jr8M1kMyttYbkW5ZXnhhKy1OyX3rOwQB0WX4tk/2S
+	 ShrDxwHpEWCdCuQfsyarzTS9VxHsn6LfaD6A5jfLuEx1g/bICZh0tEn+QwmorvToksi89
+	 bvK2c5He5zOoy/9QiTMOmhT2PRRIFZCiWOIf7VHJtak4VKazGltCE8uc1/Igip7c5Wg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793666034;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CIZwBicKTVVZGS9q/v6H0FbAbpUFwd+2SA14hRFFKAg=;
+	b=IKGY00XBmDWtFtOOswGUTaTIISx9kD8/+YJEE51EDNirl1UfeKL6oRvYqaAQT4Tqhnn3
+	 e1AAsLHso4PAsPrrn7yqtq91J3DUtEftgiL1hRYnHYpv9pwrgTFZ+maY2tiSoAnMY4iS4
+	 XhDkKQeaUPE84aUeNyv+SealhP+HUMgUGbEKC+D0wY768t5kOhUmlcmE3ZyPf82hhhlwl
+	 7G59J+0P1aKS4pRijPHn1QRylv4Tu/5h34gnceXibBECPoYzgNXc4xsWL39W/2TVySEqb
+	 ORQWyMO/aQwLcp+J4vUSpmx+qy1kLpLbHzQkwiHA0arvwQ10aPxAafcv28VBlP2yiyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9F5001F0093A;
+	Tue,  3 Nov 2026 00:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793664891;
-	bh=MbjkDPQk0zB4IT2QwWLAcutfUEqZ4J13V6xQxvyiL0g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EowjhSZX3WxgYtbwOzjCv4V6bwH6TEtyB45EntqjzS4D8zaoNlqi1dt2ZTEzJMa3/
-	 z+CxszmVAU992oqeQSI1GszkbGrvHvZfxi3emDvJGA97GtOXFOslJ4uGkNIHefh3DX
-	 Y28w0JJdwGFecNT92cBf4KIy10aJ80VARNT4qw21JN+t8AnWyKVD6Fn+yEHTj/Dvj6
-	 9QtXjchf2bda1jJANOlUgQGXwHcyi3fzRjq4FQEVgE52MSd/i3NBziOId7UgMRg757
-	 SDzBhuyLdEKXeGA+CWwxcAX81AJC1hfTyJKzHRri6BRY98EXLelvFEd92gNmVprQVg
-	 BTlnaFQ1HctFA==
-Message-ID: <sashiko-outbox-194366@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] gpu: nova-core: gsp: cmdq: add the GMC receive path
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi
- Wang" <zhiw@nvidia.com>, nova-gpu@lists.linux.dev, ojeda@kernel.org
-In-Reply-To: <20261103-r000_rebase_on_cmdq-rpc-v1-4-189f9ff3bfd2@nvidia.com>
-References: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
- <20261103-r000_rebase_on_cmdq-rpc-v1-4-189f9ff3bfd2@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 00:14:50 +0000
+	s=k20260515; t=1793666034;
+	bh=CIZwBicKTVVZGS9q/v6H0FbAbpUFwd+2SA14hRFFKAg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EcyZqooREmzrOkJab6wQdcpsgSdBnAR0laDrNKyCxWl9NxB8bBA6UF60xnTr9Azm7
+	 1SS1WRtPvx/jGFUb561svhvgvKd2ppB8Re68i7TKElvDJ9xTuEpGEhwr83gx/HhFXj
+	 S79mS1XNGUqz8KVNoGuJSTQroFlsvyH17x3R3OJkNybxKqz8fmD5mkr59XEAv9l9Zn
+	 J3abAmGV7pzauvBdFVJtIeiDgHzhUTrGEhrqyafr+Xpn7ehU3CrZPe50uDZnm1Io0I
+	 5nVGQfjV2MgY+mNTd/OS3v6JZDgl/X06AhTIO4zHU944FQaWwEWvZilpzCdR4W4tdA
+	 Akia4r2g3ILsw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 10CC94670F;
+	Tue,  3 Nov 2026 00:33:53 +0000 (UTC)
+From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
+Date: Tue, 03 Nov 2026 10:33:38 +1000
+Subject: [PATCH v3 1/2] rust: time: expose as_nanos for clock sources.
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -63,169 +81,70 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-nova-timer-v3-1-0cf9bbae8fd9@redhat.com>
+References: <20261103-nova-timer-v3-0-0cf9bbae8fd9@redhat.com>
+In-Reply-To: <20261103-nova-timer-v3-0-0cf9bbae8fd9@redhat.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo <gary@garyguo.net>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Dave Airlie <airlied@redhat.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=792; i=airlied@redhat.com;
+ h=from:subject:message-id;
+ bh=pY3ItZTyRBqrXe1s0swCsV4mLrXTPTHBAc2wQUfEkfs=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq6SvvuMdC0YZcKfwwRh5+Chrb8yGgeHkwOrhnn
+ qssdm91hpWJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCaukr7wAKCRAMdPNZecSG
+ vniPD/9aSMYxOBOjmA7A223lAdd7J2iJcfUjUEoueoZHWD9q6o+1eROV5AcWcnwbGU372ou77j9
+ Q6Pyh2mUB8wzJpqZMSHKCbwp8u5oXcdNGHCRb3LwpDmm3NOU9D9rQ66d8sNlLwdw6fiEaS7rTao
+ h8NR2MU4/l6m57od5jN7+eJeKT4QhpiiHxDOyu9n3NZTVNTrHx0nowBcLGjeIc03EaTS2bcg5MV
+ N+PiMoEFxCZ4zEc+Sky/xoqiFne8YUPVeWvSVxOoNjs2YWaoQaunnFFqbgoktm/+kqV95tufY+D
+ 3+iwPVDSH7vzuyeN5V15mMcjk0lWUFFk4FYVu4WOBsPvHzBIAwFm2e/NvmEKqYHDIuQ9RcZkiu+
+ O3OLFXPH6AEVxR881tR4pTQiUkl5eQBZS3QWrK8i6TpAroQpALKkx1H8luSa096zYmr1WDNFCfp
+ 5ema1ki0ky5o0eIriRQYeZV+2Wp0F8T/DOSsutHuHUh5HsCb+OKnWbEKd3eLFsUKJW/HAkit7zX
+ k21+uPPOq0NF7mQb2c5G+gXB/bv2IO9UAXyNyDISNQgZwpjyHuU0KZwQ1KwWiKBErBYVdiI7b2X
+ 3H3nxd8/3QoPtq77CbS/QvfVoiUfTpt4x93+L8f0hyZiBrSXgU+ipb8NEl/YnnjHqGPIDy0kJvR
+ WqNwrvbBcn8sLqQ==
+X-Developer-Key: i=airlied@redhat.com; a=openpgp;
+ fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
+X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
+ auth_id=1321
+X-Original-From: Dave Airlie <airlied@redhat.com>
+Reply-To: airlied@redhat.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] gpu: nova-core: gsp: type mismatch in CmdqInner::send_gmc_command()
-- [Medium] gpu: nova-core: gsp: unclaimed replies passed to on_event in awa=
-it_gmc_reply()
---
+From: Dave Airlie <airlied@redhat.com>
 
-commit 54e27415bb52450de6eeae48a370384ffd8a7d77
-Author: John Hubbard <jhubbard@nvidia.com>
+The nouveau C driver does ktime_to_ns(ktime_get()) to program
+the cpu ns into some hw/fw, so allow this method for rust drivers.
 
-gpu: nova-core: gsp: cmdq: add the GMC receive path
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+---
+ rust/kernel/time.rs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This commit adds the receive side of the GMC sub-module in nova-core so the
-driver can parse GMC messages, handle GMC events, and wait for GMC command
-replies from GSP-RM.
+diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+index 6c0a5e8090d0..a91ddf04785b 100644
+--- a/rust/kernel/time.rs
++++ b/rust/kernel/time.rs
+@@ -211,8 +211,9 @@ pub fn elapsed(&self) -> Delta {
+         Self::now() - *self
+     }
+ 
++    /// Return the raw nanoseconds values since the epoch of clock `C`.
+     #[inline]
+-    pub(crate) fn as_nanos(&self) -> i64 {
++    pub fn as_nanos(&self) -> i64 {
+         self.inner
+     }
+ 
 
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs b/drivers/gpu/nova-cor=
-e/gsp/cmdq/gmc.rs
-> index b035f30479a84..9adba5cbcd5c8 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
+-- 
+2.56.0
 
-[ ... ]
 
-> @@ -150,7 +152,167 @@ fn write(&self, dev: &device::Device, seq: u32, dst=
-: &mut GspCommand<'_>) -> Res
-
-[ ... ]
-
-> +    ///Logs an event, meaning a message that no caller was waiting for.
-> +    ///
-> +    /// A reply that nobody claimed (e.g. one that arrived after its req=
-uest timed out) and an
-> +    /// unknown command id are logged at warning level. Other events are=
- not logged.
-> +    pub(super) fn log(&self, dev: &device::Device) {
-> +        let command =3D self.header.command();
-> +        let seq =3D self.header.sequence();
-> +
-> +        match command.id() {
-> +            Ok(id) if command.is_response() =3D> {
-> +                dev_warn!(dev, "unclaimed GSP GMC reply to {:?} (seq {})=
-\n", id, seq);
-> +            }
-> +            // Nothing to do for the remaining known command ids.
-> +            Ok(_) =3D> {}
-> +            Err(_) =3D> {
-> +                dev_warn!(dev, "unknown GSP GMC command {:?} (seq {})\n"=
-, command, seq);
-> +            }
-> +        }
-> +    }
-> +}
-> +
->  impl Cmdq<'_> {
-> +    /// Sends `command` to the GSP and waits for the reply.
-
-[ ... ]
-
-> +    pub(crate) fn send_gmc_command<C>(
-> +        &self,
-> +        command: C,
-> +        on_event: impl Fn(&GmcMessage<'_>) -> Result,
-> +    ) -> Result<C::Reply>
-> +    where
-> +        C: CommandToGsp,
-> +        C::Reply: MessageFromGsp,
-> +        Error: From<C::InitError>,
-> +        Error: From<<C::Reply as MessageFromGsp>::InitError>,
-> +    {
-> +        let mut inner =3D self.inner.lock();
-> +        let seq =3D inner.send_gmc_command(command)?;
-> +
-> +        inner.await_gmc_reply(seq, on_event)
-> +    }
-> +
->      /// Sends `command` to the GSP without waiting for a reply.
-> @@ -191,4 +353,70 @@ fn send_gmc_command<C>(&mut self, command: C) -> Res=
-ult<u32>
->      {
->          self.send_command_element(GmcCommandElement(command))
->      }
-
-[Severity: High]
-Does CmdqInner::send_gmc_command() compile and return the sequence number as
-expected here?
-
-Cmdq::send_gmc_command() calls inner.send_gmc_command(command)? to obtain
-seq: u32 and pass it to inner.await_gmc_reply(seq, on_event). However,
-CmdqInner::send_gmc_command() returns the result of
-self.send_command_element(GmcCommandElement(command)), and in
-drivers/gpu/nova-core/gsp/cmdq.rs, CmdqInner::send_command_element() has
-return type Result (i.e. Result<(), Error>):
-
-drivers/gpu/nova-core/gsp/cmdq.rs:CmdqInner::send_command_element() {
-    ...
-        let elem_count =3D dst.header.element_count();
-        self.seq +=3D 1;
-        self.gsp_mem.advance_cpu_write_ptr(elem_count);
-        Cmdq::notify_gsp(self.bar);
-
-        Ok(())
-    }
-
-Because rustc type-checks generic function bodies even when unused, won't
-this fail to build with a mismatched types error (expected Result<u32, Erro=
-r>,
-found Result<(), Error>) unless send_command_element() or send_gmc_command()
-returns the sequence number of the sent element?
-
-> +
-> +    /// Receives the reply of type `R` to the command sent with sequence=
- number `seq`, waiting up
-> +    /// to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-
-[ ... ]
-
-> +    fn await_gmc_reply<R: MessageFromGsp>(
-> +        &mut self,
-> +        seq: u32,
-> +        on_event: impl Fn(&GmcMessage<'_>) -> Result,
-> +    ) -> Result<R>
-> +    where
-> +        // This allows all error types, including `Infallible`, to be us=
-ed for `R::InitError`.
-> +        Error: From<R::InitError>,
-> +    {
-> +        let dev =3D self.dev;
-> +
-> +        self.await_msg_with(|message| {
-> +            let gmc_message =3D match message {
-> +                GspParsedMessage::Gmc(gmc_message) =3D> gmc_message,
-> +                _ =3D> {
-> +                    message.log(dev);
-> +                    return Err(ENOMSG);
-> +                }
-> +            };
-> +
-> +            match gmc_message.is_reply_to(R::COMMAND, seq) {
-> +                // Message is not the reply to our command, log it.
-> +                None =3D> {
-> +                    on_event(&gmc_message)?;
-> +                    return Err(ENOMSG);
-> +                }
-
-[Severity: Medium]
-When gmc_message.is_reply_to(R::COMMAND, seq) returns None in
-CmdqInner::await_gmc_reply(), can an unclaimed GMC reply to an earlier
-command or an unknown GMC command be passed to on_event() instead of being
-logged?
-
-In drivers/gpu/nova-core/gsp/fw.rs, GmcCommandWord::is_response() is set on
-responses to requests and not set on events, and GmcMessage::log() checks
-command.is_response() and command.id() to log unclaimed replies and unknown
-commands at warning level.
-
-Here, the comment says "Message is not the reply to our command, log it.",
-but the None arm calls on_event(&gmc_message)? without checking whether the
-message is a response or calling gmc_message.log(dev) (which is pub(super)
-and not callable from outside the cmdq module). Should unclaimed responses
-be logged via gmc_message.log(dev) rather than forwarded to on_event()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-r000_rebas=
-e_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com?part=3D4
