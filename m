@@ -1,91 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793748777;
-	b=tvc4NDu9nKxXB3Cc+faTcg7zCDsVBVT5Ve0WUQZkJHLW+jNFiZi610on0eKJFyWoDfug
-	 xlR4IR5TISZgkS4zJ8ir27a3ajrgc5lf4s7hIkAdU3HOtkTVPU8fOaqYYBVWFHZAG2/bJ
-	 YohjhiBaJ0xIoDyxoP8miHm1x1rSLz1GiO5iwSsmJibZBhgvP6yykDDo/m+wn+XdQ7daF
-	 tQ3JMJKdHJWhb6jfqzrsiKhJ1BWPIO1eXoGc/FDrNdfQ4yfgaEAcZtnx6cMK4WVJsosAY
-	 uuGooIYBhOH/q1KOlzPvenZM2XK3g3lEDvchY1HN4RgNDpOQS1H5FiXsn+7fe3sqogw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793748777;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Content-Language:To:From:Subject:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HK3vvHiZlr8nPeneHkQnzXrwdiOjXuo8QUqYWS9+Pjg=;
-	b=Z0S9puIH9NvhmzHdBL6fswhCkPgLIwyu7OWcHnZxzsNIPnIKPnyAW0tkSX5TRpQpVJBa
-	 u+gbm+It904CFjaoQGpt0pImNRbQkVlXCU6YzJV6DiQ4MgCXvS8J7HyBwdUyKeJ/flmDB
-	 utfKF3tJOG7Y4aeWm5myAk+a94BGec8kj/9Wm2BpzPQxFkV5Fp5UZucFUJU70R592VZpq
-	 oJAbAeYk+bfqBcuv5GK5h8xaaA9aL+EfdgJU3GZChbwKvYSRM7/foQN95OzPTAjKnvdFL
-	 i2h4WRxAFZOLnI/uyvNLwv7CSJf2RniJZkLt3H0HNnEnow9GUrVgPrJth7T24uNRNFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mFoUnaq9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.18
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012018.outbound.protection.outlook.com [40.93.195.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793749947;
+	b=dI77SoSUmTWXiW9sLZzv7dRwTSXSKcqjHBUcK3w0SeWN7oRkF3kaMRkDruYitw8l5k1T
+	 WkUyS5C9fYX+hdaM57JICMMQH9KWGqBf6e4eczp7poZcUQpag+Sg91GHRGGX2meDGX4uv
+	 GI4uEhQlzCObVyif4xKRemmeoW4o7x6w8bfPuXtCawi9E0w8mH2H5nUoPoBEG9tw+1ZWD
+	 I5/7FZ37Mq3ZzleCYszAuFqUK8vybX3dLjXQIa19DGhfKngSUmvqgarTBYZPz3FEvtfwY
+	 KODWZm61eJL6L7VQChywg3P9zt91CGHzcDieH1M54e4794i6R3OzoEfwLF0ZvD8DC9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749947;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=OnPyf4DsfdGQnmVoQBAPDlL7/w93YlPd+SQ2gkHHEGc=;
+	b=TBYixEv+IxVjYjj5zQFkM744nUt1+CANHmzbvnvXyDWli9M+G+MYpoPvHkv12Yf65f9c
+	 3jP+9DM1nDZTTkRmaAkF0L1yORvm80MPvKk8IW54ojY20Ue4+W13Iy/H202EF7rHXoBig
+	 +iTKJLV4Gt2Q0amzNF6Ves2qxbwgSfSS8iuIqL6btvy5Z/f+4oCapiZsBDjQ110zWxeTL
+	 xwwE89BXyzuBW904Yv7WLKrYJezmZ0ydBzirNn1je3T7oVQiFiPmzRWo9/Q9RDrnlv9Rz
+	 ApTXDBwbkegH1M+7EK7xmi1DvIIopoNjbfl27ffu/egOmglhtI/SB9zIg+o7uIgXX1g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcdIlHEJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D8A606A324
-	for <nova-gpu@lists.linux.dev>; Tue,  3 Nov 2026 23:32:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53D8A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1183B606A32F
+	for <nova-gpu@lists.linux.dev>; Tue,  3 Nov 2026 23:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mFoUnaq9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ywiC31KX0RMMku29vkrFiUnhzpwiDiQjsth8tXQ70fNgiscfDcBDEW+UYW1EkJCs2VU3aAo/3haFJdm3BECk6XpVka9+YxVY/TwKNcgn6e+Ivb/1gRSDghGlzyRHgMIJ6/Ol0nAzOCaLpIuYDVmCoLAe79oBzPCu69+O1m0PGVdMzJLzLMJhgZPx7jDU4mnJdbZ/uju/IMq8t4L4VDKl+KuGSyobNWFs9kWErA69D3HKnrgEy92sq0f+WAlt61r3NXDVpbx3usc3Wm2+PU0Q0hWOjh2x1FVpfWGF/1ySaGpaXi63vE7Lkrw30d8btOdjNtT3s/3LPCiRMetqdDSwzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HK3vvHiZlr8nPeneHkQnzXrwdiOjXuo8QUqYWS9+Pjg=;
- b=QTiM3DXZndG9oBAIM77aigOtJ+a+wRvrVgpI+W6fDT0GarzzxZmdg2w7LIqG8P1YiGJEm85SLG+++RIrWcrNVVDMr6e0ARr9PYAJngWaOzJOU0T0VFauHvjR4bh6WmXF3RMg721+oNabU7uAPQD1fgCfKXFBkL0Pu8j/JXqMpcekbZyF1Cr4Uy4fg8TTkpylaT7OiHZQLug4H4voksQbmOcdYBy9U+XksLuLjZ5XADmL7BdsyR7cEoA0X6xxQpU1nanjmBqpd1OaBGmRqAzgW53hjaulBHDKTf8oARxDZXLKBBjPFEt9GqZLn6c3GU9JGweo6XEZ5M9CWDw04hh9Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HK3vvHiZlr8nPeneHkQnzXrwdiOjXuo8QUqYWS9+Pjg=;
- b=mFoUnaq9iEQziPe7djRNw371vSudXUNSNA8sKvCJiW4XRzL47+s9Y94R6CT8VOqUAK/FpohNv8tRCs8E2lAcJh8/YaiIqDi7pYnHQ1NCw+rRZIUYDIT+6CVIuDe0QBdO/XYC0y2DCBYOBP3S1dDGBkUfoy8KSnJKUP7oYLt2vD11ZGEHa1MpUaAlD06qMdgR4bN339gReT2znYMrBM2+la6kkBdSyJDSOlkUagGP9o+BXZbJp+yS1BpEIT5iVFFFLqp2oy0EPQe6HtIfEpBTKuqSmbPZpfoMZts4qAgPTlyrIkIRFH9tFCh38gyDjgHhsHN4EbESLWvH/k27WuLhFw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
- by IA1PR12MB6331.namprd12.prod.outlook.com (2603:10b6:208:3e3::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 23:25:11 +0000
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 23:25:11 +0000
-Message-ID: <211cc191-828d-4494-92c4-168906a0ede7@nvidia.com>
-Date: Tue, 3 Nov 2026 15:25:10 -0800
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
- Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- "rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>
-From: John Hubbard <jhubbard@nvidia.com>
-Subject: drm-rust-next needs a commit from rust-fixes
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR05CA0025.namprd05.prod.outlook.com
- (2603:10b6:a03:33b::30) To SA1PR12MB5614.namprd12.prod.outlook.com
- (2603:10b6:806:228::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcdIlHEJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E6D1F000C1;
+	Tue,  3 Nov 2026 23:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793749946;
+	bh=OnPyf4DsfdGQnmVoQBAPDlL7/w93YlPd+SQ2gkHHEGc=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=OcdIlHEJPkEBA0v1RhFTf+JxevlaJmzv8EdsdkhJd0dPlhMl82to2kYCx4jSsGGFT
+	 oJDxWNLlCnQ+hdK5/8TmTT3AWXBdZ0dtQw+YcEZiy6qtiRZEgW/Wsu4AIah6rKPs5E
+	 Q9UNhsmIXOwkWSQOGdLYkNDsrSlUbXEhgQIsui/IUBZHmEbcSrelhfA/C9vyTyeciF
+	 /CsQaqEwWgJQlULUwaYR3XZ8JmzPs1XsP/CZWkcX8H5zBTBmZEHSLA0JBpd5UnwgE1
+	 Ea4K7/WeLYi1o8QljfqDp1Pzi+vttB1vODrxZU7XFKCBSVJBLxoQaiYWOqGiBM9GaA
+	 yHLPdab51YduA==
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -94,118 +48,281 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|IA1PR12MB6331:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88d34bdd-4d30-4eef-6e0e-08df3a01b4cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|18002099003|5023799004|11063799006|261102123227099003|261028144727099003|261022105027099003|261022075727099003|261026140227099003|261021121427099003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	HZXRpsdixzh++K+iSxr6VqyRzycSWJg/dEIGGc/GOQZn1Cffq++TIZt5GMCyKkBKMWm9kQO6sL2fwyPNC0cPiNXTmQoMG6KZx2Osy2hRm5KjOfb7cUvzeXir1ESXEDzmLKKZcyGfBO6bZsM2QkROMXV2g4MYq/aJQmsITqPVWIt2RU5dXjznFzxiC/0JCsT8iwjK99pjFvSYZw4LBl4iEc82V5H3yF62KWqvZjj89x8F95X/zACRFK00T+8sNnjGrEzfplktFYftVPpfuNCZZ7HJoNzW7rodKNhVKAItVLg46WCz015O6CalFVnsGJlO7VQyh4Fs7mkXoX7hanA1lDOMmBbWuWtQ/jLoxIkHdqRdgVbLPDCkkjLMbqHB1Pvos1IECnARiYGqI3nnTiJa9ijJ1feuHAAQSz2qnwGoYIhpmIWAoF9QuCtxxsKm7FRhNzTpZvJB0jP6wgSqBH1x0o3N5N5sBEq5a8OyLxw+/WK1kHHG620TdngjEfg02OpaBUqKCtw5LYpNiDon9QmWy8k6/Xb34P7yZMgw7xc7cOxvoNRhqEJVrEyKnjq5yku2ERJO9OPhwSlJD81CG6ROKTVNSHO5qRg1hveprQJO3e4/w7zD3GjQJ538MBZ8CgzZZt5bAjhWXQqBSQe3n+SPcf/uMasnyvtucUDlcPIjIkk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(18002099003)(5023799004)(11063799006)(261102123227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261026140227099003)(261021121427099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZHBQUC8zaVlqVWExZGhJV0w5WEJPWUVaYXJpYm0xdUpoVjlVbDBzaEZ0dnVv?=
- =?utf-8?B?VGRiZXVhSWc3S3N1RDMrUzFLN1JnSHptY2lQMWlhNGMrdUZWK3NCcFc3RDdw?=
- =?utf-8?B?OXBCaDFNbnFMQjB5Q2ZKZlVYVE5wWG1RV3luN0FkRzBobWJtODRLdW0zMkdM?=
- =?utf-8?B?ZmhNcGpqemVUUi9QZmlnT1RvYmJUanhRMFZpY1BaRTd0cXhXaXpVcmlpM05o?=
- =?utf-8?B?bStabmVxL2RBU2NZWndRTjFIZFpIa1lBN2FmWmtiS0hyRitnMXd6eG95dkdo?=
- =?utf-8?B?YmZ0R2xsSG1mUEI1WW5DL3JaTDAydzFQWU5tY0cranBueGRTcU5jSCtYSVpl?=
- =?utf-8?B?UjNTMVBxU3ZtY3BMYTZGa0VyTi9jWGNRNHFzSVZ0QzUydEFqSkcxakdyWk1j?=
- =?utf-8?B?bzVMYWlDTG9Dc3pGS1dMZnBnRXY4aDEzVjcwZzhYMWpNTXl6YWtVQmhLc3Bn?=
- =?utf-8?B?aEtwa3AzM2NJVm1DOHAvRkRadHE3cmhRdldNT2wvZ3J1N3lOc2IwK2lwS09V?=
- =?utf-8?B?WURNSlpCVmFUelVuR0ZQUVJEdjlsR25QeEN6Nzh1bDRLcThDNmZYSUV4T3Vu?=
- =?utf-8?B?R25ZU3RWQm1vZHpaNWMwd2hsbkpMbnRiQWRocTFCb2MrSDZMSHpmTjFaQnRu?=
- =?utf-8?B?QWxWTkxjVE1uR3RJbXkrQS9ZY3JEVnY4cVI1WXlRSDVCcm1vbHpjNFZ6U3lP?=
- =?utf-8?B?UkVvLy9jYVIvNVRhMGxnZ2l5M1ZPSzNTTGgwVzlXMnYxdDg3YmhlQXQyem5X?=
- =?utf-8?B?ek1rcWRuWDJjTk8zeC9CVmJYN3VoUWdOZUV2WEtEK2VyR1lZbzE3ZGpaV05M?=
- =?utf-8?B?MXBleTh2RmgwYlZyYWRGZUw2TGxTMkZvMVQ5aXJEcXJrbW1YQlEyUzU4MmlJ?=
- =?utf-8?B?SGpGNVZwZy9kUGNWTzkrMXZyZm1sejNPWExoR3dDVC9PSURzVHhjZkczQ2Vl?=
- =?utf-8?B?TlRQNHYyNTh4aXp4SXVyZThyMlRabnNaNVRYNXhyZW93QmZxRHpiTUhJYTdZ?=
- =?utf-8?B?Sm9Nc0xlemtpNGxQOUlmS2VCR2xmTWxGeTBJUjhnUTZZNmxPNnFXVmd2Vmpy?=
- =?utf-8?B?ZDkvc1NzU1YvZHErcG0rZ3UyM1lnTUhpa0M3RDFrendDZ3FWc0g5amYyR2Ix?=
- =?utf-8?B?V09CbWtFTC9rd2I1cHRJMlNxU05qZ2pieVpaMGdrK25peTg2QTBhVEJWYWNH?=
- =?utf-8?B?eUgvb2ExMHV6MXYwQ1BDWmNUNkRBK1l6dVpwRjN2cHJQc2JLdytlVW9EUW5J?=
- =?utf-8?B?Y2tEaE1DVzYvYi9CSm1qQmYzRGV2RzJYMGZ6ZkwwSFFQdi84ZURBK2tkd0VC?=
- =?utf-8?B?a3RZQzlUUHdsSE55MTdEOVFNcW5nOERjWjJ4Z1ErU1J6ekpVVE1jU0NyeVNx?=
- =?utf-8?B?czUvSHlHZzhzTXMzNldkc2tnZDUzdjlrcTFwdnFTbXJ2Rk1FMS9oUS9MRUhl?=
- =?utf-8?B?VE8rOUFqQmlkc2FEbkF1M09JWWkxVytTY1I0cTVuZUxqNjVaUi9SL0RIdU1r?=
- =?utf-8?B?djRmMVpldmFzWEhQb1NUajcwQXVIV05MVVB6TU9rSGJSN2pXMVYwRWFHcHl5?=
- =?utf-8?B?d3dYVFF4MTZkZjRBNW1aNjJqWGgrRFl5ZnNEY0Vtdkl6MHF5andNeXdSTHdY?=
- =?utf-8?B?K25Fc1NWcldyUy9oMHZXcFFDVkg5M0tEYzRyOVRRTWwzZUYwb3pvWXB3Ujk2?=
- =?utf-8?B?dVdSelg2L2QxcWJEb0FVSEIyWHhMdW5jaXJaanJvQTFwcTduSHVMR0djeDZt?=
- =?utf-8?B?aGxxbHlNT0xoWjJtemdVTTNOVzdXUXlVQWZ2TWxBb3Y0Qi9TcUFiZHljRWgy?=
- =?utf-8?B?UURTSEo4MnhMRXhicjJxbTBFZ0ZYV3BLaFdhMGdSZE9IdzBZRmxhV1hnNzZW?=
- =?utf-8?B?Q0NtOVlHeHJ3Mkw1U3B6bmtteldZNis2aVpDWXE0bXBTeDZuM280Rnh3ZHhq?=
- =?utf-8?B?dVB6QjRxaitXa0d2dWJoWHo4Y1R1ZzNlSnQ2WlBsdXE2Nm1nWXpNUWIyTHQ4?=
- =?utf-8?B?TTRNamhycnlnUWQvK0EwRENZbFNtMCtEd1hIdkJTOGY3clpZa09XVkZEajAr?=
- =?utf-8?B?RzVsTHZHK25obE5IWHJhTTdCWG9YcndweEI0b0MzcWZSckNFVjNGc1lzWEFn?=
- =?utf-8?B?TFhQVE1YZTU4SVludHpvRDlEblZENXZZQi94WGVlUGc0eU05SURHZGs2M0JQ?=
- =?utf-8?B?T0toak5Tb2dlcnhhY3ZPakJxTGFrTC9GY3h3ck84ZGpNR1JoTG5pV2czbE5j?=
- =?utf-8?B?UWRZandzaGR6b2dsTk5Bdm9uL0ZET1NnZUdrYnlQZHMzWWZOZElMV1FGRUho?=
- =?utf-8?B?WDNZalVDc1gyNWEzR3lTMldyZmF6MGZ1YUdFNU9naVZQTEw3SWRzZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88d34bdd-4d30-4eef-6e0e-08df3a01b4cb
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 23:25:11.3976
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6N8TPRiSuPsPLITDfjHwjiBKbubrKyVa7846ixNAGI+mn9wywgmfqzokutPAKV6A7iMHPVarigkREGENztiK5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6331
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 04 Nov 2026 00:52:22 +0100
+Message-Id: <DMLZABRA2JIK.1T11DDWNFKGJM@kernel.org>
+Subject: Re: [PATCH v3 2/2] gpu: nova-core: add support for GPU timer block.
+ (v3)
+Cc: <airlied@redhat.com>, "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "FUJITA Tomonori" <fujita.tomonori@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+To: "Dave Airlie via B4 Relay" <devnull+airlied.redhat.com@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261103-nova-timer-v3-0-0cf9bbae8fd9@redhat.com>
+ <20261103-nova-timer-v3-2-0cf9bbae8fd9@redhat.com>
+In-Reply-To: <20261103-nova-timer-v3-2-0cf9bbae8fd9@redhat.com>
 
-Hi Danilo, Alex,
+On Tue Nov 3, 2026 at 1:33 AM CET, Dave Airlie via B4 Relay wrote:
+> +// struct that just holds the sys timer offset
+> +// after initialising the GPU timer block.
+> +pub(crate) struct Timer {
+> +    sys_timer_offset_ns: i64,
+> +}
 
-We still need the fix [1] for this problem applied to drm-rust-next,
-as of today's (Nov 3, 2026) branch, anyway:
+I feel like this should actually be TimerState, as it is not really a timer
+(instance) representation in the sense of carrying the HAL and providing me=
+thods
+to interact with the hardware (which we do not intend).
 
+I'd suggest making Timer a unit struct and giving it an init() function, i.=
+e.
+something like this:
 
-$ make
-  DESCEND objtool
-  RUSTC L rust/kernel.o
-error[E0277]: the trait bound `bindings::__BindgenOpaqueArray8<[u8; 64]>: pin_init::Zeroable` is not satisfied
-    --> rust/kernel/block/mq/tag_set.rs:41:49
-     |
-41   |         let tag_set: bindings::blk_mq_tag_set = pin_init::zeroed();
-     |                                                 ^^^^^^^^^^^^^^^^^^ the trait `pin_init::Zeroable` is not implemented for `bindings::__BindgenOpaqueArray8<[u8; 64]>`
-     |
-     = help: the following other types implement trait `pin_init::Zeroable`:
-               ()
-               (A, B, C, D, E, F, G, H, I, J)
-               (B, C, D, E, F, G, H, I, J)
-               (C, D, E, F, G, H, I, J)
-               (D, E, F, G, H, I, J)
-               (E, F, G, H, I, J)
-               (F, G, H, I, J)
-               (G, H, I, J)
-             and 6196 others
-     = note: required for `bindings::spinlock` to implement `pin_init::Zeroable`
-     = note: 1 redundant requirement hidden
-     = note: required for `blk_mq_tag_set` to implement `pin_init::Zeroable`
-note: required by a bound in `pin_init::zeroed`
-    --> /kernel_work/linux-github/rust/pin-init/src/lib.rs:1688:24
-     |
-1688 | pub const fn zeroed<T: Zeroable>() -> T {
-     |                        ^^^^^^^^ required by this bound in `zeroed`
+	struct Timer;
 
-error: aborting due to 1 previous error
+	struct TimerState {
+	    sys_timer_offset_ns: i64,
+	}
 
-For more information about this error, try `rustc --explain E0277`.
-make[2]: *** [rust/Makefile:799: rust/kernel.o] Error 1
-make[1]: *** [/kernel_work/linux-github/Makefile:1423: prepare] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+	impl Timer {
+	    /// Initialize the GPU's system timer.
+	    pub(crate) fn init(bar: Bar0<'_>, chipset: Chipset) -> Result<TimerSta=
+te>;
+	}
 
+> +
+> +impl Timer {
+> +    pub(crate) fn new(bar: Bar0<'_>, chipset: Chipset) -> Result<Self> {
+> +        Ok(Self {
+> +            sys_timer_offset_ns: hal::timer_hal(chipset).init(bar)?,
+> +        })
+> +    }
+> +
+> +    // this value will be passed to GspInitRequest SYS_TIMER_OFFSET_NS
 
-[1] commit 57d916a3eb76 ("rust: bindings: derive Zeroable for bindgen's opaque array wrappers")
-    from rust-fixes
+NIT: This should describe what the returned value represents, although in t=
+his
+specific case it may also still make sense to give a hint how it is used.
 
+Please use intra-doc links and markdown where it makes sense.
 
-thanks,
--- 
-John Hubbard
+> +    #[expect(dead_code)]
+> +    pub(crate) fn sys_timer_offset_ns(&self) -> i64 {
+> +        self.sys_timer_offset_ns
+> +    }
+> +}
+> diff --git a/drivers/gpu/nova-core/timer/hal.rs b/drivers/gpu/nova-core/t=
+imer/hal.rs
+> new file mode 100644
+> index 000000000000..fd702867b470
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/timer/hal.rs
+> @@ -0,0 +1,27 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +use kernel::prelude::*;
+> +
+> +use crate::{
+> +    driver::Bar0,
+> +    gpu::{
+> +        Architecture,
+> +        Chipset, //
+> +    },
+> +};
+> +
+> +mod gh100;
+> +mod tu102;
+> +
+> +pub(super) trait TimerHal {
+> +    /// return system timer offset ns
 
+NIT:
+
+	/// Initialize the GPU's system timer.
+	///
+	/// Returns the system timer offset in nanoseconds.
+
+> +    fn init(&self, bar: Bar0<'_>) -> Result<i64>;
+> +}
+> +
+> +pub(super) fn timer_hal(chipset: Chipset) -> &'static dyn TimerHal {
+> +    match chipset.arch() {
+> +        Architecture::Turing | Architecture::Ampere | Architecture::Ada =
+=3D> tu102::TU102_HAL,
+> +        Architecture::Hopper =3D> gh100::GH100_HAL,
+> +        Architecture::BlackwellGB10x | Architecture::BlackwellGB20x =3D>=
+ gh100::GB100_HAL,
+> +    }
+> +}
+> diff --git a/drivers/gpu/nova-core/timer/hal/gh100.rs b/drivers/gpu/nova-=
+core/timer/hal/gh100.rs
+> new file mode 100644
+> index 000000000000..a9d46bdd2527
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/timer/hal/gh100.rs
+> @@ -0,0 +1,94 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +use super::TimerHal;
+> +
+> +use kernel::{
+> +    io::Io,
+> +    prelude::*,
+> +    time::*, //
+> +};
+> +
+> +use crate::{
+> +    driver::Bar0,
+> +    timer::regs, //
+> +};
+> +
+> +/// Timer HAL for Hopper and Blackwell.
+> +struct Gh100 {
+> +    /// `true` on Hopper, the only architecture where the FSP ucode can =
+predate the fix for
+> +    /// bug 3957833 and hence the sys timer offset must not be programme=
+d. Blackwell FSP
+> +    /// always includes the fix.
+> +    fsp_bug3957833_war: bool,
+> +}
+> +
+> +/// FSP ucode version from which on the fix for bug 3957833 is included.
+> +const FSP_BUG_3957833_FIX_VERSION: u32 =3D 0x44c;
+> +
+> +impl Gh100 {
+> +    /// kfspRequiresBug3957833WAR_HAL: returns `true` if the FSP ucode p=
+redates the fix for
+> +    /// bug 3957833 and hence the sys timer offset must not be programme=
+d. The RM implements
+> +    /// the version check for GH100 only; for all later chips it default=
+s to `false`.
+> +    fn requires_bug3957833_war(&self, bar: Bar0<'_>) -> bool {
+> +        self.fsp_bug3957833_war
+> +            && bar.read(regs::gh100::NV_GFW_FSP_UCODE_VERSION).full().ge=
+t()
+> +                < FSP_BUG_3957833_FIX_VERSION
+
+I'd move this into regs.rs and make it a method of NV_GFW_FSP_UCODE_VERSION=
+,
+e.g.
+
+	impl NV_GFW_FSP_UCODE_VERSION {
+	    pub(crate) fn is_bug_3957833_affected(self) -> bool {
+	        const FSP_BUG_3957833_FIX_VERSION: u32 =3D 0x44c;
+=09
+	        self.full().get() < FSP_BUG_3957833_FIX_VERSION
+	    }
+	}
+
+so you can just call
+
+	bar.read(regs::gh100::NV_GFW_FSP_UCODE_VERSION).is_bug_3957833_affected()
+=09
+This also keeps FSP_BUG_3957833_FIX_VERSION local to regs.rs and gets us ri=
+d of
+this HAL function.
+
+> +    }
+> +
+> +    fn timer_time(&self, bar: Bar0<'_>, time_ns: i64) -> Result<i64> {
+
+Can't we just use unsigned for the argument and return type? None of those =
+are
+ever expected to be negative, no?
+
+The invariant for the argument to be non-negative comes from Instant, so I'=
+d convert
+before calling into timer_time(). This should avoid the corresponding as ca=
+sts below.
+
+> +        let mut sec_hi2 =3D u32::from(bar.read(regs::gh100::NV_PGC6_SCI_=
+SEC_TIMER_TIME_1));
+> +        let sec_timer_ns: u64;
+> +        loop {
+> +            let sec_lo =3D u32::from(bar.read(regs::gh100::NV_PGC6_SCI_S=
+EC_TIMER_TIME_0));
+> +            let sec_hi =3D u32::from(bar.read(regs::gh100::NV_PGC6_SCI_S=
+EC_TIMER_TIME_1));
+> +            if sec_hi =3D=3D sec_hi2 {
+> +                sec_timer_ns =3D u64::from(sec_hi) << 32 | u64::from(sec=
+_lo);
+> +                break;
+> +            }
+> +            sec_hi2 =3D u32::from(bar.read(regs::gh100::NV_PGC6_SCI_SEC_=
+TIMER_TIME_1));
+> +        }
+> +
+> +        // The system and the GPU timer are both free-running with unrel=
+ated epochs, so the
+> +        // difference can be negative. Both operands are < 2^62, hence t=
+his cannot overflow.
+
+I think we accumulated a bunch of those comments in nova-core, I think it w=
+ould
+be nice to consider whether we want a prefix for this, similar to TIMEOUT o=
+r
+CALC. Maybe OVERFLOW? But this can be a follow-up of course.
+
+On the other hand, this is a fallible method already, so I'd just go with
+checked_sub().
+
+> +        let sys_timer_offset_ns =3D time_ns - sec_timer_ns as i64;
+> +
+> +        // The offset is passed to the GSP as an unsigned value and, lik=
+e in the RM's
+> +        // tmrSetCurrentTime_GH100, is required to be non-negative. With=
+ wall clock time this
+> +        // can only fail if the system clock is set behind the GPU power=
+-on time.
+> +        if sys_timer_offset_ns < 0 {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        if !self.requires_bug3957833_war(bar) {
+> +            let offset_ns =3D sys_timer_offset_ns as u64;
+> +            bar.write_reg(
+> +                regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_1::zeroed()
+> +                    .try_with_nsec(((offset_ns >> 32) & 0x1fff_ffff) as =
+u32)?,
+> +            );
+> +            bar.write_reg(
+> +                regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_0::zeroed()
+> +                    .try_with_nsec(((offset_ns >> 5) & 0x7ff_ffff) as u3=
+2)?
+> +                    .with_update(true),
+> +            );
+
+This looks similar to NV_TLB_FLUSH_PDB_LO::from_pdb_addr(). I think we shou=
+ld do
+this in the register impl:
+
+	impl NV_PGC6_SCI_SYS_TIMER_OFFSET_1 {
+	    /// Creates a register value from bits 60:32 of the offset.
+	    pub(crate) fn from_offset_ns(offset_ns: u64) -> Self {
+	        let nsec =3D Bounded::<u32, 29>::from_expr(
+	            ((offset_ns >> 32) & 0x1fff_ffff) as u32,
+	        );
+=09
+	        Self::zeroed().with_nsec(nsec)
+	    }
+	}
+=09
+> +    // FSP PRI space; the timer is its only consumer so far.
+> +    register! {
+> +        base: NovaRegisters;
+> +
+> +        /// FSP ucode version, encoded as `major.minor` in bits 11:8 and=
+ 7:0, written by the FSP
+> +        /// during boot. (`NV_PFSP_FALCON_COMMON_SCRATCH_GROUP_3(1)` in =
+the hardware headers.)
+> +        pub(crate) NV_GFW_FSP_UCODE_VERSION(u32) @ 0x008f0334 {
+> +            11:0 full;
+> +        }
+> +    }
+> +}
+
+Hm...I feel like it should go into fsp/regs.rs regardless.
