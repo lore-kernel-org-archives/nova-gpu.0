@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833547;
-	b=fYvdfri03X5YOCko4CUfoTU2CQmnxNojMfvSfaaCG4vtXhlR6L1oCuG56gGFgtSo+tEA
-	 nIrihwzYPn793RSsE6TooRWn9FbMNUyEGsZhlWCAspredEyknkd5v059vOued6JFl67in
-	 ZZzQhVaam93E6FWpt24685kxJeuRCJ7Z2v5muo/N8CanaVWqLzE6/QEZBkEHAXLQR2T1V
-	 PjOWkiP9ZTaA+l0cjgGw1jQjgglO7q3MzGiUbnUQb4cu6X2s5VhFHj3U/0CP/KJemWEsc
-	 dAkjCeU1zGqli9wN6XBIZ9utPhci0hX2SlQ+gMV30kkIAYdjSGm3B3CiRUl3VsXfAhw==
+	t=1793833549;
+	b=wIRDQcABKLX6/GaLkhsdcchqJl+TfX3uwl1lLQi48liaI/qOJ+PnEkk34Zcd/y0IB2vU
+	 mGAfWfAWyDvuB9CZUYQvzpB7RHi5jKTydnbQkybVDQRdEcWp/z8fuW5hakJEyQnKxseYr
+	 7p3gvyfIdcX9oRoZVP9M577hJJj19mOIZdggZz2+XMWR90C++NzO9M92Dkw4ZdUQdabZk
+	 1MaG/DkgCxD9DWB5VjAA95SheKP0McddutR032kMiLKs7/FohmvtTjpcm6t4JBC+3vr61
+	 o+4gA01tUprbihFGHhlD/yD7vYrwO0FbyL+TtDkcT8eLGarrZvjx+Fm9fU3jDFMGvUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833547;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833549;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-MBO-RS-META:X-MBO-RS-ID;
-	bh=AaRO3QDvvLpHjYw6CqEO2va4UH0c/RWfxJ9Mylj/Qrc=;
-	b=JkTaH1tuoEdjXGmjnRKpBH7Ms/Ml8Bo8ctzqRJdMzwIxjDcNcLOJagiCSB8xPJOb0fY7
-	 a1sr4xcK4DvMPQ/zGpQhjZwoz24DLjZ+XuoSjgkzjeQ8tIEOnRZf0lAmXJI2I5m5w1m1g
-	 bsPvnv1aU/GnHCdflIUwQV+Wt+hCyAaqtZt9Del6irxz6ZQqQ4zCnJHLEqKKY7HR+q3tD
-	 dBrm5dhDAIZ2pyXQgQNsGGDMGP+7pmg/cESO12pZzQMO2cZeezQSUb/MIXdn0iiP2TRyW
-	 u6MhSwlyJb+cs/rU3QSSCLnppig5opJp6CBnA0S5lIkAKok/o828b/8xJSfRl99gQLw==
+	 X-MBO-RS-ID:X-MBO-RS-META;
+	bh=+yC63DbCYXk4JGszPuNw+0NZ77PUO/i8/aaLLRlAPDk=;
+	b=34flljMjtGC1N1MIeAYvdBILK8k8weyz7B2gLpTZBTzOSDRXHiCQjlWo1QFQg4nmJjl8
+	 +5u6zsHiRghanSILtcaukWHMAbkP6rbhCpbFyVuo5PFLmehzzu+JXCJgjt+wazpRjoegk
+	 pBYVEArjREftTL5RmTjpZ2T/7Mgk6vHinTKhvEyX7whCzMMzUaiIsZQZXRC1IRiFv64Tf
+	 MXkiLRV/Usv9MGNyttFMDOHn6Z4SI2les6UVppIPnZPZn0JAHVT1rCMhTatDKPsA45YRo
+	 S8d+sVnc5bgQesdWsh8Elm8gW/oZtyebh+qft2ZkPL3fMCS3H6gVKnZhAVxqF/m2KRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mailbox.org;
 	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=CrQnbmTi;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=oZZPRH39;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE80B606D828
-	for <nova-gpu@lists.linux.dev>; Wed,  4 Nov 2026 23:05:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE80B606D828
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C819A606D83D
+	for <nova-gpu@lists.linux.dev>; Wed,  4 Nov 2026 23:05:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C819A606D83D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=CrQnbmTi
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=oZZPRH39
 Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKgys4lsZzMlTy;
-	Thu, 05 Nov 2026 00:05:41 +0100 (CET)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jKgyv3rqHzKmSf;
+	Thu, 05 Nov 2026 00:05:43 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793833541;
+	t=1793833543;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AaRO3QDvvLpHjYw6CqEO2va4UH0c/RWfxJ9Mylj/Qrc=;
-	b=CrQnbmTi2PcqCseFfkQnNgUU7OOO/JNAv3LutsV5QuIUQ/A/4IsS58OXhSfLHANmJxoHBF
-	mjw7foUvylvySZKLNzDdYh8LzqyrAPitEDj5ODc/gqE5T3t/cShxgWiMXdABb4/gDNp4z2
-	838ZWoEBuSSGcptoXMAnLbUGRykgoB2GYeZsWZ44ZY4fDkTYx/jXMXpO+AQJtE255Kcm4G
-	OVlL5gJlARtd6YJ9dSCAFVkW13nwseFA5S4NtrmBjg1qqp1xLlyOWdXbYLV8e9JwfOElSV
-	YjgmGQiAjznEvYpI9R0GJzEO0T/MnvHHNFqBGp1OSRabFN+v5e1BWQ6TA8PBDg==
+	bh=+yC63DbCYXk4JGszPuNw+0NZ77PUO/i8/aaLLRlAPDk=;
+	b=oZZPRH39PMdKp3im01kDEwBIi6cncmTPIVFwac6mAGY3h8v11MwXAOqbQOG8uhZPf3YJ8S
+	zY/HQH2mUsi2cY8/48O4IzlQ+1y9sVgXhSK9YaC7crS0cI1e0rOL305lsHNMILttA1nRqo
+	y+T4ma5emwMIj6YAEN/ykYM6UkeD+4rdYSDwjOiVUKJfNNdB3Y1XGW8u5jEV5quIT7k0Ss
+	3/FSdexzy6DtTvbQt/KtYuqqBN/YwUMNAKOZSAZfpywBvfXqsTJ5EMq9+n+ht4fHwUGdHu
+	B4AyclJ4nr2tUkfZdUrg+sVLa1KlV35WKKlPIvRHvKthrHlDLCwhjRkE1eZLtQ==
 From: Maurice Hieronymus <mhi@mailbox.org>
-Date: Thu, 05 Nov 2026 00:05:32 +0100
-Subject: [PATCH v4 1/7] samples: rust: remove the rust_driver_pci sample
+Date: Thu, 05 Nov 2026 00:05:33 +0100
+Subject: [PATCH v4 2/7] rust: pci: rework device enabling API
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -65,8 +65,8 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261105-b4-rust-pci-edu-driver-v4-1-20ef027bb707@mailbox.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-rust-pci-edu-driver-v4-2-20ef027bb707@mailbox.org>
 References: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 In-Reply-To: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
@@ -87,282 +87,121 @@ Cc: John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Maurice Hieronymus <mhi@mailbox.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=7577;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=4421;
  i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
- bh=JTGu5T/+T8r8ZW53Eqt0wl0+3nov7Lv/AUTxxgHOdaA=;
- b=zVR1APw9lTVBDrIpDM8mV/TsI5hl9DkTbfYoDz8nQi7TJPUJriqUw/5XNJKKmdGqgl+1k3xts
- 5IndRQrCw3kDHWPm/Re4TcqHvoFiHW0Nk/eEufDCrX1Im2a2q04ARHY
+ bh=+JkuZ/ga1FMMCF8Ove/gYwvWq8sU6KyqYp7b7kviRjY=;
+ b=ObAfUZLDhiZLstaXWtvfxvPPaXhicsRQqNuNNlFUDfubugKUbHpRJ+dEJt9G15XiLJJlV6zJ+
+ 8VlB8N2OyihBRBHKUKDFpIzocO5QvJ09yqmHgxPK2nqyUInokjIerpB
 X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
  pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
-X-MBO-RS-META: g8iy4igo86myawm7nzxcht3uxnehug8k
-X-MBO-RS-ID: dff117811a08da109d0
+X-MBO-RS-ID: 615c6a5bc7d246b5e58
+X-MBO-RS-META: 1t65iqmpaax4zbk8bbecwahjqmhw3wby
 
-The EDU sample added later in this series covers everything
-rust_driver_pci demonstrates (device matching, BAR mapping, MMIO) and
-exercises interrupts and DMA on top, against a device every QEMU ships.
-Remove the old sample in favor of it, as requested by Danilo during
-review of the EDU series.
+`enable_device_mem()` wraps the unmanaged `pci_enable_device_mem()` and
+has no disable counterpart, so the enable count is leaked on driver
+unbind and the device does not come back up on a subsequent probe.
 
-Link: https://lore.kernel.org/rust-for-linux/DJEQ64V8HE19.2DMBHY4XRPMG6@kernel.org
+Replace it with `enable_device()`, which wraps `pci_enable_device()`
+and returns a `DeviceEnableGuard<'a>`: dropping the guard runs
+`pci_disable_device()`. The guard borrows the device's bound scope
+(`&'a Device<Bound>`), so it cannot outlive the driver binding, and
+since it is the only way to enable the device from safe code, the
+enable count always stays balanced.
+
+Obtaining the guard still requires a `&Device<Core>`, i.e. a bus
+callback. Unlike `pci_enable_device_mem()`, `pci_enable_device()`
+enables I/O and memory resources.
+
+Convert nova-core, the only user of `enable_device_mem()`, storing the
+guard as the last field of `NovaCore` so the device is disabled only
+after the GPU teardown.
+
+Link: https://lore.kernel.org/rust-for-linux/DJOEYVBS17MJ.1YD3TNGQBWHNK@kernel.org
 Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
 ---
- MAINTAINERS                     |   1 -
- samples/rust/Kconfig            |  11 ---
- samples/rust/Makefile           |   1 -
- samples/rust/rust_driver_pci.rs | 198 ----------------------------------------
- 4 files changed, 211 deletions(-)
+ drivers/gpu/nova-core/driver.rs |  7 +++++--
+ rust/kernel/pci.rs              | 33 ++++++++++++++++++++++++++++++---
+ 2 files changed, 35 insertions(+), 5 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7a162e9bcab1..8f7f1e14b31e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21595,7 +21595,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
- F:	rust/helpers/pci.c
- F:	rust/kernel/pci.rs
- F:	rust/kernel/pci/
--F:	samples/rust/rust_driver_pci.rs
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 560a70c4f5a7..f0aebfe705ba 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -38,6 +38,8 @@ pub(crate) struct NovaCore<'bound> {
+     pub(crate) gpu: Gpu<'bound>,
+     bar: pci::Bar<'bound, BAR0_SIZE>,
+     bar1: pci::Bar<'bound>,
++    // Declared last so the device stays enabled until everything above is torn down.
++    _enable: pci::DeviceEnableGuard<'bound>,
+ }
  
- PCIE BANDWIDTH CONTROLLER
- M:	Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index 31d62533ef25..7fbd49df30ce 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -107,17 +107,6 @@ config SAMPLE_RUST_I2C_CLIENT
+ pub(crate) struct NovaCoreDriver;
+@@ -103,9 +105,10 @@ fn probe<'bound>(
+         dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
  
- 	  If unsure, say N.
+         try_pin_init!(NovaCore {
+-            _: {
+-                pdev.enable_device_mem()?;
++            _enable: {
++                let enable = pdev.enable_device()?;
+                 pdev.set_master();
++                enable
+             },
  
--config SAMPLE_RUST_DRIVER_PCI
--	tristate "PCI Driver"
--	depends on PCI
--	help
--	  This option builds the Rust PCI driver sample.
--
--	  To compile this as a module, choose M here:
--	  the module will be called rust_driver_pci.
--
--	  If unsure, say N.
--
- config SAMPLE_RUST_DRIVER_PLATFORM
- 	tristate "Platform Driver"
- 	help
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index b986b681cde5..20b55e0bdbb7 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -9,7 +9,6 @@ obj-$(CONFIG_SAMPLE_RUST_DEBUGFS_SCOPED)	+= rust_debugfs_scoped.o
- obj-$(CONFIG_SAMPLE_RUST_DMA)			+= rust_dma.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_I2C)		+= rust_driver_i2c.o
- obj-$(CONFIG_SAMPLE_RUST_I2C_CLIENT)		+= rust_i2c_client.o
--obj-$(CONFIG_SAMPLE_RUST_DRIVER_PCI)		+= rust_driver_pci.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
-diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
-deleted file mode 100644
-index 13b035a95756..000000000000
---- a/samples/rust/rust_driver_pci.rs
-+++ /dev/null
-@@ -1,198 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--//! Rust PCI driver sample (based on QEMU's `pci-testdev`).
--//!
--//! To make this driver probe, QEMU must be run with `-device pci-testdev`.
--
--use kernel::{
--    device::{
--        Bound,
--        Core, //
--    },
--    io::{
--        register,
--        register::Array,
--        Io, //
--    },
--    num::Bounded,
--    pci,
--    prelude::*, //
--};
--
--mod regs {
--    use super::*;
--
--    register! {
--        base: kernel::io::Region<END>;
--
--        pub(super) TEST(u8) @ 0x0 {
--            7:0 index => TestIndex;
--        }
--
--        pub(super) OFFSET(u32) @ 0x4 {
--            31:0 offset;
--        }
--
--        pub(super) DATA(u8) @ 0x8 {
--            7:0 data;
--        }
--
--        pub(super) COUNT(u32) @ 0xC {
--            31:0 count;
--        }
--    }
--
--    pub(super) const END: usize = 0x10;
--}
--
--type Bar0<'bound> = pci::Bar<'bound, { regs::END }>;
--
--#[derive(Copy, Clone, Debug)]
--struct TestIndex(u8);
--
--impl From<Bounded<u8, 8>> for TestIndex {
--    fn from(value: Bounded<u8, 8>) -> Self {
--        Self(value.into())
--    }
--}
--
--impl From<TestIndex> for Bounded<u8, 8> {
--    fn from(value: TestIndex) -> Self {
--        value.0.into()
--    }
--}
--
--impl TestIndex {
--    const NO_EVENTFD: Self = Self(0);
--}
--
--struct SampleDriverData<'bound> {
--    pdev: &'bound pci::Device,
--    bar: Bar0<'bound>,
--    index: TestIndex,
--}
--
--struct SampleDriver;
--
--kernel::pci_device_table!(
--    PCI_TABLE,
--    <SampleDriver as pci::Driver>::IdInfo,
--    [(
--        pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5),
--        TestIndex::NO_EVENTFD
--    )]
--);
--
--impl SampleDriverData<'_> {
--    fn testdev(index: &TestIndex, bar: &Bar0<'_>) -> Result<u32> {
--        // Select the test.
--        bar.write_reg(regs::TEST::zeroed().with_index(*index));
--
--        let offset = bar.read(regs::OFFSET).into_raw() as usize;
--        let data = bar.read(regs::DATA).into();
--
--        // Write `data` to `offset` to increase `count` by one.
--        //
--        // Note that we need `try_write8`, since `offset` can't be checked at compile-time.
--        bar.try_write8(data, offset)?;
--
--        Ok(bar.read(regs::COUNT).into())
--    }
--
--    fn config_space(pdev: &pci::Device<Bound>) {
--        let config = pdev.config_space();
--
--        // Some PCI configuration space registers.
--        register! {
--            base: pci::Normal;
--
--            VENDOR_ID(u16) @ 0x0 {
--                15:0 vendor_id;
--            }
--
--            REVISION_ID(u8) @ 0x8 {
--                7:0 revision_id;
--            }
--
--            BAR(u32)[6] @ 0x10 {
--                31:0 value;
--            }
--        }
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read8 rev ID: {:x}\n",
--            config.read(REVISION_ID).revision_id()
--        );
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read16 vendor ID: {:x}\n",
--            config.read(VENDOR_ID).vendor_id()
--        );
--
--        dev_info!(
--            pdev,
--            "pci-testdev config space read32 BAR 0: {:x}\n",
--            config.read(BAR::at(0)).value()
--        );
--    }
--}
--
--impl pci::Driver for SampleDriver {
--    type IdInfo = TestIndex;
--    type Data<'bound> = SampleDriverData<'bound>;
--
--    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
--
--    fn probe<'bound>(
--        pdev: &'bound pci::Device<Core<'_>>,
--        info: Option<&'bound Self::IdInfo>,
--    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
--        let vendor = pdev.vendor_id();
--        dev_dbg!(
--            pdev,
--            "Probe Rust PCI driver sample (PCI ID: {}, 0x{:x}).\n",
--            vendor,
--            pdev.device_id()
--        );
--        let info = info.ok_or(ENODEV)?;
--
--        pdev.enable_device_mem()?;
--        pdev.set_master();
--
--        let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?;
--
--        dev_info!(
--            pdev,
--            "pci-testdev data-match count: {}\n",
--            SampleDriverData::testdev(info, &bar)?
--        );
--        SampleDriverData::config_space(pdev);
--
--        Ok(SampleDriverData {
--            pdev,
--            bar,
--            index: *info,
--        })
--    }
--
--    fn unbind<'bound>(_pdev: &'bound pci::Device<Core<'_>>, this: Pin<&Self::Data<'bound>>) {
--        this.bar
--            .write_reg(regs::TEST::zeroed().with_index(this.index));
--    }
--}
--
--impl Drop for SampleDriverData<'_> {
--    fn drop(&mut self) {
--        dev_dbg!(self.pdev, "Remove Rust PCI driver sample.\n");
--    }
--}
--
--kernel::module_pci_driver! {
--    type: SampleDriver,
--    name: "rust_driver_pci",
--    authors: ["Danilo Krummrich"],
--    description: "Rust PCI driver",
--    license: "GPL v2",
--}
+             bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?,
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 769d01d23429..75efd5c5ee97 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -469,6 +469,25 @@ pub fn pci_class(&self) -> Class {
+     }
+ }
+ 
++/// A guard that keeps the device's I/O and memory resources enabled.
++///
++/// # Invariants
++///
++/// The device's enable count was incremented once for this guard; dropping the guard decrements
++/// it again.
++#[must_use = "if unused, the device will be immediately disabled"]
++pub struct DeviceEnableGuard<'a> {
++    dev: &'a Device<device::Bound>,
++}
++
++impl Drop for DeviceEnableGuard<'_> {
++    fn drop(&mut self) {
++        // SAFETY: `self.dev.as_raw()` is a valid pointer to a `struct pci_dev`, and by the type
++        // invariant this guard holds one increment of the device's enable count.
++        unsafe { bindings::pci_disable_device(self.dev.as_raw()) };
++    }
++}
++
+ impl<'a> Device<device::Core<'a>> {
+     /// Returns the total number of VFs, or [`None`] if SR-IOV is not available.
+     #[inline]
+@@ -482,10 +501,18 @@ pub fn sriov_get_totalvfs(&self) -> Option<NonZero<u16>> {
+         NonZero::new(total_vfs as u16)
+     }
+ 
+-    /// Enable memory resources for this device.
+-    pub fn enable_device_mem(&self) -> Result {
++    /// Enable I/O and memory resources for this device.
++    ///
++    /// The device stays enabled for the lifetime of the returned guard; dropping the guard
++    /// disables the device again. The guard borrows the device's bound scope, so it cannot
++    /// outlive the driver binding.
++    #[inline]
++    pub fn enable_device(&self) -> Result<DeviceEnableGuard<'_>> {
+         // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
+-        to_result(unsafe { bindings::pci_enable_device_mem(self.as_raw()) })
++        to_result(unsafe { bindings::pci_enable_device(self.as_raw()) })?;
++
++        // INVARIANT: `pci_enable_device()` succeeded, so the enable count was incremented once.
++        Ok(DeviceEnableGuard { dev: self })
+     }
+ 
+     /// Enable bus-mastering for this device.
 
 -- 
 2.54.0
