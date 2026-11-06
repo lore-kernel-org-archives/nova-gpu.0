@@ -1,79 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.62
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793943252;
-	b=LM9TmEXrDdGP+HFvblQd/58GXORyfKubUqEAM1InLbnIW5oX7a1uHxrhOg9UA/81F7yK
-	 iKpsdZB43qFyHpU17678SfnzVZnBRRQOCn0NKzc51lLERDiIWrym/+VA9Hp3QR1pOan97
-	 Gnsfhrf9qD7QYj4pmeLPnr6FCp5LgkQ3NYajYqyTiRg9gJFFOGOi9zyFYVgt6KYTPwhgK
-	 YZp9qBcroT310Bk3dWiOVEKzSgpjno5MqIMy1GCow26oprRK3drDbA6FiFRN30Oiy4/dz
-	 Y/Litiz7X+aZ6niBK1v2Q4LPkJBNH2EInz+g12ANYdJGJcPiTmUf6D5aR8wlR4YvTnA==
+	t=1793943697;
+	b=mhqgK/g5LgahJfop7RfGoBz4u2BVbptgBsSH87nyGafYJEhftKlM+NKa5569kI+9MyHw
+	 EcCZssjBi+7kNYIXE4SX8IijKOpmuCiKXCpOu9DcoXRdlUxQvnfSAIrRapg4iDwxaBdhn
+	 lK53LQH84pbIUbXwzVh4UcLpnqpo6p9C2YsDOw3y2upjsrxiSaGE/ya20r4P8sv7kn7T7
+	 WQpPWNbrgDzRVIk5BvrL0XRKuIee7sOtMGfP8kiC43NWmiill2UErYaKR16rOr4IHOjQ4
+	 loIk1sZDcUl1MWnfSSQJ6SxboYnkd87Ym+m+fesjoD368O6ioQTb36VmzgY838sp34A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793943252;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Cpq4q3oRhRQ5i1uCuYL/RTeS11aJ1puKQfr8yZzX1A8=;
-	b=Ob/e2ZRIm9eR21/aCPUxH3ygK/BJ2iO+aMs7CLb+WNLXji/OoxuFYYC4WBRvFcPwxsqP
-	 DwlnXJvHIUq0Q7Z9Ox42HqAV896mZxEv/8vYQFcyU41JdfbTZwdKZA398IThyXpRBHoPu
-	 GxYa12NsGuXW1JdrG7xE1BbSIFIqvEVVOiPQ6aCMzrqqElOgXd8cOqow+IMDnLFt3/Hdq
-	 zdRnnkhmlIsdevctJjWxIH7KC4m/1st4Yu39tx4du531rTwHd/omc9HxRRw5ONe1rzgYV
-	 zOVJ61Fr3ioLwDr4ADL8XZPRTtIDNC+RAohVULcBO6YAWPuzf/ipQjWOXRlB2ZiSWrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793943697;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=b/pacOJmD1JXCZeGEU4C7R08JaIwKIkpw+AUSbknYj4=;
+	b=pXMcSa8XkbZuauFlp4RIAXY5qlcqZhCRFPhjEHjjhhDu1V4XOKb6NWAxnvwuEVKLARja
+	 VuOYe/KGBdtWo8qnsynvvJwsbnbXNx3+yGmSS/ESPGxOyIuehpltFO+Obn9PFCFWvw4Sc
+	 df9PELy4LK6secmHEKQ3j2GhIN0rOqucWIk0wh+K81vDBVMJz8s2vsd/jWjdFPTpe0ASG
+	 nShQ0gXou+YmvcuJLvDQwTfJMbJ+75OFC0ElBsDoULIHfrYMFIH9E0uAsCL8ohed75PER
+	 I+XcYnxL9d/IwFZWM2fXrlrYwdgRXmZSqe1rZcLM/J3gxr8L+eH6FkaKgXYvMBM8Tag==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n/NPkAS1";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=InEX2vN2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.62
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012062.outbound.protection.outlook.com [52.101.48.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBE6606A326
-	for <nova-gpu@lists.linux.dev>; Fri,  6 Nov 2026 05:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10541606A328
+	for <nova-gpu@lists.linux.dev>; Fri,  6 Nov 2026 05:41:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10541606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n/NPkAS1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793943252;
-	b=P19fNDWOgczht+OqFMLrNkPzBfynIXTYR3R2HwnxwIUpuapk0O8qthBEC8gVF85a+xFw
-	 eJlyEtHdUbFMqlaR6iMlIJPpl5nO7ME3FuDJcXbfv64Ql2kt2LH3lDGrYBsQGStZ8tDW2
-	 qvqWHS5fc+1YilM6vri4wdFxcUA2IyB2fWLoeiibnm1kcla3Fg5RNiTgTcZ0OoBANH+v6
-	 2kJ2SEsDuVEqLkw6ynxwN56vtFsQFUEKQkLbTxZ79ub0FHW1WC66FwzUTj2ee4D4AVPUS
-	 +NbPpeN+TK24VvaAWtvirnEuV07EMe40OF5/lfqodhK5EDZdDaUI7bOfuEDXC3VNYOA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793943252;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Cpq4q3oRhRQ5i1uCuYL/RTeS11aJ1puKQfr8yZzX1A8=;
-	b=riYGpFfNp/5P8KKsTlD/TBhTUYzP8GGbUyQoF8yTG38Ch7LGUIbYNDLE/L4jr/qoLI6U
-	 Nf3YOMHUGfzBKDsfPrsoJ+2n/Q+5rVp6TTPvSlzbJptM1n3wT3uS9iZdlp9/92dC4QG0T
-	 a+Asc/4dwj7FXtCheIQjMf67rxwe4ToTk2+jFzbXrXOb0bQ8yvHDRv1eWJ6yYg2kAx8mo
-	 WY20eKdsCrasNIQENg915r+WkjpClU4LMrjzzql9z9Yo3jASFo+uO5abTXbIk6M/DINRx
-	 E8XNySwYpqAjzatbxLHZ3baRHuIhP0BeKYfL60WvsV7Dq5xl/nG2uJbo5UTKsJoUVIQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A95AD1F008A3;
-	Fri,  6 Nov 2026 05:34:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793943252;
-	bh=Cpq4q3oRhRQ5i1uCuYL/RTeS11aJ1puKQfr8yZzX1A8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=n/NPkAS1z8p6jdTuQ54vKXhpD3H1rpARkpjrmAsE694xboXHty0a1b9JyIMEGS4sa
-	 tt64MrxxXIjxZmdDpN1azAtobfsuV8iiAjUBosa90pZQT+Y8Bgki1gz0Qs4KcRUxvN
-	 mIHHhT8iewl60WZt2POxBrHZEssxmbc/ouKxozh2VldJ9fUiAQ4z03tJL3gkgq0GsT
-	 Xv3cuYtWNRh9EADcpaDCgCQPXjxPqYNV0LqS7H85+789dWOPy4X16igxsQeyHOL7yN
-	 kTuQi52kEUlSXfDN7U+2heZd0uKJzR1VhIdaEWrj/3rdwABSIXr/tmb1NnrApJCjnu
-	 RUVDhgFegNfoA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2905745BF1;
-	Fri,  6 Nov 2026 05:34:10 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Fri, 06 Nov 2026 15:34:03 +1000
-Subject: [PATCH v5 2/2] gpu: nova-core: add support for GPU timer block.
- (v5)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=InEX2vN2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w27UBuDA0GEcs5IFR39qfTIk41QKksrAMbvYji0+mGRWMcfU++mrELYDmP6zh3008IwuY5iJ9JYcg2eBGcTFDoCa55I7pSwy23r0DBpfpW3SIONGh18gBdCT4+axRd1fqfCeudcAFekFq6JThLKC8nxacXn8SQqf8KMXC1sGYaqupNaUg1tQK9h24wa22rv3sKbxya/NunsIszuatuizuIAmCrrDd0+1NJgxxzlPa4p34QsSsjL6tU4KvAsbhyvMNfmoWBBW5lo/9HIS4BkSlP5RZhWMMnF2Z8o3raLoGpie+batkKLFFgyo8pYgCKG7qLtFcdVNuAGCccW/4N/4Eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b/pacOJmD1JXCZeGEU4C7R08JaIwKIkpw+AUSbknYj4=;
+ b=N8GU8BYlwuHK6sjjt14NXpwl4vpi4lvsR6WpiwVaWCl1JJk5WFhMtPuOLbvUaA+3R1SQSDNxu5kGE70eFHOP1UHWqXqAcejHAeQX56d4pNOpG5YilN9/aEyIkQr0ybNgo87cNreji01i3zD7d/CE+ciuS9yfN/fTfDmZEuixMRzsBPsXH7EoicwAilTG+d99nZ6EtliToBsxWcaBQb9t9zPeyMsmw/qRH3vO6D6zFP+TK2CSPh/2s9rARkmoIM53CqLbZlWQQ8zqgZ2OxztWoFSJHIOcbbMn5psix+s9G9VqR97Aoapk6fGEn2g6Y2h4WP18atxw68Aj21sGebEgnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b/pacOJmD1JXCZeGEU4C7R08JaIwKIkpw+AUSbknYj4=;
+ b=InEX2vN26AsFZZHGMSS6d2g8qa5mDSWhRtaGUzdDXhyljnbOx3WRxv9WvFoYTH6SdmIWmEdzhiM0AnDOvcveJFazFJUtxSOvtubSlEBobrccDdrfLubCPmQMRBhv6JTxd+VKlPt4tL4vv8xuMqU7NVMe2udowWdlOgBGT58ETIsuaDwO2djRWWtiMJw7DVhNgQjngk3oAmHvomqsaNjaEO4+7agj8Rkc9l8EYO+N2GitYQn2e3HnzmH3qwgzdji+1Wg9CYNqqxiovboQaubsn8GpGh2uV570xQwrWn8ybxIoNE3j+lakXHL/RkLxSHh/3MYsunFvN1FxMKz0pHFvOQ==
+Received: from MW4PR04CA0342.namprd04.prod.outlook.com (2603:10b6:303:8a::17)
+ by SA3PR12MB324744.namprd12.prod.outlook.com (2603:10b6:806:531::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 05:41:30 +0000
+Received: from MWH0EPF000D8951.namprd05.prod.outlook.com
+ (2603:10b6:303:8a:cafe::91) by MW4PR04CA0342.outlook.office365.com
+ (2603:10b6:303:8a::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 05:41:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MWH0EPF000D8951.mail.protection.outlook.com (10.167.249.217) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:41:29 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
+ 2026 21:41:11 -0800
+Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 21:40:59 -0800
+From: Alok Kumar <alkumar@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+	<linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
+	<apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+	<boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<peter@colberg.org>, <xinmengs@nvidia.com>
+Subject: [PATCH v4 00/32] Introduce NVIDIA vGPU manager
+Date: Fri, 6 Nov 2026 11:09:33 +0530
+Message-ID: <cover.1793906667.git.alkumar@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -83,565 +124,212 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-nova-timer-v5-2-a0cd25f3ee18@redhat.com>
-References: <20261106-nova-timer-v5-0-a0cd25f3ee18@redhat.com>
-In-Reply-To: <20261106-nova-timer-v5-0-a0cd25f3ee18@redhat.com>
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo <gary@garyguo.net>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15926;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=EDaM5XyrnEqQAtv92Aba0bwpUszPyf6uEYWadOGZ0AU=;
- b=kA0DAAoBDHTzWXnEhr4ByyZiAGrtZtCiJgMoqR+NZ48HyqlzB/BLCGlmwcjJfByQvyZ7bIkSf
- IkCMwQAAQoAHRYhBBCm2R2hsFvSn23rrAx081l5xIa+BQJq7WbQAAoJEAx081l5xIa+UsEP/0Gj
- I8/Qr3TzVDSLKxZJqBv6zWnWRGUkIBS1ja0pqOHF3OzMBZLdbBlK5McmKvu+iaBotdDMlbNZxhU
- 84ZW1aTprUE5H1uVZ6ytH6bvPw3ixjL15ls5cXbn8uHCUccOQsJensh+hGwV6hxbPZGFMielf6F
- 7RxykchP8+VhbMC1IfogxBTBFxvwGuvWilkp+W6Y3u3Oww+1hx2oF5gi2puCYT0tK0MJdr0CZ/z
- AFhxBc0AAjsx4c/FVd9ybsTgtp6LUtgNrIJaKUXuzemGr3GzZ8aFYYFPeauRdbVsyBwr1z+zGrI
- rsjnA2AWbbnWaS2yWu01ZvUHlhuzWoqAbSpqkr5kknpwl5wQxqbHvgFZ/2tY1lqbdXsMoUaOiJ4
- FvO4kc5KauS0kySuKCCN/6pp3C3/amqznTibeSmNcxd6GB9xWXCiBp0ZswHv4Ljgn5e0JbSQzn5
- IJfVx65Qwyhvm1rEqoThVL44NUTojYvz+pR355x5V+mQXymHlEJ3876djW0JPF7/QniHRN8nlXr
- Xy+bs7xhV8/pBuG9By1W3wufSAL7v6mvve8FRzsAmipNBaKbjsCyPjp0qXQmDYVJzrRrBUKbBEX
- 1abn8BYVqZ2vesP8epFqwz6AHdAnrtRNPbTjlAO0YE6O0VlOjlj8eikt95Us1u4VPXHQ9dDWcWR
- tSxUY
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
-Reply-To: airlied@redhat.com
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000D8951:EE_|SA3PR12MB324744:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8aa44a3-78aa-4f68-cda5-08df3bc89b87
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|7416014|1800799024|260925022911599003|261022115727099003|261022105027099003|261022113327099003|261022075727099003|261021130227099003|261021135927099003|261028144727099003|261021123027099003|261021121427099003|261026130827099003|261026140227099003|261026121527099003|261102130727099003|261102123227099003|11063799006|56012099006|10067099003|5023799004|260925021311599003|18002099003|261009223027099003|13003099007|6133799003|3023799007|260925021911599003;
+X-Microsoft-Antispam-Message-Info:
+	Hs+zBgYvPmGEkrdS+xqakbgwwOsr8RMhPeJURaLX6b6IhbjHmFKGgZmfrSB7ir+rrSJKkFORc4E/qHdWktTOgUlFc4pz0/trmgizQ5mHKMm37qFNwFx5NJlbcn7xXR30DS5Da6QCnd4iI9+7C9Zf/77RYw/BYGNlBgef8K3MYbiYQNjH9ELS+Sx4wAllVW3zzvAf5qLsxZXQjWTchwndNh/Mhj5YpPkVJNEu1HPVmEss1ObGWTlHrXIXRSSueBQJ4kyudLZmU92tbVVKDF81L5+y2mQ0kiOt2/qf386IT2MRivH/eaP5OxHACfsq46RdH93ERnihv6pFhluX1i/uuAo1R6Gghp/m4sktKQFvc5jxjmNfQzQgQ5Cbxr8rVfkDMgq0DpzU8bLzkg/D2HPyju60k06ndWmOyIbzdlORUoQ9BkvV3pkTR7yRw5HDolFH6hV53Jg8N8z6U6wqBanYi6oAnrE6Ii5DVQBOfb6Nwee9PTp5Jhbcs8oQo98xGfhYmE1v0IxUSFMW9Sq0OB0oWiH97y1/ZG9PWW1Adx2H+M7E1NQzlYh6ebFls83Ck05MnhbQvl+fCQ9BdfOLYy2iFioNeBVN0E8/plcypiWewlpj+kQk50572I20nnXSrsybiB90FVawYCvjfsA7WZH1VymUq6RAMcpKlwEQMnJaJ3XS8FevMF7z/d/FNRPumwf8L4QA0t+1LY4DHOSyjrTUAA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(7416014)(1800799024)(260925022911599003)(261022115727099003)(261022105027099003)(261022113327099003)(261022075727099003)(261021130227099003)(261021135927099003)(261028144727099003)(261021123027099003)(261021121427099003)(261026130827099003)(261026140227099003)(261026121527099003)(261102130727099003)(261102123227099003)(11063799006)(56012099006)(10067099003)(5023799004)(260925021311599003)(18002099003)(261009223027099003)(13003099007)(6133799003)(3023799007)(260925021911599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PDlpsMlDZtbLGlj93uie21oCS9RUeK4ej6v5aO9DKug9H3i7Q16DPM21xJdjx7Zrip3/R8Tp9640AmjXcJGCvukHszpj4sibsKjgoXT3noM1C/qcLpFiJX+7LAWRua3kbUotouWLqiBYccMv4+wcp2bNaAeymIuSehsbrAZGlEh+AfnyPs1Del6IUtcsL1y2AUgtoRya3XUY+D2yAy3GSA+BL85mkgyp38PzgaUfidApHqgqSlTaMTJg3fLGZ/aDMf6K0TQYF+2mJJzHnMm/KZ0qgPXVpzJk+No9D5PSSl0msuq49V/zWoOK79Qx04/vdYD4CKDO2YTTPqg9Hfl0bJnvq+XofeOCsPG+1tHcqpcrQ/wfmbdm7ewcgrpUcXoQhhSfnzY5F2M/vaDx4HfActT/e3Qp7LMXriiL2t72iGbFmmdGXS0VA8P+XZyxnvjH
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:41:29.8148
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8aa44a3-78aa-4f68-cda5-08df3bc89b87
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000D8951.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB324744
 
-From: Dave Airlie <airlied@redhat.com>
+Add the nova-core support needed to create and manage NVIDIA vGPU
+instances on the current whole-GPU SR-IOV path.
 
-This is needed to calculate the system timer offset that is passed
-to GSP init.
+The overall control path is shown below. This posting contains the
+nova-core manager and PF-side lifecycle APIs. Typed PF-service
+publication and the VFIO variant driver follow separately.
 
-2 HALs exist:
+ +-----------------------+         +-----------------------+
+ | Linux guest           |         | Windows guest         |
+ | NVIDIA guest driver   |         | NVIDIA guest driver   |
+ +-----------+-----------+         +-----------+-----------+
+             |                                 |
+ +-----------v-----------+         +-----------v-----------+
+ | QEMU (VFIO user)      |         | QEMU (VFIO user)      |
+ +-----------+-----------+         +-----------+-----------+
+             +----------------+----------------+
+                              |
+                      +-------v-------+
+                      |   VFIO core   |
+                      +-------+-------+
+                              |
+        +---------------------v---------------------+
+        | NVIDIA vGPU VFIO variant driver           |
+        +---------------------+---------------------+
+                              |
+              +---------------+----------------------+
+              | binds PCI VF                         | PF lifecycle API
+              |                                      | open / close / reset
+              v                                      v
+     +--------+--------+               +-------------+-------------+
+     |    PCI VF(s)    |               | nova-core (PF driver)     |
+     |  (virtual GPU)  |               |       vGPU Manager        |
+     +--------+--------+               |     VRAM / channels ...   |
+              |                        +-------------+-------------+
+              |                                      |
++-------------v--------------------------------------v----------------+
+|                      NVIDIA physical GPU                            |
+|            VF resources                 PF / GSP / VRAM             |
++---------------------------------------------------------------------+
 
-a) tu102 is the gv100 path from open-gpu, the priv level is checked
-and the cpu time is written to the gpu timer. no offset is used.
+The manager queries the type assigned to a VF by GSP-RM, reserves its
+channel and VRAM resources, boots and configures the GSP plugin, and
+handles shutdown. It also scrubs guest VRAM before reuse and exposes
+per-instance plugin logs through debugfs.
 
-b) gh100 is for hopper+
-This is the gh100 path from open-gpu, where the secure system
-timer is read, the offset is calculated.
-On gh100 which need a work around to avoid sending it to registers
-if the FSP firmware is too old.
-Otherwise we write the offset to the offset registers.
+Host resources remain owned until firmware teardown and BAR unmapping
+complete. Failed creation rolls back through the instance owner; if
+firmware ownership is uncertain or teardown fails, the manager retains
+the affected resources until device removal.
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/nova-core/fsp.rs             | 19 ++++++-
- drivers/gpu/nova-core/fsp/hal.rs         |  5 ++
- drivers/gpu/nova-core/fsp/hal/gh100.rs   |  6 ++
- drivers/gpu/nova-core/fsp/regs.rs        | 28 +++++++++
- drivers/gpu/nova-core/gpu.rs             |  8 +++
- drivers/gpu/nova-core/nova_core.rs       |  1 +
- drivers/gpu/nova-core/timer.rs           | 38 +++++++++++++
- drivers/gpu/nova-core/timer/hal.rs       | 31 ++++++++++
- drivers/gpu/nova-core/timer/hal/gh100.rs | 62 ++++++++++++++++++++
- drivers/gpu/nova-core/timer/hal/tu102.rs | 53 +++++++++++++++++
- drivers/gpu/nova-core/timer/regs.rs      | 98 ++++++++++++++++++++++++++++++++
- 11 files changed, 346 insertions(+), 3 deletions(-)
+This continues the rework of the earlier vGPU RFC [2]: firmware-facing
+management belongs to nova-core, while the VFIO driver binds to the VF
+and uses the PF's services. The companion VFIO driver does not need its
+own copies of the RM firmware headers.
 
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index 3a4a10487f33..a2ea50465a55 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -50,10 +50,11 @@
-         NvdmHeader,
-         NvdmType, //
-     },
--    regs, //
-+    regs as bootregs, //
- };
- 
- mod hal;
-+mod regs;
- 
- /// PRC message sub-command.
- #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-@@ -389,6 +390,7 @@ pub(crate) fn boot_params(&self) -> &Coherent<'_, GspFmcBootParams> {
- pub(crate) struct Fsp<'a> {
-     falcon: Falcon<'a, FspEngine>,
-     fmc_fw: GspFmcFirmware<'a>,
-+    chipset: Chipset,
- }
- 
- impl<'a> Fsp<'a> {
-@@ -428,7 +430,7 @@ fn wait_secure_boot(
- 
-         read_poll_timeout(
-             || Ok(hal.fsp_boot_status(bar)),
--            |&status| status == regs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS,
-+            |&status| status == bootregs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS,
-             Delta::from_millis(10),
-             Delta::from_millis(FSP_SECURE_BOOT_TIMEOUT_MS),
-         )
-@@ -436,7 +438,11 @@ fn wait_secure_boot(
-             dev_err!(dev, "FSP secure boot completion error: {:?}\n", e);
-         })?;
- 
--        Ok(Fsp { falcon, fmc_fw })
-+        Ok(Fsp {
-+            falcon,
-+            fmc_fw,
-+            chipset,
-+        })
-     }
- 
-     /// Sends a message to FSP and waits for the response.
-@@ -549,4 +555,11 @@ pub(crate) fn boot_fmc(
-         dev_dbg!(dev, "FSP Chain of Trust completed successfully\n");
-         Ok(())
-     }
-+
-+    pub(crate) fn is_bug_3957833_affected(&self, bar: Bar0<'_>) -> bool {
-+        match hal::fsp_hal(self.chipset) {
-+            Some(hal) => hal.is_bug_3957833_affected(bar),
-+            None => false,
-+        }
-+    }
- }
-diff --git a/drivers/gpu/nova-core/fsp/hal.rs b/drivers/gpu/nova-core/fsp/hal.rs
-index eaf5837ac5a8..8bcc8f71cf8f 100644
---- a/drivers/gpu/nova-core/fsp/hal.rs
-+++ b/drivers/gpu/nova-core/fsp/hal.rs
-@@ -23,6 +23,11 @@ pub(super) trait FspHal {
-     // TODO: consider moving this into the TLV firmware metadata when ready
-     /// Returns the size reserved at the end of the framebuffer, in bytes.
-     fn fb_end_reserved_size(&self) -> u64;
-+
-+    /// Return if the bug 3957833 is affected
-+    fn is_bug_3957833_affected(&self, _bar: Bar0<'_>) -> bool {
-+        false
-+    }
- }
- 
- /// Returns the FSP HAL, or `None` if the architecture doesn't support FSP.
-diff --git a/drivers/gpu/nova-core/fsp/hal/gh100.rs b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-index 9a8563799da8..538870566b8c 100644
---- a/drivers/gpu/nova-core/fsp/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-@@ -9,6 +9,7 @@
- use crate::{
-     driver::Bar0,
-     fsp::hal::FspHal,
-+    fsp::regs as fspregs,
-     regs, //
- };
- 
-@@ -33,6 +34,11 @@ fn cot_version(&self) -> u16 {
-     fn fb_end_reserved_size(&self) -> u64 {
-         u64::SZ_2M
-     }
-+
-+    fn is_bug_3957833_affected(&self, bar: Bar0<'_>) -> bool {
-+        bar.read(fspregs::NV_GFW_FSP_UCODE_VERSION)
-+            .is_bug3957833_affected()
-+    }
- }
- 
- const GH100: Gh100 = Gh100;
-diff --git a/drivers/gpu/nova-core/fsp/regs.rs b/drivers/gpu/nova-core/fsp/regs.rs
-new file mode 100644
-index 000000000000..de69d5bed427
---- /dev/null
-+++ b/drivers/gpu/nova-core/fsp/regs.rs
-@@ -0,0 +1,28 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::io::register;
-+
-+use crate::driver::NovaRegisters;
-+
-+register! {
-+    base: NovaRegisters;
-+
-+    /// FSP ucode version, encoded as `major.minor` in bits 11:8 and 7:0, written by the FSP
-+    /// during boot. (`NV_PFSP_FALCON_COMMON_SCRATCH_GROUP_3(1)` in the hardware headers.)
-+    pub(super) NV_GFW_FSP_UCODE_VERSION(u32) @ 0x008f0334 {
-+        11:0 full;
-+    }
-+}
-+
-+impl NV_GFW_FSP_UCODE_VERSION {
-+    /// OpenRM kfspRequiresBug3957833WAR_HAL:
-+    /// returns `true` if the FSP ucode predates the fix for
-+    /// bug 3957833 and hence the sys timer offset must not be programmed.
-+    /// Can only be true on GH100 with older FSP.
-+    pub(super) fn is_bug3957833_affected(self) -> bool {
-+        /// FSP ucode version from which on the fix for bug 3957833 is included.
-+        const FSP_BUG_3957833_FIX_VERSION: u32 = 0x44c;
-+
-+        self.full() < FSP_BUG_3957833_FIX_VERSION
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index ac5305d7ff5e..cd281460c509 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -53,6 +53,10 @@
-         GpuMm,
-         VramAddress, //
-     },
-+    timer::{
-+        Timer,
-+        TimerState, //
-+    },
-     vgpu::VgpuManager, //
- };
- 
-@@ -331,6 +335,8 @@ struct GspResources<'gpu> {
-     // TODO: use different resource types for each boot method, and make the relevant Gsp methods
-     // generic against them.
-     fsp: Option<Fsp<'gpu>>,
-+    /// Timer state - contains system timer offset
-+    timer: TimerState,
-     /// vGPU state detected before GSP boot.
-     vgpu: VgpuManager,
-     /// GSP runtime data.
-@@ -497,6 +503,8 @@ pub(crate) fn new<'a>(
- 
-                 fsp: Fsp::try_new(dev, bar, spec.chipset)?,
- 
-+                timer: Timer::setup(bar, spec.chipset, fsp.as_ref())?,
-+
-                 vgpu: VgpuManager::new(pdev, spec.chipset, fsp.as_mut()),
- 
-                 gsp <- Gsp::new(pdev, bar),
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index a8f6dc22057b..ee59d81e5105 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -27,6 +27,7 @@
- mod sbuffer;
- #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
- mod selftest;
-+mod timer;
- mod vbios;
- mod vgpu;
- 
-diff --git a/drivers/gpu/nova-core/timer.rs b/drivers/gpu/nova-core/timer.rs
-new file mode 100644
-index 000000000000..4c329221c674
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer.rs
-@@ -0,0 +1,38 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+mod hal;
-+mod regs;
-+
-+use kernel::{
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    gpu::Chipset, //
-+};
-+
-+pub(crate) struct Timer;
-+
-+/// Struct that holds the sys timer offset value
-+/// after initialising the GPU timer block.
-+pub(crate) struct TimerState {
-+    /// This value is to be passed to GspInit SYS_TIMER_OFFSET_NS
-+    /// It is considered an opaque value, passed from timer hal to GSP.
-+    #[expect(dead_code)]
-+    pub(crate) sys_timer_offset_ns: u64,
-+}
-+
-+impl Timer {
-+    /// Setup the GPU timer hardware
-+    pub(crate) fn setup(
-+        bar: Bar0<'_>,
-+        chipset: Chipset,
-+        fsp: Option<&Fsp<'_>>,
-+    ) -> Result<TimerState> {
-+        Ok(TimerState {
-+            sys_timer_offset_ns: hal::timer_hal(chipset).setup(bar, fsp)?,
-+        })
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/timer/hal.rs b/drivers/gpu/nova-core/timer/hal.rs
-new file mode 100644
-index 000000000000..c2f2bbcad890
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal.rs
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::prelude::*;
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    gpu::{
-+        Architecture,
-+        Chipset, //
-+    },
-+};
-+
-+mod gh100;
-+mod tu102;
-+
-+pub(super) trait TimerHal {
-+    /// Setup the GPU's system timer.
-+    ///
-+    /// Returns the value to program into GspInitRequest.
-+    fn setup(&self, bar: Bar0<'_>, fsp: Option<&Fsp<'_>>) -> Result<u64>;
-+}
-+
-+pub(super) fn timer_hal(chipset: Chipset) -> &'static dyn TimerHal {
-+    match chipset.arch() {
-+        Architecture::Turing | Architecture::Ampere | Architecture::Ada => tu102::TU102_HAL,
-+        Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => {
-+            gh100::GH100_HAL
-+        }
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/timer/hal/gh100.rs b/drivers/gpu/nova-core/timer/hal/gh100.rs
-new file mode 100644
-index 000000000000..49e348c89e52
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal/gh100.rs
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use super::TimerHal;
-+
-+use kernel::{
-+    io::Io,
-+    prelude::*,
-+    time::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    timer::regs, //
-+};
-+
-+/// Timer HAL for Hopper and Blackwell.
-+struct Gh100;
-+
-+fn sec_timer_read(bar: Bar0<'_>) -> u64 {
-+    let mut hi2 = bar.read(regs::gh100::NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+    loop {
-+        let lo = bar.read(regs::gh100::NV_PGC6_SCI_SEC_TIMER_TIME_0);
-+        let hi = bar.read(regs::gh100::NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+        if hi == hi2 {
-+            return u64::from(u32::from(hi)) << 32 | u64::from(u32::from(lo));
-+        }
-+        hi2 = bar.read(regs::gh100::NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+    }
-+}
-+
-+fn sys_timer_offset(bar: Bar0<'_>, fsp: &Fsp<'_>, time_ns: u64) -> Result<u64> {
-+    let sec_timer_ns = sec_timer_read(bar);
-+
-+    let sys_timer_offset_ns = time_ns.wrapping_sub(sec_timer_ns);
-+
-+    if !fsp.is_bug_3957833_affected(bar) {
-+        bar.write_reg(regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_1::from_nsec(
-+            sys_timer_offset_ns,
-+        ));
-+        bar.write_reg(
-+            regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_0::from_nsec(sys_timer_offset_ns)
-+                .with_update(true),
-+        );
-+    }
-+    Ok(sys_timer_offset_ns)
-+}
-+
-+impl TimerHal for Gh100 {
-+    fn setup(&self, bar: Bar0<'_>, fsp: Option<&Fsp<'_>>) -> Result<u64> {
-+        // The open drivers uses wall clock time here not monotonic
-+        let sys_time_ns = Instant::<RealTime>::now().as_nanos();
-+
-+        // fsp is required on gh100 - return error if not available.
-+        let fsp = fsp.ok_or(EINVAL)?;
-+
-+        sys_timer_offset(bar, fsp, sys_time_ns as u64)
-+    }
-+}
-+
-+const GH100: Gh100 = Gh100;
-+pub(super) const GH100_HAL: &dyn TimerHal = &GH100;
-diff --git a/drivers/gpu/nova-core/timer/hal/tu102.rs b/drivers/gpu/nova-core/timer/hal/tu102.rs
-new file mode 100644
-index 000000000000..629d744a4b12
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal/tu102.rs
-@@ -0,0 +1,53 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use super::TimerHal;
-+
-+use kernel::{
-+    io::Io,
-+    prelude::*,
-+    time::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    timer::regs, //
-+};
-+struct Tu102;
-+
-+// this code will be used in the gb10b hal eventually
-+#[expect(dead_code)]
-+fn timer_read(bar: Bar0<'_>) -> u64 {
-+    let mut hi2 = bar.read(regs::NV_PTIMER_TIME_1);
-+    loop {
-+        let lo = bar.read(regs::NV_PTIMER_TIME_0);
-+        let hi = bar.read(regs::NV_PTIMER_TIME_1);
-+        if hi == hi2 {
-+            return u64::from(u32::from(hi)) << 32 | u64::from(u32::from(lo));
-+        }
-+        hi2 = bar.read(regs::NV_PTIMER_TIME_1);
-+    }
-+}
-+
-+fn set_time(bar: Bar0<'_>, time_ns: u64) -> Result {
-+    if !bar.read(regs::NV_PTIMER_TIME_PRIV_LEVEL_MASK).level0() {
-+        return Err(EINVAL);
-+    }
-+    bar.write_reg(regs::NV_PTIMER_TIME_1::from_nsec(time_ns));
-+    bar.write_reg(regs::NV_PTIMER_TIME_0::from_nsec(time_ns));
-+    Ok(())
-+}
-+
-+impl TimerHal for Tu102 {
-+    fn setup(&self, bar: Bar0<'_>, _fsp: Option<&Fsp<'_>>) -> Result<u64> {
-+        // The RM uses wall clock time here (osGetSystemTime -> ktime_get_real), so the GPU time
-+        // matches the host's real time, e.g. for timestamp correlation in userspace.
-+        let sys_time_ns = Instant::<RealTime>::now().as_nanos();
-+
-+        set_time(bar, sys_time_ns as u64)?;
-+        Ok(0_u64)
-+    }
-+}
-+
-+const TU102: Tu102 = Tu102;
-+pub(super) const TU102_HAL: &dyn TimerHal = &TU102;
-diff --git a/drivers/gpu/nova-core/timer/regs.rs b/drivers/gpu/nova-core/timer/regs.rs
-new file mode 100644
-index 000000000000..89dd478a37be
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/regs.rs
-@@ -0,0 +1,98 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::io::register;
-+use kernel::num::Bounded;
-+
-+use crate::driver::NovaRegisters;
-+use pin_init::Zeroable;
-+
-+/// Field value for the NSEC field (31:5) of the `_0` registers: `nsec[31:5]`.
-+///
-+/// The GPU timer counts nanoseconds with 32 ns granularity, so `nsec[4:0]` is dropped.
-+fn nsec_lo(nsec: u64) -> Bounded<u32, 27> {
-+    Bounded::<u32, 32>::from(nsec as u32).shr::<5, _>()
-+}
-+
-+/// Field value for the NSEC field (28:0) of the `_1` registers: `nsec[60:32]`.
-+///
-+/// The GPU timer is 61 bits wide, so `nsec[63:61]` is not representable and is
-+/// truncated — the same bits the hardware discards on a raw register write.
-+fn nsec_hi(nsec: u64) -> Bounded<u32, 29> {
-+    Bounded::<u32, 29>::from_expr((nsec >> 32) as u32 & 0x1fff_ffff)
-+}
-+
-+// PTIMER
-+
-+register! {
-+    base: NovaRegisters;
-+
-+    pub(super) NV_PTIMER_TIME_PRIV_LEVEL_MASK(u32) @ 0x00009430 {
-+        4:4 level0 => bool;
-+    }
-+
-+    pub(super) NV_PTIMER_TIME_0(u32) @ 0x00009400 {
-+        31:5 nsec;
-+    }
-+
-+    pub(super) NV_PTIMER_TIME_1(u32) @ 0x00009410 {
-+        28:0 nsec;
-+    }
-+}
-+
-+impl NV_PTIMER_TIME_0 {
-+    pub(super) fn from_nsec(nsec: u64) -> Self {
-+        Self::zeroed().with_nsec(nsec_lo(nsec))
-+    }
-+}
-+
-+impl NV_PTIMER_TIME_1 {
-+    pub(super) fn from_nsec(nsec: u64) -> Self {
-+        Self::zeroed().with_nsec(nsec_hi(nsec))
-+    }
-+}
-+
-+pub(super) mod gh100 {
-+    use kernel::io::register;
-+
-+    use super::{
-+        nsec_hi, //
-+        nsec_lo,
-+    };
-+    use crate::driver::NovaRegisters;
-+    use pin_init::Zeroable;
-+
-+    // PGC6/TIMER
-+    register! {
-+        base: NovaRegisters;
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SEC_TIMER_TIME_0(u32) @ 0x00118f54 {
-+            31:5 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SEC_TIMER_TIME_1(u32) @ 0x00118f58 {
-+            28:0 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SYS_TIMER_OFFSET_0(u32) @ 0x00118df4 {
-+            0:0 update;
-+            31:5 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SYS_TIMER_OFFSET_1(u32) @ 0x00118df8 {
-+            28:0 nsec;
-+        }
-+
-+    }
-+
-+    impl NV_PGC6_SCI_SYS_TIMER_OFFSET_0 {
-+        pub(in crate::timer) fn from_nsec(nsec: u64) -> Self {
-+            Self::zeroed().with_nsec(nsec_lo(nsec))
-+        }
-+    }
-+
-+    impl NV_PGC6_SCI_SYS_TIMER_OFFSET_1 {
-+        pub(in crate::timer) fn from_nsec(nsec: u64) -> Self {
-+            Self::zeroed().with_nsec(nsec_hi(nsec))
-+        }
-+    }
-+}
+The patches are organized as follows:
 
+  1     Retain BAR1 reservations after an unmap failure.
+  2-8   Boot state, runtime parameters and the 48-VM WPR2 heap.
+  9-12  VRAM allocation, region views and BAR mappings.
+ 13-14  Synchronous GMC transactions and completion events.
+ 15-19  Plugin bindings, property queries and instance allocation.
+ 20-28  Plugin boot, shutdown and RPC.
+ 29-31  CeUtils scrubbing and plugin logs.
+ 32     SR-IOV PF lifecycle APIs.
+
+Changes since v3:
+* Include the BAR1 unmap-failure fix as patch 1.
+* Rebase onto r000 firmware stack and drop changes already supplied by the prerequisites.
+* Adapt boot-state/VF information handling, firmware encoding and GMC
+  transactions to the interfaces supplied by that newer stack.
+
+Dependencies:
+This series is based on drm-rust-next at
+41871f4ddf710339863f957bcfcab5094c234771 plus the r000 GSP firmware
+and other integration prerequisites.
+
+The complete integration tree, including the prerequisites and the
+companion VFIO driver, is available at:
+
+    https://github.com/alokk-nvidia/nova-core/tree/nova-vgpu-wip-20261105
+
+Previous versions:
+v3: [1]
+v2: https://lore.kernel.org/nova-gpu/20260914074907.1399629-1-zhiw@nvidia.com/
+v1: https://lore.kernel.org/nova-gpu/20260905081116.106613-1-zhiw@nvidia.com/
+
+[1] https://lore.kernel.org/nova-gpu/cover.1790580105.git.zhiw@nvidia.com/
+[2] https://lore.kernel.org/kvm/20250903221111.3866249-1-zhiw@nvidia.com/
+
+Alok Kumar (2):
+  gpu: nova-core: gsp: decode the FIFO engine table
+  gpu: nova-core: vgpu: add VRAM slot allocator
+
+Zhi Wang (30):
+  gpu: nova-core: mm: retain BAR1 reservations after unmap failure
+  gpu: nova-core: gsp: pass boot context through setup helpers
+  gpu: nova-core: gsp: decouple boot context from VgpuManager
+  gpu: nova-core: vgpu: detect boot state independently
+  gpu: nova-core: gpu: add a channel ID pool for vGPU
+  gpu: nova-core: vgpu: initialize runtime parameters after GSP boot
+  gpu: nova-core: vgpu: reserve the 48-VM WPR2 heap
+  gpu: nova-core: mm: borrow BarUser for temporary BAR1 access
+  gpu: nova-core: mm: add VramBlock
+  gpu: nova-core: mm: add VramRegion
+  gpu: nova-core: mm: add BarMapping
+  gpu: nova-core: gsp: add synchronous GMC transactions
+  gpu: nova-core: gsp: wait for GMC completion events
+  gpu: nova-core: vgpu: add r000 plugin bindings
+  gpu: nova-core: gsp: factor out NVKV payload conversion
+  gpu: nova-core: vgpu: query VF assignments and properties
+  gpu: nova-core: vgpu: add instance create/destroy
+  gpu: nova-core: vgpu: encode vGPU boot requests
+  gpu: nova-core: vgpu: add GSP plugin communication buffers
+  gpu: nova-core: vgpu: add instance boot
+  gpu: nova-core: vgpu: add instance shutdown
+  gpu: nova-core: vgpu: initialize GSP plugin RPC buffers
+  gpu: nova-core: vgpu: add GSP plugin RPC transactions
+  gpu: nova-core: vgpu: negotiate the GSP plugin RPC version
+  gpu: nova-core: vgpu: send GSP plugin configuration parameters
+  gpu: nova-core: vgpu: update the GSP plugin BME state
+  gpu: nova-core: vgpu: add CeUtils commands
+  gpu: nova-core: vgpu: scrub guest VRAM with CeUtils
+  gpu: nova-core: vgpu: export plugin log buffers via debugfs
+  gpu: nova-core: vgpu: introduce SR-IOV PF APIs
+
+ Documentation/gpu/nova/core/interrupts.rst    |  20 +-
+ drivers/gpu/nova-core/fb.rs                   |  28 +-
+ drivers/gpu/nova-core/gpu.rs                  | 111 ++-
+ drivers/gpu/nova-core/gpu/channel.rs          |   4 +
+ drivers/gpu/nova-core/gsp.rs                  |  30 +-
+ drivers/gpu/nova-core/gsp/boot.rs             |   8 +-
+ drivers/gpu/nova-core/gsp/cmdq.rs             |  28 +-
+ drivers/gpu/nova-core/gsp/cmdq/gmc.rs         | 223 +++++-
+ drivers/gpu/nova-core/gsp/commands.rs         |  11 +
+ drivers/gpu/nova-core/gsp/commands/gmc.rs     |  34 +-
+ drivers/gpu/nova-core/gsp/fw.rs               |  44 +-
+ drivers/gpu/nova-core/gsp/fw/commands.rs      | 108 ++-
+ .../gpu/nova-core/gsp/fw/r000_00/bindings.rs  | 175 +++++
+ drivers/gpu/nova-core/gsp/hal/gh100.rs        |   2 +-
+ drivers/gpu/nova-core/gsp/hal/tu102.rs        |   2 +-
+ drivers/gpu/nova-core/gsp/nvkv.rs             |  42 +-
+ drivers/gpu/nova-core/gsp/nvkv/encode.rs      |  12 +
+ drivers/gpu/nova-core/mm.rs                   |   1 +
+ drivers/gpu/nova-core/mm/bar_user.rs          | 209 +++++-
+ drivers/gpu/nova-core/mm/vmm.rs               |  18 +-
+ drivers/gpu/nova-core/mm/vram.rs              | 131 ++++
+ drivers/gpu/nova-core/nova_core.rs            |   6 +
+ drivers/gpu/nova-core/regs.rs                 |  31 +-
+ drivers/gpu/nova-core/vgpu.rs                 | 111 ++-
+ drivers/gpu/nova-core/vgpu/commands.rs        | 321 +++++++++
+ drivers/gpu/nova-core/vgpu/fw.rs              |  70 ++
+ drivers/gpu/nova-core/vgpu/fw/commands.rs     | 470 +++++++++++++
+ drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs | 496 ++++++++++++++
+ drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs  | 170 +++++
+ drivers/gpu/nova-core/vgpu/instance.rs        | 642 ++++++++++++++++++
+ drivers/gpu/nova-core/vgpu/log.rs             | 171 +++++
+ drivers/gpu/nova-core/vgpu/scrubber.rs        | 173 +++++
+ drivers/gpu/nova-core/vgpu/vgpu_api.rs        | 158 +++++
+ drivers/gpu/nova-core/vgpu/vram.rs            | 179 +++++
+ 34 files changed, 4085 insertions(+), 154 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/mm/vram.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/commands.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/fw.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/fw/commands.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/gsp_plugin_comm.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/gsp_plugin_rpc.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/instance.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/log.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/scrubber.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/vgpu_api.rs
+ create mode 100644 drivers/gpu/nova-core/vgpu/vram.rs
+
+
+base-commit: ccfd86490ddf6fd9c8f59a1a3171c652afb44c7f
 -- 
-2.56.0
-
+2.53.0
 
