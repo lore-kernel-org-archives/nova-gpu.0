@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056629;
-	b=TPBcAPdI8u14ZDa74XVmjMP2WPnGke3cZQSD5iwHQlMmbTJk9E96TCzJwvElJsDL1zHG
-	 3kIThgsOY9ND0x6vilG/4vNIQ3G+9ZCtS46BDPn6PxBGVzNTC0/TpdRWNZD1P6DH15W/F
-	 YyDCO3xev1ynBPswrmU/1tSCXr1Vzia4BsyWNZFZE64t6ctBPOctlKVJyT0+ncltJasZX
-	 h61v58CHEAHK3g6bZbcEJgwNi46sp2Fr1b6jyT9XXNKjCzw22LL8daO0A1eGZXmKowZxG
-	 JlbYtnISI166sUdZDy5Gmi/gygptf9xN+gVf3W/s07rjNMM0WlC4tUBnMJOfWPNsTUA==
+	t=1794056736;
+	b=bBDW3/xlaUHDMyd3Y+Kj8781dMMYfqXbhsDdep9P9mJ1rljpjeRUoP6h4aWBgduxB5MO
+	 8PRp4iuFzq2SKLI8oR+V9c+pCCJ0koc/SkPjlnqlShkaQS9Mtp7jhJiHkzlwupWMcM1c4
+	 jB+aWk/QfBT7EXzvOyfC9xY4SnHF+5KXgSkJi8goYbUhPoTABlwffgq4cPk7iSa+OJXPE
+	 zQdLudYxMeTcvm39z+BL3bTqShyJyJ80oGR11Okn5pdAonrZ4XIlephvqMcdMTuZZ5K0H
+	 77FsJGgX25pX51QeQwhMMvqzVmbCMt7x5m71P8vMWfrJxOjlFiCoHyWjE87oehDwgTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794056736;
 	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
 	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
 	 In-Reply-To;
-	bh=Ey3oHwVRsPT9qCJLHcC4MSGbnBIXfjqy7Yr85fp9kEs=;
-	b=cF07fnY8REdi1edilaZtmnLD8Ka+pLUbFjLlD85yBo4pHe+aapn9Belqb3BFIOcXctKz
-	 nSONobVHQI+oMoFch45fXiuGHju8PZjKlPepHfY/OYNe3UJ8uyn7S4PjCzstkPt8gSpVT
-	 3Sr9Y61oR2yTzLR5yFcAzOyE42i/zSIbJvXGANEKnBADpl5YYw544oCrShJVcaLst0xyO
-	 Y7qjxTYxiRrpNWLpi0eNat5Squ0TRMIIRPHx0yzB7qh1eGApSRXw2b/mcOFnTpBqPDJrB
-	 7IzQnjJKIPhZYMWeH1SwiOHWhDBiRjk16BlG783ZLkW1AJYkXnZcivP1vDItv9xG+4g==
+	bh=rYqeNBed//aUso9h3NDMo/epkX/7HrNV/QjT/z9k1Ss=;
+	b=X7ZJReb8B8WdXERZFNItO4t1bvoFSlQ5m2gZwzzPJBtZFlm37fblvta3p25lOogPSFrv
+	 YdwF+M1ocau/mvsLN709jutfCHOmrAOgNy6hexmfIoLVw5aNve2nq1hS/iSnbfSr+WRFl
+	 C0u7KciqtS/45cfqnnM2UUZDz9w43lo+jAWKUeBUyEtzMfWhbT3TO3j9gnbNRPMXpv8el
+	 iPL3nokQML0A7PZDISVMczAG4N2Wo6uEo3NvqpQV6dmmraqGEejLpuBC9JEzkxfnRIrQt
+	 v7I2pBlhgB6/rPk3qjvB4GmhQKXpigu7cQwrAVADtXp7A2QXqCsbOyAI5icjNtLv7Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyB6++V8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0r9MZRe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7587D606A326;
-	Sat,  7 Nov 2026 13:03:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F99C606A32C;
+	Sat,  7 Nov 2026 13:05:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyB6++V8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533251F0089F;
-	Sat,  7 Nov 2026 13:03:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0r9MZRe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590FA1F008A4;
+	Sat,  7 Nov 2026 13:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794056627;
-	bh=Ey3oHwVRsPT9qCJLHcC4MSGbnBIXfjqy7Yr85fp9kEs=;
+	s=k20260515; t=1794056736;
+	bh=rYqeNBed//aUso9h3NDMo/epkX/7HrNV/QjT/z9k1Ss=;
 	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=OyB6++V8XHk3eQemxKVKupYvoakLI1Ou1n653MBQuMvbrfovPU8DNu53ofiLG6oIj
-	 ixQW+x7K/NPoq7aJMnGxzSSAA+BDUjyihYUmiRVPqlHC2qHP0S+wG9ZUtHoIF3WTrx
-	 jiR7aVFGR+nnDUAGfUoA2SaOLfyigGewEW8DS/8Davt4PUDvF6pBlDVIXJ1Okn8bVM
-	 /fM2L20AKZhINkKEtjjAnrixMCMWc6CHr+K3020NsM/VvZC24IeDQ8pYYqGpCGFuTl
-	 lA0ri66JSFc+2Z8qHTbj8qbGcVA93XgdkchmpZAQv1P5N6eqyvx8cVvaDV174lDIVi
-	 //nA8e1rN5P6A==
+	b=A0r9MZRetEvVa+dMthvCVtFMvOuaaemVTDV8WVlfmyS1qyaA12o8pEKgN7au/jvNG
+	 orLAQ45eruZbQYwsin0gOwd6HbWhYoiUW1bcVWa6M0OMFKzXNC9yaPBu3w/f7WFik3
+	 ttlIcZmRfuXXImfpncKXFwccRZ+MpgjUsDympNa+hWye0I6jLEhDe/BpGMgulY9vmh
+	 TI+vwg6X1Yl50+8YMxAEFX6KnvkDVfIewoEyQW4bSjDvMlN+FaFIAjR8iSo8PD3UzB
+	 nePVNAL4Cz+ImI3FZe1Vee4hZzNxdGs/Z8tKQcPT/iGEI6qpBRlXyinWVCm52lgPpH
+	 mBZaTP4/rWqbg==
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -51,54 +51,32 @@ Precedence: list
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 14:03:40 +0100
-Message-Id: <DMOZZTN9Y87S.BEGCSG2XU10S@kernel.org>
-Subject: Re: [PATCH v10 1/3] rust: use Alignment size constants
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Date: Sat, 07 Nov 2026 14:05:31 +0100
+Message-Id: <DMP018P7T755.1IJWOWDYOLB2B@kernel.org>
+Subject: Re: [PATCH v2 06/12] rust: io: register: implement Copy and Clone
+ for RegisterArrayLoc
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Gary Guo" <gary@garyguo.net>
 To: "Alexandre Courbot" <acourbot@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261019-chid-v10-0-67de9180b4ed@nvidia.com>
- <20261019-chid-v10-1-67de9180b4ed@nvidia.com>
- <DMOZR1THYXEZ.138HB6J6HIMFK@nvidia.com>
-In-Reply-To: <DMOZR1THYXEZ.138HB6J6HIMFK@nvidia.com>
+References: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
+ <20261107-r000-fw-v2-6-fb37cc5b20cd@nvidia.com>
+In-Reply-To: <20261107-r000-fw-v2-6-fb37cc5b20cd@nvidia.com>
 
-On Sat Nov 7, 2026 at 1:52 PM CET, Alexandre Courbot wrote:
-> On Mon Oct 19, 2026 at 1:29 PM JST, Eliot Courtney wrote:
->> Use `SizeConstants` for Alignment that are implemented now.
->>
->> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/fb.rs               | 10 +++++-----
->>  drivers/gpu/nova-core/fb/hal/gb100.rs     |  2 +-
->>  drivers/gpu/nova-core/fsp.rs              |  4 ++--
->>  drivers/gpu/nova-core/gpu.rs              |  7 ++-----
->>  drivers/gpu/nova-core/gsp/fw.rs           | 12 +++---------
->>  drivers/gpu/nova-core/mm.rs               |  2 +-
->>  drivers/gpu/nova-core/mm/bar_user.rs      |  7 ++++---
->>  drivers/gpu/nova-core/mm/pagetable/map.rs |  7 +++++--
->>  drivers/gpu/nova-core/mm/pramin.rs        |  6 +++---
->>  drivers/gpu/nova-core/vbios.rs            |  7 +++++--
->>  rust/kernel/gpu/buddy.rs                  | 26 +++++++++++++-----------=
---
->>  rust/kernel/io.rs                         |  5 +++--
->>  12 files changed, 47 insertions(+), 48 deletions(-)
+On Sat Nov 7, 2026 at 10:48 AM CET, Alexandre Courbot wrote:
+> Register array locations are small values that are cheap to copy, but
+> obtaining one can fail. Making them implement `Copy` lets the same
+> location be checked once and used for several accesses.
 >
-> Danilo, Alice: could we get an ack for the buddy and io parts, in order
-> to push this series through drm-rust-next?
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Alice Ryhl <aliceryhl@google.com>
+> Cc: Daniel Almeida <daniel.almeida@collabora.com>
+> Cc: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-Not a big deal, but can't we make this separate patches?
+Acked-by: Danilo Krummrich <dakr@kernel.org>
