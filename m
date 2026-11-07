@@ -1,96 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794034197;
-	b=Z48kY70kt4ogQfTIgYjEbMlHwWIaBd4WWkSnCiDhRtZobyapxJbXxmjYe+Kgv+1xfC81
-	 CMD5wf6WSuyPDh8LTro2gDHSuxjRDQecuNOSVr5F8pdTffZIC77R2anlv2VxWJPu25zoG
-	 y8nht8y7GBmvrYrkRtBfRwQ8wX0rG72yusMPk8kTZ9C7QDVem5C/Nq3yOeFJwW+kQhLZN
-	 g8FKTw+Y4Tt4sJ8QWEJk7g+TIbarbPMvLbxrlof7bOqh6ULse0BxsoTHQBTHR1om3I4Bw
-	 O0fTCH5C1GhbnSxmC3BE/InYscTVr0Kpin0wK37r9FU3RoYFmvGQZg0+2fb9z0WZLLg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794034197;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Awso86uur2X1QFxm5c20pt/OWO820tRoP2pWWpr1/Qo=;
-	b=GgbeQwfT+ujb3mkURPCWiWS+4LjzrooejaW0EH77EWiQtZev9KWKaWPZA99Y9xoHajER
-	 /Z35EZIGJMtDrebE3ZVTuqhP5xPQUbPMrv6AfNRH6f2spCNNvy1mZ0YNcCgXCvK84NYib
-	 O50JfHC/HahBtILqL8FxcAu4k9FZ+qp6r0bWX0Xv86S4EKyLhLFn+nz99K/42xBRUutw1
-	 pLHCWhCGH8aKivT/ayXchwqk3MIUL3O/on9b2Ay7yS7AIdUNsd37pfgCsRc444ieLWU+G
-	 9VwANQO8H/pAPjyJisOVHr7KJtfr3PX8gu5XabPksYSHN/SZNO0GEKOvUy82vONxpQw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GCZqKHGo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.6
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010006.outbound.protection.outlook.com [52.101.85.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.71
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794039387;
+	b=yAIhm2P55jFTArasw+T5D5QhgxD3qnII+Lr/Uq0omZHRmvX7jA/IknNgstdrSR9PaC+t
+	 sZsZyqkUbX0fB1UR1a7ZE0VFzxhZIMDZ9xXwDDJjaim3N24xtSf/HrzHICyFervjJxMHo
+	 WKqx81N8+LwFcz7RbrPEAmOWV6AJ7+nT3f8VDgAY96w1oaXYT9xlwGla24PVmNI5hPLH/
+	 rBxQaGGRPJExpzaHfSjupue5Prr+7K0TnKiUGUaJR3qwTd9lP04MboknJDvleiI/7QwXR
+	 MGpiwH8NbU/WA7xZR9+0gihXrbbSMGux3FOrI3r6k+qgNmiHHc/etI2iGBg9c2vhkwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794039387;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
+	b=brk5MplQvGm+oagk8wp2PvlrKQK8mIA3PbON+vFBhsAFtdjMAW8aUgQSFyCJjKcehTgM
+	 HEse587CWnunluWOTBDPrt2cSnCLJEI6Ungb5glAjqpWfLxTLoGgnAvojBIJMnHUXMhDO
+	 9ReujS3xa1Xi6h4pzBS/XKFXwQ2nUja2w8RmKu3YFji8R/69VkTGzGUFRlr4j1rJykSrq
+	 hShmsfl3zzbNn1jq6G8++W4weecGRcnt6RYyrsie9YSrS2fIGqdQbae45u61nrLbLsjIB
+	 amrqhD/Me1m+acaiYdSjpfim3VVn5LnMQnYMcUkkmTSxAWQXpD5T7zSczgfjo2vwh3A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=km2QIMvw;
+	arc=none smtp.remote-ip=209.85.221.71
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0B5606A326
-	for <nova-gpu@lists.linux.dev>; Sat,  7 Nov 2026 06:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C0B5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0AB606A32D
+	for <nova-gpu@lists.linux.dev>; Sat,  7 Nov 2026 08:16:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F0AB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GCZqKHGo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I5Uc4b4YJzf2VbXKphdd2pyGiaxMoaD0utQPctNw04X2WSwBDIJN7BUUiQhCABm5LXoeV5BfTNdmmRg9sCzmcoLHAiEnidE46FtPb7doPCNsvtzRrLa+lC6bL0dA8uFCCCVhWMLm1g4QsZF/+z31DS2tVSG5vkRl+hH0WhCIHp84IZjcJrc342+241HaHGZ/1RqzaaTuzwUSZ0pz5JvuIOIGvNkPd+hlmMfMV8/vudlamWqMAW6lwuUs2H3Uo06n0CJCHJ25aqI7vu5rQcZdUCQDUogW3D9PmiTAgwgWhHYBxqTtLWgn06yiReWRtEYXAIoNQD7EE+BXZfRaP6RORQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Awso86uur2X1QFxm5c20pt/OWO820tRoP2pWWpr1/Qo=;
- b=yxQFQ6VgP9D5oAEdQPKc0RN2f98CU5IqbMsQda8e0JLaOa4MANvL5wtj2Qk64icOddfgwtiWGOU/2nsgiKsEf2eCMXguD9NntnaejexoPdy3wpdJkJp+c67RbhBCyXgwxR7avsMpPmPABOkEiw/n4odtZmStNBty+a7uOacJ4MnVsJEvvk5rEHDFr9mSpz/QaNyoNlKKFRkGPuEijI+jpzWN8/VxATkG+D9Qphph1iiGpHiOQBwndrlJXY39SKB0xLjsNjrbBMvL2o6wGDUIJIlVtttC3o2CpEne27L1na5uatrs7myKvSbS60/HAM1a2X9IEtx8pT8VasyuabsahQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Awso86uur2X1QFxm5c20pt/OWO820tRoP2pWWpr1/Qo=;
- b=GCZqKHGob0KVhPvJaSwA0zKLejTQ3Mcpm9u6uIiuT497MvrS8UjaweOjeWEhyNf2dcA2SsmOpDOEdVlEv3Ulz9G1RhIQzmxLhx93TkNJuIve8ukPOrAhrvlsfpQ+Otg+UZ2y+Hg/HWLNYVnwKK1Vu5nTv+X5SsdYXc4Of/0maxohHX4ARjsk4Q+0U1neeDyZ8WndpVnNknVoQdEDA7ua1tviQt6m2Bwg0XYdDmZzvUBKRZfcw6pThxZLIY29EQ6HyDpmN3ProY4f+28R29crMU9nlS4TgRKepbnoVamQR7UVlMyoLAsYQGdMkqknzfLDEm/gIBIKRAuVu7gMyhTeuA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MN0PR12MB6151.namprd12.prod.outlook.com (2603:10b6:208:3c5::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Sat, 7 Nov
- 2026 06:47:51 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
- 06:47:50 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 15:47:47 +0900
-Message-Id: <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
-Cc: <dakr@kernel.org>, <jhubbard@nvidia.com>, <aliceryhl@google.com>,
- <ttabi@nvidia.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
- module data
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
- <20261014154554.231015-2-vladazaharova2018@gmail.com>
-In-Reply-To: <20261014154554.231015-2-vladazaharova2018@gmail.com>
-X-ClientProxiedBy: OS0P286CA0009.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:9c::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=km2QIMvw
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e0461e040so1149702f8f.0
+        for <nova-gpu@lists.linux.dev>; Sat, 07 Nov 2026 00:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794039385; x=1794644185; darn=lists.linux.dev;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
+        b=km2QIMvw097Cykog1LJ9qdCXkssO1TLy3ftUJ8d69StaV5zyAApWBWWlBSy6YWyDCk
+         i8Ep0PuNqzwVy22W0AOgbQdZ+w0HiSv/yyT3uX7xG7iQjSJXIA1bp+wAF9ao1F3HOzMX
+         BleBdQVQpzxKR9XI2QEGkOsoTSDpgHs+Iw7DLlp3F0UiSzjk1d8dmRWbkBwBw4Mg6/Lg
+         e2/egEaHyIs5/xb7D8sl7CKvOjCNZyV07zoH0umg25pPKR0rUh6Dxru3+SU3KqPby5in
+         OSHeOBjF/t8IUOuqjNvCmJWdpJx4rmbkyQFd2rkeSZ9P22RTTkgRlPV5HqvQVTXXG04P
+         wiUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794039385; x=1794644185;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
+        b=UQuUKc/QXwjEIUDRr9w08HgvlLTk5s/WlJlrVyAsqXPTaQT8xsN/l6CR95HGByrMhK
+         hgLlnf3YJntWunk/091ynS5Vsn9GgkZx/slqNs1XUOYpFQBYlBY2LiaD4xRoBXD6mUTP
+         UHdSoa3Axds19IxOafSbJaoAxsxDrfeCubKydkz9YwjWuuXqOZN8OVIJPDhRHTAQ1v3P
+         +KH/AczSzgjBVmY2rIibVu8AT+XJFzXRGXrZS2HMEyuqsavc3RT8cymHgEGGjDeTj69B
+         uGWL/kqfLCB2gk8oT55e+MhkjFYJMVfVWb4Uwx19H3XLnY67G0VBihykZ+VHxSYk3xkN
+         09Pg==
+X-Forwarded-Encrypted: i=1; AL+hErHnBs+16UlOTS1dEXV8nuqesuBa6A1KqoWJbR6wIkJ4r8a9Od7eD8TdnmUUCS/qIUwX97XBbZMsxQ==@lists.linux.dev
+X-Gm-Message-State: APuU4Z8boWMtayuHN23EJqmJbkm96grm6huSBwnTN8lFduCl4Z9UiOAu
+	17Z8BQNMazZTRzIP9y/yunXAx6zSQgSZeOo1ryuEqxd/qgeaMbN/3XGR01vAxWM2QNN/2Yyrmj6
+	oyvewJtwFN7SqAmMY8Q==
+X-Received: from wrtp5.prod.google.com ([2002:a5d:4e05:0:b0:48c:44a2:fe52])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:25eb:b0:490:421f:1555 with SMTP id ffacd0b85a97d-49275b1bc23mr8281265f8f.22.1794039384637;
+ Sat, 07 Nov 2026 00:16:24 -0800 (PST)
+Date: Sat, 7 Nov 2026 08:16:23 +0000
+In-Reply-To: <20261107021427.2105374-8-dakr@kernel.org>
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -99,241 +77,34 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MN0PR12MB6151:EE_
-X-MS-Office365-Filtering-Correlation-Id: 253e314b-8a7e-4025-ab6c-08df3c9b0a83
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|10070799003|23010399003|6133799003|18002099003|22082099003|261009223027099003|261026121527099003|261022075727099003|261028144727099003|261022105027099003|261021121427099003|261026140227099003|10067099003|56012099006|11063799006|5023799004|4143699003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	5b+4idtzljvHr5S3qTk0NmIfmZfgKppzw1oy6I+i16uk3eVnWcEL0C1bAM+A+42f8eAycfwD6ku7Lht4LeYIfG8ScL2q5XPIr814zvFqnAlKxOc2iG8C4AEvb0/oqp7xUwzIk+kNasv73F33xNPO2zXnhobJXw17/FRjWaFzko+Cv6mJR/Za6xcpmRYEyjmWZi52Q2boGj+YAJKid935rgeH6OO95KSCSBTMWQSPTCQQyqC2MDMxwkFpY+Cmp2atqoSOLilgm+w1RN7t7GMkuo8ZGhHgPkqk/yk+A1UKi251vblxpGFnc9ysGgtMmiwXItjxFU2eM1wf/lWIIkyxugOq2T84WOKMjwGkkdJuYoQS3BB6yGy6wfF8xyhIWfffksZ2VzBzkW6gS0Ca7cxGbln3jtUj3dhTtUwq0k7VoThkL3wdL4AQlOmYjuRs50dWht5P5aqFS61NRF1ilwcLRfyImFwHWU5g7B6FkPGL5rknmNrbJKe1wPEA6yvySHTMrz+MiXGi3a8PgHmf01Afup/r9OadYhuvYkuJF2vcPH76DyOsiG7YkQJPbLz6FPhOimavXFkqv3zcr+fFxcVCTOrSkpMHNqZzyzZun7Az/RBA6SLMLc0pGjZY0NoL8/tyZLy6OOlaQ69qVLRF8FPlp9sClUJmBBvWXzMuU02J3fM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(10070799003)(23010399003)(6133799003)(18002099003)(22082099003)(261009223027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261022105027099003)(261021121427099003)(261026140227099003)(10067099003)(56012099006)(11063799006)(5023799004)(4143699003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OXk5Qzc0NGt0N2FTSFF6RHNuNUxJRWN1dVJuUWFVZ3dXRXVXZ0FkNnF6bVdZ?=
- =?utf-8?B?bjlSY2kzQ242WFVJNEZKcHVRVklFd0x1Y2ZqMGlISmdXL3c2cU1KY3o3NGJu?=
- =?utf-8?B?VHo2VWRybmRGS3lSejNtcnNLZ0QxaG93T3k5NjlLOWlZSENQd00vT3NSL3Qv?=
- =?utf-8?B?YzZXamFISG10QjMveFd2cDFUSFhGZ1dNRmpYZjZDT2tWV1dCbkdDa01GQUpH?=
- =?utf-8?B?MVVCODg1WDNRbnBldzAvUW9BUEVRVm9SUFV4TmkzUjBOeXNZWVNOWGxacTI3?=
- =?utf-8?B?QlRoUEZKcnBZeWF4bEE2OS94ZktQTDB5TElCMWRCUitUbUpJcFU1ZkZlc2NY?=
- =?utf-8?B?ZTVOZkprU05JbncwWDBCVGZSbE9ES0xWQlU2enp4MDFSdnFud2NrRFYvUGlG?=
- =?utf-8?B?WWlXS29XL3pveFdGUG1sM0ZPcWNOdGRjc3pmSHZQaFNtaWpLNEpiOWtlOUsz?=
- =?utf-8?B?NUpNTkZiYXlUaEN4akdhTWtnUFluRWd2SUFHMXkrZm53ZitXcFFsb2JKTnhR?=
- =?utf-8?B?NHNhYWdac3BpVHhYcnlGbmlWSkZyS1ZVdXoxRE9NeUtZZFJ3eGtZeVhFYUpi?=
- =?utf-8?B?NGdjekJGeXluWkh3cDdxbzRxTW9KYlVrUHBRWVJ2WHVxNkdqeGZjb25odEpq?=
- =?utf-8?B?Ni9WN0xESkJseXFhOVlNbmhsbnZ6SG9BQTQ4N1pIZElkeDh2R0pScE5DellP?=
- =?utf-8?B?RVlQUDlxZUd4U2lDVFJxRXRUODNPWXR5RGw5ZTMraEltY3d2bE41a2oxTUlu?=
- =?utf-8?B?U01mRWxnQ25PcjU2ZmttcXpoRTlQTEkya3BLUERHRUxwelFHRnFtZjBCd1c5?=
- =?utf-8?B?a2RCTVY0Z3psRjlHTm5KdEpCcFJJZTZ1bG95R1JLeFEra21PV0dMVXJrUENU?=
- =?utf-8?B?SEJHM3oycDM3T1BjQ3B0VWJCT1VtaTFqZjFEdGZNZ3RVcW5KN01DQ1hVZHZX?=
- =?utf-8?B?OTVQMElaZGZSRFNEakNqQ3RSQWFBRzArZGZWeU44dVRaTHJiWHZ0OXRJSTFB?=
- =?utf-8?B?ZUVqc1dFeC9od1RFMksrNWVkUkc4bXptbnpqWUVQc29xRkV0NklRUGtGY2k3?=
- =?utf-8?B?ODRiV0hOREJpZlRLc3lFRUJCNVJleTBSMStBdWRMdnRnRmxCbkZMc1ZCTVls?=
- =?utf-8?B?VUxKcTRNSFRhNkZnaDF2U0Y2WVZaVFB0ZmdOeWV2WUZIZjYvUWg5aHpBeDl4?=
- =?utf-8?B?d2tqZS9JdGlWbjU5TE1FclovRkhkaUNEdWJNWVNsbWFyUUpqWFcyU3k0aVpO?=
- =?utf-8?B?S0lLOXhkbHhVbzdxYVdyZUlWeWNsbVR6aExVUGUzUzRadUZmVzd5MWhrQlVE?=
- =?utf-8?B?TUxjV2s4MUdLSERDWEJvK1BnaDVLOTdHRlRoZXpyODFWdFdGeGsrLzc0N0pU?=
- =?utf-8?B?Z1JiTDY2eFcrZ0FpRUhLUnU1M3QrdHZ0NFgrUm1xMU9xYzE1aFJ2dHdVQ0ZT?=
- =?utf-8?B?NXJJSWVDcDNMZG9uWFZHNmdKd082L2Fmay9TNWp5TjUyV1RvNGlPWXlQMlcv?=
- =?utf-8?B?VW55alpINzFYTjFqeHltVmRtVzIvdG5yejVpK25sdFJRSDlZTSs0N0RHN2d4?=
- =?utf-8?B?QWNXWFFDRTN3b1NEQVdNbEpWRmhjbmJZdnNzNWlhTHhqZC9uL25PUDM1emIw?=
- =?utf-8?B?TW9aVHl4bmtjaU83VHI0QXlsV1ZZTUlRRVJqYTFaOWNWVkMxSlNNbkVRN3ZY?=
- =?utf-8?B?dmFRV2RtaUlucU4zWWJ3RXFIV3JHU0dzR0tQMndhdDdkWXVjTFUyY2ZSSCt5?=
- =?utf-8?B?bklITWJaMURZeUYwWm9OWU5KTVlTdVd3U0VuQlgxRUFYaDNkc3dINUsyaTJs?=
- =?utf-8?B?ejljdWFYQ3ZPZGx4MnE3akoyNkJCUHJuSUs3dUh0bnc2K01ZbDRwU1ZEOS9N?=
- =?utf-8?B?RlN6SFVMRFp0OUlZdGlzVWcyTXpTeU42RzZadktGWC91L3hUQUp1VzJBcFJS?=
- =?utf-8?B?NjY5aHQwWTZsOVBOVDZnT25sSUVOMk80aXBySFoyQmZNeFdnNlVwRnhLWDBZ?=
- =?utf-8?B?RXBzL2VMa2F0RG9BUHBTK3ZzT1JzczFMZmZ1UVZES0F4YUM4UFN4OENSQyto?=
- =?utf-8?B?Qk4yOWtLRTVjb1ZFc2xDRXNuQUZ1dWphWkgrdGFEbmJuSGxKM1dabmtmdDQ3?=
- =?utf-8?B?blBydWRSbHE3Mi80cUdxY2R0L1FSZXQxVTFHZXpxL1VOeDV3bFhMeFhPUjY2?=
- =?utf-8?B?cU9vdDY4T0FGTjg0YngzZ3o0NG9jSmlIeXNkSDNFbFJCYVk1Y0dEdmlkcmE4?=
- =?utf-8?B?MGU3L1pzN1NjQmJzRnVPdXFhdFB0WTNaOXZFS3dRTGNKYkhNdVhJTFljQk1q?=
- =?utf-8?B?SDJhUTNIbG5ZZFc1a0RGUE5XRzh4N0NDWTIrdUtHL1NYUVFablN5WDJHNlFD?=
- =?utf-8?Q?uWJSdRWv7IpHDB+laWyGr/p14Ox/vWwNkTDtx2adRluqr?=
-X-MS-Exchange-AntiSpam-MessageData-1: iPzEaNUG0tBpaA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 253e314b-8a7e-4025-ab6c-08df3c9b0a83
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 06:47:50.5983
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j2hU2I+1gpDPv44FSL3zo/uUh3yCEihi7juPBzJwuHbPfeazHQ3h1IwgCPcEc0U1tTGZXZ7NoGa4xA/3ZqMwlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6151
+Mime-Version: 1.0
+References: <20261107021427.2105374-1-dakr@kernel.org> <20261107021427.2105374-8-dakr@kernel.org>
+Message-ID: <au7eV0D_44ipe3mw@google.com>
+Subject: Re: [PATCH v2 7/7] rust: drm: make Driver::File lifetime-parameterized
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: acourbot@nvidia.com, daniel.almeida@collabora.com, ojeda@kernel.org, 
+	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
+	tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org, lyude@redhat.com, 
+	j@jananu.net, alvin.sun@linux.dev, deborah.brouwer@collabora.com, 
+	laura.nao@collabora.com, beata.michalska@arm.com, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
-<...>
-> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/n=
-ova_core.rs
-> index a8f6dc22057b..ee3a6600f320 100644
-> --- a/drivers/gpu/nova-core/nova_core.rs
-> +++ b/drivers/gpu/nova-core/nova_core.rs
-> @@ -4,6 +4,7 @@
-> =20
->  use kernel::{
->      debugfs,
-> +    device,
->      driver::Registration,
->      pci,
->      prelude::*,
-> @@ -32,40 +33,75 @@
-> =20
->  pub(crate) const MODULE_NAME: &core::ffi::CStr =3D <LocalModule as kerne=
-l::ModuleMetadata>::NAME;
-> =20
-> -// TODO: Move this into per-module data once that exists.
-> -static mut DEBUGFS_ROOT: Option<debugfs::Dir> =3D None;
-> +/// Pointer to the [`DebugfsData`] the module owns.
-> +///
-> +/// A device has no way to reach the data of its module, so code running=
- on behalf of a bound
-> +/// device goes through here instead.
-> +///
-> +/// Written once, while the module data is built, and never again: what =
-it points at is dropped
-> +/// only after the driver is unregistered, so it is good for as long as =
-any device is bound, and
-> +/// is not read outside of that.
-> +// TODO: Drop this once devices can reach the data of their module.
-> +static mut DEBUGFS_DATA: *const DebugfsData =3D core::ptr::null();
-> =20
-> -/// Guard that clears `DEBUGFS_ROOT` when dropped.
-> -struct DebugfsRootGuard;
-> +/// Data the module shares with every GPU it drives.
-> +///
-> +/// Reached from a device through [`debugfs_data()`].
-> +#[pin_data]
-> +pub(crate) struct DebugfsData {
-> +    /// Root directory of the driver in debugfs.
-> +    root: debugfs::Dir,
-> +}
-> +
-> +impl DebugfsData {
-> +    /// Creates the shared data.
-> +    fn new() -> impl PinInit<Self> {
-> +        pin_init!(Self {
-> +            root: debugfs::Dir::new(c"nova-core"),
-> +        })
-> +    }
+On Sat, Nov 07, 2026 at 03:03:25AM +0100, Danilo Krummrich wrote:
+> +        // Run driver destructors without `filelist_mutex`. Take each link before dropping its
+> +        // allocation to avoid recursively dropping the entire chain.
+> +        while let Some(mut data) = files {
+> +            files = data.as_mut().project().next.take();
+> +            drop(data);
+> +            drm.open_count.fetch_sub(1, Release);
+> +        }
 
-Another thing: since this is declaring now a proper interface, can you
-move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module,
-say `debugfs.rs`? This will keep the root module free of clutter and
-keep all the debugfs-related setup under a single module.
+Instead of transferring all the files to another linked list, how about
+taking them off the file list one-by-one? If you release the mutex in
+between dropping each file, then we still avoid deadlocks if the file
+private data destructor takes the lock.
 
-Tring doing that locally also made me notice another potential
-improvement, see below.
-
-> =20
-> -impl Drop for DebugfsRootGuard {
-> -    fn drop(&mut self) {
-> -        // SAFETY: This guard is dropped after `_driver` (due to field o=
-rder),
-> -        // so the driver is unregistered and no probe() can be running.
-> -        unsafe { DEBUGFS_ROOT =3D None };
-> +    /// Returns the root directory of the driver in debugfs.
-> +    pub(crate) fn root(&self) -> &debugfs::Dir {
-> +        &self.root
->      }
->  }
-> =20
-> +/// Returns the data the module shares with its devices.
-> +///
-> +/// The bound device is what makes this sound: the data is built before =
-the driver is registered
-> +/// and dropped after it is unregistered, so it outlives every device th=
-at is bound, and the
-> +/// returned reference cannot be held past the one it is taken for.
-> +pub(crate) fn debugfs_data<'a>(_dev: &'a device::Device<device::Bound>) =
--> &'a DebugfsData {
-> +    // SAFETY: A device can only be bound once the driver is registered,=
- which happens after
-> +    // `DEBUGFS_DATA` is written, so it points at the data of this modul=
-e, which lives at least
-> +    // as long as the caller's device is bound.
-> +    unsafe { &*DEBUGFS_DATA }
-> +}
-> +
->  #[pin_data]
->  struct NovaCoreModule {
-> -    // Fields are dropped in declaration order, so `_driver` is dropped =
-first,
-> -    // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
-> +    // Fields are dropped in declaration order, so the registration goes=
- first and no probe() can
-> +    // still be running once the shared data is torn down. `init()` buil=
-ds them the other way
-> +    // round, as the data has to be there before the first probe() reach=
-es for it.
->      #[pin]
->      _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
-> -    _debugfs_guard: DebugfsRootGuard,
-> +    #[pin]
-> +    _debugfs: DebugfsData,
->  }
-> =20
->  impl InPlaceModule for NovaCoreModule {
->      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, E=
-rror> {
-> -        let dir =3D debugfs::Dir::new(c"nova-core");
-> -
-> -        // SAFETY: We are the only driver code running during init, so t=
-here
-> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
-> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
-> -
->          try_pin_init!(Self {
-> +            _debugfs <- DebugfsData::new(),
-> +            _: {
-> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a device =
-is bound, which cannot
-> +                // happen until the driver is registered below. What it =
-points at is dropped only
-> +                // once the driver is unregistered, so it is valid for a=
-s long as any device is
-> +                // bound, and nothing reads it outside of that.
-> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
-> +            },
-
-Let's move this initialization into `DebugfsData::new`, using
-`pin_chain`:
-
-    /// Returns an initializer that creates the shared debugfs data.
-    ///
-    /// # Safety
-    ///
-    /// The returned initializer must be run exactly once before the driver=
- is registered. The
-    /// initialized [`DebugfsData`] must outlive the driver registration.
-    pub(super) unsafe fn new() -> impl PinInit<Self> {
-        pin_init!(Self {
-            root: debugfs::Dir::new(c"nova-core"),
-        })
-        .pin_chain(|debugfs| {
-            // SAFETY: Per the method's safety block, the driver is not reg=
-istered yet, meaning that
-            // no device can be probed and thus nothing can access `DEBUGFS=
-_DATA` concurrently.
-            //
-            // INVARIANT: Per the method's safety block, `DEBUGFS_DATA` is =
-written before the driver
-            // is registered and points to a valid instance of `DebugfsData=
-`, which is pinned
-            // and dropped after the driver is unregistered.
-            unsafe { DEBUGFS_DATA =3D &*debugfs };
-            Ok(())
-        })
-    }
-
-That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
-relies exclusively on `new` (and we made it unsafe to force the caller
-to do that). The only thing `nova_core` has to take care about is
-calling it before the driver is registered, and keeping the result alive
-until it is unregistered. Simple and trivial to check since `nova_core`
-now doesn't contain any of the debugfs code stuff anymore and literally
-fits within one screen worth of code.
+Alice
