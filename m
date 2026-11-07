@@ -1,97 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794015658;
-	b=07SzlRG8o2GhjfjlMNDnYgOxyEfWsnfo3DefgiSOlL9o+0jAmI+QX0eO91dvMRJfM/PZ
-	 qqTwwUYblsH3yhTVlSsgQQUxB5Y3UZbA41oEm1IKZX13LK9ZGWExXmnQNQJ6AMNtdibDc
-	 7sh6puNuAuA8h7WErsADfAGWzTdF5CUbLl9vjnpv0ujmNFiZ466RgJG76nWiaGilED80u
-	 NP6XgkbyXCZbgNC4/gHxyoLId2jpdoMxXbt+jPIUykGUHXfRplv7dLyPHsnOcx/Z52nrY
-	 Dpoz31KubFD0ZVgT11N2w948mVQJ1wB/jg0DQXzD4VKvujBLjR2w//AKTwXjJ0z75sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794015658;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=pqtksDYPX1icAauOmsVuGmYeKlfhNOImMDWv+zrPZXU=;
-	b=pBhLMKlaUCQhkRNbaxQJcpwBlibqAyJ4wINZn9j4TsGZQ4YMcPVjo4Sfe+XQtcoo99Z9
-	 9lMPwVSuHt22AMRZYEJTVFATJizCRvZQcfRLzEkWnCRcx3BDVcBPC+Dq1ItZ05Z4Swp6s
-	 NII1h9Ucegga2BWxpZ3EXSPyEw5haB8o+j2kw2Y/78UPFrot85UpFMJXxOFy9Y62HSFHX
-	 6vVA0yuaXLj6+mpwhkqnvOvfqZ0BNGAn+tD7Zbx7IE0nsCGRDbw5gmXAwoNEg8HQgviJi
-	 pwKJyawl5EIYrNER3Jt2ezzCu49+UfMPqpKqqJu3icnC/DRAWOMOIZhJSoHmkyOX74w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=d+0UMnEs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.48
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010048.outbound.protection.outlook.com [52.101.56.48])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794018019;
+	b=t5HHpIaRW6iZaJuctQGkzCCPQ7GJdmpmZZTxTDh5BiXK2jlg0vQvksWBVqDMcxXROlkR
+	 LBbglQCi3TXjNhaezu8wjle65WYS7gC/YSpubcHumXqIrtxmLC5G+OD8JY2QDOXrldUZ0
+	 +uodki5AYiHk6RAInqoBnkYGm76260a3XxdKGHesAu5lMeEJ/7ZoIi2q6yj55q9+4MtLh
+	 4TlI81J5DH+SuJq1hIeL3k3/tn7uYgT/XwFER1sWdLBbtkweA8fcZ25WltOBNc1nkGGXT
+	 L+5sI6vIq3BTwYkPQeBC+hQS7sllIspfmCOpVWdmJ3SRHzvj58fqkjxryValFxB6Lag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794018019;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tDRNTiewiQVhH6ezSiY3pHSvP82vVUEEInKr2hmCowE=;
+	b=nl9dsWdXL8ue50fdW/H0VZ5+n5Egjy3T8TkFicexuFX87e9Z4phkexdTKCHVfAPWUBPl
+	 2WTrzKEgzP6V+ufVuA86n6VqHHEdZoTyH9VijC+S4xmd576n3okmUcreEl48KEvPyi8iA
+	 sE1AnSb8eu7q902GpFvUh113FPWR1tJsKVA1cRawZBGMjgDE5/uS8mFX1L29bcTgI3kqh
+	 3mAEOdbLqncT92k8dK+Tbr5ofg48877mCttwXoRzt59W0AZ008ViY++SHrlo9YnOvD2Dz
+	 vdiKPXiTvvsjq2uftMRrr2TaOBsvEwVthb6VZJ9Z3kpJLKaTh8bjIGY4efDc2fFoFUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XWXDJEhk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3BC606A32F
-	for <nova-gpu@lists.linux.dev>; Sat,  7 Nov 2026 01:40:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB3BC606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3EC606A32C;
+	Sat,  7 Nov 2026 02:20:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=d+0UMnEs
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uMSy639wSBDJqGV5l2nOpMo50UYyyNmUOxrIQekj3lNWeWJToyujJIVrHf+oZsvUq9bPLRw6KWWRWE47FYdnBEcSQbp4eJrQCsLJIramJfq5pgkuFA/5Y0YtlUfYIKqDXZNl/gSIRD6zwXtAj3YtLK98r5t3Q5YiNC+a6uaFV3vEmwGgHnKY8mwQYiX+8SUzC+0WJWqyp3/IjfdoOuxpvV2w9UqlBfM4FYiC3u2UkrQIA+v+ShFrWqzFQfL6rlDK5gNyfMqvHkl1qm6gD5+5gKw1ZAFaZ+3FRCKgfq8prbURmAkdDqimzWc4XROBXJ1QO5VoYOzvQk0H/tj6d6/oLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pqtksDYPX1icAauOmsVuGmYeKlfhNOImMDWv+zrPZXU=;
- b=lHDYur5usPWaaxdnyIdQKKfIxOBZ+EyYUtTBCxXjFNpRZzY4OqJRxOXASEPdZQ0dkGeMsZe010MpocB8kxlfZjGhSlUblXoT8JzCvGb4RhmGmF/mltmjXpBuwXQWtoBQC5v1MkdG2Tb3vjGklq7bW2XtxRnFIWK4tw9BHa8N1k8bbJK3GBUlxiMt/kS5lbY8YRVK5EmbLe00rtLEd9xgDlVYH1LaDVpmbFQDVR5afd9ntH9v4VIyZskv47oypitLPOf4aDBfhxSorUr0vPHwXxQW1jQjESbrMDiqMX8KVlC6sl1QkNSJajDcl/HGQJ4at4MlIdR/Kvj3KMePVNhiYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pqtksDYPX1icAauOmsVuGmYeKlfhNOImMDWv+zrPZXU=;
- b=d+0UMnEsQxFRsa+KiMZ/tQdSikPPVZmeMi2VNnuIwXlgR3kf7piVM7L3rKEdqDpgxHvuXTuf4a/Ch5shAgpNb5t+0w032VNWHDs61Y0hz/57H8JyZ8+4MPx0v/fiRPeJsokI6oBlVC2qAFH4MR5Y/OEk6Dbr1OjjTHD6S30TONlS7LzOhUG2aYwNc2SHEqgsYO4DcFFdNoxlIlI6a2O9c4SWsyQI5vwvt3iYEih9Yz5VnhXgdaebsP8JUy1uU6aIz5lNxiYOBpEbFXW5wNw3lyo4FlIOqnQHR5tELzGKkYCEAF1+evvpmbxpTC3LujofYwzRucesdLAizyePRI0AAA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
- by CHAPR12MB999225.namprd12.prod.outlook.com (2603:10b6:610:2fe::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 01:40:46 +0000
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0569.011; Sat, 7 Nov 2026
- 01:40:46 +0000
-Message-ID: <af634f12-02d9-483d-a17d-31d3f6024981@nvidia.com>
-Date: Fri, 6 Nov 2026 17:40:44 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] gpu: nova-core: retain the GSP-RM log buffers
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Vladislav Zaharov <vladazaharova2018@gmail.com>, acourbot@nvidia.com,
- aliceryhl@google.com, ttabi@nvidia.com, gary@garyguo.net,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
- <ce4c6b64-98ff-4b50-8454-9cdb5aa6970e@nvidia.com>
- <DMOLFAB4UNSV.1A99UVEZAI527@kernel.org>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DMOLFAB4UNSV.1A99UVEZAI527@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0299.namprd03.prod.outlook.com
- (2603:10b6:a03:39e::34) To SA1PR12MB5614.namprd12.prod.outlook.com
- (2603:10b6:806:228::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XWXDJEhk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A43361F008A3;
+	Sat,  7 Nov 2026 02:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794018018;
+	bh=tDRNTiewiQVhH6ezSiY3pHSvP82vVUEEInKr2hmCowE=;
+	h=From:To:Cc:Subject:Date;
+	b=XWXDJEhkayTcFSfsWAOQO1bHTomnmHjj4GJkCY7F2b62tyhGf6BbZiGL/++/xD/84
+	 aW+zpwW7i8FfZTu+YjQBuyhVA/l4vcdw+bHebUCGHb5x/8Pp2OnwiEE7Uo7BRa6Hav
+	 96jLqJqLbhNLCzEprO4/peVywMp3tyv/luRRADLM5JoI26LiLQZsHUInXk+RYLsgwu
+	 QvietdolKetbODGE7/6yjjqgcakS5fCkv0yHWrzQK0bXgERrRZQGiRjF5UYaIKv5LY
+	 YrSI3Y+/6b7aTfoazJZetHP7tOXdusLLQoR8qbguQ9Q0EZ83oKM0d/mgW3Qks+Q5cs
+	 WN+yqbP0PooXg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	aliceryhl@google.com,
+	acourbot@nvidia.com,
+	daniel.almeida@collabora.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	tamird@kernel.org,
+	work@onurozkan.dev,
+	brauner@kernel.org,
+	lyude@redhat.com,
+	j@jananu.net,
+	alvin.sun@linux.dev,
+	deborah.brouwer@collabora.com,
+	laura.nao@collabora.com,
+	beata.michalska@arm.com
+Cc: nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/7] lifetime-parameterized DRM File private data
+Date: Sat,  7 Nov 2026 03:03:18 +0100
+Message-ID: <20261107021427.2105374-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -101,109 +77,65 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|CHAPR12MB999225:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8de0f6ed-11d7-48f7-dea7-08df3c7024b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|18002099003|22082099003|6133799003|10067099003|4143699003|56012099006|11063799006|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261022105027099003|261021121427099003|261009223027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	FCAdAz4BNNECyFYvI8tCl1c/UlbYmCXZLWu7Wi2smTXGiEq9/HaKjYRUFuPaFr6a8UKPbZAWhKHM+ETY0+D/qXU1q95rPsZJHPq9R3H0zFI95pla9txT+gVRMaVQqrvBVs6e/m+sz+oySN3VwJ52kbbouj3Cx4YmvR54unJBygrEwqeQ7G2EAxGTqh96IfH56oxdemp5fWaENz6QI6OThAYNDf0I07egURvXdJigcTctQo/1d+3Ojr9bt1sh11ypgMROLSKP4jnn0ZnBSrxlJxqTdRx59JZnYw02MHCBsI8PmZMhr/gvDfeVHVYkRaAeh2+8Xse9ZzfHaMsRKxgVnwbKNAmVJYKTk6SnHKyvyeoqsC4FJ2EzrwLTICD27DX5MbRl5/gr1H89fDDP10daU66KrWRlBRqW9uWUSgr3Xl1AQzRC/F4IkT9f+soCWwzpiW1Z8OXugxZ5vBa7TGFFgiBBcNshGB2ESOWejQL+r4qJ9Jdd4Nk18jUVHau1WnvuwYgIs7uUrV6yYhWvEYU535QQd2IrP2JCicxsIkTt1xSX3dXITSHL5hKXqoDZG5MX/WVmV3A4kKYrflUWHnfLtJx0qcjpNHliA2FOVkHNu6iXZPtEzNFR47k+1KRcWdSlS1wQFpUI3aynst0iMBnwAVK3DqYS7alXPwnN939YwXk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261022105027099003)(261021121427099003)(261009223027099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ni8yTUZLZFZaSEJxVytVUFdjdG8yMGoySFBMSVNCUUt0elRzSy9oUmZjY1Rq?=
- =?utf-8?B?eGM3R2xma1BZRG5MSU5aUElRRWxrWWErTmtPY2VWN2JTVWlzOEx3azlyL0U1?=
- =?utf-8?B?WXpjM1BJdmhiZ0RTd1JBZDJ3OFRiY3IxTG9kOHRwSWNIalBxTzBuQm43RG5K?=
- =?utf-8?B?eEM2c3Q1T3I2aGJpcVpTRjg0aEtSSHZCN3RRaGtvWjBEcHZPY1k3QmxVZ2xi?=
- =?utf-8?B?MW9yT3NmWTkrNVBBWnV0Vk5VU0xBUUJhaWRjazN0V0orcTNDV2ZIdlVpaWxG?=
- =?utf-8?B?TjloQzdyb3RRelhMZHByQ3ZVeDAzUG1OV3lYVGlPby9aZ0dxYit0WlR5VmRo?=
- =?utf-8?B?ZGhNL2Eybzl6TFdkZ09ZMkE3c29mdUIxbDA3Y1FBT25rMFRBNnVQNEowdWJk?=
- =?utf-8?B?K0ZEWUt4ZWRtc0pkeTQ5eEFyMThLWVFaYzVwY0VaY0V0dDZHS2NBNGhVWEdD?=
- =?utf-8?B?QUNCK3JDbEEzMnhlNWozZXF3dk82d0lhUWxzdkZtYXBCM1p3LzAxQmFsU3Rh?=
- =?utf-8?B?UGhuU0hraUdGNmIrTWNkVlpKZ1pOMWpha3RUdFdjKzdpL1ZrdTR5aWx0aTMw?=
- =?utf-8?B?bmxEeTdRRldCd2lPT3p4dzVvd0llVzEyS2lpNndOL25EL1NSZy8yN0kwcEM3?=
- =?utf-8?B?NURXVGhvMTkwZmlibnEyYmZRRWRpZkFJYnR2bEdma2NUayt6eW51ekY0cEpK?=
- =?utf-8?B?V2dHZk91NHdmVzFRb1RTNWRlV1ZpK2d1NEpNdHpJTkh0Y1E0QUYzOFljUkYw?=
- =?utf-8?B?NUludzV4cTlteml6MTVvTk1NemhpNUJrY25EaTNvZ1A4V0tGU1pjaHJJVUxK?=
- =?utf-8?B?SzJEcmxnWUZ4NCt1dm0yWmo3ZVlPWnNlV2FTZUloZmkvVkdVcXRPMTFRZi9o?=
- =?utf-8?B?enkyRHYraFZUZkVDVC9kR0VtcE8vRnBlSDJTcEFSZmNUUXBHaFFvRmRTVXg5?=
- =?utf-8?B?UWpneFBMMkxBc3VPWDBmczBEZVF2TUZ4dTNTUU1lVVYwbW0wVlJXeURIamN0?=
- =?utf-8?B?ZGwrUmVIU28vKytLeDZvbk91ajdlWmw2QWo2QTc3S0N1eFpNRlg1dVJFeWZR?=
- =?utf-8?B?dGpsY0s4T0xOUFQ1VEtRRk82SDIxUmNKRWVKYksyUnIzUzRqM0NZK3ljRlAx?=
- =?utf-8?B?V3A4akJZZnhLWnZVWUJud1ZxRFZCelY1VUx0eE0wTzZybkNzUWNXSnlicHdG?=
- =?utf-8?B?TGxXdWJXVWlMV1NzKy9MRnVVZVR3bjZIeHNUWENZeFFnS3g5M0tBdk1DZ3Vw?=
- =?utf-8?B?T0Ntb0JvUjZsaVRqS2I3RWNDZmEvdUxPSERHZW5WM2o5OUNXTFRDdkx2bzZn?=
- =?utf-8?B?WFJRWHdVRWNpK3ZZMXZ0TVpKbExWTHRCNm82OEpXOHdtVGxkZ3RyR2l6UkxN?=
- =?utf-8?B?V1ZUU2pIa0dUNkJycllkR2ZkQ3BSTThDL0NOaFJDcWZwZ2tSb205MkNHdUlr?=
- =?utf-8?B?cDdISFhJQU1zQnlEVkNZaVpzQ3ZsWklveE1JdVpiLzJKdzZlaUFWSmx0WHdp?=
- =?utf-8?B?eWJZWVVIQnVGblozK3FSRG9YSDgvc2kvM0dJd3d1SmFsaVZnWE1hRU5BNURM?=
- =?utf-8?B?N1VLakNaMFdWekpPdFVWNzFTSTRHRGJ1M2FDVlpVS0NDdHNUa0lXY2VmVEh6?=
- =?utf-8?B?cHd2L2xrZjJYMjRQUjRTL0tkV1N2czNvZ1R6QWhyWW90ZFFGc0NhRENLWjhF?=
- =?utf-8?B?dmZnY2djam5xYkFuUi9RQk1pZGNvc2kzNTRGMWtXS0d5Z3pLc0k2NmM4b01B?=
- =?utf-8?B?eTlVUG1CZWI0M29INVkzZGRaSVhsUThmRUVMNlVNTGFDNm9ob1ZwVkZBNHZT?=
- =?utf-8?B?VHdEbHF1YUVtUWtyei9NajlheUN0QzNuRnBlbHFQMDIvaVZIRW93NDJobi9O?=
- =?utf-8?B?VlprZUVJOFFDajVYV0YwaElqUVdQd3hsc2twQ3BRUmxTaDhZc0JYL282Njdw?=
- =?utf-8?B?NWlsZjh6bllJb1JQcldkVFFvb2QyajRMSW93c1VIYmxlSE1DWThJV3VrbktW?=
- =?utf-8?B?dEtHNW05RnJZT3Bad3NWaDd6KzRpVzBDaTJaYjhNemZSK2VlWDB1bkptSkkr?=
- =?utf-8?B?dGh4KzczbkpEYmVWZk1pQjJTczRnTlpGVnd5VWxaMVJKc2lYVEFpMDhORFZX?=
- =?utf-8?B?eTdBYTF6bDBwcUVvZkFaMFIxTHlHNE9QSzZoVGNDMGVVZkJnbFRxOEk2aTFl?=
- =?utf-8?B?Sm0vUUNycGxyRGRZZFl2VE9jQ25tZ040U2hpYjUwRHdwemx1YThOVTl6UUdq?=
- =?utf-8?B?YnFDZ0VyQzFNZjRvMmhpWW92V1dRc05XUlhPeEV5cm81aTNGVTBZQlhlS3Z4?=
- =?utf-8?B?Y2xBeFg5TWJkM2hZMUJ3WnBnd1k0ZC85Syt4OUdYbkMzTjZ2ekN4dz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8de0f6ed-11d7-48f7-dea7-08df3c7024b0
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 01:40:46.1261
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LTXmOb6rKjM1qKt+T7ZepuP6vjIUElN5tmuuTmLfFEOiSUZMVPQtck/GFmmk1dxTGqg4nhroxthhp5GHorQHwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999225
+Content-Transfer-Encoding: 8bit
 
-On 11/6/26 5:38 PM, Danilo Krummrich wrote:
-> On Sat Nov 7, 2026 at 1:39 AM CET, John Hubbard wrote:
->> Specifically, (as you mention above), I had to add "retained/" to the
->> directory path in order to retrieve the logs. That is awkward, because
->> that means that if I ask for gsp_keep_logs=1, now I have to know/remember
->> that they are in:
->>
->>     /sys/kernel/debug/nova-core/retained/<BDF>/
->>
->> instead of:
->>
->>     /sys/kernel/debug/nova-core/<BDF>
->>
->> We should try hard to avoid such complications, especially given that
->> debugging is often done when one has a thousand other complicated things
->> going on at the same time, late at night, too.
-> 
-> It doesn't bother me too much, but I think the concern is fair.
-> 
-> The retained directory keeps a clear separation between live buffers and
-> retained buffers, but I don't think that's a strong reason to keep it.
-> 
-> In nouveau we don't have that separation either, but nouveau also keeps the
-> retained buffers until module unload. I.e. after the first retention nouveau
-> never exposes new buffers (including the live ones) unless you reload the
-> module. This works, but can be rather unexpected when e.g. doing multiple
-> rebinds via sysfs.
-> 
-> Rebinding via sysfs can be especially useful in multi-GPU setups, where you
-> don't want to unbind all GPUs by unloading the module.
-> 
-> So, getting rid of retained/ is fine, but let's not follow what nouveau does.
-> Instead, let's make the same files point to the live buffers when the device is
-> bound and otherwise let them point at the retained buffers.
+DRM file private data is currently 'static, preventing drivers from
+borrowing registration-scoped resources in their per-file state. This
+series makes Driver::File lifetime-parameterized, so file data can borrow
+from RegistrationData.
 
-This sounds right and proper, yes. :)
+File data is guaranteed to be dropped before registration data, either
+when the file is closed normally or when the device is unregistered,
+whichever comes first. To enforce this during unbind, Registration::drop()
+revokes all open file data and waits for its destruction before dropping
+registration data.
+
+fops.open is wrapped in a RegistrationGuard (drm_dev_enter/exit) so that
+after drm_dev_unplug() all successfully opened files are accounted for.
+GEM open/close callbacks are similarly gated to prevent access to stale
+file data after unbind.
+
+The series is based on drm-rust-next with [1] applied; a branch with the
+patches is available in [2].
+
+[1] https://lore.kernel.org/all/20261105005951.756157-1-dakr@kernel.org/
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm/file
+
+Changes in v2:
+- Replace ForLt with Driver::File<'a>; use inner_with() for file-data access
+  and allow returning borrowed fields.
+- Use Opaque<bindings::drm_file> during teardown.
+- Drop file data outside filelist_mutex; also clean up file data on
+  registration failure.
+- Reject cross-device GEM handles.
+- Clarify safety documentation and add inline annotations.
+
+Danilo Krummrich (7):
+  rust: drm: rename Ioctl device context to Userspace
+  rust: drm: gem: gate open/close callbacks with RegistrationGuard
+  rust: drm: move file_operations from gem to device
+  rust: fs: add iminor() helper
+  rust: drm: wrap fops open with RegistrationGuard
+  rust: drm: return impl PinInit from DriverFile::open()
+  rust: drm: make Driver::File lifetime-parameterized
+
+ drivers/gpu/drm/nova/driver.rs |   2 +-
+ drivers/gpu/drm/nova/file.rs   |  16 +--
+ drivers/gpu/drm/nova/gem.rs    |   8 +-
+ drivers/gpu/drm/tyr/driver.rs  |   2 +-
+ drivers/gpu/drm/tyr/file.rs    |  13 ++-
+ rust/helpers/fs.c              |   5 +
+ rust/kernel/drm/device.rs      | 141 ++++++++++++++++++++++----
+ rust/kernel/drm/driver.rs      | 113 +++++++++++++++++++--
+ rust/kernel/drm/file.rs        | 179 ++++++++++++++++++++++++---------
+ rust/kernel/drm/gem/mod.rs     |  80 +++++++++------
+ rust/kernel/drm/gem/shmem.rs   |  11 +-
+ rust/kernel/drm/ioctl.rs       |  18 ++--
+ rust/kernel/drm/mod.rs         |   2 +-
+ 13 files changed, 454 insertions(+), 136 deletions(-)
 
 
-thanks,
+base-commit: cef0cd809e564cca9ac824a369c995ab7e0d16f3
 -- 
-John Hubbard
+2.56.0
 
