@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794018029;
-	b=gVkpShadBmjG3Pb7SM5ihQgCqjwr856oaZN2Hkw8lnzL4bu0ZNYo5QXVxKmaxVmTxkiP
-	 ALGsdaCgNnbXYP3jlOSBNBN0ZD0hqEscGIXKRfHhbnKMyaU+NXjpOM8lDzkZlT8amM5rK
-	 f8lIX4dhmTVEzNpUIqqsS03s7AH7da0MTi62kNNNw2A/HKw/LTwdopE2aNrpjJn9Y1M+w
-	 p6jJrEVTKMepeSrTu4vprXI661YxuNFjWsfgJsYo56Nsge4dldc7L4M9YN8Z+qUAhHKFa
-	 HjL3u9W5KewMkefyFf8ULs12XlEMnbKE3Z4JH4V3/CcgEKei67CKwN3rGekdaDh83AQ==
+	t=1794018035;
+	b=YQ+FA8Q0halPYyID3gHcQ2z+HfcedBeXIz4W9Y2iCRE+18h/3fWy9n3X748/8VM0HlU/
+	 n7x6LaoN8279EikDBefEWsbHdLRxXDovdm3D7ZS/V4xEOzp2zO4Y0zUNMRSO334Yf0C01
+	 lhaDtRXsie3E+UvXNsLh2CIiqDL/9gjR30zZRuIROcCKMUGF7+FgK3Xxv5/pxn0el+g3f
+	 lYvVX51ToAZk3te0/otWk97G1SSm72H1i6wP+29e3MAQlC6sBAPjsg4PXWIWzoVtcoYAD
+	 6GEzxVbSzksyJJZeGMlGP6bvyEcE7hAF12/8s7+2iZRll2Fqw43v68kEc9PtDa/fISg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794018029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794018035;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GQNExV2IBW/VIXiP+QKPq05xQXuih8H7xGZygNB42ds=;
-	b=RVf9ExtUVFV4JRnTiMjyRKeUi5ezzwagiqO6CJ+qBwdNlW13cXuwcnrgqKt2UbItUyn0
-	 ZS2M7y01qwUXCEP6IuUhxysuQHet23m3lLbl7TXvAxa5EvpjHuoNQhejzOh0Om8GcFU02
-	 gZzJmaxDeaOXtVx6G0sxtL3YWnxxoIGHlURJZUMV8efA+v45FqT3K/zc/nLRFJIBChXiq
-	 aLNe96B+nn2BvmTPjVLzuv5vUEb6OhJIC5TCfAb1C0iXqnPCiJAz6pZ+Z11rcj7fF8Ct6
-	 4DBSX9O67KgE6FvEhPApiPttVxnYwZDruUxxpohNjQFEVrmGEzRe3FN5EWNcy0qnspg==
+	bh=eqYdLZKOeztfuJHWzQOoytct6WOwi61ZtheTgCfAdyE=;
+	b=05UJb/IPGGO5BKzU9ZVnZV0+9pYZI4r//hVAeJXsLHFUsFlXWWVgVLYHTtNnvjAi5GpM
+	 OIYErk2IqVARm0SxfX9AIQ1DsD3H7sp97cQD938ZfsmeXkK9mjNlPsoa7SwuHIIL3rd7S
+	 bWLTq3HWaNTbfZDHGbiyGF1qn1/eSU3c/kMbUgWtNpBngQCOg3RgeJ2hjTYShY91q+vQl
+	 +hIsh+S9KY5DAgBx6lGnw896lMdHF3X+73pf0c62GdvANGsdRnBCObtWXqnTSftLLOapj
+	 gNTpGu+qCNahEry/UAUX4iNIOshWjS0+mADpc/LRXFb8NbFQFxE5YRFXuhL1chAvb1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZG1LcMF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cn44YoVr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93100606A326;
-	Sat,  7 Nov 2026 02:20:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A6B606A32E;
+	Sat,  7 Nov 2026 02:20:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZG1LcMF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4DD1F008A3;
-	Sat,  7 Nov 2026 02:20:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cn44YoVr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28531F0089F;
+	Sat,  7 Nov 2026 02:20:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794018029;
-	bh=GQNExV2IBW/VIXiP+QKPq05xQXuih8H7xGZygNB42ds=;
+	s=k20260515; t=1794018034;
+	bh=eqYdLZKOeztfuJHWzQOoytct6WOwi61ZtheTgCfAdyE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VZG1LcMFLK+j+r6SEp67HSNoHe81odWNIkDi9DME3e9tBooSE5IWxcPaslSi8HqUH
-	 C84gS9G+hliw3eWpKdf25eor+MavBp1HQsBs38+02DpLYRyIDiszJSRMJcS5sFB+oq
-	 7frnYU+TUngxm6yrZeRftEYxlfd17zIKUH2fO1U5EeEn3xQ6YddOC4s/6ruoddjOz/
-	 QcDCSJczb1iUmHrKi95X1Pn3Kd4s4KkkXJO2V1hUkG4jHskRhrOGJTatlFUtNTpTMH
-	 iJv2SfkEsVXTSMr9TcfVoYEOLslAzIafhFltAhfZ2O4oAaSsvTmr014KeFh+Dp3ii+
-	 m8M39LkGSGnnA==
+	b=cn44YoVrUzJUGx61lu47DqUq6M1Sc2JzO9dZ57QLbr0D4+x2fTsRqbgIuFsLA+rqR
+	 SWbVlfTW4lq8WsAr1bHClI0dPPCmvVLnLcH6VoAwJ9ZvclaoWuvFbtgir/MqEH/6TI
+	 DcKJV1VXAeiMHGSEeiTXzGY6eXE8yv5dVKATEecWJZvcPU9wLupTqy1yv8W3X4XX/D
+	 1PLbDdAkQa+LquobyDMPVNeJOkPnk3+8nGT2aO7eB8p750w++2z5f50sDqwQtjtXeG
+	 5J2Ty25QaOmaV0z11BRnXgH6fUyXh/czOHaS4vOu4ycnYzkQ29m26Pd2EGirDrLC/F
+	 XiUjJRYWhj1lg==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org,
 	aliceryhl@google.com,
@@ -64,9 +64,9 @@ Cc: nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
 	rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/7] rust: drm: gem: gate open/close callbacks with RegistrationGuard
-Date: Sat,  7 Nov 2026 03:03:20 +0100
-Message-ID: <20261107021427.2105374-3-dakr@kernel.org>
+Subject: [PATCH v2 3/7] rust: drm: move file_operations from gem to device
+Date: Sat,  7 Nov 2026 03:03:21 +0100
+Message-ID: <20261107021427.2105374-4-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107021427.2105374-1-dakr@kernel.org>
 References: <20261107021427.2105374-1-dakr@kernel.org>
@@ -81,57 +81,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Wrap the GEM object open and close callbacks with a RegistrationGuard
-(drm_dev_enter / drm_dev_exit) to ensure the driver callbacks only run
-while the parent bus device is bound.
-
-If the device has been unbound, open returns -ENODEV and close silently
-returns. This prevents driver code from accessing device resources after
-unbind and is a prerequisite for making drm::Driver::File
-lifetime-parameterized, since GEM callbacks receive a &drm::File that
-could otherwise be used to access invalidated file private data.
+Move the file_operations definition from drm::gem::create_fops() into
+UnregisteredDevice in drm::device. This is the file_operations of the
+DRM minor device, set through the drm_driver struct. It is not specific
+to GEM.
 
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/drm/gem/mod.rs | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ rust/kernel/drm/device.rs  | 23 ++++++++++++++++++++---
+ rust/kernel/drm/gem/mod.rs | 20 --------------------
+ 2 files changed, 20 insertions(+), 23 deletions(-)
 
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index dd1c83fef323..3340fa0dc46b 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -195,11 +195,28 @@ const fn compute_features() -> u32 {
+         driver_features: Self::compute_features(),
+         ioctls: T::IOCTLS.as_ptr(),
+         num_ioctls: T::IOCTLS.len() as i32,
+-        fops: &Self::GEM_FOPS,
++        fops: &Self::FOPS,
+     };
+ 
+-    const GEM_FOPS: bindings::file_operations =
+-        drm::gem::create_fops(crate::module::this_module::<T::OwnerModule>().as_ptr());
++    const FOPS: bindings::file_operations = {
++        let mut fops: bindings::file_operations = pin_init::zeroed();
++
++        fops.owner = crate::module::this_module::<T::OwnerModule>().as_ptr();
++        fops.open = Some(bindings::drm_open);
++        fops.release = Some(bindings::drm_release);
++        fops.unlocked_ioctl = Some(bindings::drm_ioctl);
++        #[cfg(CONFIG_COMPAT)]
++        {
++            fops.compat_ioctl = Some(bindings::drm_compat_ioctl);
++        }
++        fops.poll = Some(bindings::drm_poll);
++        fops.read = Some(bindings::drm_read);
++        fops.llseek = Some(bindings::noop_llseek);
++        fops.mmap = Some(bindings::drm_gem_mmap);
++        fops.fop_flags = bindings::FOP_UNSIGNED_OFFSET;
++
++        fops
++    };
+ 
+     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
+     ///
 diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 85657a39e146..94355081edab 100644
+index 94355081edab..260f36817f96 100644
 --- a/rust/kernel/drm/gem/mod.rs
 +++ b/rust/kernel/drm/gem/mod.rs
-@@ -128,6 +128,14 @@ extern "C" fn open_callback<T: DriverObject>(
-     raw_obj: *mut bindings::drm_gem_object,
-     raw_file: *mut bindings::drm_file,
- ) -> core::ffi::c_int {
-+    // SAFETY: `raw_obj` is a valid pointer to a `struct drm_gem_object` with a valid `dev`.
-+    let dev: &drm::Device<T::Driver, drm::Userspace> =
-+        unsafe { drm::Device::from_raw((*raw_obj).dev) };
-+
-+    let Some(_guard) = dev.registration_guard() else {
-+        return ENODEV.to_errno();
-+    };
-+
-     // SAFETY: `open_callback` is only ever called with a valid pointer to a `struct drm_file`.
-     let file = unsafe { DriverFile::<T>::from_raw(raw_file) };
- 
-@@ -148,6 +156,14 @@ extern "C" fn close_callback<T: DriverObject>(
-     raw_obj: *mut bindings::drm_gem_object,
-     raw_file: *mut bindings::drm_file,
- ) {
-+    // SAFETY: `raw_obj` is a valid pointer to a `struct drm_gem_object` with a valid `dev`.
-+    let dev: &drm::Device<T::Driver, drm::Userspace> =
-+        unsafe { drm::Device::from_raw((*raw_obj).dev) };
-+
-+    let Some(_guard) = dev.registration_guard() else {
-+        return;
-+    };
-+
-     // SAFETY: `open_callback` is only ever called with a valid pointer to a `struct drm_file`.
-     let file = unsafe { DriverFile::<T>::from_raw(raw_file) };
- 
+@@ -388,23 +388,3 @@ impl<T: DriverObject, Ctx: DeviceContext> AllocImpl for Object<T, Ctx> {
+         dumb_map_offset: None,
+     };
+ }
+-
+-pub(super) const fn create_fops(owner: *mut bindings::module) -> bindings::file_operations {
+-    let mut fops: bindings::file_operations = pin_init::zeroed();
+-
+-    fops.owner = owner;
+-    fops.open = Some(bindings::drm_open);
+-    fops.release = Some(bindings::drm_release);
+-    fops.unlocked_ioctl = Some(bindings::drm_ioctl);
+-    #[cfg(CONFIG_COMPAT)]
+-    {
+-        fops.compat_ioctl = Some(bindings::drm_compat_ioctl);
+-    }
+-    fops.poll = Some(bindings::drm_poll);
+-    fops.read = Some(bindings::drm_read);
+-    fops.llseek = Some(bindings::noop_llseek);
+-    fops.mmap = Some(bindings::drm_gem_mmap);
+-    fops.fop_flags = bindings::FOP_UNSIGNED_OFFSET;
+-
+-    fops
+-}
 -- 
 2.56.0
 
