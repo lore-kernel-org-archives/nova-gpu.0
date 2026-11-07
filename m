@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794058339;
-	b=E8n+0vBSGzlDxkBcuzwhsxy+pKfxFUv3M0o4HgfAl+bCqo+ivMz/iohLDCp6q4ouf61C
-	 gXP+SLOaGYd4oqvydAJlpcrWc1WR26/zrqhzDA6RIzBEtzgXp10taCXkf1js5dzo8TSon
-	 Wmo4utKniAiev6R9fklQY16SoE4ET79ZO7/4sHfXRO/6F2si/pShIY3+cZC7qJWt+2cmq
-	 EzeutTHHpgmbi85O1RR6p+7rxK9yGwZr0ESh03xds4S0pMakhVV8zAFAweYgwS/M5Opqd
-	 K2xZhbbtXCYrsZeGaNoXzw/s4mepurtb0rJy1N4b9NPB+/+2KF6dQ6co0WZ8VScpjIA==
+	t=1794060150;
+	b=NUC/NEKCdis4jHl5y3HAlVy/gJb5AsZ3+41TMp1MmHhTPtLAj5jEUKVD0aDpBTVzbaXy
+	 AGGiq5xwi9T2qBF/dQYAhDtcYrwoWv5gt13lk6vwgbwiEGVpa3vMDz23Fw5hFL/gsB4DP
+	 wU0Z13/f6pru7Wdmy82qpImG3B7lR7oQOtX6UkOW0hKzFRemyuBjEVjDK3edpfAoljO7X
+	 aKgVJUzI01+C7Aac1iPxmS34vkJZSCMdv9kI4K+/maUbsrcFQTCkAp/dGWgQGLda/zBiU
+	 Iq9RrdwMSqsXsn/GLuATFWZDs4/Npaxfl9aIL4E5Mf80T/xfPJ8YFzquwMLhYP1fXXw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058339;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gHpq2iH5h9fZVMTcklv9B970diZbbqkXUi/Y80XyCvU=;
-	b=CBWOUJolCnVRtBO31FKkWP2Njy2aou2l/CgICbchqLjwuM8H0QsUGh+Od2hqNnyruLG1
-	 cbc/q5Fh8KbkbtWQWe9x9UdpJcjj9ZcobAgdrQ4XtajOiEBqQMsP0I/08kwIyydlNAzEF
-	 lHhJVg0hziQdmjYaBrlYiYyeOKYo6VA+ULrTm76cy6EWfgN2VJL2nvjYDWWolT/cf3GzX
-	 3JJfHrI+dyQVw7l2mbOloT3R7m8V1w0yZPqDn4XXxsn8eRVNDNN0x9+04hNE9SmdunjR+
-	 Hr3onw/3TKBjPRwJgzR21Y9ccCDhlTza1JG87UBjEFM1XYbjP4Mr1m+yJKY3O4LarJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060150;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=UBWRI6sRCnfwJdsXfR8+DTAMw8Nima0Z6iOYhkxws+E=;
+	b=44KgXA8kn3vYB27eiJYDAm6FbBdROxP+wBBegs4gRZoHO3yU1jHIFRIYonUPmKYSBgBA
+	 gOfwmlW481hBSMQMUI1FV1QHYK6NW9hU6JADxluMRHlfz1D42izwsuoq0ZI4u7YeYfu/F
+	 Y+2cKcRug9TpY+FjUhILJK8fcN5woOzJxsDAUMXmJLSSwSEdnr2pokZETf+/DMbi8uamu
+	 3YPpIN3Xl1mpnMUYAAU3H3fQRIXGcXKb761gobOfB4U+XYTfKgcblMt5uoB4t4Y5QbQpA
+	 Fe/I5FhHuTWn4OnR3gfyX4+M75r36xBNPQqD7QlFVGsdQqBf+oYyewSTxcAPnrcNoUw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Q/g+TLO1";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.18
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010018.outbound.protection.outlook.com [52.101.46.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tADxLf02;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451B1606A32C
-	for <nova-gpu@lists.linux.dev>; Sat,  7 Nov 2026 13:32:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 451B1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4B5606A326
+	for <nova-gpu@lists.linux.dev>; Sat,  7 Nov 2026 14:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB4B5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Q/g+TLO1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uh+Xd5+dkQvR9uDuvcFzcLAB7WOw2hy5MyVh9/pnfQPve6r0Ip+5/YZOnsHpl7pxS3XEtFUX8Om7cFobuMIBpWqipV6Gy3444IMCMwqBVNUEWjC56EZPul1J3dNil1R5HuB9Z3aE/v9iBAssHPPJEAjYMyxaB2sOFj6TTEjOTZUYjzDdtwxbQpVep1geYuK4JW2CCXP48Bts7mYFJlFnU16TaS2Ng8IagrGQ1rx4A+WQMDkBKS7dKyAbfYRxi/wBCyVGZPzi8qmOgP6gwKKyrDEObciGn9aRkL6NenmnIqs2mdU8+gYMecwjZMNTEfbTmmqq+bBzJMeohy6n3HNbnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gHpq2iH5h9fZVMTcklv9B970diZbbqkXUi/Y80XyCvU=;
- b=SH2Qp/BQlJFYAP/RpsJi1PM4Btm0ii4h6IFL9oQjRKUacHLpI6VPLksfmqMF1FxL2WZwgJ+QmfveMOuwPvPy20mMJV29LXg9FiTSYTi9YCeMYyMglkRS3cxxrpJJRllMKWTgNyBZ/2XlVJm7m04CCwsKUyAXrdLeSMXZB+y361R8ujyewdDtHZJjWPKAi7aRyW84nrIZsuCP2d/pIupha65luHK/OHLJnUHjyoPnUnxzlh+oPrDX3rK/qaFgc0e1HErSn7ikedlkO7h7C7vNyDqAyyq6F6muVMowrcB/YFGKtXMCgpgZEgQJqFVlNTrSPaXRrIuUif0jakZAZeKUaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gHpq2iH5h9fZVMTcklv9B970diZbbqkXUi/Y80XyCvU=;
- b=Q/g+TLO1EQMiQtzrZE2tbGOob11ouopVW90Q/XvOQ0EVBc8M+5SS6jGDEyxsT69TkVaeZf2GdqyN6vV1K2HykhUOFVZn5hpM2aTy0ya5Ws/ubgRsE7tRAqGD1IpMHh2yKYy4cjuUFvPM4PC55EL8NQPztubi3QQsaDvve35ceUG2l76HssCse1LAXFUQKN7gAL6hCLIh0iJeBraS4oOleR0tay7RXZuTvfuofWUt1KNQ4Hrd1dO7hYAAd8W7HMr9zELa7sIEiLZh/NBaLBqr3MBHoKIwyYm/PwCG7pLbSoGPxoTYZf1isGOJpsv+E4Ohevs0eQb9iJCtcKZBtYXhRA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH2PR12MB4135.namprd12.prod.outlook.com (2603:10b6:610:7c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 7 Nov
- 2026 13:32:15 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
- 13:32:14 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 22:32:12 +0900
-Message-Id: <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
-Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
- <jhubbard@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
- <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
- module data
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
- <20261014154554.231015-2-vladazaharova2018@gmail.com>
- <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
- <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
-In-Reply-To: <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
-X-ClientProxiedBy: TY6P286CA0026.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:3b9::18) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tADxLf02
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36dbde64409so2140009eec.0
+        for <nova-gpu@lists.linux.dev>; Sat, 07 Nov 2026 06:02:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794060149; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DprJ4S5bjy8x8ijYFpuC/CFMP+ZGSZu2WCtOd0yKMsRxt8WwKgDl7p0/k35UemwND4
+         5fLkdUQ3EtEKxYfvDshTc6Pk3JnFA/L32qxagQbfTX8gnFp1CIaF4TNipnDdXDATitXh
+         CTgzBpVc7EZgLGgoA4/xoqh0xypUekmbxMPuz0szLOV6Pmxdg6vIH3eL7MfVypeddVWO
+         /w9l008YFlwUKhLyjArmrtk5CrBKjAruA3kAPN8PqtGn5vrPbOmB4cfRU0uBgCnEhx/R
+         xqgnU6RJ4aViRvUaRuJLo8NJR/lkCCxiyzLaUOZmz7Sr6zrA1MCQRssFd6vzd1qsnn6Q
+         4GCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UBWRI6sRCnfwJdsXfR8+DTAMw8Nima0Z6iOYhkxws+E=;
+        fh=Ec2RuPxEGFkuDJb3aPhnblwTWqxOPf7p3Bbra+Wc0oA=;
+        b=C3HgQaVuxGN9qwqgqvD/H2X6PGD5PE1VsrEs0R1Vr67P1SO/mTiQftO3sv4jyMhoeH
+         32v0wF3Ytb0hfusgufhvYc5ciwYbiiSEB8MZh+qGkRGBFuX+4EpCDE+N00xSA63vZR/n
+         /xmpkHqlCV/tukcWr3oUmsz+E0JyfFKr5qQNR8LJbjPznKQO462z8d9TmcYdimNcbxSY
+         8yc9WCDT7c34qx1wzhdtoZarxbF2LuOrWLMixqvwyATr9TdR/fAoap1oo9qX3ucIzt1F
+         Bh7wgrRRSR7VBiRfCCJPB/6zuLsbXfTrnSRN5NdwZGuh9U28TC1r5TUlhpmwExQAOwci
+         FSJA==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794060149; x=1794664949; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UBWRI6sRCnfwJdsXfR8+DTAMw8Nima0Z6iOYhkxws+E=;
+        b=tADxLf02uMEqAtRiGnp4BFJtlcj4+rCV6tiFzeGpeNPmyB9uAnP0gfKvlwcvNHRjNl
+         /FgLxhD+5halZPWMa2sQbpZ6a+GBUDdlUAGSSW3pdrjNfVjqYknd76gUUA+00NDiisuD
+         dJXaI3390FjAfeZDdNJzYSkGlNIDZJaKnzxKMEQyR9eA1oci5jeUdkylYB12jXufeTbW
+         0JW4EEZSiAi6pWkjTRJihUWunwNf638mgo6z46cYw4nIxpcr0rohgdD06HurKKY005fy
+         mDH7sphseFUY1geBC24kEjQF4TSqR+rSStpilviDsbteKyD/wmvh/hSOmhQQDUGI6IjR
+         WFag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794060149; x=1794664949;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UBWRI6sRCnfwJdsXfR8+DTAMw8Nima0Z6iOYhkxws+E=;
+        b=oeoyuyw3Oi72G+Nn3XQqIOXahW/eOJasEnyzuKkpo6Qya+IuhXrvAFJ0+R+VaAPtDv
+         PQXBl0Lg9Y4CflAasncr9VCrWsRBUVQ/1Le3ZYdmH2fTpMP77J2tmmnz2cRB0RJGfiKj
+         EOzyoVUBqSefdZ7fMV5b1t3mTOSsE8wxOKS/P+ilU5ZyBoC/UpguMp2FeBpwcgtgM2qY
+         StHmueyB1PoDoelrl26MRfvSD7EkfsLe8TJJugBExPAUNDg/LmLxi3PcHBxElYYaPMzy
+         rMTGkD1/LcBzdZTi6lLpKTz9qwJUVCOiGoYp1mR1jBuUpT3GiVNnATmyKEWQ7qrvfsa6
+         R/PA==
+X-Forwarded-Encrypted: i=1; AL+hErH0sFXpQmZnZKhy5m2EvQ4s6ilVUNcozXShOx8m+8bc5TnqTwqOj4pJrIxzxUpSgA0PkezyUkO42Q==@lists.linux.dev
+X-Gm-Message-State: APuU4Z9etL4kYDF6szAI39EtGMrE+rQ3Txzskd4zzHiON+v02+oVoxz3
+	4FRvKtuO/EEQEwGk78n4Ns0tRAoa/0JXFRvhdgw3g1xl051wtG6pTx/hf7t0yuWkq/PgZRII1Fy
+	wA7wgSeeTC3Gox71C82G5YpmOLcprCxY=
+X-Gm-Gg: AYBFou2eawjbcYmvLcljLRNZ3tzAt2BNk+iefIBRc+4s7x3nmUrU8vPy/TjiMS41fOg
+	iiHcZa3+ir6Bc2pm6yRO6YmNXYeVMZW6QzOjmzMWaHZxM4D+hxtJNZZJnc+ZVBRYDx8cMNFcvPc
+	s9KDkSNYilFPaYe1YwgZz6fpFH3mrcA8czBH8SETjVCtEhmvNKAJO/i17+ioq7RXw0ROREjcQpR
+	3ECkgyF7lyVMoULtRsX9pjN6IOCDXcdjEF0DwzMC7BrEi4L78w8szz0NEozP8W6hlimdNfLzusn
+	isvGxdpIvxL2iHEY5Hrl9g4hYwJCb4tDhw1oqxv+OXp43Ou9fc5ehZOVNZIqPxm2v1kLJE6uC2p
+	rTSeQtZONOx6AgckhamiNxzu9E2WXOn95+hWK6pHgr9yYFpv8WjGTzIlaOLdMioUK6utQETbWYv
+	TIy3sURFC1HX5du4LMIAnLg/ISnB6zM5BpRYfLx+oqWylxNbl84baAnwlJagPfRIFJnNuZONI=
+X-Received: by 2002:a05:693c:68c3:b0:358:8f02:e0ca with SMTP id
+ 5a478bee46e88-36f754414a0mr8478739eec.9.1794060148890; Sat, 07 Nov 2026
+ 06:02:28 -0800 (PST)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -103,153 +105,66 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH2PR12MB4135:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8be42ea3-916d-4c62-1070-08df3cd38929
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|10070799003|1800799024|376014|261028144727099003|261022075727099003|261026140227099003|261021121427099003|261026121527099003|261022105027099003|11063799006|10067099003|6133799003|5023799004|4143699003|261102123227099003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	pbbmTBhkqCgTUz3BYS7LddE+8zrObZov7nfUNe1oUrxsZ6xLBz8/0cnIk5LbL78HbKzv3L7JsvfVRzYmF7/F8LflJhN3Pjyj7LujxamKqCOfbVbEB9kBtsIvxmUVnwEY+i5U31GZdIrqMmFwEAybhhNZI2B2ZGQb7ZLCFjg3kjh1LQpq93ifaZPQ4HgNPxQXxOBieLlhLTqwagdjNG2AYP0TC62XTV6zpQXp9J9odJZbAg9WqEbWJy3BkWeVlP/vEYRZEuW7B10LdVtZvaH3jxq4m+g5YLUAtBpbNLr7vW5Gv7RJagb5+5nDpGgDxrss9+tcFlie4mQIUVjf8IpXxjb5f4+tFBd6sgFUvYl08Rte9gs4Qn5HbrYu52gH44aViQpkQxaYT9QxCAl7BvqWicg8V95Y/jzvxnqL9H7SnWBVjrvHHQ8G6ZrH1eA+u+PgPqnTowr/6sAB2pg3g+oxE9OqOFtcjbLS4QVIbbUgADthfJjc8ugrPwmtKoJ2TdBtglDX97Oq3eMoTtd7uLT4VGeLw7GAGKS71TABb9cpE8MLnpIV5pLQ5OnrobbGjaAwlqzxuJQ1Ojbn22jqPu8pJCaKRx5bjvujkUP3On3FGr/XGW3jwdZnK7gN3tiX/oFXMpvh5k+t3uuM1gRKJWQHE6RK/e4MhaIAD5HLKT70elg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(1800799024)(376014)(261028144727099003)(261022075727099003)(261026140227099003)(261021121427099003)(261026121527099003)(261022105027099003)(11063799006)(10067099003)(6133799003)(5023799004)(4143699003)(261102123227099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1ZmVXJzTmNUVlRObHF3NFR5N0h6MG0vZFFWTHNFTUlYcHdRSlZJVnZrb1dk?=
- =?utf-8?B?OVdLRkhwMmZQajhFdHdiRmhiV2kzTVlocVpkdG9vR3hhQXNUbW5ibWdFbUY4?=
- =?utf-8?B?UVJ0WWdKYnF0ZUlTQWxYYkdzQXFRUktIMklSQklKUzVUSmRkK0VuemxhcXl3?=
- =?utf-8?B?VUFadlE2QXVRbHNPNXVDL01qalBTaksxL3lFSHh1cWlndHcvS1o3cG9paTlP?=
- =?utf-8?B?UTBBSFp6NzVsU3o4Y2JCZFo3UnpuOUVFRmp3V0xsdzJLZ01SdDBPMHRLY2dp?=
- =?utf-8?B?ZmV0Ykg5RXA1R1kwVitYMXE3MHQ2ZHdqUTMzckpyc3lwcG5mUHF4Ungzb0FS?=
- =?utf-8?B?Y1kxM3ZOckVJSERJTXk3amhYekVhekV1c0lTWXpmTEpxc0YveFpVMnFYYzhT?=
- =?utf-8?B?TmVBQU1CaDI0ZU5PV0wrUjRNcjB1bHFrVVJDN1VSZjRQRDZ3WkNCdkUrMU1o?=
- =?utf-8?B?OERwM0p3VEpYc3BFRkR4dFVyZEpFcEtOL0FGbDRTdVJtcjJFQmh0Vm5WWDJT?=
- =?utf-8?B?b2F5Q2JYeHZjV0pHU3BueWRrTU50Slh1V1A0YTFVZFBBL29IMEhXSHpJSTE0?=
- =?utf-8?B?OUZYN3c3aGVwRFlFMUNCb3FndmdrZkUzS1lVbDBmV3dCcFU1amVlUXlJWDAy?=
- =?utf-8?B?Nk94UVV4ZzJBR283dDJieWJLZ1FkVENvRGV0eVBqWURiUVFaR0cwa2VtQ3RL?=
- =?utf-8?B?TzNBOUdvdUU1VW5zTVFraHdPVHRPK0ZBMkt1QWNuditxUUtleThDa1BwNXU0?=
- =?utf-8?B?NUdsdU9qYUFrMTRRdUJLOTZKaHdjbzgxd2VlbWFzWUUrMEZDMFl1RVVsclhi?=
- =?utf-8?B?OWFkVTZuQk9ZR0hHVUNWQVlzaWZlVUZwK2JIOC9pSis5WlJIK1YveXVnblRz?=
- =?utf-8?B?N2dqbHJWT0pmbi9TeGw3S3AxRk9FczJndEJmWXIyNHd3c0F2aS9LWDBYOVho?=
- =?utf-8?B?eE0wYThOelZ2bkplOVpPdWllaTVIeFJmdFpCWHVZZDc5TFhWUk84QnRzN2dv?=
- =?utf-8?B?OXd1ZTM5M1ZVRi9GSE9IYThlQUxUWnBkY0w5dTZ0bmdGV1QvLzFNTExZbkxG?=
- =?utf-8?B?WHZXU2VRM0hudDVxaVgzN1hid2Y4SW14MUxnQzJVN1hVcys0dThvbWJIYnRZ?=
- =?utf-8?B?Y0hSQTJGZEs5cjBZOUUwVWRPc2RSUnJSbFNFalJuZDZGZVNpV3RJdnYzdUsz?=
- =?utf-8?B?TXNYS0pkOVB6d0pQT3NBaUJsZFoyczJwczNLV3lSc0NmRGt6d2RXTk5YVEpW?=
- =?utf-8?B?TW02ZUJQODJ2V2N0ZjBBcktTK3BnMGVHdXVIdUdnZm12WEdSUkxZcmJDYXBk?=
- =?utf-8?B?VTl6NjEwTngvRlhOQ2d6RDFrRzZ6b3dVbkthazJHa0Z4ZnBaUGgzVm9MRTVr?=
- =?utf-8?B?clFmRXJJRnMxZmxoRzIzTUxUMTVUdEp6ZGZiSlE1VCtTVDJJdzhnWEhja2VU?=
- =?utf-8?B?aEw3RjcvaXVlSlJrdUppK1cyWHlaeUtsVWk5b1FzVjI4M2ZVYzU2VmM1Nzha?=
- =?utf-8?B?SzljcFhUVGhkZnlQUXRWQ21ldzVGTFlRUzhhbzhyTXEwK1RwSTJBWnNXOTE1?=
- =?utf-8?B?M280aFFGcHFhMy8yM21tREVJV0Y0d1Axck9RL0VGbkRPTWdCMVBvajFyQm50?=
- =?utf-8?B?WmpDV2N5elBXUWVyK3hXdVVJa0d3WnJGd2RnWUZ5emZqYTBzZU9NZ09iYldU?=
- =?utf-8?B?aFByYTUzQWQ5UkZiVGkzVjdrZjFQTjVBYkx2ZE04YnZLU3BaVnc1WEtBVUdh?=
- =?utf-8?B?RmlOaFRaeDFmOGtFV1l2MFEzcUpBcGQ0QjRrWjF6NmhhazJTY1RGOUZkZjRl?=
- =?utf-8?B?M1JJUk1OVjlXSjllWVlUcS95Mm5xaGJ5bTJaa3JnTTg5dVR1S3ZrMFhOazZO?=
- =?utf-8?B?bXVnMjVTZTRvTFRvek9yMFRvbjJYempoMzAvTnJzaU9LVWRIeDJMSzhjUnVl?=
- =?utf-8?B?YjNnN0EwZkN2TVRiZHdXS2psVmZOMitLWEQxUWlyZmIwZHdtUG9yQVhHdUVw?=
- =?utf-8?B?VCtSZmVVc3IzR3NxKzlPTmtNSjcyU0tIeUZPSjRZcGVwLzEzQ0pIQmFtTEtq?=
- =?utf-8?B?VVhmR3NseFhLVHVlTCtsbUxnbUZyRmwrbFZ6TXJVL0hnM3RmVmtQVGtCNENP?=
- =?utf-8?B?VGNyYktwbFdoYStRSkRPOEV5MEk2RWEvR21yVTlFbi9UV3QxeW9Sak1tWk5R?=
- =?utf-8?B?dWt3RGFzc0dZVTJwK0FQM2FpK3luU2VGcE9lWWN5UWsyQTM0Y2hrUWkrajBw?=
- =?utf-8?B?c0EyZEFVRC93VUlKQlBUUWl4ZkJTTVZ0dGFyOE82bUdROHFQbjc1S2plRzB3?=
- =?utf-8?B?b1M5VlU1MWpHcGRkRjZwRnBISzEyL1lLRUJHYVQvd0R4Yk9rM2pJbld2R3Ey?=
- =?utf-8?Q?GAvKWXDxkzOSPTVPfxcQK/fN70MOt09He9xYjMPi/BPpd?=
-X-MS-Exchange-AntiSpam-MessageData-1: s8z+7m6R0Sc+6Q==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8be42ea3-916d-4c62-1070-08df3cd38929
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 13:32:14.8649
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ax1q7HhNq7UjRouRNmppLaCuM9xIictldmPn0YbWbU+rQetQgrQcfBobCImHJNQKLkv7Q5aBuZZoxioBwbKCvA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4135
+References: <20261019-chid-v10-0-67de9180b4ed@nvidia.com> <20261019-chid-v10-2-67de9180b4ed@nvidia.com>
+ <DMOZVVGB0O5E.1XLZHZVLFYBAJ@nvidia.com>
+In-Reply-To: <DMOZVVGB0O5E.1XLZHZVLFYBAJ@nvidia.com>
+From: Burak Emir <burak.emir@gmail.com>
+Date: Sat, 7 Nov 2026 15:02:12 +0100
+X-Gm-Features: AclHuK-j_BUOtjpwGmqXWoxYJLK8ze9j6ufmkDg9fB821Uo8UGX-BRotwpA_pnA
+Message-ID: <CABwQupO1Tp2EM=iNq24_9_krZ+6vhvXxQ2TxJ7LUC30oSXJ66g@mail.gmail.com>
+Subject: Re: [PATCH v10 2/3] rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat Nov 7, 2026 at 10:14 PM JST, Danilo Krummrich wrote:
-> On Sat Nov 7, 2026 at 7:47 AM CET, Alexandre Courbot wrote:
->> On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
->> Another thing: since this is declaring now a proper interface, can you
->> move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module,
->> say `debugfs.rs`?
+On Sat, Nov 7, 2026 at 1:58=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.c=
+om> wrote:
 >
-> I think that makes sense.
+> On Mon Oct 19, 2026 at 1:29 PM JST, Eliot Courtney wrote:
+> > Current code in IdPool::with_capacity rounds the capacity up to
+> > BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+> > smaller than this and still uses an inline representation. Remove this
+> > behaviour.
+> >
+> > This allows specifying a real capacity of 0, which was not previously
+> > possible. This breaks `grow_request` in this case, so change it to grow
+> > to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor i=
+n
+> > `shrink_request`.
+> >
+> > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> > ---
+> >  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
+> >  1 file changed, 32 insertions(+), 6 deletions(-)
 >
->>>  impl InPlaceModule for NovaCoreModule {
->>>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self,=
- Error> {
->>> -        let dir =3D debugfs::Dir::new(c"nova-core");
->>> -
->>> -        // SAFETY: We are the only driver code running during init, so=
- there
->>> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
->>> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
->>> -
->>>          try_pin_init!(Self {
->>> +            _debugfs <- DebugfsData::new(),
->>> +            _: {
->>> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a devic=
-e is bound, which cannot
->>> +                // happen until the driver is registered below. What i=
-t points at is dropped only
->>> +                // once the driver is unregistered, so it is valid for=
- as long as any device is
->>> +                // bound, and nothing reads it outside of that.
->>> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
->>> +            },
->>
->> Let's move this initialization into `DebugfsData::new`, using
->> `pin_chain`:
->>
->>     /// Returns an initializer that creates the shared debugfs data.
->>     ///
->>     /// # Safety
->>     ///
->>     /// The returned initializer must be run exactly once before the dri=
-ver is registered. The
->>     /// initialized [`DebugfsData`] must outlive the driver registration=
-.
->>     pub(super) unsafe fn new() -> impl PinInit<Self> {
->>         pin_init!(Self {
->>             root: debugfs::Dir::new(c"nova-core"),
->>         })
->>         .pin_chain(|debugfs| {
->>             // SAFETY: Per the method's safety block, the driver is not =
-registered yet, meaning that
->>             // no device can be probed and thus nothing can access `DEBU=
-GFS_DATA` concurrently.
->>             //
->>             // INVARIANT: Per the method's safety block, `DEBUGFS_DATA` =
-is written before the driver
->>             // is registered and points to a valid instance of `DebugfsD=
-ata`, which is pinned
->>             // and dropped after the driver is unregistered.
->>             unsafe { DEBUGFS_DATA =3D &*debugfs };
->>             Ok(())
->>         })
->>     }
->>
->> That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
->> relies exclusively on `new` (and we made it unsafe to force the caller
->> to do that).
+> Alice, Burak, Yury: I would like to get this series out of its current
+> limbo. AFAICT, Alice and Burak are ok with the current design [1][2],
+> and Yury's request to change stop using a zero-sized pool in the example
+> has been fulfilled by this patch [3].
 >
-> Actually, I would leave that part as is.
->
-> Eventually we'll have registration data for driver registrations to share=
- module
-> data. Once we have that, we'd need to change DebugfsData::new() again and=
- move
-> that part bnack into NovaCoreModule::init().
->
-> Besides that, DebugfsData has nothing to do with the current limitation o=
-f
-> publishing module data to driver registrations; the module code seems lik=
-e the
-> correct place to deal with this.
+> This series would need to go through drm-rust-next as we have
+> dependencies on it for the 4.5 cycle. May I ask for an ack on this patch
+> to push it through drm-rust-next?
 
-Makes sense, let's reduce the churn indeed. In this case I guess
-`DEBUGFS_DATA` will need to be made `pub(super)` so this module can
-initialize it.
+Reviewed-by: Burak Emir <burak.emir@gmail.com>
+
+For me, yes, it is good.
+
+In particular, the thing that Sashiko finds the panic of using 0 size
+with find_unused_id and CONFIG_RUST_BITMAP_HARDENED=3Dy was explicitly
+discussed before and is intended behavior.
+
+cheers,
+Burak
