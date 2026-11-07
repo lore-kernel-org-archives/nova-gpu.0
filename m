@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.36
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794044926;
-	b=oymevYCI0+Iia9K7fkLjR1iWIQ+8ZUnC7bef7VZ63aztVgQSKK5fa+6B7AMhg4Rn0Xrb
-	 G7q/J71kEY3m/vBwemknwd4A9Fpg6d2ylEabLUUR7xOSYQ1vLOX1LxG7lySl7GF/BnjG1
-	 Ejbrzd9w5dSuYMSA6R2potWj4BC9F6MWQyFHsOaOXsf8v+U42CcXe1Tk3drzTL40urvRQ
-	 t1AXcSs27Cn73hTId9mIwKBEC6JSH7sehjfH+CmQ8aizoRfd8WiOSIQAwUK2A/VoP8bdK
-	 FWYssvuIDxSOHGUBXF7WueQSq6Y18jCTXWDkGCpm11R5pqJ+Hw7OWP3XGjEtJ5r4D6A==
+	t=1794044927;
+	b=ai5jCsjsP55R2UmFru49xmNEES/xOeumnxKG7cg66crs/AO9NHJepY6o1NQMuobeYtjF
+	 ZLxDqxyqte7/QyadyeS8v1dZYmtK/mutqSkNVz74Zh9cx0c91FB4J9Cq3HE80MMuwtC3s
+	 n9+yJyILeet3cFyQTuaNZVpmAaaESW9TxLJAQlTgwKSP7f5O8IOpwGISX8RjojX/G0OUP
+	 FLTLJe4RRUsI93XpkXMY29+J39y0o9Lanf2W+OJirp2Zbin+LblpmCrCxbv2WtwpMOhAR
+	 rAMqYUk9W9jP2kgfhPY8TqG2XLQBwKI3KQgq+skL11PtD20n+sMAGhFABh9lL7MYxjg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794044926;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794044927;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
@@ -25,61 +25,61 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WvsCvws8cJjVdT/TWSYzpl4g3711N75bjb6aKyL6ZME=;
-	b=VrHu/FXYv5JwvfNC8y52LnY7iok7pGRgExgDbz1rN1VxOAfWD+I+ktUZj2IF3Bk9KCYu
-	 3GSXQyPB3nXd+iZa7BUvO+7zgi9RFEMpuQQYSZuMMb/EVIWpD/IoOYy/xYrzl6OhKwxvO
-	 pQd4CG7ZJSDUaTIb8VPp2YgnmCncCuOKRQLY+dCx2T0wSoZsKmjgcfOPoRL03BGAPVDB2
-	 ogrYBC+c9ifKkNRBT6eVr9AHIxYgQcNYk3ywvjm35+c7FwOPsmZ46sFBXL1c8/K/QUR03
-	 eZpvdnofooP9+ISLBmnsK29KMJjM2T/QwgOVdb6gcTvLFnkoPMLaWkVBN6LeCqsZwjg==
+	bh=RhZ7CYQIdX9kgRlesIntBwInLjiK59T2da65omTW0Lk=;
+	b=Gsn16Lpm0KJYRutgw2rxduvsIbPBPyntLwE0xr1svUOtGPRbrgC9+DzqsMdViFKr0Wzx
+	 aAnoFeRUU061vXjcl2+hm5VRWQ9vpiUAHbDZBNhWnHOn/PDguNUNFQrXmzHq1InanF6WU
+	 MJeXr40i/whH9H0pWe0N046wCnPex1szx8BRWWCbPhSMdh3ev1UDrUnQ8/HuBJvwDpdHN
+	 0TjywhoHJso6usiq9tFv7dqncrTIHZ+FMvAMGLEn74v/mT1PQN0HM76bf0losyfkorKyf
+	 RI3G09dCCU6Tz+E0bxF4ESIkThADDlXhx38Ffs7OCkTD8q32PtSVuGY4/xRogVCjqng==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cBZoypsI;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MS+iU3Rv;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.36
 Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010036.outbound.protection.outlook.com [52.101.56.36])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B60606A337
-	for <nova-gpu@lists.linux.dev>; Sat,  7 Nov 2026 09:48:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47B60606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3FC606D826
+	for <nova-gpu@lists.linux.dev>; Sat,  7 Nov 2026 09:48:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A3FC606D826
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cBZoypsI
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MS+iU3Rv
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KLIe4q/6Clh0ktRJ6SWiYkqqfKl0jfs0h7rgiQr46aZDN2WYj4OM6DhE/oC1SCpZpZQ3RuJsvUTAm46hAfvUbIjYO6liCpFJM0wlNpPoZwg0O/hOkTeUm/FTrtYG1RIgLgW11Fb8UiytqccLPdXMQV4Hdwq30b1wG4Hrh24mVTKwnah6nJlhkVoDbejZmKK2B+h/IYabidQrAWCxFIoz2jTZ3nR5HsG58X4hTi43l5RCt5iz3UgFVxLR8k/qS+bdG+Wuk6kpQNOVmQnmYuRa5S/1Z0RvE2BW7XDQ7YV1U7PupJU14vdw3LZIH5Cmv0kNszm82zvWCw+zX16bihM5JA==
+ b=u1/Z4KTE5VVvSy8IJIiNn8viROxTtIaW7yvhUoPYTbIKSyWZUFswXydn9wxthYAjUvo/zGAtX+6k3NPoyr533MGZFRbj/YIR+SssK+YPfM2ocbEg3Hg6O10qIoo3RBDxT+fEtrcpABhnE/FYZT5Ai53iJrU+CHu7dciJIi2UeRwDRSg1CXypQ5vY6pJYUWBJs0B/yPi8l73XvggDmtfboXcrJv/yY5DEIA5S8xMggZYHeUtcdq9vr4nDezVAhPIRKuFnUWXbGx8m8l+gNbhajq2Xd01K4W+xlu4C8JWwMqnEQdSAdFEent2hKlu7p4tajiYkxXvxGA4vUf1/nTgLPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WvsCvws8cJjVdT/TWSYzpl4g3711N75bjb6aKyL6ZME=;
- b=UObRc3cSki64QJ5H14rG0trf3ozu/IWnuUPtL89xF1qffIF9rkf/xR7eVl23kBJPO4EUN469MJUNwAlOpKrfiY2QskZ45bpdisjy7F38Lz1BN3m0D3qphFdoiUZKEUKtUxMrCBn+sy9nz1jCRk7NL4AmABHnpPMno+OA9C2sUmkFH+XJ9irVGnSf/3/xYpeOHV9uvlDN7r7ojN4I0fbUf1Jhf7FFoToyo3wslLUAp7wM6badxlD4nbOV0FNNzaoolzdGOexopgbyhJHVJBhYq9tkU9hXkZihOC958xqXgU+cMohV0+K68JxwrYPzfS+3rFlXrH9LDZKooi+0g8xS2A==
+ bh=RhZ7CYQIdX9kgRlesIntBwInLjiK59T2da65omTW0Lk=;
+ b=GE0g9W3mOcybdE8TJKaHFfcwNt6NlQ/2NFc8XyNSaGUid2jCxvITodbSbOw3UdZ8OMNttcoJ5Y3D35gLbJ04Eb/y1zxwZgDOZZLbtywmBeHlPR0Eswp6l6CmcY0tjd4N90Ed7ODXf/E4mVVPZBY+uevAw7AXmN2QT15xPKVUPHu/0fyYEk+TRPPW7vYky7xJ9GSwuGHyBoJrtjS0FhkVZoU5/X5ivFBO5oaOT9Bu75wmWU+Zty/mBj27iMqA/wv93327IXrfmToM+B2yoOkxkDiP0jBYKiAEFiqVZMjMPWVL0joo3JmTtQcQGgv+ewr0qKmkMU4NAbfwx3aMc4pdCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WvsCvws8cJjVdT/TWSYzpl4g3711N75bjb6aKyL6ZME=;
- b=cBZoypsIGqIYR29B41YdKDS5GrdG+CfnpJz6aUXawOaDsaYYnZMM4eQ4bPYOVli9oakB/pMjMllVMMJdI1jNNfKnvAHC3H4/pf3mfCzuif6wZxoVOSgxxYe2GVtzmWhv7kGxWHQ+Gqvo+3nKGzycMEc/qwL6SWLYRG2UdDslnjAUOmwSF3J2czVK1t0bQRLXJE2GzlK4cy2RTIlFQ389w5r5TS47SMfnhhMdnKR9ZyL95/bcKSLVF7rzW6i4URW8572WGxF6MMoDwYm9tytm8lLS3Tcw6+QoCqj/q0K5WplVlAn/JiXNdoVMZYJUFFo3teLdXXNPIRJsHbNtlDR/ew==
+ bh=RhZ7CYQIdX9kgRlesIntBwInLjiK59T2da65omTW0Lk=;
+ b=MS+iU3RvJBNNibbty+MEHip7g9glQ9bcDR6oKiLk3qCb08BOOUpoQWQTtv5TntNGFv1w+FsQwgCzPVBPszV9hoKgIY7KFeKB2sNFFyMt/THT/18Fw24CcgqMRUaNBe/lRgWzUlf7Aaus+zElnj28xu7gEBTNn5ByxXtBBqmM/kIwQCbFqZxKjXO9gaQfYF0KtuGeSoftENR+JcKrLLQvcUk/ueeFZjB1K4Q8d7wh55c1pc+3WyMGAecWB1q8KDqOzn1aGKe6erXkDycBcQY2Q2iCwqpr99inZWBtrUZ3IXvAfekBxwxIPRUOQ3+2SoiL80fWPRiA2JsWqDUcKQwVdQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
  by DS0PR12MB8269.namprd12.prod.outlook.com (2603:10b6:8:fd::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 09:48:29 +0000
+ 2026 09:48:32 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
- 09:48:29 +0000
+ 09:48:32 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Sat, 07 Nov 2026 18:47:59 +0900
-Subject: [PATCH v2 03/12] gpu: nova-core: place the generic bootloader at
- the top of IMEM
+Date: Sat, 07 Nov 2026 18:48:00 +0900
+Subject: [PATCH v2 04/12] gpu: nova-core: move the bootloader DMEM
+ descriptor out of FWSEC
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-r000-fw-v2-3-fb37cc5b20cd@nvidia.com>
+Message-Id: <20261107-r000-fw-v2-4-fb37cc5b20cd@nvidia.com>
 References: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
 In-Reply-To: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -90,8 +90,8 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0276.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c9::13) To MW4PR12MB6873.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP286CA0281.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c9::14) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -104,233 +104,344 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS0PR12MB8269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 365a36c3-3056-4cbb-88e5-08df3cb446ee
+X-MS-Office365-Filtering-Correlation-Id: 360553df-7c97-44c7-e90b-08df3cb4489e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|23010399003|18002099003|22082099003|10067099003|6133799003|11063799006|261026121527099003|261102123227099003|261021123027099003|56012099006|261021121427099003|261022075727099003|261022115727099003|261009223027099003;
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|23010399003|18002099003|22082099003|10067099003|6133799003|3023799007|261022105027099003|11063799006|5023799004|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261021123027099003|56012099006|261021121427099003|261022075727099003|261022115727099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	fzgkwCUeQ8xxUtoBb1e4cPppUMAmxJhsxBuM+eTLSI6mv7nDFMFlCDQe93BoXNtSi9cJkfX5e7XvTK7FqiMquEJWAydHfmJpoH0Vjk25r5bCtxPI3ZfpbF80A/gg4TXtb4mfQSS9Vo5ZUCqgYk4G1+PfxF7uKSlMpqICU4rf1WNiqIdJ/k11eIrbVeS9Hd/mBV6RjkTRQPVJ4XYSdV5ePJwdNaQukWncMvfLyC4rO3rLXtnR1r9Ajs3fgAsgpnWqCJP7WhULi4BRqTc8G8lAMXDx8poJbWk3UdTIhenzoxxOWO7w8CrlQosRqT0GZBZvHO+pYKP2JlO6VK+dSnqP9RVvpZsEjcQQPNAMKdmTALOjBBJ1IhT+yLymi4BTHbNetmCQYo99v+jY+k16pTW86XwUDqXQJQwbVQG73aqdux/nt9CpFkbd9qdVD7v1AuOpeZ2ts3iiogejFC7ctfxk+vTIpS5u3ODVnEHzCEVQh2ZANjeONXbU+C5bE8sOaHQOqeygXTrq1nvfBQUCA6NXf65R+AIa9NOKPgRdiidkeY4FCi8UQFW7nIQLIZkIIsUda2AZxlReTAmiLSRKYMHcTXSVLf/2s8RYrq541j+FCO/yN+m0GIcxZCKNo++dTvfUcKgwLGYPWDBC+QZ1DEdP6N6lnZyHAxGS4/CgM7VP6t4=
+	Zf20A9dz2Xs/SHRDNirVeFofuUxTdPEm8xtXbZGtPkb7yL3let01ZNm1ZjEyAZDiwynGxKSIiU8EN+IuWPWLfY5RAsf4yPx7vjeBG+AhujdI6Xmj/xmETJOCnfzSXE8jgpZJUKusJOBfRGP00N3BOSf6MH+SD5FPCEJqfwtpaUcWRqO/uoIoEiDmSt75E+imzqxdY/MnM2MGJ7xQoNahOz5zu+jijv91foj0YrTXP9rdBe/ghMnSzqbZiR1uh5NBSJmECxVNyk1zbxLbsTkF3dBqjbr5xguNbgdJ1GFP+cr1RKhHPizniI0nWpokV+gr3dX3+bfovpSBChw5iuWnmofrOtDYqSyWYxr/TMp+8fjb4DkUQ9upqQ56KHUgDfH+zwqynZ0rbRyhV6DZHaKYB9EMFXMD61DQPcCDyx7VJbWD4Xp6PQfxXUbjHIbR7WdgVAaauEOchTQNO4a4r/ev3DHTPw0E51YBFR2/pux02A7F3yObMaMz2OSh8WrXxinxb6KTlawOGIGnxdktGgtdeACSRuieeZi10jQ26EpXlJqwMs/vV8RB9UFyGlQDIO1WtEu8Uw6jHndko54A5f22K1zR7DtVWKEBfVHY4oB2lDMs2akYLFRDa1DE6F+5sK+SN2mjtCkF3rIGmA/vjicz9sh+8zTL8nsVNdpF4/Qd9+g=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(6133799003)(11063799006)(261026121527099003)(261102123227099003)(261021123027099003)(56012099006)(261021121427099003)(261022075727099003)(261022115727099003)(261009223027099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(6133799003)(3023799007)(261022105027099003)(11063799006)(5023799004)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261021123027099003)(56012099006)(261021121427099003)(261022075727099003)(261022115727099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1lLUHZyM1hmMmU1Q2ZLVkt6Q24zdlUyUCtlN1pVdlBQUndDZ1poWHlMbC8w?=
- =?utf-8?B?OXRobkpEMjJLU0pFWFFCdi9qdnp1dmt3Z1FvYUZPUGRJVEgxVENlcHVVajBw?=
- =?utf-8?B?NkdNR2FvalFFZW1qT1pZSDdYcTRZVXAvWU9JSGVtb09STXV3VDNDam15azJ3?=
- =?utf-8?B?Rk96eHVpMjB4TjdvdjRYWGpjVURXU0RXcVZxV2RFYVU5dUhob0JMeGQ5ZllT?=
- =?utf-8?B?a2VxZlNBL2twODA1bzBnOHhGN0ZMNDg0UjRXUVc2SUJSenZ0b2kyQmtwSmVB?=
- =?utf-8?B?Zmd4a3FzWDJGdXVOMFJ4QmJtTVNVNUdwTHlNRmN5R1FDaWY0Y25EUjVaOENM?=
- =?utf-8?B?RkhxSDViNUY4aHU0a21hUU9xSGVISVF3OGpGbkhDY0IwazJlL0ZZSFF4djhy?=
- =?utf-8?B?TVpYaXRqNXpaMnVvSlYrc1dRTFd2NGxyWU5OSy9IUGtsVWpxM1ZBeGxPMU4w?=
- =?utf-8?B?ZTZJUzhqRTlZRURaZ2hJZDUxcEVjSHZIR1hvdDVQL091Kzd2WVFka2V4cjVs?=
- =?utf-8?B?TlhZREg2OTV4Y3RJRWZNT1RRODVHS3lnNEs3S0ZjbW1KTGR4UEhEc1pUS3dX?=
- =?utf-8?B?a0QwT1lXc3NhUk9xZmxuenpHYVZudjNyK25kRDZ5UWpvZ2wyZHJId3QvaWZt?=
- =?utf-8?B?c3VFUVg5aS96TnRHaGVRNnpldTF3VkZVc2VvZU9NUE1MQ2JCK2JoTE1QV1dv?=
- =?utf-8?B?a29aU0F1bE9CdWVibDFsOThlTFRFb2k3SWNxd1pDRy96RUdPWEJOUXFsSmVU?=
- =?utf-8?B?ZU1tTTdUUGNwZDdJS1RmT1Q1V3QvLzRXeVZrZ1J6NktmUk5zWjdyZXVoek5V?=
- =?utf-8?B?WkNkOWdUZER1NGgvbzVHRFhUZzlXNzV2Z09VSXJPTlZGNWIzUlBCOURFckRN?=
- =?utf-8?B?QjR3NjM2Ky9waVQrMmdpTXBybStBVVpaelEraVo3enpXZHBmUkNEZkFkVmZk?=
- =?utf-8?B?R1kxc24zOEVySGxienBDV2JQSUFIQVVDWXg0SVhSaU5RK0txc0hJUHJ0L2NE?=
- =?utf-8?B?bUovb2t0QUdNREJ3eGF1VG94K1Rnbmt3Z1RhYVhrc1FVREI0djJBSU5lQ0U5?=
- =?utf-8?B?MFRWdjd5NFhzSVM5ZlVXRnRqeCtBdldiWkZyVitadGNobVJHa2JZcm5kOFBr?=
- =?utf-8?B?L1JGTjl6SWpQaEhWd3YxelhseTh2Q1c0aldBa0VsYlIrbXJuZkE1NWZ0bmZG?=
- =?utf-8?B?R3pnUnZtMW1hdW0xQkc5UVk4WlEwSnFsVXRCMTZFNjJ2b04vV3haWDIzbFBx?=
- =?utf-8?B?aUkrQXRJUlV6WGVRUkhGUXZHYWxTL2J4Nm1xV2RQRkV1KzEzcDl4TUI3MVJj?=
- =?utf-8?B?OFZXbVlnREY4WndrdDErQVlZZDRBaTN1R0h4bzY4SEJyWFAzNVExbmV2RVow?=
- =?utf-8?B?U2RrN2F3Y2NwWVNhNXl5TWJ2bVNGck16U0k4NDdZcmRVSXljR1RtR0VPZkxC?=
- =?utf-8?B?RkVDdmhsWUtRMUFoNUYwc21xNXcxRVg2R3NRUmtkR1RqYlNRejhDbWdrSlFj?=
- =?utf-8?B?VW9qTkJ4TzRsejcrRWtFOW5MaHczWTM4Sy9FNitOSTczUGJjdjczZ2JWUXp6?=
- =?utf-8?B?dE9qNVhPU0VqQThWSThvWkZudGdOM1gvMkEzS0FzR0RTeUVJZUJZbjYzbHkv?=
- =?utf-8?B?Z051T01TRUJpaWt2a0tiUUwwL1lEaGg5R0lMaCsxZXlCc1VSR3U1TExqYmli?=
- =?utf-8?B?U25vRGdNZWEzdlZ4RlNYME5mM2E3SUhIYWM1NUx6SUNTbjEvUlBTcDJqQVk5?=
- =?utf-8?B?YXhaeWphSFF1aWlCZ2tXay9RSnBuSWFiRU15Q0xmcm9uK0QxZDVTUUVNSEhH?=
- =?utf-8?B?dTNzNlhETE1oTUhOVlJ0blhUMWlpaE5odjZKOHlmWkM5L1VkVS9HUzdFVXE0?=
- =?utf-8?B?ZktMdmNzbmJSaVlPZEt2WlpQOUpwZ240djVqOVBUellxa0JWWXJHUk1ta3RH?=
- =?utf-8?B?M0pyQ01uaUFLMyt1aTd1alpTZEZobG01b3g4NjhOcGFKR2xGa050dmdRdTdm?=
- =?utf-8?B?SFUzbEdVR0dVZ1MzaGcxc2NxaHZPN2FBS1QvaVV0and4cGF1cEpMNXR5WDZw?=
- =?utf-8?B?VkNaNlJUVkliOUx1ZFVKaStZL2lkTU4xc1dLdllxOHJTZ2dzMGs4dlNPVFB1?=
- =?utf-8?B?eHNmNkpLUlRJSVZHZTJTWUE0Rm1ISnQ4N3NoOWFGTHAxeDNDaUJYdEhUbWUx?=
- =?utf-8?B?VllKNG0xVmZoaTZqZTZIdWpuQVl5aitKc1hDMi9qalBMbVhLNlFSVDZNY3FZ?=
- =?utf-8?B?bWg3WXR2UG5hS1hDcUdMT0lESzBBN0JoaXNLUzZVMDk3V0E4UzBUYWhZZ0pF?=
- =?utf-8?B?eU1Cbk90dW5abWtYVGovUndyM1RHMHFpNEw0Mjk2SHU5cEpnTG9vOTFLVmVp?=
- =?utf-8?Q?gVODaRI3Dh+8KstUdueg+Fs34c2L32tsoZs5iguyBmYVl?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7pEgIYYhkgLT8A==
+	=?utf-8?B?TkovTWtId09LZW5rVVVQVUpVYURmcW16Y2xZWkZVYjFzdjh5bnN4MCtSbE55?=
+ =?utf-8?B?TUEybjZaakJrc1NpNHVOT3dHaUlDYU43TC9jUGdtMnpZV2hkY1BZY2E4N2Q2?=
+ =?utf-8?B?dU83YnhGbkxmM3EvYTUwa2tHUDg3aDc2VTlWV3orSDRVZjNVV0NJSWV0TXlZ?=
+ =?utf-8?B?dlpTV2JhVldCYThMaVBaM29URlUvTGN2VmdXb045QjhJbEpTQnMyakg1MWJW?=
+ =?utf-8?B?c09CQTU3YWF3Y093eHJ0eWg0RTRucGtadW1CQUhBL2RLY0t6ZGVPVm1ZbmRF?=
+ =?utf-8?B?RTNNUjJRaW1KMnFCeGZIbU9JcWFqaGFncFNwdkdQb25ybVFKZmIwU3pjcEli?=
+ =?utf-8?B?OXMwZW5iQ0xVY0FrWmg5YTM1VW42Vm5XemJqbGxtY2N1U3RNTlVITzlPeFJy?=
+ =?utf-8?B?Y2hPWDNoR0tOZVJJc09hVHFETjU2OTluKzViN2V4OCtHT0Y2VjBvdTRkVEs4?=
+ =?utf-8?B?V3JXcHZOZGoxTzUrMnBScGh3aWJSOVJCVXJzN25jTDNvN0dKMllpYXFJdUhq?=
+ =?utf-8?B?L1NnSFI3dFhOcVdPR0hndWZpRG8weTd2a3Q0TnYrRmNwakdXK1hzYVdGV25G?=
+ =?utf-8?B?V0JZNXc0SHVvekcvTkNQY3N4Z0dWZmhQZ3NCSXVuSkRkTnZ6NzJpc0pudFpl?=
+ =?utf-8?B?MDhEeFhXRkdvazUzUkdGWjFkd3lMcisrL1ZxTWZkUXZ5djBmQXVvVEs5SzJK?=
+ =?utf-8?B?ejFNQmptMmR6TGRDelBZZzdJZWNNQnNHc3RDZEIzWE85UFVQYXJrU3JQYlhH?=
+ =?utf-8?B?ckRZZjNRaVZVNDlGZllwajFWQ3dYNDY2cjZ2MlA4cDFBOWNzNTB3bnF4YUdO?=
+ =?utf-8?B?eFRyQ1dkZnh5VnVjc0pXZWtYQllQbzBUdi9KVmVMdUNZTVhtUERiM25mMUZR?=
+ =?utf-8?B?RDBSd2hob2hvdWlsVFFRb3NnRDNiRHZIUGhOVDVqdUdrTWpsUC9RNjFMZVNs?=
+ =?utf-8?B?VGg0dlhNNENpVEc0QjFhR2FkNUgydmRTcGROOHlZMXRmMmlVVWpkajc0SDB3?=
+ =?utf-8?B?Tk9qMVlPMExuQnJZcU53Vkw5QUpMVnRLYi9LRWhndFM3eWJhQzhlY0Z2TzFn?=
+ =?utf-8?B?SnFxY0hPbEp0a2VJMndKdmpWMWxGd1FDSXVvL1VGWVNwaTF6VFJRTkpjbUxa?=
+ =?utf-8?B?alRscU1ydjRYb1Z4aGcyU1RaV3Z4QUJ0VFp1RmpyaitLbVVwaTF5aXpxUHEx?=
+ =?utf-8?B?Y3NjMnBNcjA3bUE4QnZiVXp5aTNxaUZFUUQzTkI0MGx1bE1oTDAvQ2pMeGE2?=
+ =?utf-8?B?MGFpcUE2b1lUQXhRU3E3bTBuV2p0THpCUUlQUGw5VlJuNXlTb25hVkR4UWJo?=
+ =?utf-8?B?Y0JCaklQWkJsbGlMVENlM2g4Z2Nvam1BL09obDU1b0R6cnFlamhQRHBWYVRj?=
+ =?utf-8?B?MHhjSjJRS3BPN3JkSUpUOHhNY3FSQjJKRW1pOWE4YmJqbmptOUdrNjliRVdw?=
+ =?utf-8?B?SllRSUVCbmhKR1VwNU11YjdkYUVwcHlNZDhualRSSXlTMFFaUEd3am1FVk5J?=
+ =?utf-8?B?aTVrNlRVdzdqUVhZWXVQc1dWczh6RmFURVNCc2V5VHIzNGZpWmZLQlIrNXpH?=
+ =?utf-8?B?K25VaDVldGJJdzJEVzdjOGs1YVUyd1RLMDN0SlNVSFV6ZkVJWVpyNE9ya1Uz?=
+ =?utf-8?B?V29LdmdCbUErYWVabVVZQUVRdUI2T0hCeUtvTXh3a2k3dE01T05kNFpKM2Y1?=
+ =?utf-8?B?aktPVGFvTlZOdldROEpvWW92RDRtOTJZOU5CdXhDMkRBMVJHeUZwbGV3UkVG?=
+ =?utf-8?B?ZUVLYUQ4S3AzdmR1ZDFPODVBWVNId3psT051N044NEZxcE5oRkFTSnRXdERM?=
+ =?utf-8?B?djhZcmU5OTVQdExlYXR2dThKZ2M0RFFSc0xyN21vR2JWbkxjeloyVk12eDRM?=
+ =?utf-8?B?UndrdFZ4R2dHbnF0Zy85YklvYzVVL01iOFk4ZWVRQ0JOV0EvRGNWOWx0RlQ5?=
+ =?utf-8?B?N0RzZUZNYXptT3lGQmUzeFlBbytMaHlOT0ZINUR4bHJFMTBBd3k1TFN2d2dR?=
+ =?utf-8?B?SFJyK0czdjNKQ2dFdFlYOThLNnVIMWtvYTNKZjJtaHJjVXV1WFZRV0NSeUli?=
+ =?utf-8?B?Zm8zdFI3ZmFySWVMS0p2eTk5bmx4Nk9ZK21wQldRZWNCb1VMcFIyZDk1YUZ6?=
+ =?utf-8?B?WkxoVUVxQXN5OENTbEczMmNHNFhxN3hLOGcybks0MGE0aVpBUE5tTHozTEJs?=
+ =?utf-8?B?NkN3L25vR3JuRDZKazVzdytBSSs3UDVWK1pmWFdBS2hSSjB4Kzg2bDVpVU5U?=
+ =?utf-8?B?UDZVSFJhTnNMSi9LaU1WeW5kblYzamlxZXRoZytIVHNYOFVnTEpzbnUyMkRh?=
+ =?utf-8?B?OWN0VHd3eTVZZE5MQ2Jac3NEMWsrS0tFQUVXYzdlOXIxUFBFRUF2N090b2hu?=
+ =?utf-8?Q?eCESrTlYvdUckwcCWM+fHy98s2bG2buKL2zX5hjZnfgiZ?=
+X-MS-Exchange-AntiSpam-MessageData-1: 8dShT8VqRpgjVw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 365a36c3-3056-4cbb-88e5-08df3cb446ee
+X-MS-Exchange-CrossTenant-Network-Message-Id: 360553df-7c97-44c7-e90b-08df3cb4489e
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 09:48:29.2769
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 09:48:32.1164
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MnvBfDYp82oD3xVA+naBmULPCDH9GpTkal7uzKDKdZMhuNkiUIePSoQKX1cTGXoPHuO7CDzQOta5VGUVO228sg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: tN0R2zaw8dx08vKcy7oHCGVrLyfOnlima5lvxmwAlRbRp8rY+glemwUf7kV+2oQqYM48owWHfVwBjC2kh4HA1w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8269
 
 From: John Hubbard <jhubbard@nvidia.com>
 
-The generic bootloader was loaded right below the first 64 KiB of IMEM,
-on the assumption that every falcon it runs on has a 64 KiB IMEM. The
-r000 load-and-execute bootloader event can name any image for it to
-load, and the bootloader must then sit above the blocks that the image
-occupies, that is, in the last blocks of IMEM, regardless of its size.
+The generic falcon bootloader reads its load parameters from a
+descriptor that the driver places in DMEM. The r000 load-and-execute
+bootloader event carries such a descriptor, so its handler will need the
+descriptor type.
 
-Place the bootloader at the top of the falcon's IMEM, using the IMEM
-size that the HWCFG register reports, instead of assuming a 64 KiB IMEM.
+The descriptor was defined in the FWSEC code, which was its only user.
+Move the definition, unchanged, into the generic bootloader module.
+
+No functional changes.
 
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-Reviewed-by: Timur Tabi <ttabi@nvidia.com>
-Reviewed-by: Zhi Wang <zhiw@nvidia.com>
-[acourbot: split out of the patch separating the bootloader from FWSEC;
- convert the IMEM size with usize::from()]
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+[acourbot: keep the fields private, add a constructor and the ctx_dma()
+ accessor instead of making every field pub(crate)]
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/falcon.rs                    |  7 +++++++
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  7 ++++---
- drivers/gpu/nova-core/firmware/gen_bootloader.rs   | 21 +++++++++++++--------
- drivers/gpu/nova-core/gsp/hal/tu102.rs             |  6 ++++--
- drivers/gpu/nova-core/regs.rs                      |  5 +++++
- 5 files changed, 33 insertions(+), 13 deletions(-)
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 95 +++++-----------------
+ drivers/gpu/nova-core/firmware/gen_bootloader.rs   | 94 ++++++++++++++++++++-
+ 2 files changed, 112 insertions(+), 77 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index a34748abc74a..b17a997860ef 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -386,6 +386,13 @@ pub(crate) fn new(
-         })
-     }
- 
-+    /// Returns the size of this falcon's IMEM in bytes.
-+    pub(crate) fn imem_size(&self) -> usize {
-+        let blocks = usize::from(self.pfalcon.read(regs::NV_PFALCON_FALCON_HWCFG).imem_size());
-+
-+        blocks * MEM_BLOCK_ALIGNMENT
-+    }
-+
-     /// Resets DMA-related registers.
-     pub(crate) fn dma_reset(&self) {
-         self.pfalcon.update(regs::NV_PFALCON_FBIF_CTL, |v| {
 diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index 80239301bbfa..00f0d9704883 100644
+index 00f0d9704883..19e047f1c1ed 100644
 --- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
 +++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -103,14 +103,15 @@ pub(crate) struct FwsecFirmwareWithBl<'a> {
- }
+@@ -35,60 +35,16 @@
+     },
+     firmware::{
+         fwsec::FwsecFirmware,
+-        gen_bootloader::GenericBootloader, //
++        gen_bootloader::{
++            BootloaderDmemDescV2,
++            GenericBootloader, //
++        },
+     },
+     gpu::Chipset,
+     num::FromSafeCast, //
+     regs,
+ };
  
- impl<'a> FwsecFirmwareWithBl<'a> {
--    /// Loads the bootloader firmware for `dev` and `chipset`, and wrap `firmware` so it can be
--    /// loaded using it.
-+    /// Loads the bootloader firmware for `dev` and `chipset`, placed at the top of `falcon`'s IMEM,
-+    /// and wraps `firmware` so it can be loaded using it.
-     pub(crate) fn new(
-         firmware: FwsecFirmware,
-         dev: &'a Device<device::Bound>,
-         chipset: Chipset,
-+        falcon: &Falcon<'_, Gsp>,
-     ) -> Result<Self> {
--        let bootloader = GenericBootloader::new(dev, chipset)?;
-+        let bootloader = GenericBootloader::new(dev, chipset, falcon)?;
+-/// Structure used by the boot-loader to load the rest of the code.
+-///
+-/// This has to be filled by the GPU driver and copied into DMEM at offset
+-/// [`BootloaderDesc.dmem_load_off`].
+-#[repr(C, packed)]
+-#[derive(Debug, Clone)]
+-struct BootloaderDmemDescV2 {
+-    /// Reserved, should always be first element.
+-    reserved: [u32; 4],
+-    /// 16B signature for secure code, 0s if no secure code.
+-    signature: [u32; 4],
+-    /// DMA context used by the bootloader while loading code/data.
+-    ctx_dma: u32,
+-    /// 256B-aligned physical FB address where code is located.
+-    code_dma_base: u64,
+-    /// Offset from `code_dma_base` where the non-secure code is located.
+-    ///
+-    /// Also used as destination IMEM offset of non-secure code as the DMA firmware object is
+-    /// expected to be a mirror image of its loaded state.
+-    ///
+-    /// Must be multiple of 256.
+-    non_sec_code_off: u32,
+-    /// Size of the non-secure code part.
+-    non_sec_code_size: u32,
+-    /// Offset from `code_dma_base` where the secure code is located (must be multiple of 256).
+-    ///
+-    /// Also used as destination IMEM offset of secure code as the DMA firmware object is expected
+-    /// to be a mirror image of its loaded state.
+-    ///
+-    /// Must be multiple of 256.
+-    sec_code_off: u32,
+-    /// Size of the secure code part.
+-    sec_code_size: u32,
+-    /// Code entry point invoked by the bootloader after code is loaded.
+-    code_entry_point: u32,
+-    /// 256B-aligned physical FB address where data is located.
+-    data_dma_base: u64,
+-    /// Size of data block (should be multiple of 256B).
+-    data_size: u32,
+-    /// Number of arguments to be passed to the target firmware being loaded.
+-    argc: u32,
+-    /// Arguments to be passed to the target firmware being loaded.
+-    argv: u32,
+-}
+-// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
+-unsafe impl AsBytes for BootloaderDmemDescV2 {}
+-
+ /// Wrapper for [`FwsecFirmware`] that includes the bootloader performing the actual load
+ /// operation.
+ pub(crate) struct FwsecFirmwareWithBl<'a> {
+@@ -141,9 +97,6 @@ pub(crate) fn new(
+         };
  
-         // `BootloaderDmemDescV2` expects the source to be a mirror image of the destination and
-         // uses the same offset parameter for both.
+         let dmem_desc = {
+-            // Bootloader payload is in non-coherent system memory.
+-            const FALCON_DMAIDX_PHYS_SYS_NCOH: u32 = 4;
+-
+             let imem_sec = firmware.imem_sec_load_params();
+             let imem_ns = firmware.imem_ns_load_params().ok_or(EINVAL)?;
+             let dmem = firmware.dmem_load_params();
+@@ -155,30 +108,20 @@ pub(crate) fn new(
+                 return Err(EINVAL);
+             }
+ 
+-            BootloaderDmemDescV2 {
+-                reserved: [0; 4],
+-                signature: [0; 4],
+-                ctx_dma: FALCON_DMAIDX_PHYS_SYS_NCOH,
+-                code_dma_base: firmware_dma.dma_address(),
+-                // `dst_start` is also valid as the source offset since the firmware DMA object is
+-                // a mirror image of the target IMEM layout.
+-                non_sec_code_off: imem_ns.dst_start,
+-                non_sec_code_size: imem_ns.len,
+-                // `dst_start` is also valid as the source offset since the firmware DMA object is
+-                // a mirror image of the target IMEM layout.
+-                sec_code_off: imem_sec.dst_start,
+-                sec_code_size: imem_sec.len,
+-                code_entry_point: 0,
+-                // Start of data section is the added padding + the DMEM `src_start` field.
+-                data_dma_base: firmware_dma
+-                    .dma_address()
+-                    .checked_add(u64::from_safe_cast(align_padding))
+-                    .and_then(|offset| offset.checked_add(dmem.src_start.into()))
+-                    .ok_or(EOVERFLOW)?,
+-                data_size: dmem.len,
+-                argc: 0,
+-                argv: 0,
+-            }
++            // Start of data section is the added padding + the DMEM `src_start` field.
++            let data_dma_base = firmware_dma
++                .dma_address()
++                .checked_add(u64::from_safe_cast(align_padding))
++                .and_then(|offset| offset.checked_add(dmem.src_start.into()))
++                .ok_or(EOVERFLOW)?;
++
++            BootloaderDmemDescV2::new(
++                &imem_ns,
++                &imem_sec,
++                &dmem,
++                firmware_dma.dma_address(),
++                data_dma_base,
++            )
+         };
+ 
+         Ok(Self {
+@@ -204,7 +147,7 @@ pub(crate) fn run(&self, dev: &Device<device::Bound>, falcon: &Falcon<'_, Gsp>)
+ 
+         // Configure DMA index for the bootloader to fetch the FWSEC firmware from system memory.
+         falcon.pfalcon.update(
+-            regs::NV_PFALCON_FBIF_TRANSCFG::try_at(usize::from_safe_cast(self.dmem_desc.ctx_dma))
++            regs::NV_PFALCON_FBIF_TRANSCFG::try_at(usize::from_safe_cast(self.dmem_desc.ctx_dma()))
+                 .ok_or(EINVAL)?,
+             |v| {
+                 v.with_target(FalconFbifTarget::CoherentSysmem)
 diff --git a/drivers/gpu/nova-core/firmware/gen_bootloader.rs b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-index 16ef2c79a6b1..c4f436104326 100644
+index c4f436104326..f769b2b277c0 100644
 --- a/drivers/gpu/nova-core/firmware/gen_bootloader.rs
 +++ b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-@@ -12,13 +12,14 @@
+@@ -12,7 +12,8 @@
          TryIntoBounded, //
      },
      prelude::*,
--    ptr::Alignable,
--    sizes, //
-+    ptr::Alignable, //
+-    ptr::Alignable, //
++    ptr::Alignable,
++    transmute::AsBytes, //
  };
  
  use crate::{
-     falcon::{
+@@ -20,6 +21,7 @@
          self,
-+        gsp::Gsp,
-+        Falcon,
+         gsp::Gsp,
+         Falcon,
++        FalconDmaLoadTarget,
          FalconPioImemLoadTarget, //
      },
      firmware::tlv::{
-@@ -40,15 +41,19 @@ pub(crate) struct GenericBootloader {
- }
+@@ -30,6 +32,96 @@
+     num::FromSafeCast, //
+ };
  
- impl GenericBootloader {
--    /// Loads the generic bootloader image for `chipset`, placed right below the first 64 KiB of
-+    /// Loads the generic bootloader image for `chipset`, placed in the last blocks of `falcon`'s
-     /// IMEM.
-     ///
-     /// # Errors
-     ///
-     /// - `EINVAL` if a required TLV field is absent.
--    /// - `EOVERFLOW` if the image does not fit below 64 KiB.
-+    /// - `EOVERFLOW` if the image does not fit in IMEM.
-     /// - `ENOMEM` if the padded copy of the code cannot be allocated.
--    pub(crate) fn new(dev: &device::Device, chipset: Chipset) -> Result<Self> {
++/// Structure used by the boot-loader to load the rest of the code.
++///
++/// This has to be filled by the GPU driver and copied into DMEM at offset
++/// [`BootloaderDesc.dmem_load_off`].
++#[repr(C, packed)]
++#[derive(Debug, Clone)]
++pub(crate) struct BootloaderDmemDescV2 {
++    /// Reserved, should always be first element.
++    reserved: [u32; 4],
++    /// 16B signature for secure code, 0s if no secure code.
++    signature: [u32; 4],
++    /// DMA context used by the bootloader while loading code/data.
++    ctx_dma: u32,
++    /// 256B-aligned physical FB address where code is located.
++    code_dma_base: u64,
++    /// Offset from `code_dma_base` where the non-secure code is located.
++    ///
++    /// Also used as destination IMEM offset of non-secure code as the DMA firmware object is
++    /// expected to be a mirror image of its loaded state.
++    ///
++    /// Must be multiple of 256.
++    non_sec_code_off: u32,
++    /// Size of the non-secure code part.
++    non_sec_code_size: u32,
++    /// Offset from `code_dma_base` where the secure code is located (must be multiple of 256).
++    ///
++    /// Also used as destination IMEM offset of secure code as the DMA firmware object is expected
++    /// to be a mirror image of its loaded state.
++    ///
++    /// Must be multiple of 256.
++    sec_code_off: u32,
++    /// Size of the secure code part.
++    sec_code_size: u32,
++    /// Code entry point invoked by the bootloader after code is loaded.
++    code_entry_point: u32,
++    /// 256B-aligned physical FB address where data is located.
++    data_dma_base: u64,
++    /// Size of data block (should be multiple of 256B).
++    data_size: u32,
++    /// Number of arguments to be passed to the target firmware being loaded.
++    argc: u32,
++    /// Arguments to be passed to the target firmware being loaded.
++    argv: u32,
++}
++
++impl BootloaderDmemDescV2 {
++    /// Context DMA slot through which the bootloader reads the image: physical, non-coherent
++    /// system memory.
++    const FALCON_DMAIDX_PHYS_SYS_NCOH: u32 = 4;
++
++    /// Creates the descriptor of an image whose code is at `code_dma_base` and whose data is at
++    /// `data_dma_base`.
++    ///
++    /// `imem_ns` and `imem_sec` locate the non-secure and secure code in the image, and `dmem`
++    /// gives the size of its data. The code DMA object must be a mirror image of the target IMEM
++    /// layout, because the bootloader uses the destination offset of each code segment as its
++    /// source offset too.
 +    pub(crate) fn new(
-+        dev: &device::Device,
-+        chipset: Chipset,
-+        falcon: &Falcon<'_, Gsp>,
-+    ) -> Result<Self> {
-         let fw = request_tlv(dev, chipset, "gen_bootloader")?;
-         let tlv = Tlv::new(fw.data())?;
-         dev_dbg!(
-@@ -72,9 +77,9 @@ pub(crate) fn new(dev: &device::Device, chipset: Chipset) -> Result<Self> {
-             ucode
-         };
- 
--        // The bootloader's code must be loaded in the area right below the first 64K of IMEM.
--        const BOOTLOADER_LOAD_CEILING: usize = sizes::SZ_64K;
--        let imem_dst_start = BOOTLOADER_LOAD_CEILING
-+        // The top of IMEM, above the blocks that the bootloader loads the image into.
-+        let imem_dst_start = falcon
-+            .imem_size()
-             .checked_sub(ucode.len())
-             .ok_or(EOVERFLOW)?;
- 
-diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-index e90db1a23032..1b17ece53bd6 100644
---- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-@@ -165,7 +165,7 @@ fn run_fwsec_frts(
-         )?;
- 
-         if self.needs_fwsec_bootloader {
--            let fwsec_frts_bl = FwsecFirmwareWithBl::new(fwsec_frts, dev, chipset)?;
-+            let fwsec_frts_bl = FwsecFirmwareWithBl::new(fwsec_frts, dev, chipset, falcon)?;
-             // Load and run the bootloader, which will load FWSEC-FRTS and run it.
-             fwsec_frts_bl.run(dev, falcon)?;
-         } else {
-@@ -223,7 +223,9 @@ fn build_unload_bundle<'gpu>(
-         // Load the FWSEC SB firmware, as well as its bootloader if required.
-         let fwsec_sb = FwsecFirmware::new(dev, gsp_falcon, bios, FwsecCommand::Sb)?;
-         let fwsec_sb = if self.needs_fwsec_bootloader {
--            FwsecUnloadFirmware::WithBl(FwsecFirmwareWithBl::new(fwsec_sb, dev, chipset)?)
-+            FwsecUnloadFirmware::WithBl(FwsecFirmwareWithBl::new(
-+                fwsec_sb, dev, chipset, gsp_falcon,
-+            )?)
-         } else {
-             FwsecUnloadFirmware::WithoutBl(fwsec_sb)
-         };
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index bf3a43f1c09e..af0bbb92e992 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -181,6 +181,11 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         31:0    value => u32;
-     }
- 
-+    pub(crate) NV_PFALCON_FALCON_HWCFG(u32) @ 0x00000108 {
-+        /// Number of 256-byte blocks in this falcon's IMEM.
-+        8:0     imem_size;
++        imem_ns: &FalconDmaLoadTarget,
++        imem_sec: &FalconDmaLoadTarget,
++        dmem: &FalconDmaLoadTarget,
++        code_dma_base: u64,
++        data_dma_base: u64,
++    ) -> Self {
++        Self {
++            reserved: [0; 4],
++            signature: [0; 4],
++            ctx_dma: Self::FALCON_DMAIDX_PHYS_SYS_NCOH,
++            code_dma_base,
++            non_sec_code_off: imem_ns.dst_start,
++            non_sec_code_size: imem_ns.len,
++            sec_code_off: imem_sec.dst_start,
++            sec_code_size: imem_sec.len,
++            code_entry_point: 0,
++            data_dma_base,
++            data_size: dmem.len,
++            argc: 0,
++            argv: 0,
++        }
 +    }
 +
-     pub(crate) NV_PFALCON_FALCON_DMACTL(u32) @ 0x0000010c {
-         7:7     secure_stat => bool;
-         6:3     dmaq_num;
++    /// Returns the context DMA slot through which the bootloader reads the image.
++    pub(crate) fn ctx_dma(&self) -> u32 {
++        self.ctx_dma
++    }
++}
++
++// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
++unsafe impl AsBytes for BootloaderDmemDescV2 {}
++
+ /// The generic falcon bootloader image and its IMEM load parameters.
+ pub(crate) struct GenericBootloader {
+     /// Bootloader code, zero-padded to a whole number of falcon memory blocks.
 
 -- 
 2.56.0
