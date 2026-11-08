@@ -1,45 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093497;
-	b=s6vMkY+eW2Xzifr8cjKMdyvGABajcEHD+Evi1SKKN51TQPCCkiN2jipeZscsukOt9+5T
-	 QCtcawLkcWVspqllIspJXW2YBUSWO0x8hEQSDBdMLMtqHG5UIp0fXuFLsfFSV1yaR76VM
-	 wyvcODjYGw/0GfspnZlv8BVUI0pzWjx72f3cbT+olJb+PRn0IbDjwv2It6znSF6QIhfEJ
-	 DC8aMJ/qErfSIYjH/Yoky7o5CNr+s3/RxgH8QAzQ1WNbHOhel+Pnn7K+E+uygFArgwjFa
-	 846qwhBJ18gv/sEw0Y/QrVYMc977xpt6eJM+lo/q+w9/fQmI31i11wvwJapBHeXw33Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093497;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
-	 In-Reply-To;
-	bh=B+YhXZl+/eWRBv4RgozyREqWo5C8cExmqjC652z4jDc=;
-	b=k+TtibECMBnpWn2iPGdwhgP4MwfTiL2HMtRlSxCLwDKHcN2adchccXsOA2sZhC0j9rDX
-	 Zleu9pD4UKo7x5yPjy3hyWfaAfDHXf9ofIy5tQbxJDkJTer6Mj2iwbIgCq1jVHyLGUNOm
-	 QIQI7VL97zSCs3e1+XZnWgJOK/lgkoeobPeKKqnExrIApAtjc3DnTNjsHsolsr5gG3q1C
-	 W8cs6/TrmVP7RnZ9OruTsiEQ4CkqsIAzU3rd7ZqgdD7/H2oyYDNoImUIsP0lMyjBAvZQk
-	 e855pGHEJqXeTBmrZe6pbAILdRTIOao+6dnrSZ1/gsUoyHCsQpHcAN6puq8hsG5aUhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMw1HOP4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794145900;
+	b=Ia+pyN5/wIEyJamYJ5LuZxQp8cMi+4zFk2WC/pxZpa5sIb7AQECMb5t+AU35GRniKF6N
+	 5Bhf8ULsgfVJy1FTq1vWFVL+7oFEna2JQyfXPoX5muEJtK+XIyZoXgF/nrpq7nf9ttH1R
+	 WdDtDTlmGm4nBqpgU3RcBXiKtO28FZTx6zykZdBH3Jpke4Q0WVPIaNFk78SKOpmk29FUK
+	 93GmS+7wZ5KCKaIxklHnBB4f1eDImIBnbxl1CvLf70R2Poeug52rDxo/56cF/FbPS0OFQ
+	 WUA+CBzV+VQuIaB7ozvLnk0UgaWTGlhIvDafoEN+9tvx5/P1mXqEy2Tk8IQtXktpXmw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794145900;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:Date:
+	 Message-Id:Cc:Subject:From:To:Content-Transfer-Encoding:References:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Jx4TLuf8LEXuj2vvXAFHar97lXfG0sz7c92+SX6QB0U=;
+	b=TEgmT01jc5IRIShQuXIffGQGTb6HlC3N0mW1y6Ke4kwdAvwbX6sXCxYnJoAZY+JRhX6e
+	 s8CH/Ij1aOjvbr4ap0xorhC7HtWkVCcbS27qc+ZNhgKcFmVeUlDVfFnPNjqpBK8L+Ggg/
+	 LpiY++PIkBlitvdlns9rFWFlYEBoq3p6loIdFYFPbSF+y0Xw4ATv/25J9OCLspImDOy5j
+	 qdmg3S7YsxTZKVZ0A7O9FdQ3JfV2F814fxxqJcrQTARB9SiZq2cf9UNyqCQ6SFhaEJiOb
+	 A6ZJ1+8bhgdXbHeuqzLUHCCtdLsrxmA55ZqcSieFJ2cxMmvmz1AxdC5ut7SQIUF2Hjg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ocZU6icH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.42
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012042.outbound.protection.outlook.com [52.101.43.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D3E606A326;
-	Sat,  7 Nov 2026 23:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABE3606A31C
+	for <nova-gpu@lists.linux.dev>; Sun,  8 Nov 2026 13:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BABE3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMw1HOP4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8C11F0089F;
-	Sat,  7 Nov 2026 23:18:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794093496;
-	bh=B+YhXZl+/eWRBv4RgozyREqWo5C8cExmqjC652z4jDc=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=lMw1HOP4tnW3JvJhlRS8xA+R2LNpa3onQ1CAogENBEfkTxzwNmmROKB0asKESEdHa
-	 LPIFeYVb3lS1Dz/iFj/qicZ3WDrRan1q0WmYQMKdOmySZWwKAyYqj5h3Ue0MzFgZ/+
-	 9TEKM6luuvc7jGFr4RZoSECPhQJjVn1VcGYbIDdVIK36Rj6y6VKjavPgCBtGMT87ml
-	 +f896MxhHF4w08uLf3NpmqjGiitdaHUvjreWODi0J4zt1FQxJkBFnQIyeV2izKbLu7
-	 nGH2dRZ0aaKmytkZrSSMcmRvqg9Fzc9PBJjsNk4a8qe7s06vm5RyJTirG0+5Tf+6aF
-	 UE3hcIKF20jDw==
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ocZU6icH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nb3PYRCFcw2qaE7t32D6/0KX6S34H3sJRQrb4psgLzMVAlOZS8FhS6V+IHvVz1ooGrtNZbBCNCaNKNddzQQv9Seny7RtdkoHeb6yFBQu+ozxbb2094MhYlx3MQGb/MdCoKvGPdSjnPw5w5b9U3JGYAsoZ1XwnhgvUwTPHgGX24QwbN881c8j1DbZZgj0n2TZl8f96An9zp700B6OlGtdV/FwCWE5fVQmtMFdz+rULdiVnrKcS0rcNS7jEHkwAO7WbQEQXY/DsR3bJ9dGExqVU4/5g6JwR4Vo5ZqTHae/3Q+c+1ia/RhBVyy3WTT7M0dQhcyEDULMNzUWz++XmOhDIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jx4TLuf8LEXuj2vvXAFHar97lXfG0sz7c92+SX6QB0U=;
+ b=Iqqbp20PdgVbAEF/po0ohOM292XrlCbf4o6nFRzjNJnf9f09j1xyAxbG8XKI8ve9NwEt/bbQHS/bUp7B0ed1sXTpKX3mxNit1rKNpF38TxM+Lj7jN/SuumnAPwo9l6kIBYAVdzOVoehnAUb98B+TFk8wGS18Dm2t7+vRJ7zklC8ogMIRoe4YHIFD5oA52Xrqgw8PIp151cm+//StWwUeZ5qz7cKCYECVy4gCyBLOegVlyVIGwd+dOIx02GugmSf8jROklkJmO7w5aTdtnmdz1mLwHzsUf4/fnaGby+sqzGqQloPlOfk/Yk56s2jztoKnwzlHJCphjhwuD5pfq0FEzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jx4TLuf8LEXuj2vvXAFHar97lXfG0sz7c92+SX6QB0U=;
+ b=ocZU6icHIPHpwgG3Ma+u1q+cdwa3tVNkUtrRzdZBGETqPIg1gbgdHrSiFvcndGNc9Zr3X3O7JWRRpLuK9Sf9Q+5VzFMGs2AJFsBz3l6IsUmxGozIrNMy+i3HD12s9IhJP0ZfMc3mEcUOqJE6T5JtMGhJP8AeoAx09ArGmi4aqQEgQB5ZgqO1MrZfiNxII347cJ8Xjdnoj156pkVyYa9pIP6b2gllvosJ25yHmU91IonMwKCFIB+e4gFm5W9thEBiZB0yUwoqpmLL5VMvy/n+iLEDbpCTIth4OP3Ft1XEywqmGojO+BpB/bzZ2bzpgN7rtFpd496dq3e4sMiEbYUSIQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DM4PR12MB8571.namprd12.prod.outlook.com (2603:10b6:8:187::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
+ 2026 13:51:34 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sun, 8 Nov 2026
+ 13:51:34 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 08 Nov 2026 22:51:31 +0900
+Message-Id: <DMPVN025DBS8.1HVI0U45RAS5J@nvidia.com>
+Cc: "Dave Airlie via B4 Relay" <devnull+airlied.redhat.com@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "FUJITA Tomonori"
+ <fujita.tomonori@gmail.com>, "Gary Guo" <gary@garyguo.net>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 2/2] gpu: nova-core: add support for GPU timer block.
+ (v4)
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "David Airlie" <airlied@redhat.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20261105-nova-timer-v4-0-45a7c121d4de@redhat.com>
+ <20261105-nova-timer-v4-2-45a7c121d4de@redhat.com>
+ <DMNCVDFYPL3I.3CCYXY4641F13@nvidia.com>
+ <CAMwc25rODe5F7MdhWEr80q+eOitKqg-O0LQhEWOMSVWZodfyMg@mail.gmail.com>
+ <DMO7FUYY05LK.123ZPLIW24C2S@nvidia.com>
+In-Reply-To: <DMO7FUYY05LK.123ZPLIW24C2S@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0054.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -48,120 +104,100 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 08 Nov 2026 00:18:12 +0100
-Message-Id: <DMPD2CDIAW74.2Q60A9JGEPTR2@kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
- module data
-Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
- <jhubbard@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
- <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
- <20261014154554.231015-2-vladazaharova2018@gmail.com>
- <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
- <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
- <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
-In-Reply-To: <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB8571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72534d8a-ca42-4699-e181-08df3d9f668f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|366016|376014|7416014|1800799024|22082099003|18002099003|4143699003|5023799004|11063799006|56012099006|10067099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|261021123027099003|261021121427099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	LMlYy/I0T97kuCeRXaSR1vL1QBQz+N+OMjKIFSHpOzXvsH9zVe9gAWgLxoGnGiCIAB2GPC98sAGbzmamHcE4u8bIbvXXWPaM254zm4m7o98OHDlZTUNFvvCZnI6C02gN9LYgx2Fe3P5hD2+Q9x1xjo8lbtNz067H1qYRQloSyNJAsq6GMXlvadcq93eJIgubQmM4+YCHBlZHMN7wRx09hhp3bwUzT6cqx9CTnCDjFUyZP+I4N96CYQVCg850wPSWeS5e9ffZWBpOaheKGBMkJHNxIKwle93Q2NuiUXn4H0jTjgupY7EQoPSwNSiDfd1vIA2Gi5j8ve/zkYREfwundyA0ed5gqzW7vNyhPNd7SuFodTL6hIB5Uzgfsi7cD9/N+UbILO9bEjGCC8UiaIHM38LvEzC8C1hQV1nkklIXBm8ZjBnhiB87YFOp5KK7B6gVdxx0ajerHiXAEryjHBvbfS2yLEt/6XL8NPPz1p1AdjH+ZailfJpSQtcdsoT1Q3u/ZXRZDuW+aJLrSe1p5FBnRLmpTh5SUALhqyNF7A+/vfLNr2MFSHFzv+OilNgv8QJ23OvQ5mciajCAUYnuAH/NbzprpcdqIl+vvuS4ahl48ugLyF7+gmH/+I19que3wU8r7gfeWll6xtZD+SDG9G+6Dcq9lSYU0OXign3HhWvGIWE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(366016)(376014)(7416014)(1800799024)(22082099003)(18002099003)(4143699003)(5023799004)(11063799006)(56012099006)(10067099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M29BY0QwV3lNeDllRUthTDZqRmcvUW9tRzcyVUEwZWN1d1BweVFWUEllbEpK?=
+ =?utf-8?B?VVkvY1p4cmJSTjViUzZneFlQQnZwYzJPcXRtc3hpek1hbzJhUmtEV004cHM2?=
+ =?utf-8?B?bm4yWWlQRVN6K0pNTzhLMVc3cVliazRNbitGM1BEVjBzck0yVmZjSUVtRFVY?=
+ =?utf-8?B?MWNhQWYxdWpnU3hON01hb1RIWEQ2QzZteXFmL25CSVMwNUZyQUpYQVRJU1Fi?=
+ =?utf-8?B?eFJWbkJFbUlqUS9iSTV5L3B2dXlxQitYa0pjSXFVZXRqYkY0clFsNGd5L21M?=
+ =?utf-8?B?R00rdmhRWU9lNlArTXFiVzkzZ0JTYWQrdFhPTEFaVVk5endtd0NYeUdRRFFk?=
+ =?utf-8?B?QTZyWEYreXNKWmpuYjlvUzh2TjF4L0lwU2dBK2JhdFJqcFAzOVFudlFVQ3lU?=
+ =?utf-8?B?ZDdSczNyU2Z1VHJiN1ljeERDVzkxazJlRmloV3NqVkZ4VWNIRVYzRkRqM2ZL?=
+ =?utf-8?B?QkxBOCswZ1VLSW5iR1BvbmprM2JqdWlTOWRoZm5VQjk4b0FxSVYvNndSWXZQ?=
+ =?utf-8?B?SWx5dGMxbVhkUnh6bkdQWGhzcFFMRXVjb3ptb3JCK0FmQjNON2w0aGR5LzN2?=
+ =?utf-8?B?dnZwRldteS9wVTB4U2JvVDgvVnQ5czZza2wvdTFIUUNjOUhwb09jOHQ1Qzk4?=
+ =?utf-8?B?VmdDS1ZSZlkraXhVQjArSGsrQTJ1eEUveVNXNVVBRk9sU1ZhczluQjUxMFJL?=
+ =?utf-8?B?dmhwL0lLVWVXVk1Pc0RocEtyQzh4KzVvcWMvK2grYldwMnNNdVB2SXJ2Snkv?=
+ =?utf-8?B?dE1JeWVWOWh6MGhQUWZZZmxteU0xWmVQeFN6NU5vMzRuanZvdmlBYVZidERl?=
+ =?utf-8?B?cThDRWphb216U0JYUGtONjh1cTd2ektGR29UdU5DdGRLNnJMRjF1L01VRXNj?=
+ =?utf-8?B?SkJuT2tGVmp6TEVUKzE3YXpzK0g3YW83TDBqRmgxQzJuMVRqWUhNaDVPRWVn?=
+ =?utf-8?B?TjJqVko1OE5rTVRqWHY3dUF6dnFpNVNxN1Mwa0lYL040UXRSZjdZUkRwSzMw?=
+ =?utf-8?B?bytNTzFKSW9McU8rM2NQczJIK3FFREdjTVp6UzZoWHg5SUdVcytTVk45Y3hJ?=
+ =?utf-8?B?WlJodTNEcEsxOStCR1I1QVlRSW1qeisrRHNWTWVOaW5reENvYlArKzRQNmtT?=
+ =?utf-8?B?NlMvVkV2eFJqRHFIckh0RS9VMWE3Ri9pQTMzS0RQVkJid01SUzZ3TXZWVlcv?=
+ =?utf-8?B?aWV5N0NDb0xpeUQyVUVBbERkREVaQ094Y1ZocnFxV3NyTUdyNUsxQ1g1N2JO?=
+ =?utf-8?B?Yk5JWDlYVi8veERCdVgrUnRPYlBYSjk2SFdIQzVURkU0emhTNVNtdWlqeGsv?=
+ =?utf-8?B?S0hVM3BvOHk0azBWcFY4enkxY3BVdVcvWmZiRlFhTktGSVdDVlovUW1scWdh?=
+ =?utf-8?B?SzRsWTkwQ1YrL1A4djZreWtHd2d1RFdodzBQdEwzN0JOUGxJYVVnUnpmN1F1?=
+ =?utf-8?B?R094NGlWaVk0N1RFY05ka1VjL1ZibWJaMlRGOHdUZWIzQ053WjQ1K1M3aEgy?=
+ =?utf-8?B?RmZOTnhMM2ZnT1lQN2NUblNOVmR5S1pEQmVGNG0wTzV5b2FjU1dZdWx5U2pM?=
+ =?utf-8?B?T0w1Zks3SzVTM1gydGc2eGxwbkREMmY0YVRQOTE3TzdwbnZoOFN5Q3ZOK1ZU?=
+ =?utf-8?B?aDJ0TWc5Z0hNSWhrVjRYWGowR3NubmJOVTNZZUlFYythbUF3VFpYVWMvMkJK?=
+ =?utf-8?B?TkRxN3d6UFBEV1EyVGRrRXJBVGp1QXFpcDM2RVBYcllhVzFBVW5MUTJ1WUtC?=
+ =?utf-8?B?bGFlbS9lSEo3T2hndG1UdThrclBpY2t5RHNiSmFCYXg2Zjlid1ZlQ1dtYmpP?=
+ =?utf-8?B?QXE4NURPaVNoR1k3UVVFV0JmN0g2RVY0QUd5MzV6ZzhYRU9uQnpmbm5zRHRD?=
+ =?utf-8?B?b3BlaFJKTUxDd05URWpGQUFJbWZYTG9CUlJmVUROZjNnSDBlcDVtOWlBRW5u?=
+ =?utf-8?B?R0FHcTNjMnl3a254NUJzS01KNzY0NnlPdktkZkZ2MXNQUWtia3RKdDFHdUt1?=
+ =?utf-8?B?d0NoNTRzdmxkL1RER2M5OFpOLzRzclZhOTFEQWgrWlMxQ0NUblluUFFUMjY5?=
+ =?utf-8?B?L1RiN0lPZG5IMWt4YjNla3UxVnQvYytDaVZqemhEdnNLOVlqMFlsZ1JvSGlN?=
+ =?utf-8?B?UWFHUytaVGxUZkg2Z1ZGODlmS2FEQllicGxVTDBMejdhd3A0MlpuZlRsOHZw?=
+ =?utf-8?B?dnFkS3Jpck1ydllRVURYMURRdnEvdURCUlJwd29YVU1DMm9hb25GdUFaS3VO?=
+ =?utf-8?B?VkhGci96NFVvUG5QbXlEdEpnRHZkWEwwc0o4V2lQaDZUVGYvbUFiOW5Ga24r?=
+ =?utf-8?B?dGRSU0dHbEFDQ1FwVlZvOG1iZHVqOWdmWFlqdkszS21nZmMwQk9aM3crRkgw?=
+ =?utf-8?Q?+jmWovI/K9ERQNh6mQLeAsvRHNY0P+R4/61OB9IWORZGW?=
+X-MS-Exchange-AntiSpam-MessageData-1: NX/1HVA0uQNwNw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72534d8a-ca42-4699-e181-08df3d9f668f
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 13:51:34.1220
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c0nGLcCFOjMKBd4ymaUfm6n0A+58xpXvFKvU0QxCVDOC9O7jTpUSWKSuD2WotHlSvaDbHo1iO5sKknYfWMBUHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8571
 
-On Sat Nov 7, 2026 at 2:32 PM CET, Alexandre Courbot wrote:
-> On Sat Nov 7, 2026 at 10:14 PM JST, Danilo Krummrich wrote:
->> On Sat Nov 7, 2026 at 7:47 AM CET, Alexandre Courbot wrote:
->>> On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
->>> Another thing: since this is declaring now a proper interface, can you
->>> move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module=
-,
->>> say `debugfs.rs`?
+On Fri Nov 6, 2026 at 11:41 PM JST, Alexandre Courbot wrote:
+<...>
+>> nsec_lo/hi are now used in the register from_nsec for both tu102 and
+>> gh100 registers.
 >>
->> I think that makes sense.
+>>> I'd ignore Sashiko's suggestion as it looks like it is trying to
+>>> reconcile the code against the comment instead of the other way around.
 >>
->>>>  impl InPlaceModule for NovaCoreModule {
->>>>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self=
-, Error> {
->>>> -        let dir =3D debugfs::Dir::new(c"nova-core");
->>>> -
->>>> -        // SAFETY: We are the only driver code running during init, s=
-o there
->>>> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
->>>> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
->>>> -
->>>>          try_pin_init!(Self {
->>>> +            _debugfs <- DebugfsData::new(),
->>>> +            _: {
->>>> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a devi=
-ce is bound, which cannot
->>>> +                // happen until the driver is registered below. What =
-it points at is dropped only
->>>> +                // once the driver is unregistered, so it is valid fo=
-r as long as any device is
->>>> +                // bound, and nothing reads it outside of that.
->>>> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
->>>> +            },
->>>
->>> Let's move this initialization into `DebugfsData::new`, using
->>> `pin_chain`:
->>>
->>>     /// Returns an initializer that creates the shared debugfs data.
->>>     ///
->>>     /// # Safety
->>>     ///
->>>     /// The returned initializer must be run exactly once before the dr=
-iver is registered. The
->>>     /// initialized [`DebugfsData`] must outlive the driver registratio=
-n.
->>>     pub(super) unsafe fn new() -> impl PinInit<Self> {
->>>         pin_init!(Self {
->>>             root: debugfs::Dir::new(c"nova-core"),
->>>         })
->>>         .pin_chain(|debugfs| {
->>>             // SAFETY: Per the method's safety block, the driver is not=
- registered yet, meaning that
->>>             // no device can be probed and thus nothing can access `DEB=
-UGFS_DATA` concurrently.
->>>             //
->>>             // INVARIANT: Per the method's safety block, `DEBUGFS_DATA`=
- is written before the driver
->>>             // is registered and points to a valid instance of `Debugfs=
-Data`, which is pinned
->>>             // and dropped after the driver is unregistered.
->>>             unsafe { DEBUGFS_DATA =3D &*debugfs };
->>>             Ok(())
->>>         })
->>>     }
->>>
->>> That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
->>> relies exclusively on `new` (and we made it unsafe to force the caller
->>> to do that).
->>
->> Actually, I would leave that part as is.
->>
->> Eventually we'll have registration data for driver registrations to shar=
-e module
->> data. Once we have that, we'd need to change DebugfsData::new() again an=
-d move
->> that part bnack into NovaCoreModule::init().
->>
->> Besides that, DebugfsData has nothing to do with the current limitation =
-of
->> publishing module data to driver registrations; the module code seems li=
-ke the
->> correct place to deal with this.
+>> I just fixed things to truncate and used wrapping_sub, to be honest
+>> being careful here is probably the wrong answer, my local review bot
+>> pointed out some wierdness can occur in 2043 with the current scheme,
+>> so let's just keep it simple, wrapping subtract, and feed the result
+>> to the hardware which is what the other driver does and what nouveau
+>> did.
 >
-> Makes sense, let's reduce the churn indeed. In this case I guess
-> `DEBUGFS_DATA` will need to be made `pub(super)` so this module can
-> initialize it.
+> The other drivers do what they do, but here again do we understand what
+> happens when we write a wrapped value into the timer registers?
 
-I think DEBUGFS_DATA still belongs into nova_core.rs (including the
-debugfs_data() accessor) since it is a workaround to make module data
-accessible.
+I checked what OpenRM does and it doesn't appear to wrap. Actually
+`tmrSetCurrentTime_GH100` has the following line:
 
-I'd also like the accessor to be an associated function:
-NovaCoreModule::debugfs_data().
+    NV_ASSERT_OR_RETURN(secTimerNs < osTimeNs, NV_ERR_INVALID_STATE);
 
-Thanks,
-Danilo
+meaning it expects the OS/GPU time delta to be positive. The error it
+returns in that case is ignored by the caller, so nothing gets
+programmed. In the absence of a better alternative I guess we should do
+the same thing, i.e. the `checked_sub` and return early (but the
+returned error should be just logged and ignored).
+
+Nouveau AFAICT does not write `NV_PGC6_SCI_SYS_TIMER_OFFSET_*` at all.
