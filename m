@@ -1,91 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794149592;
-	b=F1uswDFKatkJrtvBHF2qiIabJhk5Dwgi78qoZLiyvnqeG2ghzfUy6pZKhahL9xMMx5Gh
-	 OFhtrXxh1Kj0tAjk3BuD0E+pHvJ4o8C3lA6tG3V9NLIjrNPh4JhjmsHBAJotxDJgUKWqW
-	 UngtgdXk+rrp1bXkaWqlp93UGyRlQKlg4B1MuP3Cgn+hSMjL+uQNOmHL3J3yNFFk1QfYh
-	 HU1B/QgwvDx2B44ysx5XAfcTpg1ykhEBwkuruxVhnlY8NBMIlmfFDwwQmvD+D74CGJwAH
-	 /Cdrbmhdx1Am5q2POPJ26Em/MlejhHmn55eYSWTy72P/r14JldUABBdW8rXsE3nP4Pg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794149592;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HVPo+mGIS7mH/bnZvo/OAGeT0ZxCgQuqGHKCTnQqv6I=;
-	b=ABlZIRkMgRgnj+OY1SD+DlP1NahRpCTnRxkJ3lnt2xM4C7XfXBZA85UwLovWwFVEid6h
-	 Ydn8h5UQ3usfoTSkilsj7EAl4kD7nv06cIIXoyiFeFatR7rAEJM5xT/Nzwm33g+fG7Ke5
-	 zQliC04EtWeIaqQTUp92aOcU2CKEh/gs7/fEM6lBEZU45DvpJ2on+2XoOx/4W6kbEflP7
-	 DGlM3HFDFycaB7+39+ATs33YnY0hJaYUQtuYefLKQWaoNYLy61YnkVA3jki9pG7bBxZh3
-	 tx5eQwCUvAes1MyoOM6ZkBi2HBw3gZQ6oggVUvyvRy57TbN4gLuJJm9UUEYCDDNoH0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pA1hx3+Y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010006.outbound.protection.outlook.com [40.93.198.6])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794189187;
+	b=N1grvHaF+HEQdN+AyiePbB514qxjmO5PnV+wdDzSJ9ib6vcH5BrWIMA445nvy+2WpRjB
+	 TQ2Y/xQu3w95+hF0MrVKs3EbyfskerQHl8rGxVDjVWHK1oNil4KWcXHjjMR16soaDQ7X4
+	 oa2LN4mKT/CPXQ1T3XM/lnZyPc9n2FW6jLhPs8S0e4vDICKYCZjJaWbsPlEgkulUc628j
+	 A2Kah6Abg/h3JOZzJhZOeQU/SCoSmEBjwHMazcmJMytI82fOCgw29lOl92FMuFwn6XFB5
+	 Y7/oVtcsyj/rNbWd61XhpgV9Ja41Cy8dvLmhrh0K6fdig7rkJ7ueDl1IzX1AXyxZXUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189187;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-Mimecast-Spam-Score:
+	 X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=cwykLh2oqFT+B3VAP4+bD6cFXZaoX6stvsW77dDqnIU=;
+	b=GqiG7FLvxlpKX9vmi3bMn5jUBXqw6LbyKvSNkT9Tn/iTObZS6xXMArua+UdsUjPJ1UuY
+	 InhsIp84WRy8pCUKuaKl7T8s5eHsIP1MdrGhw73G30X66rVnpAWqeTO0oS8Iwb3f40F5d
+	 MZSgsOuvgXEtzuBTQ0qD1rrhQ8YvQm7Czm9vFrIdWWoGDiY/6fkYq/keukE58RWSowOxk
+	 hkGty/YtXLgl+a4KVWt3F2HxutDIH0NymB8hSV/k/scb1Dz9QuU+xVNhteoE/elTMFeww
+	 XoxUqmm5LrqxopUhvAMV7xpYP9Wdi3+stCQ/alaxHV/Qrc+tMgSZ6kXIpbt51tYu+dg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=J15bOKgi;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3EE606A320
-	for <nova-gpu@lists.linux.dev>; Sun,  8 Nov 2026 14:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B3EE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A491606A31C
+	for <nova-gpu@lists.linux.dev>; Mon,  9 Nov 2026 01:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A491606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pA1hx3+Y
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NVXW60CcCgNngyyt5dWrDVaWV5FJox3lYyqm/3snz5R+Z6f04jTKHS4KSjRQz/eSljsrpECpUawFNd2oPrzxxM1x+Bp41nX+1tvfXxidAHXg5nGCEMMw7vhEOsFu7UgSF4xtXUAVlyVX07gm+eEPNnMfphuea9aExUlEe6ZpT9cAiLqLvtf3DNVNCjZid2ax6steEVfye9YOL5FPtVrzFXPGJ1nvZZ1zPqTVE5Fg5F2m4EkymRfJ5Gq0e4oAy1cu7tDuLkzHrW7StTKKLgL6SDI61geeckePWLNVKRMISGGHqLxYaksktnqbtLmpFqzQsz+sE6eoQ0QBnjMwTeObpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HVPo+mGIS7mH/bnZvo/OAGeT0ZxCgQuqGHKCTnQqv6I=;
- b=foqj0oqOV7JNcW897VzQmdCHfSvEuwqtiudE2c8j+M9I6TKkyoZfxAtF9HcFTHGF9xqqL4P/+kGzcbHE8ijLX3Pp83GvnkLBxrQdriRDsclw8bSCIo53gcFRk2ecmvc0WjDbrY7rSb2kpEbMWlO0FVY3TVhEE1YjMdceAUiVfyKZ5RzkRqtA3h2mNQcXIu1UJd+5tpoh4W3g4gKPCus3Or28D4dAiSJLdV4UHgj77aD4CisUQCtKEdS8u7eIzLWdYUtvrRIoSUqhMxuXXCxLc90m0ypm/kg+h6m8R0UbZQMgw1WI/QmT8Xcfw41tMpTBkjOM4/xTN/sCNJ8q8aRgsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HVPo+mGIS7mH/bnZvo/OAGeT0ZxCgQuqGHKCTnQqv6I=;
- b=pA1hx3+YlckvSBevHY5U+SNYUIxu3ZB6p1th01EeemVunYYm+QylyBk+QvJuPh13ohTwzRbvoP3LJkkhsxvKt5pfnrxkUjRwph9j3k9r+F8o6WeIDh/vMLgTJTbVKQDgZOi0uVOuGlqkrXDLK09Tk5eXLNiWyfTxOrw4+6MGkQJKXJLIN4qxIUWd2y1C1WE6B0Wzc1q5UgjEUUqRNXD9hPKbcDi3u916wpMM8Y/bUCVZMsrYa6RtlMQsVyqmRFdHhhJ9IbUH6yNXvJU4mEzW35yR9cBYDk4MbCgiYLn2lpdBtDFAQToL3yCcIV0dsIKWZxv3+e1gia/+FxtWOpdfFg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CY5PR12MB6573.namprd12.prod.outlook.com (2603:10b6:930:43::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
- 2026 14:53:07 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sun, 8 Nov 2026
- 14:53:07 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, Alexandre Courbot <acourbot@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org
-In-Reply-To: <20261106-r000_rebase_on_cmdq-rpc-v2-0-e481ea2168ef@nvidia.com>
-References: <20261106-r000_rebase_on_cmdq-rpc-v2-0-e481ea2168ef@nvidia.com>
-Subject: Re: [PATCH v2 0/6] gpu: nova-core: gsp: add support for GMC messages
-Message-Id: <179414910663.2253398.15766979861497649573.b4-ty@b4>
-Date: Sun, 08 Nov 2026 23:45:06 +0900
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TY4PR01CA0084.jpnprd01.prod.outlook.com
- (2603:1096:405:36c::11) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=J15bOKgi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794189185;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cwykLh2oqFT+B3VAP4+bD6cFXZaoX6stvsW77dDqnIU=;
+	b=J15bOKgiJP9s/W2v1nqqU1QI1zNofGvAlcY5UanJ7dVuQUhVtcFAsSQqtxMvVyPmihI1aF
+	zxbxNRNyZCv2145jlpVm2vrnvAWhA8ShoGqS5ePS6Obn6vRrXTHwTi1uUuMnOeSqq/MC3h
+	tz3ebsDLH+BCNzhSU0aGXBNsonDPEL4=
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com
+ [74.125.82.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-529-YtTUF2PDO1KN0cF7LPSLtg-1; Sun, 08 Nov 2026 20:53:01 -0500
+X-MC-Unique: YtTUF2PDO1KN0cF7LPSLtg-1
+X-Mimecast-MFC-AGG-ID: YtTUF2PDO1KN0cF7LPSLtg_1794189181
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1aa0fb7f157so683282c88.0
+        for <nova-gpu@lists.linux.dev>; Sun, 08 Nov 2026 17:53:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794189181; x=1794793981;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cwykLh2oqFT+B3VAP4+bD6cFXZaoX6stvsW77dDqnIU=;
+        b=lMlzrvA1bcLgrfAcIhE/HVQP5jWNeT401TBCaIa/esTC+vxrCcNoDmTJKJuUEtVSmQ
+         tHAETa/RBjx5CkAfDmeixXCYJGG6pyKFz4oiuJra+7q4krYwFKlpuz4OdP0k7+bAGyto
+         siT2JRWe4FtNck2kI3K+yvpYEmABuAKfDb/YUzNoIARw0/kizhY1/SrlD0zHVTchaNq8
+         N1ua7JY1Z9eUEPetfrqEc+pMZmSc5zny0+lBXO4fmeZSgoWl0J7qJo+xp2bwiSkiCt0P
+         7p6aSErDCpkiMDAufR9dmmV+YYIUR/+O3MBvCQLYnAPAiB4/id4xjkvZTaJzpBIfyxf3
+         0k4A==
+X-Forwarded-Encrypted: i=1; AL+hErH8pHeAo2BqYIUoRDoiYzYCJUYP2lAyixxwssQlJjHzGcHlaFEusXxIULWRXEJ55gLfR5K0MjvlVg==@lists.linux.dev
+X-Gm-Message-State: APuU4Z/wHMhTLo2tY4Cgc7dwFQ0V81NTVUsn/JZLaMF3v1axelHEpj6Q
+	SB87uHTW08l/4YOsBivUgiTRbooVeGQN55RzGGFE4eTa5YWJbMtaoa/A7rXmXWik0vdKIzuFFrr
+	kgfrvk5whCiG1iUpJiPxSZUlw4ghWeRdNhgDTmpa2acJ5WXFQqZ7KTOTc4dszQltxZWey86ZOqZ
+	jZ43yUBFM46Wt/vHa0+f5/Hi1zgW9FmYPOVh0=
+X-Gm-Gg: AYBFou002svsZ2x4eHXx+n1DRf+v3/FfjbMf2WlwpyzbbKpLeclwW6/EXypVOz1q7fh
+	IIjY8SVcAu1cxeaGoxO8T0uXGnDKR5On/KcSLLi/Ax30hYlIAWfMdN3h6hcGeLV3Iksj5v7RS5U
+	nf+QKTPLaae9ZNL4Bj87p7HXQxT5kqDIQavUPgZakL5fHVX0kV0ZIxVZmeH7zDRYpppCxdnuhK/
+	qySqu6g9M3qX7cm
+X-Received: by 2002:a05:7022:1701:b0:1b2:5884:a020 with SMTP id a92af1059eb24-1b39fe31f42mr3918550c88.6.1794189180523;
+        Sun, 08 Nov 2026 17:53:00 -0800 (PST)
+X-Received: by 2002:a05:7022:1701:b0:1b2:5884:a020 with SMTP id
+ a92af1059eb24-1b39fe31f42mr3918520c88.6.1794189179953; Sun, 08 Nov 2026
+ 17:52:59 -0800 (PST)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -95,96 +91,186 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY5PR12MB6573:EE_
-X-MS-Office365-Filtering-Correlation-Id: 497f24ff-12af-42ee-f0cc-08df3da7ffa1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10070799003|22082099003|18002099003|10067099003|3023799007|56012099006|11063799006|261028144727099003|261026121527099003|261022105027099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	l63ad1ZXkPw5+SnzlEXU2w6DmCJ7pUGk2VcGKFYXRR/pT81ch4yONQki8heL23xGITY5LsNj/lztD8U8LTP1aLc3D9Ao4CTDrYfqba/XDhBd3tXmarcBLdJHXNArjNE5A6t5Nsq79SHqImzs4YCNUzl2nOHm/a1JPiO+xsLD/ee7IoiiIwYmZbBzSTPAtXAPdKFvXsyA7LBxOeVvzjmjIYKmS6dRkC7E4zSdI9+b69HiF+DZ9HIk/nw5Z3apDK80IkU20+6wXvvcs8F46jsZKVVM0Z8i8RJkCpfxT5zKOE8lIZ6f3JEUT+DaDlf8qBeNPrTxtFZeeHIVhzJoBzx3hzHFI6U3BoWfZZYYmE70+2suN8kX+Mzj6eBywRPBgV858Si9//6IAChCzfw2JWbnCI08yOp3a3IdtyuizcsHT3uaBVSuh6ubKaBxxrc+ImLVgz2UpGZEKTRj4FyC2APyHPXiw+vTsNVyMpVWiT9V7L9LSEUE7joLs0sDmjfydAG7yMLdtkm+YD20TvY2GDqn4636A2Lf6iXRndIpKnBvf7fAJkC0wa3FbthYK/sy5JEhynb/alhEVqJxEvoRHx6QahSZU87c1f++qdo0YEKbWQux0sMfAZJg6e/9g9sI/DhI7UeP9LdxDaXB0dbrMq42rrYPek9t7DE2unGqVHHIXRE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10070799003)(22082099003)(18002099003)(10067099003)(3023799007)(56012099006)(11063799006)(261028144727099003)(261026121527099003)(261022105027099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QTJCcThKZWdOMk03ZDRIMWpGb2c1YTFYdTkwR0x3ZlFkcGxmOElta1dvciti?=
- =?utf-8?B?L3prbndJUkNqN1g2RTA0YTNrdzZicmhzRmlNZTJRVzFHcEZMbngzS1Z0alJK?=
- =?utf-8?B?ZzRZaWMzbEV2SEZhQjN4RFBJR1RhUi9NN3dZSVVkdEdHWW9VSTBIcEFNbWps?=
- =?utf-8?B?VzlMTTYrWDhla2Fzclpvakpna1VlY2JFNWFweitmcENIamQ3THI0WkRhMS9m?=
- =?utf-8?B?VTNuTXBnL25ENE5ua1NzZVhPb09FUFZndm0zT2xETENhRW1WNDhtZmZhcWQ5?=
- =?utf-8?B?eGZJMFNrTVoyckRoWjBWdE1uSHdLK3VkZUhJdzEveEpJNDRvb2Uwam9oQU5Q?=
- =?utf-8?B?RjZqSTg4RE5nMWdBTjlOSjJkQm9YYjVlQUdiMVBEZUtVdm1vSnp2c2Y3UE1m?=
- =?utf-8?B?b3lHR1BYK1FwaG05eGd2QkduUUdJR3Excll6UkcybkE4NmJEWWRON1ZNS25p?=
- =?utf-8?B?MmU2cjA1N3l5YVc0d1BSeUJnNEQvZVFHU2ZDSDhoVG1kbWd0YVdtczFUd0Jt?=
- =?utf-8?B?V2JJS1YyTkZVd3MxUzIyWUZkM21za2h4ZWhRZHY4ZzlualF0eWRBbWJURUo2?=
- =?utf-8?B?Nmg0Y3IvbFFTdnBTTEkzbWZJN0hTVG9OcVRpYlV4YmZNeDhnQkZzNFFWblp0?=
- =?utf-8?B?Y211S0dQblpoZzVHTTlpUnMzMCtLRnZUOFJjbHgzK0MvaHp2M0p4ZlJzK2c4?=
- =?utf-8?B?clNvT2d4cUduK1FiUDF1MkRQSlNWRk1odGhSNHp0UlpXSVVJMFdIZnRKbDBt?=
- =?utf-8?B?dUdFZno1YjZWYS9kSmtsQm5OT3JQYVd2YUFnSVl0dFFuSDN6RmkxckNLVzBn?=
- =?utf-8?B?QXRXSWZNNDdOWEYwRmV6Z3V4c3YvbmJyV1RjSnQ5Qi9ackxkMHZoNXNZN2dY?=
- =?utf-8?B?NUE0c3o4R0JXUUhTUHo0WXArUzRTVEpFN213dnRxREtzV3pYdkxQZ2FTL2hq?=
- =?utf-8?B?WjJzUXJnTkFpd1RsNENvMnVPVXZhc1ZsbXkrUHhRK1FTZjBQSXZ4Qkg3ZnVF?=
- =?utf-8?B?MUtnanJOd2IyQ0hzeHpxQWxpUHd1M1NTVU9CYjhvZUwxMUZlWDNicnhLL3pD?=
- =?utf-8?B?WHlJZTVvU2ZOUlJoeVdEaGF2cFlyZnBhcDAyUCtYaEhMVzhIaWlGV3g2MGJq?=
- =?utf-8?B?RktObUYvNWtwY0RCRFlodFZ2d2NGOFYvaWpadTE1dDJNK2RJWXo4eC9aZ21k?=
- =?utf-8?B?Nlk5K0x5NGtjQW9oSG5vQjFoOHJTYnZ2V3NnaUtCRWVqZmNXL3VQQTg3SU1t?=
- =?utf-8?B?NUJ3UGdlcjRzQ2lIZVZHcmx3czJJTDJPTlVVSDJRaWR6Um5Ca1JaRXlGbS9h?=
- =?utf-8?B?WlNHMUZyamNWTlArcUpIcGNLaFFpRFRJVktDeDhRVWNqVnVjSVVXNWg4aHBO?=
- =?utf-8?B?a1dLV1R4ZFBISXhMS1NZRVRxcmhpOW12YktyVjdMYnk1UU9rOTNUZUIxWUds?=
- =?utf-8?B?UzNNZTYxYTV4T2FHY2FSR2l0UFBrQlQwdU9jejFzL2oxZXZUc2p6NVhBVStn?=
- =?utf-8?B?SGE1RU1vbTRlYm1Zb1VQMVVoVEdyNjJRY3FIS0w3dUt0Z3JUZnB2bmRVaTZn?=
- =?utf-8?B?SzRsQUVtN2liZXBEU21tc0ZWSThaNXVma09BaVBuNXhlcnduQmRYYTdTYUY5?=
- =?utf-8?B?dUs3Uno0WVBvZ2Jpby9yRFRuQjJRZ281MExvemJ3QjNaNXN3N0c4eG1xQllP?=
- =?utf-8?B?NEhHN0FKaTRXTXI0cENmcVFEM0VRRE1jL3R3TGUrN0J4dVZJWGZiTzIrbWhv?=
- =?utf-8?B?cWVFUTcwMEhXcmtaL21sV3FQSklUcUxPYUFzZUd2RGppRUMrRFFRcE53SE00?=
- =?utf-8?B?anBTdGsxdTQvQlZQY3VKTVJQNUo2d2RJVjBXTzJNQ1RnQlh1QkluMHptWTZa?=
- =?utf-8?B?YUlXTVJCaXFNeU5ycjRORy9qUmV1SEw3RTJCTVA2OXM3aEN3SkQ1dVhpejFj?=
- =?utf-8?B?WjJVWlVUQngzVTgwYWR1Nkllb3ZzVnBXMS8yWEpmYlI4YmRyU0I1emhXR1dt?=
- =?utf-8?B?MGZJV1JXa3k2bkpJVTQ3UnhqSkhwejhNVldOaHV0bG55bmlEanhDNzV6M3JC?=
- =?utf-8?B?RW16TlFOSmFXelhQbkpab3ZRMS9xcVB1c2JkY3pVUW5uN3JQUjdGcDZLVzJs?=
- =?utf-8?B?bkdHTkVKclFNbXlQZmJ5YWhsQm9GV0U1ZlpVTk9xdEIxaW9hWHg5aVJvbXJr?=
- =?utf-8?B?bXZmck5vS0duSENxeHFuejhqQUVQeTV4bkZjeTRmYjllSjhuS01saEErN0lP?=
- =?utf-8?B?c1pMWXRpNkw3bTIwQ0dyT2R2VmRodkNjbExCL1JQVFBnVzNZQzNORFJTOVNi?=
- =?utf-8?B?NnMyWW53MGpTN2d3TEdXMWhXNkZ4QWltS2t1VGEwUmc3NDdjUjNVUEEvMHdK?=
- =?utf-8?Q?6LRcM/+75F+jwfwjgKE5wcXShb/LYX9ns6uEHsnFYee1m?=
-X-MS-Exchange-AntiSpam-MessageData-1: zyMuv8638+MQKw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 497f24ff-12af-42ee-f0cc-08df3da7ffa1
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 14:53:06.9890
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oQ5Ee9dNJ+q8YGfsMHSSfSep8bNLRStLb52EB5GjCtf9OkUr7cX8tymG8SdgJA2Zdue5NtrOk3CmkkN5Xyq8BA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6573
+References: <20261106-nova-timer-v5-0-a0cd25f3ee18@redhat.com>
+ <20261106-nova-timer-v5-2-a0cd25f3ee18@redhat.com> <DMPVNWCP35KX.177YD8SUQTBT7@nvidia.com>
+In-Reply-To: <DMPVNWCP35KX.177YD8SUQTBT7@nvidia.com>
+From: David Airlie <airlied@redhat.com>
+Date: Mon, 9 Nov 2026 11:52:48 +1000
+X-Gm-Features: AclHuK8WpacYDKwI_bUzZvmSTqdDoFyyPN-aSZy1PpBb3G3Iq2ZXfYXHjOwFeOc
+Message-ID: <CAMwc25rdXBBmDjbTOE6PMv=24USP+y11TrTec3WbC7pjnD11sQ@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] gpu: nova-core: add support for GPU timer block. (v5)
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: f6tv6DF3b_4Nt03ecDpqeOhTUjsej5R6dctvj6KqQbw_1794189181
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 06 Nov 2026 16:06:08 +0900, Alexandre Courbot wrote:
-> This series contains patches 9 to 12 from John's r000 series v3 [1],
-> that add support for the GMC GSP message protocol. This code is rebased
-> on and adapted to the latest `drm-rust-next`, which clearly separates
-> the transport and message layers of the GSP command queue code. As a
-> result, this extracted series should be both smaller and easier to
-> review.
-> 
-> [...]
+On Sun, Nov 8, 2026 at 11:52=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
+com> wrote:
+>
+> On Fri Nov 6, 2026 at 2:34 PM JST, Dave Airlie via B4 Relay wrote:
+> > From: Dave Airlie <airlied@redhat.com>
+> >
+> > This is needed to calculate the system timer offset that is passed
+> > to GSP init.
+> >
+> > 2 HALs exist:
+> >
+> > a) tu102 is the gv100 path from open-gpu, the priv level is checked
+> > and the cpu time is written to the gpu timer. no offset is used.
+> >
+> > b) gh100 is for hopper+
+> > This is the gh100 path from open-gpu, where the secure system
+> > timer is read, the offset is calculated.
+> > On gh100 which need a work around to avoid sending it to registers
+>
+> nit: "On gh100 a work around is needed to avoid..." maybe?
+>
+> > if the FSP firmware is too old.
+> > Otherwise we write the offset to the offset registers.
+> >
+> > Signed-off-by: Dave Airlie <airlied@redhat.com>
+> > ---
+> >  drivers/gpu/nova-core/fsp.rs             | 19 ++++++-
+> >  drivers/gpu/nova-core/fsp/hal.rs         |  5 ++
+> >  drivers/gpu/nova-core/fsp/hal/gh100.rs   |  6 ++
+> >  drivers/gpu/nova-core/fsp/regs.rs        | 28 +++++++++
+> >  drivers/gpu/nova-core/gpu.rs             |  8 +++
+> >  drivers/gpu/nova-core/nova_core.rs       |  1 +
+> >  drivers/gpu/nova-core/timer.rs           | 38 +++++++++++++
+> >  drivers/gpu/nova-core/timer/hal.rs       | 31 ++++++++++
+> >  drivers/gpu/nova-core/timer/hal/gh100.rs | 62 ++++++++++++++++++++
+> >  drivers/gpu/nova-core/timer/hal/tu102.rs | 53 +++++++++++++++++
+> >  drivers/gpu/nova-core/timer/regs.rs      | 98 ++++++++++++++++++++++++=
+++++++++
+> >  11 files changed, 346 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.r=
+s
+> > index 3a4a10487f33..a2ea50465a55 100644
+> > --- a/drivers/gpu/nova-core/fsp.rs
+> > +++ b/drivers/gpu/nova-core/fsp.rs
+> > @@ -50,10 +50,11 @@
+> >          NvdmHeader,
+> >          NvdmType, //
+> >      },
+> > -    regs, //
+> > +    regs as bootregs, //
+> >  };
+> >
+> >  mod hal;
+> > +mod regs;
+> >
+> >  /// PRC message sub-command.
+> >  #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+> > @@ -389,6 +390,7 @@ pub(crate) fn boot_params(&self) -> &Coherent<'_, G=
+spFmcBootParams> {
+> >  pub(crate) struct Fsp<'a> {
+> >      falcon: Falcon<'a, FspEngine>,
+> >      fmc_fw: GspFmcFirmware<'a>,
+> > +    chipset: Chipset,
+> >  }
+> >
+> >  impl<'a> Fsp<'a> {
+> > @@ -428,7 +430,7 @@ fn wait_secure_boot(
+> >
+> >          read_poll_timeout(
+> >              || Ok(hal.fsp_boot_status(bar)),
+> > -            |&status| status =3D=3D regs::NV_THERM_I2CS_SCRATCH_FSP_BO=
+OT_COMPLETE_STATUS_SUCCESS,
+> > +            |&status| status =3D=3D bootregs::NV_THERM_I2CS_SCRATCH_FS=
+P_BOOT_COMPLETE_STATUS_SUCCESS,
+> >              Delta::from_millis(10),
+> >              Delta::from_millis(FSP_SECURE_BOOT_TIMEOUT_MS),
+> >          )
+> > @@ -436,7 +438,11 @@ fn wait_secure_boot(
+> >              dev_err!(dev, "FSP secure boot completion error: {:?}\n", =
+e);
+> >          })?;
+> >
+> > -        Ok(Fsp { falcon, fmc_fw })
+> > +        Ok(Fsp {
+> > +            falcon,
+> > +            fmc_fw,
+> > +            chipset,
+> > +        })
+> >      }
+> >
+> >      /// Sends a message to FSP and waits for the response.
+> > @@ -549,4 +555,11 @@ pub(crate) fn boot_fmc(
+> >          dev_dbg!(dev, "FSP Chain of Trust completed successfully\n");
+> >          Ok(())
+> >      }
+> > +
+> > +    pub(crate) fn is_bug_3957833_affected(&self, bar: Bar0<'_>) -> boo=
+l {
+> > +        match hal::fsp_hal(self.chipset) {
+> > +            Some(hal) =3D> hal.is_bug_3957833_affected(bar),
+> > +            None =3D> false,
+>
+> As I mentioned in my other comment, storing the HAL instead of the
+> chipset is technically better, but I'm ok if this is not done just for
+> this single-use method.
 
-Applied to drm-rust-next, thanks!
+Okay I've done it for v6, there are places we don't do this already,
+but I'll do it for fsp.
 
-[1/6] gpu: nova-core: gsp: fw: add the r000 bindings for the GMC API header
-      commit: 7c45e83dd0a896d54711cdfbac7b0223b811d642
-[2/6] gpu: nova-core: gsp: add the GMC API header
-      commit: 3753cd56472264bc3d5cedc6d09ff1550d3398a0
-[3/6] gpu: nova-core: gsp: cmdq: add the GMC send path
-      commit: dadb7e169fd032441ac9689a1544ae6f1d4f425c
-[4/6] gpu: nova-core: gsp: cmdq: move message trimming into its own function
-[acourbot: use `get` instead of `split_at_checked`. (Eliot)]
-[acourbot: use - operator instead of `saturating_sub`. (Eliot)]
-      commit: 6dfb99fb9d84b77f89ec2c9af14fac9138663f27
-[5/6] gpu: nova-core: gsp: cmdq: do not use ENOMSG to skip messages
-      commit: 693df5cf22d0fcc8b8cb431b0b40a91f62df83f6
-[6/6] gpu: nova-core: gsp: cmdq: add the GMC receive path
-[acourbot: add TODO item to replace `u32` return value with `NvStatus`.]
-      commit: 7ecd9ee29f7bfbe9a293952fbc83c3f8bd7205dd
+> > +fn sys_timer_offset(bar: Bar0<'_>, fsp: &Fsp<'_>, time_ns: u64) -> Res=
+ult<u64> {
+> > +    let sec_timer_ns =3D sec_timer_read(bar);
+> > +
+> > +    let sys_timer_offset_ns =3D time_ns.wrapping_sub(sec_timer_ns);
+> > +
+> > +    if !fsp.is_bug_3957833_affected(bar) {
+> > +        bar.write_reg(regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_1::fro=
+m_nsec(
+> > +            sys_timer_offset_ns,
+> > +        ));
+> > +        bar.write_reg(
+> > +            regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_0::from_nsec(sys=
+_timer_offset_ns)
+> > +                .with_update(true),
+> > +        );
+> > +    }
+> > +    Ok(sys_timer_offset_ns)
+> > +}
+>
+> So I know we discussed that on v4, but this function is named like it
+> just returns a value, whereas it also might program some registers. Can
+> we mirror what `tu102` does and extract the `if fsp.is_bug...` block
+> into another function that `setup` calls?
+
+No, this gives the workaround too much recognition. I've renamed this
+function to set_sys_timer_offset,
+That is the point of this function, to calculate and set the system
+timer offset in hardware. Broken hardware
+should not direct the function's focus, working hardware calculates
+and programs the registers.
+
+> Regarding the truncated MSBs in `nsec_hi`, I *think* it is ok to
+> truncate them indeed, as the value written would still be a valid anchor
+> value for the GPU. It also shouldn't manifest itself until 2043 or so
+> for chips < GH100, unless someone decides to mess with their system
+> clock.
+>
+> I guess this issue is the reason why GH100+ are storing a delta instead
+> of an absolute value.
+
+For v6, I've done everything else asked,
+
+For how the timer hw works, I unfortunately can't know this, because
+it isn't documented in public docs, if you guys want to pursue this
+internally, I can only do what OpenRM does.
+
+Also are we okay using OpenRM? like I know there was some issues in
+the past, maybe we need to have a proper way to reference the NVIDIA
+open-gpu-kernel-drivers.
+
+Dave.
+
