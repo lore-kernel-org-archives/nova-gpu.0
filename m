@@ -1,110 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794332569;
-	b=qKJ6rLHqOmj8KOnc/kjqer7z3IDllbHCz4//rx4ajc1BV8Y5Ol9eR/6MHoecLWDEjHys
-	 7Ui+yJhqV0sk2YgV+PdgD8rIanz1tGuJ+brDrKQISVwbfHCaYa5FYSl7hYSjnvNwHSR6P
-	 7M53veW/MDXA/Y2sufxw8/4btop6bQO90V+ZB4SZp8Fr1O2kwSF/Cm9yUGqdN/7FwZ2u4
-	 bxHbmWEgwD37UxFJiU5gEg8dJpWzTuGer3EefhqtagOQlZl9hW1f6Wa0aVz1K7Fb3Z8sa
-	 h/4P0MCS9zDSZHbRZPbQpu31z66lhKsN5x7uB3KHO3DJ1iaQZ8iOo9Fh4Zaf7QClC2g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332569;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ua/hyOt0QmKSRbaCjTGTZjvDr/jVP6WQyEboyZ0z05I=;
-	b=ghB+DuKkr9qtut5cd1HcooAFTBnkQvC6002O6gXcs2dGXfgfOuT6CMimG4z0QsN2KxOX
-	 0ufYQbi5//RH2RDBMtlwMtxdDfGOK9ga1LBRwXTNvk7HaCg6Fj3L5MzVNVvFHDnOfCUc2
-	 zU3EpRmCiKXZX5lZCYcLS0nyVcDJuXZZQdMPE+suMTCKHPlhAtjY0O5yEvftM2vbv7Hda
-	 MLBCt5tm5Eg1D/ZtDTylKWER68xPbgQPZDbElfbXCRYuriq2xxeptBiA0ww2LW9BY+cgV
-	 YfkHattMI4S4Xo4R/aYxWyARorTZoGi4zPmunYRyG4ixMIO49jLnzoA+6elWsIKXMyQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eAv5ciT8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.42
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010042.outbound.protection.outlook.com [52.101.46.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794339860;
+	b=UN8eaTzEXwy7lGmlG1QpdTE0Lm2D1QA9Xg05b6RaH6oYJT3vypskWzWvDLa/TPRwA0Ti
+	 UyxIVwi5imeHI92Rp+oiumHAisfGe5ncIr6cy77axFG0WHtFe+28DJfs7WQSR1X4vaEWu
+	 sVmzy3FTYwpfZsAKYEZ5HrHqkoBsEmuhuumC4V1Z/gC+9C5AOVX9fL7vD5fZO1iiv2CFH
+	 WADCmRrLwJQwe36b174C4ua3+TC8YxBGXQ5NikHuXGSMcdVawP1JoInsVpZfMuXoZIRM9
+	 4FROVIDEKR8EiX4mmEoCpv3vIoeSLp9UktrbN0M3DK6KdS3dWUHTTjBdTsSrDOTup+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339860;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
+	 In-Reply-To;
+	bh=fWfqbq9OHseUAlW92SLhKNSaqa3qmI+MBczXn8z6J5A=;
+	b=jJAGOyLY471pdiVxA9c7f9tyXCt1n5ANPtJFQE226afZPq8Ffe5QzIn/o/LF4CTf5C2T
+	 lI6X/F/S+yADsiCLHj41zlxYAn9s82CNaz1rKe7pUmWi1aZJCBXWrnJTU8RJPeyRqQ/qo
+	 gxx1NbsW8pQN14pWMm0yTJ2/F2rsDQhpc/VFTPNZtHvn+fuhBmHydGcfsu2//NYz/2sji
+	 outECwEuuj52pCamKOFnY+XVA3dJBZX2m9Vhex/jTbVSJQ1TQVMzoq8k31VnZzEqaKc7k
+	 O16OGPNa2z6qGDI+85cyPjth3/0sG/jPronPQ51CsecQmEuWq3Pp9OYuasrQ1TW0EKg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6Uit6jO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A24606A321
-	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 17:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06A24606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391A4606A320;
+	Tue, 10 Nov 2026 19:44:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eAv5ciT8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V6JPYAw85bjeE0ol0yj0Je1bHEKo4EtcHiik+kwUB1jbHb1IZBvv3uamxbrK/Wu/adt6Vhbvw1tQd1BD0OYTDmCLzTFcIbgYAgtRY+44gbRLMN09rkHIgqpLXkf7w8lqyQ0QQm6M4eh0FTUiLCFOIH0KX8EvtIf6BZCenilZ5ZmGZAqOkksMqRsHevgCNtU90a1ciIHfk7h+cXa0Doeo80AM1v3r2bBwV80kOk6TFxN6oYLgoPrxWknXC+nUuLq6WSEYQU0DE5Opfr4EkZGII/om7IrxVMpsmpQb6Us9l2k4NvgpxlrsD3BaDJyKFKfylrgbAc005Qmb1r+AJxaaNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ua/hyOt0QmKSRbaCjTGTZjvDr/jVP6WQyEboyZ0z05I=;
- b=wfGosz4pNOb9wBtHvvhrEVKiovNLdL9Fl3QfyASTL3s5UlrNjP5y+8BNGtAHKOAxIBI/v8HFwF/PuUJjMphz4OCQPGUb9ytDGS6k3Fq7cjHCASd8vsoYdAGgsDBUZFhBLlK7Vzz1/96Tbolvwh1W+U91mbFyCO0/lynw9QbRpx1bwLkvLo3gl4bIR3x67oVJ8isez8ba9JTjzprJaxQoQ0y4zib5n3DkkgMsOaUtpwpt59ssikrGkZDT84xxDAl7YMt0SJzEliXUV9nnIH+eUCllvuO3cU9iBajnEG0za3W6IJSjyaeUx9jz6/K0jC1kcVAJM11OJD+7HTjG5yrnCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ua/hyOt0QmKSRbaCjTGTZjvDr/jVP6WQyEboyZ0z05I=;
- b=eAv5ciT8K5JGaIaFmkYLrYip0+6WKZ/Ty2k26WNK58ZcvI3Q74wo0bJZT5/cWGu+ki7ZmennM+EnioRyOAImgA5X0hNJRC+AwZJSHgoVzGfxQgnI5CLXMhP30oZPoqKpfyCJlgHKUuQiDc0z5N3LanBAvUopare7t/uZ0z8A3wJtQvHPypW1f8JFV9R3KPerXJ4AqZ6732nbdP8HeYQOZ9K9z+CBaLxft76ZQHirnEDnIPRGG/LiR5Z43piWtr4zOoBoRvHmU8axdA57q2ZIR0ayWWKFQoRTdzDq4tscbwChEyrmZ597HHAp+mng6lKCG/39TiYV4tH/fu6z2Zn/Pw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by MW5PR12MB5683.namprd12.prod.outlook.com (2603:10b6:303:1a0::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 17:42:42 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 17:42:42 +0000
-Date: Tue, 10 Nov 2026 12:42:40 -0500
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v11 4/5] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
-Message-ID: <avNXkJjOoTzUu-1r@yury>
-References: <20261109-chid-v11-0-082aa9bf5a91@nvidia.com>
- <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
-X-ClientProxiedBy: BN9PR03CA0887.namprd03.prod.outlook.com
- (2603:10b6:408:13c::22) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6Uit6jO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE7C1F0089F;
+	Tue, 10 Nov 2026 19:44:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339859;
+	bh=fWfqbq9OHseUAlW92SLhKNSaqa3qmI+MBczXn8z6J5A=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=O6Uit6jO3IsZoIfrOy3SW4hqltdD1ucWDADRC3HhxylC/zZnFAOdNMh7Q62k2iJNl
+	 98Y2Ol65S0WRG+Dsv/Fo7Ph6FVV+dR3TbRmS1vtGkkhsLH5/hY5NWEloToTLTMoBag
+	 zzgQOQqOrX+UUlJIXG4FKrP1ZqkyAhbuOtxsWlACnLrAEqwFf2U9RYYzM9W1DsZwAi
+	 dIrJ39C3ygTIBdBR7TmjPzKTghgaJaYX5iZ2CHTW5vBJUF1BeKaw76TENQUS21XL+u
+	 xyn3mkt8y8SEL4D9QbqvNuKdAE47PNLXd4Q4xe8DdoRvdrn8pRk/vOWngLU9PJ7WpG
+	 xy4in6w8m33zQ==
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -113,168 +48,312 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|MW5PR12MB5683:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c05c00c-fda2-4507-239f-08df3f520566
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|7416014|23010399003|366016|1800799024|261102123227099003|11063799006|4143699003|261021121427099003|261021123027099003|261021135927099003|261026140227099003|261022105027099003|261026121527099003|261009223027099003|56012099006|261028144727099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Fzs9Ik34rLunTU0sFsco1XSW/WYNe25MtlsLE6LbCTjVY9dggU+gkXadty9nFW/A6R4v+CTDAAfDW6AX1k2KNXg32wlz4Qfd388vk7aDQdlDIq0rTZ8TpPb5YVrt1xsJabNlfxru94SwWR2kS7NwGCIwxCc6Nr48hdr4JzmWG/ohEXOIc/CCt1Yyw8L1ucyB5r453HI/SdNPtIHiRXNkvauErt2DUfQiT3Sjx1Vz1FrRPtNW26d4tRLWsAwqWyml52uECDZCU7aVQpk/vF3U4KG0DnI/tjigmJTvOxUTPRF4dw4WqLV1p3ULKzFSwy1xP7WsxQ933NhLTXFp1OkZLGJ3QmjtGD51gd+bdYErEtNXReXVw/HK2eA+M8Z7EimdNpRU3mCL0T6aS/ixeny/EGTHBQI5hgmCfi8yfAUITeww5cfrXO+V7imcIRa9/4VNVux/zgQPQSaDgB1beU3V87k1qXy/tC0HPvRvhDypfQwx+OXX6P5v2EHriQW4pxUr4GmAZr2yhEgVAwdzFujG9/2b0VCqOkWP/5f2nP5dPPUhzZdLcRiH3MdZkSPuTs9TEmVHcViiNQ5G9TXdopzZ8BJtTM2LYUp4QCo6sIeg9tIHtF6+fMMCQ9nm8oc4zZCDKtDTzItUsi74Fz2LkbOE0eP/U23qiHSlkj3rgn43VTc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(366016)(1800799024)(261102123227099003)(11063799006)(4143699003)(261021121427099003)(261021123027099003)(261021135927099003)(261026140227099003)(261022105027099003)(261026121527099003)(261009223027099003)(56012099006)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zDN3b5HJ2gjxlhcgAPtbz6lWYH6a/ZzsZazUF13uyQZNRt+upoI/VONJb8ht?=
- =?us-ascii?Q?jckP4TD5E/g6SAawQ8Iji3qCPw+uccl/1i7pkilJWzWMjTgf8LSRJRUTNm6n?=
- =?us-ascii?Q?NTlNwahExvhjIJQeTXueCac5YQGWASK26nMzKQZCtBweOBev3SmGjSOwL+lT?=
- =?us-ascii?Q?Kp45DpvbPO39iIQ565zAYP0GlMedSTZ34fh4/60bEPSbUvo52gzi4JqJc0NO?=
- =?us-ascii?Q?Lm4QOY7EhyU8IWsG2zJatE8hWzYIMe98DYM5fTTw9sDJp2pPiibKZHBfHGds?=
- =?us-ascii?Q?F4eRhtrfGDcZK8n6R8ocmgB1xzcb9QfMlfX1UEIFdbJ6Ql5b0RPLIrxlywzO?=
- =?us-ascii?Q?8hURHtR0Zra6wRmIeMdn36zZYs2kkUsJxxh0AEjHDAh0D4YDmflvIIXrScK6?=
- =?us-ascii?Q?12zjD/UJs4hYZbACSPCEDHZL3m2Bm7GgguEexth6NL0grBN6UFzahY8JO1xE?=
- =?us-ascii?Q?1Xo6FEhFdkzvBxvFwHVwZlah/IeVpIyi0QA29petAbkUkXQ9ayK/s39HqiiD?=
- =?us-ascii?Q?fFwjA3HJqfgSMHPr39E6xFr5ju4gNGBPyftNU0rLO633+ibTELQXj/1gSL8g?=
- =?us-ascii?Q?XtfCFjca8VYKy3/NOSl3OigXhqyYkZrNnfITort0i6Sd7kFgiSxiJldXUvRe?=
- =?us-ascii?Q?Tx6BnaWGbUVZ30Q2aH3/Tuqp+RrLQuiG9Ah8nEP/V1GLlkYNsSMdfhiD0X84?=
- =?us-ascii?Q?bPgynyvJgjAFTEB3K9c+SIot4w3UR2rjQEuCJgg1VvE41qQOybkmV4gpYIAw?=
- =?us-ascii?Q?Yxh4a0ZvdgEy/D0ZUe6VFBTvHSqZvzZpkZRbRiP03eskzsc34LKo1hzK/Zau?=
- =?us-ascii?Q?PAzvhlzEiNqjJ7O1+Ij2hyU5EcXxZfp+Lnv8+vNG5liSNHE2KQFtTqo+ctI6?=
- =?us-ascii?Q?FF/jnQr+1sEOuLMpCXdWqZadk//IbFcFShV+zf9I92/BSfVbGAh7Zm4pqArI?=
- =?us-ascii?Q?Cj3q4lMy7/FvzvihAkqx18yQdfxOxg+CodmEnWe52UxyT1PrEyX75XUUj+k9?=
- =?us-ascii?Q?kpR8LyqaMleR8FzqOIujzYRdC6g9UwF5fJmqmkSX4bLVe1PHsigKT2dZV2yI?=
- =?us-ascii?Q?8xbeHdHykAqoh2gpatPSB6mgwuwlkqE+lf3d6wjlZbGwQID0eQDXZ1OXL5Zr?=
- =?us-ascii?Q?/ienbG4MCvoYgVZiZTZ+3zav5hASFf/EBYpdkHgtUaehzCZXwzYsXaWZUSSh?=
- =?us-ascii?Q?iMAoqXfaYQhYM6rN0WEA4o7HMXZSN+9Xur0nIxTb8/Ete8B/Jd5YEKOmsxZB?=
- =?us-ascii?Q?myCNcpVDZv1pDFI4bpUURDc3c9khqI9JAieIG19rIys6XZ1DNuOZMGk78o9o?=
- =?us-ascii?Q?tjoBolrwHzs23NdJn6hmppFLEOb/0Sdu2nedF0LVjq1myhce6d0Ptn5bTmKP?=
- =?us-ascii?Q?/eQX7N01udA5hmvBpuMiIHVn3HFeeEQRoBwwhv2t/CJDHQ4G9Yc7Axq0Qo6y?=
- =?us-ascii?Q?S0+R02D2z9pKm/2zU0ls4DUay6XdkJl/AM/PTjKHGcHb/N3J6J6PMHqrvKIz?=
- =?us-ascii?Q?8Ege9UIkd+T/tbkytx4/X6T4GZUBruQOkksYEbt60QMGOaOC4ql7C8SvD9jO?=
- =?us-ascii?Q?NghFSUOPQlgVqVkerF4nVgeo00JmCgRhdJ2e2LR2CUyzqNmAKKWZ5YQZXvxM?=
- =?us-ascii?Q?SakLoxBSUO0/XBy6GgJlw1fvtSK+/Y5oEwXa2IlZ5HMF5C5HjA+BZwRAD4cw?=
- =?us-ascii?Q?/1Bmmo0N3fp2TLS54QScRHQC22cnRtPog6II2+czRc35hLS8OFvRw4agJ/5b?=
- =?us-ascii?Q?D61bQXaIZzFjxriH9kmcQcCbbAJEOBG/Oa/dNigBVp8ngy+1BB6S?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c05c00c-fda2-4507-239f-08df3f520566
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 17:42:42.2473
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XqoH9kf5M5N41uS9+sy4oHh0TC4NSk1yKnMbxwCZtSRDoRwidf0Xyc6XuWR9VCJE/gFWKCn7aImOeEIrcPTC5Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5683
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 20:44:09 +0100
+Message-Id: <DMRSE390GRTH.OZ9KS5QS8M4H@kernel.org>
+To: "Simon Song" <xinmengs@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v2 10/12] rust: vfio: separate common device handling
+ from PCI
+Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
+ <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>
+References: <20261023154009.2246627-1-xinmengs@nvidia.com>
+ <20261023154009.2246627-11-xinmengs@nvidia.com>
+In-Reply-To: <20261023154009.2246627-11-xinmengs@nvidia.com>
 
-On Mon, Nov 09, 2026 at 05:32:52PM +0900, Eliot Courtney wrote:
-> Current code in IdPool::with_capacity rounds the capacity up to
-> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
-> smaller than this and still uses an inline representation. Remove this
-> behaviour.
-> 
-> This allows specifying a real capacity of 0, which was not previously
-> possible.
+On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
+> +/// A VFIO device, independent of its bus-specific wrapper.
+> +///
+> +/// # Invariants
+> +///
+> +/// The underlying `vfio_device` is initialized and remains alive while =
+borrowed.
+> +/// Callback contexts are borrowed only for the corresponding callback a=
+nd thread;
+> +/// only [`Normal`] references can be reference-counted.
+> +#[repr(transparent)]
+> +pub struct Device<Ctx: DeviceContext =3D Normal> {
+> +    raw: Opaque<bindings::vfio_device>,
+> +    _context: PhantomData<(Ctx, NotThreadSafe)>,
+> +}
 
-How real capacity 0 became possible? Did we eventually find a use case
-for it? If not, it should not be possible, and the implementation
-should not explicitly handle that case.
+I think this needs to be declared differently, see below.
 
-> This breaks `grow_request` in this case, so change it to grow
-> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
-> `shrink_request`.
-
-Not the grow_request only, I believe. I recall the discussion about
-panic on most operations on a 0-bit pool.
- 
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Reviewed-by: Burak Emir <burak.emir@gmail.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
->  1 file changed, 32 insertions(+), 6 deletions(-)
-> 
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 92eeb7caa243..f77bd90325ff 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -112,13 +112,8 @@ pub fn new() -> Self {
->      }
->  
->      /// Constructs a new [`IdPool`] with space for a specific number of bits.
-> -    ///
-> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_LEN`].
-> -    ///
-> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->      #[inline]
->      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, AllocError> {
-> -        let num_ids = usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
->          let map = BitmapVec::new(num_ids, flags)?;
->          Ok(Self { map })
->      }
-> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
->      /// let resizer = alloc_request.realloc(GFP_KERNEL)?;
->      /// pool.shrink(resizer);
->      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> +impl<Ctx: DeviceContext> Device<Ctx> {
+> +    /// # Safety
 > +    ///
-> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
-> +    /// assert!(pool.shrink_request().is_none());
-> +    ///
-> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
-> +    /// let small = IdPool::with_capacity(8, GFP_KERNEL)?;
-> +    /// assert!(small.shrink_request().is_none());
->      /// # Ok::<(), AllocError>(())
->      /// ```
->      #[inline]
-> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer) {
->  
->      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if possible.
->      ///
-> +    /// Grows to at least [`MAX_INLINE_LEN`].
->      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`].
->      ///
-> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// use kernel::{
-> +    ///     alloc::AllocError,
-> +    ///     bitmap::BitmapVec,
-> +    ///     id_pool::IdPool, //
-> +    /// };
-> +    ///
-> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
-> +    /// let mut pool = IdPool::with_capacity(1, GFP_KERNEL)?;
-> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
-> +    /// pool.grow(resizer);
-> +    /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
-> +    ///
-> +    /// // Grow doubles if at least BitmapVec::MAX_INLINE_LEN.
-> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
-> +    /// pool.grow(resizer);
-> +    /// assert_eq!(pool.capacity(), 2 * BitmapVec::MAX_INLINE_LEN);
-> +    /// # Ok::<(), AllocError>(())
-> +    /// ```
->      #[inline]
->      pub fn grow_request(&self) -> Option<ReallocRequest> {
-> -        let num_ids = self.capacity() * 2;
-> +        let num_ids = usize::max(BitmapVec::MAX_INLINE_LEN, self.capacity() * 2);
+> +    /// `raw` must point to an initialized `vfio_device` that remains al=
+ive for
+> +    /// `'a`. The caller must provide the guarantees of `Ctx` throughout=
+ the borrow.
+> +    #[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
+> +    unsafe fn from_raw<'a>(raw: *mut bindings::vfio_device) -> &'a Self =
+{
+> +        // SAFETY: Self is a transparent wrapper; the caller guarantees =
+validity and context.
+> +        unsafe { &*raw.cast() }
+> +    }
+> +
+> +    fn as_raw(&self) -> *mut bindings::vfio_device {
+> +        self.raw.get()
+> +    }
+> +}
+> +
+> +// SAFETY: VFIO uses the embedded class device's refcount to own the ful=
+l allocation.
+> +unsafe impl AlwaysRefCounted for Device {
+> +    fn inc_ref(&self) {
+> +        // SAFETY: A shared reference keeps the initialized VFIO device =
+alive.
+> +        unsafe { bindings::get_device(&raw mut (*self.as_raw()).device) =
+};
+> +    }
+> +
+> +    unsafe fn dec_ref(obj: NonNull<Self>) {
+> +        // SAFETY: The caller owns the VFIO reference being released.
+> +        unsafe { bindings::put_device(&raw mut (*obj.as_ref().as_raw()).=
+device) };
+> +    }
+> +}
+> +
+> +// SAFETY: Ordinary VFIO references expose no unsynchronized callback op=
+erations.
+> +unsafe impl Send for Device {}
+> +// SAFETY: Shared access only changes the embedded class device's refere=
+nce count.
+> +unsafe impl Sync for Device {}
+> +
+> +/// Callback data stored after the bus-specific C device structure.
+> +///
+> +/// # Invariants
+> +///
+> +/// `reg_data` is dangling when unpublished; otherwise it borrows pinned=
+ data kept
+> +/// alive until callback access has ended. `open_data` is null outside a=
+ successful
+> +/// first open, otherwise owns a pinned allocation until the last close.
+> +/// The bus-specific layer drains callbacks before releasing either allo=
+cation.
+> +struct CallbackData<R: CovariantForLt, O: ForLt> {
+> +    reg_data: UnsafeCell<NonNull<R::Of<'static>>>,
+> +    open_data: UnsafeCell<*mut O::Of<'static>>,
+> +}
 
-You only need this max(...) thing to fix the behavior of 0-len bitmap.
-We don't have any users with the request to support them. Please don't
-add any extra code to handle unwanted and unsupported cases.
+We don't need to arbitrarily limit registration data to require covariance,
+eventually we will need invariant data.
 
-Thanks,
-Yury
+Also, I think we don't need ForLt/CovariantForLt at all. Both types are
+associated types of an ops trait, so they can just be GATs, i.e.:
 
->          if num_ids > BitmapVec::MAX_LEN {
->              return None;
->          }
-> 
-> -- 
-> 2.56.0
-> 
+	type RegistrationData<'a>: Send + Sync + 'a;
+	type OpenData<'a, 'data: 'a>: Send + Sync + 'a;
+
+> +
+> +#[cfg_attr(not(CONFIG_VFIO_PCI_CORE), expect(dead_code))]
+> +impl<R: CovariantForLt, O: ForLt> CallbackData<R, O> {
+> +    fn new() -> Self {
+> +        Self {
+> +            reg_data: UnsafeCell::new(NonNull::dangling()),
+> +            open_data: UnsafeCell::new(core::ptr::null_mut()),
+> +        }
+> +    }
+> +
+> +    /// Access registration data without allowing its erased lifetime to=
+ escape.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Registration data must be published and remain valid through thi=
+s call.
+> +    /// The caller must exclude concurrent changes to `reg_data`.
+> +    unsafe fn registration_data_with<V>(&self, f: impl for<'a> FnOnce(&'=
+a R::Of<'a>) -> V) -> V {
+> +        // SAFETY: The caller keeps registration data alive and excludes=
+ mutation.
+> +        // Covariance permits shortening its erased lifetime to this bor=
+row.
+> +        let reg_data =3D unsafe { (*self.reg_data.get()).cast::<R::Of<'_=
+>>().as_ref() };
+> +        f(reg_data)
+> +    }
+> +
+> +    /// # Safety
+> +    ///
+> +    /// The caller must be an I/O callback while VFIO keeps the device o=
+pen.
+> +    /// Registration and open data must remain valid, with their pointer=
+ slots
+> +    /// unchanged throughout the call.
+> +    unsafe fn callback_data_with<V>(
+> +        &self,
+> +        f: impl for<'borrow, 'data> FnOnce(&'borrow R::Of<'data>, Pin<&'=
+borrow O::Of<'data>>) -> V,
+> +    ) -> V {
+> +        // SAFETY: The caller excludes open/close and unregister while b=
+orrowing the data.
+> +        unsafe {
+> +            self.registration_data_with(|reg_data| {
+> +                let ptr =3D (*self.open_data.get()).cast::<O::Of<'_>>();
+> +                // The data lifetime stays independent of the callback b=
+orrow,
+> +                // so borrowed OpenData fields cannot be stored back int=
+o OpenData.
+> +                f(reg_data, Pin::new_unchecked(&*ptr))
+> +            })
+> +        }
+> +    }
+
+I don't think we necessarily need the extra closure, we only ever pass this=
+ to
+callbacks of the ops trait, but it would allow us to make the accessor safe=
+:
+
+If we move them onto Device directly, we can leverage the type states. E.g.=
+ we
+can group them with traits and only implement e.g. callback_data_with() for=
+ type
+states that allow for this.
+
+> +
+> +    /// # Safety
+> +    ///
+> +    /// Call only during exclusive first open, with no existing open dat=
+a.
+> +    /// All resources borrowed for `'a` must remain valid until `close()=
+` returns.
+> +    unsafe fn open<'a, I: PinInit<O::Of<'a>, Error>>(&self, init: impl F=
+nOnce() -> I) -> Result {
+> +        // Allocate before calling the driver so allocation failure cann=
+ot follow open.
+> +        let data =3D KBox::<O::Of<'a>>::new_uninit(GFP_KERNEL)?;
+> +        let data =3D data.write_pin_init(init())?;
+> +
+> +        // SAFETY: Only the owning pointer moves; close drops the alloca=
+tion in place.
+> +        let raw =3D KBox::into_raw(unsafe { Pin::into_inner_unchecked(da=
+ta) });
+> +        // SAFETY: First open is exclusive; the caller keeps borrowed re=
+sources alive
+> +        // through close. Lifetimes do not affect the allocation's layou=
+t.
+> +        unsafe { *self.open_data.get() =3D raw.cast::<O::Of<'static>>() =
+};
+> +        Ok(())
+> +    }
+> +
+> +    /// # Safety
+> +    ///
+> +    /// Call once after a successful open, with all callbacks drained an=
+d the next
+> +    /// open excluded. Registration data and borrowed resources must rem=
+ain alive.
+> +    unsafe fn close(&self) {
+> +        // SAFETY: Last close exclusively takes the allocation published=
+ by open.
+> +        let raw =3D unsafe { core::mem::replace(&mut *self.open_data.get=
+(), core::ptr::null_mut()) };
+> +        // SAFETY: The allocation came from KBox::into_raw and is destro=
+yed without moving it.
+> +        unsafe { drop(KBox::from_raw(raw)) };
+> +    }
+
+This seems like a bit of a back and forth because logically we want those
+methods on vfio::Device so you can take advantage of the type system
+information.
+
+But in this implementation CallbackData lives in the vfio::pci::Device, lik=
+ely
+for memory layout reasons.
+
+But we can also do something like this:
+
+	#[repr(C)]
+	pub struct DeviceBase<Raw, R, O, T, Ctx =3D Normal> {
+	    raw: Opaque<Raw>,
+	    data: CallbackData<R, O>,
+	    _context: PhantomData<(T, Ctx, NotThreadSafe)>,
+	}
+
+	// vfio.rs
+	pub type Device<T, Ctx =3D Normal> =3D DeviceBase<
+	    bindings::vfio_device,
+	    T,
+	    <T as Operations>::RegistrationData<'static>,
+	    <T as Operations>::OpenData<'static, 'static>,
+	    Ctx,
+	>;
+=09
+	// vfio/pci.rs
+	pub type Device<T, Ctx =3D Normal> =3D super::DeviceBase<
+	    bindings::vfio_pci_core_device,
+	    T,
+	    <T as Operations>::RegistrationData<'static>,
+	    <T as Operations>::OpenData<'static, 'static>,
+	    Ctx,
+	>;
+=09
+Of course we can't have AsRef<vfio::Device> with this, but we don't need it=
+.
+
+For instance, there's only one AlwaysRefCounted impl needed:
+
+  unsafe impl<Raw: RawDevice, R, O, T> AlwaysRefCounted
+      for DeviceBase<Raw, R, O, Normal>
+  {
+      fn inc_ref(&self) {
+          let vdev =3D unsafe { Raw::raw_vfio_device(self.as_raw()) };
+
+          unsafe { bindings::get_device(&raw mut (*vdev).device) };
+      }
+
+      unsafe fn dec_ref(obj: NonNull<Self>) {
+          let raw =3D unsafe {
+              Opaque::cast_into(&raw const (*obj.as_ptr()).raw)
+          };
+
+          let vdev =3D unsafe { Raw::raw_vfio_device(raw) };
+
+          unsafe { bindings::put_device(&raw mut (*vdev).device) };
+      }
+  }
+
+We can either rely on the fact that vfio_pci_core_device's first member is =
+the
+vfio_device, or make it explicit with something like:
+
+	/// Maps a C device structure to its embedded VFIO device.
+	///
+	/// # Safety
+	///
+	/// Implementations must return the address of the `vfio_device` at the
+	/// beginning of `Self`, preserving the input pointer's provenance.
+	unsafe trait RawDevice {
+	    /// # Safety
+	    ///
+	    /// `raw` must point to an initialized, live `Self`.
+	    unsafe fn raw_vfio_device(
+	        raw: *mut Self,
+	    ) -> *mut bindings::vfio_device;
+	}
+
+Not that this isn't only to make use of some type system information (there=
+'s
+other ways to achieve that too) but also to make vfio::Device useful for no=
+n-PCI
+implementations, as they need CallbackData too.
