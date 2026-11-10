@@ -1,64 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794282513;
-	b=ApkBMjhNgguzJNoldxq7et4o2UWOZWUQZTSv17F7ywdUXBYcN2HTdwV1xjCBOGqcD3p3
-	 eOk/tuHF7fFOSRTEJTX1vOc13ETiCWwjpRvgPzzvFfWqXsTsIaYXxqtLgbTPSlSoSaZu2
-	 TxTugr2O2/T9gM1tP+0PeltsanqCADshG5VPxRagPiOFOUCwM9LLqyVpmk+5fK+H7b1BY
-	 HiDSdMUZGXO/OhPReCMtbCAwt16O7c1LlplxNeUaXxawliLzNjHR8QCjkwJJnnGRoayX7
-	 psTNO5xZhzbs6l2epyY5mt6+Z7oJoGZ41At7V6FZ+eFIE4yZLWymzHp9ss31ybcqJQA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794282513;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PxEd3OjSksbK7+nLb9kkcFQkg3P4HBKGiE8PTgwn2v8=;
-	b=ZO8jWxWD/x1F3qErY4yheKr1Ok41rv+tW0h5pYwL/1Go+WLbl6wAYCMhRkFbQqkMeGhV
-	 sQQ2LBNEQBLpQbGK2Yh0PWC71ryDLkVxSjh7ZmohpbIT03zDb+k47taTLAaomsD51FKs/
-	 ROPIAFNQ3JxrPY25Z4Q2+RNKPwwHOO8qnvn4wWo0i0y2Djj/GF/QLBByCSZ+EHnyDNmJN
-	 N7/X/+ASzEq6EszrL72LdUIQCA1a09PN/l5p9yk3U+5T/9pVr706aJWhJFD8kc68ZYOYI
-	 gs+Joj5xTsHNotyPQqfNfESi6rj8OVHI2MmOVioV5g5lQSqNYDLc2CDJUBR0sviHgNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btWkBDH4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.46.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794295816;
+	b=oF/J1/t0zI9gmo975C+u945zMoAaVqqKIPZuyv8vkuY3D1IzPXV77fTCNRur5bzx94LL
+	 OaTXMMrKZWc7IWK6lo1KIjIX7MldruAgNFbafEUmJ0JJ5/WGFGTGvzUgJtGKTC8wB0005
+	 iPAirF7ziaxmt+pWLQ8CWdOiSZjke2XFmBjK0vl9wa9fUZsHpQrS2Ofvk2jelnoPDGeWE
+	 Sb4CM5SVgEjddSJpe9RKQtvjrKtxYe6C2inluWPtyuAj2cwhL887tf0htvzxwOepIivUd
+	 9tbACnswcyeUhgEY40OK8U/NKidZd4Y4477p8x6zEm//NGZ0ZGTrECrMQW3HOpDPZHA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295816;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=kZSyd0QwL/KB3cgMXlWoMMKqvCWxbgRt0H+S8C5CUro=;
+	b=5m+lKrebE45vJS0uIp4MZSnFrrb2PoZdPzcVvTwQggQYioOtiHL/tr2XsMfXTWJXo49Q
+	 MzEEG0I99NXzkkblDe7gXXedmQP+afQ8ulqDM3EHiKkZFSnUk8PYdSu5rcMYWGDVHMncx
+	 DK9hjcuFBrAqNyh4xTqoF9pJBmeFjD+xubHxUqZB2K3ktmi9f1dE+zh9sdijEO7ZTuNFi
+	 PGhPVQML0YfcJfymvT2QoUexmu8ReNciCQXQB9IRVuLM3U3IFDmjOcNtITDIlAdmtoJ1f
+	 j6XCmPCmHSmHcz3VTArvimbe4Z+7fluQT9HzYpLubZruH4UJWBOP/LyEuhbZnlstrIA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LY6Je66P;
+	arc=fail smtp.remote-ip=52.101.46.40
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C27A606A326;
-	Tue, 10 Nov 2026 03:48:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0239606A332
+	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 07:30:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0239606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btWkBDH4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74E01F008A6;
-	Tue, 10 Nov 2026 03:48:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794282512;
-	bh=PxEd3OjSksbK7+nLb9kkcFQkg3P4HBKGiE8PTgwn2v8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=btWkBDH4lyFeV+0ZZl/xjOdA3NcZ0EepKn7YSJAIt7cNvt9C59fP836Ns/ssZrymf
-	 +3povOsXK+SGg6hkqJY0tq4LMJwibmuMLhGCtuxR9oIS/2rru+txm/8CO4ZBZOLhec
-	 AISl44KtYjEcXec+Bsnc7TKp5qWT/ANFKeO8c/nX7QdImwagNi6eLyk0pm+EU9wrEU
-	 Nd0A1JhIvdnXv5QQlaTqoTp10YZSXdZmH+mr7J26E1HmdpcgOhRp6VFhZsTbwL6lvu
-	 Np7BjZym669R/KVCWTLfja9vlSKUzSREGYKegrcdC/uiL7OrFssiwDCok7e591LnxD
-	 XvQLlsI6trbkw==
-Message-ID: <sashiko-outbox-206149@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] rust: pci: add domain_nr() accessor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
- =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
-In-Reply-To: <20261110033655.148487-2-jhubbard@nvidia.com>
-References: <20261110033655.148487-1-jhubbard@nvidia.com>
- <20261110033655.148487-2-jhubbard@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LY6Je66P
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ARGakanUcxeW7HMWCFxxu58uLhAxyisDwh2Joq88imQ5MR2UBJ478rEamKYf813jULiCkNS+Y7nPr1nCmY8Bg47pg9eC/hDw0NPYtBzQ1lpvhdQ+vzMbdGX5SV5xnmAJrigACcRT0QqsZpcIB/Jt9YN/fHb4yP+gWIWBAYNaLfduftA5nWn7UvCv/LMz9VrpzHr+qFd1qFcCGGQ+vY100MOL4G7VbXp3WsTKWcNNBmwk8n0pq99hCIvpR0ffhFn7l0taMeW/tYj9RVI8aVTT611w4HBVdBIIh8YVJCs+/jknXJjWewlrZJ+02u9aFhgiEvmdfIiF8WSB1jzeF6thBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kZSyd0QwL/KB3cgMXlWoMMKqvCWxbgRt0H+S8C5CUro=;
+ b=NMfK3+mv8IqQ64154/D3rC9Je/9kiO1NfE2q849lUkUSmLcR+h7A5Ym3IZJhDs18a6N/ZZmS7Rj9mE3FHOn+mKRyawANEY2a5p8gq814WOptquC7YYnneVFDm8NlJexg4WUtuNK5v8Yamew8+ED3rh71af1A0jlrtHHlfIgzwsMqaNCG2Nry71V5im8UUpM79O7sw/lcAJqT2amg6sw23mWCOnp++pnb+piDExIHeZFRlLGLiNtvGnLedSyzrij6yq/bQFpNVM+sET4zzc3xhAj5BhM8/9Cwp4VWiUHN7Gj4+0J3FVFtv8TFBZX4kEcvq4afTIwg3YuvKdO2tE8+qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kZSyd0QwL/KB3cgMXlWoMMKqvCWxbgRt0H+S8C5CUro=;
+ b=LY6Je66P6lhexJV3xRQOOmVnQsWOY5m1nRt8JLXJK9fAvFuoOAEUzaayGyBykk4swCwabtrc8SEIqBgj8bP6ox7o46aVMBc3oYoTfcZCH7nq6SIRPB0E/giV0XKFXekMqsbYu9rw18tETVmvUMiu8VjEaOv8QzS1BvvoyPwAEStCygRvp1FdaMPr8qPGcShbBkMa/wK0mPjbh/sr/edG0KeRor7C0stjCaGtZJHvoAcv+oS5bdoQrE7dUbC/PCV1X6NVSJgcdMXGxMGwXkEpZzoeBfyxc46uqva3WwMZ7vMrQMdafb4mo66ookzDu05Le6FDbWVG/9AliwU0h9GA8w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA1PR12MB6894.namprd12.prod.outlook.com (2603:10b6:806:24d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 07:30:05 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 07:30:05 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 03:48:31 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 16:29:32 +0900
+Message-Id: <DMRCRMCFK31H.3GH97ALPTUEKU@nvidia.com>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v11 4/5] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>,
+ "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261109-chid-v11-0-082aa9bf5a91@nvidia.com>
+ <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
+ <DMQOOESYWNCC.2SKYV8O6YSYOA@garyguo.net>
+In-Reply-To: <DMQOOESYWNCC.2SKYV8O6YSYOA@garyguo.net>
+X-ClientProxiedBy: LO2P265CA0505.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::12) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -67,82 +113,176 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA1PR12MB6894:EE_
+X-MS-Office365-Filtering-Correlation-Id: 963bfce1-b439-4356-0ddd-08df3efc6060
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|10070799003|1800799024|23010399003|366016|6133799003|10067099003|261026140227099003|261022105027099003|261022075727099003|261026121527099003|261028144727099003|261021121427099003|261102123227099003|11063799006|921020|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	QrU61OTGL5qS4ubZI/ZryE8xXmyt+Vy19CxoHq+xhLUP/UOzoC7W6YXg/AI26pCER+BAWxp/Df3rxpxAUAfi32S7e74GtOFDN1dVP4F8PmeImCd7962sN1/iM9mU16WW9vkf3E2R/GQ7d1zEJGdy+bj1cxu9+ZAilMK/ubXC9plmNSpuTqa0hD2cGQiKppVwHo+8rQwBUKbF0Swt9Fl/7NxeJO+WkZptd6S+aHpSrEDkdsxlQlOMRKwIv9fawYNVR5ovsXGBVMcbvSN+CrEMARSHExe9s+wte7MHygZy03PalKtaKhfphlmHI/fHUzonFCnHR5+9ui0FMPBggubc1gnqDkgN+Go2+40pUsiU5m/yBCoOH8AQDDaS9XYuZBs0GFx24PN5LtpWABvxE/zHOOhpPpZjEk2z5X2p+53rO+PZJxtAlHWpryKu0X0UxEqh7SbLj5rwb9o2uXEmknNnDuuPlqvD3JZVtal+PyBpTn49vLsICAUuklerlQU+Z0+1idAx/XTz/yAUmOXLUruclz7xPVrDqMbYkiT61QAAAz853j3PyMkx0oy5HShEzQFfuF8Gax72zuJzHjLXSzmTmn1H/AvceRMYKK0Ii6F8AO8AubpPSmeUHK6lnmZWngxOMfT9A3+vQl0hia0kD1ArwfajoJXERis3/ewnTHg/jbnxRBxkrZ9j/qRsWOBWEG93S7JVD+nyfgcZ4in2TgFuZA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(261026140227099003)(261022105027099003)(261022075727099003)(261026121527099003)(261028144727099003)(261021121427099003)(261102123227099003)(11063799006)(921020)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T1ZMUHZHd2RRQ05BSzY2dFF3SlRsSm0wQXNXUmFUMlFTZzFVUmVFbkJWQytt?=
+ =?utf-8?B?SklQa0NFUkJvSk1WMW40anpNQ2VYRy8xTUFXZXgybngwSFdKRUZJS2tzbk5x?=
+ =?utf-8?B?QXp3SXNQaFBqK0JHeUJreXhORTVTYmM5dTJaSEZHTFA0czdYZnVPS3V5blc1?=
+ =?utf-8?B?dGJPLzFMellTZTlFYUVFR2JmS2pzL0Ftb3RFT3hvR3AxdFRlVEtIOE8vWndw?=
+ =?utf-8?B?S2NNSUVzK3lMZkpRQnltNVVoYjZVRlVrUE0zdVFSSTJOL0xack5WVm41SWJo?=
+ =?utf-8?B?dzVCUklxWUxHOFc4NHUzZlU4WHFxbjE5dkxnMWt3enJzOWVZSm5QQnVzdFZX?=
+ =?utf-8?B?aStLLzYrU1FXMVhua05XdGdXK0pMWWh1UDhCcnZlUHBBQkdjRk9vcExzb3FH?=
+ =?utf-8?B?NHhhcXhWVFV5bnE2QkN5Q0szaTNtSk01bTVTUnJ2WHNZc2loU1FMR2d3VGov?=
+ =?utf-8?B?WWhkVzBhWkF5THZTRmw2eWNadzBvTXB6QUtWZk1rbDN4elRXZjh6WXZsMFlu?=
+ =?utf-8?B?WmlPLzJreDh1WWZva21tTmxZdkxtNUVBR1o5alduUGNGVkRiaVFneG1NMTVa?=
+ =?utf-8?B?U3JSdE55TVVRaTdjcDRBL3Q0amlhRlAxTWZ1K0pDUVE2WHlUSEdxc25CcFA5?=
+ =?utf-8?B?SXZpeGVOaXM4b0JDS25pWDBQNEFWRWx2bTdmcFZQWHFvTlpSOWV5SitURzVo?=
+ =?utf-8?B?R1ZzU0ZDYm1HVzBJQXVQOCt0WVRyaW9ORDFVdVFWY2doS1I4S3VtbFpzbGZa?=
+ =?utf-8?B?VS9aNmpZWTBBSEFpRFBHL0JnNTZCUXpOWDJPaUhjTW8xcDhnN3BRbGkydzNj?=
+ =?utf-8?B?aktOUTBmbVB0cjRSZzZkN05mOWtxM0crS3B0bHdHenhWQzNWYmJvNE5DbXBX?=
+ =?utf-8?B?VGV4MG91eGdWZ3ZtM0gzdnZxcUVZancwdmE4TFlTUWkrTEJKU0FySWtoS2Fz?=
+ =?utf-8?B?dCtaVjdNekcyRDVrTU5jWGw5QmZ1M29kVXlleVRDaGlrWmJKWmMvRlg3UmZF?=
+ =?utf-8?B?N1ViQkpoM21BTXBBVUswbU1KanpVSWNXVWZZRENlRGtuSHl4QjVHTzd2a3Rj?=
+ =?utf-8?B?cUVudnhYb0NKb0d6WC9Od0hVNHJlVnl6S0J0LzJOR0JldHRxb3hmUzF3bXg3?=
+ =?utf-8?B?ZGc2dXZWbkI5emdoVWVJUXdZelo3RlVBVzAyS0t1di84MnhFRGJ4anBrT0JO?=
+ =?utf-8?B?S3dnZVRsVFUwa01lYy9ITmwvYnhhdnFtZzA5Zkp2Wko1RkF0VC9PbzFZdFpW?=
+ =?utf-8?B?Y3UwUDNpaC9CaEVBWnpON2lyODJTU2FDNFBIb0VGNU52NUdOcDRBWkZhNzdK?=
+ =?utf-8?B?NWVxbzkycGptS0NuL2I1eDd2WmExQ3Z2VXBlWkNYZzk4L2xvWHh4b1dhY1lW?=
+ =?utf-8?B?ZkI0MnVvZ3Z0aGFmS3hlbHozNTdxYUE3dHNUUE04QkZWUE9MV0Z0QUtoY3Bm?=
+ =?utf-8?B?Q2hjVjhSTVV4VUFaRHl6TWpNbnZBbTFHY3hpN2N4alN5WUNOWm50Njlwa3Ra?=
+ =?utf-8?B?TnJIR0VpdmRMSW9KMm16eS9lT3gyZkdZUXlZRHkvZlhKb0RWdzQ0cTJyWHN6?=
+ =?utf-8?B?R0hHdis5Y2FhMldDeUc4dWs3Rkw4Y3NoNEhEMWF5K2VSdUVNekxSMFhiSy9s?=
+ =?utf-8?B?djJXUmdZcngvT3hIUHhzdDhYNmNxWDVIQmwyOG5ZZHVENmhXdC9TamtvbW9Q?=
+ =?utf-8?B?eXBVVXJpcFdpcHF1QmNZWjAzYXhHaEdpeFZUQU5yd3hvV2J4V2xvendaYTZy?=
+ =?utf-8?B?TTM5MXNpWnFQUW1HQVZBUjNNcmhxN0tUQlVNZEFzSktjaFFhbEJOb1M0ekJG?=
+ =?utf-8?B?N3VQZ0JPMEEzV1NIZkVHZllFc1JOOTdvQ0RjMXZvWVBPVytJaEttc3RXNGdF?=
+ =?utf-8?B?VTdpc0JZVG1ocDZEQzBNdm5FeExtWXBDZHpLSGhmM1ZqbjJtbXE4M1piZlFX?=
+ =?utf-8?B?TXN4ZDhkOGQ5US9oa0t6L3ptbm1kVWdaS0FQUkovdVJ4V3BLVm5IRDdVbGNx?=
+ =?utf-8?B?NWdaTFpnam1pTVF1TURxbDVSZVMxRjZQeE9xRmFqc0FxaTVlMW9hSDE2S3Ex?=
+ =?utf-8?B?UDVkYjNrWkRFZ05BWllrYTFjSEl6cGwvQlF5eUZ2cjBVYlFlaVp6b0lMUTVx?=
+ =?utf-8?B?YVgrVlBLdk9qVFZza2Noa2swbWFydDU4QmhzdDVVSFM0K2N0RDhxTjFNMTRl?=
+ =?utf-8?B?NWx5bHVVS0dlUlptSVVOUW93ZDFxZG9SYzNBWVlOeldxRjBueXZzVytyYWFj?=
+ =?utf-8?B?bFlLVTRydWR1KzBlQjhTQkp1Q2RMaWUzdXJZUGV5YVFzYit2bVJ4UHdTUHNm?=
+ =?utf-8?B?NEJDQXJwM1hWcnVtZUNudWM2b0tOaC8waXhaRnJoNnVaWUxNdmlqTENWWW5t?=
+ =?utf-8?Q?YN6B71Gtsr60MG300imqmte6si6L/FegO2o61ZXk0D8NF?=
+X-MS-Exchange-AntiSpam-MessageData-1: lKlxXJrK/q4p8A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 963bfce1-b439-4356-0ddd-08df3efc6060
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 07:29:38.1346
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wCffzWIjsnHITpCfJjGFezUFpBwN77LNG0w66EpEjCW+hN8/brbf1aPy8Pzfkxh9HriogRZwcSZBw6roBXmsfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6894
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] rust: pci: signature mismatch in rust_helper_pci_domain_nr()
-  on ppc and s390
---
+On Mon Nov 9, 2026 at 9:36 PM JST, Gary Guo wrote:
+> On Mon Nov 9, 2026 at 8:32 AM GMT, Eliot Courtney wrote:
+>> Current code in IdPool::with_capacity rounds the capacity up to
+>> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+>> smaller than this and still uses an inline representation. Remove this
+>> behaviour.
+>>
+>> This allows specifying a real capacity of 0, which was not previously
+>> possible. This breaks `grow_request` in this case, so change it to grow
+>> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+>> `shrink_request`.
+>>
+>> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+>> Reviewed-by: Burak Emir <burak.emir@gmail.com>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+[...]
+>>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if po=
+ssible.
+>>      ///
+>> +    /// Grows to at least [`MAX_INLINE_LEN`].
+>>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`]=
+.
+>>      ///
+>> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
+>> +    ///
+>> +    /// # Examples
+>> +    ///
+>> +    /// ```
+>> +    /// use kernel::{
+>> +    ///     alloc::AllocError,
+>> +    ///     bitmap::BitmapVec,
+>> +    ///     id_pool::IdPool, //
+>> +    /// };
+>> +    ///
+>> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
+>> +    /// let mut pool =3D IdPool::with_capacity(1, GFP_KERNEL)?;
+>> +    /// let resizer =3D pool.grow_request().ok_or(AllocError)?.realloc(=
+GFP_KERNEL)?;
+>> +    /// pool.grow(resizer);
+>> +    /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+>> +    ///
+>> +    /// // Grow doubles if at least BitmapVec::MAX_INLINE_LEN.
+>> +    /// let resizer =3D pool.grow_request().ok_or(AllocError)?.realloc(=
+GFP_KERNEL)?;
+>> +    /// pool.grow(resizer);
+>> +    /// assert_eq!(pool.capacity(), 2 * BitmapVec::MAX_INLINE_LEN);
+>> +    /// # Ok::<(), AllocError>(())
+>> +    /// ```
+>>      #[inline]
+>>      pub fn grow_request(&self) -> Option<ReallocRequest> {
+>> -        let num_ids =3D self.capacity() * 2;
+>> +        let num_ids =3D usize::max(BitmapVec::MAX_INLINE_LEN, self.capa=
+city() * 2);
+>
+> It looks like your want the `IdPool` have a controlled capacity. However,=
+ as
+> soon as `grow_request` is used, the capacity becomes uncontrolled.
+>
+> It feels that this actually means that there are two use cases here: unbo=
+unded
+> IdPool (where capacity just means the _current_ capacity) and bounded IdP=
+ool
+> (where capacity means the _max_ capacity).
+>
+> This is more similar to a difference between `len()` and `capacity()`. It=
+ feels
+> to me that you're merrging `Vec<bool>` and `Box<[bool]>` into a single ty=
+pe
+> where it shouldn't.
 
-commit 40ebd2410b826b9813de5dae1bbe6075723a08bc
-Author: John Hubbard <jhubbard@nvidia.com>
+Yerp I agree there are two use cases here and this is adding the
+"fixed+controlled capacity" use case. But e.g. for `Vec`, we also have
+this "double use case" with `push_within_capacity`. So you can use `Vec`
+in both use cases as well.=20
 
-rust: pci: add domain_nr() accessor
+The analogy would be:
+Vec::len <=3D> # of actually allocated ids
+Vec::capacity <=3D> # of available or allocated ids
+Vec::push_within_capacity <=3D> IdPool::find_unused_id / reserve_ids
+Vec::reserve <=3D> IdPool::grow / IdPool::grow_request=20
+Vec::shrink_to <=3D> IdPool::shrink / IdPool::shrink_request
 
-This commit adds a domain_nr() accessor to pci::Device and a corresponding
-rust_helper_pci_domain_nr() C helper to retrieve the PCI domain number.
+Vec::push equivalent doesn't exist because neither binder's use case
+(needs to separate allocation) nor nova's use case (uses fixed capacity)
+requires a combined "reserve and push_within_capacity".
 
-> diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
-> index a8540f90b13ce..49f2c089d2369 100644
-> --- a/rust/helpers/pci.c
-> +++ b/rust/helpers/pci.c
-> @@ -7,6 +7,11 @@ __rust_helper u16 rust_helper_pci_dev_id(struct pci_dev =
-*dev)
->  	return PCI_DEVID(dev->bus->number, dev->devfn);
->  }
-> =20
-> +__rust_helper int rust_helper_pci_domain_nr(struct pci_dev *dev)
-> +{
-> +	return pci_domain_nr(dev->bus);
-> +}
-> +
->  __rust_helper resource_size_t
->  rust_helper_pci_resource_start(struct pci_dev *pdev, int bar)
->  {
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index 769d01d234296..57718e48208d5 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -408,6 +408,20 @@ pub fn dev_id(&self) -> u16 {
->          unsafe { bindings::pci_dev_id(self.as_raw()) }
->      }
-> =20
-> +    /// Returns the PCI domain number of the bus that this device is on.
-> +    #[inline]
-> +    pub fn domain_nr(&self) -> u32 {
-> +        // SAFETY: By its type invariant `self.as_raw` is always a valid=
- pointer to a
-> +        // `struct pci_dev`.
-> +        let domain_nr =3D unsafe { bindings::pci_domain_nr(self.as_raw()=
-) };
+That said with this patch `IdPool::with_capacity` provides a guarantee
+of the capacity which `Vec::with_capacity` doesn't (altho I think it
+could for non-ZSTs). So I agree that there is a conceptual difference
+here w.r.t. "controlled" (guaranteed) capacity. The reason I did it this
+way is that I think that providing this extra guarantee is easy to do
+(removes code) without unduly complicating IdPool, plus adding
+to/allowing reuse of the existing common API functions.
 
-[Severity: Medium]
-Does bindings::pci_domain_nr(self.as_raw()) fail to compile on PowerPC and
-s390 due to a pointer type mismatch?
+We could consider in a follow-up to introduce a typestate, like Fixed vs
+Growable (defaulting to Growable) and grow/shrink is only implemented
+for `Growable`. But IMO it's overcomplicated to do this - if you don't
+want to grow it, just don't grow it. It's currently very hard to
+accidentally grow IdPool (compared to Vec where it would be far easier
+to mess it up if you tried to control the capacity). Perhaps if later
+many more things are added to IdPool then it'll then be worth to split
+it.
 
-In rust/bindings/lib.rs, bindings_generated.rs is included after
-pub use super::bindings_helper::*, so any non-inline C function emitted by
-bindgen shadows a rust_helper_* wrapper of the same stripped name.  On Powe=
-rPC
-(arch/powerpc/include/asm/pci.h) and s390 (arch/s390/include/asm/pci.h),
-pci_domain_nr() is declared as a non-inline extern function taking
-struct pci_bus * rather than a static inline function:
-
-arch/powerpc/include/asm/pci.h:
-extern int pci_domain_nr(struct pci_bus *bus);
-
-On those architectures, bindings::pci_domain_nr resolves to the C declarati=
-on
-expecting *mut bindings::pci_bus instead of the helper's
-*mut bindings::pci_dev, breaking the build when CONFIG_RUST and CONFIG_PCI =
-are
-enabled.  Either rust_helper_pci_domain_nr() should take struct pci_bus *bu=
-s to
-match the C signature (with domain_nr() passing (*self.as_raw()).bus), or t=
-he
-helper should use a distinct name that does not collide with C pci_domain_n=
-r().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110033655.1484=
-87-1-jhubbard@nvidia.com?part=3D1
+WDYT?
