@@ -1,45 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272675;
-	b=oyVDN1Jm5877l3GGlE0PhSB1npcdR4myuoGVWyTJTBxcYe2Y5PIHlswtWZsWEySQbGyA
-	 hif3AZupRMxUU4aCY2kuIG5xXyb7jCYFfiwpopwkZ3O2Su1omn9xwZgleSEeWYCbCH8If
-	 ZpTR9rL5tUkt6opGgZqIM1+lJSHnJaICdARqPaMoTak56ea8zAgS0E+oo4vWd4C1S5Neb
-	 3TnhU8IxATTBHN/CEF1oCMG2qHripyHfvAgwg6gSZtkB7EX/nmAloAZDA1VSPvwSYXJ/i
-	 hqOrNLKX5kNXgLgZZLeFHYgpAenK22QvIWjoFQdp71HuzIlkzfxCHu4Qj2RHtJZ8EcA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272675;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To;
-	bh=Bv0ooEsqQhG/+6pm98YOZvLWwFhBUu/sWcsdtUoLwy4=;
-	b=L6gFi7ZHncAbVx6LhIKSpE6cUXYL69rpmIujODnU3L3r9WWLmScq2trj3tolMW+SXmMR
-	 cc+wUbc0SMVgS0njzCMI3ExwtdZl/Vb4GsSdMNcYLT4wgrJCjbqQnsEUn3WwBmKgKEgHe
-	 QBTz9V+6UVZicNJJfWauIaEYmc3kgNkQYE6x8ETQTh9Tee9V9W1GvfKj8hcMSFUXziWf1
-	 vq3PTYixCVKBtgcW+7EBAciclKDUbNUQyo2kAf8Ou/QnH7cT1QGrWjmkP3Y+XuG/FOplj
-	 vq/V2QjVwIGaR7uSV8vtMXHOs4VjeQmvucO/JxsopaOxbJNR/4m3a54Nv4UvEykM9BQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y/IdNdDl";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.30
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794281825;
+	b=OFxWNKbly7byif++udVFNRkm9R6TKeOS3Ii8s33FNoI4GVmyApPGozd06B3NSM3FJxnG
+	 7YQMvU5k0U0/+z2KXR0nyhP2oWdGpE4EU6BJJOV4Q4nPtl/mrfuuU99BV21uvZp3v1+PT
+	 irpUMZ4p91GX64+Yqkc4fblR2Inekr6XHtxSlNqVV3Ti1jJTnmce/jgYkfoKEZ9B55OPZ
+	 zt6hi1xCmmUBbFBZAeyrDdJ566mTg3+4JPsIzn00RN1GEN//mVNTJQzQ3DmThL74yDwPz
+	 xIMXmJSDL0wiBWqxOG8UksyvKnUC8qp8lqoT+IVK1V3WYBUlwy7agnSuURswmkkxpuQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281825;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:X-NVConfidentiality:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=mF0ONvtgZBz5/00SlejcCeAsL6JHc8mOf4kI4lWQL28=;
+	b=tvZVLy20ksxRhXk14yjF058cEvbucd38e07LpiuN1lkXUslzroQ++t2lNQWYhTE3LQlF
+	 5QtDwXxpm4AwYruJnoa61s5VC3/TxnOxpg5f6LJz/b/BDl2QRkjkSsdUQlArO3Vl0tCH9
+	 SajocPJurVnZYo0yYZVlan9AIwFold6CEaHeY9hQcb4t7e/okvphGGPbJS8vJksLJUl9S
+	 /JmsgCBgotUsfCxb6E9sj4SxoqhaRtPCMZZY9FtQ60EX/sMiglH+rcBy8KN5DShpnTGnd
+	 Hymyz7QFC6RwMV5AU1ipaFgYFvZXlWEWLJNSbpiS2cb6q9k0A3tUdrO/5VlRORumyMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sBwnGGmB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.30
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013030.outbound.protection.outlook.com [40.93.196.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3266606A31C;
-	Tue, 10 Nov 2026 01:04:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B032F60A2628
+	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 03:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B032F60A2628
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y/IdNdDl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351B11F0089F;
-	Tue, 10 Nov 2026 01:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272674;
-	bh=Bv0ooEsqQhG/+6pm98YOZvLWwFhBUu/sWcsdtUoLwy4=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=Y/IdNdDllQ8txzmqlTq5n+jUNGUsT1AxrfTY2ikBxw33Ci2JnCEerTvPmnB/3QMAl
-	 OjNGcxMFLFoWuhjU9RzXBnDylktnvyRr7vcG/VsWjAmjC3ARmbReleTmjFt1KWirol
-	 utOgbEJ1hwQVm7nJ3+hkfywBaxif6Gd9FPgyDuJH+X4x56JZVehKpU2+hi4qtwbwin
-	 jSQfm77qQHMo+h+nG9Vf6+/1Ffoekt6SHMkzEwJUypYrjKykbmUp3ukB6J7sduL2i5
-	 wGnTT4nFjBjWBgxpiuYPx4ghgn2dIsiLQSdxNPvuZ29n5zLB/eObLqV1Cz2xMqSEf7
-	 vf4f15+YNFK4A==
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sBwnGGmB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LWViQnJ2zF+VmEzNsXsAlELmvwMWPCOPJn7qqIWQVEdGuCPYd/kUOScYpyTuOwYOEfozgGmHM+dJOwuQ6D3HVZaM5J0UN/3cMDaY2eINVx2V+97lbwcpLyGi664EXUtl2DTzPdBqZvQd8Hzm6g+QNgcfu86NTtibeyrTwLEhoj8SpYnptni+Xp9xJoYBl/RGI5sQqxSrxznhgY3H+1/VqMqwWs8lyxFMcILsX2hItmjyvZuuD/kZicwQ9/Czsa4gWVvMyL7zU0B4yxi+Gp5dOBP9wetoYZlT6wmGBwf9nlVCTlcrhaoil86PBmwH0tTowsLIIU+plSos+7ZpoaoQRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mF0ONvtgZBz5/00SlejcCeAsL6JHc8mOf4kI4lWQL28=;
+ b=Ph90QnZBYyPxM177fw29A/agQxJ7tFhZ40KjHiAS9H5TD/EhpmjTh59kIbaGWmgxBTIU0F8Hn2ocVhErWXY212QjAl6BFWEwPVLj6G6LFPbeNunfBurEWVuVTJdLoPm+dwwPOLKPiX4/m8HJ+kVYA5moeq9n2gB/zeAjtWGHo93j3fO0DunOXBj7tWg79RYAAkyrDdsaq/qWKy9MTXDpPhWcx3zHQRjpVawrDnVZ8poWs7Tl0Okwiu5Dt4z3MjXlSn6jMvJZG+C58UoIYm3VJoiEIlh0wzqU9v1NWuHPtVLlcqiuMWozyYI0Oueia2PwfNSCT7HgDsY21gvBgObfRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mF0ONvtgZBz5/00SlejcCeAsL6JHc8mOf4kI4lWQL28=;
+ b=sBwnGGmB+UiTufAS8YXAri5CScTk4EAHXEX2B5zTRE97HKfb5UpeGjwjgXKadVKbtELdD6OnZ8hoRyaZJWWLwRS8n8yjC+Y4/dJwQZ907w0iJJwwXBFy7InXUewKIL1ybyXbTriu6lT+2m1ni8DLGmA2k1jqU4skoP1qApt5QqkbqsFo952C0P184Uybinwp5vgNa2NIFKjaIo/j/W+OIa8Pg2hvUwqi4lnlaiVfB7ZNYS2658RLjMPoCJ1NawoivIO2z/vobIYo5rh0Fi2+BtYF25efV6JHgkQ+abNmoqrrpbVVoe1SzB2ifai4gpyZ8f3xrzbVi/B1tggK/XotPw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
+ by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 03:36:59 +0000
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 03:36:59 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>
+Cc: Timur Tabi <ttabi@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-pci@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH 0/2] gpu: nova-core: add two prerequisites for the r000 GSP firmware
+Date: Mon,  9 Nov 2026 19:36:52 -0800
+Message-ID: <20261110033655.148487-1-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0176.namprd03.prod.outlook.com
+ (2603:10b6:a03:338::31) To SA1PR12MB5614.namprd12.prod.outlook.com
+ (2603:10b6:806:228::7)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -48,55 +114,105 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 02:04:25 +0100
-Message-Id: <DMR4KREJHY3Q.4VWNF1EO3UE0@kernel.org>
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <boqun@kernel.org>,
- <daniel.almeida@collabora.com>, <tamird@kernel.org>, <work@onurozkan.dev>,
- <jgg@ziepe.ca>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <peter@colberg.org>
-To: "Simon Song" <xinmengs@nvidia.com>, <zhiw@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 00/12] Rust VFIO PCI support and NVIDIA vGPU driver
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
-In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|SA1PR12MB9514:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0f15622-ddfa-4993-1055-08df3edbe00d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|6133799003|10067099003|11063799006|56012099006|261102123227099003|261026121527099003|261028144727099003|261022105027099003|261009223027099003|261021121427099003|261021123027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	lttik//xaMneMdRpC5i6XDUSN/ngqopYVVK0VUnI2FDL7HCXQO4NbxREcVVJy4lo+HpHtYLlRiDErzf1TQ8AnWLYCIiHsZsHTokoT7OcM/NjQpGaFQgLagyDc3fpUXIXM5InFtst1HT1vNwKdrb1MuOPmTkd2ifFt5KYUpHKVLjkx88unXjIrxbXubkIfEcQ8n6Ghbhq+Vzi2svqJmhnljfn7f5TI2ComfIbkO+IOY+b/ibXEXY6BVzg41H4RZs9uuY5uAUYOX6NfzTPvD9valNNNJKm6a6NKhL80Je6xRrwGu2d0oZBfa3cZObS5jd68oiYs6NpLI5ikoxb8UGAhwSS/8n00O4dN+bp7rkZUdJhDbQ8vvDc8uY4x44Zn5uSr4FD4ZPYoEp4MzxbfQ2mNz4fyhZMUD+ydZzmnV11IH04k+iuvgo4tzjBCrFJyOkBofMJZxQcyMgrBBw9FAESyXHbfBqnRx+bDmfoyngW8CZyV7uteBeajavGZ+p73ZQzScGKLdeU0cjD5/f423FIWLKIIB+gXstAfY0DFukE4m3pVYo7rtS8Svwjly3bsGncExXuptUaGqqRB3duUvcxM8ZWSdW4Y/r4DYnvodXW2SrxR8Q1l/s09Bkb3Xd3XqS/+THItbX2DNlbXMaQyRyQImyeEaVTvFls7Y0mkhYowY8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(6133799003)(10067099003)(11063799006)(56012099006)(261102123227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261009223027099003)(261021121427099003)(261021123027099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?nQbs3HaLtsQAdhcE/Fhcued8Lve7u4wFdoy0Vp+Xr1q3uFEZZFvNReUDd+SK?=
+ =?us-ascii?Q?TwZdNyPP14gH0hKxiN+sL/nbgmJ8xY/kmWWhr3KSNyFDjtMCWnI9kwpRcYnK?=
+ =?us-ascii?Q?FCHgn7ZDAsMzbNsASAeG/sq0Yom58Xbr4I4qBADrdAVYZYIEivwrO/apYm4i?=
+ =?us-ascii?Q?1idoGbB+q/rA4TTwdHGZ7xANl3wTkj9N/NyWcOGI97GS+OE9zMUUcVJfp5yR?=
+ =?us-ascii?Q?EBYsQ1jYc6YMxJ88GmkIMxz3Am+/PaVSW+hA3bsTE+vwB1D01y6ELnXg0pKO?=
+ =?us-ascii?Q?rylJBb+T03KBNkByqPNgz+uO2UIKtUtz2nV3VrQDcC0pJSKsQ4IEd1fgNFsF?=
+ =?us-ascii?Q?juLmvZNu3xG/yWjPSPcDCpbDPAws8WrwaUQjs8H1SmfxU7i30m/RHrFZj4UO?=
+ =?us-ascii?Q?0BCY/zHb5cJRpcRnEhYZ5C9mvk3ipW4ltZx6v/LW+0Y9SLNKqwXjmr/X0zud?=
+ =?us-ascii?Q?NNhbyAHZQI2c60DwjEpoAGmXtksP25sCUZ/m2GCXqzXJyBrFDK9ihFmHAarS?=
+ =?us-ascii?Q?c+D55PPd35c8/jJoSaxk/a4IMleS5jAvqLSFjckTO73jqJ8Wi+dT43o+9zyt?=
+ =?us-ascii?Q?h3j2nDRsnludivIQ7VHBgApHNPGjAgRx5IjRtVoiLG7uWo4fNQ+jXKpaKbrX?=
+ =?us-ascii?Q?Wg2iTYxHAGX2sVzFQTP7trfCak7O6kbFbKukut0naX00SVFBb8NupC3x4cI5?=
+ =?us-ascii?Q?w73fwJnzNocFPvcRaE/I+fmoK3DksTdDO93SdwyiSb25eLI3zjAR5CcJ24u/?=
+ =?us-ascii?Q?zOlPrk/NoS+wKIkOCnRaB1Jgr/pknJW1XYhUu3Lj0dQyiky7YWBTi83v/x3o?=
+ =?us-ascii?Q?klfTs17ZvQERE3+qKmQwuNQqyNDaMPEU1z5/vXQfJAHiUnpQZ/E8hVMpdw8w?=
+ =?us-ascii?Q?oYj8dZDI0VfN0M5W7Ms66D+l4hyfLzkVHfNJ8cIpZD6sjGMWj1TuMFsV/Zy7?=
+ =?us-ascii?Q?VzY5xa+cr+ZICzyc0UBCAekZnAJ+6nB1RWyYtDpPXUwVzQrUgxsYS7IUcAtg?=
+ =?us-ascii?Q?dHlA/03tkijXl7gCUqFdd4xHY3L84htqZ/yAgeMeABtR7A1xs2SY540xAGH6?=
+ =?us-ascii?Q?iRt1Q6vmyRn24y32Gyk7cssN/D705za7QTfwhff6B+i7xL9V39O1jsImvesQ?=
+ =?us-ascii?Q?auhEqJRWhwphawJbEMPEI50TbBK+rtmlbjK0nI+qVF0PLohx2n9Cf3Qp1EJD?=
+ =?us-ascii?Q?ATobyzL6x8c/hWrDgHTYqHJsiEYkIQkNDH1mTYmDCYZuHJ8k5o09vJlnqwtg?=
+ =?us-ascii?Q?cxQ7QHaSlPL5BGx3tJOKJG4xgYkfeRodsuFX8YFXA5GAazt8T+geJrcfxgLp?=
+ =?us-ascii?Q?Nh4E4wPk7pJtuMC07piTaaGIz0N8+BQ/YaKd82bRviAn0n5xR83tWXqi6lBz?=
+ =?us-ascii?Q?e8Mys4ZOHXGY5uiA5fi86oTrxA9Y61NlI+5n2WJ6sW2ov1ivKOyWmOEgMdHz?=
+ =?us-ascii?Q?c2J74Y/mgPp53xuM8Q7J1DKPFZ7goFgc5eEftuGcDJ9hvWLBI0ja3N10tRP8?=
+ =?us-ascii?Q?qFYyynnQsM29ClOoxV4/F/iFKecRwzornWzs7wSbVSkAsOpqxAK23yPuWIq7?=
+ =?us-ascii?Q?lMJ/woBj7r7cOrVTjVW8e+MAzXL8JNcoQUK853PCXuXITrSRGLJro2dURPkR?=
+ =?us-ascii?Q?uD7NukuVn7FoSlMFodOqc94gRk3VrEJErbdwRmbVnKtL8FobUWgEEhiEUCr9?=
+ =?us-ascii?Q?gd1IJYwE1xGKBsntmI3ZVz4i/WliFm2/KAM8qoujVyHE3mq1JfeJ5v2xAbgs?=
+ =?us-ascii?Q?H1aRChhlCA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0f15622-ddfa-4993-1055-08df3edbe00d
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 03:36:58.9369
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Uqaz+WTchcGnEo+OWkk4BuzbjyS1ZQAdZJJs5GjjzzHAk1Q3Dl5xAkvRyfC5AYAScxyjbA2d8bB/OrGuoHEb1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
 
-On Fri Oct 23, 2026 at 5:39 PM CEST, Simon Song wrote:
->   rust: vfio: add PCI variant driver abstractions
->   rust: vfio: use the PCI adapter for variant drivers
->   rust: vfio: separate common device handling from PCI
+Here are two preparatory changes for (or more accurately, from) the r000
+GSP firmware series [1], which enables nova-core to work with the GSP
+firmware for r615+ releases.
 
-Those three commits introduce quite some back and forth in terms of deletin=
-g and
-refactoring previously introduce code.
+Both of these patches stand on their own, so posting them now helps
+avoid reviewing a huge-er r000 series. :)
 
-(I won't review them individually for this reason, but I can go over the en=
-d
-result and provide some feedback.)
+* For the Rust PCI abstraction, add an accessor for the PCI domain
+  number.
 
-For patch ordering, "rust: vfio: separate common device handling from PCI"
-should be the first patch which establishes a shared representation of a ba=
-se
-VFIO device; the other two patches should be squashed into a single patch.
+* Factor out the shutdown path's check for a suspended GSP. The r000
+  boot sequence needs the same check, so it gets factored out and
+  cleaned up a bit at the same time, by using register!() for the bit 31
+  access.
 
-(I think a separate adapter type for vfio-pci could still have some advanta=
-ges,
-but this can be a subsequent consideration, for now I'd stick with the core=
- PCI
-one.)
+This applies to today's drm-rust-next: commit a7cdb17ca0d7.
 
-Thanks,
-Danilo
+An LLM coding assistant (Claude Code) helped write both patches, but I
+have fussed over every line of both the code and the commit messages.
+The LLM also drafted the first version of this letter, which I've
+completely rewritten, because it totally missed the point. All of the
+points. :)
+
+Testing: booted nova-core on my 3-GPU test system (Turing, Ampere and
+Blackwell GPUs) with all KUnit and built-in Nova tests enabled, as
+usual.
+
+[1] https://lore.kernel.org/all/20260918010719.1176945-1-jhubbard@nvidia.com/
+
+
+John Hubbard (2):
+  rust: pci: add domain_nr() accessor
+  gpu: nova-core: factor out and expose Falcon::is_processor_suspended()
+
+ drivers/gpu/nova-core/falcon/gsp.rs |  7 +++++++
+ drivers/gpu/nova-core/gsp/boot.rs   |  6 ++----
+ drivers/gpu/nova-core/regs.rs       |  5 +++++
+ rust/helpers/pci.c                  |  5 +++++
+ rust/kernel/pci.rs                  | 14 ++++++++++++++
+ 5 files changed, 33 insertions(+), 4 deletions(-)
+
+
+base-commit: a7cdb17ca0d7ce67e9f3a52d39edd60f03223729
+-- 
+2.56.0
+
