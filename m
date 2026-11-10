@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.61
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794331355;
-	b=fWb/lDcFOdsxfT5tYC/tGfSgEn+H9fUfmRH0cBG0xsjRCkveSmnA+I6cdCd6j9j1NsTl
-	 DwEknpKO/jthjlH34VxABt4+2osiKFiqCKUDa6GtgTaPHJTLDfpO4l6y7/J2uQlz0i/Fh
-	 mo4JlvLuTBiUSxjCxQhzD1CB7qVoxbm5ok7uzkDxqcnkLjDpAvZ25BZa545+EwlgkrgIq
-	 6LWnKwOgQAR+bDHpxHXz/TkXo4uarR/wwBfydUK+e0nYAAJmXXuU+EUHOtyvPWfqoDwLQ
-	 21L6Z2VU71mnirisPkJJvNPT0GitofZ41LVSIfuNC2H223VpJoT15UcurMl1epUa/xQ==
+	t=1794332569;
+	b=qKJ6rLHqOmj8KOnc/kjqer7z3IDllbHCz4//rx4ajc1BV8Y5Ol9eR/6MHoecLWDEjHys
+	 7Ui+yJhqV0sk2YgV+PdgD8rIanz1tGuJ+brDrKQISVwbfHCaYa5FYSl7hYSjnvNwHSR6P
+	 7M53veW/MDXA/Y2sufxw8/4btop6bQO90V+ZB4SZp8Fr1O2kwSF/Cm9yUGqdN/7FwZ2u4
+	 bxHbmWEgwD37UxFJiU5gEg8dJpWzTuGer3EefhqtagOQlZl9hW1f6Wa0aVz1K7Fb3Z8sa
+	 h/4P0MCS9zDSZHbRZPbQpu31z66lhKsN5x7uB3KHO3DJ1iaQZ8iOo9Fh4Zaf7QClC2g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331355;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332569;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:Content-Type:Content-Disposition:
 	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -24,55 +24,55 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aptb8DINy+86J279WxTrI+KtPSIwcQchmnBHnVEBxa8=;
-	b=Jjaf119fL9TljD0Lpgj/Ch4IXRM3dvwo0gD2UOE/V/lAGf5YYV459dJMQHHc8NsOf8cD
-	 KXVXVZPgsXKSvxljB8zJKbZffyKZREY3ulaGG4uoDHq/4Mc7AmXpO6cKd4CJ8I4CnqCJ5
-	 lHA0bBriYGDw6D0UrHd6FcpIhGvmRJZlI+eQStaLBIGOOcd2TxifFHwoDaqKdZz9e6LIa
-	 TRB0FM0+CRvq76w6AvSfxeAUtz6DUQUsFZR8UNtzTjczNd2mCpnRycoyr4HZsIJ+PeY11
-	 zsoO6mb9vVM00UFTqOvadsyyJPK7elQ3y4CN4X405tHCw+Mxjt5gkZPi5iBcup3Me3g==
+	bh=Ua/hyOt0QmKSRbaCjTGTZjvDr/jVP6WQyEboyZ0z05I=;
+	b=ghB+DuKkr9qtut5cd1HcooAFTBnkQvC6002O6gXcs2dGXfgfOuT6CMimG4z0QsN2KxOX
+	 0ufYQbi5//RH2RDBMtlwMtxdDfGOK9ga1LBRwXTNvk7HaCg6Fj3L5MzVNVvFHDnOfCUc2
+	 zU3EpRmCiKXZX5lZCYcLS0nyVcDJuXZZQdMPE+suMTCKHPlhAtjY0O5yEvftM2vbv7Hda
+	 MLBCt5tm5Eg1D/ZtDTylKWER68xPbgQPZDbElfbXCRYuriq2xxeptBiA0ww2LW9BY+cgV
+	 YfkHattMI4S4Xo4R/aYxWyARorTZoGi4zPmunYRyG4ixMIO49jLnzoA+6elWsIKXMyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AGc3ZSTS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.61
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012061.outbound.protection.outlook.com [52.101.43.61])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eAv5ciT8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.42
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010042.outbound.protection.outlook.com [52.101.46.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4C3606A327
-	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 17:22:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA4C3606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A24606A321
+	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 17:42:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06A24606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AGc3ZSTS
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eAv5ciT8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H4ozQWsKoucoFMJb6ZXvmqCnM7H8bAWFcD8GOUGpxVTpVlz9uSngInABnmGSWWPIIahpD7a6rJn56+0whmEWh2LCtWpFE8l4SZap1KG+6HtZsQM3neScj5Nz3b+fyRHiudvUe4HR5qeIKIk4/5rd7zy3N2ufjNYj1EJCRyI896juOArMWuebJl/h7YHe+lFvFoz2ABXizgv5L5EHoO/eLIfRTT/EYoSz0yLJ7pZeon6FuIGEUWvs5/6BtbHDiIFGp+TpygljjofZaGC2mFN4rk1y//g2/A89/WYCfRYV6mkoUUI+BPRn5YdQP0Aye+R4ux89iIsHWwtyUPFOjDi70A==
+ b=V6JPYAw85bjeE0ol0yj0Je1bHEKo4EtcHiik+kwUB1jbHb1IZBvv3uamxbrK/Wu/adt6Vhbvw1tQd1BD0OYTDmCLzTFcIbgYAgtRY+44gbRLMN09rkHIgqpLXkf7w8lqyQ0QQm6M4eh0FTUiLCFOIH0KX8EvtIf6BZCenilZ5ZmGZAqOkksMqRsHevgCNtU90a1ciIHfk7h+cXa0Doeo80AM1v3r2bBwV80kOk6TFxN6oYLgoPrxWknXC+nUuLq6WSEYQU0DE5Opfr4EkZGII/om7IrxVMpsmpQb6Us9l2k4NvgpxlrsD3BaDJyKFKfylrgbAc005Qmb1r+AJxaaNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aptb8DINy+86J279WxTrI+KtPSIwcQchmnBHnVEBxa8=;
- b=S6ow00c1nPg23fumIY0jLKos6U3ysqLG0qJGsrkuZFnAkoebFoZFTTEVrGZeZ9q07IZY+KfV3E/dVjLFqidMvCsGZ9WepZYU3LGY/HjzAWa1VB6VE4pEkfbXwRrd4PiC2xVY7YowkGlOeMkvmDhKbKrtjOrQE8qJbZ2dFng4BKne+yOUeYFysXX2FZY4HCTxrpr3Oh3UBzzT4EmzWn06wGxxaqKGQUjsV6BsGI0SL2JmQuQs/HZTehw44HIEuIm8TwMcAqus3FwkdMT3YRQ6kcRYpAg3gzSPrK9fuurK2/jY6E95AhZrvOLqfxGd82lOa/vayg23IbMFE9itukmvEQ==
+ bh=Ua/hyOt0QmKSRbaCjTGTZjvDr/jVP6WQyEboyZ0z05I=;
+ b=wfGosz4pNOb9wBtHvvhrEVKiovNLdL9Fl3QfyASTL3s5UlrNjP5y+8BNGtAHKOAxIBI/v8HFwF/PuUJjMphz4OCQPGUb9ytDGS6k3Fq7cjHCASd8vsoYdAGgsDBUZFhBLlK7Vzz1/96Tbolvwh1W+U91mbFyCO0/lynw9QbRpx1bwLkvLo3gl4bIR3x67oVJ8isez8ba9JTjzprJaxQoQ0y4zib5n3DkkgMsOaUtpwpt59ssikrGkZDT84xxDAl7YMt0SJzEliXUV9nnIH+eUCllvuO3cU9iBajnEG0za3W6IJSjyaeUx9jz6/K0jC1kcVAJM11OJD+7HTjG5yrnCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aptb8DINy+86J279WxTrI+KtPSIwcQchmnBHnVEBxa8=;
- b=AGc3ZSTSEb0zJEhWMbNH7oMBraZE9hgfI+iT+zsaAMINQRmgUy5GmtYoW6ibLS+WEk7i9z1WE7+n4ueFEiTHKNkaYsFC3mRGw7+CleJFX0xrPeNww0/pM2M4/9Spu3BGmhin9+OsKqA3rml8B/+YiPC+ckZtCkMvptwS7Aq/FWMCcm+WXg1wQromTdqVZ84sC3zBtcdbpwWZh6gwW/rYQ1nouKpkCTZ66UU+rUlY+bdrm9BhuATBOWLPGJgDsjsUSQM7qBJ/EfwwORen66Grcdvi2KE3ra4nj+d/lp46s88ugVUBTpMqjn6ru53ISYF0DOE8oHjNbauWoDXtI+w28w==
+ bh=Ua/hyOt0QmKSRbaCjTGTZjvDr/jVP6WQyEboyZ0z05I=;
+ b=eAv5ciT8K5JGaIaFmkYLrYip0+6WKZ/Ty2k26WNK58ZcvI3Q74wo0bJZT5/cWGu+ki7ZmennM+EnioRyOAImgA5X0hNJRC+AwZJSHgoVzGfxQgnI5CLXMhP30oZPoqKpfyCJlgHKUuQiDc0z5N3LanBAvUopare7t/uZ0z8A3wJtQvHPypW1f8JFV9R3KPerXJ4AqZ6732nbdP8HeYQOZ9K9z+CBaLxft76ZQHirnEDnIPRGG/LiR5Z43piWtr4zOoBoRvHmU8axdA57q2ZIR0ayWWKFQoRTdzDq4tscbwChEyrmZ597HHAp+mng6lKCG/39TiYV4tH/fu6z2Zn/Pw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by PH8PR12MB7303.namprd12.prod.outlook.com (2603:10b6:510:220::16) with
+ by MW5PR12MB5683.namprd12.prod.outlook.com (2603:10b6:303:1a0::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 17:22:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 17:42:42 +0000
 Received: from LV3PR12MB9356.namprd12.prod.outlook.com
  ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
  ([fe80::1c36:31b4:c420:6286%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 17:22:20 +0000
-Date: Tue, 10 Nov 2026 12:22:19 -0500
+ 17:42:42 +0000
+Date: Tue, 10 Nov 2026 12:42:40 -0500
 From: Yury Norov <ynorov@nvidia.com>
 To: Eliot Courtney <ecourtney@nvidia.com>
 Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
@@ -94,15 +94,16 @@ Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
 	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v11 3/5] gpu: nova-core: use Alignment size constants
-Message-ID: <avNSy4Q5Bw269C5e@yury>
+Subject: Re: [PATCH v11 4/5] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+Message-ID: <avNXkJjOoTzUu-1r@yury>
 References: <20261109-chid-v11-0-082aa9bf5a91@nvidia.com>
- <20261109-chid-v11-3-082aa9bf5a91@nvidia.com>
+ <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109-chid-v11-3-082aa9bf5a91@nvidia.com>
-X-ClientProxiedBy: BN9P221CA0024.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:408:10a::23) To LV3PR12MB9356.namprd12.prod.outlook.com
+In-Reply-To: <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
+X-ClientProxiedBy: BN9PR03CA0887.namprd03.prod.outlook.com
+ (2603:10b6:408:13c::22) To LV3PR12MB9356.namprd12.prod.outlook.com
  (2603:10b6:408:20c::21)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -114,354 +115,165 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|PH8PR12MB7303:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ed3b775-35e9-4386-ed8b-08df3f4f2d62
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|MW5PR12MB5683:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c05c00c-fda2-4507-239f-08df3f520566
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10070799003|261009223027099003|10067099003|261026140227099003|261026121527099003|261102123227099003|261021123027099003|261028144727099003|261021121427099003|261022115727099003|261022105027099003|261022075727099003|11063799006|56012099006|4143699003|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|10070799003|376014|7416014|23010399003|366016|1800799024|261102123227099003|11063799006|4143699003|261021121427099003|261021123027099003|261021135927099003|261026140227099003|261022105027099003|261026121527099003|261009223027099003|56012099006|261028144727099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	d0TXFSP1VxKKzqWBPlLZaUxvQZq8Dpouxhn7CMGhGOcT/2UqCAyhSSrsOQN9qkzyfb7N3xPPRDNrwCORM91X+kmhshXRaA1tW5hLUsbQ+dJ83s6+AYM26iZJIXA0SzVGZmbT1Z7xeiqmUbgpLBhrLoy/AQxucHOkOz3Zl6BQ+g/m8G2lKYHXuOCUn6jJ2H4kE3A7ROvD7Zh9NURzeOcRUVou9i9DN6gh7HlYKydZv1bJTNRb02+siOW7E3xjMU7/eocGk/uSOtlrK0QjxY2ujbeja3hMdeJazGi1slhshzUPUjYQ2LQR0QGiqoR7wpJaTpuSmz35UYLWuNrezxHcZ7B1+K4lXFXn28TA8VGOkJ63JUd6CnB1qJa2TRO9dum97LLjUEWrPZ0ssF7K1hC+iGhntss0NhNf9pIrAQ1R6O8Nf3nGLgiwyCaEb+CkOkj+0v8qAizu/wTL9DOUKxb0oo4huRJhc71pwnppokLN4mn6tqsPUrw+JDJ3EiCeaYEzrXAv5xrFFini7/FVfn9qVjpotdixw9wxrKw1pIbzrnSI/eLqyGtm7OzA0CpLk9rBbwgue4NwdD6HUicBQ0I21iuxcBefgQeFCKxzDG1XNTZLEITZTBrok2C4c9gjp6cCxlC2yY3p1e0x5XRK8XufEU1V2m6G+MLnuDR1ma2tfMU=
+	Fzs9Ik34rLunTU0sFsco1XSW/WYNe25MtlsLE6LbCTjVY9dggU+gkXadty9nFW/A6R4v+CTDAAfDW6AX1k2KNXg32wlz4Qfd388vk7aDQdlDIq0rTZ8TpPb5YVrt1xsJabNlfxru94SwWR2kS7NwGCIwxCc6Nr48hdr4JzmWG/ohEXOIc/CCt1Yyw8L1ucyB5r453HI/SdNPtIHiRXNkvauErt2DUfQiT3Sjx1Vz1FrRPtNW26d4tRLWsAwqWyml52uECDZCU7aVQpk/vF3U4KG0DnI/tjigmJTvOxUTPRF4dw4WqLV1p3ULKzFSwy1xP7WsxQ933NhLTXFp1OkZLGJ3QmjtGD51gd+bdYErEtNXReXVw/HK2eA+M8Z7EimdNpRU3mCL0T6aS/ixeny/EGTHBQI5hgmCfi8yfAUITeww5cfrXO+V7imcIRa9/4VNVux/zgQPQSaDgB1beU3V87k1qXy/tC0HPvRvhDypfQwx+OXX6P5v2EHriQW4pxUr4GmAZr2yhEgVAwdzFujG9/2b0VCqOkWP/5f2nP5dPPUhzZdLcRiH3MdZkSPuTs9TEmVHcViiNQ5G9TXdopzZ8BJtTM2LYUp4QCo6sIeg9tIHtF6+fMMCQ9nm8oc4zZCDKtDTzItUsi74Fz2LkbOE0eP/U23qiHSlkj3rgn43VTc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10070799003)(261009223027099003)(10067099003)(261026140227099003)(261026121527099003)(261102123227099003)(261021123027099003)(261028144727099003)(261021121427099003)(261022115727099003)(261022105027099003)(261022075727099003)(11063799006)(56012099006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(366016)(1800799024)(261102123227099003)(11063799006)(4143699003)(261021121427099003)(261021123027099003)(261021135927099003)(261026140227099003)(261022105027099003)(261026121527099003)(261009223027099003)(56012099006)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xR4Vw19RCa66jyTXExuZOYp5Yt6n/YVdFwxeU3wWAKD9ztY37IpCPGwJaSSK?=
- =?us-ascii?Q?4TUzCRXtxKFTZx/pdqgNwrhioa/X6eJg+unCX5ntcqAcZVIl4LPSiNrbyJ+A?=
- =?us-ascii?Q?REaWYRZDbOP+puGCMK4N3/SV0i/M025dLazXNmNDL6zE0igvRhceoLiDB/mB?=
- =?us-ascii?Q?dduE99SHC28DcN7Y+eDtYTCnpCLUYG1C/32ysx9/+KuE9XDas4gyB620A6nJ?=
- =?us-ascii?Q?py7PJ/fuWuMl5zhmSBpi9DJgyZWN/SpSzs4OY0Ul2Cgwhm8t/mi/mDaexv0n?=
- =?us-ascii?Q?EXb83U+22gkIQkxOGdb88rD2a7HzgOjAdTb/32ITRrmoPnCW0XndKhhJsiSA?=
- =?us-ascii?Q?ctF1NnorBUUjWKDsBX+m3EQmcl0HDEqCNr84SVKPymPgiDqVF5MIcCHosrkW?=
- =?us-ascii?Q?cVkrACBZXGNWSNxqsz4yYqvYebOJnVTdtDpYNSb1icOxO7IbeL5IiK0ppzHM?=
- =?us-ascii?Q?LgqtrhYuZXQyKOBzvxcfkTNYOMp9EXo7jzH6Ss7seHNIbxzMbvgE427Yb4T1?=
- =?us-ascii?Q?qg3FhoLkNdKiDbKa4mG5uv9Pz275TU/7gS74xAb/H3vZwKD8BFol1XkEsdVF?=
- =?us-ascii?Q?PJOE7QoD3Uzs+eX05e2GZqADCTkAv477cCeq3bmOsw7lGuWJ/qvLqLmikohR?=
- =?us-ascii?Q?jT7IUknef5/fhilObkNyu/AtvQnB/VSvZG9I7ED8E4uRngz37/aK49jWh/Eq?=
- =?us-ascii?Q?bNQrzBRj8RDAPT79Btf6z9e9A3erQmwdIGnhF+2weiGsWXC9e0Vdda+T1YgV?=
- =?us-ascii?Q?I9pWqZ68ZAW08dWdUsuxblyzc4RpyBc20m8FhR0Y9PaRH+gIeSsNRtabLCtN?=
- =?us-ascii?Q?iCTSPYQG7QFAWbZqlTqxm4WkZojAeQ/mKaPjateJTJlgfQvnprQJ7RlLtLeO?=
- =?us-ascii?Q?XMrroYP9VDqy0GzgzMzINfbxK6sS+ZDITDq0Bg0zMnUj4TvoTVnkAGaQSnBm?=
- =?us-ascii?Q?RD/tK3GI0UFD7pQpgHf/Taz8LNOR8IVRvtdu0EFqAuv4yoDmO8PGART7aXKQ?=
- =?us-ascii?Q?vG1i+rPnoZGVxtLtYfh9RVNRY2jsS01iFBGn4ZHCvqWuHvr/QVZmwkH23qZF?=
- =?us-ascii?Q?J/WYji1XqBij/XgwmxbNe+VgURswh4Z8+YZOafgyqCCVnuLuTFTdzfnaKokY?=
- =?us-ascii?Q?xZxoJEp9EXYr8eaUKgFOTxVL+bjbltbTZuqFaaJgNVMkXTiSq5y/KjtNc65C?=
- =?us-ascii?Q?qjCF0Qc3uu23o4EgpFIS3QozwZoxX6JH4Y8XSO/OdT3DU8Ld0rBSYBJ9ZY5c?=
- =?us-ascii?Q?A7Re3dxfXyFvtufHRwZcoyQElt52Um5JAEfJfAQvUMeLuKf8wQYu5kYPULi5?=
- =?us-ascii?Q?Y6w/Iw02ju1kpQLKLV3kVvkjSZylOMFJBh8zYLQDZb0KgOqCN8dM9YKDCJh/?=
- =?us-ascii?Q?IFaAT4owu0p46ctr/Js+fUXW7Gw4TJ207rRYtfeMYqTEfydXZOi9IWxAARLn?=
- =?us-ascii?Q?5v+dAMApll5G3GtDk6RskLu7wIpypvx3BEtyEQvdmyQrcqK4mB+5622oRt5R?=
- =?us-ascii?Q?ZR4Gc42ypjy7DebgAUJ40oi4ZvG3+4haBxq6Wx3b6TRD5o0nb2UdjWcFd96T?=
- =?us-ascii?Q?0RsSqR+hcfDti2BtjvEe54kFJtLTeApJOcI/IeDeTTDmPzu4ytNbcdoth7to?=
- =?us-ascii?Q?4pmA0GjE1DnWKubt3QyvzsuxgJuXID6B+K18A3w8i0j5+SRm0ShZSwdPaCWu?=
- =?us-ascii?Q?WQvPu0uac4DSngtlyZe6sb8BcFgbHzmo0gq3z8+SeBsceJ9bh5QjYvoiAzAO?=
- =?us-ascii?Q?S6IEOEjPfxwb33GBLRsudlrnEm6ijku9kP6z2QAW0ozKVTc8dOhU?=
+	=?us-ascii?Q?zDN3b5HJ2gjxlhcgAPtbz6lWYH6a/ZzsZazUF13uyQZNRt+upoI/VONJb8ht?=
+ =?us-ascii?Q?jckP4TD5E/g6SAawQ8Iji3qCPw+uccl/1i7pkilJWzWMjTgf8LSRJRUTNm6n?=
+ =?us-ascii?Q?NTlNwahExvhjIJQeTXueCac5YQGWASK26nMzKQZCtBweOBev3SmGjSOwL+lT?=
+ =?us-ascii?Q?Kp45DpvbPO39iIQ565zAYP0GlMedSTZ34fh4/60bEPSbUvo52gzi4JqJc0NO?=
+ =?us-ascii?Q?Lm4QOY7EhyU8IWsG2zJatE8hWzYIMe98DYM5fTTw9sDJp2pPiibKZHBfHGds?=
+ =?us-ascii?Q?F4eRhtrfGDcZK8n6R8ocmgB1xzcb9QfMlfX1UEIFdbJ6Ql5b0RPLIrxlywzO?=
+ =?us-ascii?Q?8hURHtR0Zra6wRmIeMdn36zZYs2kkUsJxxh0AEjHDAh0D4YDmflvIIXrScK6?=
+ =?us-ascii?Q?12zjD/UJs4hYZbACSPCEDHZL3m2Bm7GgguEexth6NL0grBN6UFzahY8JO1xE?=
+ =?us-ascii?Q?1Xo6FEhFdkzvBxvFwHVwZlah/IeVpIyi0QA29petAbkUkXQ9ayK/s39HqiiD?=
+ =?us-ascii?Q?fFwjA3HJqfgSMHPr39E6xFr5ju4gNGBPyftNU0rLO633+ibTELQXj/1gSL8g?=
+ =?us-ascii?Q?XtfCFjca8VYKy3/NOSl3OigXhqyYkZrNnfITort0i6Sd7kFgiSxiJldXUvRe?=
+ =?us-ascii?Q?Tx6BnaWGbUVZ30Q2aH3/Tuqp+RrLQuiG9Ah8nEP/V1GLlkYNsSMdfhiD0X84?=
+ =?us-ascii?Q?bPgynyvJgjAFTEB3K9c+SIot4w3UR2rjQEuCJgg1VvE41qQOybkmV4gpYIAw?=
+ =?us-ascii?Q?Yxh4a0ZvdgEy/D0ZUe6VFBTvHSqZvzZpkZRbRiP03eskzsc34LKo1hzK/Zau?=
+ =?us-ascii?Q?PAzvhlzEiNqjJ7O1+Ij2hyU5EcXxZfp+Lnv8+vNG5liSNHE2KQFtTqo+ctI6?=
+ =?us-ascii?Q?FF/jnQr+1sEOuLMpCXdWqZadk//IbFcFShV+zf9I92/BSfVbGAh7Zm4pqArI?=
+ =?us-ascii?Q?Cj3q4lMy7/FvzvihAkqx18yQdfxOxg+CodmEnWe52UxyT1PrEyX75XUUj+k9?=
+ =?us-ascii?Q?kpR8LyqaMleR8FzqOIujzYRdC6g9UwF5fJmqmkSX4bLVe1PHsigKT2dZV2yI?=
+ =?us-ascii?Q?8xbeHdHykAqoh2gpatPSB6mgwuwlkqE+lf3d6wjlZbGwQID0eQDXZ1OXL5Zr?=
+ =?us-ascii?Q?/ienbG4MCvoYgVZiZTZ+3zav5hASFf/EBYpdkHgtUaehzCZXwzYsXaWZUSSh?=
+ =?us-ascii?Q?iMAoqXfaYQhYM6rN0WEA4o7HMXZSN+9Xur0nIxTb8/Ete8B/Jd5YEKOmsxZB?=
+ =?us-ascii?Q?myCNcpVDZv1pDFI4bpUURDc3c9khqI9JAieIG19rIys6XZ1DNuOZMGk78o9o?=
+ =?us-ascii?Q?tjoBolrwHzs23NdJn6hmppFLEOb/0Sdu2nedF0LVjq1myhce6d0Ptn5bTmKP?=
+ =?us-ascii?Q?/eQX7N01udA5hmvBpuMiIHVn3HFeeEQRoBwwhv2t/CJDHQ4G9Yc7Axq0Qo6y?=
+ =?us-ascii?Q?S0+R02D2z9pKm/2zU0ls4DUay6XdkJl/AM/PTjKHGcHb/N3J6J6PMHqrvKIz?=
+ =?us-ascii?Q?8Ege9UIkd+T/tbkytx4/X6T4GZUBruQOkksYEbt60QMGOaOC4ql7C8SvD9jO?=
+ =?us-ascii?Q?NghFSUOPQlgVqVkerF4nVgeo00JmCgRhdJ2e2LR2CUyzqNmAKKWZ5YQZXvxM?=
+ =?us-ascii?Q?SakLoxBSUO0/XBy6GgJlw1fvtSK+/Y5oEwXa2IlZ5HMF5C5HjA+BZwRAD4cw?=
+ =?us-ascii?Q?/1Bmmo0N3fp2TLS54QScRHQC22cnRtPog6II2+czRc35hLS8OFvRw4agJ/5b?=
+ =?us-ascii?Q?D61bQXaIZzFjxriH9kmcQcCbbAJEOBG/Oa/dNigBVp8ngy+1BB6S?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ed3b775-35e9-4386-ed8b-08df3f4f2d62
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c05c00c-fda2-4507-239f-08df3f520566
 X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 17:22:20.8011
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 17:42:42.2473
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3vu/X4sqo7+bUv8QiU1SS1m2W2lCCAUGKImTbDFPsdVwzuLOugnXdAbZjw/BFGpiVtSrj6QFIzmz6wUF/gYv/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7303
+X-MS-Exchange-CrossTenant-UserPrincipalName: XqoH9kf5M5N41uS9+sy4oHh0TC4NSk1yKnMbxwCZtSRDoRwidf0Xyc6XuWR9VCJE/gFWKCn7aImOeEIrcPTC5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5683
 
-On Mon, Nov 09, 2026 at 05:32:51PM +0900, Eliot Courtney wrote:
-> Use `SizeConstants` for Alignment that are implemented now.
+On Mon, Nov 09, 2026 at 05:32:52PM +0900, Eliot Courtney wrote:
+> Current code in IdPool::with_capacity rounds the capacity up to
+> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+> smaller than this and still uses an inline representation. Remove this
+> behaviour.
 > 
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> This allows specifying a real capacity of 0, which was not previously
+> possible.
+
+How real capacity 0 became possible? Did we eventually find a use case
+for it? If not, it should not be possible, and the implementation
+should not explicitly handle that case.
+
+> This breaks `grow_request` in this case, so change it to grow
+> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+> `shrink_request`.
+
+Not the grow_request only, I believe. I recall the discussion about
+panic on most operations on a 0-bit pool.
+ 
 > Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Burak Emir <burak.emir@gmail.com>
 > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
-
 > ---
->  drivers/gpu/nova-core/fb.rs               | 10 +++++-----
->  drivers/gpu/nova-core/fb/hal/gb100.rs     |  2 +-
->  drivers/gpu/nova-core/fsp.rs              |  4 ++--
->  drivers/gpu/nova-core/gpu.rs              |  7 ++-----
->  drivers/gpu/nova-core/gsp/fw.rs           | 12 +++---------
->  drivers/gpu/nova-core/mm.rs               |  2 +-
->  drivers/gpu/nova-core/mm/bar_user.rs      |  7 ++++---
->  drivers/gpu/nova-core/mm/pagetable/map.rs |  7 +++++--
->  drivers/gpu/nova-core/mm/pramin.rs        |  6 +++---
->  drivers/gpu/nova-core/vbios.rs            |  7 +++++--
->  10 files changed, 31 insertions(+), 33 deletions(-)
+>  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
+>  1 file changed, 32 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-> index b0c0b8fe6008..5ceb7760c78e 100644
-> --- a/drivers/gpu/nova-core/fb.rs
-> +++ b/drivers/gpu/nova-core/fb.rs
-> @@ -219,7 +219,7 @@ pub(crate) fn new(
->          };
->  
->          let frts = {
-> -            const FRTS_DOWN_ALIGN: Alignment = Alignment::new::<SZ_128K>();
-> +            const FRTS_DOWN_ALIGN: Alignment = Alignment::SZ_128K;
->              let frts_size: u64 = hal.frts_size();
->              let frts_base = vga_workspace.start.align_down(FRTS_DOWN_ALIGN) - frts_size;
->  
-> @@ -227,7 +227,7 @@ pub(crate) fn new(
->          };
->  
->          let boot = {
-> -            const BOOTLOADER_DOWN_ALIGN: Alignment = Alignment::new::<SZ_4K>();
-> +            const BOOTLOADER_DOWN_ALIGN: Alignment = Alignment::SZ_4K;
->              let bootloader_size = u64::from_safe_cast(gsp_fw.bootloader.ucode.size());
->              let bootloader_base = (frts.start - bootloader_size).align_down(BOOTLOADER_DOWN_ALIGN);
->  
-> @@ -235,7 +235,7 @@ pub(crate) fn new(
->          };
->  
->          let fw_image = {
-> -            const FW_IMAGE_DOWN_ALIGN: Alignment = Alignment::new::<SZ_64K>();
-> +            const FW_IMAGE_DOWN_ALIGN: Alignment = Alignment::SZ_64K;
->              let fw_image_size = u64::from_safe_cast(gsp_fw.size());
->              let fw_image_addr = (boot.start - fw_image_size).align_down(FW_IMAGE_DOWN_ALIGN);
->  
-> @@ -245,7 +245,7 @@ pub(crate) fn new(
->          let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(chipset, vgpu_state, fb.end)?;
->  
->          let wpr2_heap = {
-> -            const WPR2_HEAP_DOWN_ALIGN: Alignment = Alignment::new::<SZ_1M>();
-> +            const WPR2_HEAP_DOWN_ALIGN: Alignment = Alignment::SZ_1M;
->              let wpr2_heap_addr = fw_image
->                  .start
->                  .checked_sub(wpr2_heap_size)
-> @@ -256,7 +256,7 @@ pub(crate) fn new(
->          };
->  
->          let wpr2 = {
-> -            const WPR2_DOWN_ALIGN: Alignment = Alignment::new::<SZ_1M>();
-> +            const WPR2_DOWN_ALIGN: Alignment = Alignment::SZ_1M;
->              let wpr2_addr = (wpr2_heap.start - u64::from_safe_cast(size_of::<gsp::GspFwWprMeta>()))
->                  .align_down(WPR2_DOWN_ALIGN);
->  
-> diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
-> index 612f70333c11..37b2ae762df4 100644
-> --- a/drivers/gpu/nova-core/fb/hal/gb100.rs
-> +++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
-> @@ -80,7 +80,7 @@ fn write_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>, addr:
->  
->  // This PMU reservation size is r570-specific.
->  pub(super) const fn pmu_reserved_size_gb100() -> u32 {
-> -    cv!(const_align_up(SZ_8M + SZ_16M + SZ_4K, Alignment::new::<SZ_128K>()).unwrap())
-> +    cv!(const_align_up(SZ_8M + SZ_16M + SZ_4K, Alignment::SZ_128K).unwrap())
->  }
->  
->  impl FbHal for Gb100 {
-> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-> index 3a4a10487f33..637a00b2c951 100644
-> --- a/drivers/gpu/nova-core/fsp.rs
-> +++ b/drivers/gpu/nova-core/fsp.rs
-> @@ -20,7 +20,7 @@
->          Alignable,
->          Alignment, //
->      },
-> -    sizes::SZ_2M,
-> +    sizes::SizeConstants,
->      time::Delta,
->      transmute::{
->          AsBytes,
-> @@ -259,7 +259,7 @@ fn frts_vidmem_offset(hal: &dyn hal::FspHal, fb_info: &FbSizes) -> Result<u64> {
->          if fb_info.pmu_reserved_size != 0 {
->              offset = (offset + u64::from(fb_info.pmu_reserved_size))
->                  // The 2 MiB alignment is r570-specific.
-> -                .align_up(Alignment::new::<SZ_2M>())
-> +                .align_up(Alignment::SZ_2M)
->                  .ok_or(EINVAL)?;
->          }
->  
-> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index ac5305d7ff5e..d185e927233f 100644
-> --- a/drivers/gpu/nova-core/gpu.rs
-> +++ b/drivers/gpu/nova-core/gpu.rs
-> @@ -12,10 +12,7 @@
->      pci,
->      prelude::*,
->      ptr::Alignment,
-> -    sizes::{
-> -        SizeConstants,
-> -        SZ_4K, //
-> -    },
-> +    sizes::SizeConstants,
->      uapi, //
->  };
->  
-> @@ -568,7 +565,7 @@ pub(crate) fn new<'a>(
->                  let buddy_params = GpuBuddyParams {
->                      base_offset: usable_vram.start,
->                      size: usable_vram.end - usable_vram.start,
-> -                    chunk_size: Alignment::new::<SZ_4K>(),
-> +                    chunk_size: Alignment::SZ_4K,
->                  };
->  
->                  GpuMm::new(
-> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-> index 75b98f24dea1..5c216d777dff 100644
-> --- a/drivers/gpu/nova-core/gsp/fw.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw.rs
-> @@ -26,10 +26,7 @@
->          Alignment,
->          KnownSize, //
->      },
-> -    sizes::{
-> -        SizeConstants,
-> -        SZ_128K, //
-> -    },
-> +    sizes::SizeConstants,
->      transmute::{
->          AsBytes,
->          FromBytes, //
-> @@ -65,7 +62,7 @@
->  enum GspFwHeapParams {}
->  
->  /// Minimum required alignment for the GSP heap.
-> -const GSP_HEAP_ALIGNMENT: Alignment = Alignment::new::<{ 1 << 20 }>();
-> +const GSP_HEAP_ALIGNMENT: Alignment = Alignment::SZ_1M;
->  
->  impl GspFwHeapParams {
->      /// Returns the amount of GSP-RM heap memory used during GSP-RM boot and initialization (up to
-> @@ -209,10 +206,7 @@ pub(crate) fn from_ranges<'a>(
->              bootBinOffset: ranges.boot.start,
->              frtsOffset: ranges.frts.start,
->              frtsSize: ranges.frts.len(),
-> -            gspFwWprEnd: ranges
-> -                .vga_workspace
-> -                .start
-> -                .align_down(Alignment::new::<SZ_128K>()),
-> +            gspFwWprEnd: ranges.vga_workspace.start.align_down(Alignment::SZ_128K),
->              gspFwHeapVfPartitionCount: ranges.vf_partition_count,
->              fbSize: ranges.fb.len(),
->              vgaWorkspaceOffset: ranges.vga_workspace.start,
-> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-> index 8a934c55169f..f53886f9ed91 100644
-> --- a/drivers/gpu/nova-core/mm.rs
-> +++ b/drivers/gpu/nova-core/mm.rs
-> @@ -317,7 +317,7 @@ pub(crate) fn run(
->  
->          let base = usable_fb_regions.iter().find_map(|region| {
->              // Tests rely on this being 8 byte aligned for checking misalignment handling.
-> -            let base = region.start.align_up(Alignment::new::<8>())?;
-> +            let base = region.start.align_up(Alignment::SZ_8)?;
->              (base.checked_add(SELFTEST_SPAN)? <= region.end).then_some(base)
->          });
->          let Some(base) = base else {
-> diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-> index 6e9384f06f43..2e8bd2a8ed91 100644
-> --- a/drivers/gpu/nova-core/mm/bar_user.rs
-> +++ b/drivers/gpu/nova-core/mm/bar_user.rs
-> @@ -195,6 +195,7 @@ pub(crate) fn run_self_test(
->          },
->          ptr::Alignment,
->          sizes::{
-> +            SizeConstants,
->              SZ_16K,
->              SZ_32K,
->              SZ_4K,
-> @@ -222,7 +223,7 @@ pub(crate) fn run_self_test(
->          mm.buddy().alloc_blocks(
->              GpuBuddyAllocMode::Simple,
->              SZ_4K.into_safe_cast(),
-> -            Alignment::new::<SZ_4K>(),
-> +            Alignment::SZ_4K,
->              GpuBuddyAllocFlags::default(),
->          ),
->          GFP_KERNEL,
-> @@ -299,7 +300,7 @@ pub(crate) fn run_self_test(
->          mm.buddy().alloc_blocks(
->              GpuBuddyAllocMode::Range(range_base + sz_16k..range_base + sz_16k + sz_4k),
->              SZ_4K.into_safe_cast(),
-> -            Alignment::new::<SZ_4K>(),
-> +            Alignment::SZ_4K,
->              GpuBuddyAllocFlags::default(),
->          ),
->          GFP_KERNEL,
-> @@ -311,7 +312,7 @@ pub(crate) fn run_self_test(
->          mm.buddy().alloc_blocks(
->              GpuBuddyAllocMode::Range(range_base..range_base + sz_32k_4k),
->              SZ_32K.into_safe_cast(),
-> -            Alignment::new::<SZ_4K>(),
-> +            Alignment::SZ_4K,
->              GpuBuddyAllocFlags::default(),
->          ),
->          GFP_KERNEL,
-> diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
-> index 77431c509a89..f7774b9cc972 100644
-> --- a/drivers/gpu/nova-core/mm/pagetable/map.rs
-> +++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
-> @@ -17,7 +17,10 @@
->          RBTree,
->          RBTreeNode, //
->      },
-> -    sizes::SZ_4K, //
-> +    sizes::{
-> +        SizeConstants,
-> +        SZ_4K, //
-> +    }, //
->  };
->  
->  use super::{
-> @@ -84,7 +87,7 @@ fn alloc_and_zero_page(mm: &mut GpuMm<'_>, level: PageTableLevel) -> Result<Prep
->              mm.buddy().alloc_blocks(
->                  GpuBuddyAllocMode::Simple,
->                  SZ_4K.into_safe_cast(),
-> -                Alignment::new::<SZ_4K>(),
-> +                Alignment::SZ_4K,
->                  GpuBuddyAllocFlags::default(),
->              ),
->              GFP_KERNEL,
-> diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/mm/pramin.rs
-> index 7f89c093d591..c83b1681d241 100644
-> --- a/drivers/gpu/nova-core/mm/pramin.rs
-> +++ b/drivers/gpu/nova-core/mm/pramin.rs
-> @@ -19,8 +19,8 @@
->          Alignment, //
->      },
->      sizes::{
-> -        SZ_1M,
-> -        SZ_64K, //
-> +        SizeConstants,
-> +        SZ_1M, //
->      },
->  };
->  
-> @@ -103,7 +103,7 @@ fn drop(&mut self) {
->  
->  impl<'gpu> Pramin<'gpu> {
->      /// Alignment required by the PRAMIN window.
-> -    const BASE_ALIGN: Alignment = Alignment::new::<SZ_64K>();
-> +    const BASE_ALIGN: Alignment = Alignment::SZ_64K;
->  
->      /// Creates the window manager for the given VRAM region.
->      pub(super) fn new(
-> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-> index 9c214b9f4dd9..a2d2d170b501 100644
-> --- a/drivers/gpu/nova-core/vbios.rs
-> +++ b/drivers/gpu/nova-core/vbios.rs
-> @@ -11,7 +11,10 @@
->          Alignment, //
->      },
->      register,
-> -    sizes::SZ_4K,
-> +    sizes::{
-> +        SizeConstants,
-> +        SZ_4K, //
-> +    },
->      sync::aref::ARef,
->  };
->  
-> @@ -291,7 +294,7 @@ fn next(&mut self) -> Option<Self::Item> {
->  
->          // Advance to next image (aligned to 512 bytes).
->          self.current_offset += image_size;
-> -        self.current_offset = self.current_offset.align_up(Alignment::new::<512>())?;
-> +        self.current_offset = self.current_offset.align_up(Alignment::SZ_512)?;
->  
->          Some(Ok(full_image))
+> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+> index 92eeb7caa243..f77bd90325ff 100644
+> --- a/rust/kernel/id_pool.rs
+> +++ b/rust/kernel/id_pool.rs
+> @@ -112,13 +112,8 @@ pub fn new() -> Self {
 >      }
+>  
+>      /// Constructs a new [`IdPool`] with space for a specific number of bits.
+> -    ///
+> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_LEN`].
+> -    ///
+> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      #[inline]
+>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, AllocError> {
+> -        let num_ids = usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+>          let map = BitmapVec::new(num_ids, flags)?;
+>          Ok(Self { map })
+>      }
+> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
+>      /// let resizer = alloc_request.realloc(GFP_KERNEL)?;
+>      /// pool.shrink(resizer);
+>      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> +    ///
+> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
+> +    /// assert!(pool.shrink_request().is_none());
+> +    ///
+> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
+> +    /// let small = IdPool::with_capacity(8, GFP_KERNEL)?;
+> +    /// assert!(small.shrink_request().is_none());
+>      /// # Ok::<(), AllocError>(())
+>      /// ```
+>      #[inline]
+> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer) {
+>  
+>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if possible.
+>      ///
+> +    /// Grows to at least [`MAX_INLINE_LEN`].
+>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`].
+>      ///
+> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// use kernel::{
+> +    ///     alloc::AllocError,
+> +    ///     bitmap::BitmapVec,
+> +    ///     id_pool::IdPool, //
+> +    /// };
+> +    ///
+> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
+> +    /// let mut pool = IdPool::with_capacity(1, GFP_KERNEL)?;
+> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> +    /// pool.grow(resizer);
+> +    /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> +    ///
+> +    /// // Grow doubles if at least BitmapVec::MAX_INLINE_LEN.
+> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> +    /// pool.grow(resizer);
+> +    /// assert_eq!(pool.capacity(), 2 * BitmapVec::MAX_INLINE_LEN);
+> +    /// # Ok::<(), AllocError>(())
+> +    /// ```
+>      #[inline]
+>      pub fn grow_request(&self) -> Option<ReallocRequest> {
+> -        let num_ids = self.capacity() * 2;
+> +        let num_ids = usize::max(BitmapVec::MAX_INLINE_LEN, self.capacity() * 2);
+
+You only need this max(...) thing to fix the behavior of 0-len bitmap.
+We don't have any users with the request to support them. Please don't
+add any extra code to handle unwanted and unsupported cases.
+
+Thanks,
+Yury
+
+>          if num_ids > BitmapVec::MAX_LEN {
+>              return None;
+>          }
 > 
 > -- 
 > 2.56.0
