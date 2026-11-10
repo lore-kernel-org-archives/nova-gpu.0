@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.58
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.61
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794352286;
-	b=3Mk0cvkLeJbdRti35TrxTUzkmJvxry5op2KnUaG5bOpI1a6pdNbH9asDlRlwin7dUiCZ
-	 Khjtx4s8qJfIFCNuzVYDxHXUdITcpM2DebxWrJAC8hRPV5PpkT1dzlJ6cHOI5uaOuk6/3
-	 rNLKuWPvB3pYNbnXguGdwAk9s+AXiKpeSs+ZKfwElAVmlRiaBo2U4wUFVICkp3WgnNTSK
-	 zuMZY0Cm72RPfHkt4HIXpFCARMsZ+82vdRqzzw+ImH7Rt+VuWuQz0EuijX2AqcjbgZbvH
-	 099rJ4td0FhTlF1ovouWgiBfB752atuCYIUrwbB63soibZIj7761acVB0xn+jbnCxNw==
+	t=1794352288;
+	b=e1CeyUWdE0Id4x8KFh/3b4s60HR1GbXstC754z5LY50P5WLIyMIzmqsxHuYgkRkXwR3V
+	 vwR74Rhq3n/QNMJkaqLBKVDpNg+HpczVXw77Ucz7AuF2q4BaCoID3sQZhxpAQsYDO0Ijw
+	 yGTobez1FStf7qfw24vNoQe2NA6xZ3+zRT/hBZwZtVf8FuTbuvyteNXzrE9WKrs1zoxSC
+	 Bd80H4sq/5HKgkMcaRzLmdGFFBgIuqVeTBFRmsrx2sSbidgrnmpcYIff8fe9lcNDI00ih
+	 gMAtDa0l3RM223ymaZeDmNhHhLzMvvsW7vVUSDyEFd6Rkctmg36aSc8gnc3MinngLYw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352288;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -27,35 +27,35 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jFE+tiOc5x8PjSwyQ/aHY2m1kdOtgvi4iKR0wvcUegk=;
-	b=hK8QKYKeRTp4M+VS83GLTOM4A2vMUebW+2b8BIdMtOyVEA+PE31rxIh5IAyK0K7Q8Y3t
-	 MAaULCw5jrLa1shr2NfgmjWC3EZ2AhlZspBh4LmMzm34kIxC9RKp6nXM2nMhP9Q/nSeDs
-	 GsfPQP8Rn8i3A7NI77xnUKHFU3m33hEse5OIgdRpWRS8PE5Dd25lEJl4f2jR5GgKhuGD4
-	 3RUFaVKiAXDpCa+Ecm5IHiBzKrWEYVM1eI7PA2dc+DW1lMjeXujbezjYCMyTAwy1NruxJ
-	 Q9y7+XmZRSWNWuXDLk3is4LyMmiDk/mVPrWuYMZnfF//D/1Ty03q2iG4FXjKM4pGwJg==
+	bh=e4K2oB+eTlS7VW9GJxcT+IbEWj9fR+4LM5sCR8kaDt4=;
+	b=LtpOOYA9ehjp+u/g96EcAbLgQgULGkk7T0e29Gri2kxqCKuPrDrP/SVlpFP9rQ4WYFl0
+	 NXfUiNaLzaUzZeFfqfrQ8X22MH4SSaSaL/nmpMp8zMDQQ2Ss/9wuRgdeEPcRurUIfLW39
+	 cispKNADt5SfCQnf4u7fEBERtYsbcGVdTbEdTBi+Y9TSM0pXRXB0hCYIG0aUui3tVqmAS
+	 oBthUNwMZz10Ft0Og1FYAEDi5IH0GeC8/ROE2j2fXEjtafA8pSPNrDCMGQBzVmQfuEMVY
+	 H4Qs7/csZ/gOQGq9Iuazb6mwKa9hCyKbVodpPkZ/oD6r5mq1I0qva7CJe3Pu9IGipLw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qGESo9Cn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.58
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010058.outbound.protection.outlook.com [40.93.198.58])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dvk8lmEX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.61
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5966606A31C
-	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 23:11:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5966606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FA9606A321
+	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 23:11:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4FA9606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qGESo9Cn
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dvk8lmEX
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AT0m9QIne6j41LR74GGC86HB4DZYnDkq8ZiGEGLj+W7IB3u86KBbSVzZZSIyHWlR6bbhywgv1+/LSYPzZGukElBrp4b7fAqim/9asVN2YbP90p5eZA7MKLsgZB2HO9jP4imrAmrZGzO/3AGtrqri9BITCWqNAr2Q8CdM5X0okYY4w4tTMSl9w1gq0DerpDZ9EzKEj/ev8xiEPM9l9MtKwFyuG6ZUQ/JZ3LkgWQud73d6oF0PeMK515Qf0Tiq7fdiw/90K5fC3JUUOzNT6TXTRNK2Fd6WRKBTIrKnKZaEmmZKbmVXgaFM//Fq+khRC4pnx7u+D4cRkpR3MScUarPC1Q==
+ b=l3FrTlgUmFcAtAlDZkCMpcIG5JEBPELFC2lfiufRL0wBbn/A8BUVfPLKk2ksHAGZWd32Lw9kwetLC6KIuhqOZteMUVhnViCr2voGZsELsqn5GPQXttlYG4UsmzsxsDUyY5FZBMRrKXd/Q5ecKuNJMf9A54BhQTtcqPpYziRT8DdnIN+wgId214GD3q51gFWN5rpKHuu0CfeGF1Eqi1P5YW0N2apyHTS/WIFmjjzPRfu+od98Q/sNa4kf6yQjW1zcLJDLlslvnkjqY1H5B03Ni5PwglWwzsejvSOQPVf45wBoCEuRSmEZvqKdMSkBPo+JhML1mu+DaEdvYkMiAYVHeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jFE+tiOc5x8PjSwyQ/aHY2m1kdOtgvi4iKR0wvcUegk=;
- b=u5Uqg5RQHf8FZ7N8Q8Rm0UEKeVL5n2MCcf1nRcHcf+IMQRdzvJLOEbLa+XwCwLnbWLCwpF//0afKSQAx3yfvHnuBNx4cu1GkhMBkvhff52zMPe4HWbiLxwghZrY+FjCpVI6ScD10DK80Fgqohxl91PGQ3azEMbf6Q6J8HkU1TV5oPzFtgIed4z5DIxxO1uqRNi6QgqOHpBF92RBYt1vhsdmdPn+YTZCbgtCRU3wUXJPE5eihhxvuQDzQVdHIcpzLsh4okORj/bqFtPe9sONOd37NFqFvHxbXEAOhgzhemDTkLn53e3YwU/ky7JDz6Jj535tfLdgRUxDUWa/K0wPhlQ==
+ bh=e4K2oB+eTlS7VW9GJxcT+IbEWj9fR+4LM5sCR8kaDt4=;
+ b=VmWedavxV6T3kMy9Ao1t8W0yZ0lKU6uucv5k71+oawiApGvSqZMTUL8HDdUvabeu36Vm76NrFpO//krGmeaoUIA9D6v9HC2C9TQnRg3s0HvxgJy93dgNPcGkg7PqtRvZzKHfuuwTT3RXYaITNcWgeKVSICz2hBpx0kmImNnuoQw35D5yOv0Zy0nCrsfA+x4aRc7dSsueqy2JFhRhBUEtJp28SMGSv1+tsKAysIRaGOnuR8pfY8eTilql8iGXoD+idhKlITkrPAdjs2RUHvj7JAktvn/mdstdcaAzYh8kkBhTSX5M1nBRsjPv1KPY8IThXO9VlecqsPIVmjH6HRpKog==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -63,18 +63,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jFE+tiOc5x8PjSwyQ/aHY2m1kdOtgvi4iKR0wvcUegk=;
- b=qGESo9CnLUiWyrDJbNQnGp90cfCKBEDRWBpncNbtfTaxG5+9d15vjaEQgS+ywtvSMAJ6ZL4Pq3uXbQpCfqnB2ZLfU2LAQOalW+Frq8/Ujq1HjRoc2riJTmv1jT/a+bCEjCB1E4yTbzVm82wFrO4ag8DMai2zpWJuJTwYurFGTUey7Kqc5wC5bLmJX5mSb2SviSmfS37PoezgP+/er3fu2i9SPFFEbLkdSDJ1OdlP8KfpgtkdfSNTYH9XMYSZ9dcrBuXxAKnQrSKWnt/nEdhtcn2gZW/HA5pKqWcrjeApW3XqvSW4icwgQfeBDLjcf8MAba3QHXDVlTstGz5vCK0Jrw==
-Received: from CH0PR04CA0041.namprd04.prod.outlook.com (2603:10b6:610:77::16)
- by CH2PR12MB4310.namprd12.prod.outlook.com (2603:10b6:610:a9::15) with
+ bh=e4K2oB+eTlS7VW9GJxcT+IbEWj9fR+4LM5sCR8kaDt4=;
+ b=dvk8lmEXTqvM3W/tfM9YxmuB3QqlkhZ422KM/DGj2FArVe81OrHSgu+nry16hYODx4hiLL8WxZPuEAym4GzCfg1A9mD/N6Pe+2d33JIrS4nEQe5lYK5g0u+j04gtPr1p2YkKd9OdwYxnDVD1+lKT9wZaRJ4DwlApc1xmAVG9e5lkU1xNswYGNqdf4Un3XCT+6V1VApuuUxtV3tLeesMT9urea0QImODhsJPrMhVnemydUVY8AT7MSBrPYxFSDvhU9ampVb444RJkYJdg+rc0aDH1VOynF+m1AWhPh3sEEvDdUXtjWjN2QYo72VBcbCOZ3IzCN0uT56EC0FueNiQGCQ==
+Received: from DM6PR02CA0147.namprd02.prod.outlook.com (2603:10b6:5:332::14)
+ by DSVPR12MB999150.namprd12.prod.outlook.com (2603:10b6:8:388::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 23:11:20 +0000
-Received: from DS8PEPF000000E1.namprd05.prod.outlook.com
- (2603:10b6:610:77:cafe::4a) by CH0PR04CA0041.outlook.office365.com
- (2603:10b6:610:77::16) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 23:11:21 +0000
+Received: from DS8PEPF000000E3.namprd05.prod.outlook.com
+ (2603:10b6:5:332:cafe::7) by DM6PR02CA0147.outlook.office365.com
+ (2603:10b6:5:332::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 23:11:19 +0000
+ Nov 2026 23:11:21 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -82,24 +82,24 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- DS8PEPF000000E1.mail.protection.outlook.com (10.167.23.197) with Microsoft
+ DS8PEPF000000E3.mail.protection.outlook.com (10.167.23.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 23:11:19 +0000
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 23:11:21 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 15:11:03 -0800
+ 2026 15:11:04 -0800
 Received: from ttabi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 15:11:02 -0800
+ 2026 15:11:03 -0800
 From: Timur Tabi <ttabi@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot
 	<acourbot@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, Eliot Courtney
 	<ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>
-Subject: [PATCH 1/5] gpu: nova-core: add Tlv.get_u64
-Date: Tue, 10 Nov 2026 17:10:49 -0600
-Message-ID: <20261110231053.1352163-2-ttabi@nvidia.com>
+Subject: [PATCH 2/5] gpu: nova-core: merge LibosParams into GspFwHeapParams
+Date: Tue, 10 Nov 2026 17:10:50 -0600
+Message-ID: <20261110231053.1352163-3-ttabi@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261110231053.1352163-1-ttabi@nvidia.com>
 References: <20261110231053.1352163-1-ttabi@nvidia.com>
@@ -119,76 +119,245 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8PEPF000000E1:EE_|CH2PR12MB4310:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79af90bb-7bd4-4016-9f17-08df3f7fee21
+X-MS-TrafficTypeDiagnostic: DS8PEPF000000E3:EE_|DSVPR12MB999150:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6becf1fd-4d81-453b-ac2c-08df3f7feef9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|18002099003|22082099003|3023799007|10067099003|5023799004|56012099006|11063799006|261102123227099003|261021121427099003|261022075727099003|261009223027099003;
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|18002099003|22082099003|6133799003|10067099003|3023799007|11063799006|56012099006|261022075727099003|261102123227099003|261009223027099003|261022105027099003|261021121427099003|261028144727099003|261021123027099003|261021135927099003|261026140227099003|260925022911599003|260925021311599003|260925021911599003;
 X-Microsoft-Antispam-Message-Info:
-	Pc0PLChuCPpsio7xFxYnnfwHRsMMjX7ClGbhh+6zHTHaV523b22iOa1OVONCSaSVFECGn3QSZUMQKggaC/nJsanqbI1d1eaWlvaUT77zfaMyRbp3dSGsqVNjys+WBwgtgBvetUy7yyaYv17i2qcxdfozkghozzBIijXCTdADyhT+SoaUc4P6gFGGDDSdGEN0XN1AiV2/OtBbp8+uRWAch0H7F6qJi9M1scOrvIobqX764vWLtHW31GiPWSDgMCQgup1LzSwG1MTEK9GP1PxRYLKd+1MMi5cYo9Py5MnkzqHRNGVZPhQdEohhKHDlS9v3EeGoQg/SeDfU+uvsXVGy+oo5FgQQ+8v4LtbE5mJVhHzAAjfiGlO/HtXMK8OFyxqLAp5iLU5+OaFyldn51CIqfggCf5gqxhOWod9SPhldVo6y7hgDKuXvA8kb7VtJYDXe7BVayQ9hZJKKQQYu274zHr61xjYIZ9o1H/B9gu2cfWww0rUmwC6Whe/gFPqAcchNVkGAAZagzB35d8v9mHDmWW4h1c3NIeDctmxzcjzbLHPnExib6j/48gfYXs2HHMxPkkEu/14zDM+Os1yowWRfXVOKhI69rkC4BMCgVez+rzY4LqtYzGNfmW0V+YciVsHJuJ4eSTW0kjcH6fDSrQmC3/HOjbU0VLwYDknIy64TVtbx0NV5RfUmYNnKoBCZTzKb3kaMpcx0+An4fqD0xpc68w==
+	QW4tcToYW/xd5sA1qyf9Cl4BkTFVx9FW8h/8+xMdR7QN4UkLFlk7gntNvu3nZ/HhUIMQ4dFZSEK2gP8j93+FDZ3/JgMF7eGaGggm1pwfjjYaftxfeH6ODcrltmVeeDA8J3XQcnCT0O16F/sk1jj21evtbpZZhacXN+wS3NUv+OuKDRamhsGb+CF4sTIsiTC3sv6zl9yeDLQYJd6txbzGiHPDE35QIi6pMWTVq0IM2o09UTPWHEJqZWYVG6EOUu7Cz+k62rjch/OCcNNuWftqBz0OpN4cA6fjYECnILrb5+R0UZ/fvBJtbX8wDEPPhW7f1AFYI5qIoAw75W2XauOAyRYN6zBEc7UG6DWyXeSFilrFFuxASdb7w9Gln5XxwRPME+jDReV+NEptraKpEcqhJIvJHEXqPjleJMG2VWUAjiikyiYfJWRzvZwDmHdR6YJjo4BgVObRq5fF7ZIAAYKpkWhKxLRqJVFGgyTw7ynEw7jQsSrlb0Z/AECFmclX4v4z3/QolbE6hRAdOjCHT/sqFszi352kJffI9qTGNZ/i1Wjflcv9h1Xou+V8ZLV9OajZnPKaeF14nhtj58r0emqy+KWiilpLXB+mlzC3Bv6VskTxYoWSph6ptQ2p1ZzKjLzYosL2SA5kxFcehH2nPWDDeNM3wDlOvA82mR2po6IyYo9V/vtHTB6qTHlRgeX3zP7yAqKIv+Yf4eCbxMcKPQoj1Q==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(18002099003)(22082099003)(3023799007)(10067099003)(5023799004)(56012099006)(11063799006)(261102123227099003)(261021121427099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(11063799006)(56012099006)(261022075727099003)(261102123227099003)(261009223027099003)(261022105027099003)(261021121427099003)(261028144727099003)(261021123027099003)(261021135927099003)(261026140227099003)(260925022911599003)(260925021311599003)(260925021911599003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	OyXJ6pm6sK0CaC9D6f3DYYp9KBst2c0oHpBsWxPBp6lQtKcB/pii4bv8jHSAljae7/4a2DqsXXb9P7ob+V/oxKI1vKUw97hqb/SotrQt/5MvLKOxYq9m9WSMNmIK3LGY5wec8dXVXUOhjJX4KtlR6Hpsp0E8q/C0l2kVUQpPpf0bxb2BINjyTN3EipN+bls6RS+E9BtmvIcs69diwcn3V8B0zIx/NzSyldFP2lLfEsd5HPWyctn0xDznsFCHhAkJ70msCWyUYRwYurEg2blHPRuV5ekduFRm7hcLrGQcJFYYnuYiVjuPfTYdXYzqCdEtBHPBNZGmOpWPabLRaeAXZpTruRjpaiWq3LvTURbBNVf7dyExEJl3LoAiA2tYoo2/aUxrT52fUzh3acSTxq/sZP7/RNC+Szz33f7sOdHp9V5ZkAqq+ImgLg8ew04yUBVt
+	ooQg/lc27MwFRG5lySeiU8SG8Rg+S6YMTfBWBojh+4ctD8yXS29ouLV0Tc7KRkNJ63xmJ4rWHvJHJUllrZo8XU9jagR3bdAOOKAvok5BGXz/+HGRqKwpAZNq3AJWdDYYlcboEs4jCmqp0cnGFok149tuaJJM5JvHTQQ+OinA+LLUJ5WXwAlFiRIW5aWQXmiUpvLszWM271uFcLX5bWkQMmUqupLhNhqCc2ZN/BzHa/IoM0jB8otWUm2a7RuD4ucKXCvlevUAWgegaGeHQXZMgO0UCWFwHg6buUSg772yE5mhjUkIIXtd5X/kJvViYc662jBlHuBDyouq8CCTyjZJCFP/97zVZyGd15CbPSgT4lNF5M1MrMgxGWW+5SmkKoYJJDp03Ap54T0+RF4X6aKMmDXqaJ977fCcfXfNtWoV7e/p661keEKLHkex62I4t/Vf
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 23:11:19.7091
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 23:11:21.1232
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79af90bb-7bd4-4016-9f17-08df3f7fee21
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6becf1fd-4d81-453b-ac2c-08df3f7feef9
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS8PEPF000000E1.namprd05.prod.outlook.com
+	DS8PEPF000000E3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4310
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999150
 
-Introduce get_u64() to support variable-sized TLV integers.  If the driver
-expects that a particular tag might be a 64-bit value, it should use this
-method read it.
+LibosParams and GspFwHeapParams are two types used to hold data and/or
+methods for calculating the heap sides that GSP-RM needs for booting.
+Although they technically represent distinct parts of the equations,
+they are always used together.
 
-TLVs can store unsigned integers in either 32-bit or 64-bit little-endian
-format.  The script that generates TLV files is written in Python, and
-Python integers are arbitrarily sized.  For any given integer, the script
-will store it as a 32-bit integer if its value is less than 0x100000000,
-without any regard to its purpose.  This means that the driver may not
-know until runtime whether a given TLV integer is encoded as four bytes
-or eight.
+A future change to this code will introduce runtime calculations based
+on values extracted from the GSP-RM, replacing the compile-time
+constants currently used.  Merging the two types in this commit keeps
+the current functionality while providing a foundation that simplifies
+future changes.
+
+For the same reason, the LIBOSx constants are replaced with variables.
 
 Signed-off-by: Timur Tabi <ttabi@nvidia.com>
 ---
- drivers/gpu/nova-core/firmware/tlv.rs | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/nova-core/fb.rs     |   9 ++-
+ drivers/gpu/nova-core/gsp.rs    |   4 +-
+ drivers/gpu/nova-core/gsp/fw.rs | 119 +++++++++++++++++---------------
+ 3 files changed, 69 insertions(+), 63 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/tlv.rs b/drivers/gpu/nova-core/firmware/tlv.rs
-index 7f278903dc8b..75d8f907421b 100644
---- a/drivers/gpu/nova-core/firmware/tlv.rs
-+++ b/drivers/gpu/nova-core/firmware/tlv.rs
-@@ -257,6 +257,23 @@ pub(crate) fn load_file(
-             .ok_or(EINVAL)
-     }
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index b0c0b8fe6008..9a3314768385 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -299,14 +299,13 @@ pub(crate) fn wpr2_range(bar: Bar0<'_>) -> Option<Range<u64>> {
  
-+    /// Return a u64, from either a 32-bit or 64-bit little-endian tag.
-+    #[expect(unused)]
-+    pub(crate) fn get_u64(&self, tag: &[u8; 4]) -> Result<u64> {
-+        let value = self.get_bytes(tag)?;
+ /// Computes the number of VF partitions and the WPR2 heap size from the vGPU state.
+ fn wpr2_heap_params(chipset: Chipset, vgpu_state: VgpuState, fb_size: u64) -> Result<(u8, u64)> {
++    let heap_params = gsp::GspFwHeapParams::from_chipset(chipset);
 +
-+        match value.len() {
-+            // `value` is an unsized slice, but from_le_bytes() requires a sized
-+            // slice (&[u8; N]), so we need to convert.
-+            4 => value
-+                .first_chunk()
-+                .map(|&b| u64::from(u32::from_le_bytes(b))),
-+            8 => value.first_chunk().map(|&b| u64::from_le_bytes(b)),
-+            _ => None,
+     Ok(match vgpu_state {
+-        VgpuState::Disabled => (
+-            0,
+-            gsp::LibosParams::from_chipset(chipset).wpr_heap_size(chipset, fb_size)?,
+-        ),
++        VgpuState::Disabled => (0, heap_params.wpr_heap_size(fb_size)?),
+         VgpuState::Enabled { total_vfs } => (
+             u8::try_from(total_vfs.get()).map_err(|_| EINVAL)?,
+-            gsp::LibosParams::vgpu_wpr_heap_size(),
++            heap_params.vgpu_wpr_heap_size(),
+         ),
+     })
+ }
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 908d4ea72ad1..85ef94a8b5c7 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -29,9 +29,9 @@
+ 
+ pub(crate) use fw::{
+     GspFmcBootParams,
++    GspFwHeapParams,
+     GspFwWprMeta,
+-    LibosMemoryRegionInitArgument,
+-    LibosParams, //
++    LibosMemoryRegionInitArgument, //
+ };
+ pub(crate) use hal::boot_firmware_files;
+ 
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index c396daf06f1e..f30819fd89c2 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -65,26 +65,73 @@
+ /// build-time constant, so the driver chooses it, and this constant is the one copy.
+ pub(crate) const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: usize = GSP_PAGE_SIZE * 16;
+ 
+-/// Empty type to group methods related to heap parameters for running the GSP firmware.
+-enum GspFwHeapParams {}
++/// Heap memory requirements and constraints for booting GSP-RM.
++pub(crate) struct GspFwHeapParams {
++    /// The amount of heap memory used during GSP-RM boot and initialization (up to and including
++    /// the first client subdevice allocation), in bytes.
++    base_rm_size: u64,
++    /// The base amount of heap required by the GSP operating system, in bytes.
++    carveout_size: u64,
++    /// The minimum and maximum sizes allowed for the GSP FW heap, in bytes.
++    allowed_heap_size: Range<u64>,
++}
+ 
+ /// Minimum required alignment for the GSP heap.
+ const GSP_HEAP_ALIGNMENT: Alignment = Alignment::new::<{ 1 << 20 }>();
+ 
+ impl GspFwHeapParams {
+-    /// Returns the amount of GSP-RM heap memory used during GSP-RM boot and initialization (up to
+-    /// and including the first client subdevice allocation).
+-    fn base_rm_size(chipset: Chipset) -> u64 {
++    /// Version 2 of the GSP LIBOS (Turing and GA100)
++    fn libos2() -> Self {
++        Self {
++            base_rm_size: cv!(bindings::GSP_FW_HEAP_PARAM_BASE_RM_SIZE_TU10X),
++            carveout_size: cv!(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS2),
++            allowed_heap_size: cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB => u64)
++                * u64::SZ_1M
++                ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB => u64) * u64::SZ_1M,
 +        }
-+        .ok_or(EINVAL)
 +    }
 +
-     /// Return a string value.
-     pub(crate) fn get_string(&self, tag: &[u8; 4]) -> Result<&'a str> {
-         let tlv = self.find(tag)?;
++    /// Version 3 of the GSP LIBOS (GA102 - AD10x)
++    fn libos3() -> Self {
++        Self {
++            base_rm_size: cv!(bindings::GSP_FW_HEAP_PARAM_BASE_RM_SIZE_TU10X),
++            carveout_size: cv!(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS3_BAREMETAL),
++            allowed_heap_size: cv!(
++                bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB => u64)
++                * u64::SZ_1M
++                ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MAX_MB => u64)
++                    * u64::SZ_1M,
++        }
++    }
++
++    /// Version 3 of the GSP LIBOS, (GH100+)
++    fn libos3_gh100() -> Self {
++        let base = Self::libos3();
++
++        Self {
++            base_rm_size: cv!(bindings::GSP_FW_HEAP_PARAM_BASE_RM_SIZE_GH100),
++            carveout_size: base.carveout_size,
++            allowed_heap_size: base.allowed_heap_size,
++        }
++    }
++
++    /// Returns the heap parameters corresponding to `chipset`.
++    ///
++    /// The parameters reported by GSP-RM are initialized to zero.
++    pub(crate) fn from_chipset(chipset: Chipset) -> Self {
+         match chipset.arch() {
+-            Architecture::Turing | Architecture::Ampere | Architecture::Ada => {
+-                u64::from(bindings::GSP_FW_HEAP_PARAM_BASE_RM_SIZE_TU10X)
+-            }
+-            Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => {
+-                u64::from(bindings::GSP_FW_HEAP_PARAM_BASE_RM_SIZE_GH100)
+-            }
++            Architecture::Turing => Self::libos2(),
++            Architecture::Ampere if chipset < Chipset::GA102 => Self::libos2(),
++            Architecture::Ampere | Architecture::Ada => Self::libos3(),
++            _ => Self::libos3_gh100(),
+         }
+     }
+ 
++    /// Returns the WPR heap size to reserve when vGPU is enabled.
++    pub(crate) fn vgpu_wpr_heap_size(&self) -> u64 {
++        u64::from(bindings::GSP_FW_HEAP_SIZE_VGPU_DEFAULT)
++    }
++
+     /// Returns the amount of heap memory required to support a single channel allocation.
+     fn client_alloc_size() -> u64 {
+         u64::from(bindings::GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE)
+@@ -103,60 +150,20 @@ fn management_overhead(fb_size: u64) -> Result<u64> {
+             .align_up(GSP_HEAP_ALIGNMENT)
+             .ok_or(EINVAL)
+     }
+-}
+-
+-/// Heap memory requirements and constraints for a given version of the GSP LIBOS.
+-pub(crate) struct LibosParams {
+-    /// The base amount of heap required by the GSP operating system, in bytes.
+-    carveout_size: u64,
+-    /// The minimum and maximum sizes allowed for the GSP FW heap, in bytes.
+-    allowed_heap_size: Range<u64>,
+-}
+-
+-impl LibosParams {
+-    /// Version 2 of the GSP LIBOS (Turing and GA100)
+-    const LIBOS2: LibosParams = LibosParams {
+-        carveout_size: cv!(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS2),
+-        allowed_heap_size: cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB => u64)
+-            * u64::SZ_1M
+-            ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB => u64) * u64::SZ_1M,
+-    };
+-
+-    /// Version 3 of the GSP LIBOS (GA102+)
+-    const LIBOS3: LibosParams = LibosParams {
+-        carveout_size: cv!(bindings::GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS3_BAREMETAL),
+-        allowed_heap_size: cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB => u64)
+-            * u64::SZ_1M
+-            ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MAX_MB => u64) * u64::SZ_1M,
+-    };
+-
+-    /// Returns the libos parameters corresponding to `chipset`.
+-    pub(crate) fn from_chipset(chipset: Chipset) -> &'static LibosParams {
+-        if chipset < Chipset::GA102 {
+-            &Self::LIBOS2
+-        } else {
+-            &Self::LIBOS3
+-        }
+-    }
+-
+-    /// Returns the WPR heap size to reserve when vGPU is enabled.
+-    pub(crate) fn vgpu_wpr_heap_size() -> u64 {
+-        u64::from(bindings::GSP_FW_HEAP_SIZE_VGPU_DEFAULT)
+-    }
+ 
+     /// Returns the amount of memory (in bytes) to allocate for the WPR heap for a framebuffer size
+-    /// of `fb_size` (in bytes) for `chipset`.
+-    pub(crate) fn wpr_heap_size(&self, chipset: Chipset, fb_size: u64) -> Result<u64> {
++    /// of `fb_size` (in bytes).
++    pub(crate) fn wpr_heap_size(&self, fb_size: u64) -> Result<u64> {
+         // The WPR heap will contain the following:
+         // LIBOS carveout,
+         Ok(self
+             .carveout_size
+             // RM boot working memory,
+-            .saturating_add(GspFwHeapParams::base_rm_size(chipset))
++            .saturating_add(self.base_rm_size)
+             // One RM client,
+-            .saturating_add(GspFwHeapParams::client_alloc_size())
++            .saturating_add(Self::client_alloc_size())
+             // Overhead for memory management.
+-            .saturating_add(GspFwHeapParams::management_overhead(fb_size)?)
++            .saturating_add(Self::management_overhead(fb_size)?)
+             // Clamp to the supported heap sizes.
+             .clamp(self.allowed_heap_size.start, self.allowed_heap_size.end - 1))
+     }
 -- 
 2.54.0
 
