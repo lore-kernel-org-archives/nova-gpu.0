@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.26
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.30
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794352290;
-	b=5iIOhkkT8fcxrWW3clxuEODcm5mACZGk5dB+FiLuOyXfIV4+qys1mj0bYZfFQAma9xKY
-	 yAqkiP3FGubFS4d2WlXDKrafd/UmcQ3SXd/iifqMSVPV1kf5SYohjUuBPjuM0f6fGJMsQ
-	 6KeQ1TOlZEsWSkLH03mvZZ9OuULofCegCgLck5jKl0+lPdnMx75hiHAOuKJd4bcYXXGbR
-	 hHSsJAiT5WiOa2/yTEIn/1UvdvXmLMCoJFB/Ou+Y7mL8XWE6kXd2643fS1QUXdpF5+KAe
-	 FbAgKc4Bfd471RpLVidx4X/ZoGZdq33yfkGNjedTukHllYbYt9ZichrfZjjCLXKD8uQ==
+	t=1794352299;
+	b=xdFtTq7qQYN9KZomz4LLpMETOtAsH1KahVeifZ+Y1bvsq5fN243NOcm0zld+OehxY0xy
+	 07tbZTCpiXT9HEJ3fg608tr/PUpPjojz9YqvFD18FQUi+BeGS4D3xR2emk1twCP5k1hGY
+	 1/L/anbsBiEu2CH1Mgb7zZjoaeUcVsfW5WT+ZVGzMtj5XDN3lehAAV+ji4larUdN72OCK
+	 gF3bb9mJUB8yIUZWM/XTF8uyTEnSUeCGuht0QlsYB5IxIDyM0DQuQ2pmqWHPEW8rR+OcE
+	 xLmTwm0fSjpDwqT0c/3GlG8m/DNWHG5szDt1Qg+J0/eNhWujG7dVirS4PpUfSeDh6iw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352290;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352299;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -27,79 +27,79 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5ELYUe+TgspWfStrogdZb+jyTkObw1cMuNwy/ZiPoSw=;
-	b=smU0U+z2ozYEczq6n55ow4vCOymhg0QdYRk0VkyI57AaK/OJYlGzV8Uj+MYrzLsMgabs
-	 nX34dE66K8uYhKUKaCDpw1g5j+ojzN91bdkaIL+TJ6X35zXbMYxFCH+i+mDEip064m0+y
-	 ob9vR6PRAk6zybFPuodV3/mNMBLVXryIP1ncJAqz+56Lkr6mLl/GJLMqhOONorpbCJQZk
-	 JeqBy/htXAgm83w5disKk7/bc7Rg5L7aI7T1nVABiZl4mpdd88FGHxDpj/10ilrUYm2fP
-	 uGD10W2Lerpvi8hyWUqqpxxAX/d6sIljjalLCJa4NRx+BQgcTwRFZn8uzXvZVm07pYg==
+	bh=12YIYxy0iUejQnJnhQsPgTsslTtpZK10DiOUbKgqJaw=;
+	b=gVHjdhD529FKcf2wLkM70h45Ue+e+CfKN+B5gUqcqET5LKvEJlnpAP6Og2QikciYCMVo
+	 Flq3XkKRVJOPBXVY3AWIjUcPRxqnVKZb/KxPmla761Ocg1Dv7Tot3UQSVC5Cj32e0HaE9
+	 YwH/ZY0ur7fvILaRIEFEDwGmf0Erb0FjFfR8ujS5Une7wUW98WhQnYEcWveiCAHvoyY2z
+	 0pDb5fEv4IRrE1tqHSNgmL7w6G7o086LUvntMAkhbd0jKD2xwuKldlFrxm6YEVXoqQvHo
+	 XHX22hxjG9oFaY9ENPZVVjIMxDgmVlNtiUOBwWIeZKk2L6+C5+QtEroFPVMl9EO7q/A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=glgqnXZk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.26
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YpSk8Udk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.30
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010030.outbound.protection.outlook.com [52.101.46.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51D7606A320
-	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 23:11:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A51D7606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40F8606A31C
+	for <nova-gpu@lists.linux.dev>; Tue, 10 Nov 2026 23:11:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E40F8606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=glgqnXZk
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YpSk8Udk
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AQzZF/0TULNsXPaw1jLVvMvMPMffDLsAhU4uF3WJPfRQTHQncJact0u40bBe9hOc0tuB2bGh112t9ZRJOkJbiOduBkUhWrz97+SZniLM4ZOs0V+xEF8VjRxT1KvFZVnqNcm/AR4n1YpLzxXowjKU6VNtNTRA6Au/FViT6L9ZBF3e8NuCbE1vKNMCyB5Ldk+3KhhMUzMFjDcECU35hXir8CmNzTfGKOzVa3pe8ds62Xb8YM9T7LO+jUg5ZV3I2F1r0PmwCdPyA8FXMFBUYoYPZeUKfhsvPJ+WOlGHJk3Fv/IkQUeueUweN9iZVCHTagoa2KlBtsNq+4V1VPVAfiWvGQ==
+ b=EsaWD6t0shVeExZ6iE8coQ+OsNkWRbs0RSZI3+g6G8GW1NFMnmcDvc8aiWSut6nnnnfdl1C9fmXINy/WGMnXgYRo4aw51du0xDRteZ/CfDm7P0rjX8+zVO9mZ6e2a1wIy7siNxlPqpzyfo0gHAS8aeSQaBwIXzVmAWJFgDia0r7462QuCR6X7lrK/2eZu29Pr605odzHFXKBiSEERVaSIs50E78qQhjQWKM6X+RQXmxvy42CM/WwBFioXUR3v+46SO7yRIvlPE2s2Qxd6L8zsRRwQLOJS5ixgeBlDMCysLEBcQxy40rRbsF0bovLqqTNSGzVEoKXT55n7qqENdrEIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5ELYUe+TgspWfStrogdZb+jyTkObw1cMuNwy/ZiPoSw=;
- b=Thy6PP4plFxMVL1qoJtj0z3TSlZCbSwj/1CS7FragKrItTpsriPyogSLMatXsBSwvOV6b9L99WYX/2K0OAm7D7O9kuy9onX/TodT3Vd8DRaG3wBWlnnx/fSB2yoYDaKyf/oadSiAXDr/auQ2B2O3Xfkz2dnLldk7BqR0Yl+lWenwLLI4R4hbaYYGmbsWHX+1SwS1/dK9pke6LLRSNfGJha9rw+JGX5g0ZuaccoL/Vh3fDpv/GdJj4ORI6GONmudPXT6P4giGLsI1CVaAtaDQmSORkDEkSMgdPCLD12ziSqU0MUCc2ADKHrjgkaYHVEcKs7PEj1HgCLX62F8G8BU+DQ==
+ bh=12YIYxy0iUejQnJnhQsPgTsslTtpZK10DiOUbKgqJaw=;
+ b=v4/D1JSp1JkQpj20SxwLQlQj+Zx0IoIu6Oz6V6oamQ3AjZy0LPMMH2PoTWWVzapoPWyLRAKaJhbKBVa0fsayvGtsDudja05X/lotFy6vszqJLp0bmbaE7nhzzG42qPrNKrz8FsIhVTdFNWZfi5DYdxUirlU/7K5BVPtGzJUL9XWBZXfnomYL5fMVjSiceAMsTbyXGBUCiOFtBa8b3mN8a89QVEQKa7GcVp2MWqzyl4A2W0Pnet2RUjhM6bAyTt2vhq8jX0JME6L+uxodBjvmIShooicajUPOiZb81dsS3hsFcHnKXdiJDfSNOtrMv3oI6FW+1j4Sa8/3rkV/OVpzZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5ELYUe+TgspWfStrogdZb+jyTkObw1cMuNwy/ZiPoSw=;
- b=glgqnXZklu961wF2TpytrALPimASybcRJwyj+SFMRd43oEibTnl92qnbF3hlgh1SF/xuJkwl6KArvooHnjaJ9RjoYhSmvNvwxAG+4Wcvy1FFesFUzTihVJP3v5/4dS8cdVFSubAccwElcHjOemy23Y3EvbDuEtmIhaFllgZciAjsqPVtlr+i04j58cPAd3+iiPn9Incui6l05DW5kvUI2QbghpdctV4Y8fRAmwW8HHbhctR3D8bukPsL+/6kIUHonFXHns8vqxFdbiIgQrRp2EV5+G/cBBfdhEqkt0SkMBFyAbe151LtgT8yVw2FSV1r0J591kyF2UzaMBM34jCjDg==
-Received: from DM6PR02CA0156.namprd02.prod.outlook.com (2603:10b6:5:332::23)
- by DS0PR12MB9445.namprd12.prod.outlook.com (2603:10b6:8:1a1::19) with
+ bh=12YIYxy0iUejQnJnhQsPgTsslTtpZK10DiOUbKgqJaw=;
+ b=YpSk8UdkhitGorQwUNV4QI1g5HDrFxjBkD9+m84wMjYjSu8+RL3w/kb9bW4Kw8b/z7Xf+ovKMF1gA1AzqctX/tce+qKPjHK8lQ8Gtat+g2y+xaHga5GlNxyd8T9wsqg2xnIUypKfmmfJbfEtrPd4+VzxZtH1aEHSAxjdvORdpOy5K64RMUTqxLF5d0d77wUuzYD8yhZoLejLnG0B/IStmmVEqAME2mXzNXQUCDtYOHK7F6QxYpIPHNmPo5w8KhP0ePROGuQMn4ilQvBtbbiQYp2a7F/cQNP7UEpsou00Znj4MIQDqlvWqVfJOdgjdS4eLinZNbSJR0Q/uIzFse88Yg==
+Received: from CY8P220CA0020.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:46::18)
+ by PH7PR12MB8040.namprd12.prod.outlook.com (2603:10b6:510:26b::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 23:11:23 +0000
-Received: from DS8PEPF000000E3.namprd05.prod.outlook.com
- (2603:10b6:5:332:cafe::ac) by DM6PR02CA0156.outlook.office365.com
- (2603:10b6:5:332::23) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 23:11:28 +0000
+Received: from PH2PEPF00048918.namprd05.prod.outlook.com
+ (2603:10b6:930:46:cafe::8b) by CY8P220CA0020.outlook.office365.com
+ (2603:10b6:930:46::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 23:11:23 +0000
+ Nov 2026 23:11:28 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- DS8PEPF000000E3.mail.protection.outlook.com (10.167.23.200) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ PH2PEPF00048918.mail.protection.outlook.com (10.167.243.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 23:11:23 +0000
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 23:11:28 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 15:11:06 -0800
+ 2026 15:11:05 -0800
 Received: from ttabi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 15:11:06 -0800
+ 2026 15:11:04 -0800
 From: Timur Tabi <ttabi@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot
 	<acourbot@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, Eliot Courtney
 	<ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>
-Subject: [PATCH 5/5] gpu: nova-core: remove heap size related HAL functions
-Date: Tue, 10 Nov 2026 17:10:53 -0600
-Message-ID: <20261110231053.1352163-6-ttabi@nvidia.com>
+Subject: [PATCH 3/5] gpu: nova-core: read GSP heap variables from TLV
+Date: Tue, 10 Nov 2026 17:10:51 -0600
+Message-ID: <20261110231053.1352163-4-ttabi@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261110231053.1352163-1-ttabi@nvidia.com>
 References: <20261110231053.1352163-1-ttabi@nvidia.com>
@@ -119,263 +119,162 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8PEPF000000E3:EE_|DS0PR12MB9445:EE_
-X-MS-Office365-Filtering-Correlation-Id: d71c9520-2aaf-41e1-f309-08df3f7ff059
+X-MS-TrafficTypeDiagnostic: PH2PEPF00048918:EE_|PH7PR12MB8040:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71aa5862-6977-4292-115c-08df3f7ff32b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|261009223027099003|10067099003|261028144727099003|261102123227099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003|56012099006|11063799006|6133799003|22082099003|18002099003;
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|56012099006|11063799006|18002099003|22082099003|10067099003|261009223027099003|261021121427099003|261028144727099003|261021123027099003|261102123227099003|261022075727099003|261022105027099003|261026140227099003|3023799007|261022115727099003;
 X-Microsoft-Antispam-Message-Info:
-	kR9Um5DdUgGYD6v91s3wzJtKXvigzTo+v7+W73r5d6fKnFIN4IiGz5luJFFaPI6ourlsC3X2uGL3GbWGxfkBNSEwcIVrr2W5PsFduVWgVHz/qChYOw+nBsIEVRQ0fjSykS6Jpw6dIxzv8u84BshApHkNm61BO75+Fkzc28+J+69peu/3Fp0XfNBgfb28pkV2/UwmvVLY7ZrlT6IsHPp3QtJEbs+YVh4e2Sx1Q1lkmjghOxu2Ie0J3L3D3fE0YbviaR8iFI+elNA9LiQe6CFOyQjTeoOPwi9ggKvESuL1BDFSNcdWiOjJVwHNc+gYn0ApDLP2Oegq6Z35WPDdMEAm6hAJHp5w4Ki1TZharP0ktJkC05LIdRFQ97Ocr2gpxaPbkPfISnO1rmumB8Jsh5bSaYHr7Se2wl61Lh9w3HCim/PxqlAP4YUFDq2bbGfTOooWpjoS8EG8h6ozgMvyv5yAu35Ruxh0/o6zoRiqyuwmve/RhzhQh0SIlL8j7jT0JKJPZzaUgxfQ+2+uErpAK2wh43E3w6zDA4qAOP96TmqIT2Nf+DyqRgqApGodPY0AnskzWt/UVEfjXCMI4boJa7pJ+0eSgCKSINCzopGSCjLWceuokYvqXRU3marnTEv9p+AvQhnhtnkhs55DaTXP+7QSoNnMVz/kmEyRUX23DkpyXuDoCBkbFP7Pq6Bqx0iX7VSXDdgf4Xrlq/Wur6oQ+HvSmg==
+	JqCZJijyDVlQ0HlRvxBLSkh1fQxGHDAHniv/LC521VhXRXhtMbBIE8qO+vDZU/mO4UjRk+ftT4+SUe1a5Vb9nX/A2ChNTywC5bwmec/AonkeToBix8uz4uEbxRPBz9t/UfYrOJlqfTku4ibhW/05Z4w/E9FeR210K/oYjYJLc/QjPdKXl1JhoCpCxtiXY7S/2DmfkTobaWPNM0pgVRelHI/aVGlf8KnnhS6w1zg8XiFd7HLfqBnJHppLlC2Zg8xNrDiHXTuJLW6y4ES8nDn7ZtbxEnH6jtgBEMjZqtyYrUiE+5+q5Qt2epAwM+2ot3WFk5M7cwf/T/p08aMxP1diwe9zGd3dyQY+EmwS8fDZoKGpuZ+7sZHjbH1sa0To8cIn5EB1kdY5nsoxW9KwVWE02jUx8w/3Ac/zn6xbrve2CPdy17OVVe2wQm1l/u0Ake51/B579QS4EwBzmo6FQgj6tq6XPZbzu1rY2Ia2e5IBqaDbfnmb9QXY5C7AI0de+I7nzq0wdKux8sc/fZ0LwnPG5VzztVzkiE27f7gog1U6yoX6k040So6yimUqGsW0Pq1gRZeQTWN6r7NUQyX6gYuqPhfB3+dh4Z0ZfYWA/BTsAWDgoCxn9AQw6qSAwVBwrFqbqHHh+U58GUjXsSbrnw5H4J455j3BbPU6xQbjyIcmV9tPS0LwwlmXDtd7PP4qlcR9Dn3dAFieZOrTsjnTOb9k3w==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(261009223027099003)(10067099003)(261028144727099003)(261102123227099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(56012099006)(11063799006)(18002099003)(22082099003)(10067099003)(261009223027099003)(261021121427099003)(261028144727099003)(261021123027099003)(261102123227099003)(261022075727099003)(261022105027099003)(261026140227099003)(3023799007)(261022115727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	0koD6tL/MdJriXKCfZ46cr/H02MFgoXSy4Jibj1okb3j2NGwcfvOQDZCn4OP/tFQwojWC/K2RCaTnATZ1Kp1DCF1I27TecWcIdtdteVr54vwfOFm9LAR+fOE8EfGYo3JFGEjlq0e26p9nGoMw9lNgRnZU7ecyzgRUhX1a/8VKLeWbmh771b+yzZSUfP/eRmyb8QV6NJEG3DWdO9OX41Yt4NScVj3XIGF0f7qcYS0kbnyqmK7gb/8MxqGOuggvzxRVl+30cr1I/+2HyFUmEm17nDbWyT9bdDNupA9Veh7DvURdqXe3pEF3nZqMdyO6ZH0QzJP+1zQ0HHmUfz7Nm3n1sxLMGt1BgeONjqnCJaVZF8IYca/zDK/NKyJdaUd9IK2s98garD2yvwDhpcUuiPxzGPXCQHbh0C1YscobgBZsfEkWd8J6n8mpx13UjdzoqIG
+	LOOYjFmFPJU6ymyl/jKWyjP5tLJdDbWOLhYpindVKOnKTzOUrm77DrSY0yJX/vwyqZZr2uM+BNk3S0DwZH8PSgf1J8aAFMQgY9XcV+3zruRTKlrvanPWS8CBmeUhjQX3PInqpaitkwOkMppndZm9UJ+kkDROQSVz1eMcPGLWhW+YMIkPC1Br/egtUvj3abUORORUQjC7+u5ybQfat01T5cn93G+bnI3tlUBkUD8e3WORAe1T/J88ZEGLK6TEDzZ+siybPWeWyJ3AP5oeMe6xm5gte63n4QgkBgqpKgB2IXmTDOrQSF+M3KKCLefS3m1EqckNkReq7+Cb+wVkEye+MS0ziKHOvD5InAcmrZdXx/Jsilsd7vO1CfFLmspsSPd+0lWzZt+gssirn8SaQMtgoK8ohMZH3ZENgmf8LjQy2GNFV6Mw9LQ2TpsXQi0CLdHN
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 23:11:23.4222
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 23:11:28.1983
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d71c9520-2aaf-41e1-f309-08df3f7ff059
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71aa5862-6977-4292-115c-08df3f7ff32b
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS8PEPF000000E3.namprd05.prod.outlook.com
+	PH2PEPF00048918.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9445
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8040
 
-Now that Nova-core reads all heap size values from the TLVs, we can
-remove all of the HAL functions that used to provide that data.
+Update Nova-core to read and store the new heap size variables from
+gsp.tlv.  This change adds code that reads and stores the values and
+also provides a constructor that uses them.
+
+GSP-RM firmware TLVs (specifically gsp.tlv) that are based on r615 and
+later contain an additional six variables that contain values used
+to specify various heap sizes that GSP-RM needs in order to boot.
+These values are specific to each GPU and RM version, and are obtained
+by scraping them from the OpenRM source tree, just like every other
+TLV variable.
 
 Signed-off-by: Timur Tabi <ttabi@nvidia.com>
 ---
- drivers/gpu/nova-core/fb/hal.rs       |  8 ------
- drivers/gpu/nova-core/fb/hal/ga100.rs |  8 ------
- drivers/gpu/nova-core/fb/hal/ga102.rs |  8 ------
- drivers/gpu/nova-core/fb/hal/gb100.rs | 41 +--------------------------
- drivers/gpu/nova-core/fb/hal/gb202.rs | 13 +--------
- drivers/gpu/nova-core/fb/hal/gh100.rs | 12 +-------
- drivers/gpu/nova-core/fb/hal/tu102.rs | 16 -----------
- 7 files changed, 3 insertions(+), 103 deletions(-)
+ drivers/gpu/nova-core/firmware/tlv.rs |  1 -
+ drivers/gpu/nova-core/gsp/fw.rs       | 56 ++++++++++++++++++++++++++-
+ 2 files changed, 55 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/fb/hal.rs b/drivers/gpu/nova-core/fb/hal.rs
-index e30eb7de2a1c..53821e4a70dd 100644
---- a/drivers/gpu/nova-core/fb/hal.rs
-+++ b/drivers/gpu/nova-core/fb/hal.rs
-@@ -33,14 +33,6 @@ pub(crate) trait FbHal {
-     /// Returns the VRAM size, in bytes.
-     fn vidmem_size(&self, bar: Bar0<'_>) -> u64;
+diff --git a/drivers/gpu/nova-core/firmware/tlv.rs b/drivers/gpu/nova-core/firmware/tlv.rs
+index 75d8f907421b..0b79268c6dfb 100644
+--- a/drivers/gpu/nova-core/firmware/tlv.rs
++++ b/drivers/gpu/nova-core/firmware/tlv.rs
+@@ -258,7 +258,6 @@ pub(crate) fn load_file(
+     }
  
--    /// Returns the amount of VRAM to reserve for the PMU.
+     /// Return a u64, from either a 32-bit or 64-bit little-endian tag.
 -    #[expect(unused)]
--    fn pmu_reserved_size(&self) -> u32;
--
--    /// Returns the non-WPR heap size for this chipset, in bytes.
--    #[expect(unused)]
--    fn non_wpr_heap_size(&self) -> u64;
--
-     /// Returns the FRTS size, in bytes.
-     fn frts_size(&self) -> u64;
- }
-diff --git a/drivers/gpu/nova-core/fb/hal/ga100.rs b/drivers/gpu/nova-core/fb/hal/ga100.rs
-index a81b3e42ae41..d0950d1f2339 100644
---- a/drivers/gpu/nova-core/fb/hal/ga100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/ga100.rs
-@@ -70,14 +70,6 @@ fn vidmem_size(&self, bar: Bar0<'_>) -> u64 {
-         super::tu102::vidmem_size_gp102(bar)
-     }
+     pub(crate) fn get_u64(&self, tag: &[u8; 4]) -> Result<u64> {
+         let value = self.get_bytes(tag)?;
  
--    fn pmu_reserved_size(&self) -> u32 {
--        super::tu102::pmu_reserved_size_tu102()
--    }
--
--    fn non_wpr_heap_size(&self) -> u64 {
--        super::tu102::non_wpr_heap_size_tu102()
--    }
--
-     // GA100 is a special case where its FRTS region exists, but is empty.  We
-     // return a size of 0 because we still need to record where the region starts.
-     fn frts_size(&self) -> u64 {
-diff --git a/drivers/gpu/nova-core/fb/hal/ga102.rs b/drivers/gpu/nova-core/fb/hal/ga102.rs
-index a5eeddb8a1ae..837bac1b7b2c 100644
---- a/drivers/gpu/nova-core/fb/hal/ga102.rs
-+++ b/drivers/gpu/nova-core/fb/hal/ga102.rs
-@@ -37,14 +37,6 @@ fn vidmem_size(&self, bar: Bar0<'_>) -> u64 {
-         vidmem_size_ga102(bar)
-     }
- 
--    fn pmu_reserved_size(&self) -> u32 {
--        super::tu102::pmu_reserved_size_tu102()
--    }
--
--    fn non_wpr_heap_size(&self) -> u64 {
--        super::tu102::non_wpr_heap_size_tu102()
--    }
--
-     fn frts_size(&self) -> u64 {
-         super::tu102::frts_size_tu102()
-     }
-diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
-index 7e6dc40dff32..53d403d9487b 100644
---- a/drivers/gpu/nova-core/fb/hal/gb100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
-@@ -11,12 +11,7 @@
-         Mmio, //
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index f30819fd89c2..f0edae9656d8 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -37,7 +37,8 @@
      },
-     num::Bounded,
--    prelude::*,
--    ptr::{
--        const_align_up,
--        Alignment, //
--    },
--    sizes::*, //
-+    prelude::*, //
- };
- 
- use crate::{
-@@ -78,31 +73,6 @@ fn write_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>, addr:
-     hshub0.write_reg(regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo));
+     firmware::{
+         bindata::UcodesImage,
+-        gsp::GspFirmware, //
++        gsp::GspFirmware,
++        tlv::Tlv, //
+     },
+     gpu::{
+         Architecture,
+@@ -74,6 +75,19 @@ pub(crate) struct GspFwHeapParams {
+     carveout_size: u64,
+     /// The minimum and maximum sizes allowed for the GSP FW heap, in bytes.
+     allowed_heap_size: Range<u64>,
++
++    #[expect(unused)]
++    tlv_gsp_fw_heap_base_size: u64,
++    #[expect(unused)]
++    tlv_gsp_hw_heap_size_per_gb: u64,
++    #[expect(unused)]
++    tlv_gsp_fw_heap_base_size_vgpu: u64,
++    #[expect(unused)]
++    tlv_gsp_fw_heap_size_per_vm: u64,
++    #[expect(unused)]
++    tlv_pmu_reserved_size: u32,
++    #[expect(unused)]
++    tlv_non_wpr_heap_size: u64,
  }
  
--/// PMU backing store, `kpmuReservedMemoryBackingStoreSizeGet` in OpenRM for the chipsets whose
--/// PMU initializes itself: 9 MiB + 320 KiB.
--const PMU_BACKING_STORE_SIZE: usize = 0x95_0000;
--
--/// PMU surfaces, `kpmuReservedMemorySurfacesSizeGet` in OpenRM.
--const PMU_SURFACES_SIZE: usize = SZ_16M + SZ_256K;
--
--/// Miscellaneous PMU memory.
--const PMU_MISC_SIZE: usize = SZ_4K;
--
--/// Alignment of the PMU reserved region, `KPMU_RESERVED_MEMORY_ALIGNMENT` in OpenRM.
--const PMU_RESERVED_MEMORY_ALIGNMENT: Alignment = Alignment::new::<SZ_128K>();
--
--/// PMU region above FRTS: the backing store, the surfaces and the miscellaneous memory, aligned to
--/// [`PMU_RESERVED_MEMORY_ALIGNMENT`].
--const PMU_RESERVED_SIZE: usize = const_align_up(
--    PMU_BACKING_STORE_SIZE + PMU_SURFACES_SIZE + PMU_MISC_SIZE,
--    PMU_RESERVED_MEMORY_ALIGNMENT,
--)
--.unwrap();
--
--pub(super) const fn pmu_reserved_size_gb100() -> u32 {
--    cv!(PMU_RESERVED_SIZE)
--}
--
- impl FbHal for Gb100 {
-     fn read_sysmem_flush_page(&self, bar: Bar0<'_>) -> u64 {
-         read_sysmem_flush_page_gb100(hshub0(bar))
-@@ -124,15 +94,6 @@ fn vidmem_size(&self, bar: Bar0<'_>) -> u64 {
-         super::ga102::vidmem_size_ga102(bar)
+ /// Minimum required alignment for the GSP heap.
+@@ -88,6 +102,13 @@ fn libos2() -> Self {
+             allowed_heap_size: cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB => u64)
+                 * u64::SZ_1M
+                 ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB => u64) * u64::SZ_1M,
++
++            tlv_gsp_fw_heap_base_size: 0,
++            tlv_gsp_hw_heap_size_per_gb: 0,
++            tlv_gsp_fw_heap_base_size_vgpu: 0,
++            tlv_gsp_fw_heap_size_per_vm: 0,
++            tlv_pmu_reserved_size: 0,
++            tlv_non_wpr_heap_size: 0,
+         }
      }
  
--    fn pmu_reserved_size(&self) -> u32 {
--        pmu_reserved_size_gb100()
--    }
--
--    fn non_wpr_heap_size(&self) -> u64 {
--        // Non-WPR heap for GB10x (see Open RM: kgspGetNonWprHeapSize, GB100/GB102).
--        u64::SZ_2M
--    }
--
-     fn frts_size(&self) -> u64 {
-         super::tu102::frts_size_tu102()
-     }
-diff --git a/drivers/gpu/nova-core/fb/hal/gb202.rs b/drivers/gpu/nova-core/fb/hal/gb202.rs
-index 1d36954a2776..90673ef4a05a 100644
---- a/drivers/gpu/nova-core/fb/hal/gb202.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gb202.rs
-@@ -6,8 +6,7 @@
- use kernel::{
-     io::Io,
-     num::Bounded,
--    prelude::*,
--    sizes::SizeConstants, //
-+    prelude::*, //
- };
- 
- use crate::{
-@@ -67,16 +66,6 @@ fn vidmem_size(&self, bar: Bar0<'_>) -> u64 {
-         super::ga102::vidmem_size_ga102(bar)
+@@ -101,6 +122,13 @@ fn libos3() -> Self {
+                 * u64::SZ_1M
+                 ..cv!(bindings::GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MAX_MB => u64)
+                     * u64::SZ_1M,
++
++            tlv_gsp_fw_heap_base_size: 0,
++            tlv_gsp_hw_heap_size_per_gb: 0,
++            tlv_gsp_fw_heap_base_size_vgpu: 0,
++            tlv_gsp_fw_heap_size_per_vm: 0,
++            tlv_pmu_reserved_size: 0,
++            tlv_non_wpr_heap_size: 0,
+         }
      }
  
--    fn pmu_reserved_size(&self) -> u32 {
--        super::gb100::pmu_reserved_size_gb100()
--    }
--
--    fn non_wpr_heap_size(&self) -> u64 {
--        // Non-WPR heap for GB20x (see OpenRM: kgspGetNonWprHeapSize, GB202+). This size is
--        // r000-specific.
--        3 * u64::SZ_1M
--    }
--
-     fn frts_size(&self) -> u64 {
-         super::tu102::frts_size_tu102()
-     }
-diff --git a/drivers/gpu/nova-core/fb/hal/gh100.rs b/drivers/gpu/nova-core/fb/hal/gh100.rs
-index cf8e6403ef98..945760953ee4 100644
---- a/drivers/gpu/nova-core/fb/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/fb/hal/gh100.rs
-@@ -4,8 +4,7 @@
- use kernel::{
-     io::Io,
-     num::Bounded,
--    prelude::*,
--    sizes::SizeConstants, //
-+    prelude::*, //
- };
- 
- use crate::{
-@@ -59,15 +58,6 @@ fn vidmem_size(&self, bar: Bar0<'_>) -> u64 {
-         super::ga102::vidmem_size_ga102(bar)
+@@ -112,6 +140,13 @@ fn libos3_gh100() -> Self {
+             base_rm_size: cv!(bindings::GSP_FW_HEAP_PARAM_BASE_RM_SIZE_GH100),
+             carveout_size: base.carveout_size,
+             allowed_heap_size: base.allowed_heap_size,
++
++            tlv_gsp_fw_heap_base_size: 0,
++            tlv_gsp_hw_heap_size_per_gb: 0,
++            tlv_gsp_fw_heap_base_size_vgpu: 0,
++            tlv_gsp_fw_heap_size_per_vm: 0,
++            tlv_pmu_reserved_size: 0,
++            tlv_non_wpr_heap_size: 0,
+         }
      }
  
--    fn pmu_reserved_size(&self) -> u32 {
--        super::tu102::pmu_reserved_size_tu102()
--    }
--
--    fn non_wpr_heap_size(&self) -> u64 {
--        // Non-WPR heap for Hopper (see Open RM: kgspCalculateFbLayout_GH100).
--        u64::SZ_2M
--    }
--
-     fn frts_size(&self) -> u64 {
-         super::tu102::frts_size_tu102()
-     }
-diff --git a/drivers/gpu/nova-core/fb/hal/tu102.rs b/drivers/gpu/nova-core/fb/hal/tu102.rs
-index bf5967cbffd3..fac30be446c7 100644
---- a/drivers/gpu/nova-core/fb/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/fb/hal/tu102.rs
-@@ -42,14 +42,6 @@ pub(super) fn vidmem_size_gp102(bar: Bar0<'_>) -> u64 {
-         .usable_fb_size()
- }
- 
--pub(super) const fn pmu_reserved_size_tu102() -> u32 {
--    0
--}
--
--pub(super) const fn non_wpr_heap_size_tu102() -> u64 {
--    u64::SZ_1M
--}
--
- pub(super) const fn frts_size_tu102() -> u64 {
-     u64::SZ_1M
- }
-@@ -73,14 +65,6 @@ fn vidmem_size(&self, bar: Bar0<'_>) -> u64 {
-         vidmem_size_gp102(bar)
+@@ -127,6 +162,25 @@ pub(crate) fn from_chipset(chipset: Chipset) -> Self {
+         }
      }
  
--    fn pmu_reserved_size(&self) -> u32 {
--        pmu_reserved_size_tu102()
--    }
--
--    fn non_wpr_heap_size(&self) -> u64 {
--        non_wpr_heap_size_tu102()
--    }
--
-     fn frts_size(&self) -> u64 {
-         frts_size_tu102()
-     }
++    /// Returns the heap parameters from the TLV
++    #[expect(unused)]
++    pub(crate) fn from_tlv(tlv: &Tlv<'_>) -> Result<Self> {
++        Ok(Self {
++            // These three fields are not used for TLV-based implementations,
++            // so assign dummy values to them for now.
++            base_rm_size: 0,
++            carveout_size: 0,
++            allowed_heap_size: u64::MIN..u64::MAX,
++
++            tlv_gsp_fw_heap_base_size: tlv.get_u64(b"HBSZ")?,
++            tlv_gsp_hw_heap_size_per_gb: tlv.get_u64(b"HSPG")?,
++            tlv_gsp_fw_heap_base_size_vgpu: tlv.get_u64(b"HBSV")?,
++            tlv_gsp_fw_heap_size_per_vm: tlv.get_u64(b"HSPV")?,
++            tlv_pmu_reserved_size: tlv.get_u32(b"PRSZ")?,
++            tlv_non_wpr_heap_size: tlv.get_u64(b"GNWH")?,
++        })
++    }
++
+     /// Returns the WPR heap size to reserve when vGPU is enabled.
+     pub(crate) fn vgpu_wpr_heap_size(&self) -> u64 {
+         u64::from(bindings::GSP_FW_HEAP_SIZE_VGPU_DEFAULT)
 -- 
 2.54.0
 
