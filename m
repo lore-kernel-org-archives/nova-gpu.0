@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.0
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794374613;
-	b=F1hdkAbBIHyTVDfF+1dHcjHiwdIuBR6uFbtYWGhYVvZq8/tY7EN0GY1Mma57BXQEGLAb
-	 ETViuTqdDMZqY1p0IdaN9VO0pbKJ+yy/jeAGKbK5I+M29V4k6UNAbCX5WNciv2FYnzing
-	 ZaBuPBhU+ECONXEySTDlSftZ9TggsoLfgk+mT/3QLfTMrBo+qSIPR6eDipsF471UsucaZ
-	 Z9uHw6KhQB6aB1+VmNO5LoH94U4D4zlmaz8iB11ob4KfpGYIgHnm2UGMbIUmxZW1zzihN
-	 2IbE4AlXUV1yoY9GEw3RjruCWOGJLh2+754zAWPgWy+zdMvBxTMFfUm56iab2kwFBRA==
+	t=1794374858;
+	b=BxO6aKvD3xvEKwz/8RiE7lj8pqzi6aHk/C8H5ldDW9BDf++9SaeaZm1zgYJdMTJEeZNx
+	 b5gZfQe06HjFISVNdX5A5F3Sg3JkZB2/2otPFZz+9tY/eQT+MKVdotPUpMgf1zyD/iEGk
+	 mLJWdpI45xWbevTV2wT9LTfXLlnKeTXh1xVkNiRd6LXcsFS3qyZsirLmGsq6olwnQcPui
+	 m3DkC9nZyeXuTGh8oSImnsvndxd2VcL66zLTXLjDRLnjrBkKlbXM3nYudgYotAlHLhR65
+	 PaoGpWmGKypOjyb8AUoTRYtOIjAV7PNtrG2shex3HBnB+Xl3nzUMAW1xYwWCXD3hFgQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794374613;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E1syRLdKotIl4dek2d5nG+SDWcTBT7GHsAGKvveAx5Y=;
-	b=JKb82MGVPCZT269/r2O8JyT6sd9Ul2DKshqvjAYnZ4YDVXYI/+uStCOU6w9m/fTq3KWr
-	 eljd3vzeUAaOq5mmF/lgqQxkATwU7d2nGquSd49f+nLq8gYTnf2mB4rJyscR6nnaMXZk3
-	 8ToiD91NLTp8dLw+deoUv1icYF/z3skVA6auNHqbM+tACCghv8x2e/vPpdZLpSZm/IdAa
-	 jaZCJPZ69w8t2nnls8faxGnVDCHI45PnWxZmtIf/IlEXnUEa5xvuu3H8ILGKrBDHA6n7P
-	 PqhddEur0RQne6bVyIXpyV8qHRQF2WGhAor1J1LmSjifqS0WgOepevQbHWzD5INCZRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794374858;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
+	 To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=IFzHyPLAngzdUgI7A46bMNNHEIsFL1V3tiTa5OxKjag=;
+	b=dbwp/1nG/kDhLl/0ho4iebiTXTP04qx8OwAsToJeAcMek1+UiUD098w9uGrrFFPDbIKs
+	 0u1mC46HOeuZ9CkH7hANi7VMf23C6TewyJrhDSXTk6fMjfenXFHvqo6PbyIzDCI0ecJGC
+	 SyavuKsD/DCqzEfXnShFjIDSjZRIYvRY8F7CA/1Py7phq7/qhlsMALr0DFRc10BRlyUxb
+	 Y+qdsB/9YrHcJWs5ecPA9otN22sB2m4F6shyKWL3W9/gVOohEzBzEj3SYzB9X5QACdlmB
+	 F0HAMav6GDarXzL/m/GZDKBV6kQwjoqi7t/rZtr4hkT93nMMr2Fv+1J3fP1BJUqKBFQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6uNkcyP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cgAHVyp6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47B5606A320
-	for <nova-gpu@lists.linux.dev>; Wed, 11 Nov 2026 05:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E155D606A31C
+	for <nova-gpu@lists.linux.dev>; Wed, 11 Nov 2026 05:27:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E155D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6uNkcyP
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794374613;
-	b=kW9722JXs7klg5SI8d8Rmr1rFBQOXFeP8YMYawNX5unuBhMVkAgD87wKr0wNlPgqRgcp
-	 g9CY2XfSunvKbLWyufV5lzKZWrqr4dcheeIEqlW/nFcTWcSaxAZsZZVw8/mXARbCGTmct
-	 1m7bdmJYqG6SnTTt9fMCotpGOTW2ik1wjaxFK3eaYt2wi1adtH1v/+72CbsQknR/HZ0oW
-	 F5ncNvsIryzMlzp/ZoL5ToOyxLVP170whmwNJNmAdr7NqNRtPDnRol+Wv2WQBl/8D1LCP
-	 SHGlvLyUiSKFzKM1UhOAWqQqu14IUd/lUtMKX6Pn86Ej8SyviKzKSnZIt/no6xeKlqA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794374613;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E1syRLdKotIl4dek2d5nG+SDWcTBT7GHsAGKvveAx5Y=;
-	b=tZbuBvVIguPEwg8nOCthDlbw/prSR7erCWzR+xkG/kbLK5RzP2ubHsWGcPylWrET1AjF
-	 m1weeOmUG1oJWgbCMtIyb/Zsj1AXjPpHoe/DEmikx/e2QHFp5XzuZsTjVkbJODVGOvqcW
-	 k95VLrmXwxiu5jJU4Fnmuc3kEiMRG0vNsRZ5DUtD7M37ms6y4PnAPITFxCaHAWulX5u8c
-	 eu9kCYjOZDkYJ5h/ytzIVY5xOM1efD69UAmQ28Xiqgu1eu9jlQV2myHcFNVSB3eH6+WcR
-	 AAhxLkw8mP+Gi0kdLHVCF5p2FwX96HIb9NAZI8aP24hVy++GBrURMPX+6JFAhayIKtA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D5EC01F0093C;
-	Wed, 11 Nov 2026 05:23:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794374613;
-	bh=E1syRLdKotIl4dek2d5nG+SDWcTBT7GHsAGKvveAx5Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=F6uNkcyPbiUg7GlVW8bIao+W3xW5MVFr3eL8hEYC6OJtuSn4f3bXlz9BB3d3Snq/r
-	 CDPl2zL2SlDmwjfPuqNdfRcsq4GFugZ1v/3OIjdmKZfxjoaIOiMjPMM6DLrErmkGSm
-	 49LT0ZOVAGfRbg+h84LTXsTVxXAnd3FEaQDHbXgMArS73tI7PyzBX+HXrvK08vruio
-	 Ku+dCUTI0btie/8vYzAf3rD51dQXdj+27ETDMIKI0xWe2XSmd9B28Dr9HhMniG/1Xf
-	 Hclv1jh1tFZeWgkXt15gpWq1SRzYclFoolWUBAklt+x+gT+LKbLUGLP3yuexlItECY
-	 EXG92uxS2wlFw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 66CA448DC4;
-	Wed, 11 Nov 2026 05:23:31 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Wed, 11 Nov 2026 15:23:25 +1000
-Subject: [PATCH v7 2/2] gpu: nova-core: add support for GPU timer block.
- (v7)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cgAHVyp6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q+JVaELrxG6HIFv9iSkAFuTpC5m9MYi4pexKC4UFbB/jr0cVHzEstMn/ZlF10cB2J9aHEiLBfUQ9gb+XQrcInzOXmnaWnFVbvUdIL3uUJ57msEpHV6uQH6QF0g5zyFFKESaeWLCVr4u5Owq9Gudf8H0IUfKC46haTep+HzAj8CEeF28JZd1HMFo2vocernhl83gxPVeJUialGA2KIYRw+PIDdBXWhdvcEpeouEDElDfxgARGrLUXt7au64tZ0xx2QXGd2Ej/f7ShtMkH7UqmxCRkOGpxKOsv//a27vzF9pVnWadMJ0tbARqXwIAtRoWYPesJ0eBKF5aEk2JLDTz1Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IFzHyPLAngzdUgI7A46bMNNHEIsFL1V3tiTa5OxKjag=;
+ b=CjpEtYsPYTNHzuTzPH98jmz1byxEIMA0jDNlIvVDkypIeFnRyMRmjMo5R1LMXP6X4XKXVB6SSqHiRePM55jXCEtf23JHTyD6eYrH1E8t0kHoZxjjvRx7U1raZcD6LgnxvH/f4Bgh5z24HihAz1kmCoFgKwvDHS0jNd92QBsWm8ViLm53O683PxM7+Tu8Q4+F+kgtJ0qsLU/oCUXLSIpMLWKEW48jLlXIrBrVgv11V4fF8Y8O3UpDuOuR5l3Rdid3zVu/KjORjr5hnBlGP8DKsHUIfLiEhLz7kNb4U1dTCYb3NXrSpQECk1L/Bw2ddghiDQtxJQFspRWvMyihurR/iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IFzHyPLAngzdUgI7A46bMNNHEIsFL1V3tiTa5OxKjag=;
+ b=cgAHVyp6ioDh/Ri7XWae/AEjH6rbl+NTMNoW6Htv7j+uTzqkONL64brqra6jdyjmDAjdNs1r2PBfavRcMchppYmc56s80GtWee7ZUPUqxa39/WdK/ul2qwuSGixrGjXKqu6tgdMkP+L9RoArlPOgNvTjqGwUmaXINACX9hSs+SKd3RVYaecwv0YM0k50BDZZakxPa85QFTNhsTmqSopTBXiEQ5mxAjXDzFg+vsUpCVQM1kx0v1MQ3tbGy4qHive8bsHWmGYovZCJN7IJyyQ7FoSFWkgTiq08RwhFGa+oiG6STiKcYzrXUpi/yW/CcAOcyAfuR8vjMtzjGj8/OfKFPw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ PH7PR12MB7379.namprd12.prod.outlook.com (2603:10b6:510:20e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 05:27:33 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
+ 05:27:33 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 11 Nov 2026 14:27:27 +0900
+Message-Id: <DMS4SP3IZR1Q.161SA3OVYSZNJ@nvidia.com>
+Subject: Re: [PATCH 1/5] gpu: nova-core: add Tlv.get_u64
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Timur Tabi" <ttabi@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <nova-gpu@lists.linux.dev>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261110231053.1352163-1-ttabi@nvidia.com>
+ <20261110231053.1352163-2-ttabi@nvidia.com>
+In-Reply-To: <20261110231053.1352163-2-ttabi@nvidia.com>
+X-ClientProxiedBy: LO2P123CA0097.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:139::12) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -83,592 +99,106 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-nova-timer-v7-2-3031c2476551@redhat.com>
-References: <20261111-nova-timer-v7-0-3031c2476551@redhat.com>
-In-Reply-To: <20261111-nova-timer-v7-0-3031c2476551@redhat.com>
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo <gary@garyguo.net>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16394;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=B8iemeI0YrTbCavgrBOSvCvemvp02U6Njga8B6gx0f4=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq8/vSSQSBZCh1OKDl1CCj2gJ1hLM7nz4rc13xE
- VAbzblxxomJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavP70gAKCRAMdPNZecSG
- viGFD/9V+7Kbh2dTlkcWvmu3m5XzmTyBMOXkOJz77q7O1t2J2Q6YV8quejQmTHPhcAz5RHCrlrp
- XHKbn4cQcrX9QUJNrNK1UmidR+Wc96Ejkq7QgknVo3SdzruFZ4F2t3aOmzoKGsimvR26Lbexp+e
- yS/bbgAyguJM3/t67SFKhAEKkhSl7vZAoPzB0eFoXX9+vFafe0O2QJDYw02um2TYG8ghykvtevV
- op5kNtVHJSBxpI+/U1mUDNAWHRueq8AsSFMnIr4hvoAv5mrkkjrRysJBDrzi1GB+g7xJbzxQpG1
- XG9ho+Ka2DOl0IS/Ic5ne1VE6cG4jaWxIOLZpoxn/qCCrXUStLosOhFJsZ/St/cSOB/2s62NCvl
- ijYnzeF1rD8KDXU+1H0RR259kiu72bjH3VeWSZn7h3XAY3C1x17AsO245m8UkHkf8eWpPfwytD+
- Ly9nh/WlebufamxgLzQ95dO7Iiykx0ihEjxX5oGJMqcPmCGYoaFuS6ChrIEYMkW6Slp9NbObJnk
- 3ZVPenXMOzPiW8vreac1tpnj9ZRj/jU93X5CaJnt8gz2LBFdddW3WLU599bKqVLVFtjCHaIZjPP
- sPzhK3/GSCmm3LQsVU9mw4LSWCQox8emq7/ruv54593G/yAmBNm/COcImmvLsz8BclFcJGAu6Rj
- VmHxrJ/ZFDL4PKQ==
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
-Reply-To: airlied@redhat.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB7379:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0280c77-e883-476b-0b31-08df3fb47cdf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10070799003|10067099003|11063799006|5023799004|4143699003|56012099006|261022075727099003|261021121427099003|261009223027099003|261026121527099003|261102123227099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	mKW6ZzrKStgXUQ9Q80Dt2r9qhLTFZyOBYQeDobnJ7nW3UDhZjO3n3gYNpmH/IWIm+UyfLuEIq+88J3SpmvxcpSYHhGxKe+L2gKvRNob3ZxZ3TKFGjtUQq703JscgNSsE6KjacnjI/P2aRjbz6usQahCkb1nxlNlPjXTo6gYKg+1BdRSCMNLm7FRt67MhMrSRPkebemzqUPMHTXK8W+/kua66vwqaWaenGrYzbZxweo4q/Idan85Z9+Wq2iTXe+oEyWqD10hh8NdUPN7D4rWT1LAK0ECiQO4Ep8xDBW90/G7g3JwBHPMU7zIcDpcpvZd8x49mtenU6eQ1sa8TZNShF2AhGJIhLWNTVnTCacr6BXZWcDNU5RZNONa5P5VrQAWEtbpF6CR8z/fWamUnUjR4Hzu3gxLbPsa/hltHqJq1KgGEKhr/vNUHweCmtUpGBoI9hcK0XucmCmoRlqiqRew08zlM+vuSByb5vM4FJYq4cOydWRMeCJBwwTtM2dkbzsjvdCsxhwnBUhRa7ShRYimYfDZwm6Ypc8Nv6G68o3FaJxTg5ZdSOhxw4MsSxUtiCIvNXgFbeyt7JoeEsxFYgqf2fuxlPIT71Vmd7lnWz9+x6z8Jw+6qk+ZNeLUsV6w+MQCF74mDZwMzBaThTHHvLsrZnPC8j0oh2qtEg0uod2KNWKo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10070799003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(261022075727099003)(261021121427099003)(261009223027099003)(261026121527099003)(261102123227099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TkE2YXRCdnZRaDFXRGthd2U5S0RqV0kxcU00aTI3dC9QczNmdFlLL3p2WHJI?=
+ =?utf-8?B?Snp6UllsaXJTMDVkd2I4b1I5RUF1UmZxMHEvcTFldmNMZTRSNzdYLzVtN3dE?=
+ =?utf-8?B?RlArWlpwSnNZaGV5bDB6K1RTZWU2WkJDYnh0SlZTcWZoZ04wbGxGYlVsL1RJ?=
+ =?utf-8?B?bERUbnNNbXRLdi9Mams1UGllNDhjUGY5VEdnbkFUd1k4MzF3azhab290a3hD?=
+ =?utf-8?B?MHRTd3hwS2NyR0hEMUFiY3FxSmZHcDN4RkdIdHgwQWRLdnV5WDNzN3FUVVlQ?=
+ =?utf-8?B?Uk9ycFNDZWduVmZYSDYxaXdDdWduWk5pRmVDekNQM2kzWHNyVFI2YjBXY3cx?=
+ =?utf-8?B?VGV3NUxQOGxRbGdIZnVwVlM5S09SQnc3SkpoalJ6QitaNk9XVVBxU2xNUjN4?=
+ =?utf-8?B?eWxoSDMxUDNPczNMZUNUdWZ3b2Nnb2lSQ1VzWDY4cUh4emo2eXhGYlVlRzI0?=
+ =?utf-8?B?YmVVNzZCa3pHajZiRmtjKzlCL3NKN3VYckd3Zk9NMXFGUU1GczU5a29OaUxY?=
+ =?utf-8?B?ZE1VYnRUamJSdEJZY1ZkZkxkSmphV3A5clFnYXIrSjlOaTVwdytoN0JBd1No?=
+ =?utf-8?B?bWVGT0pBMzVOTE1iSHlUZlprSjY5NWhOcnByRXBWUTQwSFdaSmtTZmtMUHAv?=
+ =?utf-8?B?aVpTZnhiTXFsenFCWlVGSnRveTVBdFV2NDZHUUcvRS9aYWY0bis2U0syckZI?=
+ =?utf-8?B?MGdvVmpvYytwUUFObTQwTWFwcUFIMjNOd052TGFkRHF3d0dzUGk1d052ekda?=
+ =?utf-8?B?eE4xZDZDdjQ3a2kzeFFEdTRQckFyNmFMUzY3Mm9qeHZscUNkNWFxVzhjc24x?=
+ =?utf-8?B?aWpORGZ2REtzSlhpcVFzTnBOUEhqWjRoelE0WWVIejZteEpwaG9uNTlXeUJu?=
+ =?utf-8?B?alJRZ1JkWU9BNlliUEJBbVRCU1hybWRZaUR6N0h4VHpoR1g2OGFROTVoK2wv?=
+ =?utf-8?B?QlBvK2gxcE50QkZGL0ZkMm5RQ09acG1HQXhKWkVaMVRaRlZ5TUpiUzlBamhW?=
+ =?utf-8?B?WFNpaktJRUY1WitjZW1lWFhDOVVzQ0RyZ3BkUVhIaTNjb1g3dXU3Qm1pdWRH?=
+ =?utf-8?B?K1I5c1ZmQmsxNjVzYTRzYnE3dGdoelZNK0w0eFQ3TGFsdkVZRFlqTXVOWmpV?=
+ =?utf-8?B?UUdsRkR1aDg5b1JBSFI0emEzc1NSRjFveFhBbkNCdkMxZ3ROaGVMcGt4VWN1?=
+ =?utf-8?B?aU9YcVJWdnJRZnA2dGp4ZnJlVFhrbnBxL25zcFdVMndFUnh2ckNDMFJxSG14?=
+ =?utf-8?B?b3ZnV3lVQ2hTY1phaW9HR0szbUZ5TnNGOWR4MTkvUXgveE4xSWFNUkd5MFla?=
+ =?utf-8?B?VTZuMHBrNFVGQUZDbmE0TlRUdXh2S1oxOGFBR3orU1JNLzVGdDVVUDBDRk1B?=
+ =?utf-8?B?eVpuL1JmTW0wdkJidUtUMUp1cTJ1d0Q3eWUxMEpVdnFiMXo0NU1tcVFnTHZz?=
+ =?utf-8?B?L2dyQXovWVZCYTR0R1RjeG1tRE1KdS95cjlOckZjWmZTWmh1Z3RuMW4yb1U1?=
+ =?utf-8?B?ejRDSE9UbS9tZmpGc29XcVFldmRLVlcvK1B5aVVuZGdRSUd0NXlFWGNFamxM?=
+ =?utf-8?B?NXMyWjM1NzBVajNzREd4ZXBDSE5JSjMzRWJ2a05MY1VIdkpqOVVwYTAyQ1BH?=
+ =?utf-8?B?SWlsSFNZRnZzV1d3R0VjR2xyL3BIOE5odzlVMGVySkVHOExhVGpqNFpRVjRr?=
+ =?utf-8?B?MW9JZlYxYkl2WXVyWUJwWEFDdHAwZHdma3BxRFdXRnRxQ01mcHpNOW5CV1ll?=
+ =?utf-8?B?Z1ZKZklxdm1tcHczVEJQdTEwVWVTd1lnbnNQQlJCM1k2b1FtTFhJR2hrS3k5?=
+ =?utf-8?B?c1Q1Y3liQmMxY3hKT3BzSVNBMTdwWXJWblpOODFndlBoUFpVRzN2K0Nlc1Bk?=
+ =?utf-8?B?eXNOT21qMk5PS09BVEswSmQvLzc3UWx4YUlSeGIxenFQTFBZUGxodDdjVU1r?=
+ =?utf-8?B?VkJUV1puQ0lndUFram1GMmJSbTFvTUtkcktzbGJNRmtnb0RhWEpoaEFkbWlO?=
+ =?utf-8?B?N1ZwWVBMOUpkazUzQ3pReXFWcjRGNEVCdkRhRStIRWk4dis2OURRRFBjSzJ4?=
+ =?utf-8?B?MHBDOTBUYjNKRmdkcDlvTTNkeFdXSWpmWHZaaHl6dER5aE9MWVZBUlJOdGFw?=
+ =?utf-8?B?bDl5VlMrSEQwZW1SQ2hMb3pGSXJha0VGaHR5bFFzVGE0b24wUFF1ZHdhbXJm?=
+ =?utf-8?B?Z0N0YUw3UDN4eUptYzJvaVBOclZDclJWTTA3Z0FRZ1lFREZQQ0VCZ0lNem8w?=
+ =?utf-8?B?NjFmaWhUOXFVMW5qWVZZMGNYL3pSck1qR24vV29FSnhNcU5UQlRtZWdZSm4r?=
+ =?utf-8?B?V0ozdWs5U1NUb1djZFo4R3ZtM21PSjRJWXFSdjBLb0J6R1hmVnFYdjdHeEp2?=
+ =?utf-8?Q?Mr+QR4KOhbiho/HG8BCQ7ExMGUTub5J9Ai5troB+X3G2N?=
+X-MS-Exchange-AntiSpam-MessageData-1: Y4Kz9aZyCZ8dgQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0280c77-e883-476b-0b31-08df3fb47cdf
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 05:27:33.6017
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hfqbgfdm5jkOLS5ypMyvU6sZSaLAyINjC5FKD7WSaG70vZAI25N/77qjqJCZOe4JwTTDI8MeA/89sR2Z2KMgKQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7379
 
-From: Dave Airlie <airlied@redhat.com>
+On Wed Nov 11, 2026 at 8:10 AM JST, Timur Tabi wrote:
+> Introduce get_u64() to support variable-sized TLV integers.  If the drive=
+r
+> expects that a particular tag might be a 64-bit value, it should use this
+> method read it.
+>
+> TLVs can store unsigned integers in either 32-bit or 64-bit little-endian
+> format.  The script that generates TLV files is written in Python, and
+> Python integers are arbitrarily sized.  For any given integer, the script
+> will store it as a 32-bit integer if its value is less than 0x100000000,
+> without any regard to its purpose.  This means that the driver may not
+> know until runtime whether a given TLV integer is encoded as four bytes
+> or eight.
+>
+> Signed-off-by: Timur Tabi <ttabi@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/firmware/tlv.rs | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+>
+> diff --git a/drivers/gpu/nova-core/firmware/tlv.rs b/drivers/gpu/nova-cor=
+e/firmware/tlv.rs
+> index 7f278903dc8b..75d8f907421b 100644
+> --- a/drivers/gpu/nova-core/firmware/tlv.rs
+> +++ b/drivers/gpu/nova-core/firmware/tlv.rs
+> @@ -257,6 +257,23 @@ pub(crate) fn load_file(
+>              .ok_or(EINVAL)
+>      }
+> =20
+> +    /// Return a u64, from either a 32-bit or 64-bit little-endian tag.
+> +    #[expect(unused)]
+> +    pub(crate) fn get_u64(&self, tag: &[u8; 4]) -> Result<u64> {
+> +        let value =3D self.get_bytes(tag)?;
 
-This is needed to calculate the system timer offset that is passed
-to GSP init.
-
-2 HALs exist:
-
-a) tu102 is the gv100 path from open-gpu, the priv level is checked
-and the cpu time is written to the gpu timer. no offset is used.
-
-b) gh100 is for hopper+
-This is the gh100 path from open-gpu, where the secure system
-timer is read, the offset is calculated.
-The offset is written to hw offset registers, except on the
-original gh100 where a workaround is needed for older FSP versions.
-
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/nova-core/fsp.rs             |  16 ++++-
- drivers/gpu/nova-core/fsp/hal.rs         |   7 ++-
- drivers/gpu/nova-core/fsp/hal/gh100.rs   |   5 ++
- drivers/gpu/nova-core/fsp/regs.rs        |  31 ++++++++++
- drivers/gpu/nova-core/gpu.rs             |   8 +++
- drivers/gpu/nova-core/nova_core.rs       |   1 +
- drivers/gpu/nova-core/timer.rs           |  40 ++++++++++++
- drivers/gpu/nova-core/timer/hal.rs       |  39 ++++++++++++
- drivers/gpu/nova-core/timer/hal/gh100.rs |  71 +++++++++++++++++++++
- drivers/gpu/nova-core/timer/hal/tu102.rs |  49 +++++++++++++++
- drivers/gpu/nova-core/timer/regs.rs      | 103 +++++++++++++++++++++++++++++++
- 11 files changed, 366 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index 3a4a10487f33..74cbbe3996c6 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -50,10 +50,11 @@
-         NvdmHeader,
-         NvdmType, //
-     },
--    regs, //
-+    regs as bootregs, //
- };
- 
- mod hal;
-+mod regs;
- 
- /// PRC message sub-command.
- #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-@@ -389,6 +390,7 @@ pub(crate) fn boot_params(&self) -> &Coherent<'_, GspFmcBootParams> {
- pub(crate) struct Fsp<'a> {
-     falcon: Falcon<'a, FspEngine>,
-     fmc_fw: GspFmcFirmware<'a>,
-+    hal: &'static dyn hal::FspHal,
- }
- 
- impl<'a> Fsp<'a> {
-@@ -428,7 +430,7 @@ fn wait_secure_boot(
- 
-         read_poll_timeout(
-             || Ok(hal.fsp_boot_status(bar)),
--            |&status| status == regs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS,
-+            |&status| status == bootregs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS,
-             Delta::from_millis(10),
-             Delta::from_millis(FSP_SECURE_BOOT_TIMEOUT_MS),
-         )
-@@ -436,7 +438,11 @@ fn wait_secure_boot(
-             dev_err!(dev, "FSP secure boot completion error: {:?}\n", e);
-         })?;
- 
--        Ok(Fsp { falcon, fmc_fw })
-+        Ok(Fsp {
-+            falcon,
-+            fmc_fw,
-+            hal,
-+        })
-     }
- 
-     /// Sends a message to FSP and waits for the response.
-@@ -549,4 +555,8 @@ pub(crate) fn boot_fmc(
-         dev_dbg!(dev, "FSP Chain of Trust completed successfully\n");
-         Ok(())
-     }
-+
-+    pub(crate) fn is_bug_3957833_affected(&self, bar: Bar0<'_>) -> bool {
-+        self.hal.is_bug_3957833_affected(bar)
-+    }
- }
-diff --git a/drivers/gpu/nova-core/fsp/hal.rs b/drivers/gpu/nova-core/fsp/hal.rs
-index eaf5837ac5a8..f2de7cc296ce 100644
---- a/drivers/gpu/nova-core/fsp/hal.rs
-+++ b/drivers/gpu/nova-core/fsp/hal.rs
-@@ -13,7 +13,7 @@
- mod gb202;
- mod gh100;
- 
--pub(super) trait FspHal {
-+pub(super) trait FspHal: Sync {
-     /// Returns the secure boot status from the architecture-specific `NV_THERM_I2CS_SCRATCH` register.
-     fn fsp_boot_status(&self, bar: Bar0<'_>) -> u32;
- 
-@@ -23,6 +23,11 @@ pub(super) trait FspHal {
-     // TODO: consider moving this into the TLV firmware metadata when ready
-     /// Returns the size reserved at the end of the framebuffer, in bytes.
-     fn fb_end_reserved_size(&self) -> u64;
-+
-+    /// Return if the bug 3957833 is affected
-+    fn is_bug_3957833_affected(&self, _bar: Bar0<'_>) -> bool {
-+        false
-+    }
- }
- 
- /// Returns the FSP HAL, or `None` if the architecture doesn't support FSP.
-diff --git a/drivers/gpu/nova-core/fsp/hal/gh100.rs b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-index 9a8563799da8..7f6c8e404f30 100644
---- a/drivers/gpu/nova-core/fsp/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-@@ -9,6 +9,7 @@
- use crate::{
-     driver::Bar0,
-     fsp::hal::FspHal,
-+    fsp::regs::*,
-     regs, //
- };
- 
-@@ -33,6 +34,10 @@ fn cot_version(&self) -> u16 {
-     fn fb_end_reserved_size(&self) -> u64 {
-         u64::SZ_2M
-     }
-+
-+    fn is_bug_3957833_affected(&self, bar: Bar0<'_>) -> bool {
-+        bar.read(NV_GFW_FSP_UCODE_VERSION).is_bug_3957833_affected()
-+    }
- }
- 
- const GH100: Gh100 = Gh100;
-diff --git a/drivers/gpu/nova-core/fsp/regs.rs b/drivers/gpu/nova-core/fsp/regs.rs
-new file mode 100644
-index 000000000000..d04c48ac8e5f
---- /dev/null
-+++ b/drivers/gpu/nova-core/fsp/regs.rs
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::io::register;
-+
-+use crate::driver::NovaRegisters;
-+
-+register! {
-+    base: NovaRegisters;
-+
-+    pub(super) NV_PFSP_FALCON_COMMON_SCRATCH_GROUP_3(u32)[4] @ 0x008f0330 {
-+        31:0 val;
-+    }
-+
-+    /// FSP ucode version
-+    pub(super) NV_GFW_FSP_UCODE_VERSION(u32) => NV_PFSP_FALCON_COMMON_SCRATCH_GROUP_3[1] {
-+        11:0 full;
-+    }
-+}
-+
-+impl NV_GFW_FSP_UCODE_VERSION {
-+    /// OpenRM kfspRequiresBug3957833WAR_HAL:
-+    /// returns `true` if the FSP ucode predates the fix for
-+    /// bug 3957833 and hence the sys timer offset must not be programmed.
-+    /// Can only be true on GH100 with older FSP.
-+    pub(super) fn is_bug_3957833_affected(self) -> bool {
-+        /// FSP ucode version from which on the fix for bug 3957833 is included.
-+        const FSP_BUG_3957833_FIX_VERSION: u32 = 0x44c;
-+
-+        self.full() < FSP_BUG_3957833_FIX_VERSION
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index ac5305d7ff5e..39dcf28068b7 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -53,6 +53,10 @@
-         GpuMm,
-         VramAddress, //
-     },
-+    timer::{
-+        Timer,
-+        TimerState, //
-+    },
-     vgpu::VgpuManager, //
- };
- 
-@@ -331,6 +335,8 @@ struct GspResources<'gpu> {
-     // TODO: use different resource types for each boot method, and make the relevant Gsp methods
-     // generic against them.
-     fsp: Option<Fsp<'gpu>>,
-+    /// Timer state - contains system timer offset
-+    timer: TimerState,
-     /// vGPU state detected before GSP boot.
-     vgpu: VgpuManager,
-     /// GSP runtime data.
-@@ -497,6 +503,8 @@ pub(crate) fn new<'a>(
- 
-                 fsp: Fsp::try_new(dev, bar, spec.chipset)?,
- 
-+                timer: Timer::setup(dev, bar, spec.chipset, fsp.as_ref())?,
-+
-                 vgpu: VgpuManager::new(pdev, spec.chipset, fsp.as_mut()),
- 
-                 gsp <- Gsp::new(pdev, bar),
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index a8f6dc22057b..ee59d81e5105 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -27,6 +27,7 @@
- mod sbuffer;
- #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
- mod selftest;
-+mod timer;
- mod vbios;
- mod vgpu;
- 
-diff --git a/drivers/gpu/nova-core/timer.rs b/drivers/gpu/nova-core/timer.rs
-new file mode 100644
-index 000000000000..ea751a9578d0
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer.rs
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+mod hal;
-+mod regs;
-+
-+use kernel::{
-+    device,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    gpu::Chipset, //
-+};
-+
-+pub(crate) struct Timer;
-+
-+/// Struct that holds the sys timer offset value
-+/// after initialising the GPU timer block.
-+pub(crate) struct TimerState {
-+    /// This value is to be passed to GspInit SYS_TIMER_OFFSET_NS
-+    /// It is considered an opaque value, passed from timer hal to GSP.
-+    #[expect(dead_code)]
-+    pub(crate) sys_timer_offset_ns: u64,
-+}
-+
-+impl Timer {
-+    /// Setup the GPU timer hardware
-+    pub(crate) fn setup(
-+        dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        chipset: Chipset,
-+        fsp: Option<&Fsp<'_>>,
-+    ) -> Result<TimerState> {
-+        Ok(TimerState {
-+            sys_timer_offset_ns: hal::timer_hal(chipset).setup(dev, bar, fsp)?,
-+        })
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/timer/hal.rs b/drivers/gpu/nova-core/timer/hal.rs
-new file mode 100644
-index 000000000000..f036bc5d43bd
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal.rs
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::{
-+    device,
-+    prelude::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    gpu::{
-+        Architecture,
-+        Chipset, //
-+    },
-+};
-+
-+mod gh100;
-+mod tu102;
-+
-+pub(super) trait TimerHal {
-+    /// Setup the GPU's system timer.
-+    ///
-+    /// Returns the value to program into GspInitRequest.
-+    fn setup(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        fsp: Option<&Fsp<'_>>,
-+    ) -> Result<u64>;
-+}
-+
-+pub(super) fn timer_hal(chipset: Chipset) -> &'static dyn TimerHal {
-+    match chipset.arch() {
-+        Architecture::Turing | Architecture::Ampere | Architecture::Ada => tu102::TU102_HAL,
-+        Architecture::Hopper | Architecture::BlackwellGB10x | Architecture::BlackwellGB20x => {
-+            gh100::GH100_HAL
-+        }
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/timer/hal/gh100.rs b/drivers/gpu/nova-core/timer/hal/gh100.rs
-new file mode 100644
-index 000000000000..0f061ce2aa6b
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal/gh100.rs
-@@ -0,0 +1,71 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use super::TimerHal;
-+
-+use kernel::{
-+    device,
-+    io::Io,
-+    prelude::*,
-+    time::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    timer::regs::gh100::*, //
-+};
-+
-+/// Timer HAL for Hopper and Blackwell.
-+struct Gh100;
-+
-+fn sec_timer_read(bar: Bar0<'_>) -> u64 {
-+    let mut hi2 = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+    loop {
-+        let lo = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_0);
-+        let hi = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+        if hi == hi2 {
-+            return u64::from(u32::from(hi)) << 32 | u64::from(u32::from(lo));
-+        }
-+        hi2 = bar.read(NV_PGC6_SCI_SEC_TIMER_TIME_1);
-+    }
-+}
-+
-+fn set_sys_timer_offset(bar: Bar0<'_>, fsp: &Fsp<'_>, time_ns: u64) -> u64 {
-+    let sec_timer_ns = sec_timer_read(bar);
-+
-+    // if we wrap after an underflow the SEC_TIMER + OFFSET value
-+    // modulo 61 bits will match the system clock.
-+    let sys_timer_offset_ns = time_ns.wrapping_sub(sec_timer_ns);
-+
-+    // Don't set the timer offset registers on buggy firmware
-+    if !fsp.is_bug_3957833_affected(bar) {
-+        bar.write_reg(NV_PGC6_SCI_SYS_TIMER_OFFSET_1::from_nsec(
-+            sys_timer_offset_ns,
-+        ));
-+        bar.write_reg(
-+            NV_PGC6_SCI_SYS_TIMER_OFFSET_0::from_nsec(sys_timer_offset_ns).with_update(true),
-+        );
-+    }
-+    sys_timer_offset_ns
-+}
-+
-+impl TimerHal for Gh100 {
-+    fn setup(
-+        &self,
-+        _dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        fsp: Option<&Fsp<'_>>,
-+    ) -> Result<u64> {
-+        // The OpenRM driver uses wall clock time here not monotonic
-+        let sys_time_ns = Instant::<RealTime>::now().as_nanos();
-+
-+        // fsp is required on gh100 - return error if not available.
-+        let fsp = fsp.ok_or(EINVAL)?;
-+
-+        // CAST: realtime system time can't be negative.
-+        Ok(set_sys_timer_offset(bar, fsp, sys_time_ns as u64))
-+    }
-+}
-+
-+const GH100: Gh100 = Gh100;
-+pub(super) const GH100_HAL: &dyn TimerHal = &GH100;
-diff --git a/drivers/gpu/nova-core/timer/hal/tu102.rs b/drivers/gpu/nova-core/timer/hal/tu102.rs
-new file mode 100644
-index 000000000000..93fe17990ec8
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/hal/tu102.rs
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use super::TimerHal;
-+
-+use kernel::{
-+    device,
-+    io::Io,
-+    prelude::*,
-+    time::*, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    timer::regs::*, //
-+};
-+
-+/// Timer HAL for Turing, Ampere, Ada
-+struct Tu102;
-+
-+fn set_time(bar: Bar0<'_>, time_ns: u64) -> Result {
-+    if !bar.read(NV_PTIMER_TIME_PRIV_LEVEL_MASK).level0() {
-+        return Err(EINVAL);
-+    }
-+    bar.write_reg(NV_PTIMER_TIME_1::from_nsec(time_ns));
-+    bar.write_reg(NV_PTIMER_TIME_0::from_nsec(time_ns));
-+    Ok(())
-+}
-+
-+impl TimerHal for Tu102 {
-+    fn setup(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        bar: Bar0<'_>,
-+        _fsp: Option<&Fsp<'_>>,
-+    ) -> Result<u64> {
-+        // The OpenRM driver uses wall clock time here not monotonic
-+        let sys_time_ns = Instant::<RealTime>::now().as_nanos();
-+
-+        // CAST: realtime system time can't be negative.
-+        // not setting the timer isn't fatal, just log.
-+        let _ = set_time(bar, sys_time_ns as u64)
-+            .inspect_err(|e| dev_err!(dev, "timer block failed to initialise: {:?}", e));
-+        Ok(0_u64)
-+    }
-+}
-+
-+const TU102: Tu102 = Tu102;
-+pub(super) const TU102_HAL: &dyn TimerHal = &TU102;
-diff --git a/drivers/gpu/nova-core/timer/regs.rs b/drivers/gpu/nova-core/timer/regs.rs
-new file mode 100644
-index 000000000000..789a14c88c55
---- /dev/null
-+++ b/drivers/gpu/nova-core/timer/regs.rs
-@@ -0,0 +1,103 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::{
-+    bits,
-+    io::register,
-+    num::Bounded, //
-+};
-+
-+use crate::driver::NovaRegisters;
-+use pin_init::Zeroable;
-+
-+/// Field value for the NSEC field (31:5) of the `_0` registers: `nsec[31:5]`.
-+///
-+/// The GPU timer counts nanoseconds with 32 ns granularity, so `nsec[4:0]` is dropped.
-+fn nsec_lo(nsec: u64) -> Bounded<u32, 27> {
-+    // CAST: take the lowest 32-bits of nsec
-+    Bounded::<u32, 32>::from(nsec as u32).shr::<5, _>()
-+}
-+
-+/// Field value for the NSEC field (28:0) of the `_1` registers: `nsec[60:32]`.
-+///
-+/// The GPU timer is 61 bits wide, so `nsec[63:61]` is not representable and is
-+/// truncated - the same bits the hardware discards on a raw register write.
-+fn nsec_hi(nsec: u64) -> Bounded<u32, 29> {
-+    // CAST: shift 64-bits down by 32-bits and take only those 32-bits
-+    Bounded::<u32, 29>::from_expr((nsec >> 32) as u32 & bits::genmask_u32(0..=28))
-+}
-+
-+// PTIMER
-+
-+register! {
-+    base: NovaRegisters;
-+
-+    pub(super) NV_PTIMER_TIME_PRIV_LEVEL_MASK(u32) @ 0x00009430 {
-+        4:4 level0 => bool;
-+    }
-+
-+    pub(super) NV_PTIMER_TIME_0(u32) @ 0x00009400 {
-+        31:5 nsec;
-+    }
-+
-+    pub(super) NV_PTIMER_TIME_1(u32) @ 0x00009410 {
-+        28:0 nsec;
-+    }
-+}
-+
-+impl NV_PTIMER_TIME_0 {
-+    pub(super) fn from_nsec(nsec: u64) -> Self {
-+        Self::zeroed().with_nsec(nsec_lo(nsec))
-+    }
-+}
-+
-+impl NV_PTIMER_TIME_1 {
-+    pub(super) fn from_nsec(nsec: u64) -> Self {
-+        Self::zeroed().with_nsec(nsec_hi(nsec))
-+    }
-+}
-+
-+pub(super) mod gh100 {
-+    use kernel::io::register;
-+
-+    use super::{
-+        nsec_hi,
-+        nsec_lo, //
-+    };
-+    use crate::driver::NovaRegisters;
-+    use pin_init::Zeroable;
-+
-+    // PGC6/TIMER
-+    register! {
-+        base: NovaRegisters;
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SEC_TIMER_TIME_0(u32) @ 0x00118f54 {
-+            31:5 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SEC_TIMER_TIME_1(u32) @ 0x00118f58 {
-+            28:0 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SYS_TIMER_OFFSET_0(u32) @ 0x00118df4 {
-+            0:0 update;
-+            31:5 nsec;
-+        }
-+
-+        pub(in crate::timer) NV_PGC6_SCI_SYS_TIMER_OFFSET_1(u32) @ 0x00118df8 {
-+            28:0 nsec;
-+        }
-+
-+    }
-+
-+    impl NV_PGC6_SCI_SYS_TIMER_OFFSET_0 {
-+        pub(in crate::timer) fn from_nsec(nsec: u64) -> Self {
-+            Self::zeroed().with_nsec(nsec_lo(nsec))
-+        }
-+    }
-+
-+    impl NV_PGC6_SCI_SYS_TIMER_OFFSET_1 {
-+        pub(in crate::timer) fn from_nsec(nsec: u64) -> Self {
-+            Self::zeroed().with_nsec(nsec_hi(nsec))
-+        }
-+    }
-+}
-
--- 
-2.56.0
-
-
+`get_u32` is using `self.find`, but this is using `self.get_bytes`.
+Probably they should use the same one, particularly since when the TODO
+to use ENODATA is done the error behaviour would differ between these
+two functions.
