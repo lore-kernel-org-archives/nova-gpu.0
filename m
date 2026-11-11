@@ -1,99 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794361377;
-	b=bULrQ0NFjcvivQxy3G/d73H3B+p9XmH1osjkCHbHsZ5sjFgoi/RCgr3+i2QXWxGyAx09
-	 pXqVaCWZdLgaQ3DSxkjG8EUahNql6MIYc6MfW0vVEL1wS9cSv0aAyVg+65iQ30Xkw80Wf
-	 E0jFWdbFNnt6/iwCi+umOC4HZuMhMaHv8o2rHPpLGjrQLel+dZmKzOyIFe4rt+gei4d9v
-	 sUyr2B2ZUe0zzXVubiS+1OlWqDGsviAsx/TUdJ60Abs7+eG3a0hJSVRn17SEXozAClgIa
-	 NRGNfqmXWkPjFiLOkQCbsXz8fo11PXUQWFw6KEkZ1HOr/WygfR8sWelsMQDtMRkQ+0w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361377;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=53ark+vV+KtpyXYNv9LIDptdF+kjo1LBcLywnGAgkEo=;
-	b=ufyfOG8APE+49IonMpQ9vD0a6D2TZGnpfqpQlS2XS7BQIp9w5umLXtkLkPPtzplCsH5J
-	 Bi1w1dlGJWlaanR2wWtd5G7dYNcSKm0XHIt1grwAGb3Elm8I2fYGzopd0uQH+K9YpHZ/8
-	 IuM2ACZpWpDjeboAFcQY4RJCtgo3eSA6IgaisCdaTV5QxVP9X6dv6j/XuqQwldeMIH7hO
-	 Dq/+7UMfNVSlorA/L1647mkazndwoXqJqriD1ITfKGlOq+MOeOM0QSsdHaM1y2RiHj1ou
-	 7i/NB6bhQvLqq+Sh4KwIGZV6JXQOQYwu1vOivlzRy5wwywO5dKdUrkGKFuuZjtnPnQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PojZjwUD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.28
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010028.outbound.protection.outlook.com [52.101.193.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794361379;
+	b=s2TIlKbJDRcAI0EW0sgCXEcHeiMdqtKmuCcqyYYcgKnmkAolqaEvWvdU9s2D8xKlra28
+	 T8/Q0LkLBUvgHSh4DX0bxrCrNtVkHC6zOUtfW6DH21EUWA1SVAwlPp/Vd3ANYO/2ZS1Dq
+	 OhCZN0h9uDq79zERFfG+5BhwqG40NVeFjKJsSQmAb6nGmLvoIYUec/1KO40xGc+hZOEBm
+	 Jxaw5vN0fNRIKmgaass18CRYyWvC57aJ8H5t+oK1xHjLW4MP1dkhMv8KmLCKyYpQ2xJUq
+	 sTX/8AC1uJWZcI2eH2OVMEbPE7KP/ot+oNMcfK30/aE+jZr+jhddNtor/bUOSfUKCrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361379;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=VJx+T+tUk64W22k5TVpjQnYqQRSAfP1LsLu8jCGhpVg=;
+	b=ivNpNIoWHqR4nKRNjgXl2fwIVq3jaKqGFGIIsNhCebqtrkRFPen4MMYN1Im7eYxnc96V
+	 MqCtMvf43+cvqdqKMD/C7S6rFgLKhE64y0pTyyJ/eq3d/yM/g8L2T9P165KYMLsyL1YQf
+	 UoTh4m3e4Jn4eBKWwwKjIED37VBDpifcLBldZsGo057TjIYkc7gwXX/ixfv00jjR9gZY/
+	 C2GF3knL8Om8ugI2Re+ILwtenL8p7bw0YS0QlkoRKNIB5zZUkM6SQ7jUy0LqUgP9PUEpM
+	 5oGUfx0GbyMfbsUTySVTB4n2sv3MaTy071mxhvN8dZ4LVFISaKWV1aSDNgQyhNdMJhA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgxs3R8r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B33606A327
-	for <nova-gpu@lists.linux.dev>; Wed, 11 Nov 2026 01:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3B33606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22359606A324
+	for <nova-gpu@lists.linux.dev>; Wed, 11 Nov 2026 01:42:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PojZjwUD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZYkG3rcdtjyA4XIaiTk2e2aGjltsiEgn6hRXBTnfWEaL+5sLsrO7rw8rEyNiiSPZ8za7niisuKLQK4cG4zTgmfJqQ9DvFhP8S3MmoZno2TmwbLVX0L4rWoPxd9eXVHZK5z6xVe9suyckcSnEnauIR+Ub4o85PG+TSvpi4AfY05qRA28M1C/NYSows60sP/YqCwXxSIdhsueHGKt/nkD5Bsf3GEPfrBW/U60hBmKnXBFftzQRKHb0wgy6TDQzNgs7vk1yqAkSO56XQR2nQ8L8eyDY6nu6TwoYMaQ/o3yTObBEBFBJRK0KHo1jcw9j3TMpGlNlpQSTbMjXRwi5sPkPbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=53ark+vV+KtpyXYNv9LIDptdF+kjo1LBcLywnGAgkEo=;
- b=wWKpV/qV2T+NCxB3RuCmUR10qap9rzCb//p1KqVH3CDh8higxUvagnvyx3i/UQqobRTYlgiL8RkPsQwwlNPDC2ceAGlLBVocIDsoT3KEG8bOx68nQnITdiZK9zpnhnY/fxCwZ3tnhbFBdEfmeFFi8kuEhc3wCh2EFc2StSmcGwwb6if3i4WF6jiFbDk0f6IsAMlELg55fYbnWDJPTaus5Ew8aZBz/cVcEAJqokzpzoMBrQoVqNmdfiUq3NtELs8bwJ/fSFAt2Aji5NjKfDAsUyNobMz3xHspT1q+2jLzhAp/OqKs99B6C4l5GaRfdz3jwHO15Y4cdw5PuTdASuhHOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=53ark+vV+KtpyXYNv9LIDptdF+kjo1LBcLywnGAgkEo=;
- b=PojZjwUDPxfDmQqya/Ql9/lz0dNDtZ3AZqp4p9c2y6dFqkhQlxA1ahUeKsWqkI1wsirIOtqN+r2YGbyI+FCMrXUEuc3m5c8UZCNUJVmwkhwrOqOSGSyzptcHlFcmI8IxSatEXtya4/mQt8cspLBb/eL3owZwGEZhexnEjBRiDaIfO2pF7z+fAq0yXUL85MzA5NUV9csi2J/Xg/6t/pJ090Noy9cGSWVnND5IhKwnRnvPtzUmdV/lACIqRGbB8s2c2FVdaJyAIEHS0LhFNveDSMS4vngnuhJmIVvWOpCt2ePunS6Eh6IVlbz66pKN4lcP9gaRmabBS4bc2Wtd9PeTLQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- DS0PR12MB6655.namprd12.prod.outlook.com (2603:10b6:8:d0::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.11; Wed, 11 Nov 2026 01:42:52 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Wed, 11 Nov 2026
- 01:42:52 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgxs3R8r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D9BA1F0093C;
+	Wed, 11 Nov 2026 01:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794361379;
+	bh=VJx+T+tUk64W22k5TVpjQnYqQRSAfP1LsLu8jCGhpVg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fgxs3R8rA2QW2z97COb/ctM0zqMAYvm569PfUDzjRe26HmPxJF0vbVogzXsQxdeI8
+	 ERKbrQqZH8kf0s1gePu7EQ5cHBRXhd/AoZLzIYw8h044JclupnR16YNO/n//lAFVIY
+	 4zrCsNq5rW98RHrzt+AGnz/1KAisHO11gLJPrrK3Gu56gapAAn1Px5I8cDxUBSH2sd
+	 TqkjPh35afXhgIuckhqIGRUgCqekeYWUTssPx41FHwEVZuFl+GWWBsYRXZNo1ixNS8
+	 QrrFvwDc6qInXgkJQ0zaKzw8PWJJRdOnMhd0C4an8kz34HnppFFI0aHa+FjS8SN8Bk
+	 /dzhjQivqJiHg==
+Message-ID: <sashiko-outbox-208053@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: cmdq: wrap the sequence number
+ on overflow
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261111-msgq-64-pages-v1-1-d8c56b6fdd6c@nvidia.com>
+References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
+ <20261111-msgq-64-pages-v1-1-d8c56b6fdd6c@nvidia.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 11 Nov 2026 10:42:49 +0900
-Message-Id: <DMS00P2Y1GKK.33SZY761NN5ME@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 10/13] gpu: nova-core: falcon: allow DMA transfers to
- read from a framebuffer address
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
- <20261110-r000-fw-v3-10-20d79ebb646f@nvidia.com>
-In-Reply-To: <20261110-r000-fw-v3-10-20d79ebb646f@nvidia.com>
-X-ClientProxiedBy: TY4P301CA0088.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37a::9) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+Date: Wed, 11 Nov 2026 01:42:57 +0000
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -102,89 +63,71 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS0PR12MB6655:EE_
-X-MS-Office365-Filtering-Correlation-Id: 293afea9-36fa-4a42-5e3b-08df3f95198c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|10067099003|4143699003|11063799006|56012099006|261021121427099003|261022075727099003|261102123227099003|261022115727099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	trAgM/i3xI6CqGreMk2z73IhrG7TzTQbv+At8wc6yQ1KkXVj5CfIHMD7z+3+0U0mQv12S/3HskfIWZS0KXEHzfZpM4kH4BHuwCdYQJootp3K7PVgobSCChCLFjzzk3V+wx/vKkNmFjUzniSYYNwEsAZ2GyJVFzEFC1t6a9f3OvkULf3AT6MOdWdOk4TdG74uq3TXr7dDI6VJI7Qxfb2dSVynwghznFVIZmVIF1o51q1leGCI1o46uHzIb6wyQ//1lhNw7zIAu1mvcpW8Bz6zbpGy0sxQSzLAOSiHzCjaP3OYuWfxdMg+g7aAHghENuAFo0Dfn4+pK1dP+uOGGRlzWXTqNE3DXOLILliT84rsS+D2JzW9UZsjkB/ihkJKva5RHpFdRtOv9GsQS6TI7vlFIMF41r4Mf7FsRL9prDmZwxEEzGrhfcb3sUWXUH2S1GvopftYoNSJxUrkrhvDq+7gGjpcjo7xpdl0gbuflx5dIRmTvlWrJFy0X3sDghrTkTwLuy72sMLJCJzgkib9WI4IyrN38JgHdmoU1LPyRwa8ZSRRq++1u3xWPv0L824I8vTppGklbSw6MsXbJY01y7rhbxyiCCpjksJSdy4ijdARMq+quu1vF2f7Z1vR1YaxIjLf1LBiwtQTVbveAkslDfbUoIo4Zro84yuxiQV1mFm+PRA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261102123227099003)(261022115727099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWFWUnRTNlF6QTM0WUlEc0hmODY0NGhBT0lhYTY3dTRrdnVxL2R1Z0hoVkJm?=
- =?utf-8?B?YjkrQ0Y0b2dmQnJEYk5XN3BXV2d3NHRsR0s4Y3Zpd25PWHZveTV5U3d2RFhq?=
- =?utf-8?B?N1l6TG1WQ1c5OTl5S0tobHFRYis5MVNTeTdwMGl3T1pnU3FyRjRQQmtKVGMx?=
- =?utf-8?B?OUkzWEdPY2x2eENrSzJ6aDh4RFc3NGpTbWRRSkoxT0h0NUJSWjVQaHZTc3Jx?=
- =?utf-8?B?ZFJUbFBkbW9LT01tYmFmb2F0c2ZKaXE5cjVveGJwdmZnSE5mSUtuUndlU1FK?=
- =?utf-8?B?ZnY4NUxrTDc1NlpHSjlIUm5VWjJzNXF4T2xLVlJDQnBiRXVvWlhvSys1dHZr?=
- =?utf-8?B?K2xsQ0Q2b0w4aEVLWlVGajFaMy9QZ0FhYlIxMEpOZXNwTHQ3QzNIajkwbUFs?=
- =?utf-8?B?VU1hRmQ1Wm5tcFp2ZFBrNVFKNWhCOStFUFVEUm14QmlQMEJ1OWZ2VTNjenUx?=
- =?utf-8?B?Ti9qNWZPcWJ4NHN3ekxCVGNVSWc4dkZVWHJMRlY4Vy9HZ2VZU2tGV0FQK2Zv?=
- =?utf-8?B?b3ZXTTJNblRRakV5R1kzQlVPcHNURjFBNnJjd3QwRUlpMGFHK2ZUbnltc0or?=
- =?utf-8?B?N293eUJrZ211Y21HS09JVkpINzJwSEIya0hyUlNXaE9XalBrVmxDSGJpdUxk?=
- =?utf-8?B?SlE3aEsrWUViS1Q0NkI5K2loYUZaOFBLeksrOVh6dGcyNkc4ME5BMEtYOWhk?=
- =?utf-8?B?TExUSWlkSnpDTkRDSmtWNGYzK0Y2bHFZcFdGOE9uZHFpTmFqbGRubzdidmpy?=
- =?utf-8?B?MERQbitPK1FKdGxvZTlnZEQyeUt5WE5TL1l1RFVYOUlQSUd1UUxHandCbDY4?=
- =?utf-8?B?UW1OUFFqRHlCRlJQZXZ4azU2NkFuWE1QeTRmRTNJSGsxanRMM0gwSDhOU3A2?=
- =?utf-8?B?L0xjNGFzOXBTN1hWZERzbDdZSVZ2WExTZWFaT1l3eGNoOGpKekFqZ2d1dHFh?=
- =?utf-8?B?eVc1dUxlbzJKRlVUVEtwOTU2RVkwQlo5V1JWOXlSRzE5ZXAySDBOUEwrUXZa?=
- =?utf-8?B?S3RvbWFwSFg0TURreDlsRWVCVHdqZ2xhdzJnTGJSbUFiZjRsOEVTY1BCYXpO?=
- =?utf-8?B?bGJzM1ZqZG5neUsrd3U5SVBBdVovcGQ3MHdxVUduVnRpYXptTEZ6QjZaeDZi?=
- =?utf-8?B?TkVuUXc4V25kdFFkckl2dXFEVU9qQzYxSUd3b2c2WFdLeVBhU3ZMSkpTZ1Rt?=
- =?utf-8?B?blJDeStIM0N0eHpwRnhNalN3akY2cDRlbVdmaVZoU01yVDdSNFF6SDBvZTFw?=
- =?utf-8?B?bXU0ckI1ZjlZd1EzKzFaYjFSUzFVUTJ5NE1DTGREUWJ2dXFMR0hrSW1qak05?=
- =?utf-8?B?ZmhmYzYveXRhRjZqMDBhUllUNlBHTzdCMS9RQVNRdHBpZWN3SEdwNUs3U0pa?=
- =?utf-8?B?dXFhWm5ZdWx5T1RYa3JRd1dQb3dydS9ORnBuR1Y1dERTQkFrcHZaRGoxb3hJ?=
- =?utf-8?B?NVJvZEJqOEFUOGwxYURnVG5QYUkyVXNWeWdjM0RsNHpkYTlNaG9QSFpRM0RF?=
- =?utf-8?B?N2h3SUFQTEQrWVY4amtPSVY3V25zTEZHRVRaeWNnZE9pYmtXWlV0OWg2S1VM?=
- =?utf-8?B?THRXU3BVSmpmMjJYYlUyN29NT1YwM2dBMVhFcyt0SjNSSWJ1VEhiSUMyRlF5?=
- =?utf-8?B?dm1CczdqSXh6bE9FRzNQeTRPckZyWWpsYVdzQmdDOG5zb1QvSXpXaURQQXN5?=
- =?utf-8?B?aEx0TGowNndmZXVCbVFXWkZGUWdqUzZjL0YxTCtSNXpQeUhGQ1Q1WkFoaWV3?=
- =?utf-8?B?bTdsNEd2NlhTZTd2ang4RlQ2L1o1b0NnUmZ3dTl0SWgxYVArT1hHRkQzOEJn?=
- =?utf-8?B?RTFmd1JiN205ams2MTJ1V3AzcElMd0ZJR0hZMU5pVVd4TjdYWDBTZXcwNm9K?=
- =?utf-8?B?bjFOWDhBelViajNyUjdyb3pQWXAxUGIyUmpPQW5IdEFBMGJUZ2pldWl4Z2ZC?=
- =?utf-8?B?UVlXMzZLbDhndmQ1aFdUb3pyVGl0cHNXbVJIYlk1UnpjMlFrWDA0SlpkVnQr?=
- =?utf-8?B?WGtYRllJK2hkekV5STlpTXBIbWVTYWcrSUpyUUQxK0NPRG1McFRDZDA3bEZ6?=
- =?utf-8?B?R294TG90emtyamlqVld1a0pZckRyZnBRaUcyZmZpeFBBOEJMbFpaaGMyTS9i?=
- =?utf-8?B?cVVuMGtiUll6Z3VhVDk1ZG5ic0lnalo1MXVSQUE1TkE5QkVCYkplMFFVMnNj?=
- =?utf-8?B?NjQxL0tEajRSWXIxbVNSMHovdWhENzRDdkw1dEZCOWdUREZwUi91OStFWGlG?=
- =?utf-8?B?TWdxZjJ2M29mUGRrMERCOHp1SnlsS0Y5TTVMSDJJTzB5UkExMkkwa05KaU0r?=
- =?utf-8?B?aDFMQmhONDhPWXJYZ3NWaFM0Mjh1alFPamFQWWl3d09XZ3AvU0srTm5abmtE?=
- =?utf-8?Q?uO0oz/U95xYD9pU7M/VPOzlHlzYdRcibnlG+gNmeMQxhP?=
-X-MS-Exchange-AntiSpam-MessageData-1: W6Iscuyz9GqSTg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 293afea9-36fa-4a42-5e3b-08df3f95198c
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:42:52.2490
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iP/v6lSQlORX9fZTTR553vsxk7rhWC+3bpIkNGs5LbqkffWtZitE0ZDqQmLOEVDG7zckW3oA2aIYASFeMFrxAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6655
 
-On Tue Nov 10, 2026 at 7:20 PM JST, Alexandre Courbot wrote:
-> The r000 boot protocol has a load-and-execute event in which GSP-RM asks
-> the driver to load a Heavy-Secured binary from framebuffer memory into
-> the GSP falcon's memory by DMA in order to run it.
->
-> Nova-core's falcon DMA loading method currently only supports loading
-> from a DMA object that the driver has allocated, so there is no way to
-> copy an image from framebuffer memory that an event supplied.
->
-> Address this by making the source of a falcon DMA transfer an enum,
-> which can be either a DMA object, or a GPU framebuffer address.
->
-> The framebuffer address source has no user yet, but will be used by the
-> r000 boot protocol.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [Critical] nova-core: double fetch in receive_msg() and
+  send_single_command() [1]
+--
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+commit f82fa576ff320e318515a10dc3abe76b072d7cb3
+Author: Eliot Courtney <ecourtney@nvidia.com>
+
+gpu: nova-core: gsp: cmdq: wrap the sequence number on overflow
+
+This commit uses wrapping_add(1) when incrementing the command queue
+sequence number so that it wraps around on overflow.
+
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index 5f3de456042e4..33074bb53e8c4 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -578,7 +578,7 @@ fn send_command_element<E: CommandElement>(&mut self,=
+ command: E) -> Result<u32>
+> =20
+>          // All set - update the write pointer and inform the GSP of the =
+new command.
+>          let elem_count =3D dst.header.element_count();
+> -        self.seq +=3D 1;
+> +        self.seq =3D self.seq.wrapping_add(1);
+>          self.gsp_mem.advance_cpu_write_ptr(elem_count);
+
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can a compromised GSP
+alter dst.header.element_count() or message.header.msg_length() in shared
+DMA memory between checksum calculation and the pointer updates [1]?
+
+In send_command_element(), dst.header lives in coherent DMA memory that
+the GSP can modify concurrently; re-reading dst.header.element_count()
+after computing the checksum lets the GSP supply an out-of-bounds count to
+advance_cpu_write_ptr().  Similarly, in receive_msg(), wait_for_msg()
+checks bounds and validates the checksum using header.msg_length(), and
+receive_msg() then fetches message.header.msg_length() a second time from
+shared memory to compute elem_count for advance_cpu_read_ptr():
+
+drivers/gpu/nova-core/gsp/cmdq.rs:receive_msg() {
+    ...
+        let message =3D self.wait_for_msg(timeout)?;
+        let elem_count =3D u32::try_from(message.header.msg_length().div_ce=
+il(GSP_PAGE_SIZE))
+            .map_err(|_| {
+                dev_err!(&self.dev, "GSP receive: message length overflow\n=
+");
+                EIO
+            })?;
+        ...
+        // Advance the read pointer past this message.
+        self.gsp_mem.advance_cpu_read_ptr(elem_count);
+    ...
+}
+
+Either double fetch allows the GSP to desynchronize the ring buffer
+pointers and trigger out-of-bounds reads and writes in shared memory.
+
+[1] https://sashiko.dev/#/bug/linux-a84fa791-1958-42fa-b404-d7ebcb48d6c9
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-msgq-64-pa=
+ges-v1-0-d8c56b6fdd6c@nvidia.com?part=3D1
