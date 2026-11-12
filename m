@@ -1,58 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491458;
-	b=NFXBr+mQ15RW6rzKtJlhwf7uOS9rackBchXejcEv4o2irRApa/DH/ryQanmWe5QP9XbM
-	 ak9ujNYXY/HrWa8ZPGDrDx3zLOgaKuIXpPLkB8tmrerZLdAZ7YBrYljTKtbkqd7iBtGfx
-	 P/nwCQ5Ak49Y6dA3HFrqQ61kRCpYtO1hLi/1J5UgmAyYJBAkt77ETrLwt/mgwQ8gkT4Rf
-	 rF4CG89CDdJDZhnXBjwCJTB4GEWWoVG8I3vTiNN7sD0qJZVSsSyVr0xkABe4O+YKB3ZJ7
-	 gmw70F1DB9u9ObtAPjv+L+/+BswP/F4pVCy00/NfASt9nTRMbEin/VqqYPWV/lHVGag==
+	t=1794493340;
+	b=bu0/i+2vT+KP9/N7I+v0pHIQGwRI/OHSW1XXEWecyHC0qnqkRdugzDqQ2kPKv7F+hsUj
+	 G3vPbGvhGUVfvppcPzVLND+bdAkS3NVevHRy0pLjKNRkADDygvyMA3yrL0Q4lIKiQoWYA
+	 FQLFC9AyswEVOUnI9u+HRDwG74a+W7LSMecOh6YPRa0twhJu46YDbnFZUW3vzm86wRpIF
+	 74LEV+JShV1ByYlfYoX0c0xPY7SSnvcWZb5WgaAznr45Yc5ThcUeufvg6ZXgODfVJncpF
+	 2OgCgytRlGCBNvOh7/BsPsbSmAs89i8wFJEq1uvxiuhRE5cx4aMsNdsuO6q+DdMAZ+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491458;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=b2rTD3RNw/wmfQmagbMmHdQ+mRLznGGUNUzFgFRsNVM=;
-	b=H7pBJiQuPmnYRsnMGx/WBOzLo9c7sMLO7G4uwhafW8sebjCie92goByeaMkBkn6LzasU
-	 S9L5LL4WRy8yTohDtxdk2vI3rIoA7cPm6X50SJr2AfkWhJX7BwVezqpcVBYB32XvnENL0
-	 szkH96AtMW9eE+ppFNTv2AJVQa7ooiQ4F4CW5f8WVFC+fQwlgddDlBiXHATrxa7aqMGr3
-	 EazTNlkoptsMi1IjiOoCiwfJLFWxLh4t+r83bm564RZooKXxYy0fdeI1l4TmcG+AHISsq
-	 JP416Nu+iHhCMm+ApTSBicDJdjQ5scj6+8tLXfgOPv5CSWYqIoq4K4RTHi2BciMX1dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493340;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To;
+	bh=6Uhgh5f0UkJqtxuPPZlStg6ICiuBZFc5JhOCR4BHkuY=;
+	b=rwSnhW/Ord0vbaGFVtchk31NB64KZPINXQEX29RRBL1aSgaw6dHsKe+ziiKr/+Cqbo+H
+	 Bv7YfSZ/QekklIjL8FiW77dh/r+2nYBXVWfEnCXxfSNWoA1o8wrSMGd+r1LFs898Kez8Q
+	 cZZQvdzIXKTwibR63nXBWjFwfzyKvwG5jQBcyY6cWJc1LbbpT9lMT0PXgf+mRSOwh48si
+	 mJH3N+lBQDwZHSt1k2Uve/ilUnBuag4nS3huZ0IjA+E4JzTTHjALh9BpjREj5yk/+Qise
+	 6H3LGfai2jJ/aiWnadB/U4GRW1ipm/0Fs+0SepoSozst7/fDYRakjF9OcmeuieIgaSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ou8Ls/u0";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VyxTUrUZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CCD606A31C
-	for <nova-gpu@lists.linux.dev>; Thu, 12 Nov 2026 13:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC65606A331
+	for <nova-gpu@lists.linux.dev>; Thu, 12 Nov 2026 14:22:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ou8Ls/u0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02EFF1F00A05;
-	Thu, 12 Nov 2026 13:50:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VyxTUrUZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6011F00A07;
+	Thu, 12 Nov 2026 14:22:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794491458;
-	bh=b2rTD3RNw/wmfQmagbMmHdQ+mRLznGGUNUzFgFRsNVM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ou8Ls/u0SV/9IsDV8EHksS4J/VjPYYOXNnydIW3tI8ilMfGYgY6oNJjiRD1fcQJkA
-	 vbV+gRMyBwaXmf8CJaP2VQRcQ6RDmfabBNpgNUE2a5/62VWrsU9XDpkNiY3umiZ+sz
-	 /RaUGoWF20VS85myoaH3EPKZ/meNWorZOhGxD9v3Y9hSKGRc1ZQTW1WREFyzRPAB/h
-	 YTX18PMsE4XOdPHcNbO7Tx1+SlayX0YrFrOtpeMoap1Uzbx0VuEgzhCn9siS6U7kPb
-	 ELGePdQsPxrVkCPUIwoeCTAxrAy9N2um/VbEd3zienj3lyof4ig1wlXUC9JYMJDnDF
-	 MgJoNZADZfY8Q==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo
- <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Dave Airlie <airlied@redhat.com>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v7 1/2] rust: time: expose as_nanos for clock sources.
-In-Reply-To: <DMT91N7BGPUU.17BEZWQDLH3CC@kernel.org>
-References: <20261111-nova-timer-v7-1-3031c2476551@redhat.com>
- <179448764517.621816.16006004780926601543.b4-ty@b4>
- <DMT91N7BGPUU.17BEZWQDLH3CC@kernel.org>
-Date: Thu, 12 Nov 2026 14:50:45 +0100
-Message-ID: <87tslmupje.fsf@t14s.mail-host-address-is-not-set>
+	s=k20260515; t=1794493339;
+	bh=6Uhgh5f0UkJqtxuPPZlStg6ICiuBZFc5JhOCR4BHkuY=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=VyxTUrUZDdCUiRmQh0hmFVPZb5oo70UmX5ge/ugQS1Wmuw2p4jZ1ccxp62yPSVCcZ
+	 H6q5beXdT8gHM5iIbbufnC5qw3z4+ab+BrNLo+EUezuNQj77jcE37dhOrKuLMOfqGp
+	 DK7SKgbxHyQzJYo8R9WD0PLEBdPVQdJ9rmO8J69eTIVa3v8B9/pLNByN2G4aChKYJC
+	 u0oKlWJysrE8D0mLmk4QdKx8Dn/sw3xDZ59IAFr7204A3LpzdrFoyhrB1cPk7t/m1U
+	 yJF9cZRY9zo5r7PsSTFKHVG8WAxd9386jLgPgXpABQC11tSiSvGbmZoqxnnlZuYq8B
+	 Wmgqg5ezHwbjg==
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -61,29 +48,43 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 15:22:15 +0100
+Message-Id: <DMTASPUDKG3F.1H8JUZ5C0A2M3@kernel.org>
+Cc: "FUJITA Tomonori" <fujita.tomonori@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Dave Airlie" <airlied@redhat.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v7 1/2] rust: time: expose as_nanos for clock sources.
+References: <20261111-nova-timer-v7-1-3031c2476551@redhat.com>
+ <179448764517.621816.16006004780926601543.b4-ty@b4>
+ <DMT91N7BGPUU.17BEZWQDLH3CC@kernel.org>
+ <87tslmupje.fsf@t14s.mail-host-address-is-not-set>
+In-Reply-To: <87tslmupje.fsf@t14s.mail-host-address-is-not-set>
 
-"Danilo Krummrich" <dakr@kernel.org> writes:
-
-> On Thu Nov 12, 2026 at 1:47 PM CET, Andreas Hindborg wrote:
->>
->> On Wed, 11 Nov 2026 15:23:24 +1000, Dave Airlie wrote:
->>> The nouveau C driver does ktime_to_ns(ktime_get()) to program
->>> the cpu ns into some hw/fw, so allow this method for rust drivers.
->>> 
->>> This is needed for following nova patch.
->>
->> Applied, thanks!
+On Thu Nov 12, 2026 at 2:50 PM CET, Andreas Hindborg wrote:
+> "Danilo Krummrich" <dakr@kernel.org> writes:
 >
-> Do you mind if we take this through the DRM tree? Otherwise the subsequent patch
-> in this series has to wait for a cycle.
+>> On Thu Nov 12, 2026 at 1:47 PM CET, Andreas Hindborg wrote:
+>>>
+>>> On Wed, 11 Nov 2026 15:23:24 +1000, Dave Airlie wrote:
+>>>> The nouveau C driver does ktime_to_ns(ktime_get()) to program
+>>>> the cpu ns into some hw/fw, so allow this method for rust drivers.
+>>>>=20
+>>>> This is needed for following nova patch.
+>>>
+>>> Applied, thanks!
+>>
+>> Do you mind if we take this through the DRM tree? Otherwise the subseque=
+nt patch
+>> in this series has to wait for a cycle.
+>
+> No it is fine, I can drop it from my tree. I asked on v6 what you
+> wanted, either way is fine :)
 
-No it is fine, I can drop it from my tree. I asked on v6 what you
-wanted, either way is fine :)
-
-
-Best regards,
-Andreas Hindborg
-
-
+Great, thanks!
