@@ -1,16 +1,16 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.27
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794487181;
-	b=J9LB1XlIsaMXnqYGdCybSrKnFM8CI2Ftd1mfhQDoMBSc2iHq7SNVt8ll3jzzvm0/292E
-	 v4lkHqBYXwQt/kJAdsZdaDnx72lOclfDWqfWzhTXOPZAOCf1cvxpzhovj5dUnnqzOtCPh
-	 HiO7BppNQ4vwY3SpDQfWPSkFQNB2xOn/NidMRWhkeEOkIAD3+Hhjc5iWExumurjFZQaBk
-	 y8z2JiIl9dleZWESR2I+4WWdpEQbIaxuuVMS7qqm9HP8NkvAVhKUjPsH9uy7a872xBz83
-	 ZRrBoEGzgNTPenmoZqWi/9+lS74vgwmN4vhciSKL24GG8KC0CTwUl314AfsPdRaVPLw==
+	t=1794487182;
+	b=SoWkwQXJz61Z3JKHaSQ9XOhwBAR9DA8mgdB9tv/44VwdxgPfUYj+URulicYdvrHQIitT
+	 q0oMZfqkMfy9ZPyyBNLtZPxYQskeB5wWtT7Vht8sWvdbMool8287i6cQTyRHLiOqqZVwZ
+	 22qPirnNLbOymJeHbWbbKFUNCc2MxClSsSPdWkDPrvsAmnz7lBUhfgFYm4KG/MLQle/Xn
+	 gAUjMMpkLYZHaLpIpzn0D3eVy+9d2FOvIDssuD4t9XB8LrVAM052w52zoiWf4bFox4HAR
+	 IbEPfsfMPjda3b+MgqN/TFqV1Ul6oRA9Kg0EEeauw50doteq3hoYOkVibxd5mzuqa+Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487181;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
-	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487182;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
@@ -25,68 +25,62 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nb6QrcO/RlQ6WQRO225cvrtn/AWlH7DyYCA+goldqD4=;
-	b=sieTTdvsT/6uvUUaV958N0JSrg6HQrDdaQuFueJbSWDQ5ZSp3PUXahL6NnKkRiF+r/pn
-	 5Xpjy/w7Hi7Dl+IEEaIwdqg0NVYmg9Pew+oE2Ld36txlhBbdb1w5kMYK9lNOVR2qaodIY
-	 PDHt3vDrwBljhecv17THKOpBPXOSt8rIIVpE6xrG+QMQpWMSgDCuo7Yh+1547Ntub1Imw
-	 LX/mxndm4X5eO6lGaGJYW3WYCGXwa69/qARfTO30CHM4r2ox2lbtRtDLuEhKoYZP2cHT1
-	 cwIXNIgW7gYy5w4VlM7FZ+VxhOJagNNLh17lTv/N2o9sIHSpxUw4U3bvMh8fcd6/wyQ==
+	bh=iNPnymYnORIC15vqHFbXKXXt0kQA4/nJoUBhP55I0Do=;
+	b=QoJYhzu3GHzEf2voq9BFnKR5aNadeBnuDW9HB8n6ttuQrKm5wA8lhh+xPioJyG2hJQvi
+	 fwL1jjryV+5I3ImK5payoYX1utzgM0H7pGrJlZ3eVS21PlPC2/PuVSinnhVFgugwR7TCE
+	 k54aYRczmd/nWtxpwiKFtuSDh35y3Oyxa5oOIsR10F4UWxc54afnYAAhSg/52m4gVzmNY
+	 AnWgSBe4gWgSxQ4oKnwdIw0SmqJk5cGyG50Y/pXFTNxQ2XxQ5cGdUo3fpo3IwPzwiGlZe
+	 3JU5SEnb9W3rXz+2hg1nM5n2iC0IFS/dOCAuXfl9YjtGgiF7hRGJnLDz8fTgNRhrEjg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=F8ZSwxMh;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UUnb5zr5;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.27
 Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011027.outbound.protection.outlook.com [52.101.62.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2F4606A894
-	for <nova-gpu@lists.linux.dev>; Thu, 12 Nov 2026 12:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A2F4606A894
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2A2606A330
+	for <nova-gpu@lists.linux.dev>; Thu, 12 Nov 2026 12:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD2A2606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=F8ZSwxMh
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UUnb5zr5
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KBxNvPieoA2FegSKt3D1KSNoTYI99KGaHHboPpCFJZwchMoKG7WCPtb6t3AYCAB6mYQ23PCy3oqU4FoxQJ+FL2sNE7biAaP4cU0D1aDdwEnuQ06liuGhfaIKOnoUBNIbDVWhWIMXDt5Y87TjrLSetztZdSfNO4EeanxtQNV5GHqSq1OTA0fugtwb8d9XADs3InbNBJU5LQ8QuVVCxT2BlfP1onmPLaphJVaY1Mt3Cvch6SFHUhFHY8u4DCV4F0iT+TAnwizbX6uzbeVyUxaYsweWkTQ7f/23LPIQp1f47xYlOmTANut6dpaMs9rJi2JK9zh8pISgnnvOiGXukpMkMw==
+ b=ul7J/a5AymJfMaf7VvGepm6z5Kkn2lczcgmdjPa87k8pkE3qe9kNULHxeXZ4cU1rienLy+LQaK+aVokYzr/va7YCQuuj307SHDx2/FEQlUaTcyzgamqsMAQsphFk/F7RapaUy/ZEPLJoqvm106lbD3ZFXz4oR5unWlC97ExaR8/ut9VkUD6AcBf4Z3tRFNfKSkP/LC2YZi1rcmKDaXxF2ye+yV9enPgpCpM00g1DoFu7z7kco+QPoY5vzI2r4yqWB6bE46kTFrd+Oz4DsyWDprufqdZia1UosNmEqXR23uLqF2JBHbdCFyiuXXZZ1ffNU/uD2WEJydk7lvRPnE1Ikg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nb6QrcO/RlQ6WQRO225cvrtn/AWlH7DyYCA+goldqD4=;
- b=HwUACP82/IWJOjQt9OQfjrj5neaxpTEWqENK0nkTJhPkaukeoXX+0LBnEqZwqIiYK5wePtboQcDRklBP5fYl9T+INDEtWrCh+BIuqVZCC0N4ll2HumYvnQP0Fw/mfUjCbxkC95H55Pd+vXmj06B0BtZVkEWk7ga1y6+okvTLKsegLUFvVEul2nYlrkKo3CSlFk9WA0kS4QoXxAlrULn67DoDzue7MhRO20f7+ysLSHjm5xcgV1GjbhMwZF6ySZ8HiwmPWRBxi2AzxOKRR2fEdyC7b/qEc6CgqmdNRH8XqwM4+2wCPurua2l7TnFDY3UO+cExWcRwz9cH8QLYmnSFbg==
+ bh=iNPnymYnORIC15vqHFbXKXXt0kQA4/nJoUBhP55I0Do=;
+ b=JjYYrSv0y3rrqgd6tq4eTmjCUce8F0NYMbwHpcX3AchVhOqCbEF1xDB33K8BbhEW3963RGQSkzj/vfuo77txmfwj80g5avJKSHG14SHBkvaxIi3OzSESQ221UHXt6gcHiWfEY+dFv0y9lV3dP/A0ppFyAZ0fg64hLCOl3nSYQlLTncbmxPxfYjgpWPGaksGHrY9CGwkIU1xCTdqpQYowjl4bQkRby9ke1XzwZ6Hp2ZuRXWOj9EBZRWaX1DicLYLmG/h7e9xOLwRoVt5oNI/SF9oIhT1Q31IvMrpYgXeWbkI1C5+z6yj0J5kKUr0f7p4mH52TrGiLGq2M2QXhaEOJmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nb6QrcO/RlQ6WQRO225cvrtn/AWlH7DyYCA+goldqD4=;
- b=F8ZSwxMhq5hPEp9m7iCiskb1SMJGLMPr36U+HmolDKfKmf9Ddhx2tZG9Jq14Wn/GukIGIztFvlYnB/QuWv155ftW0Se2HgETAIG70iCsQ9jcd5ahvjatyIkfI3cF18scsxRbP/aGnH/W7GXFJmlKV+EtjVV2igW5/YeUWA5mQZUidxyogz6tjNWYsGvOETaJaBVKIDnTVEpHT0MHNWSuvqE9JKI2AkefVcYcFXbFXocj/T2E/svCG5GLSeFiLTFjJnM1O1Z/o+JfRuSQvUmoYLzo6FHh6t8MpyzvKeuXRkzrXp/PHX1L6AiviDMBSugqym7MMHK86JvrDqxFRNYkrA==
+ bh=iNPnymYnORIC15vqHFbXKXXt0kQA4/nJoUBhP55I0Do=;
+ b=UUnb5zr5JQdxxgQoaBo144mQXdraxQmRhnZF87rK/6TcGG36fyQtVQBpaWSW4n0V/MJZQlWsgeN6boLtiW3jHIvyQ4MVbCA2Arsp9nNj05ND3MvGhAFnByEFqyI16zPwbLmgLBGsann0LcMxHLOfjbqLwnsqKJEe/Uuqd+kZj1mlLfid1KsgYlFcTVKTvzKaT39fKieALtmd72SAq6oOS2V47dyNoTD2syraZm9bsgrlBx/FC5D/2Kg2jGKKuLBtyFxvD6Q0MmdisjouXWCR9ul17U7wPxx2qpDhPnLHeKBPjN3B6fZ0+euZ2dccP3G6f3ohXMWKJc4DyM8BGXv8Vw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
  SA5PPFD911547FB.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e4) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 12:38:44 +0000
+ 2026 12:38:53 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 12:38:44 +0000
+ 12:38:52 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Subject: [PATCH v12 0/2] rust: Add support for reserving of ranges of IDs
-Date: Thu, 12 Nov 2026 21:37:11 +0900
-Message-Id: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
+Date: Thu, 12 Nov 2026 21:37:13 +0900
+Subject: [PATCH v12 2/2] gpu: nova-core: add ChannelIdPool
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23SzU7DMAwH8FeZeqbI+U448R6IQ+I4LEis0G4Va
- Nq7k67tVhSOqfyzG+d/bgbqMw3N0+7c9DTmIXeHcmD8Ydfg3h/eqM2xfGg4cA0abIv7HFtmk3d
- SoI4am1L62VPK39c+L6/zeTiFd8LjZKeKfR6OXf9zHTSyqW5uaUDMLUfWQmtlIsuVI6np+TDmm
- P0jdh/N1HPkG8VXxYtCoUiRS0FEVymxVW5RoigOiGBB8BCwUvKuLINFyWmWSxx0ihicqZTaKr4
- oVZRGo40xEESSldJbtd5LF8U0BFIxBRVipcxWmUWZoryyhpOW0f4zy24UX5UtKqCRaEwEzmrl7
- sqJdRuuKCjvj14YjSlVisGNMWDr6ss2yz5MJMcsBEn1zdg9HozBzU35KD/tvQtJecf+uMscup6
- +TiXDxyWJl8svWUX3CuECAAA=
-X-Change-ID: 20260608-chid-18fa943c6d6c
+Message-Id: <20261112-chid-v12-2-49ad43286dad@nvidia.com>
+References: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
+In-Reply-To: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
 To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
  Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -105,8 +99,8 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWPR01CA0015.jpnprd01.prod.outlook.com
- (2603:1096:400:a9::20) To DS0PR12MB6413.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P286CA0025.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b0::7) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -119,203 +113,311 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA5PPFD911547FB:EE_
-X-MS-Office365-Filtering-Correlation-Id: 304eb5cb-78d2-484a-7623-08df40b9e3b5
+X-MS-Office365-Filtering-Correlation-Id: 87761a31-a67e-4c45-4078-08df40b9e8b2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|7416014|366016|23010399003|1800799024|56012099006|11063799006|921020|18002099003|10067099003|261102123227099003|261022105027099003|261022113327099003|261021121427099003|261022075727099003|261021123027099003|261028144727099003|261026140227099003|261026121527099003|261009223027099003;
+	BCL:0;ARA:13230040|10070799003|376014|7416014|366016|23010399003|1800799024|56012099006|11063799006|921020|22082099003|18002099003|10067099003|261102123227099003|261022105027099003|261022113327099003|261021121427099003|261022075727099003|261028144727099003|261026140227099003|261026121527099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	hy5Aa2ChTVvb4EyT37R6GT8f8VSD1iph51UXguhHjt6iL5liWSmVePmv0AMatODhbngZdsFApHdshV/Yz6iQAeVtwXFNaWWKB4pHvfh9xMBb5Zx5Bf5BI2SF8l2/tAsfXZozlpNYwlzqWkoF2Q2P+p0vHs3312QZooikWGxwTFGcJBxk+aiS5/GECPngecbSd6XaDVVajur1KW00XS9DrQUaBf+keJsr7v92mJS9eZbFwvlDwtzio+Z2R9r62u1EWBAGLc3vo1ANt0GlDD7/q5gqs8PEiJDOiMxqAVBsIMNjNDpPYqX/NmHEMASTX+9olNwZqbchWGHJ4RZdE7coru0+ZfF7Qzx/BngfhS+TkOv0s1LJTxtdcP4yq6Mk6QLA4CWxYYNlVqjJJHfMmDxN1MZm4g64eEdNs0ikdhPts4Lf+4jhKDB3Q7K7qR1TY2g1/c4enGv9om2jskpWMyVY6Pso/0tiaUHZQbD3+bCQtn9Ft6YxZHZSt0ve+/kbRvnvxbk5cejQrsWutbul/Z9dh0NWxqecqWZ5Wmot5HqDAzhZh8JCRj5Re/k0IwxYJgOYi6gSpjO6c69CTIscij/+hRgqKgv8xcRTld+XTQ8Dp4U7yeUvTY7S+GT8H52FxzYcEBpIPB44zwp+dVVNheDXgLiOAM1116Ay2nmURSsxGQU/UEP7eV794UdiLnViEJTMh/kuiNRdKvDfnMK3HCfQ5w==
+	tvbMYKe8Gj7pkN96PMMw5ofYqHAnT9U+TBB4ESLShR5r6MCF45a4FCAEuS6F2YkIj94RUIzCKxprA9Ydy9fhesXOKoxntWodXInCR0Mrr9UQG5lIw99XdGoJDZWVDFKPLJO9EPXuYMytVHQcs9hZVpTZvZFt08tXfDaIcVYoWxfek2kLrLZp15qNso8ISuPoU7aB8XXYoPyu5yT2qok3cHKVJpnYOpd/sTnpinJAlz4k4xrpmmAZM6YEWenHym5G9YlhZNWo/bcati7jtkohaOPbxxzA56/Kq76o418251l8geVrey3b3/u5t81yWSM1z4tkGp2R+1Dkdq8xpRim0jPP5aSaQgpuxYlScGAEJKU4nymZqiFzm3dKS0Nu1K6+zlGK/As+045YWzVUwGZe5/wgxSJgPR4NXWlgOBmjKRmgvZZpX56hbMGm7ErfQX4FbClIi4t6JIUGf6A0y/4fFnxgBdrM4x+3nYML0gC+LcXxJl2YMlmkje7S6tfa6+aiIS7Ts5wjpuztpcXBZ6WESYEPYh5/+A3wWppf8Ay/qM4Tb1zxlENKa4hRc9SQ/CyNXMCW+TqkY+pg+ikZ5ShdDIywaZ/dF8n2i87a+DHWPbcs5AseJhwaJfCEZbCWmOnR+ke6qK6q0DzX8qRqGeJt5msD4IdGOKrXibrraCpYmxqRu8RrcT/4sP+Kple2WnYBsgJO4m6i7o74N/rKVlhglA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(366016)(23010399003)(1800799024)(56012099006)(11063799006)(921020)(18002099003)(10067099003)(261102123227099003)(261022105027099003)(261022113327099003)(261021121427099003)(261022075727099003)(261021123027099003)(261028144727099003)(261026140227099003)(261026121527099003)(261009223027099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(7416014)(366016)(23010399003)(1800799024)(56012099006)(11063799006)(921020)(22082099003)(18002099003)(10067099003)(261102123227099003)(261022105027099003)(261022113327099003)(261021121427099003)(261022075727099003)(261028144727099003)(261026140227099003)(261026121527099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T1BSa2VHR0hmNytJWFFwTTA0WVZtWlI3bzVpMEg4NXdEYzVsOC8rdVhHMFUy?=
- =?utf-8?B?R2NUK0VINjRHRDd0ZXlRL0ovNkorenliOERqVjBvalFrbGR3YTNtbSt2Sm9P?=
- =?utf-8?B?K0hEb29uVUFyRHVQZ0xtbTRzempIblRZbThtU2R0NXhWcE5vMVVaNEUzamdy?=
- =?utf-8?B?MUdwNk9hVUpQZTMrVnFhYThFelg4U21MVXZiMm9aN1hLdGtrODgzb293Q0xp?=
- =?utf-8?B?N0RtNHYzSFQ1WVNZQm5wcXZ5MExHcndZNkRJRHhwODdzRm12dFlia3h2Tlg2?=
- =?utf-8?B?eFpObFVWQ05kZi9xRWxyUitkQjdhcVozZUh5S29DU0kyWllWdEE5T3JmT000?=
- =?utf-8?B?TUhmNDNyZ20xdTRoaTF0OFM3ajl1VDhwNmI1WGtrSTFQQWwrbzB0cEprbTRn?=
- =?utf-8?B?OXZLNHF4dHdPUGhmR3JiR2dydTd5encyNnRTekc1NUp1Q3QraU9oWDdBK0tT?=
- =?utf-8?B?Uk80YXpzM1Nudk9VT2ZINlF4R2p2MWRYUFdFM3BjMmtWTUF0ZVh2M3Vhd1Fa?=
- =?utf-8?B?Y0lNdHI2WG1pY00vL0k1VEhYRmhXWUZPa0dQUTA1Z1d4aHJBc1NrS0VQWlA3?=
- =?utf-8?B?eU9HSGluK0k2YnU1U0xIc2NvVCtESmZsYmVsNFZHVG1ZMkkyeU1pMU5Rdis2?=
- =?utf-8?B?WWRqaGRuTi9PN2tDUjhML0t5d3Y2Skl4N0tXczlXdFUxUy9iQ0lKVEZjN2c2?=
- =?utf-8?B?VFVtOFd3VzM4WjZuVXJpU0RqTkRWSDhuc043WlZSY1B5MXZPU1RaNlFQcE1w?=
- =?utf-8?B?elN3eW1jZGhVQk50QkRLS3E0R0R4V1hCdFNGS2hGUXA1N2E2TXdYdGxlTmJW?=
- =?utf-8?B?Y2p5VjhaTURhNmgxcHJ1NjFtT1plNWZoZkZ0MS8wS2J2YWhYWXluV0doZ0tI?=
- =?utf-8?B?NlVKOFk3RjhjMDBlZW9Ldmp2NDdEaGFuWVVrNVVJb1hSZzAxWEZzbksvazBl?=
- =?utf-8?B?bWh6aVhCZDNseTMyaXBydk92VWIwVS9NU09ENzdmNGJyMHNvNDBudDAyTVRK?=
- =?utf-8?B?U1dXR2IrOGhSbUZLc1BQV2dBTnpLWEluNnQzMzc3TVRJWkM5b2VLQ1A5Y2Yy?=
- =?utf-8?B?c1VtR2ZxZlBVaDRwQXRoYWdZRlp1ZEswcGtCU0lOcTA3Nk1IRDF3NDNmNlU0?=
- =?utf-8?B?dGQrMEI4NFdscEhBbjhxUmRmdENFcUR0eDNCVDY0UEliTjE4WnU3NXp4Y1Bm?=
- =?utf-8?B?ZkFLNEhya3Z3bGJnN280WkFQdlBGazU3M0lyMVJRaTVrbFQ3cnJyZzhZVmZr?=
- =?utf-8?B?bTd0dEw2RzZ0T0NsdUZYWlVJbVBnVU1iMFo3dW1GVGZXc2VZeFdSTjJpOTlX?=
- =?utf-8?B?QjhocU1JdWk2SVBzbm1rTitPQ00wTk56ay9qS3BIZWQ2QUVzb2phbVpUY0xT?=
- =?utf-8?B?K1N3WWdsWjM2RzZLTC8vais5bVF1cnJtalZsRy9KZG5oNFAyVFQveDVlOE1V?=
- =?utf-8?B?dnQ2QVoxcDlZeU5DOXExcVVvVWpsSnBUVDNINExqcm1ja0FIUU5MSW1XMFJk?=
- =?utf-8?B?d1lFb0ZxYUt2eHFIanp0VHVoSG5pOHRvUVBjeTNsS3VQbUx4Q1ZlL2srWUky?=
- =?utf-8?B?YUQ5Ky9hY1pjTWJpRkUvOERhQm9QR0FZZytrV1JXUkZtUzNxSWdlV1c1d2tI?=
- =?utf-8?B?VGlFeWVIZWhJaGRscjVnVjZCdXY2ckpBaGppeE1HdmhpdS8xSi9PYUxpZUZi?=
- =?utf-8?B?dENlTTh5eWVpWFJQVkpWWDZtYWFuaHRGcjUya1ZmOHZRdUNlN3M0b2phTWRq?=
- =?utf-8?B?UkJqR3h5VUUrSWNybnVvSTZ5VFB6QmYzUmNUaE10NWgrYTd0VlFCak9zRUlD?=
- =?utf-8?B?MGV5dDlDUkFPQXhEeitWMWpkOHgzckdZRkFtYnkzdGdpNFk4cnJFT2JEbnlu?=
- =?utf-8?B?RHFSV2FvUHd6L1luOGdEb0R3NlFSNzFXODE3UCtpRjNPeFpTZFNCMnZ5SkhC?=
- =?utf-8?B?WXJiYTI1NTRVbHpqb0l1YjNMTDRjaHdWNXVBYlR1TjBPb0FWVVM3N2pFbmxl?=
- =?utf-8?B?dE5Hc3pVVzRRc21WbFZIMEU4M3I2ZFBuL0swMktLeHBlSG1PblUzQWxEM2tQ?=
- =?utf-8?B?UVBHVmpBNWtKcUgwc2FjSC9oVDVKZCswQXRYeCt4dU52VWIyZHFqZ2NBU3FG?=
- =?utf-8?B?NTdOd2tnNXVaQWxsY1BYUjQ4bmZUL0V4YURCT0dUVkJaNEQzMHZwRzRQUzJy?=
- =?utf-8?B?QklDV2ZCcnVCS2tOM0hydGhYRkpkTktGNUNDcy9tWDZhcVZOblFwNi9EUjZt?=
- =?utf-8?B?a1EyTnFxN2pER09KZVlRWmxVZlFzZ01ab2ZqK1RPL1pBOXJYVkx1NUNPTzFv?=
- =?utf-8?B?QXdreDA1ZkpXYUJFazQ4K2RRVCswclA0SW90a25DdkExdzlrN1hhU2NSTmo1?=
- =?utf-8?Q?0GjK7wFa502evCMAqteQ3mDUnGSprevoi/KZ5kqOPcfkQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: R/t+MGPCi9OBEw==
+	=?utf-8?B?bDNkOWVOM0tDY0lxVFdkSFhQVG1hOElueUN6RStPRlIyVkxBOVU1TEtmQVdI?=
+ =?utf-8?B?dVN3MEJZM0k5dnVsTWNBakhVNiswQkNLZ2hTRHNzMU00Qm5MTkVONlljcjB1?=
+ =?utf-8?B?QkJCYTY5U3ZyN0t4QmZSMGUwSUFyVTkwRTRIS0xjM0k0VWgxOEVVdWpySytM?=
+ =?utf-8?B?aFlhWWhMWUN3SXhDN0wvUE9keFlMT3hTdDNvQVV1SnBlTFhlYjZaWjdFQTJ5?=
+ =?utf-8?B?T3llNlZjQWZoR3Bmd1Y3QlJvalpXVzFJRVplSVBBNDFIaWZ1SmJQL2x1dmJk?=
+ =?utf-8?B?c1p5OWRSYjdJWmlUNEtxS0FIY1I5VmtxYk1HZDd6M1RSL3gvaGVFN3dweUVq?=
+ =?utf-8?B?a1lvdzQ0U1hlaTNBdk01dDF1VitmM3Z3QTY5L1pHcE5yYXJ2eExBODVPblAv?=
+ =?utf-8?B?cnp6MC9OZGVjUlM4NnczZGUxamkxQ3pXdEFnNXZDRzFMQW14NXdGdkJqblF4?=
+ =?utf-8?B?MlkxRCtrdjdzeklIb3VSaDc3cmtxVkVwL1ZpdFMvNXlUdnhHY1hVTjVxOEx3?=
+ =?utf-8?B?SUZNUU0vMFlMdmxYdUpOZWV0U1RCREIwbjJWTGNnUjRIWGJUSFUxOUVxQm1L?=
+ =?utf-8?B?QUExSk5KSmVVc3FWbXQrV3psQnBaVmE5NHRUYmtuaDYxU1BsTFdMSWJqOXdJ?=
+ =?utf-8?B?RmRTVU93ZEQ3b1MxU3VtMVEvcUovNTExbnIvRmNjME9veHgxdFBzd014TDFh?=
+ =?utf-8?B?Vis3QTQwWDJRVS9iUW5qQmJudWl1d2NocjY4QlF5RVk4T3NMMGFjVTlhUVpQ?=
+ =?utf-8?B?YmczZ1dIS0l2V1phRTIzdW5ETXVPNkM3TkwzLzkzK0twdkFYMElJa0d3UW84?=
+ =?utf-8?B?ZUhsaGptbmxYbFhYbG5oUXZ0VnJXZjFad3RjT3l3UnlYdE8yeWw5QStoRCtV?=
+ =?utf-8?B?ZkNPQVRoWlRmMWlWYVpFRnRIVWVBSjI0T09HaWZsckdQS1duaTRrVjBwUThZ?=
+ =?utf-8?B?bkFTVnQ0ZXFHcmE0U0srdFlYMVJhY1F0YTdWZGMzMy96cDdMcnVIRTFSeVdl?=
+ =?utf-8?B?ZmJvQ2wxUmRhWDFLUENoa0tjSm4zQTZBVzZEem9OV0h2V3Q1TW9uY3RJY0xn?=
+ =?utf-8?B?MjM0eWlhTjduTGNCcjBIWjAyUituem04TTVYY0k3THVqaVh1ejJUd1dRRjZy?=
+ =?utf-8?B?bkw2SzNlc3NMUUtTc0dxNmxCdmpmUHJoOTBMYUFVelFaQTl5T1hXZmtseU5X?=
+ =?utf-8?B?bGNld201Z0ZzRHRmYkZuMGFRS1J6MWxLYVE4WW5CeEhFbE5FN0RLNDZtMU5L?=
+ =?utf-8?B?cmlxSXI2bFkxc2VZNGtRT01xYXQ5MHVad2F6QXY1RVZEUkYzY3VCdkRaWlIx?=
+ =?utf-8?B?eXV4QjZyMkxJNW05Uk50cE5WT3JKUzc5S09rSFI4OTJ3VkNhaVBoZHNzUjhp?=
+ =?utf-8?B?aVhqM2s5V21OalpJVlB2UWxNV011V0RBNFJ1eG1aT2tnR2M4RTBIYy9QUm1F?=
+ =?utf-8?B?MXMwUjc0Y0k3K1BnMS9xSHdhWmdQYTVQaHNlTEtVWmJVTTdocThVNEV2cWtj?=
+ =?utf-8?B?VEk0N3NLYVRXMGRaZDBuK25kLzYxZVNUc3lCWHIxMFBSSXdUY09KUWJWa3Q1?=
+ =?utf-8?B?S1l4NGMzYjBKNUM4RUZnVWZFYWxPMExSMnFjQUFRMndIVlRzekhIMjlRTXRZ?=
+ =?utf-8?B?aFZIR0kwa21PYWorYzFtR3BTVWsvSi9lNHpXYjhheVR5OVNtdExkS2RKdC9D?=
+ =?utf-8?B?TWF0cE9aeWc5Lzc0c085dFQ2aks4blB2dWdTbi90bjJrOVB1WW00eXA1empL?=
+ =?utf-8?B?SW5NOVhiWE9kOWZMc1d5S3FWSXdBVUpTbEpuR3BiV3VZbFA1L2JjZ0Z2d1lq?=
+ =?utf-8?B?RTl3Vk9paWxQYmRQa1MvakVXT0JKamE0WnhXOEJ2RjhuRThSRHNsek9sZEg5?=
+ =?utf-8?B?UkNwQk1HK0RocThPNEticDV2ek5zVW1zK09zZ3BlejJDdkNLbTJmNDRVMk4y?=
+ =?utf-8?B?TGI1bmNaeHpxdUNjWm01ZElCaHVWVTB2ZVI4MW5jT24zYzJRVTd3U3JmeHIy?=
+ =?utf-8?B?clZYM0ZCK0xrdzUyYWtESnRIYUlkT1J4THNiYUp5bTZQNFJOelMvTHJVajht?=
+ =?utf-8?B?N01jaDhzbW5pUno2QTZOR3ZGMm9HVmNGcCsvMGlqa29oYVNHSWxGUVIvbFhW?=
+ =?utf-8?B?VHR2TmZheGl1eTRDSmhwQVNEZ3VyQlV1bVNuNURyMWVhcm1jV2JxUFJSNDdm?=
+ =?utf-8?B?QlJSM04ycENmYytiUzZ1VkZEM1F1S2V2bzNrQWczdXFHZ3k0RHVJSXBGd3RI?=
+ =?utf-8?B?T0JVaWx5YTROK1cwejE3OE8wQ2p0TGk4MmNrcFlYMjM5MU9jVzBtK3B6Njdq?=
+ =?utf-8?B?THN4N3dDYWo4cEtZQ1IzTlc4ZDA1UmNxMk1hTXBQMWp0NnFxTDdLY2hwUC9B?=
+ =?utf-8?Q?i9gTIkKbXuEQ3+Wi4LtWpYW2xfMEDe//Ry84rLZ58M2Fv?=
+X-MS-Exchange-AntiSpam-MessageData-1: vVuG+16Jezl6XA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 304eb5cb-78d2-484a-7623-08df40b9e3b5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87761a31-a67e-4c45-4078-08df40b9e8b2
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 12:38:44.5799
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 12:38:52.8673
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nOsnouK7GZErzWS3nNLeM8ac1vUcZzOPmpPn4c/aM9U5KMW8NP2fEX4K+6dTwt8xJCS4tBC23hun4LOYDaQZQw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: IU6o2fz+LR2Tb+CgCXS8gwXMP4ejcvvTjEGFS+SNpbndCA7bwOso4wyVwzQPKbkuf/UZVHaD/PNJEbBPD5Ntzw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFD911547FB
 
-Add support for reserving of ranges of IDs, with a usage in nova-core
-for channel IDs.
+Add `ChannelIdPool` which adds automatic tracking and releasing of
+channel IDs on top of `IdPool`. This is necessary for apportioning
+ranges of channel IDs to be used in e.g. vGPU.
 
-The bitmap and `IdPool` parts from earlier versions are in v7.4-rc1
-now, and this version has the remaining patches: exact `IdPool`
-capacities and `ChannelIdPool`.
+Channel IDs are allocated as a contiguous sequence with a specific
+length and sometimes a specific alignment [1] for vGPU. The ID space is
+small (limited to 2048) and allocation is not on a hot path, so a
+bitmap-backed `IdPool` is a better fit than IDA/xarray (which allocate a
+single ID within a range, not a contiguous sequence) or a maple tree
+(where aligned allocation needs an alloc_range()+erase() retry loop that
+essentially reimplements bitmap_find_next_zero_area()) [2]. It is
+also faster than maple tree [3].
 
-Channel ID tracking is needed for allotting ranges of channel IDs to
-vGPU guests, and later for regular host channel ID reservation.
-nova-core needs allocation of a contiguous sequence of IDs with a
-specific length and sometimes a specific alignment [1].
-
-About the tradeoffs between different data structures:
-- IDA/xarray do not support allocating a contiguous sequence of IDs
-  (ida_alloc_range() allocates a single ID within a range, not a contiguous
-  sequence).
-- A maple tree works, but is not as good a fit. The ID space is small
-  (limited to 2048) and aligned allocation needs an alloc_range()+erase() retry
-  loop (plus a Mutex around it, or new mas_empty_area() bindings) that
-  essentially reimplements bitmap_find_next_zero_area(). See the maple tree
-  version at [2]. For 2048 IDs a bitmap is also considerably faster and smaller
-  [3].
-- The bitmap API natively supports aligned contiguous area allocation
-  (bitmap_find_next_zero_area()).
-
-This is based on drm-rust-next.
-
-[1]: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/
-[2]: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/
-[3]: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/
-
+Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/ # [1]
+Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/ # [2]
+Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/ # [3]
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
-Changes in v12:
-- Drop the patches that were applied to drm-rust-next and driver-core
-- Rebase on drm-rust-next
-- Drop the zero capacity part of the patch #1 commit message (Yury)
-- Add reviewed-by tags
-- Link to v11: https://patch.msgid.link/20261109-chid-v11-0-082aa9bf5a91@nvidia.com
-
-Changes in v11:
-- Rebase on drm-rust-next (pre-reqs are merged now)
-- Split patch #1 by subsystem (Danilo). Just splitting with no actual
-  changes, so I kept the reviewed-by tags on the new patches
-- Add reviewed-by tags
-- Link to v10: https://patch.msgid.link/20261019-chid-v10-0-67de9180b4ed@nvidia.com
-
-Changes in v10:
-- Drop the patches that were applied to rust-next
-- Rebase on drm-rust-next (plus pre-reqs)
-- Use a capacity of 1 instead of 0 in the grow_request() example in
-  patch #2 (Yury)
-- Convert the remaining Alignment::new() users in nova-core in patch #1
-- Link to v9: https://patch.msgid.link/20260930-chid-v9-0-0d6cca376cff@nvidia.com
-
-Changes in v9:
-- Rebase on drm-rust-next
-- Moved cv! to a separate series which this now depends on
-- Reference Link: tag from the text + indent code in patch #4 commit
-  message (Miguel)
-- Add reviewed-by tags
-- Link to v8: https://patch.msgid.link/20260827-chid-v8-0-bc74c77d0214@nvidia.com
-
-Changes in v8:
-- Clarify overflow cases in patch #2 (Alex)
-- Replace nz! with generalized cv! macro (Gary)
-- Add cv! macro to prelude
-- Split SizeConstants and adding new constants patch (Alex)
-- Move alignment size constants conersions patch (Alex)
-- Drop NonZero on IdPool, fix grow_request instead (Alice, Alex)
-- Add shrink/grow doctests (Burak)
-- Link to v7: https://patch.msgid.link/20260817-chid-v7-0-a5872e64d8f4@nvidia.com
-
-Changes in v7:
-- Add nz! macro for compile time NonZero
-- Implement SizeConstants for Alignment + add sub 1k size constants
-- Use Alignment constants + nz! in this series
-- Add final patch converting existing callers to use Alignment constants
-- Rename alloc_area/release_area -> reserve_ids / release_ids
-- Link to v6: https://patch.msgid.link/20260813-chid-v6-0-160be5dfb5bd@nvidia.com
-
-Changes in v6:
-- Take a NonZero nbits in `next_zero_area_off`, `set` and `clear` (Yury)
-- Remove `UnusedArea`, `IdPool::alloc_area` now allocates directly (Yury)
-- Add patch: take a NonZero capacity in `IdPool::with_capacity()`
-- Add patch: do not round the capacity up to `BitmapVec::MAX_INLINE_LEN`,
-  which also removes the bounds check in `ChannelIdPool::alloc_area`
-- Add more testing of Drop for `ChannelIdPool` (Yury)
-- Link to v5: https://patch.msgid.link/20260812-chid-v5-0-6c767770b3f4@nvidia.com
-
-Changes in v5:
-- `bitmap_assert!` i32::MAX length for Bitmap::from_raw* (Yury)
-- Only run overflow check on 32-bit (Yury)
-- Link to v4: https://patch.msgid.link/20260810-chid-v4-0-c9f206fdcb97@nvidia.com
-
-Changes in v4:
-- Add `next_zero_area_off` to match C code (Yury)
-- Replace overflow checks to match C code in bitmap-for-next.
-- Tighten `Bitmap` unsafe contract to disallow Bitmaps larger than i32::MAX
-- Link to v3: https://patch.msgid.link/20260729-chid-v3-0-20cc08032bbc@nvidia.com
-
-Changes in v3:
-- Use `Alignment` type in id_pool and bitmap (Alice)
-- Remove hang check on the basis that it's extraordinarily rare.
-- Link to v2: https://patch.msgid.link/20260723-chid-v2-0-c35e5e9fb3d9@nvidia.com
-
-Changes in v2:
-- Collected Alice's Reviewed-by on patch 1.
-- Address Yury's comments w.r.t. using __bitmap_set etc directly.
-- Address Yury's comments w.r.t. following the C names
-- Additionally check for an overflow case that causes a hang
-- Added more info to cover letter + patch 4 w.r.t. channel ID allottment
-  requirements
-- Add align parameter to ChannelIdPool::alloc_area() plus an aligned
-  allocation test
-- Add missing INVARIANT comment when constructing UnusedArea
-- Link to v1:
-  https://patch.msgid.link/20260703-chid-v1-0-84fe8259e46e@nvidia.com
-
----
-Eliot Courtney (2):
-      rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
-      gpu: nova-core: add ChannelIdPool
-
  drivers/gpu/nova-core/gpu.rs         |   2 +
  drivers/gpu/nova-core/gpu/channel.rs | 198 +++++++++++++++++++++++++++++++++++
- rust/kernel/id_pool.rs               |  38 +++++--
- 3 files changed, 232 insertions(+), 6 deletions(-)
----
-base-commit: 6e557330b874b0e1fdd03e8fe4c438f36c93eefa
-change-id: 20260608-chid-18fa943c6d6c
+ 2 files changed, 200 insertions(+)
 
-Best regards,
---  
-Eliot Courtney <ecourtney@nvidia.com>
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index d185e927233f..90b1d24cdf00 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -53,6 +53,8 @@
+     vgpu::VgpuManager, //
+ };
+ 
++#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
++mod channel;
+ mod hal;
+ mod regs;
+ 
+diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
+new file mode 100644
+index 000000000000..485efaba059d
+--- /dev/null
++++ b/drivers/gpu/nova-core/gpu/channel.rs
+@@ -0,0 +1,198 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++//! Channel ID allocation.
++
++use core::{
++    num::NonZero,
++    ops::{
++        Deref,
++        Range, //
++    }, //
++};
++
++use kernel::{
++    id_pool::IdPool,
++    prelude::*,
++    ptr::Alignment,
++    sync::{
++        new_mutex,
++        Mutex, //
++    }, //
++};
++
++/// Pool for tracking reservations of channel IDs.
++#[pin_data]
++pub(crate) struct ChannelIdPool {
++    #[pin]
++    inner: Mutex<IdPool>,
++}
++
++impl ChannelIdPool {
++    /// Creates a pool managing `num_chids` channel IDs.
++    pub(crate) fn new(num_chids: NonZero<usize>) -> impl PinInit<Self, Error> {
++        try_pin_init!(Self {
++            inner <- new_mutex!(IdPool::with_capacity(num_chids.get(), GFP_KERNEL)?),
++        })
++    }
++
++    /// Reserves a contiguous area of `count` channel IDs starting at a multiple of `align`,
++    /// returning a guard that releases the area on drop.
++    pub(crate) fn reserve_ids(
++        &self,
++        count: NonZero<usize>,
++        align: Alignment,
++    ) -> Result<ChannelIdReservation<'_>> {
++        let mut ids = self.inner.lock();
++        let range = ids.reserve_ids(0, count, align).ok_or(ENOSPC)?;
++        Ok(ChannelIdReservation { pool: self, range })
++    }
++}
++
++/// A reserved contiguous area of channel IDs.
++///
++/// Releases the whole area back to its [`ChannelIdPool`] when dropped. Releasing locks a
++/// sleeping [`Mutex`], so the area must be dropped in a context that is allowed to sleep.
++#[must_use = "the channel ID reservation is released immediately when unused"]
++pub(crate) struct ChannelIdReservation<'a> {
++    pool: &'a ChannelIdPool,
++    range: Range<usize>,
++}
++
++impl Drop for ChannelIdReservation<'_> {
++    fn drop(&mut self) {
++        self.pool.inner.lock().release_ids(&self.range);
++    }
++}
++
++impl Deref for ChannelIdReservation<'_> {
++    type Target = Range<usize>;
++
++    fn deref(&self) -> &Self::Target {
++        &self.range
++    }
++}
++
++#[kunit_tests(nova_core_channel)]
++mod tests {
++    use super::*;
++    use kernel::sizes::SizeConstants;
++
++    #[test]
++    fn chid_reservation() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(2048)), GFP_KERNEL)?;
++
++        let first = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
++        assert_eq!(0, first.start);
++        assert_eq!(48, first.len());
++        assert_eq!(48, first.end);
++
++        let second = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
++        assert!(first.end <= second.start || second.end <= first.start);
++
++        let first_start = first.start;
++        drop(first);
++        assert_eq!(
++            first_start,
++            pool.reserve_ids(cv!(48), Alignment::SZ_1)?.start
++        );
++        Ok(())
++    }
++
++    #[test]
++    fn chid_reservation_drop() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(8)), GFP_KERNEL)?;
++
++        let a = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        let c = pool.reserve_ids(cv!(2), Alignment::SZ_1)?;
++        assert_eq!(0, a.start);
++        assert_eq!(3, b.start);
++        assert_eq!(6, c.start);
++
++        drop(b);
++
++        // Only have space for 3 IDs right now.
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(4), Alignment::SZ_1).map(|_| ())
++        );
++        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        assert_eq!(3, b.start);
++
++        drop(a);
++        drop(c);
++        drop(b);
++
++        // Everything was dropped so the pool should be empty.
++        assert_eq!(0, pool.reserve_ids(cv!(8), Alignment::SZ_1)?.start);
++        Ok(())
++    }
++
++    #[test]
++    fn chid_bounded_by_num_chids() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(4)), GFP_KERNEL)?;
++
++        {
++            let a = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            let c = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            let d = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            assert_eq!(0, a.start);
++            assert_eq!(1, b.start);
++            assert_eq!(2, c.start);
++            assert_eq!(3, d.start);
++            assert_eq!(
++                Err(ENOSPC),
++                pool.reserve_ids(cv!(1), Alignment::SZ_1).map(|_| ())
++            );
++        }
++
++        assert_eq!(0, pool.reserve_ids(cv!(4), Alignment::SZ_1)?.start);
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(5), Alignment::SZ_1).map(|_| ())
++        );
++
++        let head = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        assert_eq!(0, head.start);
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(2), Alignment::SZ_1).map(|_| ())
++        );
++        assert_eq!(3, pool.reserve_ids(cv!(1), Alignment::SZ_1)?.start);
++        Ok(())
++    }
++
++    #[test]
++    fn chid_reservation_aligned() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(16)), GFP_KERNEL)?;
++
++        // Alloc 0 so the first fit for the next area is unaligned.
++        let pad = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++        assert_eq!(0, pad.start);
++
++        let a = pool.reserve_ids(cv!(4), Alignment::SZ_4)?;
++        assert_eq!(4, a.start);
++
++        // The area skipped over by the aligned allocation should still be available.
++        let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++        assert_eq!(1, b.start);
++
++        let c = pool.reserve_ids(cv!(8), Alignment::SZ_8)?;
++        assert_eq!(8, c.start);
++
++        // Only 2 IDs left.
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(4), Alignment::SZ_4).map(|_| ())
++        );
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(1), Alignment::SZ_32).map(|_| ())
++        );
++
++        assert_eq!(2, pool.reserve_ids(cv!(2), Alignment::SZ_1)?.start);
++        Ok(())
++    }
++}
+
+-- 
+2.56.0
 
