@@ -1,101 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794556442;
-	b=KaTj0+BZ9eEgnga2hxdyJ3Dx3TtUJ5hFq9zhWi+sWWtOBofRKgvtFLBSyvbkz0GM5OU2
-	 k3V6Bi8jwRZfl3aenWUpZxmcR2tUjQn8IPMS6hyDZPfBRCTDpnX3Godn27iFKZ7WZOJ8e
-	 Gs1xBOjDQgWLqdPcx/T4jvxS5kraoRwu0De1MZ56EpILMT9pZPFnAb/RQKJH74+A8lrT1
-	 8I543DOWD5AdGdepUMzypeCO6q8QenahYLID0ZJqoPDlnbl9XCNC/F2gIUwTZtMROguhN
-	 jbTU9WzqilfewmdCqzx03GmRIB9tYDS+JOxKNC6WvDgMwCg9Z6/dwoHnDJA5dFdCFzA==
+	t=1794556475;
+	b=MmOGsvCB9V8OoK/WzGnBHQ91BjspRi33BNCGU7n4OASK9jUFptBLbZz23l3ac9yWrL9E
+	 cP4kd3fsXESDo+98MNvkn7Kl42MEWD2+g3wEEYVOECE98509W5TNEtVVKK5DE41IjxrpQ
+	 OTlBIFzUvx3pkD5haZQgTvXsfLq9uFoO03sSBLey15BS9sgsL2muzZsvSF8E9VZwyoygL
+	 iVgIn5Q2e0W1R72ukkJ0jfFxG0AY/EJ1maOVwgRD2Nx03+eMrUfSXm7K2FWBDK9G6WClU
+	 jJ+gwc0jYoTiPvVsFamaZBFArnQO3i3HonbOf72FG1t0rh1NHE8z0R5i8cNBbPfo8Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794556442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794556475;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=I/Osil3p9tI+TJ45W4tyUJkbTxb/QirMyt7rDHJX8Ic=;
-	b=nbX7P5ihNzjEiV+bSMtt5VO4JcENVekwX/gv45gp6fNkFGFxGz7bvvbhxzVMRfn6R23V
-	 1+hy+z8PkjbNE2qJi+f75xl4j7Xz18SLAe7vQ2My3M09hR3gzvj+y5q9VsT35gw08i7AY
-	 7tp8Y6MhSoQo4f5OtbILY3Q1ABXk0AG+o9/aX6Gu+y9DVJ5r6dTK7jlT/ChwmkgXVy10/
-	 i/yK4eBwwuOar8td4Gm0+/P9gMWd1JoZNhAOuezjQIDW1X86pF4CZqWFvxKcj2ssU7o0C
-	 pNB2tjlZp9hmRhnjhmSjDOuCdIfnM4H4+yFypTQS/G12CGCQvLYTGVwlIMBMc3MgUwQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/oSrBPXKrNYnAzFH4eNjIUEYe3r0QmvR+RTmTsBOz3A=;
+	b=gOmTjF1Zo1DKrTZGGPkRDzmbJ/0qGlxyVOICLWqWxOPywNWIkWhka+rZMGooXj++wleg
+	 bUN1xZnnzS6AgbFqu5VZ+eBccgT0IN3FSQqrG0pbtcMm3ldv9kpotEuEmfstl9B50gIIb
+	 Z+XJcPKp01OAAPazDeKj6/gErU+CRqKL3FzYXldRIerKyMm8Ta5AvfGxBdjlBqPtEqfF2
+	 oCqLEtK2McLsJh9L8aScn0+Lvy79pllM4glffLo/DH7cHGxxhb2JI2ekSlbx7uco0G+Z9
+	 HaAB6tC2dU79MjMWLKnX26vpoNfhsJ5wYzrHzVmCHpnmJZ8WG/wv6uyG9LPRMm9odjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YOasCV+N;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FuXewDpA;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB333606A337
-	for <nova-gpu@lists.linux.dev>; Fri, 13 Nov 2026 07:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB333606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B0C606A323
+	for <nova-gpu@lists.linux.dev>; Fri, 13 Nov 2026 07:54:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3B0C606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YOasCV+N
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e96502e447so10392695ad.1
-        for <nova-gpu@lists.linux.dev>; Thu, 12 Nov 2026 23:54:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FuXewDpA
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso995138a91.2
+        for <nova-gpu@lists.linux.dev>; Thu, 12 Nov 2026 23:54:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794556441; x=1795161241; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/Osil3p9tI+TJ45W4tyUJkbTxb/QirMyt7rDHJX8Ic=;
-        b=YOasCV+Nf2VU89ul1t15q2vcQikA2KeCntOVFYy+19d/cpt3XbNt1DWPS6dl1S9NH9
-         CBC639ulP5k5ZALucOxQF+IyZU3ImJF/cJMac9oY7qXHJ/A2s88YYBG7vQqlIgm81lxA
-         Zu4xjUef0ulh4VFHTRRelSnDL+DH+BqrQf4iazWIiODVgsMFE+u+0C3fYj0CAjBwxzrE
-         PoJnzTN5/xsinoTMpY8juBuXnfe+xMSAdgouqPQI3FRDpw7pljpION/LMICzFY4cubdu
-         0SBvfH8PbS7JjjflnC5eYk+6OLqPFK2Zdcp8gLR/uOKyDNKBxmD3uDyJzosHbyz2p5CZ
-         mfhw==
+        d=gmail.com; s=20260707; t=1794556474; x=1795161274; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/oSrBPXKrNYnAzFH4eNjIUEYe3r0QmvR+RTmTsBOz3A=;
+        b=FuXewDpAcYOJjPqTTjvgV0/FmTfYF+VsrbwyJWKRoDUU0KmqA2B8PYBjSekPKMheJQ
+         bzv2pMhnlmcDXQFDKUzkmrskRYQfD+hUzOA+5annMgPrpQpzbKtC93CvpN7rwMSAS3OB
+         4Rh0M6nkENsjvUAa1YcvBiW6tz80+J3XzsU2jgjmQEK6ANUu9D7EuBooC+rnz2OJcfO8
+         ltDtFV2NdtCOEccel0IEQhuIBVt3pMg9nmMjadc1rPAtkKrffg9lWZFc7/ySo6IB/cJ7
+         Eld0G+Qi+Bv8K8ifim2VdF2yaTSLWfQb0CPODLgk5TIFpypkEEes7c8RVkAr7+jz0kXN
+         RSnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794556441; x=1795161241;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I/Osil3p9tI+TJ45W4tyUJkbTxb/QirMyt7rDHJX8Ic=;
-        b=UWHWM1qnXG5vrKAlHckt9Lh8aXKFIcbKBXoGi0z1OHPNXsq0KNodHKUAXCD8r75pMV
-         C5MSbtGa97c8rB5snoNj6GFMfrlZDDAJHw0kMBRhP0Vr2wakxGR+NJyB8bXWhuVU5kEM
-         TWls0UH/zn2iZEFo/I6u1rRaW8q9ktAyfXML3B1urAYyLNlo7bQwkNQkov0SFCHCQJq6
-         SGhwApeqzxhIWHHDRkByLcIHFwFJZTdPi+pOjpcs0w67buWp9hJl97pGPDZDgr1pDwPh
-         ld6QQImVjoM1TwHA6j1MCP46TYqqRYZlCBVdNtkioNXQLmQDc9orRTMNYb4qVJH1fdmc
-         wiTw==
-X-Forwarded-Encrypted: i=1; AL+hErGsLbNAR1VAOTZKB6tdFSABKoQvdmEgzZSOxwqGuB2N4HI7rYYMcJSg9dBRn3ES0CleRyVUv1qrRw==@lists.linux.dev
-X-Gm-Message-State: APuU4Z8z8OI0X5xLiJ4Bj6iyqjmw5zf2ThstnEjxifvUZv1aWpXnAjh/
-	+4mr/HN7VWKlz5IDvFigRp2G8nrRq9ROqlxhnY4c6kCabnETTS1SQlz+
-X-Gm-Gg: AYBFou1KJVa+3YmwL5D1n+aEuCqaQ2hKP6A8Vh3Kj9YG/Q/7UeTe/OR9ogqjHVAbB+g
-	7EeNZL10XoarRi9/MwLsa71coODELygmjoCWexAwZ4bibuFbkGJZia8fJwOlnlZhKxb8gEP6IJc
-	1oAN6F+IGjk6AdDxLB6EsbHs88e10f1xZLQ4IX50C6ZBcYEJwCnISPRMmDiPe/9/zpAhy5Ccp7q
-	kaTntNAeMyVr+qD8R0fqzfC7cw4f+WC+/oG4ammhr5ukxqJQbn4z4yyK0A+fFJN56RxFxsL5gYa
-	NjmE69KuLOg6M9Tdcv9WnK01rJAEZqQYihpZBhooF4JcNfUZEvTMBxA81vzoCW2wGfaGyuUQ3WW
-	YTQ2AHtL9mgcwZB6FlUu1SOqOqVF300GYh0lXj/6gCdXUH4ukH6BABwhzyFTy9Gr+MM1b/heNuP
-	LZqGSg9N0xyZR+MRn4kvu+CfdRb8P6pkwd5a3Dbp4RkghtO5D4N7f9vYKvhwMzbk2ttgLTopdHV
-	7MWiw5LuMdjKct7/I1bJHgNNrbI5cADT5hSwzQzrQvL+yf5e1awihKZqzUrRuxfE/SDGTfuOQPW
-	GAJGhe7SUY6uHdbbaQX4sM/JWXwN4Ct8P+c=
-X-Received: by 2002:a17:90b:1b01:b0:3ab:2d46:1dd6 with SMTP id 98e67ed59e1d1-3b1b087a23amr1392750a91.4.1794556441256;
-        Thu, 12 Nov 2026 23:54:01 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794556474; x=1795161274;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/oSrBPXKrNYnAzFH4eNjIUEYe3r0QmvR+RTmTsBOz3A=;
+        b=BJURP3wr0wzMZkFV5u1R9fLQoXilzTYpqD/xIjzrBbF5dMcZKpdmqF0/zYng5wnZ+d
+         tm5zHOuC/pM6Icw/cImjwPeE9kFSLPuVEYQ1UoadH69rkZDKNjy3CsdEWywfvn6dZ0Av
+         Bvx2DZd2iDOpydBhruIIHtBc8fAWZOr+kw/YhSKPhvPQw+LUj8nKrEGZh/mTyuNIWilG
+         mwrbq6qBmDI+tzbjLgNGPs6c+Yx8JkG+Xu6csB6p//zjYN0yS8ulf42zqL5Yu/bMh5oe
+         QZ3APBiaa+yz/4GDTpuEg02nWXXOmgQSNem4nPKjAaBugkdkr2nKLdXReBJtj2DumTEZ
+         XeMQ==
+X-Forwarded-Encrypted: i=1; AL+hErGEiEzWlOutMSW6Mu7B5L7bTj6RHuoiswsTefG7n22FEmVQwPxHU07ZL3XveJxX47Xpi5YixCacXA==@lists.linux.dev
+X-Gm-Message-State: APuU4Z9Wb0iiFDeVqONQYEnYyKH3L96XJ57BuBH2TsjBkrUNnIlxcVLJ
+	Thpwp9avZb3sgfz/p2Mu+1CDtTkAvNHnPxzKFOsaK0izLMSobRoxPNZo39YkU54QImJDzZsz
+X-Gm-Gg: AYBFou1KlRUvZcs82g4RB8aLbcMQoaVXtb5pu8VNqjhJyEWpW+skzu++nIes0WwM+9L
+	wQP1m6bS5xHCJMXZCs2a8DDU0KUvJE1UE1Qj2qvqgbfubkKr7kDdXy43kDA/S94bSYb77qUWDLK
+	dhhDDoU8NgJwG21a/uMjpePniCwrPA5pTSGmFhzFLCS544vEe39sb2kpZClt26eVvtVldmNKMOG
+	LBghRHF1Wjan8wTrTfbnG5Y83yci//8wM3F8mottHjTS083OGh2cQbXIv+Ao59KBsVui2/cRBj8
+	IWm5Ae3G3GOMV+uxUqXgbxwzI/6u0N4/L9sx6T9SKTVXazqqGJxS17zATYOXUiw8wuGqQFOtJse
+	09+Fn7xje0O0ODjSTBuniSqZXzNhzI3NNT6/TmLZNa/3iHaOkfOpeGg7YuulBOub4BD0DT/plT0
+	i74uqnL48evgzG1T8w8idiLjlKuzoNgreOD5CCva/6Zd3RtjljpI+zyDfwhykmha5PFayJXz3wE
+	KWJY0Am+6Dwy30R+RCuiv6L8q2G1mXSo2BsizGVOFwLhybDT/7e0wLNuxnaXjaJ+rnYn709tIv3
+	ntySJt3ze1pb88o6T8s4t/DwpIV4j80VWnk=
+X-Received: by 2002:a17:90b:2247:b0:3a8:49f2:8ddb with SMTP id 98e67ed59e1d1-3b1b0d4f314mr1396218a91.60.1794556474024;
+        Thu, 12 Nov 2026 23:54:34 -0800 (PST)
 Received: from localhost ([176.210.133.73])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b708adsm993234a91.4.2026.11.12.23.53.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3eaf732sm1024539a91.3.2026.11.12.23.54.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 23:54:00 -0800 (PST)
+        Thu, 12 Nov 2026 23:54:33 -0800 (PST)
 From: Vladislav Zaharov <vladazaharova2018@gmail.com>
 To: dakr@kernel.org,
-	jhubbard@nvidia.com
+	joelagnelf@nvidia.com
 Cc: acourbot@nvidia.com,
 	aliceryhl@google.com,
-	ttabi@nvidia.com,
+	ecourtney@nvidia.com,
 	gary@garyguo.net,
 	nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
 	vladazaharova2018@gmail.com
-Subject: [PATCH v7 4/4] Documentation: nova: remove completed GSP log buffer task
-Date: Fri, 13 Nov 2026 14:53:17 +0700
-Message-ID: <20261113075317.934264-5-vladazaharova2018@gmail.com>
+Subject: [PATCH] gpu: nova-core: mm: keep a page table page before installing its PDE
+Date: Fri, 13 Nov 2026 14:54:22 +0700
+Message-ID: <20261113075422.943779-1-vladazaharova2018@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113075317.934264-1-vladazaharova2018@gmail.com>
-References: <20261113075317.934264-1-vladazaharova2018@gmail.com>
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -107,37 +103,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GSP-RM log buffers are exposed in debugfs, and with gsp_keep_logs
-they also survive a failed probe.
+install_mappings() writes the PDE of a new page table page before moving
+the page into page_table_allocs. If push_within_capacity() then fails,
+the page is dropped and its VRAM freed while the PDE still points at it.
 
+Move the page into page_table_allocs first, so that a failure leaves no
+PDE pointing at freed memory.
+
+The problem was found by an LLM-assisted code review.
+
+Fixes: 4e4182282d4e ("gpu: nova-core: mm: Add multi-page mapping API to VMM")
 Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
 ---
- Documentation/gpu/nova/core/todo.rst | 12 ------------
- 1 file changed, 12 deletions(-)
+I could not reproduce the failure, as it needs push_within_capacity() to
+fail. With the change, the MM self-tests still pass on a GB203.
 
-diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-index a01c362b1be0..28fc7329d56b 100644
---- a/Documentation/gpu/nova/core/todo.rst
-+++ b/Documentation/gpu/nova/core/todo.rst
-@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
- GPU System Processor (GSP)
- ==========================
+ drivers/gpu/nova-core/mm/pagetable/map.rs | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
+index f7774b9cc972..e678197ec009 100644
+--- a/drivers/gpu/nova-core/mm/pagetable/map.rs
++++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
+@@ -209,8 +209,15 @@ pub(super) fn install_mappings(
+                 let (install_addr, page) = node.to_key_value();
+                 let page_vram =
+                     VramAddress::from_raw(page.alloc.iter().next().ok_or(ENOMEM)?.offset());
++                let level = page.level;
  
--Export GSP log buffers
------------------------
--
--Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
--(even after failure to probe the driver) through debugfs.
--
--This is also an interesting feature for nova-core, especially in the early days.
--
--| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
--| Reference: Debugfs abstractions
--| Complexity: Intermediate
--
- GSP firmware abstraction
- ------------------------
+-                if page.level == M::DUAL_PDE_LEVEL {
++                // Keep the page before pointing a PDE at it, so that a failure here cannot leave a
++                // PDE pointing at freed VRAM.
++                page_table_allocs
++                    .push_within_capacity(page.alloc)
++                    .map_err(|_| ENOMEM)?;
++
++                if level == M::DUAL_PDE_LEVEL {
+                     let new_dpde = M::DualPde::new_small(Pfn::from(page_vram));
+                     new_dpde.write(pramin, install_addr)?;
+                 } else {
+@@ -218,10 +225,6 @@ pub(super) fn install_mappings(
+                     new_pde.write(pramin, install_addr)?;
+                 }
  
+-                page_table_allocs
+-                    .push_within_capacity(page.alloc)
+-                    .map_err(|_| ENOMEM)?;
+-
+                 cursor = next;
+             }
+ 
+
+base-commit: 0ff9e5b9ff6736c37593cd7db89f4593ec4f8e86
 -- 
 2.56.0
 
