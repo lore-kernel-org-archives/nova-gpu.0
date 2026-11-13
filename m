@@ -1,56 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794557247;
-	b=u02wj2GK2SLJfrfizT519iGHBbP61fMUbtC4FG3yw12Jb0pU4GU7enqJ/mpAhj2vzWJy
-	 IXaU8gwW9mMtARdKuZ1JU+JBOezf6lh93rbvw4XnIEvt0xuYJ33IqTvA9daze9y3J6JdK
-	 yWKmBywJb71ARlqtwkhhAlT+uCz84ykgRQFKOVwQFmG+t1LVLMBvzIFefJ9f/URfoLGpQ
-	 1rt7HMHSjeoNS0KR9t1hIhuhUdFYDmnIj4IJ3tIdkreHpzctuOK0MI8cqBy2velUY0Wb/
-	 3nkFDYJzD3lq8060QI7WAYQv5WXN5mb7p7xMweiEANcH6aVnKOdYPYLbOejk6lx/pbw==
+	t=1794602085;
+	b=ab/WM84BTZ4U/9+LCCXwoGR7ts0YZaG8pMOyTpflwdHCsNT+8pRdqPS29GxQAiRYXTaD
+	 8Sa8Z6TyL7IRWSSvilSMcWNRRWfuVHxoPvLNZ4keJxKzDFBYLpxaNzUPzNRlnzSt5oNnm
+	 TI+zOPZ/nUF/s29c79L6vuOKg+2AsBx8aFqAYpFaP5+7UXEtXVu9SK2vHPJamYhHfneDo
+	 aaYBS2W/i3Jle5iIIpEY1fxYnRrZLDAS9e5T4DS46hS08wlNVXUzkNEmuhe1hKL8+IVtJ
+	 Ig8GfaXBYb1V3xaq9rnnSOPJ4vQfC5CqQ6jJwsk1d5HD0XJSBupJ0IOzcIcp923vOFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794557247;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QsRRtDVgwopOo2I9FfGM2qqA7XAoM8tcAV0BKp1IgIA=;
-	b=tnEHSXEtMuhqBC85aiKqfqkpvKlgY03684VfUg4VoRpKFDI2Ne6q1SBoT4VSRLIgIi0+
-	 lNPy0ypHE6i2C7ujLtLRfDrEx7wtJM7C21+iW1jzy0ulkx1ua2TG7XqEAvbREJ7KOTKeD
-	 l3Sp7xdMZRBC9CXTe9Nk7XO4bvTOODcKK926ybXWAY+WhUJ7m64s9bL19r7NKghecrd/d
-	 SDEKZjWPyjctoxpI2ZzjU9P9qlCcjsWI7T6RG/AIeyy9MrWqB55i6mPpRsYoot/6sy6gC
-	 /AbuA02nLTUWZRADaiNTkjIxCRH4FLc5UNjEgssmpHr11JtndR7dEbb+74g1q/SysVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602085;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To;
+	bh=chagpPiOJxprpG/hdf86c1muJoBTZxJZoVzH/xjU+ZQ=;
+	b=O+2kzUhFGqASDrv8du45M1ftjzYSQblmJHSfufW3gz4ykTqctqzleq8MpuSZqVAvv+Oh
+	 XAAbWsyY3yk3zAvas6qw1uhxpmNbeL86ECGoh0lWhik04rwMFBS0KNrWNZBo3eX3jV3vl
+	 G1j8GO2PV7qvdMMhoIofxBwMzgzGNOUVD6Tzzs/L0nigv2FByeQT3jGhZy7lUzoiR+hMj
+	 f+BmMQmF7MdYVjJkKw/YqqCmky6RrJnGq9YQMMIByURpTYU8nMihGn66dl28aFT6WkZbt
+	 3zFyMfvEkJfeG1h6t/x493aDrGBbc4lvM7KFzoHAQEuU/fVgqqmg2SnuA0uz+wQmjBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPXfE8jH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHGOBo3W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA2A606A323
-	for <nova-gpu@lists.linux.dev>; Fri, 13 Nov 2026 08:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA285606A339;
+	Fri, 13 Nov 2026 20:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPXfE8jH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AED5F1F000C5;
-	Fri, 13 Nov 2026 08:07:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHGOBo3W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0034A1F000C4;
+	Fri, 13 Nov 2026 20:34:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794557247;
-	bh=QsRRtDVgwopOo2I9FfGM2qqA7XAoM8tcAV0BKp1IgIA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UPXfE8jHYgz0muNAkhIR+9uEwBBSkH2FuJ81/Q8v8Px3gRlAY3TGfHCKNVxweCrt9
-	 Q4bEJKXiO19jrhGqsNVZphfWGZDzVPNspx55JC3coZB/nXFf0QY6WKcbQC/P6a2bvM
-	 MNRo2oxdyfdDnppxqnSS/NvGHtDEhycMezgog7uGKEK7FxP8dWLTTXoJK56gCccM9p
-	 5u+Ed3741Z5K5BcMfvCYOqWK2H73mra4CFfFIIH3oggm+Nhfp2+nVeZjhH9lfvbNyW
-	 VYZdEodGQrEv8X0RQNU7O5Ft5D34MEpx8NnQl5T79NRGMRKyNwDciswTLjgdHJy7K/
-	 AX0d9tmu7XSBg==
-Message-ID: <sashiko-outbox-212382@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] gpu: nova-core: mm: keep a page table page before
- installing its PDE
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>, dakr@kernel.org, joelagnelf@nvidia.com
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, aliceryhl@google.com, ecourtney@nvidia.com, gary@garyguo.net, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261113075422.943779-1-vladazaharova2018@gmail.com>
-References: <20261113075422.943779-1-vladazaharova2018@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 08:07:26 +0000
+	s=k20260515; t=1794602084;
+	bh=chagpPiOJxprpG/hdf86c1muJoBTZxJZoVzH/xjU+ZQ=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=iHGOBo3WPjRpMs838TxLT+hWWAHjljZd0PbM6Xf+MYGsCKozw+kX3KMTqnuXmXfOw
+	 nwP/85NARDRoVzjTo9RKGPhem7hitaJCHib2MnSNh3FkmHw1gaL1wWAqsijSJrZJou
+	 7xZKyDJNQzPSEQROIc3k3NWCdnIpt4bd9sPNrxvpOYZYQF+iZhKtE/rPVWI7oSDW5K
+	 gcBbnh630gh3YSbmB+0iKdlMuccPzviptphTPe4WdOobblJEANSqifzFox5CRmqTLj
+	 lmVfGI+Etaa/VuNazlF1vAjFE2ka4JGp2blVKGIEELiF7ihDujG+cw7FGgvsJL7iw1
+	 DgUpmTroewJUQ==
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -59,65 +48,95 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 13 Nov 2026 21:34:31 +0100
+Message-Id: <DMUDCA92VZHT.2SU4452MMGWL@kernel.org>
+Cc: <jhubbard@nvidia.com>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <ttabi@nvidia.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v7 3/4] gpu: nova-core: gsp: retain the GSP-RM log
+ buffers after unbind
+References: <20261113075317.934264-1-vladazaharova2018@gmail.com>
+ <20261113075317.934264-4-vladazaharova2018@gmail.com>
+In-Reply-To: <20261113075317.934264-4-vladazaharova2018@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] gpu: nova-core: mm: dangling child pt_pages entries in
-  install_mappings()
---
+On Fri Nov 13, 2026 at 8:53 AM CET, Vladislav Zaharov wrote:
+> +    /// Returns the copies of the GSP-RM log buffers of GPUs that are no=
+ longer bound.
+> +    pub(crate) fn retained_logs(&self) -> &Mutex<RetainedLogs> {
+> +        &self.retained_logs
+> +    }
 
-commit f3589ce920c77d23cb7e6ccb885a516db848c4b9
-Author: Vladislav Zaharov <vladazaharova2018@gmail.com>
+NIT: Should be #[inline].
 
-gpu: nova-core: mm: keep a page table page before installing its PDE
+> +    /// Exposes copies of the buffers in their place, if `gsp_keep_logs`=
+ is set.
+> +    fn retain(&self) -> Result {
+> +        if !crate::module_parameters::gsp_keep_logs.value() || !cfg!(CON=
+FIG_DEBUG_FS) {
+> +            return Ok(());
+> +        }
 
-This commit moves the page_table_allocs.push_within_capacity() call in
-install_mappings() ahead of writing the PDE for each prepared page table
-page.
+This misses debugfs being disabled through the kernel command line with
+debugfs=3Doff.
 
-> diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova=
--core/mm/pagetable/map.rs
-> index f7774b9cc972f..e678197ec009c 100644
-> --- a/drivers/gpu/nova-core/mm/pagetable/map.rs
-> +++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
-> @@ -209,8 +209,15 @@ pub(super) fn install_mappings(
->                  let (install_addr, page) =3D node.to_key_value();
->                  let page_vram =3D
->                      VramAddress::from_raw(page.alloc.iter().next().ok_or=
-(ENOMEM)?.offset());
-> +                let level =3D page.level;
-> =20
-> -                if page.level =3D=3D M::DUAL_PDE_LEVEL {
-> +                // Keep the page before pointing a PDE at it, so that a =
-failure here cannot leave a
-> +                // PDE pointing at freed VRAM.
-> +                page_table_allocs
-> +                    .push_within_capacity(page.alloc)
-> +                    .map_err(|_| ENOMEM)?;
+Usually, drivers should treat debugfs availability as opaque. The Rust
+abstraction keeps its backing data alive regardless of whether the entries =
+were
+created.
 
-[Severity: Medium]
-Does failing in push_within_capacity() or the following PDE write still
-leave child entries in pt_pages pointing into freed or unlinked parent
-page table VRAM?
+Here, the copies serve no purpose without debugfs, so checking availability
+would have a concrete benefit. However, I don't think this case warrants
+exposing debugfs::initialized(), which could be abused easily and encourage
+unnecessary checks elsewhere.
 
-ensure_single_pte_path() inserts missing page table levels top-down into
-Vmm::pt_pages, where a child node's install_addr key is a physical address
-inside its prepared parent page's VRAM allocation.  In install_mappings(),
-c.remove_current() removes the current node before push_within_capacity()
-is called.
+Let's check only gsp_keep_logs.
 
-If a parent node is visited before its child and push_within_capacity()
-fails on the parent, dropping page.alloc frees the parent's VRAM while the
-child node remains in Vmm::pt_pages (which Vmm::execute_map() does not
-clear on error); a later Vmm::execute_map() or Vmm::map_pages() call then
-drains Vmm::pt_pages and writes the child PDE into the freed parent VRAM
-page.  Conversely, if the child is visited first in VramAddress order, its
-PDE is written into the parent page and its allocation is kept in
-page_table_allocs before the parent fails and is freed, and if the PDE
-write itself fails after push_within_capacity() succeeds, the parent page
-is kept in page_table_allocs without being linked into the hardware page
-tables while remaining children in pt_pages still target it.
+> +
+> +        let logs =3D RetainedLogBuffers {
+> +            name: CString::try_from_fmt(fmt!("{}", self.dev.name()))?,
+> +            loginit: self.loginit.snapshot()?,
+> +            logintr: self.logintr.snapshot()?,
+> +            logrm: self.logrm.snapshot()?,
+> +        };
+> +
+> +        if logs.loginit.is_empty() && logs.logintr.is_empty() && logs.lo=
+grm.is_empty() {
+> +            return Ok(());
+> +        }
+> +
+> +        // Allocate before an earlier copy is dropped, so that a failure=
+ leaves that copy in place.
+> +        let scope =3D KBox::<debugfs::Scope<RetainedLogBuffers>>::new_un=
+init(GFP_KERNEL)?;
+> +        let data =3D NovaCoreModule::debugfs_data(self.dev);
+> +        let root =3D data.root();
+> +        let mut retained =3D data.retained_logs().lock();
+> +        retained.0.reserve(1, GFP_KERNEL)?;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113075422.9437=
-79-1-vladazaharova2018@gmail.com?part=3D1
+This shouldn't be necessary.
+
+> +
+> +        retained.remove(self.dev.name());
+> +
+> +        let scope =3D scope.write_pin_init(root.scope(logs, self.dev.nam=
+e(), |logs, dir| {
+> +            if !logs.loginit.is_empty() {
+> +                dir.read_binary_file(c"loginit", &logs.loginit);
+> +            }
+> +            if !logs.logintr.is_empty() {
+> +                dir.read_binary_file(c"logintr", &logs.logintr);
+> +            }
+> +            if !logs.logrm.is_empty() {
+> +                dir.read_binary_file(c"logrm", &logs.logrm);
+> +            }
+> +        }))?;
+> +
+> +        retained.0.push(scope, GFP_KERNEL)?;
+
+Please add a forwarding method for this.
