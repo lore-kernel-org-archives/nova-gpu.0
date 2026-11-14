@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794630949;
-	b=Uv6MqPn3sjNOYjvSpV5fAl377neuJuG4oPsLQU5QhLdn+vApHfNkaLtsGG1SEQItnMlh
-	 YNRTf2qj0F8JMfo6+jBkBRoTPVJsOdiPIbsz5d7AyE9Isl8ONFZaO9EBjnTmQsUfWGh0d
-	 qKEGS0W4gFQkxumckFpK3hh580vHBPiMc9njgkJVXj+kLBhQdNjPF1TqW/CFj7ZjZgdIX
-	 17qam8Nh2RUvyf1Q7sBvmbJot1dneL/PQ39VHROMG08BDyAmrK8GFUIYK0BkRFMu1avsH
-	 OSQscKgea5EZEBdcfQA7VHfzCfuJSBNqB/98KXSIeneszNbYNasNxRbdfMFj+oJIKJg==
+	t=1794631397;
+	b=1c59RyIucY1DfZGIezKfloDMRsoFy4aAnZaYDovv4a7ERotsi6B7YJGiRBE5vhXYZIkp
+	 QNbobUjtrV+sfOqGQqBerC22w6wgE2vveVBZxn6LMiba1pSkp8GILNoo2LvxCspHJOvID
+	 djbwMkKG98g22ENAjXaJAgT+OJtdyRc+qu2OE+M0GdXFgkSLJl5n4DerIfjGM0N/TFTAi
+	 FuV4qw+F55Dk2JydNDWNNwfUZKb85JR5Om/xDN3iuTOjiifGjmxQVNQrEjqMQBBsamCqr
+	 2sC32YnQUijmAj45bg5y4of3GJ3RMkchIYpXVN8TErIeL+rFOBqbCcNPKdY7C2h/xsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794630949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794631397;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=RxV2i3CwJwPvn+mwJ4cbWtgTLXqgAkSjs2t6czxawYk=;
-	b=1WF2iy4++s8WpwmpooGHQC4Cs8ekNClTN/N1tDTNkO48daZHRpzJVM8JnapMHdzAk01L
-	 9oR2V3QowZKOvdGSadYtYc/0FwD7vyKB0hlptABb93UluZVYycAF/GWHLT/9HWVyHWfRR
-	 RLxLTLnKuKtSPR4I0gq7B8XGcPtwFR/1+1amqGu9SDBYBjXG1rLxBqn4FslNpApF3qlv0
-	 OwXylntiauowyUjA21MAz2tuD9U85NeQV0MiEyt47nNxodaf1OwvY3cGPdr1VbjQQRt8I
-	 /BWZsN3djKrw+bB8SMyCkuZ9HDV7JdbT22SPySZdJR3g9VxNc2coJ3hNeP5Uf3m8Kdw==
+	bh=NiLyLycHtB+4ZXXMT4vdH4DfsyKDD4oOgAOd0xeeHHI=;
+	b=Bs2jfx3jJv6I2waai+cEYHKXnnqvO1xRR/gDG88el2ktghwdyCLR7JFq4VbMhvyYP/Ew
+	 yJB/YB/Fm1VNzhhVRsdomxqtix2k8j97MPAyHl9GcGY9kg1VQLuKZffeyqsDGHAGkrZB8
+	 70Sv8zmDRcJOXvoGFF2RjF8eVcz946LicP7WkD/8v0lx4MS88eBHFrGhAcg+fYUYydvG+
+	 yqwSIwLxjDCcVnMzhoM+UyZUjih8wAaXs4cRB22A2a8ipPT5W/mmoVmMXYpQWqdab6j9Y
+	 CVxOm7Ltla377/a7v4tS2YyPRnO2T12J7PDEkXm9EM5wNn8R68gOfl3rkqF0mhEoOoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPUFCBpH;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmV2cfVD;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05020606A323
-	for <nova-gpu@lists.linux.dev>; Sat, 14 Nov 2026 04:35:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05020606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A885C606A32E
+	for <nova-gpu@lists.linux.dev>; Sat, 14 Nov 2026 04:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A885C606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPUFCBpH
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so881579a91.1
-        for <nova-gpu@lists.linux.dev>; Fri, 13 Nov 2026 20:35:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmV2cfVD
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso662101a12.3
+        for <nova-gpu@lists.linux.dev>; Fri, 13 Nov 2026 20:43:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794630947; x=1795235747; darn=lists.linux.dev;
+        d=gmail.com; s=20260707; t=1794631396; x=1795236196; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RxV2i3CwJwPvn+mwJ4cbWtgTLXqgAkSjs2t6czxawYk=;
-        b=TPUFCBpHrU4NmPX/kjCnQSvUqjQrNd5nzv/niW9KIa69gsSe28NE21ZqDZyixiiCD5
-         MeoU3RKOv2gqSweVwKSoPY1RgLt9Lx8sfY/VBZE2BKMVj5B7UjP7ihct5ALI7QpX3k0x
-         TZdJPjFWMxJ25rxha0oADk/E7dkQ3AvHVLPRRJ2+Mu6aJZ/VV0mQqivWl7dxeO/EN/vR
-         4KyqDEZ2fFQP9v4UaPq0G8ucedklaEG8uihuIxAmNIcEowykk7vwRXen/Tx/twkZi/v8
-         RNFqgNhlz1BM9ztWl8rK4pW1cdJGlOov0QWFbOlHUgS4XvmIc5m9dnxtCgnsX0hOG11g
-         XJKw==
+        bh=NiLyLycHtB+4ZXXMT4vdH4DfsyKDD4oOgAOd0xeeHHI=;
+        b=mmV2cfVDY4jdXi+rEsH3vMZVGdMTjU8IyIxuxVKw57Oi9khFfw4Te19JgUsjolnZte
+         gvnuxaqQdNU0fsezDhF4cb1GljjybLyEAqwbtlJxbPaT0NAHwVFZSs0ip5hAI427yTVZ
+         rCk7SIsGxOC/FbKYGC//1S2j04yPSLCM6lxJc/mIqskuemEG7J6KfpyvvoCeiym5ZEti
+         FciHIPP9QdcLHwjJaeSjC2+K3hxpMeYvLGPA3IZih4FgyCHtfifpePTXFT7kWiDQIuQv
+         mDcTsnChkSg/5+vIxRLKmLpE1kYXcdHdizJTuypRYkdvwYXAOJtIP1C/52HTuC9IMnT7
+         5O4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794630947; x=1795235747;
+        d=1e100.net; s=20260707; t=1794631396; x=1795236196;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RxV2i3CwJwPvn+mwJ4cbWtgTLXqgAkSjs2t6czxawYk=;
-        b=1l1pBFTQbVxQtxoAEWpky+5wjdvLydGusjEDzag+ngUOS0fxoslTmWhzmlzFuYxNAC
-         LkwknUr5GSfv2kzb6dWSSpJNzJKtsOSBDzWkSDlG6u1tgasaA31UFkSSdt0/SHwWZm82
-         r/xVjnO0uL3U+r1FeATPHrXPl0sQd0um5GHM7vdJEPHa4k04cTfBt7+9uCKOnWaf8bXw
-         hN6IbF9/IKs8BglyfFfHvHQpEj2CEaAGYrCBJz6Xa73oppApQEWJ9P4RSS/WQ8jUxU0F
-         92KsfCaSgrMIhH7urDkjzV0bru0gZL79j6sMI5bmh+5m2bWSkywmm43oIA5rQ9aMSdoC
-         Cn4w==
-X-Forwarded-Encrypted: i=1; AL+hErF8aI+NpZhoC9LYGf+LIXxuTZbNwUkTf/AWHS7tdedX3Y0bT589dKBdTCMOC+l08XJYATUrLpKHqA==@lists.linux.dev
-X-Gm-Message-State: APuU4Z86P+KDpI2/5uMe2v3gBltIzFuDkd0fAWtY294AaiOn+cxsFnU9
-	gQgwLe5WbFN9L5D1Mvtohdxbd2XWYcTORSGaqpUUylvrxHKjRsscIVdG
-X-Gm-Gg: AYBFou2O3iCKzSdfyrVnT/cUs46G3yDtW9bInrymIPxbUH/UXJbQ+oD7kZD6CNf8kk/
-	gCZo6/Y9gO7/M7YQVSF0aYM8V+eh7ni9jKinb9uGBBexn+biPAEmnj2M9cp5ZBOmPLwEUJlzVHy
-	cWBSicMiZpMgZBbDML+d5e5a2yKJhu628XkZ0RCSAZ7vlDVGncRth/g1c1Jxd5y/OArAbViB2I8
-	Ksv/JvP6CMQRlFgTWvNyiTawOkWqKHl4JAlXxcLuKZnVY+DG2yFwsrC3PvkMYfo5uLF5hpe7rMc
-	gXw3J4cOaFaO7PWehBqD7PTZTLsxFaNi9Nd0rDVnd8j8d2WDTCqngUatcSXZeed/0Hb4ygAZKwF
-	Wkf/DTqQ0p8YNyFJwgytwmrZ64i1DkI1fNC59mO4QGfamt0rjt0tQK/gkyh2eoX/xH4bDuiZFon
-	5CYZzJMOoYiD+Y48Tgm8ni3UCORBX8OfE6i02R4X5dPeTqG46J3EvN2l7KNuxTcVFM9FWiRLEoi
-	OgDUiflVtCy8F0PrMgA1loObFJBjIE6D+918JGthQAZskA3NSdu7mUpNXBpfPOu47HmM0sXc+tV
-	+7nFoqQRI8i18tj62uHtQPGHIoAHFgJtRoY=
-X-Received: by 2002:a17:90a:c88b:b0:3ac:8897:7ba5 with SMTP id 98e67ed59e1d1-3b1b0ba890emr4682230a91.59.1794630947279;
-        Fri, 13 Nov 2026 20:35:47 -0800 (PST)
+        bh=NiLyLycHtB+4ZXXMT4vdH4DfsyKDD4oOgAOd0xeeHHI=;
+        b=tx9FD7fxlwgQcvcgWaItbP5uMsJF5v0Ljs3ldYUd4RiuRjedjsf8OuKEzm4jht+WQx
+         7Vzm66g+qDxzpLc310oeXmPzI62UXSKlZEqeAeUZMuBvpgYVlxMSmO2s9Is4LMvqTdwz
+         iYlirp/Rs6aNzvsoka3YxDAT55cvKVGzfv4ErY9/kb2/Z006wt205iGtzeUiok/y8zWZ
+         R5JVzevZ5XVJKURu6Tfi7P3mrop6NshNs+L2ZerOM3ClksHI8sHlW9k6c8UMDBUXFf3H
+         mVyP7gEo5FHm9IYRwzJiS6jc7Nua7lx3gC51USEWq0Lzy1yD5K+gxh2MVLwixU9uXs4M
+         PPcA==
+X-Forwarded-Encrypted: i=1; AL+hErF6+JyorV8GrOYZH3cb22dVEeNZtkFwLPESeaHZrU7lyuKYxYcKI7ZOozE8JpUN2rOEDz7LOusBsQ==@lists.linux.dev
+X-Gm-Message-State: APuU4Z+kX7eD3kF0dJLSiJe0bBLfNou0tLSu//yNAvq48Chbnd+q+V35
+	C+jUBpKgIPLmM+mdEU2ps4cOXwE//WCbHE36WXDmCbqdNHy0P0kELCzM
+X-Gm-Gg: AYBFou15OaSRPD51/TVoG9+YcN6V2O7Aw+2yddTn7jLWQhl9OJXqXE0S/BSqkQthBeh
+	vBVezYByineB61Nk/nEpAvEx/+Iqi+LK2DPEBBVrSBiYFSPCSFZr4+SVyGr81aGRtE6Vfoq6EPD
+	Enzx2ev/VqF5MlYsjYncoYdnXHwHlyDM9+vNQ7HL+W1XQg5nME0ETMPaOOzc9ilsXek5stOjI3J
+	Wad2XxWz4luKwRyRndWa/SDSJv2RkqFCPhdFzp2Nm2f4jg6LSHKvDw04TSuvv1EF8BxJdfykhc1
+	+5Rrrvi3RcgHdYnp7/u3D7ULWcCRSvlWs9eVHTvKVXHvEI2LLw0EnAE+uTkTSZxojBCqHTrYVq6
+	KL0GEEO2RGPdw86toN2RzeVPc0xGNGSu0DNnt3B18aYI6xyW7ySPuxBhH4LhvGHGdCUl3virILV
+	DRvVtNCezIz2CYsFPy0dGnvOJysPQnaKovqzcZPGG7ISqGi6Lx/flJxKdB27r6D0Ux2W1WnhWgN
+	L05JoENSNOkvKamP6KqsedPwsFSuP4grCt277YkuOvaPDzF1DzNcuZlbosYl3xAnS+ocScNAx6E
+	diCvktuqFmyaA/Z8CxaWB96E+R5zDXkXzts=
+X-Received: by 2002:a17:90b:528c:b0:3b0:a9de:9884 with SMTP id 98e67ed59e1d1-3b1b0a4e3bbmr4061630a91.40.1794631395879;
+        Fri, 13 Nov 2026 20:43:15 -0800 (PST)
 Received: from localhost ([176.210.133.73])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d32ea0sm12089020a91.15.2026.11.13.20.35.40
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3eaf732sm3230685a91.3.2026.11.13.20.43.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 20:35:46 -0800 (PST)
+        Fri, 13 Nov 2026 20:43:15 -0800 (PST)
 From: Vladislav Zaharov <vladazaharova2018@gmail.com>
 To: dakr@kernel.org,
-	joelagnelf@nvidia.com
+	jhubbard@nvidia.com
 Cc: acourbot@nvidia.com,
 	aliceryhl@google.com,
-	ecourtney@nvidia.com,
+	ttabi@nvidia.com,
 	gary@garyguo.net,
 	nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	vladazaharova2018@gmail.com
-Subject: [PATCH v2] gpu: nova-core: mm: reserve room for every prepared page table page
-Date: Sat, 14 Nov 2026 11:35:35 +0700
-Message-ID: <20261114043535.158583-1-vladazaharova2018@gmail.com>
+Subject: [PATCH v8 0/4] gpu: nova-core: retain the GSP-RM log buffers
+Date: Sat, 14 Nov 2026 11:43:00 +0700
+Message-ID: <20261114044304.245684-1-vladazaharova2018@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -103,163 +104,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-install_mappings() moves every page in pt_pages into page_table_allocs
-with push_within_capacity(), but prepare_map() reserves room only for an
-estimate of the pages of the mapping it prepares. The estimate is too
-low for a range that crosses a page table boundary, and it leaves out
-pages that earlier calls put in pt_pages. Preparing several mappings
-before executing them is then enough to make the push fail. The page is
-freed although its PDE has been written, and pages still in pt_pages
-can have their PDEs installed into it later.
+The GSP-RM log buffers are exposed through debugfs, but they go away
+when the GPU is unbound, including when probe() fails, which is when
+they are most useful.
 
-Reserve room for each page when it is added to pt_pages, and drop the
-estimate. Also move a page into page_table_allocs before writing its
-PDE, so that a failing PDE write does not free it either.
+Patch 1 moves the debugfs root into the module data, which also fixes
+the root being leaked when the driver registration fails. Patch 2 moves
+the log buffer code into its own file. Patch 3 adds a gsp_keep_logs
+module parameter that keeps a copy of the buffers after unbind. Patch 4
+drops the completed item from todo.rst.
 
-The problem was found by an LLM-assisted code review.
+Changes since v7:
+ - patch 3: check only gsp_keep_logs, not CONFIG_DEBUG_FS, drop the
+   reserve() before replacing the copies, add RetainedLogs::push() and
+   mark retained_logs() #[inline] (Danilo)
+ - collect Alexandre's Reviewed-by for patches 1 and 2
 
-Fixes: 4e4182282d4e ("gpu: nova-core: mm: Add multi-page mapping API to VMM")
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
----
-v2: reserve room for each page as it is added to pt_pages, so that pages
-left by earlier or failed calls are covered too. The Sashiko review
-pointed out that v1 alone still lets a failing push free a parent page
-while its children stay in pt_pages.
+The code and the commit messages were drafted with an LLM coding
+assistant and reviewed by me. Each patch builds on its own, and the
+series was tested again on a GB203: the copies are kept after unbind
+and after a failed probe, replaced by the live buffers on the next
+bind, and nothing is kept without gsp_keep_logs.
 
-Tested on a GB203 with a temporary self-test that prepares eight
-single-page mappings 1 TiB apart in a fresh Vmm and then executes them:
-without this patch every execute_map() fails with -ENOMEM, with it they
-all succeed. The MM self-tests still pass.
+v7: https://lore.kernel.org/nova-gpu/20261113075317.934264-1-vladazaharova2018@gmail.com/
 
-v1: https://lore.kernel.org/nova-gpu/20261113075422.943779-1-vladazaharova2018@gmail.com/
+Vladislav Zaharov (4):
+  gpu: nova-core: move the debugfs root into the module data
+  gpu: nova-core: gsp: move the log buffers into their own file
+  gpu: nova-core: gsp: retain the GSP-RM log buffers after unbind
+  Documentation: nova: remove completed GSP log buffer task
 
- drivers/gpu/nova-core/mm/pagetable.rs     | 24 ---------------
- drivers/gpu/nova-core/mm/pagetable/map.rs | 37 ++++++++++++++---------
- 2 files changed, 22 insertions(+), 39 deletions(-)
+ Documentation/gpu/nova/core/todo.rst   |  12 --
+ drivers/gpu/nova-core/debugfs.rs       |  45 ++++++
+ drivers/gpu/nova-core/gsp.rs           | 100 +++---------
+ drivers/gpu/nova-core/gsp/logbuffer.rs | 205 +++++++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs     |  68 +++++---
+ 5 files changed, 313 insertions(+), 117 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/debugfs.rs
+ create mode 100644 drivers/gpu/nova-core/gsp/logbuffer.rs
 
-diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
-index 63a7e1855caa..03a132406a15 100644
---- a/drivers/gpu/nova-core/mm/pagetable.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable.rs
-@@ -248,30 +248,6 @@ fn entry_size(level: PageTableLevel) -> usize {
-             8 // 64-bit PDE/PTE
-         }
-     }
--
--    /// Compute upper bound on page table pages needed for `num_virt_pages`.
--    ///
--    /// Walks from PTE level up through PDE levels, accumulating the tree.
--    fn pt_pages_upper_bound(num_virt_pages: usize) -> usize {
--        let mut total = 0;
--
--        // PTE pages at the leaf level.
--        let pte_epp = Self::entries_per_page(Self::PTE_LEVEL);
--        let mut pages_at_level = num_virt_pages.div_ceil(pte_epp);
--        total += pages_at_level;
--
--        // Walk PDE levels bottom-up (reverse of PDE_LEVELS).
--        for &level in Self::PDE_LEVELS.iter().rev() {
--            let epp = Self::entries_per_page(level);
--
--            // How many pages at this level do we need to point to
--            // the previous pages_at_level?
--            pages_at_level = pages_at_level.div_ceil(epp);
--            total += pages_at_level;
--        }
--
--        total
--    }
- }
- 
- /// Marker struct for MMU v2 (Turing/Ampere/Ada).
-diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
-index f7774b9cc972..2517fdcc5217 100644
---- a/drivers/gpu/nova-core/mm/pagetable/map.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
-@@ -116,6 +116,7 @@ fn ensure_single_pte_path(
-         &self,
-         mm: &mut GpuMm<'_>,
-         vfn: Vfn,
-+        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
-         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
-     ) -> Result {
-         let max_iter = 2 * M::PDE_LEVELS.len();
-@@ -140,6 +141,10 @@ fn ensure_single_pte_path(
-                     install_addr,
-                     level,
-                 } => {
-+                    // Reserve so install_mappings() can use push_within_capacity (no alloc in
-+                    // fence signalling critical path). It installs every page in `pt_pages`,
-+                    // including pages left by earlier calls, so keep room for all of them.
-+                    page_table_allocs.reserve(pt_pages.iter().count() + 1, GFP_KERNEL)?;
-                     let page = Self::alloc_and_zero_page(mm, level)?;
-                     let node = RBTreeNode::new(install_addr, page, GFP_KERNEL)?;
-                     let old = pt_pages.insert(node);
-@@ -163,8 +168,8 @@ fn ensure_single_pte_path(
- 
-     /// Prepare page table resources for mapping `num_pages` pages starting at `vfn_start`.
-     ///
--    /// Reserves capacity in `page_table_allocs`, then walks the hierarchy
--    /// per-VFN to prepare pages for all missing PDEs.
-+    /// Walks the hierarchy per-VFN to prepare pages for all missing PDEs, and
-+    /// reserves capacity in `page_table_allocs` for them.
-     pub(super) fn prepare_map(
-         &self,
-         mm: &mut GpuMm<'_>,
-@@ -173,16 +178,11 @@ pub(super) fn prepare_map(
-         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
-         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
-     ) -> Result {
--        // Pre-reserve so install_mappings() can use push_within_capacity (no alloc
--        // in fence signalling critical path).
--        let pt_upper_bound = M::pt_pages_upper_bound(num_pages);
--        page_table_allocs.reserve(pt_upper_bound, GFP_KERNEL)?;
--
-         // Walk the hierarchy per-VFN to prepare pages for all missing PDEs.
-         for i in 0..num_pages {
-             let i_u64: u64 = i.into_safe_cast();
-             let vfn = Vfn::new(vfn_start.raw() + i_u64);
--            self.ensure_single_pte_path(mm, vfn, pt_pages)?;
-+            self.ensure_single_pte_path(mm, vfn, page_table_allocs, pt_pages)?;
-         }
-         Ok(())
-     }
-@@ -207,10 +207,21 @@ pub(super) fn install_mappings(
-             while let Some(c) = cursor {
-                 let (next, node) = c.remove_current();
-                 let (install_addr, page) = node.to_key_value();
--                let page_vram =
--                    VramAddress::from_raw(page.alloc.iter().next().ok_or(ENOMEM)?.offset());
-+                let page_vram = page
-+                    .alloc
-+                    .iter()
-+                    .next()
-+                    .map(|b| VramAddress::from_raw(b.offset()));
-+                let level = page.level;
-+
-+                // Keep the page before pointing a PDE at it, so that no failure below can free a
-+                // page that a PDE points at. ensure_single_pte_path() reserved room for it.
-+                page_table_allocs
-+                    .push_within_capacity(page.alloc)
-+                    .map_err(|_| ENOMEM)?;
-+                let page_vram = page_vram.ok_or(ENOMEM)?;
- 
--                if page.level == M::DUAL_PDE_LEVEL {
-+                if level == M::DUAL_PDE_LEVEL {
-                     let new_dpde = M::DualPde::new_small(Pfn::from(page_vram));
-                     new_dpde.write(pramin, install_addr)?;
-                 } else {
-@@ -218,10 +229,6 @@ pub(super) fn install_mappings(
-                     new_pde.write(pramin, install_addr)?;
-                 }
- 
--                page_table_allocs
--                    .push_within_capacity(page.alloc)
--                    .map_err(|_| ENOMEM)?;
--
-                 cursor = next;
-             }
- 
 
 base-commit: 0ff9e5b9ff6736c37593cd7db89f4593ec4f8e86
 -- 
