@@ -1,108 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795025229;
-	b=v3V16HzwkE4OF8LBbAdCuCVAfE80F3Qw0zKQttFk+65LL1yg3LA+7JX6paXrRFc1ts3A
-	 BlUGRIe5t9FQe5poiriuS2DFDcdWB59AGTPLenV+hDX1b8zXEBmQ1NCDveCVwBVrhoByO
-	 v2CH8OV49h/Y7bSnjLxzTsIYD4BVoXspYUPKEUtTPn4XpLLW5aSsSm2EUDCH0ORypai8Q
-	 VTZ5zwNUP63KDx1cIxqYY5aTZ4qvgxK99AS8zNfvy+ioxuD48U3xDk1+pjWzePXv1F5xE
-	 LDPJYFzoJs2BTekHGl3eawCSVoxQUnQmXAQQwaEb1F5hpLVQyiHW2YpG56uDToZa1cQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795025229;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2G1U2zVeKSuKE+J3Aiabjx6y35FJ1RFEgckcOHaqURU=;
-	b=VLycK044nBfjtG38hN7X1n66uRvXywZhxcbWrPvEWOM0pMbIOWcyEG2WzOlsgzKRxuzB
-	 dBMI7MIVYQgXjUK3Ln3TBiRvABuABXgLdl5trdyiAi592fQC3Rcr2Vj9+cxlhETe8/DCB
-	 5vnuvFFK0SDsoni3+dCzNAbD4+TFI6mUmdyJ8dJMz2Uty0Met51hpzH26dmq9HYJU9JNb
-	 TbEjglLmaQ2IEPTK+3lI6OTyPWGLLfRAH7kVVjq2ECy3Cq88Imyy6wXyzGMQNAY6HkUSC
-	 KIqnYwlqq+HpP1kHYwmUVTVYJEOEJiRFewhrj0k5byOoIga66QJLipdpmYwDXGI5YhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Sg6SYXcd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.35
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010035.outbound.protection.outlook.com [52.101.46.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795025576;
+	b=hetYuO1ZChJsGeKlJTiU6958hy+jBDgN+PT+OoKQkJO7XJt76xaMtjdhQBuyPfqD/Iz3
+	 0MEzsdQw3VKhCcSWEL2WgGU7tnKFmMWyalo0FmIagkV5EAaCLNEUT9LMLaHuUyiQpZt9B
+	 uwp4yCunfxzkBS7BxFAbygzp3KG4O8GYQOz3OhIywZApePmUUTVWumm6VNtksqnicHt65
+	 U9MMkDOrx1cQTjK5qYJFXub+vD3Ue65zoSjMx8s9ZEZRdsQFJFIW/eh1Lc+WP2dF5gPOR
+	 mGA0S4q5R/DIAT3cdyemu3fdl1uUVAb/aIuTwcZVnfQBHS3YcKEVC5APqwvrYxM/4yQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795025576;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QwgpircG35eCtvMz6oMeaILv9jzCPrAXDg7hzUVK4Ho=;
+	b=gZQQs6hoi4tJjHVJZBZD2Z2aFI91dVyP6VrPxS3tYdHC3XXg7+4Q/R3MsFlTI8sXOFdd
+	 9bWd0M9TJJM6xeADSdpyznACFKJnSQ8+JCvkiEVq3/PUqluyrcPWHld65buWQ8AkSnvxX
+	 pKx1XMlR5sTmuiNfIJz7mNm9XVedYpIQ/HRfqwDeUBYMoO9sAh65XHEnTWw2WAY+fmccJ
+	 TYOF0A0QZnBn5wN7yhskcQwi0MDfIdlGdBOMTIZXXd2XYUYonKhrS5QgAfnComFOVPYYE
+	 mKox1A8CXI6UuQlCNOkw7lclKSmXXEA75TAoxypF+UPc+lN4dYwMhbiznEYjty7o9rg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ealm2dAJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049D1606A320
-	for <nova-gpu@lists.linux.dev>; Wed, 18 Nov 2026 18:07:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 049D1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F16D606A32A;
+	Wed, 18 Nov 2026 18:12:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Sg6SYXcd
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V72AzXY55QhlYXyTdu1GDAG0nDBU4JUZQiWVguvRygAQg9l/KPKxxD/pXUNG+HvTtqzzPgpPv7J8xN82872K0NyafNDkZ14zj3BSBtzFgGLa0JtMRX7X17vlbZ/XBUQgLgmaygYlm+xGRmekS1QUKHE+o0wlm/nD8mCNfc6MRN+nOFP4U7zGo3TU+qvxEniNo6kPy5O4M9ZIwoF0ocIcQ68Kbirg3A4qTzMI0WQriBuXo91qi+TEtEA/Q7Nh/YetJHBGchQXHWp5CQzgSYkU/AbdH2wyEBOY6JhcjGzMEmysWox3ZAK7tQHHSKpT+t47J/dHP9zKTzCYqdnH5Me/cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2G1U2zVeKSuKE+J3Aiabjx6y35FJ1RFEgckcOHaqURU=;
- b=iN4M1n1OOSc8qs6PdcFKgdLyRo8J5w/gbR25x/j2z89k8z6homR5PB7LOC3rHNS9l0jXYO4GvJ/UUkTAOIFycEZhmSMvaC2j0FZPgpbsa1vQLovehSqh4HKhqIxtqqpFdPnF4P62w7cO28AkrvlNNOTso3qODKFV2AHrTUzmHJ6WhIQqRT+muP182VdOIVBBCOlrHKuLADurdco9CpLCHrQmfYdgH5GRM5veRtfYtvBPPyk6qr4nBqPDQicF7NZ5ArQGVqOVI0XKMBUyUjq9yNKAea55koUiskaYO2Yfps6hiUyCCl+fRfmY+tUd7lbeRJhRdch+umOJEPz5nAIdOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2G1U2zVeKSuKE+J3Aiabjx6y35FJ1RFEgckcOHaqURU=;
- b=Sg6SYXcds3+BMHuA/VRRH+lD4Hd8qIqQ6SrX5TgQyLlaFdOV964tM2/bWGPtkCf2Z5jsnGULHQLTFFYEZJssmKdLyMrTXYB7pPTEO1h47govVxhR2/h6+8Iw5frTdunUPVEV0BZcCmm+1t+zF2ouDK+7fhW1UsJLCJv5oH4NHVkSC8M/ZuNCWxgWSqz4nUGxkb7YB2dywfPfHWjdYUcefiRpDC+SgelhnuJk4LxFLtyluFTXS8RhqWojv05y1EoK0yw96U2aJ8qaIjxE1QCBdWuMOAGzO6W+9PQGlaLGlPuBjsBOUDqvi5mRxgAfGIJXCvuRQCdsd6laSUSZCLl4zg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by DS7PR12MB6237.namprd12.prod.outlook.com (2603:10b6:8:97::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 18:06:59 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%4]) with mapi id 15.21.0615.012; Wed, 18 Nov 2026
- 18:06:58 +0000
-Date: Wed, 18 Nov 2026 13:06:55 -0500
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v12 0/2] rust: Add support for reserving of ranges of IDs
-Message-ID: <av3pKdesSwpPYnnq@yury>
-References: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
-X-ClientProxiedBy: BN9PR03CA0080.namprd03.prod.outlook.com
- (2603:10b6:408:fc::25) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ealm2dAJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1F01F000C4;
+	Wed, 18 Nov 2026 18:12:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795025576;
+	bh=QwgpircG35eCtvMz6oMeaILv9jzCPrAXDg7hzUVK4Ho=;
+	h=From:To:Cc:Subject:Date;
+	b=ealm2dAJoXXZpZN4OCx1x80exfqr1VQt4qAIHNwmFSxdJmOFsVdzOtAiykFLfdRiT
+	 855jhLIGfCBChLG8SS80NhZ7+9zz7NslKnGyDlAbpydtLE05RUxutp2INYX+LYT+Ch
+	 E6JQXaHflaZ85nH6aXfeUECMP4kEHWgTxjIalvB+lDc4FKSUCCNBs7MGPmgjwAUMiC
+	 i5mlOl8CWaqLAn3U7enuF3WVLhzjzXFOnbVESSIYamTcAy7AzY4XxSHPFYVEF/ErAX
+	 IMuvXw3/ebfysEnBahQyT1lxIBJP3JxYdEMAtgbNdD6s5HTOGzTPP2L8gqS+8Zjp2V
+	 3LVwogsNs6KTg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	aliceryhl@google.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	daniel.almeida@collabora.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev
+Cc: nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH] rust: drm: remove DRM device private data
+Date: Wed, 18 Nov 2026 19:07:35 +0100
+Message-ID: <20261118181245.2583303-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -112,198 +72,322 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DS7PR12MB6237:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac085a08-20a4-4729-3411-08df459ebc75
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|10070799003|366016|376014|7416014|18002099003|261009223027099003|22082099003|261021121427099003|11063799006|56012099006|261028144727099003|261022075727099003|261022105027099003|261026140227099003|261026121527099003|261021123027099003|261022113327099003|10067099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	+Fq8dVT2hQ4zEU4/QyQzeGArPUTuIfl3Pe0e0ypthXpOUiuVI8zSE40hndRX5hm3IWsXKa80Vp6gt4ueBjrRRySPkPmHIkCSOhXoU8TQLMlhOxfVKId0aydOaN5isAScyutLJvqVWbKnLz6LqeLaWszUZMgSiVgi0CSr0d0oHBSdBNyN9RFZncdnfJfLkpjAiW+1tg1z5T/NzIPBG3hsNSFaJxlifQSiTYemDMt6SEMELkwgtf4iccTBtxZUIlKbxwgyj66JaAjhsQ/9L2jG0aeYinakgNoO19GuUWTixmeqa1LjEwT2I0hlMd+HFF1ku4ikdKlGrp1QoVpIalr9Nk/zuSKdlWG83KWcRY/OCn4Ol9lrLRGbGVZSmMDKxn3KzvhC+FWi79AN5mVaBS2ZBPhZtVLDosoMEg3rXcalDWohAt3Zbzncq4iWhxfpZItLs30hPHYwXsRhFoQdq6fZ2EJIlWlX2NUzsis/8yiD/+9esy4+EslKoqLchfEV9d0TvkAZbiVMxwU8K0qlA2OKRsjWZ4SuY7yKa0LLomIS3kaVYH/VK3YBS74Ym2ANexohFgObasmuk2tzxe1muEddZx7KtWlqUP53Xoi2KhA3EKG6y0OYI6pcQgGnKfQeKNBatQjGX6h9DJ27iWrwirkX1KvI36x2103Etn9M1Yghqjc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(366016)(376014)(7416014)(18002099003)(261009223027099003)(22082099003)(261021121427099003)(11063799006)(56012099006)(261028144727099003)(261022075727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022113327099003)(10067099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?G1Y/iYoVHhKpU8kDYKYjhh+nbnLdBq7DhkixyOuI++rtnhdbeTpVcsJJceCv?=
- =?us-ascii?Q?dpmrqYLsEKMTBQthRsR1s/njMRUevYszK8qHsg9tS9Q3jfYot3+smPYNAhT+?=
- =?us-ascii?Q?xYGlEIvPMzOJtGPqhruKShGabP32XgHXt5f/i5s5l7uGmNvVpnePFei6EQil?=
- =?us-ascii?Q?W9OJ5XA8WZELru8NwFo+OB5XH3C+gdMYUrA13a6ftsw9rbYic7snUyNhmces?=
- =?us-ascii?Q?MOaP9DbcGLqN9nNwMJkrvu5eC/FSLv8FOeu4joC4YK7c3ZPpbciZkpmbAII2?=
- =?us-ascii?Q?Mo7Kkj5fpJKxwArU+tkZuYaNT4pWFp4UddxS4vvItMzYWp7ARiQgYXc6cjD+?=
- =?us-ascii?Q?lkj7PbWp9bbSoo70Awtu+rCqdqbE8bwfPQqQHIQkU0JyKdCU8pPl/4HkfMq3?=
- =?us-ascii?Q?XPUI/wTlJDOfQ5SVYE5tAXtrUJh088nrq9fRrVj5ouJ1tUVjcH1D+N16b6l+?=
- =?us-ascii?Q?mkT2ida8a6KURFfcjYpnSWvc5zsd9DfVf+i1Ih16vMmUKSoZQI0cocCBes/E?=
- =?us-ascii?Q?T19tKMkzA/OKlmUO4KhZtRDuxO/tuImRwgEQUtCQlMWtY0wRS5y8tOUkt7dA?=
- =?us-ascii?Q?EvteWWIsUF+T6xI2LitLJqw+cLi4VFAUO0gkHaI0oKUP0WGicyp/8kUpj3mq?=
- =?us-ascii?Q?W5z9QyVwXXc04PmMqf+XGLnjcXVlTOJs3hoOr92sFPKtQ7dpduFyRiLA8t6O?=
- =?us-ascii?Q?b4R8MbFpUtS3JpU2o3MWj6+nehg+J+hw4hFaFzjwHBnFog4gTxDnGkunMVCh?=
- =?us-ascii?Q?FkJDkVyasUVCgG8nxbLLlZTiVmjqFRV6EPJsMN+MBLUfBnCe+A/31vViUemY?=
- =?us-ascii?Q?2X9v8Jvcw9Hmvj9LDq6JeLZ2Pu07m/d2waMRxetGTUb+8fkPP+HCblgDTIvx?=
- =?us-ascii?Q?NNySxEsriLE3ZjRPBfvcFULtgT85kOs95x2BpeZ3twlZ6CbXYF6Zb1274t4S?=
- =?us-ascii?Q?1MwVg3/NXfc8rABUhTdleTkfaapdMka1voQZOusbB9pvZTg3Wi0Er2WWmmmj?=
- =?us-ascii?Q?RgSG9Z/KHJL7OFrZ8F/I9Os/JGGZMhvPYMozUdEOgWoT9XFHxyFJcmEE2fIo?=
- =?us-ascii?Q?7s8kRH7e6fl/gNIIlEhfw9BTlEEmWh1VvEK5+CObyyPmnYQL/2bCNEaQR+1t?=
- =?us-ascii?Q?I8/+LTDveoICdAnSvSDGNAMggFmXMVxTZhuVip+XZ2LZXQay/FFDmyilaueh?=
- =?us-ascii?Q?kaaOS1Exe8pCePfo7pYGV2LXbvsav+oGukSH2dEgBhEYuqK/YAFlkgEmk8G7?=
- =?us-ascii?Q?RZD6k4og/vyaTbLR32TjmA5GU6iLxSBFpUgFd9nGKh1z8I6Xd5cm0/fRMZD6?=
- =?us-ascii?Q?bS2Xq7jI9vyTS3Ls2L6q2JYQWWQhmThDgMkYEaWjfwzANZKq52tSjUBqVZKH?=
- =?us-ascii?Q?l5Dw7ZWa6nFLCCAlHW+J3xeNK0VFKO0Ae5SFpsSyzobSng7NkiJ3q7ITOOEQ?=
- =?us-ascii?Q?t2ULn+kIt/DWy0teKwSKTJmY30MEukw+lT7cX+gL9KZbqgLt+btALNiW2ICV?=
- =?us-ascii?Q?u5CTSjvUX2tTPvfVJOMnjVAy8tX5a2OdUr7QXFG/6vHeSCQcwlelqAlCDHrl?=
- =?us-ascii?Q?61H9YjkU39KHZ4qh9HmWzY0KzO4/6WfGcm1LRoUTSeQ7xkRJ3d3SoHOSP4/i?=
- =?us-ascii?Q?0bIWG99vJbAGMLCt9NiuGdAdoi0Qsvfmqg+kuZD+2lJsvNr3SWcLJwvRds0I?=
- =?us-ascii?Q?d0yu2s9duoewsnPjLnOSeWyqit1nPE8RRILYYFJg0y9jXoDsov/7j8RuAt0D?=
- =?us-ascii?Q?ar49hEYsh5QewCxoLLSm2Joi6fE2bGSmvxpRObV+hhzFrER0PPBf?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac085a08-20a4-4729-3411-08df459ebc75
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 18:06:58.2966
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e7FIaVcNRwbM1a6i/oaGljjtyNMvDLJBkh5SN6bRanKf8e5rEJW8qh5BEANUYoPrPIbfkJMurtGUQ3T2dHgp2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6237
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 09:37:11PM +0900, Eliot Courtney wrote:
-> Add support for reserving of ranges of IDs, with a usage in nova-core
-> for channel IDs.
-> 
-> The bitmap and `IdPool` parts from earlier versions are in v7.4-rc1
-> now, and this version has the remaining patches: exact `IdPool`
-> capacities and `ChannelIdPool`.
-> 
-> Channel ID tracking is needed for allotting ranges of channel IDs to
-> vGPU guests, and later for regular host channel ID reservation.
-> nova-core needs allocation of a contiguous sequence of IDs with a
-> specific length and sometimes a specific alignment [1].
-> 
-> About the tradeoffs between different data structures:
-> - IDA/xarray do not support allocating a contiguous sequence of IDs
->   (ida_alloc_range() allocates a single ID within a range, not a contiguous
->   sequence).
-> - A maple tree works, but is not as good a fit. The ID space is small
->   (limited to 2048) and aligned allocation needs an alloc_range()+erase() retry
->   loop (plus a Mutex around it, or new mas_empty_area() bindings) that
->   essentially reimplements bitmap_find_next_zero_area(). See the maple tree
->   version at [2]. For 2048 IDs a bitmap is also considerably faster and smaller
->   [3].
-> - The bitmap API natively supports aligned contiguous area allocation
->   (bitmap_find_next_zero_area()).
-> 
-> This is based on drm-rust-next.
+Driver::Data is owned by the reference-counted drm::Device and can
+outlive device unregistration and driver unbind. Driver state belongs in
+RegistrationData, whose lifetime ends with registration teardown.
 
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
+The intended model is that, after drm_dev_unplug(), surviving DRM
+objects (e.g. through remaining userspace handles) no longer require
+access to the driver state. Thus Driver::RegistrationData is available
+(and sufficient) for all DRM callbacks into the driver.
+
+Remove Driver::Data, its storage and Deref implementation, and the
+unused workqueue implementations that depend on it. Drop the data
+initializer argument from UnregisteredDevice::new() and update its
+callers.
+
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ drivers/gpu/drm/nova/driver.rs |   3 +-
+ drivers/gpu/drm/tyr/driver.rs  |   3 +-
+ rust/kernel/drm/device.rs      | 128 ++-------------------------------
+ rust/kernel/drm/driver.rs      |   3 -
+ rust/kernel/drm/gem/shmem.rs   |   6 +-
+ 5 files changed, 9 insertions(+), 134 deletions(-)
+
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
+index 44a52e60b3c7..df3f37d06861 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -71,7 +71,7 @@ fn probe<'bound>(
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         try_pin_init!(Self::Data {
+             reg <- {
+-                let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
++                let drm = drm::UnregisteredDevice::<Self>::new(adev)?;
  
-> [1]: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/
-> [2]: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/
-> [3]: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/
+                 let reg_data = DrmRegData {
+                     api: NovaCoreApi::of(adev)?,
+@@ -88,7 +88,6 @@ fn probe<'bound>(
+ 
+ #[vtable]
+ impl drm::Driver for NovaDriver {
+-    type Data = ();
+     type RegistrationData<'a> = DrmRegData<'a>;
+     type File = File;
+     type Object = gem::Object<NovaObject>;
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index c2b99d67369f..9caedd0fd130 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -148,7 +148,7 @@ fn probe<'bound>(
+             // other threads of execution.
+             unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
+ 
+-            let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
++            let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev)?;
+ 
+             let mmu = Mmu::new(pdev.as_ref(), iomem.as_arc_borrow(), &gpu_info)?;
+ 
+@@ -207,7 +207,6 @@ fn drop(self: Pin<&mut Self>) {}
+ 
+ #[vtable]
+ impl drm::Driver for TyrDrmDriver {
+-    type Data = ();
+     type RegistrationData<'drm> = TyrDrmRegistrationData<'drm>;
+     type File = TyrDrmFileData;
+     type Object = Bo;
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index 6b88ade28e24..774db3acb15a 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -22,12 +22,6 @@
+     types::{
+         NotThreadSafe,
+         Opaque, //
+-    },
+-    workqueue::{
+-        HasDelayedWork,
+-        HasWork,
+-        Work,
+-        WorkItem, //
+     }, //
+ };
+ use core::{
+@@ -36,10 +30,7 @@
+     marker::PhantomData,
+     mem,
+     ops::Deref,
+-    ptr::{
+-        self,
+-        NonNull, //
+-    },
++    ptr::NonNull, //
+ };
+ 
+ #[cfg(CONFIG_DRM_LEGACY)]
+@@ -167,7 +158,7 @@ const fn compute_features() -> u32 {
+         open: Some(drm::File::<T::File>::open_callback),
+         postclose: Some(drm::File::<T::File>::postclose_callback),
+         unload: None,
+-        release: Some(Device::<T>::release),
++        release: None,
+         master_set: None,
+         master_drop: None,
+         debugfs_init: None,
+@@ -201,28 +192,18 @@ const fn compute_features() -> u32 {
+     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
+     ///
+     /// This can be used to create a [`Registration`](kernel::drm::Registration).
+-    pub fn new(
+-        dev: &T::ParentDevice<device::Bound>,
+-        data: impl PinInit<T::Data, Error>,
+-    ) -> Result<Self> {
++    pub fn new(dev: &T::ParentDevice<device::Bound>) -> Result<Self> {
+         // `__drm_dev_alloc` uses `kmalloc()` to allocate memory, hence ensure a `kmalloc()`
+         // compatible `Layout`.
+         let layout = Kmalloc::aligned_layout(Layout::new::<Device<T, Normal>>());
+ 
+-        // Use a temporary vtable without a `release` callback until `data` is initialized, so
+-        // init failure can release the DRM device without dropping uninitialized fields.
+-        let alloc_vtable = bindings::drm_driver {
+-            release: None,
+-            ..Self::VTABLE
+-        };
+-
+         // SAFETY:
+-        // - `alloc_vtable` reference remains valid until no longer used,
+-        // - `dev` is valid by its type invarants,
++        // - The vtable has static storage duration.
++        // - `dev` is valid by its type invariants.
+         let raw_drm: *mut Device<T, Normal> = unsafe {
+             bindings::__drm_dev_alloc(
+                 dev.as_ref().as_raw(),
+-                &alloc_vtable,
++                const { &Self::VTABLE },
+                 layout.size(),
+                 mem::offset_of!(Device<T, Normal>, dev),
+             )
+@@ -230,25 +211,6 @@ pub fn new(
+         .cast();
+         let raw_drm = NonNull::new(from_err_ptr(raw_drm)?).ok_or(ENOMEM)?;
+ 
+-        // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
+-        // successful.
+-        let drm_dev = unsafe { Device::into_drm_device(raw_drm) };
+-
+-        // SAFETY: `raw_drm` is a valid pointer to `Self`.
+-        let raw_data = unsafe { ptr::addr_of_mut!((*raw_drm.as_ptr()).data) };
+-
+-        // SAFETY:
+-        // - `raw_data` is a valid pointer to uninitialized memory.
+-        // - `raw_data` will not move until it is dropped.
+-        unsafe { pin_init::raw_try_init(raw_data, data) }.inspect_err(|_| {
+-            // SAFETY: `__drm_dev_alloc()` was successful, hence `drm_dev` must be valid and the
+-            // refcount must be non-zero.
+-            unsafe { bindings::drm_dev_put(drm_dev) };
+-        })?;
+-
+-        // SAFETY: `drm_dev` is still private to this function.
+-        unsafe { (*drm_dev).driver = const { &Self::VTABLE } };
+-
+         // SAFETY: `raw_drm` is valid; no concurrent access before registration.
+         unsafe { (*raw_drm.as_ptr()).registration_data = UnsafeCell::new(NonNull::dangling()) };
+ 
+@@ -274,7 +236,6 @@ pub fn new(
+ #[repr(C)]
+ pub struct Device<T: drm::Driver, C: DeviceContext = Normal> {
+     dev: Opaque<bindings::drm_device>,
+-    data: T::Data,
+     pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationData<'static>>>,
+     _ctx: PhantomData<C>,
+ }
+@@ -322,16 +283,6 @@ pub unsafe fn from_raw<'a>(ptr: *const bindings::drm_device) -> &'a Self {
+         unsafe { &*ptr.cast() }
+     }
+ 
+-    extern "C" fn release(ptr: *mut bindings::drm_device) {
+-        // SAFETY: `ptr` is a valid pointer to a `struct drm_device` and embedded in `Self`.
+-        let this = unsafe { Self::from_drm_device(ptr) };
+-
+-        // SAFETY:
+-        // - When `release` runs it is guaranteed that there is no further access to `this`.
+-        // - `this` is valid for dropping.
+-        unsafe { core::ptr::drop_in_place(this) };
+-    }
+-
+     /// Change the [`DeviceContext`] for a [`Device`].
+     ///
+     /// # Safety
+@@ -448,14 +399,6 @@ fn drop(&mut self) {
+     }
+ }
+ 
+-impl<T: drm::Driver> Deref for Device<T> {
+-    type Target = T::Data;
+-
+-    fn deref(&self) -> &Self::Target {
+-        &self.data
+-    }
+-}
+-
+ impl<T: drm::Driver> Deref for Device<T, Registered> {
+     type Target = Device<T>;
+ 
+@@ -527,62 +470,3 @@ unsafe impl<T: drm::Driver, C: DeviceContext> Send for Device<T, C> {}
+ // SAFETY: A `drm::Device` can be shared among threads because all immutable methods are protected
+ // by the synchronization in `struct drm_device`.
+ unsafe impl<T: drm::Driver, C: DeviceContext> Sync for Device<T, C> {}
+-
+-impl<T: drm::Driver, const ID: u64> WorkItem<ID> for Device<T>
+-where
+-    T::Data: WorkItem<ID, Pointer = ARef<Self>>,
+-    T::Data: HasWork<Self, ID>,
+-{
+-    type Pointer = ARef<Self>;
+-
+-    fn run(ptr: ARef<Self>) {
+-        T::Data::run(ptr);
+-    }
+-}
+-
+-// SAFETY:
+-//
+-// - `raw_get_work` and `work_container_of` return valid pointers by relying on
+-// `T::Data::raw_get_work` and `container_of`. In particular, `T::Data` is
+-// stored inline in `drm::Device`, so the `container_of` call is valid.
+-//
+-// - The two methods are true inverses of each other: given `ptr: *mut
+-// Device<T, C>`, `raw_get_work` will return a `*mut Work<Device<T, C>, ID>` through
+-// `T::Data::raw_get_work` and given a `ptr: *mut Work<Device<T, C>, ID>`,
+-// `work_container_of` will return a `*mut Device<T, C>` through `container_of`.
+-unsafe impl<T, C, const ID: u64> HasWork<Self, ID> for Device<T, C>
+-where
+-    T: drm::Driver,
+-    T::Data: HasWork<Self, ID>,
+-    C: DeviceContext,
+-{
+-    unsafe fn raw_get_work(ptr: *mut Self) -> *mut Work<Self, ID> {
+-        // SAFETY: The caller promises that `ptr` points to a valid `Device<T, C>`.
+-        let data_ptr = unsafe { &raw mut (*ptr).data };
+-
+-        // SAFETY: `data_ptr` is a valid pointer to `T::Data`.
+-        unsafe { T::Data::raw_get_work(data_ptr) }
+-    }
+-
+-    unsafe fn work_container_of(ptr: *mut Work<Self, ID>) -> *mut Self {
+-        // SAFETY: The caller promises that `ptr` points at a `Work` field in
+-        // `T::Data`.
+-        let data_ptr = unsafe { T::Data::work_container_of(ptr) };
+-
+-        // SAFETY: `T::Data` is stored as the `data` field in `Device<T, C>`.
+-        unsafe { crate::container_of!(data_ptr, Self, data) }
+-    }
+-}
+-
+-// SAFETY: Our `HasWork<T, ID>` implementation returns a `work_struct` that is
+-// stored in the `work` field of a `delayed_work` with the same access rules as
+-// the `work_struct` owing to the bound on `T::Data: HasDelayedWork<Device<T, C>,
+-// ID>`, which requires that `T::Data::raw_get_work` return a `work_struct` that
+-// is inside a `delayed_work`.
+-unsafe impl<T, C, const ID: u64> HasDelayedWork<Self, ID> for Device<T, C>
+-where
+-    T: drm::Driver,
+-    T::Data: HasDelayedWork<Self, ID>,
+-    C: DeviceContext,
+-{
+-}
+diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+index f6db91e81e79..7b76e6abed9f 100644
+--- a/rust/kernel/drm/driver.rs
++++ b/rust/kernel/drm/driver.rs
+@@ -106,9 +106,6 @@ pub trait AllocImpl: super::private::Sealed + drm::gem::IntoGEMObject {
+ /// drm_driver` to be registered in the DRM subsystem.
+ #[vtable]
+ pub trait Driver {
+-    /// Context data associated with the DRM driver
+-    type Data: Sync + Send;
+-
+     /// Data owned by the [`Registration`] and accessible within a
+     /// [`RegistrationGuard`](drm::RegistrationGuard) critical section via
+     /// [`Device::registration_data_with()`](drm::Device::registration_data_with).
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index ed13e21d06cf..3a72fb21eeaa 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -589,8 +589,6 @@ mod tests {
+ 
+     // The bare minimum needed to create a fake drm driver for kunit
+ 
+-    #[pin_data]
+-    struct KunitData {}
+     struct KunitDriver;
+     struct KunitFile;
+     #[pin_data]
+@@ -627,7 +625,6 @@ fn new(
+ 
+     #[vtable]
+     impl drm::Driver for KunitDriver {
+-        type Data = KunitData;
+         type RegistrationData<'a> = ();
+         type File = KunitFile;
+         type Object = Object<KunitObject>;
+@@ -639,10 +636,9 @@ impl drm::Driver for KunitDriver {
+ 
+     fn create_drm_dev() -> Result<(faux::Registration, UnregisteredDevice<KunitDriver>)> {
+         // Create a faux DRM device so we can test gem object creation.
+-        let data = try_pin_init!(KunitData {});
+         let reg = faux::Registration::new(c"Kunit", None)?;
+         let fdev = reg.as_ref();
+-        let drm = UnregisteredDevice::new(fdev, data)?;
++        let drm = UnregisteredDevice::new(fdev)?;
+ 
+         Ok((reg, drm))
+     }
 
-Maybe add this links in the commit message too?
+base-commit: e55a991e09e3b44f0b0d8206bb523dc57c086341
+-- 
+2.56.1
 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
-> Changes in v12:
-> - Drop the patches that were applied to drm-rust-next and driver-core
-> - Rebase on drm-rust-next
-> - Drop the zero capacity part of the patch #1 commit message (Yury)
-> - Add reviewed-by tags
-> - Link to v11: https://patch.msgid.link/20261109-chid-v11-0-082aa9bf5a91@nvidia.com
-> 
-> Changes in v11:
-> - Rebase on drm-rust-next (pre-reqs are merged now)
-> - Split patch #1 by subsystem (Danilo). Just splitting with no actual
->   changes, so I kept the reviewed-by tags on the new patches
-> - Add reviewed-by tags
-> - Link to v10: https://patch.msgid.link/20261019-chid-v10-0-67de9180b4ed@nvidia.com
-> 
-> Changes in v10:
-> - Drop the patches that were applied to rust-next
-> - Rebase on drm-rust-next (plus pre-reqs)
-> - Use a capacity of 1 instead of 0 in the grow_request() example in
->   patch #2 (Yury)
-> - Convert the remaining Alignment::new() users in nova-core in patch #1
-> - Link to v9: https://patch.msgid.link/20260930-chid-v9-0-0d6cca376cff@nvidia.com
-> 
-> Changes in v9:
-> - Rebase on drm-rust-next
-> - Moved cv! to a separate series which this now depends on
-> - Reference Link: tag from the text + indent code in patch #4 commit
->   message (Miguel)
-> - Add reviewed-by tags
-> - Link to v8: https://patch.msgid.link/20260827-chid-v8-0-bc74c77d0214@nvidia.com
-> 
-> Changes in v8:
-> - Clarify overflow cases in patch #2 (Alex)
-> - Replace nz! with generalized cv! macro (Gary)
-> - Add cv! macro to prelude
-> - Split SizeConstants and adding new constants patch (Alex)
-> - Move alignment size constants conersions patch (Alex)
-> - Drop NonZero on IdPool, fix grow_request instead (Alice, Alex)
-> - Add shrink/grow doctests (Burak)
-> - Link to v7: https://patch.msgid.link/20260817-chid-v7-0-a5872e64d8f4@nvidia.com
-> 
-> Changes in v7:
-> - Add nz! macro for compile time NonZero
-> - Implement SizeConstants for Alignment + add sub 1k size constants
-> - Use Alignment constants + nz! in this series
-> - Add final patch converting existing callers to use Alignment constants
-> - Rename alloc_area/release_area -> reserve_ids / release_ids
-> - Link to v6: https://patch.msgid.link/20260813-chid-v6-0-160be5dfb5bd@nvidia.com
-> 
-> Changes in v6:
-> - Take a NonZero nbits in `next_zero_area_off`, `set` and `clear` (Yury)
-> - Remove `UnusedArea`, `IdPool::alloc_area` now allocates directly (Yury)
-> - Add patch: take a NonZero capacity in `IdPool::with_capacity()`
-> - Add patch: do not round the capacity up to `BitmapVec::MAX_INLINE_LEN`,
->   which also removes the bounds check in `ChannelIdPool::alloc_area`
-> - Add more testing of Drop for `ChannelIdPool` (Yury)
-> - Link to v5: https://patch.msgid.link/20260812-chid-v5-0-6c767770b3f4@nvidia.com
-> 
-> Changes in v5:
-> - `bitmap_assert!` i32::MAX length for Bitmap::from_raw* (Yury)
-> - Only run overflow check on 32-bit (Yury)
-> - Link to v4: https://patch.msgid.link/20260810-chid-v4-0-c9f206fdcb97@nvidia.com
-> 
-> Changes in v4:
-> - Add `next_zero_area_off` to match C code (Yury)
-> - Replace overflow checks to match C code in bitmap-for-next.
-> - Tighten `Bitmap` unsafe contract to disallow Bitmaps larger than i32::MAX
-> - Link to v3: https://patch.msgid.link/20260729-chid-v3-0-20cc08032bbc@nvidia.com
-> 
-> Changes in v3:
-> - Use `Alignment` type in id_pool and bitmap (Alice)
-> - Remove hang check on the basis that it's extraordinarily rare.
-> - Link to v2: https://patch.msgid.link/20260723-chid-v2-0-c35e5e9fb3d9@nvidia.com
-> 
-> Changes in v2:
-> - Collected Alice's Reviewed-by on patch 1.
-> - Address Yury's comments w.r.t. using __bitmap_set etc directly.
-> - Address Yury's comments w.r.t. following the C names
-> - Additionally check for an overflow case that causes a hang
-> - Added more info to cover letter + patch 4 w.r.t. channel ID allottment
->   requirements
-> - Add align parameter to ChannelIdPool::alloc_area() plus an aligned
->   allocation test
-> - Add missing INVARIANT comment when constructing UnusedArea
-> - Link to v1:
->   https://patch.msgid.link/20260703-chid-v1-0-84fe8259e46e@nvidia.com
-> 
-> ---
-> Eliot Courtney (2):
->       rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
->       gpu: nova-core: add ChannelIdPool
-> 
->  drivers/gpu/nova-core/gpu.rs         |   2 +
->  drivers/gpu/nova-core/gpu/channel.rs | 198 +++++++++++++++++++++++++++++++++++
->  rust/kernel/id_pool.rs               |  38 +++++--
->  3 files changed, 232 insertions(+), 6 deletions(-)
-> ---
-> base-commit: 6e557330b874b0e1fdd03e8fe4c438f36c93eefa
-> change-id: 20260608-chid-18fa943c6d6c
-> 
-> Best regards,
-> --  
-> Eliot Courtney <ecourtney@nvidia.com>
