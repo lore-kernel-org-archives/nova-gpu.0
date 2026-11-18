@@ -1,75 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795002086;
-	b=sic4zj+7r9VZwuUqGFnikNi/JwNrxqo5sECQo8zScm8YXzNzf+y5CR/m7fkC2SUhjFz/
-	 WuAGlGNv4OA5ahvDHCmIjzeqdvVgnm8R63VvcRtflTJqwI3mbTp0prlNJ39S3mT7jbdKV
-	 75n3yVZC9Z3apCfq+T7Jh6Ndb6bysl8f2PNFSHtUONTo3P25BtoBgdNycxfcPjDhh/QA4
-	 03bpgVqo20xLWgR3A7HtWg3Vwr5wpygtZdncFmyXYQC51QpjqfSlEaUfSidfdilMTMrdg
-	 uthixRkbLxrN/pMuDkfO72rDQeLXm13ZWsEnYlyNutPujkm2tX4zyJ+zp1UAFxz0fkQ==
+	t=1795019531;
+	b=lHDNhc54jKxUEWa6L6fEawiCxTaNxvRpQusy96e2k4prP8pg7QL4Qe4GOKcmbvbFcOXi
+	 G5++6Sq0vco1O4wF9jh3UHKOsjGbm8p5upIz4gw+oUjHtgN5NR497T/giUobzC8SeNWRk
+	 a6Y0WWGd5dazpkxVpZ4cBhLc2LQYMF06PcwVo25L4IXLHcNwVJ6uHs9ABJXC1bgHhEmbA
+	 PDMBQZsjGzV6aFWJA3Lijo5bdiHiUHZ2mpwWUhArKa1ZSpBVBx4v0ai6BKkE2dvkJmsEn
+	 RoxVTgR973tCSlXPFXu+UJRr5ppDXPKFDHbsTZyxo48CxakjL5uL/vTX94jalQcA0gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795002086;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=HNjwtMA1cqvQF95bOt7vOmJ6SObUlbZ189r7Lg8dxx0=;
-	b=Lrr8JcZ7NoSq09oNVWAD/Dp1IIBGaeJ2jowj7iqyfkRTVUxg2cwR4CIcmd/sS5JzzUdj
-	 VIxqp3rn4C9zV4B0wHim+ItHrZAtxQW5Kg/wtfsM1E6fyJRzRmujcSwA0haUYIrQnUYA4
-	 7zk4qNAGENiJ0gdRjxTPlYmgvCWxaJoAVN4slioTWZYG+Gec+uY2LtSbrK5U6HbP6dcaA
-	 5wEH8AagyIj2j3SGCmmYYgf0oEHNFxy7Xvkc8n3tdYiycLX6vHhaDppPVnx5IXO5Mudxx
-	 ravvWRRXfKBeOIchK90GH3DR3rrIiYi58o8DnsVVHv1pFfyf8AVTvxDEWrUnYgzDumg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019531;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nLkHGjzkpLWqDn5A0Bf7/KvxqlXzbGH5zYTHM3bADyI=;
+	b=mhrEDDN5wfPy9S7o6u3srUQkL6PjhSy5udxNcJ36E8hb+P8D5ALxnFHfyWqKzwz8AI4f
+	 V3fZ6e4i5ZRgTh71yu49dLv/ewNrFeo5RxUvo7LKF9FjYDW+HiWqUwDPZ+Hf8QegEsHUd
+	 Dgx+cqUENAuYqQEHjPvb8PDyVjXmxZDk1ODXf0uvuvzPU3O3B3fSm+cf7dLHOUKrETJh9
+	 Q/0Ovgmsy9Oo1V4rSpHTf3Q4N4q9Ylg4Ejr7p7YtqD6Ut9xZkFu8T+RQr/6Z+G5U58JyE
+	 pK84aIl/4IlsIe9xPgZgWMagaYhBCgpFYE1vQd+a4JVCAv9yGQ1fBHaKs3MrRqt+ejA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dJjZSGRv;
-	arc=none smtp.remote-ip=209.85.221.71
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeWxroLD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BAF60A2604
-	for <nova-gpu@lists.linux.dev>; Wed, 18 Nov 2026 11:41:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80BAF60A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A61606A32F;
+	Wed, 18 Nov 2026 16:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dJjZSGRv
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e0fc747a7so562069f8f.1
-        for <nova-gpu@lists.linux.dev>; Wed, 18 Nov 2026 03:41:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795002085; x=1795606885; darn=lists.linux.dev;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HNjwtMA1cqvQF95bOt7vOmJ6SObUlbZ189r7Lg8dxx0=;
-        b=dJjZSGRvq8pgp9iBOIrIjuCaAYKdDr6jXImvaNPVWhqaMIW7JmLfgC8m4bUGH+CBKf
-         I9BXKjE8K3ZerjY1sxDHjmi5UN8hdvNnJcq2gW8Ao54easeyrMFmMwt8ROZTyVgLe+zl
-         R1ldFPxZbJD/jzNyeQ2lznAoUkHWTodrXn7oAvY/AvKFVzxqXHnZsD/j6KzmsB9/lFlh
-         KtVUojcwYGXLFzEuTaQurZtwilTJTYnVFfnz7A6UCtbvIDmQC4FRSvG6OmNnwCHNrdQC
-         s/1KhfCgbtQ2XUbeQ/x7j2K2kpD2TrqEReCYls0ed8YJIqljOBXyNqrVouZ1tnSy18JB
-         quZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795002085; x=1795606885;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HNjwtMA1cqvQF95bOt7vOmJ6SObUlbZ189r7Lg8dxx0=;
-        b=hNhqYm50IflJeQAdYX+3ntcUgfws3QmmVVWMvDq+sSkwqkElnzYSscf1PnSauDabxk
-         xt9lAsZJux4NPXg0nZda73BYKOAYBPyxyVXncq3VWUxBdiHd7qx3xDxzaONiS8VTT6Ip
-         qe4DdW+X/vZnw+IbPjPUmA0C4CeelCsuj/T0VkjqUtWOGMY4jh5KNjc2usjAgtk3mR1F
-         xrLNUbR5pMMWc47uPaQk+MwAmcGFm0ZiuufZm095W4L8vgTRu8myUI5WcgZpajCEitDI
-         /mdRHT9bZ/m4EArIGuBaMSELpLRrqjYt7QO0WFLc6catfMfY2Mvbs4vPi67FDnKfnh44
-         BeAg==
-X-Forwarded-Encrypted: i=1; AL+hErEH8d8bu7qpLYwLgJib1RXnhrfVD5s7Ece4FmIcgzPFQvFyk6xrVQc10nR/r3czSHuhfSyfhN/7Tg==@lists.linux.dev
-X-Gm-Message-State: APuU4Z9QHMUK9jgTJ2/rjTLIKLMiBrvhag5TJK/W9MQb9kpIWBeNsUqF
-	ZODEmyVWJO+WWAqXvQY2/HjCy8rZhW93g9XSL1hMCiLw2zVYC3Eq4MyEjWF4q9GdtsYqsF2CyWC
-	GPN6dAEYLZiFhN5zjgA==
-X-Received: from wmpz13.prod.google.com ([2002:a05:600c:a0d:b0:4b2:3c81:ca])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3b84:b0:4bb:5dbf:af06 with SMTP id 5b1f17b1804b1-4bb7da2243fmr49551165e9.9.1795002084674;
- Wed, 18 Nov 2026 03:41:24 -0800 (PST)
-Date: Wed, 18 Nov 2026 11:41:23 +0000
-In-Reply-To: <20261026-rust-drm-gem-shmem-imported-sgt-v1-3-36f15ace04b1@jannau.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeWxroLD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2221C1F000C5;
+	Wed, 18 Nov 2026 16:32:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795019531;
+	bh=nLkHGjzkpLWqDn5A0Bf7/KvxqlXzbGH5zYTHM3bADyI=;
+	h=From:To:Cc:Subject:Date;
+	b=oeWxroLDGx1J0ayXKqh4fcy5WrCR3T1eRpCOokeFfeIeRlZMCcRmDAxjmU/Db+Zc4
+	 v77BJasECFdMV39KTtDaCF0q2g5GJPhNeT0ZHXgTqQetTonNH6C2tk6JP6k85jDyqK
+	 qm5ogj2rMR7VfbhYqEgVDmh1FKJkHVwzxR4VREjFlkSsRIjr9glRp9yAnBVYMgNiBo
+	 ZRleQpJnszbw7hkwWRPbm3Fnay4bbqmn9e8sHcP1LYlEa5dzX54lkKzkb+R0qEgvv2
+	 QjeKBO4J42HFpNVWXD4qkBeVayzeadSjPDGE9sTtF7AA6a6AFhLQHc+GSeDqb5fk0n
+	 HFA6kIB+g+DpA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	aliceryhl@google.com,
+	acourbot@nvidia.com,
+	daniel.almeida@collabora.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	tamird@kernel.org,
+	work@onurozkan.dev,
+	brauner@kernel.org,
+	lyude@redhat.com,
+	j@jananu.net,
+	alvin.sun@linux.dev,
+	deborah.brouwer@collabora.com,
+	laura.nao@collabora.com,
+	beata.michalska@arm.com
+Cc: nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/7] lifetime-parameterized DRM File private data
+Date: Wed, 18 Nov 2026 17:29:41 +0100
+Message-ID: <20261118163203.2483856-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -78,36 +76,72 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net>
- <20261026-rust-drm-gem-shmem-imported-sgt-v1-3-36f15ace04b1@jannau.net>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261118114123.490870-1-aliceryhl@google.com>
-Subject: Re: [PATCH 3/3] rust: drm: gem: shmem: Do not free SG table of
- imported objects
-From: Alice Ryhl <aliceryhl@google.com>
-To: Janne Grunau <j@jannau.net>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Sami Tolvanen <samitolvanen@google.com>, Lyude Paul <lyude@redhat.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
-	stable+noautosel@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 12:14:10PM +0100, Janne Grunau wrote:
-> GEM shmem objects imported through gem_prime_import_sg_table wrapping
-> drm_gem_shmem_prime_import_sg_table() do not own their SG table.
-> SGTableMap::drop() must not free it since it will be freed on exporter
-> side once the DMAbuf is not used anymore.
-> 
-> Fixes: 616c229ab010 ("rust: drm: gem: Introduce shmem::Object::sg_table()")
-> Cc: <stable+noautosel@kernel.org> # no in-tree users
-> Signed-off-by: Janne Grunau <j@jannau.net>
+DRM file private data is currently 'static, preventing drivers from
+borrowing registration-scoped resources in their per-file state. This
+series makes Driver::File lifetime-parameterized, so file data can borrow
+from RegistrationData.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+File data is guaranteed to be dropped before registration data, either
+when the file is closed normally or when the device is unregistered,
+whichever comes first. To enforce this during unbind, Registration::drop()
+revokes all open file data and waits for its destruction before dropping
+registration data.
+
+fops.open is wrapped in a RegistrationGuard (drm_dev_enter/exit) so that
+after drm_dev_unplug() all successfully opened files are accounted for.
+GEM open/close callbacks are similarly gated to prevent access to stale
+file data after unbind.
+
+The series is based on drm-rust-next with [1] applied; a branch with the
+patches is available in [2].
+
+[1] https://lore.kernel.org/all/20261117001507.1611984-1-dakr@kernel.org/
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm/file
+
+Changes in v3:
+- Move the DriverFile bound to Driver::File<'a>.
+- Require Send + Sync for DriverFile.
+- Use Atomic<u64> for open_count.
+- Explain driver_priv synchronization in postclose_callback().
+
+Changes in v2:
+- Replace ForLt with Driver::File<'a>; use inner_with() for file-data access
+  and allow returning borrowed fields.
+- Use Opaque<bindings::drm_file> during teardown.
+- Drop file data outside filelist_mutex; also clean up file data on
+  registration failure.
+- Reject cross-device GEM handles.
+- Clarify safety documentation and add inline annotations.
+
+Danilo Krummrich (7):
+  rust: drm: rename Ioctl device context to Userspace
+  rust: drm: gem: gate open/close callbacks with RegistrationGuard
+  rust: drm: move file_operations from gem to device
+  rust: fs: add iminor() helper
+  rust: drm: wrap fops open with RegistrationGuard
+  rust: drm: return impl PinInit from DriverFile::open()
+  rust: drm: make Driver::File lifetime-parameterized
+
+ drivers/gpu/drm/nova/driver.rs |   2 +-
+ drivers/gpu/drm/nova/file.rs   |  16 +--
+ drivers/gpu/drm/nova/gem.rs    |   8 +-
+ drivers/gpu/drm/tyr/driver.rs  |   2 +-
+ drivers/gpu/drm/tyr/file.rs    |  13 ++-
+ rust/helpers/fs.c              |   5 +
+ rust/kernel/drm/device.rs      | 136 ++++++++++++++++++++++----
+ rust/kernel/drm/driver.rs      | 113 ++++++++++++++++++++--
+ rust/kernel/drm/file.rs        | 172 ++++++++++++++++++++++++---------
+ rust/kernel/drm/gem/mod.rs     |  80 +++++++++------
+ rust/kernel/drm/gem/shmem.rs   |  11 ++-
+ rust/kernel/drm/ioctl.rs       |  18 ++--
+ rust/kernel/drm/mod.rs         |   2 +-
+ 13 files changed, 446 insertions(+), 132 deletions(-)
+
+
+base-commit: 23eb2cfcf15209d149f407e462704c21b9ce9cc4
+-- 
+2.56.1
+
