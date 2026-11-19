@@ -1,80 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795052321;
-	b=VHguZzNKue+K9CwQu8s41bOjvrzsl9+q4wxv4xHaDxp3o4Hj+U0Yarfj/4Qs0HW4OLAe
-	 BwB/2UZ8VIUsIo4C8PGpSqwCZWrExp33i8elQe3OZxpRnBx1CAnKAnU5CbHLhOUJBnO1Y
-	 1nk6RfFvqQ0ZBW0lANOebHi3HvwWams/Sw2Z425Cxw6o/Cr+kK7O5gpnmleXPQ7aRY10A
-	 eb8sllYt12mBloXK6oFHMzEldoLCSuMsIOjYrG+LZuD+LNreuAIlXnpKmMKe6HREMynVh
-	 SceZQtLveAXER9u0UNGwfZ0Xm36rGwbQLm0H8iMN5dZ6V3vaV/DinQAxRHJRyWx2x4A==
+	t=1795052322;
+	b=AGPf85uEcDEH3S7z0JCbV2cGMVIBWDRuk4pBUfOtR8A02pvVkkhiosgrdd0olX3RCSnY
+	 DBuwP4+gk6I9h3rs/C3BZEGsXRBa/jOzkn6L6PBb/kvvoUvwqrc/fH1rvHpiFZlt9H8Ch
+	 kraHbh0gZG4OY56eSsL2rIDxeeqGI6nfnRPXYvp3XkxunY2uK/5MaT8UThtlKwYX0AJxY
+	 mzqJaCGBo1TJm+vws7HaVCsNb0XVkaT8sGO4aiONGwavta9Vqbk8CDYSaGCWvnOBMfJvy
+	 kR9zlI13nqe79+xncV3tnOA49LyeqKwj07af8bvsNjcqNqRoiFsZ/OGfgXMRYvv1CCQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795052321;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ovGdiYBMeTx1zN0ULwKyloFOLqLaBSuDGpKTNG0CTCI=;
-	b=EdLTZUUTf6pqGkkwlXfSSpAO3ov49hAyIIwzjdDxN1eHIP6y6F3RHfz6MNBOVoeV/+wS
-	 cw38II+LO7LjsqYNwatVaxFDomAwuCPCUtT6FCkTFuHAIn0C+ANb4PxrG6bPnLlH2tKeP
-	 NPIY2av7vSweg/JtcpEWxisPwKFOEUfcnNdhjPoCRQxxm9qoThqn1CuaI3gAJpxj8uYvX
-	 /7+Jp/Y9FFwgXi6/4HcuHIfz4ZKJab4mBBTUSvSMjfvs+o3nsz7lxfnCgOpo202+V4eNc
-	 Ro7OgWrynTzdodGxYnrVHEvpLSmIs5QX5PHkM4a1EN8fqX9vCuAyJ+dBCz50Rljx/5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795052322;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rI5J4e+jl313IOqx95XsuIYz/FkfwZY75b5jsYC5FCU=;
+	b=UVxXX+xwAhg4iqSUawxKSPagLiWuV9P3WBLJkX4tgTmmuOUQUsogT+GiZWkJ7VE5XiOq
+	 Q91jVb470f8Zi2zseUellyCvj9hY5Dx+qjJN8t6rAwE5HDMIDzWJ6kdihgqkR3x1tDt9R
+	 eKByJAHNFTiknRmpD3APex180UEW9MUdCKnAjUTnhm+WTVkeXNHJ6/uQt7pIYBrxj7xNT
+	 7FqLJCKSk61v8Yy7RFr5i0Mt4/rb30phb+YQtwzVN4l5H+cIqZ8WcEJUeR9OlFiSyJoTi
+	 +XhTEmSfRZqclwmOzkg6mNP6f8crVj7DcuCiyp72K61GDUUKA8mg90dK/Acr9CHRRMw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hudzPn6J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIJznSRG;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7886460A260B
-	for <nova-gpu@lists.linux.dev>; Thu, 19 Nov 2026 01:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6898606A336
+	for <nova-gpu@lists.linux.dev>; Thu, 19 Nov 2026 01:38:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hudzPn6J
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIJznSRG
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795052321;
-	b=ABb7CQ6XWmIevRjQixmfkSH4qTD4iI0xMd8rnQzv1JatxkfxDmlpypICTOj/N9IwemKD
-	 +vtf48GtZk90lRVf508MV7UlCB8lJLD3Uo9G+Eu84DtrT7XQmNPNSRWBtzMkCgUwM809z
-	 p/Wg9mv4ZcfZ0RnU2baYijsdQGMWakaNU2YqHsONNy01zU+j5fslKeRCjfHMNHnv5Dcqe
-	 UAWjvjTXGQbPt6le3H+VOuNwyw9hhTOWlwp8v1Q8HzFKG2o5IyHluxJEuRPugRk0Gg1z5
-	 V4tXuk8rNjWJfGQjPmF5oKKrsLQv7THxMJktJMSPQikXmDyTAJviDh3vyxKS+0zUq1A==
+	t=1795052322;
+	b=uQWa/BllSq97FP8CHCc9R9cKczBXLtK+wcQCutMAG4vz8HFZKqYb7lj12vEZ8v1zJlEB
+	 KRTME5f7P9ICLwQeejeCxLlR282dyftaU67/oYBgV7SpInpcFBjYYmdAz1hlwsLmkjwT1
+	 vyvmNvlsmybra1fctq6OQHX31ELG17HiCTuDI5plAF5yBtwHH1uhc8IIQiTqqt1R/djB2
+	 ovI42WphDGUEX/h+rr1CFuOwa6GtJsqp4A7lGfBmhZeiQptdYN4dtPL7WpcMMoi2Jojg3
+	 Uh5w5zwwNov77/ak+3kZ+UXkz3VWmanUVScWOZQ3P+2kIVr76BjqZVww03pQqMvuQWA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795052321;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ovGdiYBMeTx1zN0ULwKyloFOLqLaBSuDGpKTNG0CTCI=;
-	b=meVscExcxAM34OmKMpYswbg3bUzC0BxGOUpwvfZ9F45pv3tTTNOiATRPMSc/HYz5hKXv
-	 JWu6O2iTKYVtPrPiU5R9yWQmkjBDqSin+XSshKfOfCtrXl8T1pmC4fwbs/LcOcbMxeRkZ
-	 McsCyZ+WkPpQl3fZz+og3vq+fKws2TYypcfdV6Cqx7BpPaNAcfG7onq2lVeXfgrpH44sS
-	 upxWJ3hQ2ShKEUXRcpAEx5fMouHAMSuamSd6/aFRzmG22GiXS+FgVi92WY+zg0OBWcr3l
-	 beLuYThHcx+m+oyzvrDh/WgNQGC1zFzmhga4gi8Zyw29zMjydkY+iRSayfzoBt0M8TQ==
+	c=relaxed/relaxed; t=1795052322;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rI5J4e+jl313IOqx95XsuIYz/FkfwZY75b5jsYC5FCU=;
+	b=g/B4/AnUCML36vND8ypp1YHp7E3yxosME46IJxqo1uZb7PKfjLJOinLuUdMS3gXhVXwD
+	 90/5fGOAnVFuy1itdkViF/nH/hdduljOEq3VkaVNSgXOZ/lZVUIm6hEidaMjhXTPnAZ6/
+	 41WD/La/IA9dStlRyQ7DD8TRTXd7B57txAFV6O1tUT+9jyRAQywSxBZbqAvf014c/rm11
+	 hfX4wfyrJcZcunrDSakepIGrGhfgJJDr7YmRTLxE3Yiw4wd8vpP9lDquUXvA16SCoEaaI
+	 9qWzSuZO9VSm01yqoR+9WXAsB86BMBhWCvNJJPFIN5OvyDDZI4z9vRpvtACrieor84Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DBB6C1F000CF;
+	by smtp.kernel.org (Postfix) with ESMTPS id E73191F000D4;
 	Thu, 19 Nov 2026 01:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795052321;
-	bh=ovGdiYBMeTx1zN0ULwKyloFOLqLaBSuDGpKTNG0CTCI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=hudzPn6J0bUS18VyUGznGkbPeAuz4ZMwVa5OEgVlGo7KD9aC81b531lgOGT5TfJK8
-	 DvAp9t+lDn4IsYR05nf1jhLW5kO//WR80as756NnStcKv1eCcbj5DNxIkJI244NbhC
-	 kcs6p8qSONWP1hsJuITvUwdluREXek7/zLNPKjUl3ksdF3ragvh7pCenCUBT+sR8A8
-	 qvh7PMyJZsF8DFp37Q8ReL/3U97ckXxcX/fCYZYZr6MlIqqDGfwDMzZr4Il4HY1sFZ
-	 XixiBnch37TtCUrmWyucOosTELFChcamOFg2pjql6Z28HwilHUC39vIM4Ii82hYOqH
-	 nJ3iVfgwAJq+w==
+	s=k20260515; t=1795052322;
+	bh=rI5J4e+jl313IOqx95XsuIYz/FkfwZY75b5jsYC5FCU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=IIJznSRG57QxHTinULVngGuxUbbUX3z1rLelJp0CppWtJ5OTie6cgsOQ6zK1SZVSp
+	 iDsU/HhrsxHEms1pukUeyPg2dqGG+5hIYQyF9rLmOP5Kdh2gDzVd5ipjJzMeqkhpSl
+	 D3/H2K3WeJJAVhyM5I1Z2ETAzuHEN5xkRrDjIz2LgkzWtB7L1w4l8VO9ajU67ml54H
+	 Sles3EYmJje8k/xnkKIobuB3F6flzA8B0gRMWZZ5HYMPZlQemLrQ8tM8pIc3/GSO+w
+	 sy/xPtl9avjmq+nYJgyiA4b/c5NyoXvL23Y7EZ9FW2nOj6PhBZYbdN1mmBjLLI+tuL
+	 s9eAGmfEKMIXw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 349334B072;
+	by lkml.kernel.org (Postfix) with ESMTP id 6CD084B076;
 	Thu, 19 Nov 2026 01:38:38 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Subject: [PATCH 0/2] nova/nouveau: add configs/module options to control
- binding behaviour
-Date: Thu, 19 Nov 2026 11:38:23 +1000
-Message-Id: <20261119-nova-nouveau-gsp-v1-0-4cde2bc41132@redhat.com>
+Date: Thu, 19 Nov 2026 11:38:25 +1000
+Subject: [PATCH 2/2] nova-core: only bind to GPUs when explicitly requested
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -85,68 +83,133 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7TnBFyvpKdJBabS8aShKIf0+6D
- MxhpkKmxJRhHSokKpw5hi44DnBcNngSfHYHJdWEiIsIsdiOp5B9hM+3QOnMbJReDGno2Z3I8fs
- vt721D0uK5XpiAAAA
-X-Change-ID: 20261119-nova-nouveau-gsp-10f8782498e4
+Message-Id: <20261119-nova-nouveau-gsp-v1-2-4cde2bc41132@redhat.com>
+References: <20261119-nova-nouveau-gsp-v1-0-4cde2bc41132@redhat.com>
+In-Reply-To: <20261119-nova-nouveau-gsp-v1-0-4cde2bc41132@redhat.com>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Alexandre Courbot <acourbot@nvidia.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
  nova-gpu@lists.linux.dev, Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1451; i=airlied@redhat.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3985; i=airlied@redhat.com;
  h=from:subject:message-id;
- bh=a4R+CA33McYCg3MsCLoZGkMds+XhCjyC2e9aLNwAvnk=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq/lMX3zuL8Y2AWISRh7ealRDpz9EVaxPcLG55H
- GUDkx93P6OJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCav5TFwAKCRAMdPNZecSG
- vnCHD/9A8JSADHK6u4S3PFnLGfl3AlKX1XQ/M3NgiCJ2C/H5ixG2dGNm+EU58QykVRu8LBs8hBT
- DVTXl9Z5O/Wj+pNBCvAKcHj7cF9Ies0wFE1AkGjUm9pYKt+elLDwaihXjU6JQZ05GSQoixtIpdP
- +bIS/iGqbXI02QUT7fAtUCkMiMdsqpor38Xp4ZQ11BKKbafgkctr7eRydHvfpZLDCKL+7fD68tD
- gpjxuXUQ5bOj0qKuHKfFoBdpnMTvwZ86Jj5efdQl/5KVLKslE2B1aYZR767NZCNNqLso617eddz
- j5IZCQxTQMIgZMBJQOnvHyl1jRUiTCyJCSXHjR9X1XL6o67hVKPtp3haObrG6cf2Qbn3VODEG+n
- H3dTFbLKcxYfHdn8pvKprQEVjdhU/wP50jIRiPl3ckqjPnaZZ2F6sF88D2ei1NDLqgagJIFND+D
- +gNRwqw9mad0BWBAVqSOiGATCKeaSnqVKKPQzB40/aM3naGzV6punmsu5Rh937al3PI5MKm9wN/
- PZttHKHlHh8zd0TSojV05nk3uKLIWY+mxL/wAsJL9TpVXIbHSNRVVpKxzQfJ7upeirLgk5VKO8H
- fxIlao9BYQNitFgWVoL7qaQqK6uBCU2/37rHGjdJcCbzWO3RDUJEgMdJ+AuQFdpnTT7IWb7y+RG
- sNmVVxMYIFcsV8A==
+ bh=tAQawDxAoDVy9T/tpzUKnFBJoDTpZdV4IbSYyVDHzFY=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq/lMd57L02W7/SQMsckEBJGwtlCCow0jKVoT6U
+ TngXOQGeoyJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCav5THQAKCRAMdPNZecSG
+ vtEmD/0U7lQMvVK0HDSs/jb2+nehujS7xZTZW9fM31DRbtTHzhS+As2mtLVuIqMEuGX1GmP9gsV
+ qE5odE5j3WI6PZLpGW5+FWuIzoYBGXekjMdmU2vrj4CagK8U7xNV8ormFwCckX/DAL2m/U6hV+h
+ 89H8M43wKVwSz6iX/Ki77bYR0OOSwI/cX85rpYarS1BW2Khl9P9/cPYiGEHvnI19ZTRISmk/TYO
+ RP1bw2oK316FJdY3e7JRHrQMn6wOkH4X5gAfTqo+A6USQdvLcEud9pu3UOBvBDmnk0J7egCXK1A
+ xIRucj1u9sRlssDXC1MCjTTrp4WugMx8+ePD1pxBLstIWFzr4nZbO2UENMqbPopnJ1gG+xIfw3r
+ SC4Tgp74vPFutYscTS31/T4en30WLZi6zFt9vrGfc4DHvhrz3ntKpT3oEX4m5yoxfNM4r/WmexW
+ zmtlcJo1IBNPCxoQDMu+2o/9c3NTt/AlxBOYTrqLh/1Qn71gxcm7GbRRBR1iZwXgsnynmiebLA7
+ RH1kpQMIEKwoljBuNDkvoXaiBOqLNZvoJLZwt/eK4FZswmSh8xX5FusM4M+Feo3O2CvIKGdXO0X
+ 12a+HJrdkqXVauWhBZ2O5rE+7QlzqhHgew0DEUZsSJNJAP41Ewxe9MMop/rQxFyflo2PZfhqJKN
+ wzt4cy7H5DMqtDw==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
  auth_id=1321
 X-Original-From: Dave Airlie <airlied@redhat.com>
 Reply-To: airlied@redhat.com
+Content-Transfer-Encoding: 7bit
 
-We want to be able to build both nova and nouveau and maintain the
-status quo for now of nouveau binding to all GSP enabled GPUs.
+From: Dave Airlie <airlied@redhat.com>
 
-In the future we may suggest switching the default to nova, but
-for now the default is to let users use command line options for testing
-and developers building their own kernel can set the kconfig.
+nova-core currently binds to every NVIDIA GPU it supports
+(GSP-capable, Turing and later GPUs), competing with nouveau for the
+same devices.
+
+Add the NOVA_CORE_BIND_GSP Kconfig option (default n) and a bind_gsp
+module parameter, defaulting to the Kconfig value and able to override
+it in both directions. Unless one of them requests binding, probe()
+rejects the GPU with -ENODEV and leaves the device to other drivers,
+such as nouveau. The PCI driver still registers, so module autoloading
+via modalias keeps working when binding is disabled.
+
+As nova-core is work in progress, the default is to not bind at all.
+Developers can enable binding with CONFIG_NOVA_CORE_BIND_GSP=y, or
+nova-core.bind_gsp=1 on the kernel command line, combined with
+nouveau.bind_gsp=0 (or CONFIG_DRM_NOUVEAU_BIND_GSP=n) so that nouveau
+yields the GSP-capable GPUs.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
-Dave Airlie (2):
-      drm/nouveau: add option to leave GSP-capable GPUs to other drivers
-      nova-core: only bind to GPUs when explicitly requested
+ drivers/gpu/nova-core/Kconfig      | 21 +++++++++++++++++++++
+ drivers/gpu/nova-core/driver.rs    | 13 +++++++++++++
+ drivers/gpu/nova-core/nova_core.rs |  4 ++++
+ 3 files changed, 38 insertions(+)
 
- drivers/gpu/drm/nouveau/Kconfig                    | 17 +++++++++++++++++
- drivers/gpu/drm/nouveau/include/nvkm/core/pci.h    |  2 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c              |  9 ++++++++-
- drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  | 16 +++++++++++++++-
- drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c   |  4 ++--
- drivers/gpu/drm/nouveau/nvkm/engine/device/priv.h  |  2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c |  5 ++++-
- drivers/gpu/nova-core/Kconfig                      | 21 +++++++++++++++++++++
- drivers/gpu/nova-core/driver.rs                    | 13 +++++++++++++
- drivers/gpu/nova-core/nova_core.rs                 |  4 ++++
- 10 files changed, 86 insertions(+), 7 deletions(-)
----
-base-commit: e55a991e09e3b44f0b0d8206bb523dc57c086341
-change-id: 20261119-nova-nouveau-gsp-10f8782498e4
+diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
+index 2e11e46c99c7..058742d50692 100644
+--- a/drivers/gpu/nova-core/Kconfig
++++ b/drivers/gpu/nova-core/Kconfig
+@@ -30,3 +30,24 @@ config NOVA_CORE_SELFTESTS
+ 	  logs its failure and lets the probe continue.
+ 
+ 	  If unsure, say N.
++
++config NOVA_CORE_BIND_GSP
++	bool "Make nova-core the default driver for GSP-capable GPUs"
++	depends on NOVA_CORE
++	default n
++	help
++	  Make nova-core bind to all NVIDIA GPUs it supports by default.
++
++	  By default nova-core does not bind to any GPU and leaves NVIDIA
++	  GPUs to other drivers, such as nouveau. Say Y here, or boot with
++	  nova-core.bind_gsp=1, to make nova-core claim NVIDIA GPUs
++	  instead.
++
++	  nova-core is work in progress and may not be functional, so this
++	  is intended for nova developers and testers only. When enabled,
++	  nouveau must not bind to the same (GSP-capable) GPUs, i.e.
++	  CONFIG_DRM_NOUVEAU_BIND_GSP=N or nouveau.bind_gsp=0 is required.
++	  Otherwise both drivers compete for the same devices and
++	  whichever is loaded first wins.
++
++	  If unsure, say N.
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index d6bc972d47c7..66208a244cab 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -105,6 +105,19 @@ fn probe<'bound>(
+         dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+ 
+         try_pin_init!(NovaCore {
++            // Only bind when explicitly requested through the corresponding
++            // Kconfig option or module parameter. By default, leave NVIDIA
++            // GPUs to other drivers, such as nouveau.
++            _: {
++                if !crate::module_parameters::bind_gsp.value() {
++                    dev_info!(
++                        pdev,
++                        "Not binding to GPU; make nova-core the default NVIDIA driver with CONFIG_NOVA_CORE_BIND_GSP=y or nova-core.bind_gsp=1\n"
++                    );
++                    Err(ENODEV)?;
++                }
++            },
++
+             _: {
+                 pdev.enable_device_mem()?;
+                 pdev.set_master();
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 84f777844592..d18dacad98b6 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -97,6 +97,10 @@ fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, Error> {
+             default: false,
+             description: "Keep the GSP-RM log buffers in debugfs after their GPU is unbound",
+         },
++        bind_gsp: bool {
++            default: cfg!(CONFIG_NOVA_CORE_BIND_GSP),
++            description: "Bind to GSP-capable GPUs, making nova-core the default NVIDIA driver",
++        },
+     },
+ }
+ 
 
-Best regards,
 -- 
-Dave Airlie <airlied@redhat.com>
+2.56.1
 
 
