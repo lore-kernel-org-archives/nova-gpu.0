@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.96
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795087501;
-	b=Ep2jpV8HRopeKZFPzHsVg70mGq7B5hLOcs4iwfviS/TTXw+FjZcgCOFlKszkg1rYlGaW
-	 80RoeCWOwEL8m7efjCU/hZFHZxpblj/Zu4L9lb5pWsbdq1goKJyFDbmcO2/HS/qY99M3u
-	 hlVEoLrYNX235o9aPZo4ighA+OtFK0zkhOjnQbESB4MepGf74z1HsU/KLGuQyw57ZbwRf
-	 z+JyQJxAxv0CGnD/cVlD01OAqdCgK7OfUZ/YrMRn3xEXJ8v/FV4tdWYLwDym+y0YuLQlh
-	 MQ4OanD+0LXbtXMfheaj+ieeQHPfuKNwK8aY/9ftW4sIkL+LXw9EMHJUiecxWp2533g==
+	t=1795089009;
+	b=X3fY+h5JXR5XJlgMLfrAlKdGUjMBVDji3mKjTK0kV7G8MZZTjp5Oj7+wclCPhzC9uVPe
+	 3RB8T6q1zsbYHlwnBhfGC3CH+k4DdSg2CJGyKnR1kq5c2oiT/IXpZcL0TbbInmjy51MAb
+	 Y3tPMGAagyPDwjRPwoRo/+M2k+sKcq5y9PZwHLnMeh5z/4r7TJUZ91YX1PEoAhNQAyXmq
+	 2bUNPEhPIXp3g0rj/LnYI8PP5HASz9/S7Szv/CXjEtXiWWfOqHQ3NjCLXR+U5JmqWFqv5
+	 o2mTxpLms+h30qHU2CSy/+7/vslsSWVU4Rhwy4m5yNxFApbfknmJvlSNK6J9dD4CgpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795087501;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QPVxTASvMF2LRkTKbKSd2Av5oq4CzABsWU71CpGoW40=;
-	b=v9vmkpiMElKTP0OoPl5lAs8gkMexpwYZc0phy3rbd34g7pgT2UHP4EsRgYVjJpMS9VCX
-	 LQ0yUFxD005sEKiuH2nqyx91i7HSsecy6sNGWq0tah3NRgRB7kuWyW1X8A6vOcU91zCBG
-	 HiUGskkkdPLxC3i4hizBehKp8d5aDmZzpfz9HQgZD6BzjH2pUreZmn1ZCmn7cE+c2Pl5s
-	 MRQww5jvMSyl5EOwmBfE82UDTpEHqAhl5AVmgLoDu91C3/mxXBVjWZQykBuAtKo5pFJah
-	 OEF4jrd2nwBFB80HM4eNS5h3WAqcSRq94Nftj5+enguU4AN/rmmiuwHr1jUipaKkggw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795089009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=zOO8IN3WTwfTWmmyHCF/uCzTotxA10dmHaLxKg4Nq4E=;
+	b=OAoxQht/wPlc0rSTOA16cAIGrwlvKKOH9x5CtCsjSG8vjB6OgJaGYQ9qnQutgw6niV+r
+	 v3WxWIg5/bUVA1ZlVpSGky3il9YXyv1ywKna6s7BRkTIEalPJv+UZX8TCbZ6TziwIPEBX
+	 LUPcOT66ZCWo/gCIq3e1r1ddy/mXYSaU4s6j1FRQ0Ox2GT5DDDqPG35w19xZMsQ0TSsa1
+	 H454BadI+bUEpsi7zCOts/Ue51XPDnNl0cdFrkS8TGEwjJj/kfQno9QzWNgY6EZKYcvIY
+	 bECGho72RiD6mUYT0iSOhfAXJJbBp4iqnHqq5lH4tHCKbcBDuKEZFKUBrYpvLdTk+HQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=slrhnxxq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.96
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020096.outbound.protection.outlook.com [52.101.196.96])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lbyPwdMy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481E8606A320
-	for <nova-gpu@lists.linux.dev>; Thu, 19 Nov 2026 11:25:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 481E8606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79501606A326
+	for <nova-gpu@lists.linux.dev>; Thu, 19 Nov 2026 11:50:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79501606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=slrhnxxq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FtfKNVGH8F0hoYaY3haQaJwcJFD+3Mk/1XRoZkJ4C4IOyXW06sgml/nhOiAn8X9cxEY9BbsV8ZYS4XkKP9RJe79iePYOw1pjzJ7XNLA2LMSiICClGEowCwOR40C596nXCFJwDmVF9iIiA595YD6VnXzpsP0ZnF79dUq6lyJZoR+RvCSgBBZyYgaUOL7y0Xe9Vi5UaBfpnBZfheD2awgCqrWeaZlbRAdhbxWPbtgHXyGBvwWJ61i2O3ET9BVLiD7dw/JzZV53rqHxZOSGoFQLcAk5jSWgSTeLd0omCPlqo7GjscXxC8CXtkXOuDF/ww7Z54pVpyrthkumR46MihM04g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QPVxTASvMF2LRkTKbKSd2Av5oq4CzABsWU71CpGoW40=;
- b=ikySBike0v/qFlitLS/+OqPX+NKtBKLF1sKMHkjuDl5NyT8reJtn8PZuLI4LC6wWTqvziGiO0uUzWUOxJ3nMczZb2M1CPMUeXaIdGrIDmjX4rr5nziGq+pt/MBoac2mjEGdDlUgsB7XF4DZTe1wTczPPKZcLJ1qU68MikBR8tfgEi2x1LZPkPKN5XJ5hrPqMyXIaUEDTdtDzBB14/ZVqzAN0WiXbum3jkRGa1xZ0E7+4vkobRjDJtKB+CXiUtf8snTtpKPeg9SfOd9XpIZJvvwxtF8oKvX37eRCel/cFmcfUkrKVPTnXl/XWaa7uT9MbqHJfXTrL7JR8l2fJTe7Fug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QPVxTASvMF2LRkTKbKSd2Av5oq4CzABsWU71CpGoW40=;
- b=slrhnxxqbteYMztNmPNc2kQxUe/9WbuCQNJdNerArL/M8q3g8ZDT65jLDv+ZE/My4iWXrKh80ECJrc/5om/DipQSzCvd/a7VVxCnqJYHks0ObSS7xUPpXLLgLbgbwoMz4ZEe2oMT2L1CM2FHkAzbwvpoTGYz3diredX9w2FbGIk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by CWLP265MB2195.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:64::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 11:24:57 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.015; Thu, 19 Nov 2026
- 11:24:56 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Nov 2026 11:24:55 +0000
-Message-Id: <DMZ5ER6XTNLG.2ZJOF7F4100XW@garyguo.net>
-Cc: <airlied@gmail.com>, <simona@ffwll.ch>, <daniel.almeida@collabora.com>,
- <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <tmgross@umich.edu>, <tamird@kernel.org>, <acourbot@nvidia.com>,
- <work@onurozkan.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH] rust: drm: remove DRM device private data
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alice Ryhl" <aliceryhl@google.com>, "Danilo Krummrich"
- <dakr@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261118181245.2583303-1-dakr@kernel.org>
- <20261119111746.3049044-1-aliceryhl@google.com>
-In-Reply-To: <20261119111746.3049044-1-aliceryhl@google.com>
-X-ClientProxiedBy: LO2P123CA0079.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:138::12) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lbyPwdMy
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so1380326f8f.3
+        for <nova-gpu@lists.linux.dev>; Thu, 19 Nov 2026 03:50:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795089007; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qRp4OWCdbRHtu0y2IVLKmMU2Yqk48F1iFofP+RuxpfwRgGf5WJic8p3oFXNRsKiha7
+         LbzWJWOsfXbPviOEHElCA9dsIvur8wxtjUZGKEU+woOKbIXxsmj73/MPGadh5ECvjAYE
+         I8s0i/BmBHwS1hVk7Z9OSfmKaFhrTKyfsaJygF8isS+ncTqpPk6EGkOr+1bkbgzt2fQf
+         uA2mW1sgQOgvmvILUJXzhyWhTWhF5iVqFcg/xtVYyB7GGBQMkABAdPg+jzhdU/UM+NeO
+         2Hodx+mjumtr52sKNSONTehKFKgz9R53yaPHU+kSJWaT+ePerrRHALFvIam3OXGFyYR+
+         gizA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zOO8IN3WTwfTWmmyHCF/uCzTotxA10dmHaLxKg4Nq4E=;
+        fh=9uMYj2RfpBpr4PM67Pg6GB58e7DB3Tw7aZf1uSmmY1U=;
+        b=k0FV/MEmyGrkZzLgijyVcMoAwIrxZcC7u9ZOsfKjBsyC8U+tVQV9jp+CRzqge5sCWl
+         MrDQFi4JCsqQApp4S7ZLx1tMnqydZHFxlUAZthcutW/RE4CC/5rG0cRRCD9XAH5MHYDw
+         0H3lTfI/GCrZEnr070Wb6w0lGd2Qm7aeSY5x/I5SQgQKKcMsFoTaeQSnGp676liX3Cx8
+         c4hL+Rn2Cd5bjF6WoVDkXMRdgH1pqZ2KDmoin3AWWaj/oYj42dpJ3/fWZOeGcDD4va1V
+         5KqW7GKvrHaSIsPHKkOkQAxuznFfywgU70uUtqwo97Q5FCCoOOSvbf1F9gCyP4D92TET
+         Kzpg==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795089007; x=1795693807; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zOO8IN3WTwfTWmmyHCF/uCzTotxA10dmHaLxKg4Nq4E=;
+        b=lbyPwdMyfYefXkq/4jAprUPIpzt/b96euM/v48O8LZ3PlgclhIZ+Oj7JsMG+3Ny3Cf
+         WYQgHZUH4soZAkd7zWXZBSElIqVb6smbyybQpwvF63IcvfXXl062qfBTTyARqrMlpsd6
+         nUnYug8V7OCwpYYG3RBHV6shDme9ch5VNPK8CJyalnRVoPtlHeMNGCjxQeJCXHy4hbh1
+         0Wq6YFd8L2dGWiL13iYyqqX6B+6pM5MbALBFQC557RV0W5yoEDhTk8tSMDXNC41GgEdK
+         KLS6oGMCuM1nrrFbHPmSVtHukjAbNyeaf/+jeyeKE1c1DvopXtwIyeur0BWx6nGiNIqJ
+         r/Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795089007; x=1795693807;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zOO8IN3WTwfTWmmyHCF/uCzTotxA10dmHaLxKg4Nq4E=;
+        b=vuhxl6k86K37pKdOydBbIf75RC8UT71QoQ8qM1FH5lKGgsjyM/jamq8ctfq1VVMzSJ
+         08xCEt8LDfQD/9UTHZ3eCFphqO6fihQjFyj/Zot2AKH+tP87RhaFB77TDkuB9ru5MXKq
+         QfCNOSR7zxRi/uOihPBFbLEhjVtFpCKXtKkH4h8+9pqEZRN4EG77jZwwsHRDrtMKm6j6
+         j5DYtdhLFa1ZjigRNlPUeFSPihwzZgW6+HqzMwjVvAMTq61/GHTLwtlVVK3JWxwUfiSY
+         hpWRJRs8/CR4XrSREhf5GDYs4iYahXqYs1GJL6uhumFtxvp1w7Uel9LmdehGHWCW7XU2
+         fabQ==
+X-Forwarded-Encrypted: i=1; AL+hErHC9yBXvj7el+WA4ySASepG8AnaUIh1LhyOVcnBwTMz6G2pVTKr/wZ0LfL5YWLAEB7WTyKpUp1y7A==@lists.linux.dev
+X-Gm-Message-State: APuU4Z8vgl5B0FTycoA5NyGrIolcvmKY242+6BdcxJ+E+IPNMbANjUXW
+	nqYi4UP0wZmNohCxQ5nKJAGR0AWLXHr3EyReVvoupkzIvLaveuMC2v2PjMZXAVwrsxDUrRYWhJz
+	I7iHTSl6M34/AhJ/xGXo6lyjRcYIVQO8sn3wU6yn1
+X-Gm-Gg: AZFdTZfbtyUl4C4atjWlgrNEOFv8wt2bl84uN6YuF7pn/zggiNnWAKzSnCzVv12CwDj
+	CDogWt/4wtu9gBTqtgB55LJD0MDFVmPSlpCFGUedSYTLroB4LSdUUyseZeitdy3+JqWy2d34plX
+	f8muqMyiVj72p1kb/iY7EcvUZuNrycyrxW3SBnSAG4s0EmUuE7WbBnIOOfoBxs8meM2ot2mS73t
+	PVDwJevbqNDMX0oc9MD60dg+OMVBMjluvVRp0/C1SpSqJ7fDDmcR/wEwiLBRLu0hQ/25AvttHa5
+	DK9GCjL/p46A8nKw9NdvEZfIGbW0cg/gaDZRE093lyr8FszfLc2apjHapD6XUP9LQsLMpOHDmL2
+	yiJ1C/CsQjLYQj8OGrNLFIN2x5KiPwuQdkVLxQzUdc6LTuB9q5C1bfSPboggT5xV7yghBFE4uoN
+	QEIaGdXoJny+Obz43JFl3t+HUVbbVaayVM6qwWJkhuWVUQ
+X-Received: by 2002:adf:e183:0:b0:4aa:8de6:6648 with SMTP id
+ ffacd0b85a97d-4aa8de66db5mr1569581f8f.45.1795089006191; Thu, 19 Nov 2026
+ 03:50:06 -0800 (PST)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -103,128 +105,87 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|CWLP265MB2195:EE_
-X-MS-Office365-Filtering-Correlation-Id: 065263e8-4bd9-4c58-b2fe-08df462fbd86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|10070799003|1800799024|22082099003|18002099003|4143699003|5023799004|56012099006|10067099003|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261022105027099003|261021121427099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	efdSElmxlDQjE8PPeur+bVlXrOZmd0FO7I5n5+YK1yHmO+SLr2/iqvnzAlvnfz4LEC1jIMfEkvrFTgs5ZTtgQ5WOPY84R+Xlujim9Z2PhnoBW8vESafT+MalbXmqluz+IDg/hPSpr2jBtbprJAwB0+61XXLhcEIX2hGFIeevocbQC8DSRy10GUFz3dx1WhJRn8ZB238ZDAEBbtVngt27a9VkghxJ5XHwSrObA7FI7QgWF+mRXsbQO99pLALNGFQyAwK5noOG0DOKKrFDvfWAqg/725aOhIpNK+Xa+7Fnxkm4oAAqXnLr5EGCljN7LX7mC7kpwfG7asPHZB3ev8AGU3OsdJ9qelPtPJ4J13i/7hpeF+sSctG28hnQz/DYkKk/kzQl8kXAoSNyypVosn5BMQ6tR4lcenV1EK1c/6X3kp9XucFuaMH0uw8D5xT+mmRoYUtY19X9QiuPuIPbkhhW8E/dVGwsumgDoz280Q6bwzGSVzYOg5svP/gFwj0M6/hBwup1fn1+yiPSpgVtWZcnOhOL0aYdIF8pr0mB29lBrkY60O6tLwIG3eKNC9lMZlYSI8BBDd2x60g2hwPtIK6Obf2IkqFPXEr+d/bhWtUfmDOD1EdF06fi9hpNdYPRERx+Ql5YRD+oNd84rVJ2ZO88iwx4ojaOio918XBjhDexCUE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(10070799003)(1800799024)(22082099003)(18002099003)(4143699003)(5023799004)(56012099006)(10067099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261102123227099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VHl1TTRONUtjM2l0WGhiNkNNK0N3SVVTNVRqRi9hNFROVGxrLzBSOCtkK2dw?=
- =?utf-8?B?QTVZWDlGYWRVUFM3eTNNTHJKcjRDUmF3S0xQbXp3dlZLbkkyR2ZTQm9iZm1w?=
- =?utf-8?B?OThTNHBYc01UT2cvM2FLWDFFTVpJVE5DUWtvYjRMWkR0YkJpZHR1MzhxOFph?=
- =?utf-8?B?cVRnZ3FtUS9YeXgvOXUvMUJRUDFCK1c4QmlIdXVVc2IvWFNKdjlVMVhpTkxQ?=
- =?utf-8?B?ejZxY2hsOWwrUDlPaW9LaW1ONmhUT05mV1dMSjY4VGl2bEwyL1huSFVGRnRF?=
- =?utf-8?B?M0QvdGQrK1k3VHErajFvL3AvaW9BcWZoSHorU0hPTHB6SEdoUm9Ucm9WUUtD?=
- =?utf-8?B?SXlrZWZYMVdwMWNnTEpJWnAzVjR4Ynh1SFJ5SHZBUlpPRENUWXZCTE1LQ013?=
- =?utf-8?B?WUkyekZncHJQOWQ2eEE2K0ZuZVgxMERYRVVWcGZiSUhUci96WGtETlRyRUIy?=
- =?utf-8?B?cm84YmxOTXRUTFdrcjRYSUtYTHpZeVZYR09Db21xR2U3eUZqZ2JMcDBENmhV?=
- =?utf-8?B?TzFKamJBSEtETktNWCs0d0xha1lwZzA3TGY3RCsrL3BBNE4xQU05OWxzaWNj?=
- =?utf-8?B?Y1c3d1kxOFlsb1IzMVB4ekpHVGZvYTg2VXVqUVU0d21OKytRMG1WREEzQXZp?=
- =?utf-8?B?Wm1uM2N6UXVnOFBMN0pxOXlpUnZ3UWh5U3FiSk5kaUFOVkowc1NmWHhJZVpK?=
- =?utf-8?B?UmdzdW1kOGJ4NDJlNmFnVDJqZGtZMGw4UENZaFY0Y0NJT2hlbWxyQnJQM2E3?=
- =?utf-8?B?SWFWdndwQnlKVEFaaHRKSjROZ3NOQTlyRnNKTDNpb0pwcVc0R3dzTmVDQ2RT?=
- =?utf-8?B?L3BqNTNFQVVtUElCRHRDMXJaQ3BwVE53QU43Y2hDbkJOa3ZMRW53UjJkZWZQ?=
- =?utf-8?B?UzVObTliMDRmaW1RZGpzWkZIZmp1YzNsc21JZmxFaEdza1FDZExZL2VKdjJ5?=
- =?utf-8?B?RmxyalduVVBpR0dtejZGZ0ZzRm0wbEZJRTZ5VDdsekV6VUpVMUlENWQwWXVR?=
- =?utf-8?B?UUdWZVhOcFVSOTFpTmJPN1Z4bnVTc0orRGdTZWkydnFISXdoMGV5TitWSUxD?=
- =?utf-8?B?Z1ZKTFE0RXNTamV2SjRUTjRMUjdsUEg1VCtyalB2UUN6VmIwenBXNXBwajFw?=
- =?utf-8?B?Q0w0ZUJ1aUd1Y3ZoSTROMlpJVGdmYjA1dDJsL2xRTXk5M04wQ25RZjEydGNB?=
- =?utf-8?B?RlZPbXRqdHFhdFV3THFKSi94c0I1dkJlMHBPNGlPQlBJYmxadktmQ3YrWG1E?=
- =?utf-8?B?cEhNZFJMYWlFY0Q5dllqUkIwa005RzlOd2U2SEwrQTJublowN01YWnNaeEJs?=
- =?utf-8?B?cXhvcHlPclE1QXlQbmpPbU52eDNHcWRUUXZBdHJCYTZIOXk5dXczZEcyM1N2?=
- =?utf-8?B?RWZDWVNRR3JSU2IvbE5Id2JiMEFTbFZNMWpORW1HQThncjRuOFFQNUtkelY5?=
- =?utf-8?B?SUljWVVHVjF3eEVITnl5RWFhemYrczQxTi9pdTVYNHJYek1wSXpueDFESEkr?=
- =?utf-8?B?dmp5OEU1Umc5SkVyakFER0RNUUZrM1RnUUlwUWlZOFlMbkNLOEpUNFdGQUlK?=
- =?utf-8?B?Smx4dU1LUUZzUFN4TTZSa3lkcWw4Uk81SUhWQU9mZXcxdWMySlpHc2hGUkI2?=
- =?utf-8?B?MzBKSWhGcXNzVHRnZ09Da0ZXYkdVMnhic2poRTFma294bklWcUZVcG9NWm9G?=
- =?utf-8?B?Tk9ONUF2M1JwVXJQZWlxVGdtOUgrVFRGT29uMkxyU0oxOFhPYzlORTh6Sldi?=
- =?utf-8?B?NUo4ZUdQQUFSdVZqZVN0Y0RVaXdZdmJyNFM3RGFIM3NBN3pzQUJ0bEpXWncz?=
- =?utf-8?B?NjBsUndKakptc3BtckFVVlZaYU5QRDJkeXRZK012eEVKM25pclFKQUE4RC9v?=
- =?utf-8?B?ZWc0U1dNcUhzbDFmOStMMU5NalgzRG02cW9rZEg5RjJmWmRsWDJIdTRndXpK?=
- =?utf-8?B?cG5PNWdlMFdCK1AxSE1qYWZLNzNxVit2VG91VWE2S2xscitIWmRhSWtiMjhw?=
- =?utf-8?B?ZHNISm5qbmUxRVQxVTZlTnVvb3JIMm5iSklad2x1U1lwVUc2czlWdFh3SDdT?=
- =?utf-8?B?SUZoamJGVjBqUURvQVo1TXh0azg3cTZhSFNFMy9OZGNFVUlRNHB2blIvbVJD?=
- =?utf-8?B?Q0kvNTEwcllydzdBY2xQakhva2tiZmkxazllbHNjaXRnZEJ6RG40Q0ZaaHdu?=
- =?utf-8?B?VWh2Q0M4Y0RYTnFPTFQ1bFNYUWorWHZMSDZTbW92SkpHWlVlbjNKQmZLVldh?=
- =?utf-8?B?M2dDd2tBOUNqcGc1eFBuZHZjRGdVNDZCUXM4Y1g5RWVLTUdBaTVjQ1JTS0p1?=
- =?utf-8?B?TVdBQ0ZDQlhwSlY0UDc5TmN5RjV6UExVMTBkdlNSLzBoQUF1N0I2QT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 065263e8-4bd9-4c58-b2fe-08df462fbd86
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 11:24:56.8170
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wdMBhNmiJXg6PbE2FJdbM3hOqN8yirO9Frw2LQP6piORcq355oJ3nM5XoZEvx0EsCY44jaA3JWW+NlSRvIfuuA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2195
+References: <20261118181245.2583303-1-dakr@kernel.org> <20261119111746.3049044-1-aliceryhl@google.com>
+ <DMZ5ER6XTNLG.2ZJOF7F4100XW@garyguo.net>
+In-Reply-To: <DMZ5ER6XTNLG.2ZJOF7F4100XW@garyguo.net>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Thu, 19 Nov 2026 12:49:53 +0100
+X-Gm-Features: Aa3M54oh8HJOrpuOfJ-i5QqnZtSXVPWrGr-cWZKRejJI37TjGzDfWl8zYFwePng
+Message-ID: <CAH5fLghc63zD9c1F437pQiX+ohgSkYQe4nt3xP4gSTsqAVLzBA@mail.gmail.com>
+Subject: Re: [PATCH] rust: drm: remove DRM device private data
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, airlied@gmail.com, simona@ffwll.ch, 
+	daniel.almeida@collabora.com, ojeda@kernel.org, boqun@kernel.org, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	tmgross@umich.edu, tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu Nov 19, 2026 at 11:17 AM GMT, Alice Ryhl wrote:
-> On Wed, Nov 18, 2026 at 07:07:35PM +0100, Danilo Krummrich wrote:
->> Driver::Data is owned by the reference-counted drm::Device and can
->> outlive device unregistration and driver unbind. Driver state belongs in
->> RegistrationData, whose lifetime ends with registration teardown.
->>=20
->> The intended model is that, after drm_dev_unplug(), surviving DRM
->> objects (e.g. through remaining userspace handles) no longer require
->> access to the driver state. Thus Driver::RegistrationData is available
->> (and sufficient) for all DRM callbacks into the driver.
->>=20
->> Remove Driver::Data, its storage and Deref implementation, and the
->> unused workqueue implementations that depend on it. Drop the data
->> initializer argument from UnregisteredDevice::new() and update its
->> callers.
->>=20
->> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On Thu, Nov 19, 2026 at 12:25=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
 >
-> Makes sense to me. Both in-tree users had `type Data =3D ()` anyway, and
-> nothing uses the `WorkItem`/`HasWork` impls on `drm::Device`, so this is
-> a pure simplification.
+> On Thu Nov 19, 2026 at 11:17 AM GMT, Alice Ryhl wrote:
+> > On Wed, Nov 18, 2026 at 07:07:35PM +0100, Danilo Krummrich wrote:
+> >> Driver::Data is owned by the reference-counted drm::Device and can
+> >> outlive device unregistration and driver unbind. Driver state belongs =
+in
+> >> RegistrationData, whose lifetime ends with registration teardown.
+> >>
+> >> The intended model is that, after drm_dev_unplug(), surviving DRM
+> >> objects (e.g. through remaining userspace handles) no longer require
+> >> access to the driver state. Thus Driver::RegistrationData is available
+> >> (and sufficient) for all DRM callbacks into the driver.
+> >>
+> >> Remove Driver::Data, its storage and Deref implementation, and the
+> >> unused workqueue implementations that depend on it. Drop the data
+> >> initializer argument from UnregisteredDevice::new() and update its
+> >> callers.
+> >>
+> >> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> >
+> > Makes sense to me. Both in-tree users had `type Data =3D ()` anyway, an=
+d
+> > nothing uses the `WorkItem`/`HasWork` impls on `drm::Device`, so this i=
+s
+> > a pure simplification.
+> >
+> > Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> >
+> > One small suggestion below.
+> >
+> >> -        release: Some(Device::<T>::release),
+> >> +        release: None,
+> >
+> > [...]
+> >
+> >>  #[repr(C)]
+> >>  pub struct Device<T: drm::Driver, C: DeviceContext =3D Normal> {
+> >>      dev: Opaque<bindings::drm_device>,
+> >> -    data: T::Data,
+> >>      pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationD=
+ata<'static>>>,
+> >>      _ctx: PhantomData<C>,
+> >>  }
+> >
+> > With `release` gone, nothing ever runs `drop_in_place()` on the Rust
+> > side of `Device` anymore. That's fine today since all remaining fields
+> > are trivially droppable, but it is now an implicit requirement on the
+> > struct: anyone adding a field with a `Drop` impl (or a pinned field
+> > that needs a destructor) would silently leak it.
+> >
+> > Could you add a short comment on the struct along the lines of "no
+> > `release` callback is installed, so no field of this struct may require
+> > dropping"? That way the next person adding a field knows they have to
+> > bring back the `release` callback.
+> >
+> > (For what it's worth, I checked the lifetime-parameterized `File`
+> > series [1] against this: `open_count`/`open_count_wq` are both
+> > droppable without a destructor, and the two merge cleanly, so no
+> > ordering constraint there as far as I can tell.)
 >
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
->
-> One small suggestion below.
->
->> -        release: Some(Device::<T>::release),
->> +        release: None,
->
-> [...]
->
->>  #[repr(C)]
->>  pub struct Device<T: drm::Driver, C: DeviceContext =3D Normal> {
->>      dev: Opaque<bindings::drm_device>,
->> -    data: T::Data,
->>      pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationDat=
-a<'static>>>,
->>      _ctx: PhantomData<C>,
->>  }
->
-> With `release` gone, nothing ever runs `drop_in_place()` on the Rust
-> side of `Device` anymore. That's fine today since all remaining fields
-> are trivially droppable, but it is now an implicit requirement on the
-> struct: anyone adding a field with a `Drop` impl (or a pinned field
-> that needs a destructor) would silently leak it.
->
-> Could you add a short comment on the struct along the lines of "no
-> `release` callback is installed, so no field of this struct may require
-> dropping"? That way the next person adding a field knows they have to
-> bring back the `release` callback.
->
-> (For what it's worth, I checked the lifetime-parameterized `File`
-> series [1] against this: `open_count`/`open_count_wq` are both
-> droppable without a destructor, and the two merge cleanly, so no
-> ordering constraint there as far as I can tell.)
+> Instead of a comment, a const assertion of !needs_drop would be better.
 
-Instead of a comment, a const assertion of !needs_drop would be better.
+Good idea
 
-Best,
-Gary
-
+Alice
