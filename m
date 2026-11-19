@@ -1,58 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795053134;
-	b=zdY0U2Ibeu6ZVvpMrjR3o+vcFexUxbVqXcZIQw04T+4ybiL0UU8oN6ic+at3GOW2slm5
-	 iJsisICGxnhb0By7CJCX6lRc+7szZmaF22gHZoNyeYE+jbME5iZBFTa+Oruuxm1GMQ/A3
-	 J9pHMPKMoMPPLRrE1IvmJYzH2AqNoX/Seoha5Obh8uScuhUTiv4ZqAM1DdI6l51PbHbC2
-	 sou9pu6GgtxH3S2jyoXfpvxivTxk9KgydPkts90kT4Tuf0CfhKh4KRmtLhbnpCvlAakdG
-	 fYRQs+c+bwmHC7PFxWmSfxT0U4hn4x0lzo2SPgSMAhG+Jgo5uKkVJOy06dwAidkjUxQ==
+	t=1795073228;
+	b=dMqLksfk5X2TfQ7RcErYxYit8V458dqDimCkQ8EPP+XnSb9iK444GC6xPJXZEh434WaP
+	 9gmGFPeXj8obZUR/Isl9xQTQrz18ni1+GbssAHFFx+gH46YeUEFHYnOQ4mrYCTS4ewzhz
+	 4YTM3pziKWG3cAtI5kP2CGC5B6jWJcv9COdQvcPPRFnU6kT/ezoPGH6Kbx/xs61QC9j9M
+	 QJ/Bvr+exbzdaPzVle+ulTJFBfb2bYPkW3E//3Oh3h7MznTonRbEUXnCG3SzNBODrDtcB
+	 rKJWG07CdQO1ar03eUtwffUVfjT3m2KCiZ6Hmuf+Y2cKitc5Vrxo0IuUoBYalexcHLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795053134;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GDOheIw0XyESHKUJmb3R4hfMiS0jbOtm8JRApTUjWVc=;
-	b=yR668iUdOD/ppmgqSiY47f0g4eD76/QBvL5GsU/kgTF0vlDQkETn6ufCMFdcqAvAJMVo
-	 nuLGsHx7IxxoUI98fvAovouf//LO1Lg8u9yONMiDysM6G5qHf8jDqpKkt7tyWybeVMkze
-	 rNEfQO5wDPc/6EC8QUlMfLh/aBdBhrGPSFoV1yT89QLj6/hMtfZ84s2A6ZaNRGhtCmCsa
-	 ol3urZg7MJOCpm7dr/YV/KIqXzDWOpaVla2ijCbeJw97/sOe8hWLSCCDuNDQFK/7RBaDF
-	 Nnpe9TRcFRkQZCtaQx0opDcRMIMEp1mrbUz8xfnU0PFHp5JLB7Rpf3VnmRqVz7Il3Kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795073228;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=LHec+bcorVdFivY0AsqfT4qwBXwZIOqFaXBbhEon4Rk=;
+	b=ts8qU5sIkKBt4ff1hVFjK1BtXvA36iPpLZKVUpl/AL6zxwS112DvQYqwZJqpC7o9XqWd
+	 zEnyvBGZF9Dq6ixJrUl3zMiV2QsyHX0gueZoBKMVqOstoRMWk0JqDI/qEF3Zh9ruPYg9G
+	 mR7NIOWr6yYJaoSUtw63i26+RqlH65Si7CGSv+a1izJ2WEDGWJLveH6alLuq531UuSK6N
+	 zn7Ss1AdareP5LYlHCAHwgdniUBYJQpayJZII66Qf+mA+DYlSaEpSBWgIvEWyGuAXiX6f
+	 1ijSI+EWgi4KIbH1BgdWE1lsPeIJyxdMxphbvanjamJAhtnOXrihUvOeZE5c3uEzQzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XG2XcNvz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="v2aBK9/u";
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAC5606A32F
-	for <nova-gpu@lists.linux.dev>; Thu, 19 Nov 2026 01:52:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08221606A320;
+	Thu, 19 Nov 2026 07:27:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08221606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XG2XcNvz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218071F000C5;
-	Thu, 19 Nov 2026 01:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795053134;
-	bh=GDOheIw0XyESHKUJmb3R4hfMiS0jbOtm8JRApTUjWVc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XG2XcNvzg/I/qPEHulzMBfCeTM4wOYHuWOz4Te2RjIwIt2muKsNZcmgf05+kM7mjG
-	 HslV9yNwIha7iGIAsTxaZNMBin1NYZrPSs22VOiO+JH6BlIRpNd3tX8GO13cHW9dxW
-	 ZCx8LS7ByKlrP6k9d2VHSQa/C2FzcE/Wketsq5UMaZDZlHVx917VMQBZrowRnqhZ6W
-	 fc+lIHBOwSW8LkR/vErDNQdrsGl7uqHvHRZbXHT7kEdSQtwriPCGIjFs6FqibmpGsD
-	 47OmONbSo0WTyg9YA6ZrFySxsmcXM5dj7xDUbSKvGljXPPUg8RIfZNbWDLKU+dhU0r
-	 Pln2U88glzXkA==
-Message-ID: <sashiko-outbox-222304@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/nouveau: add option to leave GSP-capable GPUs
- to other drivers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dave Airlie" <airlied@redhat.com>, "Lyude Paul" <lyude@redhat.com>, "Danilo
- Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev
-In-Reply-To: <20261119-nova-nouveau-gsp-v1-1-4cde2bc41132@redhat.com>
-References: <20261119-nova-nouveau-gsp-v1-0-4cde2bc41132@redhat.com>
- <20261119-nova-nouveau-gsp-v1-1-4cde2bc41132@redhat.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=v2aBK9/u
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jVVQw4Vt0zKp42;
+	Thu, 19 Nov 2026 08:27:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1795073224; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LHec+bcorVdFivY0AsqfT4qwBXwZIOqFaXBbhEon4Rk=;
+	b=v2aBK9/uSUt79zZCB478wuJ7j8gMDI0lhc06QOm0ironoWz+tfGmwGfZRbxil4WGLiskbO
+	SSyhHHqRxefOKRvNmUzKwJsccz/0Jy8MZo850+0WarJZNu2u7T9VOdYmS4EPuOeFX1/1xF
+	+sCj0qdmwVJsXy4AruDvqgeVeOmBoBqjMP76J+EV6FeclGEFxzRSF4W1VMdqTjmo6Pq756
+	2uOe9ALPOgg3AoqA/rCxb08uvT6JxgidOQBHqBP/bOJfHngzTm5FzggLHBkL3DvBai/Pqa
+	00VpEiiWGBvBUAi/I0+AhpDv7CcVrOU2jDNfrS4gMX50rTg6Ck+b7f5GdDMSHg==
+Message-ID: <7aa027e3ff479118c30828d77f7d348f611b7ea1.camel@mailbox.org>
+Subject: Re: [PATCH 2/2] gpu: nova-core: remove unnecessary firmware pin-init
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Danilo Krummrich <dakr@kernel.org>, acourbot@nvidia.com, 
+	aliceryhl@google.com, abdiel.janulgue@gmail.com,
+ daniel.almeida@collabora.com, 	robin.murphy@arm.com, a.hindborg@kernel.org,
+ ojeda@kernel.org, boqun@kernel.org, 	gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, tmgross@umich.edu, 
+	tamird@kernel.org, work@onurozkan.dev
+Cc: driver-core@lists.linux.dev, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Date: Thu, 19 Nov 2026 08:27:00 +0100
+In-Reply-To: <20261114234324.82387-2-dakr@kernel.org>
+References: <20261114234324.82387-1-dakr@kernel.org>
+	 <20261114234324.82387-2-dakr@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 01:52:13 +0000
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -61,81 +80,14 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
+MIME-Version: 1.0
+X-MBO-RS-ID: 5aac85ed30d7b19f367
+X-MBO-RS-META: 5nofx34a7of1nrrc8mapextogthzndoy
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/nouveau: resource leak and stale list entry in
-  nvkm_device_ctor()
---
+On Sun, 2026-11-15 at 00:42 +0100, Danilo Krummrich wrote:
+> Now that SGTable no longer requires pinning, remove the pin-init
+> machinery from Radix3 and GspFirmware.
+>=20
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-commit 2b74a622d800f1d2cd12ecd10013a3d94e2a156e
-Author: Dave Airlie <airlied@redhat.com>
-
-drm/nouveau: add option to leave GSP-capable GPUs to other drivers
-
-This commit adds a DRM_NOUVEAU_BIND_GSP Kconfig option and a bind_gsp
-module parameter to let nouveau skip GSP-capable (Turing and later) PCI
-GPUs so other drivers such as nova-core can claim them.
-
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/=
-gpu/drm/nouveau/nvkm/engine/device/base.c
-> index a2ed8c4fe52a0..a027860fa8694 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-[ ... ]
-> @@ -3381,6 +3381,20 @@ nvkm_device_ctor(const struct nvkm_device_func *fu=
-nc,
->  		goto done;
->  	}
-> =20
-> +	/* Unless nouveau is the default NVIDIA driver, leave GSP-capable
-> +	 * (Turing and later) PCI GPUs to other drivers, such as nova-core.
-> +	 * Older GPUs are always bound.
-> +	 *
-> +	 * Reject before subdevs are constructed, as that would already load
-> +	 * GSP firmware for GPUs that are not going to be used.
-> +	 */
-> +	if (device->func->pci && device->card_type >=3D TU100 && !bind_gsp) {
-> +		nvdev_info(device, "leaving GSP-capable GPU to other drivers "
-> +			   "(bind_gsp=3D0)\n");
-> +		ret =3D -ENODEV;
-> +		goto done;
-> +	}
-> +
->  	/* read strapping information */
->  	strap =3D nvkm_rd32(device, 0x101000);
-
-[Severity: High]
-Does rejecting a GPU here leak pdev, leave pci_dev enabled, and leave a
-freed or stale entry on nv_devices?
-
-Before reaching this check, nvkm_device_pci_new() calls
-pci_enable_device() and allocates pdev, and nvkm_device_ctor() adds
-&device->head to the global nv_devices list:
-
-drivers/gpu/drm/nouveau/nvkm/engine/device/base.c:nvkm_device_ctor() {
-    ...
-	list_add_tail(&device->head, &nv_devices);
-    ...
-done:
-	if (ret && device->pri) {
-		iounmap(device->pri);
-		device->pri =3D NULL;
-	}
-	mutex_unlock(&nv_devices_mutex);
-	return ret;
-}
-
-When nvkm_device_ctor() returns -ENODEV, the done label only unmaps
-device->pri, and nvkm_device_pci_new() and nouveau_drm_probe() return
-ret immediately without unlinking device->head from nv_devices, calling
-pci_disable_device(), or freeing pdev.  This leaves the PCI device's
-enable_cnt elevated when handing off to another driver and causes any
-later nouveau probe of the same device handle to fail with -EEXIST.
-(Note that calling nvkm_device_del() directly on this failure path would
-also hit an uninitialized device->intr.intr list in nvkm_intr_dtor(),
-since nvkm_intr_ctor() has not run yet.)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-nova-nouve=
-au-gsp-v1-0-4cde2bc41132@redhat.com?part=3D1
+Reviewed-by: Philipp Stanner <phasta@kernel.org>
