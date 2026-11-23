@@ -1,63 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795467132;
-	b=AZMZhHfu5hWvfmRZCiji1YIpawrGjAdhgcamOb95bZ7TWEhLoIVmqgZyFH8Cf4L3iYLc
-	 vFkodsqDdiFiijBG908oZMtbIQR/rhjUeWpS1MSgGdAHZ4BW4gzaHbfpHGtmwx/OhfU5X
-	 N3gTGcUDRwNNa5buLkIeG7nivVu42cYgVS/41GWcJfxarDYaH12QNa6+RRdexzirIwZCg
-	 9ue2D7LTRH13oag+XjcMNMacd42bANjUWNwpfAE76k4phk0Okc/UJQ2z5iNusHRRVLynP
-	 M9hSdDTdoom835CXop4MUp2bjzZyOXtpzC8TjlhI5m3E1s/+XDEiDa13aw8JsoyqnBg==
+	t=1795468302;
+	b=UNY/jiBMsKIzAa9FqbQmrek62fcfLrTT3nMdd7KP99upSFrxwvzROrnZ+rSaGs0UCt/1
+	 9t2/FcTqYP5UL55gDawc0/KoFVlmK8yXmS8C4OGXl7nlZW39rCovT6XHex/Rz50oTVKaZ
+	 V81BN8wjBN/90y8FLrBqhigpwLZEStd4SRoFEu9C4wHXTL0SSpG7NC9n93r2iTTL1IX4K
+	 bM39AdmawnxXiMPXzh1XdVjIobSl9w96sYazL4c9pVEwEDoo/veGOYYYKYhQoKaw02x24
+	 sl4PInl7xsfr9His0fgClLKZQDh48mqrs1ATjoe+VsdvsTr/PAs7TaZjfYC1QoYpR9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795467132;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=M/swXvZU6mbp1m6LU3eMa/1rd3k8YHG7bvPyy7Nwqr0=;
-	b=whHb47czdbDaCxQt30ZNvdwA2vkbNXHiK4qY6umW3skIM0ESadUMC6zOmEL8qi/b8Ij2
-	 zQ352ib0rXHVH7piRBtQOz5P55hXom+eUEMBp3xs2I8LvFrz6bPbD1AoleX8+3iS+dS7g
-	 WBVVjTTjiPv+xLSubM08vYRyUQAkILXyUOTmvkpRad8ga+NY/kbJv01QiRw8sZHr/ytAn
-	 Q+Z/Rdx5+YvDSSR2VeNzSY520vbd8oyE/eQG85PyobvS/TJGKyEiHe1BVgOnWptaKF7aj
-	 45NWHfCDxrjNeealz1JL/GHq+ehy3gkAR3hpqQKEnhQySk58x1ruZL612bH2FHtlm3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795468302;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-Mimecast-Spam-Score:
+	 X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n9pevu1TMmDcshsy2csnNqdpdxJkEoVnA4XxB7oiN7w=;
+	b=RFNQ/UVZdayPPBU6IlEvkFG9KZZx5rHUxGwEuWQ/2fTCyu4rIOkf4c8fWlpHtIP5DPWi
+	 F5LZmugx7F4rwpAXiSvZTfvaNd5ItwUm4ESnMkSaoGL1O7+gb4x4iZT8j72cLIMQ5+jha
+	 0aFoO4731roQoTd5oGD5MSoYSnEmSgdJFCy6TFZmFnCIfxk3/BUJkqR2BQO6qx5lJx40M
+	 GXWPnj69Q5NCOeORoKj6hpDPm4TtPvg0xMirgVcnFH4egiBaAhwrfMLW/b6bS1zVx/BHe
+	 VgNm4P6lHAIzi3B4SqaupmS3gMlV8txjqdwpVZTaMVt6djqg4ZaNKek4yg3R99wVL4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqpufP6f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Qf/RRXJJ";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B7C606A32D
-	for <nova-gpu@lists.linux.dev>; Mon, 23 Nov 2026 20:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BECD606A31E
+	for <nova-gpu@lists.linux.dev>; Mon, 23 Nov 2026 21:11:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BECD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqpufP6f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02501F000ED;
-	Mon, 23 Nov 2026 20:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795467132;
-	bh=M/swXvZU6mbp1m6LU3eMa/1rd3k8YHG7bvPyy7Nwqr0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gqpufP6fgMtXo7jWM0GEEs/XWKHivF26lofCDAxTy1EBHTO3ijWipbJyX6hPPrACQ
-	 61nywHN4vwIE8a5e9N3UxnvX0e/QZlGqmvKAgXyhEiNrIRncjHhqleCXWXEG1iKgjq
-	 9dvVgjU74y6ZwDAZWHcBBsZUMAHpKezoJWj5X7HQUm9wt6zOB0DFAWe6Yl7PY9wgtX
-	 xk5pw1SPftK8yRJP4qjscpRDPp+SXCBsQDf45XnHu7xhWqycuKhV83rM+Hh93ph5uS
-	 DJXlfB6ea3TCoZGjdI0Kh7LxTViQVMoo8bz09H+qy7ncFLkXruWaWLSssKTN0Qqd/s
-	 bliZdXLosqIcw==
-Message-ID: <sashiko-outbox-230028@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 3/3] rust: dma: require device configuration before
- DMA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Matteo Kloiber" <kernel@matt3o12.de>, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy" <robin.murphy@arm.com>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: "Daniel Almeida" <daniel.almeida@collabora.com>, "Miguel Ojeda" <ojeda@kernel.org>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Helgaas" <bhelgaas@google.com>, =?utf-8?b?S3J6eXN6dG9mIFdpbGN6ecWEc2tp?= <kwilczynski@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev
-In-Reply-To: <20261123203926.1787169-4-kernel@matt3o12.de>
-References: <20261123203926.1787169-1-kernel@matt3o12.de>
- <20261123203926.1787169-4-kernel@matt3o12.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 20:52:11 +0000
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Qf/RRXJJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795468301;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n9pevu1TMmDcshsy2csnNqdpdxJkEoVnA4XxB7oiN7w=;
+	b=Qf/RRXJJ+xiJdWH5jZ+FsA+TP5tr13wrBonP6ZtVdUAivNqLsh2O4yCnueHKVx4nfVb6ov
+	SjpYmWfxt3KURj/+IPvawZ2iHF+sWH793IUC1T+bG+v9wZNx4Q9IbzhVsebEm2Af79Ao4Z
+	qP0M381oKc2YeSXnE6oNWx1+ht2mHUY=
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com
+ [74.125.82.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-258-lKozhtAfNxW8uSGyT1F5sQ-1; Mon, 23 Nov 2026 21:11:38 +0000
+X-MC-Unique: lKozhtAfNxW8uSGyT1F5sQ-1
+X-Mimecast-MFC-AGG-ID: lKozhtAfNxW8uSGyT1F5sQ_1795468298
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b56c696405so1888411c88.1
+        for <nova-gpu@lists.linux.dev>; Mon, 23 Nov 2026 13:11:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795468297; x=1796073097;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n9pevu1TMmDcshsy2csnNqdpdxJkEoVnA4XxB7oiN7w=;
+        b=FZ1uyc/chtSmkZTvB8tUvvTcJ7Gz+bEN6zf0VWbV6jUY8AMCkTq5RqA+TwUCQlCeMl
+         8RiRU9vMLd5rz9ZJfVRtBX3AVRZpACJ03qMfr4aJzcU38uWbnkCObXYsFFqo3S4zPhRC
+         pDFzQ85WC/wg1Wf08jKu1yoLHRqsYKfBEr7B3yDhUsiEUXZJk2Jx9EqLN1XCds4tZmuJ
+         xGPZvy9JLq1G6Dl3aZHJhrw89EVcXMqPzAT55uwaA+Hj47UlewEqrJHjSN1nKTDraB7e
+         b/WbpcU39PaPus3pdgRxsvdnFDEAJMPaQxLR6LRyuPdEAPHlbvPK+H1LrD/gzRi5aeR1
+         JyGA==
+X-Forwarded-Encrypted: i=1; AL+hErGAZ8puBN/EkmFpejZkUjJYvcGHpS2seR+HtxkT+FYTy3hyCveFq967NhxTtssjr4BtLT/b3hwInw==@lists.linux.dev
+X-Gm-Message-State: APuU4Z9HE+aOfTi0ZO8ZYCHDKSaLosQTNtUWdKmI0RFofUMLBulJmEdT
+	e2nB0mjGOiCQqusM7HxnAjO7HozKZ2/IUudMV7cB76zM4QX6CbR14C9vSfQuTpb+CMs0x9KYedv
+	MUZuIHnd7rZPtW6uiwdiY8MuyBlz6BYaeZXt+Ay3ksAaUuLTPwp4x0S8l/sMa1zwrRi6Xl/bwvx
+	QM+Y0774HmgGvSBmKSPx5NyT9wNwV/rFE3MoQ=
+X-Gm-Gg: AZFdTZcWeSLwc5uxQVWnW+Umq66qmNCUthkDO9QgtUVXt67Dn3zUfQmGmQoGLB/NFNL
+	lCsuUZpUxXhkh4K79qZ/8cMLNpwzavjggd12OrijZnJrIDBjiNmOiGtqsybzW8/wN079WkADy8c
+	iYNQDacw7e86R/55nYMwIHZny5Oo+aRxlVU2YNY7qxhCRBlOfftbeT/ayB+cB/HQO7AH+qClq5W
+	L7V/zCvOUTB7F/u
+X-Received: by 2002:a05:701b:4558:10b0:1b3:b4cf:8f18 with SMTP id a92af1059eb24-1b556926cfbmr13460405c88.41.1795468297273;
+        Mon, 23 Nov 2026 13:11:37 -0800 (PST)
+X-Received: by 2002:a05:701b:4558:10b0:1b3:b4cf:8f18 with SMTP id
+ a92af1059eb24-1b556926cfbmr13460369c88.41.1795468296661; Mon, 23 Nov 2026
+ 13:11:36 -0800 (PST)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -66,234 +90,54 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
+MIME-Version: 1.0
+References: <20261123-nova-nouveau-gsp-v2-0-5e8c27aa8555@redhat.com>
+ <20261123-nova-nouveau-gsp-v2-2-5e8c27aa8555@redhat.com> <617a6fcc6a541f27351fb7f5abe21fb89553438a.camel@nvidia.com>
+In-Reply-To: <617a6fcc6a541f27351fb7f5abe21fb89553438a.camel@nvidia.com>
+From: David Airlie <airlied@redhat.com>
+Date: Tue, 24 Nov 2026 07:11:23 +1000
+X-Gm-Features: Aa3M54p6fvlOZnXQWzVJ7rxsais-R4gxmnSrBvqgceCPwlHjYyde1II3OXoWZMs
+Message-ID: <CAMwc25rDmsXw++KeE4OhTCGCq0PRUZJJQaEMXY2dbvdwWzyL7g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] drm/nouveau: add option to leave GSP-capable GPUs
+ to other drivers
+To: Timur Tabi <ttabi@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, "lyude@redhat.com" <lyude@redhat.com>, 
+	"dakr@kernel.org" <dakr@kernel.org>, 
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+	"nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, 
+	"nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 5wpqvLMxZA0dk422VQXDFL-vM40npdCQc_yN--WUAkI_1795468298
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] rust: dma: missing INVARIANT comments in Setup::new() and
-  Handle::new_for_test()
-- [Low] rust: dma: missing #[inline] on Setup and Handle methods in
-  kernel abstraction
---
-
-commit 24aab1a18402fe872441d89737705384f9f15bd1
-Author: Matteo Kloiber <kernel@matt3o12.de>
-
-rust: dma: require device configuration before DMA
-
-This commit replaces the dma::Device trait with a dma::Setup token passed
-via bus InitTokens, requiring drivers to configure DMA parameters and
-obtain a dma::Handle before performing DMA allocations, scatterlist
-mappings, or IOMMU page-table creation.
-
-Link: https://lore.kernel.org/DLHH0K25NLX5.616R4D860TXU@nvidia.com
-Link: https://lore.kernel.org/DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com
-
-> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-> index 580e1c3427bc5..03f48bd1f9406 100644
-> --- a/rust/kernel/dma.rs
-> +++ b/rust/kernel/dma.rs
-
-[ ... ]
-
-> @@ -48,83 +48,124 @@
-> +/// Token for configuring a device's DMA parameters.
-> +///
-> +/// The bus passes it to the driver's `probe()` callback. The driver can=
- access the device, e.g. to
-> +/// read its capabilities, before calling [`Setup::configure`], which co=
-nsumes the token. Drivers
-> +/// that don't use DMA can drop it.
-> +///
-> +/// # Invariants
-> +///
-> +/// - The bus has initialized the device's DMA parameters.
-> +/// - There is only one `Setup` per driver binding, and no [`Handle`] ha=
-s been created for it yet.
-> +/// - No DMA allocation or mapping for this device can run concurrently =
-with
-> +///   [`Setup::configure`], and nothing else changes the DMA parameters =
-while the device is bound.
-> +pub struct Setup<'bound> {
-> +    dev: &'bound device::Device<Bound>,
-> +}
-> +
-> +impl<'bound> Setup<'bound> {
-> +    /// Creates the setup token passed to a driver's probe callback.
->      ///
->      /// # Safety
->      ///
-> -    /// This method must not be called concurrently with any DMA allocat=
-ion or mapping primitives,
-> -    /// such as [`Coherent::zeroed`].
-> -    unsafe fn dma_set_mask(&self, mask: DmaMask) -> Result {
-> -        // SAFETY:
-> -        // - By the type invariant of `device::Device`, `self.as_ref().a=
-s_raw()` is valid.
-> -        // - The safety requirement of this function guarantees that the=
-re are no concurrent calls
-> -        //   to DMA allocation and mapping primitives using this mask.
-> -        to_result(unsafe { bindings::dma_set_mask(self.as_ref().as_raw()=
-, mask.value()) })
-> +    /// The caller must ensure the invariants of [`Self`], including uni=
-queness of the token.
-> +    pub(crate) unsafe fn new(dev: &'bound device::Device<Bound>) -> Self=
- {
-> +        Self { dev }
->      }
+On Tue, Nov 24, 2026 at 3:34=E2=80=AFAM Timur Tabi <ttabi@nvidia.com> wrote=
+:
 >
-> -    /// Set up the device's DMA coherent addressing capabilities.
-> -    ///
-> -    /// This method is usually called once from `probe()` as soon as the=
- device capabilities are
-> -    /// known.
-> -    ///
-> -    /// # Safety
-> +    /// Applies `params` and returns a [`Handle`] for DMA allocations an=
-d mappings.
->      ///
-> -    /// This method must not be called concurrently with any DMA allocat=
-ion or mapping primitives,
-> -    /// such as [`Coherent::zeroed`].
-> -    unsafe fn dma_set_coherent_mask(&self, mask: DmaMask) -> Result {
-> -        // SAFETY:
-> -        // - By the type invariant of `device::Device`, `self.as_ref().a=
-s_raw()` is valid.
-> -        // - The safety requirement of this function guarantees that the=
-re are no concurrent calls
-> -        //   to DMA allocation and mapping primitives using this mask.
-> -        to_result(unsafe { bindings::dma_set_coherent_mask(self.as_ref()=
-.as_raw(), mask.value()) })
-> +    /// If a setter fails, its error is returned and parameters applied =
-before it are not restored.
-> +    pub fn configure(self, params: Params) -> Result<Handle<'bound>> {
-> +        let dev =3D self.dev.as_raw();
-> +
-> +        if let Some(mask) =3D params.streaming_mask {
-> +            // SAFETY: `dev` is valid. The `Setup` invariants exclude co=
-ncurrent DMA operations
-> +            // and other parameter setters, and consuming the token prev=
-ents reconfiguration.
-> +            to_result(unsafe { bindings::dma_set_mask(dev, mask.value())=
- })?;
-> +        }
-> +        if let Some(mask) =3D params.coherent_mask {
-> +            // SAFETY: `dev` is valid. The `Setup` invariants exclude co=
-ncurrent DMA operations
-> +            // and other parameter setters, and consuming the token prev=
-ents reconfiguration.
-> +            to_result(unsafe { bindings::dma_set_coherent_mask(dev, mask=
-.value()) })?;
-> +        }
-> +        if let Some(size) =3D params.max_seg_size {
-> +            // SAFETY: `dev` is valid and its DMA parameters are initial=
-ized. The `Setup`
-> +            // invariants exclude concurrent DMA operations and other pa=
-rameter setters,
-> +            // and consuming the token prevents reconfiguration.
-> +            unsafe { bindings::dma_set_max_seg_size(dev, size.get()) };
-> +        }
-> +
-> +        // INVARIANT: All requested setters succeeded. The `Setup` invar=
-iants prevent further
-> +        // changes while the device is bound to the driver.
-> +        Ok(Handle { dev: self.dev })
-> +    }
-> +}
-> +
-> +/// Handle for DMA allocations and mappings on a configured device.
-> +///
-> +/// Returned by [`Setup::configure`]. It can be copied freely, but canno=
-t change the DMA parameters.
-> +///
-> +/// # Invariants
-> +///
-> +/// The requested DMA parameters have been applied and do not change dur=
-ing `'bound`.
-> +#[derive(Clone, Copy)]
-> +pub struct Handle<'bound> {
-> +    dev: &'bound device::Device<Bound>,
-> +}
-> +
-> +impl<'bound> Handle<'bound> {
-> +    /// Returns the device associated with this DMA handle.
-> +    pub fn device(self) -> &'bound device::Device<Bound> {
-> +        self.dev
->      }
+> On Mon, 2026-11-23 at 12:50 +1000, Dave Airlie via B4 Relay wrote:
+> > Distributions that want nova-core to be the default driver for
+> > GSP-capable GPUs can set CONFIG_DRM_NOUVEAU_BIND_GSP=3Dn; the
+> > nouveau.bind_gsp=3D0 kernel command line parameter switches it at boot
+> > time.
 >
-> -    /// Set up the device's DMA addressing capabilities.
-> -    ///
-> -    /// This is a combination of [`Device::dma_set_mask`] and [`Device::=
-dma_set_coherent_mask`].
-> -    ///
-> -    /// This method is usually called once from `probe()` as soon as the=
- device capabilities are
-> -    /// known.
-> -    ///
-> -    /// # Safety
-> -    ///
-> -    /// This method must not be called concurrently with any DMA allocat=
-ion or mapping primitives,
-> -    /// such as [`Coherent::zeroed`].
-> -    unsafe fn dma_set_mask_and_coherent(&self, mask: DmaMask) -> Result {
-> -        // SAFETY:
-> -        // - By the type invariant of `device::Device`, `self.as_ref().a=
-s_raw()` is valid.
-> -        // - The safety requirement of this function guarantees that the=
-re are no concurrent calls
-> -        //   to DMA allocation and mapping primitives using this mask.
-> -        to_result(unsafe {
-> -            bindings::dma_set_mask_and_coherent(self.as_ref().as_raw(), =
-mask.value())
-> -        })
-> +    pub(crate) fn as_raw(self) -> *mut bindings::device {
-> +        self.dev.as_raw()
->      }
+> Just FYI, we've already had to scold two distros for blindly enabling "CO=
+NFIG_NOVA_CORE",
+> despite all the warnings, because "that's just what we do".
 >
-> -    /// Set the maximum size of a single DMA segment the device may requ=
-est.
-> +    /// Creates a handle for `dev` without calling [`Setup::configure`].
->      ///
-> -    /// This method is usually called once from `probe()` as soon as the=
- device capabilities are
-> -    /// known.
-> -    ///
-> -    /// # Safety
-> -    ///
-> -    /// This method must not be called concurrently with any DMA allocat=
-ion or mapping primitives,
-> -    /// such as [`Coherent::zeroed`].
-> -    unsafe fn dma_set_max_seg_size(&self, size: u32) {
-> -        // SAFETY:
-> -        // - By the type invariant of `device::Device`, `self.as_ref().a=
-s_raw()` is valid.
-> -        // - The safety requirement of this function guarantees that the=
-re are no concurrent calls
-> -        //   to DMA allocation and mapping primitives using this paramet=
-er.
-> -        unsafe { bindings::dma_set_max_seg_size(self.as_ref().as_raw(), =
-size) }
-> +    /// For tests only.
-> +    #[cfg(CONFIG_KUNIT =3D "y")]
-> +    #[allow(dead_code)] // Only used by tests of other, optional abstrac=
-tions.
-> +    pub(crate) fn new_for_test(dev: &'bound device::Device<Bound>) -> Se=
-lf {
-> +        Self { dev }
->      }
->  }
+> So personally, I'm not a fan of CONFIG_DRM_NOUVEAU_BIND_GSP.  I would pre=
+fer just the command-
+> line parameter.
 
-[Severity: Low]
-Both Setup and Handle document an "# Invariants" section, and
-Setup::configure() includes an "// INVARIANT:" comment when constructing
-Handle, but Setup::new() and Handle::new_for_test() construct Self { dev }
-without "// INVARIANT:" comments explaining why the type invariants hold.
+At some point we need to give the option, but indeed we don't have to
+right now, if nova developers are fine with always providing the
+command line option then we could drop the bind options for now,
 
-[Severity: Low]
-Should Setup::new(), Setup::configure(), Handle::device(),
-Handle::as_raw(), and Handle::new_for_test() be marked #[inline], as they
-are small accessors/constructors or forward directly to C bindings in the
-kernel crate?
+but I know it can be annoying for devs.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123203926.1787=
-169-1-kernel@matt3o12.de?part=3D3
+Also distro will enable new things with no warnings to not do so, but
+I wonder should we do a default y option of NOT binding nova for
+allyesconfig.
+
+Dave.
+
