@@ -1,158 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795455123;
-	b=04ZfuphhPL228/uU7o/k2elPrF97HvO9dIkY/2b1ULxyKM9a/ceePfAjB1XiygpxjcC+
-	 BL4ffDxDkz3NLNTthd2UvM+/K9GLsLEqNbMcra8fTcXSKAz3A1fCsZjnG+OqkkZBWECf8
-	 ce/MnGH67maGlgXQYzgaJ9wN3PzDqh2nnpjPSY/k5w9yYVD+ueYElZ6AdP5BQeDh6yqqn
-	 P8uH1E5gwNnKML/uFPcZMrfXpZR8QDmJCGxET9sRl7Wxp+gxHuke9xRVoJHQk2xHRUItL
-	 hsxzEb9D4LZTZHmS0hhU+7d/NBQ5XbL1nbd6VDDiRsDYgffpMDoJPqoYhjMMukIUEYQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795455123;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 user-agent:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:
-	 x-ms-exchange-antispam-messagedata-1:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=VNaboaFCg4IhZ6hlC1mP8WCxDY9z64xQOVo5MJgqzjg=;
-	b=D8WmUgi48ENkt+jZY9Y5NvM0RCY9GDY/PRbFksjyiO/AMyk2x3NK77pKIvuFrrXUGKuX
-	 LrTxwgEXpJQgrt2sMST0WKGqnNUEvkzUIa0/0TNYJirfWa4ut9mct+FA5h8eLVjdbDqW/
-	 a4iADlSL8FsDjEnM7hKZnalpTl8qQyqHWjNuJJpL+9s1szj5X4p3JACqEYv6Qcv5+K4op
-	 /b1dNXJn+2a7to4wQrtdMQPZLAT/2NAqvE9ID0tiFpzxGRwzpWvGJRE6VAUxCIwL6kL/E
-	 JngZ5gOEWsPI/1RitezaNrmojrTT/w7NpEWIDtreRhyLZ3oHukHPAko2FFF0x9dae9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UPaBCBwk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.22
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010022.outbound.protection.outlook.com [40.93.198.22])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.203
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795466399;
+	b=IwwmuddHKyu1l3jJsPF+d/1mxrOogeaMBoUCPFYLcXjWx72t6JSjVD+jzwwGrupNpzeI
+	 t+vy5iLgdFLQ2spqmXoRGrfMrmZTwK4PHjg+ParWtECnSbKyt7K9hCcTxxcHr+E//M9Lr
+	 RE4Rx4AKb6cwDRjUf1CzOpG+gcKnahRVoZJkgh/iiM8w4hR5d65nVoVGy2LDpkIELhtCp
+	 WY56YxZ/fXc6xPqJgvLFwAxuAsgQdtvPh9QwMCWIoOZS9pJMV9iHXoxAAJ68WW99JEBZL
+	 I/5j47cNinNe1LHDTIxKkJS8j0JuFNj0QSyGFupmvlleQOJl5AuhXVzW78IQociqI7g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795466399;
+	h=DMARC-Filter:From:X-Lima-ML-UUID:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=9sRygfI478ReQS4jggrfUOfHyMsuPDOymzkw2vVTUa0=;
+	b=Zixmcq2Uoumdd13JKS//CndMqlxLXsDK/zcBvd7GQoleFxyr2MKqmgXKKfFlftrf1+aL
+	 5QXWlgio99+Dm+tz7XDJlxO/G5+n7pQWuAY6Wre+wVpSPhNfn1YMUhc/9khf4AQA1YN8k
+	 YqRJH9z7duyfjKfQcNDfF0Mir7D3H008p0khlykMvW12vd97/+SfCQhgzfr+3Oz7JvuAj
+	 NpFJeGEqUNvAcE9pyg5leb+BTH2UGO1ySnMqQkcuKdSgJ2xYgfYQFy/Hu8IhEHyQI4jJ6
+	 xkx5dYaTvzTVHI4R/x/QL4fWoImdbsg1pmuXX4fsZgHsAcSxI7fc1xY7ZGeTi26Wgog==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=matt3o12.de;
+	spf=pass smtp.mailfrom=matt3o12.de;
+	dkim=pass header.d=matt3o12.de header.i=@matt3o12.de header.a=rsa-sha256 header.s=securedbylima-20230709 header.b=XB19kjQM;
+	arc=none smtp.remote-ip=91.216.248.203
+Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de [91.216.248.203])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6744A606A33C
-	for <nova-gpu@lists.linux.dev>; Mon, 23 Nov 2026 17:32:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6744A606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA133606A321;
+	Mon, 23 Nov 2026 20:39:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA133606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=matt3o12.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matt3o12.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UPaBCBwk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vtw7Swpy+lWpQBDGoUy5IWCHE7GNfBZ3S5Q9XOGKkhpx/cFd//XvNiGUT8WUpiTWCQ0D1KYHDHSvLlnyAIbP6vZxkyTBwR0YmwbZZ9TgTU9TMrtDndsoYC/1rHhseBrbzoH/slnBf+sAdRRzmV506ox0NtPlOWjkI58voz1uL3t4SnofBmtALeBlSQGkDJdz1DeLLFMSgTgtxqWKNXKEUU1M7LPicU/civBo44sL9I+Y4pDBE0qmWfpAstgdJCZkdwgZ45kr+PENyJDeJQjp2lDdKxPjWB7LxKs9do8YqkQ3/+Rb8x2f9DBIqxIglZkOzcWLdkfhH+ckG22Vt1OEXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VNaboaFCg4IhZ6hlC1mP8WCxDY9z64xQOVo5MJgqzjg=;
- b=rmHkQXkceDgktREQHqTKeK9P2vaNMOKMdE0XBDOOQ/Qbvnrb8Dp1Ymd8/CkYI6JT/ve8Zx3hm4ZpJkmPF0FKhrwi0cQKMD7wrOAaGq36hSozVWukrA2/5bu0mkQY0oejH+dJJlevlGsXEhVppiLnlGEpL7VHUXn1WcVELKzOflatdLYGmwnbc2uUAJhzgdJYB1Kz64WKpAlkftRpv0AcvWG7vSfq7YKBWTplRjCMVRDEar0l0G/zpsHiTN6RXMf2/qmTbkt4h4LapdfMwTcIBMaDpdlD8UjnBxMufzXxJm0sOQK5iO+V0v5RB+QoEUcU8SkB0Uc4TS+/vBcCe0RCyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VNaboaFCg4IhZ6hlC1mP8WCxDY9z64xQOVo5MJgqzjg=;
- b=UPaBCBwklWUuN5qcvGmIUrkBs4YO4ouge66hH+Ct2ymMt7ZCj/vAPg7rvtnjNwAf9/6ubeeQDOoW3Liw3HaUG9+Jb0onRyvgaDb15b5m6g0PuOroxFybt1aDYXERm6bjWfAN6MhdVT5MINRbgzYmW/bTslYFj6IlGezREMUc3XYHYvwYijmpTJbY3Cx1NLig0OyYhO3vIaOkI2fFxZKNp6crh8RyZY1x6sf3Vy6hRrsswk09fE0lskcosNTzuBnq+jTKdE54cX+b54r6XIuU9JAlu9ndV3HARw31phj730g9LHqFuo/doqY/dOCIqJ61HXU5Yiw+xt7kUgM4TU5sNw==
-Received: from MN6PR12MB8568.namprd12.prod.outlook.com (2603:10b6:208:471::19)
- by CY1PR12MB9581.namprd12.prod.outlook.com (2603:10b6:930:fe::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 17:31:57 +0000
-Received: from MN6PR12MB8568.namprd12.prod.outlook.com
- ([fe80::f13:fa29:e7b3:4d3a]) by MN6PR12MB8568.namprd12.prod.outlook.com
- ([fe80::f13:fa29:e7b3:4d3a%4]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 17:31:57 +0000
-From: Timur Tabi <ttabi@nvidia.com>
-To: "airlied@redhat.com" <airlied@redhat.com>, Alexandre Courbot
-	<acourbot@nvidia.com>, "lyude@redhat.com" <lyude@redhat.com>,
-	"dakr@kernel.org" <dakr@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
-	"nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>
-Subject: Re: [PATCH v2 2/3] drm/nouveau: add option to leave GSP-capable GPUs
- to other drivers
-Thread-Topic: [PATCH v2 2/3] drm/nouveau: add option to leave GSP-capable GPUs
- to other drivers
-Thread-Index: AQHdevV1CeKNg9t+Gk61EwGujWgeqrc76ycA
-Date: Mon, 23 Nov 2026 17:31:57 +0000
-Message-ID: <617a6fcc6a541f27351fb7f5abe21fb89553438a.camel@nvidia.com>
-References: <20261123-nova-nouveau-gsp-v2-0-5e8c27aa8555@redhat.com>
-	 <20261123-nova-nouveau-gsp-v2-2-5e8c27aa8555@redhat.com>
-In-Reply-To: <20261123-nova-nouveau-gsp-v2-2-5e8c27aa8555@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.56.2-9 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN6PR12MB8568:EE_|CY1PR12MB9581:EE_
-x-ms-office365-filtering-correlation-id: 3744e417-c74c-4966-7c39-08df4987acad
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|10070799003|23010399003|366016|1800799024|376014|38070700021|261026121527099003|10067099003|5023799004|11063799006|56012099006|4143699003|261026140227099003|261022105027099003|261028144727099003|261102123227099003|261022075727099003|261021135927099003|261021121427099003|261009223027099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- 3bRpWOZlcOtuk2RB46HvanXItTD/dm+ql8hd2OzfLdeli6+F/omjqM3IoaJJuNtdR9yGbH8aimp2L1brxY/WiXSVurLai34jPHQM+qy4Y+4bZeaFFhG9pV6SjLx9h+J4Nxk/LrSWdq7AbohFgs2K3Md0DPCEW3KMYLU+0HuWlx76/FnHo6w7OEu4kmBJV5pq3kcNTqp5lIzDlJAPmzTftlsVL/MUXW3S/m5UP4BlsTMnYG+CQFx43zemumohSUH+lyceQZ2x+AJhErQEPMPlpDoww33ePQie2EigS/ItKGQcls6aD7Psk5Aarpd+e5rP4d6PffUgyHjdaYUv/76E5cBSg+JTniv6zhrixPF/DBTQ2CKwpETwZR0VSO81Iy0vUhc67zPlAiZRY3abR9WyYrCpaiwIg+KZnKdbddFSvveSvn34BuLnkzm51aPAIHyyBF79f/+skVOUEOGBxXuK1nay4uohzq2ZcQ3lVjoOosog0DIsaKuR2belNl6hU6uCu/hWtm1qYDqWO3JKS2V1SMijMk81oQMOzXLI6LD97p8TkXIJA+gbZuLhZ+RcPKsxcY+8dHDGLtjcJYj3zwm/pZlIvkEGKP+Uvp/Yf1EJjwygYF+GYKOtJHd/ImMGthbAoMQlARhfZHGoJkQxaSiTb+4eDNmRz8MwLak8MB6DbRlbk2zz90R+/qyJt8gjxkjjyVRr9GZUutEKSuz6/ZOBhsDaTE+rcyElhTrPjGpWs4Q=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN6PR12MB8568.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(366016)(1800799024)(376014)(38070700021)(261026121527099003)(10067099003)(5023799004)(11063799006)(56012099006)(4143699003)(261026140227099003)(261022105027099003)(261028144727099003)(261102123227099003)(261022075727099003)(261021135927099003)(261021121427099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ZktyUDUzWlNGZXVzRzQvTmhZK2EyT29JL09yRHl3blVjS2l6VlJCOG03S3Jv?=
- =?utf-8?B?K0xTODMzUGYwWnB0UDdhbFU2WGpVcUJyUjF5ekdodkovUXk1L25xRlJ6ZTg5?=
- =?utf-8?B?MmplUHRpd0pBYndMYW8veUtFQUxJNzdtdG5sQU1VS0dhSm0ydllHNVBrWFdk?=
- =?utf-8?B?bkFJaEFKeEdIbUNsT2taN2ZNUnA1SUkrVmxJUEdLQXJsUHc2Q1JMUzhzWU5a?=
- =?utf-8?B?L3BTTEZpMktJL2k2ZWdJWEhNdE5uZEprZGxmdDZrN2xlTFlEZEtOZkhKclhH?=
- =?utf-8?B?TW5ONUt4V1U2OUQ0T003ZWEyMFpBdWRBcjg4cGd0V1VwK0d1Q1V3OWdHNWpy?=
- =?utf-8?B?NnJQS08wQnhid1dteGx1SldZVi9XVnJIckdaTDlIUkg4cFlvSG1UenZJbnFF?=
- =?utf-8?B?VnBqdDNzWGVOMEhVd2lnT01mcGRBaVVIUWV6MmcxdkI5L1VCZXZTblpwZ0tq?=
- =?utf-8?B?Wk80UXY0andNdGw1cXBNT2VGUzd0U29zRjk0eHE5SjRVVlBKZW55ell6MkJ0?=
- =?utf-8?B?ek1BZHc1UjRmQWVlMU8rb2dJTktpZGNxbGsvdm84NzdrTFQ4UFFnY1FoZlNp?=
- =?utf-8?B?cHo3TzdJaUtqdWF1Y0lQZndJdHYvRHgram4rTldKVnVaNExhQUlCbVdQTXJY?=
- =?utf-8?B?c3lxQnBUSGh3QmZFanJrSTZHWkhaSGc2VnBGaFpPTUh4NElCZUROcVQrNTh5?=
- =?utf-8?B?ZVo4bk9jTFIzTFc3RXoxYVdIMTlyeVJzWVdQRjZvQzdacmVqNzEycTZWWkk0?=
- =?utf-8?B?T0JoR0NUQVFFaGtSYWtRbzlncU5rS3Z2b00vUmd4YWs1NDhjR1B5aEhVYndr?=
- =?utf-8?B?V3k3eFkzUjh3T3QwKytjR0t3b25ET1NvODVmSHY4Y0o3TWcxNUNUSThweHM1?=
- =?utf-8?B?ZUdMdUt6WWQ1blN3YXZiZ1dBKzZaYWdFY2dsT3JPT1F6NzN3bU9TNEN3ekhK?=
- =?utf-8?B?NnZxZmZISis1bVp4N0daUHpNWUZWaGFlQ3FHR2lPRXowNGU3UXQxV2Z6MEYv?=
- =?utf-8?B?Ym1ndmkzYlRrekxYRUV0cG85bGg1bXE1eXowVWo2N1R6YjFnM1F3L1Vzd0tS?=
- =?utf-8?B?OTkwQ0lEZUZFVktnV3Y4MWJNdW9jQ1hKWWRNakFxOG9XUUVmU2txSFVoSk9a?=
- =?utf-8?B?SWFPU2JQUW5QTUNibTRtaDI0ZWNaUEdIK3NGZVVJWjZQRjkwV3EycE54NmIy?=
- =?utf-8?B?QU5aT1JPSHFIak43Rnk1NXlCNllrakpCbkc5WWlJcTNVNExEZG9UM291Zyts?=
- =?utf-8?B?UkZkMjlZc1hiSUs4NFFxaTUyZVdmQjQxUkkxbGp4aWdJanBMMFl4Ky8wRVp3?=
- =?utf-8?B?YUxESzJuUHJ3dVlqZC9kVnhNOEFVQWh1L0g0RjJrbW9lZ3B6QW41VEdTZzdz?=
- =?utf-8?B?Ulp1RHdOcDNucGtEdTA5eSt1Q3hHR1dRd0VFcnlScnc1dDdIY2FwcEZzcEU4?=
- =?utf-8?B?Z3R5NEZPRVM4UVU1blFnM2I4cmZISGtscFpCY284VFh3UnpEejlBaldOaWhI?=
- =?utf-8?B?Rm5wRjdOVzh6RkdzQlpMeVpQK0o4aGlKaDFzcjJQVDUwcjRjRndaUHNrb3dQ?=
- =?utf-8?B?M1VzTHBRbVYxV2d4WU1DSXpNQUNTRjFJdjY1aXBrTkFQSXlGRUFiZUg4VFNn?=
- =?utf-8?B?Vzh3U3R4czVSSWd4czVPbGxGOFNBNTN1b0NMOTZaMWdEWEJ6VDF4eS9zb3Bt?=
- =?utf-8?B?TG5DMDNqbmFLK2pZT1FyQnMyM1c5UXdXWmVaSm9kdHZEUDQ5QXBhUG1LL3NE?=
- =?utf-8?B?aVF3Mk5MckJIenRVQVdmRHpxNzRlaUdDTXcwb2thWjBNbFVvK0kyeVE2SVdF?=
- =?utf-8?B?ZWdZME1ab3d2OEFmRFVVazZ0NTcwUEtTRVF2QUtIWnA3M2QvdUUrL0VWU0pJ?=
- =?utf-8?B?SzIrbEtlMlJZZXpOQmFzNjBrcUdPOG04cGU1TFpGeEdoR1htSjZhUmJzZnFY?=
- =?utf-8?B?M1B1cUF0ZUtDVWJlWXVsTWo1dmk2cUtQbmRLWDd5dG83ZWN3ZDE1ZTNXQ0VQ?=
- =?utf-8?B?Z1EyTENKYVc1akNaRzdDNmlCdjlJR3BNNGRnanA5OHg0MDZ2T0hKWVpRSGxz?=
- =?utf-8?B?dU4yakw4eFNJTVZvcGNUQ1ZuclBoYVRZQWtnbjJ4c254WHE0RUpFVURhTnFx?=
- =?utf-8?B?L0VIaGdsWXBvWm5UVVFUcG9OdURlRUZkNzV0VDljQW9mVFJWMTRGSEEvZTcy?=
- =?utf-8?B?NWJCUEk3KytncnBaeDhHNjJRY1VDbU9kSXZPdTNNRm5rb3dtRE1XalByUkk1?=
- =?utf-8?B?a1N1QUcyWWRDVnJRR1NGV2N1VzBDR3lDMkRuWlo4WnN0U1JhbDh0SW9jWVVL?=
- =?utf-8?B?bHg5YjJFeDlmKzdjanRTY1g3MXJIQmx0MUtQTzVGN1pGRjBoRDBaNDF4VnQz?=
- =?utf-8?Q?k71d8jr4Zz5jIXVX5+QZW2g7pfVOsM2pLCgKhH/wp8esa?=
-x-ms-exchange-antispam-messagedata-1: j6QoB9nUL0UBEw==
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <22C60813CFC2E2499FF63D559AF246B0@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=matt3o12.de header.i=@matt3o12.de header.a=rsa-sha256 header.s=securedbylima-20230709 header.b=XB19kjQM
+From: Matteo Kloiber <kernel@matt3o12.de>
+X-Lima-ML-UUID: 81470204-daba-453d-acff-0be0cfd12c6f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
+	s=securedbylima-20230709; t=1795466389;
+	bh=9sERvGdC+WVq6w/5sPGXEVVunS+nVPCtaCo9cY0jLE8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XB19kjQMutSa+j7g+dgUGuSi9cb4aLGdx+NxbL+etQfWT1U4lhXSzbr0pTBO/g1bj
+	 Jrav7AG1bUsIPERTEBMYAnPrAmcF5BF8XbPHlxZmNSu58kOQ3KPMQYucequ3XxWkbl
+	 1Gwhw85+ADfMMJjLzFZxzLbXn+yyPZe4Yg9spZq0mXhCfbPgLGlkrWj3iHLniDqEvj
+	 om6KaaGVQt5cGifXnnc1BkE0kp/61640dxqxKJXujkdRLGyXw69cpdHFA2PVP+jplo
+	 ZaOmzawBtbR2fmAEVWV/7kkkD9Y5kzapCz8u62l1c6P8FC75m3rdytSN+GYqDmKpna
+	 zLJZu4Idy1thQ==
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Gary Guo <gary@garyguo.net>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	rust-for-linux@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	nova-gpu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Matteo Kloiber <kernel@matt3o12.de>
+Subject: [RFC PATCH 0/3] rust: dma: require device configuration before DMA
+Date: Mon, 23 Nov 2026 21:39:23 +0100
+Message-ID: <20261123203926.1787169-1-kernel@matt3o12.de>
+X-Mailer: git-send-email 2.51.2
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -162,25 +77,127 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN6PR12MB8568.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3744e417-c74c-4966-7c39-08df4987acad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2026 17:31:57.6101
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8w/ZkYX9PcUSASpzgvuRVxcbp/iVXLrDUupnQWTUb5hv33ouBVaDERcuIS8KWdp2gN3PyEDyV8fGyyVvEQJOUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9581
+Content-Transfer-Encoding: 8bit
 
-T24gTW9uLCAyMDI2LTExLTIzIGF0IDEyOjUwICsxMDAwLCBEYXZlIEFpcmxpZSB2aWEgQjQgUmVs
-YXkgd3JvdGU6DQo+IERpc3RyaWJ1dGlvbnMgdGhhdCB3YW50IG5vdmEtY29yZSB0byBiZSB0aGUg
-ZGVmYXVsdCBkcml2ZXIgZm9yDQo+IEdTUC1jYXBhYmxlIEdQVXMgY2FuIHNldCBDT05GSUdfRFJN
-X05PVVZFQVVfQklORF9HU1A9bjsgdGhlDQo+IG5vdXZlYXUuYmluZF9nc3A9MCBrZXJuZWwgY29t
-bWFuZCBsaW5lIHBhcmFtZXRlciBzd2l0Y2hlcyBpdCBhdCBib290DQo+IHRpbWUuDQoNCkp1c3Qg
-RllJLCB3ZSd2ZSBhbHJlYWR5IGhhZCB0byBzY29sZCB0d28gZGlzdHJvcyBmb3IgYmxpbmRseSBl
-bmFibGluZyAiQ09ORklHX05PVkFfQ09SRSIsDQpkZXNwaXRlIGFsbCB0aGUgd2FybmluZ3MsIGJl
-Y2F1c2UgInRoYXQncyBqdXN0IHdoYXQgd2UgZG8iLg0KDQpTbyBwZXJzb25hbGx5LCBJJ20gbm90
-IGEgZmFuIG9mIENPTkZJR19EUk1fTk9VVkVBVV9CSU5EX0dTUC4gIEkgd291bGQgcHJlZmVyIGp1
-c3QgdGhlIGNvbW1hbmQtDQpsaW5lIHBhcmFtZXRlci4NCg0K
+This is the RFC that came out of the max_seg_size discussion [1]. It
+implements the DMA setup token Alexandre proposed there, passed to
+probe() through the InitTokens struct that he and Danilo suggested in
+[2].
+
+A driver now has to configure DMA before it can allocate or map
+anything:
+
+    let pci::InitTokens { dma: setup, .. } = tokens;
+
+    let dma = setup.configure(dma::Params {
+        streaming_mask: Some(mask),
+        coherent_mask: Some(mask),
+        max_seg_size: Some(NonZeroU32::MAX),
+    })?;
+
+    let buf = Coherent::<u64>::zeroed(dma, GFP_KERNEL)?;
+
+configure() consumes the token and returns a copyable dma::Handle.
+Coherent allocations, SGTable::new(), IoPageTable::new() and the shmem
+sg_table() take that handle instead of a device, so they cannot be
+called before configuration and the parameters cannot change
+afterwards. The unsafe dma::Device setters are gone. Drivers that do no
+DMA ignore the token.
+
+- Patch 1 adds InitTokens to the PCI and platform probe() signature.
+  It is mechanical and the only patch that touches drivers without DMA.
+- Patch 2 reshuffles Gpu::new() in nova-core so that patch 3 has no
+  reindentation in it.
+- Patch 3 is the actual change.
+
+Design decisions (feedback welcome):
+
+- Params has no Default, so adding a field later requires updating every
+  in-tree DMA driver. Because the kernel is a mono repo, I think this is the
+  right tradeoff. It forces a deliberate choice between None and an explicit
+  value for each driver rather than silently preserving existing behaviour.
+  InitTokens is #[non_exhaustive] because most drivers will not care about
+  unrelated tokens.
+
+- configure() consumes the token even on error, so a driver cannot retry
+  with a different mask. dma-api-howto.rst states that drivers should
+  fail probe if setting the mask fails, and consuming the token enforces
+  that. If a driver ever needs to probe supported masks first, a
+  separate query method fits better than returning the token on error.
+
+- Only PCI and platform probe() hand out a token. An auxiliary driver
+  that performs DMA on behalf of its parent should receive the parent's
+  dma::Handle rather than configuring DMA itself. No in-tree auxiliary
+  driver needs this yet.
+
+- Tyr keeps its current segment size (max_seg_size: None, with a TODO).
+  Panthor sets UINT_MAX for the same hardware, so Tyr probably should
+  too, but I left that out to avoid behaviour changes in this series. I
+  can either send this as a separate patch or include it for the final
+  patch.
+
+One limitation: DRM C callbacks that map memory on the driver's behalf
+do not go through the handle. For those the ordering is documented on
+drm::Registration::new() but not enforced.
+
+Every patch builds with CLIPPY=1, and the Rust KUnit suites and
+doctests pass on each of them (x86_64, QEMU). nova-core and Tyr are
+compile-tested only.
+
+An LLM assisted with the design, implementation, including writing all comments
+and text. I have reviewed all of it.
+
+Based on drm-rust-next.
+
+[1] https://lore.kernel.org/DLHH0K25NLX5.616R4D860TXU@nvidia.com
+[2] https://lore.kernel.org/DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com
+
+Matteo Kloiber (3):
+  rust: pci, platform: pass InitTokens to probe()
+  gpu: nova-core: build Gpu inside pin_init_scope
+  rust: dma: require device configuration before DMA
+
+ drivers/cpufreq/rcpufreq_dt.rs                |   1 +
+ drivers/gpu/drm/tyr/driver.rs                 |  18 +-
+ drivers/gpu/drm/tyr/fw.rs                     |  11 +-
+ drivers/gpu/drm/tyr/mmu/address_space.rs      |   7 +-
+ drivers/gpu/drm/tyr/vm.rs                     |  28 +-
+ drivers/gpu/nova-core/driver.rs               |   4 +-
+ drivers/gpu/nova-core/falcon.rs               |  13 +-
+ drivers/gpu/nova-core/fb.rs                   |  11 +-
+ .../nova-core/firmware/fwsec/bootloader.rs    |  13 +-
+ drivers/gpu/nova-core/firmware/gsp.rs         |  18 +-
+ drivers/gpu/nova-core/firmware/gsp_fmc.rs     |  10 +-
+ drivers/gpu/nova-core/firmware/radix3.rs      |  17 +-
+ drivers/gpu/nova-core/firmware/riscv.rs       |  11 +-
+ drivers/gpu/nova-core/fsp.rs                  |  20 +-
+ drivers/gpu/nova-core/gpu.rs                  | 241 ++++++++--------
+ drivers/gpu/nova-core/gsp.rs                  |  19 +-
+ drivers/gpu/nova-core/gsp/boot.rs             |   2 +-
+ drivers/gpu/nova-core/gsp/cmdq.rs             |  14 +-
+ drivers/gpu/nova-core/gsp/hal/gh100.rs        |   9 +-
+ drivers/gpu/nova-core/gsp/hal/tu102.rs        |  24 +-
+ drivers/gpu/nova-core/gsp/logbuffer.rs        |  23 +-
+ drivers/pwm/pwm_th1520.rs                     |   1 +
+ rust/helpers/dma.c                            |   6 -
+ rust/kernel/cpufreq.rs                        |   1 +
+ rust/kernel/dma.rs                            | 264 +++++++++---------
+ rust/kernel/drm/driver.rs                     |   4 +
+ rust/kernel/drm/gem/shmem.rs                  |  23 +-
+ rust/kernel/io/mem.rs                         |   2 +
+ rust/kernel/iommu/pgtable.rs                  |  24 +-
+ rust/kernel/pci.rs                            |  20 +-
+ rust/kernel/platform.rs                       |  20 +-
+ rust/kernel/scatterlist.rs                    |  20 +-
+ samples/rust/rust_debugfs.rs                  |   1 +
+ samples/rust/rust_dma.rs                      |  18 +-
+ samples/rust/rust_driver_auxiliary.rs         |   1 +
+ samples/rust/rust_driver_pci.rs               |   1 +
+ samples/rust/rust_driver_platform.rs          |   1 +
+ samples/rust/rust_i2c_client.rs               |   1 +
+ samples/rust/rust_soc.rs                      |   1 +
+ 39 files changed, 514 insertions(+), 409 deletions(-)
+
+-- 
+2.51.2
+
