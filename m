@@ -1,107 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795511172;
-	b=cRxhW8hDPEaxlBBgc4EB5YeoU6B60RYK3z1LTuxmxV4/xohDpMNZLapALogB9RYGrz47
-	 lSQEn28s3soGUZqOfitYhaWHs3DqMbc904smA4kILMcImO+pQI173IbtzAyLZ6pRxv8K/
-	 LmEnk7raEyUCo96W5SBSznrYKY9GOHeZUO5YBb5uDGGjA1h9uboceccVhGamn1XWijApC
-	 53MqCzPUVuAr1ETojGlYpxnPbur0x63BfZgnS7NZQaGVXydkUIO/NUIeZfEXHOosPsIHh
-	 nGZZZfOz7fDqf/eK4OqClKWjCIuYoiz2l9nx5CUN0Zf1HBZfIcVo+wWgPmJAkYdEoEA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795511172;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2kGcBOx6s+pYGLZw2MTWJ8i6+2dz0ngn8tGR103AcNs=;
-	b=N9ZdUJX+ghiMyi1iM54dNmrRvCgQtybqMmGtUHWT0xHXFAHr4kQLZR/81wKd7bQSXzRO
-	 XIuuEox39iUWpvPBT2qEYGNK+cHZpiII/9sFI9/QZ7QVYCXpo6KF32M9dKc98qZE2NKS9
-	 sm6Sc8GMl5ugHGS89aBhFzNyn4+CrFPPzCmDYfYBl/aGRkIC7pursiZSi9SOR74YxmUeN
-	 eoLvba9bTDILjO6vP6uEO049YRIqiOX0bngJOU+WXmwrw3oEDHVCcZSC1JO+qoNyk+wPO
-	 INzt/EO7++NPbmOZfy2ZeRSLA+KPc/UrxE4Bo8SSH5nwlaBBoIpvW3BXi1SEGZKoCbA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VWkPthUO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.13
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010013.outbound.protection.outlook.com [52.101.201.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795520285;
+	b=EpZyX/1dySY7rhCOGVwOeYgDCOWbdC5471kIv6OYvcKeZTl3b+WxEsv3Q8m3I87b+UVX
+	 26Z0Dwnl0Al3G/R97X9y2ey9qW0HHX5Uci35HE+uhmwClKNHzGI6rlNxBtHA6UrJzdI+G
+	 3RjPZ9yK3j30lnZ8H6ZmY4tfcURXHUbZgcba7813uxtdmmexQRvOjViENaEURlwvge3xR
+	 p/ysrR4npYNVHboT+EPX0pogex2yKcZgZuSHxWlvNkk9hvAJOYm/OBk+U3hfm3z3xl5Q0
+	 H2/yEadS5LkrYJy7gWhl3siTgG/kyIBWpFNLqByT9Z6e6qu+pS+gD1dg5HGbiqKDiPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520285;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=C2944LViUXuhVQQh3kuRid+kOVXNWADbSL1+qewM1/U=;
+	b=czDxhePBhea3Gc125cEqwQ444ndbeWutXXYH9xDMH54jiAR6tL9iAdeWvKcrnzZFhxFI
+	 x3NGdgmbaU5+kL+3Cays7BKN2QLOhNehNImCisErXVJ+RZwRrnEnI65btVmsSLprQh3+i
+	 Rj9Nwgg/cUSvwSwVAf3EDh2eQ7LIPIQ5a1K8SWE9ePxVqSDU9B1ZRTx/0sT4J+lizrdlZ
+	 Oh5mM1HYCSg/1IZut1hdCFkvEmDbJtkdnodN77m88VIadYXfz8pGZ4XI9Q9h8cPWDtjmi
+	 0gy4fcH+wxrNLXqT+Pz0Wm43MWgpstVTavadh9rgDC1tTwmkOcQf7jNNYQRuNYMYznQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm2 header.b=XxFmsbPn;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=2Sc5ife0;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB847606A335
-	for <nova-gpu@lists.linux.dev>; Tue, 24 Nov 2026 09:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB847606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B44606A31E
+	for <nova-gpu@lists.linux.dev>; Tue, 24 Nov 2026 11:38:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1B44606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VWkPthUO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LXbNCExuIJ+tN4B9Yp05ot+RN3zxHMBb1PcAvi2yMnHG6hJ1XQKtUfqCo33QR1IY9bJqjiZLqZGD7ZmqZgWpc3SZoNWnocwgDuvDS7x7hVsftsai3hs9+rR9nmc+AUtBxJUSD3nydoSThc5RLVXwo5SRry+hX3KKYZm0tdIPcpiGvDhA/kBUFiUl3HUFXvaoBYwr8jUstD23TdJiucAlDErgDToIMWJlHRhzRobBDmuaaCTfmab6JDurLhlcQTp3bo78GqlRmW1RBmR4rpzmX3moo1bxzEidm/CU1kdGcqo07T6rhIZhnLO3xAh91dugAqAxVbR78MPE+JEprW7tpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2kGcBOx6s+pYGLZw2MTWJ8i6+2dz0ngn8tGR103AcNs=;
- b=EgS9hGtEjS+fHWLoueX5oGOU6NNIMfAqP56BuLSsHZiSPAhifPFq/+kNLBeMKdiSTO1Eoi98Ejw0H6/KvLdR9F7Kpqg3NIjG6myIRhrD71d87gme5MndsZTi8OV/hF4u2Pjx11sa2Pf1qhYsqQDsf8DHaweWUgEtn0StpeABSgVxDu4doYdDPmhoIUA32wE9N7iCyDKcn+2QOCch4cEHQS/oGlR6uTTH/7zgKPgstnTHJhG/oNGXreBFbfBxi6kUz/b+WKkr3I685zoClwNDPip/+xw0Fmbtj4Yj0w4UcCkt0iN6LTIX6ODxam1j0UXmeHWwHymwF+gm5LDvOnXhhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2kGcBOx6s+pYGLZw2MTWJ8i6+2dz0ngn8tGR103AcNs=;
- b=VWkPthUOXrQXcThWp7l3H3vIcUrRIVEmGGicgvlkWf7IhipZBcOnUf2DpLK5Y43FVWaoGsb6ZFh4vVBs7ZuOvnSBS+q70oUp22XUZSXMsB2tstqT/e0x1tKNfCOvIOw1yd/HpTWywLhdq4FoCWdiu+AuxCekB3ru98goitcJ/bj5etL+UmTJ5eFXhSMgCk7iOUKhgfrazB6uBYzwpdTLcV8Ckind1a0/mmp5KByaRw1jSbwqcfwqkmHrMTMqAEc113lJ2dJW/BJ1ksowgO4X4XpkUxq+t4sHcPPjYYY/y01XoGEd7sbS5hfz2BVnn55yw472rzFGR9rGYpANJC8Wrg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MN2PR12MB4374.namprd12.prod.outlook.com (2603:10b6:208:266::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.13; Tue, 24 Nov 2026 09:06:05 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 09:06:05 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 24 Nov 2026 18:06:01 +0900
-Message-Id: <DN3BL4DRGG7U.2A12KL88FS1C5@nvidia.com>
-Subject: Re: [PATCH 5/9] gpu: nova-core: gsp: fix resume_gsp_rm()'s error
- messages
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "LKML"
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261120044704.165223-1-jhubbard@nvidia.com>
- <20261120044704.165223-6-jhubbard@nvidia.com>
-In-Reply-To: <20261120044704.165223-6-jhubbard@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0126.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::10) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm2 header.b=XxFmsbPn;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=2Sc5ife0
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfout.phl.internal (Postfix) with ESMTP id 06A04EC0D02
+	for <nova-gpu@lists.linux.dev>; Tue, 24 Nov 2026 06:38:03 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Tue, 24 Nov 2026 06:38:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1795520282; x=1795606682; bh=C2
+	944LViUXuhVQQh3kuRid+kOVXNWADbSL1+qewM1/U=; b=XxFmsbPnSvL8zEpKB+
+	X1EAioPRPkPih0oi1sRXvKbRg3MZWWzeHWputww4C+6VNgtzgSTcElo/k/x4f3n9
+	LQfTl4XfuaXQbjFADR/Zjaab7zMIF/+okEwAzuYcmGD2x6AFMNY/gaRbZB3HLzeV
+	D7ktELfgqj3u3cE+xqcLIy2S9uHqK4rk+qojPsoi5xVJqEVhkoCmHxJ6hvNaWwUB
+	6r1fAk2hFxWmp5gG0I0i7Kfihj8PSAKL98n/7ut5LC39QJPjWZzBJPm8LEwVTBRn
+	aqXnDYzUummRP5WpsuTwnaZrVQiquFgG7FqY0GfoPYW8dXXBGxmoCYzM5sPCSQAJ
+	COOQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1795520282; x=1795606682; bh=C2944LViUXuhVQQh3kuRid+kOVXN
+	WADbSL1+qewM1/U=; b=2Sc5ife0/rBQw61D4zzt6f3xguyv/CtLxTPklFJxZSVa
+	ksDd3ux+p6gY+S5rYpNL8B7GY5kehEZOx2TxQUBe7Dc5LkPiPCH4JWNCtlW2ut5a
+	RBM34QgSzjbYSq0ijC1nZkKxvTtRxzaZWmsn361c+N8qHSuUitFyOZpwkivGIFjq
+	7SzvQMd+gAejkwi+g/ybT3e4jnbAd2abTk2IPGLn4erbRetC8a+57anVSQRW8uwI
+	/c4znQowF6oGwlyqhhHM4pBQi1dYmqvnOO4d3Uh/YLtArFfJ+Jnu9uKsdUwTMnDm
+	YnNZmi25I8y8rAtk84GSOpYX4VjDO5om3xqpAOz7Rw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795520282; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PG5vdmEtZ3B1QGxpc3RzLmxpbnV4LmRldj4=;
+	s=fm2:rsa-sha256:L6y9v/VJPkTyUYEQVTrkabHcwQQyzwn3qUducWY93tVwzu0
+	y/T6l3rkDC4fThT/sCj8w6f91x/0sKUa7O+DtWB4QqKstgdONWPMQA5PLq7zCyle
+	J2TXZy/mBX2odUAm9hA/6/AWyUONwNyLcn+3q6HiqK3IMEegI8464pttoVroM/y5
+	O1NozUy7HAu98BW67sgn90U3QADlrem27BjN9LGJ9jXPzor7NAPShI0zvb53v1+d
+	zOQ/967fCRNBsdM9d77E78RTQGbw2KoxsmuMVewuDgGrS+dh3lZZP5kxPH5lsE/G
+	CBulYhwX5U1YhWkl/wT83cp0vEN0lqUTb4uCBDg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:eFleW6nXxJ0WQwxPq1NVe/Lz93xgini0zo4V8FF1FP4=:qYSEWd0wxgi54NJUMvMh6kG2mgQyLWUBWOf9eqbDruQ=;
+X-ME-Sender: <xms:GXcFa-1uIYtC1wTWcJbkYriYpBbmjDsGLZrwWQWYehiu8aJElnqbSQ>
+    <xme:GXcFa4mAWMezIkcbZrjrk85Kwt4EICNWX10_JkHGONivTyl1irY5WtJR55QkD5p2-
+    JZYzE7eJATD6qg2vlejgwkBYlYmOecNKviGfbLcmWHI7RsXKX-18jbA>
+X-ME-Received: <xmr:GXcFa8_mGTq37CP9cAe_Ys834LcQHZd0sZ-FjQwG0J1hG1J8ipR3gFjPnAYLhJUXTrVzY8gD4tppdcDlEzTtP2qZLhqPCQ4umjHt_Q>
+X-ME-Proxy-Cause: dmFkZTEf2hY6aefQh+yq0RC6zE8mafYVbye9/UlL/rslaFef+HJfWsTWRAS0vDVfDG7Tay
+    qPW8YjgCfLUKQUXWLDaeNavdcPKkRFDaqBgdVGVhC577xxJ+yiLMj1VQK3oTLZwtzabwuE
+    clSkhL/Ej+VL9I0w6z2tLe1SekGho4/2Urb6cwYJo1xP+v14yIO6Lci7VZ14HEMdqRQHTu
+    ZbvO1Y8+KpGhvcSqwzoWATNgKJHs2f7uIN807iXVhFrhMc3JB8i739YoenmFP84uuwYAif
+    XDyFip2nIUmOF8fM8tCC3XhW2FZoPeBZdFqv/yAqf86BOMN+xmouDdamrvBa+An9QAeAke
+    zcX3Tw+Y0ArdAci/qQtO2QEllg0r4MkcZLnSTg9MsrvaZvchSnpRKrlyE7ri3TpQ1+Vv6T
+    IHCmnTw3Y9oR5cQhLqaxNnj8aOGt8PKrn/qHArloGNHEF6x24oezwFv7yuCu/zWOQVv5fO
+    xASQP6uIooNafXjQ/eVVw92LHBAy4B7EFD4VzfdfEho2xiZ8tFnJrRAGdrdtm+iHmiHDdy
+    lLHRLFxAhzhYaaibALoKlPSrqlFU9SibzlHpOsLfaXIJyQW46m0mA4OQ2n+vLy0f578CAV
+    W7TOIqi+z1vJGtRGr4r69B7lmv+ZWZq6BVCl7l/7lkTRTpiNxyR3Ygewxl1Q
+X-ME-Proxy: <xmx:GXcFa95J6prARl7TYLiYvDiAQ2CtxL-Hk9gx_iv8TJ5wUt5IlWvu7Q>
+    <xmx:GXcFa8LIdA715jt28MIxzFuvy302LVpByqu2SXKY-ws7TIc6fJi-eg>
+    <xmx:GXcFa9UZE6DIGxi21vlcsdZskWFnHBkFKP3gWD85jBoymcL3XSmIkA>
+    <xmx:GXcFa9JHbrzLFoISbDo_hBgcB42yUuxaQSXlMNf7kpDBjx4-INZUbg>
+    <xmx:GncFax_XEjxhb7_0MrFO8zDAhJrtCVkghMNjXNoazCo8GqcjO2PJ590c>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 24 Nov 2026 06:38:00 -0500 (EST)
+From: Janne Grunau <j@jannau.net>
+Subject: [PATCH v2 0/5] Fix import of dma-buf buffers as DRM GEM shmem
+ objects
+Date: Tue, 24 Nov 2026 12:37:42 +0100
+Message-Id: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -111,88 +120,111 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MN2PR12MB4374:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf7a300c-a55a-4732-47ff-08df4a0a2bb6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|7416014|10070799003|23010399003|261028144727099003|10067099003|4143699003|11063799006|56012099006|261022105027099003|261026140227099003|261026121527099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	RsDdzcXSHqqjkc4mHcxC+n6baNcf04QNpq2dUiWlgHdAZgMvva8AGtULQbAV2SgWDI9zVbAXoWXcGG8C1y4LETx7N7/VtkLTfjseQEs+fyTh+/pD6vl/7qGSm9TeTEGNhC/t1/TjWquPGyiMkY2XbtGJZBOzTn11MLJWk92lUx9yDWMOtZzVLvwlZuQGqID4qQoexQqTCdBAzMj/AdhpcbNF0uhN4C4BF0d8OHgRHry+h/yVXc+iJR6A6T2clNGmOmun1z9jld4jZ4h3kbf085r+diCP0Ku6oV7o9NZntyI+Rz0vlf1vNkyW/qglVXJqlyDwJ7UOTHjLMyxbLgvllnIz2lKvf1keQ47LTHVbe2/9SzxtfGzsptTg2tiONm6J15Bc039AVaIu73hu4H4Qd8s8KDWlScxWK3myEZU0aqBltsAGvQPsug57o8t3+Xz1QM3dCp7+AWWtE2rMwOYKGd6xdZcbsR/5IePr/dqeFEAAkAs7DtUeoXq21EQjGd2mMyz12Z5dT3yDtX/RWcmmo0vWVxGSnznE/k0RfMgBikOXcjeLT7jtF0CkWplgrzeXBhbfTRRON+ppHuLxMMPL3+aluKHy5Eo2GWU3APnUxD/emG8XMYjIyiofk1FWJoz4diYpxd3Oe2GRUorXTTnAqpLsra+E0hyGcY0FM/IrBlE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(10070799003)(23010399003)(261028144727099003)(10067099003)(4143699003)(11063799006)(56012099006)(261022105027099003)(261026140227099003)(261026121527099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OHlMbUV5UzlSRVV1RWZpMEpOd0MzK3RPUzlrUmwzWEZXaWRQcUh6TXFiL21L?=
- =?utf-8?B?blI4OCtDd0V5UmxPZ3p2ZFVpeHVkbXZTaWRwS2E1VjRJdDIyaVluK2dBdTlV?=
- =?utf-8?B?SzFXRUFSOGNFMlRKSmdSWVpEOGJHcVo5L05vK3hSR0RocVlsSmdZYWQwYUsw?=
- =?utf-8?B?OXpYcTdjVjI3bHMyTno1UEVESk9udXJTRGtvVkNyZS9VRXRBYzRJaGpaZ0Jo?=
- =?utf-8?B?TkpiaWp5VFBaSWlZU2Nva0czYTNHNFdMVkZKRDFrZWI2elc4KzVlSGtKNUtS?=
- =?utf-8?B?emh3bCt3dXNVZ2YwRGhNdjlhaXNKeTBiRXQzUkVNRWVQVTFtYlFQQUZIRlVE?=
- =?utf-8?B?NW1idkNCNEVxeUU0YVVxdHBhMGVXUDlkNTl1YzVhMXFQb2o0cG5BNHJqY3p2?=
- =?utf-8?B?K1h0TDdzeFJMUS93QlRUdnBTaUF4cUJUQ0V0VmtlT3ByQ2QvUnlDQjNmRjJC?=
- =?utf-8?B?M2Q0UWU1azRrVFFWb3lsekpTSklVdVNFeHBHeWJ2UGJ3NnlqRFlPWm1tMGhw?=
- =?utf-8?B?amJqdjVTVzQzTFhNV3dpYVFlRUUwSTZaL3k1MWpXVUozMCtsWnBSOThHS3pU?=
- =?utf-8?B?WlRudCs5T1lQa2QrQzZlSXp1cXlqeWc0cGkyL2YwR29rTUJEbXVzcEtlckYz?=
- =?utf-8?B?QmFFU0FyMlVZK2l3S3JIODVKbkdUNWhDQ096VkFJVFY1NUFveHBxNlR6V1Y0?=
- =?utf-8?B?NHUvZ3RLSEI4QjdOaW81U2xmbjV1VUIybTZoaGFSK2VWNHM4TytLUHdrVDZ5?=
- =?utf-8?B?WGcxSXMwdjFtaTh3ZzlDWm1GMzhGVmo1UUtKM3o0dU1TSWtaMzhRbldpbWRi?=
- =?utf-8?B?emw5QlY5WFpCay90M2Vad3NNVUZUS211RUlRa1BRQnNaUjYyVHZ2dHBSK1Q2?=
- =?utf-8?B?K1VIVmNtTXZ5dldMdm5BVWVTS3UrUmtibEV4UFVDcEVRdHREMWd2YWgxNC9Q?=
- =?utf-8?B?cldtK29WdDY2NERELzFDdWJ0UStxZmVQdWMzbFpSTzB5U0doRUptNHhtNVNC?=
- =?utf-8?B?NzJjQ1dXbUg1SUNlNmp0Sis4dU5Bc2lpTGVZVXo0NWx1VVdwNkM5TExXeHhC?=
- =?utf-8?B?dmM4dmVlVHJUTnROY1NGZDdxbmFndGN0Uk1EMGRNNldhVFg3UjRYSXcrYkl0?=
- =?utf-8?B?SWMwZlJ5Qkd3VG53TmFEVE5FYjdmblRGNm1hMzVXMnlsOU5QbmwwOXgwaGJM?=
- =?utf-8?B?MW5mdXB5M0xPZDB0eVBERGxBK212ZlZQOE5ELzIvaUU3MmhYbDZwdXZSSDM5?=
- =?utf-8?B?ZGtVN2Q2M0U1Q2hSdVZtaEdWUnJVQVViZlZWUzN3aTB2eXUxWlVtRkxzTmRM?=
- =?utf-8?B?empCYlRFcXE3bWE1K1hwZktCMWJibjhqQXQzSkVsOWd3ZjFRMjdjM0c0S3lT?=
- =?utf-8?B?cld2Z3ZHSnkvNjN5aVV5R2xUM0ZVMmdxdzFNRWE1bjJaZFN3VjI4SjJIblZs?=
- =?utf-8?B?RzNpODd2cDNESVlPKzJzSDZuZEx4NDdxdlkzT214cVpSa2J6LzJOOFlPMGFQ?=
- =?utf-8?B?dWZQSVFVY1l0RlZqVlBmSDJPd1Y5RHVaaytQS0RSbC9PdkVPUDRuN1BwNTBR?=
- =?utf-8?B?S3JtdjM5OEpzVlhFVkRDZ1B1cnNQNnJrNnB4WmhmSDZQbzM5a1NYT2pGR1VU?=
- =?utf-8?B?WTFoWGxhZWVvL0wyWGpSRGZMVy9jL3dIb2thK2NWbnlTZnh4VzhDdW1NOTZY?=
- =?utf-8?B?eThXdDMxaGo2clhzNTZFLys2RXBhNHNZclQ1UldzV2dlMTE4UDdzRGdzNGh2?=
- =?utf-8?B?VlNpNGJUZTNaamlYWlUzRXViTUJERWRyd3piM29LWnRLQUY3bUc0NFdVNTBZ?=
- =?utf-8?B?aDV0Nk5ma2JIQUtiVEk5bDJCajhGbXEwMFVQUWJBSDRSNWpsWnpBT0NFSVR0?=
- =?utf-8?B?bitUYTBQVWFBS0RKL3ZSMDJ4K2R3MjZmSWlnL29rT1ZoZWFYSWptL0V6d2lU?=
- =?utf-8?B?NndvV25jVjVwTytKS3E0QjBvSUM5akVEY2FoZGpPcEwwNi93S0t0QWxkYnlM?=
- =?utf-8?B?Sm9lMGFLUWJlditDZEM1bWltL1dyTXdCandld1VxeGlnR3l2OW9LRkxkYkpJ?=
- =?utf-8?B?WkdxajFZc0VKUnN2RHV2aFFvSnZVUytvbkNZK2x0VnhvTXArakNtckRBamJH?=
- =?utf-8?B?MEgrUHlEWVZBdEtYVzk3UHNaTUVFZm9HV2FEOFNQcnZiQzBRenVRYWxYSjJo?=
- =?utf-8?B?VWFqQjN5UEwwczFhOGRIYzZzYzdEZlJ2amc2V1VlcStEdFFyNzhSUURVN1Bt?=
- =?utf-8?B?Qmd1bkVaZktFblRuQkFqSVdwOGNGdkMrK1RjZkd6UlUvZmVSK2lSMTU1aHNG?=
- =?utf-8?B?MWtxTk1jNHAvVmN4SG9UTHdWdGp3RW15V0V6SnZrT0pDSUI0d3dsWU9SVUJt?=
- =?utf-8?Q?7mhep8kUpQLDakfQzX4+jPwR/JIsJypulpf1Eo9ZuREzl?=
-X-MS-Exchange-AntiSpam-MessageData-1: xhLyDcvVAFMSnA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf7a300c-a55a-4732-47ff-08df4a0a2bb6
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 09:06:05.5765
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /XnrKrhVFgc7pa7RwrCFMgv/9sBBLUtrtTAainjfUeiZv2W+pBN4HGV0mLUUc0ZV2UR8f8Vgos9odNw4tt0fzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4374
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43NTQqDMBBA4auEWTsliT+Iq95DXEQddQqJMonSI
+ t691BN0+xbvOyGSMEVo1AlCB0deAzTKZgqGxYWZkEdoFFhtK6NthbLHhKN4nMljXDx5ZL+tkmj
+ EOCesy6FwRdmTrXPIFGxCE79voe0yBQvHtMrnBg/zq/+/D4Ma82oypRtIF715vlwIbn8EStBd1
+ /UFrpAW288AAAA=
+X-Change-ID: 20261026-rust-drm-gem-shmem-imported-sgt-85c4a45be283
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sami Tolvanen <samitolvanen@google.com>, Lyude Paul <lyude@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
+ Janne Grunau <j@jannau.net>, stable@vger.kernel.org, 
+ stable+noautosel@kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3363; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=qYSEWd0wxgi54NJUMvMh6kG2mgQyLWUBWOf9eqbDruQ=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhmzWcjGr7is6PswVIQ6zD2+NnveXi7ljUfR5qWeiYndPm
+ B+89tyko5SFQYyLQVZMkSVJ+2UHw+oaxZjaB2Ewc1iZQIYwcHEKwET6Ahj+GXTO1238fJGR8VLG
+ BDYv0R9WMn/vr9FZ2qPTkeyRaOO8nJFhM3P4MdNe7+COkOsxFe93fIzhYEk6Lcy7yH2pyhOGohu
+ MAA==
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-On Fri Nov 20, 2026 at 1:47 PM JST, John Hubbard wrote:
-> resume_gsp_rm()'s error messages have two problems:
->
-> * Both messages open with "Sequencer:", which assumes that the function
->   knows which code is calling it, and that that will never change. This
->   kind of tight coupling is almost never desirable in well-structured
->   code.
->
-> * One message prints the SEC2 mailbox value in decimal. That needlessly
->   complicates looking up the error code, given that Open RM documents
->   those values in hex.
->
-> Remove the sequencer's name from both messages and name the GSP-RM
-> resume instead, and print the SEC2 mailbox value in hexadecimal.
->
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
+Hej,
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+this series is triggered by the discussion of gem/shmem.rs SGTableMap
+issues in [1] which has an additional issue with imported objects.
+Imported objects are supported since GEM shmem's AllocOps use
+drm_gem_shmem_prime_import_sg_table() as gem_prime_import_sg_table which
+sets the same function pointer field in struct drm_driver.
+
+The code is broken in two ways. SGTableMap::drop() calls
+__drm_gem_shmem_free_sgt_locked() uncondiftionally which it must not do
+for imported objects as the object does not own `sgt`.
+The second issue is that the imported object is allocated by
+__drm_gem_shmem_create() with sizeof(struct drm_gem_shmem_object) as
+size instead of the size of Rust's Object<T>.
+
+The first issue is fixed in the Asahi downstream driver together with a
+drm_gem_is_imported() wrapper change taken from the Tyr downstream
+driver.
+The second issue is fixed by avoiding to allocate Rust GEM objects
+from C. In addition to size issue v1 addressed Rust gem objects may
+contain fields with non-trivial `Drop` implementations. Those fields
+won't be destroyed in error paths in C code which "destroys" the objects
+with `kfree(obj)`. Solve this by re-implementing
+gem_prime_import_sg_table() in Rust.
+The same issues apply to drm_gem_shmem_dumb_create(). As Asahi and Tyr
+as render only devices do not use the `dumb_create` callback just drop
+it. When a future driver uses the callback drm_gem_shmem_dumb_create()
+needs to be re-implemented in Rust as well.
+
+The series is tested in the Asahi downstream driver. As the prime import
+code path is unused in-tree I marked the fixes as not suitable for stable
+backports. The known downstream users of the code are aware of the
+issues and carry fixes downstream. I don't expect new Rust DRM drivers
+to be based on (old) stable trees.
+
+Link: https://lore.kernel.org/rust-for-linux/20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com/ [1]
+Signed-off-by: Janne Grunau <j@jannau.net>
+---
+Changes in v2:
+- Switch to Rust gem_prime_import_sg_table() implementation
+- Drop unsound drm_gem_shmem_dumb_create() as well
+- Add `#[inline] annotation to BaseObject::is_imported()
+- Drop typoed mail address from To:
+- Added Alice's Reviewed-by tags
+- Link to v1: https://lore.kernel.org/r/20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net
+
+---
+Janne Grunau (4):
+      rust: drm: gem: shmem: Do not use drm_gem_shmem_dumb_create()
+      drm/gem/shmem: Initialize private objects via drm_gem_shmem_init() too
+      rust: drm: gem: shmem: Implement prime_import_sg_table callback
+      rust: drm: gem: shmem: Do not free SG table of imported objects
+
+Sami Tolvanen (1):
+      rust: drm: gem: add an is_imported() accessor
+
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 34 +++++++-------
+ drivers/gpu/drm/nova/gem.rs            |  4 ++
+ drivers/gpu/drm/tyr/gem.rs             |  4 ++
+ include/drm/drm_gem_shmem_helper.h     |  3 +-
+ rust/helpers/drm.c                     |  6 +++
+ rust/kernel/drm/gem/mod.rs             | 17 +++++++
+ rust/kernel/drm/gem/shmem.rs           | 81 ++++++++++++++++++++++++++++++++--
+ 7 files changed, 126 insertions(+), 23 deletions(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20261026-rust-drm-gem-shmem-imported-sgt-85c4a45be283
+
+Best regards,
+-- 
+Janne Grunau <j@jannau.net>
+
