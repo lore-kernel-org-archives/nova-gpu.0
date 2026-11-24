@@ -1,17 +1,17 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.9
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.35
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795528954;
-	b=osNk6U+SHn3SBbpS8C7hHBsl0e5v7CFkc1TklDhYHM3j0rFMkK+VKyzTJjgj/XhIEnXs
-	 Nkb6SFqwebbHXxpigSX2k9c9FBuHbQeqG5zpdqdR0VY0NR2GeyPSElBd1uoGBX5RvhyCM
-	 cOdT0VaixiZGj8o0Sr50HM5aXm4fDD6uJeB23lCpTzpCizs62XdzEVUKBN8JJYqjc6KoM
-	 O3mrNDA1+cj43JpDtaEl4vqIusg3f8EXY45bm0STTQ+jIS+wWa9e3BzMglKBbSOgSOO4T
-	 tWyPoCsnvX8BT+0BQN8VXk/qf6Gic1thNv3dVv5Cgq53Zq7lEnSuJ74rwsVpsKf8uDQ==
+	t=1795528976;
+	b=J8/fFZK1xyxb8FpuIf3T2vetbmb4zS7RXBxByVHTlpvaWtd/lJVJtWWPuxvLm5WzS4wN
+	 mGLyBkJAoxlxJ2rhBVOahnHPU/SenhFaDMNhCbCPtETI5oJrJLHlI0j/0yZ6DKmOKdd9p
+	 Rw6yKIiSyOJTBvmu/VoNgUxmDZ/FKgx5k0IPQXZfccx1W4pE/jjqhjzrHX014/Yn+d9x+
+	 YDNrQyYOxR0jxSubXv+VA+FW5UEBjjZ7jffV/zgTzUP3cV2wV1h9+YPsbjGQ3gUcd5Cgc
+	 tYe6YAclutQkPg6USuks5gxaNFHNg/pyvsH5WQvH18KkQqOIKNfmPboyF5AKiokdYaA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795528954;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795528976;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
@@ -26,35 +26,35 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cFSWRvD5RAkgG/oTWMoMy+AZgFQGFZqMVtOkqIkTNLE=;
-	b=5TJeyk+DEuM1HhcfnCMWtQdrBGghf2PuzOe/LGkgAwG4jvMTPx0gvaiTNO7EdFO3m2Da
-	 d7ofAD1YQuea965xcSae18MaL4/C4tBmYg6fINATfYdbFs0pgw9V6yeBQt1Jn3CN3g7Ez
-	 JdRmOSi9EfhTME3e9LJeHFdv9xfVzmqxBBHSzv2o1vj8ha5JFXBpiD6hy/7valwKHaTFC
-	 w9O2UJ2rV9rCHmtkDbmRUlSEygY8DX6wZdXbCJWERl/9r+pd7KJB1bRT9ipOiTff2yNi6
-	 mSSXY0hWawEeeQ6A88OAtIDMZUEZN2dm1rVXOiJkd7PWE/HVFpfQeIjPcjrZJCILSVw==
+	bh=jczDwmFJMXY8TcGYl+oMfA1gSyW0uQZakUGP9vD8mhE=;
+	b=KpNq81Gwi2qAIWhIlqPA7Nqy+fk+m7u/2UkrMIN7GmSU1MYPAQ9YFMZk1meao7xKfuPA
+	 9+bVwO7Spoy98T62gndJ3ryvUfYqw7JapPiLlEYc0GmbIuOUo/2VKbQaWQaKQ1wik/LZd
+	 pAwJBpgD0VYmB2kkeL712vnWppxAxdxfkFDa1pPI2HVBEU3XcWq9YajO3Z9nPVK/yItgR
+	 h4pWFM8+vT+IU452ydjZKCRthaogrbw7eFRBTgYlDzAELPaUZa+ET+HWyLS61jAI9mM/C
+	 lP0LFoc4CaHkxggEt5lNr6iuSIfFrxn0ZNNM8me22kE5oraF8Nhh/6ZjKXNg4h1D0Pw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=NWVa5Er6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.9
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011009.outbound.protection.outlook.com [52.101.52.9])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gKm6NOxa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.35
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012035.outbound.protection.outlook.com [52.101.53.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D39560A2625
-	for <nova-gpu@lists.linux.dev>; Tue, 24 Nov 2026 14:02:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D39560A2625
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83CA606A33E
+	for <nova-gpu@lists.linux.dev>; Tue, 24 Nov 2026 14:02:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E83CA606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=NWVa5Er6
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gKm6NOxa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=olmR1G75aBU/h0Ewxz6sztbMnlPC+sI9sC0JBgoG5d3T3GDMRHDPIU7q6lr/JAkS+QBc0wixbIfixFQBRKkCr3rL2SlUg5pykrH7c5yWJ24YIwMiqrbBDPr0dDqRdQgcj8DuU5YsyU7y+ZuQtY5GI0LkMsIPbHD01sfV6BybatvWSBl/EPIJ3sHkprDB0m6r9+Mgavnvup3UM8nAjPs8jRMnf3u3KuuSiHhEFUPboWd4OYMQvPnMasOH5bRPPXiy7gifDuuXDLlKKXi1AHjuYDHKiZlYIdzraI5phk9uXlUZ4FJZgbaNOfM0m4+1wRx8iJmNmMdkk+uz6gioQJtTWg==
+ b=XPfQ6w7vtYErid0PUDm06k2iLplpUe5srNMPnXThiH5+JTzntfxjIX9TQACOenvxX8/Rpitu8nrhqWcUEA82tlJHT5vFA/SpERBbDifI6lUdLfdfM9LjHarYozKO61WRkJxactMcx1y6IEJK6Ag30AoRxCl5GdDZ2CRX1RSe9DbcoQmxeQvg15tktYqtmMktg6aqwiB8BuAvWa3UlDQkTGAxglzYcLcEYB9AnTRYPPgGfXbeGsrfRVIfuulVINIx/qLo4cfrknU0QZfiv54hisYgWuACLluEl9hBAgE5gC85BqBnKWfy1Qa3SMbDLQ0cjbzMDjYw16BT+NtdbSBwTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFSWRvD5RAkgG/oTWMoMy+AZgFQGFZqMVtOkqIkTNLE=;
- b=wO9ciZs+yan8KirCy2DM2RS2aE5ULcR+PQvaBIiwwJ3uR25deAOxXXh/zGj2zworSiLjtyNz0Mf6WF/W0eazfbXcR8QLk0Zyw2S/0K35Ee4HuVKhRYMf+2jsy/cWyWTrDeCLYvnGPl5HL9SSykpAJJxVt/KA7SX9DRPHXt7WJ1MAOdnBa/W7x/04d5f0ArVI34mL5/lQkCgNbrOqXRV5N/wcxh3pSwNct/LEFnwhQcHuY+nnHdZzZfIiVVnJCY1whkcY+gqj7Rbb2skdXhtxg8ZLoN+qle9dq7LylN+0mq9Ekv0mL9B/gGFhA/I+bJqWoG4oM5DMRAI12hiwFIohZw==
+ bh=jczDwmFJMXY8TcGYl+oMfA1gSyW0uQZakUGP9vD8mhE=;
+ b=IWkOKhrn0ojYy0X54n1Po3pvX8baIEjabIG4TffvZX5zZY59NSU3oktM1qvPKChc+tLzRQbNXSCY00lB3TUGm+LPBQ+/Zhsk+JQANvOAZsCmjQVPa0/OK1zfYmNSa2/5aV4L7CYJTt9m82RheCiD4ag3j6YCYvRaKwTVY3hn8eXREbjAPWWVjMekP+qxtD6vgpDFTJ4RR3a3UJgoIRm2Cgb/nJkMTcJAW5scx02WFKVjxjXBq3tqrre9GPj+19Yl9n1tZFEDy4bVXiJX7NotGChHshU8etrsFlYoLG6DTzNcngLTruFZBeq30x0cNG6oue4ihKsdHV2RIj9mceUaqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -62,18 +62,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFSWRvD5RAkgG/oTWMoMy+AZgFQGFZqMVtOkqIkTNLE=;
- b=NWVa5Er6N0MpDHC8yTtK65wqEfgMl2+Kjtdr7QlTVsnj5RNdyW9Ssd5xFXKsY+ZqK+r6OFlgJmDE+WkMK7k4x6G5SN4KKSH+enCosnSnJlDZbC+Lw76R9ekoXB1DrUSdc8t4Zz/Wh7Nahp5Nvn2Lh4jXj/Pvkl3plqKOsrvPw4tFa+IjugP6tyxd9E/Ryv6++AqBk/XP/BcROWhTSFn5TgNfqi5l0mfz8v0H2gKgccwzqYtRVbS8KHdE8IVmq5GIwpc0gD0h0r7URSAhhcBKquT3AYEek6T47FkiBdiJx0eGDstvNJ7vg5TD/fqU912Pb0Bs9aYPstzhMpoFfEtb9A==
-Received: from CH2PR03CA0009.namprd03.prod.outlook.com (2603:10b6:610:59::19)
- by SN7PR12MB6690.namprd12.prod.outlook.com (2603:10b6:806:272::6) with
+ bh=jczDwmFJMXY8TcGYl+oMfA1gSyW0uQZakUGP9vD8mhE=;
+ b=gKm6NOxadfkHWkbVWkcjwNMc4QCTAJnW/BixtX1cVnr7uDoxWXgSLvuRPWtGMOVvMVROyd3fM3iJC31VVVr0WwxVu87MXXgak+bg7SCGJPw5Pj6oWNrmxLqp0iOME/VZsRXnxGVZ3+ZXxrk/gVWD8HVxJ+ijhp2mT6GqtmvIJrdA4YieWwtqJx2ivZwj4botUpQ+GdPW0hHexvsDmSfLd/gd0baWSJMGS1pQbn8uckvhDBKCykl4w6rZN3Pts2AVUSevtKYNdGzCsNLUp0db6n+wsDhiSPs6PeiNiLW9t3zE6xQzWAiI3s/Fd3MszfoDVykEdHCRJbn/FNxy7GdCRw==
+Received: from DS7PR05CA0022.namprd05.prod.outlook.com (2603:10b6:5:3b9::27)
+ by SJ1PR12MB6363.namprd12.prod.outlook.com (2603:10b6:a03:453::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Tue, 24 Nov
- 2026 14:02:20 +0000
-Received: from CH2PEPF000166BC.namprd04.prod.outlook.com
- (2603:10b6:610:59:cafe::8f) by CH2PR03CA0009.outlook.office365.com
- (2603:10b6:610:59::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Tue,
- 24 Nov 2026 14:02:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.5; Tue, 24 Nov
+ 2026 14:02:47 +0000
+Received: from CH2PEPF000166BF.namprd04.prod.outlook.com
+ (2603:10b6:5:3b9:cafe::7a) by DS7PR05CA0022.outlook.office365.com
+ (2603:10b6:5:3b9::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Tue, 24
+ Nov 2026 14:02:47 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -81,17 +81,17 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- CH2PEPF000166BC.mail.protection.outlook.com (10.167.252.6) with Microsoft
+ CH2PEPF000166BF.mail.protection.outlook.com (10.167.252.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 14:02:20 +0000
+ 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 14:02:47 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
- 2026 06:01:55 -0800
+ 2026 06:02:21 -0800
 Received: from kalok-SPC741D16QM3.nvidia.com (10.126.231.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 06:01:42 -0800
+ 15.2.2562.57; Tue, 24 Nov 2026 06:02:08 -0800
 From: Alok Kumar <alkumar@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
 	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -111,9 +111,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
 	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
 	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
 	<peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v5 08/35] gpu: nova-core: vgpu: reserve the 48-VM WPR2 heap
-Date: Tue, 24 Nov 2026 19:29:04 +0530
-Message-ID: <20261124135937.18583-9-alkumar@nvidia.com>
+Subject: [PATCH v5 10/35] gpu: nova-core: mm: retain BAR1 reservations after unmap failure
+Date: Tue, 24 Nov 2026 19:29:06 +0530
+Message-ID: <20261124135937.18583-11-alkumar@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124135937.18583-1-alkumar@nvidia.com>
 References: <20261124135937.18583-1-alkumar@nvidia.com>
@@ -126,97 +126,191 @@ List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166BC:EE_|SN7PR12MB6690:EE_
-X-MS-Office365-Filtering-Correlation-Id: d24f6719-af90-4d22-043a-08df4a338e64
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166BF:EE_|SJ1PR12MB6363:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f97202f-be76-439c-dc63-08df4a339ea1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|36860700016|23010399003|82310400026|260925022911599003|261022075727099003|260925021311599003|261026140227099003|11063799006|261021123027099003|260925021911599003|261009223027099003|10067099003|261021121427099003|261102123227099003|56012099006|261028144727099003|261022105027099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|6133799003|22082099003|18002099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261021121427099003|261022113327099003|261022075727099003|261022105027099003|261021135927099003|261009223027099003|261102123227099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	0lOW4eMYWMCeYkq0DCBCNnKTALH++wS7/vdfUxhDgPMSox9wnN6vWcIPGEXXoPgYdF3cTiKIG6NiZEwHzBlH4DLXVlVipxJN7ON0gziWedYuREmK62MQkJ5JJroLr7Y0bMS3tkDFs4wdBtvxCmcE7MI3uuNNyHnoE1G/g1FXZewpvehRnIn2CI5MGfVXdL+m+V1ug8BZ+h9zatvvDDih/QT9JKJuUuJYLYylwPR3cUsWXkSvZgn7T6JqcZC02JWxFtbuY8ZjDVv8bRKIfwv2PKSX2aaWvoCqpwa3syOSumNiPxcdyPi6mRX/kFnzxuQXzoy4cP0356+OsFPtxIExrbuoYZHoxE6Jx7eilyKvxXF8Xg7FcwvOJ+a/dGA/NS0NnmzN68ApRB0UwK6Zd7gT8VVzivdnmAGeIFbk6LgdboK60IXhefY7JgnhwDRNEyhs6U8aW6xBZXmwQ61a+qK2yCTnS26vDSCsBYTwtdYnQJDKjaVg7mLU0higlv840dVwQNb6g/1AdJhDHl/HrmYvkj0ta1fkrUWLOwASi6SH0wVPsQwGzWAep0Av3HuGgefZKFHEVSdUy86i4nOeFyc0MeAUqG5lRBCqocNUpBVzEBejAIbgR/699ZjXZtYEINzz1vpTtUmhESXMAu2MNrNNmQHF795OTsa6sdEI21L7ZouEgVFcsEIjqcvHY8BxZSc6oIFx+vjaEuqkst31pWi2lw==
+	AMPDF5kdCiUQ5sWdcVonGYOnoOAGH/tK/C1+DRZoHXZvhXVdWe15JS8ApsXgRl9YsvwSUvvN3PJ/fV+NjokiRkm292eqQ6NETMNtW1NOR43t2DQiVZameLNwfqMTocHaWzcpwb0jXv3zII9cPqhDm6gIZpAwfiPTh3cgajokuGVihF1HoeWNor0sLhTdVRAhI8djjsQK2N6XCNr9n5EVU97c0pgwL01xsNlJIhnfptU04Xp8r0cFn1ZnkZSu/wl3R7ppQKqYqKcbAyP1jST3BYU5WCpK9v4kFrAeq+SgVJaAS/PK48o/McxjCKxmeUcZFcgMGPvg6oSLL/EWh4xzz2k0fJ5dMth2iSGCcYu+noXAfjeUzv3x2EP7ScUhSIIHnOejqFHmPOahuX0c1r/6POYFcuVpVt+Kavk/P/6RBRmkWki7Lx0fKMmWp99gb8YG6AeOmJ+ErZfqVAcGFc6pFF9AJF75rKVhb592WhHEYa8cVM9k+rdEH3gFg22BSPb5a9uMTAGDGbcSZu4ywnVsAReBXpIkl3qR0tca19E8+dhDyoKmM9Xv2pgrdQfrEPRezBG64Xf9g0xKddbp+1+hylWK3kncTIF5yqB0redfVUX+C43HQqnF49t9jRGs+b19vuN3ANffiOd3Od1DIYN7Uc0DMqO+HmxP528qLLG46FBQE/Moz7nXogGi1KnCF9nAQKNAMJbuT/E8LKS0ZOq5Rw==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(36860700016)(23010399003)(82310400026)(260925022911599003)(261022075727099003)(260925021311599003)(261026140227099003)(11063799006)(261021123027099003)(260925021911599003)(261009223027099003)(10067099003)(261021121427099003)(261102123227099003)(56012099006)(261028144727099003)(261022105027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022113327099003)(261022075727099003)(261022105027099003)(261021135927099003)(261009223027099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Q0oUFE/JUO2AbAF3nMm7D9bUqKVq5U+6/Tu+uvJ8Wul19tEujeZCnbzNdQHPAeNehfY2u8odHZFzj7SwXdojCMAVYpA2s/pAJLl4zNo/GW1AETbEcWtIVPWLproQZj7O44TIWPBO0ddEgroqCQf1PLsk8+/KETfFbJ8TmD8A0BHzzE+Am/U6R8P9kONfdYt3FaFU4+b79HGBd9rDGkSZH698CS0Z4BsvVZODydHYKNrUrWsjbM+J8lbp5Ms0YjlHb7j+iJhHS8upyEJyzU+vDnQ6X7Q5Q5guuduZNRdgyjD62D/HRa3d9IiGiB+PylPetQFjwuDDbX/ETksGvte6OSYuG6RvatjQW3dHw+cM+XymZxpjKU8p90YXscd9ySoSh3bY/As0SAMPITszo4xkXnEZCovDOLRCaT+EvFOzaf0NVTV6cq43Lrr0SeXGl/MY
+	44BQquIs0v45pJUlMUqESsVg36/gtlPXGbwHWcOAC4CQ0P8K1mFRUOgkpw4tnXhkqOh9hU+0TJH//WcLfOUGRbMLBQKrQjzmfmp3jI5fWjbIYifqL3kCugNWTVj04Ffd6bThG+09vLAEt4nHtnZhKUpxF/Df61nvy1DhIlDxnOESnNtlYTarobUeKGCxoNkgAHmHmyfrmc37pFEo52MNynslesVUhC9wftqYH2d58FHbGDG50vYnvgZR2ftLyT8FuR5ULTERKako9WRSf/eYq4VMsj0Q6fQq7i4H1/RaIs9dmT3AhOtNCsh5iDTHYhchqWRldSqqWuUKX7tfaxcuvPYpWVNnQj/S7tkb/mzT50H9rGc26EcuiZ5n/KzBRCiBOk1PTZvn30aMpJb7gUXeu8jnQ4MLn+2giQaITbku0L5Tclf8PdlLeOTPreAHyVte
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:02:20.1487
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:02:47.3991
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d24f6719-af90-4d22-043a-08df4a338e64
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f97202f-be76-439c-dc63-08df4a339ea1
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166BC.namprd04.prod.outlook.com
+	CH2PEPF000166BF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6690
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6363
 
 From: Zhi Wang <zhiw@nvidia.com>
 
-GSP-RM needs the larger r000 vGPU WPR2 heap on devices that
-advertise more than 32 VFs. The default heap is too small for the 48-VF
-GB202 configuration and GSP-RM fails to start.
+Vmm::unmap_pages currently returns a virtual address range to its pool
+even when PTE invalidation or its TLB flush fails. Hardware can still
+use that mapping, so reusing the range can alias a live mapping.
 
-Select the firmware-defined 48-VM size from the detected VF count while
-retaining the default size for configurations with 2 through 32 VFs.
+Borrow MappedRange during unmap and release its VA reservation only
+after invalidation succeeds. Disarm its drop guard at that point and
+reject a second unmap of a range whose guard is already disarmed.
+
+Keep BarUserAccess's mapped state until unmap succeeds, and update its
+callers to pass a borrowed range. A failed unmap leaves the VA reserved;
+callers must retain the backing storage while hardware may still access
+it.
+
+Extend the MM self-test to unmap an old range after its virtual address
+has been reused. Require the stale token to fail without invalidating
+the new mapping.
 
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Alok Kumar <alkumar@nvidia.com>
 ---
- drivers/gpu/nova-core/fb.rs                      | 2 +-
- drivers/gpu/nova-core/gsp/fw.rs                  | 7 +++++--
- drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs | 1 +
- 3 files changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/nova-core/mm/bar_user.rs | 35 +++++++++++++++++++---------
+ drivers/gpu/nova-core/mm/vmm.rs      | 18 +++++++-------
+ 2 files changed, 34 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index 882827bcfd3a..ba68a812b095 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -302,7 +302,7 @@ fn wpr2_heap_params(ctx: &gsp::GspBootContext<'_, '_>, fb_size: u64) -> Result<(
-         ),
-         VgpuState::Enabled { total_vfs } => (
-             u8::try_from(total_vfs.get()).map_err(|_| EINVAL)?,
--            gsp::LibosParams::vgpu_wpr_heap_size(),
-+            gsp::LibosParams::vgpu_wpr_heap_size(total_vfs.get()),
-         ),
-     })
+diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
+index f82372ccab6e..5a8770782d14 100644
+--- a/drivers/gpu/nova-core/mm/bar_user.rs
++++ b/drivers/gpu/nova-core/mm/bar_user.rs
+@@ -87,8 +87,7 @@ pub(crate) fn map(
+ /// Borrows the [`BarUser`] managing the mapping for the lifetime of the access object.
+ pub(crate) struct BarUserAccess<'a> {
+     bar_user: &'a BarUser<'a>,
+-    /// [`BarUserAccess::release`] [`Option::take`]s this; `Some` at
+-    /// drop time means `release()` was never called.
++    /// Cleared only after PTE invalidation and its TLB flush succeed.
+     mapped: Option<MappedRange>,
  }
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 6e44fe14b2f4..46d3605b24b1 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -137,8 +137,11 @@ pub(crate) fn from_chipset(chipset: Chipset) -> &'static LibosParams {
+ 
+@@ -96,16 +95,22 @@ pub(crate) struct BarUserAccess<'a> {
+ impl BarUserAccess<'_> {
+     /// Tear down the BAR1 mapping.
+     pub(crate) fn release(mut self, mm: &mut GpuMm<'_>) -> Result {
+-        let mapped = self.mapped.take().ok_or(EINVAL)?;
++        self.unmap(mm)
++    }
++
++    fn unmap(&mut self, mm: &mut GpuMm<'_>) -> Result {
++        let Some(mapped) = self.mapped.as_ref() else {
++            return Ok(());
++        };
+         let mut vmm = self.bar_user.vmm.lock();
+         vmm.unmap_pages(mm, mapped)?;
++        self.mapped = None;
+         Ok(())
      }
  
-     /// Returns the WPR heap size to reserve when vGPU is enabled.
--    pub(crate) fn vgpu_wpr_heap_size() -> u64 {
--        u64::from(bindings::GSP_FW_HEAP_SIZE_VGPU_DEFAULT)
-+    pub(crate) fn vgpu_wpr_heap_size(total_vfs: u16) -> u64 {
-+        u64::from(match total_vfs {
-+            2..=32 => bindings::GSP_FW_HEAP_SIZE_VGPU_DEFAULT,
-+            _ => r000_00::GSP_FW_HEAP_SIZE_VGPU_48VMS,
-+        })
+     /// Returns the active mapping.
+     fn mapped(&self) -> &MappedRange {
+-        // `mapped` is only `None` after `take()` in `release`; hence unwrap()
+-        // cannot panic here.
++        // `release` consumes the access, so no accessor can run after successful release.
+         self.mapped.as_ref().unwrap()
      }
  
-     /// Returns the amount of memory (in bytes) to allocate for the WPR heap for a framebuffer size
-diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-index 454d0ea9360f..fa17d3e2edf6 100644
---- a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-@@ -84,6 +84,7 @@ impl<T> ::core::cmp::Eq for __BindgenUnionField<T> {}
- pub const GSP_FW_HEAP_PARAM_SIZE_PER_GB: u32 = 98304;
- pub const GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE: u32 = 100663296;
- pub const GSP_FW_HEAP_SIZE_VGPU_DEFAULT: u32 = 609222656;
-+pub const GSP_FW_HEAP_SIZE_VGPU_48VMS: u32 = 1436549120;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB: u32 = 64;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MAX_MB: u32 = 256;
- pub const GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS3_BAREMETAL_MIN_MB: u32 = 88;
+@@ -158,7 +163,7 @@ impl Drop for BarUserAccess<'_> {
+     fn drop(&mut self) {
+         if self.mapped.is_some() {
+             kernel::pr_warn!(
+-                "BarUserAccess dropped without calling release(). BarUser address space will leak.\n"
++                "BarUserAccess dropped with a live mapping; BAR1 VA remains reserved.\n"
+             );
+         }
+         // The inner `MappedRange`'s own `MustUnmapGuard` will also fire,
+@@ -259,19 +264,27 @@ pub(crate) fn run_self_test(
+     };
+ 
+     // Cleanup - invalidate PTE.
+-    vmm.unmap_pages(mm, mapped)?;
++    vmm.unmap_pages(mm, &mapped)?;
+ 
+     // Test 2: Two-phase prepare/execute API.
+     let prepared = vmm.prepare_map(mm, 1, None)?;
+     let mapped2 = vmm.execute_map(mm, prepared, &[test_pfn], true)?;
++    // An old token must not invalidate a new mapping that reused its address.
++    let repeated_unmap = vmm.unmap_pages(mm, &mapped);
+     let readback = vmm.read_mapping(mm, mapped2.vfn_start)?;
+-    let test2_passed = if readback == Some(test_pfn) {
++    let test2_passed = if mapped2.vfn_start == test_vfn
++        && repeated_unmap == Err(EINVAL)
++        && readback == Some(test_pfn)
++    {
+         true
+     } else {
+-        dev_err!(dev, "MM: Test 2 FAILED - Two-phase map readback mismatch\n");
++        dev_err!(
++            dev,
++            "MM: Test 2 FAILED - Remapped page or stale-token rejection mismatch\n"
++        );
+         false
+     };
+-    vmm.unmap_pages(mm, mapped2)?;
++    vmm.unmap_pages(mm, &mapped2)?;
+ 
+     // Test 3: Range-constrained allocation with a hole — exercises block.size()-driven
+     // BAR1 mapping. A 4K hole is punched at base+16K, then a single 32K allocation
+@@ -363,7 +376,7 @@ pub(crate) fn run_self_test(
+             }
+         }
+ 
+-        vmm.unmap_pages(mm, mapped)?;
++        vmm.unmap_pages(mm, &mapped)?;
+     }
+ 
+     // Verify aggregate: all returned block sizes must sum to allocation size.
+diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
+index 51b500a27233..49b1e5db1498 100644
+--- a/drivers/gpu/nova-core/mm/vmm.rs
++++ b/drivers/gpu/nova-core/mm/vmm.rs
+@@ -324,23 +324,25 @@ pub(crate) fn map_pages(
+     }
+ 
+     /// Unmap all pages in a [`MappedRange`] with a single TLB flush.
+-    pub(crate) fn unmap_pages(&mut self, mm: &mut GpuMm<'_>, range: MappedRange) -> Result {
+-        let result = self
+-            .pt_map
+-            .invalidate_ptes(mm, range.vfn_start, range.num_pages);
++    ///
++    /// A failed invalidation retains the VA reservation. The caller must keep
++    /// the mapped storage alive while hardware may still access it.
++    pub(crate) fn unmap_pages(&mut self, mm: &mut GpuMm<'_>, range: &MappedRange) -> Result {
++        if !range._drop_guard.armed.get() {
++            return Err(EINVAL);
++        }
++        self.pt_map
++            .invalidate_ptes(mm, range.vfn_start, range.num_pages)?;
+ 
+         // TODO: Internal page table pages (PDE, PTE pages) are still kept around.
+         // This is by design as repeated maps/unmaps will be fast. As a future TODO,
+         // we can add a reclaimer here to reclaim if VRAM is short. For now, the PT
+         // pages are dropped once the `Vmm` is dropped.
+ 
+-        // Free the VA range regardless of PTE invalidation success, so that the VA
+-        // range is recovered even on failure (PTEs may be stale, but that is better
+-        // than leaking both PTEs and VA range).
+         self.free_vfn(range.vfn_start);
+ 
+         // Unmap complete, safe to drop `MappedRange`.
+         range._drop_guard.disarm();
+-        result
++        Ok(())
+     }
+ }
 -- 
 2.53.0
 
