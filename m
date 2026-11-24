@@ -1,97 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795558909;
-	b=dloCBrbKiXPG55bbNRjDppqLu1hSuteOszeAKNyk3BtTJRmLmzlEHFQ/CFKq1WoSL3+Q
-	 pis0O5kd6iagfYva6TXz03RGSmZ/jqIXGjFjzgKdXEOGcRHMsvlkKzmDNbpHKJQWh+oXo
-	 Kqgc6KCsptgyHp89kJABUKkmh1x98Jy4ENomUN4bEvghMGIJLhKb9ioaLmtwRsE1l5DYX
-	 JjbaCkVbWE3QdyLwKb9xnVh7GQhJ8WyGNiSEWIsNZ9PZpfMr/blIMw5oBmJT7yDOBWLUh
-	 ++iVe0Jsd0XxJuhwGCOB+wsYYoYyoB+fj+SwPoA4Zs7Dnt1b02Rk8HdsquKdcwuXwwQ==
+	t=1795562885;
+	b=C1BHx66ADVrJlwHELEKINV+9MV6Va+0Cp93U4OqIMenXd9/lAv9xrmwCXPKRa793Lw80
+	 NQyIxwV+1NJOMBhzL67tPxfnPJYfV1gW5uLjvvzb//oyQopXdY5aJI9s2jEHUg8h6PLEK
+	 6N88UaKso5dVj/v4tTlMARN0w9jHAxh4PYEDP0ahKaDRE1JnS+l+4nQec6cRMpQ3E1XSR
+	 J8uYvpGABIANqjceEXXNv3Lw8LP8puuG8rTXUxYRvU8UEj8wp/LgbvNrEl2YmRlF0SMZy
+	 Cq3iBHZD02e0OygNWkqVsWfWQBxjq5GcCR126xchToWEr3trDKB+umGLmHj3Y7Awv4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795558909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795562885;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=oKVvl+Rf2neqQIoPuWXSrWxr2CVrLHBFoRvvQa6Paew=;
-	b=Y2jK20de/GWEkkNXE1zqqDyk8LHc9NZMfVu9awSuxgvG8rJ/vCwfJ9w4hDC9XiZRkoPX
-	 C9HBNnE2otGTgJSbGYyV6S3RS7J5/l3Z/W7MSJPIy3/zzeIcbAwFNRVKzDcPvZPU1XRna
-	 5P1tL6FuKYaCMhRUllTlcLWkncOWBcTKZd19rErwYkKgrmMFB38u52w0jQdG+TCr+Cdfq
-	 iM/Bpqg2byBZ0Xk5GIrC6YFSztWxsO1ezfcVtHxNwYcssjHGg5Du03CRBNpavXgdrVw7d
-	 czLmqLNykbVtQAednr39fQog5NdMc1V/6bT5oO+bA1+T4BQZWFQpsFKoXddgeGpfEsQ==
+	bh=e08IKl8cuBBIsRhTefRMXH9yyrlJ5903Bm6C16lOTgw=;
+	b=4hQYwTC3V9G5+aeDy40dWLokI1x0ab8JYBfoOxrrXWxJYzMDMspaf4ABSsxFiQMcqGB4
+	 1sTThN/m5TQXU90I5esIio4Qm6zGhbwWn7jyBWASXTHRv14vZsYnTiLSTl9bhmDIPumMg
+	 /t9Q6naITspptTr0xS8qh4KrPX69d/isy2C7zPyG1zEDnBIcRSS/QUSJHuZ2xkJqaJbIX
+	 NknbcbYo9uSNCeEqskbg+7AqoX+Tw6QzutPn7Tva9eSKkCrl67rOz+Xx0W4gUdMchfFoL
+	 Zns0At++Hha5YU6/3LHrx/1lyYvcmOAifk6SHFBtP2dtw9DnY7bzB3701UpJ/gmQbJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrYN+lxG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opC0cO78;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57307606A31E;
-	Tue, 24 Nov 2026 22:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82171606A323;
+	Tue, 24 Nov 2026 23:28:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrYN+lxG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11ABE1F000D0;
-	Tue, 24 Nov 2026 22:21:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opC0cO78
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA681F000CF;
+	Tue, 24 Nov 2026 23:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795558908;
-	bh=oKVvl+Rf2neqQIoPuWXSrWxr2CVrLHBFoRvvQa6Paew=;
+	s=k20260515; t=1795562885;
+	bh=e08IKl8cuBBIsRhTefRMXH9yyrlJ5903Bm6C16lOTgw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IrYN+lxGsElt2tX2RKLt0jlr8DGHREKvRQCsdfuzj4oSeVObDlg+GTaS4E4ItmK/O
-	 GTnQEl9OeUwZ8FLbgZlBuY7mktztTpKEo8DxWIkN7obYttTBrSW0QSdccKOFGDLSAb
-	 cuSoVic+zf16VLR/VqHem6u9YOXinT1xxIq2ogCMd22cS27piSIXouNYQ1nYVdj/d5
-	 9y3dS+qAw6B6y3NiEqErSqa1lTbyuxe/u39MKemD/VBpbvnlXEFS6sPkIjmXQpC/qV
-	 rjIasUIJiWdEtLcZo6YTpq1iwphq14J0UeqU/nx/GX/zMYnM98sZ7kHGy8Il7LvmXg
-	 EeI37NNYWXCLg==
+	b=opC0cO78hR5M0GxIiFgeUlDOJYGAjpNo00je0ZS+32Tw1bHsTDC9+VWYDnI5bTUdG
+	 x82rcEJqjVFBrR/gavYI+bdes2Z8LWb3g/BZIxIH5fiVpz7ch/RgLaJtAwSyJqUVou
+	 ExcKrbpD4jnVjVGUCT6HAVN4RlFIT3ZTyC913Qhxm10dK+zoycDp1bcd1829W0QJHJ
+	 D7bmKf8SgFo3y7XNzHjI8ECLIjRB+VqJUFbvJfur4L78QQ4YsYmfeETI+W+fKSSHnH
+	 wqC8DIZZ86ctR2jYGQZzYZOrjzu3i36kR/5uYo9nv9B5pToBUz5Vz4aa/viSThR0yL
+	 cQOMWZqx3o6Lw==
 From: Danilo Krummrich <dakr@kernel.org>
-To: Simon Song <xinmengs@nvidia.com>
-Cc: dakr@kernel.org,
-	acourbot@nvidia.com,
-	kvm@vger.kernel.org,
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Timur Tabi <ttabi@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	linux-pci@vger.kernel.org,
 	rust-for-linux@vger.kernel.org,
 	nova-gpu@lists.linux.dev,
-	linux-pci@vger.kernel.org,
-	alex@shazbot.org,
-	jgg@nvidia.com,
-	yishaih@nvidia.com,
-	skolothumtho@nvidia.com,
-	kevin.tian@intel.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	ojeda@kernel.org,
-	alex.gaynor@gmail.com,
-	boqun.feng@gmail.com,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	jhubbard@nvidia.com,
-	ecourtney@nvidia.com,
-	cjia@nvidia.com,
-	smitra@nvidia.com,
-	kjaju@nvidia.com,
-	alkumar@nvidia.com,
-	ankita@nvidia.com,
-	aniketa@nvidia.com,
-	kwankhede@nvidia.com,
-	targupta@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	zhiwang@kernel.org,
-	zhiw@nvidia.com,
-	boqun@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	work@onurozkan.dev,
-	jgg@ziepe.ca,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org,
 	dri-devel@lists.freedesktop.org,
-	peter@colberg.org
-Subject: Re: (subset) [PATCH v3 0/9] Rust VFIO PCI support and NVIDIA vGPU driver
-Date: Tue, 24 Nov 2026 23:21:36 +0100
-Message-ID: <20261124222136.2363532-1-dakr@kernel.org>
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 0/1] rust: pci: add a prerequisite for the r000 GSP firmware
+Date: Wed, 25 Nov 2026 00:27:57 +0100
+Message-ID: <20261124232757.2443082-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261119215046.2892839-1-xinmengs@nvidia.com>
-References: <20261119215046.2892839-1-xinmengs@nvidia.com>
+In-Reply-To: <20261111200549.160806-1-jhubbard@nvidia.com>
+References: <20261111200549.160806-1-jhubbard@nvidia.com>
 X-Patch-Reply: applied
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -105,30 +87,22 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 19 Nov 2026 13:50:35 -0800, Simon Song wrote:
-> [PATCH v3 0/9] Rust VFIO PCI support and NVIDIA vGPU driver
+On Wed, 11 Nov 2026 12:05:48 -0800, John Hubbard wrote:
+> [PATCH v2 0/1] rust: pci: add a prerequisite for the r000 GSP firmware
 
 Applied, thanks!
 
   Branch: topic/pci-sriov-7.5-rc1
   Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
 
-[1/9] rust: pci: add VFIO override device IDs
-      commit: 50e74d48053e
+[1/1] rust: pci: add domain_nr() accessor
+      commit: 002b9422b314
 
-      [ Slightly improve the doc comment. - Danilo ]
+      [ Move domain_nr() to Device<Bound>, since pci_domain_nr() may access
+        host controller data through bus->sysdata. References to the PCI
+        device and bus do not necessarily keep that data alive after host
+        controller removal. The bound context guarantees the required
+        lifetime. - Danilo ]
 
-[2/9] rust: pci: expose the VF index within its PF
-      commit: 563a20c3c250
-[3/9] rust: pci: allow drivers to manage DMA ownership
-      commit: 867380955ea7
-[4/9] rust: pci: add reset callbacks
-      commit: 4db2aa70fd43
-
-      [ Slightly improve the reset callback doc comments. - Danilo ]
-
-[5/9] rust: pci: add an error_detected callback
-      commit: 817438b2de84
-
-The patches are in the topic/pci-sriov-7.5-rc1 topic branch and will be merged
-into the corresponding target branch soon.
+The patch is in the topic/pci-sriov-7.5-rc1 topic branch and will be merged into
+the corresponding target branch soon.
