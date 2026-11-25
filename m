@@ -1,75 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618998;
-	b=jds1hOmhjwfRQIADlTsLmcTvlNbonbt/ijfhRqS2JKhXIF+qr2rV4T1pjyjntaBFhuPB
-	 RjoA32TRtu/nb8QbMwv8pxijnt6pzGaeanoID+GN4FUpB8LYWsIYYo1+RyprfVQjfeYb4
-	 kvGeI4BRIKZzQr7yVjC/cYrrW8eCn9iVys7Yk2BSHD+HatpVq8h7VuYf0oNP+X2fc9OfJ
-	 rfPNmTuA7zN4HpEoJFb0fayfhJqAIN0RtWXABJqgSbsiVCPkWBAMMIDH1E5/Xt+Au5ao4
-	 DdCG2gYRey4fS6f7Zc+pXpDVTk9u23JJxq6ryPGycVNRopWGblsx3ETBalCxByAogig==
+	t=1795622362;
+	b=Iv/fleJulsiNNwytNdWHpIj1ro596Cgsk/yH0vfJ6iEagrgLpkn7hHNcbeQEA834jFBn
+	 zJ5CvYwN+Ssu/jTnjMS7k/Nn7xEoxym3L3NSPvtQgbjIwCPbyWAnldYavA0TU/HGZ2sy/
+	 A3gLoUMpUzU+eC29AtXMllJsJUCCmh6fO9bUtyznuMmuUdlXNW1Sp8JCzroV9GyHaj58z
+	 vlFYCEsN/1lYpAXYVFr7hSSukIQe+iswQKmLkvFlO0UQt80136r0srTFH/Y/RlkBJqy2D
+	 D8POOwXRIqen7V1pEQH/KhbBSfytOMBrS80jd8oo9MescXmTa9gM0+WEiCgQNrUvTaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618998;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=8Jz8ssl/IqO+cdkuoUF1XK1hhhFDc4ccWMMZLEDHfAk=;
-	b=o3uzrCreA3ksM7AMZ+saXR72zxHzsNyUbWmupVd2DWEPp88USPGIUomchlyKyOWHJ3yr
-	 18c8F2SuLIeCJGybXpwdP9/chOa2BuH5cvPePpDTbOdtCi9Bpzkp37psSnHqKxEuzkS+v
-	 vJeMy5M0P2WmbgZd99PWkDCBYvPqe//AlbEb8cefba9Nf3AsvoXjRpxdI9vh4cPSN6rn/
-	 BRJZmNfmCTZ9TwdtBn6tO4xQnlv3sG+Z8xygaVw5ubINNuw9yWqLD12T2Cw/dqRSOcx1I
-	 ksjCOWF0LaspA3pF/Cby/hngv2PKcbcjopv5tJGJgDXJONvWVI84SRYEiLjTGFWZd6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622362;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Patchwork-Hint:Organization;
+	bh=gzngZnWeVoBNyK0vM3pG68W1a+Vad3Q5z/6OD0OHXJ0=;
+	b=PHlEOwmlsYB5KM+MWCDfd5HBd25BridmHB6DlPWBaTiGa4zTFoRRKRM8QGsxQVEJmN3c
+	 o++VJChJkjtegNYrzBcU7pfEgbVnas9ushXqTw4riVpO9z2vQ0Tht0X1qrblrbTYZPyTv
+	 g5sRTVHVH/fgu9c4ocTQNXTrNIXG8HN+D/hgahwGGSx5omQUnMvTyHQwbbp42NBwTZ5Y+
+	 Lhr2cufFC8HJcN42058fbjkUrdSDj41j8PBmbqaKH9pMOCxxnNtCgR4k9ODbYG4hj1dO/
+	 lXfs3JgkIse98mir46NqTlct/8e4mMT6Z227cwFPttBwmoQ0kW8Lcro9bbzLD15gBsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YAlLMuSy;
-	arc=none smtp.remote-ip=209.85.128.71
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bI8w4cs2;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B587606A682
-	for <nova-gpu@lists.linux.dev>; Wed, 25 Nov 2026 15:03:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B587606A682
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42F9606A31E
+	for <nova-gpu@lists.linux.dev>; Wed, 25 Nov 2026 15:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C42F9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YAlLMuSy
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4bb680f0ac4so40745225e9.0
-        for <nova-gpu@lists.linux.dev>; Wed, 25 Nov 2026 07:03:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795618997; x=1796223797; darn=lists.linux.dev;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8Jz8ssl/IqO+cdkuoUF1XK1hhhFDc4ccWMMZLEDHfAk=;
-        b=YAlLMuSyN8As3N03pUi4MDEaD9rC1Au255aPk3JtODxa3aZGMRuztcw/+mwTyWmt6d
-         lO49vqdVocDeJZIbP5UwnGVvXm3H/eA4OnNNVKmmOlbKZWB75hfAWHwQZqCkr4sPH5oh
-         6Uupi2UvXr/lD73yyBK7GALAykj4OTenACATBtyIPl24rcf/CoEpeSZ12GG348RA51gv
-         fiJvUlVCBN40JF1D5qlbGninOOzMcF87R2STZBM1ThBfFpmIs0b3j3Lm7whgAdpxK5OT
-         o1IlN9l1PR+HalLppZTyusWpsb1RgnKG+5BIkwJ1tUrThA6F0sDDQ/xgRAoVIgBOAv7H
-         YiRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795618997; x=1796223797;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Jz8ssl/IqO+cdkuoUF1XK1hhhFDc4ccWMMZLEDHfAk=;
-        b=0MLQ9GyYeFdN7CjJrQ88Aj90Dv+eBn6jjwcqCB8rQEdam9gmdQbvU33bWSkFPxHQwQ
-         XylbCxpHQVgGLX8yKIOKR8N89PRsZd99feCToSpHrpj6evIAKGvJ+9O1RjTs8Gjl9kOy
-         CEu1+CPFvYDXPOcAzUv0izzaNvmX5smkbBSZMdZPSihqwXXuIZNIdHKANKjN6R9mnOTh
-         RXp/be+Dr4y9Qj4QYNhl2Oq4y1lPmpU0QBK1JHM4m6jIOn1riXFzX3ff/a8TvELFNyYd
-         gGQHf8rkXp++LbKMwnaVVBo8lvrVU5fMEBKeVXB/gbp7Oag26xPRkU6tHk87Dkm9Wz1T
-         pZuA==
-X-Forwarded-Encrypted: i=1; AL+hErGHAo+Jspt0We5yNwyKhfS6WPJI5jt3ngLMyFjclR7DIdtVduFFxNRD3Ed6+cjiFyjg8QKfpJo3YA==@lists.linux.dev
-X-Gm-Message-State: APuU4Z+0Tjm+3aY+4kTXwh2dGdRugnUo+9St+F5oCeG1tY6S6zEegLWm
-	CQ5bpsA29X++PFGg0OfcGKX+a7hWb0Lx9YvTSY2fQtrH4v/v486qqT6bDo9uee1uZRk1EOpHMzY
-	Lfg1PdNpYUgMMqL6CDA==
-X-Received: from wmpr23.prod.google.com ([2002:a05:600c:3217:b0:4a2:e03:1f55])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1d08:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4bb8882bd7bmr363816705e9.28.1795618996639;
- Wed, 25 Nov 2026 07:03:16 -0800 (PST)
-Date: Wed, 25 Nov 2026 15:03:15 +0000
-In-Reply-To: <20261124-rust-drm-gem-shmem-imported-sgt-v2-4-000f7a9ccb8d@jannau.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bI8w4cs2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795622361; x=1827158361;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=6UmMlg9QQaOS1il33yRRnEhhIt7G/Cm/OZEfblVd9Mg=;
+  b=bI8w4cs2xwXOYx6+3S4eaHNiJlBFpe7edeQ9aDgjalVT6S4L/fOJrPRu
+   A+f+w1B7bivnaVOMeZrle/C0s6HJTlr3JHwhFSOBNcfmJSGYwlo09Cyon
+   PSiDTpuykLMzLoF+XvJ9l+Ei5Q4nBUAiwOpnVBIMfVklnSqM2QYo5FlrC
+   zhptYWaZi/ZARwDnSjbhuZFhBYdH06ZgOZJMzPk8PFxvm/uaBbMxnoAji
+   6ofxcZUmiS/CwdL/wprfXwECVGae5hU1boIkFe7EZj43or/x5lpTKSO5v
+   Au4ibRydB8hlNzjuDdzfRFKdyq6UsnZnCgBy3/H8Nt7F0IpgjaU4KUdt8
+   Q==;
+X-CSE-ConnectionGUID: UIzN0GFITCqhwvyzX76HCg==
+X-CSE-MsgGUID: ox1HkpGARMi3s24icn+TJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4563340"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4563340"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:41:49 -0800
+X-CSE-ConnectionGUID: bLRALCkxRbmeWeMo+EtOZA==
+X-CSE-MsgGUID: BsA3SM6yTjyQu96dFq5UXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="13698968"
+Received: from inaky-mobl1.amr.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:41:47 -0800
+Date: Wed, 25 Nov 2026 17:41:43 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: M Henning <mhenning@darkrefraction.com>
+Cc: airlied@redhat.com, Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	nova-gpu@lists.linux.dev
+Subject: Re: [PATCH v3 1/2] drm/nouveau: add option to leave GSP-capable GPUs
+ to other drivers
+Message-ID: <awcBt3KD-j1sOzhE@intel.com>
+References: <20261124-nova-nouveau-gsp-v3-0-e1440479ded6@redhat.com>
+ <20261124-nova-nouveau-gsp-v3-1-e1440479ded6@redhat.com>
+ <CAAgWFh2VmmZfdEM1hDB+8921ktfRrD81kXFqEc6dJ3ys+=vJYw@mail.gmail.com>
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -78,40 +84,43 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-Mime-Version: 1.0
-References: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
- <20261124-rust-drm-gem-shmem-imported-sgt-v2-4-000f7a9ccb8d@jannau.net>
-X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
-Message-ID: <20261125150315.1587936-1-aliceryhl@google.com>
-Subject: Re: [PATCH v2 4/5] rust: drm: gem: add an is_imported() accessor
-From: Alice Ryhl <aliceryhl@google.com>
-To: Janne Grunau <j@jannau.net>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Sami Tolvanen <samitolvanen@google.com>, Lyude Paul <lyude@redhat.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	nova-gpu@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAgWFh2VmmZfdEM1hDB+8921ktfRrD81kXFqEc6dJ3ys+=vJYw@mail.gmail.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-On Tue, Nov 24, 2026 at 12:37:46PM +0100, Janne Grunau wrote:
-> From: Sami Tolvanen <samitolvanen@google.com>
+On Tue, Nov 24, 2026 at 11:43:59PM -0500, M Henning wrote:
+> On Tue, Nov 24, 2026 at 12:50 AM Dave Airlie via B4 Relay
+> <devnull+airlied.redhat.com@kernel.org> wrote:
+> > +config DRM_NOUVEAU_BIND_GSP
+> > +       bool "Make nouveau the default driver for GSP-capable GPUs"
+> > +       depends on DRM_NOUVEAU
+> > +       default y
+> > +       help
+> > +         Make nouveau bind to all NVIDIA GPUs by default, as it always
+> > +         has.
+> > +
+> > +         If another NVIDIA driver, such as nova-core, should claim the
+> > +         GSP-capable (Turing and later) GPUs instead, say N here; nouveau
+> > +         then leaves those GPUs alone and continues to bind to pre-Turing
+> > +         GPUs itself. nouveau can also be prevented from binding to
+> > +         GSP-capable GPUs at boot with nouveau.bind_gsp=0 on the kernel
+> > +         command line.
+> > +
+> > +         If unsure, say Y.
 > 
-> Drivers need to check whether a GEM object is PRIME-imported.
-> 
-> Add BaseObject::is_imported(), wrapping drm_gem_is_imported() through a
-> C helper shim.
-> 
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-> Signed-off-by: Janne Grunau <j@jannau.net>
+> Maybe the documentation should make this option sound a little
+> scarier? Right now all this does is break nouveau (unless you're a
+> nova developer),. We really don't want users or distros turning it on.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+I doubt people actually read these descriptions with any real though,
+if at all. My suggestion for an option that breaks existing setups is
+to mark it BROKEN, or at the very least EXPERT.
 
-Alice
+-- 
+Ville Syrjälä
+Intel
