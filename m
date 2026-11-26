@@ -1,45 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795729128;
-	b=WqKLV3EJ/j5lVd8YMckLFZNxLnCO8gVwo2ydZKyX1WZkjeEPov7NigLuK2YWge5X3yMb
-	 gEDIXQRE5qoEgsxXBCTmUZ1yth1feAS3UJemhEPi6kwoDmzfIoxeXe9pAxTGyoRz1wd4J
-	 KgVwXCwYf14kBlRSydyuheaCKdN2cGi9VmpMbEKOm3FVGHTGkM4TnDHHe3iEHTyg5WEpk
-	 V0DwuFZkENIjcs9ItSs0xOKIJiz5bDZNcaww8VuSgn1cWKFgnMdtjMGYRcrA6mTKqGubG
-	 5nh61wSvu4024ZYQYOSt94ik1axS+kXdHH6ciKv4Z0WvGVbuzyVswPrHCDFrHXLtt2A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795729128;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=le0OILRxgvc/hUwSc0GSpHpYWxUpD6OdgP9vLsaiIbk=;
-	b=QF7ZWWk6MTKfsRBTgLIXWkEe98+mImR3HMX8UlXrFM4v/R3xPhW+EK7mA1d9JVg9pqsq
-	 S5RC8wJ5PDbZIto558q6rzOvl1hRnGrW36Q/sa1jgrdr7pYdCc53/qG2lkYAo4bNZRf8M
-	 Xuq4cyjkZ4/0v+YMgLRruBGAbVaOC+cbSNRJKxb1c3+hXKFGPanaz+nTKb39EmwruURfs
-	 8dQWvRNXSlMz2kphqk/xPKSUmDYNedz4ZVG0IYkIL0qUeZOpuGbJ+WL3ca5I2o5TSPtLT
-	 zwoDyViZsPYjyVuvGPwPcFrkhYmrPF7rDZojue/SnQPWhaNH7FrmbeNIVlv/vAL0vgg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKPy7iDP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795730267;
+	b=h1kPpmYzKxYQVn/NLSwF0m53+dAe/vXBXueZMkfRM+idi5dhD8izviIUmTt/PgJvW0Ul
+	 AnSImmvYKe4c+xsyoi2N/YUPEamdbvFYRGED38hPdLUl2ETCeZrSmh57UqmB0acdRLxq+
+	 fHohwRONgSlq0u9SXJU5F473anDyKpdCS8QfdFddfXbrYyTJm4YFJu3UAGS4G4cUk7F0i
+	 6rITtakiQ7A9WVXcPcokL347LEF1inTt5g2DrsBeUVtOzXhXe1R/rIo8PDyhYknmZBs7s
+	 LModhpD53WQJU1i2PTSqho9l+vWsrltnlbqaDwSNRkhK4OHB7uQghqlq+XLb4jCnVnA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795730267;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp;
+	bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=;
+	b=xVwXas1BOaRGv8sY/1SG4emUVWmYgC6D4pTL284GnXmZ90blUTKsTmHj5kb5MXH6L8cY
+	 qskyCsmuzn5WbuJN1TCg1d4dbSSGeX9LnoS1FWOvnVpAUjx7xnC2nT1eKTrRlAw3F/EOx
+	 2MuK49FLag/TrrtKuwN4tVkuz6TAWZMOshhkWXGCA/j8pUDYjqhHOz+2PmOvbXmmD74Hn
+	 XyUvUEmzteJefo4z3EUFGVNvPidMCHlwMt8SzhNgqITNbJHeCVSLRviBENlfo2cyCR0S1
+	 y49fiFYFxa8UwOPRz/SfZ0rgzHeaGeXS7SM0sAOBHBx2UNTZ0urNnpmbCGMQRcMSoBw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="NoP/VQTS";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A4A606A31E;
-	Thu, 26 Nov 2026 21:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F78F606A689
+	for <nova-gpu@lists.linux.dev>; Thu, 26 Nov 2026 21:57:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F78F606A689
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKPy7iDP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534771F000C1;
-	Thu, 26 Nov 2026 21:38:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795729127;
-	bh=le0OILRxgvc/hUwSc0GSpHpYWxUpD6OdgP9vLsaiIbk=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=AKPy7iDPt/3jLSg1ILgmyKSkFOltCY3Ucnzt5Hl7PX6j8e0Lxz+e88gkonwy0iB3w
-	 oXn8TzcdYJKNy9BhpU5/ZEG8iy1nTE6N6h3QP9Su/m/dNb4gAonlk9zFG9aGx4CEbi
-	 BUf6VM87VU4wxGkdsUvyztLA4catj3jXsC+AcrLxCg4dt8J8z+fx842cr+azOI7crz
-	 TzhTc1utDtT25sVqdnZ7jApzTBlIEQXOpQxutWJOgEirKtkzn5EZAa0aN1Qv15FZd9
-	 +J018XK8m3xzNH/z3bTiSH/0iwihYID8VQ7JVV5zm185giQqttiy9/Hjp25Y1J5+6z
-	 90VGWeq31swRg==
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NoP/VQTS
+ARC-Seal: i=1; a=rsa-sha256; t=1795730230; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=iTcwd8Xp/547Iv+8Q9NX/RmRc95tagyBsdqLCDhbKDajX4OUly5OSStcrTf/w4H5mugysRCVanw0OBvcJzCnM/bp8BwT5YFsl2FiWPnCf1/D2ccADCvc7GXoRgItHtWNwi/93EDH/OY8OCDJhgqp3vsmnEZFpeN8+SRsuGdlbos=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795730230; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=; 
+	b=T+WPMLmhxBBu/rh4Ip6+c1YYGaWnrLMvz3aI0LyQsIPlV2oXNZIox1oHKlxN2F2cYwj669M4bQ37UKdMieAvhb7GmtBU3mV9vVGI8bLwkYSMBTfakbzepIgD1eJt6tUFggE0WaWGD4lTUGtxgoWcB10eh37ZKfHocnn8PWLZN9I=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=NoP/VQTSLJwgXVjcQCQu5SFK6wqD/i8LWv+j3KcLB5vO59ezzBk0xo03BXzFiGhtwnAVOQ9JMCt/g3mGrI/WTJ/r2ua7W08TsRTL0jqq3bsBRtNNjF6WiWGKq+NUKiQ84pWB1x+3/ttZKHj3F7KULpSNmk0pjKO05Lw5N08vfJQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795730228027378.1289641848697;
+	Thu, 26 Nov 2026 13:57:08 -0800 (PST)
+Date: Thu, 26 Nov 2026 14:57:06 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Janne Grunau <j@jannau.net>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
+	stable@vger.kernel.org, stable+noautosel@kernel.org
+Subject: Re: [PATCH v2 0/5] Fix import of dma-buf buffers as DRM GEM shmem
+ objects
+Message-ID: <awirMlJMlyqKwPQq@um790>
+References: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -48,63 +82,96 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 26 Nov 2026 22:38:37 +0100
-Message-Id: <DN5GUG9ZOIR0.1MSRUTV4H8B67@kernel.org>
-Subject: Re: [PATCH v5 15/35] gpu: nova-core: mm: add SharedGpuMm
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
- <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
- <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>, <xinmengs@nvidia.com>
-To: "Alok Kumar" <alkumar@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261124135937.18583-1-alkumar@nvidia.com>
- <20261124135937.18583-16-alkumar@nvidia.com>
-In-Reply-To: <20261124135937.18583-16-alkumar@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.709.99
 
-On Tue Nov 24, 2026 at 2:59 PM CET, Alok Kumar wrote:
-> +/// A [`GpuMm`] shared between several users, serialized by a mutex.
-> +#[pin_data]
-> +pub(crate) struct SharedGpuMm<'gpu>
-> +where
-> +    // Hide the mutex's invariant resource lifetime so `SharedGpuMm` rem=
-ains covariant.
-> +    exists<'res>: 'gpu,
-> +{
-> +    #[pin]
-> +    #[uses('res: invariant)]
-> +    inner: Mutex<GpuMm<'res>>,
-> +}
+On Tue, Nov 24, 2026 at 12:37:42PM +0100, Janne Grunau wrote:
+> Hej,
+> 
+> this series is triggered by the discussion of gem/shmem.rs SGTableMap
+> issues in [1] which has an additional issue with imported objects.
+> Imported objects are supported since GEM shmem's AllocOps use
+> drm_gem_shmem_prime_import_sg_table() as gem_prime_import_sg_table which
+> sets the same function pointer field in struct drm_driver.
+> 
+> The code is broken in two ways. SGTableMap::drop() calls
+> __drm_gem_shmem_free_sgt_locked() uncondiftionally which it must not do
+> for imported objects as the object does not own `sgt`.
+> The second issue is that the imported object is allocated by
+> __drm_gem_shmem_create() with sizeof(struct drm_gem_shmem_object) as
+> size instead of the size of Rust's Object<T>.
+> 
+> The first issue is fixed in the Asahi downstream driver together with a
+> drm_gem_is_imported() wrapper change taken from the Tyr downstream
+> driver.
+> The second issue is fixed by avoiding to allocate Rust GEM objects
+> from C. In addition to size issue v1 addressed Rust gem objects may
+> contain fields with non-trivial `Drop` implementations. Those fields
+> won't be destroyed in error paths in C code which "destroys" the objects
+> with `kfree(obj)`. Solve this by re-implementing
+> gem_prime_import_sg_table() in Rust.
+> The same issues apply to drm_gem_shmem_dumb_create(). As Asahi and Tyr
+> as render only devices do not use the `dumb_create` callback just drop
+> it. When a future driver uses the callback drm_gem_shmem_dumb_create()
+> needs to be re-implemented in Rust as well.
+> 
+> The series is tested in the Asahi downstream driver. As the prime import
+> code path is unused in-tree I marked the fixes as not suitable for stable
+> backports. The known downstream users of the code are aware of the
+> issues and carry fixes downstream. I don't expect new Rust DRM drivers
+> to be based on (old) stable trees.
+> 
+> Link: https://lore.kernel.org/rust-for-linux/20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com/ [1]
+> Signed-off-by: Janne Grunau <j@jannau.net>
 
-I don't think GpuMm should have a global lock; it contains GpuBuddy, Pramin=
- and
-Tlb.
+Thank you Janne for this series, I tested it on my rock 5B
+by running the igt tests [1]
+with the proposed ioctl changes to tyr [2]
+and it is working great.
 
-The reason some APIs want &mut GpuMm<'a> is that the contained Pramin does =
-not
-implement mutal exclusion; GpuBuddy and Tlb already have inner locks.
+So, for the whole series:
 
-Please also consider, if GpuBuddy, Pramin and Tlb share a common lock, this
-would violate DMA fence rules if Pramin and Tlb are used from the fence
-signaling critical path.
+Tested-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-I just came across this independently from this series and sent out a patch
-series [1] for this.
+[1] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/tree/master/tests/panthor
+[2] https://lore.kernel.org/rust-for-linux/20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev/
 
-[1] https://lore.kernel.org/nova-gpu/20261126213652.3716162-1-dakr@kernel.o=
-rg/
+> ---
+> Changes in v2:
+> - Switch to Rust gem_prime_import_sg_table() implementation
+> - Drop unsound drm_gem_shmem_dumb_create() as well
+> - Add `#[inline] annotation to BaseObject::is_imported()
+> - Drop typoed mail address from To:
+> - Added Alice's Reviewed-by tags
+> - Link to v1: https://lore.kernel.org/r/20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net
+> 
+> ---
+> Janne Grunau (4):
+>       rust: drm: gem: shmem: Do not use drm_gem_shmem_dumb_create()
+>       drm/gem/shmem: Initialize private objects via drm_gem_shmem_init() too
+>       rust: drm: gem: shmem: Implement prime_import_sg_table callback
+>       rust: drm: gem: shmem: Do not free SG table of imported objects
+> 
+> Sami Tolvanen (1):
+>       rust: drm: gem: add an is_imported() accessor
+> 
+>  drivers/gpu/drm/drm_gem_shmem_helper.c | 34 +++++++-------
+>  drivers/gpu/drm/nova/gem.rs            |  4 ++
+>  drivers/gpu/drm/tyr/gem.rs             |  4 ++
+>  include/drm/drm_gem_shmem_helper.h     |  3 +-
+>  rust/helpers/drm.c                     |  6 +++
+>  rust/kernel/drm/gem/mod.rs             | 17 +++++++
+>  rust/kernel/drm/gem/shmem.rs           | 81 ++++++++++++++++++++++++++++++++--
+>  7 files changed, 126 insertions(+), 23 deletions(-)
+> ---
+> base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+> change-id: 20261026-rust-drm-gem-shmem-imported-sgt-85c4a45be283
+> 
+> Best regards,
+> -- 
+> Janne Grunau <j@jannau.net>
+> 
