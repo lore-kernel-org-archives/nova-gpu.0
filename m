@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795729020;
-	b=hxAyG3I6hNGVgTWw9zY8CrbEgDVsDbbjWdcDo0rZLVaeJvjaAavg0Fus4V1kAPxuyRAq
-	 kNkfy06CXvqfIUzaRuh5n0fl0bIQGtVBysugub4WOq2AXIPxrzgY+GZSX6+w9/vx0KASg
-	 J26ihZ7q9HHH7oLxHYQNJe4dxYm2rNxJxjLTvnujan+ggpHNo/ccvLbzgmHOjQIDPrW6B
-	 3Zh0YEROhU4FifOt3RHBCJjG4ExfgBhvKtzAeT9G06SB9I8voHAvZWwQespf38f123EP5
-	 9Xk+fKvPX3BslsYcFo4BGbdK2qRvrumxU91byzjGayWtyZrvc2Q5st2reLR3JezQfuQ==
+	t=1795729024;
+	b=rpnhCsv9LDB43R4ICogu2X1Cvmu9o8BdcJ+jPS5D5k4xYP3kPY+PcVRrEysG4RQG1GdO
+	 MMVYGmJbjw6nm/eM2DBxuWkTsPQoAlgGfkIYotFLB2P82RB1NFp3oI+daTWHxi7Te9ENy
+	 YsLdMDmtPUaK6jPk79uq/RqUx+q4SF5nP32srAc6t5QodVqwTO3yNvSqe38a2eYNQMSL7
+	 bjI+sEP5Xr+JsbBPHW8zXDOq2kVgQgggDbfjymgwndlzIciTRzPACXt2+2lOnZM1wZGcP
+	 fSIf6NItAEXDkIAMgXuUAO2bQxIR5iFzUidsSvf8s9CoYMgoBL/ml+a8ZHwYOIHv3xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795729020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795729024;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=i6R7ZhkWSFhC6v/4N4XEIqorS+opAewlAho4MvvNTDo=;
-	b=OIh4vMapY9r09ABXIiIS3EO6gRBDjGD1AgFqF0jb03bdzZH/Zoyy/SEeu5jimZaWepHu
-	 YSZ5JmEJS1UaqVBELWv4eA1PUS+TuKQ1TqMildkn/NJQ1BNidLNsjL0ECdnzQ1MkVGjte
-	 kx4Mnn3zuSjZpdEvpYCEdrwZdTYh1hfx/K79LYvcSjmtdgqV8rDqaWNYJzdn9yg0chl1H
-	 QqjYiyGOcZW8JQxrMaSPr0gyzGFUWlXoAcgA1ZEF+Jt68r/GNrJKEScwpBPsg1IoVU0ff
-	 A8gLOrrfq01mFw3ssoEQdpaEqviFDXQkFxKhfuhn85Ay91KxgYvOx3fmdqQ5zcD/5ug==
+	bh=zRZq5TRieezmJqScckkwdtBu2F34j5OY2aYNqgKpduk=;
+	b=AzD98g8rHOEuhqkHW1OCCk5b/dbqSDNVNvZHx42pZ8EP9/pIrtwTzg5S8gS6DhGigqUJ
+	 3koCXOiZJkieDsVSTHZb/XABSa1syWKOscFE9yuOTKHXWDBvOKM5H8drVDDMJ9U0IDQHx
+	 EBMBO3ByNSkN7C11lPYsuTpsE3Ie6w4XNas32viD3fEne9/vgG1+IKaibrRP0Bofgv/dE
+	 FE8DKtn6vvIRp4Gb7sSM/Qpsbck73Jgu5dWK4fP1dsU2UUQThzhLb3z4rxYuvXaIxcaVh
+	 PwZKLQ63YyE0kGCcuJkQ7H9zbHWgiHizFQo80sP3o4A4twHUmfY9tSboodahqI5Kbjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoeOcHD5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DtKKI7Ii;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A5C606A32C;
-	Thu, 26 Nov 2026 21:37:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F92606A321;
+	Thu, 26 Nov 2026 21:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoeOcHD5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3C71F000C1;
-	Thu, 26 Nov 2026 21:36:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DtKKI7Ii
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF0A1F000C1;
+	Thu, 26 Nov 2026 21:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795729020;
-	bh=i6R7ZhkWSFhC6v/4N4XEIqorS+opAewlAho4MvvNTDo=;
+	s=k20260515; t=1795729023;
+	bh=zRZq5TRieezmJqScckkwdtBu2F34j5OY2aYNqgKpduk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KoeOcHD52KM9Ujr7AwB8Wz9KbGoQx0EkJzG4ppI1YasBqI3sEl/1JnWevKuDYNlfF
-	 78ocvE/BYQh800vhB3BZe1MVHTj8kbCYxUc3I4vWiD4CNx0Jtv5SYtzRl3XwN5d3aA
-	 yeoDCPZayjWF/e3l0iKUrm+K+Oo1tOa6oaQ2jQLqKk9zy4p5gvVf5DIdSBMWWNVsFY
-	 OItu4YgdmhX4gRHmNHPwO2cQUcB+u5lmHA7gKbI+5rW/3ouayEyObKk7HWCD5prUZe
-	 8aaUxziVTQZnb8rmOMOtDgxNrY8e8LGSRSXUo4CRRVEhKuYmr0/n2RygCyqHVf//u2
-	 AZ/8s/nZyKa7Q==
+	b=DtKKI7IipqfvE15o7FDZxwjD/6Vua9ZKIQ35DF3ruOSUn7KMyZQf2sSpdinxhwHx9
+	 2SU7LkbFSwDalHKBhs3B+Hy77pXm0VJKj/EtRv4nv99Ilnuw7rNdnTusF4rBA8Zpi4
+	 Oa/crdGMBUaV8diMXbbb6+HN0H3jO5pFWxoZwUBDC6fQ3z1x0kz1Z38MpIPGH6bEC8
+	 hN5IdntDngT3HAzr9DfeweIvdaBOWOWbwdKoZ4OmaIptNEQaxpmV48o/CiORrosURc
+	 FYKBKcLAyHr6fIOfKIyQuVhqnCEtZX1IxH64KNhbjOFgOVDJu1Oocj/u0QuRmf+lli
+	 YYyQFYuze/ujA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org,
 	acourbot@nvidia.com,
@@ -52,9 +52,9 @@ To: dakr@kernel.org,
 Cc: nova-gpu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] gpu: nova-core: mm: serialize PRAMIN access
-Date: Thu, 26 Nov 2026 22:36:02 +0100
-Message-ID: <20261126213652.3716162-2-dakr@kernel.org>
+Subject: [PATCH 2/4] gpu: nova-core: mm: use shared references to GpuMm
+Date: Thu, 26 Nov 2026 22:36:03 +0100
+Message-ID: <20261126213652.3716162-3-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126213652.3716162-1-dakr@kernel.org>
 References: <20261126213652.3716162-1-dakr@kernel.org>
@@ -69,308 +69,241 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-PRAMIN window selection and access must be serialized so that the window
-cannot move while it is in use. Give PRAMIN its own synchronization,
-independent of its GpuMm container, so sharing the memory manager does
-not require serializing unrelated VRAM allocation and TLB operations.
+The components owned by GpuMm now provide their own synchronization.
 
-Keep the lock across page table walks and update batches to avoid
-acquiring it separately for every entry.
+Accept shared references to the memory manager so independent users can
+access these resources without requiring a lock around the container.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/nova-core/mm.rs                | 21 ++++++++----
- drivers/gpu/nova-core/mm/bar_user.rs       | 39 ++++++++++++++--------
- drivers/gpu/nova-core/mm/pagetable/map.rs  | 34 +++++++++----------
- drivers/gpu/nova-core/mm/pagetable/walk.rs |  2 +-
- drivers/gpu/nova-core/mm/pramin.rs         | 34 +++++++++++++++++++
- 5 files changed, 91 insertions(+), 39 deletions(-)
+ drivers/gpu/nova-core/gpu.rs               | 13 ++++++-------
+ drivers/gpu/nova-core/mm.rs                |  2 +-
+ drivers/gpu/nova-core/mm/bar_user.rs       |  6 +++---
+ drivers/gpu/nova-core/mm/pagetable/map.rs  | 16 ++++++++--------
+ drivers/gpu/nova-core/mm/pagetable/walk.rs |  4 ++--
+ drivers/gpu/nova-core/mm/vmm.rs            | 10 +++++-----
+ 6 files changed, 25 insertions(+), 26 deletions(-)
 
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 8ab1687847ff..39e57e724a71 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -613,18 +613,17 @@ pub(crate) fn wait_gfw_boot_completion(
+ 
+     /// Runs self-tests on the constructed [`Gpu`], logging failures without failing probe.
+     #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+-    pub(crate) fn run_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bound>) {
+-        let this = self.project();
++    pub(crate) fn run_selftests(&self, pdev: &pci::Device<device::Bound>) {
+         let dev = pdev.as_ref();
+-        let regions = &this.gsp_static_info.usable_fb_regions;
++        let regions = &self.gsp_static_info.usable_fb_regions;
+ 
+         if let Err(err) = crate::mm::selftest::run(
+             dev,
+-            this.mm,
++            &self.mm,
+             regions,
+-            &this.bar_user,
+-            this.gsp_static_info.bar1_pde_base,
+-            this.spec.chipset,
++            &self.bar_user,
++            self.gsp_static_info.bar1_pde_base,
++            self.spec.chipset,
+         ) {
+             dev_err!(dev, "self-tests failed: {:?}\n", err);
+         }
 diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index f53886f9ed91..bbe23dc6351f 100644
+index bbe23dc6351f..30a394424e12 100644
 --- a/drivers/gpu/nova-core/mm.rs
 +++ b/drivers/gpu/nova-core/mm.rs
-@@ -72,11 +72,11 @@ macro_rules! impl_pfn_bounded {
- ///
- /// Provides centralized ownership of memory management resources:
- /// - [`GpuBuddy`] allocator for VRAM page table allocation.
--/// - [`pramin::Pramin`] for direct VRAM access.
-+/// - [`pramin::SharedPramin`] for direct VRAM access.
- /// - [`Tlb`] manager for translation buffer flush operations.
- pub(crate) struct GpuMm<'gpu> {
-     buddy: GpuBuddy,
--    pramin: pramin::Pramin<'gpu>,
-+    pramin: Pin<KBox<pramin::SharedPramin<'gpu>>>,
-     tlb: Pin<KBox<Tlb<'gpu>>>,
- }
- 
-@@ -94,7 +94,10 @@ pub(crate) fn new(
- 
-         Ok(Self {
-             buddy: GpuBuddy::new(buddy_params)?,
--            pramin: pramin::Pramin::new(bar, chipset, vram_region)?,
-+            pramin: KBox::pin_init(
-+                pramin::SharedPramin::new(bar, chipset, vram_region),
-+                GFP_KERNEL,
-+            )?,
-             tlb: KBox::pin_init(Tlb::new(bar), GFP_KERNEL)?,
-         })
-     }
-@@ -104,9 +107,11 @@ pub(crate) fn buddy(&self) -> &GpuBuddy {
-         &self.buddy
-     }
- 
--    /// Access the [`pramin::Pramin`].
--    fn pramin_mut(&mut self) -> &mut pramin::Pramin<'gpu> {
--        &mut self.pramin
-+    /// Runs `f` with exclusive access to the PRAMIN window.
-+    ///
-+    /// Do not perform reclaimable allocations in `f`.
-+    fn with_pramin_locked<R>(&self, f: impl FnOnce(&mut pramin::Pramin<'_>) -> R) -> R {
-+        self.pramin.with_locked(f)
-     }
- 
-     /// Access the [`Tlb`] manager.
-@@ -329,7 +334,9 @@ pub(crate) fn run(
-             return Ok(());
-         };
- 
--        pramin::selftest::run(dev, mm.pramin_mut(), VramAddress::from_raw(base))?;
-+        mm.with_pramin_locked(|pramin| {
-+            pramin::selftest::run(dev, pramin, VramAddress::from_raw(base))
-+        })?;
-         bar_user::run_self_test(dev, mm, bar_user, bar1_pdb, chipset)
-     }
- }
+@@ -311,7 +311,7 @@ pub(crate) mod selftest {
+     /// Run MM subsystem self-tests during probe.
+     pub(crate) fn run(
+         dev: &device::Device<device::Bound>,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         usable_fb_regions: &[Range<u64>],
+         bar_user: &bar_user::BarUser<'_>,
+         bar1_pdb: u64,
 diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index 2e8bd2a8ed91..f25ead64bf53 100644
+index f25ead64bf53..483129d3d0f7 100644
 --- a/drivers/gpu/nova-core/mm/bar_user.rs
 +++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -213,7 +213,12 @@ pub(crate) fn run_self_test(
-     let pdb_addr = VramAddress::from_raw(bar1_pdb);
- 
-     // Check if initial page tables are in VRAM.
--    if crate::mm::pagetable::check_pdb_valid(mm.pramin_mut(), pdb_addr, chipset).is_err() {
-+    if mm
-+        .with_pramin_locked(|pramin| {
-+            crate::mm::pagetable::check_pdb_valid(pramin, pdb_addr, chipset)
-+        })
-+        .is_err()
-+    {
-         dev_info!(dev, "MM: Self-test SKIPPED - no valid VRAM page tables\n");
-         return Ok(());
-     }
-@@ -246,10 +251,13 @@ pub(crate) fn run_self_test(
-     let vram_read_addr = test_vram + 0x100;
- 
-     // Test 1: Write via PRAMIN, read via BAR1.
--    mm.pramin_mut()
--        .window_at::<u32>(vram_read_addr)?
--        .view()
--        .write_val(PATTERN_PRAMIN);
-+    mm.with_pramin_locked(|pramin| -> Result {
-+        pramin
-+            .window_at::<u32>(vram_read_addr)?
-+            .view()
-+            .write_val(PATTERN_PRAMIN);
-+        Ok(())
-+    })?;
- 
-     // Read back via BAR1 aperture.
-     let bar1_value = bar1.try_read32(bar1_read_offset)?;
-@@ -353,11 +361,11 @@ pub(crate) fn run_self_test(
- 
-             bar1.try_write32(PATTERN_BAR1, page_bar1_off)?;
- 
--            let pramin_val = mm
--                .pramin_mut()
--                .window_at::<u32>(VramAddress::from_raw(page_phys))?
--                .view()
--                .read_val();
-+            let pramin_val = mm.with_pramin_locked(|pramin| {
-+                pramin
-+                    .window_at::<u32>(VramAddress::from_raw(page_phys))
-+                    .map(|window| window.view().read_val())
-+            })?;
- 
-             if pramin_val != PATTERN_BAR1 {
-                 dev_err!(
-@@ -392,10 +400,13 @@ pub(crate) fn run_self_test(
-     let access = bar_user.map(mm, &[test_pfn], true)?;
- 
-     // Write pattern via PRAMIN, read via BarUserAccess.
--    mm.pramin_mut()
--        .window_at::<u32>(test_vram)?
--        .view()
--        .write_val(PATTERN_BAR1);
-+    mm.with_pramin_locked(|pramin| -> Result {
-+        pramin
-+            .window_at::<u32>(test_vram)?
-+            .view()
-+            .write_val(PATTERN_BAR1);
-+        Ok(())
-+    })?;
- 
-     let readback = access.try_read32(0)?;
-     let test4_passed = if readback == PATTERN_BAR1 {
-diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
-index f7774b9cc972..ba23cd3c2b25 100644
---- a/drivers/gpu/nova-core/mm/pagetable/map.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
-@@ -96,12 +96,13 @@ fn alloc_and_zero_page(mm: &mut GpuMm<'_>, level: PageTableLevel) -> Result<Prep
-         let page_vram = VramAddress::from_raw(blocks.iter().next().ok_or(ENOMEM)?.offset());
- 
-         // Zero via PRAMIN.
--        let window = mm
--            .pramin_mut()
--            .window_at::<[u64; PAGE_SIZE / 8]>(page_vram)?;
--        for i in 0..PAGE_SIZE / 8 {
--            io_write!(window.view(), [build: i], 0);
--        }
-+        mm.with_pramin_locked(|pramin| -> Result {
-+            let window = pramin.window_at::<[u64; PAGE_SIZE / 8]>(page_vram)?;
-+            for i in 0..PAGE_SIZE / 8 {
-+                io_write!(window.view(), [build: i], 0);
-+            }
-+            Ok(())
-+        })?;
- 
-         Ok(PreparedPtPage {
-             alloc: blocks,
-@@ -121,16 +122,16 @@ fn ensure_single_pte_path(
-         let max_iter = 2 * M::PDE_LEVELS.len();
- 
-         for _ in 0..max_iter {
--            let result = self
--                .walker
--                .walk_pde_levels(mm.pramin_mut(), vfn, |install_addr| {
-+            let result = mm.with_pramin_locked(|pramin| {
-+                self.walker.walk_pde_levels(pramin, vfn, |install_addr| {
-                     pt_pages.get(&install_addr).and_then(|p| {
-                         p.alloc
-                             .iter()
-                             .next()
-                             .map(|b| VramAddress::from_raw(b.offset()))
-                     })
--                })?;
-+                })
-+            })?;
- 
-             match result {
-                 WalkPdeResult::Complete { .. } => {
-@@ -199,9 +200,7 @@ pub(super) fn install_mappings(
+@@ -61,7 +61,7 @@ pub(crate) fn new(
+     /// Map physical pages to a contiguous BAR1 virtual range.
+     pub(crate) fn map(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
          pfns: &[Pfn],
          writable: bool,
-     ) -> Result {
--        {
--            let pramin = mm.pramin_mut();
--
-+        mm.with_pramin_locked(|pramin| -> Result {
-             // Drain prepared PT pages, install all pending PDEs.
-             let mut cursor = pt_pages.cursor_front_mut();
-             while let Some(c) = cursor {
-@@ -242,7 +241,8 @@ pub(super) fn install_mappings(
-                     }
-                 }
-             }
--        }
-+            Ok(())
-+        })?;
- 
-         // Flush TLB.
-         mm.tlb().flush(self.pdb_addr)
-@@ -257,8 +257,7 @@ pub(super) fn invalidate_ptes(
-     ) -> Result {
-         let invalid_pte = M::Pte::invalid();
- 
--        {
--            let pramin = mm.pramin_mut();
-+        mm.with_pramin_locked(|pramin| -> Result {
-             for i in 0..num_pages {
-                 let i_u64: u64 = i.into_safe_cast();
-                 let vfn = Vfn::new(vfn_start.raw() + i_u64);
-@@ -273,7 +272,8 @@ pub(super) fn invalidate_ptes(
-                     }
-                 }
-             }
--        }
-+            Ok(())
-+        })?;
- 
-         mm.tlb().flush(self.pdb_addr)
+     ) -> Result<BarUserAccess<'_>> {
+@@ -91,7 +91,7 @@ pub(crate) struct BarUserAccess<'a> {
+ #[expect(dead_code)]
+ impl BarUserAccess<'_> {
+     /// Tear down the BAR1 mapping.
+-    pub(crate) fn release(mut self, mm: &mut GpuMm<'_>) -> Result {
++    pub(crate) fn release(mut self, mm: &GpuMm<'_>) -> Result {
+         let mapped = self.mapped.take().ok_or(EINVAL)?;
+         let mut vmm = self.bar_user.vmm.lock();
+         vmm.unmap_pages(mm, mapped)?;
+@@ -183,7 +183,7 @@ fn drop(&mut self) {
+ #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+ pub(crate) fn run_self_test(
+     dev: &device::Device<device::Bound>,
+-    mm: &mut GpuMm<'_>,
++    mm: &GpuMm<'_>,
+     bar_user: &BarUser<'_>,
+     bar1_pdb: u64,
+     chipset: Chipset,
+diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
+index ba23cd3c2b25..22e44386423f 100644
+--- a/drivers/gpu/nova-core/mm/pagetable/map.rs
++++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
+@@ -82,7 +82,7 @@ pub(super) fn new(pdb_addr: VramAddress) -> Self {
      }
+ 
+     /// Allocate and zero a physical page table page.
+-    fn alloc_and_zero_page(mm: &mut GpuMm<'_>, level: PageTableLevel) -> Result<PreparedPtPage> {
++    fn alloc_and_zero_page(mm: &GpuMm<'_>, level: PageTableLevel) -> Result<PreparedPtPage> {
+         let blocks = KBox::pin_init(
+             mm.buddy().alloc_blocks(
+                 GpuBuddyAllocMode::Simple,
+@@ -115,7 +115,7 @@ fn alloc_and_zero_page(mm: &mut GpuMm<'_>, level: PageTableLevel) -> Result<Prep
+     /// The mutable PRAMIN borrow ends before each allocation.
+     fn ensure_single_pte_path(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         vfn: Vfn,
+         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
+     ) -> Result {
+@@ -168,7 +168,7 @@ fn ensure_single_pte_path(
+     /// per-VFN to prepare pages for all missing PDEs.
+     pub(super) fn prepare_map(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         vfn_start: Vfn,
+         num_pages: usize,
+         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+@@ -193,7 +193,7 @@ pub(super) fn prepare_map(
+     /// Drains `pt_pages` and moves allocations into `page_table_allocs`.
+     pub(super) fn install_mappings(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
+         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+         vfn_start: Vfn,
+@@ -251,7 +251,7 @@ pub(super) fn install_mappings(
+     /// Invalidate PTEs for a range and flush TLB.
+     pub(super) fn invalidate_ptes(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         vfn_start: Vfn,
+         num_pages: usize,
+     ) -> Result {
+@@ -308,7 +308,7 @@ pub(in crate::mm) fn new(pdb_addr: VramAddress, version: MmuVersion) -> Self {
+     /// Prepare page table resources for a mapping.
+     pub(in crate::mm) fn prepare_map(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         vfn_start: Vfn,
+         num_pages: usize,
+         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+@@ -323,7 +323,7 @@ pub(in crate::mm) fn prepare_map(
+     /// Install prepared PDEs and write PTEs, then flush TLB.
+     pub(in crate::mm) fn install_mappings(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
+         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+         vfn_start: Vfn,
+@@ -339,7 +339,7 @@ pub(in crate::mm) fn install_mappings(
+     /// Invalidate PTEs for a range and flush TLB.
+     pub(in crate::mm) fn invalidate_ptes(
+         &self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         vfn_start: Vfn,
+         num_pages: usize,
+     ) -> Result {
 diff --git a/drivers/gpu/nova-core/mm/pagetable/walk.rs b/drivers/gpu/nova-core/mm/pagetable/walk.rs
-index 76c1729971f5..899c61888756 100644
+index 899c61888756..59a011148455 100644
 --- a/drivers/gpu/nova-core/mm/pagetable/walk.rs
 +++ b/drivers/gpu/nova-core/mm/pagetable/walk.rs
-@@ -172,7 +172,7 @@ pub(super) fn walk_pde_levels(
+@@ -171,7 +171,7 @@ pub(super) fn walk_pde_levels(
+     /// Walk to PTE for lookup only (no allocation).
      ///
      /// Returns [`WalkResult::PageTableMissing`] if intermediate tables don't exist.
-     pub(super) fn walk_to_pte_lookup(&self, mm: &mut GpuMm<'_>, vfn: Vfn) -> Result<WalkResult> {
--        self.walk_to_pte_lookup_with_window(mm.pramin_mut(), vfn)
-+        mm.with_pramin_locked(|pramin| self.walk_to_pte_lookup_with_window(pramin, vfn))
+-    pub(super) fn walk_to_pte_lookup(&self, mm: &mut GpuMm<'_>, vfn: Vfn) -> Result<WalkResult> {
++    pub(super) fn walk_to_pte_lookup(&self, mm: &GpuMm<'_>, vfn: Vfn) -> Result<WalkResult> {
+         mm.with_pramin_locked(|pramin| self.walk_to_pte_lookup_with_window(pramin, vfn))
      }
  
-     /// Walk to PTE using a caller-provided PRAMIN manager (lookup only).
-diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/mm/pramin.rs
-index c83b1681d241..841289d7bccc 100644
---- a/drivers/gpu/nova-core/mm/pramin.rs
-+++ b/drivers/gpu/nova-core/mm/pramin.rs
-@@ -13,6 +13,7 @@
-         Io,
-         Mmio, //
-     },
-+    new_mutex,
-     prelude::*,
-     ptr::{
-         Alignable,
-@@ -22,6 +23,7 @@
-         SizeConstants,
-         SZ_1M, //
-     },
-+    sync::Mutex, //
- };
+@@ -238,7 +238,7 @@ pub(in crate::mm) fn new(pdb_addr: VramAddress, version: MmuVersion) -> Self {
+     }
  
- use crate::{
-@@ -54,6 +56,38 @@
-     PRAMIN: PraminWindow @ 0x700000;
+     /// Walk to PTE for lookup.
+-    pub(in crate::mm) fn walk_to_pte(&self, mm: &mut GpuMm<'_>, vfn: Vfn) -> Result<WalkResult> {
++    pub(in crate::mm) fn walk_to_pte(&self, mm: &GpuMm<'_>, vfn: Vfn) -> Result<WalkResult> {
+         pt_walk_dispatch!(self, walk_to_pte_lookup(mm, vfn))
+     }
  }
+diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
+index 51b500a27233..c8258e579f8b 100644
+--- a/drivers/gpu/nova-core/mm/vmm.rs
++++ b/drivers/gpu/nova-core/mm/vmm.rs
+@@ -204,7 +204,7 @@ fn free_vfn(&self, vfn: Vfn) {
+     }
  
-+/// A [`Pramin`] shared between users, serialized by a mutex.
-+#[pin_data]
-+pub(super) struct SharedPramin<'gpu>
-+where
-+    // Hide the mutex's invariant resource lifetime so `SharedPramin` remains covariant.
-+    exists<'res>: 'gpu,
-+{
-+    #[pin]
-+    #[uses('res: invariant)]
-+    inner: Mutex<Pramin<'res>>,
-+}
-+
-+impl<'gpu> SharedPramin<'gpu> {
-+    /// Creates the shared window manager for the given VRAM region.
-+    pub(super) fn new(
-+        bar: Bar0<'gpu>,
-+        chipset: Chipset,
-+        vram_range: Range<VramAddress>,
-+    ) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            inner <- new_mutex!(Pramin::new(bar, chipset, vram_range)?, "pramin"),
-+        })
-+    }
-+
-+    /// Runs `f` with exclusive access to the PRAMIN window.
-+    ///
-+    /// Do not perform reclaimable allocations in `f`.
-+    pub(super) fn with_locked<R>(&self, f: impl FnOnce(&mut Pramin<'_>) -> R) -> R {
-+        self.with_inner(|inner| f(&mut inner.lock()))
-+    }
-+}
-+
- /// Owner of the PRAMIN window state.
- ///
- /// [`Pramin::window_at()`] repositions the window as needed and returns a typed MMIO view into
+     /// Read the [`Pfn`] for a mapped [`Vfn`] if one is mapped.
+-    pub(super) fn read_mapping(&self, mm: &mut GpuMm<'_>, vfn: Vfn) -> Result<Option<Pfn>> {
++    pub(super) fn read_mapping(&self, mm: &GpuMm<'_>, vfn: Vfn) -> Result<Option<Pfn>> {
+         match self.pt_walk.walk_to_pte(mm, vfn)? {
+             WalkResult::Mapped { pfn, .. } => Ok(Some(pfn)),
+             WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
+@@ -220,7 +220,7 @@ pub(super) fn read_mapping(&self, mm: &mut GpuMm<'_>, vfn: Vfn) -> Result<Option
+     /// to call outside the fence signalling critical path.
+     pub(crate) fn prepare_map(
+         &mut self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         num_pages: usize,
+         va_range: Option<Range<u64>>,
+     ) -> Result<PreparedMapping> {
+@@ -254,7 +254,7 @@ pub(crate) fn prepare_map(
+     /// Installs all prepared PDEs and writes PTEs into the page table, then flushes TLB.
+     pub(crate) fn execute_map(
+         &mut self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         prepared: PreparedMapping,
+         pfns: &[Pfn],
+         writable: bool,
+@@ -297,7 +297,7 @@ pub(crate) fn execute_map(
+     /// [`Vmm::execute_map()`] will be called separately.
+     pub(crate) fn map_pages(
+         &mut self,
+-        mm: &mut GpuMm<'_>,
++        mm: &GpuMm<'_>,
+         pfns: &[Pfn],
+         va_range: Option<Range<u64>>,
+         writable: bool,
+@@ -324,7 +324,7 @@ pub(crate) fn map_pages(
+     }
+ 
+     /// Unmap all pages in a [`MappedRange`] with a single TLB flush.
+-    pub(crate) fn unmap_pages(&mut self, mm: &mut GpuMm<'_>, range: MappedRange) -> Result {
++    pub(crate) fn unmap_pages(&mut self, mm: &GpuMm<'_>, range: MappedRange) -> Result {
+         let result = self
+             .pt_map
+             .invalidate_ptes(mm, range.vfn_start, range.num_pages);
 -- 
 2.56.1
 
