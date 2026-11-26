@@ -1,67 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795731177;
-	b=suOYhpVwds4d9fJxsydnflkdx0A2NtRUMG1TonN8/aBDQblV9YQQSDk2/TCvoNEhyG8r
-	 OOBMLrFLsC9ty5Psj5r9XBqARCgcOMEbERNkjYb/YZjF/J8dHr+gQKg3IVkYjz53cPIbV
-	 z8Fg9OVziYFE3G1DuqbSRPVcJ0+8DkuPZ8PjR3b+omo1cbY+/N7Ej7E3USqkPw0Stu1zd
-	 RsbLoc2O/wD3dm84vXMfkpJJy+F7vLibEQOOoqeXWod2AI6DoegKpUER1+C1TtF5hY47A
-	 2UQtOqt87WquH/qydnp55U2DtgeoLgf6rtvTrp1z4DcQ2+gwMNrfYoIQ683uPx8QLhg==
+	t=1795732863;
+	b=FtTAuMydKDMJTTToya08lIEFJRxxdMk9Pk0v52kdpIZENQKrHnj2OURyC5SptNO8wMr1
+	 qQ78nSJyjFUqkTN5FFbWuL6XgtDtrHzbVuKxTnfEnZ+kFO1xj1uwRpjX3Kd/sd84uPYnB
+	 uYBID6HRrer7VfrBZGKiGN0//sdaGJp/ivJtNcGENrpU1MI5o3O6cp9uVYvbSayq8y9W2
+	 i/iMm9WphYL4J5ENnGpP+YTCPUTalnQFh+RujNDUpY3Tc4Pr++ziksh6ZqXeZpZmPqeeo
+	 Se2quQQEIzz35C83F4Ckt6fGzESD7TgFYnlqEIIyFO2jpZsoSo9LXmtblCBfGneVBZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795731177;
-	h=Received:DKIM-Signature:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:Mime-Version:Content-Transfer-Encoding:References:In-Reply-To;
-	bh=o2bsm3sM5qM7pFg6qTM+Ueo75HRL9OdoPZG7+in0now=;
-	b=2/vfEqnMKMrucvmz6sS9jSqMay2vIviW6Mi9PfTgHlJ+rb8yU9mdJv5MEpN0OfFrua9j
-	 BdeydOCcvWRZwB69tKrXC16B7QegdkEZ2ko4nSwn6Vm8bwOM6i+1V7O5z8jOVB7VeZYps
-	 EZU1c9Lpx5b+vXEmZUCABoBGoufYje4tdFlcn6uk6bjFoKewAGTPKu1Z+Iie3edNUUcBK
-	 5AJs641rQf2WxKDNvQRAqqrEcQkebUT76BO2oF0DJrETvY6cPCquyNZoQrw/URWjZByVa
-	 Gb9REdSpdBP1ePLgtOSm3ldFmfYzTNAGlPj2ScI0okyLIJiSAD9VJcWmRz01R6wGO1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795732863;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TNtqi5O4nLzvfHhnFH9DEQT5sHkW4Kx4CS3oVdX8k7k=;
+	b=JCPSzb1wbjXDKnYd5OxL5CmMnUcipewrOFcL5uX5qYtkVNNT1wfKETEV68K1Xdacxmlk
+	 fTpEmrwULkTGUW7RdSw8WpoKbVrl7XIxVxHPLiT3TGkILZuN4ALwXVlODjBlUt1G/qlWA
+	 EtQC1dsRNlwVat8KZNEwMqTcIS56bf6AsHcn5+sGUiN2715iAw8Nbu0a5fpiaFMwokG5k
+	 WOYHXLiKRPhuHYv7NEaLNWOpFkHfo3dBqFaxHKzRwZpUQ5zig+Fm57KzKDxQd4mW96rFr
+	 iIFP+Ej58pYDMxTCo5t5SZrvXn7zGdUiTaNCVRTJ1yb4At+bcdnksJ0434TtqK8wQdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ng+2Fqre;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icoJSpSB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65180606A31C;
-	Thu, 26 Nov 2026 22:12:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99176606A31E;
+	Thu, 26 Nov 2026 22:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ng+2Fqre
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8001F000C1;
-	Thu, 26 Nov 2026 22:12:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icoJSpSB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4871F00896;
+	Thu, 26 Nov 2026 22:41:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795731177;
-	bh=o2bsm3sM5qM7pFg6qTM+Ueo75HRL9OdoPZG7+in0now=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=Ng+2FqrejxNEJfG8T0unRvcStAuJRuDRN5Vtt4t3P+PcZ93TfRUfJp+UqRhY82NTf
-	 gvvhoYeGobrtNYAPclvZzMWMHRiQi23Kbp2tBV4zH82rp4nATvEgToDWVVWaryR+kL
-	 UeWJES8M6dOXJB8Ch7oT4DhzPo3RbKJrT8xIQSDNy7jk0n2TA7mvkaNINMllMf7DZt
-	 YZsydudUrV1a7KPDzQs3bBuD++RXCZNQZvlaoxE4JAhRQR6w+OEwA4O7CgHBRwvibR
-	 NJz4ShlfPMYFgCxw2zcvqOYE1FWWM90XYDCLuZjOx451USETxqc3uqSoy/TYrDbbfG
-	 n7oSR9LbtCiHA==
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 26 Nov 2026 23:12:47 +0100
-Message-Id: <DN5HKLQK65L0.1L9NVW750P85W@kernel.org>
-Subject: Re: [PATCH v5 12/35] gpu: nova-core: mm: add VramBlock
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
- <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
- <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>, <xinmengs@nvidia.com>
-To: "Alok Kumar" <alkumar@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
+	s=k20260515; t=1795732863;
+	bh=TNtqi5O4nLzvfHhnFH9DEQT5sHkW4Kx4CS3oVdX8k7k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=icoJSpSByMLM/bYlvB+6OF7hYB6Pl63TD1Id7GaGvLBgzm168zP4Q/mvICPEr1Nzw
+	 nTKz5j4j+pH+tZTclOqk/8F4yfbg0MbcxII+B4rReuquOZ/Atw5mYfhSzzJK2+hVn5
+	 EI5Diqbhnvwt+LawUVp1t3Dzu+XO+Us93KwJNIK22z2jq6K+p56pBPMh3z7MBRgB/r
+	 qed8tIlatoH6BfgGwG5QMN81EmgyBuNnHkcnk79miRJEwAPJLNChzFAiuQXdYcNwNz
+	 5kvVYHl/0/x4abA1Xf2056UegGzu9sBNOHLi9TzS8K5aYCFWOhraU+cg0adEchA5CA
+	 UcdAa2aPZJeyw==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: acourbot@nvidia.com,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] gpu: nova-core: use Init for firmware initialization
+Date: Thu, 26 Nov 2026 23:40:59 +0100
+Message-ID: <20261126224059.3856051-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261122171353.963020-1-dakr@kernel.org>
+References: <20261122171353.963020-1-dakr@kernel.org>
+X-Patch-Reply: applied
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -70,150 +62,23 @@ List-Subscribe: <mailto:nova-gpu+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:nova-gpu+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-References: <20261124135937.18583-1-alkumar@nvidia.com>
- <20261124135937.18583-13-alkumar@nvidia.com>
-In-Reply-To: <20261124135937.18583-13-alkumar@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue Nov 24, 2026 at 2:59 PM CET, Alok Kumar wrote:
-> +/// A physically contiguous VRAM allocation.
-> +///
-> +/// # Invariants
-> +///
-> +/// `range.start <=3D range.end`.
-> +pub(crate) struct VramBlock {
-> +    _blocks: Pin<KBox<AllocatedBlocks>>,
-> +    range: Range<u64>,
-> +}
+On Sun, 22 Nov 2026 18:13:50 +0100, Danilo Krummrich wrote:
+> [PATCH v2] gpu: nova-core: use Init for firmware initialization
 
-This allocation seems unnecessary, VramBlock can itself be constructed as p=
-in
-initializer...
+Applied, thanks!
 
-> +
-> +impl VramBlock {
-> +    /// Returns the range covered by this VRAM block.
-> +    pub(crate) const fn range(&self) -> &Range<u64> {
-> +        &self.range
-> +    }
-> +}
-> +
-> +impl GpuMm<'_> {
-> +    /// Allocates an exact byte range relative to the buddy allocator's =
-base.
-> +    pub(crate) fn alloc_vram_range(
-> +        &self,
-> +        range: Range<u64>,
-> +        align: Alignment,
-> +    ) -> Result<Arc<VramBlock>> {
-> +        const PAGE_SIZE_ALIGN: Alignment =3D Alignment::new::<PAGE_SIZE>=
-();
-> +
-> +        let align =3D if align > PAGE_SIZE_ALIGN {
-> +            align
-> +        } else {
-> +            PAGE_SIZE_ALIGN
-> +        };
-> +        let size =3D range.end.checked_sub(range.start).ok_or(EINVAL)?;
-> +        let buddy =3D self.buddy();
-> +        let base =3D buddy.base_offset();
-> +        let start =3D base.checked_add(range.start).ok_or(EOVERFLOW)?;
-> +        let end =3D base.checked_add(range.end).ok_or(EOVERFLOW)?;
-> +        if !start.is_multiple_of(u64::from_safe_cast(align.as_usize())) =
-{
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let blocks =3D KBox::pin_init(
-> +            buddy.alloc_blocks(
-> +                GpuBuddyAllocMode::Range(range),
-> +                size,
-> +                align,
-> +                GpuBuddyAllocFlags::default(),
-> +            ),
-> +            GFP_KERNEL,
-> +        )?;
+  Branch: driver-core-next
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
 
-...so we avoid this allocation.
+[1/1] gpu: nova-core: use Init for firmware initialization
+      commit: a3c13b902f14
 
-> +        Ok(Arc::new(
-> +            VramBlock {
-> +                _blocks: blocks,
-> +                // INVARIANT: `range.start <=3D range.end` was checked a=
-bove, hence
-> +                // `address <=3D end`.
-> +                range: start..end,
-> +            },
-> +            GFP_KERNEL,
-> +        )?)
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
 
-To me it seems that reference counting is not needed here.
-
-AFAICS, a VramBlock does not actually have shared ownership, it is owned by=
- the
-VgpuVramSlotPool of the VgpuInstances.
-
-A VgpuInstance owns a VgpuVramSlot, and a VgpuVramSlot owns a VramRegion. T=
-he
-VramRegion borrows (a range) from the VgpuVramSlotPool's VramBlock.
-
-Finally, a BarMapping (also owned by a VgpuInstance) also borrows from the
-VgpuVramSlotPool's VramBlock.
-
-Do I miss anything? I tried to double check and asked my clanker to inline =
-all
-the relevant structures, and it came up with this:
-
-	struct VgpuInstances {
-	    vram_slots: Option<VgpuVramSlotPool {
-	        backing: VramBlock {
-	            _blocks: Pin<KBox<AllocatedBlocks {
-	                buddy: &'mm GpuBuddy,
-	                // Allocated buddy blocks.
-	            }>>,
-	            range: Range<u64>,
-	        },
-	        layout: VgpuVramLayout,
-	        fb_region_size: u64,
-	    }>,
-=09
-	    instances: KVec<VgpuInstance {
-	        vram_slot: VgpuVramSlot {
-	            index: u32,
-	            fbmem: VramRegion {
-	                backing: &'pool VramBlock,
-	                range: Range<u64>,
-	            },
-	            mgmt_heap: VramRegion {
-	                backing: &'pool VramBlock,
-	                range: Range<u64>,
-	            },
-	        },
-=09
-	        plugin_rpc: PluginRpc {
-	            comm: CommBufferRegion {
-	                map: BarMapping {
-	                    region: VramRegion {
-	                        backing: &'pool VramBlock,
-	                        range: Range<u64>,
-	                    },
-	                    access: BarUserAccess {
-	                        bar_user: &BarUser,
-	                        mapped: Option<MappedRange>,
-	                    },
-	                    mm: &SharedGpuMm,
-	                    unmap_error: Option<Error>,
-	                },
-	            },
-	            // Other RPC state omitted.
-	        },
-	    }>,
-	}
-
-(In case you wonder why it says &'a GpuBuddy for AllocatedBlocks, I have [1=
-]
-applied locally.)
-
-[1] https://lore.kernel.org/nova-gpu/20261126221108.3768637-1-dakr@kernel.o=
-rg/
+The patch is queued up for the upcoming merge window for the next major kernel
+release.
