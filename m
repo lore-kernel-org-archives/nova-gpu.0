@@ -1,17 +1,17 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.83
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.33
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795791134;
-	b=lMc+GijGGHum1xI3KvL5Kdz7VBbflA7o6CvREGmTqsknmN5LlPIPhIYSgfT0dPDRulkz
-	 6IWHqHUdi2wpCXaD8vfkkjASuAYj1PG4Fc+HOsWkKWuwGMDsC449RJNkLHi7LmqHkE/kz
-	 xT8/vnslH8Koldwo6sD3HltEU+IE2hHrFaVCMw2hY6H5iXhnfribLOoTNUY4+IU50k8rY
-	 LNWl4mwqkOwBLlMKlekydR4aGVKR6OLgjc7WaQwbQ+aS3ajJ8dBnpPZsLpwilWWGWvJHN
-	 v1cRFx40X0ykPzoUWkWXzviM30rLmk3kwMfONGzWz0GPR0uNes31D1ZTikMq8tvjUpQ==
+	t=1795815325;
+	b=L6QNPMf7aZfcmdDrfDwGVscrQPwO3+//HvUFM9lZ4SMRstfZLAJ0qFvhy+m8FnO+DuEY
+	 xKktRe7YFRWI4ndGSj1KjOUNT4eJUMEt1+xPUmcqX2ZKvtk/ss3IhI4xUZrjvSNHDoGNX
+	 kF1E9t0/eGLK4e3TYtXuzHjxhAPYqSFGY/88PgM0YBRy7M4M0V3wLEceleBkXqTH2MPiG
+	 lTFLNKxeE9GR2U2rTPewV/ERwIL/DUeyOo21LUsFhcf4jXd4pemWXR1WNvbwpFIhiB4KQ
+	 vdgxh8OTb5sAJ3YPwrzXMC6WHJIDuU6YGEqJAlF/fShgvvQfnWUqx5Hu6/wbO6LWyVw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795791134;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795815325;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
@@ -24,76 +24,86 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GhLkj9lvxuHtJ7q0dqbw/s951QlSTs7kqBBYFs0E9OM=;
-	b=U9Uhaodjflgr9sik7Gqr5tJtrBuk5/PPYOWoxqxRoOQ7ITb1avsjrmijNlkmTzaq/1HF
-	 4v3SyohnMtWtq3N+WkUFM7TkW28V/fnFkTC/xA6x15D2nFe0nkrmfdw1gQ57qNb6EaJBk
-	 w97NzOImf4ITN8P9c7LlshDW+RGAOmEbw9qcCa39Kjtnqi0yjzx+G5W6CKlRSWw0iEhrd
-	 uvWH/deFmmW9El+ZK0BklAl7GIkmbu/orjsA1RNESacuWbJpusTTzaZ3ykK67z6wnaL4D
-	 yqz8//Vd8vocPo7HWOdGWNSjCCi6KeCfXPB3FPKAttzzwZEb6Xs5I2xCdgGgifgZVkw==
+	bh=0rF4OiVYIL+9GB5/MBr7yNG2ilz35VyTt1U9kvbWsvY=;
+	b=FGBxCm07bqY8kJJ2Z7MEZgVAvf8uijHFvkl6jhiJY/W6BsO2NqRGxBpc1MoPFnUmqvh7
+	 61DPMML7tFVxaPYukMx3o8jfxr2BEMrb55NsHAsLTCmvKHku0f3rwsn8ixOowap+X7yWD
+	 y/A9u5j3CZEX7WsL9T89op0xDzMuSfbYQAkiQqXBVsT+4yjQBYWR7PQWT5wqVFdLCwnh4
+	 zdzlciWn6fZdJmTf9BCNP9vWCJgNj9+oer9NpGuklFUAcsragTflgZ9Wf3dvLHEr3tbxR
+	 tBTApRr4tDgFN9ZcxoX9Wnk0RKtjCOfut7V/8IvtmVaweA+H1II1u8l6xskXjENPBRQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=MMFw+NwU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.83
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021083.outbound.protection.outlook.com [52.101.100.83])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sKYLUba3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.33
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013033.outbound.protection.outlook.com [40.93.196.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119EC606A31C
-	for <nova-gpu@lists.linux.dev>; Fri, 27 Nov 2026 14:52:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 119EC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C670606A332
+	for <nova-gpu@lists.linux.dev>; Fri, 27 Nov 2026 21:35:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C670606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=MMFw+NwU
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sKYLUba3
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pvd9p3MgQV7CuQrmI5fQzKDKYDPGjyZAXaQUKYPw9hwgWSL3Lfd/e9gk3w5EXn0V3vMBmmqLI1osJZYstbcxO9uFI3hukVV2qpjbbvrR88x9lC/CBTf4SZYe2NX3N8OaB/j0egFv1v6I6UEsLOREoymdwX+RNNNbOfP5CN/vLnxZlbKaZhJZ3m6Iz2z0WA6+hiEZCUndX8MgJQDZhDTVmd70OODkDHbeBdvMxjRtnARHBxSJ3kuS+qVKK7tHKXbgewwl7BK4sx4VT00la3/b6s7sIm/GR9FIdF9ipMuhkPBPV7GLeApItCGqC6D1Ocr5xabJR6axxHTKR6ZXlmRcaw==
+ b=sQHIWQngeqAMHoNIJDUcfeko3hD9l+jfIRHOYQRqG0Jzo+ZiWKTdtsTku7D7GXbZ02JyIvpJeo/Ce+5LbV6RhVjHyiLZwlj1Id4uVbSy5ZSY3+sSbbr/VXtoRiHgQmcHM0jp+7sOrzdXeWu8arwjVa8P2LJSr+QKu4Az6Gb4QzynHr7uQlxJi/EeHGnyF9rC0uEdrYXRsD9F+6w6AkgnHW2m6ky+Xk42LWbNqzd1LgM+9ZXSOVFNAziIvK91kSoPMoNvXmkGaii8IaNTV6qesKMZdXJLP5fF6lOvBh3RLDKiLWsZv+6Rd8KZeLqzDnTDlME75OBHlw/RL+SdCvfI+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GhLkj9lvxuHtJ7q0dqbw/s951QlSTs7kqBBYFs0E9OM=;
- b=OthTmX+VsYantUciI61wyRMS4bfEPEF0iQPpc7V7Efxj99d2ydFC8zFaR3YUdEc1CMvFv2KLyAkqIlUy+M2ErctL+qJl7ZY1tE4z/SK+6oXiQrJzSdjeCmauXDirSZEgBudAEgC1FPgl6v0h9wKl5fnurSomh/0tsbJkw6FnaduoS3x3remy+bct4cLaz/NdUyBMsXpT6xfc1UsvM6C9y4Yac4/DOW1xpE5NFpq9VASlvYx+kWNBmsaXQNnRqoQYh3QsCNzE7S281Sbe/VJR8+WoCfQZt13hpyV4bhSrAlMTaI+sj2vA7ikl2hdoyuX3nFJ9ye4eQhh+Hhay7NE1DQ==
+ bh=0rF4OiVYIL+9GB5/MBr7yNG2ilz35VyTt1U9kvbWsvY=;
+ b=I11DerbNp0xVjJHZ7txTMe1dLMgDigtmoDwC/0juvT13A488z2nfXJKxzJJNhHxxFHHY2HcgkH7ko2eRbz4eBdRf5qT7HEnaUYPkQ+55do3YkNdrY/VTpkX3xMSkebUKiSwpfxL4Kj5Sm7ROfPLqTPnBxBUEzjpTI0mp9QtSUSwlChF8MsbvND64NjJpl1yDyjhc04631AKmm0HPlBcNxyi2GyE1keiYzMEQTPiFyFh+1RYgCimSHjVLkUtGv1iEAuf75+8MfHHUAk3c01s8+Mwm3Zj4SLKzZLqgIo3Q5+JvI07wfssMBGS8nkJGbUxJslkKuQAjdbeb64IrjJwR2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GhLkj9lvxuHtJ7q0dqbw/s951QlSTs7kqBBYFs0E9OM=;
- b=MMFw+NwUABQOoCJBq7WpmZZ2upV10BcBl6Lav8eCQukYsBE04o9eJVvMiURIfFbbWklMLeseO8GsaPCR2udoxFDlnNsOOKkT86LZO9wZfX280BD1JJZ8773aDgfZlaVOdOmqD+QXzvnTNOGCJ5HpR7f7496xw/3F7jj3alqmmJk=
+ bh=0rF4OiVYIL+9GB5/MBr7yNG2ilz35VyTt1U9kvbWsvY=;
+ b=sKYLUba3QdzIdyWAX+tR+AqYIh+fi2mUoEMzzKB5y/UVpzbkuOMzAlPB4bUY/pyqRhUP4SUKxTb70oH/Lf4Zzj8OX7jaq0LK6Pa3c57Zeju8M+810v+7l8oVOkkgXbStUteh50tMMe4E/kYnS6n2EzzoyMb5p3ugpeiaxV6bXoVyhPuTTk2P2LpPs3XXhVy70q+VmNGtcCkKXz1f8M5hquC2evfDgGgI9mjwTvPsMApyB7Qhoa4LHRGgtvzscVInWUyO0Dmz/AyW1lRnfTWClY/poskTVmJF/l4VCbZzXFXF7wCZUge6Xv1sdGShRN3bkhMGjcJ1SmMVHWtBU1RfCQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LO8P265MB7495.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b4::11) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY5PR12MB6549.namprd12.prod.outlook.com (2603:10b6:930:43::6)
+ by SA1PR12MB8843.namprd12.prod.outlook.com (2603:10b6:806:379::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Fri, 27 Nov
- 2026 14:52:09 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 14:52:07 +0000
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.11; Fri, 27 Nov
+ 2026 21:35:18 +0000
+Received: from CY5PR12MB6549.namprd12.prod.outlook.com
+ ([fe80::2cdd:a549:db13:202b]) by CY5PR12MB6549.namprd12.prod.outlook.com
+ ([fe80::2cdd:a549:db13:202b%4]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 21:35:17 +0000
+Message-ID: <ad773f07-bf03-4042-b79b-f82cc2d64579@nvidia.com>
+Date: Fri, 27 Nov 2026 16:35:10 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 9/9] vfio/nova-vgpu: add the Rust VFIO variant driver
+To: Alex Williamson <alex@shazbot.org>
+Cc: dakr@kernel.org, acourbot@nvidia.com, kvm@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
+ linux-pci@vger.kernel.org, jgg@nvidia.com, yishaih@nvidia.com,
+ skolothumtho@nvidia.com, kevin.tian@intel.com, airlied@gmail.com,
+ simona@ffwll.ch, ojeda@kernel.org, alex.gaynor@gmail.com,
+ boqun.feng@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, jhubbard@nvidia.com, ecourtney@nvidia.com,
+ cjia@nvidia.com, smitra@nvidia.com, kjaju@nvidia.com, alkumar@nvidia.com,
+ ankita@nvidia.com, aniketa@nvidia.com, kwankhede@nvidia.com,
+ targupta@nvidia.com, linux-kernel@vger.kernel.org, zhiwang@kernel.org,
+ zhiw@nvidia.com, boqun@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, work@onurozkan.dev, jgg@ziepe.ca, bhelgaas@google.com,
+ kwilczynski@kernel.org, dri-devel@lists.freedesktop.org, peter@colberg.org
+References: <20261119215046.2892839-1-xinmengs@nvidia.com>
+ <20261119215046.2892839-10-xinmengs@nvidia.com>
+ <20261124201931.55c65263@shazbot.org>
+ <abc4a0e3-2478-4b12-8a06-ffc81196bd20@nvidia.com>
+ <20261125230830.48e768b7@shazbot.org>
+Content-Language: en-US
+From: Simon Song <xinmengs@nvidia.com>
+In-Reply-To: <20261125230830.48e768b7@shazbot.org>
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 14:52:06 +0000
-Message-Id: <DN62TQN60XV6.1KE46URIS7JR4@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/4] gpu: nova-core: gsp: add the r000 queue element
- header
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.22.0
-References: <20261127-nova-r000-staging-v1-0-4eaf6e3c0942@nvidia.com>
- <20261127-nova-r000-staging-v1-1-4eaf6e3c0942@nvidia.com>
-In-Reply-To: <20261127-nova-r000-staging-v1-1-4eaf6e3c0942@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0006.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:150::11) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0003.namprd05.prod.outlook.com
+ (2603:10b6:a03:33b::8) To CY5PR12MB6549.namprd12.prod.outlook.com
+ (2603:10b6:930:43::6)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
 List-Post: <mailto:nova-gpu@lists.linux.dev>
@@ -104,426 +114,431 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO8P265MB7495:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f51980e-aba8-47aa-1ef3-08df4c9601f3
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6549:EE_|SA1PR12MB8843:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55735170-25c6-4226-a311-08df4cce5473
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|10067099003|56012099006|261021123027099003|261022075727099003|261022105027099003|261026121527099003|261022115727099003|261026140227099003|261021121427099003|261028144727099003|261102123227099003|261009223327099003|261009221727099003|261009223027099003|261009220027099003|261009221227099003|18002099003|22082099003|4143699003|6133799003|3023799007;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261102123227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003|6133799003|261009223027099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	tRo0dQ6terjy4PyQuj8GL4Udfi2qAUfOXPgKNi9c3Fyh3GNolehHk0vN46lq+jMTEKXek05sQU690N8LAfO/KipsoRaF5etFTH590cAAJglp0vUGT4Uxpx81IpWOH6GpGLiOE8snTlU9caNvces5zZPkIqnJIuW2bKEiquy6km2qP77qaSOoFyZqvhX7W9S88TL6rRtKRH8y6LoE9EVSCQboVG92zTYfDUoz8e1pLoZLhb3yCTgMPgQ0D3WIrj2D3TkBlsxUfp/PCcbvXE5HfHM/X2aUVsbPO6foIwpOuf3DFjAKZWXQj4rj3/XkS8UoySzg1zZrCn4xlC2r4l211KDKq/IAB6UjaobJD3C15CW1r570kPf5gh+dHI6xKuRkq6p/TVMS34ypVdBF9Bh143U/6lU2xNdmAQ553CFnSpxjO2q8B9tVztEezuPDE44PDVh2HmeKED7Cx+ZCUzQypfp4AX85GEjzJ/eQUZq5NRWpYKCGU2hXGUHnSXYEExgLIUOESScJRQLDvHIZaLZPwKmM4WJIHOBtYumTllDutYuOVd5PBDbkJlrGo2kj0M5F11RZk5xNW5NO7JPb0V3Bd6KkUtKluXAO7ETrmO4eip+fPHNzAnIemDhEsC/+N8/qtFE49NbLRnwSrr+UpTPT4UyCgut5JnRdbSelT4DYlKE=
+	oiXqGDtZPnRNSzRqdPX3qFyEy3DUZ6Iub1Cu6+BuaZodYEWxTwSLj4i+df2FjhnCH1ywv5psikfuGM6abIkWRCTG06/WBFJompLUNRBlMBnXOFQU5KotAQrptHygVDw1RSIBYsbuWsKer5AsxgEcJKrvl8mQzk1vAgvap4LJ2ZOiN7AsDxPts4b4aLO12aai4I6k5L7YxwAwQHz+fPf4OpRupDIGy2tPsQhR/15vU13ufKrlij1R5QVzyMbbyNzXPPAp9iaRvnUBqVxsUmv5fbnsUrwi26Zwu0PDkoYWGKmMY2SINp55Bw1TzAy7pFJ/5ej71vNCDYyTLbi0uPN4Dc8UaOSm5b0TWM96QWuTJSVB3CttkZg0q4x4+0zQSsAxLiXhE8P/MGF8U7Ai2c5Zabt0+SWncs/xs2OUPh53mZm7hEmFR0bKLwzr85YIjGithm3KRj3URRr7ficvvC8LCli9pnmaKvt/mmlUjqmj3w873Ep7okBkWV3qiUDeNTl33FBgTsE0ZaeLKWiUUtMHXMbCW0p/Je6jBbFErzkBuhDBp9F8r/mgLI/rhQpYw+jRFDEcRUo+3/qF06E1Z3pdVxTXrl7840xgw+kG9QaVsUDvS2hJXUMcsZPfAawkPjlluh+q0FG2ISsQC1oaLo1OfGoSdRyXQ9LVgtNklxs1ivc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(10067099003)(56012099006)(261021123027099003)(261022075727099003)(261022105027099003)(261026121527099003)(261022115727099003)(261026140227099003)(261021121427099003)(261028144727099003)(261102123227099003)(261009223327099003)(261009221727099003)(261009223027099003)(261009220027099003)(261009221227099003)(18002099003)(22082099003)(4143699003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6549.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261102123227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aTRCdXB2eW5IVFJNUTZZMEdaVzVxOVhzdDB2a3MwQ0JCamYrUjBtVk12M1NU?=
- =?utf-8?B?c2NLSHFRMFdMdGg3K2RCZVZUMjJkeHBHUitWU2tSclF0Qmw3U2tuNUczS082?=
- =?utf-8?B?ZVZwRnFYdm9tRGNXNzJvcjFpUm5hdmxmcGJaMWcxNmtlNVlLb3FGZDV0ZWdm?=
- =?utf-8?B?SnlyUGRaVU5BMnhERGhFbGRXd1puY0cyejdiUjZZNFdkMVlWNlNXeDFwd1pZ?=
- =?utf-8?B?N09zaE5jdW16UEExeHpyMFpKS3lOZnM3L2RJUURyc3pGK3VmRUdWUGRidU90?=
- =?utf-8?B?TUZMako2Sk9oRWwycUE0UEpLZEljWitmRUFldDJYcEFrVS9OZ1RDK3ZQYk8x?=
- =?utf-8?B?V2hPYWVjZjkwNjltUis0L280dXV3UjVKT0tITmUvRWFuRUhOVVZXS0NiRkps?=
- =?utf-8?B?QXhOQU5tMXc0K2dRVFE5TExHdFkxU281dndJcWpYQ2hPZjhqYjQ2cml4QmVZ?=
- =?utf-8?B?OWozaElKeEJBajA1Z29wQ1VPWW1DT2xrdmlHL0kwY0x0MTFSQ0VxTWhiRS85?=
- =?utf-8?B?R1lNVkNvK2d4aGY0YTNhZmk1VWUwcWZPb0Jld3BtVUxaR0ZrbFBPNm81OHpK?=
- =?utf-8?B?UW9UYzRTZEpaa2dnRHg2WVdQQ0dVdVM0clN0b3l2a2NQSUJwKzhyNjdlVWxW?=
- =?utf-8?B?STlrZEhrL1dFZU9CbjRLd2FJZVlYZTlGcWs2RXlicTJRQ2VYczQyN1R0YUVh?=
- =?utf-8?B?Zjdta1VGYkdCL2FFV3VmcFRPWEJpRzFmSU1tUldCSUVNcUhMdzdvc25xcUNI?=
- =?utf-8?B?UUdBUktIaHNDeDBLUzVvQWplQmk4UzhMTWg1K09NSUVXUUEyY0tVTVZETkt6?=
- =?utf-8?B?NnErY0hDbXl4NTNRTGRDL0p5L3FPS0ltRysveldkVjRXVXpjTlpxVnQyUDNV?=
- =?utf-8?B?dXAxMnRkODVnTHhRLzc4TE1LSkdrYldSSU4yVnRCUWRvbVZVUDIwRW5IQ2hr?=
- =?utf-8?B?YlVSbjJuS0srb3pOeEVrRTVnVDcyTUljTDdPK2VsSDR3WU1zcllTM3BjOW5p?=
- =?utf-8?B?N3h0cjhjaUtsM2F0SGdQR2ZSSEd0UVZnT3UzRFVzSGtTS0xZZG14bmZjeUpT?=
- =?utf-8?B?VlphNlVoYnZ4eUVYem16N25oT25Wb1Bzalo1V0ZVRmJxZzJDdFlWZURLNHpL?=
- =?utf-8?B?SWp4cHBIb2h4MGV2OUFFZytzaEs3VXg4Y1NjTlZySDk1aEhMWlFnV0ZKcTRN?=
- =?utf-8?B?aUErbkRKdXlvcDdsR1F6L3RRYWw3RzB6SWZxbzVqK29OZk1FNGxHZEdSUlRS?=
- =?utf-8?B?RXM2T0JRek9iaHhzT1pnZmJscU8yTGNwM00rL0pHNURKcE1rUUgzTWlEbVd6?=
- =?utf-8?B?cVFFdXdZOEFsc3F6YmRNeHhJYnpCS29NWTc1UlIrSERkQldKRUYzMU80N3Jj?=
- =?utf-8?B?OFZSVWVCQWlValhwaWU1cngxc1BTZm9zYVhZRE9PamNRMHZNTmVNRkFPazdX?=
- =?utf-8?B?S1cxeDY1MkdhdUJtNTBaWkp4T2VzK3NwMnVTTDhHS014WnRieGY2UkwrUVk5?=
- =?utf-8?B?MThENU03NkYwakJBa09VY2xYRGVINm1BdDZreE9RdVhKbElXcExTQ3cvdkhs?=
- =?utf-8?B?eFVpQmNNOHM5Rzl2a0tYQTJkeHlreEk1bVk3K2RpaTZTc3pXUHVGdlp4OGhq?=
- =?utf-8?B?Nm5vRHFFNUViUWZnWTBWcFNhK1czYWZCaWErb3YrcjlwUXY2ZGVpQTJQODJJ?=
- =?utf-8?B?UFdqTlBaVUkzSTVhWGIvT2puVWY0MzZ6WnBRT1VMeTVOU1pGWTZubklKbmRP?=
- =?utf-8?B?Zk5rNXI2ZUNOLzFBUWtwWW1iUnVUNmg1SklrMGdSNFI1WXptUFR0Qy82T3NG?=
- =?utf-8?B?em1iR0huOXNOZy8wc2VBQ1g3YWxvSVpnNlpnRGVhcFVIQkl0OFVNSDNwbUgv?=
- =?utf-8?B?M3N5V3BqeCtKb2JuZG1wVjBKeUk4NXYyQXpiQ2JHQ3V3M2QveG5ZcGlCYlFS?=
- =?utf-8?B?Wlc0dUp0eTVNMTUxQVlMTloyZW1naHV6ZllLOG5hZkxMa3MwMWdOc0xtd2py?=
- =?utf-8?B?c2x5S1UwRm00T29FVlI1Uytoem1IQWVENkpJWjdtMG53Nlh0cENRcFhYMXBW?=
- =?utf-8?B?c2RaUDBYMllyRFN0NTNaQTBkUytlMnl2SGpkV2FhM3A1TlVJczFid3BHVG4w?=
- =?utf-8?B?SHBSY1hpd2ljU21QSUd0YTI3QndDKytFelpmMll6NVBSdk9PUzIvOTNza1NF?=
- =?utf-8?B?OGZVQldyN3dhVnpFYmpldXcxdmFqVGpLa1NtTFV0a2xqWWtxK0lEVGorRGp6?=
- =?utf-8?B?OVFVMmFmcE40M2w4bDJVS2t5TnRJSFp5UTlOTnJqUVU2anRrTnJtRTVPZERO?=
- =?utf-8?Q?x76v/YXjoNJt6BY6QC?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f51980e-aba8-47aa-1ef3-08df4c9601f3
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+	=?utf-8?B?dnAyZmljbDBRdnpoWmx3VVJ4NDNTYTRPTEFYRUxwS2pINlhjTU1VQWpubWxQ?=
+ =?utf-8?B?cUZPSFBoenU5cENBYm9PTDdGMDZhb25hVTRYZmdGU1JCUUYyRFdaN2dpbjNj?=
+ =?utf-8?B?VzlYNStXYWhmRVltb1d0eDd1U05TcGlYNG1wcFlGRnpSK3NMZ05rM1ZvcjJo?=
+ =?utf-8?B?VFRKb3F2Y3dzZGJkWW0wV21kdWZiQWwzUlJrT1lOVHArTTNNSWJraFo5bjI1?=
+ =?utf-8?B?UFRXemo2ZSs2WE9ZOGh1MzdBelZlREZGRWUwQ2ZoWUJQS0VKa0RUWHFKSWll?=
+ =?utf-8?B?bTdxQTdJQUYrVi8wbVZFU2FFT2ZNSUJIM0h1cDhsdHpYa1A4ejdxYmFpL05s?=
+ =?utf-8?B?YUNVTlNsaFl0TXVZbmU1VmFqUkRFUGtNaGpQbXI2YlE5TysvZCtPZWhScUhu?=
+ =?utf-8?B?enY4NXRoWjk0OW41N3JFN3hFKzhkM0tpdkpyaUZ1eFlqTWMxcGc3dW8xWE1r?=
+ =?utf-8?B?R0xjL0RtcjVrOXNVU0ltQkdGWm9XT3F1WUFNODhKdGp3aU1tNkkwdER6cWVo?=
+ =?utf-8?B?YjdPazhOVDBBTGhpcy9PVHBoaTdsTlcwTHA5YVREazNWSURGWTFSSzFISi9Z?=
+ =?utf-8?B?RWxFYUZSc0ljdlFieUExL3h5Vzl0WWxaVXJzYk10TjhnUVkyYXpZZ3h0RUJ5?=
+ =?utf-8?B?MWo2OUUzUU9JQ3BMVGVDZVU3ZE81ZXZOYzRaSEFza1daaURiT28rVWs0S1VG?=
+ =?utf-8?B?SFdmOEMyZFJBYnNuUGF3U2UyV3VkOWt1UEVCVmFGMGlGUXM3N25NYzFXUFVz?=
+ =?utf-8?B?dmdLNHgrSk5YUTllWUk0R1pEWExOTHdTcDR5MmdyS1paRFVQVWY1c0JEUng1?=
+ =?utf-8?B?anQ4UG1QRzdiSTgwcHJvbFFtNUNLRmUvOG1QYWliUUhSb0ZER01lOVJiTDRk?=
+ =?utf-8?B?dzNOcGx1SUdqT1g0R2R4OTFuMy9TcDBKZHJOS1gwT1lOUzZBR2pGKytaTG0r?=
+ =?utf-8?B?V0xGc1k2Z292N3pLM1hlRngyaWlnVlNPd1hSWTRPMWRPQU5uYXE4bis5WFlN?=
+ =?utf-8?B?VnFFNm9NZXluc2tvYTBCOEEvVnpBaWpwakFocGxqSzUyQTFxcW95SUloZHRY?=
+ =?utf-8?B?aDZ3Nzd2VjhOakxVbzRkNldOQkNkS2VRVEZOZUlvYTVMa0RMT0pLMHpEK09N?=
+ =?utf-8?B?SWcvdG9BV2lZWlo0MURZTnNoVFBHMlpFd01Kc2xpSWNIaFNycmRUYzdERXpE?=
+ =?utf-8?B?SFJuZk9tcFFWeGZ2U3FqVTdKbFlsTjc1SDFwbkFUb1l5bmVaeTNwMVNveFVP?=
+ =?utf-8?B?d1VCbkNLalpYaU9rQW9sOXMvOGY1cnk1VVNGM09jVGo4VzBtS1RvZTZCSFpO?=
+ =?utf-8?B?VVF4emM2K1JsTVVkR2V0Y0RXTFl5clJIMEJHSmJEdFdaMVB5YnlOUmY0R1lu?=
+ =?utf-8?B?V3lqa3pPelpucEVQMXI1aE1oK1pHZDhtZjQ1dVRPdVVFTWN6aENRVHllclFU?=
+ =?utf-8?B?Ujl3TUpzbktEdzZkcUNQY2JGeEZsQ0krMXkrL0FSSEhmTXovVW5UTVFaUDNQ?=
+ =?utf-8?B?aUc4enQ2R3NPbjI0c3hVOVdsU0lNRnUyc2R0bzlMdWFuUUZLbUhGZDlleWNT?=
+ =?utf-8?B?bU9jMUxFMitwMGZ4UkVpRDFxSVRaVDNGZFdyL3M3dnBic3RnalZkRVFUM1ZX?=
+ =?utf-8?B?YmZyd0JzUkVjeDEzbWhnemhrZDc0L2xsVVZQTWNkNFRMRzg3MzVSeDZwYU16?=
+ =?utf-8?B?cURFdFcrYm1YOWJpVUp4NE5HeVhtcXJHcGk4WjZVaVpkb1E0M1g3amI0Tjls?=
+ =?utf-8?B?QWZ5bEpTWFBiZjBuNVo3V1pxbVhNSW5XQ2tSNEVmczI1dXVOL1ZWU1MyOHVN?=
+ =?utf-8?B?b3hRcHppZ1hkNGYzY1ZUdzhtMnB1Qjg4Mnc0eEcwbDNxWFB1cExVQW1OekdM?=
+ =?utf-8?B?ZEtIak5FUTBNZnpRdi9UcUIyWTcvaFhTaU9BQmhNV3NKZTd4Ti9qRWZVT2JT?=
+ =?utf-8?B?b2ZFanVHUCtad3JzWjlBZFJtbzJVUGFZeFZNRFk5MFJzUnMxWHlsZlpsYU1Y?=
+ =?utf-8?B?dlZqSFQzRjhWUHB5SjNaTUNNVmlWbHRreUJRVnJzaEJkZ09QR3RxWmpjQ0M1?=
+ =?utf-8?B?ZXZRVC9aSzRCOUgzaDlHRTNCMUdUQmtGL09KSXhZZTN2Zk03SHRuVlpsSFRv?=
+ =?utf-8?B?TUFHNVRYakRXR1FjWGZBVTNPZWxVMC9iS0RybDhHcjY3QmFPdXJNVjRBRG5E?=
+ =?utf-8?B?a0hENUZjTEU4TzdrMUFxL2YyVUw0b1JqTVFaUGYxeVJqR083VllZWjlqN1hy?=
+ =?utf-8?B?RTJiQk5OVTIyUkVtL3V6SE5jNlZhLzBadWVEWjBoSDlQbm1jWG5QSGt5VjBB?=
+ =?utf-8?B?S0wyb00vQWdjMTRLenZpVjdoTFZpejROa3U0c3ZpWWhSTFQzaVEzUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55735170-25c6-4226-a311-08df4cce5473
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6549.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 14:52:07.2844
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 21:35:17.7572
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XncE8UaCsgM3Hpwa3yxI1lLLmbQsuvIJa4UNZMJCKUBqtgJFAmz8+fXbcJ1ZJ3NJrlizB0jYTuk0+DuvVcb56g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7495
+X-MS-Exchange-CrossTenant-UserPrincipalName: BkqFh4wqPdMHfcq960ThVbuotQLg5U3mz44gx3Wy2kOtLbIKVSNEFOMVW1N/UtqbzdKJX2eQak+eBAXZtwuRRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8843
 
-On Fri Nov 27, 2026 at 2:04 PM GMT, Alexandre Courbot wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
->
-> The upcoming r000 firmware uses a new queue element header that includes
-> MCTP and NVDM headers describing the type of message (RPC or GMC) that
-> follows.
->
-> Add that header as the `QueueElementHeader` type, along with the two
-> NVDM types that the GSP queues use and the MCTP version and NVDM vendor
-> checks that validating it requires.
->
-> The type is written out field by field rather than wrapped around the
-> generated binding, as `GSP_MSG_QUEUE_ELEMENT` keeps a 16-byte encryption
-> tag, only used with confidential computing, in a union with its last two
-> fields, making the binding 16 bytes larger than what the GSP expects on
-> the queues. Static assertions check every field offset and the size of
-> the type against the binding.
->
-> The header has no user yet: it replaces `GspMsgElement` at the transport
-> level in a later patch that switches to the r000 firmware, and is built
-> as dead code until then.
->
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/fw.rs                  | 186 +++++++++++++++++=
-+++++-
->  drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs |  97 ++++++++++++
->  drivers/gpu/nova-core/mctp.rs                    |  20 ++-
->  3 files changed, 300 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/=
-fw.rs
-> index 5c216d777dff..2e499a74fa46 100644
-> --- a/drivers/gpu/nova-core/gsp/fw.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw.rs
-> @@ -48,6 +48,11 @@
->          cmdq::Cmdq, //
->          GSP_PAGE_SIZE,
->      },
-> +    mctp::{
-> +        MctpHeader,
-> +        NvdmHeader,
-> +        NvdmType, //
-> +    },
->      num::{
->          self,
->          FromSafeCast, //
-> @@ -835,7 +840,7 @@ pub(crate) fn msg_length(&self) -> usize {
->          size_of::<Self>() + self.rpc_header().rpc_length()
->      }
-> =20
-> -    /// Returns the number of elements (i.e. memory pages) used by this =
-message.
-> +    /// Returns the number of slots (i.e. memory pages) used by this mes=
-sage.
->      pub(crate) fn element_count(&self) -> u32 {
->          self.inner.elemCount
->      }
-> @@ -901,6 +906,185 @@ pub(crate) fn function(&self) -> Result<MsgFunction=
-, u32> {
->      }
->  }
-> =20
-> +/// First word of every r000 queue element: `"MCTP"` in ASCII.
-> +const MCTP_MAGIC: u32 =3D 0x4D43_5450;
-> +
-> +/// Header opening every element of the r000 GSP queues.
-> +///
-> +/// A queue element is laid out as follows:
-> +///
-> +/// ```text
-> +///     +------------------------------------+
-> +///     | Queue element header               |  QueueElementHeader: MCTP=
- magic, element length,
-> +///     |                                    |  MCTP header, NVDM header=
-, message length.
-> +///     +------------------------------------+
-> +///     | Message header                     |  RPC header or GMC API he=
-ader. The NVDM type
-> +///     |                                    |  selects between the two.
-> +///     +------------------------------------+
-> +///     | Payload                            |  Message-specific data.
-> +///     +------------------------------------+
-> +/// ```
-> +///
-> +/// This is the `noEncryption` layout of the `GSP_MSG_QUEUE_ELEMENT` bin=
-ding. That binding keeps
-> +/// a 16-byte encryption tag, used only with confidential computing, in =
-a union with the two
-> +/// trailing fields of the queue element header, so wrapping the binding=
- would make every element
-> +/// 16 bytes larger than what the GSP expects. The fields are therefore =
-declared again here, with
-> +/// their offsets checked against the binding.
-> +#[repr(C)]
-> +pub(crate) struct QueueElementHeader {
-> +    /// Always [`MCTP_MAGIC`].
-> +    mctp_magic: u32,
-> +    /// Length in bytes of the whole element, this header included.
-> +    ///
-> +    /// Under confidential computing the GSP pads elements out to whole =
-queue slots, so this can
-> +    /// be larger than `nvdm_payload_size` plus the size of this header,=
- but never smaller.
-> +    mctp_payload_size: u32,
-> +    /// MCTP transport header of the element.
-> +    mctp_header: MctpHeader,
-> +    /// NVDM header of the message.
-> +    nvdm_header: NvdmHeader,
-> +    /// Length in bytes of the message following this header: the messag=
-e header and its
-> +    /// payload.
-> +    nvdm_payload_size: u32,
-> +    reserved: u32,
-> +}
-> +
-> +/// Static validation of [`QueueElementHeader`] against its bindings typ=
-e. Kept in a sub-module to
-> +/// stay out of the way of the rest of the code.
+On 11/26/2026 1:08 AM, Alex Williamson wrote:
+> On Wed, 25 Nov 2026 21:45:13 -0500
+> Simon Song <xinmengs@nvidia.com> wrote:
+> 
+>> On 11/24/2026 7:19 PM, Alex Williamson wrote:
+>>
+>>>> +    fn bar1_size(&self) -> Result<Option<u64>> {
+>>>> +        let Some(instance) = &self.instance else {
+>>>> +            return Ok(None);
+>>>> +        };
+>>>> +        let physical = self
+>>>> +            .registration
+>>>> +            .pdev
+>>>> +            .resource_len(self.registration.fb_bar)?;
+>>>> +        let size = instance
+>>>> +            .type_info()
+>>>> +            .bar1_length
+>>>> +            .checked_mul(1 << 20)
+>>>> +            .ok_or(EOVERFLOW)?;
+>>>> +        Ok(Some(if size == 0 {
+>>>> +            physical
+>>>> +        } else {
+>>>> +            size.min(physical)
+>>>> +        }))
+>>>> +    }  
+>>>
+>>> Does this provide a power-of-two size?
+>>>   
+>> currently it does not, we can add a check for is_power_of_two:
+>> --- a/drivers/vfio/pci/nova-vgpu/nova_vgpu.rs
+>> +++ b/drivers/vfio/pci/nova-vgpu/nova_vgpu.rs
+>> @@ -120,6 +120,9 @@ fn bar1_size(&self) -> Result<Option<u64>> {
+>>              .bar1_length
+>>              .checked_mul(1 << 20)
+>>              .ok_or(EOVERFLOW)?;
+>> +        if size != 0 && !size.is_power_of_two() {
+>> +            return Err(EINVAL);
+>> +        }
+>>
+>> on a side note, i think vf bar1 of 0 can be a valid case too, so i should remove that check in next respin
+> 
+> The real question is whether the PF tells us a power-of-two size based
+> on the vGPU profile.  If it's expected to, this is a maybe a good
+> sanity test, it if doesn't then maybe we'd want to extend the BAR to a
+> power-of-two size with a sparse mmap to indicate we can't map past the
+> implemented size.
+> 
+Yes, vGPU types define bar1 size as power of two and PF passes it through, so i'll add as sanity test in respin
+>>>> +
+>>>> +    fn limit_bar1(&self, buf: &mut vfio::UserBuf, position: &Position<'_>) -> Result {
+>>>> +        if buf.is_empty() || position.region_index() != self.registration.fb_bar {
+>>>> +            return Ok(());
+>>>> +        }
+>>>> +        if let Some(size) = self.bar1_size()? {
+>>>> +            let offset = position.region_offset();
+>>>> +            if offset >= size {
+>>>> +                return Err(EINVAL);
+>>>> +            }
+>>>> +            if size - offset < buf.len() as u64 {
+>>>> +                buf.truncate((size - offset) as usize);
+>>>> +            }
+>>>> +        }
+>>>> +        Ok(())
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +impl Drop for NovaVgpuOpenData<'_, '_> {
+>>>> +    fn drop(&mut self) {
+>>>> +        let mut state = self.registration.lock_instance();
+>>>> +        state.active = false;
+>>>> +        drop(self.instance.take());
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +impl vfio::pci::Operations for NovaVgpuOps {
+>>>> +    const NAME: &'static CStr = c"nova-vgpu-vfio-pci";
+>>>> +    type RegistrationData<'a> = NovaVgpuRegData<'a>;
+>>>> +    type OpenData<'a, 'data: 'a> = NovaVgpuOpenData<'a, 'data>;
+>>>> +
+>>>> +    fn open_device<'a, 'data: 'a>(
+>>>> +        dev: &'a vfio::pci::Device<Self, Open>,
+>>>> +        rd: &'a NovaVgpuRegData<'data>,
+>>>> +    ) -> impl PinInit<Self::OpenData<'a, 'data>, Error> + 'a {
+>>>> +        NovaVgpuOpenData::new(dev, rd)
+>>>> +    }
+>>>> +
+>>>> +    fn ioctl<'data>(
+>>>> +        dev: &vfio::pci::Device<Self, Ioctl>,
+>>>> +        rd: &NovaVgpuRegData<'data>,
+>>>> +        _open_data: Pin<&Self::OpenData<'_, 'data>>,
+>>>> +        cmd: u32,
+>>>> +        arg: usize,
+>>>> +    ) -> Result<isize> {
+>>>> +        let reset = cmd == vfio::DEVICE_RESET || cmd == vfio::pci::DEVICE_PCI_HOT_RESET;
+>>>> +        if reset {
+>>>> +            if let Some(error) = rd.state.lock().reset_error {
+>>>> +                return Err(error);
+>>>> +            }  
+>>>
+>>> Is a previous reset error effectively unrecoverable?
+>>>   
+>> yes, currently the behaviour makes reset error sticky, we could make the the vfio driver to be able to try again, 
+>> so errors in reset_prepare would be stateless and allow vf to try to reset again, something like:
+>>
+>> @@ -171,14 +170,8 @@ fn ioctl<'data>(
+>>          cmd: u32,
+>>          arg: usize,
+>>      ) -> Result<isize> {
+>> -        let reset = cmd == vfio::DEVICE_RESET || cmd == vfio::pci::DEVICE_PCI_HOT_RESET;
+>> -        if reset {
+>> -            if let Some(error) = rd.state.lock().reset_error {
+>> -                return Err(error);
+>> -            }
+>> -        }
+>>          let result = dev.core_ioctl(cmd, arg)?;
+>> -        if reset {
+>> +        if cmd == vfio::DEVICE_RESET || cmd == vfio::pci::DEVICE_PCI_HOT_RESET {
+>>              if let Some(error) = rd.state.lock().reset_error {
+>>                  return Err(error);
+>>
+>> @@ -260,11 +253,10 @@ fn reset_prepare(rd: &NovaVgpuRegData<'_>) {
+>>          // close release this mutex before entering the VFIO core.
+>>          let mut state = rd.state.lock();
+>>          state.resetting = true;
+>> +        state.reset_error = None;
+>>          if state.active {
+>>              if let Some(vgpu) = &rd.vgpu {
+>> -                if let Err(error) = vgpu.api.reset(vgpu.gfid) {
+>> -                    state.reset_error.get_or_insert(error);
+>> -                }
+>> +                state.reset_error = vgpu.api.reset(vgpu.gfid).err();
+>>              }
+>>          }
+>>
+>> this also remove the hot-reset check and address the comment regarding intercepting hot-reset:
+> 
+> Why were we trying to make it sticky?  I don't know why this is still
+> trying to handle a hot-reset.  A hot-reset is a bus reset, we can't bus
+> reset a VF.  Reiterating reset_prepare comments below.
+> 
+sorry I forgot to delete DEVICE_PCI_HOT_RESET in my previous comment, 
+there's no point in making it sticky and i'll fix it in next respin
 
-If you just want "grouping" then
+>>> vGPUs are VFs, why are we intercepting hot-reset?  That's a different
+>>> class of reset that VFs don't support (unless we're running on s390).
+>>>   
+>>>> +        }
+>>>> +        let result = dev.core_ioctl(cmd, arg)?;
+>>>> +        if reset {
+>>>> +            if let Some(error) = rd.state.lock().reset_error {
+>>>> +                return Err(error);
+>>>> +            }
+>>>> +        }
+>>>> +        Ok(result)
+>>>> +    }
+>>>> +
+>>>> +    fn read<'data>(
+>>>> +        dev: &vfio::pci::Device<Self, Read>,
+>>>> +        _rd: &NovaVgpuRegData<'data>,
+>>>> +        open_data: Pin<&Self::OpenData<'_, 'data>>,
+>>>> +        buf: &mut vfio::UserBuf,
+>>>> +        position: &mut Position<'_>,
+>>>> +    ) -> Result<isize> {
+>>>> +        if let Some(instance) = &open_data.instance {
+>>>> +            if position.region_index() == vfio::pci::CONFIG_REGION_INDEX {
+>>>> +                let offset = position.region_offset();
+>>>> +                return position.with_temporary(|next| {
+>>>> +                    let count = dev.core_read(buf, next)?;
+>>>> +                    buf.write_overlapping(
+>>>> +                        offset,
+>>>> +                        count.try_into()?,
+>>>> +                        u64::from(bindings::PCI_SUBSYSTEM_ID),
+>>>> +                        &(instance.type_info().pci_subsys_id as u16).to_le_bytes(),
+>>>> +                    )?;
+>>>> +                    Ok(count)
+>>>> +                });
+>>>> +            }
+>>>> +        }
+>>>> +        open_data.limit_bar1(buf, position)?;
+>>>> +        dev.core_read(buf, position)
+>>>> +    }  
+>>>
+>>> Why do we virtualize the subsystem ID on read and the device ID on open?
+>>>   
+>>
+>> This is done intentially, as core viratualized it in vconfig, where it is set
+>> at open, while the core read subsystem id from hardware, will add a comment: 
+>>
+>>  // A VF has no device ID of its own, so the core keeps it in vconfig, where
+>>  // it is set once at open. The core reads the subsystem ID from the hardware,
+>>  // as a firmware update can change it there, so replace it on every read.
+> 
+> Right, I'd forgotten that device ID is virtualized for this purpose but
+> subsystem ID is not, so we require this split.
+> 
+>>>> +
+>>>> +    fn write<'data>(
+>>>> +        dev: &vfio::pci::Device<Self, Write>,
+>>>> +        _rd: &NovaVgpuRegData<'data>,
+>>>> +        open_data: Pin<&Self::OpenData<'_, 'data>>,
+>>>> +        buf: &mut vfio::UserBuf,
+>>>> +        position: &mut Position<'_>,
+>>>> +    ) -> Result<isize> {
+>>>> +        open_data.limit_bar1(buf, position)?;
+>>>> +        dev.core_write(buf, position)
+>>>> +    }
+>>>> +
+>>>> +    fn mmap<'data>(
+>>>> +        dev: &vfio::pci::Device<Self, Mmap>,
+>>>> +        rd: &NovaVgpuRegData<'data>,
+>>>> +        open_data: Pin<&Self::OpenData<'_, 'data>>,
+>>>> +        mapping: &mut Mapping<'_>,
+>>>> +    ) -> Result {
+>>>> +        if mapping.region_index() == rd.fb_bar {
+>>>> +            if let Some(size) = open_data.bar1_size()? {
+>>>> +                if mapping.region_end()? > size {
+>>>> +                    return Err(EINVAL);
+>>>> +                }
+>>>> +            }
+>>>> +        }
+>>>> +        dev.core_mmap(mapping)
+>>>> +    }
+>>>> +
+>>>> +    fn get_region_info<'data>(
+>>>> +        dev: &vfio::pci::Device<Self, GetRegionInfo>,
+>>>> +        rd: &NovaVgpuRegData<'data>,
+>>>> +        open_data: Pin<&Self::OpenData<'_, 'data>>,
+>>>> +        info: &mut bindings::vfio_region_info,
+>>>> +        caps: &mut vfio::InfoCap<'_>,
+>>>> +    ) -> Result {
+>>>> +        dev.core_get_region_info(info, caps)?;
+>>>> +        if info.index == rd.fb_bar && info.size != 0 {
+>>>> +            if let Some(size) = open_data.bar1_size()? {
+>>>> +                info.size = info.size.min(size);
+>>>> +            }
+>>>> +        }
+>>>> +        Ok(())
+>>>> +    }  
+>>>
+>>> BAR sizing in config space also needs to reflect the virtualized BAR
+>>> size.
+>>>   
+>> right, the BAR sizing through config space still not handled in this version, sizing through
+>> config space will still return the physical size, in the next version, i will add code to
+>> return virtual bar size to match what region info reports.
+>>
+>>>> +
+>>>> +    fn reset_prepare(rd: &NovaVgpuRegData<'_>) {
+>>>> +        // PCI holds the device lock, and VFIO may hold its memory lock. Open and
+>>>> +        // close release this mutex before entering the VFIO core.
+>>>> +        let mut state = rd.state.lock();
+>>>> +        state.resetting = true;
+>>>> +        if state.active {
+>>>> +            if let Some(vgpu) = &rd.vgpu {
+>>>> +                if let Err(error) = vgpu.api.reset(vgpu.gfid) {
+>>>> +                    state.reset_error.get_or_insert(error);
+>>>> +                }
+>>>> +            }
+>>>> +        }
+>>>> +    }  
+>>>
+>>> This seems very wrong, why are we calling the PF driver reset in
+>>> reset_prepare()?  Isn't there still an FLR happening between prepare
+>>> and done?  Does it do anything?
+>>>   
+>> It will not reset the PF, vgpu.api.reset will reset this vgpu instance behind this VF,
+>> the PF driver would ask firmware to reset the instance and scrub its memory, then FLR
+>> follows
+> 
+> PF reset is not the question.  We're calling into the PF driver to reset
+> the VF, but we should not be doing that from reset_prepare().  This
+> also still doesn't explain what the FLR that follows the PF initiated
+> VF reset actually does.  Why can't we just use FLR?  Do we need a
+> device specific reset quirk?
+> 
+FLR resets the VF itself, and firmware stops VF channels and reset registers,
+but doesn't reset vGPU state inside the firmware, and only PF driver can ask firmware to do that
 
-    const _: () =3D {
-    };
-
-is usually the way and you don't need `super::*` with it.
-
-> +mod queue_element_header_validation {
-> +    use super::*;
-> +
-> +    // Offsets of `QueueElementHeader`'s fields
-> +
-> +    static_assert!(
-> +        core::mem::offset_of!(QueueElementHeader, mctp_magic)
-
-Perhaps import offset_of in the scope?
-
-> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
- mctpMagic)
-> +    );
-> +    static_assert!(
-> +        core::mem::offset_of!(QueueElementHeader, mctp_payload_size)
-> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
- mctpPayloadSize)
-> +    );
-> +    static_assert!(
-> +        core::mem::offset_of!(QueueElementHeader, mctp_header)
-> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
- mctpHeader)
-> +    );
-> +    static_assert!(
-> +        core::mem::offset_of!(QueueElementHeader, nvdm_header)
-> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
- nvdmHeader)
-> +    );
-> +
-> +    /// The `noEncryption` member of the union of `GSP_MSG_QUEUE_ELEMENT=
-`, which holds the two
-> +    /// trailing fields of [`QueueElementHeader`].
-> +    // Using `allow` instead of `expect` as rustc 1.85 ignores uses from=
- `static_assert!` and
-> +    // reports this as dead code.
-> +    #[allow(dead_code)]
-> +    type QueueElementNoEncryption =3D r000_00::GSP_MSG_QUEUE_ELEMENT__bi=
-ndgen_ty_1__bindgen_ty_2;
-> +
-> +    // Offsets of fields under [`QueueElementNoEncryption`] within `GSP_=
-MSG_QUEUE_ELEMENT`.
-> +
-> +    // Using `allow` instead of `expect` as rustc 1.85 ignores uses from=
- `static_assert!` and
-> +    // reports this as dead code.
-> +    #[allow(dead_code)]
-> +    const QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET: usize =3D
-> +        core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT, __bindgen_=
-anon_1)
-> +            + core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT__bind=
-gen_ty_1, noEncryption);
-> +
-> +    static_assert!(
-> +        core::mem::offset_of!(QueueElementHeader, nvdm_payload_size)
-> +            =3D=3D QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET
-> +                + core::mem::offset_of!(QueueElementNoEncryption, nvdmPa=
-yloadSize)
-> +    );
-> +    static_assert!(
-> +        core::mem::offset_of!(QueueElementHeader, reserved)
-> +            =3D=3D QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET
-> +                + core::mem::offset_of!(QueueElementNoEncryption, reserv=
-ed)
-> +    );
-> +
-> +    // Ensure the size of `QueueElementHeader` matches the `noEncryption=
-` layout.
-> +
-> +    static_assert!(
-> +        size_of::<QueueElementHeader>()
-> +            =3D=3D QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET + size_of::<QueueE=
-lementNoEncryption>()
-> +    );
-> +}
-> +
-> +#[expect(dead_code)]
-> +impl QueueElementHeader {
-> +    /// Creates the queue element header of an element carrying a messag=
-e of NVDM type `nvdm_type`
-> +    /// and `message_len` bytes, message header included.
-> +    ///
-> +    /// # Errors
-> +    ///
-> +    /// - `EOVERFLOW` if a length does not fit its 32-bit field.
-> +    pub(crate) fn init(nvdm_type: NvdmType, message_len: usize) -> impl =
-Init<Self, Error> {
-> +        try_init!(QueueElementHeader {
-> +            mctp_magic: MCTP_MAGIC,
-> +            mctp_payload_size: size_of::<Self>()
-> +                .checked_add(message_len)
-> +                .ok_or(EOVERFLOW)?
-> +                .try_into()
-> +                .map_err(|_| EOVERFLOW)?,
-> +            mctp_header: MctpHeader::single_packet(),
-> +            nvdm_header: NvdmHeader::new(nvdm_type),
-> +            nvdm_payload_size: message_len.try_into().map_err(|_| EOVERF=
-LOW)?,
-> +            reserved: 0,
-> +        })
-> +    }
-> +
-> +    /// Returns the length of the whole element, this header included.
-> +    pub(crate) fn element_len(&self) -> usize {
-> +        num::u32_as_usize(self.mctp_payload_size)
-> +    }
-> +
-> +    /// Returns the length of the message following this header, message=
- header included.
-> +    pub(crate) fn message_len(&self) -> usize {
-> +        num::u32_as_usize(self.nvdm_payload_size)
-> +    }
-> +
-> +    /// Returns the number of slots (i.e. memory pages) used by this ele=
-ment.
-> +    pub(crate) fn element_count(&self) -> u32 {
-> +        self.mctp_payload_size.div_ceil(cv!(GSP_PAGE_SIZE))
-> +    }
-> +
-> +    /// Returns the NVDM type of the message following this header, or `=
-EINVAL` if it is not a
-> +    /// known one.
-> +    pub(crate) fn nvdm_type(&self) -> Result<NvdmType> {
-> +        self.nvdm_header.nvdm_type()
-> +    }
-> +
-> +    /// Validates the framing of the element.
-> +    ///
-> +    /// # Errors
-> +    ///
-> +    /// - `EIO` if the magic, the MCTP version or the NVDM vendor is wro=
-ng, or if the element
-> +    ///   length is smaller than this header and the message together, o=
-r larger than the
-> +    ///   maximum element size.
-> +    pub(crate) fn validate(&self) -> Result {
-> +        if self.mctp_magic !=3D MCTP_MAGIC
-> +            || !self.mctp_header.has_expected_version()
-> +            || !self.nvdm_header.has_nvidia_vendor()
-> +        {
-> +            return Err(EIO);
-> +        }
-> +
-> +        let element_len =3D self.element_len();
-> +        if element_len < size_of::<Self>().saturating_add(self.message_l=
-en())
-> +            || element_len > GSP_MSG_QUEUE_ELEMENT_SIZE_MAX
-> +        {
-> +            return Err(EIO);
-> +        }
-> +
-> +        Ok(())
-> +    }
-> +}
-> +
-> +// SAFETY: All fields are integer types or transparent wrappers over one=
-, with no padding.
-> +unsafe impl AsBytes for QueueElementHeader {}
-
-Use zerocopy derives instead perhaps?
-
-Best,
-Gary
-
-> +
-> +// SAFETY: All fields are integer types or transparent wrappers over one=
-, for which all bit
-> +// patterns are valid.
-> +unsafe impl FromBytes for QueueElementHeader {}
-> +
->  bounded_enum! {
->      /// Commands of the GMC API.
->      #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-> diff --git a/drivers/gpu/nova-core/mctp.rs b/drivers/gpu/nova-core/mctp.r=
-s
-> index f62e79f56b05..e4d0639cde0f 100644
-> --- a/drivers/gpu/nova-core/mctp.rs
-> +++ b/drivers/gpu/nova-core/mctp.rs
-> @@ -28,6 +28,10 @@ pub(crate) enum NvdmType with TryFrom<Bounded<u32, 8>>=
- {
->          Cot =3D 0x14,
->          /// FSP command response.
->          FspResponse =3D 0x15,
-> +        /// RPC message to or from GSP-RM.
-> +        RmRpc =3D 0x25,
-> +        /// GMC (GPU Management Controller) API message to or from GSP-R=
-M.
-> +        GmcApi =3D 0x26,
->      }
->  }
-> =20
-> @@ -67,6 +71,11 @@ pub(crate) fn single_packet() -> Self {
->      pub(crate) fn is_single_packet(self) -> bool {
->          self.som().into_bool() && self.eom().into_bool()
->      }
-> +
-> +    /// Returns `true` if this MCTP header carries the version that this=
- driver uses.
-> +    pub(crate) fn has_expected_version(self) -> bool {
-> +        u32::from(self.version()) =3D=3D Self::VERSION
-> +    }
->  }
-> =20
->  /// MCTP message type for PCI vendor-defined messages.
-> @@ -93,10 +102,17 @@ pub(crate) fn new(nvdm_type: NvdmType) -> Self {
->              .with_nvdm_type(nvdm_type)
->      }
-> =20
-> -    /// Validates this header against the expected NVIDIA NVDM format an=
-d type.
-> -    pub(crate) fn validate(self, expected_type: NvdmType) -> bool {
-> +    /// Returns `true` if this NVDM header belongs to a PCI vendor-defin=
-ed message from NVIDIA.
-> +    ///
-> +    /// The GPU firmware only ever sends such messages, so a mismatch is=
- a sign of corruption.
-> +    pub(crate) fn has_nvidia_vendor(self) -> bool {
->          u8::from(self.msg_type()) =3D=3D MSG_TYPE_VENDOR_PCI
->              && u16::from(self.vendor_id()) =3D=3D Vendor::NVIDIA.as_raw(=
-)
-> +    }
-> +
-> +    /// Validates this header against the expected NVIDIA NVDM format an=
-d type.
-> +    pub(crate) fn validate(self, expected_type: NvdmType) -> bool {
-> +        self.has_nvidia_vendor()
->              && matches!(self.nvdm_type(), Ok(nvdm_type) if nvdm_type =3D=
-=3D expected_type)
->      }
->  }
-
+I agree it doesn't belong in reset_prepare, in next respin, I moved it to reset_done(), so it runs
+after FLR
+>>>> +
+>>>> +    fn reset_done(rd: &NovaVgpuRegData<'_>) -> Result {
+>>>> +        let mut state = rd.state.lock();
+>>>> +        let error = state.reset_error;
+>>>> +        state.resetting = false;
+>>>> +        rd.reset_done.notify_all();
+>>>> +        error.map_or(Ok(()), Err)
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +struct NovaVgpuDriver;
+>>>> +
+>>>> +kernel::pci_device_table!(
+>>>> +    PCI_TABLE,
+>>>> +    <NovaVgpuDriver as pci::Driver>::IdInfo,
+>>>> +    [(
+>>>> +        pci::DeviceId::from_id_vfio_override(pci::Vendor::NVIDIA, bindings::PCI_ANY_ID as u32),
+>>>> +        (),
+>>>> +    ),]
+>>>> +);  
+>>>
+>>> Whoah, this would break a ton of users that are assigning NVIDIA devices
+>>> and depend on the module options supported by vfio-pci (that aren't
+>>> supported here).  This entry marks this driver as the preferred over
+>>> the vfio-pci driver for any NVIDIA vendor ID device.  We don't want
+>>> that blast radius.
+>>>
+>>> This should list the specific VF device IDs we want to claim?
+>>>   
+>>
+>> True, i will update the list to include only 0x2bb3 and 0x2bb5, which are the 2 GPUs we currently claim to support
+>>
+>>>> +
+>>>> +#[pin_data]
+>>>> +struct NovaVgpuData<'bound> {
+>>>> +    reg: vfio::pci::Registration<'bound, NovaVgpuOps>,
+>>>> +}
+>>>> +
+>>>> +#[vtable]
+>>>> +impl pci::Driver for NovaVgpuDriver {
+>>>> +    type IdInfo = ();
+>>>> +    type Data<'bound> = NovaVgpuData<'bound>;
+>>>> +    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
+>>>> +    // SAFETY: VFIO hands the DMA ownership of the device to userspace. This driver never uses
+>>>> +    // the kernel DMA API for its devices, directly or through helpers.
+>>>> +    const DRIVER_MANAGED_DMA: Option<pci::DriverManagedDma<Self>> =
+>>>> +        Some(unsafe { pci::DriverManagedDma::new() });
+>>>> +
+>>>> +    fn probe<'bound>(
+>>>> +        pdev: &'bound pci::Device<Core<'_>>,
+>>>> +        _info: Option<&'bound Self::IdInfo>,
+>>>> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+>>>> +        try_pin_init!(NovaVgpuData {
+>>>> +            reg: {
+>>>> +                let vgpu = match NovaCoreVfApi::handle(pdev) {
+>>>> +                    Ok(api) => Some(VgpuRegistration {
+>>>> +                        api,
+>>>> +                        gfid: u32::from(pdev.vf_id()?) + 1,
+>>>> +                    }),
+>>>> +                    Err(_) => None,
+>>>> +                };
+>>>> +                let dev = if vgpu.is_some() {
+>>>> +                    vfio::pci::Device::<NovaVgpuOps>::new(pdev)?
+>>>> +                } else {
+>>>> +                    vfio::pci::Device::<NovaVgpuOps>::new_passthrough(pdev)?
+>>>> +                };  
+>>>
+>>> My LLM tells me that the new constructor installs ops that don't
+>>> support get_dmabuf_phys, therefore can't expose dma-buf to iommufd,
+>>> therefore cannot support P2P with iommufd.  But type1 uses a different
+>>> mechanism, so we would be able to map the vGPU BARs for P2P with the
+>>> legacy backend.  Is this true?  If so, why?  It needs to support
+>>> dma-buf.
+>>>   
+>> yes it's true, the vgpu path has no get_dmabuf_phys, would it be acceptable to add this in a follow-up series?
+>> P2P is not in the scope of the first verssion, and i would rather add it together with a P2P test
+> 
+> It seems incomplete without this.  We're suggesting that iommufd is the
+> preferred IOMMU backend, but we're introducing a device here that only
+> supports P2P using the legacy type1 IOMMU backend.  What's the
+> difficulty in hooking up vfio_pci_core_get_dmabuf_phys()?  Thanks,
+> 
+> Alex
+i looked into this, i think i can hook up vfio_pci_core_get_dmabuf_phys, let me update in the next version 
 
