@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.88
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.83
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795790461;
-	b=meehWgLvuMZq+r8waEsADQ0QKuNsarec6mVGxYzfm7u6gux8P9XPcPFgM/N6oDNjNrR4
-	 SvMFfACFtaEeCjRso4S91GZOO5a6uWNOr2N+S8aT8PHZx9o3FiXmYw+b3Hw4VRMUqEPmM
-	 8lau+hoKA8OajOk64sa0Rvc+U3rpDPj/Pw9Wfe9HCGIGKEPELGPYlqDsRe47v19MHoIpI
-	 f0zIZ++Bmx0eGxXGDEkllFNXnkSRP86tRM9yzEr0vLDAP7QZWjDbb9lRx7brOnU/kmTHC
-	 4OV71kA1bAocBygzB4yS15KL/pAiYFae1R8vU02Djy4GjXai43aloFyvYAFWMwNPbsA==
+	t=1795791134;
+	b=lMc+GijGGHum1xI3KvL5Kdz7VBbflA7o6CvREGmTqsknmN5LlPIPhIYSgfT0dPDRulkz
+	 6IWHqHUdi2wpCXaD8vfkkjASuAYj1PG4Fc+HOsWkKWuwGMDsC449RJNkLHi7LmqHkE/kz
+	 xT8/vnslH8Koldwo6sD3HltEU+IE2hHrFaVCMw2hY6H5iXhnfribLOoTNUY4+IU50k8rY
+	 LNWl4mwqkOwBLlMKlekydR4aGVKR6OLgjc7WaQwbQ+aS3ajJ8dBnpPZsLpwilWWGWvJHN
+	 v1cRFx40X0ykPzoUWkWXzviM30rLmk3kwMfONGzWz0GPR0uNes31D1ZTikMq8tvjUpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795790461;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795791134;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
 	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
@@ -24,83 +24,75 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+HtZgRWAJPCuOI4+66uQWN1VE+x8uWI+FbBBcumgHLk=;
-	b=z7clfIH0PEQUdTIBxU910jswweiSCnirp/17k3B+jKiezN6isDoyhGiZpksH6qmKRvbA
-	 qXPX6lRuZfjkHOCgLplX1XJ4iMdhgIAYuvuP27+gLm95h4V90ozK3wAhRb8oWJZ+gJNk+
-	 r+c4TgtDBAplujbhwgu4lIyjbci41UhyO8e85pFjrambVCO/dF1dEAORjD5C2l7B3cDlC
-	 +3ayfXmevpLLu2WMIGEeoMmtvHbkKffvCABPurJ228UxJgiB1z9Fq5aV4MXZJMrkRVQQ1
-	 dsYx8SknGAk4sUo6jD+XZs36G2KoNNEBmavcPWFiHW7veVsQNR7FuqkWsURoHD4kVfQ==
+	bh=GhLkj9lvxuHtJ7q0dqbw/s951QlSTs7kqBBYFs0E9OM=;
+	b=U9Uhaodjflgr9sik7Gqr5tJtrBuk5/PPYOWoxqxRoOQ7ITb1avsjrmijNlkmTzaq/1HF
+	 4v3SyohnMtWtq3N+WkUFM7TkW28V/fnFkTC/xA6x15D2nFe0nkrmfdw1gQ57qNb6EaJBk
+	 w97NzOImf4ITN8P9c7LlshDW+RGAOmEbw9qcCa39Kjtnqi0yjzx+G5W6CKlRSWw0iEhrd
+	 uvWH/deFmmW9El+ZK0BklAl7GIkmbu/orjsA1RNESacuWbJpusTTzaZ3ykK67z6wnaL4D
+	 yqz8//Vd8vocPo7HWOdGWNSjCCi6KeCfXPB3FPKAttzzwZEb6Xs5I2xCdgGgifgZVkw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=garyguo.net;
 	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=pmLspOQF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.88
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020088.outbound.protection.outlook.com [52.101.196.88])
+	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=MMFw+NwU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.83
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021083.outbound.protection.outlook.com [52.101.100.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11302606A31F
-	for <nova-gpu@lists.linux.dev>; Fri, 27 Nov 2026 14:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11302606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119EC606A31C
+	for <nova-gpu@lists.linux.dev>; Fri, 27 Nov 2026 14:52:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 119EC606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=pmLspOQF
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=MMFw+NwU
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k2ZFO2jwk7SOO76SLIGJopm8Q+tK6yd3a0VEQCRpHYB5hF9c9I3eSBgEtwU9TKwv2JNOi1EyjwL8Fg66UkXBDulRbk96hhdAegI3VWlJFwj+cH9aslDw/wLReoJmKi/s+3/za9dbJJa2MGClUxtYj8BfqBrzUetTgKG22TY9MSo7r10KOMI+1512L3+Zlngt+Ja4453DiruUzjcG2ukU7Vd5turp09AOmaeSSeVUFe2Pym+PomSofY5H4Kej76JKIp7grbS92MEO86E9a5DarlaEjH/F1CWXIbF5BUK6+hkaHh3DQdgFAUU8H9XxGvJ2H3mzcS+xttC0TO32FjGgFQ==
+ b=pvd9p3MgQV7CuQrmI5fQzKDKYDPGjyZAXaQUKYPw9hwgWSL3Lfd/e9gk3w5EXn0V3vMBmmqLI1osJZYstbcxO9uFI3hukVV2qpjbbvrR88x9lC/CBTf4SZYe2NX3N8OaB/j0egFv1v6I6UEsLOREoymdwX+RNNNbOfP5CN/vLnxZlbKaZhJZ3m6Iz2z0WA6+hiEZCUndX8MgJQDZhDTVmd70OODkDHbeBdvMxjRtnARHBxSJ3kuS+qVKK7tHKXbgewwl7BK4sx4VT00la3/b6s7sIm/GR9FIdF9ipMuhkPBPV7GLeApItCGqC6D1Ocr5xabJR6axxHTKR6ZXlmRcaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+HtZgRWAJPCuOI4+66uQWN1VE+x8uWI+FbBBcumgHLk=;
- b=deq/sMLI6fO78lxD9oSV7FvnveQi2nT6Fx5aJnMqbrvlrjnz94wLaIz1QZXOMNiyy2Rmu80Qmu9fd/tt8N+VhIITB74QYW2swPBD3SDg9PD1pOqwJe6dpXN2KcRZU7wGtpXSqhrMTzCxRjkNB1JzPS97wfo1nFh4kBqg1bz7n/iNUn4eAAV9FEkc3RK2bSZo1k7GRQGhghVbiljWTIS+76b+amelkiPtSR8dCZhGfcaSd8UW3OiNcTMFv9NK5U/ingpiMWFsWMbQ3FP4R7+SR+IZXHz56sxFA6GNpUWwNi6Y+8uzg6JA5t0dA6nBE4P0cDGpEoOlTNlKi02rryB6vw==
+ bh=GhLkj9lvxuHtJ7q0dqbw/s951QlSTs7kqBBYFs0E9OM=;
+ b=OthTmX+VsYantUciI61wyRMS4bfEPEF0iQPpc7V7Efxj99d2ydFC8zFaR3YUdEc1CMvFv2KLyAkqIlUy+M2ErctL+qJl7ZY1tE4z/SK+6oXiQrJzSdjeCmauXDirSZEgBudAEgC1FPgl6v0h9wKl5fnurSomh/0tsbJkw6FnaduoS3x3remy+bct4cLaz/NdUyBMsXpT6xfc1UsvM6C9y4Yac4/DOW1xpE5NFpq9VASlvYx+kWNBmsaXQNnRqoQYh3QsCNzE7S281Sbe/VJR8+WoCfQZt13hpyV4bhSrAlMTaI+sj2vA7ikl2hdoyuX3nFJ9ye4eQhh+Hhay7NE1DQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+HtZgRWAJPCuOI4+66uQWN1VE+x8uWI+FbBBcumgHLk=;
- b=pmLspOQFVYXKH3ldqcrHatNIoRWoldhRtFL9kP6uTtlTUMKs+ghVS1a76D099xvHzLVbtStkzmcTJAhiyA3vtF8o+mefMRIl/vDB0cY6tQ9nwPWzf33fEwPNSaw3A6h3FqGSEPTwgsR2Aiz77AGUuwQeOwdcn1QGRaFO5cApOZo=
+ bh=GhLkj9lvxuHtJ7q0dqbw/s951QlSTs7kqBBYFs0E9OM=;
+ b=MMFw+NwUABQOoCJBq7WpmZZ2upV10BcBl6Lav8eCQukYsBE04o9eJVvMiURIfFbbWklMLeseO8GsaPCR2udoxFDlnNsOOKkT86LZO9wZfX280BD1JJZ8773aDgfZlaVOdOmqD+QXzvnTNOGCJ5HpR7f7496xw/3F7jj3alqmmJk=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by CWXP265MB2823.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:c4::14) with
+ by LO8P265MB7495.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b4::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 14:40:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Fri, 27 Nov
+ 2026 14:52:09 +0000
 Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
  ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
  ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 14:40:57 +0000
+ 14:52:07 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 14:40:56 +0000
-Message-Id: <DN62L6PL724V.2HIAY6WVTYPFP@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+Date: Fri, 27 Nov 2026 14:52:06 +0000
+Message-Id: <DN62TQN60XV6.1KE46URIS7JR4@garyguo.net>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
  <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH 2/3] rust: pci: return a bitfield type for dev_id
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/4] gpu: nova-core: gsp: add the r000 queue element
+ header
 From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Alistair Popple" <apopple@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
 X-Mailer: aerc 0.22.0
-References: <20261127-nova-gsp-dbd-v1-0-0fb5f7c2ce63@nvidia.com>
- <20261127-nova-gsp-dbd-v1-2-0fb5f7c2ce63@nvidia.com>
-In-Reply-To: <20261127-nova-gsp-dbd-v1-2-0fb5f7c2ce63@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0178.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:311::9) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+References: <20261127-nova-r000-staging-v1-0-4eaf6e3c0942@nvidia.com>
+ <20261127-nova-r000-staging-v1-1-4eaf6e3c0942@nvidia.com>
+In-Reply-To: <20261127-nova-r000-staging-v1-1-4eaf6e3c0942@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0006.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:150::11) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:400:1cb::9)
 X-Mailing-List: nova-gpu@lists.linux.dev
 List-Id: <nova-gpu.lists.linux.dev>
@@ -112,211 +104,426 @@ List-Owner: <mailto:nova-gpu+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|CWXP265MB2823:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51eac577-9dbd-48bf-3cd0-08df4c947271
+X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO8P265MB7495:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f51980e-aba8-47aa-1ef3-08df4c9601f3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|23010399003|1800799024|4143699003|6133799003|261009223027099003|22082099003|18002099003|3023799007|921020|260925021311599003|260925021911599003|260925022911599003|10067099003|56012099006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003;
+	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|10067099003|56012099006|261021123027099003|261022075727099003|261022105027099003|261026121527099003|261022115727099003|261026140227099003|261021121427099003|261028144727099003|261102123227099003|261009223327099003|261009221727099003|261009223027099003|261009220027099003|261009221227099003|18002099003|22082099003|4143699003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	N3KmW6qoubn7GqTzVDCXBiP4gKxasNFvsjAuYYrJl4vwLXvE0uVf9q1Kv2xQ1YCo0NlfM+Ca3ooAIvpzGJzYJkK0s+5JGp79/eW47yD6n4STCs/3U67Wmb2iNOAGoDDmRaWL+h2oL4gYNRFaeJn3EQV3q0ROu5b4qVROCyNMhCFh0KAHHCpcgQY5eEAT2c88997mj8mJan3XrA7HhqRW8wULK9g9hvJpzofO0Hxqtqqzpka2CXEImkFywrcAPyCBHrtZ2oyrgK/swVFL8kQvZU2oKKzzjVUeDj4TU9n9bS6hhYrEJbgAmh56NGGgfIUs+Rn+xAPzdG6nxaoCZdIwv4K9gsmTuQAGtrSBsUpNYT90SqNYhGdVrnlCfZFU9HS+Ro/1dJAGDZzxgIsFbuRyEfcotKanB+EJG1DvG7WoaTlxH+XaAYunvWX01F4maqYQjLRllLZ398W0qhHd3sHG6eJ8FtkWK1ZU9JEJUxghFL8b6HTBlQWWcVFCYZSFctSqt1bCkTJdF0zrB1T47lLV6ZxzJbosP68lH9fxh+hITbf58mA08b4E4F/wrQzCdTPfRMMnqSPUvg0cZnpg9x5hUZIyN2rY/+a8O+s7tQ6X7A18zKMgst7HjqpQxmDYn9i9N4s9adT8dHXWUcdVq8JcQA==
+	tRo0dQ6terjy4PyQuj8GL4Udfi2qAUfOXPgKNi9c3Fyh3GNolehHk0vN46lq+jMTEKXek05sQU690N8LAfO/KipsoRaF5etFTH590cAAJglp0vUGT4Uxpx81IpWOH6GpGLiOE8snTlU9caNvces5zZPkIqnJIuW2bKEiquy6km2qP77qaSOoFyZqvhX7W9S88TL6rRtKRH8y6LoE9EVSCQboVG92zTYfDUoz8e1pLoZLhb3yCTgMPgQ0D3WIrj2D3TkBlsxUfp/PCcbvXE5HfHM/X2aUVsbPO6foIwpOuf3DFjAKZWXQj4rj3/XkS8UoySzg1zZrCn4xlC2r4l211KDKq/IAB6UjaobJD3C15CW1r570kPf5gh+dHI6xKuRkq6p/TVMS34ypVdBF9Bh143U/6lU2xNdmAQ553CFnSpxjO2q8B9tVztEezuPDE44PDVh2HmeKED7Cx+ZCUzQypfp4AX85GEjzJ/eQUZq5NRWpYKCGU2hXGUHnSXYEExgLIUOESScJRQLDvHIZaLZPwKmM4WJIHOBtYumTllDutYuOVd5PBDbkJlrGo2kj0M5F11RZk5xNW5NO7JPb0V3Bd6KkUtKluXAO7ETrmO4eip+fPHNzAnIemDhEsC/+N8/qtFE49NbLRnwSrr+UpTPT4UyCgut5JnRdbSelT4DYlKE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(23010399003)(1800799024)(4143699003)(6133799003)(261009223027099003)(22082099003)(18002099003)(3023799007)(921020)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(56012099006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(10067099003)(56012099006)(261021123027099003)(261022075727099003)(261022105027099003)(261026121527099003)(261022115727099003)(261026140227099003)(261021121427099003)(261028144727099003)(261102123227099003)(261009223327099003)(261009221727099003)(261009223027099003)(261009220027099003)(261009221227099003)(18002099003)(22082099003)(4143699003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aEV6QWpKRnZ5SjR3ODBTMEpaTHUrWlhVd1RoVEJCbW8xOVptallVb2RPR2VT?=
- =?utf-8?B?TXI0OEF4UkIwTmNHZnlqaktzdWJIcjNqRDl2elh1Z2pXYmczbmZqT3BiR3ZT?=
- =?utf-8?B?Q2NqTWFaa2VVZXRpRnhSVnBuYzc4alY1TEo5NXRXUnBXYzhxVXo1MkpNdlV2?=
- =?utf-8?B?OEg1eE5SQ3dCSmVTZXdsSGk3UkxQVlpLQ3BQRXlCVXZqekRNNHBLM2hlTlZF?=
- =?utf-8?B?aURlNXpUMk5HRHcrbzhLcUQ1V1A4djM1OGEzV3lQdm0xSUtIZU8yeEJnMHQ4?=
- =?utf-8?B?K21zY0FjVmNrMTZTdzZBNHNOWENualNoS1BMYWdWcEEyamJuSEl2b0l3VkpK?=
- =?utf-8?B?N2Z4V0huTkM3YkhpeERFOHBhdlQ0WDRtNTRCbmtpWHdIT3QwTlJLWWVvcEc5?=
- =?utf-8?B?WHVueHpnazQ5emVBck1OVmpidXNDK1k2aHVzY1JHTzRjVm1UZk13WVJuOEZZ?=
- =?utf-8?B?Z0dKZkFuR1lwQW04eTVub2VzWmx0aW45STZTRkxwMzhSY2ZZUjFuNVVhNzZ1?=
- =?utf-8?B?TmFrMm5vL0k2aEJUVXUxRkZuQjd6YzBpdXhNYmhKU0J6eU5yUkZrTjNocUdU?=
- =?utf-8?B?UTRiTXkvL0dzejlrdjhsWVF6dXlCc2JyTDNub2Rxbkh6Rk5iWHZEdVhyMGJV?=
- =?utf-8?B?UGxNWFJIbnF4bStnZyt0UjB5ckJlTUZEV01hQUhTTGJPQTJJaW1TUTJmdERY?=
- =?utf-8?B?R0tLT1lOUVdZQVNZNU1uQkI4VHlvWXFDdUVJelE4UkZWRXRPK3BGS1NmZGJi?=
- =?utf-8?B?d0lIMVpkSVpIbGEzUkJrUlovVWRlZWVMamNMNlpQaTkvMncrMlhxQTVVM283?=
- =?utf-8?B?b3lRakFxSkhWV2xzOVM2alYxbmR3Snk4c1YvVXVDdzlEL0NDYXNud3R6Q0VG?=
- =?utf-8?B?OEZCUlNMSUM2ZG9nVnAzZVk4MmpQMXU0SXdVeEdxcE5FbDlSQlJiT2xOWUI2?=
- =?utf-8?B?L2pFNWxtbmZLVUZTcE9PK290ZUZXbXdtOGFrMUV4eU56NUtabkhRMEpzOUUr?=
- =?utf-8?B?QkxsSTN4bVVzSGh1UWowNWhaV2ZvWGYxREpWVHErUVYwOUlkcFlOSzNBakNJ?=
- =?utf-8?B?S242ZmVvdGsxWk9IUWJCM1BZdkZabVp0bkNSdjc1akZMZFdlamZsQXlvTUVj?=
- =?utf-8?B?WVZrZnNKV3JXR2c0T2MxWjhBZDV0Y0p2bytiUTlKcDRtOHpBUVB0Rmx0T2ht?=
- =?utf-8?B?b004cmhxWElMc01MWi9UcmJ6Ny8rUjU1alZoWHVpa1lpODBPeGFSRWowVWNr?=
- =?utf-8?B?N091WWRVWWFRakl3Z0VZcUJQV0FTYXlUV1VGNStVTWVrT3dqV0hjcVJQMWtE?=
- =?utf-8?B?NWdUMUx4ajlvQXFJTU8rK3VodWJPb3pwSFc2U2owWlRBdEUzaGRKOGROcEFD?=
- =?utf-8?B?akp6UzV0bW5ud21MSUp4bjkwWGExZ21xNi9veEg1Tm5HaC9jY1h3c01kTVdk?=
- =?utf-8?B?UnRxMHpKdldCQVNtTWNscGVYLzNqeXRJVms5UFJiRnJQei9oMDYybmR1NnJx?=
- =?utf-8?B?RDMvTlVpZW1oRmZ2c1VaYkdSTlhZLzZqa2cvTjlZajRYWTFkSlJ1RTRPVGd0?=
- =?utf-8?B?ZzhVOUZDblBxTC9RdW92T3dYY2UvY3lBQ3BNclZXOWh3OHNKMGtBS0JFTHE3?=
- =?utf-8?B?MGZLOUMwdmxsYWttejBUNnBZa0I1K1NXdDF2VXArbkFaeEF1M3RyTVNwenB3?=
- =?utf-8?B?dGI0TW1Fb3VlNEZheU8rMi9SREhqdDdPbll4RFZ0dUZvV1l3eHp6V2JCTlp4?=
- =?utf-8?B?OUNyYVdydW8wdGtCUVhGbDdnVlVnWnpqK1piN2wxSzRsdmVZNG40YzhNUnRL?=
- =?utf-8?B?ZCtZWDg5d0EvMVlCOVRFQ2xydnpCZlNoc2tMN1hsUVdaNUE4T0dpYnB0RjBC?=
- =?utf-8?B?U1pqZjA0ZEJWbENBR2NtWmJRbXZ5bFVSY2g4OEVLTGsxaTEyTnZ2MmxWUVo3?=
- =?utf-8?B?K3MvalJBeUZJbEdYVVRIaUhFV2p2cjJHbit3eFNrM2dTTEdjandIYVJ6aFNx?=
- =?utf-8?B?dDUwdzV4b21hZk8xOXhKUENLQUEyQ3k2YU91YlR5NVRZcDZ5WnRmQmdkZ0NH?=
- =?utf-8?B?UlpYR1JGM1hEYi9nZ1dldVRFN0xmeENGMVV3WmhUVytiUXd5MFc1S095QU1J?=
- =?utf-8?B?V2llU2R1dkdNbDllZ3JwMU8rQjF1Z0FVRmJ2b2RVZW80YWNmSFV4ZUsxTTRu?=
- =?utf-8?B?b0sxcTdQRnRtYWhqbC9yRERQTmhrVjk5bk1GdURQNlgzNnhpbzJsSVl4UWEw?=
- =?utf-8?B?VFd0TmhBZUppZmttNStQS3lDRUFTZ29KRWFURjY3cmltUVVkUTZ2OWZIekph?=
- =?utf-8?Q?E2A+Pyi1ceioE9GdZj?=
+	=?utf-8?B?aTRCdXB2eW5IVFJNUTZZMEdaVzVxOVhzdDB2a3MwQ0JCamYrUjBtVk12M1NU?=
+ =?utf-8?B?c2NLSHFRMFdMdGg3K2RCZVZUMjJkeHBHUitWU2tSclF0Qmw3U2tuNUczS082?=
+ =?utf-8?B?ZVZwRnFYdm9tRGNXNzJvcjFpUm5hdmxmcGJaMWcxNmtlNVlLb3FGZDV0ZWdm?=
+ =?utf-8?B?SnlyUGRaVU5BMnhERGhFbGRXd1puY0cyejdiUjZZNFdkMVlWNlNXeDFwd1pZ?=
+ =?utf-8?B?N09zaE5jdW16UEExeHpyMFpKS3lOZnM3L2RJUURyc3pGK3VmRUdWUGRidU90?=
+ =?utf-8?B?TUZMako2Sk9oRWwycUE0UEpLZEljWitmRUFldDJYcEFrVS9OZ1RDK3ZQYk8x?=
+ =?utf-8?B?V2hPYWVjZjkwNjltUis0L280dXV3UjVKT0tITmUvRWFuRUhOVVZXS0NiRkps?=
+ =?utf-8?B?QXhOQU5tMXc0K2dRVFE5TExHdFkxU281dndJcWpYQ2hPZjhqYjQ2cml4QmVZ?=
+ =?utf-8?B?OWozaElKeEJBajA1Z29wQ1VPWW1DT2xrdmlHL0kwY0x0MTFSQ0VxTWhiRS85?=
+ =?utf-8?B?R1lNVkNvK2d4aGY0YTNhZmk1VWUwcWZPb0Jld3BtVUxaR0ZrbFBPNm81OHpK?=
+ =?utf-8?B?UW9UYzRTZEpaa2dnRHg2WVdQQ0dVdVM0clN0b3l2a2NQSUJwKzhyNjdlVWxW?=
+ =?utf-8?B?STlrZEhrL1dFZU9CbjRLd2FJZVlYZTlGcWs2RXlicTJRQ2VYczQyN1R0YUVh?=
+ =?utf-8?B?Zjdta1VGYkdCL2FFV3VmcFRPWEJpRzFmSU1tUldCSUVNcUhMdzdvc25xcUNI?=
+ =?utf-8?B?UUdBUktIaHNDeDBLUzVvQWplQmk4UzhMTWg1K09NSUVXUUEyY0tVTVZETkt6?=
+ =?utf-8?B?NnErY0hDbXl4NTNRTGRDL0p5L3FPS0ltRysveldkVjRXVXpjTlpxVnQyUDNV?=
+ =?utf-8?B?dXAxMnRkODVnTHhRLzc4TE1LSkdrYldSSU4yVnRCUWRvbVZVUDIwRW5IQ2hr?=
+ =?utf-8?B?YlVSbjJuS0srb3pOeEVrRTVnVDcyTUljTDdPK2VsSDR3WU1zcllTM3BjOW5p?=
+ =?utf-8?B?N3h0cjhjaUtsM2F0SGdQR2ZSSEd0UVZnT3UzRFVzSGtTS0xZZG14bmZjeUpT?=
+ =?utf-8?B?VlphNlVoYnZ4eUVYem16N25oT25Wb1Bzalo1V0ZVRmJxZzJDdFlWZURLNHpL?=
+ =?utf-8?B?SWp4cHBIb2h4MGV2OUFFZytzaEs3VXg4Y1NjTlZySDk1aEhMWlFnV0ZKcTRN?=
+ =?utf-8?B?aUErbkRKdXlvcDdsR1F6L3RRYWw3RzB6SWZxbzVqK29OZk1FNGxHZEdSUlRS?=
+ =?utf-8?B?RXM2T0JRek9iaHhzT1pnZmJscU8yTGNwM00rL0pHNURKcE1rUUgzTWlEbVd6?=
+ =?utf-8?B?cVFFdXdZOEFsc3F6YmRNeHhJYnpCS29NWTc1UlIrSERkQldKRUYzMU80N3Jj?=
+ =?utf-8?B?OFZSVWVCQWlValhwaWU1cngxc1BTZm9zYVhZRE9PamNRMHZNTmVNRkFPazdX?=
+ =?utf-8?B?S1cxeDY1MkdhdUJtNTBaWkp4T2VzK3NwMnVTTDhHS014WnRieGY2UkwrUVk5?=
+ =?utf-8?B?MThENU03NkYwakJBa09VY2xYRGVINm1BdDZreE9RdVhKbElXcExTQ3cvdkhs?=
+ =?utf-8?B?eFVpQmNNOHM5Rzl2a0tYQTJkeHlreEk1bVk3K2RpaTZTc3pXUHVGdlp4OGhq?=
+ =?utf-8?B?Nm5vRHFFNUViUWZnWTBWcFNhK1czYWZCaWErb3YrcjlwUXY2ZGVpQTJQODJJ?=
+ =?utf-8?B?UFdqTlBaVUkzSTVhWGIvT2puVWY0MzZ6WnBRT1VMeTVOU1pGWTZubklKbmRP?=
+ =?utf-8?B?Zk5rNXI2ZUNOLzFBUWtwWW1iUnVUNmg1SklrMGdSNFI1WXptUFR0Qy82T3NG?=
+ =?utf-8?B?em1iR0huOXNOZy8wc2VBQ1g3YWxvSVpnNlpnRGVhcFVIQkl0OFVNSDNwbUgv?=
+ =?utf-8?B?M3N5V3BqeCtKb2JuZG1wVjBKeUk4NXYyQXpiQ2JHQ3V3M2QveG5ZcGlCYlFS?=
+ =?utf-8?B?Wlc0dUp0eTVNMTUxQVlMTloyZW1naHV6ZllLOG5hZkxMa3MwMWdOc0xtd2py?=
+ =?utf-8?B?c2x5S1UwRm00T29FVlI1Uytoem1IQWVENkpJWjdtMG53Nlh0cENRcFhYMXBW?=
+ =?utf-8?B?c2RaUDBYMllyRFN0NTNaQTBkUytlMnl2SGpkV2FhM3A1TlVJczFid3BHVG4w?=
+ =?utf-8?B?SHBSY1hpd2ljU21QSUd0YTI3QndDKytFelpmMll6NVBSdk9PUzIvOTNza1NF?=
+ =?utf-8?B?OGZVQldyN3dhVnpFYmpldXcxdmFqVGpLa1NtTFV0a2xqWWtxK0lEVGorRGp6?=
+ =?utf-8?B?OVFVMmFmcE40M2w4bDJVS2t5TnRJSFp5UTlOTnJqUVU2anRrTnJtRTVPZERO?=
+ =?utf-8?Q?x76v/YXjoNJt6BY6QC?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51eac577-9dbd-48bf-3cd0-08df4c947271
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f51980e-aba8-47aa-1ef3-08df4c9601f3
 X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 14:40:57.0852
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 14:52:07.2844
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sm01JAX7M1rTrRKQGmjI0eoL62QTZ5Ciyswbpi8Iw9fwfx2oKcU0aVEJXnJfO9aY0yrFNGI3mgckjXC6kvpA0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2823
+X-MS-Exchange-CrossTenant-UserPrincipalName: XncE8UaCsgM3Hpwa3yxI1lLLmbQsuvIJa4UNZMJCKUBqtgJFAmz8+fXbcJ1ZJ3NJrlizB0jYTuk0+DuvVcb56g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7495
 
-On Fri Nov 27, 2026 at 11:46 AM GMT, Alexandre Courbot wrote:
-> The return type of `dev_id` has a well-defined bit layout encoding
-> the bus, device and function IDs of the PCI device. Add a `Bdf` bitfield
-> defining that layout and make `dev_id` return it so users can benefit
-> from it and are not tempted to define their own BDF type.
+On Fri Nov 27, 2026 at 2:04 PM GMT, Alexandre Courbot wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
 >
-> Also update the current two users of `dev_id`.
+> The upcoming r000 firmware uses a new queue element header that includes
+> MCTP and NVDM headers describing the type of message (RPC or GMC) that
+> follows.
 >
+> Add that header as the `QueueElementHeader` type, along with the two
+> NVDM types that the GSP queues use and the MCTP version and NVDM vendor
+> checks that validating it requires.
+>
+> The type is written out field by field rather than wrapped around the
+> generated binding, as `GSP_MSG_QUEUE_ELEMENT` keeps a 16-byte encryption
+> tag, only used with confidential computing, in a union with its last two
+> fields, making the binding 16 bytes larger than what the GSP expects on
+> the queues. Static assertions check every field offset and the size of
+> the type against the binding.
+>
+> The header has no user yet: it replaces `GspMsgElement` at the transport
+> level in a later patch that switches to the r000 firmware, and is built
+> as dead code until then.
+>
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
 > Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 > ---
->  drivers/gpu/nova-core/gsp/fw/commands.rs |  2 +-
->  rust/kernel/pci.rs                       | 33 ++++++++++++++++++++++++++=
-++++--
->  samples/rust/rust_driver_sriov/pf.rs     |  2 +-
->  3 files changed, 33 insertions(+), 4 deletions(-)
+>  drivers/gpu/nova-core/gsp/fw.rs                  | 186 +++++++++++++++++=
++++++-
+>  drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs |  97 ++++++++++++
+>  drivers/gpu/nova-core/mctp.rs                    |  20 ++-
+>  3 files changed, 300 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-=
-core/gsp/fw/commands.rs
-> index b4bdbddad79f..37b89e62387f 100644
-> --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-> @@ -88,7 +88,7 @@ pub(crate) fn init<'a>(
->              gpuPhysAddr: dev.resource_start(0)?,
->              gpuPhysFbAddr: dev.resource_start(1)?,
->              gpuPhysInstAddr: dev.resource_start(3)?,
-> -            nvDomainBusDeviceFunc: u64::from(dev.dev_id()),
-> +            nvDomainBusDeviceFunc: u64::from(dev.dev_id().into_raw()),
-> =20
->              // Using TASK_SIZE in r535_gsp_rpc_set_system_info() seems w=
-rong because
->              // TASK_SIZE is per-task. That's probably a design issue in =
-GSP-RM though.
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index 04a6d240afb2..0592b220767c 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -6,6 +6,7 @@
-> =20
->  use crate::{
->      bindings,
-> +    bitfield,
->      container_of,
->      device,
->      device_id::{
-> @@ -17,6 +18,7 @@
->          from_result,
->          to_result, //
+> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/=
+fw.rs
+> index 5c216d777dff..2e499a74fa46 100644
+> --- a/drivers/gpu/nova-core/gsp/fw.rs
+> +++ b/drivers/gpu/nova-core/gsp/fw.rs
+> @@ -48,6 +48,11 @@
+>          cmdq::Cmdq, //
+>          GSP_PAGE_SIZE,
 >      },
-> +    fmt,
->      io::resource,
->      prelude::*,
->      str::CStr,
-> @@ -279,6 +281,33 @@ macro_rules! module_pci_driver {
->  };
+> +    mctp::{
+> +        MctpHeader,
+> +        NvdmHeader,
+> +        NvdmType, //
+> +    },
+>      num::{
+>          self,
+>          FromSafeCast, //
+> @@ -835,7 +840,7 @@ pub(crate) fn msg_length(&self) -> usize {
+>          size_of::<Self>() + self.rpc_header().rpc_length()
+>      }
+> =20
+> -    /// Returns the number of elements (i.e. memory pages) used by this =
+message.
+> +    /// Returns the number of slots (i.e. memory pages) used by this mes=
+sage.
+>      pub(crate) fn element_count(&self) -> u32 {
+>          self.inner.elemCount
+>      }
+> @@ -901,6 +906,185 @@ pub(crate) fn function(&self) -> Result<MsgFunction=
+, u32> {
+>      }
 >  }
 > =20
-> +bitfield! {
-> +    /// Bus-Device-Function ID of a PCI device. Equivalent of C's `PCI_D=
-EVID`.
+> +/// First word of every r000 queue element: `"MCTP"` in ASCII.
+> +const MCTP_MAGIC: u32 =3D 0x4D43_5450;
+> +
+> +/// Header opening every element of the r000 GSP queues.
+> +///
+> +/// A queue element is laid out as follows:
+> +///
+> +/// ```text
+> +///     +------------------------------------+
+> +///     | Queue element header               |  QueueElementHeader: MCTP=
+ magic, element length,
+> +///     |                                    |  MCTP header, NVDM header=
+, message length.
+> +///     +------------------------------------+
+> +///     | Message header                     |  RPC header or GMC API he=
+ader. The NVDM type
+> +///     |                                    |  selects between the two.
+> +///     +------------------------------------+
+> +///     | Payload                            |  Message-specific data.
+> +///     +------------------------------------+
+> +/// ```
+> +///
+> +/// This is the `noEncryption` layout of the `GSP_MSG_QUEUE_ELEMENT` bin=
+ding. That binding keeps
+> +/// a 16-byte encryption tag, used only with confidential computing, in =
+a union with the two
+> +/// trailing fields of the queue element header, so wrapping the binding=
+ would make every element
+> +/// 16 bytes larger than what the GSP expects. The fields are therefore =
+declared again here, with
+> +/// their offsets checked against the binding.
+> +#[repr(C)]
+> +pub(crate) struct QueueElementHeader {
+> +    /// Always [`MCTP_MAGIC`].
+> +    mctp_magic: u32,
+> +    /// Length in bytes of the whole element, this header included.
+> +    ///
+> +    /// Under confidential computing the GSP pads elements out to whole =
+queue slots, so this can
+> +    /// be larger than `nvdm_payload_size` plus the size of this header,=
+ but never smaller.
+> +    mctp_payload_size: u32,
+> +    /// MCTP transport header of the element.
+> +    mctp_header: MctpHeader,
+> +    /// NVDM header of the message.
+> +    nvdm_header: NvdmHeader,
+> +    /// Length in bytes of the message following this header: the messag=
+e header and its
+> +    /// payload.
+> +    nvdm_payload_size: u32,
+> +    reserved: u32,
+> +}
+> +
+> +/// Static validation of [`QueueElementHeader`] against its bindings typ=
+e. Kept in a sub-module to
+> +/// stay out of the way of the rest of the code.
 
-You can use
+If you just want "grouping" then
 
-    #[doc(alias =3D "PCI_DEVID")]
+    const _: () =3D {
+    };
 
-for doc searchability.
+is usually the way and you don't need `super::*` with it.
 
-> +    pub struct Bdf(u16) {
-> +        /// Bus number.
-> +        15:8 bus;
-> +        /// Device number.
-> +        7:3 device;
-> +        /// Function number.
-> +        2:0 function;
-> +        /// Aggregation of `device` and `function`, which are commonly u=
-sed together in code.
+> +mod queue_element_header_validation {
+> +    use super::*;
+> +
+> +    // Offsets of `QueueElementHeader`'s fields
+> +
+> +    static_assert!(
+> +        core::mem::offset_of!(QueueElementHeader, mctp_magic)
 
-I wonder if this is actually true, or is this just a result of existing API
-being designed to bundle these together? I quick grep shows that the combin=
-ed
-value is most commonly used to make API happy and packing/unpacking happens
-immediately before/after the API call.
+Perhaps import offset_of in the scope?
 
-For C code it is done this way before it avoids having bitfields. But given=
- that
-we're using bitfields here already, we can just use `device` and `function`=
- and
-omit `devfn`.
+> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
+ mctpMagic)
+> +    );
+> +    static_assert!(
+> +        core::mem::offset_of!(QueueElementHeader, mctp_payload_size)
+> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
+ mctpPayloadSize)
+> +    );
+> +    static_assert!(
+> +        core::mem::offset_of!(QueueElementHeader, mctp_header)
+> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
+ mctpHeader)
+> +    );
+> +    static_assert!(
+> +        core::mem::offset_of!(QueueElementHeader, nvdm_header)
+> +            =3D=3D core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT,=
+ nvdmHeader)
+> +    );
+> +
+> +    /// The `noEncryption` member of the union of `GSP_MSG_QUEUE_ELEMENT=
+`, which holds the two
+> +    /// trailing fields of [`QueueElementHeader`].
+> +    // Using `allow` instead of `expect` as rustc 1.85 ignores uses from=
+ `static_assert!` and
+> +    // reports this as dead code.
+> +    #[allow(dead_code)]
+> +    type QueueElementNoEncryption =3D r000_00::GSP_MSG_QUEUE_ELEMENT__bi=
+ndgen_ty_1__bindgen_ty_2;
+> +
+> +    // Offsets of fields under [`QueueElementNoEncryption`] within `GSP_=
+MSG_QUEUE_ELEMENT`.
+> +
+> +    // Using `allow` instead of `expect` as rustc 1.85 ignores uses from=
+ `static_assert!` and
+> +    // reports this as dead code.
+> +    #[allow(dead_code)]
+> +    const QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET: usize =3D
+> +        core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT, __bindgen_=
+anon_1)
+> +            + core::mem::offset_of!(r000_00::GSP_MSG_QUEUE_ELEMENT__bind=
+gen_ty_1, noEncryption);
+> +
+> +    static_assert!(
+> +        core::mem::offset_of!(QueueElementHeader, nvdm_payload_size)
+> +            =3D=3D QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET
+> +                + core::mem::offset_of!(QueueElementNoEncryption, nvdmPa=
+yloadSize)
+> +    );
+> +    static_assert!(
+> +        core::mem::offset_of!(QueueElementHeader, reserved)
+> +            =3D=3D QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET
+> +                + core::mem::offset_of!(QueueElementNoEncryption, reserv=
+ed)
+> +    );
+> +
+> +    // Ensure the size of `QueueElementHeader` matches the `noEncryption=
+` layout.
+> +
+> +    static_assert!(
+> +        size_of::<QueueElementHeader>()
+> +            =3D=3D QUEUE_ELEMENT_NO_ENCRYPTION_OFFSET + size_of::<QueueE=
+lementNoEncryption>()
+> +    );
+> +}
+> +
+> +#[expect(dead_code)]
+> +impl QueueElementHeader {
+> +    /// Creates the queue element header of an element carrying a messag=
+e of NVDM type `nvdm_type`
+> +    /// and `message_len` bytes, message header included.
+> +    ///
+> +    /// # Errors
+> +    ///
+> +    /// - `EOVERFLOW` if a length does not fit its 32-bit field.
+> +    pub(crate) fn init(nvdm_type: NvdmType, message_len: usize) -> impl =
+Init<Self, Error> {
+> +        try_init!(QueueElementHeader {
+> +            mctp_magic: MCTP_MAGIC,
+> +            mctp_payload_size: size_of::<Self>()
+> +                .checked_add(message_len)
+> +                .ok_or(EOVERFLOW)?
+> +                .try_into()
+> +                .map_err(|_| EOVERFLOW)?,
+> +            mctp_header: MctpHeader::single_packet(),
+> +            nvdm_header: NvdmHeader::new(nvdm_type),
+> +            nvdm_payload_size: message_len.try_into().map_err(|_| EOVERF=
+LOW)?,
+> +            reserved: 0,
+> +        })
+> +    }
+> +
+> +    /// Returns the length of the whole element, this header included.
+> +    pub(crate) fn element_len(&self) -> usize {
+> +        num::u32_as_usize(self.mctp_payload_size)
+> +    }
+> +
+> +    /// Returns the length of the message following this header, message=
+ header included.
+> +    pub(crate) fn message_len(&self) -> usize {
+> +        num::u32_as_usize(self.nvdm_payload_size)
+> +    }
+> +
+> +    /// Returns the number of slots (i.e. memory pages) used by this ele=
+ment.
+> +    pub(crate) fn element_count(&self) -> u32 {
+> +        self.mctp_payload_size.div_ceil(cv!(GSP_PAGE_SIZE))
+> +    }
+> +
+> +    /// Returns the NVDM type of the message following this header, or `=
+EINVAL` if it is not a
+> +    /// known one.
+> +    pub(crate) fn nvdm_type(&self) -> Result<NvdmType> {
+> +        self.nvdm_header.nvdm_type()
+> +    }
+> +
+> +    /// Validates the framing of the element.
+> +    ///
+> +    /// # Errors
+> +    ///
+> +    /// - `EIO` if the magic, the MCTP version or the NVDM vendor is wro=
+ng, or if the element
+> +    ///   length is smaller than this header and the message together, o=
+r larger than the
+> +    ///   maximum element size.
+> +    pub(crate) fn validate(&self) -> Result {
+> +        if self.mctp_magic !=3D MCTP_MAGIC
+> +            || !self.mctp_header.has_expected_version()
+> +            || !self.nvdm_header.has_nvidia_vendor()
+> +        {
+> +            return Err(EIO);
+> +        }
+> +
+> +        let element_len =3D self.element_len();
+> +        if element_len < size_of::<Self>().saturating_add(self.message_l=
+en())
+> +            || element_len > GSP_MSG_QUEUE_ELEMENT_SIZE_MAX
+> +        {
+> +            return Err(EIO);
+> +        }
+> +
+> +        Ok(())
+> +    }
+> +}
+> +
+> +// SAFETY: All fields are integer types or transparent wrappers over one=
+, with no padding.
+> +unsafe impl AsBytes for QueueElementHeader {}
+
+Use zerocopy derives instead perhaps?
 
 Best,
 Gary
 
-> +        7:0 devfn;
-> +    }
-> +}
 > +
-> +/// Formats the ID as `bus:device.function`, like the corresponding part=
- of C's `pci_name()`.
-> +impl fmt::Display for Bdf {
-> +    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-> +        write!(
-> +            f,
-> +            "{:02x}:{:02x}.{}",
-> +            self.bus(),
-> +            self.device(),
-> +            self.function()
-> +        )
-> +    }
-> +}
+> +// SAFETY: All fields are integer types or transparent wrappers over one=
+, for which all bit
+> +// patterns are valid.
+> +unsafe impl FromBytes for QueueElementHeader {}
 > +
->  /// Abstraction for the PCI device ID structure ([`struct pci_device_id`=
-]).
->  ///
->  /// [`struct pci_device_id`]: https://docs.kernel.org/PCI/pci.html#c.pci=
-_device_id
-> @@ -700,10 +729,10 @@ pub fn revision_id(&self) -> u8 {
+>  bounded_enum! {
+>      /// Commands of the GMC API.
+>      #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+> diff --git a/drivers/gpu/nova-core/mctp.rs b/drivers/gpu/nova-core/mctp.r=
+s
+> index f62e79f56b05..e4d0639cde0f 100644
+> --- a/drivers/gpu/nova-core/mctp.rs
+> +++ b/drivers/gpu/nova-core/mctp.rs
+> @@ -28,6 +28,10 @@ pub(crate) enum NvdmType with TryFrom<Bounded<u32, 8>>=
+ {
+>          Cot =3D 0x14,
+>          /// FSP command response.
+>          FspResponse =3D 0x15,
+> +        /// RPC message to or from GSP-RM.
+> +        RmRpc =3D 0x25,
+> +        /// GMC (GPU Management Controller) API message to or from GSP-R=
+M.
+> +        GmcApi =3D 0x26,
+>      }
+>  }
 > =20
->      /// Returns the PCI bus device/function.
->      #[inline]
-> -    pub fn dev_id(&self) -> u16 {
-> +    pub fn dev_id(&self) -> Bdf {
->          // SAFETY: By its type invariant `self.as_raw` is always a valid=
- pointer to a
->          // `struct pci_dev`.
-> -        unsafe { bindings::pci_dev_id(self.as_raw()) }
-> +        Bdf::from_raw(unsafe { bindings::pci_dev_id(self.as_raw()) })
+> @@ -67,6 +71,11 @@ pub(crate) fn single_packet() -> Self {
+>      pub(crate) fn is_single_packet(self) -> bool {
+>          self.som().into_bool() && self.eom().into_bool()
+>      }
+> +
+> +    /// Returns `true` if this MCTP header carries the version that this=
+ driver uses.
+> +    pub(crate) fn has_expected_version(self) -> bool {
+> +        u32::from(self.version()) =3D=3D Self::VERSION
+> +    }
+>  }
+> =20
+>  /// MCTP message type for PCI vendor-defined messages.
+> @@ -93,10 +102,17 @@ pub(crate) fn new(nvdm_type: NvdmType) -> Self {
+>              .with_nvdm_type(nvdm_type)
 >      }
 > =20
->      /// Returns the PCI subsystem vendor ID.
-> diff --git a/samples/rust/rust_driver_sriov/pf.rs b/samples/rust/rust_dri=
-ver_sriov/pf.rs
-> index 8f9958683528..c367c891abf4 100644
-> --- a/samples/rust/rust_driver_sriov/pf.rs
-> +++ b/samples/rust/rust_driver_sriov/pf.rs
-> @@ -34,7 +34,7 @@ pub(crate) fn submit(vf: &pci::Device<Bound>) -> Result=
-<u64> {
-> =20
->          dev_info!(
->              pf.pdev,
-> -            "Handle PF request {} from VF devfn {:#x}.\n",
-> +            "Handle PF request {} from VF {}.\n",
->              request,
->              vf.dev_id()
->          );
+> -    /// Validates this header against the expected NVIDIA NVDM format an=
+d type.
+> -    pub(crate) fn validate(self, expected_type: NvdmType) -> bool {
+> +    /// Returns `true` if this NVDM header belongs to a PCI vendor-defin=
+ed message from NVIDIA.
+> +    ///
+> +    /// The GPU firmware only ever sends such messages, so a mismatch is=
+ a sign of corruption.
+> +    pub(crate) fn has_nvidia_vendor(self) -> bool {
+>          u8::from(self.msg_type()) =3D=3D MSG_TYPE_VENDOR_PCI
+>              && u16::from(self.vendor_id()) =3D=3D Vendor::NVIDIA.as_raw(=
+)
+> +    }
+> +
+> +    /// Validates this header against the expected NVIDIA NVDM format an=
+d type.
+> +    pub(crate) fn validate(self, expected_type: NvdmType) -> bool {
+> +        self.has_nvidia_vendor()
+>              && matches!(self.nvdm_type(), Ok(nvdm_type) if nvdm_type =3D=
+=3D expected_type)
+>      }
+>  }
 
 
